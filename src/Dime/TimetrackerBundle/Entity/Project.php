@@ -21,7 +21,7 @@ class Project
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
-    
+
     /**
      * @var integer $user
      *
@@ -29,14 +29,14 @@ class Project
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
      */
     protected $user;
-    
+
     /**
      * @var string $duration
      *
      * @ORM\Column(type="string", length=255)
      */
     protected $name;
-    
+
     /**
      * @var Date $startedAt
      *
@@ -57,35 +57,35 @@ class Project
      * @ORM\Column(name="deadline", type="datetime", nullable=true)
      */
     protected $deadline;
-    
+
     /**
      * @var string $description
      *
      * @ORM\Column(type="text", nullable=true)
      */
     protected $description;
-    
+
     /**
      * @var integer $budgetPrice
      *
-     * @ORM\Column(type="int", nullable=true)
+     * @ORM\Column(type="integer", nullable=true)
      */
     protected $budgetPrice;
-    
+
     /**
      * @var integer $fixedPrice
      *
-     * @ORM\Column(name="fixed_price", type="int", length=255, nullable=true)
+     * @ORM\Column(name="fixed_price", type="integer", length=255, nullable=true)
      */
     protected $fixedPrice;
-    
+
     /**
      * @var integer $budgetTime
      *
-     * @ORM\Column(type="int", length=255, nullable=true)
+     * @ORM\Column(type="integer", length=255, nullable=true)
      */
     protected $budgetTime;
-    
+
     /**
      * @var float $rate
      *
