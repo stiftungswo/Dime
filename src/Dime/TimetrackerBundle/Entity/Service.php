@@ -7,7 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 /**
  * Dime\TimetrackerBundle\Entity\Service
  *
- * @ORM\Table(name="activities")
+ * @ORM\Table(name="services")
  * @ORM\Entity(repositoryClass="Dime\TimetrackerBundle\Entity\ServiceRepository")
  */
 class Service
@@ -21,29 +21,29 @@ class Service
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
-    
+
     /**
      * @var integer $user
      *
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="activities")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="Services")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
      */
     protected $user;
-    
+
     /**
      * @var string $description
      *
      * @ORM\Column(type="string", nullable=true)
      */
     protected $name;
-    
+
     /**
      * @var string $description
      *
      * @ORM\Column(type="text", nullable=true)
      */
     protected $description;
-    
+
     /**
      * @var float $rate
      *
