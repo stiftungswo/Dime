@@ -21,7 +21,7 @@ class Activity
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
-    
+
     /**
      * @var \Dime\TimetrackerBundle\Entity\User $user
      *
@@ -29,7 +29,7 @@ class Activity
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
      */
     protected $user;
-    
+
     /**
      * @var \Dime\TimetrackerBundle\Entity\Service $service
      *
@@ -37,7 +37,7 @@ class Activity
      * @ORM\JoinColumn(name="service_id", referencedColumnName="id", nullable=false)
      */
     protected $service;
-    
+
     /**
      * @var \Dime\TimetrackerBundle\Entity\Customer $customer
      *
@@ -45,7 +45,7 @@ class Activity
      * @ORM\JoinColumn(name="customer_id", referencedColumnName="id", nullable=false)
      */
     protected $customer;
-    
+
     /**
      * @var \Dime\TimetrackerBundle\Entity\Project $project
      *
@@ -53,14 +53,14 @@ class Activity
      * @ORM\JoinColumn(name="project_id", referencedColumnName="id", nullable=false)
      */
     protected $project;
-    
+
     /**
      * @var integer $duration
      *
      * @ORM\Column(type="integer", nullable=true)
      */
     protected $duration;
-    
+
     /**
      * @var Date $startedAt
      *
@@ -74,28 +74,28 @@ class Activity
      * @ORM\Column(name="stopped_at", type="datetime", nullable=true)
      */
     protected $stoppedAt;
-    
+
     /**
      * @var string $description
      *
      * @ORM\Column(type="text", nullable=true)
      */
     protected $description;
-    
+
     /**
      * @var float $rate
      *
      * @ORM\Column(type="decimal", nullable=true)
      */
     protected $rate;
-    
+
     /**
      * @var string $rateReference
      *
      * @ORM\Column(name="rate_reference", type="string", length=255, nullable=true)
      */
     protected $rateReference;
-        
+
 
     /**
      * Get id
