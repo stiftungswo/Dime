@@ -5,20 +5,20 @@ use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Dime\TimetrackerBundle\Entity\Customer;
 
-class LoadCustomerData extends AbstractFixture implements OrderedFixtureInterface
+class LoadCustomers extends AbstractFixture implements OrderedFixtureInterface
 {
     public function load($manager)
     {
         $customer = new Customer();
         $customer->setName('CWE Customer');
         $customer->setUser($manager->merge($this->getReference('default-user')));
-        $manager->persist($customer);
 
+        $manager->persist($customer);
         $manager->flush();
-        
+
         $this->addReference('default-customer', $customer);
     }
-    
+
     /**
      * the order in which fixtures will be loaded
      *
@@ -26,6 +26,6 @@ class LoadCustomerData extends AbstractFixture implements OrderedFixtureInterfac
      */
     public function getOrder()
     {
-        return 3;
+        return 30;
     }
 }
