@@ -16,16 +16,17 @@ class ServicesController extends Controller
     public function getServicesAction()
     {
         $view = View::create()->setStatusCode(200);
-        $view->setData(/* data to send */);
+        $view->setData(array('foo' => 'bar'));
         return $this->get('fos_rest.view_handler')->handle($view);
     }
 
     /**
      * load service
-     *
      * [GET] /services/{slug}
+     *
+     * @param int $id
      */
-    public function getServiceAction($slug)
+    public function getServiceAction($id)
     {
     }
 
@@ -35,18 +36,29 @@ class ServicesController extends Controller
      *
      * @return void
      */
-    public function postServiceAction()
+    public function postServicesAction()
     {
     }
 
     /**
      * modify service
-     * [PUT] /services/{slug}
+     * [PUT] /services/{id}
      *
-     * @param string $slug
+     * @param int $id
      * @return void
      */
-    public function putServiceAction($slug)
+    public function putServicesAction($id)
+    {
+    }
+
+    /**
+     * delete service
+     * [DELETE] /services/{id}
+     *
+     * @param int $id
+     * @return void
+     */
+    public function deleteServicesAction($id)
     {
     }
 }
