@@ -3,6 +3,7 @@ namespace Dime\TimetrackerBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use DateTime;
 
 /**
  * Dime\TimetrackerBundle\Entity\Activity
@@ -21,7 +22,7 @@ class Activity
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
-    
+
     /**
      * @var \Dime\TimetrackerBundle\Entity\User $user
      *
@@ -29,7 +30,7 @@ class Activity
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false)
      */
     protected $user;
-    
+
     /**
      * @var \Dime\TimetrackerBundle\Entity\Service $service
      *
@@ -37,7 +38,7 @@ class Activity
      * @ORM\JoinColumn(name="service_id", referencedColumnName="id", nullable=false)
      */
     protected $service;
-    
+
     /**
      * @var \Dime\TimetrackerBundle\Entity\Customer $customer
      *
@@ -45,7 +46,7 @@ class Activity
      * @ORM\JoinColumn(name="customer_id", referencedColumnName="id", nullable=false)
      */
     protected $customer;
-    
+
     /**
      * @var \Dime\TimetrackerBundle\Entity\Project $project
      *
@@ -53,14 +54,14 @@ class Activity
      * @ORM\JoinColumn(name="project_id", referencedColumnName="id", nullable=false)
      */
     protected $project;
-    
+
     /**
-     * @var integer $duration
+     * @var integer $duration (in seconds)
      *
      * @ORM\Column(type="integer", nullable=true)
      */
     protected $duration;
-    
+
     /**
      * @var Date $startedAt
      *
@@ -74,28 +75,56 @@ class Activity
      * @ORM\Column(name="stopped_at", type="datetime", nullable=true)
      */
     protected $stoppedAt;
-    
+
     /**
      * @var string $description
      *
      * @ORM\Column(type="text", nullable=true)
      */
     protected $description;
-    
+
     /**
      * @var float $rate
      *
      * @ORM\Column(type="decimal", nullable=true)
      */
     protected $rate;
-    
+
     /**
-     * @var string $rateReference
+     * @var string $rateReference (considered as enum: customer|project|service)
      *
      * @ORM\Column(name="rate_reference", type="string", length=255, nullable=true)
      */
     protected $rateReference;
-        
+
+    /**
+     * get entity as array
+     *
+     * @return array
+     */
+    public function toArray()
+    {
+        $activity = array(
+            'id'            => $this->getId(),
+            'duration'      => $this->getDuration(),
+            'startedAt'     => $this->getStartedAt(),
+            'stoppedAt'     => $this->getStoppedAt(),
+            'description'   => $this->getDescription(),
+            'rate'          => $this->getRate(),
+            'rateReference' => $this->getRateReference(),
+            'user_id'       => $this->getUser()->getId(),
+            'user'          => (string) $this->getUser(),
+            'service_id'    => $this->getService()->getId(),
+            'service'       => (string) $this->getService(),
+            'customer_id'   => $this->getCustomer()->getId(),
+            'customer'      => (string) $this->getCustomer(),
+            'project_id'    => $this->getProject()->getId(),
+            'project'       => (string) $this->getProject(),
+        );
+
+        return $activity;
+    }
+
 
     /**
      * Get id
@@ -132,19 +161,23 @@ class Activity
     /**
      * Set startedAt
      *
-     * @param datetime $startedAt
+     * @param DateTime|string $startedAt
      * @return Activity
      */
     public function setStartedAt($startedAt)
     {
+        if (!$startedAt instanceof DateTime && !empty($startedAt)) {
+            $startedAt = new DateTime($startedAt);
+        }
         $this->startedAt = $startedAt;
+
         return $this;
     }
 
     /**
      * Get startedAt
      *
-     * @return datetime
+     * @return DateTime
      */
     public function getStartedAt()
     {
@@ -154,11 +187,14 @@ class Activity
     /**
      * Set stoppedAt
      *
-     * @param datetime $stoppedAt
+     * @param DateTime|string $stoppedAt
      * @return Activity
      */
     public function setStoppedAt($stoppedAt)
     {
+        if (!$stoppedAt instanceof DateTime && !empty($stoppedAt)) {
+            $stoppedAt = new DateTime($stoppedAt);
+        }
         $this->stoppedAt = $stoppedAt;
         return $this;
     }
@@ -166,7 +202,7 @@ class Activity
     /**
      * Get stoppedAt
      *
-     * @return datetime
+     * @return DateTime
      */
     public function getStoppedAt()
     {
@@ -198,7 +234,7 @@ class Activity
     /**
      * Set rate
      *
-     * @param decimal $rate
+     * @param float $rate
      * @return Activity
      */
     public function setRate($rate)
@@ -210,7 +246,7 @@ class Activity
     /**
      * Get rate
      *
-     * @return decimal
+     * @return float
      */
     public function getRate()
     {
