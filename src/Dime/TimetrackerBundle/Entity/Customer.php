@@ -31,12 +31,34 @@ class Customer
     protected $user;
     
     /**
-     * @var string $duration
+     * @var string $name
      *
      * @ORM\Column(type="string", length=255)
      */
     protected $name;
     
+    /**
+     * @var string $alias
+     *
+     * @ORM\Column(type="string", length=10, nullable=true)
+     */
+    protected $alias;
+    
+    /**
+     * get customer as string
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        $customer = $this->getName();
+        if (empty($customer)) {
+            $customer = $this->getId();
+        }
+
+        return $customer;
+    }
+              
 
     public function getId()
     {
@@ -85,5 +107,27 @@ class Customer
     public function getUser()
     {
         return $this->user;
+    }
+
+    /**
+     * Set alias
+     *
+     * @param string $alias
+     * @return Customer
+     */
+    public function setAlias($alias)
+    {
+        $this->alias = $alias;
+        return $this;
+    }
+
+    /**
+     * Get alias
+     *
+     * @return string
+     */
+    public function getAlias()
+    {
+        return $this->alias;
     }
 }

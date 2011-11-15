@@ -44,6 +44,25 @@ class User
      */
     protected $email;
 
+    /**
+     * get user as string
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        $user = trim($this->getFirstname() . ' ' . $this->getLastname());
+        if ($this->hasEmail()) {
+            $user .= empty($user) ? $this->getEmail() : ' (' . $this->getEmail() . ')';
+        }
+
+        if (empty($user)) {
+            $user = $this->getId();
+        }
+
+        return $user;
+    }
+              
 
     /**
      * Get id
@@ -109,6 +128,17 @@ class User
     {
         $this->email = $email;
         return $this;
+    }
+
+    /**
+     * whether user has any value set as email
+     *
+     * @access public
+     * @return boolean
+     */
+    public function hasEmail()
+    {
+        return 0 < strlen($this->getEmail());
     }
 
     /**

@@ -5,7 +5,7 @@ use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Dime\TimetrackerBundle\Entity\User;
 
-class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
+class LoadUsers extends AbstractFixture implements OrderedFixtureInterface
 {
     public function load($manager)
     {
@@ -19,7 +19,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
 
         $this->addReference('default-user', $defaultUser);
     }
-    
+
     /**
      * the order in which fixtures will be loaded
      *
@@ -27,6 +27,6 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
      */
     public function getOrder()
     {
-        return 1;
+        return 10;
     }
 }
