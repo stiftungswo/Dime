@@ -149,7 +149,7 @@ class Activity
     }
 
     /**
-     * Get duration
+     * Get duration in seconds
      *
      * @return int
      */
@@ -159,9 +159,7 @@ class Activity
     }
 
     /**
-     * Get duration from start to now
-     *
-     * FIXME
+     * Get duration in seconds from start to now
      *
      * @return int
      */
@@ -171,7 +169,18 @@ class Activity
             return $this->getDuration();
         }
 
-        return DateTimeFactory::now() - $this->getStartedAt();
+        if ($this->getStartedAt() instanceof DateTime) {
+            if ($this->getStoppedAt() instanceof DateTime) {
+                $end = $this->getStoppedAt();
+            } else {
+                $end = new DateTime('now');
+            }
+
+            $duration = $this->getStartedAt()->diff($end);
+            return $duration->format('%a') * 24 * 60 * 60
+                + $duration->format('%h') * 60 * 60
+                + $duration->format('%i') * 60;
+        }
     }
 
     /**
