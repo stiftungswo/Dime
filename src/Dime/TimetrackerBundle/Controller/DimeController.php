@@ -27,7 +27,7 @@ class DimeController extends Controller
 
         // bind data to form
         $form->bind($data);
-
+        
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getEntityManager();
 
