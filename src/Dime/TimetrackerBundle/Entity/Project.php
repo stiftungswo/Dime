@@ -352,7 +352,7 @@ class Project
     {
         return $this->customer;
     }
-    
+
     /**
      * Export project to array
      *
@@ -362,20 +362,20 @@ class Project
     public function toArray()
     {
         return array(
-            'id'          => $this->id,
-            'name'        => $this->name,
-            'description' => $this->description,
-            'rate'        => $this->rate,
-            'startedAt'   => $this->startedAt,
-            'stoppedAt'   => $this->stoppedAt,
-            'deadline'    => $this->deadline,
-            'budgetPrice' => $this->budgetPrice,
-            'fixedPrice'  => $this->fixedPrice,
-            'budgetTime'  => $this->budgetTime,
-            'customer'    => $this->customer
+            'id'          => $this->getId(),
+            'name'        => $this->getName(),
+            'description' => $this->getDescription(),
+            'rate'        => $this->getRate(),
+            'startedAt'   => $this->getStartedAt(),
+            'stoppedAt'   => $this->getStoppedAt(),
+            'deadline'    => $this->getDeadline(),
+            'budgetPrice' => $this->getBudgetPrice(),
+            'fixedPrice'  => $this->getFixedPrice(),
+            'budgetTime'  => $this->getBudgetTime(),
+            'customer'    => $this->getCustomer()
         );
     }
-    
+
     /**
      * get project as string
      *
@@ -383,6 +383,6 @@ class Project
      */
     public function __toString()
     {
-        return (empty($this->name)) ? $this->id : $this->name;
+        return (empty($this->name)) ? $this->getId() : $this->getName();
     }
 }
