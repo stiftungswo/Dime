@@ -17,13 +17,13 @@ class DimeTestCase extends WebTestCase
     protected function request(
         $method,
         $url,
+        $content = null,
         $parameters = array(),
         $files = array(),
-        $server = null,
-        $content = null
+        $server = null
     ) {
         if (is_null($server)) {
-            $server=array('PHP_AUTH_USER' => 'admin', 'PHP_AUTH_PW' => 'kitten');
+            $server = array('PHP_AUTH_USER' => 'admin', 'PHP_AUTH_PW' => 'kitten');
         }
         $this->client->restart();
 
