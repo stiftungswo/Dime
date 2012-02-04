@@ -52,22 +52,6 @@ class Service
     protected $rate;
 
     /**
-     * get service as string
-     *
-     * @return string
-     */
-    public function __toString()
-    {
-        $service = $this->getName();
-        if (empty($service)) {
-            $service = $this->getId();
-        }
-
-        return $service;
-    }
-              
-
-    /**
      * Get id
      *
      * @return integer
@@ -166,18 +150,17 @@ class Service
     }
     
     /**
-     * Export Service to array<
+     * get service as string
      *
-     * @todo should be generated automatically
-     * @return array
+     * @return string
      */
-    public function toArray()
+    public function __toString()
     {
-        return array(
-            'id'          => $this->id,
-            'name'        => $this->name,
-            'description' => $this->description,
-            'rate'        => $this->rate
-        );
+        $service = $this->getName();
+        if (empty($service)) {
+            $service = $this->getId();
+        }
+
+        return $service;
     }
 }
