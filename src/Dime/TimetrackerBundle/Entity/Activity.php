@@ -67,7 +67,7 @@ class Activity
     /**
      * @var Date $startedAt
      *
-     * @SerializedName("startetAt")
+     * @SerializedName("startedAt")
      * @ORM\Column(name="started_at", type="datetime", nullable=true)
      */
     protected $startedAt;
