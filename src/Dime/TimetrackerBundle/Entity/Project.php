@@ -3,6 +3,7 @@ namespace Dime\TimetrackerBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use JMS\SerializerBundle\Annotation\SerializedName;
 
 /**
  * Dime\TimetrackerBundle\Entity\Project
@@ -48,6 +49,7 @@ class Project
     /**
      * @var Date $startedAt
      *
+     * @SerializedName("startetAt")
      * @ORM\Column(name="started_at", type="datetime", nullable=true)
      */
     protected $startedAt;
@@ -55,6 +57,7 @@ class Project
     /**
      * @var Date $stoppedAt
      *
+     * @SerializedName("stoppedAt")
      * @ORM\Column(name="stopped_at", type="datetime", nullable=true)
      */
     protected $stoppedAt;
@@ -76,6 +79,7 @@ class Project
     /**
      * @var integer $budgetPrice
      *
+     * @SerializedName("budgetPrice")
      * @ORM\Column(name="budget_price", type="integer", nullable=true)
      */
     protected $budgetPrice;
@@ -83,6 +87,7 @@ class Project
     /**
      * @var integer $fixedPrice
      *
+     * @SerializedName("fixedPrice")
      * @ORM\Column(name="fixed_price", type="integer", length=255, nullable=true)
      */
     protected $fixedPrice;
@@ -90,6 +95,7 @@ class Project
     /**
      * @var integer $budgetTime
      *
+     * @SerializedName("budgetTime")
      * @ORM\Column(name="budget_time", type="integer", length=255, nullable=true)
      */
     protected $budgetTime;
