@@ -1,1 +1,8 @@
-Content coming soon. Watch out.
+This Bundle doesn't stand on its own.
+You need Dime
+So:
+Checkout Dime
+Fetch the invoice-Branch
+Check it out
+Follow the Readme of Dime
+Call in your browser http://localhost/Dime/web/app_dev.php/invoice
