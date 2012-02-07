@@ -1,6 +1,6 @@
 <?php
 
-namespace Dime\TimetrackerInvoiceBundle\Controller;
+namespace Dime\InvoiceBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,7 +16,7 @@ class InvoiceController extends Controller
     if (!$customers) {
       throw $this->createNotFoundException('No customer found');
     }
-    return $this->render('DimeTimetrackerInvoiceBundle:Invoice:index.html.twig', array('customers' => $customers));
+    return $this->render('DimeInvoiceBundle:Invoice:index.html.twig', array('customers' => $customers));
   }
 
   
@@ -68,13 +68,13 @@ class InvoiceController extends Controller
         if (!$customer) {
           throw $this->createNotFoundException('Customer not found');
         } 
-        $invoice_customer=$this->getDoctrine()->getRepository('DimeTimetrackerInvoiceBundle:InvoiceCustomer')->findOneByCoreId($customer_id);
+        $invoice_customer=$this->getDoctrine()->getRepository('DimeInvoiceBundle:InvoiceCustomer')->findOneByCoreId($customer_id);
         if (!$invoice_customer) {
           throw $this->createNotFoundException('InvoiceCustomer not found');
         } 
         $address=$invoice_customer->getAddress();
         $address=explode("\n",$address);
-        return $this->render('DimeTimetrackerInvoiceBundle:Invoice:invoice.html.twig', 
+        return $this->render('DimeInvoiceBundle:Invoice:invoice.html.twig', 
                 array('items' => $items, 
                 		'sum' => $sum, 
                 		'customer' => $customer, 
@@ -82,7 +82,7 @@ class InvoiceController extends Controller
                         'invoice_number' => $invoice_number));
       }
     }
-    return $this->render('DimeTimetrackerInvoiceBundle:Invoice:activities.html.twig', 
+    return $this->render('DimeInvoiceBundle:Invoice:activities.html.twig', 
                     array(	'form' => $form->createView(), 
     						'customer_id' => $customer_id, 
     						'activities'=>$activities));
@@ -95,7 +95,7 @@ class InvoiceController extends Controller
     if (!$customer) {
       throw $this->createNotFoundException('Customer not found');
     }
-    $invoice_customer=$this->getDoctrine()->getRepository('DimeTimetrackerInvoiceBundle:InvoiceCustomer')->findOneByCoreId($customer_id);
+    $invoice_customer=$this->getDoctrine()->getRepository('DimeInvoiceBundle:InvoiceCustomer')->findOneByCoreId($customer_id);
     if (!$invoice_customer) {
       throw $this->createNotFoundException('InvoiceCustomer not found');
     } 
@@ -120,17 +120,16 @@ class InvoiceController extends Controller
         $em->persist($invoice_customer);
         $em->flush();
       }
-      return $this->redirect($this->generateUrl('DimeTimetrackerInvoiceBundle_customers'));     
+      return $this->redirect($this->generateUrl('DimeInvoiceBundle_customers'));     
     }
     
-    return $this->render('DimeTimetrackerInvoiceBundle:Invoice:config.html.twig', 
+    return $this->render('DimeInvoiceBundle:Invoice:config.html.twig', 
                             array('form' => $form->createView(), 'customer_id' => $customer_id, 
     								'customer' => $customer, 'address' => $address));
   }  
 
   public function firstAction()
   {
-    return $this->render('DimeTimetrackerInvoiceBundle:Invoice:first.html.twig');
+    return $this->render('DimeInvoiceBundle:Invoice:first.html.twig');
   }
-
 }

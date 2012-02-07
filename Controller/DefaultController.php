@@ -10,6 +10,6 @@ class DefaultController extends Controller
     
     public function indexAction($name)
     {
-        return $this->render('DimeTimetrackerInvoiceBundle:Default:index.html.twig', array('name' => $name));
+        return $this->render('DimeInvoiceBundle:Default:index.html.twig', array('name' => $name));
     }
 }

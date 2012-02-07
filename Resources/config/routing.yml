@@ -1,25 +1,25 @@
-DimeTimetrackerInvoiceBundle_homepage:
+DimeInvoiceBundle_homepage:
     pattern:  /hello/{name}
-    defaults: { _controller: DimeTimetrackerInvoiceBundle:Default:index }
+    defaults: { _controller: DimeInvoiceBundle:Default:index }
     
-DimeTimetrackerInvoiceBundle_customers:
+DimeInvoiceBundle_customers:
     pattern:  /invoice
-    defaults: { _controller: DimeTimetrackerInvoiceBundle:Invoice:index }
+    defaults: { _controller: DimeInvoiceBundle:Invoice:index }
     
-DimeTimetrackerInvoiceBundle_activities:
+DimeInvoiceBundle_activities:
     pattern:  /invoice/activities/{customer_id}
-    defaults: { _controller: DimeTimetrackerInvoiceBundle:Invoice:activities }
+    defaults: { _controller: DimeInvoiceBundle:Invoice:activities }
     
-DimeTimetrackerInvoiceBundle_invoice:
+DimeInvoiceBundle_invoice:
     pattern:  /invoice/invoice
-    defaults: { _controller: DimeTimetrackerInvoiceBundle:Invoice:invoice }
+    defaults: { _controller: DimeInvoiceBundle:Invoice:invoice }
     
-DimeTimetrackerInvoiceBundle_config:
+DimeInvoiceBundle_config:
     pattern:  /invoice/config/{customer_id}
-    defaults: { _controller: DimeTimetrackerInvoiceBundle:Invoice:config }
+    defaults: { _controller: DimeInvoiceBundle:Invoice:config }
 
-DimeTimetrackerInvoiceBundle_first:
+DimeInvoiceBundle_first:
     pattern:  /invoice/first
-    defaults: { _controller: DimeTimetrackerInvoiceBundle:Invoice:first }
+    defaults: { _controller: DimeInvoiceBundle:Invoice:first }
     
     

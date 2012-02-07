@@ -1,5 +1,5 @@
 <?php
-namespace Dime\TimetrackerInvoiceBundle\Entity;
+namespace Dime\InvoiceBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
