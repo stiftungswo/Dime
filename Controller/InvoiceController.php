@@ -83,7 +83,8 @@ class InvoiceController extends Controller
         				'address' => $address,
                         'invoice_number' => $invoice_number,
                         'vat' => $vat,
-                        'brutto' => $brutto));
+                        'brutto' => $brutto,
+                        'kleinunternehmer' => 'no'));
       }
     }
     return $this->render('DimeInvoiceBundle:Invoice:activities.html.twig', 

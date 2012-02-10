@@ -1,3 +1,6 @@
+{# if you are a "Kleinunternehmer" uncomment the following line #}
+{# {% set kleinunternehmer='yes' %} #}
+
 {% extends '::base.html.twig' %}
 {% block stylesheets %}
     {{ parent() }}
@@ -35,9 +38,16 @@ Für folgende Leistungen erlaube ich mir zu berechnen:
 {% endfor %}
 </tr>
 <tr class="sum"><td>Gesamt:</td><td colspan="2"></td><td class="number">{{ sum }} €</td></tr>
-<tr class="sum"><td>Umsatzsteuer (19%):</td><td colspan="2"></td><td class="number">{{ vat }} €</td></tr>
-<tr class="sum"><td>Bruttobetrag:</td><td colspan="2"></td><td class="number">{{ brutto }} €</td></tr>
-</table>
+{% if kleinunternehmer=='yes' %}
+	</table>
+	<p>
+		Umsatzsteuer wird nicht erhoben da Kleinunternehmer.
+	</p>
+{% else %} 
+	<tr class="sum"><td>Umsatzsteuer (19%):</td><td colspan="2"></td><td class="number">{{ vat }} €</td></tr>
+	<tr class="sum"><td>Bruttobetrag:</td><td colspan="2"></td><td class="number">{{ brutto }} €</td></tr>
+	</table>
+{% endif %}
 Bankverbindung:<br/>
 Bad Bank Bad Oyenhausen<br/>
 BLZ...<br/>
