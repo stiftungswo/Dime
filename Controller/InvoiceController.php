@@ -64,6 +64,8 @@ class InvoiceController extends Controller
             $sum=number_format($sum, 2);
           }          
         }
+        $vat=$sum*0.19;
+        $brutto=$sum+$vat;
         $customer=$this->getDoctrine()->getRepository('DimeTimetrackerBundle:Customer')->find($customer_id);
         if (!$customer) {
           throw $this->createNotFoundException('Customer not found');
@@ -79,7 +81,9 @@ class InvoiceController extends Controller
                 		'sum' => $sum, 
                 		'customer' => $customer, 
         				'address' => $address,
-                        'invoice_number' => $invoice_number));
+                        'invoice_number' => $invoice_number,
+                        'vat' => $vat,
+                        'brutto' => $brutto));
       }
     }
     return $this->render('DimeInvoiceBundle:Invoice:activities.html.twig', 
