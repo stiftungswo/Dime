@@ -53,10 +53,20 @@ class InvoiceController extends Controller
         $sum=0;
         foreach ($activities as $activity){
           $charge=$data['charge'.$activity->getId()];
-          if ($charge){ 
-            $price=($activity->getDuration()*$activity->getRate())/3600;
+          if ($charge){
+            $timeslices=$this->getDoctrine()->getRepository('DimeTimetrackerBundle:Timeslice')->findByActivity($activity->getId()); 
+            if (!$timeslices) {
+              throw $this->createNotFoundException('No timeslice found');
+            }
+            $duration=0;
+            foreach ($timeslices as $timeslice){
+              $duration+=$timeslice->getDuration();
+            }  
+//            $price=($activity->getDuration()*$activity->getRate())/3600;
+            $price=($duration*$activity->getRate())/3600;
             $item['description']=$data['description'.$activity->getId()];
-            $item['duration']=number_format($activity->getDuration()/3600, 2);
+//            $item['duration']=number_format($activity->getDuration()/3600, 2);
+            $item['duration']=number_format($duration/3600, 2);
             $item['rate']=number_format($activity->getRate(), 2);
             $item['price']=number_format($price, 2);
             $items[]=$item;
