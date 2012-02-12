@@ -1,8 +1,0 @@
-This bundle doesn't stand on its own.
-You need Dime
-Therefore:
-Checkout Dime
-Fetch the invoice branch 
-Check it out
-Follow the README of Dime
-Go to http://localhost/Dime/web/app_dev.php/invoice in your browser
