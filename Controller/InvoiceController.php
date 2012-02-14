@@ -13,59 +13,68 @@ use Buzz\Client\FileGetContents as BuzzFileGetContents;
 
 class InvoiceController extends Controller
 {
-  private function timetrackerService($route)
+  private function timetrackerService($route, $id=null)
   {
     $con_request=$this->getRequest();
-    $request = new BuzzRequest('GET', $this->generateUrl($route), $con_request->getScheme().'://'.$con_request->getHost());
+    if ($id)
+      $url=$this->generateUrl($route, array('id' => $id));
+    else 
+      $url=$this->generateUrl($route);    
+    $request = new BuzzRequest('GET', $url, $con_request->getScheme().'://'.$con_request->getHost());
     $request->addHeader('Authorization: Basic '.base64_encode($con_request->getUser().':'.$con_request->getPassword()));
-    $response = new BuzzResponse();
-    
+    $response = new BuzzResponse();    
     $client = new BuzzFileGetContents();
     $client->send($request, $response);
     $data = json_decode($response->getContent(), true);
     return $data;
   }
   
+  private function activitiesByCustomer($customer_id) 
+  {
+    $data=$this->timetrackerService('get_activities');
+    $activities=array();
+    foreach ($data as $actdat) {
+      if ($actdat['customer']['id'] == $customer_id) {
+        $activities[]=$actdat;
+      }
+    }
+    return $activities;
+  }
+  
+  private function timeslicesByActivity($activity_id) 
+  {
+    $data=$this->timetrackerService('get_timeslices');
+    $timceslices=array();
+    foreach ($data as $slicedat) {
+      if ($slicedat['activity']['id'] == $activity_id) {
+        $timceslices[]=$slicedat;
+      }
+    }
+    return $timceslices;
+  }
+  
   public function indexAction()
   {
-/*    
-    $customers = $this->getDoctrine()->getRepository('DimeTimetrackerBundle:Customer')->findAll();
-    if (!$customers) {
-      throw $this->createNotFoundException('No customer found');
-    }
-    return $this->render('DimeInvoiceBundle:Invoice:index.html.twig', array('customers' => $customers));
-*/    
     $data=$this->timetrackerService('get_customers');
-    echo $data[0]['name'];
-    return new Response('');
+    return $this->render('DimeInvoiceBundle:Invoice:index.html.twig', array('customers' => $data));
   }
 
-  
   public function activitiesAction($customer_id, Request $request)
   {
-    $activities = $this->getDoctrine()->getRepository('DimeTimetrackerBundle:Activity')->findByCustomer($customer_id);
-    if (!$activities) {
-      throw $this->createNotFoundException('No activity found');
-     }  
+    $activities = $this->activitiesByCustomer($customer_id);  
     $defaultData=array();
     $defaultData['invoice_number']='';
     foreach ($activities as $activity){
-      $defaultData['description'.$activity->getId()]=$activity->getDescription();
+      $defaultData['description'.$activity['id']]=$activity['description'];
     }
     $builder=$this->createFormBuilder($defaultData);
     $builder->add('invoice_number','text');
     foreach ($activities as $activity) {
-      $builder->add('description'.$activity->getId(),'text');
-      $builder->add('charge'.$activity->getId(), 'checkbox', array('required' => false));
+      $builder->add('description'.$activity['id'],'text');
+      $builder->add('charge'.$activity['id'], 'checkbox', array('required' => false));
     }
     $form=$builder->getForm();
     if ($request->getMethod() == 'POST') {
-/*      
-      $button_value=$this->get('request')->request->get('config-button');
-      if ($button_value=='cancel') {
-        return $this->redirect($this->generateUrl('DimeTimetrackerInvoiceBundle_customers'));        
-      }
-*/            
       $form->bindRequest($request);  
       if ($form->isValid()) {
         $items=array();  
@@ -73,22 +82,17 @@ class InvoiceController extends Controller
         $invoice_number=$data['invoice_number'];
         $sum=0;
         foreach ($activities as $activity){
-          $charge=$data['charge'.$activity->getId()];
+          $charge=$data['charge'.$activity['id']];
           if ($charge){
-            $timeslices=$this->getDoctrine()->getRepository('DimeTimetrackerBundle:Timeslice')->findByActivity($activity->getId()); 
-            if (!$timeslices) {
-              throw $this->createNotFoundException('No timeslice found');
-            }
+            $timeslices=$this->timeslicesByActivity($activity['id']);            
             $duration=0;
             foreach ($timeslices as $timeslice){
-              $duration+=$timeslice->getDuration();
+              $duration+=$timeslice['duration'];
             }  
-//            $price=($activity->getDuration()*$activity->getRate())/3600;
-            $price=($duration*$activity->getRate())/3600;
-            $item['description']=$data['description'.$activity->getId()];
-//            $item['duration']=number_format($activity->getDuration()/3600, 2);
+            $price=($duration*$activity['rate'])/3600;
+            $item['description']=$data['description'.$activity['id']];
             $item['duration']=number_format($duration/3600, 2);
-            $item['rate']=number_format($activity->getRate(), 2);
+            $item['rate']=number_format($activity['rate'], 2);
             $item['price']=number_format($price, 2);
             $items[]=$item;
             $sum+=$price;
@@ -97,10 +101,7 @@ class InvoiceController extends Controller
         }
         $vat=$sum*0.19;
         $brutto=$sum+$vat;
-        $customer=$this->getDoctrine()->getRepository('DimeTimetrackerBundle:Customer')->find($customer_id);
-        if (!$customer) {
-          throw $this->createNotFoundException('Customer not found');
-        } 
+        $customer=$this->timetrackerService('get_customer',$customer_id);         
         $invoice_customer=$this->getDoctrine()->getRepository('DimeInvoiceBundle:InvoiceCustomer')->findOneByCoreId($customer_id);
         if (!$invoice_customer) {
           throw $this->createNotFoundException('InvoiceCustomer not found');
@@ -127,10 +128,7 @@ class InvoiceController extends Controller
   
   public function configAction($customer_id, Request $request)
   {
-    $customer = $this->getDoctrine()->getRepository('DimeTimetrackerBundle:Customer')->find($customer_id);
-    if (!$customer) {
-      throw $this->createNotFoundException('Customer not found');
-    }
+    $customer=$this->timetrackerService('get_customer',$customer_id);         
     $invoice_customer=$this->getDoctrine()->getRepository('DimeInvoiceBundle:InvoiceCustomer')->findOneByCoreId($customer_id);
     if (!$invoice_customer) {
       throw $this->createNotFoundException('InvoiceCustomer not found');
@@ -141,12 +139,6 @@ class InvoiceController extends Controller
     $builder->add('address','textarea', array('attr' => array('rows' => '5')));
     $form=$builder->getForm();
     if ($request->getMethod() == 'POST') {
-/*      
-      $button_value=$this->get('request')->request->get('config-button');
-      if ($button_value=='cancel') {
-        return $this->redirect($this->generateUrl('DimeTimetrackerInvoiceBundle_customers'));        
-      }
-*/            
       $form->bindRequest($request);
       if ($form->isValid()) {
         $data=$form->getData();
