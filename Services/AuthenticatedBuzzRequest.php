@@ -8,6 +8,7 @@ class AuthenticatedBuzzRequest extends BuzzRequest
 {
   function __construct(SecurityContext $sct)
   {
+    parent::__construct();
     $user = $sct->getToken()->getUser();
     $this->addHeader('Authorization: Basic '.base64_encode($user->getUsername().':'.$user->getPassword()));
   }
