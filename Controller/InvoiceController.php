@@ -5,11 +5,6 @@ namespace Dime\InvoiceBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
-use Buzz\Message\Request as BuzzRequest;
-use Buzz\Message\Response as BuzzResponse;
-use Buzz\Client\FileGetContents as BuzzFileGetContents;
-
-
 
 class InvoiceController extends Controller
 {
@@ -20,10 +15,11 @@ class InvoiceController extends Controller
       $url=$this->generateUrl($route, array('id' => $id));
     else 
       $url=$this->generateUrl($route);    
-    $request = new BuzzRequest('GET', $url, $con_request->getScheme().'://'.$con_request->getHost());
-    $request->addHeader('Authorization: Basic '.base64_encode($con_request->getUser().':'.$con_request->getPassword()));
-    $response = new BuzzResponse();    
-    $client = new BuzzFileGetContents();
+    $request = $this->get('buzz_request');
+    $request->setResource($url);
+    $request->setHost($con_request->getScheme().'://'.$con_request->getHost());
+    $response = $this->get('buzz_response');    
+    $client = $this->get('buzz_filecontents');
     $client->send($request, $response);
     $data = json_decode($response->getContent(), true);
     return $data;
