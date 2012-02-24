@@ -49,12 +49,24 @@ class InvoiceController extends Controller
     return $timceslices;
   }
 
+  /**
+   *
+   * generates the customer form
+   * starting point of the bundle
+   * therefore "indexAction"
+   */
   public function indexAction()
   {
     $data=$this->timetrackerService('get_customers');
     return $this->render('DimeInvoiceBundle:Invoice:index.html.twig', array('customers' => $data));
   }
 
+  /**
+   *
+   * generates and processes the form for choosing the activities to be charged
+   * @param int $customer_id
+   * @param Request $request
+   */
   public function activitiesAction($customer_id, Request $request)
   {
     $activities = $this->activitiesByCustomer($customer_id);
@@ -121,6 +133,14 @@ class InvoiceController extends Controller
                               'activities'=>$activities));
   }
 
+  /**
+   *
+   * generates and processes the form for config
+   * only the customer address yet
+   * other config via user customization of the template 
+   * @param int $customer_id
+   * @param Request $request
+   */
   public function configAction($customer_id, Request $request)
   {
     $customer=$this->timetrackerService('get_customer',$customer_id);
@@ -151,6 +171,11 @@ class InvoiceController extends Controller
                                   'customer' => $customer, 'address' => $address));
   }
 
+  /**
+   *
+   * generates an info screen for first users
+   * tells them how to custmize the invoice template
+   */
   public function firstAction()
   {
     return $this->render('DimeInvoiceBundle:Invoice:first.html.twig');
