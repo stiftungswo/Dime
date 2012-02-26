@@ -5,49 +5,10 @@ namespace Dime\InvoiceBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
+use Dime\InvoiceBundle\TimeTrackerServiceClient\TimeTrackerServiceClient;
 
 class InvoiceController extends Controller
 {
-  private function timetrackerService($route, $id=null)
-  {
-    $con_request=$this->getRequest();
-    if ($id)
-      $url=$this->generateUrl($route, array('id' => $id));
-    else 
-      $url=$this->generateUrl($route);
-    $request = $this->get('buzz_request');
-    $request->setResource($url);
-    $request->setHost($con_request->getScheme().'://'.$con_request->getHost());
-    $response = $this->get('buzz_response');
-    $client = $this->get('buzz_filecontents');
-    $client->send($request, $response);
-    $data = json_decode($response->getContent(), true);
-    return $data;
-  }
-
-  private function activitiesByCustomer($customer_id) 
-  {
-    $data=$this->timetrackerService('get_activities');
-    $activities=array();
-    foreach ($data as $actdat) {
-      if ($actdat['customer']['id'] == $customer_id) {
-        $activities[]=$actdat;
-      }
-    }
-    return $activities;
-  }
-
-  private function timeslicesByActivity($activity_id)
-  {
-    $data=$this->timetrackerService('get_timeslices');
-    $timceslices=array();
-    foreach ($data as $slicedat) {
-      if ($slicedat['activity']['id'] == $activity_id) {
-        $timceslices[]=$slicedat;
-      }
-    }
-    return $timceslices;
-  }
 
   /**
    *
@@ -57,7 +18,8 @@ class InvoiceController extends Controller
    */
   public function indexAction()
   {
-    $data=$this->timetrackerService('get_customers');
+    $tscl = new TimeTrackerServiceClient($this);
+    $data = $tscl->getAPIResult('get_customers');
     return $this->render('DimeInvoiceBundle:Invoice:index.html.twig', array('customers' => $data));
   }
 
@@ -69,7 +31,8 @@ class InvoiceController extends Controller
    */
   public function activitiesAction($customer_id, Request $request)
   {
-    $activities = $this->activitiesByCustomer($customer_id);
+    $tscl = new TimeTrackerServiceClient($this);
+    $activities = $tscl->activitiesByCustomer($customer_id);
     $defaultData=array();
     $defaultData['invoice_number']='';
     foreach ($activities as $activity){
@@ -92,7 +55,7 @@ class InvoiceController extends Controller
         foreach ($activities as $activity){
           $charge=$data['charge'.$activity['id']];
           if ($charge){
-            $timeslices=$this->timeslicesByActivity($activity['id']);
+            $timeslices=$tscl->timeslicesByActivity($activity['id']);
             $duration=0;
             foreach ($timeslices as $timeslice){
               $duration+=$timeslice['duration'];
@@ -109,7 +72,7 @@ class InvoiceController extends Controller
         }
         $vat=$sum*0.19;
         $brutto=$sum+$vat;
-        $customer=$this->timetrackerService('get_customer',$customer_id);
+        $customer = $tscl->getAPIResult('get_customer',$customer_id);
         $invoice_customer=$this->getDoctrine()->getRepository('DimeInvoiceBundle:InvoiceCustomer')->findOneByCoreId($customer_id);
         if (!$invoice_customer) {
           throw $this->createNotFoundException('InvoiceCustomer not found');
@@ -143,7 +106,8 @@ class InvoiceController extends Controller
    */
   public function configAction($customer_id, Request $request)
   {
-    $customer=$this->timetrackerService('get_customer',$customer_id);
+    $tscl = new TimeTrackerServiceClient($this);
+    $customer = $tscl->getAPIResult('get_customer',$customer_id);
     $invoice_customer=$this->getDoctrine()->getRepository('DimeInvoiceBundle:InvoiceCustomer')->findOneByCoreId($customer_id);
     if (!$invoice_customer) {
       throw $this->createNotFoundException('InvoiceCustomer not found');
