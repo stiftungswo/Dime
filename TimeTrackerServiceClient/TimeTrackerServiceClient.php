@@ -38,9 +38,9 @@ class TimeTrackerServiceClient
   {
     $con_request=$this->ctrl->getRequest();
     if ($id)
-    $url=$this->ctrl->generateUrl($route, array('id' => $id));
+      $url=$this->ctrl->generateUrl($route, array('id' => $id));
     else
-    $url=$this->ctrl->generateUrl($route);
+      $url=$this->ctrl->generateUrl($route);
     $request = $this->ctrl->get('buzz_request');
     $request->setResource($url);
     $request->setHost($con_request->getScheme().'://'.$con_request->getHost());

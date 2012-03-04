@@ -6,6 +6,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Dime\InvoiceBundle\TimeTrackerServiceClient\TimeTrackerServiceClient;
+use Dime\InvoiceBundle\Forms\ActivitiesFormProcessor;
+use Dime\InvoiceBundle\Forms\ConfigFormProcessor;
+
 
 class InvoiceController extends Controller
 {
@@ -46,49 +49,8 @@ class InvoiceController extends Controller
     }
     $form=$builder->getForm();
     if ($request->getMethod() == 'POST') {
-      $form->bindRequest($request);
-      if ($form->isValid()) {
-        $items=array();
-        $data=$form->getData();
-        $invoice_number=$data['invoice_number'];
-        $sum=0;
-        foreach ($activities as $activity){
-          $charge=$data['charge'.$activity['id']];
-          if ($charge){
-            $timeslices=$tscl->timeslicesByActivity($activity['id']);
-            $duration=0;
-            foreach ($timeslices as $timeslice){
-              $duration+=$timeslice['duration'];
-            }
-            $price=($duration*$activity['rate'])/3600;
-            $item['description']=$data['description'.$activity['id']];
-            $item['duration']=number_format($duration/3600, 2);
-            $item['rate']=number_format($activity['rate'], 2);
-            $item['price']=number_format($price, 2);
-            $items[]=$item;
-            $sum+=$price;
-            $sum=number_format($sum, 2);
-          }
-        }
-        $vat=$sum*0.19;
-        $brutto=$sum+$vat;
-        $customer = $tscl->getAPIResult('get_customer',$customer_id);
-        $invoice_customer=$this->getDoctrine()->getRepository('DimeInvoiceBundle:InvoiceCustomer')->findOneByCoreId($customer_id);
-        if (!$invoice_customer) {
-          throw $this->createNotFoundException('InvoiceCustomer not found');
-        }
-        $address=$invoice_customer->getAddress();
-        $address=explode("\n",$address);
-        return $this->render('DimeInvoiceBundle:Invoice:invoice.html.twig',
-                array('items' => $items,
-                        'sum' => $sum,
-                        'customer' => $customer,
-                        'address' => $address,
-                        'invoice_number' => $invoice_number,
-                        'vat' => $vat,
-                        'brutto' => $brutto,
-                        'kleinunternehmer' => 'no'));
-      }
+      $acfp = new ActivitiesFormProcessor($customer_id, $activities, $form, $request, $this);
+      return $acfp->submitActivitiesForm();
     }
     return $this->render('DimeInvoiceBundle:Invoice:activities.html.twig',
                         array('form' => $form->createView(),
@@ -118,18 +80,9 @@ class InvoiceController extends Controller
     $builder->add('address','textarea', array('attr' => array('rows' => '5')));
     $form=$builder->getForm();
     if ($request->getMethod() == 'POST') {
-      $form->bindRequest($request);
-      if ($form->isValid()) {
-        $data=$form->getData();
-        $address=$data['address'];
-        $invoice_customer->setAddress($address);
-        $em = $this->getDoctrine()->getEntityManager();
-        $em->persist($invoice_customer);
-        $em->flush();
-      }
-      return $this->redirect($this->generateUrl('DimeInvoiceBundle_customers'));
+      $ccfp = new ConfigFormProcessor($invoice_customer, $form, $request, $this);
+      return $ccfp->submitConfigForm();      
     }
-    
     return $this->render('DimeInvoiceBundle:Invoice:config.html.twig',
                             array('form' => $form->createView(), 'customer_id' => $customer_id,
                                   'customer' => $customer, 'address' => $address));
