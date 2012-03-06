@@ -1,7 +1,9 @@
-parameters:
-#    dime_timetracker_invoice.example.class: Dime\TimetrackerInvoiceBundle\Example
-
 services:
-#    dime_timetracker_invoice.example:
-#        class: %dime_timetracker_invoice.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]
+        buzz_request:
+          class:  Dime\InvoiceBundle\Services\AuthenticatedBuzzRequest
+          arguments: [@security.context]
+        buzz_response:
+          class:  Buzz\Message\Response
+        buzz_filecontents:
+          class:  Buzz\Client\FileGetContents
+
