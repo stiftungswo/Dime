@@ -1,0 +1,9 @@
+assetic:
+    assets:
+        vendors:
+            inputs: ~
+        plugins:
+            inputs: ~
+        app:
+            inputs:
+                - '@DimeReportBundle/Resources/public/js/app/report/*'

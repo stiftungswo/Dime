@@ -1,0 +1,37 @@
+{
+    "name": "phpugl/dime-report-bundle",
+    "type": "symfony-bundle",
+    "description": "Report bundle for dime timetracker",
+    "keywords": ["timetracker", "frontend", "backbone.js"],
+    "homepage": "https://github.com/phpugl/DimeTimetrackerFrontendBundle",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "PHPUGL",
+            "email": "info@phpugl.de"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.3",
+        "phpugl/dime-timetracker-bundle": "dev-master",
+        "phpugl/dime-timetracker-frontend-bundle": "dev-master"
+    },
+    "suggest": {
+        "phpugl/dime-invoice-bundle": "dev-master",
+        "phpugl/dime-import-bundle": "dev-master"
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "git://github.com/phpugl/DimeTimetrackerBundle.git"
+        },
+        {
+            "type": "vcs",
+            "url": "git://github.com/phpugl/DimeTimetrackerFrontendBundle.git"
+        }
+    ],
+    "autoload": {
+        "psr-0": { "Dime\\ReportBundle": "" }
+    },
+    "target-dir": "Dime/ReportBundle"
+}

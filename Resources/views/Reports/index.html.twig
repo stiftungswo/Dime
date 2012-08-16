@@ -1,0 +1,47 @@
+{# Dime/Report/Resources/views/Reports/index.html.twig #}
+
+<header class="page-header">
+    <div class="pull-right">
+        <a id="filter-button" class="btn btn-large" title="Show filter"><i class="icon-filter hide-text">Show filter</i></a>
+    </div>
+    <h1>Reports</h1>
+</header>
+
+<ul id="filter" class="nav nav-list">
+    <li class="nav-header">Filter</li>
+    <li>
+        <i class="icon-user hide-text">Customer</i>
+        <select id="filter-customer" class="filter filter-customer input-medium" title="by customer">
+            <option>by customer</option>
+        </select>
+    </li>
+    <li>
+        <i class="icon-folder-open hide-text">Project</i>
+        <select id="filter-project" class="filter filter-project input-medium" title="by project">
+            <option>by project</option>
+        </select>
+    </li>
+    <li>
+        <i class="icon-wrench hide-text">Service</i>
+        <select id="filter-service" class="filter filter-service input-medium" title="by service">
+            <option>by service</option>
+        </select>
+    </li>
+    <li>
+        <button id="filter-reset" class="btn">Reset</button>
+    </li>
+</ul>
+
+<table class="table">
+    <thead>
+        <th>Start</th>
+        <th>Stop</th>
+        <th>Duration</th>
+    </thead>
+    <tbody id="reports">
+
+    </tbody>
+    <tfoot>
+        <th colspan="2" class="t-right">Total</th>
+    </tfoot>
+</table>
