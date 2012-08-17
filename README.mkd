@@ -15,10 +15,12 @@ moment we use Bootstrap as HTML framework and Backbone.js as rest client.
 
 ## Configuration
 
-    config.yml
-    
+Import configuration in your `app/config/config.yml` after importing the ones of DimeTimetracker and DimeTimetrackerFrontend:
+
     imports:
         - ...
+        - { resource: "@DimeTimetrackerBundle/Resources/config/config.yml" }
+        - { resource: "@DimeTimetrackerFrontendBundle/Resources/config/config.yml" }
         - { resource: "@DimeReportBundle/Resources/config/config.yml" }
 
 ## Initialization
