@@ -5,23 +5,22 @@
   "keywords": ["invoice", "frontend", "dime"],
   "homepage": "https://github.com/phpugl/DimeInvoiceBundle",
   "license": "MIT",
-  "version": "0.10"
+  "version": "0.10",
   "authors": [
       {
-          "name": "PHPUGL"
+          "name": "PHPUGL",
           "email": "info@phpugl.de"
       }
   ],
   "require": {
       "php": ">=5.3.3",
       "phpugl/dime-timetracker-bundle": "master-dev",
-      "RuianTwitterBootstrap": "1.0.0"
+      "RuianTwitterBootstrap": "*"
   },
   "suggest": {
-      "phpugl/dime-timetracker-frontend-bundle": "master-dev",
-      "phpugl/dime-import-bundle": "master-dev"
+      "phpugl/dime-timetracker-frontend-bundle": "master-dev"
   },
   "autoload": {
-      "psr-0": {"Predis": "lib/"}
+      "psr-0": {"Dime\\TimetrackerInvoiceBundle": ""}
   }
 }
