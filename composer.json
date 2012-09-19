@@ -15,12 +15,12 @@
   "require": {
       "php": ">=5.3.3",
       "phpugl/dime-timetracker-bundle": "master-dev",
-      "RuianTwitterBootstrap": "*"
+      "ruian/twitter-bootstrap-bundle": "*"
   },
   "suggest": {
       "phpugl/dime-timetracker-frontend-bundle": "master-dev"
   },
   "autoload": {
-      "psr-0": {"Dime\\TimetrackerInvoiceBundle": ""}
+      "psr-0": {"Dime\\InvoiceBundle": ""}
   }
 }
