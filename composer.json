@@ -22,5 +22,6 @@
   },
   "autoload": {
       "psr-0": {"Dime\\InvoiceBundle": ""}
-  }
+  },
+  "target-dir": "Dime/InvoiceBundle"
 }
