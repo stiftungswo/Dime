@@ -1,47 +1,166 @@
 {# Dime/Report/Resources/views/Reports/index.html.twig #}
 
 <header class="page-header">
-    <div class="pull-right">
-        <a id="filter-button" class="btn btn-large" title="Show filter"><i class="icon-filter hide-text">Show filter</i></a>
-    </div>
     <h1>Reports</h1>
 </header>
 
-<ul id="filter" class="nav nav-list">
-    <li class="nav-header">Filter</li>
-    <li>
-        <i class="icon-user hide-text">Customer</i>
-        <select id="filter-customer" class="filter filter-customer input-medium" title="by customer">
-            <option>by customer</option>
-        </select>
-    </li>
-    <li>
-        <i class="icon-folder-open hide-text">Project</i>
-        <select id="filter-project" class="filter filter-project input-medium" title="by project">
-            <option>by project</option>
-        </select>
-    </li>
-    <li>
-        <i class="icon-wrench hide-text">Service</i>
-        <select id="filter-service" class="filter filter-service input-medium" title="by service">
-            <option>by service</option>
-        </select>
-    </li>
-    <li>
-        <button id="filter-reset" class="btn">Reset</button>
-    </li>
+<ul class="nav nav-tabs">
+    <li class="active"><a href="#tab-relation" data-toggle="tab"><i class="icon-user"></i><i class="icon-folder-open"></i><i class="icon-wrench"></i> Relations</a></li>
+    <li><a href="#tab-date" data-toggle="tab"><i class="icon-calendar"></i> Dates</a></li>
+    <li><a href="#tab-tags" data-toggle="tab"><i class="icon-tags"></i> Tags</a></li>
+    <li><a href="#tab-show" data-toggle="tab"><i class="icon-tasks"></i> Show</a></li>
 </ul>
+<form id="report-form" class="form-horizontal tab-content">
+    <fieldset id="tab-relation" class="tab-pane active">
+        <div class="control-group">
+            <label for="customer" class="control-label"><i class="icon-user"></i> Customer</label>
+            <div class="controls">
+                <select id="customer" class="input-medium" title="by customer">
+                    <option>by customer</option>
+                </select>
+            </div>
+        </div>
+        <div class="control-group">
+            <label for="project" class="control-label"><i class="icon-folder-open"></i> Project</label>
+            <div class="controls">
+                <select id="project" class="input-medium" title="by project">
+                    <option>by project</option>
+                </select>
+            </div>
+        </div>
+        <div class="control-group">
+            <label for="service" class="control-label"><i class="icon-wrench"></i> Service</label>
+            <div class="controls">
+                <select id="service" class="input-medium" title="by service">
+                    <option>by service</option>
+                </select>
+            </div>
+        </div>
+    </fieldset>
+    <fieldset id="tab-date" class="tab-pane">
+        <div class="control-group">
+            <label for="period" class="control-label">Period</label>
+            <div class="controls">
+                <select id="period">
+                    <optgroup label="fixed">
+                        <option value="this-month">This month</option>
+                        <option value="this-week">This week</option>
+                        <option value="today">Today</option>
+                        <option value="last-month">Last month</option>
+                        <option value="last-week">Last week</option>
+                        <option value="yesterday">Yesterday</option>
+                    </optgroup>
+                    <optgroup label="variable">
+                        <option value="D">Day</option>
+                        <option value="W">Week</option>
+                        <option value="M">Month</option>
+                        <option value="Y">Year</option>
+                        <option value="R">Range</option>
+                    </optgroup>
+                </select>
+            </div>
+        </div>
+        <div id="from-group" class="control-group hide">
+            <label for="from" class="control-label">From</label>
+            <div class="controls">
+                <input type="date" id="from" name="from" placeholder="YYYY-MM-DD" data-toggle="datepicker"
+                       data-date="{{ 'now'|date('Y-m-d') }}"
+                       data-date-format="YYYY-MM-DD" data-date-with-period="true" data-date-period="W"
+                       data-date-weekstart="1"
+                       data-date-autoclose="true">
+            </div>
+        </div>
+        <div id="to-group" class="control-group hide">
+            <label for="to" class="control-label">To</label>
+            <div class="controls">
+                <input type="date" id="to" name="to" placeholder="YYYY-MM-DD" data-toggle="datepicker"
+                       data-date="{{ 'now'|date('Y-m-d') }}"
+                       data-date-format="YYYY-MM-DD" data-date-with-period="true" data-date-period="W"
+                       data-date-weekstart="1"
+                       data-date-autoclose="true">
+            </div>
+        </div>
+    </fieldset>
+    <fieldset id="tab-tags" class="tab-pane">
+    </fieldset>
+    <fieldset id="tab-show" class="tab-pane">
+        <div class="control-group">
+            <label class="control-label">Show</label>
+            <div class="controls">
+                <label for="show-date" class="checkbox"><input type="checkbox" id="show-date" checked="checked" value="1"> Date</label>
+                <label for="show-start" class="checkbox"><input type="checkbox" id="show-start" value="1"> Start</label>
+                <label for="show-stop" class="checkbox"><input type="checkbox" id="show-stop" value="1"> Stop</label>
+                <label for="show-description" class="checkbox"><input type="checkbox" id="show-description" value="1"> Description</label>
+                <label for="show-duration" class="checkbox"><input type="checkbox" id="show-duration" checked="checked" value="1"> Duration</label>
+            </div>
+        </div>
+        <div class="control-group">
+            <label for="precision" class="control-label">Precision</label>
+            <div class="controls">
+                <input type="text" id="precision" value="0">
+            </div>
+        </div>
+        <div class="control-group">
+            <label for="precision-unit" class="control-label">Unit</label>
+            <div class="controls">
+                <select id="precision-unit">
+                    <option value="s">second</option>
+                    <option value="m">minute</option>
+                    <option value="h">hour</option>
+                </select>
+            </div>
+        </div>
+    </fieldset>
+    <fieldset class="form-actions">
+        <div class="pull-right">
+            <button type="submit" class="btn btn-primary">Generate</button>
+        </div>
+    </fieldset>
+</form>
 
+<div id="report-results" ></div>
+
+<script type="text/template" id="tpl-report-table">
 <table class="table">
     <thead>
-        <th>Start</th>
-        <th>Stop</th>
-        <th>Duration</th>
+    <tr>
+        <% var cols = 0; if (opt.date) { cols++; %><th>Date</th><% } %>
+        <% if (opt.start) { cols++;%><th>Start</th><% } %>
+        <% if (opt.stop) { cols++;%><th>Stop</th><% } %>
+        <% if (opt.duration) { %><th>Duration</th><% } %>
+        <% if (opt.description) { %><th>Description</th><% } %>
+    </tr>
     </thead>
-    <tbody id="reports">
-
+    <tbody id="report-table-data">
     </tbody>
+    <% if (opt.duration) { %>
     <tfoot>
-        <th colspan="2" class="t-right">Total</th>
+    <tr>
+        <th colspan="<%- cols %>" class="t-right">Total</th>
+        <td id="report-table-total"></td>
+        <td></td>
+    </tr>
     </tfoot>
+    <% } %>
 </table>
+</script>
+
+<script type="text/template" id="tpl-report-table-data">
+<tr>
+    <% if (opt.date && model.get('start')) { %>
+    <td><%- model.get('start').format('YYYY-MM-DD') %></td>
+    <% } %>
+    <% if (opt.start && model.get('start')) { %>
+    <td><%- model.get('start').format('HH:mm:ss') %></td>
+    <% } %>
+    <% if (opt.stop && model.get('stop')) { %>
+    <td><%- model.get('stop').format('HH:mm:ss') %></td>
+    <% } %>
+    <% if (opt.duration && model.get('duration')) { %>
+    <td><%- model.formatDuration() %></td>
+    <% } %>
+    <% if (opt.description && model.get('description')) { %>
+    <td><%- model.get('description') %></td>
+    <% } %>
+</tr>
+</script>
