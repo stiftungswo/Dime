@@ -1,9 +1,9 @@
 assetic:
     assets:
-        vendors:
+        js_vendors:
             inputs: ~
-        plugins:
+        js_plugins:
             inputs: ~
-        app:
+        js_app:
             inputs:
                 - '@DimeReportBundle/Resources/public/js/app/report/*'
