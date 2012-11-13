@@ -95,17 +95,17 @@
             </div>
         </div>
         <div class="control-group">
-            <label for="precision" class="control-label">Precision</label>
+            <label for="show-precision" class="control-label">Precision</label>
             <div class="controls">
-                <input type="text" id="precision" value="0">
+                <input type="text" id="show-precision" value="1">
             </div>
         </div>
         <div class="control-group">
-            <label for="precision-unit" class="control-label">Unit</label>
+            <label for="show-precision-unit" class="control-label">Unit</label>
             <div class="controls">
-                <select id="precision-unit">
+                <select id="show-precision-unit">
                     <option value="s">second</option>
-                    <option value="m">minute</option>
+                    <option value="m" selected="selected">minute</option>
                     <option value="h">hour</option>
                 </select>
             </div>
@@ -138,7 +138,7 @@
     <tr>
         <th colspan="<%- cols %>" class="t-right">Total</th>
         <td id="report-table-total"></td>
-        <td></td>
+        <% if (opt.description) { %><td></td><% } %>
     </tr>
     </tfoot>
     <% } %>
@@ -147,20 +147,26 @@
 
 <script type="text/template" id="tpl-report-table-data">
 <tr>
-    <% if (opt.date && model.get('start')) { %>
-    <td><%- model.get('start').format('YYYY-MM-DD') %></td>
+    <% if (opt.date) { %>
+    <td>
+        <% if (model.get('start')) { %>
+        <%- model.get('start').format('YYYY-MM-DD') %>
+        <% } else if (model.get('created')) { %>
+        <%- model.get('created').format('YYYY-MM-DD') %>
+        <% } %>
+    </td>
     <% } %>
-    <% if (opt.start && model.get('start')) { %>
-    <td><%- model.get('start').format('HH:mm:ss') %></td>
+    <% if (opt.start) { %>
+    <td><% print(model.get('start') ? model.get('start').format('HH:mm:ss') : '') %></td>
     <% } %>
-    <% if (opt.stop && model.get('stop')) { %>
-    <td><%- model.get('stop').format('HH:mm:ss') %></td>
+    <% if (opt.stop) { %>
+    <td><% print(model.get('stop') ? model.get('stop').format('HH:mm:ss') : '') %></td>
     <% } %>
-    <% if (opt.duration && model.get('duration')) { %>
-    <td><%- model.formatDuration() %></td>
+    <% if (opt.duration) { %>
+    <td><% print(model.get('duration') ? model.formatDuration(opt.precision, opt['precision-unit']) : '') %></td>
     <% } %>
-    <% if (opt.description && model.get('description')) { %>
-    <td><%- model.get('description') %></td>
+    <% if (opt.description) { %>
+    <td><% print( model.get('description') ? model.get('description') : '' ) %></td>
     <% } %>
 </tr>
 </script>

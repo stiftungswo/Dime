@@ -27,7 +27,7 @@
             // "this" view in callback functions
             _.bindAll(this);
 
-            this.activities = new App.Collection.Activities();
+            this.timeslices = new App.Collection.Timeslices();
 
             this.customers = App.session.get('customer-filter-collection', function () {
                 return new App.Collection.Customers();
@@ -72,7 +72,7 @@
             this.services.fetch();
 
             this.tableView = new App.Views.Report.Table({
-                collection: this.activities
+                collection: this.timeslices
             }).render();
 
             return this;
@@ -86,90 +86,76 @@
                 filter = {}, show = {};
 
             if (formData) {
-                if (formData.customer) {
-                    filter.customer = formData.customer;
-                }
+                for (var name in formData) {
+                    if (formData.hasOwnProperty(name)) {
+                        if (name.search(/show-/) >= 0) {
+                            show[name.replace('show-', '')] = formData[name];
+                        } else {
+                            switch (name) {
+                                case 'period':
+                                    var from = $('#from'),
+                                        to = $('#to'),
+                                        date = moment(from.data('date')).clone(),
+                                        dayFormat = 'YYYY-MM-DD';
 
-                if (formData.project) {
-                    filter.project = formData.project;
-                }
-
-                if (formData.service) {
-                    filter.service = formData.service;
-                }
-
-                // TODO Tags
-
-                if (formData.period) {
-                    var from = $('#from'),
-                        to = $('#to'),
-                        date = moment(from.data('date')).clone(),
-                        dayFormat = 'YYYY-MM-DD';
-
-                    switch (formData.period) {
-                        case 'this-month':
-                            filter.date = moment().format('YYYY-MM');
-                            break;
-                        case 'this-week':
-                            date = moment();
-                            if (date.day() === 0) {
-                                date = date.subtract('days', 1);
+                                    switch (formData.period) {
+                                        case 'this-month':
+                                            filter.date = moment().format('YYYY-MM');
+                                            break;
+                                        case 'this-week':
+                                            date = moment();
+                                            if (date.day() === 0) {
+                                                date = date.subtract('days', 1);
+                                            }
+                                            filter.date = [date.day(1).format(dayFormat), date.day(7).format(dayFormat)];
+                                            break;
+                                        case 'today':
+                                            filter.date = moment().format(dayFormat);
+                                            break;
+                                        case 'last-month':
+                                            filter.date = moment().subtract('months', 1).format('YYYY-MM');
+                                            break;
+                                        case 'last-week':
+                                            date = moment().subtract('weeks', 1);
+                                            if (date.day() === 0) {
+                                                date = date.subtract('days', 1);
+                                            }
+                                            filter.date = [date.day(1).format(dayFormat), date.day(7).format(dayFormat)];
+                                            break;
+                                        case 'yesterday':
+                                            filter.date = moment().subtract('days', '1').format(dayFormat);
+                                            break;
+                                        case 'D':
+                                            filter.date = date.format(dayFormat);
+                                            break;
+                                        case 'W':
+                                            if (date.day() === 0) {
+                                                date = date.subtract('days', 1);
+                                            }
+                                            filter.date = [date.day(1).format(dayFormat), date.day(7).format(dayFormat)];
+                                            break;
+                                        case 'M':
+                                            filter.date = date.format('YYYY-MM');
+                                            break;
+                                        case 'Y':
+                                            filter.date = date.format('YYYY');
+                                            break;
+                                    }
+                                    break;
+                                case 'from':
+                                case 'to':
+                                    continue;
+                                    break;
+                                default:
+                                    filter[name] = formData[name];
                             }
-                            filter.date = [date.day(1).format(dayFormat), date.day(7).format(dayFormat)];
-                            break;
-                        case 'today':
-                            filter.date = moment().format(dayFormat);
-                            break;
-                        case 'last-month':
-                            filter.date = moment().subtract('months', 1).format('YYYY-MM');
-                            break;
-                        case 'last-week':
-                            date = moment().subtract('weeks', 1);
-                            if (date.day() === 0) {
-                                date = date.subtract('days', 1);
-                            }
-                            filter.date = [date.day(1).format(dayFormat), date.day(7).format(dayFormat)];
-                            break;
-                        case 'yesterday':
-                            filter.date = moment().subtract('days', '1').format(dayFormat);
-                            break;
-                        case 'D':
-                            filter.date = date.format(dayFormat);
-                            break;
-                        case 'W':
-                            if (date.day() === 0) {
-                                date = date.subtract('days', 1);
-                            }
-                            filter.date = [date.day(1).format(dayFormat), date.day(7).format(dayFormat)];
-                            break;
-                        case 'M':
-                            filter.date = date.format('YYYY-MM');
-                            break;
-                        case 'Y':
-                            filter.date = date.format('YYYY');
-                            break;
+                        }
                     }
-                }
-
-                if (formData['show-date']) {
-                    show.date = true;
-                }
-                if (formData['show-start']) {
-                    show.start = true;
-                }
-                if (formData['show-stop']) {
-                    show.stop = true;
-                }
-                if (formData['show-duration']) {
-                    show.duration = true;
-                }
-                if (formData['show-description']) {
-                    show.description = true;
                 }
             }
 
             this.tableView.setTableOptions(show);
-            this.activities.fetch({
+            this.timeslices.fetch({
                 data: {
                     filter: filter
                 },

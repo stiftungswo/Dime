@@ -8,6 +8,35 @@
     App.provide('Model.Report.Timeslice', Backbone.Model.extend({
         duration: function(precision, unit) {
             var duration = this.get('duration');
+            if (precision && unit) {
+                var base = 0;
+                switch (unit) {
+                    case 's':
+                        base = 1;
+                        break;
+                    case 'm':
+                        base = 60;
+                        break;
+                    case 'h':
+                        base = 3600;
+                        break;
+                }
+
+                if (base > 0) {
+                    if (precision > 0 && precision < 60) {
+                        var part = base * precision,
+                            future = Math.floor(duration / part) * part,
+                            second = (duration % part);
+
+                        if (second > 0 && second < part) {
+                            future += part;
+                        }
+                        duration = future;
+                    } else {
+                        App.notify('Precision out of range [1,60]', 'error');
+                    }
+                }
+            }
 
             return duration;
         },
@@ -60,7 +89,7 @@
                         return 0;
                     }
                 } else {
-                    return 0;
+                    return 1;
                 }
             };
         },
@@ -76,22 +105,19 @@
             }
             if (this.collection && this.collection.length > 0) {
                 this.collection.each(function(model) {
-                    if (model && model.relation('timeslices')) {
-                        model.relation('timeslices').each(function(timeslice) {
-                            if (timeslice.get('duration') && timeslice.get('duration') > 0) {
-                                that.timeslices.add(new App.Model.Report.Timeslice({
-                                    start: timeslice.get('startedAt') ? moment(timeslice.get('startedAt'), 'YYYY-MM-DD HH:mm:ss') : undefined,
-                                    stop: timeslice.get('stoppedAt') ? moment(timeslice.get('stoppedAt'), 'YYYY-MM-DD HH:mm:ss') : undefined,
-                                    description: model.get('description'),
-                                    duration: timeslice.get('duration')
-                                }));
-                            }
-                        });
+                    if (model && model.get('duration') && model.get('duration') > 0) {
+                        that.timeslices.add(new App.Model.Report.Timeslice({
+                            start: model.get('startedAt') ? moment(model.get('startedAt'), 'YYYY-MM-DD HH:mm:ss') : undefined,
+                            stop: model.get('stoppedAt') ? moment(model.get('stoppedAt'), 'YYYY-MM-DD HH:mm:ss') : undefined,
+                            description: model.relation('activity') ? model.relation('activity').get('description') : '',
+                            duration: model.get('duration'),
+                            created: model.get('createdAt') ? moment(model.get('createdAt'), 'YYYY-MM-DD HH:mm:ss') : undefined
+                        }));
                     }
                 });
                 this.$el.html(temp({opt: this.tableOption}));
-                this.update();
             }
+            this.update();
 
             return this;
         },
@@ -106,7 +132,7 @@
             this.timeslices.each(function (model) {
                 tbody.append(temp({ opt: that.tableOption, model: model }));
             });
-            total.html(this.timeslices.formatDuration());
+            total.html(this.timeslices.formatDuration(this.tableOption.precision, this.tableOption['precision-unit']));
         }
     }));
 
