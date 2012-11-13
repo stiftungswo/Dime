@@ -18,9 +18,6 @@
         "phpugl/dime-timetracker-bundle": "*",
         "phpugl/dime-timetracker-frontend-bundle": "*"
     },
-    "suggest": {
-        "phpugl/dime-invoice-bundle": "*",
-        "phpugl/dime-import-bundle": "*"
-    },
+    "minimum-stability": "dev",
     "target-dir": "Dime/ReportBundle"
 }
