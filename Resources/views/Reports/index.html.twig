@@ -1,16 +1,16 @@
 {# Dime/Report/Resources/views/Reports/index.html.twig #}
 
-<header class="page-header">
+<header class="page-header dont-print">
     <h1>Reports</h1>
 </header>
 
-<ul class="nav nav-tabs">
+<ul class="nav nav-tabs dont-print">
     <li class="active"><a href="#tab-relation" data-toggle="tab"><i class="icon-user"></i><i class="icon-folder-open"></i><i class="icon-wrench"></i> Relations</a></li>
     <li><a href="#tab-date" data-toggle="tab"><i class="icon-calendar"></i> Dates</a></li>
     <li><a href="#tab-tags" data-toggle="tab"><i class="icon-tags"></i> Tags</a></li>
     <li><a href="#tab-show" data-toggle="tab"><i class="icon-tasks"></i> Show</a></li>
 </ul>
-<form id="report-form" class="form-horizontal tab-content">
+<form id="report-form" class="form-horizontal tab-content dont-print">
     <fieldset id="tab-relation" class="tab-pane active">
         <div class="control-group">
             <label for="customer" class="control-label"><i class="icon-user"></i> Customer</label>
@@ -82,8 +82,30 @@
         </div>
     </fieldset>
     <fieldset id="tab-tags" class="tab-pane">
+        <div class="control-group">
+            <label for="withTags" class="control-label"><i class="icon-tag"></i>with Tag</label>
+            <div class="controls">
+                <select id="withTags" class="filter filter-tags filter-with-tags input-medium" title="with tags">
+                    <option value="">with tag</option>
+                </select>
+            </div>
+        </div>
+        <div class="control-group">
+            <label for="withoutTags" class="control-label"><i class="icon-tag"></i>without Tag</label>
+            <div class="controls">
+                <select id="withoutTags" class="filter filter-tags filter-without-tags input-medium" title="without tags">
+                    <option value="">without tag</option>
+                </select>
+            </div>
+        </div>
     </fieldset>
     <fieldset id="tab-show" class="tab-pane">
+        <div class="control-group">
+            <label for="show-title" class="control-label">Title</label>
+            <div class="controls">
+                <input type="text" id="show-title" value="Report">
+            </div>
+        </div>
         <div class="control-group">
             <label class="control-label">Show</label>
             <div class="controls">
@@ -121,6 +143,9 @@
 <div id="report-results" ></div>
 
 <script type="text/template" id="tpl-report-table">
+<header class="page-header">
+    <h1><%- opt.title %></h1>
+</header>
 <table class="table">
     <thead>
     <tr>

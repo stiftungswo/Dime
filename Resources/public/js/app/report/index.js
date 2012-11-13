@@ -38,6 +38,9 @@
             this.services = App.session.get('service-filter-collection', function () {
                 return new App.Collection.Services();
             });
+            this.tags = App.session.get('tags-filter-collection', function () {
+                return new App.Collection.Tags();
+            });
         },
         render: function() {
             // Render a customer select list
@@ -71,9 +74,28 @@
             }).render();
             this.services.fetch();
 
+            // Render a tag select list
+            this.withTagsFilter = new App.Views.Core.Select({
+                el:'#withTags',
+                collection:this.tags,
+                defaults:{
+                    blankText:'with tag'
+                }
+            }).render();
+
+            this.withoutTagsFilter = new App.Views.Core.Select({
+                el:'#withoutTags',
+                collection:this.tags,
+                defaults:{
+                    blankText:'without tag'
+                }
+            }).render();
+            this.tags.fetch();
+
             this.tableView = new App.Views.Report.Table({
                 collection: this.timeslices
             }).render();
+
 
             return this;
         },
