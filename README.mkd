@@ -1,11 +1,11 @@
 # Dime - ReportBundle
 
-The report bundle should visualize the timeslices of the activities in a certain time range and maybe put some nice 
+The report bundle should visualize the timeslices of the activities in a certain time range and maybe put some nice
 charts. It will be the first example implementation to extend the DimeTimetrackerFrontendBundle.
 
 ## General Proposal
 
-Dime is a time tracker based on Symfony2. It provide an REST API and this Bundle will be the Frontend for it. At the 
+Dime is a time tracker based on Symfony2. It provide an REST API and this Bundle will be the Frontend for it. At the
 moment we use Bootstrap as HTML framework and Backbone.js as rest client.
 
 ## Requirements
@@ -23,6 +23,18 @@ Import configuration in your `app/config/config.yml` after importing the ones of
         - { resource: "@DimeTimetrackerFrontendBundle/Resources/config/config.yml" }
         - { resource: "@DimeReportBundle/Resources/config/config.yml" }
 
+Add to `AppKernel.php`:
+
+    <?php
+
+    // in AppKernel::registerBundles()
+    $bundles = array(
+        // ...
+        new Dime\ReportBundle\DimeReportBundle(),
+        // ...
+    );
+
+
 ## Initialization
 
-    app/console dime:init --dev
+    app/console dime:publish-assets
