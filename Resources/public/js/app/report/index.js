@@ -5,14 +5,14 @@
  */
 (function ($, Backbone, _, App) {
 
-    App.menu({
-        name:"report",
+    App.menu.add({
+        id:"report",
         title:"Report",
         route:"report",
         weight: 0,
         callback:function () {
-            App.UI.menu.activateItem('report');
-            App.UI.router.switchView(new App.Views.Report.Index());
+            App.menu.activateItem('report');
+            App.router.switchView(new App.Views.Report.Index());
         }
     });
 
