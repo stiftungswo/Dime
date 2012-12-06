@@ -15,7 +15,7 @@
         <div class="control-group">
             <label for="customer" class="control-label"><i class="icon-user"></i> Customer</label>
             <div class="controls">
-                <select id="customer" class="input-medium" title="by customer">
+                <select id="customer" class="input-block-level" title="by customer">
                     <option>by customer</option>
                 </select>
             </div>
@@ -23,7 +23,7 @@
         <div class="control-group">
             <label for="project" class="control-label"><i class="icon-folder-open"></i> Project</label>
             <div class="controls">
-                <select id="project" class="input-medium" title="by project">
+                <select id="project" class="input-block-level" title="by project">
                     <option>by project</option>
                 </select>
             </div>
@@ -31,7 +31,7 @@
         <div class="control-group">
             <label for="service" class="control-label"><i class="icon-wrench"></i> Service</label>
             <div class="controls">
-                <select id="service" class="input-medium" title="by service">
+                <select id="service" class="input-block-level" title="by service">
                     <option>by service</option>
                 </select>
             </div>
@@ -41,7 +41,8 @@
         <div class="control-group">
             <label for="period" class="control-label">Period</label>
             <div class="controls">
-                <select id="period">
+                <select id="period" class="input-block-level">
+                    <option value="">None</option>
                     <optgroup label="fixed">
                         <option value="this-month">This month</option>
                         <option value="this-week">This week</option>
@@ -63,7 +64,7 @@
         <div id="from-group" class="control-group hide">
             <label for="from" class="control-label">From</label>
             <div class="controls">
-                <input type="date" id="from" name="from" placeholder="YYYY-MM-DD" data-toggle="datepicker"
+                <input type="date" id="from" class="input-block-level" name="from" placeholder="YYYY-MM-DD" data-toggle="datepicker"
                        data-date="{{ 'now'|date('Y-m-d') }}"
                        data-date-format="YYYY-MM-DD" data-date-with-period="true" data-date-period="W"
                        data-date-weekstart="1"
@@ -73,7 +74,7 @@
         <div id="to-group" class="control-group hide">
             <label for="to" class="control-label">To</label>
             <div class="controls">
-                <input type="date" id="to" name="to" placeholder="YYYY-MM-DD" data-toggle="datepicker"
+                <input type="date" id="to" class="input-block-level" name="to" placeholder="YYYY-MM-DD" data-toggle="datepicker"
                        data-date="{{ 'now'|date('Y-m-d') }}"
                        data-date-format="YYYY-MM-DD" data-date-with-period="true" data-date-period="W"
                        data-date-weekstart="1"
@@ -85,7 +86,7 @@
         <div class="control-group">
             <label for="withTags" class="control-label"><i class="icon-tag"></i>with Tag</label>
             <div class="controls">
-                <select id="withTags" class="filter filter-tags filter-with-tags input-medium" title="with tags">
+                <select id="withTags" class="filter filter-tags filter-with-tags input-block-level" title="with tags">
                     <option value="">with tag</option>
                 </select>
             </div>
@@ -93,7 +94,7 @@
         <div class="control-group">
             <label for="withoutTags" class="control-label"><i class="icon-tag"></i>without Tag</label>
             <div class="controls">
-                <select id="withoutTags" class="filter filter-tags filter-without-tags input-medium" title="without tags">
+                <select id="withoutTags" class="filter filter-tags filter-without-tags input-block-level" title="without tags">
                     <option value="">without tag</option>
                 </select>
             </div>
@@ -103,7 +104,7 @@
         <div class="control-group">
             <label for="show-title" class="control-label">Title</label>
             <div class="controls">
-                <input type="text" id="show-title" value="Report">
+                <input type="text" id="show-title" class="input-block-level" value="Report">
             </div>
         </div>
         <div class="control-group">
@@ -119,13 +120,13 @@
         <div class="control-group">
             <label for="show-precision" class="control-label">Precision</label>
             <div class="controls">
-                <input type="text" id="show-precision" value="1">
+                <input type="text" id="show-precision" class="input-block-level" value="1">
             </div>
         </div>
         <div class="control-group">
             <label for="show-precision-unit" class="control-label">Unit</label>
             <div class="controls">
-                <select id="show-precision-unit">
+                <select id="show-precision-unit" class="input-block-level">
                     <option value="s">second</option>
                     <option value="m" selected="selected">minute</option>
                     <option value="h">hour</option>
@@ -191,7 +192,7 @@
     <td><% print(model.get('duration') ? model.formatDuration(opt.precision, opt['precision-unit']) : '') %></td>
     <% } %>
     <% if (opt.description) { %>
-    <td><% print( model.get('description') ? model.get('description') : '' ) %></td>
+    <td><% print( model.get('description') ? model.get('description').replace(/\n/g, "<br/>") : '' ) %></td>
     <% } %>
 </tr>
 </script>
