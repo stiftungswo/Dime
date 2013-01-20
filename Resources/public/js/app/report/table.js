@@ -111,7 +111,9 @@
                             stop: model.get('stoppedAt') ? moment(model.get('stoppedAt'), 'YYYY-MM-DD HH:mm:ss') : undefined,
                             description: model.relation('activity') ? model.relation('activity').get('description') : '',
                             duration: model.get('duration'),
-                            created: model.get('createdAt') ? moment(model.get('createdAt'), 'YYYY-MM-DD HH:mm:ss') : undefined
+                            created: model.get('createdAt') ? moment(model.get('createdAt'), 'YYYY-MM-DD HH:mm:ss') : undefined,
+                            customerName: model.relation('activity').get('customer') ? model.relation('activity').get('customer').name : undefined,
+                            projectName: model.relation('activity').get('project') ? model.relation('activity').get('project').name : undefined
                         }));
                     }
                 });

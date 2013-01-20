@@ -113,7 +113,9 @@
                 <label for="show-date" class="checkbox"><input type="checkbox" id="show-date" checked="checked" value="1"> Date</label>
                 <label for="show-start" class="checkbox"><input type="checkbox" id="show-start" value="1"> Start</label>
                 <label for="show-stop" class="checkbox"><input type="checkbox" id="show-stop" value="1"> Stop</label>
-                <label for="show-description" class="checkbox"><input type="checkbox" id="show-description" value="1"> Description</label>
+                <label for="show-customer" class="checkbox"><input type="checkbox" id="show-customer" checked="checked" value="1"> Customer</label>
+                <label for="show-project" class="checkbox"><input type="checkbox" id="show-project" checked="checked" value="1"> Project</label>
+                <label for="show-description" class="checkbox"><input type="checkbox" id="show-description" checked="checked" value="1"> Description</label>
                 <label for="show-duration" class="checkbox"><input type="checkbox" id="show-duration" checked="checked" value="1"> Duration</label>
             </div>
         </div>
@@ -154,6 +156,8 @@
         <% if (opt.start) { cols++;%><th>Start</th><% } %>
         <% if (opt.stop) { cols++;%><th>Stop</th><% } %>
         <% if (opt.duration) { %><th>Duration</th><% } %>
+        <% if (opt.customer) { %><th>Customer</th><% } %>
+        <% if (opt.project) { %><th>Project</th><% } %>
         <% if (opt.description) { %><th>Description</th><% } %>
     </tr>
     </thead>
@@ -190,6 +194,12 @@
     <% } %>
     <% if (opt.duration) { %>
     <td><% print(model.get('duration') ? model.formatDuration(opt.precision, opt['precision-unit']) : '') %></td>
+    <% } %>
+    <% if (opt.customer) { %>
+    <td><% print(model.get('customerName') ? model.get('customerName') : '') %></td>
+    <% } %>
+    <% if (opt.project) { %>
+    <td><% print(model.get('projectName') ? model.get('projectName') : '') %></td>
     <% } %>
     <% if (opt.description) { %>
     <td><% print( model.get('description') ? model.get('description').replace(/\n/g, "<br/>") : '' ) %></td>
