@@ -168,6 +168,8 @@
     <tr>
         <th colspan="<%- cols %>" class="t-right">Total</th>
         <td id="report-table-total"></td>
+        <% if (opt.customer) { %><td></td><% } %>
+        <% if (opt.project) { %><td></td><% } %>
         <% if (opt.description) { %><td></td><% } %>
     </tr>
     </tfoot>
