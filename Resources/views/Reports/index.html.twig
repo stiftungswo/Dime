@@ -128,7 +128,7 @@
         <div class="control-group">
             <label for="show-precision-unit" class="control-label">Unit</label>
             <div class="controls">
-                <select id="show-precision-unit" name="show-precision-unit" class="input-block-level">
+                <select id="show-precision-unit" name="show-precisionUnit" class="input-block-level">
                     <option value="s">second</option>
                     <option value="m" selected="selected">minute</option>
                     <option value="h">hour</option>
@@ -195,7 +195,7 @@
     <td><% print(model.get('stop') ? model.get('stop').format('HH:mm:ss') : '') %></td>
     <% } %>
     <% if (opt.duration) { %>
-    <td><% print(model.get('duration') ? App.Helper.Format.Duration(model.duration(opt.precision, opt['precision-unit'])) : '') %></td>
+    <td><% print(model.get('duration') ? App.Helper.Format.Duration(model.duration(opt.precision, opt.precisionUnit)) : '') %></td>
     <% } %>
     <% if (opt.customer) { %>
     <td><% print(model.get('customerName') ? model.get('customerName') : '') %></td>

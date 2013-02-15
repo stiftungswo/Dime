@@ -131,7 +131,7 @@
                 tbody.append(App.render(that.template + '-data', { opt: that.tableOption, model: model }));
             });
             total.html(App.Helper.Format.Duration(
-                this.timeslices.duration(this.tableOption.precision, this.tableOption['precision-unit'])
+                this.timeslices.duration(this.tableOption.precision, this.tableOption.precisionUnit)
             ));
         }
     }));
