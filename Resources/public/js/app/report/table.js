@@ -64,8 +64,6 @@
         template: '#tpl-report-table',
         el: '#report-results',
         initialize: function() {
-            _.bindAll(this);
-
             if (this.collection) {
                 this.collection.on('add', this.render, this);
                 this.collection.on('reset', this.render, this);
@@ -97,8 +95,7 @@
             this.tableOption =  options;
         },
         render: function() {
-            var that = this,
-                temp = _.template($(this.template).html());
+            var that = this;
 
             if (this.timeslices.length > 0) {
                 this.reset();
@@ -109,15 +106,15 @@
                         that.timeslices.add(new App.Model.Report.Timeslice({
                             start: model.get('startedAt') ? moment(model.get('startedAt'), 'YYYY-MM-DD HH:mm:ss') : undefined,
                             stop: model.get('stoppedAt') ? moment(model.get('stoppedAt'), 'YYYY-MM-DD HH:mm:ss') : undefined,
-                            description: model.relation('activity') ? model.relation('activity').get('description') : '',
+                            description: model.get('activity.description', ''),
                             duration: model.get('duration'),
                             created: model.get('createdAt') ? moment(model.get('createdAt'), 'YYYY-MM-DD HH:mm:ss') : undefined,
-                            customerName: model.relation('activity').get('customer') ? model.relation('activity').get('customer').name : undefined,
-                            projectName: model.relation('activity').get('project') ? model.relation('activity').get('project').name : undefined
+                            customerName: model.get('activity.customer.name', undefined),
+                            projectName: model.get('activity.project.name', undefined)
                         }));
                     }
                 });
-                this.$el.html(temp({opt: this.tableOption}));
+                this.$el.html(App.render(this.template, {opt: this.tableOption}));
             }
             this.update();
 
@@ -125,16 +122,17 @@
         },
         update: function() {
             var that = this,
-                temp = _.template($(this.template + '-data').html()),
                 tbody = $('#report-table-data', this.$el),
                 total = $('#report-table-total', this.$el);
 
             // reset
             tbody.html('');
             this.timeslices.each(function (model) {
-                tbody.append(temp({ opt: that.tableOption, model: model }));
+                tbody.append(App.render(that.template + '-data', { opt: that.tableOption, model: model }));
             });
-            total.html(this.timeslices.formatDuration(this.tableOption.precision, this.tableOption['precision-unit']));
+            total.html(App.Helper.Format.Duration(
+                this.timeslices.duration(this.tableOption.precision, this.tableOption['precision-unit'])
+            ));
         }
     }));
 
