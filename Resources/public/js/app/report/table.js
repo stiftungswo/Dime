@@ -63,6 +63,9 @@
     App.provide('Views.Report.Table', Backbone.View.extend({
         template: '#tpl-report-table',
         el: '#report-results',
+        events: {
+            'click .timeslice-save-tags': 'tagEntities'
+        },
         initialize: function() {
             if (this.collection) {
                 this.collection.on('add', this.render, this);
@@ -133,6 +136,31 @@
             total.html(App.Helper.Format.Duration(
                 this.timeslices.duration(this.tableOption.precision, this.tableOption.precisionUnit)
             ));
+        },
+        tagEntities: function(e) {
+            if (e) {
+                e.stopPropagation();
+            }
+
+            var data = App.Helper.UI.Form.Serializer(this.$('#tag-timeslices'), true)
+            if (this.collection && data && data.tags) {
+                var tags = App.Helper.Tags.Split(data.tags),
+                    activities = {};
+
+                this.collection.each(function(model) {
+                    if (model && model.get('duration') && model.get('duration') > 0) {
+                        App.Helper.Tags.Update(model, tags);
+
+                        if (data.activities) {
+                            var activitiy = model.getRelation('activity');
+                            if (!activities[activitiy.id]) {
+                                activities[activitiy.id] = true;
+                                App.Helper.Tags.Update(activitiy, tags);
+                            }
+                        }
+                    }
+                }, this);
+            }
         }
     }));
 

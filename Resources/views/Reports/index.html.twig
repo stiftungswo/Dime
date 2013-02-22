@@ -175,6 +175,17 @@
     </tfoot>
     <% } %>
 </table>
+<div id="tag-timeslices" class="form-inline well dont-print">
+    <legend>{% trans %}Tag your timeslices and activities{% endtrans %}</legend>
+    <div class="input-prepend">
+        <span class="add-on"><i class="icon-tags"></i></span>
+        <input type="text" id="timeslice-tags" class="timeslice-tags span3" name="tags" value="" placeholder="{% trans %}Add[+] and remove[-] tags{% endtrans %}" >
+    </div>
+    <label class="checkbox">
+        <input type="checkbox" name="activities"> {% trans %}and Activities{% endtrans %}
+    </label>
+    <button class="timeslice-save-tags btn">{% trans %}Save{% endtrans %}</button>
+</div>
 </script>
 
 <script type="text/template" id="tpl-report-table-data">
