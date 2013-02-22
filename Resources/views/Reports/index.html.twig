@@ -1,68 +1,68 @@
 {# Dime/Report/Resources/views/Reports/index.html.twig #}
 
 <header class="page-header dont-print">
-    <h1>Reports</h1>
+    <h1>{% trans %}Reports{% endtrans %}</h1>
 </header>
 
 <ul class="nav nav-tabs dont-print">
-    <li class="active"><a href="#tab-relation" data-toggle="tab"><i class="icon-user"></i><i class="icon-folder-open"></i><i class="icon-wrench"></i> Relations</a></li>
-    <li><a href="#tab-date" data-toggle="tab"><i class="icon-calendar"></i> Dates</a></li>
-    <li><a href="#tab-tags" data-toggle="tab"><i class="icon-tags"></i> Tags</a></li>
-    <li><a href="#tab-show" data-toggle="tab"><i class="icon-tasks"></i> Show</a></li>
+    <li class="active"><a href="#tab-relation" data-toggle="tab"><i class="icon-user"></i><i class="icon-folder-open"></i><i class="icon-wrench"></i> {% trans %}Relations{% endtrans %}</a></li>
+    <li><a href="#tab-date" data-toggle="tab"><i class="icon-calendar"></i> {% trans %}Dates{% endtrans %}</a></li>
+    <li><a href="#tab-tags" data-toggle="tab"><i class="icon-tags"></i> {% trans %}Tags{% endtrans %}</a></li>
+    <li><a href="#tab-show" data-toggle="tab"><i class="icon-tasks"></i> {% trans %}Show{% endtrans %}</a></li>
 </ul>
 <form id="report-form" class="form-horizontal tab-content dont-print">
     <fieldset id="tab-relation" class="tab-pane active">
         <div class="control-group">
-            <label for="customer" class="control-label"><i class="icon-user"></i> Customer</label>
+            <label for="customer" class="control-label"><i class="icon-user"></i> {% trans %}Customer{% endtrans %}</label>
             <div class="controls">
-                <select id="customer" name="filter-customer" class="input-block-level" title="by customer">
-                    <option value="">by customer</option>
+                <select id="customer" name="filter-customer" class="input-block-level" title="{% trans %}by customer{% endtrans %}">
+                    <option value="">{% trans %}by customer{% endtrans %}</option>
                 </select>
             </div>
         </div>
         <div class="control-group">
-            <label for="project" class="control-label"><i class="icon-folder-open"></i> Project</label>
+            <label for="project" class="control-label"><i class="icon-folder-open"></i> {% trans %}Project{% endtrans %}</label>
             <div class="controls">
-                <select id="project" name="filter-project" class="input-block-level" title="by project">
-                    <option value="">by project</option>
+                <select id="project" name="filter-project" class="input-block-level" title="{% trans %}by project{% endtrans %}">
+                    <option value="">{% trans %}by project{% endtrans %}</option>
                 </select>
             </div>
         </div>
         <div class="control-group">
-            <label for="service" class="control-label"><i class="icon-wrench"></i> Service</label>
+            <label for="service" class="control-label"><i class="icon-wrench"></i> {% trans %}Service{% endtrans %}</label>
             <div class="controls">
-                <select id="service" name="filter-service" class="input-block-level" title="by service">
-                    <option value="">by service</option>
+                <select id="service" name="filter-service" class="input-block-level" title="{% trans %}by service{% endtrans %}">
+                    <option value="">{% trans %}by service{% endtrans %}</option>
                 </select>
             </div>
         </div>
     </fieldset>
     <fieldset id="tab-date" class="tab-pane">
         <div class="control-group">
-            <label for="period" class="control-label">Period</label>
+            <label for="period" class="control-label">{% trans %}Period{% endtrans %}</label>
             <div class="controls">
                 <select id="period" name="filter-period" class="input-block-level">
-                    <option value="">None</option>
-                    <optgroup label="fixed">
-                        <option value="this-month">This month</option>
-                        <option value="this-week">This week</option>
-                        <option value="today">Today</option>
-                        <option value="last-month">Last month</option>
-                        <option value="last-week">Last week</option>
-                        <option value="yesterday">Yesterday</option>
+                    <option value="">{% trans %}None{% endtrans %}</option>
+                    <optgroup label="{% trans %}fixed{% endtrans %}">
+                        <option value="this-month">{% trans %}This month{% endtrans %}</option>
+                        <option value="this-week">{% trans %}This week{% endtrans %}</option>
+                        <option value="today">{% trans %}Today{% endtrans %}</option>
+                        <option value="last-month">{% trans %}Last month{% endtrans %}</option>
+                        <option value="last-week">{% trans %}Last week{% endtrans %}</option>
+                        <option value="yesterday">{% trans %}Yesterday{% endtrans %}</option>
                     </optgroup>
-                    <optgroup label="variable">
-                        <option value="D">Day</option>
-                        <option value="W">Week</option>
-                        <option value="M">Month</option>
-                        <option value="Y">Year</option>
-                        <option value="R">Range</option>
+                    <optgroup label="{% trans %}variable{% endtrans %}">
+                        <option value="D">{% trans %}Day{% endtrans %}</option>
+                        <option value="W">{% trans %}Week{% endtrans %}</option>
+                        <option value="M">{% trans %}Month{% endtrans %}</option>
+                        <option value="Y">{% trans %}Year{% endtrans %}</option>
+                        <option value="R">{% trans %}Range{% endtrans %}</option>
                     </optgroup>
                 </select>
             </div>
         </div>
         <div id="period-from-group" class="control-group hide">
-            <label for="period-from" class="control-label">From</label>
+            <label for="period-from" class="control-label">{% trans %}From{% endtrans %}</label>
             <div class="controls">
                 <input type="date" id="period-from" class="input-block-level" placeholder="YYYY-MM-DD" data-toggle="datepicker"
                        data-date="{{ 'now'|date('Y-m-d') }}"
@@ -72,7 +72,7 @@
             </div>
         </div>
         <div id="period-to-group" class="control-group hide">
-            <label for="period-to" class="control-label">To</label>
+            <label for="period-to" class="control-label">{% trans %}To{% endtrans %}</label>
             <div class="controls">
                 <input type="date" id="period-to" class="input-block-level" placeholder="YYYY-MM-DD" data-toggle="datepicker"
                        data-date="{{ 'now'|date('Y-m-d') }}"
@@ -84,61 +84,61 @@
     </fieldset>
     <fieldset id="tab-tags" class="tab-pane">
         <div class="control-group">
-            <label for="withTags" name="filter-withTags" class="control-label"><i class="icon-tag"></i> with Tag</label>
+            <label for="withTags" name="filter-withTags" class="control-label"><i class="icon-tag"></i> {% trans %}with Tag{% endtrans %}</label>
             <div class="controls">
-                <select id="withTags" class="input-block-level" title="with tags">
-                    <option value="">with tag</option>
+                <select id="withTags" class="input-block-level" title="{% trans %}with tag{% endtrans %}">
+                    <option value="">{% trans %}with tag{% endtrans %}</option>
                 </select>
             </div>
         </div>
         <div class="control-group">
-            <label for="withoutTags" class="control-label"><i class="icon-tag"></i> without Tag</label>
+            <label for="withoutTags" class="control-label"><i class="icon-tag"></i> {% trans %}without Tag{% endtrans %}</label>
             <div class="controls">
-                <select id="withoutTags" name="filter-withoutTags" class="input-block-level" title="without tags">
-                    <option value="">without tag</option>
+                <select id="withoutTags" name="filter-withoutTags" class="input-block-level" title="{% trans %}without tag{% endtrans %}">
+                    <option value="">{% trans %}without tag{% endtrans %}</option>
                 </select>
             </div>
         </div>
     </fieldset>
     <fieldset id="tab-show" class="tab-pane">
         <div class="control-group">
-            <label for="show-title" class="control-label">Title</label>
+            <label for="show-title" class="control-label">{% trans %}Title{% endtrans %}</label>
             <div class="controls">
-                <input type="text" id="show-title" name="show-title" class="input-block-level" value="Report">
+                <input type="text" id="show-title" name="show-title" class="input-block-level" value="{% trans %}Report{% endtrans %}">
             </div>
         </div>
         <div class="control-group">
-            <label class="control-label">Show</label>
+            <label class="control-label">{% trans %}Show{% endtrans %}</label>
             <div class="controls">
-                <label for="show-date" class="checkbox"><input type="checkbox" id="show-date" name="show-date" checked="checked" value="1"> Date</label>
-                <label for="show-start" class="checkbox"><input type="checkbox" id="show-start" name="show-start" value="1"> Start</label>
-                <label for="show-stop" class="checkbox"><input type="checkbox" id="show-stop" name="show-stop" value="1"> Stop</label>
-                <label for="show-customer" class="checkbox"><input type="checkbox" id="show-customer" name="show-customer" checked="checked" value="1"> Customer</label>
-                <label for="show-project" class="checkbox"><input type="checkbox" id="show-project" name="show-project" checked="checked" value="1"> Project</label>
-                <label for="show-description" class="checkbox"><input type="checkbox" id="show-description" name="show-description" checked="checked" value="1"> Description</label>
-                <label for="show-duration" class="checkbox"><input type="checkbox" id="show-duration" name="show-duration" checked="checked" value="1"> Duration</label>
+                <label for="show-date" class="checkbox"><input type="checkbox" id="show-date" name="show-date" checked="checked" value="1"> {% trans %}Date{% endtrans %}</label>
+                <label for="show-start" class="checkbox"><input type="checkbox" id="show-start" name="show-start" value="1"> {% trans %}Start{% endtrans %}</label>
+                <label for="show-stop" class="checkbox"><input type="checkbox" id="show-stop" name="show-stop" value="1"> {% trans %}Stop{% endtrans %}</label>
+                <label for="show-customer" class="checkbox"><input type="checkbox" id="show-customer" name="show-customer" checked="checked" value="1"> {% trans %}Customer{% endtrans %}</label>
+                <label for="show-project" class="checkbox"><input type="checkbox" id="show-project" name="show-project" checked="checked" value="1"> {% trans %}Project{% endtrans %}</label>
+                <label for="show-description" class="checkbox"><input type="checkbox" id="show-description" name="show-description" checked="checked" value="1"> {% trans %}Description{% endtrans %}</label>
+                <label for="show-duration" class="checkbox"><input type="checkbox" id="show-duration" name="show-duration" checked="checked" value="1"> {% trans %}Duration{% endtrans %}</label>
             </div>
         </div>
         <div class="control-group">
-            <label for="show-precision" class="control-label">Precision</label>
+            <label for="show-precision" class="control-label">{% trans %}Precision{% endtrans %}</label>
             <div class="controls">
                 <input type="text" id="show-precision" name="show-precision" class="input-block-level" value="1">
             </div>
         </div>
         <div class="control-group">
-            <label for="show-precision-unit" class="control-label">Unit</label>
+            <label for="show-precision-unit" class="control-label">{% trans %}Unit{% endtrans %}</label>
             <div class="controls">
                 <select id="show-precision-unit" name="show-precisionUnit" class="input-block-level">
-                    <option value="s">second</option>
-                    <option value="m" selected="selected">minute</option>
-                    <option value="h">hour</option>
+                    <option value="s">{% trans %}second{% endtrans %}</option>
+                    <option value="m" selected="selected">{% trans %}minute{% endtrans %}</option>
+                    <option value="h">{% trans %}hour{% endtrans %}</option>
                 </select>
             </div>
         </div>
     </fieldset>
     <fieldset class="form-actions">
         <div class="pull-right">
-            <button type="submit" class="btn btn-primary">Show</button>
+            <button type="submit" class="btn btn-primary">{% trans %}Show{% endtrans %}</button>
         </div>
     </fieldset>
 </form>
@@ -152,13 +152,13 @@
 <table class="table">
     <thead>
     <tr>
-        <% var cols = 0; if (opt.date) { cols++; %><th>Date</th><% } %>
-        <% if (opt.start) { cols++;%><th>Start</th><% } %>
-        <% if (opt.stop) { cols++;%><th>Stop</th><% } %>
-        <% if (opt.duration) { %><th>Duration</th><% } %>
-        <% if (opt.customer) { %><th>Customer</th><% } %>
-        <% if (opt.project) { %><th>Project</th><% } %>
-        <% if (opt.description) { %><th>Description</th><% } %>
+        <% var cols = 0; if (opt.date) { cols++; %><th>{% trans %}Date{% endtrans %}</th><% } %>
+        <% if (opt.start) { cols++;%><th>{% trans %}Start{% endtrans %}</th><% } %>
+        <% if (opt.stop) { cols++;%><th>{% trans %}Stop{% endtrans %}</th><% } %>
+        <% if (opt.duration) { %><th>{% trans %}Duration{% endtrans %}</th><% } %>
+        <% if (opt.customer) { %><th>{% trans %}Customer{% endtrans %}</th><% } %>
+        <% if (opt.project) { %><th>{% trans %}Project{% endtrans %}</th><% } %>
+        <% if (opt.description) { %><th>{% trans %}Description{% endtrans %}</th><% } %>
     </tr>
     </thead>
     <tbody id="report-table-data">
@@ -166,7 +166,7 @@
     <% if (opt.duration) { %>
     <tfoot>
     <tr>
-        <th colspan="<%- cols %>" class="t-right">Total</th>
+        <th colspan="<%- cols %>" class="t-right">{% trans %}Total{% endtrans %}</th>
         <td id="report-table-total"></td>
         <% if (opt.customer) { %><td></td><% } %>
         <% if (opt.project) { %><td></td><% } %>
