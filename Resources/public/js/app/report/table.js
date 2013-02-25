@@ -64,7 +64,7 @@
         template: '#tpl-report-table',
         el: '#report-results',
         events: {
-            'click .timeslice-save-tags': 'tagEntities'
+            'click .save-tags': 'tagEntities'
         },
         initialize: function() {
             if (this.collection) {
@@ -142,16 +142,18 @@
                 e.stopPropagation();
             }
 
-            var data = App.Helper.UI.Form.Serializer(this.$('#tag-timeslices'), true)
+            var data = App.Helper.UI.Form.Serialize(this.$('#massive-tagging'), true);
+
             if (this.collection && data && data.tags) {
                 var tags = App.Helper.Tags.Split(data.tags),
                     activities = {};
-
                 this.collection.each(function(model) {
                     if (model && model.get('duration') && model.get('duration') > 0) {
-                        App.Helper.Tags.Update(model, tags);
+                        if (data.what === 'all' || data.what === 'timeslices') {
+                            App.Helper.Tags.Update(model, tags);
+                        }
 
-                        if (data.activities) {
+                        if (data.what === 'all' || data.what === 'activities') {
                             var activitiy = model.getRelation('activity');
                             if (!activities[activitiy.id]) {
                                 activities[activitiy.id] = true;

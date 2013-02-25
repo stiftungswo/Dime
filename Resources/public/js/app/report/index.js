@@ -31,57 +31,53 @@
             this.form = new App.Views.Report.Form({
                 el: '#report-form',
                 collection: this.timeslices,
-                options: {
-                    widgets: {
-                        dateperiod: new App.Views.Core.Widget.DatePeriod({
-                            el: '#tab-date',
-                            options: {
-                                ui: {
-                                    period: '#period',
-                                    from: '#period-from',
-                                    fromGroup: '#period-from-group',
-                                    to: '#period-to',
-                                    toGroup: '#period-to-group'
-                                },
-                                events:{
-                                    'change #period': 'periodChange'
-                                }
-                            }
-                        }),
-                        customer: new App.Views.Core.Widget.Select({
-                            el: '#customer',
-                            collection: App.session.get('customer-filter-collection', function () {
-                                return new App.Collection.Customers();
-                            })
-                        }),
-                        project: new App.Views.Core.Widget.Select({
-                            el: '#project',
-                            collection: App.session.get('project-filter-collection', function () {
-                                return new App.Collection.Projects();
-                            })
-                        }),
-                        service: new App.Views.Core.Widget.Select({
-                            el: '#service',
-                            collection: App.session.get('service-filter-collection', function () {
-                                return new App.Collection.Services();
-                            })
-                        }),
-                        withTags: new App.Views.Core.Widget.Select({
-                            el: '#withTags',
-                            collection: App.session.get('tag-filter-collection', function () {
-                                return new App.Collection.Tags();
-                            })
-                        }),
-                        withoutTags: new App.Views.Core.Widget.Select({
-                            el: '#withoutTags',
-                            collection: App.session.get('tag-filter-collection', function () {
-                                return new App.Collection.Tags();
-                            })
+                widgets: {
+                    dateperiod: new App.Views.Core.Widget.DatePeriod({
+                        el: '#tab-date',
+                        ui: {
+                            period: '#period',
+                            from: '#period-from',
+                            fromGroup: '#period-from-group',
+                            to: '#period-to',
+                            toGroup: '#period-to-group'
+                        },
+                        events:{
+                            'change #period': 'periodChange'
+                        }
+                    }),
+                    customer: new App.Views.Core.Widget.Select({
+                        el: '#customer',
+                        collection: App.session.get('customer-filter-collection', function () {
+                            return new App.Collection.Customers();
                         })
-                    },
-                    callback: function(show) {
-                        that.tableView.setTableOptions(show);
-                    }
+                    }),
+                    project: new App.Views.Core.Widget.Select({
+                        el: '#project',
+                        collection: App.session.get('project-filter-collection', function () {
+                            return new App.Collection.Projects();
+                        })
+                    }),
+                    service: new App.Views.Core.Widget.Select({
+                        el: '#service',
+                        collection: App.session.get('service-filter-collection', function () {
+                            return new App.Collection.Services();
+                        })
+                    }),
+                    withTags: new App.Views.Core.Widget.Select({
+                        el: '#withTags',
+                        collection: App.session.get('tag-filter-collection', function () {
+                            return new App.Collection.Tags();
+                        })
+                    }),
+                    withoutTags: new App.Views.Core.Widget.Select({
+                        el: '#withoutTags',
+                        collection: App.session.get('tag-filter-collection', function () {
+                            return new App.Collection.Tags();
+                        })
+                    })
+                },
+                callback: function(show) {
+                    that.tableView.setTableOptions(show);
                 }
             });
             this.form.render();
