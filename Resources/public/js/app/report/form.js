@@ -14,6 +14,11 @@
             if (this.collection) {
                 var data = this.serialize(true);
 
+                if ("undefined" == typeof(data.limit)) {
+                    // avoid limits
+                    delete this.collection.fetchOptions.data.limit;
+                }
+
                 // push show options to table
                 if (data.show && this.options.callback) {
                     var show = data.show;
