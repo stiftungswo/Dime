@@ -16,7 +16,7 @@
 
                 if ("undefined" == typeof(data.limit)) {
                     // avoid limits
-                    delete this.collection.fetchOptions.data.limit;
+                    data.limit="";
                 }
 
                 // push show options to table
