@@ -95,7 +95,10 @@
             };
         },
         setTableOptions: function(options) {
-            this.tableOption =  options;
+            this.tableOption = options;
+            if (this.tableOption && this.tableOption.order) {
+                this.tableOption.order = this.tableOption.order.split(',');
+            }
         },
         render: function() {
             var that = this;
@@ -106,15 +109,59 @@
             if (this.collection && this.collection.length > 0) {
                 this.collection.each(function(model) {
                     if (model && model.get('duration') && model.get('duration') > 0) {
-                        that.timeslices.add(new App.Model.Report.Timeslice({
-                            start: model.get('startedAt') ? moment(model.get('startedAt'), 'YYYY-MM-DD HH:mm:ss') : undefined,
-                            stop: model.get('stoppedAt') ? moment(model.get('stoppedAt'), 'YYYY-MM-DD HH:mm:ss') : undefined,
-                            description: model.get('activity.description', ''),
-                            duration: model.get('duration'),
-                            created: model.get('createdAt') ? moment(model.get('createdAt'), 'YYYY-MM-DD HH:mm:ss') : undefined,
-                            customerName: model.get('activity.customer.name', undefined),
-                            projectName: model.get('activity.project.name', undefined)
-                        }));
+                        if (that.tableOption.merged) {
+                            switch (that.tableOption.merged) {
+                                case 'date':
+                                    if (model.get('startedAt')) {
+                                        var date = moment(model.get('startedAt'), 'YYYY-MM-DD HH:mm:ss');
+
+                                        var ts = that.timeslices.get(date.format('YYYY-MM-DD'));
+                                        if (ts) {
+                                            ts.set('duration', ts.get('duration') + model.get('duration'));
+                                        } else {
+                                            ts = new App.Model.Report.Timeslice({
+                                                id: date.format('YYYY-MM-DD'),
+                                                date: date,
+                                                description: model.get('activity.description', ''),
+                                                duration: model.get('duration'),
+                                                customerName: model.get('activity.customer.name', undefined),
+                                                projectName: model.get('activity.project.name', undefined)
+                                            });
+                                            that.timeslices.add(ts);
+                                        }
+                                    }
+                                    break;
+                                case 'description':
+                                    var ts = that.timeslices.get(model.get('activity.id'));
+                                    if (ts) {
+                                        ts.set('duration', ts.get('duration') + model.get('duration'));
+                                    } else {
+                                        ts = new App.Model.Report.Timeslice({
+                                            id: model.get('activity.id'),
+                                            description: model.get('activity.description', ''),
+                                            duration: model.get('duration'),
+                                            customerName: model.get('activity.customer.name', undefined),
+                                            projectName: model.get('activity.project.name', undefined)
+                                        });
+                                        that.timeslices.add(ts);
+                                    }
+                                    break;
+                            }
+                        } else {
+                            var date = model.get('startedAt');
+                            if (!date) {
+                                date = model.get('createdAt');
+                            }
+                            that.timeslices.add(new App.Model.Report.Timeslice({
+                                date: moment(date, 'YYYY-MM-DD HH:mm:ss'),
+                                start: model.get('startedAt') ? moment(model.get('startedAt'), 'YYYY-MM-DD HH:mm:ss') : undefined,
+                                stop: model.get('stoppedAt') ? moment(model.get('stoppedAt'), 'YYYY-MM-DD HH:mm:ss') : undefined,
+                                description: model.get('activity.description', ''),
+                                duration: model.get('duration'),
+                                customerName: model.get('activity.customer.name', undefined),
+                                projectName: model.get('activity.project.name', undefined)
+                            }));
+                        }
                     }
                 });
                 this.$el.html(App.render(this.template, {opt: this.tableOption}));
@@ -125,17 +172,32 @@
         },
         update: function() {
             var that = this,
-                tbody = $('#report-table-data', this.$el),
-                total = $('#report-table-total', this.$el);
+                thead = this.$('thead tr'),
+                tbody = this.$('tbody'),
+                tfoot = this.$('tfoot');
+
+            thead.html('');
+            _.each(this.tableOption.order, function(item) {
+                thead.append(App.render(that.template + '-th-' + item, { opt: that.tableOption }));
+            }, this);
 
             // reset
             tbody.html('');
             this.timeslices.each(function (model) {
                 tbody.append(App.render(that.template + '-data', { opt: that.tableOption, model: model }));
             });
-            total.html(App.Helper.Format.Duration(
-                this.timeslices.duration(this.tableOption.precision, this.tableOption.precisionUnit)
-            ));
+
+
+            var pos = _.indexOf(this.tableOption.order, 'duration');
+            if (pos > -1) {
+                tfoot.html(
+                    App.render(that.template + '-tfoot', {
+                        opt: that.tableOption,
+                        duration: this.timeslices.duration(this.tableOption.precision, this.tableOption.precisionUnit),
+                        cols: pos
+                    })
+                );
+            }
         },
         tagEntities: function(e) {
             if (e) {

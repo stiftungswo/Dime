@@ -6,6 +6,13 @@
 (function ($, Backbone, _, App) {
 
     App.provide('Views.Report.Form', App.Views.Core.Form.Filter.extend({
+        reset: function(e) {
+            this.el.reset();
+
+            this.$(':input[name]').each(function (idx, input) {
+                $(input).trigger('change');
+            });
+        },
         submit: function(e) {
             if (e) {
                 e.preventDefault();
@@ -32,7 +39,8 @@
                 }
                 this.collection.load();
             }
-        }
+        },
+        save: function(e) {}
     }));
 
 })(jQuery, Backbone, _, Dime);
