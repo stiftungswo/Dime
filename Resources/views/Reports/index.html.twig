@@ -41,6 +41,16 @@
                         <label for="show-project" class="checkbox span1"><input type="checkbox" id="show-project" class="show-order" checked="checked" value="project"> {% trans %}Project{% endtrans %}</label>
                         <label for="show-description" class="checkbox span1"><input type="checkbox" id="show-description" class="show-order" checked="checked" value="description"> {% trans %}Description{% endtrans %}</label>
                         <label for="show-duration" class="checkbox span1"><input type="checkbox" id="show-duration" class="show-order" checked="checked" value="duration"> {% trans %}Duration{% endtrans %}</label>
+                        <label for="show-tags" class="checkbox span1"><input type="checkbox" id="show-tags" class="show-order" value="tags"> {% trans %}Tags{% endtrans %}</label>
+                    </div>
+                </div>
+            </div>
+            <div id="show-tags-controls" class="control-group hide">
+                <label class="control-label">{% trans %}Show tags{% endtrans %}</label>
+                <div class="controls">
+                    <div class="row">
+                        <label for="show-tag-timeslice" class="checkbox span1"><input type="checkbox" id="show-tag-timeslice" name="show-tags[]" checked="checked" value="timeslice"> {% trans %}Timeslice{% endtrans %}</label>
+                        <label for="show-tag-activity" class="checkbox span1"><input type="checkbox" id="show-tag-activity" name="show-tags[]" value="activity"> {% trans %}Activity{% endtrans %}</label>
                     </div>
                 </div>
             </div>
@@ -231,6 +241,10 @@
     <th>{% trans %}Project{% endtrans %}</th>
 </script>
 
+<script type="text/template" id="tpl-report-table-th-tags">
+    <th>{% trans %}Tags{% endtrans %}</th>
+</script>
+
 <script type="text/template" id="tpl-report-table-tfoot">
     <tr>
         <th colspan="<%- cols %>" class="t-right">{% trans %}Total{% endtrans %}</th>
@@ -269,6 +283,11 @@
     <% if (opt.order[i] == 'project') { %>
     <td>
         <% print(model.get('projectName') ? model.get('projectName') : '') %>
+    </td>
+    <% }%>
+    <% if (opt.order[i] == 'tags') { %>
+    <td>
+        <% print(model.get('tags') ? model.get('tags').join(', ') : '') %>
     </td>
     <% }%>
     <% if (opt.order[i] == 'description') { %>

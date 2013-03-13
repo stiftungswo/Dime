@@ -23,7 +23,8 @@
             'click .delete-report': 'deleteReport',
             'blur #show-order': 'checkOrder',
             'change .show-order': 'changeOrder',
-            'change #show-merged': 'changeMerged'
+            'change #show-merged': 'changeMerged',
+            'change #show-tags': 'showTagOptions'
         },
         template:'DimeReportBundle:Reports:index',
         initialize:function () {
@@ -209,16 +210,28 @@
             var source = this.$(e.currentTarget),
                 value = source.val(),
                 values = [],
+                checked = [],
                 chb = this.$('.show-order');
 
             if (value != '') {
                 // create available names
                 chb.each(function(index) {
                     values.push(this.value);
+                    if (this.checked) {
+                        checked.push(this.value);
+                    }
                 });
 
-                value = _.intersection(value.split(','),values);
-                source.val(value.join(','));
+                // check the checkboxes
+                var order = _.intersection(value.replace(/\s*,\s*/g,',').split(','), values);
+                chb.each(function(index) {
+                    if (_.indexOf(order, this.value) == -1) {
+                        this.checked = false;
+                    } else {
+                        this.checked = true;
+                    }
+                });
+                source.val(order.join(','));
             }
         },
         changeOrder: function(e) {
@@ -279,6 +292,17 @@
                             .trigger('change');
                     }, this);
                     break;
+            }
+        },
+        showTagOptions: function(e) {
+            if (e) {
+                e.stopPropagation();
+            }
+
+            if (e.currentTarget.checked) {
+                this.$('#show-tags-controls').show();
+            } else {
+                this.$('#show-tags-controls').hide();
             }
         }
     }));

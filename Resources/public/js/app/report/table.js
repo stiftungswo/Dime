@@ -109,6 +109,23 @@
             if (this.collection && this.collection.length > 0) {
                 this.collection.each(function(model) {
                     if (model && model.get('duration') && model.get('duration') > 0) {
+                        var tags = [];
+
+                        // Merge tags of Activities and Timeslices
+                        if (that.tableOption.tags) {
+                            _.each(that.tableOption.tags, function(item) {
+                               switch (item) {
+                                   case 'activity':
+                                       App.log(model.getRelation('activity').getRelation('tags'));
+                                       tags = _.union(tags, model.getRelation('activity').getRelation('tags').tagArray());
+                                       break;
+                                   case 'timeslice':
+                                       tags = _.union(tags, model.getRelation('tags').tagArray());
+                                       break;
+                               }
+                            });
+                        }
+
                         if (that.tableOption.merged) {
                             switch (that.tableOption.merged) {
                                 case 'date':
@@ -125,7 +142,8 @@
                                                 description: model.get('activity.description', ''),
                                                 duration: model.get('duration'),
                                                 customerName: model.get('activity.customer.name', undefined),
-                                                projectName: model.get('activity.project.name', undefined)
+                                                projectName: model.get('activity.project.name', undefined),
+                                                tags: tags
                                             });
                                             that.timeslices.add(ts);
                                         }
@@ -141,7 +159,8 @@
                                             description: model.get('activity.description', ''),
                                             duration: model.get('duration'),
                                             customerName: model.get('activity.customer.name', undefined),
-                                            projectName: model.get('activity.project.name', undefined)
+                                            projectName: model.get('activity.project.name', undefined),
+                                            tags: tags
                                         });
                                         that.timeslices.add(ts);
                                     }
@@ -152,6 +171,7 @@
                             if (!date) {
                                 date = model.get('createdAt');
                             }
+
                             that.timeslices.add(new App.Model.Report.Timeslice({
                                 date: moment(date, 'YYYY-MM-DD HH:mm:ss'),
                                 start: model.get('startedAt') ? moment(model.get('startedAt'), 'YYYY-MM-DD HH:mm:ss') : undefined,
@@ -159,7 +179,8 @@
                                 description: model.get('activity.description', ''),
                                 duration: model.get('duration'),
                                 customerName: model.get('activity.customer.name', undefined),
-                                projectName: model.get('activity.project.name', undefined)
+                                projectName: model.get('activity.project.name', undefined),
+                                tags: tags
                             }));
                         }
                     }
