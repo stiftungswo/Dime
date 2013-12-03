@@ -15,7 +15,7 @@
     },
     "require": {
         "php": ">=5.3.3",
-        "phpugl/dime-timetracker-frontend-bundle": "0.2.*"
+        "phpugl/dime-timetracker-frontend-bundle": "dev-master"
     },
     "minimum-stability": "dev",
     "target-dir": "Dime/ReportBundle"
