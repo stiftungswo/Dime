@@ -5,6 +5,24 @@
  */
 (function ($, Backbone, _, App) {
 
+    /**
+     * App.Helper.Format.DurationNumber
+     *
+     * @param data, a duration in given unit, e.g. seconds
+     * @param format, format with http://numeraljs.com/
+     * @return string formatted as Number
+     */
+    App.provide('Helper.Format.DurationNumber', function (data, format) {
+        if (data !== undefined && _.isNumber(data)) {
+            var duration = (data / 60) / 60;
+            if (format != undefined) {
+                return numeral(duration).format(format);
+            }
+            return duration;
+        }
+        return '';
+    });
+
     App.provide('Model.Report.Timeslice', Backbone.Model.extend({
         duration: function(precision, unit) {
             var duration = this.get('duration');
@@ -116,7 +134,6 @@
                             _.each(that.tableOption.tags, function(item) {
                                switch (item) {
                                    case 'activity':
-                                       App.log(model.getRelation('activity').getRelation('tags'));
                                        tags = _.union(tags, model.getRelation('activity').getRelation('tags').tagArray());
                                        break;
                                    case 'timeslice':
@@ -210,6 +227,10 @@
 
 
             var pos = _.indexOf(this.tableOption.order, 'duration');
+            if (pos === -1) {
+                pos = _.indexOf(this.tableOption.order, 'durationNumber');
+            }
+
             if (pos > -1) {
                 tfoot.html(
                     App.render(that.template + '-tfoot', {

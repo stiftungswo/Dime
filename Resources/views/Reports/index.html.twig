@@ -40,7 +40,8 @@
                         <label for="show-customer" class="checkbox span1"><input type="checkbox" id="show-customer" class="show-order" checked="checked" value="customer"> {% trans %}Customer{% endtrans %}</label>
                         <label for="show-project" class="checkbox span1"><input type="checkbox" id="show-project" class="show-order" checked="checked" value="project"> {% trans %}Project{% endtrans %}</label>
                         <label for="show-description" class="checkbox span1"><input type="checkbox" id="show-description" class="show-order" checked="checked" value="description"> {% trans %}Description{% endtrans %}</label>
-                        <label for="show-duration" class="checkbox span1"><input type="checkbox" id="show-duration" class="show-order" checked="checked" value="duration"> {% trans %}Duration{% endtrans %}</label>
+                        <label for="show-duration" class="checkbox span1"><input type="checkbox" id="show-duration" class="show-order" checked="checked" value="duration"> {% trans %}Duration (##:##:##){% endtrans %}</label>
+                        <label for="show-durationNumber" class="checkbox span1"><input type="checkbox" id="show-durationNumber" class="show-order" value="durationNumber"> {% trans %}Duration (#.#){% endtrans %}</label>
                         <label for="show-tags" class="checkbox span1"><input type="checkbox" id="show-tags" class="show-order" value="tags"> {% trans %}Tags{% endtrans %}</label>
                     </div>
                 </div>
@@ -229,6 +230,10 @@
     <th>{% trans %}Duration{% endtrans %}</th>
 </script>
 
+<script type="text/template" id="tpl-report-table-th-durationNumber">
+    <th>{% trans %}Duration{% endtrans %}</th>
+</script>
+
 <script type="text/template" id="tpl-report-table-th-description">
     <th>{% trans %}Description{% endtrans %}</th>
 </script>
@@ -248,7 +253,14 @@
 <script type="text/template" id="tpl-report-table-tfoot">
     <tr>
         <th colspan="<%- cols %>" class="t-right">{% trans %}Total{% endtrans %}</th>
-        <td colspan="<%- opt.order.length-cols %>"><% print(App.Helper.Format.Duration(duration)) %></td>
+        <td colspan="<%- opt.order.length-cols %>">
+            <% if (_.indexOf(opt.order, 'duration') > -1) { %>
+            <% print(App.Helper.Format.Duration(duration)) %>
+            <% } %>
+            <% if (_.indexOf(opt.order, 'durationNumber') > -1) { %>
+            <% print(App.Helper.Format.DurationNumber(duration, '0.00')) %>
+            <% } %>
+        </td>
     </tr>
 </script>
 
@@ -273,6 +285,11 @@
     <% if (opt.order[i] == 'duration') { %>
     <td>
         <% print(model.get('duration') ? App.Helper.Format.Duration(model.duration(opt.precision, opt.precisionUnit)) : '') %>
+    </td>
+    <% }%>
+    <% if (opt.order[i] == 'durationNumber') { %>
+    <td>
+        <% print(model.get('duration') ? App.Helper.Format.DurationNumber(model.duration(opt.precision, opt.precisionUnit), '0.00') : '') %>
     </td>
     <% }%>
     <% if (opt.order[i] == 'customer') { %>
