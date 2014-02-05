@@ -274,12 +274,12 @@
     <% }%>
     <% if (opt.order[i] == 'start') { %>
     <td>
-        <% print(model.get('start') ? model.get('start').format('HH:mm:ss') : '') %>
+        <% print(model.get('start') ? model.fuzzyStart(opt.precision, opt.precisionUnit).format('HH:mm:ss') : '') %>
     </td>
     <% }%>
     <% if (opt.order[i] == 'stop') { %>
     <td>
-        <% print(model.get('stop') ? model.get('stop').format('HH:mm:ss') : '') %>
+        <% print(model.get('stop') ? model.fuzzyStop(opt.precision, opt.precisionUnit).format('HH:mm:ss') : '') %>
     </td>
     <% }%>
     <% if (opt.order[i] == 'duration') { %>

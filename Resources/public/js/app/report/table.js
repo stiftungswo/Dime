@@ -58,6 +58,24 @@
 
             return duration;
         },
+        fuzzyStart: function(precision, unit) {
+            switch (unit) {
+                case 's':
+                    return this.get('start').seconds(this.get('start').seconds() - this.get('start').seconds() % precision);
+                case 'm':
+                    return this.get('start').minutes(this.get('start').minutes() - this.get('start').minutes() % precision)
+                        .seconds(0);
+                case 'h':
+                    return this.get('start').hours(this.get('start').hours() - this.get('start').hours() % precision)
+                        .minutes(0)
+                        .seconds(0);
+                default:
+                    return this.get('start');
+            }
+        },
+        fuzzyStop: function(precision, unit) {
+            return this.fuzzyStart(precision, unit).add('seconds', this.duration(precision, unit));
+        },
         formatDuration:function (precision, unit) {
             return App.Helper.Format.Duration(this.duration(precision, unit));
         }
