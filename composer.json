@@ -16,7 +16,7 @@
         }
     },
     "require": {
-        "php": ">=5.3.3",
+        "php": ">=5.4",
         "phpugl/dime-timetracker-bundle": "0.2.*",
         "phpugl/dime-timetracker-frontend-bundle": "0.2.*",
         "phpugl/dime-report-bundle": "0.2.*"
