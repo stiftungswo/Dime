@@ -4,9 +4,6 @@
 [submodule "src/DimeInvoiceBundle"]
 	path = src/DimeInvoiceBundle
 	url = https://github.com/stiftungswo/DimeInvoiceBundle.git
-[submodule "src/DimeReportBundle"]
-	path = src/DimeReportBundle
-	url = https://github.com/stiftungswo/DimeReportBundle.git
 [submodule "src/DimeOfferBundle"]
 	path = src/DimeOfferBundle
 	url = https://github.com/stiftungswo/DimeOfferBundle.git
