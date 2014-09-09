@@ -7,6 +7,3 @@
 [submodule "src/DimeOfferBundle"]
 	path = src/DimeOfferBundle
 	url = https://github.com/stiftungswo/DimeOfferBundle.git
-[submodule "env"]
-	path = env
-	url = https://github.com/stiftungswo/generic-docker-symfony-dev-container.git
