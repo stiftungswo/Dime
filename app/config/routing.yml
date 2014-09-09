@@ -1,5 +1,7 @@
 DimeTimetrackerBundle:
+    type: rest
+    prefix: /api
     resource: "@DimeTimetrackerBundle/Resources/config/routing.yml"
-
-DimeTimetrackerFrontendBundle:
-    resource: "@DimeTimetrackerFrontendBundle/Resources/config/routing.yml"
+    
+DimeTimetrackerBundleSecurity:
+    resource: "@DimeTimetrackerBundle/Resources/config/security_routing.yml"
