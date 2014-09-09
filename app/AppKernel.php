@@ -26,10 +26,8 @@ class AppKernel extends Kernel
             new FOS\UserBundle\FOSUserBundle(),
             new FOS\RestBundle\FOSRestBundle(),
             new JMS\SerializerBundle\JMSSerializerBundle($this),
-            new Phpugl\TwitterBootstrapBundle\PhpuglTwitterBootstrapBundle(),
+            new Nelmio\ApiDocBundle\NelmioApiDocBundle(),
             new Dime\TimetrackerBundle\DimeTimetrackerBundle(),
-            new Dime\TimetrackerFrontendBundle\DimeTimetrackerFrontendBundle(),
-            new Dime\ReportBundle\DimeReportBundle()
         );
         
         if (in_array($this->getEnvironment(), array(
