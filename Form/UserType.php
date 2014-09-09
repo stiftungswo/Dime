@@ -31,6 +31,6 @@ class UserType extends AbstractType
 
     public function getName()
     {
-        return 'dime_timetrackerbundle_usertype';
+        return 'user';
     }
 }

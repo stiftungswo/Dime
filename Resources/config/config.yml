@@ -29,7 +29,12 @@ jms_serializer:
 
 fos_rest:
     param_fetcher_listener: true
-    body_listener: true
+    body_listener:
+        throw_exception_on_unsupported_content_type:  true
+        decoders:
+            json: fos_rest.decoder.json
+            xml: fos_rest.decoder.xml
+        array_normalizer:     null
     format_listener: true
     view:
         formats:
@@ -42,6 +47,9 @@ fos_rest:
         view_response_listener: "force"
         failed_validation: HTTP_BAD_REQUEST
         default_engine: twig
+    body_converter:
+        enabled: true
+        validate: true
 
 sensio_framework_extra:
     view:

@@ -36,5 +36,21 @@ class UserRepository extends EntityRepository
     {
         return $this;
     }
+    
+    /**
+     * 
+     * @param unknown $limit
+     * @param unknown $offset
+     */
+    public function findSafeBy($limit, $offset)
+    {
+        return $this->getEntityManager()
+        ->createQuery(
+            'SELECT u.id, u.username, u.firstname, u.lastname, u.createdAt, u.updatedAt, u.email, u.enabled FROM DimeTimetrackerBundle:User u'
+        )
+        ->setMaxResults($limit)
+        ->setFirstResult($offset)
+        ->getResult();
+    }
 
 }

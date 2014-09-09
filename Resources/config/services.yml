@@ -1,1 +1,13 @@
+parameters:
+    dime.user.handler.class:      Dime\TimetrackerBundle\Handler\UserHandler
+    dime.user.class:  Dime\TimetrackerBundle\Entity\User
+
 services:
+    dime.user.handler:
+        class: "%dime.user.handler.class%"
+        arguments: [ "@doctrine.orm.entity_manager", "%dime.user.class%", "@form.factory" ]
+        
+    dime.user.form.type:
+        class: Dime\TimetrackerBundle\Form\UserType
+        tags:
+            - { name: form.type, alias: user }

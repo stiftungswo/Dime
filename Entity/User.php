@@ -7,6 +7,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation as JMS;
 use FOS\UserBundle\Model\User as BaseUser;
+use Dime\TimetrackerBundle\Model\DimeEntityInterface;
 
 /**
  * Dime\TimetrackerBundle\Entity\Project
@@ -15,7 +16,7 @@ use FOS\UserBundle\Model\User as BaseUser;
  * @ORM\Table(name="users")
  * @ORM\Entity(repositoryClass="Dime\TimetrackerBundle\Entity\UserRepository")
  */
-class User extends BaseUser
+class User extends BaseUser implements DimeEntityInterface
 {
     /**
      * @var integer $id
