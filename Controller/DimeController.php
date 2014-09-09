@@ -6,8 +6,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Form;
 use FOS\RestBundle\View\View;
 use Doctrine\ORM\Tools\Pagination\Paginator;
+use FOS\RestBundle\Controller\FOSRestController;
 
-class DimeController extends Controller
+class DimeController extends FOSRestController
 {
     protected $currentUser = null;
 
