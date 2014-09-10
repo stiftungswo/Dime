@@ -1,13 +1,13 @@
 <?php
 
-namespace Dime\TimetrackerBundle\Form;
+namespace Dime\TimetrackerBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Dime\TimetrackerBundle\Entity\User;
 
-class TimesliceType extends AbstractType
+class TimesliceFormType extends AbstractType
 {
     protected $em;
 
@@ -47,6 +47,6 @@ class TimesliceType extends AbstractType
 
     public function getName()
     {
-        return 'dime_timetrackerbundle_timeslicetype';
+        return 'dime_timetrackerbundle_timesliceformtype';
     }
 }

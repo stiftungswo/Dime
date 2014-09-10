@@ -1,6 +1,6 @@
 <?php
 
-namespace Dime\TimetrackerBundle\Form;
+namespace Dime\TimetrackerBundle\Form\Transfomer;
 
 use Symfony\Component\Form\DataTransformerInterface;
 use Doctrine\Common\Persistence\ObjectManager;

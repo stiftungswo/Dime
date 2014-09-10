@@ -1,17 +1,14 @@
 <?php
 
-namespace Dime\TimetrackerBundle\Form;
+namespace Dime\TimetrackerBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Dime\TimetrackerBundle\Entity\User;
 
-class CustomerType extends AbstractType
+class ActivityFormType extends AbstractType
 {
-    /**
-     * @var ObjectManager
-     */
     protected $em;
 
     /**
@@ -29,7 +26,7 @@ class CustomerType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'Dime\TimetrackerBundle\Entity\Customer',
+                'data_class' => 'Dime\TimetrackerBundle\Entity\Activity',
                 'csrf_protection' => false
             )
         );
@@ -40,14 +37,18 @@ class CustomerType extends AbstractType
         $transformer = new TagTransformer($this->em, $this->user);
 
         $builder
-            ->add('name')
-            ->add('alias')
+            ->add('description')
+            ->add('rate')
+            ->add('rateReference')  // TODO: add constraints
+            ->add('service')
+            ->add('customer')
+            ->add('project')
             ->add($builder->create('tags', 'text')->addModelTransformer($transformer))
         ;
     }
 
     public function getName()
     {
-        return 'dime_timetrackerbundle_customertype';
+        return 'dime_timetrackerbundle_activityformtype';
     }
 }

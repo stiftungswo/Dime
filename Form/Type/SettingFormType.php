@@ -1,12 +1,12 @@
 <?php
 
-namespace Dime\TimetrackerBundle\Form;
+namespace Dime\TimetrackerBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class SettingType extends AbstractType
+class SettingFormType extends AbstractType
 {
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
@@ -28,6 +28,6 @@ class SettingType extends AbstractType
 
     public function getName()
     {
-        return 'dime_timetrackerbundle_settingtype';
+        return 'dime_timetrackerbundle_settingformtype';
     }
 }

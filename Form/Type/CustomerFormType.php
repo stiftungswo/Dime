@@ -1,14 +1,17 @@
 <?php
 
-namespace Dime\TimetrackerBundle\Form;
+namespace Dime\TimetrackerBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Dime\TimetrackerBundle\Entity\User;
 
-class ProjectType extends AbstractType
+class CustomerFormType extends AbstractType
 {
+    /**
+     * @var ObjectManager
+     */
     protected $em;
 
     /**
@@ -26,7 +29,7 @@ class ProjectType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'Dime\TimetrackerBundle\Entity\Project',
+                'data_class' => 'Dime\TimetrackerBundle\Entity\Customer',
                 'csrf_protection' => false
             )
         );
@@ -39,21 +42,12 @@ class ProjectType extends AbstractType
         $builder
             ->add('name')
             ->add('alias')
-            ->add('customer')
-            ->add('startedAt', 'datetime', array('required' => false, 'widget' => 'single_text', 'with_seconds' => true))
-            ->add('stoppedAt', 'datetime', array('required' => false, 'widget' => 'single_text', 'with_seconds' => true))
-            ->add('deadline', 'datetime', array('required' => false, 'widget' => 'single_text', 'with_seconds' => true))
-            ->add('description')
-            ->add('budgetPrice')
-            ->add('fixedPrice')
-            ->add('budgetTime')
-            ->add('rate')
             ->add($builder->create('tags', 'text')->addModelTransformer($transformer))
         ;
     }
 
     public function getName()
     {
-        return 'dime_timetrackerbundle_projecttype';
+        return 'dime_timetrackerbundle_customerformtype';
     }
 }
