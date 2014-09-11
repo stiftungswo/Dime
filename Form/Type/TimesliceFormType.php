@@ -5,23 +5,9 @@ namespace Dime\TimetrackerBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Dime\TimetrackerBundle\Entity\User;
 
 class TimesliceFormType extends AbstractType
 {
-    protected $em;
-
-    /**
-     * @var User
-     */
-    protected $user;
-
-    public function __construct($em, User $user)
-    {
-        $this->em = $em;
-        $this->user = $user;
-    }
-
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(
@@ -34,14 +20,14 @@ class TimesliceFormType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $transformer = new TagTransformer($this->em, $this->user);
-
         $builder
             ->add('duration')
             ->add('startedAt', 'datetime', array('required' => false, 'widget' => 'single_text', 'with_seconds' => true))
             ->add('stoppedAt', 'datetime', array('required' => false, 'widget' => 'single_text', 'with_seconds' => true))
             ->add('activity')
-            ->add($builder->create('tags', 'text')->addModelTransformer($transformer))
+            ->add('tags', 'dime_timetrackerbundle_tagsformtype', array(
+                'user' => $options['user']
+            ))
         ;
     }
 

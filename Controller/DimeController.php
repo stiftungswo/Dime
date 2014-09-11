@@ -7,6 +7,7 @@ use Symfony\Component\Form\Form;
 use FOS\RestBundle\View\View;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use FOS\RestBundle\Controller\FOSRestController;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class DimeController extends FOSRestController
 {
@@ -182,5 +183,22 @@ class DimeController extends FOSRestController
         }
 
         return $view;
+    }
+    
+    /**
+     * Fetch a User or throw an 404 Exception.
+     *
+     * @param mixed $id
+     *
+     * @return UserInterface
+     *
+     * @throws NotFoundHttpException
+     */
+    protected function getOr404($id, $service)
+    {
+        if (! ($user = $this->container->get($service)->get($id))) {
+            throw new NotFoundHttpException(sprintf('The resource \'%s\' was not found.', $id));
+        }
+        return $user;
     }
 }

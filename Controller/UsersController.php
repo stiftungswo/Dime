@@ -1,9 +1,6 @@
 <?php
 namespace Dime\TimetrackerBundle\Controller;
 
-use Dime\TimetrackerBundle\Entity\User;
-use Dime\TimetrackerBundle\Entity\UserRepository;
-use Dime\TimetrackerBundle\Form\UserType;
 use FOS\RestBundle\View\View;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use FOS\RestBundle\Request\ParamFetcherInterface;
@@ -24,13 +21,15 @@ class UsersController extends DimeController
      * 200 = "Returned when successful"
      * }
      * )
-     *
+     * 
      * @Annotations\QueryParam(name="offset", requirements="\d+", nullable=true, description="Offset from which to start listing users.")
      * @Annotations\QueryParam(name="limit", requirements="\d+", default="5", description="How many users to return.")
      *
      * @Annotations\View(
      * templateVar="users"
      * )
+     *
+     * @Annotations\Route(requirements={"_format"="json|xml"})
      *
      * @param Request $request
      *            the request object
@@ -62,6 +61,8 @@ class UsersController extends DimeController
      *
      * @Annotations\View(templateVar="user")
      *
+     * @Annotations\Route(requirements={"_format"="json|xml"})
+     * 
      * @param Request $request
      *            the request object
      * @param int $id
@@ -73,27 +74,44 @@ class UsersController extends DimeController
      */
     public function getUserAction($id)
     {
-        return $this->getOr404($id);
+        return $this->getOr404($id, 'dime.user.handler');
+    }
+    
+    /**
+     * Presents the form to use to create a new user.
+     *
+     * @ApiDoc(
+     * resource = true,
+     * statusCodes = {
+     * 200 = "Returned when successful"
+     * }
+     * )
+     *
+     * @Annotations\View(
+     * templateVar = "form"
+     * )
+     *
+     * @return FormTypeInterface
+     */
+    public function newUserAction()
+    {
+        return $this->createForm('dime_timetrackerbundle_userformtype');
     }
 
     /**
-     * Create a Page from the submitted data.
+     * Create a new User from the submitted data.
      *
      * @ApiDoc(
      * resource = true,
      * description = "Creates a new page from the submitted data.",
-     * input = "Dime\TimetrackerBundle\Form\UserType",
+     * input = "Dime\TimetrackerBundle\Form\Type\UserFormType",
      * statusCodes = {
      * 200 = "Returned when successful",
      * 400 = "Returned when the form has errors"
      * }
      * )
      *
-     * @Annotations\View(
-     * template = "AcmeBlogBundle:Page:newPage.html.twig",
-     * statusCode = Codes::HTTP_BAD_REQUEST,
-     * templateVar = "form"
-     * )
+     * @Annotations\Route(requirements={"_format"="json|xml"})
      *
      * @param Request $request
      *            the request object
@@ -102,14 +120,13 @@ class UsersController extends DimeController
      */
     public function postUserAction(Request $request)
     {
-//         return $this->container->get('dime.user.handler')->post($request->request->all());
         try {
             $newUser = $this->container->get('dime.user.handler')->post($request->request->all());
             $routeOptions = array(
                 'id' => $newUser->getId(),
                 '_format' => $request->get('_format')
             );
-            return $this->routeRedirectView('api_1_get_user', $routeOptions, Codes::HTTP_CREATED);
+            return $this->routeRedirectView('api_1_get_user', $routeOptions);
         } catch (InvalidFormException $exception) {
             return $exception->getForm();
         }
@@ -120,7 +137,7 @@ class UsersController extends DimeController
      *
      * @ApiDoc(
      * resource = true,
-     * input = "Dime\TimetrackerBundle\Form\UserType",
+     * input = "Dime\TimetrackerBundle\Form\Type\UserFormType",
      * statusCodes = {
      * 201 = "Returned when the User is created",
      * 204 = "Returned when successful",
@@ -128,6 +145,7 @@ class UsersController extends DimeController
      * }
      * )
      *
+     * @Annotations\Route(requirements={"_format"="json|xml"})
      *
      * @param Request $request
      *            the request object
@@ -158,19 +176,43 @@ class UsersController extends DimeController
             return $exception->getForm();
         }
     }
-
+    
     /**
-     * Update existing page from the submitted data or create a new page at a specific location.
+     * Presents the form to use to edit a user.
      *
      * @ApiDoc(
      * resource = true,
-     * input = "Dime\TimetrackerBundle\Form\UserType",
      * statusCodes = {
-     * 204 = "Returned when successful",
-     * 400 = "Returned when the form has errors"
+     * 200 = "Returned when successful"
      * }
      * )
      *
+     * @Annotations\View(
+     * templateVar = "form"
+     * )
+     *
+     * 
+     * @param unknown $id
+     * @return FormTypeInterface
+     */
+    public function editUserAction($id)
+    {
+        return $this->createForm('dime_timetrackerbundle_userformtype', $this->getOr404($id, 'dime.user.handler'));
+    }
+
+    /**
+     * Delete existing user
+     *
+     * @ApiDoc(
+     * resource = true,
+     * input = "Dime\TimetrackerBundle\Form\Type\UserFormType",
+     * statusCodes = {
+     * 204 = "Returned when successful",
+     * }
+     * )
+     *
+     * @Annotations\Route(requirements={"_format"="json|xml"})
+     * 
      * @param Request $request
      *            the request object
      * @param int $id
@@ -182,38 +224,29 @@ class UsersController extends DimeController
      */
     public function deleteUserAction(Request $request, $id)
     {
-        try {
-            $user = $this->container->get('dime.user.handler')->patch($this->getOr404($id), $request->request->all());
-            $routeOptions = array(
-                'id' => $user->getId(),
-                '_format' => $request->get('_format')
-            );
-            return $this->routeRedirectView('api_1_get_user', $routeOptions, Codes::HTTP_NO_CONTENT);
-        } catch (InvalidFormException $exception) {
-            return $exception->getForm();
-        }
+        $this->container->get('dime.user.handler')->delete($this->getOr404($id, 'dime.user.handler'));
+        return $this->routeRedirectView('api_1_get_users', array(), Codes::HTTP_NO_CONTENT);
     }
-    
+
     /**
-     * Update existing user from the submitted data or create a new page at a specific location.
+     * Update existing user from subset of data
      *
      * @ApiDoc(
      * resource = true,
-     * input = "Dime\TimetrackerBundle\Form\UserType",
+     * input = "Dime\TimetrackerBundle\Form\Type\UserFormType",
      * statusCodes = {
      * 204 = "Returned when successful",
      * 400 = "Returned when the form has errors"
      * }
      * )
      *
-     * @Annotations\View(
-     * template = "AcmeBlogBundle:Page:editPage.html.twig",
-     * templateVar = "form"
-     * )
+     * @Annotations\Route(requirements={"_format"="json|xml"})
      *
-     * @param Request $request the request object
-     * @param int $id the page id
-     *
+     * @param Request $request
+     *            the request object
+     * @param int $id
+     *            the page id
+     *            
      * @return FormTypeInterface|View
      *
      * @throws NotFoundHttpException when page not exist
@@ -221,10 +254,7 @@ class UsersController extends DimeController
     public function patchUserAction(Request $request, $id)
     {
         try {
-            $user = $this->container->get('dime.user.handler')->patch(
-                $this->getOr404($id),
-                $request->request->all()
-            );
+            $user = $this->container->get('dime.user.handler')->patch($this->getOr404($id, 'dime.user.handler'), $request->request->all());
             $routeOptions = array(
                 'id' => $user->getId(),
                 '_format' => $request->get('_format')
@@ -236,19 +266,38 @@ class UsersController extends DimeController
     }
     
     /**
-     * Fetch a User or throw an 404 Exception.
+     * Enable the User
      *
-     * @param mixed $id
+     * @ApiDoc(
+     * resource = true,
+     * statusCodes = {
+     * 204 = "Returned when successful",
+     * }
+     * )
      *
-     * @return UserInterface
-     *
-     * @throws NotFoundHttpException
+     * @Annotations\Route(requirements={"_format"="json|xml"})
      */
-    protected function getOr404($id)
+    public function enableUserAction($id)
     {
-        if (!($user = $this->container->get('user.user.handler')->get($id))) {
-            throw new NotFoundHttpException(sprintf('The resource \'%s\' was not found.',$id));
-        }
-        return $user;
+        $this->container->get('dime.user.handler')->enable($this->getOr404($id, 'dime.user.handler'));
+        return $this->routeRedirectView('api_1_get_users', array(), Codes::HTTP_NO_CONTENT);
+    }
+    
+    /**
+     * Lock the User
+     *
+     * @ApiDoc(
+     * resource = true,
+     * statusCodes = {
+     * 204 = "Returned when successful",
+     * }
+     * )
+     *
+     * @Annotations\Route(requirements={"_format"="json|xml"})
+     */
+    public function lockUserAction($id)
+    {
+        $this->container->get('dime.user.handler')->lock($this->getOr404($id, 'dime.user.handler'));
+        return $this->routeRedirectView('api_1_get_users', array(), Codes::HTTP_NO_CONTENT);
     }
 }

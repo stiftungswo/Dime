@@ -8,11 +8,15 @@ use Symfony\Component\Form\FormFactoryInterface;
 
 abstract class AbstractHandler
 {
+
     protected $om;
+
     protected $entityClass;
+
     protected $repository;
+
     protected $formFactory;
-    
+
     public function __construct(ObjectManager $om, $entityClass, FormFactoryInterface $formFactory)
     {
         $this->om = $om;
@@ -25,20 +29,21 @@ abstract class AbstractHandler
     {
         return new $this->entityClass();
     }
-    
+
     /**
      * Processes the form.
      *
-     * @param array $parameters
-     * @param String $method
+     * @param array $parameters            
+     * @param String $method            
      *
      * @return PageInterface
      *
      * @throws \Dime\TimetrackerBundle\Exception\InvalidFormException
      */
-    protected function processForm(DimeEntityInterface $entity, array $parameters, $method = "PUT", $form)
+    protected function processForm(DimeEntityInterface $entity, array $parameters, $form, $method = "PUT", $formoptions = array())
     {
-        $form = $this->formFactory->create($form, $entity, array('method' => $method));
+        $formoptions['method'] = $method;
+        $form = $this->formFactory->create($form, $entity, $formoptions);
         $form->submit($parameters, 'PATCH' !== $method);
         if ($form->isValid()) {
             $entity = $form->getData();
@@ -47,5 +52,11 @@ abstract class AbstractHandler
             return $entity;
         }
         throw new InvalidFormException('Invalid submitted data', $form);
+    }
+
+    protected function deleteEntity(DimeEntityInterface $entity)
+    {
+        $this->om->remove($entity);
+        $this->om->flush();
     }
 }

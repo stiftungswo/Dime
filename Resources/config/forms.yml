@@ -1,0 +1,26 @@
+services:
+    dime.user.form.type:
+        class: Dime\TimetrackerBundle\Form\Type\UserFormType
+        tags:
+            - { name: form.type, alias: dime_timetrackerbundle_userformtype }
+            
+    dime.timeslice.form.type:
+        class: Dime\TimetrackerBundle\Form\Type\TimesliceFormType
+        tags:
+            - { name: form.type, alias: dime_timetrackerbundle_timesliceformtype }
+            
+    dime.user.password.type:
+        class: Dime\TimetrackerBundle\Form\Type\PasswordFormType
+        arguments: [ "@dime.user.password.crypttransformer" ]
+        tags: [{ name: "form.type", alias: "dime_timetrackerbundle_passwordformtype" }]
+
+    dime.user.password.crypttransformer:
+        class: Dime\TimetrackerBundle\Form\Transformer\PasswordCryptTransformer
+        arguments: [ "@fos_user.user_manager" ]
+        
+    dime.tags.type:
+        class: Dime\TimetrackerBundle\Form\Type\TagsFormType
+        arguments: [ "@doctrine.orm.entity_manager" ]
+        tags: [{ name: "form.type", alias: "dime_timetrackerbundle_tagsformtype" }]
+        
+    

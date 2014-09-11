@@ -6,15 +6,15 @@ class CustomersControllerTest extends DimeTestCase
 {
     public function testAuthentification()
     {
-        $this->assertEquals(500, $this->request('GET', '/api/customers', null, array(), array(), array())->getStatusCode());
+        $this->assertEquals(500, $this->request('GET', $this->api_prefix.'/customers', null, array(), array(), array())->getStatusCode());
         $this->loginAs('admin');
-        $this->assertEquals(200, $this->request('GET', '/api/customers')->getStatusCode());
+        $this->assertEquals(200, $this->request('GET', $this->api_prefix.'/customers')->getStatusCode());
     }
 
     public function testGetCustomersAction()
     {
         $this->loginAs('admin');
-        $response = $this->request('GET', '/api/customers');
+        $response = $this->request('GET', $this->api_prefix.'/customers');
 
         // convert json to array
         $data = json_decode($response->getContent(), true);
@@ -28,10 +28,10 @@ class CustomersControllerTest extends DimeTestCase
     {
         $this->loginAs('admin');
         /* expect to get 404 on non-existing service */
-        $this->assertEquals(404, $this->request('GET', '/api/customers/11111')->getStatusCode());
+        $this->assertEquals(404, $this->request('GET', $this->api_prefix.'/customers/11111')->getStatusCode());
 
         /* check existing service */
-        $response = $this->request('GET', '/api/customers/1');
+        $response = $this->request('GET', $this->api_prefix.'/customers/1');
 
         // convert json to array
         $data = json_decode($response->getContent(), true);
@@ -45,7 +45,7 @@ class CustomersControllerTest extends DimeTestCase
     {
         $this->loginAs('admin');
         /* create new service */
-        $response = $this->request('POST', '/api/customers', '{"name": "Test", "alias": "Test"}');
+        $response = $this->request('POST', $this->api_prefix.'/customers', '{"name": "Test", "alias": "Test"}');
         $this->assertEquals(200, $response->getStatusCode());
 
         // convert json to array
@@ -54,7 +54,7 @@ class CustomersControllerTest extends DimeTestCase
         $id = $data['id'];
 
         /* check created service */
-        $response = $this->request('GET', '/api/customers/' . $id . '');
+        $response = $this->request('GET', $this->api_prefix.'/customers/' . $id . '');
 
         // convert json to array
         $data = json_decode($response->getContent(), true);
@@ -64,14 +64,14 @@ class CustomersControllerTest extends DimeTestCase
         $this->assertEquals('test', $data['alias'], 'expected to find alias "Test"');
 
         /* modify service */
-        $response = $this->request('PUT', '/api/customers/' . $id . '', '{"name": "Modified Test", "alias": "Modified"}');
+        $response = $this->request('PUT', $this->api_prefix.'/customers/' . $id . '', '{"name": "Modified Test", "alias": "Modified"}');
         $this->assertEquals(200, $response->getStatusCode());
 
-        $response = $this->request('PUT', '/api/customers/' . ($id+1) . '', '{"name": "Modified Test", "alias": "Modified"}');
+        $response = $this->request('PUT', $this->api_prefix.'/customers/' . ($id+1) . '', '{"name": "Modified Test", "alias": "Modified"}');
         $this->assertEquals(404, $response->getStatusCode());
 
         /* check created service */
-        $response = $this->request('GET', '/api/customers/' . $id . '');
+        $response = $this->request('GET', $this->api_prefix.'/customers/' . $id . '');
 
         // convert json to array
         $data = json_decode($response->getContent(), true);
@@ -81,11 +81,11 @@ class CustomersControllerTest extends DimeTestCase
         $this->assertEquals('modified', $data['alias'], 'expected to find alias "Modified"');
 
         /* delete service */
-        $response = $this->request('DELETE', '/api/customers/' . $id . '');
+        $response = $this->request('DELETE', $this->api_prefix.'/customers/' . $id . '');
         $this->assertEquals(200, $response->getStatusCode());
 
         /* check if service still exists*/
-        $response = $this->request('GET', '/api/customers/' . $id . '');
+        $response = $this->request('GET', $this->api_prefix.'/customers/' . $id . '');
         $this->assertEquals(404, $response->getStatusCode());
     }
 }

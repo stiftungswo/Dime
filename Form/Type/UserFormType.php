@@ -22,10 +22,10 @@ class UserFormType extends AbstractType
     {
         $builder
             ->add('username')
-            ->add('password')
+            ->add('password', 'dime_timetrackerbundle_passwordformtype')
             ->add('firstname')
             ->add('lastname')
-            ->add('email')
+            ->add('email', 'email')
         ;
     }
 

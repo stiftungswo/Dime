@@ -12,6 +12,7 @@ class DimeTestCase extends WebTestCase
     /* @var $client Client */
     protected $client;
     const FIREWALL_NAME = 'main';
+    protected $api_prefix = '/api/v1';
 
     public function setUp()
     {
@@ -22,9 +23,9 @@ class DimeTestCase extends WebTestCase
         $method,
         $uri,
         $content = null,
+        array $server = array(),
         array $parameters = array(),
         array $files = array(),
-        array $server = array(),
         $changeHistory = true
     )
     {

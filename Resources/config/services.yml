@@ -1,13 +1,14 @@
 parameters:
     dime.user.handler.class:      Dime\TimetrackerBundle\Handler\UserHandler
     dime.user.class:  Dime\TimetrackerBundle\Entity\User
+    dime.timeslice.handler.class: Dime\TimetrackerBundle\Handler\TimesliceHandler
+    dime.timeslice.class: Dime\TimetrackerBundle\Entity\Timeslice 
 
 services:
     dime.user.handler:
         class: "%dime.user.handler.class%"
         arguments: [ "@doctrine.orm.entity_manager", "%dime.user.class%", "@form.factory" ]
         
-    dime.user.form.type:
-        class: Dime\TimetrackerBundle\Form\UserType
-        tags:
-            - { name: form.type, alias: user }
+    dime.timeslice.handler:
+        class: "%dime.timeslice.handler.class%"
+        arguments: [ "@doctrine.orm.entity_manager", "%dime.timeslice.class%", "@form.factory", "@dime.user.handler" ]

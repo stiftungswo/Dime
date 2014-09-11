@@ -2,212 +2,271 @@
 
 namespace Dime\TimetrackerBundle\Controller;
 
-use Dime\TimetrackerBundle\Entity\Timeslice;
-use Dime\TimetrackerBundle\Entity\TimesliceRepository;
-use Dime\TimetrackerBundle\Form\TimesliceType;
 use FOS\RestBundle\View\View;
+use Symfony\Component\HttpFoundation\Request;
+use FOS\RestBundle\Request\ParamFetcherInterface;
+use FOS\RestBundle\Util\Codes;
+use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use FOS\RestBundle\Controller\Annotations;
 
 class TimeslicesController extends DimeController
 {
-    /**
-     * @var array allowed filter keys
-     */
-    protected $allowed_filter = array(
-        'date',
-        'activity',
-        'customer',
-        'project',
-        'service',
-        'user',
-        'withTags',
-        'withoutTags'
-    );
+    
 
     /**
-     * get activity timeslice repository
+     * List all Timeslices.
      *
-     * @return TimesliceRepository
+     * @ApiDoc(
+     * resource = true,
+     * statusCodes = {
+     * 200 = "Returned when successful"
+     * }
+     * )
+     * 
+     * @Annotations\QueryParam(name="offset", requirements="\d+", nullable=true, description="Offset from which to start listing timeslices.")
+     * @Annotations\QueryParam(name="limit", requirements="\d+", default="5", description="How many timeslices to return.")
+     * @Annotations\QueryParam(array=true, name="filter", description="List of filters")
+     *
+     * @Annotations\View(
+     * templateVar="timeslices"
+     * )
+     *
+     * @Annotations\Route(requirements={"_format"="json|xml"})
+     *
+     * @param Request $request
+     *            the request object
+     * @param ParamFetcherInterface $paramFetcher
+     *            param fetcher service
+     *            
+     * @return array
      */
-    protected function getTimesliceRepository()
+    public function getTimeslicesAction(Request $request, ParamFetcherInterface $paramFetcher)
     {
-        return $this->getDoctrine()->getRepository('DimeTimetrackerBundle:Timeslice');
+        $offset = $paramFetcher->get('offset');
+        $offset = null == $offset ? 0 : $offset;
+        $limit = $paramFetcher->get('limit');
+        $filter = $paramFetcher->get('filter');
+        return $this->container->get('dime.timeslice.handler')->all($limit, $offset, $filter);
     }
 
     /**
-     * get tag repository
+     * Get single Timeslice,
      *
-     * @return TagRepository
+     * @ApiDoc(
+     * resource = true,
+     * description = "Gets a Timeslice for a given id",
+     * output = "Dime\TimetrackerBundle\Entity\Timeslice",
+     * statusCodes = {
+     * 200 = "Returned when successful",
+     * 404 = "Returned when the page is not found"
+     * }
+     * )
+     *
+     * @Annotations\View(templateVar="timeslice")
+     *
+     * @Annotations\Route(requirements={"_format"="json|xml"})
+     * 
+     * @param Request $request
+     *            the request object
+     * @param int $id
+     *            the page id
+     *            
+     * @return array
+     *
+     * @throws NotFoundHttpException when page not exist
      */
-    protected function getTagRepository()
+    public function getTimesliceAction($id)
     {
-        return $this->getDoctrine()->getRepository('DimeTimetrackerBundle:Tag');
+        return $this->getOr404($id, 'dime.timeslice.handler');
     }
 
     /**
-     * get a list of all timeslices
+     * Presents the form to use to create a new timeslice.
      *
-     * [GET] /timeslices
+     * @ApiDoc(
+     * resource = true,
+     * statusCodes = {
+     * 200 = "Returned when successful"
+     * }
+     * )
      *
-     * @return View
+     * @Annotations\View(
+     * templateVar = "form"
+     * )
+     *
+     * @return FormTypeInterface
      */
-    public function getTimeslicesAction()
+    public function newTimesliceAction()
     {
-        $timeslices = $this->getTimesliceRepository();
-
-        $timeslices->createCurrentQueryBuilder('ts');
-
-        // Filter
-        $filter = $this->getRequest()->get('filter');
-        if ($filter)  {
-            $timeslices->filter($this->cleanFilter($filter, $this->allowed_filter));
-        }
-
-        // Scope by current user
-        if (!isset($filter['user'])) {
-            $timeslices->scopeByUser($this->getCurrentUser()->getId());
-        }
-
-        // Sort by updatedAt
-        $timeslices->getCurrentQueryBuilder()->addOrderBy('ts.updatedAt', 'DESC');
-
-        // Pagination
-        return $this->paginate($timeslices->getCurrentQueryBuilder(),
-            $this->getRequest()->get('limit'),
-            $this->getRequest()->get('offset')
+        return $this->createForm('dime_timetrackerbundle_timesliceformtype', array(
+            'timeslice' => $this->container->get('fos_timeslice.timeslice_manager')->createTimeslice())
         );
     }
 
     /**
-     * get an timeslice by its id
+     * Create a new Timeslice from the submitted data.
      *
-     * [GET] /timeslices/{id}
+     * @ApiDoc(
+     * resource = true,
+     * description = "Creates a new page from the submitted data.",
+     * input = "Dime\TimetrackerBundle\Form\Type\TimesliceFormType",
+     * statusCodes = {
+     * 200 = "Returned when successful",
+     * 400 = "Returned when the form has errors"
+     * }
+     * )
      *
-     * @param  int  $id
-     * @return View
+     * @Annotations\Route(requirements={"_format"="json|xml"})
+     *
+     * @param Request $request
+     *            the request object
+     *            
+     * @return FormTypeInterface|View
      */
-    public function getTimesliceAction($id)
+    public function postTimesliceAction(Request $request)
     {
-        // find activity TimeSlice
-        $timeslice = $this->getTimesliceRepository()->find($id);
-
-        // check if it exists
-        if ($timeslice) {
-            // send array
-            $view = $this->createView($timeslice);
-        } else {
-            // activity TimeSlice does not exists send 404
-            $view = $this->createView("Timeslice does not exist.", 404);
-        }
-
-        return $view;
-    }
-
-    /**
-     * create a new timeslice
-     *
-     * [POST] /timeslices
-     *
-     * @return View
-     */
-    public function postTimeslicesAction()
-    {
-        // create new activity entity
-        $timeslice = new Timeslice();
-
-        // create activity form
-        $form = $this->createForm(new TimesliceType($this->getDoctrine()->getManager(), $this->getCurrentUser()), $timeslice);
-
-        // convert json to assoc array from request content
-        $data = json_decode($this->getRequest()->getContent(), true);
-
-        // parse duration
-        $data = $this->process($data);
-
-        return $this->saveForm($form, $data);
-    }
-
-    /**
-     * modify a timeslice by its id
-     *
-     * [PUT] /timeslices/{id}
-     *
-     * @param  string $id
-     * @return View
-     */
-    public function putTimesliceAction($id)
-    {
-        // find activity
-        $timeslice = $this->getTimesliceRepository()->find($id);
-
-        // check if it exists
-        if ($timeslice) {
-            // convert json to assoc array from request content
-            $data = json_decode($this->getRequest()->getContent(), true);
-
-            // parse duration
-            $data = $this->process($data);
-
-            // create form, decode request and save it if valid
-            $view = $this->saveForm(
-                $this->createForm(new TimesliceType($this->getDoctrine()->getManager(), $this->getCurrentUser()), $timeslice), $data
+        try {
+            $newentity = $this->container->get('dime.timeslice.handler')->post($request->request->all());
+            $routeOptions = array(
+                'id' => $newentity->getId(),
+                '_format' => $request->get('_format')
             );
-        } else {
-            // activity does not exists send 404
-            $view = $this->createView("Timeslice does not exist.", 404);
+            return $this->routeRedirectView('api_1_get_timeslice', $routeOptions, Codes::HTTP_CREATED);
+        } catch (InvalidFormException $exception) {
+            return $exception->getForm();
         }
-
-        return $view;
     }
 
     /**
-     * delete a timeslice by its id
-     * [DELETE] /timeslices/{id}
+     * Update existing timeslice from the submitted data or create a new timeslice at a specific location.
      *
-     * @param  int  $id
-     * @return View
+     * @ApiDoc(
+     * resource = true,
+     * input = "Dime\TimetrackerBundle\Form\Type\TimesliceFormType",
+     * statusCodes = {
+     * 201 = "Returned when the Timeslice is created",
+     * 204 = "Returned when successful",
+     * 400 = "Returned when the form has errors"
+     * }
+     * )
+     *
+     * @Annotations\Route(requirements={"_format"="json|xml"})
+     *
+     * @param Request $request
+     *            the request object
+     * @param int $id
+     *            the page id
+     *            
+     * @return FormTypeInterface|View
+     *
+     * @throws NotFoundHttpException when page not exist
+     *        
      */
-    public function deleteTimesliceAction($id)
+    public function putTimesliceAction(Request $request, $id)
     {
-        // find activity
-        $timeslice = $this->getTimesliceRepository()->find($id);
-
-        // check if it exists
-        if ($timeslice) {
-            // remove service
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($timeslice);
-            $em->flush();
-
-            // send status message
-            $view = $this->createView("Timeslice has been removed.");
-        } else {
-            // activity does not exists send 404
-            $view = $this->createView("Timeslice does not exist.", 404);
+        try {
+            if (! ($timeslice = $this->container->get('dime.timeslice.handler')->get($id))) {
+                $statusCode = Codes::HTTP_CREATED;
+                $timeslice = $this->container->get('dime.timeslice.handler')->post($request->request->all());
+            } else {
+                $statusCode = Codes::HTTP_NO_CONTENT;
+                $timeslice = $this->container->get('dime.timeslice.handler')->put($timeslice, $request->request->all());
+            }
+            $routeOptions = array(
+                'id' => $timeslice->getId(),
+                '_format' => $request->get('_format')
+            );
+            return $this->routeRedirectView('api_1_get_timeslice', $routeOptions, $statusCode);
+        } catch (InvalidFormException $exception) {
+            return $exception->getForm();
         }
-
-        return $view;
     }
 
-    protected function process(array $data)
+    /**
+     * Presents the form to use to edit a timeslice.
+     *
+     * @ApiDoc(
+     * resource = true,
+     * statusCodes = {
+     * 200 = "Returned when successful"
+     * }
+     * )
+     *
+     * @Annotations\View(
+     * templateVar = "form"
+     * )
+     *
+     * 
+     * @param unknown $id
+     * @return FormTypeInterface
+     */
+    public function editTimesliceAction($id)
     {
-      if (isset($data['formatDuration'])) {
-        $parser = new \Dime\TimetrackerBundle\Parser\DurationParser();
+        return $this->createForm('dime_timetrackerbundle_timesliceformtype', $this->getOr404($id, 'dime.timeslice.handler'));
+    }
 
-        $result = $parser->run($data['formatDuration']);
+    /**
+     * Delete existing timeslice
+     *
+     * @ApiDoc(
+     * resource = true,
+     * input = "Dime\TimetrackerBundle\Form\Type\TimesliceFormType",
+     * statusCodes = {
+     * 204 = "Returned when successful",
+     * }
+     * )
+     *
+     * @Annotations\Route(requirements={"_format"="json|xml"})
+     * 
+     * @param Request $request
+     *            the request object
+     * @param int $id
+     *            the page id
+     *            
+     * @return FormTypeInterface|View
+     *
+     * @throws NotFoundHttpException when page not exist
+     */
+    public function deleteTimesliceAction(Request $request, $id)
+    {
+        $this->container->get('dime.timeslice.handler')->delete($this->getOr404($id, 'dime.timeslice.handler'));
+        return $this->routeRedirectView('api_1_get_timeslices', array(), Codes::HTTP_NO_CONTENT);
+    }
 
-        if (!empty($result)) {
-          $data['duration'] = $result['duration']['number'];
+    /**
+     * Update existing timeslice from subset of data
+     *
+     * @ApiDoc(
+     * resource = true,
+     * input = "Dime\TimetrackerBundle\Form\Type\TimesliceFormType",
+     * statusCodes = {
+     * 204 = "Returned when successful",
+     * 400 = "Returned when the form has errors"
+     * }
+     * )
+     *
+     * @Annotations\Route(requirements={"_format"="json|xml"})
+     *
+     * @param Request $request
+     *            the request object
+     * @param int $id
+     *            the page id
+     *            
+     * @return FormTypeInterface|View
+     *
+     * @throws NotFoundHttpException when page not exist
+     */
+    public function patchTimesliceAction(Request $request, $id)
+    {
+        try {
+            $timeslice = $this->container->get('dime.timeslice.handler')->patch($this->getOr404($id, 'dime.timeslice.handler'), $request->request->all());
+            $routeOptions = array(
+                'id' => $timeslice->getId(),
+                '_format' => $request->get('_format')
+            );
+            return $this->routeRedirectView('api_1_get_timeslice', $routeOptions, Codes::HTTP_NO_CONTENT);
+        } catch (InvalidFormException $exception) {
+            return $exception->getForm();
         }
-      }
-
-      if (isset($data['startedAt-date'])) {
-
-      }
-
-      if (isset($data['stoppedAt-date'])) {
-
-      }
-
-      return $data;
     }
 }

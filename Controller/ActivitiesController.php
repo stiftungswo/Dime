@@ -15,6 +15,7 @@ use Dime\TimetrackerBundle\Entity\ServiceRepository;
 use Dime\TimetrackerBundle\Entity\Tag;
 use Dime\TimetrackerBundle\Entity\TagRepository;
 use Dime\TimetrackerBundle\Form\ActivityType;
+use Dime\TimetrackerBundle\Form\Type\ActivityFormType;
 
 class ActivitiesController extends DimeController
 {
@@ -297,7 +298,7 @@ class ActivitiesController extends DimeController
             $view = $this->createView($activity);
         } else {
             // create activity form
-            $form = $this->createForm(new ActivityType($this->getDoctrine()->getManager(), $this->getCurrentUser()), $activity);
+            $form = $this->createForm(new ActivityFormType($this->getDoctrine()->getManager(), $this->getCurrentUser()), $activity);
             $view = $this->saveForm($form, $data);
         }
 

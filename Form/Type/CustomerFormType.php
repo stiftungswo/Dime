@@ -6,6 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Dime\TimetrackerBundle\Entity\User;
+use Dime\TimetrackerBundle\Form\Transfomer\TagTransformer;
 
 class CustomerFormType extends AbstractType
 {
