@@ -7,7 +7,7 @@ use FOS\UserBundle\Model\UserInterface;
 
 class UserHandler extends AbstractHandler implements HandlerInterface
 {
-
+    private $formType = 'dime_timetrackerbundle_userformtype';
     /**
      * (non-PHPdoc)
      * @see \Dime\TimetrackerBundle\Model\HandlerInterface::all()
@@ -15,25 +15,6 @@ class UserHandler extends AbstractHandler implements HandlerInterface
     public function all($limit = 5, $offset = 0)
     {
         return $this->repository->findBy(array(), null, $limit, $offset);
-    }
-
-    /**
-     * (non-PHPdoc)
-     * @see \Dime\TimetrackerBundle\Model\HandlerInterface::patch()
-     */
-    public function patch(DimeEntityInterface $entity, array $parameters)
-    {
-        return $this->processForm($entity, $parameters, 'dime_timetrackerbundle_userformtype', 'PATCH');
-    }
-
-    /**
-     * (non-PHPdoc)
-     * @see \Dime\TimetrackerBundle\Model\HandlerInterface::post()
-     */
-    public function post(array $parameters)
-    {
-        $user = $this->newClassInstance();
-        return $this->processForm($user, $parameters, 'dime_timetrackerbundle_userformtype','POST');
     }
 
     /**
@@ -47,11 +28,21 @@ class UserHandler extends AbstractHandler implements HandlerInterface
 
     /**
      * (non-PHPdoc)
+     * @see \Dime\TimetrackerBundle\Model\HandlerInterface::post()
+     */
+    public function post(array $parameters)
+    {
+        $entity = $this->newClassInstance();
+        return $this->processForm($entity, $parameters, $this->formType,'POST');
+    }
+
+    /**
+     * (non-PHPdoc)
      * @see \Dime\TimetrackerBundle\Model\HandlerInterface::put()
      */
     public function put(DimeEntityInterface $entity, array $parameters)
     {
-        return $this->processForm($entity, $parameters, 'dime_timetrackerbundle_userformtype', 'PUT');
+        return $this->processForm($entity, $parameters, $this->formType, 'PUT');
     }
     
     /*

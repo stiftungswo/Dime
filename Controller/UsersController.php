@@ -12,8 +12,12 @@ use FOS\RestBundle\Controller\Annotations;
 class UsersController extends DimeController
 {
 
+    private $handlerSerivce = 'dime.user.handler';
+
+    private $formType = 'dime_timetrackerbundle_userformtype';
+
     /**
-     * List all users.
+     * List all Entities.
      *
      * @ApiDoc(
      * resource = true,
@@ -21,7 +25,7 @@ class UsersController extends DimeController
      * 200 = "Returned when successful"
      * }
      * )
-     * 
+     *
      * @Annotations\QueryParam(name="offset", requirements="\d+", nullable=true, description="Offset from which to start listing users.")
      * @Annotations\QueryParam(name="limit", requirements="\d+", default="5", description="How many users to return.")
      *
@@ -43,11 +47,11 @@ class UsersController extends DimeController
         $offset = $paramFetcher->get('offset');
         $offset = null == $offset ? 0 : $offset;
         $limit = $paramFetcher->get('limit');
-        return $this->container->get('dime.user.handler')->all($limit, $offset);
+        return $this->container->get($this->handlerSerivce)->all($limit, $offset);
     }
 
     /**
-     * Get single User,
+     * Get single Entity
      *
      * @ApiDoc(
      * resource = true,
@@ -62,7 +66,7 @@ class UsersController extends DimeController
      * @Annotations\View(templateVar="user")
      *
      * @Annotations\Route(requirements={"_format"="json|xml"})
-     * 
+     *
      * @param Request $request
      *            the request object
      * @param int $id
@@ -74,11 +78,11 @@ class UsersController extends DimeController
      */
     public function getUserAction($id)
     {
-        return $this->getOr404($id, 'dime.user.handler');
+        return $this->getOr404($id, $this->handlerSerivce);
     }
-    
+
     /**
-     * Presents the form to use to create a new user.
+     * Presents the form to use to create a new Entity.
      *
      * @ApiDoc(
      * resource = true,
@@ -95,18 +99,18 @@ class UsersController extends DimeController
      */
     public function newUserAction()
     {
-        return $this->createForm('dime_timetrackerbundle_userformtype');
+        return $this->createForm($this->formType);
     }
 
     /**
-     * Create a new User from the submitted data.
+     * Create a new Entity from the submitted data.
      *
      * @ApiDoc(
      * resource = true,
      * description = "Creates a new page from the submitted data.",
      * input = "Dime\TimetrackerBundle\Form\Type\UserFormType",
      * statusCodes = {
-     * 200 = "Returned when successful",
+     * 201 = "Returned when successful",
      * 400 = "Returned when the form has errors"
      * }
      * )
@@ -121,27 +125,23 @@ class UsersController extends DimeController
     public function postUserAction(Request $request)
     {
         try {
-            $newUser = $this->container->get('dime.user.handler')->post($request->request->all());
-            $routeOptions = array(
-                'id' => $newUser->getId(),
-                '_format' => $request->get('_format')
-            );
-            return $this->routeRedirectView('api_1_get_user', $routeOptions);
+            $newUser = $this->container->get($this->handlerSerivce)->post($request->request->all());
+            return $this->view($newUser, Codes::HTTP_CREATED);
         } catch (InvalidFormException $exception) {
             return $exception->getForm();
         }
     }
 
     /**
-     * Update existing user from the submitted data or create a new user at a specific location.
+     * Update existing Entity.
      *
      * @ApiDoc(
      * resource = true,
      * input = "Dime\TimetrackerBundle\Form\Type\UserFormType",
      * statusCodes = {
-     * 201 = "Returned when the User is created",
-     * 204 = "Returned when successful",
-     * 400 = "Returned when the form has errors"
+     * 200 = "Returned when the Entity was updated",
+     * 400 = "Returned when the form has errors",
+     * 404 = "Returned when the User does not exist"
      * }
      * )
      *
@@ -160,30 +160,22 @@ class UsersController extends DimeController
     public function putUserAction(Request $request, $id)
     {
         try {
-            if (! ($user = $this->container->get('dime.user.handler')->get($id))) {
-                $statusCode = Codes::HTTP_CREATED;
-                $user = $this->container->get('dime.user.handler')->post($request->request->all());
-            } else {
-                $statusCode = Codes::HTTP_NO_CONTENT;
-                $user = $this->container->get('dime.user.handler')->put($user, $request->request->all());
-            }
-            $routeOptions = array(
-                'id' => $user->getId(),
-                '_format' => $request->get('_format')
-            );
-            return $this->routeRedirectView('api_1_get_user', $routeOptions, $statusCode);
+            $entity = $this->getOr404($id, $this->handlerSerivce);
+            $entity = $this->container->get($this->handlerSerivce)->put($entity, $request->request->all());
+            return $this->view($entity, Codes::HTTP_OK);
         } catch (InvalidFormException $exception) {
             return $exception->getForm();
         }
     }
-    
+
     /**
-     * Presents the form to use to edit a user.
+     * Presents the form to use to edit a Entity.
      *
      * @ApiDoc(
      * resource = true,
      * statusCodes = {
-     * 200 = "Returned when successful"
+     * 200 = "Returned when successful",
+     * 404 = "Returned when the Entity does not exist"
      * }
      * )
      *
@@ -191,28 +183,29 @@ class UsersController extends DimeController
      * templateVar = "form"
      * )
      *
-     * 
-     * @param unknown $id
+     *
+     * @param unknown $id            
      * @return FormTypeInterface
      */
     public function editUserAction($id)
     {
-        return $this->createForm('dime_timetrackerbundle_userformtype', $this->getOr404($id, 'dime.user.handler'));
+        return $this->createForm($this->formType, $this->getOr404($id, $this->handlerSerivce));
     }
 
     /**
-     * Delete existing user
+     * Delete existing Entity
      *
      * @ApiDoc(
      * resource = true,
      * input = "Dime\TimetrackerBundle\Form\Type\UserFormType",
      * statusCodes = {
      * 204 = "Returned when successful",
+     * 404 = "Returned when User does not exist."
      * }
      * )
      *
      * @Annotations\Route(requirements={"_format"="json|xml"})
-     * 
+     *
      * @param Request $request
      *            the request object
      * @param int $id
@@ -224,47 +217,10 @@ class UsersController extends DimeController
      */
     public function deleteUserAction(Request $request, $id)
     {
-        $this->container->get('dime.user.handler')->delete($this->getOr404($id, 'dime.user.handler'));
-        return $this->routeRedirectView('api_1_get_users', array(), Codes::HTTP_NO_CONTENT);
+        $this->container->get($this->handlerSerivce)->delete($this->getOr404($id, $this->handlerSerivce));
+        return $this->view(null, Codes::HTTP_NO_CONTENT);
     }
 
-    /**
-     * Update existing user from subset of data
-     *
-     * @ApiDoc(
-     * resource = true,
-     * input = "Dime\TimetrackerBundle\Form\Type\UserFormType",
-     * statusCodes = {
-     * 204 = "Returned when successful",
-     * 400 = "Returned when the form has errors"
-     * }
-     * )
-     *
-     * @Annotations\Route(requirements={"_format"="json|xml"})
-     *
-     * @param Request $request
-     *            the request object
-     * @param int $id
-     *            the page id
-     *            
-     * @return FormTypeInterface|View
-     *
-     * @throws NotFoundHttpException when page not exist
-     */
-    public function patchUserAction(Request $request, $id)
-    {
-        try {
-            $user = $this->container->get('dime.user.handler')->patch($this->getOr404($id, 'dime.user.handler'), $request->request->all());
-            $routeOptions = array(
-                'id' => $user->getId(),
-                '_format' => $request->get('_format')
-            );
-            return $this->routeRedirectView('api_1_get_user', $routeOptions, Codes::HTTP_NO_CONTENT);
-        } catch (InvalidFormException $exception) {
-            return $exception->getForm();
-        }
-    }
-    
     /**
      * Enable the User
      *
@@ -272,6 +228,7 @@ class UsersController extends DimeController
      * resource = true,
      * statusCodes = {
      * 204 = "Returned when successful",
+     * 404 = "Returned when entity does not exist"
      * }
      * )
      *
@@ -279,10 +236,10 @@ class UsersController extends DimeController
      */
     public function enableUserAction($id)
     {
-        $this->container->get('dime.user.handler')->enable($this->getOr404($id, 'dime.user.handler'));
-        return $this->routeRedirectView('api_1_get_users', array(), Codes::HTTP_NO_CONTENT);
+        $this->container->get($this->handlerSerivce)->enable($this->getOr404($id, $this->handlerSerivce));
+        return $this->view(null, Codes::HTTP_NO_CONTENT);
     }
-    
+
     /**
      * Lock the User
      *
@@ -290,6 +247,7 @@ class UsersController extends DimeController
      * resource = true,
      * statusCodes = {
      * 204 = "Returned when successful",
+     * 404 = "Returned when entity does not exist"
      * }
      * )
      *
@@ -297,7 +255,7 @@ class UsersController extends DimeController
      */
     public function lockUserAction($id)
     {
-        $this->container->get('dime.user.handler')->lock($this->getOr404($id, 'dime.user.handler'));
-        return $this->routeRedirectView('api_1_get_users', array(), Codes::HTTP_NO_CONTENT);
+        $this->container->get($this->handlerSerivce)->lock($this->getOr404($id, $this->handlerSerivce));
+        return $this->view(null, Codes::HTTP_NO_CONTENT);
     }
 }

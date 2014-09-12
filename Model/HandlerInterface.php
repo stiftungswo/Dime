@@ -46,17 +46,17 @@ interface HandlerInterface
      * @return DimeEntityInterface
     */
     public function put(DimeEntityInterface $entity, array $parameters);
-    /**
-     * Partially update a Entity.
-     *
-     * @api
-     *
-     * @param DimeEntityInterface $entity
-     * @param array $parameters
-     *
-     * @return DimeEntityInterface
-    */
-    public function patch(DimeEntityInterface $entity, array $parameters);
+//     /**
+//      * Partially update a Entity.
+//      *
+//      * @api
+//      *
+//      * @param DimeEntityInterface $entity
+//      * @param array $parameters
+//      *
+//      * @return DimeEntityInterface
+//     */
+//     public function patch(DimeEntityInterface $entity, array $parameters);
     /**
      * Delete an Entity
      * 

@@ -44,7 +44,7 @@ abstract class AbstractHandler
     {
         $formoptions['method'] = $method;
         $form = $this->formFactory->create($form, $entity, $formoptions);
-        $form->submit($parameters, 'PATCH' !== $method);
+        $form->submit($parameters, 'PUT' !== $method);
         if ($form->isValid()) {
             $entity = $form->getData();
             $this->om->persist($entity);
