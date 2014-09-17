@@ -10,15 +10,7 @@ use Dime\TimetrackerBundle\Form\Transformer\PasswordCryptTransformer;
 use FOS\UserBundle\Model\UserManagerInterface;
 
 class UserFormType extends AbstractType
-{
-    
-    private $userManager;
-    
-    public function __construct(UserManagerInterface $userManager)
-    {
-        $this->userManager = $userManager;
-    }
-    
+{   
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(
@@ -32,11 +24,9 @@ class UserFormType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $transformer = new PasswordCryptTransformer($this->userManager);
         $builder
             ->add('username')
-            ->add($builder->create('pasword', 'text')
-                ->addViewTransformer($transformer))
+            ->add('plainpassword')
             ->add('firstname')
             ->add('lastname')
             ->add('email', 'email')

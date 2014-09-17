@@ -1,7 +1,7 @@
 services:
     dime.user.handler:
         class: "Dime\TimetrackerBundle\Handler\UserHandler"
-        arguments: [ "@doctrine.orm.entity_manager", "Dime\TimetrackerBundle\Entity\User", "@form.factory", "@security.context" ]
+        arguments: [ "@doctrine.orm.entity_manager", "Dime\TimetrackerBundle\Entity\User", "@form.factory", "@security.context", "@fos_user.user_manager" ]
         
     dime.timeslice.handler:
         class: "Dime\TimetrackerBundle\Handler\TimesliceHandler"

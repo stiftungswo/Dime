@@ -4,10 +4,27 @@ namespace Dime\TimetrackerBundle\Handler;
 use Dime\TimetrackerBundle\Model\HandlerInterface;
 use Dime\TimetrackerBundle\Model\DimeEntityInterface;
 use FOS\UserBundle\Model\UserInterface;
+use Dime\TimetrackerBundle\Exception\InvalidFormException;
+use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\Security\Core\SecurityContext;
+use FOS\UserBundle\Model\UserManager;
 
 class UserHandler extends AbstractHandler implements HandlerInterface
 {
     private $formType = 'dime_timetrackerbundle_userformtype';
+    
+    private $userManager;
+
+     /* (non-PHPdoc)
+      * @see \Dime\TimetrackerBundle\Handler\AbstractHandler::__construct()
+      */
+     public function __construct(ObjectManager $om, $entityClass, FormFactoryInterface $formFactory, SecurityContext $secContext, UserManager $userManager) 
+     {
+        parent::__construct($om, $entityClass, $formFactory, $secContext);
+        $this->userManager = $userManager;
+     }
+
     /**
      * (non-PHPdoc)
      * @see \Dime\TimetrackerBundle\Model\HandlerInterface::all()
@@ -32,8 +49,8 @@ class UserHandler extends AbstractHandler implements HandlerInterface
      */
     public function post(array $parameters)
     {
-        $entity = $this->newClassInstance();
-        return $this->processForm($entity, $parameters, $this->formType,'POST');
+        $entity = $this->userManager->createUser();
+        return $this->processUser($entity, $parameters, $this->formType,'POST');
     }
 
     /**
@@ -42,7 +59,7 @@ class UserHandler extends AbstractHandler implements HandlerInterface
      */
     public function put(DimeEntityInterface $entity, array $parameters)
     {
-        return $this->processForm($entity, $parameters, $this->formType, 'PUT');
+        return $this->processUser($entity, $parameters, $this->formType, 'PUT');
     }
     
     /*
@@ -74,5 +91,22 @@ class UserHandler extends AbstractHandler implements HandlerInterface
         $user->setEnabled(false);
         $this->om->persist($user);
         $this->om->flush();
+    }
+    
+    /*
+     * A Slightly Changed Function to Properly handle User Entities
+     */
+    private function processUser(DimeEntityInterface $entity, array $parameters, $form, $method = "PUT", $formoptions = array())
+    {
+        $formoptions['method'] = $method;
+        $form = $this->formFactory->create($form, $entity, $formoptions);
+        $form->submit($parameters, 'PUT' !== $method);
+        if ($form->isValid()) {
+            $user = $form->getData();
+            $this->userManager->updatePassword($user);
+            $this->userManager->updateUser($user);
+            return $user;
+        }
+        throw new InvalidFormException('Invalid submitted data', $form);
     }
 }

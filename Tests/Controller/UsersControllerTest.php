@@ -58,11 +58,11 @@ class UsersControllerTest extends DimeTestCase
     public function testPostPutDeleteUserActions()
     {
         $this->postarray = array(
-            'username'    => 'test-user',
-            'password'    => 'test',
-            'firstname'   => 'Test',
-            'lastname'    => 'User',
-            'email'       => 'test@user.com'
+            'username'         => 'test-user',
+            'plainpassword'    => 'test',
+            'firstname'        => 'Test',
+            'lastname'         => 'User',
+            'email'            => 'test@user.com'
         );
         
         $this->putarray = array(
