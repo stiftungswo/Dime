@@ -1,26 +1,33 @@
 services:
     dime.user.form.type:
         class: Dime\TimetrackerBundle\Form\Type\UserFormType
-        tags:
-            - { name: form.type, alias: dime_timetrackerbundle_userformtype }
-            
+        arguments: [ "@fos_user.user_manager" ]
+        tags: [{ name: form.type, alias: dime_timetrackerbundle_userformtype }]
+
     dime.timeslice.form.type:
         class: Dime\TimetrackerBundle\Form\Type\TimesliceFormType
-        tags:
-            - { name: form.type, alias: dime_timetrackerbundle_timesliceformtype }
-            
-    dime.user.password.type:
-        class: Dime\TimetrackerBundle\Form\Type\PasswordFormType
-        arguments: [ "@dime.user.password.crypttransformer" ]
-        tags: [{ name: "form.type", alias: "dime_timetrackerbundle_passwordformtype" }]
+        tags: [ { name: form.type, alias: dime_timetrackerbundle_timesliceformtype }]
 
-    dime.user.password.crypttransformer:
-        class: Dime\TimetrackerBundle\Form\Transformer\PasswordCryptTransformer
-        arguments: [ "@fos_user.user_manager" ]
+    dime.tag.form.type:
+        class: Dime\TimetrackerBundle\Form\Type\TagFormType
+        tags: [{ name: "form.type", alias: "dime_timetrackerbundle_tagformtype" }]
         
-    dime.tags.type:
-        class: Dime\TimetrackerBundle\Form\Type\TagsFormType
-        arguments: [ "@doctrine.orm.entity_manager" ]
-        tags: [{ name: "form.type", alias: "dime_timetrackerbundle_tagsformtype" }]
+    dime.setting.form.type:
+        class: Dime\TimetrackerBundle\Form\Type\SettingFormType
+        tags: [{ name: "form.type", alias: "dime_timetrackerbundle_settingformtype" }]
         
-    
+    dime.service.form.type:
+        class: Dime\TimetrackerBundle\Form\Type\ServiceFormType
+        tags: [{ name: "form.type", alias: "dime_timetrackerbundle_serviceformtype" }]
+        
+    dime.project.form.type:
+        class: Dime\TimetrackerBundle\Form\Type\ProjectFormType
+        tags: [{ name: "form.type", alias: "dime_timetrackerbundle_projectformtype" }]
+        
+    dime.customer.form.type:
+        class: Dime\TimetrackerBundle\Form\Type\CustomerFormType
+        tags: [{ name: "form.type", alias: "dime_timetrackerbundle_customerformtype" }]
+        
+    dime.activity.form.type:
+        class: Dime\TimetrackerBundle\Form\Type\ActivityFormType
+        tags: [{ name: "form.type", alias: "dime_timetrackerbundle_activityformtype" }]

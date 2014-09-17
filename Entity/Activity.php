@@ -4,6 +4,7 @@ namespace Dime\TimetrackerBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as JMS;
 use Doctrine\Common\Collections\ArrayCollection;
+use Dime\TimetrackerBundle\Model\DimeEntityInterface;
 
 /**
  * Dime\TimetrackerBundle\Entity\Activity
@@ -11,7 +12,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @ORM\Table(name="activities")
  * @ORM\Entity(repositoryClass="Dime\TimetrackerBundle\Entity\ActivityRepository")
  */
-class Activity extends Entity
+class Activity extends Entity implements DimeEntityInterface
 {
     /**
      * @var Customer $customer

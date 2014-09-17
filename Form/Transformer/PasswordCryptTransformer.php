@@ -35,6 +35,7 @@ class PasswordCryptTransformer implements DataTransformerInterface
      */
     public function reverseTransform($password)
     {
+        //Does Login Work with this?
         $tmpuser = $this->userManager->createUser();
         $tmpuser->setPlainPassword($password);
         $this->userManager->updatePassword($tmpuser);

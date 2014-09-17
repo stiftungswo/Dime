@@ -2,168 +2,221 @@
 
 namespace Dime\TimetrackerBundle\Controller;
 
-use Dime\TimetrackerBundle\Entity\Customer;
-use Dime\TimetrackerBundle\Entity\CustomerRepository;
-use Dime\TimetrackerBundle\Form\CustomerType;
 use FOS\RestBundle\View\View;
+use Symfony\Component\HttpFoundation\Request;
+use FOS\RestBundle\Request\ParamFetcherInterface;
+use FOS\RestBundle\Util\Codes;
+use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use FOS\RestBundle\Controller\Annotations;
 
 class CustomersController extends DimeController
 {
-    /**
-     * @var array allowed filter keys
-     */
-    protected $allowed_filter = array(
-        'withTags',
-        'withoutTags',
-        'search',
-        'user'
-    );
+    private $handlerSerivce = 'dime.customer.handler';
+    
+    private $formType = 'dime_timetrackerbundle_customerformtype';
 
     /**
-     * get customer repository
+     * List all Entities.
      *
-     * @return CustomerRepository
+     * @ApiDoc(
+     * resource = true,
+     * statusCodes = {
+     * 200 = "Returned when successful"
+     * }
+     * )
+     *
+     * @Annotations\QueryParam(name="offset", requirements="\d+", nullable=true, description="Offset from which to start listing customers.")
+     * @Annotations\QueryParam(name="limit", requirements="\d+", default="5", description="How many customers to return.")
+     *
+     * @Annotations\View(
+     * templateVar="customers"
+     * )
+     *
+     * @Annotations\Route(requirements={"_format"="json|xml"})
+     *
+     * @param Request $request
+     *            the request object
+     * @param ParamFetcherInterface $paramFetcher
+     *            param fetcher customer
+     *            
+     * @return array
      */
-    public function getCustomerRepository()
+    public function getCustomersAction(Request $request, ParamFetcherInterface $paramFetcher)
     {
-        return $this->getDoctrine()->getRepository('DimeTimetrackerBundle:Customer');
+        $offset = $paramFetcher->get('offset');
+        $offset = null == $offset ? 0 : $offset;
+        $limit = $paramFetcher->get('limit');
+        return $this->container->get($this->handlerSerivce)->all($limit, $offset);
     }
 
     /**
-     * get a list with all customers
+     * Get single Entity
      *
-     * [GET] /customers
+     * @ApiDoc(
+     * resource = true,
+     * description = "Gets a Customer for a given id",
+     * output = "Dime\TimetrackerBundle\Entity\Customer",
+     * statusCodes = {
+     * 200 = "Returned when successful",
+     * 404 = "Returned when the page is not found"
+     * }
+     * )
      *
-     * @return View
-     */
-    public function getCustomersAction()
-    {
-        $customers = $this->getCustomerRepository();
-
-        $customers->createCurrentQueryBuilder('c');
-
-        // Filter
-        $filter = $this->getRequest()->get('filter');
-        if ($filter) {
-            $customers->filter($this->cleanFilter($filter, $this->allowed_filter));
-        }
-
-        // Scope by current user
-        if (!isset($filter['user'])) {
-            $customers->scopeByField('user', $this->getCurrentUser()->getId());
-        }
-
-        // Sort by name
-        $customers->getCurrentQueryBuilder()->addOrderBy('c.name', 'ASC');
-
-        // Pagination
-        return $this->paginate($customers->getCurrentQueryBuilder(),
-            $this->getRequest()->get('limit'),
-            $this->getRequest()->get('offset')
-        );
-    }
-
-    /**
-     * get a customer by its id
+     * @Annotations\View(templateVar="customer")
      *
-     * [GET] /customers/{id}
+     * @Annotations\Route(requirements={"_format"="json|xml"})
      *
-     * @param  int  $id
-     * @return View
+     * @param Request $request
+     *            the request object
+     * @param int $id
+     *            the page id
+     *            
+     * @return array
+     *
+     * @throws NotFoundHttpException when page not exist
      */
     public function getCustomerAction($id)
     {
-        // find customer
-        $customer = $this->getCustomerRepository()->find($id);
-
-        // check if exists
-        if ($customer) {
-            // send array
-            $view = $this->createView($customer);
-        } else {
-            // customer does not exists send 404
-            $view = $this->createView("Customer does not exist.", 404);
-        }
-
-        return $view;
+        return $this->getOr404($id, $this->handlerSerivce);
     }
 
     /**
-     * create a new customer
-     * [POST] /customers
+     * Presents the form to use to create a new Entity.
      *
-     * @return View
+     * @ApiDoc(
+     * resource = true,
+     * statusCodes = {
+     * 200 = "Returned when successful"
+     * }
+     * )
+     *
+     * @Annotations\View(
+     * templateVar = "form"
+     * )
+     *
+     * @return FormTypeInterface
      */
-    public function postCustomersAction()
+    public function newCustomerAction()
     {
-         // create new customer
-        $customer = new Customer();
-
-        // create customer form
-        $form = $this->createForm(new CustomerType($this->getDoctrine()->getManager(), $this->getCurrentUser()), $customer);
-
-        // convert json to assoc array from request content
-        $data = json_decode($this->getRequest()->getContent(), true);
-        //$data = $this->handleTagsInput($data);
-
-        return $this->saveForm($form, $data);
+        return $this->createForm($this->formType);
     }
 
     /**
-     * modify a customer by its id
-     * [PUT] /customers/{id}
+     * Create a new Entity from the submitted data.
      *
-     * @param  int  $id
-     * @return View
+     * @ApiDoc(
+     * resource = true,
+     * description = "Creates a new page from the submitted data.",
+     * input = "Dime\TimetrackerBundle\Form\Type\CustomerFormType",
+     * statusCodes = {
+     * 201 = "Returned when successful",
+     * 400 = "Returned when the form has errors"
+     * }
+     * )
+     *
+     * @Annotations\Route(requirements={"_format"="json|xml"})
+     *
+     * @param Request $request
+     *            the request object
+     *            
+     * @return FormTypeInterface|View
      */
-    public function putCustomersAction($id)
+    public function postCustomerAction(Request $request)
     {
-        // find customer
-        $customer = $this->getCustomerRepository()->find($id);
-
-        // check if exists
-        if ($customer) {
-            // create form, decode request and save it if valid
-            $data = json_decode($this->getRequest()->getContent(), true);
-            //$data = $this->handleTagsInput($data);
-            $view = $this->saveForm(
-                $this->createForm(new CustomerType($this->getDoctrine()->getManager(), $this->getCurrentUser()), $customer),
-                $data
-            );
-        } else {
-            // customer does not exists send 404
-             $view = $this->createView("Customer does not exist.", 404);
+        try {
+            $newCustomer = $this->container->get($this->handlerSerivce)->post($request->request->all());
+            return $this->view($newCustomer, Codes::HTTP_CREATED);
+        } catch (InvalidFormException $exception) {
+            return $exception->getForm();
         }
-
-        return $view;
     }
 
     /**
-     * delete customer by its id
-     * [DELETE] /customerd/{id}
+     * Update existing Entity.
      *
-     * @param  int  $id
-     * @return View
+     * @ApiDoc(
+     * resource = true,
+     * input = "Dime\TimetrackerBundle\Form\Type\CustomerFormType",
+     * statusCodes = {
+     * 200 = "Returned when the Entity was updated",
+     * 400 = "Returned when the form has errors",
+     * 404 = "Returned when the Customer does not exist"
+     * }
+     * )
+     *
+     * @Annotations\Route(requirements={"_format"="json|xml"})
+     *
+     * @param Request $request
+     *            the request object
+     * @param int $id
+     *            the page id
+     *            
+     * @return FormTypeInterface|View
+     *
+     * @throws NotFoundHttpException when page not exist
+     *        
      */
-    public function deleteCustomersAction($id)
+    public function putCustomerAction(Request $request, $id)
     {
-        // find customer
-        $customer = $this->getCustomerRepository()->find($id);
-
-        // check if exists
-        if ($customer) {
-            // remove customer
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($customer);
-            $em->flush();
-
-            // send status message
-            $view = $this->createView("Customer has been removed.");
-        } else {
-            // customer does not exists send 404
-            $view = $this->createView("Customer does not exist.", 404);
+        try {
+            $entity = $this->getOr404($id, $this->handlerSerivce);
+            $entity = $this->container->get($this->handlerSerivce)->put($entity, $request->request->all());
+            return $this->view($entity, Codes::HTTP_OK);
+        } catch (InvalidFormException $exception) {
+            return $exception->getForm();
         }
+    }
 
-        return $view;
+    /**
+     * Presents the form to use to edit a Entity.
+     *
+     * @ApiDoc(
+     * resource = true,
+     * statusCodes = {
+     * 200 = "Returned when successful",
+     * 404 = "Returned when the Entity does not exist"
+     * }
+     * )
+     *
+     * @Annotations\View(
+     * templateVar = "form"
+     * )
+     *
+     *
+     * @param unknown $id            
+     * @return FormTypeInterface
+     */
+    public function editCustomerAction($id)
+    {
+        return $this->createForm($this->formType, $this->getOr404($id, $this->handlerSerivce));
+    }
+
+    /**
+     * Delete existing Entity
+     *
+     * @ApiDoc(
+     * resource = true,
+     * input = "Dime\TimetrackerBundle\Form\Type\CustomerFormType",
+     * statusCodes = {
+     * 204 = "Returned when successful",
+     * 404 = "Returned when Customer does not exist."
+     * }
+     * )
+     *
+     * @Annotations\Route(requirements={"_format"="json|xml"})
+     *
+     * @param Request $request
+     *            the request object
+     * @param int $id
+     *            the page id
+     *            
+     * @return FormTypeInterface|View
+     *
+     * @throws NotFoundHttpException when page not exist
+     */
+    public function deleteCustomerAction(Request $request, $id)
+    {
+        $this->container->get($this->handlerSerivce)->delete($this->getOr404($id, $this->handlerSerivce));
+        return $this->view(null, Codes::HTTP_NO_CONTENT);
     }
 }

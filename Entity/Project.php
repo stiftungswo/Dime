@@ -8,6 +8,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation as JMS;
 use Doctrine\Common\Collections\ArrayCollection;
+use Dime\TimetrackerBundle\Model\DimeEntityInterface;
 
 /**
  * Dime\TimetrackerBundle\Entity\Project
@@ -19,7 +20,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * )
  * @ORM\Entity(repositoryClass="Dime\TimetrackerBundle\Entity\ProjectRepository")
  */
-class Project extends Entity
+class Project extends Entity implements DimeEntityInterface
 {
     /**
      * @var Customer $customer

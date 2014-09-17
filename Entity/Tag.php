@@ -4,6 +4,7 @@ namespace Dime\TimetrackerBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
+use Dime\TimetrackerBundle\Model\DimeEntityInterface;
 
 /**
  * Dime\TimetrackerBundle\Entity\Tag
@@ -15,7 +16,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * )
  * @ORM\Entity(repositoryClass="Dime\TimetrackerBundle\Entity\TagRepository")
  */
-class Tag extends Entity
+class Tag extends Entity implements DimeEntityInterface
 {
     /**
      * @var string $name

@@ -2,159 +2,221 @@
 
 namespace Dime\TimetrackerBundle\Controller;
 
-use Dime\TimetrackerBundle\Entity\Tag;
-use Dime\TimetrackerBundle\Entity\TagRepository;
-use Dime\TimetrackerBundle\Form\TagType;
 use FOS\RestBundle\View\View;
+use Symfony\Component\HttpFoundation\Request;
+use FOS\RestBundle\Request\ParamFetcherInterface;
+use FOS\RestBundle\Util\Codes;
+use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use FOS\RestBundle\Controller\Annotations;
 
 class TagsController extends DimeController
 {
-    /**
-     * @var array allowed filter keys
-     */
-    protected $allowed_filter = array('search');
+    private $handlerSerivce = 'dime.tag.handler';
+    
+    private $formType = 'dime_timetrackerbundle_tagformtype';
 
     /**
-     * get tag repository
+     * List all Entities.
      *
-     * @return TagRepository
+     * @ApiDoc(
+     * resource = true,
+     * statusCodes = {
+     * 200 = "Returned when successful"
+     * }
+     * )
+     *
+     * @Annotations\QueryParam(name="offset", requirements="\d+", nullable=true, description="Offset from which to start listing tags.")
+     * @Annotations\QueryParam(name="limit", requirements="\d+", default="5", description="How many tags to return.")
+     *
+     * @Annotations\View(
+     * templateVar="tags"
+     * )
+     *
+     * @Annotations\Route(requirements={"_format"="json|xml"})
+     *
+     * @param Request $request
+     *            the request object
+     * @param ParamFetcherInterface $paramFetcher
+     *            param fetcher service
+     *            
+     * @return array
      */
-    protected function getTagRepository()
+    public function getTagsAction(Request $request, ParamFetcherInterface $paramFetcher)
     {
-        return $this->getDoctrine()->getRepository('DimeTimetrackerBundle:Tag');
+        $offset = $paramFetcher->get('offset');
+        $offset = null == $offset ? 0 : $offset;
+        $limit = $paramFetcher->get('limit');
+        return $this->container->get($this->handlerSerivce)->all($limit, $offset);
     }
 
     /**
-     * get a list of all tags
+     * Get single Entity
      *
-     * [GET] /tags
+     * @ApiDoc(
+     * resource = true,
+     * description = "Gets a Tag for a given id",
+     * output = "Dime\TimetrackerBundle\Entity\Tag",
+     * statusCodes = {
+     * 200 = "Returned when successful",
+     * 404 = "Returned when the page is not found"
+     * }
+     * )
      *
-     * @return View
-     */
-    public function getTagsAction()
-    {
-        $tags = $this->getTagRepository();
-
-        $tags->createCurrentQueryBuilder('tag');
-
-        // Filter
-        $filter = $this->getRequest()->get('filter');
-        if ($filter) {
-            $tags->filter($this->cleanFilter($filter, $this->allowed_filter));
-        }
-
-        // Scope by current user
-        if (!isset($filter['user'])) {
-            $tags->scopeByField('user', $this->getCurrentUser()->getId());
-        }
-
-        $tags->getCurrentQueryBuilder()->addOrderBy('tag.name', 'ASC');
-
-        // Pagination
-        return $this->paginate($tags->getCurrentQueryBuilder(),
-            $this->getRequest()->get('limit'),
-            $this->getRequest()->get('offset')
-        );
-    }
-
-    /**
-     * get a tag by its id
+     * @Annotations\View(templateVar="tag")
      *
-     * [GET] /tags/{id}
+     * @Annotations\Route(requirements={"_format"="json|xml"})
      *
-     * @param  int  $id
-     * @return View
+     * @param Request $request
+     *            the request object
+     * @param int $id
+     *            the page id
+     *            
+     * @return array
+     *
+     * @throws NotFoundHttpException when page not exist
      */
     public function getTagAction($id)
     {
-        // find tag
-        $tag = $this->getTagRepository()->find($id);
-
-        // check if it exists
-        if ($tag) {
-            // send array
-            $view = $this->createView($tag);
-        } else {
-            // send 404, if tag does not exist
-            $view = $this->createView("Tag does not exist.", 404);
-        }
-
-        return $view;
+        return $this->getOr404($id, $this->handlerSerivce);
     }
 
     /**
-     * create a new tag
-     * [POST] /tags
+     * Presents the form to use to create a new Entity.
      *
-     * @return View
+     * @ApiDoc(
+     * resource = true,
+     * statusCodes = {
+     * 200 = "Returned when successful"
+     * }
+     * )
+     *
+     * @Annotations\View(
+     * templateVar = "form"
+     * )
+     *
+     * @return FormTypeInterface
      */
-    public function postTagsAction()
+    public function newTagAction()
     {
-        // create new service
-        $tag = new Tag();
-
-        // create service form
-        $form = $this->createForm(new TagType(), $tag);
-
-        // convert json to assoc array from request content
-        $data = json_decode($this->getRequest()->getContent(), true);
-
-        return $this->saveForm($form, $data);
+        return $this->createForm($this->formType);
     }
 
     /**
-     * modify tag by its id
-     * [PUT] /tags/{id}
+     * Create a new Entity from the submitted data.
      *
-     * @param  int  $id
-     * @return View
+     * @ApiDoc(
+     * resource = true,
+     * description = "Creates a new page from the submitted data.",
+     * input = "Dime\TimetrackerBundle\Form\Type\TagFormType",
+     * statusCodes = {
+     * 201 = "Returned when successful",
+     * 400 = "Returned when the form has errors"
+     * }
+     * )
+     *
+     * @Annotations\Route(requirements={"_format"="json|xml"})
+     *
+     * @param Request $request
+     *            the request object
+     *            
+     * @return FormTypeInterface|View
      */
-    public function putTagsAction($id)
+    public function postTagAction(Request $request)
     {
-        // find service
-        $tag = $this->getTagRepository()->find($id);
-
-        // check if it exists
-        if ($tag) {
-            // create form, decode request and save it if valid
-            $view = $this->saveForm(
-                $this->createForm(new TagType(), $tag),
-                json_decode($this->getRequest()->getContent(), true)
-            );
-        } else {
-            // service does not exists send 404
-            $view = $this->createView("Tag does not exists.", 404);
+        try {
+            $newTag = $this->container->get($this->handlerSerivce)->post($request->request->all());
+            return $this->view($newTag, Codes::HTTP_CREATED);
+        } catch (InvalidFormException $exception) {
+            return $exception->getForm();
         }
-
-        return $view;
     }
 
     /**
-     * delete a tag by its id
-     * [DELETE] /tags/{id}
+     * Update existing Entity.
      *
-     * @param  int  $id
-     * @return View
+     * @ApiDoc(
+     * resource = true,
+     * input = "Dime\TimetrackerBundle\Form\Type\TagFormType",
+     * statusCodes = {
+     * 200 = "Returned when the Entity was updated",
+     * 400 = "Returned when the form has errors",
+     * 404 = "Returned when the Tag does not exist"
+     * }
+     * )
+     *
+     * @Annotations\Route(requirements={"_format"="json|xml"})
+     *
+     * @param Request $request
+     *            the request object
+     * @param int $id
+     *            the page id
+     *            
+     * @return FormTypeInterface|View
+     *
+     * @throws NotFoundHttpException when page not exist
+     *        
      */
-    public function deleteTagAction($id)
+    public function putTagAction(Request $request, $id)
     {
-        // find tag
-        $tag = $this->getTagRepository()->find($id);
-
-        // check if it exists
-        if ($tag) {
-            // remove service
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($tag);
-            $em->flush();
-
-            // send status message
-            $view = $this->createView("Tag has been removed.");
-        } else {
-            // send 404, if tag does not exist
-            $view = $this->createView("Tag does not exist.", 404);
+        try {
+            $entity = $this->getOr404($id, $this->handlerSerivce);
+            $entity = $this->container->get($this->handlerSerivce)->put($entity, $request->request->all());
+            return $this->view($entity, Codes::HTTP_OK);
+        } catch (InvalidFormException $exception) {
+            return $exception->getForm();
         }
+    }
 
-        return $view;
+    /**
+     * Presents the form to use to edit a Entity.
+     *
+     * @ApiDoc(
+     * resource = true,
+     * statusCodes = {
+     * 200 = "Returned when successful",
+     * 404 = "Returned when the Entity does not exist"
+     * }
+     * )
+     *
+     * @Annotations\View(
+     * templateVar = "form"
+     * )
+     *
+     *
+     * @param unknown $id            
+     * @return FormTypeInterface
+     */
+    public function editTagAction($id)
+    {
+        return $this->createForm($this->formType, $this->getOr404($id, $this->handlerSerivce));
+    }
+
+    /**
+     * Delete existing Entity
+     *
+     * @ApiDoc(
+     * resource = true,
+     * input = "Dime\TimetrackerBundle\Form\Type\TagFormType",
+     * statusCodes = {
+     * 204 = "Returned when successful",
+     * 404 = "Returned when Tag does not exist."
+     * }
+     * )
+     *
+     * @Annotations\Route(requirements={"_format"="json|xml"})
+     *
+     * @param Request $request
+     *            the request object
+     * @param int $id
+     *            the page id
+     *            
+     * @return FormTypeInterface|View
+     *
+     * @throws NotFoundHttpException when page not exist
+     */
+    public function deleteTagAction(Request $request, $id)
+    {
+        $this->container->get($this->handlerSerivce)->delete($this->getOr404($id, $this->handlerSerivce));
+        return $this->view(null, Codes::HTTP_NO_CONTENT);
     }
 }

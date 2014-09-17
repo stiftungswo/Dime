@@ -5,6 +5,8 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Dime\TimetrackerBundle\Model\DimeEntityInterface;
 use Dime\TimetrackerBundle\Exception\InvalidFormException;
 use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\Security\Core\SecurityContext;
 
 abstract class AbstractHandler
 {
@@ -16,13 +18,16 @@ abstract class AbstractHandler
     protected $repository;
 
     protected $formFactory;
+    
+    protected $secContext;
 
-    public function __construct(ObjectManager $om, $entityClass, FormFactoryInterface $formFactory)
+    public function __construct(ObjectManager $om, $entityClass, FormFactoryInterface $formFactory, SecurityContext $secContext)
     {
         $this->om = $om;
         $this->entityClass = $entityClass;
         $this->repository = $this->om->getRepository($this->entityClass);
         $this->formFactory = $formFactory;
+        $this->secContext = $secContext;
     }
 
     protected function newClassInstance()
@@ -58,5 +63,42 @@ abstract class AbstractHandler
     {
         $this->om->remove($entity);
         $this->om->flush();
+    }
+
+    /**
+     * Clean up filter array
+     *
+     * @param array $filter            
+     * @param array $allowed            
+     *
+     * @return array clean filter array
+     */
+    protected function cleanFilter(array $filter, array $allowed)
+    {
+        $result = array();
+        
+        foreach ($filter as $key => $name) {
+            if (in_array($key, $allowed)) {
+                $result[$key] = $name;
+            }
+        }
+        
+        return $result;
+    }
+    
+    /**
+     * Get the current user
+     *
+     * @return \Dime\TimetrackerBundle\Entity\User
+     */
+    protected function getCurrentUser()
+    {
+        $user = $this->secContext->getToken()->getUser();
+        if (!is_object($user) || !$user instanceof \Symfony\Component\Security\Core\User\UserInterface) {
+            throw new \Symfony\Component\Security\Core\Exception\AccessDeniedException(
+                'This user does not have access to this section.');
+        }
+    
+        return $user;
     }
 }

@@ -6,6 +6,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
+use Dime\TimetrackerBundle\Model\DimeEntityInterface;
 
 /**
  * Dime\TimetrackerBundle\Entity\Setting
@@ -17,7 +18,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * )
  * @ORM\Entity(repositoryClass="Dime\TimetrackerBundle\Entity\SettingRepository")
  */
-class Setting extends Entity
+class Setting extends Entity implements DimeEntityInterface
 {
     /**
      * @var string $name

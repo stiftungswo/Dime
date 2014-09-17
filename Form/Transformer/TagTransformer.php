@@ -1,11 +1,10 @@
 <?php
 
-namespace Dime\TimetrackerBundle\Form\Transfomer;
+namespace Dime\TimetrackerBundle\Form\Transformer;
 
 use Symfony\Component\Form\DataTransformerInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Dime\TimetrackerBundle\Entity\Tag;
-use Dime\TimetrackerBundle\Entity\User;
 
 class TagTransformer implements DataTransformerInterface
 {
@@ -15,25 +14,15 @@ class TagTransformer implements DataTransformerInterface
     private $em;
 
     /**
-     * @var User
-     */
-    private $user;
-
-    /**
      * @param ObjectManager $om
      */
-    public function __construct(ObjectManager $em, User $user)
+    public function __construct(ObjectManager $em)
     {
         $this->em = $em;
-        $this->user = $user;
     }
 
     public function transform($value)
     {
-        if (null === $value) {
-            return "";
-        }
-
         return $value;
     }
 
@@ -70,12 +59,10 @@ class TagTransformer implements DataTransformerInterface
             $qb = $repository->createQueryBuilder('t');
             $qb->andWhere(
                 $qb->expr()->andX(
-                    $qb->expr()->in('t.id', ':ids'),
-                    $qb->expr()->eq('t.user', ':user')
+                    $qb->expr()->in('t.id', ':ids')
                 )
             );
-            $qb->setParameters(array('ids' => $tagIds, 'user' => $this->user->getId()));
-
+            $qb->setParameter('ids', $tagIds);
             $dbResults = $qb->getQuery()->getResult();
             foreach ($dbResults as $tag) {
                 $result[] = $tag;
@@ -86,12 +73,10 @@ class TagTransformer implements DataTransformerInterface
             $qb = $repository->createQueryBuilder('t');
             $qb->andWhere(
                 $qb->expr()->andX(
-                    $qb->expr()->in('t.name', ':tags'),
-                    $qb->expr()->eq('t.user', ':user')
+                    $qb->expr()->in('t.name', ':tags')
                 )
             );
-            $qb->setParameters(array('tags' => $tagNames, 'user' => $this->user->getId()));
-
+            $qb->setParameter('tags', $tagNames);
             $existingTags = array();
             $dbResults = $qb->getQuery()->getResult();
             foreach ($dbResults as $tag) {
@@ -106,7 +91,6 @@ class TagTransformer implements DataTransformerInterface
                     if (!empty($name)) {
                         $newTag = new Tag();
                         $newTag->setName($name);
-                        $newTag->setUser($this->user);
                         $result[] = $newTag;
                     }
                 }

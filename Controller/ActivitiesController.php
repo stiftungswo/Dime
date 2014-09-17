@@ -3,389 +3,220 @@
 namespace Dime\TimetrackerBundle\Controller;
 
 use FOS\RestBundle\View\View;
-use FOS\RestBundle\Controller\Annotations as FOS;
-use Doctrine\ORM\NoResultException;
-
-use Dime\TimetrackerBundle\Entity\Activity;
-use Dime\TimetrackerBundle\Entity\ActivityRepository;
-use Dime\TimetrackerBundle\Entity\Timeslice;
-use Dime\TimetrackerBundle\Entity\CustomerRepository;
-use Dime\TimetrackerBundle\Entity\ProjectRepository;
-use Dime\TimetrackerBundle\Entity\ServiceRepository;
-use Dime\TimetrackerBundle\Entity\Tag;
-use Dime\TimetrackerBundle\Entity\TagRepository;
-use Dime\TimetrackerBundle\Form\ActivityType;
-use Dime\TimetrackerBundle\Form\Type\ActivityFormType;
+use Symfony\Component\HttpFoundation\Request;
+use FOS\RestBundle\Request\ParamFetcherInterface;
+use FOS\RestBundle\Util\Codes;
+use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use FOS\RestBundle\Controller\Annotations;
 
 class ActivitiesController extends DimeController
 {
-    /**
-     * @var array allowed filter keys
-     */
-    protected $allowed_filter = array(
-        'date',
-        'active',
-        'customer',
-        'project',
-        'service',
-        'user',
-        'withTags',
-        'withoutTags'
-    );
+    private $handlerSerivce = 'dime.activity.handler';
+    
+    private $formType = 'dime_timetrackerbundle_activityformtype';
 
     /**
-     * get activity repository
+     * List all Entities.
      *
-     * @return ActivityRepository
+     * @ApiDoc(
+     * resource = true,
+     * statusCodes = {
+     * 200 = "Returned when successful"
+     * }
+     * )
+     *
+     * @Annotations\QueryParam(name="offset", requirements="\d+", nullable=true, description="Offset from which to start listing activitys.")
+     * @Annotations\QueryParam(name="limit", requirements="\d+", default="5", description="How many activitys to return.")
+     *
+     * @Annotations\View(
+     * templateVar="activitys"
+     * )
+     *
+     * @Annotations\Route(requirements={"_format"="json|xml"})
+     *
+     * @param Request $request
+     *            the request object
+     * @param ParamFetcherInterface $paramFetcher
+     *            param fetcher activity
+     *            
+     * @return array
      */
-    protected function getActivityRepository()
+    public function getActivitiesAction(Request $request, ParamFetcherInterface $paramFetcher)
     {
-        return $this->getDoctrine()->getRepository('DimeTimetrackerBundle:Activity');
+        $offset = $paramFetcher->get('offset');
+        $offset = null == $offset ? 0 : $offset;
+        $limit = $paramFetcher->get('limit');
+        return $this->container->get($this->handlerSerivce)->all($limit, $offset);
     }
 
     /**
-     * get customer repository
+     * Get single Entity
      *
-     * @return CustomerRepository
-     */
-    protected function getCustomerRepository()
-    {
-        return $this->getDoctrine()->getRepository('DimeTimetrackerBundle:Customer');
-    }
-
-    /**
-     * get project repository
+     * @ApiDoc(
+     * resource = true,
+     * description = "Gets a Activity for a given id",
+     * output = "Dime\TimetrackerBundle\Entity\Activity",
+     * statusCodes = {
+     * 200 = "Returned when successful",
+     * 404 = "Returned when the page is not found"
+     * }
+     * )
      *
-     * @return ProjectRepository
-     */
-    protected function getProjectRepository()
-    {
-        return $this->getDoctrine()->getRepository('DimeTimetrackerBundle:Project');
-    }
-
-
-
-    /**
-     * get activity repository
+     * @Annotations\View(templateVar="activity")
      *
-     * @return ServiceRepository
-     */
-    protected function getServiceRepository()
-    {
-        return $this->getDoctrine()->getRepository('DimeTimetrackerBundle:Service');
-    }
-
-    /**
-     * get a list of all activities
+     * @Annotations\Route(requirements={"_format"="json|xml"})
      *
-     * [GET] /activities
+     * @param Request $request
+     *            the request object
+     * @param int $id
+     *            the page id
+     *            
+     * @return array
      *
-     * @FOS\Route("/activities")
-     * @return View
-     */
-    public function getActivitiesAction()
-    {
-        $activities = $this->getActivityRepository();
-
-        $activities->createCurrentQueryBuilder('a');
-
-        // Filter
-        $filter = $this->getRequest()->get('filter');
-        if ($filter) {
-            $activities->filter($this->cleanFilter($filter, $this->allowed_filter));
-        }
-
-        // Scope by current user
-        if (!isset($filter['user'])) {
-            $activities->scopeByField('user', $this->getCurrentUser()->getId());
-        }
-
-        // Sort by updatedAt and id
-        $activities->getCurrentQueryBuilder()->addOrderBy('a.updatedAt', 'DESC');
-        $activities->getCurrentQueryBuilder()->addOrderBy('a.id', 'DESC');
-
-        // Pagination
-        return $this->paginate(
-            $activities->getCurrentQueryBuilder(),
-            $this->getRequest()->get('limit'),
-            $this->getRequest()->get('offset')
-        );
-    }
-
-    /**
-     * get an activity by its id
-     *
-     * [GET] /activities/{id}
-     *
-     * @param  int  $id
-     * @return View
+     * @throws NotFoundHttpException when page not exist
      */
     public function getActivityAction($id)
     {
-        // find activity
-        $activity = $this->getActivityRepository()->find($id);
-
-        // check if it exists
-        if ($activity) {
-            // send array
-            $view = $this->createView($activity);
-        } else {
-            // activity does not exists send 404
-            $view = $this->createView("Activity does not exist.", 404);
-        }
-
-        return $view;
+        return $this->getOr404($id, $this->handlerSerivce);
     }
 
     /**
-     * create a new activity
+     * Presents the form to use to create a new Entity.
      *
-     * [POST] /activities
+     * @ApiDoc(
+     * resource = true,
+     * statusCodes = {
+     * 200 = "Returned when successful"
+     * }
+     * )
      *
-     * @return View
+     * @Annotations\View(
+     * templateVar = "form"
+     * )
+     *
+     * @return FormTypeInterface
      */
-    public function postActivitiesAction()
+    public function newActivityAction()
     {
-        // create new activity entity
-        $activity = new Activity();
-
-        // convert json to assoc array from request content
-        $data = json_decode($this->getRequest()->getContent(), true);
-
-        if (isset($data['parse'])) {
-            // Run parser
-            $result = $this->parse($data['parse']);
-            if (isset($data['date'])) {
-                $date = new \DateTime($data['date']);
-            } else {
-                $date = new \DateTime();
-            }
-
-            // create new activity and timeslice entity
-            $activity = new Activity();
-            $activity->setUser($this->getCurrentUser());
-
-            if (isset($result['customer'])) {
-                try {
-                    $customer = $this->getCustomerRepository()
-                        ->createCurrentQueryBuilder('c')
-                        ->scopeByField('user', $this->getCurrentUser()->getId())
-                        ->scopeByField('alias', $result['customer'])
-                        ->getCurrentQueryBuilder()
-                        ->setMaxResults(1)
-                        ->getQuery()->getSingleResult();
-
-                    $activity->setCustomer($customer);
-                } catch (NoResultException $e) {
-                }
-            }
-
-            if (isset($result['project'])) {
-                try {
-                    $project = $this->getProjectRepository()
-                        ->createCurrentQueryBuilder('p')
-                        ->scopeByField('user', $this->getCurrentUser()->getId())
-                        ->scopeByField('alias', $result['project'])
-                        ->getCurrentQueryBuilder()
-                        ->setMaxResults(1)
-                        ->getQuery()->getSingleResult();
-                    $activity->setProject($project);
-                    // Auto set customer because of direct relation to project
-                    if ($activity->getCustomer() == null) {
-                        $activity->setCustomer($project->getCustomer());
-                    }
-                } catch (NoResultException $e) {
-                }
-            }
-
-            if (isset($result['service'])) {
-                try {
-                    $service = $this->getServiceRepository()
-                        ->createCurrentQueryBuilder('p')
-                        ->scopeByField('user', $this->getCurrentUser()->getId())
-                        ->scopeByField('alias', $result['service'])
-                        ->getCurrentQueryBuilder()
-                        ->setMaxResults(1)
-                        ->getQuery()->getSingleResult();
-                    $activity->setService($service);
-                } catch (NoResultException $e) {
-                }
-            }
-
-            if (isset($result['tags']) && !empty($result['tags'])) {
-                foreach ($result['tags'] as $tagname) {
-
-                    try {
-                        $tag = $this->getTagRepository()
-                            ->createCurrentQueryBuilder('t')
-                            ->scopeByField('user', $this->getCurrentUser()->getId())
-                            ->scopeByField('name', $tagname)
-                            ->getCurrentQueryBuilder()
-                            ->setMaxResults(1)
-                            ->getQuery()->getSingleResult();
-                    } catch (NoResultException $e) {
-                        $tag = null;
-                    }
-
-                    if ($tag == null) {
-                        $tag = new Tag();
-                        $tag->setName($tagname);
-                        $tag->setUser($this->getCurrentUser());
-                    }
-                    $activity->addTag($tag);
-                }
-            }
-
-            if (isset($result['description'])) {
-                $activity->setDescription($result['description']);
-            }
-
-            // create timeslice
-            $timeslice = new Timeslice();
-            $timeslice->setActivity($activity);
-            $timeslice->setUser($this->getCurrentUser());
-            $activity->addTimeslice($timeslice);
-            if (isset($result['range']) || isset($result['duration'])) {
-                // process time range
-                if (isset($result['range'])) {
-                    $range = $result['range'];
-
-                    if (empty($range['stop'])) {
-                        $start = new \DateTime($range['start']);
-                        $stop = new \DateTime('now');
-                    } elseif (empty($range['start'])) {
-                        $start = new \DateTime('now');
-                        $stop = new \DateTime($range['stop']);
-                    } elseif (!empty($range['start']) && !empty($range['stop'])) {
-                        $start = new \DateTime($range['start']);
-                        $stop = new \DateTime($range['stop']);
-                    }
-                    $start->setDate($date->format('Y'), $date->format('m'), $date->format('d'));
-                    $stop->setDate($date->format('Y'), $date->format('m'), $date->format('d'));
-
-                    $timeslice->setStartedAt($start);
-                    $timeslice->setStoppedAt($stop);
-                } else {
-                    // track date for duration
-                    $date->setTime(0, 0, 0);
-                    $timeslice->setStartedAt($date);
-                    $timeslice->setStoppedAt($date);
-                }
-
-                // process duration
-                if (isset($result['duration'])) {
-                    if (empty($result['duration']['sign'])) {
-                        $timeslice->setDuration($result['duration']['number']);
-                    } else {
-                        if ($result['duration']['sign'] == '-') {
-                            $timeslice->setDuration($timeslice->getCurrentDuration() - $result['duration']['number']);
-                        } else {
-                            $timeslice->setDuration($timeslice->getCurrentDuration() + $result['duration']['number']);
-                        }
-                    }
-                }
-            } else {
-                // start a new timeslice with date 'now'
-                $timeslice->setStartedAt(new \DateTime('now'));
-            }
-
-            // save change to database
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($activity);
-            $em->flush();
-            $em->refresh($activity);
-
-            $view = $this->createView($activity);
-        } else {
-            // create activity form
-            $form = $this->createForm(new ActivityFormType($this->getDoctrine()->getManager(), $this->getCurrentUser()), $activity);
-            $view = $this->saveForm($form, $data);
-        }
-
-        return $view;
+        return $this->createForm($this->formType);
     }
 
     /**
-     * modify an activity by its id
+     * Create a new Entity from the submitted data.
      *
-     * [PUT] /activities/{id}
+     * @ApiDoc(
+     * resource = true,
+     * description = "Creates a new page from the submitted data.",
+     * input = "Dime\TimetrackerBundle\Form\Type\ActivityFormType",
+     * statusCodes = {
+     * 201 = "Returned when successful",
+     * 400 = "Returned when the form has errors"
+     * }
+     * )
      *
-     * @param  string $id
-     * @return View
+     * @Annotations\Route(requirements={"_format"="json|xml"})
+     *
+     * @param Request $request
+     *            the request object
+     *            
+     * @return FormTypeInterface|View
      */
-    public function putActivitiesAction($id)
+    public function postActivityAction(Request $request)
     {
-        // find activity
-        $activity = $this->getActivityRepository()->find($id);
-
-        // check if it exists
-        if ($activity) {
-            $data = json_decode($this->getRequest()->getContent(), true);
-
-            // create form, decode request and save it if valid
-            $view = $this->saveForm(
-                $this->createForm(new ActivityType($this->getDoctrine()->getManager(), $this->getCurrentUser()), $activity),
-                $data
-            );
-        } else {
-            // activity does not exists send 404
-            $view = $this->createView("Activity does not exist.", 404);
+        try {
+            $newActivity = $this->container->get($this->handlerSerivce)->post($request->request->all());
+            return $this->view($newActivity, Codes::HTTP_CREATED);
+        } catch (InvalidFormException $exception) {
+            return $exception->getForm();
         }
-
-        return $view;
     }
 
     /**
-     * delete an activity by its id
-     * [DELETE] /activities/{id}
+     * Update existing Entity.
      *
-     * @param  int  $id
-     * @return View
+     * @ApiDoc(
+     * resource = true,
+     * input = "Dime\TimetrackerBundle\Form\Type\ActivityFormType",
+     * statusCodes = {
+     * 200 = "Returned when the Entity was updated",
+     * 400 = "Returned when the form has errors",
+     * 404 = "Returned when the Activity does not exist"
+     * }
+     * )
+     *
+     * @Annotations\Route(requirements={"_format"="json|xml"})
+     *
+     * @param Request $request
+     *            the request object
+     * @param int $id
+     *            the page id
+     *            
+     * @return FormTypeInterface|View
+     *
+     * @throws NotFoundHttpException when page not exist
+     *        
      */
-    public function deleteActivitiesAction($id)
+    public function putActivityAction(Request $request, $id)
     {
-        // find activity
-        $activity = $this->getActivityRepository()->find($id);
-
-        // check if it exists
-        if ($activity) {
-            // remove service
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($activity);
-            $em->flush();
-
-            // send status message
-            $view = $this->createView("Activity has been removed.");
-        } else {
-            // activity does not exists send 404
-            $view = $this->createView("Activity does not exist.", 404);
+        try {
+            $entity = $this->getOr404($id, $this->handlerSerivce);
+            $entity = $this->container->get($this->handlerSerivce)->put($entity, $request->request->all());
+            return $this->view($entity, Codes::HTTP_OK);
+        } catch (InvalidFormException $exception) {
+            return $exception->getForm();
         }
-
-        return $view;
     }
 
     /**
-     * Parse data and create an array output
-     * @param  string $data
-     * @return array
+     * Presents the form to use to edit a Entity.
+     *
+     * @ApiDoc(
+     * resource = true,
+     * statusCodes = {
+     * 200 = "Returned when successful",
+     * 404 = "Returned when the Entity does not exist"
+     * }
+     * )
+     *
+     * @Annotations\View(
+     * templateVar = "form"
+     * )
+     *
+     *
+     * @param unknown $id            
+     * @return FormTypeInterface
      */
-    protected function parse($data)
+    public function editActivityAction($id)
     {
-        $result = array();
-        $parsers = array(
-            '\Dime\TimetrackerBundle\Parser\TimerangeParser',
-            '\Dime\TimetrackerBundle\Parser\DurationParser',
-            '\Dime\TimetrackerBundle\Parser\ActivityRelationParser',
-            '\Dime\TimetrackerBundle\Parser\ActivityDescriptionParser'
-        );
+        return $this->createForm($this->formType, $this->getOr404($id, $this->handlerSerivce));
+    }
 
-        foreach ($parsers as $parser) {
-            $p = new $parser();
-            $result = $p->setResult($result)->run($data);
-            $data = $p->clean($data);
-            unset($p);
-        }
-
-        return $result;
+    /**
+     * Delete existing Entity
+     *
+     * @ApiDoc(
+     * resource = true,
+     * input = "Dime\TimetrackerBundle\Form\Type\ActivityFormType",
+     * statusCodes = {
+     * 204 = "Returned when successful",
+     * 404 = "Returned when Activity does not exist."
+     * }
+     * )
+     *
+     * @Annotations\Route(requirements={"_format"="json|xml"})
+     *
+     * @param Request $request
+     *            the request object
+     * @param int $id
+     *            the page id
+     *            
+     * @return FormTypeInterface|View
+     *
+     * @throws NotFoundHttpException when page not exist
+     */
+    public function deleteActivityAction(Request $request, $id)
+    {
+        $this->container->get($this->handlerSerivce)->delete($this->getOr404($id, $this->handlerSerivce));
+        return $this->view(null, Codes::HTTP_NO_CONTENT);
     }
 }

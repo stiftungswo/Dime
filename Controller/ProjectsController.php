@@ -2,168 +2,221 @@
 
 namespace Dime\TimetrackerBundle\Controller;
 
-use Dime\TimetrackerBundle\Entity\Project;
-use Dime\TimetrackerBundle\Entity\ProjectRepository;
-use Dime\TimetrackerBundle\Form\ProjectType;
 use FOS\RestBundle\View\View;
+use Symfony\Component\HttpFoundation\Request;
+use FOS\RestBundle\Request\ParamFetcherInterface;
+use FOS\RestBundle\Util\Codes;
+use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use FOS\RestBundle\Controller\Annotations;
 
 class ProjectsController extends DimeController
 {
-    /**
-     * @var array allowed filter keys
-     */
-    protected $allowed_filter = array(
-        'customer',
-        'withTags',
-        'withoutTags',
-        'search',
-        'user'
-    );
+    private $handlerSerivce = 'dime.project.handler';
+    
+    private $formType = 'dime_timetrackerbundle_projectformtype';
 
     /**
-     * get project repository
+     * List all Entities.
      *
-     * @return ProjectRepository
+     * @ApiDoc(
+     * resource = true,
+     * statusCodes = {
+     * 200 = "Returned when successful"
+     * }
+     * )
+     *
+     * @Annotations\QueryParam(name="offset", requirements="\d+", nullable=true, description="Offset from which to start listing projects.")
+     * @Annotations\QueryParam(name="limit", requirements="\d+", default="5", description="How many projects to return.")
+     *
+     * @Annotations\View(
+     * templateVar="projects"
+     * )
+     *
+     * @Annotations\Route(requirements={"_format"="json|xml"})
+     *
+     * @param Request $request
+     *            the request object
+     * @param ParamFetcherInterface $paramFetcher
+     *            param fetcher project
+     *            
+     * @return array
      */
-    protected function getProjectRepository()
+    public function getProjectsAction(Request $request, ParamFetcherInterface $paramFetcher)
     {
-        return $this->getDoctrine()->getRepository('DimeTimetrackerBundle:Project');
+        $offset = $paramFetcher->get('offset');
+        $offset = null == $offset ? 0 : $offset;
+        $limit = $paramFetcher->get('limit');
+        return $this->container->get($this->handlerSerivce)->all($limit, $offset);
     }
 
     /**
-     * get a list of all projects
+     * Get single Entity
      *
-     * [GET] /projects
+     * @ApiDoc(
+     * resource = true,
+     * description = "Gets a Project for a given id",
+     * output = "Dime\TimetrackerBundle\Entity\Project",
+     * statusCodes = {
+     * 200 = "Returned when successful",
+     * 404 = "Returned when the page is not found"
+     * }
+     * )
      *
-     * @return View
-     */
-    public function getProjectsAction()
-    {
-        $projects = $this->getProjectRepository();
-
-        $projects->createCurrentQueryBuilder('p');
-
-        // Filter
-        $filter = $this->getRequest()->get('filter');
-        if ($filter) {
-            $qb = $projects->filter($this->cleanFilter($filter, $this->allowed_filter));
-        }
-
-        // Scope by current user
-        if (!isset($filter['user'])) {
-            $projects->scopeByField('user', $this->getCurrentUser()->getId());
-        }
-
-        // Sort by name
-        $projects->getCurrentQueryBuilder()->addOrderBy('p.name', 'ASC');
-
-        // Pagination
-        return $this->paginate($projects->getCurrentQueryBuilder(),
-            $this->getRequest()->get('limit'),
-            $this->getRequest()->get('offset')
-        );
-    }
-
-    /**
-     * get a project
-     * [GET] /projects/{id}
+     * @Annotations\View(templateVar="project")
      *
-     * @param  int  $id
-     * @return View
+     * @Annotations\Route(requirements={"_format"="json|xml"})
+     *
+     * @param Request $request
+     *            the request object
+     * @param int $id
+     *            the page id
+     *            
+     * @return array
+     *
+     * @throws NotFoundHttpException when page not exist
      */
     public function getProjectAction($id)
     {
-        // find project
-        $project = $this->getProjectRepository()->find($id);
-
-        // check if exists
-        if ($project) {
-            // send array
-            $view = $this->createView($project);
-        } else {
-            // project does not exists send 404
-            $view = $this->createView("Project does not exist.", 404);
-        }
-
-        return $view;
+        return $this->getOr404($id, $this->handlerSerivce);
     }
 
     /**
-     * create a new project
-     * [POST] /projects
+     * Presents the form to use to create a new Entity.
      *
-     * @return View
+     * @ApiDoc(
+     * resource = true,
+     * statusCodes = {
+     * 200 = "Returned when successful"
+     * }
+     * )
+     *
+     * @Annotations\View(
+     * templateVar = "form"
+     * )
+     *
+     * @return FormTypeInterface
      */
-    public function postProjectsAction()
+    public function newProjectAction()
     {
-        // create a new project entity
-        $project = new Project();
-
-        // create project form
-        $form = $this->createForm(new ProjectType($this->getDoctrine()->getManager(), $this->getCurrentUser()), $project);
-
-        // decode json to assoc array from request content
-        $data = json_decode($this->getRequest()->getContent(), true);
-
-        // save form and send response
-        return $this->saveForm($form, $data);
+        return $this->createForm($this->formType);
     }
 
     /**
-     * modify project
-     * [PUT] /projects/{id}
+     * Create a new Entity from the submitted data.
      *
-     * @param  int  $id
-     * @return View
+     * @ApiDoc(
+     * resource = true,
+     * description = "Creates a new page from the submitted data.",
+     * input = "Dime\TimetrackerBundle\Form\Type\ProjectFormType",
+     * statusCodes = {
+     * 201 = "Returned when successful",
+     * 400 = "Returned when the form has errors"
+     * }
+     * )
+     *
+     * @Annotations\Route(requirements={"_format"="json|xml"})
+     *
+     * @param Request $request
+     *            the request object
+     *            
+     * @return FormTypeInterface|View
      */
-    public function putProjectsAction($id)
+    public function postProjectAction(Request $request)
     {
-        // find project
-        $project = $this->getProjectRepository()->find($id);
-
-        // check if exists
-        if ($project) {
-            // create form, decode request and save it if valid
-            $data = json_decode($this->getRequest()->getContent(), true);
-
-            $view = $this->saveForm(
-                $this->createForm(new ProjectType($this->getDoctrine()->getManager(), $this->getCurrentUser()), $project),
-                $data
-            );
-        } else {
-            // project does not exists send 404
-            $view = $this->createView("Project does not exist.", 404);
+        try {
+            $newProject = $this->container->get($this->handlerSerivce)->post($request->request->all());
+            return $this->view($newProject, Codes::HTTP_CREATED);
+        } catch (InvalidFormException $exception) {
+            return $exception->getForm();
         }
-
-        return $view;
     }
 
     /**
-     * delete project
-     * [DELETE] /projects/{id}
+     * Update existing Entity.
      *
-     * @param  int  $id
-     * @return View
+     * @ApiDoc(
+     * resource = true,
+     * input = "Dime\TimetrackerBundle\Form\Type\ProjectFormType",
+     * statusCodes = {
+     * 200 = "Returned when the Entity was updated",
+     * 400 = "Returned when the form has errors",
+     * 404 = "Returned when the Project does not exist"
+     * }
+     * )
+     *
+     * @Annotations\Route(requirements={"_format"="json|xml"})
+     *
+     * @param Request $request
+     *            the request object
+     * @param int $id
+     *            the page id
+     *            
+     * @return FormTypeInterface|View
+     *
+     * @throws NotFoundHttpException when page not exist
+     *        
      */
-    public function deleteProjectsAction($id)
+    public function putProjectAction(Request $request, $id)
     {
-        // find project
-        $project = $this->getProjectRepository()->find($id);
-
-        // check if exists
-        if ($project) {
-            // remove project
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($project);
-            $em->flush();
-
-            // send status message
-            $view = $this->createView("Project has been removed.");
-        } else {
-            // project does not exists send 404
-            $view = $this->createView("Project does not exist.", 404);
+        try {
+            $entity = $this->getOr404($id, $this->handlerSerivce);
+            $entity = $this->container->get($this->handlerSerivce)->put($entity, $request->request->all());
+            return $this->view($entity, Codes::HTTP_OK);
+        } catch (InvalidFormException $exception) {
+            return $exception->getForm();
         }
+    }
 
-        return $view;
+    /**
+     * Presents the form to use to edit a Entity.
+     *
+     * @ApiDoc(
+     * resource = true,
+     * statusCodes = {
+     * 200 = "Returned when successful",
+     * 404 = "Returned when the Entity does not exist"
+     * }
+     * )
+     *
+     * @Annotations\View(
+     * templateVar = "form"
+     * )
+     *
+     *
+     * @param unknown $id            
+     * @return FormTypeInterface
+     */
+    public function editProjectAction($id)
+    {
+        return $this->createForm($this->formType, $this->getOr404($id, $this->handlerSerivce));
+    }
+
+    /**
+     * Delete existing Entity
+     *
+     * @ApiDoc(
+     * resource = true,
+     * input = "Dime\TimetrackerBundle\Form\Type\ProjectFormType",
+     * statusCodes = {
+     * 204 = "Returned when successful",
+     * 404 = "Returned when Project does not exist."
+     * }
+     * )
+     *
+     * @Annotations\Route(requirements={"_format"="json|xml"})
+     *
+     * @param Request $request
+     *            the request object
+     * @param int $id
+     *            the page id
+     *            
+     * @return FormTypeInterface|View
+     *
+     * @throws NotFoundHttpException when page not exist
+     */
+    public function deleteProjectAction(Request $request, $id)
+    {
+        $this->container->get($this->handlerSerivce)->delete($this->getOr404($id, $this->handlerSerivce));
+        return $this->view(null, Codes::HTTP_NO_CONTENT);
     }
 }

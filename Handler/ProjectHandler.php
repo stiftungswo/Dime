@@ -2,26 +2,42 @@
 namespace Dime\TimetrackerBundle\Handler;
 
 use Dime\TimetrackerBundle\Model\HandlerInterface;
+use Dime\TimetrackerBundle\Handler\AbstractHandler;
 use Dime\TimetrackerBundle\Model\DimeEntityInterface;
-use Symfony\Component\DependencyInjection\ContainerAwareInterface;
-use Doctrine\Common\Proxy\Exception\InvalidArgumentException;
 
-class TimesliceHandler extends AbstractHandler implements HandlerInterface
+class ProjectHandler extends AbstractHandler implements HandlerInterface
 {
-    private $formType = 'dime_timetrackerbundle_timesliceformtype';
+    private $formType = 'dime_timetrackerbundle_projectformtype';
     /**
      * @var array allowed filter keys
      */
     protected $allowed_filter = array(
-        'date',
-        'activity',
         'customer',
-        'project',
-        'service',
-        'user',
         'withTags',
-        'withoutTags'
+        'withoutTags',
+        'search',
+        'user'
     );
+    
+    public function all($limit = 5, $offset = 0, $filter = array())
+    {
+        $this->repository->createCurrentQueryBuilder('p');
+    
+        // Filter
+        if ($filter) {
+            $this->repository->filter($this->cleanFilter($filter, $this->allowed_filter));
+        }
+        
+        // Scope by current user
+        if (!isset($filter['user'])) {
+            $this->repository->scopeByField('user', $this->getCurrentUser()->getId());
+        }
+    
+        $this->repository->getCurrentQueryBuilder()->addOrderBy('p.name', 'ASC');
+    
+        // Pagination
+        return $this->repository->findBy(array(), null, $limit, $offset);
+    }
     
     /**
      * (non-PHPdoc)
@@ -30,31 +46,6 @@ class TimesliceHandler extends AbstractHandler implements HandlerInterface
     public function get($id)
     {
         return $this->repository->find($id);
-    }
-    
-    /*
-     * (non-PHPdoc)
-     * @see \Dime\TimetrackerBundle\Model\HandlerInterface::all()
-     */
-    public function all($limit = 5, $offset = 0, $filter = array())
-    {
-        $this->repository->createCurrentQueryBuilder('ts');
-
-        // Filter
-        if ($filter)  {
-            $this->repository->filter($this->cleanFilter($filter, $this->allowed_filter));
-        }
-
-        // Scope by current user
-        if (!isset($filter['user'])) {
-            $this->repository->scopeByUser($this->getCurrentUser()->getId());
-        }
-
-        // Sort by updatedAt
-        $this->repository->getCurrentQueryBuilder()->addOrderBy('ts.updatedAt', 'DESC');
-
-        // Pagination
-        return $this->repository->findBy(array(), null, $limit, $offset);
     }
     
     /*

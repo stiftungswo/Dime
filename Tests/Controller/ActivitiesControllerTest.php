@@ -6,34 +6,32 @@ class ActivitiesControllerTest extends DimeTestCase
 {
     public function testAuthentification()
     {
-        $request = $this->request('GET', $this->api_prefix.'/activities');
-        $this->assertEquals(500, $request->getStatusCode());
-
+        $this->assertEquals(302, $this->request('GET', $this->api_prefix.'/activities.json', null, array('CONTENT_TYPE'=> 'application/json'))->getStatusCode());
         $this->loginas('admin');
-        $this->assertEquals(200, $this->request('GET', $this->api_prefix.'/activities')->getStatusCode());
+        $this->assertEquals(200, $this->request('GET', $this->api_prefix.'/activities.json', null, array('CONTENT_TYPE'=> 'application/json'))->getStatusCode());
     }
 
     public function testGetActivitiesAction()
     {
         $this->loginas('admin');
-        $response = $this->request('GET', $this->api_prefix.'/activities');
+        $response = $this->request('GET', $this->api_prefix.'/activities.json', null, array('CONTENT_TYPE'=> 'application/json'));
 
         // convert json to array
         $data = json_decode($response->getContent(), true);
 
         // assert that data has content
         $this->assertTrue(count($data) > 0, 'expected to find activities');
-        $this->assertEquals('cwe: initial project setup (Symfony2, bundles etc.)', $data[0]['description']);
+        $this->assertEquals('cwe: initial requirements meeting with customer', $data[0]['description']);
     }
 
     public function testGetActivityAction()
     {
         $this->loginas('admin');
         // expect to get 404 on non-existing activity
-        $this->assertEquals(404, $this->request('GET', $this->api_prefix.'/activities/11111')->getStatusCode());
+        $this->assertEquals(404, $this->request('GET', $this->api_prefix.'/activities/11111.json', null, array('CONTENT_TYPE'=> 'application/json'))->getStatusCode());
 
         // check existing activity
-        $response = $this->request('GET', $this->api_prefix.'/activities/1');
+        $response = $this->request('GET', $this->api_prefix.'/activities/1.json', null, array('CONTENT_TYPE'=> 'application/json'));
 
         // convert json to array
         $data = json_decode($response->getContent(), true);
@@ -47,7 +45,7 @@ class ActivitiesControllerTest extends DimeTestCase
     {
         $this->loginas('admin');
         // create new activity
-        $response = $this->request('POST', $this->api_prefix.'/activities', json_encode(array(
+        $response = $this->request('POST', $this->api_prefix.'/activities.json', json_encode(array(
             'description'   => 'Test',
             'rate'          => 65.13,
             'rateReference' => 'customer',
@@ -55,8 +53,8 @@ class ActivitiesControllerTest extends DimeTestCase
             'customer'      => 1,
             'project'       => 1,
             'user'          => 1
-        )));
-        $this->assertEquals(200, $response->getStatusCode());
+        )), array('CONTENT_TYPE'=> 'application/json'));
+        $this->assertEquals(201, $response->getStatusCode());
 
         // convert json to array
         $data = json_decode($response->getContent(), true);
@@ -64,7 +62,7 @@ class ActivitiesControllerTest extends DimeTestCase
         $id = $data['id'];
 
         // check created activity
-        $response = $this->request('GET', $this->api_prefix.'/activities/' . $id);
+        $response = $this->request('GET', $this->api_prefix.'/activities/' . $id.'.json', null, array('CONTENT_TYPE'=> 'application/json'));
 
         // convert json to array
         $data = json_decode($response->getContent(), true);
@@ -74,28 +72,28 @@ class ActivitiesControllerTest extends DimeTestCase
         $this->assertEquals(65.13, $data['rate'], 'expected to find rate "65.13"');
 
         // modify activity
-        $response = $this->request('PUT', $this->api_prefix.'/activities/' . $id, json_encode(array(
+        $response = $this->request('PUT', $this->api_prefix.'/activities/' . $id.'.json', json_encode(array(
             'description'   => 'Modified Test',
             'rate'          => 111,
             'service'       => 1,
             'customer'      => 1,
             'project'       => 1,
             'user'          => 1
-        )));
+        )), array('CONTENT_TYPE'=> 'application/json'));
         $this->assertEquals(200, $response->getStatusCode());
 
-        $response = $this->request('PUT', $this->api_prefix.'/activities/' . ($id+1), json_encode(array(
+        $response = $this->request('PUT', $this->api_prefix.'/activities/' . ($id+1).'.json', json_encode(array(
             'description'   => 'Modified Test',
             'rate'          => 111,
             'service'       => 1,
             'customer'      => 1,
             'project'       => 1,
             'user'          => 1
-        )));
+        )), array('CONTENT_TYPE'=> 'application/json'));
         $this->assertEquals(404, $response->getStatusCode());
 
         // check created activity
-        $response = $this->request('GET', $this->api_prefix.'/activities/' . $id);
+        $response = $this->request('GET', $this->api_prefix.'/activities/' . $id.'.json');
 
         // convert json to array
         $data = json_decode($response->getContent(), true);
@@ -105,54 +103,44 @@ class ActivitiesControllerTest extends DimeTestCase
         $this->assertEquals(111, $data['rate'], 'expected to find rate "111"');
 
         // delete activity
-        $response = $this->request('DELETE', $this->api_prefix.'/activities/' . $id);
-        $this->assertEquals(200, $response->getStatusCode());
+        $response = $this->request('DELETE', $this->api_prefix.'/activities/' . $id.'.json', null, array('CONTENT_TYPE'=> 'application/json'));
+        $this->assertEquals(204, $response->getStatusCode());
 
         // check if activity still exists*/
-        $response = $this->request('GET', $this->api_prefix.'/activities/' . $id);
+        $response = $this->request('GET', $this->api_prefix.'/activities/' . $id.'.json', null, array('CONTENT_TYPE'=> 'application/json'));
         $this->assertEquals(404, $response->getStatusCode());
     }
 
-    public function testPostActivityParsingAction()
-    {
-        $this->loginas('admin');
-        $response = $this->request('POST', $this->api_prefix.'/activities', '{"parse": "10:00-12:00 @cc/CWE2011:testing new magic oneline input"}');
-        $this->assertEquals(200, $response->getStatusCode(), $response->getContent());
-        $content = json_decode($response->getContent(), true);
+//     public function testPostActivityParsingAction()
+//     {
+//         $this->loginas('admin');
+//         $response = $this->request('POST', $this->api_prefix.'/activities', '{"parse": "10:00-12:00 @cc/CWE2011:testing new magic oneline input"}');
+//         $this->assertEquals(200, $response->getStatusCode(), $response->getContent());
+//         $content = json_decode($response->getContent(), true);
 
-        $this->assertEquals('new magic oneline input', $content['description']);
-        $this->assertEquals('cc', $content['customer']['alias']);
-        $this->assertEquals('CWE2011', $content['project']['name']);
-        $this->assertEquals('Testing', $content['service']['name']);
-        $this->assertEquals(7200, $content['timeslices'][0]['duration']);
+//         $this->assertEquals('new magic oneline input', $content['description']);
+//         $this->assertEquals('cc', $content['customer']['alias']);
+//         $this->assertEquals('CWE2011', $content['project']['name']);
+//         $this->assertEquals('Testing', $content['service']['name']);
+//         $this->assertEquals(7200, $content['timeslices'][0]['duration']);
 
-        // delete activity
-        $response = $this->request('DELETE', $this->api_prefix.'/activities/' . $content['id']);
-        $this->assertEquals(200, $response->getStatusCode());
+//         // delete activity
+//         $response = $this->request('DELETE', $this->api_prefix.'/activities/' . $content['id']);
+//         $this->assertEquals(200, $response->getStatusCode());
 
-        $response = $this->request('POST', $this->api_prefix.'/activities', '{"parse": "@cc/CWE2011:testing new magic oneline input"}');
-        $this->assertEquals(200, $response->getStatusCode(), $response->getContent());
-        $content = json_decode($response->getContent(), true);
+//         $response = $this->request('POST', $this->api_prefix.'/activities', '{"parse": "@cc/CWE2011:testing new magic oneline input"}');
+//         $this->assertEquals(200, $response->getStatusCode(), $response->getContent());
+//         $content = json_decode($response->getContent(), true);
 
-        $this->assertEquals('new magic oneline input', $content['description']);
-        $this->assertEquals('cc', $content['customer']['alias']);
-        $this->assertEquals('CWE2011', $content['project']['name']);
-        $this->assertEquals('Testing', $content['service']['name']);
-        $this->assertEquals(1, count($content['timeslices']));
+//         $this->assertEquals('new magic oneline input', $content['description']);
+//         $this->assertEquals('cc', $content['customer']['alias']);
+//         $this->assertEquals('CWE2011', $content['project']['name']);
+//         $this->assertEquals('Testing', $content['service']['name']);
+//         $this->assertEquals(1, count($content['timeslices']));
 
-        // delete activity
-        $response = $this->request('DELETE', $this->api_prefix.'/activities/' . $content['id']);
-        $this->assertEquals(200, $response->getStatusCode());
+//         // delete activity
+//         $response = $this->request('DELETE', $this->api_prefix.'/activities/' . $content['id']);
+//         $this->assertEquals(200, $response->getStatusCode());
 
-    }
-
-    public function tearDown()
-    {
-        parent::tearDown();
-
-        // workaround for https://github.com/symfony/symfony/issues/2531
-        if (ob_get_length() == 0 ) {
-            ob_start();
-        }
-    }
+//     }
 }

@@ -13,7 +13,8 @@ class SettingFormType extends AbstractType
         $resolver->setDefaults(
             array(
                 'data_class' => 'Dime\TimetrackerBundle\Entity\Setting',
-                'csrf_protection' => false
+                'csrf_protection' => false,
+                'allow_extra_fields' => true,
             )
         );
     }

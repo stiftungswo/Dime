@@ -1,14 +1,32 @@
-parameters:
-    dime.user.handler.class:      Dime\TimetrackerBundle\Handler\UserHandler
-    dime.user.class:  Dime\TimetrackerBundle\Entity\User
-    dime.timeslice.handler.class: Dime\TimetrackerBundle\Handler\TimesliceHandler
-    dime.timeslice.class: Dime\TimetrackerBundle\Entity\Timeslice 
-
 services:
     dime.user.handler:
-        class: "%dime.user.handler.class%"
-        arguments: [ "@doctrine.orm.entity_manager", "%dime.user.class%", "@form.factory" ]
+        class: "Dime\TimetrackerBundle\Handler\UserHandler"
+        arguments: [ "@doctrine.orm.entity_manager", "Dime\TimetrackerBundle\Entity\User", "@form.factory", "@security.context" ]
         
     dime.timeslice.handler:
-        class: "%dime.timeslice.handler.class%"
-        arguments: [ "@doctrine.orm.entity_manager", "%dime.timeslice.class%", "@form.factory", "@dime.user.handler" ]
+        class: "Dime\TimetrackerBundle\Handler\TimesliceHandler"
+        arguments: [ "@doctrine.orm.entity_manager", "Dime\TimetrackerBundle\Entity\Timeslice", "@form.factory", "@security.context"]
+        
+    dime.tag.handler:
+        class: "Dime\TimetrackerBundle\Handler\TagHandler"
+        arguments: [ "@doctrine.orm.entity_manager", "Dime\TimetrackerBundle\Entity\Tag", "@form.factory", "@security.context"]
+        
+    dime.setting.handler:
+        class: "Dime\TimetrackerBundle\Handler\SettingHandler"
+        arguments: [ "@doctrine.orm.entity_manager", "Dime\TimetrackerBundle\Entity\Setting", "@form.factory", "@security.context"]
+        
+    dime.service.handler:
+        class: "Dime\TimetrackerBundle\Handler\ServiceHandler"
+        arguments: [ "@doctrine.orm.entity_manager", "Dime\TimetrackerBundle\Entity\Service", "@form.factory", "@security.context"]
+        
+    dime.project.handler:
+        class: "Dime\TimetrackerBundle\Handler\\ProjectHandler"
+        arguments: [ "@doctrine.orm.entity_manager", "Dime\TimetrackerBundle\Entity\\Project", "@form.factory", "@security.context"]
+        
+    dime.customer.handler:
+        class: "Dime\TimetrackerBundle\Handler\CustomerHandler"
+        arguments: [ "@doctrine.orm.entity_manager", "Dime\TimetrackerBundle\Entity\Customer", "@form.factory", "@security.context"]
+        
+    dime.activity.handler:
+        class: "Dime\TimetrackerBundle\Handler\ActivityHandler"
+        arguments: [ "@doctrine.orm.entity_manager", "Dime\TimetrackerBundle\Entity\Activity", "@form.factory", "@security.context"]

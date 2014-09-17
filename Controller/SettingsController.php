@@ -2,160 +2,221 @@
 
 namespace Dime\TimetrackerBundle\Controller;
 
-use Dime\TimetrackerBundle\Entity\Setting;
-use Dime\TimetrackerBundle\Entity\SettingRepository;
-use Dime\TimetrackerBundle\Form\SettingType;
 use FOS\RestBundle\View\View;
+use Symfony\Component\HttpFoundation\Request;
+use FOS\RestBundle\Request\ParamFetcherInterface;
+use FOS\RestBundle\Util\Codes;
+use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use FOS\RestBundle\Controller\Annotations;
 
 class SettingsController extends DimeController
 {
-    /**
-     * @var array allowed filter keys
-     */
-    protected $allowed_filter = array('namespace', 'name', 'user');
+    private $handlerSerivce = 'dime.setting.handler';
+    
+    private $formType = 'dime_timetrackerbundle_settingformtype';
 
     /**
-     * get service repository
+     * List all Entities.
      *
-     * @return SettingRepository
+     * @ApiDoc(
+     * resource = true,
+     * statusCodes = {
+     * 200 = "Returned when successful"
+     * }
+     * )
+     *
+     * @Annotations\QueryParam(name="offset", requirements="\d+", nullable=true, description="Offset from which to start listing settings.")
+     * @Annotations\QueryParam(name="limit", requirements="\d+", default="5", description="How many settings to return.")
+     *
+     * @Annotations\View(
+     * templateVar="settings"
+     * )
+     *
+     * @Annotations\Route(requirements={"_format"="json|xml"})
+     *
+     * @param Request $request
+     *            the request object
+     * @param ParamFetcherInterface $paramFetcher
+     *            param fetcher service
+     *            
+     * @return array
      */
-    protected function getSettingRepository()
+    public function getSettingsAction(Request $request, ParamFetcherInterface $paramFetcher)
     {
-        return $this->getDoctrine()->getRepository('DimeTimetrackerBundle:Setting');
+        $offset = $paramFetcher->get('offset');
+        $offset = null == $offset ? 0 : $offset;
+        $limit = $paramFetcher->get('limit');
+        return $this->container->get($this->handlerSerivce)->all($limit, $offset);
     }
 
     /**
-     * get a list of all settings
+     * Get single Entity
      *
-     * [GET] /settings
+     * @ApiDoc(
+     * resource = true,
+     * description = "Gets a Setting for a given id",
+     * output = "Dime\TimetrackerBundle\Entity\Setting",
+     * statusCodes = {
+     * 200 = "Returned when successful",
+     * 404 = "Returned when the page is not found"
+     * }
+     * )
      *
-     * @return View
-     */
-    public function getSettingsAction()
-    {
-        $settings = $this->getSettingRepository();
-
-        $settings->createCurrentQueryBuilder('sg');
-
-        // Filter
-        $filter = $this->getRequest()->get('filter');
-        if ($filter) {
-            $settings->filter($this->cleanFilter($filter, $this->allowed_filter));
-        }
-
-        // Scope by current user
-        if (!isset($filter['user'])) {
-            $settings->scopeByField('user', $this->getCurrentUser()->getId());
-        }
-
-        // Sort by name
-        $settings->getCurrentQueryBuilder()->addOrderBy('sg.namespace', 'ASC');
-        $settings->getCurrentQueryBuilder()->addOrderBy('sg.name', 'ASC');
-
-        // Pagination
-        return $this->paginate($settings->getCurrentQueryBuilder(),
-            $this->getRequest()->get('limit'),
-            $this->getRequest()->get('offset')
-        );
-    }
-
-    /**
-     * get a service by its id
-     * [GET] /settings/{id}
+     * @Annotations\View(templateVar="setting")
      *
-     * @param  int  $id
-     * @return View
+     * @Annotations\Route(requirements={"_format"="json|xml"})
+     *
+     * @param Request $request
+     *            the request object
+     * @param int $id
+     *            the page id
+     *            
+     * @return array
+     *
+     * @throws NotFoundHttpException when page not exist
      */
     public function getSettingAction($id)
     {
-        // find service
-        $service = $this->getSettingRepository()->find($id);
-
-        // check if it exists
-        if ($service) {
-            // send array
-            $view = $this->createView($service);
-        } else {
-            // service does not exists send 404
-            $view = $this->createView("Setting does not exists.", 404);
-        }
-
-        return $view;
+        return $this->getOr404($id, $this->handlerSerivce);
     }
 
     /**
-     * create a new service
-     * [POST] /settings
+     * Presents the form to use to create a new Entity.
      *
-     * @return View
+     * @ApiDoc(
+     * resource = true,
+     * statusCodes = {
+     * 200 = "Returned when successful"
+     * }
+     * )
+     *
+     * @Annotations\View(
+     * templateVar = "form"
+     * )
+     *
+     * @return FormTypeInterface
      */
-    public function postSettingsAction()
+    public function newSettingAction()
     {
-        // create new service
-        $service = new Setting();
-
-        // create service form
-        $form = $this->createForm(new SettingType(), $service);
-
-        // convert json to assoc array from request content
-        $data = json_decode($this->getRequest()->getContent(), true);
-
-        return $this->saveForm($form, $data);
+        return $this->createForm($this->formType);
     }
 
     /**
-     * modify service by its id
-     * [PUT] /settings/{id}
+     * Create a new Entity from the submitted data.
      *
-     * @param  int  $id
-     * @return View
+     * @ApiDoc(
+     * resource = true,
+     * description = "Creates a new page from the submitted data.",
+     * input = "Dime\TimetrackerBundle\Form\Type\SettingFormType",
+     * statusCodes = {
+     * 201 = "Returned when successful",
+     * 400 = "Returned when the form has errors"
+     * }
+     * )
+     *
+     * @Annotations\Route(requirements={"_format"="json|xml"})
+     *
+     * @param Request $request
+     *            the request object
+     *            
+     * @return FormTypeInterface|View
      */
-    public function putSettingsAction($id)
+    public function postSettingAction(Request $request)
     {
-        // find service
-        $service = $this->getSettingRepository()->find($id);
-
-        // check if it exists
-        if ($service) {
-            // create form, decode request and save it if valid
-            $view = $this->saveForm(
-                $this->createForm(new SettingType(), $service),
-                json_decode($this->getRequest()->getContent(), true)
-            );
-        } else {
-            // service does not exists send 404
-            $view = $this->createView("Setting does not exists.", 404);
+        try {
+            $newSetting = $this->container->get($this->handlerSerivce)->post($request->request->all());
+            return $this->view($newSetting, Codes::HTTP_CREATED);
+        } catch (InvalidFormException $exception) {
+            return $exception->getForm();
         }
-
-        return $view;
     }
 
     /**
-     * delete service by its id
-     * [DELETE] /settings/{id}
+     * Update existing Entity.
      *
-     * @param  int  $id
-     * @return View
+     * @ApiDoc(
+     * resource = true,
+     * input = "Dime\TimetrackerBundle\Form\Type\SettingFormType",
+     * statusCodes = {
+     * 200 = "Returned when the Entity was updated",
+     * 400 = "Returned when the form has errors",
+     * 404 = "Returned when the Setting does not exist"
+     * }
+     * )
+     *
+     * @Annotations\Route(requirements={"_format"="json|xml"})
+     *
+     * @param Request $request
+     *            the request object
+     * @param int $id
+     *            the page id
+     *            
+     * @return FormTypeInterface|View
+     *
+     * @throws NotFoundHttpException when page not exist
+     *        
      */
-    public function deleteSettingsAction($id)
+    public function putSettingAction(Request $request, $id)
     {
-        // find service
-        $service = $this->getSettingRepository()->find($id);
-
-        // check if it exists
-        if ($service) {
-            // remove service
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($service);
-            $em->flush();
-
-            // send status message
-            $view = $this->createView("Setting has been removed.");
-        } else {
-            // service does not exists send 404
-            $view = $this->createView("Setting does not exists", 404);
+        try {
+            $entity = $this->getOr404($id, $this->handlerSerivce);
+            $entity = $this->container->get($this->handlerSerivce)->put($entity, $request->request->all());
+            return $this->view($entity, Codes::HTTP_OK);
+        } catch (InvalidFormException $exception) {
+            return $exception->getForm();
         }
+    }
 
-        return $view;
+    /**
+     * Presents the form to use to edit a Entity.
+     *
+     * @ApiDoc(
+     * resource = true,
+     * statusCodes = {
+     * 200 = "Returned when successful",
+     * 404 = "Returned when the Entity does not exist"
+     * }
+     * )
+     *
+     * @Annotations\View(
+     * templateVar = "form"
+     * )
+     *
+     *
+     * @param unknown $id            
+     * @return FormTypeInterface
+     */
+    public function editSettingAction($id)
+    {
+        return $this->createForm($this->formType, $this->getOr404($id, $this->handlerSerivce));
+    }
+
+    /**
+     * Delete existing Entity
+     *
+     * @ApiDoc(
+     * resource = true,
+     * input = "Dime\TimetrackerBundle\Form\Type\SettingFormType",
+     * statusCodes = {
+     * 204 = "Returned when successful",
+     * 404 = "Returned when Setting does not exist."
+     * }
+     * )
+     *
+     * @Annotations\Route(requirements={"_format"="json|xml"})
+     *
+     * @param Request $request
+     *            the request object
+     * @param int $id
+     *            the page id
+     *            
+     * @return FormTypeInterface|View
+     *
+     * @throws NotFoundHttpException when page not exist
+     */
+    public function deleteSettingAction(Request $request, $id)
+    {
+        $this->container->get($this->handlerSerivce)->delete($this->getOr404($id, $this->handlerSerivce));
+        return $this->view(null, Codes::HTTP_NO_CONTENT);
     }
 }

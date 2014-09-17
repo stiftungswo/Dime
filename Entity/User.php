@@ -143,9 +143,6 @@ class User extends BaseUser implements DimeEntityInterface
     public function __toString()
     {
         $user = trim($this->getFirstname() . ' ' . $this->getLastname());
-        if ($this->hasEmail()) {
-            $user .= empty($user) ? $this->getEmail() : ' (' . $this->getEmail() . ')';
-        }
 
         if (empty($user)) {
             $user = $this->getId();

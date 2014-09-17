@@ -6,15 +6,15 @@ class ProjectsControllerTest extends DimeTestCase
 {
     public function testAuthentification()
     {
-        $this->assertEquals(500, $this->request('GET', $this->api_prefix.'/projects', null, array(), array(), array())->getStatusCode());
+        $this->assertEquals(302, $this->request('GET', $this->api_prefix.'/projects.json', null, array('CONTENT_TYPE'=> 'application/json'), array(), array())->getStatusCode());
         $this->loginAs('admin');
-        $this->assertEquals(200, $this->request('GET', $this->api_prefix.'/projects')->getStatusCode());
+        $this->assertEquals(200, $this->request('GET', $this->api_prefix.'/projects.json', null, array('CONTENT_TYPE'=> 'application/json'))->getStatusCode());
     }
 
     public function testGetProjectsAction()
     {
         $this->loginAs('admin');
-        $response = $this->request('GET', $this->api_prefix.'/projects');
+        $response = $this->request('GET', $this->api_prefix.'/projects.json', null, array('CONTENT_TYPE'=> 'application/json'));
 
         // convert json to array
         $data = json_decode($response->getContent(), true);
@@ -28,10 +28,10 @@ class ProjectsControllerTest extends DimeTestCase
     {
         $this->loginAs('admin');
         /* expect to get 404 on non-existing project */
-        $this->assertEquals(404, $this->request('GET', $this->api_prefix.'/projects/11111')->getStatusCode());
+        $this->assertEquals(404, $this->request('GET', $this->api_prefix.'/projects/11111.json', null, array('CONTENT_TYPE'=> 'application/json'))->getStatusCode());
 
         /* check existing project */
-        $response = $this->request('GET', $this->api_prefix.'/projects/1');
+        $response = $this->request('GET', $this->api_prefix.'/projects/1.json', null, array('CONTENT_TYPE'=> 'application/json'));
 
         // convert json to array
         $data = json_decode($response->getContent(), true);
@@ -45,16 +45,16 @@ class ProjectsControllerTest extends DimeTestCase
     {
         $this->loginAs('admin');
         /* create new project */
-        $response = $this->request('POST', $this->api_prefix.'/projects', json_encode(array(
+        $response = $this->request('POST', $this->api_prefix.'/projects.json', json_encode(array(
             'name'          => 'Test',
             'alias'         => 'test',
             'description'   => 'Project test description',
             'rate'          => 555,
             'customer'      => 1,
             'user'          => 1
-        )));
+        )), array('CONTENT_TYPE'=> 'application/json'));
 
-        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(201, $response->getStatusCode());
 
         // convert json to array
         $data = json_decode($response->getContent(), true);
@@ -62,7 +62,7 @@ class ProjectsControllerTest extends DimeTestCase
         $id = $data['id'];
 
         /* check created project */
-        $response = $this->request('GET', $this->api_prefix.'/projects/' . $id . '');
+        $response = $this->request('GET', $this->api_prefix.'/projects/' . $id . '.json', null, array('CONTENT_TYPE'=> 'application/json'));
 
         // convert json to array
         $data = json_decode($response->getContent(), true);
@@ -72,28 +72,28 @@ class ProjectsControllerTest extends DimeTestCase
         $this->assertEquals(555, $data['rate'], 'expected to find rate "555"');
 
         /* modify project */
-        $response = $this->request('PUT', $this->api_prefix.'/projects/' . $id, json_encode(array(
+        $response = $this->request('PUT', $this->api_prefix.'/projects/' . $id.'.json', json_encode(array(
             'name'          => 'Modified Test',
             'alias'         => 'test',
             'description'   => 'Project test description update',
             'rate'          => 111,
             'customer'      => 1,
             'user'          => 1
-        )));
+        )), array('CONTENT_TYPE'=> 'application/json'));
         $this->assertEquals(200, $response->getStatusCode());
 
-        $response = $this->request('PUT', $this->api_prefix.'/projects/' . ($id+1), json_encode(array(
+        $response = $this->request('PUT', $this->api_prefix.'/projects/' . ($id+1).'.json', json_encode(array(
             'name'          => 'Modified Test',
             'alias'         => 'test',
             'description'   => 'Project test description update',
             'rate'          => 111,
             'customer'      => 1,
             'user'          => 1
-        )));
+        )), array('CONTENT_TYPE'=> 'application/json'));
         $this->assertEquals(404, $response->getStatusCode());
 
         /* check created project */
-        $response = $this->request('GET', $this->api_prefix.'/projects/' . $id);
+        $response = $this->request('GET', $this->api_prefix.'/projects/' . $id.'.json', null, array('CONTENT_TYPE'=> 'application/json'));
 
         // convert json to array
         $data = json_decode($response->getContent(), true);
@@ -103,11 +103,11 @@ class ProjectsControllerTest extends DimeTestCase
         $this->assertEquals(111, $data['rate'], 'expected to find rate "111"');
 
         /* delete project */
-        $response = $this->request('DELETE', $this->api_prefix.'/projects/' . $id);
-        $this->assertEquals(200, $response->getStatusCode());
+        $response = $this->request('DELETE', $this->api_prefix.'/projects/' . $id.'.json', null, array('CONTENT_TYPE'=> 'application/json'));
+        $this->assertEquals(204, $response->getStatusCode());
 
         /* check if project still exists*/
-        $response = $this->request('GET', $this->api_prefix.'/projects/' . $id);
+        $response = $this->request('GET', $this->api_prefix.'/projects/' . $id.'.json', null, array('CONTENT_TYPE'=> 'application/json'));
         $this->assertEquals(404, $response->getStatusCode());
     }
 }
