@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PhpUnit">
+    <phpunit_settings>
+      <PhpUnitSettings />
+      <phpunit_by_interpreter interpreter_id="7d8e5e09-886c-43e1-ba85-aa437cbd32de" interpreter_name="Dime PHP" configuration_file_path="/vagrant/app/phpunit.xml.dist" custom_loader_path="" phpunit_phar_path="" use_configuration_file="true" />
+    </phpunit_settings>
+  </component>
+</project>
+
