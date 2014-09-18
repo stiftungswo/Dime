@@ -20,15 +20,15 @@ class UsersControllerTest extends DimeTestCase
     
     public function testAuthentification()
     {
-        $this->assertEquals(302, $this->request('GET', $this->api_prefix.'/users.json')->getStatusCode());
+        $this->assertEquals(302, $this->jsonRequest('GET', $this->api_prefix.'/users')->getStatusCode());
         $this->loginAs('admin');
-        $this->assertEquals(200, $this->request('GET', $this->api_prefix.'/users.json')->getStatusCode());
+        $this->assertEquals(200, $this->jsonRequest('GET', $this->api_prefix.'/users')->getStatusCode());
     }
 
     public function testGetUsersAction()
     {
         $this->loginAs('admin');
-        $response = $this->request('GET', $this->api_prefix.'/users.json', null, array('CONTENT_TYPE'=> 'application/json'));
+        $response = $this->jsonRequest('GET', $this->api_prefix.'/users');
 
         // convert json to array
         $data = json_decode($response->getContent(), true);
@@ -42,10 +42,10 @@ class UsersControllerTest extends DimeTestCase
     {
         $this->loginAs('admin');
         /* expect to get 404 on non-existing service */
-        $this->assertEquals(404, $this->request('GET', $this->api_prefix.'/users/11111.json')->getStatusCode());
+        $this->assertEquals(404, $this->jsonRequest('GET', $this->api_prefix.'/users/11111')->getStatusCode());
 
         /* check existing service */
-        $response = $this->request('GET', $this->api_prefix.'/users/1.json', null, array('CONTENT_TYPE'=> 'application/json'));
+        $response = $this->jsonRequest('GET', $this->api_prefix.'/users/1');
 
         // convert json to array
         $data = json_decode($response->getContent(), true);
@@ -73,7 +73,7 @@ class UsersControllerTest extends DimeTestCase
         
         $this->loginAs('admin');
         /* create new service */
-        $response = $this->request('POST', $this->api_prefix.'/users.json', json_encode($this->postarray), array('CONTENT_TYPE' => 'application/json'));
+        $response = $this->jsonRequest('POST', $this->api_prefix.'/users', json_encode($this->postarray));
         $this->assertEquals(201, $response->getStatusCode(), $response->getContent());
 
         // convert json to array
@@ -84,7 +84,7 @@ class UsersControllerTest extends DimeTestCase
         $id = $data['id'];
 
         /* check created service */
-        $response = $this->request('GET', $this->api_prefix.'/users/' . $id . '.json');
+        $response = $this->jsonRequest('GET', $this->api_prefix.'/users/' . $id);
 
         // convert json to array
         $data = json_decode($response->getContent(), true);
@@ -94,15 +94,15 @@ class UsersControllerTest extends DimeTestCase
         $this->assertEquals($data['email'], $this->postarray['email'], 'expected to find '.$this->postarray['email']);
 
         /* modify service */
-        $response = $this->request('PUT', $this->api_prefix.'/users/' . $id.'.json', json_encode($this->putarray), array('CONTENT_TYPE' => 'application/json'));
+        $response = $this->jsonRequest('PUT', $this->api_prefix.'/users/' . $id, json_encode($this->putarray));
         $this->assertEquals(200, $response->getStatusCode(), $response->getContent());
 
         /* Test that wrong id results in 404 */
-        $response = $this->request('PUT', $this->api_prefix.'/users/' . ($id+15).'.json', json_encode($this->putarray), array('CONTENT_TYPE' => 'application/json'));
+        $response = $this->jsonRequest('PUT', $this->api_prefix.'/users/' . ($id+100), json_encode($this->putarray));
         $this->assertEquals(404, $response->getStatusCode());
         
         /* check created service */
-        $response = $this->request('GET', $this->api_prefix.'/users/' . $id.'.json');
+        $response = $this->jsonRequest('GET', $this->api_prefix.'/users/' . $id);
 
         // convert json to array
         $data = json_decode($response->getContent(), true);
@@ -112,11 +112,11 @@ class UsersControllerTest extends DimeTestCase
         $this->assertEquals($data['email'], $this->putarray['email'], 'expected to find '.$this->putarray['email']);
 
         /* delete service */
-        $response = $this->request('DELETE', $this->api_prefix.'/users/' . $id.'.json');
+        $response = $this->jsonRequest('DELETE', $this->api_prefix.'/users/' . $id);
         $this->assertEquals(204, $response->getStatusCode(), $response->getContent());
 
         /* check if service still exists*/
-        $response = $this->request('GET', $this->api_prefix.'/users/' . $id.'.json');
+        $response = $this->jsonRequest('GET', $this->api_prefix.'/users/' . $id);
         $this->assertEquals(404, $response->getStatusCode(), $response->getContent());
     }
 }

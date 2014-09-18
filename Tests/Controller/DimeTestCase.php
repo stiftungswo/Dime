@@ -5,7 +5,6 @@ namespace Dime\TimetrackerBundle\Tests\Controller;
 use Symfony\Component\BrowserKit\Cookie;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Bundle\FrameworkBundle\Client;
-use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
 class DimeTestCase extends WebTestCase
 {
@@ -33,6 +32,38 @@ class DimeTestCase extends WebTestCase
         return $this->client->getResponse();
     }
 
+	protected function jsonRequest(
+		$method,
+		$uri,
+		$content = null,
+		array $server = array(),
+		array $parameters = array(),
+		array $files = array(),
+		$changeHistory = true
+	)
+	{
+		$server['CONTENT_TYPE'] = 'application/json';
+		$server['ACCEPT'] = 'application/json';
+		$this->client->request($method, $uri, $parameters, $files, $server, $content, $changeHistory);
+		return $this->client->getResponse();
+	}
+
+	protected function xmlRequest(
+		$method,
+		$uri,
+		$content = null,
+		array $server = array(),
+		array $parameters = array(),
+		array $files = array(),
+		$changeHistory = true
+	)
+	{
+		$server['CONTENT_TYPE'] = 'application/xml';
+		$server['ACCEPT'] = 'application/xml';
+		$this->client->request($method, $uri, $parameters, $files, $server, $content, $changeHistory);
+		return $this->client->getResponse();
+	}
+
     /**
      * User with auth.
      *
@@ -42,7 +73,7 @@ class DimeTestCase extends WebTestCase
      *
      * @return Client
      */
-    protected function loginAs($user, $password = null)
+    protected function loginAs($user)
     {
         $this->client->restart();
 

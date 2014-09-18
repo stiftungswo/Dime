@@ -6,15 +6,15 @@ class TimeslicesControllerTest extends DimeTestCase
 {
     public function testAuthentification()
     {
-        $this->assertEquals(302, $this->request('GET', $this->api_prefix.'/timeslices.json', null, array(), array(), array())->getStatusCode());
+        $this->assertEquals(302, $this->jsonRequest('GET', $this->api_prefix.'/timeslices')->getStatusCode());
         $this->loginAs('admin');
-        $this->assertEquals(200, $this->request('GET', $this->api_prefix.'/timeslices.json')->getStatusCode());
+        $this->assertEquals(200, $this->jsonRequest('GET', $this->api_prefix.'/timeslices')->getStatusCode());
     }
 
     public function testGetActivitiesTimeSlicesAction()
     {
         $this->loginAs('admin');
-        $response = $this->request('GET', $this->api_prefix.'/timeslices.json', null, array('CONTENT_TYPE'=> 'application/json'));
+        $response = $this->jsonRequest('GET', $this->api_prefix.'/timeslices');
 
         // convert json to array
         $data = json_decode($response->getContent(), true);
@@ -28,10 +28,10 @@ class TimeslicesControllerTest extends DimeTestCase
     {
         $this->loginAs('admin');
         // expect to get 404 on non-existing activity
-        $this->assertEquals(404, $this->request('GET', $this->api_prefix.'/timeslices/11111.json', null, array('CONTENT_TYPE'=> 'application/json'))->getStatusCode());
+        $this->assertEquals(404, $this->jsonRequest('GET', $this->api_prefix.'/timeslices/11111')->getStatusCode());
 
         // check existing activity timeslice
-        $response = $this->request('GET', $this->api_prefix.'/timeslices/1.json',null, array('CONTENT_TYPE'=> 'application/json'));
+        $response = $this->jsonRequest('GET', $this->api_prefix.'/timeslices/1');
 
         // convert json to array
         $data = json_decode($response->getContent(), true);
@@ -45,13 +45,13 @@ class TimeslicesControllerTest extends DimeTestCase
     {
         $this->loginAs('admin');
         // create new activity
-        $response = $this->request('POST', $this->api_prefix.'/timeslices.json', json_encode(array(
+        $response = $this->jsonRequest('POST', $this->api_prefix.'/timeslices', json_encode(array(
             'activity'    => '1',
             'startedAt'   => '2012-02-10 19:00:00',
             'stoppedAt'   => '2012-02-10 19:30:00',
             'duration'    => '',
             'user'        => '1'
-        )), array('CONTENT_TYPE'=> 'application/json'));
+        )));
         $this->assertEquals(201, $response->getStatusCode(), $response->getContent());
 
         // convert json to array
@@ -60,7 +60,7 @@ class TimeslicesControllerTest extends DimeTestCase
         $id = $data['id'];
 
         // check created activity
-        $response = $this->request('GET', $this->api_prefix.'/timeslices/' . $id.'.json', null, array('CONTENT_TYPE'=> 'application/json'));
+        $response = $this->jsonRequest('GET', $this->api_prefix.'/timeslices/' . $id);
 
         // convert json to array
         $data = json_decode($response->getContent(), true);
@@ -70,26 +70,26 @@ class TimeslicesControllerTest extends DimeTestCase
         $this->assertEquals($data['stoppedAt'], '2012-02-10 19:30:00', 'expected to find rate "2012-02-10 19:30:00"');
 
         // modify activity
-        $response = $this->request('PUT', $this->api_prefix.'/timeslices/' . $id.'.json', json_encode(array(
+        $response = $this->jsonRequest('PUT', $this->api_prefix.'/timeslices/' . $id, json_encode(array(
             'activity'    => '1',
             'startedAt'   => '2012-02-10 19:00:00',
             'stoppedAt'   => '2012-02-10 19:30:00',
             'duration'    => '7200',
             'user'        => '1'
-        )), array('CONTENT_TYPE'=> 'application/json'));
+        )));
         $this->assertEquals(200, $response->getStatusCode(), $response->getContent());
 
-        $response = $this->request('PUT', $this->api_prefix.'/timeslices/' .($id+200).'.json', json_encode(array(
+        $response = $this->jsonRequest('PUT', $this->api_prefix.'/timeslices/' .($id+100), json_encode(array(
             'activity'    => '1',
             'startedAt'   => '2012-02-10 19:00:00',
             'stoppedAt'   => '2012-02-10 19:30:00',
             'duration'    => '',
             'user'        => '1'
-        )), array('CONTENT_TYPE'=> 'application/json'));
+        )));
         $this->assertEquals(404, $response->getStatusCode(), $response->getContent());
 
         // check created activity
-        $response = $this->request('GET', $this->api_prefix.'/timeslices/' . $id.'.json', null, array('CONTENT_TYPE'=> 'application/json'));
+        $response = $this->jsonRequest('GET', $this->api_prefix.'/timeslices/' . $id);
 
         // convert json to array
         $data = json_decode($response->getContent(), true);
@@ -98,11 +98,11 @@ class TimeslicesControllerTest extends DimeTestCase
         $this->assertEquals($data['duration'], '7200', 'expected to find "7200"');
 
         // delete activity
-        $response = $this->request('DELETE', $this->api_prefix.'/timeslices/' . $id.'.json', null , array('CONTENT_TYPE'=> 'application/json'));
+        $response = $this->jsonRequest('DELETE', $this->api_prefix.'/timeslices/' . $id);
         $this->assertEquals(204, $response->getStatusCode(), $response->getContent());
 
         // check if activity still exists*/
-        $response = $this->request('GET', $this->api_prefix.'/timeslices/' . $id.'.json', null, array('CONTENT_TYPE'=> 'application/json'));
+        $response = $this->jsonRequest('GET', $this->api_prefix.'/timeslices/' . $id);
         $this->assertEquals(404, $response->getStatusCode(), $response->getContent());
     }
 }

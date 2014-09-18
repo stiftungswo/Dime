@@ -6,19 +6,19 @@ class ServicesControllerTest extends DimeTestCase
 {
     public function testAuthentification()
     {
-        $this->assertEquals(302, $this->request('GET', $this->api_prefix.'/services.json')->getStatusCode());
+        $this->assertEquals(302, $this->jsonRequest('GET', $this->api_prefix.'/services')->getStatusCode());
         $this->loginAs('admin');
-        $this->assertEquals(200, $this->request('GET', $this->api_prefix.'/services.json')->getStatusCode());
+        $this->assertEquals(200, $this->jsonRequest('GET', $this->api_prefix.'/services')->getStatusCode());
     }
 
     public function testGetServiceAction()
     {
         $this->loginAs('admin');
         /* expect to get 404 on non-existing service */
-        $this->assertEquals(404, $this->request('GET', $this->api_prefix.'/services/11111.json', null, array('CONTENT_TYPE'=> 'application/json'))->getStatusCode());
+        $this->assertEquals(404, $this->jsonRequest('GET', $this->api_prefix.'/services/11111')->getStatusCode());
 
         /* check existing service */
-        $response = $this->request('GET', $this->api_prefix.'/services/1.json', null, array('CONTENT_TYPE'=> 'application/json'));
+        $response = $this->jsonRequest('GET', $this->api_prefix.'/services/1');
 
         // convert json to array
         $data = json_decode($response->getContent(), true);
@@ -32,7 +32,13 @@ class ServicesControllerTest extends DimeTestCase
     {
         $this->loginAs('admin');
         /* create new service */
-        $response = $this->request('POST', $this->api_prefix.'/services.json', '{"name": "Test", "alias": "test", "rate": 555}', array('CONTENT_TYPE'=> 'application/json'));
+        $response = $this->jsonRequest('POST', $this->api_prefix.'/services',
+		    json_encode(array(
+			    'name' => 'Test',
+			    'alias' => 'test',
+			    'rate' => '555',
+		    ))
+        );
         $this->assertEquals(201, $response->getStatusCode(), $response->getContent());
 
         // convert json to array
@@ -41,7 +47,7 @@ class ServicesControllerTest extends DimeTestCase
         $id = $data['id'];
 
         /* check created service */
-        $response = $this->request('GET', $this->api_prefix.'/services/' . $id . '.json', null, array('CONTENT_TYPE'=> 'application/json'));
+        $response = $this->jsonRequest('GET', $this->api_prefix.'/services/' . $id);
 
         // convert json to array
         $data = json_decode($response->getContent(), true);
@@ -51,14 +57,28 @@ class ServicesControllerTest extends DimeTestCase
         $this->assertEquals(555, $data['rate'], 'expected to find rate "555"');
 
         /* modify service */
-        $response = $this->request('PUT', $this->api_prefix.'/services/' . $id.'.json', '{"name": "Modified Test", "alias": "test", "rate": 111, "foo": "bar"}', array('CONTENT_TYPE'=> 'application/json'));
+        $response = $this->jsonRequest('PUT', $this->api_prefix.'/services/' . $id,
+		    json_encode(array(
+			    'name' => 'Modified Test',
+			    'alias' => 'test',
+			    'rate' => '111',
+			    'foo' => 'bar',
+		    ))
+        );
         $this->assertEquals(200, $response->getStatusCode(), $response->getContent());
 
-        $response = $this->request('PUT', $this->api_prefix.'/services/' . ($id+1).'.json', '{"name": "Modified Test", "alias": "test", "rate": 111, "foo": "bar"}', array('CONTENT_TYPE'=> 'application/json'));
+        $response = $this->jsonRequest('PUT', $this->api_prefix.'/services/' . ($id+100),
+	    json_encode(array(
+		        'name' => 'Modified Test',
+		        'alias' => 'test',
+		        'rate' => '111',
+		         'foo' => 'bar',
+		    ))
+        );
         $this->assertEquals(404, $response->getStatusCode());
 
         /* check created service */
-        $response = $this->request('GET', $this->api_prefix.'/services/' . $id.'.json', null, array('CONTENT_TYPE'=> 'application/json'));
+        $response = $this->jsonRequest('GET', $this->api_prefix.'/services/' . $id);
 
         // convert json to array
         $data = json_decode($response->getContent(), true);
@@ -68,11 +88,11 @@ class ServicesControllerTest extends DimeTestCase
         $this->assertEquals(111, $data['rate'], 'expected to find rate "111"');
 
         /* delete service */
-        $response = $this->request('DELETE', $this->api_prefix.'/services/' . $id.'.json', null, array('CONTENT_TYPE'=> 'application/json'));
+        $response = $this->jsonRequest('DELETE', $this->api_prefix.'/services/' . $id);
         $this->assertEquals(204, $response->getStatusCode(), $response->getContent());
 
         /* check if service still exists*/
-        $response = $this->request('GET', $this->api_prefix.'/services/' . $id.'.json', null, array('CONTENT_TYPE'=> 'application/json'));
+        $response = $this->jsonRequest('GET', $this->api_prefix.'/services/' . $id);
         $this->assertEquals(404, $response->getStatusCode(), $response->getContent());
     }
 }
