@@ -79,6 +79,13 @@ class Activity extends Entity implements DimeEntityInterface
      */
     protected $rateReference;
 
+	/**
+	 * @var boolean $chargeable
+	 *
+	 * @ORM\Column(type="boolean")
+	 */
+	protected $chargeable;
+
     /**
      * Entity constructor
      */

@@ -27,6 +27,7 @@ class ActivityFormType extends AbstractType
             ->add('description')
             ->add('rate')
             ->add('rateReference')  // TODO: add constraints
+	        ->add('chargeable', null, array('empty_data' => false, 'required' => false))
             ->add('service')
             ->add('customer')
             ->add('project')
