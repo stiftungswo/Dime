@@ -52,6 +52,13 @@ class Service extends Entity implements DimeEntityInterface
      */
     protected $rate;
 
+	/**
+	 * @var string $rateUnit
+	 *
+	 * @ORM\Column(type="text")
+	 */
+	protected $rateUnit;
+
     /**
      * @var ArrayCollection $tags
      *
@@ -171,6 +178,28 @@ class Service extends Entity implements DimeEntityInterface
     {
         return $this->rate;
     }
+
+	/**
+	 * Set Rate Unit
+	 * @param $rateUnit
+	 *
+	 * @return $this
+	 */
+	public function setRateUnit($rateUnit)
+	{
+		$this->rateUnit = $rateUnit;
+		return $this;
+	}
+
+	/**
+	 * Get Rate Unit
+	 *
+	 * @return string
+	 */
+	public function getRateUnit()
+	{
+		return $this->rateUnit;
+	}
 
     /**
      * get service as string

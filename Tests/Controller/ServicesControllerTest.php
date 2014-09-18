@@ -37,6 +37,7 @@ class ServicesControllerTest extends DimeTestCase
 			    'name' => 'Test',
 			    'alias' => 'test',
 			    'rate' => '555',
+			    'rateUnit' => 'h',
 		    ))
         );
         $this->assertEquals(201, $response->getStatusCode(), $response->getContent());
@@ -62,6 +63,7 @@ class ServicesControllerTest extends DimeTestCase
 			    'name' => 'Modified Test',
 			    'alias' => 'test',
 			    'rate' => '111',
+			    'rateUnit' => 'h',
 			    'foo' => 'bar',
 		    ))
         );
@@ -72,7 +74,8 @@ class ServicesControllerTest extends DimeTestCase
 		        'name' => 'Modified Test',
 		        'alias' => 'test',
 		        'rate' => '111',
-		         'foo' => 'bar',
+		        'rateUnit' => 'h',
+		        'foo' => 'bar',
 		    ))
         );
         $this->assertEquals(404, $response->getStatusCode());

@@ -26,6 +26,7 @@ class ServiceFormType extends AbstractType
             ->add('alias')
             ->add('description')
             ->add('rate')
+	        ->add('rateUnit')
             ->add('tags')
             ->add('user')
         ;
