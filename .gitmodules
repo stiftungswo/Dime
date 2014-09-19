@@ -1,0 +1,12 @@
+[submodule "src/Dime/FrontendBundle"]
+	path = src/Dime/FrontendBundle
+	url = https://github.com/stiftungswo/DimeFrontendBundle.git
+[submodule "src/Dime/TimetrackerBundle"]
+	path = src/Dime/TimetrackerBundle
+	url = https://github.com/stiftungswo/DimeTimetrackerBundle.git
+[submodule "src/Dime/InvoiceBundle"]
+	path = src/Dime/InvoiceBundle
+	url = https://github.com/stiftungswo/DimeInvoiceBundle.git
+[submodule "src/Dime/OfferBundle"]
+	path = src/Dime/OfferBundle
+	url = https://github.com/stiftungswo/DimeOfferBundle.git
