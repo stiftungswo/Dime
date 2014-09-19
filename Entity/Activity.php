@@ -304,4 +304,23 @@ class Activity extends Entity implements DimeEntityInterface
 
         return $this;
     }
+
+	/**
+	 * @param $chargeable
+	 *
+	 * @return $this
+	 */
+	public function setChargeable($chargeable)
+	{
+		$this->chargeable = $chargeable;
+		return $this;
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function getChargeable()
+	{
+		return $this->chargeable;
+	}
 }

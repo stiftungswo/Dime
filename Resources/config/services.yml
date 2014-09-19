@@ -30,3 +30,7 @@ services:
     dime.activity.handler:
         class: "Dime\TimetrackerBundle\Handler\ActivityHandler"
         arguments: [ "@doctrine.orm.entity_manager", "Dime\TimetrackerBundle\Entity\Activity", "@form.factory", "@security.context"]
+
+    dime.amount.handler:
+            class: "Dime\TimetrackerBundle\Handler\AmountHandler"
+            arguments: [ "@doctrine.orm.entity_manager", "Dime\TimetrackerBundle\Entity\Amount", "@form.factory", "@security.context"]

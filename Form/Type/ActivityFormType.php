@@ -5,8 +5,7 @@ namespace Dime\TimetrackerBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Dime\TimetrackerBundle\Entity\User;
-use Dime\TimetrackerBundle\Form\Transfomer\TagTransformer;
+
 
 class ActivityFormType extends AbstractType
 {
@@ -27,7 +26,7 @@ class ActivityFormType extends AbstractType
             ->add('description')
             ->add('rate')
             ->add('rateReference')  // TODO: add constraints
-	        ->add('chargeable', null, array('empty_data' => false, 'required' => false))
+	        ->add('chargeable', null, array('empty_data' => true, 'required' => false))
             ->add('service')
             ->add('customer')
             ->add('project')

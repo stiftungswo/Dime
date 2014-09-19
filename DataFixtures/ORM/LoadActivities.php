@@ -20,24 +20,28 @@ class LoadActivities extends AbstractFixture implements OrderedFixtureInterface
             'description'   => 'cwe: initial requirements meeting with customer',
             'rate'          => 50.0,
             'rateReference' => 'service',
+	        'chargeable'    => true,
         ),
         'requirements-documentation' => array(
             'service'       => 'requirements',
             'description'   => 'cwe: requirements documentation',
             'rate'          => 50.0,
             'rateReference' => 'service',
+            'chargeable'    => true,
         ),
         'environment-setup' => array(
             'service'       => 'infrastructure',
             'description'   => 'cwe: vhost setup, PHP configuration, .vimrc, tags',
             'rate'          => 50.0,
             'rateReference' => 'service',
+            'chargeable'    => true,
         ),
         'project-setup' => array(
             'service'       => 'development',
             'description'   => 'cwe: initial project setup (Symfony2, bundles etc.)',
             'rate'          => 50.0,
             'rateReference' => 'service',
+            'chargeable'    => true,
         ),
     );
 
@@ -61,6 +65,7 @@ class LoadActivities extends AbstractFixture implements OrderedFixtureInterface
                      ->setDescription($data['description'])
                      ->setRate($data['rate'])
                      ->setRateReference($data['rateReference'])
+	                 ->setChargeable($data['chargeable'])
                      ;
 
             $manager->persist($activity);
