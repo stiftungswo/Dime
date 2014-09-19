@@ -29,6 +29,7 @@ class AppKernel extends Kernel
             new Nelmio\ApiDocBundle\NelmioApiDocBundle(),
             new Dime\TimetrackerBundle\DimeTimetrackerBundle(),
             new Dime\FrontendBundle\DimeFrontendBundle(),
+            new Dime\OfferBundle\DimeOfferBundle(),
         );
         
         if (in_array($this->getEnvironment(), array(

@@ -19,7 +19,6 @@
 	],
 	"autoload" : {
 		"psr-4" : {
-			"Dime\\TimetrackerBundle\\" : "src/DimeTimetrackerBundle",
 			"" : "src/"
 		}
 	},
