@@ -1,3 +1,7 @@
+dime_frontend:
+    resource: "@DimeFrontendBundle/Resources/config/routing.yml"
+    prefix:   /
+
 DimeTimetrackerBundle:
     type: rest
     prefix: /api

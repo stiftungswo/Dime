@@ -28,6 +28,7 @@ class AppKernel extends Kernel
             new JMS\SerializerBundle\JMSSerializerBundle($this),
             new Nelmio\ApiDocBundle\NelmioApiDocBundle(),
             new Dime\TimetrackerBundle\DimeTimetrackerBundle(),
+            new Dime\FrontendBundle\DimeFrontendBundle(),
         );
         
         if (in_array($this->getEnvironment(), array(
