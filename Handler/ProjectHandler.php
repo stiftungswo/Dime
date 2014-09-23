@@ -81,6 +81,6 @@ class ProjectHandler extends AbstractHandler implements HandlerInterface
      */
     public function delete(DimeEntityInterface $entity)
     {
-        return $this->deleteEntity($entity);
+        $this->deleteEntity($entity);
     }
 }

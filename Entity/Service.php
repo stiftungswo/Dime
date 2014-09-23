@@ -69,6 +69,33 @@ class Service extends Entity implements DimeEntityInterface
      */
     protected $tags;
 
+	/**
+	 * @var boolean $chargeable
+	 *
+	 * @ORM\Column(type="boolean")
+	 */
+	protected $chargeable;
+
+	/**
+	 * @return boolean
+	 */
+	public function isChargeable()
+	{
+		return $this->chargeable;
+	}
+
+	/**
+	 * @param boolean $chargeable
+	 *
+	 * @return $this
+	 */
+	public function setChargeable($chargeable)
+	{
+		$this->chargeable = $chargeable;
+		return $this;
+	}
+
+
     /**
      * Entity constructor
      */
@@ -232,7 +259,7 @@ class Service extends Entity implements DimeEntityInterface
     /**
      * Remove tags
      *
-     * @param Tag $tags
+     * @param Tag $tag
      */
     public function removeTag(Tag $tag)
     {

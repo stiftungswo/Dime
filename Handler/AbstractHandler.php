@@ -35,16 +35,16 @@ abstract class AbstractHandler
         return new $this->entityClass();
     }
 
-    /**
-     * Processes the form.
-     *
-     * @param array $parameters            
-     * @param String $method            
-     *
-     * @return PageInterface
-     *
-     * @throws \Dime\TimetrackerBundle\Exception\InvalidFormException
-     */
+	/**
+	 * Processes the form.
+	 *
+	 * @param array  $parameters
+	 * @param String $method
+	 *
+	 *
+	 * @return \Dime\TimetrackerBundle\Model\DimeEntityInterface|mixed
+	 * @throws \Dime\TimetrackerBundle\Exception\InvalidFormException
+	 */
     protected function processForm(DimeEntityInterface $entity, array $parameters, $form, $method = "PUT", $formoptions = array())
     {
         $formoptions['method'] = $method;

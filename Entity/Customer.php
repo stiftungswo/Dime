@@ -48,6 +48,60 @@ class Customer extends Entity implements DimeEntityInterface
      */
     protected $tags;
 
+	/**
+	 * @var float $rate
+	 *
+	 * @ORM\Column(type="decimal", scale=2, precision=10, nullable=true)
+	 */
+	protected $rate;
+
+	/**
+	 * @var boolean $chargeable
+	 *
+	 * @ORM\Column(type="boolean")
+	 */
+	protected $chargeable;
+
+	/**
+	 * @return boolean
+	 */
+	public function isChargeable()
+	{
+		return $this->chargeable;
+	}
+
+	/**
+	 * @param boolean $chargeable
+	 *
+	 * @return $this
+	 */
+	public function setChargeable($chargeable)
+	{
+		$this->chargeable = $chargeable;
+		return $this;
+	}
+
+
+
+	/**
+	 * @return float
+	 */
+	public function getRate()
+	{
+		return $this->rate;
+	}
+
+	/**
+	 * @param float $rate
+	 *
+	 * @return $this
+	 */
+	public function setRate($rate)
+	{
+		$this->rate = $rate;
+		return $this;
+	}
+
     /**
      * Entity constructor
      */
@@ -133,7 +187,7 @@ class Customer extends Entity implements DimeEntityInterface
     /**
      * Remove tags
      *
-     * @param Tag $tags
+     * @param Tag $tag
      * @return Activity
      */
     public function removeTag(Tag $tag)

@@ -50,7 +50,7 @@ class UserHandler extends AbstractHandler implements HandlerInterface
     public function post(array $parameters)
     {
         $entity = $this->userManager->createUser();
-        return $this->processUser($entity, $parameters, $this->formType,'POST');
+        return $this->processForm($entity, $parameters, $this->formType,'POST');
     }
 
     /**
@@ -59,7 +59,7 @@ class UserHandler extends AbstractHandler implements HandlerInterface
      */
     public function put(DimeEntityInterface $entity, array $parameters)
     {
-        return $this->processUser($entity, $parameters, $this->formType, 'PUT');
+        return $this->processForm($entity, $parameters, $this->formType, 'PUT');
     }
     
     /*
@@ -68,7 +68,7 @@ class UserHandler extends AbstractHandler implements HandlerInterface
      */
     public function delete(DimeEntityInterface $entity)
     {
-        return $this->deleteEntity($entity);
+        $this->deleteEntity($entity);
     }
     
     /**
@@ -96,7 +96,7 @@ class UserHandler extends AbstractHandler implements HandlerInterface
     /*
      * A Slightly Changed Function to Properly handle User Entities
      */
-    private function processUser(DimeEntityInterface $entity, array $parameters, $form, $method = "PUT", $formoptions = array())
+    protected function processForm(DimeEntityInterface $entity, array $parameters, $form, $method = "PUT", $formoptions = array())
     {
         $formoptions['method'] = $method;
         $form = $this->formFactory->create($form, $entity, $formoptions);

@@ -43,7 +43,7 @@ class DimeTestCase extends WebTestCase
 	)
 	{
 		$server['CONTENT_TYPE'] = 'application/json';
-		$server['ACCEPT'] = 'application/json';
+		$server['HTTP_ACCEPT'] = 'application/json';
 		$this->client->request($method, $uri, $parameters, $files, $server, $content, $changeHistory);
 		return $this->client->getResponse();
 	}

@@ -121,6 +121,32 @@ class Project extends Entity implements DimeEntityInterface
      */
     protected $tags;
 
+	/**
+	 * @var boolean $chargeable
+	 *
+	 * @ORM\Column(type="boolean")
+	 */
+	protected $chargeable;
+
+	/**
+	 * @return boolean
+	 */
+	public function isChargeable()
+	{
+		return $this->chargeable;
+	}
+
+	/**
+	 * @param boolean $chargeable
+	 *
+	 * @return $this
+	 */
+	public function setChargeable($chargeable)
+	{
+		$this->chargeable = $chargeable;
+		return $this;
+	}
+
     /**
      * Entity constructor
      */
@@ -408,7 +434,7 @@ class Project extends Entity implements DimeEntityInterface
     /**
      * Remove tags
      *
-     * @param Tag $tags
+     * @param Tag $tag
      * @return Project
      */
     public function removeTag(Tag $tag)

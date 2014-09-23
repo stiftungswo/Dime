@@ -52,7 +52,8 @@ class ActivitiesControllerTest extends DimeTestCase
             'service'       => 1,
             'customer'      => 1,
             'project'       => 1,
-            'user'          => 1
+            'user'          => 1,
+	        'chargeableReference' => 'customer'
         )));
         $this->assertEquals(201, $response->getStatusCode());
 

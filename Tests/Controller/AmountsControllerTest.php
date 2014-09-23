@@ -54,6 +54,7 @@ class AmountsControllerTest extends DimeTestCase
             'project'       => 1,
             'user'          => 1,
 	        'value'         => '5',
+	        'chargeableReference' => 'customer'
         )));
         $this->assertEquals(201, $response->getStatusCode());
 

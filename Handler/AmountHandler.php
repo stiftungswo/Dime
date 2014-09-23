@@ -9,6 +9,9 @@
 namespace Dime\TimetrackerBundle\Handler;
 
 
+use Dime\TimetrackerBundle\Entity\Amount;
+use Dime\TimetrackerBundle\Exception\InvalidFormException;
+use Dime\TimetrackerBundle\Model\ActivityReference;
 use Dime\TimetrackerBundle\Model\DimeEntityInterface;
 use Dime\TimetrackerBundle\Model\HandlerInterface;
 
@@ -93,6 +96,6 @@ class AmountHandler extends AbstractHandler implements HandlerInterface {
 	 */
 	public function delete(DimeEntityInterface $entity)
 	{
-		return $this->deleteEntity($entity);
+		$this->deleteEntity($entity);
 	}
 }

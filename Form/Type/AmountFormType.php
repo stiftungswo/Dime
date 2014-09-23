@@ -8,6 +8,7 @@
 
 namespace Dime\TimetrackerBundle\Form\Type;
 
+use Dime\TimetrackerBundle\Form\Transformer\ReferenceTransformer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -26,11 +27,13 @@ class AmountFormType extends AbstractType {
 
 	public function buildForm(FormBuilderInterface $builder, array $options)
 	{
+		$transformer = new ReferenceTransformer();
 		$builder
 			->add('description')
 			->add('rate')
-			->add('rateReference')  // TODO: add constraints
-			->add('chargeable', null, array('empty_data' => true, 'required' => false))
+			->add($builder->create('rateReference')->addViewTransformer($transformer))
+			->add('chargeable', null, array('empty_data' => 'checked', 'required' => false))
+			->add($builder->create('chargeableReference')->addViewTransformer($transformer))
 			->add('service')
 			->add('customer')
 			->add('project')

@@ -27,6 +27,7 @@ class ServiceFormType extends AbstractType
             ->add('description')
             ->add('rate')
 	        ->add('rateUnit')
+	        ->add('chargeable', null, array('empty_data' => 'checked', 'required' => false))
             ->add('tags')
             ->add('user')
         ;

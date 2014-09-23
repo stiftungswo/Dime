@@ -1,6 +1,7 @@
 <?php
 namespace Dime\TimetrackerBundle\Entity;
 
+use Dime\TimetrackerBundle\Model\ActivityReference;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as JMS;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -72,10 +73,10 @@ class Activity extends Entity implements DimeEntityInterface
     protected $rate;
 
     /**
-     * @var string $rateReference (considered as enum: customer|project|service)
+     * @var integer $rateReference (enum see Model\ActivityReference)
      *
      * @JMS\SerializedName("rateReference")
-     * @ORM\Column(name="rate_reference", type="string", length=255, nullable=true)
+     * @ORM\Column(name="rate_reference", type="smallint", nullable=true)
      */
     protected $rateReference;
 
@@ -85,6 +86,14 @@ class Activity extends Entity implements DimeEntityInterface
 	 * @ORM\Column(type="boolean")
 	 */
 	protected $chargeable;
+
+	/**
+	 * @var integer $chargeableReference (enum see Model\ActivityReference)
+	 *
+	 * @JMS\SerializedName("chargeableReference")
+	 * @ORM\Column(name="cargeable_reference", type="smallint", nullable=true)
+	 */
+	protected $chargeableReference;
 
     /**
      * Entity constructor
@@ -127,7 +136,6 @@ class Activity extends Entity implements DimeEntityInterface
     public function setRate($rate)
     {
         $this->rate = $rate;
-
         return $this;
     }
 
@@ -138,7 +146,20 @@ class Activity extends Entity implements DimeEntityInterface
      */
     public function getRate()
     {
-        return $this->rate;
+	    switch ($this->rateReference){
+	    case ActivityReference::$ACTIVITY:
+		    return $this->rate;
+	        break;
+	    case ActivityReference::$CUSTOMER:
+		    return $this->getCustomer()->getRate();
+		    break;
+	    case ActivityReference::$PROJECT:
+		    return $this->getProject()->getRate();
+		    break;
+	    case ActivityReference::$SERVICE:
+		    return $this->getService()->getRate();
+		    break;
+	    }
     }
 
     /**
@@ -269,12 +290,13 @@ class Activity extends Entity implements DimeEntityInterface
         return $this;
     }
 
-    /**
-     * Remove tags
-     *
-     * @param Tag $tags
-     * @return Activity
-     */
+	/**
+	 * Remove tags
+	 *
+	 * @param Tag $tag
+	 *
+	 * @return Activity
+	 */
     public function removeTag(Tag $tag)
     {
         $this->tags->removeElement($tag);
@@ -306,7 +328,29 @@ class Activity extends Entity implements DimeEntityInterface
     }
 
 	/**
-	 * @param $chargeable
+	 * @return boolean
+	 */
+	public function isChargeable()
+	{
+		switch($this->getChargeableReference())
+		{
+		case ActivityReference::$ACTIVITY:
+			return $this->chargeable;
+			break;
+		case ActivityReference::$PROJECT:
+			return $this->getProject()->isChargeable();
+			break;
+		case ActivityReference::$CUSTOMER:
+			return $this->getCustomer()->isChargeable();
+			break;
+		case ActivityReference::$SERVICE:
+			return $this->getService()->isChargeable();
+			break;
+		}
+	}
+
+	/**
+	 * @param boolean $chargeable
 	 *
 	 * @return $this
 	 */
@@ -316,11 +360,38 @@ class Activity extends Entity implements DimeEntityInterface
 		return $this;
 	}
 
+
 	/**
-	 * @return bool
+	 * @return int
 	 */
-	public function getChargeable()
+	public function getDuration()
 	{
-		return $this->chargeable;
+		$duration = 0;
+		foreach($this->getTimeslices() as $timeslice)
+		{
+			$duration += $timeslice->getCurrentDuration();
+		}
+		return $duration;
 	}
+
+	/**
+	 * @return int
+	 */
+	public function getChargeableReference()
+	{
+		return $this->chargeableReference;
+	}
+
+	/**
+	 * @param int $chargeableReference
+	 *
+	 * @return $this
+	 */
+	public function setChargeableReference($chargeableReference)
+	{
+		$this->chargeableReference = $chargeableReference;
+		return $this;
+	}
+
+
 }
