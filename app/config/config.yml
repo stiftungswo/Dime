@@ -2,6 +2,7 @@ imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
     - { resource: "@DimeTimetrackerBundle/Resources/config/config.yml" }
+    - { resource: "@DimeInvoiceBundle/Resources/config/services.yml"}
 
 framework:
     #esi:             ~

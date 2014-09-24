@@ -1,10 +1,16 @@
-dime_offer:
-    resource: "@DimeOfferBundle/Resources/config/routing.yml"
-    prefix:   /
-
-dime_frontend:
+DimeFrontendBundle:
     resource: "@DimeFrontendBundle/Resources/config/routing.yml"
     prefix:   /
+
+DimeOfferBundle:
+    type: rest
+    resource: "@DimeOfferBundle/Resources/config/routing.yml"
+    prefix:   /api
+
+DimeInvoiceBundle:
+    type: rest
+    resource: "@DimeInvoiceBundle/Resources/config/routing.yml"
+    prefix:   /api
 
 DimeTimetrackerBundle:
     type: rest
