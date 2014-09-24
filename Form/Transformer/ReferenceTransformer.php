@@ -44,23 +44,21 @@ class ReferenceTransformer implements DataTransformerInterface
 	 */
 	public function transform($value)
 	{
-		$retval = '';
 		switch($value)
 		{
 		case ActivityReference::$SERVICE:
-			$retval = 'service';
+			return 'service';
 			break;
 		case ActivityReference::$CUSTOMER:
-			$retval = 'customer';
+			return 'customer';
 			break;
 		case ActivityReference::$PROJECT:
-			$retval = 'project';
+			return 'project';
 			break;
 		case ActivityReference::$ACTIVITY:
-			$retval = 'activty';
+			return 'activty';
 			break;
 		}
-		return $retval;
 	}
 
 	/**
@@ -89,24 +87,22 @@ class ReferenceTransformer implements DataTransformerInterface
 	 */
 	public function reverseTransform($value)
 	{
-		$retval = 0;
 		switch($value)
 		{
 		case "service":
-			$retval = ActivityReference::$SERVICE;
+			return ActivityReference::$SERVICE;
 			break;
 		case "customer":
-			$retval = ActivityReference::$CUSTOMER;
+			return ActivityReference::$CUSTOMER;
 			break;
 		case "project":
-			$retval = ActivityReference::$PROJECT;
+			return ActivityReference::$PROJECT;
 			break;
 		case "activty":
-			$retval = ActivityReference::$ACTIVITY;
+			return ActivityReference::$ACTIVITY;
 			break;
-		case '':
-			$retval = ActivityReference::$ACTIVITY;
+		default:
+			return ActivityReference::$ACTIVITY;
 		}
-		return $retval;
 	}
 }

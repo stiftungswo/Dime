@@ -31,9 +31,9 @@ class AmountFormType extends AbstractType {
 		$builder
 			->add('description')
 			->add('rate')
-			->add($builder->create('rateReference')->addViewTransformer($transformer))
+			->add($builder->create('rateReference', 'text')->addViewTransformer($transformer))
 			->add('chargeable', null, array('empty_data' => 'checked', 'required' => false))
-			->add($builder->create('chargeableReference')->addViewTransformer($transformer))
+			->add($builder->create('chargeableReference', 'text')->addViewTransformer($transformer))
 			->add('service')
 			->add('customer')
 			->add('project')

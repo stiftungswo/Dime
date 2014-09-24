@@ -23,12 +23,13 @@ class ActivityFormType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+	    $transformer = new ReferenceTransformer();
         $builder
             ->add('description')
             ->add('rate')
-	        ->add($builder->create('rateReference')->addViewTransformer(new ReferenceTransformer()))
+	        ->add($builder->create('rateReference', 'text')->addViewTransformer($transformer))
 	        ->add('chargeable', null, array('empty_data' => 'checked', 'required' => false))
-	        ->add($builder->create('chargeableReference')->addViewTransformer(new ReferenceTransformer()))
+	        ->add($builder->create('chargeableReference', 'text')->addViewTransformer($transformer))
             ->add('service')
             ->add('customer')
             ->add('project')
