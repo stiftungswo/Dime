@@ -262,4 +262,14 @@ class ActivityRepository extends EntityRepository
         }
         return $this;
     }
+
+	/**
+	 * @param $projectId
+	 *
+	 * @return array
+	 */
+	public function findByProject($projectId)
+	{
+		return $this->findBy(array('project' => $projectId));
+	}
 }

@@ -371,7 +371,23 @@ class Activity extends Entity implements DimeEntityInterface
 		{
 			$duration += $timeslice->getCurrentDuration();
 		}
-		return $duration;
+		switch($this->getService()->getRateUnit())
+		{
+		case 's':
+			return $duration;
+			break;
+		case 'm':
+			return ($duration / 60);
+			break;
+		case 'h':
+			return ($duration / 60 / 60);
+			break;
+		case 'd':
+			return ($duration / 60 / 60 / 24);
+			break;
+		default:
+			return $duration;
+		}
 	}
 
 	/**

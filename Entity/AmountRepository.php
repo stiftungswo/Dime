@@ -262,4 +262,9 @@ class AmountRepository extends EntityRepository
         }
         return $this;
     }
+
+	public function findByProject($projectId)
+	{
+		return $this->findBy(array('project' => $projectId));
+	}
 }
