@@ -1,9 +1,4 @@
 services:
-        buzz_request:
-          class:  Dime\InvoiceBundle\Services\AuthenticatedBuzzRequest
-          arguments: [@security.context]
-        buzz_response:
-          class:  Buzz\Message\Response
-        buzz_filecontents:
-          class:  Buzz\Client\FileGetContents
-
+    dime.invoice.handler:
+        class: "Dime\InvoiceBundle\Handler\InvoiceHandler"
+        arguments: [ "@doctrine.orm.entity_manager" ]

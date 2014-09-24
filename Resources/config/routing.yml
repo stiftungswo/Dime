@@ -1,21 +1,6 @@
-DimeInvoiceBundle_customers:
-    pattern:  /invoice
-    defaults: { _controller: DimeInvoiceBundle:Invoice:index }
-    
-DimeInvoiceBundle_activities:
-    pattern:  /invoice/activities/{customer_id}
-    defaults: { _controller: DimeInvoiceBundle:Invoice:activities }
-    
-DimeInvoiceBundle_invoice:
-    pattern:  /invoice/invoice
-    defaults: { _controller: DimeInvoiceBundle:Invoice:invoice }
-    
-DimeInvoiceBundle_config:
-    pattern:  /invoice/config/{customer_id}
-    defaults: { _controller: DimeInvoiceBundle:Invoice:config }
-
-DimeInvoiceBundle_first:
-    pattern:  /invoice/first
-    defaults: { _controller: DimeInvoiceBundle:Invoice:first }
-    
-    
+invoices:
+    type:     rest
+    resource: Dime\InvoiceBundle\Controller\InvoiceController
+    prefix:   /v1
+    name_prefix:  api_1_
+    defaults: { _format: json }
