@@ -9,8 +9,6 @@ namespace Dime\InvoiceBundle\Entity;
 
 
 use Dime\TimetrackerBundle\Entity\Activity;
-use Dime\TimetrackerBundle\Entity\Amount;
-use Dime\TimetrackerBundle\Model\DimeEntityInterface;
 
 class InvoiceItem {
 	public $rate;
@@ -18,18 +16,11 @@ class InvoiceItem {
 	public $rateUnit;
 	public $charge;
 
-	public function __construct(DimeEntityInterface $entity)
+	public function __construct(Activity $activity)
 	{
-		if($entity instanceof Activity) {
-			$this->rate     = $entity->getRate();
-			$this->amount   = $entity->getDuration();
-			$this->rateUnit = $entity->getService()->getRateUnit();
-			$this->charge   = ($entity->getRate() * $entity->getDuration());
-		} elseif($entity instanceof Amount) {
-			$this->rate     = $entity->getRate();
-			$this->amount   = $entity->getValue();
-			$this->rateUnit = $entity->getService()->getRateUnit();
-			$this->charge   = ($entity->getRate() * $entity->getValue());
-		}
+		$this->rate     = $activity->getRate();
+		$this->amount   = $activity->getDuration();
+		$this->rateUnit = $activity->getService()->getRateUnit();
+		$this->charge   = ($activity->getRate() * $activity->getDuration());
 	}
 } 

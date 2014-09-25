@@ -39,6 +39,17 @@ class InvoiceProject {
 	}
 
 	/**
+	 * @param array $items
+	 *
+	 * @return $this
+	 */
+	public function setItems($items)
+	{
+		$this->items = $items;
+		return $this;
+	}
+
+	/**
 	 * @param InvoiceItem $item
 	 *
 	 * @return $this
@@ -48,6 +59,7 @@ class InvoiceProject {
 		$this->items->detach($item);
 		return $this;
 	}*/
+
 
 	/**
 	 * @return mixed

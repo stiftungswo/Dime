@@ -2,12 +2,12 @@
 
 namespace Dime\InvoiceBundle\Controller;
 
+use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Request\ParamFetcherInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use FOS\RestBundle\Controller\Annotations;
 
-class InvoiceController extends Controller
+class InvoiceController extends FOSRestController
 {
 	private $handlerSerivce = 'dime.invoice.handler';
 
@@ -21,7 +21,7 @@ class InvoiceController extends Controller
 	 * }
 	 * )
 	 *
-	 * @Annotations\RequestParam(name="id", requirements="\d+", description="The ID of the Customer")
+	 * @Annotations\RequestParam(name="nonchargeable", nullable=true, default="false", description="The ID of the Customer")
 	 *
 	 * @Annotations\View(
 	 * templateVar="invoices"
@@ -31,14 +31,77 @@ class InvoiceController extends Controller
 	 *
 	 * @Annotations\Route(requirements={"_format"="json|xml"})
 	 *
+	 * @param                       $id
+	 * @param ParamFetcherInterface $paramFetcher
 	 *
-	 * @param $id
 	 *
 	 * @return array
 	 */
-	public function getInvoicesByCustomerAction($id)
+	public function getInvoicesByCustomerAction($id, ParamFetcherInterface $paramFetcher)
 	{
-		return $this->container->get($this->handlerSerivce)->allByCustomer($id);
+		return $this->container->get($this->handlerSerivce)->allByCustomer($id, $paramFetcher->get('nonchargeable', true));
+	}
+
+	/**
+	 * Get all Invoices for a Service specified by id,
+	 *
+	 * @ApiDoc(
+	 * resource = true,
+	 * statusCodes = {
+	 * 200 = "Returned when successful"
+	 * }
+	 * )
+	 *
+	 * @Annotations\RequestParam(name="nonchargeable", nullable=true, default="false", description="The ID of the Customer")
+	 *
+	 * @Annotations\View(
+	 * templateVar="invoices"
+	 * )
+	 *
+	 * @Annotations\Get("/invoices/service/{id}")
+	 *
+	 * @Annotations\Route(requirements={"_format"="json|xml"})
+	 *
+	 * @param                       $id
+	 * @param ParamFetcherInterface $paramFetcher
+	 *
+	 *
+	 * @return array
+	 */
+	public function getInvoicesByServiceAction($id, ParamFetcherInterface $paramFetcher)
+	{
+		return $this->container->get($this->handlerSerivce)->allByService($id, $paramFetcher->get('nonchargeable', true));
+	}
+
+	/**
+	 * Get all Invoices for a Project specified by id,
+	 *
+	 * @ApiDoc(
+	 * resource = true,
+	 * statusCodes = {
+	 * 200 = "Returned when successful"
+	 * }
+	 * )
+	 *
+	 * @Annotations\RequestParam(name="nonchargeable", nullable=true, default="false", description="The ID of the Customer")
+	 *
+	 * @Annotations\View(
+	 * templateVar="invoices"
+	 * )
+	 *
+	 * @Annotations\Get("/invoices/project/{id}")
+	 *
+	 * @Annotations\Route(requirements={"_format"="json|xml"})
+	 *
+	 * @param                       $id
+	 * @param ParamFetcherInterface $paramFetcher
+	 *
+	 *
+	 * @return array
+	 */
+	public function getInvoicesByProjectAction($id, ParamFetcherInterface $paramFetcher)
+	{
+		return $this->container->get($this->handlerSerivce)->allByProject($id, $paramFetcher->get('nonchargeable', true));
 	}
 
 }

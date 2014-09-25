@@ -56,6 +56,19 @@ class Invoice {
 	}
 
 	/**
+	 * @param array $projects
+	 *
+	 * @return $this
+	 */
+	public function setProjects($projects)
+	{
+		$this->projects = $projects;
+		return $this;
+	}
+
+
+
+	/**
 	 * @param InvoiceProject $project
 	 *
 	 * @return $this
