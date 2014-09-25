@@ -51,6 +51,26 @@ class CustomerRepository extends EntityRepository
         return $this;
     }
 
+	public function findByService($id)
+	{
+		return $this->getEntityManager()->createQuery("SELECT c FROM DimeTimetrackerBundle:Customer c WHERE c.id IN (SELECT IDENTITY(a.customer) FROM DimeTimetrackerBundle:Activity a WHERE a.service = :id)")
+			->setParameters(array(
+				':id' => $id,
+			))
+			->getResult()
+			;
+	}
+
+	public function findByProject($id)
+	{
+		return $this->getEntityManager()->createQuery("SELECT c FROM DimeTimetrackerBundle:Customer c WHERE c.id IN (SELECT IDENTITY(a.customer) FROM DimeTimetrackerBundle:Activity a WHERE a.project = :id)")
+			->setParameters(array(
+				':id' => $id,
+			))
+			->getOneOrNullResult()
+			;
+	}
+
     /**
      * Filter by assigned tag
      *

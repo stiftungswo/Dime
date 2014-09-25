@@ -57,6 +57,11 @@ class ProjectRepository extends EntityRepository
 		return $this->findBy(array('customer' => $customerid));
 	}
 
+	public function findByService($serviceId)
+	{
+		return $this->findBy(array('service' => $serviceId));
+	}
+
     /**
      * Filter by assigned tag
      *

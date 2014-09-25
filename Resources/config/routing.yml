@@ -5,13 +5,6 @@ activities:
     name_prefix:  api_1_
     defaults: { _format: json }
 
-amounts:
-    type:     rest
-    resource: Dime\TimetrackerBundle\Controller\AmountsController
-    prefix:   /v1
-    name_prefix:  api_1_
-    defaults: { _format: json }
-
 customers:
     type:     rest
     resource: Dime\TimetrackerBundle\Controller\CustomersController

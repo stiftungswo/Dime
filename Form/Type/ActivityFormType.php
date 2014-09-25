@@ -30,6 +30,7 @@ class ActivityFormType extends AbstractType
 	        ->add($builder->create('rateReference', 'text')->addViewTransformer($transformer))
 	        ->add('chargeable', null, array('empty_data' => 'checked', 'required' => false))
 	        ->add($builder->create('chargeableReference', 'text')->addViewTransformer($transformer))
+	        ->add('value')
             ->add('service')
             ->add('customer')
             ->add('project')

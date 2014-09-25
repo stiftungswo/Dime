@@ -95,6 +95,32 @@ class Activity extends Entity implements DimeEntityInterface
 	 */
 	protected $chargeableReference;
 
+	/**
+	 * @var integer $value
+	 *
+	 * @ORM\Column(type="decimal", scale=2, precision=10, nullable=true)
+	 */
+	protected $value;
+
+	/**
+	 * @return int
+	 */
+	public function getValue()
+	{
+		return $this->value;
+	}
+
+	/**
+	 * @param int $value
+	 *
+	 * @return $this
+	 */
+	public function setValue($value)
+	{
+		$this->value = $value;
+		return $this;
+	}
+
     /**
      * Entity constructor
      */
@@ -366,6 +392,10 @@ class Activity extends Entity implements DimeEntityInterface
 	 */
 	public function getDuration()
 	{
+		if (!empty($this->value))
+		{
+			return $this->value;
+		}
 		$duration = 0;
 		foreach($this->getTimeslices() as $timeslice)
 		{
