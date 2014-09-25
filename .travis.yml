@@ -6,6 +6,7 @@ php:
 
 before_script:
     - composer install -n
+    - cp app/config/parameters.yml.travis app/config/parameters.yml
     - php app/console doctrine:database:create
     - php app/console doctrine:schema:create
     - php app/console doctrine:fixtures:load -n
