@@ -22,6 +22,8 @@ class InvoiceController extends FOSRestController
 	 * )
 	 *
 	 * @Annotations\RequestParam(name="nonchargeable", nullable=true, default="false", description="The ID of the Customer")
+	 * @Annotations\RequestParam(name="fixed", nullable=true, default="false", description="Report Fixed Summ in Invoice")
+	 * @Annotations\RequestParam(name="details", nullable=true, default="false", description="Report Charge Details in Invoice")
 	 *
 	 * @Annotations\View(
 	 * templateVar="invoices"
@@ -39,7 +41,11 @@ class InvoiceController extends FOSRestController
 	 */
 	public function getInvoicesByCustomerAction($id, ParamFetcherInterface $paramFetcher)
 	{
-		return $this->container->get($this->handlerSerivce)->allByCustomer($id, $paramFetcher->get('nonchargeable', true));
+		return $this->container->get($this->handlerSerivce)->allByCustomer($id,
+			$paramFetcher->get('nonchargeable', true),
+			$paramFetcher->get('fixed', true),
+			$paramFetcher->get('details', true)
+		);
 	}
 
 	/**
@@ -53,6 +59,8 @@ class InvoiceController extends FOSRestController
 	 * )
 	 *
 	 * @Annotations\RequestParam(name="nonchargeable", nullable=true, default="false", description="The ID of the Customer")
+	 * @Annotations\RequestParam(name="fixed", nullable=true, default="false", description="Report Fixed Summ in Invoice")
+	 * @Annotations\RequestParam(name="details", nullable=true, default="false", description="Report Charge Details in Invoice")
 	 *
 	 * @Annotations\View(
 	 * templateVar="invoices"
@@ -70,7 +78,11 @@ class InvoiceController extends FOSRestController
 	 */
 	public function getInvoicesByServiceAction($id, ParamFetcherInterface $paramFetcher)
 	{
-		return $this->container->get($this->handlerSerivce)->allByService($id, $paramFetcher->get('nonchargeable', true));
+		return $this->container->get($this->handlerSerivce)->allByService($id,
+			$paramFetcher->get('nonchargeable', true),
+			$paramFetcher->get('fixed', true),
+			$paramFetcher->get('details', true)
+		);
 	}
 
 	/**
@@ -84,6 +96,8 @@ class InvoiceController extends FOSRestController
 	 * )
 	 *
 	 * @Annotations\RequestParam(name="nonchargeable", nullable=true, default="false", description="The ID of the Customer")
+	 * @Annotations\RequestParam(name="fixed", nullable=true, default="false", description="Report Fixed Summ in Invoice")
+	 * @Annotations\RequestParam(name="details", nullable=true, default="false", description="Report Charge Details in Invoice")
 	 *
 	 * @Annotations\View(
 	 * templateVar="invoices"
@@ -101,7 +115,11 @@ class InvoiceController extends FOSRestController
 	 */
 	public function getInvoicesByProjectAction($id, ParamFetcherInterface $paramFetcher)
 	{
-		return $this->container->get($this->handlerSerivce)->allByProject($id, $paramFetcher->get('nonchargeable', true));
+		return $this->container->get($this->handlerSerivce)->allByProject($id,
+			$paramFetcher->get('nonchargeable', true),
+			$paramFetcher->get('fixed', true),
+			$paramFetcher->get('details', true)
+		);
 	}
 
 }
