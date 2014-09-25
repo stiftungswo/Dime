@@ -2,9 +2,9 @@ parameters:
     database_driver:   pdo_mysql
     database_host:     127.0.0.1
     database_port:     ~
-    database_name:     symfony
-    database_user:     root
-    database_password: ~
+    database_name:     dime
+    database_user:     dime
+    database_password: dime
     # if using pdo_sqlite as your database driver
     # database_path:     %kernel.root_dir%/dime.db
     database_path:     ~
