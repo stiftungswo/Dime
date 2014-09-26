@@ -22,7 +22,7 @@ class Invoice {
 		{
 			foreach($this->discounts as $discount)
 			{
-				if($discount instanceof InvoiceDiscount)
+				if($discount instanceof Discount)
 				{
 					$net = $net + $discount->getModifier($this->gross);
 				}
@@ -73,7 +73,7 @@ class Invoice {
 		return $this->discounts;
 	}
 
-	public function addDiscount(InvoiceDiscount $discount)
+	public function addDiscount(Discount $discount)
 	{
 		$this->discounts[] = $discount;
 		return $this;

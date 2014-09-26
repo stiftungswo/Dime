@@ -1,0 +1,4 @@
+services:
+        dime.discount.form.type:
+            class: Dime\InvoiceBundle\Form\Type\DiscountFormType
+            tags: [{ name: "form.type", alias: "dime_invoicebundle_discountformtype" }]

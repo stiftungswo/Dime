@@ -9,7 +9,7 @@ namespace Dime\InvoiceBundle\Handler;
 
 
 use Dime\InvoiceBundle\Entity\Invoice;
-use Dime\InvoiceBundle\Entity\InvoiceDiscount;
+use Dime\InvoiceBundle\Entity\Discount;
 use Dime\InvoiceBundle\Entity\InvoiceItem;
 use Dime\InvoiceBundle\Entity\InvoiceProject;
 use Doctrine\ORM\EntityManager;
@@ -25,6 +25,10 @@ class InvoiceHandler extends ContainerAware
 
 	protected $customerRepo;
 
+	protected $discountRepo;
+
+	protected $discounts;
+
 	protected $nonChargeable;
 
 	protected $fixed;
@@ -38,13 +42,15 @@ class InvoiceHandler extends ContainerAware
 		$this->projectRepo = $this->entityManager->getRepository('DimeTimetrackerBundle:Project');
 		$this->customerRepo = $this->entityManager->getRepository('DimeTimetrackerBundle:Customer');
 		$this->serviceRepo = $this->entityManager->getRepository('DimeTimetrackerBundle:Service');
+		$this->discountRepo = $this->entityManager->getRepository('DimeInvoiceBundle:Discount');
 	}
 
-	public function allByService($id, $nonChargeable = false, $fixed = false, $details = true)
+	public function allByService($id, $nonChargeable = false, $fixed = false, $details = true, $discounts = array())
 	{
 		$this->nonChargeable = $nonChargeable;
 		$this->fixed = $fixed;
 		$this->details = $details;
+		$this->discounts = $discounts;
 		$invoices = array();
 		foreach($this->customerRepo->findByService($id) as $customer)
 		{
@@ -53,19 +59,21 @@ class InvoiceHandler extends ContainerAware
 		return $invoices;
 	}
 
-	public function allByCustomer($id, $nonChargeable = false, $fixed = false, $details = true)
+	public function allByCustomer($id, $nonChargeable = false, $fixed = false, $details = true, $discounts = array())
 	{
 		$this->nonChargeable = $nonChargeable;
 		$this->fixed = $fixed;
 		$this->details = $details;
+		$this->discounts = $discounts;
 		return $this->fillInvoice($this->customerRepo->find($id), $this->projectRepo->findByCustomer($id));
 	}
 
-	public function allByProject($id, $nonChargeable = false, $fixed = false, $details = true)
+	public function allByProject($id, $nonChargeable = false, $fixed = false, $details = true, $discounts = array())
 	{
 		$this->nonChargeable = $nonChargeable;
 		$this->fixed = $fixed;
 		$this->details = $details;
+		$this->discounts = $discounts;
 		return $this->fillInvoice($this->customerRepo->findByProject($id), array($this->projectRepo->find($id)));
 	}
 
@@ -75,12 +83,8 @@ class InvoiceHandler extends ContainerAware
 		$invoice->setCustomer($customer);
 		$invoice->setProjects($this->fillProjects($projects));
 
-		//Testing Skonto
-		$discount = new InvoiceDiscount();
-		$discount->setMinus(true)->setPercentage(true)->setValue(2);
-		$invoice->addDiscount($discount);
+		$invoice = $this->ApplyDiscounts($invoice);
 
-		$invoice->setGross($this->fixed)->setNet();
 		if($this->details === false)
 		{
 			foreach($invoice->getProjects() as $project)
@@ -88,6 +92,17 @@ class InvoiceHandler extends ContainerAware
 				$project->setItems(array());
 			}
 		}
+		return $invoice;
+	}
+
+	private function ApplyDiscounts($invoice)
+	{
+		foreach($this->discounts as $discoutid)
+		{
+			$discount = $this->discountRepo->find($discoutid);
+			$invoice->addDiscount($discount);
+		}
+		$invoice->setGross($this->fixed)->setNet();
 		return $invoice;
 	}
 

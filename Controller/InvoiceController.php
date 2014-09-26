@@ -2,6 +2,7 @@
 
 namespace Dime\InvoiceBundle\Controller;
 
+use Doctrine\Common\Annotations\Annotation\IgnoreAnnotation;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Request\ParamFetcherInterface;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
@@ -24,6 +25,7 @@ class InvoiceController extends FOSRestController
 	 * @Annotations\RequestParam(name="nonchargeable", nullable=true, default="false", description="The ID of the Customer")
 	 * @Annotations\RequestParam(name="fixed", nullable=true, default="false", description="Report Fixed Summ in Invoice")
 	 * @Annotations\RequestParam(name="details", nullable=true, default="false", description="Report Charge Details in Invoice")
+	 * @Annotations\RequestParam(name="discounts", array=true, nullable=true, description="Ids of the Discounts to apply")
 	 *
 	 * @Annotations\View(
 	 * templateVar="invoices"
@@ -44,7 +46,8 @@ class InvoiceController extends FOSRestController
 		return $this->container->get($this->handlerSerivce)->allByCustomer($id,
 			$paramFetcher->get('nonchargeable', true),
 			$paramFetcher->get('fixed', true),
-			$paramFetcher->get('details', true)
+			$paramFetcher->get('details', true),
+			$paramFetcher->get('discounts', true)
 		);
 	}
 
@@ -81,7 +84,8 @@ class InvoiceController extends FOSRestController
 		return $this->container->get($this->handlerSerivce)->allByService($id,
 			$paramFetcher->get('nonchargeable', true),
 			$paramFetcher->get('fixed', true),
-			$paramFetcher->get('details', true)
+			$paramFetcher->get('details', true),
+			$paramFetcher->get('discounts', true)
 		);
 	}
 
@@ -118,7 +122,8 @@ class InvoiceController extends FOSRestController
 		return $this->container->get($this->handlerSerivce)->allByProject($id,
 			$paramFetcher->get('nonchargeable', true),
 			$paramFetcher->get('fixed', true),
-			$paramFetcher->get('details', true)
+			$paramFetcher->get('details', true),
+			$paramFetcher->get('discounts', true)
 		);
 	}
 

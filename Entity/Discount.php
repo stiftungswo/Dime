@@ -7,12 +7,45 @@
 
 namespace Dime\InvoiceBundle\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
 
-class InvoiceDiscount
+/**
+ * Class Discount
+ * @package Dime\InvoiceBundle\Entity
+ * @ORM\Entity()
+ * @ORM\Table(name="discounts")
+ */
+class Discount
 {
+	/**
+	 * @var
+	 * @ORM\Id()
+	 * @ORM\Column(type="integer", name="id")
+	 * @ORM\GeneratedValue(strategy="AUTO")
+	 */
+	protected $id;
+	/**
+	 * @var
+	 * @ORM\Column(type="string")
+	 */
 	protected $name;
+
+	/**
+	 * @var
+	 * @ORM\Column(type="decimal", precision=10, scale=2)
+	 */
 	protected $value;
+
+	/**
+	 * @var
+	 * @ORM\Column(type="boolean", nullable=true)
+	 */
 	protected $percentage;
+
+	/**
+	 * @var
+	 * @ORM\Column(type="boolean", nullable=true)
+	 */
 	protected $minus;
 
 	/**
