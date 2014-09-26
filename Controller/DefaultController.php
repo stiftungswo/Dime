@@ -2,12 +2,18 @@
 
 namespace Dime\FrontendBundle\Controller;
 
+
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Routing\Annotation\Route;
 
 class DefaultController extends Controller
 {
-    public function indexAction($name)
+
+	/**
+	 * @Route("/")
+	 */
+    public function indexAction()
     {
-        return $this->render('DimeFrontendBundle:Default:index.html.twig', array('name' => $name));
+        return $this->render('DimeFrontendBundle:Default:index.html.twig');
     }
 }

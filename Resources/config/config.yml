@@ -1,0 +1,6 @@
+assetic:
+    assets:
+        dojo:
+            inputs:
+                - '@DimeFrontendBundle/Resources/public/js/dojo/dojo.js'
+            output: 'js/dojo.js'

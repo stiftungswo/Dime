@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	{% block page_title %}
+	<title>Tutorial: Hello Dojo!</title>
+	{% endblock %}
+	{% block stylesheets %}
+		{% stylesheets %}
+
+		{% endstylesheets %}
+	{% endblock %}
+</head>
+<body>
+<h1 id="greeting">Hello</h1>
+<!-- load Dojo -->
+{% block javascripts %}
+	<script>
+		var dojoConfig = {
+			async: true,
+			baseUrl: 'bundles/dimefrontend/js',
+			packages: [
+				'dojo',
+				'dijit',
+				'dojox',
+				'dojo-bootstrap'
+			]
+		};
+	</script>
+	{% javascripts
+		'@dojo' %}
+		<script src="{{ asset_url }}"></script>
+	{% endjavascripts %}
+{% endblock %}
+<script>
+	require([
+		'dojo/dom',
+		'dojo/fx',
+		'dojo/domReady!'
+	], function (dom, fx) {
+		var greeting = dom.byId('greeting');
+		greeting.innerHTML += ' from Dojo!';
+
+		// ...but now, with an animation!
+		fx.slideTo({
+			node: greeting,
+			top: 100,
+			left: 200
+		}).play();
+	});
+</script>
+</body>
+</html>
