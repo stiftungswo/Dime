@@ -1,7 +1,2 @@
-define(
-({
-	name: "Име",
-	path: "Пътека",
-	size: "Размер (в байтове)"
-})
-);
+//>>built
+define("dojox/widget/nls/bg/FilePicker",({name:"Име",path:"Пътека",size:"Размер (в байтове)"}));

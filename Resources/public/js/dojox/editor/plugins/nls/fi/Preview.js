@@ -1,5 +1,2 @@
-define(
-({
-	"preview": "Esikatselu"
-})
-);
+//>>built
+define("dojox/editor/plugins/nls/fi/Preview",({"preview":"Esikatselu"}));

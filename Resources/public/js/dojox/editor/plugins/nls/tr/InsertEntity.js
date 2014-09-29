@@ -1,5 +1,2 @@
-define(
-({
-	insertEntity: "Simge Ekle"
-})
-);
+//>>built
+define("dojox/editor/plugins/nls/tr/InsertEntity",({insertEntity:"Simge Ekle"}));

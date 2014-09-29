@@ -1,281 +1,172 @@
-define(["dojo/_base/declare", "dojo/_base/array", "dojo/_base/html", "dojo/_base/lang", "dojo/dom-class",
-	"dojo/Stateful", "dojo/Evented", "dojo/when"],
-	function(declare, arr, html, lang, domClass, Stateful, Evented, when){
-
-	return declare("dojox.calendar.StoreManager", [Stateful, Evented], {
-		
-		// summary:
-		//		This mixin contains the store management.
-		
-		// owner: Object
-		//	The owner of the store manager: a view or a calendar widget.
-		owner: null,
-		
-		// store: dojo.store.Store
-		//		The store that contains the events to display.
-		store: null,
-		
-		_ownerItemsProperty: null,
-		
-		_getParentStoreManager: function(){
-			if(this.owner && this.owner.owner){
-				return this.owner.owner.get("storeManager");
-			}
-			return null;
-		},
-
-		_initItems: function(items){
-			// tags:
-			//		private
-			this.set("items", items);
-			return items;
-		},
-		
-		_itemsSetter: function(value){
-			this.items = value;
-			this.emit("dataLoaded", value);
-		},
-		
-		_computeVisibleItems: function(renderData){
-			// summary:
-			//		Computes the data items that are in the displayed interval.
-			// renderData: Object
-			//		The renderData that contains the start and end time of the displayed interval.
-			// tags:
-			//		protected
-			
-			var startTime = renderData.startTime;
-			var endTime = renderData.endTime;
-			var res = null;
-			var items = this.owner[this._ownerItemsProperty];
-			if(items){
-				res = arr.filter(items, function(item){
-					return this.owner.isOverlapping(renderData, item.startTime, item.endTime, startTime, endTime);
-				}, this);
-			}
-			return res;
-		},
-		
-		_updateItems: function(object, previousIndex, newIndex){
-			// as soon as we add a item or remove one layout might change,
-			// let's make that the default
-			// TODO: what about items in non visible area...
-			// tags:
-			//		private
-			var layoutCanChange = true;
-			var oldItem = null;
-			var newItem = this.owner.itemToRenderItem(object, this.store);
-			// keep a reference on the store data item. 
-			newItem._item = object;
-			
-			// get back the items from the owner that can contain the item created interactively.
-			this.items = this.owner[this._ownerItemsProperty];
-			
-			// set the item as in the store
-			if(previousIndex!==-1){
-				if(newIndex!==previousIndex){
-					// this is a remove or a move
-					this.items.splice(previousIndex, 1);
-					if(this.owner.setItemSelected && this.owner.isItemSelected(newItem)){
-						this.owner.setItemSelected(newItem, false);
-						this.owner.dispatchChange(newItem, this.get("selectedItem"), null, null);
-					}
-				}else{
-					// this is a put, previous and new index identical
-					// check what changed
-					oldItem = this.items[previousIndex];
-					var cal = this.owner.dateModule; 
-					layoutCanChange = cal.compare(newItem.startTime, oldItem.startTime) !== 0 ||
-						cal.compare(newItem.endTime, oldItem.endTime) !== 0;
-					// we want to keep the same item object and mixin new values
-					// into old object
-					lang.mixin(oldItem, newItem); 
-				}
-			}else if(newIndex!==-1){
-				// this is a add
-				var l, i;
-				var tempId = object.temporaryId;
-				if(tempId){
-					// this item had a temporary id that was changed
-					l = this.items ? this.items.length : 0; 
-					for(i=l-1; i>=0; i--){
-						if(this.items[i].id === tempId){
-							this.items[i] = newItem;
-							break;
-						}
-					}
-					// clean to temp id state and reset the item with new id to its current state.
-					var stateObj =  this._getItemStoreStateObj({id: tempId});					
-					this._cleanItemStoreState(tempId);
-					this._setItemStoreState(newItem, stateObj ? stateObj.state : null);
-				}
-				
-				var s = this._getItemStoreStateObj(newItem);
-				if(s && s.state === "storing"){
-					// if the item is at the correct index (creation)
-					// we must fix it. Should not occur but ensure integrity.
-					if(this.items && this.items[newIndex] && this.items[newIndex].id !== newItem.id){						
-						l = this.items.length; 
-						for(i=l-1; i>=0; i--){
-							if(this.items[i].id === newItem.id){
-								this.items.splice(i, 1);
-								break;
-							}
-						}						
-						this.items.splice(newIndex, 0, newItem);						
-					}
-					// update with the latest values from the store.
-					lang.mixin(s.renderItem, newItem);
-				}else{
-					this.items.splice(newIndex, 0, newItem);					
-				}
-				this.set("items", this.items);
-			}	
-			
-			this._setItemStoreState(newItem, "stored");
-			
-			if(!this.owner._isEditing){
-				if(layoutCanChange){
-					this.emit("layoutInvalidated");
-				}else{
-					// just update the item
-					this.emit("renderersInvalidated", oldItem);
-				}
-			}
-		},
-		
-		_storeSetter: function(value){
-			var r;
-			var owner = this.owner;
-
-			if(this._observeHandler){
-				this._observeHandler.remove();
-				this._observeHandler = null;
-			}
-			if(value){				
-				var results = value.query(owner.query, owner.queryOptions);
-				if(results.observe){
-					// user asked us to observe the store
-					this._observeHandler = results.observe(lang.hitch(this, this._updateItems), true);
-				}				
-				results = results.map(lang.hitch(this, function(item){
-					var renderItem = owner.itemToRenderItem(item, value);
-					// keep a reference on the store data item.
-					renderItem._item = item;
-					return renderItem;
-				}));
-				r = when(results, lang.hitch(this, this._initItems));
-			}else{
-				// we remove the store
-				r = this._initItems([]);
-			}
-			this.store = value;
-			return r;
-		},
-		
-		_getItemStoreStateObj: function(/*Object*/item){
-			// tags
-			//		private
-			
-			var parentManager = this._getParentStoreManager();
-			if(parentManager){
-				return parentManager._getItemStoreStateObj(item);
-			}
-			
-			var store = this.get("store");
-			if(store != null && this._itemStoreState != null){
-				var id = item.id === undefined ? store.getIdentity(item) : item.id;
-				return this._itemStoreState[id];
-			}
-			return null;
-		},
-		
-		getItemStoreState: function(item){
-			//	summary:
-			//		Returns the creation state of an item. 
-			//		This state is changing during the interactive creation of an item.
-			//		Valid values are:
-			//		- "unstored": The event is being interactively created. It is not in the store yet.
-			//		- "storing": The creation gesture has ended, the event is being added to the store.
-			//		- "stored": The event is not in the two previous states, and is assumed to be in the store 
-			//		(not checking because of performance reasons, use store API for testing existence in store).
-			// item: Object
-			//		The item.
-			// returns: String
-			
-			var parentManager = this._getParentStoreManager();
-			if(parentManager){
-				return parentManager.getItemStoreState(item);
-			}
-
-			if(this._itemStoreState == null){
-				return "stored";
-			}
-			
-			var store = this.get("store");
-			var id = item.id === undefined ? store.getIdentity(item) : item.id;
-			var s = this._itemStoreState[id];
-			
-			if(store != null && s !== undefined){				
-				return s.state;								
-			}
-			return "stored";		
-		},
-		
-		_cleanItemStoreState: function(id){	
-			
-			var parentManager = this._getParentStoreManager();
-			if(parentManager){
-				return parentManager._cleanItemStoreState(id);				
-			}
-			
-			if(!this._itemStoreState){
-				return;
-			}
-			
-			var s = this._itemStoreState[id];
-			if(s){
-				delete this._itemStoreState[id];
-				return true;
-			}
-			return false;
-		},
-		
-		_setItemStoreState: function(/*Object*/item, /*String*/state){
-			// tags
-			//		private
-			
-			var parentManager = this._getParentStoreManager();
-			if(parentManager){
-				parentManager._setItemStoreState(item, state);
-				return;
-			}
-			
-			if(this._itemStoreState === undefined){
-				this._itemStoreState = {};
-			}
-			
-			var store = this.get("store");
-			var id = item.id === undefined ? store.getIdentity(item) : item.id;
-			var s = this._itemStoreState[id];
-						
-			if(state === "stored" || state == null){
-				if(s !== undefined){
-					delete this._itemStoreState[id];					
-				}
-				return;	
-			}
-
-			if(store){				
-				this._itemStoreState[id] = {
-					id: id,
-					item: item,
-					renderItem: this.owner.itemToRenderItem(item, store),
-					state: state
-				};						
-			}
-		}
-				
-	});
-
+//>>built
+define("dojox/calendar/StoreManager",["dojo/_base/declare","dojo/_base/array","dojo/_base/html","dojo/_base/lang","dojo/dom-class","dojo/Stateful","dojo/Evented","dojo/when"],function(_1,_2,_3,_4,_5,_6,_7,_8){
+return _1("dojox.calendar.StoreManager",[_6,_7],{owner:null,store:null,_ownerItemsProperty:null,_getParentStoreManager:function(){
+if(this.owner&&this.owner.owner){
+return this.owner.owner.get("storeManager");
+}
+return null;
+},_initItems:function(_9){
+this.set("items",_9);
+return _9;
+},_itemsSetter:function(_a){
+this.items=_a;
+this.emit("dataLoaded",_a);
+},_computeVisibleItems:function(_b){
+var _c=_b.startTime;
+var _d=_b.endTime;
+var _e=null;
+var _f=this.owner[this._ownerItemsProperty];
+if(_f){
+_e=_2.filter(_f,function(_10){
+return this.owner.isOverlapping(_b,_10.startTime,_10.endTime,_c,_d);
+},this);
+}
+return _e;
+},_updateItems:function(_11,_12,_13){
+var _14=true;
+var _15=null;
+var _16=this.owner.itemToRenderItem(_11,this.store);
+_16._item=_11;
+this.items=this.owner[this._ownerItemsProperty];
+if(_12!==-1){
+if(_13!==_12){
+this.items.splice(_12,1);
+if(this.owner.setItemSelected&&this.owner.isItemSelected(_16)){
+this.owner.setItemSelected(_16,false);
+this.owner.dispatchChange(_16,this.get("selectedItem"),null,null);
+}
+}else{
+_15=this.items[_12];
+var cal=this.owner.dateModule;
+_14=cal.compare(_16.startTime,_15.startTime)!==0||cal.compare(_16.endTime,_15.endTime)!==0;
+_4.mixin(_15,_16);
+}
+}else{
+if(_13!==-1){
+var l,i;
+var _17=_11.temporaryId;
+if(_17){
+l=this.items?this.items.length:0;
+for(i=l-1;i>=0;i--){
+if(this.items[i].id===_17){
+this.items[i]=_16;
+break;
+}
+}
+var _18=this._getItemStoreStateObj({id:_17});
+this._cleanItemStoreState(_17);
+this._setItemStoreState(_16,_18?_18.state:null);
+}
+var s=this._getItemStoreStateObj(_16);
+if(s&&s.state==="storing"){
+if(this.items&&this.items[_13]&&this.items[_13].id!==_16.id){
+l=this.items.length;
+for(i=l-1;i>=0;i--){
+if(this.items[i].id===_16.id){
+this.items.splice(i,1);
+break;
+}
+}
+this.items.splice(_13,0,_16);
+}
+_4.mixin(s.renderItem,_16);
+}else{
+this.items.splice(_13,0,_16);
+}
+this.set("items",this.items);
+}
+}
+this._setItemStoreState(_16,"stored");
+if(!this.owner._isEditing){
+if(_14){
+this.emit("layoutInvalidated");
+}else{
+this.emit("renderersInvalidated",_15);
+}
+}
+},_storeSetter:function(_19){
+var r;
+var _1a=this.owner;
+if(this._observeHandler){
+this._observeHandler.remove();
+this._observeHandler=null;
+}
+if(_19){
+var _1b=_19.query(_1a.query,_1a.queryOptions);
+if(_1b.observe){
+this._observeHandler=_1b.observe(_4.hitch(this,this._updateItems),true);
+}
+_1b=_1b.map(_4.hitch(this,function(_1c){
+var _1d=_1a.itemToRenderItem(_1c,_19);
+_1d._item=_1c;
+return _1d;
+}));
+r=_8(_1b,_4.hitch(this,this._initItems));
+}else{
+r=this._initItems([]);
+}
+this.store=_19;
+return r;
+},_getItemStoreStateObj:function(_1e){
+var _1f=this._getParentStoreManager();
+if(_1f){
+return _1f._getItemStoreStateObj(_1e);
+}
+var _20=this.get("store");
+if(_20!=null&&this._itemStoreState!=null){
+var id=_1e.id===undefined?_20.getIdentity(_1e):_1e.id;
+return this._itemStoreState[id];
+}
+return null;
+},getItemStoreState:function(_21){
+var _22=this._getParentStoreManager();
+if(_22){
+return _22.getItemStoreState(_21);
+}
+if(this._itemStoreState==null){
+return "stored";
+}
+var _23=this.get("store");
+var id=_21.id===undefined?_23.getIdentity(_21):_21.id;
+var s=this._itemStoreState[id];
+if(_23!=null&&s!==undefined){
+return s.state;
+}
+return "stored";
+},_cleanItemStoreState:function(id){
+var _24=this._getParentStoreManager();
+if(_24){
+return _24._cleanItemStoreState(id);
+}
+if(!this._itemStoreState){
+return;
+}
+var s=this._itemStoreState[id];
+if(s){
+delete this._itemStoreState[id];
+return true;
+}
+return false;
+},_setItemStoreState:function(_25,_26){
+var _27=this._getParentStoreManager();
+if(_27){
+_27._setItemStoreState(_25,_26);
+return;
+}
+if(this._itemStoreState===undefined){
+this._itemStoreState={};
+}
+var _28=this.get("store");
+var id=_25.id===undefined?_28.getIdentity(_25):_25.id;
+var s=this._itemStoreState[id];
+if(_26==="stored"||_26==null){
+if(s!==undefined){
+delete this._itemStoreState[id];
+}
+return;
+}
+if(_28){
+this._itemStoreState[id]={id:id,item:_25,renderItem:this.owner.itemToRenderItem(_25,_28),state:_26};
+}
+}});
 });

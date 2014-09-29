@@ -1,12 +1,5 @@
-define(["./_sha-64", "./_sha2"], function(sha64, sha2){
-	//	The 384-bit implementation of SHA-2
-	
-	//	Note that for 64-bit hashes, we're actually doing high-order, low-order, high-order, low-order.
-	//	The 64-bit functions will assemble them into actual 64-bit "words".
-	var hash = [
-		0xcbbb9d5d, 0xc1059ed8, 0x629a292a, 0x367cd507, 0x9159015a, 0x3070dd17, 0x152fecd8, 0xf70e5939,
-		0x67332667, 0xffc00b31, 0x8eb44a87, 0x68581511, 0xdb0c2e0d, 0x64f98fa7, 0x47b5481d, 0xbefa4fa4
-	];
-
-	return sha2(sha64, 384, 1024, hash);
+//>>built
+define("dojox/encoding/digests/SHA384",["./_sha-64","./_sha2"],function(_1,_2){
+var _3=[3418070365,3238371032,1654270250,914150663,2438529370,812702999,355462360,4144912697,1731405415,4290775857,2394180231,1750603025,3675008525,1694076839,1203062813,3204075428];
+return _2(_1,384,1024,_3);
 });

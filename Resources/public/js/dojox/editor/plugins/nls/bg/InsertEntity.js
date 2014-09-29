@@ -1,5 +1,2 @@
-define(
-({
-	insertEntity: "Вмъкни символ"
-})
-);
+//>>built
+define("dojox/editor/plugins/nls/bg/InsertEntity",({insertEntity:"Вмъкни символ"}));

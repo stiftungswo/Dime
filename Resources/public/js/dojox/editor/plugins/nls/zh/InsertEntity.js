@@ -1,5 +1,2 @@
-define(
-({
-	insertEntity: "插入符号"
-})
-);
+//>>built
+define("dojox/editor/plugins/nls/zh/InsertEntity",({insertEntity:"插入符号"}));

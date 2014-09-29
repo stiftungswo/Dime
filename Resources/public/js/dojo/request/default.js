@@ -1,32 +1,28 @@
-define([
-	'exports',
-	'require',
-	'../has'
-], function(exports, require, has){
-	var defId = has('config-requestProvider'),
-		platformId;
+/*
+	Copyright (c) 2004-2011, The Dojo Foundation All Rights Reserved.
+	Available via Academic Free License >= 2.1 OR the modified BSD license.
+	see: http://dojotoolkit.org/license for details
+*/
 
-	if(has('host-browser') || has('host-webworker')){
-		platformId = './xhr';
-	}else if(has('host-node')){
-		platformId = './node';
-	/* TODO:
-	}else if(has('host-rhino')){
-		platformId = './rhino';
-   */
-	}
-
-	if(!defId){
-		defId = platformId;
-	}
-
-	exports.getPlatformDefaultId = function(){
-		return platformId;
-	};
-
-	exports.load = function(id, parentRequire, loaded, config){
-		require([id == 'platform' ? platformId : defId], function(provider){
-			loaded(provider);
-		});
-	};
+//>>built
+define("dojo/request/default",["exports","require","../has"],function(_1,_2,_3){
+var _4=_3("config-requestProvider"),_5;
+if(1||_3("host-webworker")){
+_5="./xhr";
+}else{
+if(0){
+_5="./node";
+}
+}
+if(!_4){
+_4=_5;
+}
+_1.getPlatformDefaultId=function(){
+return _5;
+};
+_1.load=function(id,_6,_7,_8){
+_2([id=="platform"?_5:_4],function(_9){
+_7(_9);
+});
+};
 });

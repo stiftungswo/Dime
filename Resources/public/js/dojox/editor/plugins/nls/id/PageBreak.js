@@ -1,6 +1,2 @@
-define(
-({
-	"pageBreak": "Pemisah Halaman"
-})
-);
-
+//>>built
+define("dojox/editor/plugins/nls/id/PageBreak",({"pageBreak":"Pemisah Halaman"}));

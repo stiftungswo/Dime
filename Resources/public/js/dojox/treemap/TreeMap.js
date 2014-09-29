@@ -1,807 +1,446 @@
-define(["dojo/_base/array", "dojo/_base/lang", "dojo/_base/declare", "dojo/_base/event", "dojo/_base/Color", "dojo/touch",
-		"dojo/when", "dojo/on", "dojo/query", "dojo/dom-construct", "dojo/dom-geometry", "dojo/dom-class", "dojo/dom-style",
-		"./_utils", "dijit/_WidgetBase", "dojox/widget/_Invalidating", "dojox/widget/Selection",
-		"dojo/_base/sniff", "dojo/uacss"],
-	function(arr, lang, declare, event, Color, touch, when, on, query, domConstruct, domGeom, domClass, domStyle,
-		utils, _WidgetBase, _Invalidating, Selection, has){
-
-	return declare("dojox.treemap.TreeMap", [_WidgetBase, _Invalidating, Selection], {
-		// summary:
-		//		A treemap widget.
-		
-		baseClass: "dojoxTreeMap",
-		
-		// store: dojo/store/api/Store
-		//		The store that contains the items to display.
-		store: null,
-		
-		// query: Object
-		//		A query that can be passed to when querying the store.
-		query: {},
-
-		// queryOptions: dojo/store/api/Store.QueryOptions?
-		//		Options to be applied when querying the store.
-		queryOptions: null,
-		
-		// itemToRenderer: [protected] Object
-		//		The associated array item to renderer list.
-		itemToRenderer: null,
-
-		// Data
-		_dataChanged: false,
-	
-		// rootItem: Object
-		//		The root item of the treemap, that is the first visible item.
-		//		If null the entire treemap hierarchy is shown.	
-		//		Default is null.
-		rootItem: null,
-		_rootItemChanged: false,
-	
-		// tooltipAttr: String
-		//		The attribute of the store item that contains the tooltip text of a treemap cell.	
-		//		Default is "". 
-		tooltipAttr: "",
-	
-		// areaAttr: String
-		//		The attribute of the store item that contains the data used to compute the area of a treemap cell.	
-		//		Default is "". 
-		areaAttr: "",
-		_areaChanged: false,
-	
-		// labelAttr: String
-		//		The attribute of the store item that contains the label of a treemap cell.	
-		//		Default is "label". 
-		labelAttr: "label",
-		
-		// labelThreshold: Number
-		//		The starting depth level at which the labels are not displayed anymore on cells.  
-		//		If NaN no threshold is applied. The depth is the visual depth of the items on the screen not
-		//		in the data (i.e. after drill down the depth of an item might change).
-		//		Default is NaN.
-		labelThreshold: NaN, 
-		
-		// colorAttr: String
-		//		The attribute of the store item that contains the data used to compute the color of a treemap cell.
-		//		Default is "". 
-		colorAttr: "",
-		// colorModel: dojox/color/api/ColorModel
-		//		The optional color model that converts data to color.	
-		//		Default is null.
-		colorModel: null,
-		_coloringChanged: false,
-		
-		// groupAttrs: Array
-		//		An array of data attributes used to group data in the treemap.	
-		//		Default is []. 
-		groupAttrs: [],
-
-		// groupFuncs: Array
-		//		An array of grouping functions used to group data in the treemap.
-		//		When null, groupAttrs is to compute grouping functions.
-		//		Default is null.
-		groupFuncs: null,
-
-        _groupFuncs: null,
-		_groupingChanged: false,
-	
-		constructor: function(){
-			this.itemToRenderer = {};
-			this.invalidatingProperties = [ "colorModel", "groupAttrs", "groupFuncs", "areaAttr", "areaFunc",
-				"labelAttr", "labelFunc", "labelThreshold", "tooltipAttr", "tooltipFunc",
-				"colorAttr", "colorFunc", "rootItem" ];
-		},
-		
-		getIdentity: function(item){
-			return item.__treeID?item.__treeID:this.store.getIdentity(item);
-		},
-	
-		resize: function(box){
-			if(box){
-				domGeom.setMarginBox(this.domNode, box);
-				this.invalidateRendering();						
-			}
-		},
-		
-		postCreate: function(){
-			this.inherited(arguments);
-			this.own(on(this.domNode, "mouseover", lang.hitch(this, this._onMouseOver)));
-			this.own(on(this.domNode, "mouseout", lang.hitch(this, this._onMouseOut)));
-			this.own(on(this.domNode, touch.release, lang.hitch(this, this._onMouseUp)));
-			this.domNode.setAttribute("role", "presentation");
-			this.domNode.setAttribute("aria-label", "treemap");
-		},
-		
-		buildRendering: function(){
-			this.inherited(arguments);
-			this.refreshRendering();
-		},
-	
-		refreshRendering: function(){
-			var forceCreate = false;
-	
-			if(this._dataChanged){
-				this._dataChanged = false;
-				this._groupingChanged = true;
-				this._coloringChanged = true;
-			}
-	
-			if(this._groupingChanged){
-				this._groupingChanged = false;
-				this._set("rootItem", null);
-				this._updateTreeMapHierarchy();
-				forceCreate = true;
-			}
-	
-			if(this._rootItemChanged){
-				this._rootItemChanged = false;
-				forceCreate = true;
-			}
-	
-			if(this._coloringChanged){
-				this._coloringChanged = false;			
-				if(this.colorModel != null && this._data != null && this.colorModel.initialize){
-					this.colorModel.initialize(this._data, lang.hitch(this, function(item){
-						return this.colorFunc(item, this.store);
-					}));
-				}
-			}
-	
-			if(this._areaChanged){
-				this._areaChanged = false;
-				this._removeAreaForGroup();
-			}
-	
-			if(this.domNode == undefined || this._items == null){
-				return;
-			}
-			
-			if(forceCreate){
-				domConstruct.empty(this.domNode);
-			}
-	
-			var rootItem = this.rootItem, rootParentItem;
-	
-			if(rootItem != null){
-				var rootItemRenderer = this._getRenderer(rootItem);
-				if(rootItemRenderer){
-					if(this._isLeaf(rootItem)){
-						rootItem = rootItemRenderer.parentItem;
-					}
-					rootParentItem = rootItemRenderer.parentItem;
-				}
-			}
-
-			var box = domGeom.getMarginBox(this.domNode);
-			if(rootItem != null){
-				this._buildRenderer(this.domNode, rootParentItem, rootItem, {
-					x: box.l, y: box.t, w: box.w, h: box.h
-				}, 0, forceCreate);
-			}else{
-				this._buildChildrenRenderers(this.domNode, rootItem?rootItem:{ __treeRoot: true, children : this._items },
-					0, forceCreate, box);
-			}
-		},
-	
-		_setRootItemAttr: function(value){
-			this._rootItemChanged = true;
-			this._set("rootItem", value);
-		},
-	
-		_setStoreAttr: function(value){
-			var r;
-			if(this._observeHandler){
-				this._observeHandler.remove();
-				this._observeHandler = null;
-			}
-			if(value != null){
-				var results = value.query(this.query, this.queryOptions);
-				if(results.observe){
-					// user asked us to observe the store
-					this._observeHandler = results.observe(lang.hitch(this, this._updateItem), true);
-				}				
-				r = when(results, lang.hitch(this, this._initItems));
-			}else{
-				r = this._initItems([]);
-			}
-			this._set("store", value);
-			return r;
-		},
-	
-		_initItems: function(items){
-			this._dataChanged = true;
-			this._data = items;
-			this.invalidateRendering();
-			return items;
-		},
-
-		_updateItem: function(item, previousIndex, newIndex){
-			if(previousIndex!=-1){
-				if(newIndex!=previousIndex){
-					// this is a remove or a move
-					this._data.splice(previousIndex, 1);
-				}else{
-					// this is a put, previous and new index identical
-					// we don't know what has change exactly with store API
-					this._data[newIndex] = item;
-				}
-			}else if(newIndex!=-1){
-				// this is a add 
-				this._data.splice(newIndex, 0, item);
-			}
-			// as we have no details let's refresh everything...
-			this._dataChanged = true;			
-			this.invalidateRendering();
-		},
-	
-		_setGroupAttrsAttr: function(value){
-			this._groupingChanged = true;
-			if(this.groupFuncs == null){
-				if(value !=null){
-					this._groupFuncs = arr.map(value, function(attr){
-						return function(item){
-							return item[attr];
-						};
-					});
-				}else{
-					this._groupFuncs = null;
-				}
-			}
-			this._set("groupAttrs", value);
-		},
-
-        _setGroupFuncsAttr: function(value){
-			this._groupingChanged = true;
-			this._set("groupFuncs", this._groupFuncs = value);
-			if(value == null && this.groupAttrs != null){
-				this._groupFuncs = arr.map(this.groupAttrs, function(attr){
-					return function(item){
-						return item[attr];
-					};
-				});
-			}
-		},
-
-		_setAreaAttrAttr: function(value){
-			this._areaChanged = true;
-			this._set("areaAttr", value);
-		},
-	
-		// areaFunc: Function
-		//		A function that returns the value use to compute the area of cell from a store item.
-		//		Default implementation is using areaAttr.	
-		areaFunc: function(/*Object*/ item, /*dojo/store/api/Store*/ store){
-			return (this.areaAttr && this.areaAttr.length > 0)?parseFloat(item[this.areaAttr]):1;
-		},
-		
-		_setAreaFuncAttr: function(value){
-			this._areaChanged = true;
-			this._set("areaFunc", value);
-		},
-
-		// labelFunc: Function
-		//		A function that returns the label of cell from a store item.	
-		//		Default implementation is using labelAttr.
-		labelFunc: function(/*Object*/ item, /*dojo/store/api/Store*/ store){
-			var label = (this.labelAttr && this.labelAttr.length > 0)?item[this.labelAttr]:null;
-			return label?label.toString():null;
-		},
-	
-		// tooltipFunc: Function
-		//		A function that returns the tooltip of cell from a store item.	
-		//		Default implementation is using tooltipAttr.
-		tooltipFunc: function(/*Object*/ item, /*dojo/store/api/Store*/ store){
-			var tooltip = (this.tooltipAttr && this.tooltipAttr.length > 0)?item[this.tooltipAttr]:null;
-			return tooltip?tooltip.toString():null;
-		},
-
-		_setColorModelAttr: function(value){
-			this._coloringChanged = true;
-			this._set("colorModel", value);
-		},
-	
-		_setColorAttrAttr: function(value){
-			this._coloringChanged = true;
-			this._set("colorAttr", value);
-		},
-	
-		// colorFunc: Function
-		//		A function that returns from a store item the color value of cell or the value used by the 
-		//		ColorModel to compute the cell color. If a color must be returned it must be in form accepted by the
-		//		dojo/_base/Color constructor. If a value must be returned it must be a Number.
-		//		Default implementation is using colorAttr.
-		colorFunc: function(/*Object*/ item, /*dojo/store/api/Store*/ store){
-			var color = (this.colorAttr && this.colorAttr.length > 0)?item[this.colorAttr]:0;
-			if(color == null){
-				color = 0;
-			}
-			return parseFloat(color);
-		},
-		
-		_setColorFuncAttr: function(value){
-			this._coloringChanged = true;
-			this._set("colorFunc", value);
-		},
-		
-		createRenderer: function(item, level, kind){
-			// summary:
-			//		Creates an item renderer of the specified kind. This is called only when the treemap
-			//		is created. Default implementation always create div nodes. It also sets overflow
-			//		to hidden and position to absolute on non-header renderers.
-			// item: Object
-			//		The data item.
-			// level: Number
-			//		The item depth level.		
-			// kind: String
-			//		The specified kind. This can either be "leaf", "group", "header" or "content". 
-			// returns: DomNode
-			//		The renderer use for the specified kind.
-			// tags:
-			//		protected					
-			var div = domConstruct.create("div");
-			if(kind != "header"){
-				domStyle.set(div, "overflow", "hidden");
-				domStyle.set(div, "position", "absolute");					
-			}
-			return div;
-		},
-		
-		styleRenderer: function(renderer, item, level, kind){
-			// summary:
-			//		Style the item renderer. This is called each time the treemap is refreshed.
-			//		For leaf items it colors them with the color computed from the color model. 
-			//		For other items it does nothing.
-			// renderer: DomNode
-			//		The item renderer.
-			// item: Object
-			//		The data item.
-			// level: Number
-			//		The item depth level.
-			// kind: String
-			//		The specified kind. This can either be "leaf", "group", "header" or "content". 
-			// tags:
-			//		protected
-			switch(kind){
-				case "leaf":
-					domStyle.set(renderer, "background", this.getColorForItem(item).toHex());
-				case "header":
-					var label = this.getLabelForItem(item);
-					if(label && (isNaN(this.labelThreshold) || level < this.labelThreshold)){
-						renderer.innerHTML = label;
-					}else{
-						domConstruct.empty(renderer);
-					}
-					break;
-				default:
-				
-			}				
-		},
-		
-		_updateTreeMapHierarchy: function(){
-			if(this._data == null){
-				return;
-			}
-			if(this._groupFuncs != null && this._groupFuncs.length > 0){
-				this._items = utils.group(this._data, this._groupFuncs, lang.hitch(this, this._getAreaForItem)).children;
-			}else{
-				this._items = this._data;
-			}
-		},
-	
-		_removeAreaForGroup: function(item){
-			var children;
-			if(item != null){
-				if(item.__treeValue){
-					delete item.__treeValue;
-					children = item.children;
-				}else{
-					// not a grouping item
-					return;
-				}
-			}else{
-				children = this._items;
-			}
-			if(children){
-				for(var i = 0; i < children.length; ++i){
-					this._removeAreaForGroup(children[i]);
-				}
-			}
-		},
-	
-		_getAreaForItem: function(item){
-			var area = this.areaFunc(item, this.store);
-			return isNaN(area) ? 0 : area;
-		},
-
-		_computeAreaForItem: function(item){
-			var value;
-			if(item.__treeID){ // group
-				value = item.__treeValue;
-				if(!value){
-					value = 0;
-					var children = item.children;
-					for(var i = 0; i < children.length; ++i){
-						value += this._computeAreaForItem(children[i]);
-					}
-					item.__treeValue = value;
-				}
-			}else{
-				value = this._getAreaForItem(item);
-			}
-			return value;
-		},
-	
-		getColorForItem: function(item){
-			// summary:
-			//		Returns the color for a given item. This either use the colorModel if not null
-			//		or just the result of the colorFunc.
-			// item: Object
-			//		The data item.
-			// tags:
-			//		protected	
-			var value = this.colorFunc(item, this.store);
-			if(this.colorModel != null){
-				return this.colorModel.getColor(value);
-			}else{
-				return new Color(value);
-			}
-		},
-	
-		getLabelForItem: function(item){
-			// summary:
-			//		Returns the label for a given item.
-			// item: Object
-			//		The data item.
-			// tags:
-			//		protected	
-			return item.__treeName?item.__treeName:this.labelFunc(item, this.store);
-		},
-	
-		_buildChildrenRenderers: function(domNode, item, level, forceCreate, delta, anim){
-			var children = item.children;
-			var box = domGeom.getMarginBox(domNode);
-
-			var solution = utils.solve(children, box.w, box.h, lang.hitch(this,
-					this._computeAreaForItem), !this.isLeftToRight());
-					
-			var rectangles = solution.rectangles;
-			
-			if(delta){
-				rectangles = arr.map(rectangles, function(item){
-					item.x += delta.l;
-					item.y += delta.t;
-					return item;
-				});
-			}
-	
-			var rectangle;
-			for(var j = 0; j < children.length; ++j){
-				rectangle = rectangles[j];
-				this._buildRenderer(domNode, item, children[j], rectangle, level, forceCreate, anim);
-			}
-		},
-		
-		_isLeaf: function(item){
-			return !item.children;
-		},
-		
-		_isRoot: function(item){
-			return item.__treeRoot;
-		},
-		
-		_getRenderer: function(item, anim, parent){
-			if(anim){
-				// while animating we do that on a copy of the subtree
-				// so we can use our hash object to get to the renderer
-				for(var i = 0; i < parent.children.length; ++i){
-	        		if(parent.children[i].item == item){
-	            		return parent.children[i];
-	                }
-				}	
-			}
-			return this.itemToRenderer[this.getIdentity(item)];
-		},
-
-		_buildRenderer: function(container, parent, child, rect, level, forceCreate, anim){
-			var isLeaf = this._isLeaf(child);
-			var renderer = !forceCreate ? this._getRenderer(child, anim, container) : null;
-			renderer = isLeaf ? this._updateLeafRenderer(renderer, child, level) : this._updateGroupRenderer(renderer,
-					child, level);
-			if(forceCreate){
-				renderer.level = level;
-				renderer.item = child;
-				renderer.parentItem = parent;
-				this.itemToRenderer[this.getIdentity(child)] = renderer;
-				// update its selection status
-				this.updateRenderers(child);
-			}
-	
-			// in some cases the computation might be slightly incorrect (0.0000...1)
-			// and due to the floor this will cause 1px gaps 
-	
-			var x = Math.floor(rect.x);
-			var y = Math.floor(rect.y);
-			var w = Math.floor(rect.x + rect.w + 0.00000000001) - x;
-			var h = Math.floor(rect.y + rect.h + 0.00000000001) - y;
-
-			// before sizing put the item inside its parent so that styling
-			// is applied and taken into account
-			if(forceCreate){
-				domConstruct.place(renderer, container);
-			}
-
-			domGeom.setMarginBox(renderer, {
-				l: x, t: y, w: w, h: h
-			});
-			
-			if(!isLeaf){
-				var box = domGeom.getContentBox(renderer);
-				this._layoutGroupContent(renderer, box.w, box.h, level + 1, forceCreate, anim);
-			}
-			
-			this.onRendererUpdated({ renderer: renderer, item: child, kind: isLeaf?"leaf":"group", level: level });		
-		},
-	
-		_layoutGroupContent: function(renderer, width, height, level, forceCreate, anim){
-			var header = query(".dojoxTreeMapHeader", renderer)[0];
-			var content = query(".dojoxTreeMapGroupContent", renderer)[0];
-			if(header == null || content == null){
-				return;
-			}
-	
-			var box = domGeom.getMarginBox(header);
-	
-			// If the header is too high, reduce its area
-			// and don't show the children..
-			if(box.h > height){
-				// TODO: this might cause pb when coming back to visibility later
-				// as the getMarginBox of the header will keep that value?
-				box.h = height;
-				domStyle.set(content, "display", "none");
-			}else{
-				domStyle.set(content, "display", "block");
-				domGeom.setMarginBox(content, {
-					l: 0, t: box.h, w: width, h: (height - box.h)
-				});
-				this._buildChildrenRenderers(content, renderer.item, level, forceCreate, null, anim);
-			}
-	
-			domGeom.setMarginBox(header, {
-				l: 0, t: 0, w: width, h: box.h
-			});
-		},
-	
-		_updateGroupRenderer: function(renderer, item, level){
-			// summary:
-			//		Update a group renderer. This creates the renderer if not already created,
-			//		call styleRender for it and recurse into children.
-			// renderer: DomNode
-			//		The item renderer.
-			// item: Object
-			//		The data item.
-			// level: Number
-			//		The item depth level.
-			// tags:
-			//		private				
-			var forceCreate = renderer == null;
-			if(renderer == null){
-				renderer = this.createRenderer("div", level, "group");
-				domClass.add(renderer, "dojoxTreeMapGroup");
-			}
-			this.styleRenderer(renderer, item, level, "group");
-			var header = query(".dojoxTreeMapHeader", renderer)[0];
-			header = this._updateHeaderRenderer(header, item, level);
-			if(forceCreate){
-				domConstruct.place(header, renderer);
-			}
-			var content = query(".dojoxTreeMapGroupContent", renderer)[0];
-			content = this._updateGroupContentRenderer(content, item, level);
-			if(forceCreate){
-				domConstruct.place(content, renderer);
-			}
-			return renderer;
-		},
-	
-		_updateHeaderRenderer: function(renderer, item, level){
-			// summary:
-			//		Update a leaf renderer. This creates the renderer if not already created,
-			//		call styleRender for it and set the label as its innerHTML.
-			// renderer: DomNode
-			//		The item renderer.
-			// item: Object
-			//		The data item.
-			// level: Number
-			//		The item depth level.
-			// tags:
-			//		private			
-			if(renderer == null){
-				renderer = this.createRenderer(item, level, "header");
-				domClass.add(renderer, "dojoxTreeMapHeader");
-				domClass.add(renderer, "dojoxTreeMapHeader_" + level);				
-			}
-			this.styleRenderer(renderer, item, level, "header");
-			return renderer;
-		},
-	
-		_updateLeafRenderer: function(renderer, item, level){
-			// summary:
-			//		Update a leaf renderer. This creates the renderer if not already created,
-			//		call styleRender for it and set the label as its innerHTML.
-			// renderer: DomNode
-			//		The item renderer.
-			// item: Object
-			//		The data item.
-			// level: Number
-			//		The item depth level.
-			// tags:
-			//		private				
-			if(renderer == null){
-				renderer = this.createRenderer(item, level, "leaf");
-				domClass.add(renderer, "dojoxTreeMapLeaf");
-				domClass.add(renderer, "dojoxTreeMapLeaf_" + level);
-			}		
-			this.styleRenderer(renderer, item, level, "leaf");
-			var tooltip = this.tooltipFunc(item, this.store);
-			if(tooltip){
-				renderer.title = tooltip;
-			}
-			return renderer;
-		},
-	
-		_updateGroupContentRenderer: function(renderer, item, level){
-			// summary:
-			//		Update a group content renderer. This creates the renderer if not already created,
-			//		and call styleRender for it.
-			// renderer:
-			//		The item renderer.
-			// item: Object
-			//		The data item.
-			// level: Number
-			//		The item depth level.
-			// tags:
-			//		private				
-			if(renderer == null){
-				renderer = this.createRenderer(item, level, "content");
-				domClass.add(renderer, "dojoxTreeMapGroupContent");
-				domClass.add(renderer, "dojoxTreeMapGroupContent_" + level);
-			}
-			this.styleRenderer(renderer, item, level, "content");
-			return renderer;
-		},
-		
-		_getRendererFromTarget: function(target){
-			var renderer = target;
-			while(renderer != this.domNode && !renderer.item){
-				renderer = renderer.parentNode;
-			}			
-			return renderer;
-		},
-
-		_onMouseOver: function(e){
-			var renderer = this._getRendererFromTarget(e.target);
-			if(renderer.item){	
-				var item = renderer.item;
-				this._hoveredItem = item;
-				this.updateRenderers(item);
-				this.onItemRollOver({renderer: renderer, item : item, triggerEvent: e});
-			}
-		},
-	
-		_onMouseOut: function(e){
-			var renderer = this._getRendererFromTarget(e.target);
-			if(renderer.item){	
-				var item = renderer.item;
-				this._hoveredItem = null;
-				this.updateRenderers(item);
-				this.onItemRollOut({renderer: renderer, item : item, triggerEvent: e});
-			}
-		},
-		
-		_onMouseUp: function(e){
-			var renderer = this._getRendererFromTarget(e.target);
-			if(renderer.item){
-				this.selectFromEvent(e, renderer.item, renderer, true);
-				//event.stop(e);
-			}
-		},
-		
-		onRendererUpdated: function(){
-			// summary:
-			//		Called when a renderer has been updated. This is called after creation, styling and sizing for 
-			//		each group and leaf renderers. For group renders this is also called after creation of children
-			//		renderers. 
-			// tags:
-			//		callback			
-		},
-		
-		onItemRollOver: function(){
-			// summary:
-			//		Called when an item renderer has been hovered.
-			// tags:
-			//		callback			
-		},
-		
-		onItemRollOut: function(){
-			// summary:
-			//		Called when an item renderer has been rolled out.
-			// tags:
-			//		callback			
-		},		
-		
-		updateRenderers: function(items){
-			// summary:
-			//		Updates the renderer(s) that represent the specified item(s).
-			// item: Object|Array
-			//		The item(s).
-			if(!items){
-				return;
-			}			
-			if(!lang.isArray(items)){
-				items = [items];
-			}
-			for(var i=0; i<items.length;i++){
-				var item = items[i];
-				var renderer = this._getRenderer(item);
-				// at init time the renderer might not be ready
-				if(!renderer){
-					continue;
-				}
-				var selected = this.isItemSelected(item);
-				var ie = has("ie");
-				var div;
-				if(selected){
-					domClass.add(renderer, "dojoxTreeMapSelected");
-					if(ie && (has("quirks") || ie < 9)){
-						// let's do all of this only if not already done
-						div = renderer.previousSibling;
-						var rStyle = domStyle.get(renderer);
-						if(!div || !domClass.contains(div, "dojoxTreeMapIEHack")){
-							div = this.createRenderer(item, -10, "group");
-							domClass.add(div, "dojoxTreeMapIEHack");
-							domClass.add(div, "dojoxTreeMapSelected");
-							domStyle.set(div, {
-								position: "absolute",
-								overflow: "hidden"
-							});
-							domConstruct.place(div, renderer, "before");
-						}
-						// TODO: might fail if different border widths for different sides
-						var bWidth = 2*parseInt(domStyle.get(div, "border-width"));
-						if(this._isLeaf(item)){
-							bWidth -= 1;
-						}else{
-							bWidth += 1;
-						}
-						// if we just drill down some renders might not be laid out?
-						if(rStyle["left"] != "auto"){
-							domStyle.set(div, {
-								left: (parseInt(rStyle["left"])+1)+"px",
-								top: (parseInt(rStyle["top"])+1)+"px",
-								width: (parseInt(rStyle["width"])-bWidth)+"px",
-								height: (parseInt(rStyle["height"])-bWidth)+"px"
-							});
-						}
-					}
-				}else{
-					if(ie && (has("quirks") || ie < 9)){
-						div = renderer.previousSibling;
-						if(div && domClass.contains(div, "dojoxTreeMapIEHack")){
-							div.parentNode.removeChild(div);
-						}
-					}
-					domClass.remove(renderer, "dojoxTreeMapSelected");
-
-				}
-				if(this._hoveredItem == item){
-					domClass.add(renderer, "dojoxTreeMapHovered");
-				}else{
-					domClass.remove(renderer, "dojoxTreeMapHovered");
-				}
-				if(selected || this._hoveredItem == item){
-					domStyle.set(renderer, "zIndex", 20);
-				}else{
-					domStyle.set(renderer, "zIndex", (has("ie")<=7)?0:"auto");
-				}
-			}
-		}
-	});
+//>>built
+define("dojox/treemap/TreeMap",["dojo/_base/array","dojo/_base/lang","dojo/_base/declare","dojo/_base/event","dojo/_base/Color","dojo/touch","dojo/when","dojo/on","dojo/query","dojo/dom-construct","dojo/dom-geometry","dojo/dom-class","dojo/dom-style","./_utils","dijit/_WidgetBase","dojox/widget/_Invalidating","dojox/widget/Selection","dojo/_base/sniff","dojo/uacss"],function(_1,_2,_3,_4,_5,_6,_7,on,_8,_9,_a,_b,_c,_d,_e,_f,_10,has){
+return _3("dojox.treemap.TreeMap",[_e,_f,_10],{baseClass:"dojoxTreeMap",store:null,query:{},queryOptions:null,itemToRenderer:null,_dataChanged:false,rootItem:null,_rootItemChanged:false,tooltipAttr:"",areaAttr:"",_areaChanged:false,labelAttr:"label",labelThreshold:NaN,colorAttr:"",colorModel:null,_coloringChanged:false,groupAttrs:[],groupFuncs:null,_groupFuncs:null,_groupingChanged:false,constructor:function(){
+this.itemToRenderer={};
+this.invalidatingProperties=["colorModel","groupAttrs","groupFuncs","areaAttr","areaFunc","labelAttr","labelFunc","labelThreshold","tooltipAttr","tooltipFunc","colorAttr","colorFunc","rootItem"];
+},getIdentity:function(_11){
+return _11.__treeID?_11.__treeID:this.store.getIdentity(_11);
+},resize:function(box){
+if(box){
+_a.setMarginBox(this.domNode,box);
+this.invalidateRendering();
+}
+},postCreate:function(){
+this.inherited(arguments);
+this.own(on(this.domNode,"mouseover",_2.hitch(this,this._onMouseOver)));
+this.own(on(this.domNode,"mouseout",_2.hitch(this,this._onMouseOut)));
+this.own(on(this.domNode,_6.release,_2.hitch(this,this._onMouseUp)));
+this.domNode.setAttribute("role","presentation");
+this.domNode.setAttribute("aria-label","treemap");
+},buildRendering:function(){
+this.inherited(arguments);
+this.refreshRendering();
+},refreshRendering:function(){
+var _12=false;
+if(this._dataChanged){
+this._dataChanged=false;
+this._groupingChanged=true;
+this._coloringChanged=true;
+}
+if(this._groupingChanged){
+this._groupingChanged=false;
+this._set("rootItem",null);
+this._updateTreeMapHierarchy();
+_12=true;
+}
+if(this._rootItemChanged){
+this._rootItemChanged=false;
+_12=true;
+}
+if(this._coloringChanged){
+this._coloringChanged=false;
+if(this.colorModel!=null&&this._data!=null&&this.colorModel.initialize){
+this.colorModel.initialize(this._data,_2.hitch(this,function(_13){
+return this.colorFunc(_13,this.store);
+}));
+}
+}
+if(this._areaChanged){
+this._areaChanged=false;
+this._removeAreaForGroup();
+}
+if(this.domNode==undefined||this._items==null){
+return;
+}
+if(_12){
+_9.empty(this.domNode);
+}
+var _14=this.rootItem,_15;
+if(_14!=null){
+var _16=this._getRenderer(_14);
+if(_16){
+if(this._isLeaf(_14)){
+_14=_16.parentItem;
+}
+_15=_16.parentItem;
+}
+}
+var box=_a.getMarginBox(this.domNode);
+if(_14!=null){
+this._buildRenderer(this.domNode,_15,_14,{x:box.l,y:box.t,w:box.w,h:box.h},0,_12);
+}else{
+this._buildChildrenRenderers(this.domNode,_14?_14:{__treeRoot:true,children:this._items},0,_12,box);
+}
+},_setRootItemAttr:function(_17){
+this._rootItemChanged=true;
+this._set("rootItem",_17);
+},_setStoreAttr:function(_18){
+var r;
+if(this._observeHandler){
+this._observeHandler.remove();
+this._observeHandler=null;
+}
+if(_18!=null){
+var _19=_18.query(this.query,this.queryOptions);
+if(_19.observe){
+this._observeHandler=_19.observe(_2.hitch(this,this._updateItem),true);
+}
+r=_7(_19,_2.hitch(this,this._initItems));
+}else{
+r=this._initItems([]);
+}
+this._set("store",_18);
+return r;
+},_initItems:function(_1a){
+this._dataChanged=true;
+this._data=_1a;
+this.invalidateRendering();
+return _1a;
+},_updateItem:function(_1b,_1c,_1d){
+if(_1c!=-1){
+if(_1d!=_1c){
+this._data.splice(_1c,1);
+}else{
+this._data[_1d]=_1b;
+}
+}else{
+if(_1d!=-1){
+this._data.splice(_1d,0,_1b);
+}
+}
+this._dataChanged=true;
+this.invalidateRendering();
+},_setGroupAttrsAttr:function(_1e){
+this._groupingChanged=true;
+if(this.groupFuncs==null){
+if(_1e!=null){
+this._groupFuncs=_1.map(_1e,function(_1f){
+return function(_20){
+return _20[_1f];
+};
+});
+}else{
+this._groupFuncs=null;
+}
+}
+this._set("groupAttrs",_1e);
+},_setGroupFuncsAttr:function(_21){
+this._groupingChanged=true;
+this._set("groupFuncs",this._groupFuncs=_21);
+if(_21==null&&this.groupAttrs!=null){
+this._groupFuncs=_1.map(this.groupAttrs,function(_22){
+return function(_23){
+return _23[_22];
+};
+});
+}
+},_setAreaAttrAttr:function(_24){
+this._areaChanged=true;
+this._set("areaAttr",_24);
+},areaFunc:function(_25,_26){
+return (this.areaAttr&&this.areaAttr.length>0)?parseFloat(_25[this.areaAttr]):1;
+},_setAreaFuncAttr:function(_27){
+this._areaChanged=true;
+this._set("areaFunc",_27);
+},labelFunc:function(_28,_29){
+var _2a=(this.labelAttr&&this.labelAttr.length>0)?_28[this.labelAttr]:null;
+return _2a?_2a.toString():null;
+},tooltipFunc:function(_2b,_2c){
+var _2d=(this.tooltipAttr&&this.tooltipAttr.length>0)?_2b[this.tooltipAttr]:null;
+return _2d?_2d.toString():null;
+},_setColorModelAttr:function(_2e){
+this._coloringChanged=true;
+this._set("colorModel",_2e);
+},_setColorAttrAttr:function(_2f){
+this._coloringChanged=true;
+this._set("colorAttr",_2f);
+},colorFunc:function(_30,_31){
+var _32=(this.colorAttr&&this.colorAttr.length>0)?_30[this.colorAttr]:0;
+if(_32==null){
+_32=0;
+}
+return parseFloat(_32);
+},_setColorFuncAttr:function(_33){
+this._coloringChanged=true;
+this._set("colorFunc",_33);
+},createRenderer:function(_34,_35,_36){
+var div=_9.create("div");
+if(_36!="header"){
+_c.set(div,"overflow","hidden");
+_c.set(div,"position","absolute");
+}
+return div;
+},styleRenderer:function(_37,_38,_39,_3a){
+switch(_3a){
+case "leaf":
+_c.set(_37,"background",this.getColorForItem(_38).toHex());
+case "header":
+var _3b=this.getLabelForItem(_38);
+if(_3b&&(isNaN(this.labelThreshold)||_39<this.labelThreshold)){
+_37.innerHTML=_3b;
+}else{
+_9.empty(_37);
+}
+break;
+default:
+}
+},_updateTreeMapHierarchy:function(){
+if(this._data==null){
+return;
+}
+if(this._groupFuncs!=null&&this._groupFuncs.length>0){
+this._items=_d.group(this._data,this._groupFuncs,_2.hitch(this,this._getAreaForItem)).children;
+}else{
+this._items=this._data;
+}
+},_removeAreaForGroup:function(_3c){
+var _3d;
+if(_3c!=null){
+if(_3c.__treeValue){
+delete _3c.__treeValue;
+_3d=_3c.children;
+}else{
+return;
+}
+}else{
+_3d=this._items;
+}
+if(_3d){
+for(var i=0;i<_3d.length;++i){
+this._removeAreaForGroup(_3d[i]);
+}
+}
+},_getAreaForItem:function(_3e){
+var _3f=this.areaFunc(_3e,this.store);
+return isNaN(_3f)?0:_3f;
+},_computeAreaForItem:function(_40){
+var _41;
+if(_40.__treeID){
+_41=_40.__treeValue;
+if(!_41){
+_41=0;
+var _42=_40.children;
+for(var i=0;i<_42.length;++i){
+_41+=this._computeAreaForItem(_42[i]);
+}
+_40.__treeValue=_41;
+}
+}else{
+_41=this._getAreaForItem(_40);
+}
+return _41;
+},getColorForItem:function(_43){
+var _44=this.colorFunc(_43,this.store);
+if(this.colorModel!=null){
+return this.colorModel.getColor(_44);
+}else{
+return new _5(_44);
+}
+},getLabelForItem:function(_45){
+return _45.__treeName?_45.__treeName:this.labelFunc(_45,this.store);
+},_buildChildrenRenderers:function(_46,_47,_48,_49,_4a,_4b){
+var _4c=_47.children;
+var box=_a.getMarginBox(_46);
+var _4d=_d.solve(_4c,box.w,box.h,_2.hitch(this,this._computeAreaForItem),!this.isLeftToRight());
+var _4e=_4d.rectangles;
+if(_4a){
+_4e=_1.map(_4e,function(_4f){
+_4f.x+=_4a.l;
+_4f.y+=_4a.t;
+return _4f;
+});
+}
+var _50;
+for(var j=0;j<_4c.length;++j){
+_50=_4e[j];
+this._buildRenderer(_46,_47,_4c[j],_50,_48,_49,_4b);
+}
+},_isLeaf:function(_51){
+return !_51.children;
+},_isRoot:function(_52){
+return _52.__treeRoot;
+},_getRenderer:function(_53,_54,_55){
+if(_54){
+for(var i=0;i<_55.children.length;++i){
+if(_55.children[i].item==_53){
+return _55.children[i];
+}
+}
+}
+return this.itemToRenderer[this.getIdentity(_53)];
+},_buildRenderer:function(_56,_57,_58,_59,_5a,_5b,_5c){
+var _5d=this._isLeaf(_58);
+var _5e=!_5b?this._getRenderer(_58,_5c,_56):null;
+_5e=_5d?this._updateLeafRenderer(_5e,_58,_5a):this._updateGroupRenderer(_5e,_58,_5a);
+if(_5b){
+_5e.level=_5a;
+_5e.item=_58;
+_5e.parentItem=_57;
+this.itemToRenderer[this.getIdentity(_58)]=_5e;
+this.updateRenderers(_58);
+}
+var x=Math.floor(_59.x);
+var y=Math.floor(_59.y);
+var w=Math.floor(_59.x+_59.w+1e-11)-x;
+var h=Math.floor(_59.y+_59.h+1e-11)-y;
+if(_5b){
+_9.place(_5e,_56);
+}
+_a.setMarginBox(_5e,{l:x,t:y,w:w,h:h});
+if(!_5d){
+var box=_a.getContentBox(_5e);
+this._layoutGroupContent(_5e,box.w,box.h,_5a+1,_5b,_5c);
+}
+this.onRendererUpdated({renderer:_5e,item:_58,kind:_5d?"leaf":"group",level:_5a});
+},_layoutGroupContent:function(_5f,_60,_61,_62,_63,_64){
+var _65=_8(".dojoxTreeMapHeader",_5f)[0];
+var _66=_8(".dojoxTreeMapGroupContent",_5f)[0];
+if(_65==null||_66==null){
+return;
+}
+var box=_a.getMarginBox(_65);
+if(box.h>_61){
+box.h=_61;
+_c.set(_66,"display","none");
+}else{
+_c.set(_66,"display","block");
+_a.setMarginBox(_66,{l:0,t:box.h,w:_60,h:(_61-box.h)});
+this._buildChildrenRenderers(_66,_5f.item,_62,_63,null,_64);
+}
+_a.setMarginBox(_65,{l:0,t:0,w:_60,h:box.h});
+},_updateGroupRenderer:function(_67,_68,_69){
+var _6a=_67==null;
+if(_67==null){
+_67=this.createRenderer("div",_69,"group");
+_b.add(_67,"dojoxTreeMapGroup");
+}
+this.styleRenderer(_67,_68,_69,"group");
+var _6b=_8(".dojoxTreeMapHeader",_67)[0];
+_6b=this._updateHeaderRenderer(_6b,_68,_69);
+if(_6a){
+_9.place(_6b,_67);
+}
+var _6c=_8(".dojoxTreeMapGroupContent",_67)[0];
+_6c=this._updateGroupContentRenderer(_6c,_68,_69);
+if(_6a){
+_9.place(_6c,_67);
+}
+return _67;
+},_updateHeaderRenderer:function(_6d,_6e,_6f){
+if(_6d==null){
+_6d=this.createRenderer(_6e,_6f,"header");
+_b.add(_6d,"dojoxTreeMapHeader");
+_b.add(_6d,"dojoxTreeMapHeader_"+_6f);
+}
+this.styleRenderer(_6d,_6e,_6f,"header");
+return _6d;
+},_updateLeafRenderer:function(_70,_71,_72){
+if(_70==null){
+_70=this.createRenderer(_71,_72,"leaf");
+_b.add(_70,"dojoxTreeMapLeaf");
+_b.add(_70,"dojoxTreeMapLeaf_"+_72);
+}
+this.styleRenderer(_70,_71,_72,"leaf");
+var _73=this.tooltipFunc(_71,this.store);
+if(_73){
+_70.title=_73;
+}
+return _70;
+},_updateGroupContentRenderer:function(_74,_75,_76){
+if(_74==null){
+_74=this.createRenderer(_75,_76,"content");
+_b.add(_74,"dojoxTreeMapGroupContent");
+_b.add(_74,"dojoxTreeMapGroupContent_"+_76);
+}
+this.styleRenderer(_74,_75,_76,"content");
+return _74;
+},_getRendererFromTarget:function(_77){
+var _78=_77;
+while(_78!=this.domNode&&!_78.item){
+_78=_78.parentNode;
+}
+return _78;
+},_onMouseOver:function(e){
+var _79=this._getRendererFromTarget(e.target);
+if(_79.item){
+var _7a=_79.item;
+this._hoveredItem=_7a;
+this.updateRenderers(_7a);
+this.onItemRollOver({renderer:_79,item:_7a,triggerEvent:e});
+}
+},_onMouseOut:function(e){
+var _7b=this._getRendererFromTarget(e.target);
+if(_7b.item){
+var _7c=_7b.item;
+this._hoveredItem=null;
+this.updateRenderers(_7c);
+this.onItemRollOut({renderer:_7b,item:_7c,triggerEvent:e});
+}
+},_onMouseUp:function(e){
+var _7d=this._getRendererFromTarget(e.target);
+if(_7d.item){
+this.selectFromEvent(e,_7d.item,_7d,true);
+}
+},onRendererUpdated:function(){
+},onItemRollOver:function(){
+},onItemRollOut:function(){
+},updateRenderers:function(_7e){
+if(!_7e){
+return;
+}
+if(!_2.isArray(_7e)){
+_7e=[_7e];
+}
+for(var i=0;i<_7e.length;i++){
+var _7f=_7e[i];
+var _80=this._getRenderer(_7f);
+if(!_80){
+continue;
+}
+var _81=this.isItemSelected(_7f);
+var ie=has("ie");
+var div;
+if(_81){
+_b.add(_80,"dojoxTreeMapSelected");
+if(ie&&(has("quirks")||ie<9)){
+div=_80.previousSibling;
+var _82=_c.get(_80);
+if(!div||!_b.contains(div,"dojoxTreeMapIEHack")){
+div=this.createRenderer(_7f,-10,"group");
+_b.add(div,"dojoxTreeMapIEHack");
+_b.add(div,"dojoxTreeMapSelected");
+_c.set(div,{position:"absolute",overflow:"hidden"});
+_9.place(div,_80,"before");
+}
+var _83=2*parseInt(_c.get(div,"border-width"));
+if(this._isLeaf(_7f)){
+_83-=1;
+}else{
+_83+=1;
+}
+if(_82["left"]!="auto"){
+_c.set(div,{left:(parseInt(_82["left"])+1)+"px",top:(parseInt(_82["top"])+1)+"px",width:(parseInt(_82["width"])-_83)+"px",height:(parseInt(_82["height"])-_83)+"px"});
+}
+}
+}else{
+if(ie&&(has("quirks")||ie<9)){
+div=_80.previousSibling;
+if(div&&_b.contains(div,"dojoxTreeMapIEHack")){
+div.parentNode.removeChild(div);
+}
+}
+_b.remove(_80,"dojoxTreeMapSelected");
+}
+if(this._hoveredItem==_7f){
+_b.add(_80,"dojoxTreeMapHovered");
+}else{
+_b.remove(_80,"dojoxTreeMapHovered");
+}
+if(_81||this._hoveredItem==_7f){
+_c.set(_80,"zIndex",20);
+}else{
+_c.set(_80,"zIndex",(has("ie")<=7)?0:"auto");
+}
+}
+}});
 });

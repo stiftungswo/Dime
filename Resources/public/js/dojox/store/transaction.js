@@ -1,133 +1,91 @@
-define(['dojo/store/Memory', 'dojo/store/Cache', 'dojo/when', 'dojo/aspect', 'dojo/_base/lang'],
-	function(Memory, Cache, when, aspect, lang){
-// summary:
-//		This is a transaction managing store. When transaction is started, by calling store.transaction(),
-//		all request operations (put, add, remove), are entered into a transaction log. When commit() is
-//		called, the actions in the log are then committed. This store relies on three other stores,
-//		extending the dojo/store/Cache:
-//			* masterStore - like with Cache, this store is the ultimate authority, and is usually connected to the backend
-//			* cachingStore - This store includes local data, including changes within the current transaction
-//			* transactionLogStore - This store holds the log of actions that need to be committed to the masterStore on the next commit
-
-	var defaultTransactionLogStore;
-	var stores = {};
-	var nextStoreId = 1;
-	return function(options){
-		options = options || {};
-		var masterStore = options.masterStore;
-		var cachingStore = options.cachingStore;
-		var storeId = masterStore.id || masterStore.storeName || masterStore.name || (masterStore.id = nextStoreId++);
-		if(storeId){
-			stores[storeId] = masterStore;
-		}
-		var transactionLogStore = options.transactionLogStore || defaultTransactionLogStore ||
-				(defaultTransactionLogStore = new Memory());
-		var autoCommit = true;
-		function addToLog(method){
-			return function execute(target, options){
-				var transactionStore = this;
-				if(autoCommit){
-					// immediately perform the action
-					var result = masterStore[method](target, options);
-					when(result, null, function(e){
-						if(transactionStore.errorHandler(e)){
-							// failed, and the errorHandler has signaled that it should be requeued
-							autoCommit = false;
-							options.error = e;
-							execute.call(transactionStore, target, options);
-							autoCommit = true;
-						}
-					});
-					return result;
-				}else{
-					// add to the transaction log
-					var previousId = method === 'remove' ? target : transactionStore.getIdentity(target);
-					if(previousId !== undefined){
-						var previous = cachingStore.get(previousId);
-					}
-					return when(previous, function(previous){
-						return when(transactionLogStore.add({
-							objectId: previousId,
-							method: method,
-							target: target,
-							previous: previous,
-							options: options,
-							storeId: storeId
-						}), function(){
-							return target;
-						});
-					});
-				}
-			};
-		}
-		// we need to listen for any notifications from the master store, and propagate these to the caching store
-		// this arguably should actually be done in dojo/store/Cache
-		aspect.before(masterStore, 'notify', function(object, existingId){
-			if(object){
-				cachingStore.put(object);
-			}else{
-				cachingStore.remove(existingId);
-			}
-		});
-		return new Cache(lang.delegate(masterStore, {
-			put: addToLog('put'),
-			add: addToLog('add'),
-			remove: addToLog('remove'),
-			errorHandler: function(error){
-				// this is called whenever an error occurs when attempting to commit transactional actions
-				// this can return true to indicate that the action should be reattempted in the next commit
-				// this can return false to indicate that the action should be reverted
-				// if this returns undefined, no action will be taken
-				console.error(error);
-				return true;
-			},
-			commit: function(){
-				// commit everything in the transaction log
-				autoCommit = true;
-				var transactionStore = this;
-				// query for everything in the log
-				return transactionLogStore.query({}).map(function(action){
-					//var options = action.options || {};
-					var method = action.method;
-					var store = stores[action.storeId];
-					var target = action.target;
-					var result;
-					try{
-						// execute the queued action
-						result = store[method](target, action.options);
-					}catch(e){
-						result = transactionStore.errorHandler(e);
-						if(result === true){
-							// don't remove it from the log, let it be executed again
-							return e;
-						}else if(result === false){
-							// revert, by sending out a notification and updating the caching store
-							if(method === 'add'){
-								cachingStore.remove(action.objectId);
-							}else{
-								cachingStore.put(target);
-							}
-							store.notify && store.notify(method === 'add' ? null : action.previous,
-								method === 'remove' ? undefined : action.objectId);
-						}
-						result = e;
-					}
-					// fired it, can remove now
-					// TODO: handle async
-					transactionLogStore.remove(action.id);
-					return result;
-				});
-			},
-			transaction: function(){
-				// start a new transaction (by just turning off autoCommit)
-				autoCommit = false;
-				var transactionStore = this;
-				return {
-					commit: function(){
-						return transactionStore.commit();
-					}
-				};
-			}
-		}), cachingStore, options);
-	};
+//>>built
+define("dojox/store/transaction",["dojo/store/Memory","dojo/store/Cache","dojo/when","dojo/aspect","dojo/_base/lang"],function(_1,_2,_3,_4,_5){
+var _6;
+var _7={};
+var _8=1;
+return function(_9){
+_9=_9||{};
+var _a=_9.masterStore;
+var _b=_9.cachingStore;
+var _c=_a.id||_a.storeName||_a.name||(_a.id=_8++);
+if(_c){
+_7[_c]=_a;
+}
+var _d=_9.transactionLogStore||_6||(_6=new _1());
+var _e=true;
+function _f(_10){
+return function execute(_11,_12){
+var _13=this;
+if(_e){
+var _14=_a[_10](_11,_12);
+_3(_14,null,function(e){
+if(_13.errorHandler(e)){
+_e=false;
+_12.error=e;
+_15.call(_13,_11,_12);
+_e=true;
+}
+});
+return _14;
+}else{
+var _16=_10==="remove"?_11:_13.getIdentity(_11);
+if(_16!==undefined){
+var _17=_b.get(_16);
+}
+return _3(_17,function(_18){
+return _3(_d.add({objectId:_16,method:_10,target:_11,previous:_18,options:_12,storeId:_c}),function(){
+return _11;
+});
+});
+}
+};
+};
+_4.before(_a,"notify",function(_19,_1a){
+if(_19){
+_b.put(_19);
+}else{
+_b.remove(_1a);
+}
+});
+return new _2(_5.delegate(_a,{put:_f("put"),add:_f("add"),remove:_f("remove"),errorHandler:function(_1b){
+console.error(_1b);
+return true;
+},commit:function(){
+_e=true;
+var _1c=this;
+return _d.query({}).map(function(_1d){
+var _1e=_1d.method;
+var _1f=_7[_1d.storeId];
+var _20=_1d.target;
+var _21;
+try{
+_21=_1f[_1e](_20,_1d.options);
+}
+catch(e){
+_21=_1c.errorHandler(e);
+if(_21===true){
+return e;
+}else{
+if(_21===false){
+if(_1e==="add"){
+_b.remove(_1d.objectId);
+}else{
+_b.put(_20);
+}
+_1f.notify&&_1f.notify(_1e==="add"?null:_1d.previous,_1e==="remove"?undefined:_1d.objectId);
+}
+}
+_21=e;
+}
+_d.remove(_1d.id);
+return _21;
+});
+},transaction:function(){
+_e=false;
+var _22=this;
+return {commit:function(){
+return _22.commit();
+}};
+}}),_b,_9);
+};
 });

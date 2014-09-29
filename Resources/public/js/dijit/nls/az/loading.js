@@ -1,6 +1,2 @@
-define(
-({
-	"loadingState" : "Yüklənir...",
-	"errorState" : "Problem yarandı"
-})
-);
+//>>built
+define("dijit/nls/az/loading",({"loadingState":"Yüklənir...","errorState":"Problem yarandı"}));

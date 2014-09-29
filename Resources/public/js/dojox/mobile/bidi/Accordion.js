@@ -1,27 +1,11 @@
-define([
-	"dojo/_base/declare",
-	"./common",
-	"dojo/dom-class"
-], function(declare, common, domClass){
-
-	// module:
-	//		dojox/mobile/bidi/Accordion
-
-	return declare(null, {
-		// summary:
-		//		Support for control over text direction for mobile Accordion widget, using Unicode Control Characters to control text direction.
-		// description:
-		//		Implementation for text direction support for Label.
-		//		This class should not be used directly.
-		//		Mobile Accordion widget loads this module when user sets "has: {'dojo-bidi': true }" in data-dojo-config.
-		_setupChild: function(child){
-			if(this.textDir){
-				child.label = common.enforceTextDirWithUcc(child.label, this.textDir); 
-			}
-			this.inherited(arguments);
-		},
-		_setIconDir: function(iconNode){
-			domClass.add(iconNode, "mblAccordionIconParentRtl");
-		}
-	});
+//>>built
+define("dojox/mobile/bidi/Accordion",["dojo/_base/declare","./common","dojo/dom-class"],function(_1,_2,_3){
+return _1(null,{_setupChild:function(_4){
+if(this.textDir){
+_4.label=_2.enforceTextDirWithUcc(_4.label,this.textDir);
+}
+this.inherited(arguments);
+},_setIconDir:function(_5){
+_3.add(_5,"mblAccordionIconParentRtl");
+}});
 });

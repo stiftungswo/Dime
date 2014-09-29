@@ -1,5 +1,2 @@
-define(
-({
-	"blockquote": "Idézet"
-})
-);
+//>>built
+define("dojox/editor/plugins/nls/hu/Blockquote",({"blockquote":"Idézet"}));

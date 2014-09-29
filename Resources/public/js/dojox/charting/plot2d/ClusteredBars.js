@@ -1,14 +1,13 @@
-define(["dojo/_base/declare", "dojo/_base/array", "./Bars", "./common"], 
-	function(declare, array, Bars, dc){
-
-	return declare("dojox.charting.plot2d.ClusteredBars", Bars, {
-		// summary:
-		//		A plot representing grouped or clustered bars (horizontal bars)
-		getBarProperties: function(){
-			var length = this.series.length;
-			array.forEach(this.series, function(serie){if(serie.hidden){length--;}});
-			var f = dc.calculateBarSize(this._vScaler.bounds.scale, this.opt, length);
-			return {gap: f.gap, height: f.size, thickness: f.size};
-		}
-	});
+//>>built
+define("dojox/charting/plot2d/ClusteredBars",["dojo/_base/declare","dojo/_base/array","./Bars","./common"],function(_1,_2,_3,dc){
+return _1("dojox.charting.plot2d.ClusteredBars",_3,{getBarProperties:function(){
+var _4=this.series.length;
+_2.forEach(this.series,function(_5){
+if(_5.hidden){
+_4--;
+}
+});
+var f=dc.calculateBarSize(this._vScaler.bounds.scale,this.opt,_4);
+return {gap:f.gap,height:f.size,thickness:f.size};
+}});
 });

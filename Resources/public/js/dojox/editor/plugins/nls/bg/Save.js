@@ -1,5 +1,2 @@
-define(
-({
-	"save": "Запази"
-})
-);
+//>>built
+define("dojox/editor/plugins/nls/bg/Save",({"save":"Запази"}));

@@ -1,299 +1,223 @@
-define(["dojo/_base/array", 
-		"dojo/_base/declare", 
-		"dojo/query",
-		"dojo/_base/connect", 
-		"dojo/_base/Color", 
-		"./Legend", 
-		"dijit/form/CheckBox", 
-		"../action2d/Highlight",
-		"dojox/lang/functional", 
-		"dojox/gfx/fx", 
-		"dojo/keys", 
-		"dojo/dom-construct",
-		"dojo/dom-prop",
-		"dijit/registry"
-], function(arrayUtil, declare, query, hub, Color, Legend, CheckBox, Highlight, df, fx, keys, dom, domProp, registry){
-
-	var FocusManager = declare(null, {
-		// summary:
-		//		It will take legend as a tab stop, and using
-		//		cursor keys to navigate labels within the legend.
-		// tags:
-		//		private
-		constructor: function(legend){
-			this.legend = legend;
-			this.index = 0;
-			this.horizontalLength = this._getHrizontalLength();
-			arrayUtil.forEach(legend.legends, function(item, i){
-				if(i > 0){
-					query("input", item).attr("tabindex", -1);
-				}
-			});
-			this.firstLabel = query("input", legend.legends[0])[0];
-			hub.connect(this.firstLabel, "focus", this, function(){this.legend.active = true;});
-			hub.connect(this.legend.domNode, "keydown", this, "_onKeyEvent");
-		},
-		_getHrizontalLength: function(){
-			var horizontal = this.legend.horizontal;
-			if(typeof horizontal == "number"){
-				return Math.min(horizontal, this.legend.legends.length);
-			}else if(!horizontal){
-				return 1;
-			}else{
-				return this.legend.legends.length;
-			}
-		},
-		_onKeyEvent: function(e){
-			//	if not focused
-			if(!this.legend.active){
-				return;
-			}
-			//	lose focus
-			if(e.keyCode == keys.TAB){
-				this.legend.active = false;
-				return;
-			}
-			//	handle with arrow keys
-			var max = this.legend.legends.length;
-			switch(e.keyCode){
-				case keys.LEFT_ARROW:
-					this.index--;
-					if(this.index < 0){
-						this.index += max;
-					}
-					break;
-				case keys.RIGHT_ARROW:
-					this.index++;
-					if(this.index >= max){
-						this.index -= max;
-					}
-					break;
-				case keys.UP_ARROW:
-					if(this.index - this.horizontalLength >= 0){
-						this.index -= this.horizontalLength;
-					}
-					break;
-				case keys.DOWN_ARROW:
-					if(this.index + this.horizontalLength < max){
-						this.index += this.horizontalLength;
-					}
-					break;
-				default:
-					return;
-			}
-			this._moveToFocus();
-			Event.stop(e);
-		},
-		_moveToFocus: function(){
-			query("input", this.legend.legends[this.index])[0].focus();
-		}
-	});
-	
-	var FakeHighlight = declare(Highlight, {
-		connect: function(){}
-	});
-	
-	var SelectableLegend = declare("dojox.charting.widget.SelectableLegend", Legend, {
-		// summary:
-		//		An enhanced chart legend supporting interactive events on data series
-		
-		//	theme component
-		outline:			false,	//	outline of vanished data series
-		transitionFill:		null,	//	fill of deselected data series
-		transitionStroke:	null,	//	stroke of deselected data series
-
-		// autoScale: Boolean
-		//		Whether the scales of the chart are recomputed when selecting/unselecting a series in the legend. Default is false.
-		autoScale: false,
-		
-		postCreate: function(){
-			this.legends = [];
-			this.legendAnim = {};
-			this._cbs = [];
-			this.inherited(arguments);
-		},
-		refresh: function(){
-			this.legends = [];
-			this._clearLabels();
-			this.inherited(arguments);
-			this._applyEvents();
-			new FocusManager(this);
-		},
-		_clearLabels: function(){
-			var cbs = this._cbs;
-			while(cbs.length){
-				cbs.pop().destroyRecursive();
-			}
-		},
-		_addLabel: function(dyn, label){
-			this.inherited(arguments);
-			//	create checkbox
-			var legendNodes = query("td", this.legendBody);
-			var currentLegendNode = legendNodes[legendNodes.length - 1];
-			this.legends.push(currentLegendNode);
-			var checkbox = new CheckBox({checked: true});
-			this._cbs.push(checkbox);
-			dom.place(checkbox.domNode, currentLegendNode, "first");
-			// connect checkbox and existed label
-			var clabel = query("label", currentLegendNode)[0];
-			domProp.set(clabel, "for", checkbox.id);
-		},
-		_applyEvents: function(){
-			// summary:
-			//		Apply click-event on checkbox and hover-event on legend icon,
-			//		highlight data series or toggle it.
-			
-			// if the chart has not yet been refreshed it will crash here (targetData.group == null)
-			if(this.chart.dirty){
-				return;
-			}
-			arrayUtil.forEach(this.legends, function(legend, i){
-				var targetData, plotName, seriesName;
-				if(this._isPie()){
-					targetData = this.chart.stack[0];
-					plotName = targetData.name;
-					seriesName = this.chart.series[0].name;
-				}else{
-					targetData = this.chart.series[i];
-					plotName = targetData.plot;
-					seriesName = targetData.name;
-				}
-				//	toggle action
-				var legendCheckBox = registry.byNode(query(".dijitCheckBox", legend)[0]);
-				legendCheckBox.set("checked", !this._isHidden(plotName, i));
-				hub.connect(legendCheckBox, "onClick", this, function(e){
-					this.toogle(plotName, i, !legendCheckBox.get("checked"));
-					e.stopPropagation();
-				});
-				//	highlight action
-				var legendIcon = query(".dojoxLegendIcon", legend)[0],
-					iconShape = this._getFilledShape(this._surfaces[i].children);
-				arrayUtil.forEach(["onmouseenter", "onmouseleave"], function(event){
-					hub.connect(legendIcon, event, this, function(e){
-						this._highlight(e, iconShape, i, !legendCheckBox.get("checked"), seriesName, plotName);
-					});
-				}, this);
-			},this);
-		},
-		_isHidden: function(plotName, index){
-			if(this._isPie()){
-				return arrayUtil.indexOf(this.chart.getPlot(plotName).runFilter, index) != -1;
-			}else{
-				return this.chart.series[index].hidden
-			}
-		},
-		toogle: function(plotName, index, hide){
-			var plot =  this.chart.getPlot(plotName);
-			if(this._isPie()){
-				if(arrayUtil.indexOf(plot.runFilter, index) != -1){
-					if(!hide){
-						plot.runFilter = arrayUtil.filter(plot.runFilter, function(item){
-							return item != index;
-						});
-					}
-				}else{
-					if(hide){
-						plot.runFilter.push(index);
-					}
-				}
-			}else{ 
-				this.chart.series[index].hidden = hide;
-			}
-			this.autoScale ? this.chart.dirty = true: plot.dirty = true;
-			this.chart.render();
-		},
-		_highlight: function(e, iconShape, index, isOff, seriesName, plotName){
-			if(!isOff){
-				var anim = this._getAnim(plotName),
-					isPie = this._isPie(),
-					type = formatEventType(e.type);
-				// highlight the label icon,
-				var label = {
-					shape: iconShape,
-					index: isPie ? "legend" + index : "legend",
-					run: {name: seriesName},
-					type: type
-				};
-				anim.process(label);
-				//	highlight the data items
-				arrayUtil.forEach(this._getShapes(index, plotName), function(shape, i){
-					var o = {
-						shape: shape,
-						index: isPie ? index : i,
-						run: {name: seriesName},
-						type: type
-					};
-					anim.duration = 100;
-					anim.process(o);
-				});
-			}
-		},
-		_getShapes: function(i, plotName){
-			var shapes = [];
-			if(this._isPie()){
-				var decrease = 0;
-				arrayUtil.forEach(this.chart.getPlot(plotName).runFilter, function(item){
-					if(i > item){
-						decrease++;
-					}
-				});
-				shapes.push(this.chart.stack[0].group.children[i-decrease]);
-			}else if(this._isCandleStick(plotName)){
-				arrayUtil.forEach(this.chart.series[i].group.children, function(group){
-					arrayUtil.forEach(group.children, function(candle){
-						arrayUtil.forEach(candle.children, function(shape){
-							if(shape.shape.type !="line"){
-								shapes.push(shape);
-							}
-						});
-					});
-				});
-			}else{
-				shapes = this.chart.series[i].group.children;
-			}
-			return shapes;
-		},
-		_getAnim: function(plotName){
-			if(!this.legendAnim[plotName]){
-				this.legendAnim[plotName] = new FakeHighlight(this.chart, plotName);
-			}
-			return this.legendAnim[plotName];
-		},
-		_getTransitionFill: function(plotName){
-			// Since series of stacked charts all start from the base line,
-			// fill the "front" series with plotarea color to make it disappear .
-			if(this.chart.stack[this.chart.plots[plotName]].declaredClass.indexOf("dojox.charting.plot2d.Stacked") != -1){
-				return this.chart.theme.plotarea.fill;
-			}
-			return null;
-		},
-		_getFilledShape: function(shapes){
-			// summary:
-			//		Get filled shape in legend icon which would be highlighted when hovered
-			var i = 0;
-			while(shapes[i]){
-				if(shapes[i].getFill())return shapes[i];
-				i++;
-			}
-			return null;
-		},
-		_isPie: function(){
-			return this.chart.stack[0].declaredClass == "dojox.charting.plot2d.Pie";
-		},
-		_isCandleStick: function(plotName){
-			return this.chart.stack[this.chart.plots[plotName]].declaredClass == "dojox.charting.plot2d.Candlesticks";
-		},
-		destroy: function(){
-			this._clearLabels();
-			this.inherited(arguments);
-		}
-	});
-	
-	function formatEventType(type){
-		if(type == "mouseenter")return "onmouseover";
-		if(type == "mouseleave")return "onmouseout";
-		return "on" + type;
-	}
-
-	return SelectableLegend;
+//>>built
+define("dojox/charting/widget/SelectableLegend",["dojo/_base/array","dojo/_base/declare","dojo/query","dojo/_base/connect","dojo/_base/Color","./Legend","dijit/form/CheckBox","../action2d/Highlight","dojox/lang/functional","dojox/gfx/fx","dojo/keys","dojo/dom-construct","dojo/dom-prop","dijit/registry"],function(_1,_2,_3,_4,_5,_6,_7,_8,df,fx,_9,_a,_b,_c){
+var _d=_2(null,{constructor:function(_e){
+this.legend=_e;
+this.index=0;
+this.horizontalLength=this._getHrizontalLength();
+_1.forEach(_e.legends,function(_f,i){
+if(i>0){
+_3("input",_f).attr("tabindex",-1);
+}
+});
+this.firstLabel=_3("input",_e.legends[0])[0];
+_4.connect(this.firstLabel,"focus",this,function(){
+this.legend.active=true;
+});
+_4.connect(this.legend.domNode,"keydown",this,"_onKeyEvent");
+},_getHrizontalLength:function(){
+var _10=this.legend.horizontal;
+if(typeof _10=="number"){
+return Math.min(_10,this.legend.legends.length);
+}else{
+if(!_10){
+return 1;
+}else{
+return this.legend.legends.length;
+}
+}
+},_onKeyEvent:function(e){
+if(!this.legend.active){
+return;
+}
+if(e.keyCode==_9.TAB){
+this.legend.active=false;
+return;
+}
+var max=this.legend.legends.length;
+switch(e.keyCode){
+case _9.LEFT_ARROW:
+this.index--;
+if(this.index<0){
+this.index+=max;
+}
+break;
+case _9.RIGHT_ARROW:
+this.index++;
+if(this.index>=max){
+this.index-=max;
+}
+break;
+case _9.UP_ARROW:
+if(this.index-this.horizontalLength>=0){
+this.index-=this.horizontalLength;
+}
+break;
+case _9.DOWN_ARROW:
+if(this.index+this.horizontalLength<max){
+this.index+=this.horizontalLength;
+}
+break;
+default:
+return;
+}
+this._moveToFocus();
+Event.stop(e);
+},_moveToFocus:function(){
+_3("input",this.legend.legends[this.index])[0].focus();
+}});
+var _11=_2(_8,{connect:function(){
+}});
+var _12=_2("dojox.charting.widget.SelectableLegend",_6,{outline:false,transitionFill:null,transitionStroke:null,autoScale:false,postCreate:function(){
+this.legends=[];
+this.legendAnim={};
+this._cbs=[];
+this.inherited(arguments);
+},refresh:function(){
+this.legends=[];
+this._clearLabels();
+this.inherited(arguments);
+this._applyEvents();
+new _d(this);
+},_clearLabels:function(){
+var cbs=this._cbs;
+while(cbs.length){
+cbs.pop().destroyRecursive();
+}
+},_addLabel:function(dyn,_13){
+this.inherited(arguments);
+var _14=_3("td",this.legendBody);
+var _15=_14[_14.length-1];
+this.legends.push(_15);
+var _16=new _7({checked:true});
+this._cbs.push(_16);
+_a.place(_16.domNode,_15,"first");
+var _17=_3("label",_15)[0];
+_b.set(_17,"for",_16.id);
+},_applyEvents:function(){
+if(this.chart.dirty){
+return;
+}
+_1.forEach(this.legends,function(_18,i){
+var _19,_1a,_1b;
+if(this._isPie()){
+_19=this.chart.stack[0];
+_1a=_19.name;
+_1b=this.chart.series[0].name;
+}else{
+_19=this.chart.series[i];
+_1a=_19.plot;
+_1b=_19.name;
+}
+var _1c=_c.byNode(_3(".dijitCheckBox",_18)[0]);
+_1c.set("checked",!this._isHidden(_1a,i));
+_4.connect(_1c,"onClick",this,function(e){
+this.toogle(_1a,i,!_1c.get("checked"));
+e.stopPropagation();
+});
+var _1d=_3(".dojoxLegendIcon",_18)[0],_1e=this._getFilledShape(this._surfaces[i].children);
+_1.forEach(["onmouseenter","onmouseleave"],function(_1f){
+_4.connect(_1d,_1f,this,function(e){
+this._highlight(e,_1e,i,!_1c.get("checked"),_1b,_1a);
+});
+},this);
+},this);
+},_isHidden:function(_20,_21){
+if(this._isPie()){
+return _1.indexOf(this.chart.getPlot(_20).runFilter,_21)!=-1;
+}else{
+return this.chart.series[_21].hidden;
+}
+},toogle:function(_22,_23,_24){
+var _25=this.chart.getPlot(_22);
+if(this._isPie()){
+if(_1.indexOf(_25.runFilter,_23)!=-1){
+if(!_24){
+_25.runFilter=_1.filter(_25.runFilter,function(_26){
+return _26!=_23;
+});
+}
+}else{
+if(_24){
+_25.runFilter.push(_23);
+}
+}
+}else{
+this.chart.series[_23].hidden=_24;
+}
+this.autoScale?this.chart.dirty=true:_25.dirty=true;
+this.chart.render();
+},_highlight:function(e,_27,_28,_29,_2a,_2b){
+if(!_29){
+var _2c=this._getAnim(_2b),_2d=this._isPie(),_2e=_2f(e.type);
+var _30={shape:_27,index:_2d?"legend"+_28:"legend",run:{name:_2a},type:_2e};
+_2c.process(_30);
+_1.forEach(this._getShapes(_28,_2b),function(_31,i){
+var o={shape:_31,index:_2d?_28:i,run:{name:_2a},type:_2e};
+_2c.duration=100;
+_2c.process(o);
+});
+}
+},_getShapes:function(i,_32){
+var _33=[];
+if(this._isPie()){
+var _34=0;
+_1.forEach(this.chart.getPlot(_32).runFilter,function(_35){
+if(i>_35){
+_34++;
+}
+});
+_33.push(this.chart.stack[0].group.children[i-_34]);
+}else{
+if(this._isCandleStick(_32)){
+_1.forEach(this.chart.series[i].group.children,function(_36){
+_1.forEach(_36.children,function(_37){
+_1.forEach(_37.children,function(_38){
+if(_38.shape.type!="line"){
+_33.push(_38);
+}
+});
+});
+});
+}else{
+_33=this.chart.series[i].group.children;
+}
+}
+return _33;
+},_getAnim:function(_39){
+if(!this.legendAnim[_39]){
+this.legendAnim[_39]=new _11(this.chart,_39);
+}
+return this.legendAnim[_39];
+},_getTransitionFill:function(_3a){
+if(this.chart.stack[this.chart.plots[_3a]].declaredClass.indexOf("dojox.charting.plot2d.Stacked")!=-1){
+return this.chart.theme.plotarea.fill;
+}
+return null;
+},_getFilledShape:function(_3b){
+var i=0;
+while(_3b[i]){
+if(_3b[i].getFill()){
+return _3b[i];
+}
+i++;
+}
+return null;
+},_isPie:function(){
+return this.chart.stack[0].declaredClass=="dojox.charting.plot2d.Pie";
+},_isCandleStick:function(_3c){
+return this.chart.stack[this.chart.plots[_3c]].declaredClass=="dojox.charting.plot2d.Candlesticks";
+},destroy:function(){
+this._clearLabels();
+this.inherited(arguments);
+}});
+function _2f(_3d){
+if(_3d=="mouseenter"){
+return "onmouseover";
+}
+if(_3d=="mouseleave"){
+return "onmouseout";
+}
+return "on"+_3d;
+};
+return _12;
 });

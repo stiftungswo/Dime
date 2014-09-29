@@ -1,5 +1,2 @@
-define(
-({
-	insertEntity: "Εισαγωγή συμβόλου"
-})
-);
+//>>built
+define("dojox/editor/plugins/nls/el/InsertEntity",({insertEntity:"Εισαγωγή συμβόλου"}));

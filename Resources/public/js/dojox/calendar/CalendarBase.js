@@ -1,1662 +1,604 @@
-define([
-"dojo/_base/declare", 
-"dojo/_base/sniff", 
-"dojo/_base/event", 
-"dojo/_base/lang", 
-"dojo/_base/array", 
-"dojo/cldr/supplemental",
-"dojo/dom", 
-"dojo/dom-class", 
-"dojo/dom-style",
-"dojo/dom-construct", 
-"dojo/dom-geometry",
-"dojo/date", 
-"dojo/date/locale", 
-"dojo/_base/fx", 
-"dojo/fx",
-"dojo/on", 
-"dijit/_WidgetBase", 
-"dijit/_TemplatedMixin", 
-"dijit/_WidgetsInTemplateMixin", 
-"./StoreMixin",
-"./StoreManager", 
-"dojox/widget/_Invalidating", 
-"dojox/widget/Selection", 
-"dojox/calendar/time", 
-"dojo/i18n!./nls/buttons"],	
-function(
-declare, 
-has, 
-event, 
-lang, 
-arr, 
-cldr, 
-dom, 
-domClass, 
-domStyle,
-domConstruct, 
-domGeometry,
-date, 
-locale,
-coreFx,
-fx, 
-on,  
-_WidgetBase, 
-_TemplatedMixin, 
-_WidgetsInTemplateMixin, 
-StoreMixin,
-StoreManager,
-_Invalidating, 
-Selection, 
-timeUtil,
-_nls){
-	
-	/*=====
-	var __HeaderClickEventArgs = {
-		// summary:
-		//		A column click event.
-		// index: Integer
-		//		The column index. 
-		// date: Date
-		//		The date displayed by the column.
-		// triggerEvent: Event
-		//		The origin event.
-	};
-	=====*/
-	
-	/*=====
-	var __TimeIntervalChangeArgs = {
-		// summary:
-		//		An time interval change event, dispatched when the calendar displayed time range has changed.
-		// oldStartTime: Date
-		//		The start of the previously displayed time interval, if any. 
-		// startTime: Date
-		//		The new start of the displayed time interval.
-		// oldEndTime: Date
-		//		The end of the previously displayed time interval, if any.
-		// endTime: Date
-		//		The new end of the displayed time interval.
-	};
-	=====*/
-	
-	/*=====
-	var __GridClickEventArgs = {
-		// summary:
-		//		The event dispatched when the grid is clicked or double-clicked.
-		// date: Date
-		//		The start of the previously displayed time interval, if any. 
-		// triggerEvent: Event
-		//		The event at the origin of this event.
-	};
-	=====*/
-	
-	/*=====
-	var __ItemMouseEventArgs = {
-		// summary:
-		//		The event dispatched when an item is clicked, double-clicked or context-clicked.
-		// item: Object
-		//		The item clicked.
-		// renderer: dojox/calendar/_RendererMixin
-		//		The item renderer clicked.
-		// triggerEvent: Event
-		//		The event at the origin of this event.
-	};
-	=====*/
-	
-	/*=====
-	var __itemEditingEventArgs = {
-		// summary:
-		//		An item editing event.
-		// item: Object
-		//		The render item that is being edited. Set/get the startTime and/or endTime properties to customize editing behavior.
-		// storeItem: Object
-		//		The real data from the store. DO NOT change properties, but you may use properties of this item in the editing behavior logic.
-		// editKind: String
-		//		Kind of edit: "resizeBoth", "resizeStart", "resizeEnd" or "move".
-		// dates: Date[]
-		//		The computed date/time of the during the event editing. One entry per edited date (touch use case).
-		// startTime: Date?
-		//		The start time of data item.
-		// endTime: Date?
-		//		The end time of data item.
-		// sheet: String
-		//		For views with several sheets (columns view for example), the sheet when the event occurred.
-		// source: dojox/calendar/ViewBase
-		//		The view where the event occurred.
-		// eventSource: String
-		//		The device that triggered the event. This property can take the following values:
-		//
-		//		- "mouse", 
-		//		- "keyboard", 
-		//		- "touch"		
-		// triggerEvent: Event
-		//		The event at the origin of this event.
-	};
-	=====*/
-	
-	/*=====
-	var __rendererLifecycleEventArgs = {
-		// summary:
-		//		A renderer lifecycle event.
-		// renderer: Object
-		//		The renderer.		
-		// source: dojox/calendar/ViewBase
-		//		The view where the event occurred.
-		// item:Object?
-		//		The item that will be displayed by the renderer for the "rendererCreated" and "rendererReused" events.
-	};
-	=====*/
-	
-	/*=====
-	var __ExpandRendererClickEventArgs = {
-		// summary:
-		//		A expand renderer click event.
-		// columnIndex: Integer
-		//		The column index of the cell. 
-		// rowIndex: Integer
-		//		The row index of the cell.
-		// date: Date
-		//		The date displayed by the cell.
-		// triggerEvent: Event
-		//		The origin event.
-	};
-	=====*/
-
-	return declare("dojox.calendar.CalendarBase", [_WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, StoreMixin, _Invalidating, Selection], {
-		
-		// summary:		
-		//		This class defines a generic calendar widget that manages several views to display event in time.
-		
-		baseClass: "dojoxCalendar",
-		
-		// datePackage: Object
-		//		JavaScript namespace to find Calendar routines. Uses Gregorian Calendar routines at dojo.date by default.
-		datePackage: date,
-		
-		// startDate: Date
-		//		The start date of the displayed time interval.
-		startDate: null,
-
-		// endDate: Date
-		//		The end date of the displayed time interval (included).		
-		endDate: null,
-		
-		// date: Date
-		//		The reference date used to determine along with the <code>dateInterval</code> 
-		//		and <code>dateIntervalSteps</code> properties the time interval to display.
-		date: null,
-		
-		// minDate: Date
-		//		The minimum date. 
-		//		If date property is set, the displayed time interval the most in the past 
-		//		will the time interval containing this date.
-		//		If startDate property is set, this mininum value of startDate. 
-		minDate: null,
-
-		// maxDate: Date
-		//		The maximum date. 
-		//		If date is set, the displayed time interval the most in the future
-		//		will the time interval containing this date.
-		//		If endDate property is set, this mininum value of endDate.
-		maxDate: null,
-	
-		// dateInterval:String
-		//		The date interval used to compute along with the <code>date</code> and 
-		//		<code>dateIntervalSteps</code> the time interval to display.
-		//		Valid values are "day", "week" (default value) and "month".
-		dateInterval: "week",
-		
-		// dateIntervalSteps:Integer
-		//		The number of date intervals used to compute along with the <code>date</code> and 
-		//		<code>dateInterval</code> the time interval to display.
-		//		Default value is 1.		
-		dateIntervalSteps: 1,		
-		
-		// viewContainer: Node
-		//		The DOM node that will contains the views.
-		viewContainer: null,
-		
-		// firstDayOfWeek: Integer
-		//		(Optional) The first day of week override. By default the first day of week is determined 
-		//		for the current locale (extracted from the CLDR).
-		//		Special value -1 (default value), means use locale dependent value.
-		firstDayOfWeek: -1, 
-		
-		// formatItemTimeFunc: Function?
-		//		Optional function to format the time of day of the item renderers.
-		//		The function takes the date, the render data object, the view and the data item as arguments and returns a String.
-		formatItemTimeFunc: null,
-		
-		// editable: Boolean
-		//		A flag that indicates whether or not the user can edit
-		//		items in the data provider.
-		//		If <code>true</code>, the item renderers in the control are editable.
-		//		The user can click on an item renderer, or use the keyboard or touch devices, to move or resize the associated event.
-		editable: true,
-		
-		// moveEnabled: Boolean
-		//		A flag that indicates whether the user can move items displayed.
-		//		If <code>true</code>, the user can move the items.
-		moveEnabled: true,
-		
-		// resizeEnabled: Boolean
-		//		A flag that indicates whether the items can be resized.
-		//		If <code>true</code>, the control supports resizing of items.
-		resizeEnabled: true,
-		
-		// columnView: dojox/calendar/ColumnView
-		//		The column view is displaying one day to seven days time intervals.
-		columnView: null,
-		
-		// matrixView: dojox/calendar/MatrixView
-		//		The column view is displaying time intervals that lasts more than seven days.
-		matrixView: null,
-		
-		// columnViewProps: Object
-		//		Map of property/value passed to the constructor of the column view.
-		columnViewProps: null,
-		
-		// matrixViewProps: Object
-		//		Map of property/value passed to the constructor of the matrix view.
-		matrixViewProps: null,
-		
-		// createOnGridClick: Boolean
-		//		Indicates whether the user can create new event by clicking and dragging the grid.
-		//		A createItem function must be defined on the view or the calendar object.
-		createOnGridClick: false,
-		
-		// createItemFunc: Function
-		//		A user supplied function that creates a new event.
-		//		This function is used when createOnGridClick is set to true and the user is clicking and dragging on the grid.
-		//		This view takes two parameters:
-		//
-		//		- view: the current view,
-		//		- d: the date at the clicked location.
-		createItemFunc: null,
-		
-		// currentView: ViewBase
-		//		The current view displayed by the Calendar object.
-		//		The currentViewChange event can be used to react on a view change.
-		currentView: null,
-				
-		_currentViewIndex: -1,
-		
-		views: null,
-		
-		_calendar: "gregorian",
-		
-		constructor: function(/*Object*/args){
-			this.views = [];
-			
-			this.invalidatingProperties = ["store", "items", "startDate", "endDate", "views", 
-				"date", "minDate", "maxDate", "dateInterval", "dateIntervalSteps", "firstDayOfWeek"];
-			
-			args = args || {};
-			this._calendar = args.datePackage ? args.datePackage.substr(args.datePackage.lastIndexOf(".")+1) : this._calendar;
-			this.dateModule = args.datePackage ? lang.getObject(args.datePackage, false) : date; 
-			this.dateClassObj = this.dateModule.Date || Date; 
-			this.dateLocaleModule = args.datePackage ? lang.getObject(args.datePackage+".locale", false) : locale;
-								
-			this.invalidateRendering();
-			
-			this.storeManager = new StoreManager({owner: this, _ownerItemsProperty: "items"});
-			this.storeManager.on("layoutInvalidated", lang.hitch(this, this._refreshItemsRendering));
-			this.storeManager.on("dataLoaded", lang.hitch(this, function(items){
-				this.set("items", items);
-			}));
-			
-			this.decorationStoreManager = new StoreManager({owner: this, _ownerItemsProperty: "decorationItems"});
-			this.decorationStoreManager.on("layoutInvalidated", lang.hitch(this, this._refreshDecorationItemsRendering));
-			this.decorationStoreManager.on("dataLoaded", lang.hitch(this, function(items){
-				this.set("decorationItems", items);
-			}));
-		},
-
-		buildRendering: function(){
-			this.inherited(arguments);
-			if(this.views == null || this.views.length == 0){
-				this.set("views", this._createDefaultViews());	
-			}			
-		},
-		
-		_applyAttributes: function(){
-			this._applyAttr = true;
-			this.inherited(arguments);
-			delete this._applyAttr;
-		},
-		
-		////////////////////////////////////////////////////
-		//
-		// Getter / setters
-		//
-		////////////////////////////////////////////////////
-				
-		_setStartDateAttr: function(value){
-			this._set("startDate", value);
-			this._timeRangeInvalidated = true;
-			this._startDateChanged = true;
-		},
-		
-		_setEndDateAttr: function(value){
-			this._set("endDate", value);
-			this._timeRangeInvalidated = true;
-			this._endDateChanged = true;
-		},
-		
-		_setDateAttr: function(value){				
-			this._set("date", value);
-			this._timeRangeInvalidated = true;
-			this._dateChanged = true;
-		},
-		
-		_setDateIntervalAttr: function(value){
-			this._set("dateInterval", value);
-			this._timeRangeInvalidated = true;
-		},
-		
-		_setDateIntervalStepsAttr: function(value){
-			this._set("dateIntervalSteps", value);
-			this._timeRangeInvalidated = true;
-		},
-		
-		_setFirstDayOfWeekAttr: function(value){
-			this._set("firstDayOfWeek", value);
-			if(this.get("date") != null && this.get("dateInterval") == "week"){
-				this._timeRangeInvalidated = true;
-			}			
-		},
-		
-		_setTextDirAttr: function(value){
-			arr.forEach(this.views, function(view){
-				view.set("textDir", value);
-			});
-		},
-		
-		
-		///////////////////////////////////////////////////
-		//
-		// Validating
-		//
-		///////////////////////////////////////////////////
-		
-		refreshRendering: function(){
-			// summary:
-			//		Refreshes all the visual rendering of the calendar. 
-			// tags:
-			//		protected
-			this.inherited(arguments);
-			this._validateProperties();
-		},
-		
-		_refreshItemsRendering: function(){
-			if(this.currentView){
-				this.currentView._refreshItemsRendering();
-			}
-		},
-		
-		_refreshDecorationItemsRendering: function(){
-			if(this.currentView){
-				this.currentView._refreshDecorationItemsRendering();
-			}
-		},
-		
-		resize: function(changeSize){
-			if(changeSize){
-				domGeometry.setMarginBox(this.domNode, changeSize);
-			}
-			if(this.currentView){
-				// must not pass the size, children are sized depending on the parent by CSS.
-				this.currentView.resize();  
-			}
-		},
-				
-		_validateProperties: function(){
-			// tags:
-			//		private
-
-			var cal = this.dateModule;
-			var startDate = this.get("startDate");
-			var endDate = this.get("endDate");
-			var date = this.get("date");
-			
-			if(this.firstDayOfWeek < -1 || this.firstDayOfWeek > 6){
-				this._set("firstDayOfWeek", 0);
-			}
-			
-			var minDate = this.get("minDate");
-			var maxDate = this.get("maxDate");
-			
-			if(minDate && maxDate){
-				if(cal.compare(minDate, maxDate) > 0){
-					var t = minDate;
-					this._set("minDate", maxDate);
-					this._set("maxDate", t);					
-				}
-			}
-			
-			if(date == null && (startDate != null || endDate != null)){
-				
-				if(startDate == null){
-					startDate = new this.dateClassObj();
-					this._set("startDate", startDate);
-					this._timeRangeInvalidated = true;
-				}
-				
-				if(endDate == null){
-					endDate = new this.dateClassObj();
-					this._set("endDate", endDate);
-					this._timeRangeInvalidated = true;
-				}
-				
-				if(cal.compare(startDate, endDate) > 0){
-					endDate = cal.add(startDate, "day", 1);
-					this._set("endDate", endDate);
-					this._timeRangeInvalidated = true;
-				}
-			
-			}else{
-			
-				if(this.date == null){
-					this._set("date", new this.dateClassObj());
-					this._timeRangeInvalidated = true;
-				}
-				
-				var dint = this.get("dateInterval");
-				if(dint != "day" && dint != "week" && dint != "month"){
-					this._set("dateInterval", "day");
-					this._timeRangeInvalidated = true;
-				}
-				
-				var dis = this.get("dateIntervalSteps");
-				if(lang.isString(dis)){
-					dis = parseInt(dis);
-					this._set("dateIntervalSteps", dis);
-				}
-				if(dis <= 0) {
-					this.set("dateIntervalSteps", 1);
-					this._timeRangeInvalidated = true;
-				}
-			}
-			
-			if(this._timeRangeInvalidated){
-				this._timeRangeInvalidated = false;
-				
-				var timeInterval = this.computeTimeInterval();
-				
-				if(this._timeInterval == null || 
-					 cal.compare(this._timeInterval[0], timeInterval[0]) != 0 || 
-					 cal.compare(this._timeInterval[1], timeInterval[1]) != 0){
-					
-					if(this._dateChanged){
-						this._lastValidDate = this.get("date");;						
-						this._dateChanged = false;
-					}else if(this._startDateChanged || this._endDateChanged){
-						this._lastValidStartDate = this.get("startDate");
-						this._lastValidEndDate = this.get("endDate");						 
-						this._startDateChanged = false;
-						this._endDateChanged = false;
-					}					
-					
-					this.onTimeIntervalChange({
-						oldStartTime: this._timeInterval == null ? null : this._timeInterval[0],
-						oldEndTime: this._timeInterval == null ? null : this._timeInterval[1],
-						startTime: timeInterval[0],
-						endTime: timeInterval[1]
-					});
-				}else{		
-					
-					if(this._dateChanged){
-						this._dateChanged = false;
-						if(this.lastValidDate != null){
-							this._set("date", this.lastValidDate);
-						}
-					}else if(this._startDateChanged || this._endDateChanged){
-						this._startDateChanged = false;
-						this._endDateChanged = false;
-						this._set("startDate", this._lastValidStartDate);
-						this._set("endDate", this._lastValidEndDate);					 						
-					}					
-					return;
-				}
-				
-				this._timeInterval = timeInterval;
-				
-				var duration = this.dateModule.difference(this._timeInterval[0], this._timeInterval[1], "day");
-				var view = this._computeCurrentView(timeInterval[0], timeInterval[1], duration);
-				
-				var index = arr.indexOf(this.views, view);
-				
-				if(view == null || index == -1){
-					return;
-				}
-				
-				this._performViewTransition(view, index, timeInterval, duration);							
-			}
-		},
-		
-		_performViewTransition: function(view, index, timeInterval, duration){
-			var oldView = this.currentView;
-			
-			if(this.animateRange && (!has("ie") || has("ie")>8) ){
-				if(oldView){ // there's a view to animate
-					oldView.beforeDeactivate();
-					var ltr = this.isLeftToRight();
-					var inLeft = this._animRangeInDir=="left" || this._animRangeInDir == null; 
-					var outLeft = this._animRangeOutDir=="left" || this._animRangeOutDir == null;						
-					this._animateRange(this.currentView.domNode, outLeft && ltr, false, 0, outLeft ? -100 : 100, 
-						lang.hitch(this, function(){
-							oldView.afterDeactivate();
-							view.beforeActivate();
-							this.animateRangeTimer = setTimeout(lang.hitch(this, function(){
-								this._applyViewChange(view, index, timeInterval, duration);
-								this._animateRange(this.currentView.domNode, inLeft && ltr, true, inLeft ? -100 : 100, 0, function(){
-									view.afterActivate();
-								});
-								this._animRangeInDir = null;
-								this._animRangeOutDir = null;
-							}), 100);	// setTimeout give time for layout of view.							
-						}));
-				}else{
-					view.beforeActivate();
-					this._applyViewChange(view, index, timeInterval, duration);	
-					view.afterActivate();
-				}
-			}else{
-				if(oldView){
-					oldView.beforeDeactivate();					
-				}
-				view.beforeActivate();
-				this._applyViewChange(view, index, timeInterval, duration);
-				if(oldView){
-					oldView.afterDeactivate();
-				}
-				view.afterActivate();
-			}
-		},
-		
-		onViewConfigurationChange: function(view){
-			// summary:
-			//		Event dispatched when the view has been configured after the queried 
-			//		time range and before the current view is changed (if needed).
-			//		
-			// view: ViewBase
-			//		The view that has been configured. 
-			// tags:
-			//		callback
-		},
-		
-		_applyViewChange: function(view, index, timeInterval, duration){			
-			// summary:
-			//		Applies the changes of a view time and changes the currently visible view if needed.
-			// view: ViewBase
-			//		The view that is configured and is or will be shown.
-			// index: Integer
-			//		The view index in the internal structure.
-			// timeInterval: Date[]
-			//		The time interval displayed by the calendar.
-			// duration: Integer
-			//		The duration in days of the time interval.
-			// tags:
-			//		protected
-			
-			this._configureView(view, index, timeInterval, duration);
-			this.onViewConfigurationChange(view);
-			
-			if(index != this._currentViewIndex){
-				if(this.currentView == null){
-					view.set("items", this.items);
-					view.set("decorationItems", this.decorationItems);
-					this.set("currentView", view);
-				}else{
-					if(this.items == null || this.items.length == 0){
-						this.set("currentView", view);
-						if(this.animateRange && (!has("ie") || has("ie")>8) ){
-							domStyle.set(this.currentView.domNode, "opacity", 0);
-						}
-						view.set("items", this.items);
-						view.set("decorationItems", this.decorationItems);
-					}else{
-						this.currentView = view;
-						view.set("items", this.items);
-						view.set("decorationItems", this.decorationItems);
-						this.set("currentView", view);
-						if(this.animateRange && (!has("ie") || has("ie")>8) ){
-							domStyle.set(this.currentView.domNode, "opacity", 0);
-						}
-					}
-				}
-			}
-		},
-		
-		_timeInterval: null,
-		
-		computeTimeInterval: function(){
-			
-			var d = this.get("date");
-			var minDate = this.get("minDate");
-			var maxDate = this.get("maxDate");
-			var cal = this.dateModule;
-						
-			if(d == null){
-				var startDate = this.get("startDate");
-				var endDate = cal.add(this.get("endDate"), "day", 1);
-				
-				if(minDate != null || maxDate != null){
-					var dur = this.dateModule.difference(startDate, endDate, "day");
-					if(cal.compare(minDate, startDate) > 0){
-						startDate = minDate;
-						endDate = cal.add(startDate, "day", dur);
-					}
-					if(cal.compare(maxDate, endDate) < 0){
-						endDate = maxDate;
-						startDate = cal.add(endDate, "day", -dur);
-					}					
-					if(cal.compare(minDate, startDate) > 0){
-						startDate = minDate;
-						endDate = maxDate;
-					}					
-				}
-				return [ this.floorToDay(startDate), this.floorToDay(endDate) ];
-				
-			}else{
-								
-				var interval = this._computeTimeIntervalImpl(d);				
-								
-				if(minDate != null){					
-					var minInterval = this._computeTimeIntervalImpl(minDate);					
-					if(cal.compare(minInterval[0], interval[0]) > 0){
-						interval = minInterval;
-					}
-				}
-				
-				if(maxDate != null){					
-					var maxInterval = this._computeTimeIntervalImpl(maxDate);					
-					if(cal.compare(maxInterval[1], interval[1]) < 0){
-						interval = maxInterval;
-					}
-				}
-				
-				return interval;				
-			}
-		},
-		
-		_computeTimeIntervalImpl: function(d){
-			// summary:
-			//		Computes the displayed time interval according to the date, dateInterval and 
-			//		dateIntervalSteps if date is not null or startDate and endDate properties otherwise.
-			// tags:
-			//		protected
-					
-			var cal = this.dateModule;			
-			
-			var s = this.floorToDay(d);
-			var di = this.get("dateInterval");
-			var dis = this.get("dateIntervalSteps");
-			var e;
-			
-			switch(di){
-				case "day":						
-					e = cal.add(s, "day", dis);
-					break;
-				case "week":
-					s = this.floorToWeek(s);
-					e = cal.add(s, "week", dis);
-					break;
-				case "month":
-					s.setDate(1);
-					e = cal.add(s, "month", dis);						
-					break;
-				default:
-					e = cal.add(s, "day", 1);
-			}				
-			return [s, e];						
-		},
-		
-		onTimeIntervalChange: function(e){
-			// summary:
-			//		Event dispatched when the displayed time interval has changed.
-			// e: __TimeIntervalChangeArgs
-			//		The time interval change event.
-			// tags:
-			//		callback
-		},
-		
-		/////////////////////////////////////////////////////
-		//
-		// View Management
-		//
-		/////////////////////////////////////////////////////
-		
-		// views: dojox.calendar.ViewBase[]
-		//		The views displayed by the widget.
-		//		To add/remove only one view, prefer, respectively, the addView() or removeView() methods.
-		views: null,
-		
-		_setViewsAttr: function(views){
-			if(!this._applyAttr){
-				// 1/ in create() the constructor parameters are mixed in the widget 
-				// 2/ in _applyAttributes(), every property with a setter is called.
-				// So no need to call on view removed for a non added view.... 
-				for(var i=0;i<this.views.length;i++){
-					this._onViewRemoved(this.views[i]);
-				}
-			}
-			if(views != null){
-				for(var i=0;i<views.length;i++){
-					this._onViewAdded(views[i]);
-				}			
-			}
-			this._set("views",  views == null ? [] : views.concat());			
-		},
-		
-		_getViewsAttr: function(){
-			return this.views.concat();
-		},
-		
-		_createDefaultViews: function(){
-			// summary:
-			//		Creates the default views.
-			//		This method does nothing and is designed to be overridden.
-			// tags:
-			//		protected
-		},
-		
-		addView: function(view, index){
-			// summary:
-			//		Add a view to the calendar's view list.
-			// view: dojox/calendar/ViewBase
-			//		The view to add to the calendar.
-			// index: Integer
-			//		Optional, the index where to insert the view in current view list.
-			// tags:
-			//		protected
-
-			if(index <= 0 || index > this.views.length){
-				index = this.views.length;
-			}
-			this.views.splice(index, view);
-			this._onViewAdded(view);
-		},
-		
-		removeView: function(view){
-			// summary:
-			//		Removes a view from the calendar's view list.
-			// view: dojox/calendar/ViewBase
-			//		The view to remove from the calendar.
-			// tags:
-			//		protected
-
-			if(index < 0 || index >=  this.views.length){
-				return;
-			}
-			
-			this._onViewRemoved(this.views[index]);
-			this.views.splice(index, 1);
-		},
-		
-		_onViewAdded: function(view){
-			view.owner = this;
-			view.buttonContainer = this.buttonContainer;
-			view._calendar = this._calendar;
-			view.datePackage = this.datePackage;
-			view.dateModule = this.dateModule;
-			view.dateClassObj = this.dateClassObj;
-			view.dateLocaleModule = this.dateLocaleModule;
-			domStyle.set(view.domNode, "display", "none");			
-			domClass.add(view.domNode, "view");
-			domConstruct.place(view.domNode, this.viewContainer);
-			this.onViewAdded(view);
-		},
-		
-		onViewAdded: function(view){
-			// summary:
-			//		Event dispatched when a view is added from the calendar.
-			// view: dojox/calendar/ViewBase
-			//		The view that has been added to the calendar.
-			// tags:
-			//		callback
-
-		},
-		
-		_onViewRemoved: function(view){
-			view.owner = null;
-			view.buttonContainer = null;
-			domClass.remove(view.domNode, "view");
-			this.viewContainer.removeChild(view.domNode);
-			this.onViewRemoved(view);
-		},
-		
-		onViewRemoved: function(view){			
-			// summary:
-			//		Event dispatched when a view is removed from the calendar.
-			// view: dojox/calendar/ViewBase
-			//		The view that has been removed from the calendar.
-			// tags:
-			//		callback
-
-		},
-		
-		_setCurrentViewAttr: function(view){
-			var index = arr.indexOf(this.views, view);
-			if(index != -1){
-				var oldView = this.get("currentView");
-				this._currentViewIndex = index;
-				this._set("currentView", view);
-				
-				this._showView(oldView, view);
-				this.onCurrentViewChange({
-					oldView: oldView,
-					newView: view
-				});
-			}					
-		},
-				
-		_getCurrentViewAttr: function(){
-			return this.views[this._currentViewIndex];		
-		},
-		
-		onCurrentViewChange: function(e){
-			// summary:
-			//		Event dispatched when the current view has changed.
-			// e: Event
-			//		Object that contains the oldView and newView properties.
-			// tags:
-			//		callback
-
-		},
-		
-		_configureView: function(view, index, timeInterval, duration){
-			// summary:
-			//		Configures the view to show the specified time interval.
-			//		This method is computing and setting the following properties:
-			//		- "startDate", "columnCount" for a column view,
-			//		- "startDate", "columnCount", "rowCount", "refStartTime" and "refEndTime" for a matrix view.
-			//		This method can be extended to configure other properties like layout properties for example.
-			// view: dojox/calendar/ViewBase
-			//		The view to configure.
-			// index: Integer
-			//		The index of the view in the Calendar view list.
-			// timeInterval: Date[]
-			//		The time interval that will be displayed by the view.
-			// duration: Integer
-			//		The duration, in days, of the displayed time interval.
-			// tags:
-			//		protected
-
-			var cal = this.dateModule;
-			if(view.viewKind == "columns"){
-				view.set("startDate", timeInterval[0]);
-				view.set("columnCount", duration);
-			}else if(view.viewKind == "matrix"){
-				if(duration > 7){ // show only full weeks.
-					var s = this.floorToWeek(timeInterval[0]);					
-					var e = this.floorToWeek(timeInterval[1]);
-					if(cal.compare(e, timeInterval[1]) != 0){
-						e = this.dateModule.add(e, "week", 1);
-					}					
-					duration = this.dateModule.difference(s, e, "day");
-					view.set("startDate", s);
-					view.set("columnCount", 7);
-					view.set("rowCount", Math.ceil(duration/7));
-					view.set("refStartTime", timeInterval[0]);
-					view.set("refEndTime", timeInterval[1]);					
-				}else{ 
-					view.set("startDate", timeInterval[0]);
-					view.set("columnCount", duration);
-					view.set("rowCount", 1);
-					view.set("refStartTime", null);
-					view.set("refEndTime", null);
-				}				
-			}
-		},
-		
-		_computeCurrentView: function(startDate, endDate, duration){
-			// summary:
-			//		If the time range is lasting less than seven days returns the column view or the matrix view otherwise.
-			// startDate: Date
-			//		The start date of the displayed time interval
-			// endDate: Date
-			//		The end date of the displayed time interval	
-			// duration: Integer
-			//		Duration of the 		
-			// returns: dojox/calendar/ViewBase
-			//		The view to display.
-			// tags:
-			//		protected
-
-			return duration <= 7 ? this.columnView : this.matrixView;
-		},
-		
-		matrixViewRowHeaderClick: function(e){
-			// summary:
-			//		Function called when the cell of a row header of the matrix view is clicked.
-			//		The implementation is doing the foolowing actions:
-			//		- If another row is already expanded, collapse it and then expand the clicked row.
-			//		- If the clicked row is already expadned, collapse it.
-			//		- If no row is expanded, expand the click row.
-			// e: Object
-			//		The row header click event.
-			// tags:
-			//		protected
-
-			var expIndex = this.matrixView.getExpandedRowIndex();
-				if(expIndex == e.index){
-					this.matrixView.collapseRow();
-				}else if(expIndex == -1){
-					this.matrixView.expandRow(e.index);
-				}else{
-					var h = this.matrixView.on("expandAnimationEnd", lang.hitch(this, function(){
-						h.remove();
-						this.matrixView.expandRow(e.index);
-					}));
-					this.matrixView.collapseRow();
-				}
-		},
-		
-		columnViewColumnHeaderClick: function(e){
-			// summary:
-			//		Function called when the cell of a column header of the column view is clicked.
-			//		Show the time range defined by the clicked date.
-			// e: Object
-			//		The column header click event.
-			// tags:
-			//		protected
-
-			var cal = this.dateModule;
-			if(cal.compare(e.date, this._timeInterval[0]) == 0 && this.dateInterval == "day" && this.dateIntervalSteps == 1){
-				this.set("dateInterval", "week");
-			}else{
-				this.set("date", e.date);
-				this.set("dateInterval", "day");
-				this.set("dateIntervalSteps", 1);
-			}
-		},
-		
-		// viewFadeDuration: Integer
-		//		The duration in milliseconds of the fade animation when the current view is changing.
-		viewChangeDuration: 0,
-		
-		_showView: function(oldView, newView){
-			// summary:
-			//		Displays the current view.
-			// oldView: dojox/calendar/ViewBase
-			//		The previously displayed view or null.
-			// newView: dojox/calendar/ViewBase
-			//		The view to display.
-			// tags:
-			//		protected
-
-			if(oldView != null){									
-				domStyle.set(oldView.domNode, "display", "none");							
-			}
-			if(newView != null){												
-				domStyle.set(newView.domNode, "display", "block");
-				newView.resize();				
-				if(!has("ie") || has("ie") > 7){
-					domStyle.set(newView.domNode, "opacity", "1");
-				}
-			}
-		},
-		
-		////////////////////////////////////////////////////
-		//
-		// Store & data
-		//
-		////////////////////////////////////////////////////
-		
-		_setItemsAttr: function(value){
-			this._set("items", value);
-			if(this.currentView){
-				this.currentView.set("items", value);
-				if(!this._isEditing){
-					this.currentView.invalidateRendering();
-				}
-			}
-		},
-		
-		_setDecorationItemsAttr: function(value){
-			this._set("decorationItems", value);
-			if(this.currentView){
-				this.currentView.set("decorationItems", value);
-				this.currentView.invalidateRendering();
-			}
-		},
-		
-		_setDecorationStoreAttr: function(value){
-			this._set("decorationStore", value);
-			this.decorationStore = value;
-			this.decorationStoreManager.set("store", value);
-		},
-		
-		/////////////////////////////////////////////////////
-		//
-		// Time utilities
-		//
-		////////////////////////////////////////////////////
-		
-		floorToDay: function(date, reuse){
-			// summary:
-			//		Floors the specified date to the start of day.
-			// date: Date
-			//		The date to floor.
-			// reuse: Boolean
-			//		Whether use the specified instance or create a new one. Default is false.
-			// returns: Date
-			return timeUtil.floorToDay(date, reuse, this.dateClassObj);
-		},
-		
-		floorToWeek: function(d){
-			// summary:
-			//		Floors the specified date to the beginning of week.
-			// date: Date
-			//		Date to floor.
-			return timeUtil.floorToWeek(d, this.dateClassObj, this.dateModule, this.firstDayOfWeek, this.locale);
-		},
-		
-		newDate: function(obj){
-			// summary:
-			//		Creates a new Date object.
-			// obj: Object
-			//		This object can have several values:
-			//		- the time in milliseconds since gregorian epoch.
-			//		- a Date instance
-			// returns: Date
-			return timeUtil.newDate(obj, this.dateClassObj);			
-		},
-		
-		isToday: function(date){
-			// summary:
-			//		Returns whether the specified date is in the current day.
-			// date: Date
-			//		The date to test.
-			// renderData: Object
-			//		The current renderData
-			// returns: Boolean
-			return timeUtil.isToday(date, this.dateClassObj);
-		},
-		
-		isStartOfDay: function(d){
-			// summary:
-			//		Tests if the specified date represents the starts of day. 
-			// d:Date
-			//		The date to test.
-			// returns: Boolean
-			return timeUtil.isStartOfDay(d, this.dateClassObj, this.dateModule);
-		},
-		
-		floorDate: function(date, unit, steps, reuse){
-			// summary:
-			//		floors the date to the unit.
-			// date: Date
-			//		The date/time to floor.
-			// unit: String
-			//		The unit. Valid values are "minute", "hour", "day".
-			// steps: Integer
-			//		For "day" only 1 is valid.
-			// reuse: Boolean
-			//		Whether use the specified instance or create a new one. Default is false.			
-			// returns: Date
-			return timeUtil.floor(date, unit, steps, reuse, this.classFuncObj);
-		},
-		
-		isOverlapping: function(renderData, start1, end1, start2, end2, includeLimits){
-			// summary:
-			//		Computes if the first time range defined by the start1 and end1 parameters 
-			//		is overlapping the second time range defined by the start2 and end2 parameters.
-			// renderData: Object
-			//		The render data.
-			// start1: Date
-			//		The start time of the first time range.
-			// end1: Date
-			//		The end time of the first time range.
-			// start2: Date
-			//		The start time of the second time range.
-			// end2: Date
-			//		The end time of the second time range.
-			// includeLimits: Boolean
-			//		Whether include the end time or not.
-			// returns: Boolean
-			return timeUtil.isOverlapping(renderData, start1, end1, start2, end2, includeLimits);
-		},
-		
-		/////////////////////////////////////////////////////
-		//
-		// Time navigation
-		//
-		////////////////////////////////////////////////////
-		
-		
-		// animateRange: Boolean
-		//		Indicates that the previous/next range method will be animated.
-		animateRange: true,
-		
-		// animationRangeDuration: Integer
-		//		The duration of the next/previous range animation.
-		animationRangeDuration: 400,
-		
-		_animateRange : function(node, toLeft, fadeIn, xFrom, xTo, onEnd){
-			// summary:
-			//		Animates the current view using a synchronous fade and horizontal translation.
-			// toLeft: Boolean
-			//		Whether the view is moved to the left or to the right.
-			// fadeIn: Boolean
-			//		Whether the view is faded in or out.
-			// xFrom: Integer
-			//		Position before the animation
-			// xTo: Integer
-			//		Position after the animation
-			// onEnd: Function
-			//		Function called when the animation is finished.
-			// tags:
-			//		protected
-
-			
-			if(this.animateRangeTimer){ // cleanup previous call not finished
-				clearTimeout(this.animateRangeTimer);
-				delete this.animateRangeTimer;
-			}
-			
-			var fadeFunc = fadeIn ? coreFx.fadeIn : coreFx.fadeOut;								
-			domStyle.set(node, {left: xFrom + "px", right: (-xFrom) + "px"});
-						
-			fx.combine([
-				coreFx.animateProperty({
-					node: node, 
-					properties: {left: xTo, right: -xTo},
-					duration: this.animationRangeDuration/2,
-					onEnd: onEnd									
-				}),
-				fadeFunc({node: node, duration: this.animationRangeDuration/2})
-			]).play();
-		},			
-		
-		// _animRangeOutDir: Boolean
-		//		Direction of the range animation when the view 'leaving' the screen. 
-		//		Valid values are: 
-		//		- null: auto value,
-		//		- "left": hides to left side (right in right to left).
-		//		- "right": hides to right side (left in right to left).
-		_animRangeOutDir: null,
-
-		// _animRangeInDir: Boolean
-		//		Direction of the range animation when the view 'entering' the screen. 
-		//		Valid values are: 
-		//		- null: auto value,
-		//		- "left": shows from left side (right in right to left).
-		//		- "right": shows from  right side (left in right to left).
-		_animRangeOutDir: null,		
-		
-		nextRange: function(){
-			this._animRangeOutDir = "left";
-			this._animRangeInDir = "right";			
-			this._navigate(1);			
-		},
-		
-		previousRange: function(){
-			this._animRangeOutDir = "right";
-			this._animRangeInDir =  "left";			
-			this._navigate(-1);			
-		},
-		
-		_navigate: function(dir){
-			// tags:
-			//		private
-
-			var d = this.get("date");
-			var cal = this.dateModule;
-			
-			if(d == null){
-				var s = this.get("startDate");
-				var e = this.get("endDate");
-				var dur = cal.difference(s, e, "day");
-				if(dir == 1){								
-					e = cal.add(e, "day", 1);
-					this.set("startDate", e);
-					this.set("endDate", cal.add(e, "day", dur));
-				}else{
-					s = cal.add(s, "day", -1);
-					this.set("startDate", cal.add(s, "day", -dur));
-					this.set("endDate", s);
-				}
-			}else{
-				var di = this.get("dateInterval");
-				var dis = this.get("dateIntervalSteps");
-				this.set("date", cal.add(d, di, dir * dis));
-			}
-		},
-		
-		goToday: function(){
-			// summary:
-			//		Changes the displayed time interval to show the current day.
-			//		Sets the date property to the current day, the dateInterval property to "day" and 
-			//		the "dateIntervalSteps" to 1.
-			this.set("date", this.floorToDay(new this.dateClassObj(), true));
-			this.set("dateInterval", "day");
-			this.set("dateIntervalSteps", 1);			
-		},
-		
-		////////////////////////////////////////////////////
-		//
-		// Buttons
-		//
-		////////////////////////////////////////////////////
-		
-		postCreate: function(){
-			this.inherited(arguments);
-			this.configureButtons();
-		},
-		
-		configureButtons: function(){
-			// summary:
-			//		Set the localized labels of the buttons and the event handlers.
-			// tags:
-			//		protected
-
-			var rtl = !this.isLeftToRight();
-			
-			if(this.previousButton){
-				this.previousButton.set("label", _nls[rtl?"nextButton":"previousButton"]);
-				this.own(
-					on(this.previousButton, "click", lang.hitch(this, this.previousRange))
-				);	
-			}
-			
-			if(this.nextButton){
-				this.nextButton.set("label", _nls[rtl?"previousButton":"nextButton"]);
-				this.own(
-					on(this.nextButton, "click", lang.hitch(this, this.nextRange))
-				);	
-			}
-			
-			if(rtl && this.previousButton && this.nextButton){
-				var t = this.previousButton;
-				this.previousButton = this.nextButton;
-				this.nextButton = t;
-			}
-			
-			if(this.todayButton){
-				this.todayButton.set("label", _nls.todayButton);
-				this.own(
-					on(this.todayButton, "click", lang.hitch(this, this.todayButtonClick))
-				);	
-			}
-			
-			if(this.dayButton){
-				this.dayButton.set("label", _nls.dayButton);
-				this.own(
-					on(this.dayButton, "click", lang.hitch(this, this.dayButtonClick))
-				);
-			}		
-			
-			if(this.weekButton){
-				this.weekButton.set("label", _nls.weekButton);
-				this.own(
-					on(this.weekButton, "click", lang.hitch(this, this.weekButtonClick))
-				);	
-			}		
-
-			if(this.fourDaysButton){
-				this.fourDaysButton.set("label", _nls.fourDaysButton);
-				this.own(
-					on(this.fourDaysButton, "click", lang.hitch(this, this.fourDaysButtonClick))
-				);
-			}
-			
-			if(this.monthButton){
-				this.monthButton.set("label", _nls.monthButton);
-				this.own(
-					on(this.monthButton, "click", lang.hitch(this, this.monthButtonClick))
-				);	
-			}	
-		},
-		
-		todayButtonClick: function(e){
-			// summary:
-			//		The action triggered when the today button is clicked.
-			//		By default, calls the goToday() method.
-
-			this.goToday();							
-		},
-		dayButtonClick: function(e){
-			// summary:
-			//		The action triggerred when the day button is clicked.
-			//		By default, sets the dateInterval property to "day" and 
-			//		the "dateIntervalSteps" to 1.
-
-			if(this.get("date") == null){
-				this.set("date", this.floorToDay(new this.dateClassObj(), true));
-			}			
-			this.set("dateInterval", "day");
-			this.set("dateIntervalSteps", 1);								
-		},
-		
-		weekButtonClick: function(e){
-			// summary:
-			//		The action triggered when the week button is clicked.
-			//		By default, sets the dateInterval property to "week" and 
-			//		the "dateIntervalSteps" to 1.
-			this.set("dateInterval", "week");
-			this.set("dateIntervalSteps", 1);						
-		},
-		fourDaysButtonClick: function(e){
-			// summary:
-			//		The action triggerred when the 4 days button is clicked.
-			//		By default, sets the dateInterval property to "day" and 
-			//		the "dateIntervalSteps" to 4.
-			this.set("dateInterval", "day");
-			this.set("dateIntervalSteps", 4);		
-		},
-		monthButtonClick: function(e){
-			// summary:
-			//		The action triggered when the month button is clicked.
-			//		By default, sets the dateInterval property to "month" and 
-			//		the "dateIntervalSteps" to 1.
-			this.set("dateInterval", "month");
-			this.set("dateIntervalSteps", 1);		
-		},
-					
-		/////////////////////////////////////////////////////
-		//
-		// States item
-		//
-		////////////////////////////////////////////////////
-		
-		updateRenderers: function(obj, stateOnly){
-			if(this.currentView){
-				this.currentView.updateRenderers(obj, stateOnly);
-			}			
-		},
-
-		getIdentity: function(item){
-			return item ? item.id : null; 
-		},
-
-		_setHoveredItem: function(item, renderer){			
-			if(this.hoveredItem && item && this.hoveredItem.id != item.id || 
-				item == null || this.hoveredItem == null){
-				var old = this.hoveredItem;
-				this.hoveredItem = item;
-				
-				this.updateRenderers([old, this.hoveredItem], true);
-				
-				if(item && renderer){					
-					this.currentView._updateEditingCapabilities(item._item ? item._item : item, renderer);
-				}
-			}
-		},
-		
-		// hoveredItem: Object
-		//		Current render item which is under the mouse cursor.
-		hoveredItem: null,
-		
-		isItemHovered: function(item){
-			// summary:
-			//		Returns whether the specified item is hovered or not.
-			// item: Object
-			//		The item.
-			// returns: Boolean								
-			return this.hoveredItem != null && this.hoveredItem.id == item.id;			
-		},
-		
-		////////////////////////////////////////////////////////////////////////
-		//
-		// Editing 
-		//
-		////////////////////////////////////////////////////////////////////////
-
-		isItemEditable: function(item, rendererKind){
-			// summary:
-			//		Computes whether particular item renderer can be edited.
-			//		By default it is using the editable property value.
-			// item: Object
-			//		The data item represented by the renderer.
-			// rendererKind: String
-			//		The kind of renderer.
-			// returns: Boolean
-			return this.editable;
-		},
-		
-		isItemMoveEnabled: function(item, rendererKind){
-			// summary:
-			//		Computes whether particular item renderer can be moved.
-			//		By default it is using the moveEnabled property value.
-			// item: Object
-			//		The data item represented by the renderer.
-			// rendererKind: String
-			//		The kind of renderer.
-			// returns: Boolean
-			return this.isItemEditable(item, rendererKind) && this.moveEnabled;
-		},
-		
-		isItemResizeEnabled: function(item, rendererKind){
-			// summary:
-			//		Computes whether particular item renderer can be resized.
-			//		By default it is using the resizedEnabled property value.
-			// item: Object
-			//		The data item represented by the renderer.
-			// rendererKind: String
-			//		The kind of renderer.
-			// returns: Boolean
-			
-			return this.isItemEditable(item, rendererKind) && this.resizeEnabled;
-		},
-		
-
-		////////////////////////////////////////////////////////////////////////
-		//
-		// Widget events
-		//
-		////////////////////////////////////////////////////////////////////////
-		
-		onGridClick: function(e){
-			// summary:
-			//		Event dispatched when the grid has been clicked.
-			// e: __GridClickEventArgs
-			//		The event dispatched when the grid is clicked.
-			// tags:
-			//		callback
-
-		},
-		
-		onGridDoubleClick: function(e){
-			// summary:
-			//		Event dispatched when the grid has been double-clicked.	
-			// e: __GridClickEventArgs
-			//		The event dispatched when the grid is double-clicked.
-			// tags:
-			//		callback
-		},	
-		
-		onItemClick: function(e){
-			// summary:
-			//		Event dispatched when an item renderer has been clicked.
-			// e: __ItemMouseEventArgs
-			//		The event dispatched when an item is clicked.
-			// tags:
-			//		callback
-		},
-		
-		onItemDoubleClick: function(e){
-			// summary:
-			//		Event dispatched when an item renderer has been double-clicked.
-			// e: __ItemMouseEventArgs
-			//		The event dispatched when an item is double-clicked.
-			// tags:
-			//		callback
-		},
-		
-		onItemContextMenu: function(e){
-			// summary:
-			//		Event dispatched when an item renderer has been context-clicked.
-			// e: __ItemMouseEventArgs
-			//		The event dispatched when an item is context-clicked.
-			// tags:
-			//		callback
-		},
-		
-		onItemEditBegin: function(e){
-			// summary:
-			//		Event dispatched when the item is entering the editing mode.
-			// e: __itemEditingEventArgs
-			//		The editing event.
-			// tags:
-			//		callback
-		},
-		
-		onItemEditEnd: function(e){
-			// summary:
-			//		Event dispatched when the item is leaving the editing mode.
-			// e: __itemEditingEventArgs
-			//		The editing event.
-			// tags:
-			//		callback
-		},
-		
-		onItemEditBeginGesture: function(e){
-			// summary:
-			//		Event dispatched when an editing gesture is beginning.
-			// e: __itemEditingEventArgs
-			//		The editing event.
-			// tags:
-			//		callback
-		},
-		
-		onItemEditMoveGesture: function(e){
-			// summary:
-			//		Event dispatched during a move editing gesture.		
-			// e: __itemEditingEventArgs
-			//		The editing event.
-			// tags:
-			//		callback
-		},
-		
-		onItemEditResizeGesture: function(e){
-			// summary:
-			//		Event dispatched during a resize editing gesture.
-			// e: __itemEditingEventArgs
-			//		The editing event.
-			// tags:
-			//		callback
-		},
-		
-		onItemEditEndGesture: function(e){
-			// summary:
-			//		Event dispatched at the end of an editing gesture.
-			// e: __itemEditingEventArgs
-			//		The editing event.
-			// tags:
-			//		callback
-		},
-		
-		onItemRollOver: function(e){
-			// Summary:
-			//		Event dispatched when the mouse cursor in going over an item renderer.
-			// e: __ItemMouseEventArgs
-			//		The event dispatched when the mouse cursor enters in the item renderer.
-			// tags:
-			//		callback
-		},
-		
-		onItemRollOut: function(e){
-			// Summary:
-			//		Event dispatched when the mouse cursor in leaving an item renderer.
-			// e: __ItemMouseEventArgs
-			//		The event dispatched when the mouse cursor enters in the item renderer.
-			// tags:
-			//		callback
-		},
-		
-		onColumnHeaderClick: function(e){
-			// summary:
-			//		Event dispatched when a column header cell is dispatched.
-			// e: __HeaderClickEventArgs
-			//		Header click event.
-			// tags:
-			//		callback
-		},
-				
-		onRowHeaderClick: function(e){
-			// summary:
-			//		Event dispatched when a row header cell is clicked.
-			// e: __HeaderClickEventArgs
-			//		Header click event.
-			// tags:
-			//		callback
-		},
-		
-		onExpandRendererClick: function(e){
-			// summary:
-			//		Event dispatched when an expand renderer is clicked.
-			// e: __ExpandRendererClickEventArgs
-			//		Expand renderer click event.
-			// tags:
-			//		callback
-		},
-		
-		_onRendererCreated: function(e){
-			this.onRendererCreated(e);
-		},
-		
-		onRendererCreated: function(e){
-			// summary:
-			//		Event dispatched when an item renderer has been created.
-			// e: __rendererLifecycleEventArgs
-			//		The renderer lifecycle event.
-			// tags:
-			//		callback
-		},
-		
-		_onRendererRecycled: function(e){
-			this.onRendererRecycled(e);
-		},
-		
-		onRendererRecycled: function(e){
-			// summary:
-			//		Event dispatched when an item renderer has been recycled.
-			// e: __rendererLifecycleEventArgs
-			//		The renderer lifecycle event.
-			// tags:
-			//		callback
-		},
-		
-		_onRendererReused: function(e){
-			this.onRendererReused(e);
-		},
-		
-		onRendererReused: function(e){
-			// summary:
-			//		Event dispatched when an item renderer that was recycled is reused.
-			// e: __rendererLifecycleEventArgs
-			//		The renderer lifecycle event.
-			// tags:
-			//		callback
-		},
-		
-		_onRendererDestroyed: function(e){
-			this.onRendererDestroyed(e);
-		},
-		
-		onRendererDestroyed: function(e){
-			// summary:
-			//		Event dispatched when an item renderer is destroyed.
-			// e: __rendererLifecycleEventArgs
-			//		The renderer lifecycle event.
-			// tags:
-			//		callback
-		},
-		
-		_onRenderersLayoutDone: function(view){
-			this.onRenderersLayoutDone(view);
-		},
-		
-		onRenderersLayoutDone: function(view){
-			// summary:
-			//		Event triggered when item renderers layout has been done.
-			// view: dojox/calendar/ViewBase
-			//		The view that has been laid-out.
-			// tags:
-			//		callback
-		}
-
-	});
+//>>built
+define("dojox/calendar/CalendarBase",["dojo/_base/declare","dojo/_base/sniff","dojo/_base/event","dojo/_base/lang","dojo/_base/array","dojo/cldr/supplemental","dojo/dom","dojo/dom-class","dojo/dom-style","dojo/dom-construct","dojo/dom-geometry","dojo/date","dojo/date/locale","dojo/_base/fx","dojo/fx","dojo/on","dijit/_WidgetBase","dijit/_TemplatedMixin","dijit/_WidgetsInTemplateMixin","./StoreMixin","./StoreManager","dojox/widget/_Invalidating","dojox/widget/Selection","dojox/calendar/time","dojo/i18n!./nls/buttons"],function(_1,_2,_3,_4,_5,_6,_7,_8,_9,_a,_b,_c,_d,_e,fx,on,_f,_10,_11,_12,_13,_14,_15,_16,_17){
+return _1("dojox.calendar.CalendarBase",[_f,_10,_11,_12,_14,_15],{baseClass:"dojoxCalendar",datePackage:_c,startDate:null,endDate:null,date:null,minDate:null,maxDate:null,dateInterval:"week",dateIntervalSteps:1,viewContainer:null,firstDayOfWeek:-1,formatItemTimeFunc:null,editable:true,moveEnabled:true,resizeEnabled:true,columnView:null,matrixView:null,columnViewProps:null,matrixViewProps:null,createOnGridClick:false,createItemFunc:null,currentView:null,_currentViewIndex:-1,views:null,_calendar:"gregorian",constructor:function(_18){
+this.views=[];
+this.invalidatingProperties=["store","items","startDate","endDate","views","date","minDate","maxDate","dateInterval","dateIntervalSteps","firstDayOfWeek"];
+_18=_18||{};
+this._calendar=_18.datePackage?_18.datePackage.substr(_18.datePackage.lastIndexOf(".")+1):this._calendar;
+this.dateModule=_18.datePackage?_4.getObject(_18.datePackage,false):_c;
+this.dateClassObj=this.dateModule.Date||Date;
+this.dateLocaleModule=_18.datePackage?_4.getObject(_18.datePackage+".locale",false):_d;
+this.invalidateRendering();
+this.storeManager=new _13({owner:this,_ownerItemsProperty:"items"});
+this.storeManager.on("layoutInvalidated",_4.hitch(this,this._refreshItemsRendering));
+this.storeManager.on("dataLoaded",_4.hitch(this,function(_19){
+this.set("items",_19);
+}));
+this.decorationStoreManager=new _13({owner:this,_ownerItemsProperty:"decorationItems"});
+this.decorationStoreManager.on("layoutInvalidated",_4.hitch(this,this._refreshDecorationItemsRendering));
+this.decorationStoreManager.on("dataLoaded",_4.hitch(this,function(_1a){
+this.set("decorationItems",_1a);
+}));
+},buildRendering:function(){
+this.inherited(arguments);
+if(this.views==null||this.views.length==0){
+this.set("views",this._createDefaultViews());
+}
+},_applyAttributes:function(){
+this._applyAttr=true;
+this.inherited(arguments);
+delete this._applyAttr;
+},_setStartDateAttr:function(_1b){
+this._set("startDate",_1b);
+this._timeRangeInvalidated=true;
+this._startDateChanged=true;
+},_setEndDateAttr:function(_1c){
+this._set("endDate",_1c);
+this._timeRangeInvalidated=true;
+this._endDateChanged=true;
+},_setDateAttr:function(_1d){
+this._set("date",_1d);
+this._timeRangeInvalidated=true;
+this._dateChanged=true;
+},_setDateIntervalAttr:function(_1e){
+this._set("dateInterval",_1e);
+this._timeRangeInvalidated=true;
+},_setDateIntervalStepsAttr:function(_1f){
+this._set("dateIntervalSteps",_1f);
+this._timeRangeInvalidated=true;
+},_setFirstDayOfWeekAttr:function(_20){
+this._set("firstDayOfWeek",_20);
+if(this.get("date")!=null&&this.get("dateInterval")=="week"){
+this._timeRangeInvalidated=true;
+}
+},_setTextDirAttr:function(_21){
+_5.forEach(this.views,function(_22){
+_22.set("textDir",_21);
+});
+},refreshRendering:function(){
+this.inherited(arguments);
+this._validateProperties();
+},_refreshItemsRendering:function(){
+if(this.currentView){
+this.currentView._refreshItemsRendering();
+}
+},_refreshDecorationItemsRendering:function(){
+if(this.currentView){
+this.currentView._refreshDecorationItemsRendering();
+}
+},resize:function(_23){
+if(_23){
+_b.setMarginBox(this.domNode,_23);
+}
+if(this.currentView){
+this.currentView.resize();
+}
+},_validateProperties:function(){
+var cal=this.dateModule;
+var _24=this.get("startDate");
+var _25=this.get("endDate");
+var _26=this.get("date");
+if(this.firstDayOfWeek<-1||this.firstDayOfWeek>6){
+this._set("firstDayOfWeek",0);
+}
+var _27=this.get("minDate");
+var _28=this.get("maxDate");
+if(_27&&_28){
+if(cal.compare(_27,_28)>0){
+var t=_27;
+this._set("minDate",_28);
+this._set("maxDate",t);
+}
+}
+if(_26==null&&(_24!=null||_25!=null)){
+if(_24==null){
+_24=new this.dateClassObj();
+this._set("startDate",_24);
+this._timeRangeInvalidated=true;
+}
+if(_25==null){
+_25=new this.dateClassObj();
+this._set("endDate",_25);
+this._timeRangeInvalidated=true;
+}
+if(cal.compare(_24,_25)>0){
+_25=cal.add(_24,"day",1);
+this._set("endDate",_25);
+this._timeRangeInvalidated=true;
+}
+}else{
+if(this.date==null){
+this._set("date",new this.dateClassObj());
+this._timeRangeInvalidated=true;
+}
+var _29=this.get("dateInterval");
+if(_29!="day"&&_29!="week"&&_29!="month"){
+this._set("dateInterval","day");
+this._timeRangeInvalidated=true;
+}
+var dis=this.get("dateIntervalSteps");
+if(_4.isString(dis)){
+dis=parseInt(dis);
+this._set("dateIntervalSteps",dis);
+}
+if(dis<=0){
+this.set("dateIntervalSteps",1);
+this._timeRangeInvalidated=true;
+}
+}
+if(this._timeRangeInvalidated){
+this._timeRangeInvalidated=false;
+var _2a=this.computeTimeInterval();
+if(this._timeInterval==null||cal.compare(this._timeInterval[0],_2a[0])!=0||cal.compare(this._timeInterval[1],_2a[1])!=0){
+if(this._dateChanged){
+this._lastValidDate=this.get("date");
+this._dateChanged=false;
+}else{
+if(this._startDateChanged||this._endDateChanged){
+this._lastValidStartDate=this.get("startDate");
+this._lastValidEndDate=this.get("endDate");
+this._startDateChanged=false;
+this._endDateChanged=false;
+}
+}
+this.onTimeIntervalChange({oldStartTime:this._timeInterval==null?null:this._timeInterval[0],oldEndTime:this._timeInterval==null?null:this._timeInterval[1],startTime:_2a[0],endTime:_2a[1]});
+}else{
+if(this._dateChanged){
+this._dateChanged=false;
+if(this.lastValidDate!=null){
+this._set("date",this.lastValidDate);
+}
+}else{
+if(this._startDateChanged||this._endDateChanged){
+this._startDateChanged=false;
+this._endDateChanged=false;
+this._set("startDate",this._lastValidStartDate);
+this._set("endDate",this._lastValidEndDate);
+}
+}
+return;
+}
+this._timeInterval=_2a;
+var _2b=this.dateModule.difference(this._timeInterval[0],this._timeInterval[1],"day");
+var _2c=this._computeCurrentView(_2a[0],_2a[1],_2b);
+var _2d=_5.indexOf(this.views,_2c);
+if(_2c==null||_2d==-1){
+return;
+}
+this._performViewTransition(_2c,_2d,_2a,_2b);
+}
+},_performViewTransition:function(_2e,_2f,_30,_31){
+var _32=this.currentView;
+if(this.animateRange&&(!_2("ie")||_2("ie")>8)){
+if(_32){
+_32.beforeDeactivate();
+var ltr=this.isLeftToRight();
+var _33=this._animRangeInDir=="left"||this._animRangeInDir==null;
+var _34=this._animRangeOutDir=="left"||this._animRangeOutDir==null;
+this._animateRange(this.currentView.domNode,_34&&ltr,false,0,_34?-100:100,_4.hitch(this,function(){
+_32.afterDeactivate();
+_2e.beforeActivate();
+this.animateRangeTimer=setTimeout(_4.hitch(this,function(){
+this._applyViewChange(_2e,_2f,_30,_31);
+this._animateRange(this.currentView.domNode,_33&&ltr,true,_33?-100:100,0,function(){
+_2e.afterActivate();
+});
+this._animRangeInDir=null;
+this._animRangeOutDir=null;
+}),100);
+}));
+}else{
+_2e.beforeActivate();
+this._applyViewChange(_2e,_2f,_30,_31);
+_2e.afterActivate();
+}
+}else{
+if(_32){
+_32.beforeDeactivate();
+}
+_2e.beforeActivate();
+this._applyViewChange(_2e,_2f,_30,_31);
+if(_32){
+_32.afterDeactivate();
+}
+_2e.afterActivate();
+}
+},onViewConfigurationChange:function(_35){
+},_applyViewChange:function(_36,_37,_38,_39){
+this._configureView(_36,_37,_38,_39);
+this.onViewConfigurationChange(_36);
+if(_37!=this._currentViewIndex){
+if(this.currentView==null){
+_36.set("items",this.items);
+_36.set("decorationItems",this.decorationItems);
+this.set("currentView",_36);
+}else{
+if(this.items==null||this.items.length==0){
+this.set("currentView",_36);
+if(this.animateRange&&(!_2("ie")||_2("ie")>8)){
+_9.set(this.currentView.domNode,"opacity",0);
+}
+_36.set("items",this.items);
+_36.set("decorationItems",this.decorationItems);
+}else{
+this.currentView=_36;
+_36.set("items",this.items);
+_36.set("decorationItems",this.decorationItems);
+this.set("currentView",_36);
+if(this.animateRange&&(!_2("ie")||_2("ie")>8)){
+_9.set(this.currentView.domNode,"opacity",0);
+}
+}
+}
+}
+},_timeInterval:null,computeTimeInterval:function(){
+var d=this.get("date");
+var _3a=this.get("minDate");
+var _3b=this.get("maxDate");
+var cal=this.dateModule;
+if(d==null){
+var _3c=this.get("startDate");
+var _3d=cal.add(this.get("endDate"),"day",1);
+if(_3a!=null||_3b!=null){
+var dur=this.dateModule.difference(_3c,_3d,"day");
+if(cal.compare(_3a,_3c)>0){
+_3c=_3a;
+_3d=cal.add(_3c,"day",dur);
+}
+if(cal.compare(_3b,_3d)<0){
+_3d=_3b;
+_3c=cal.add(_3d,"day",-dur);
+}
+if(cal.compare(_3a,_3c)>0){
+_3c=_3a;
+_3d=_3b;
+}
+}
+return [this.floorToDay(_3c),this.floorToDay(_3d)];
+}else{
+var _3e=this._computeTimeIntervalImpl(d);
+if(_3a!=null){
+var _3f=this._computeTimeIntervalImpl(_3a);
+if(cal.compare(_3f[0],_3e[0])>0){
+_3e=_3f;
+}
+}
+if(_3b!=null){
+var _40=this._computeTimeIntervalImpl(_3b);
+if(cal.compare(_40[1],_3e[1])<0){
+_3e=_40;
+}
+}
+return _3e;
+}
+},_computeTimeIntervalImpl:function(d){
+var cal=this.dateModule;
+var s=this.floorToDay(d);
+var di=this.get("dateInterval");
+var dis=this.get("dateIntervalSteps");
+var e;
+switch(di){
+case "day":
+e=cal.add(s,"day",dis);
+break;
+case "week":
+s=this.floorToWeek(s);
+e=cal.add(s,"week",dis);
+break;
+case "month":
+s.setDate(1);
+e=cal.add(s,"month",dis);
+break;
+default:
+e=cal.add(s,"day",1);
+}
+return [s,e];
+},onTimeIntervalChange:function(e){
+},views:null,_setViewsAttr:function(_41){
+if(!this._applyAttr){
+for(var i=0;i<this.views.length;i++){
+this._onViewRemoved(this.views[i]);
+}
+}
+if(_41!=null){
+for(var i=0;i<_41.length;i++){
+this._onViewAdded(_41[i]);
+}
+}
+this._set("views",_41==null?[]:_41.concat());
+},_getViewsAttr:function(){
+return this.views.concat();
+},_createDefaultViews:function(){
+},addView:function(_42,_43){
+if(_43<=0||_43>this.views.length){
+_43=this.views.length;
+}
+this.views.splice(_43,_42);
+this._onViewAdded(_42);
+},removeView:function(_44){
+if(index<0||index>=this.views.length){
+return;
+}
+this._onViewRemoved(this.views[index]);
+this.views.splice(index,1);
+},_onViewAdded:function(_45){
+_45.owner=this;
+_45.buttonContainer=this.buttonContainer;
+_45._calendar=this._calendar;
+_45.datePackage=this.datePackage;
+_45.dateModule=this.dateModule;
+_45.dateClassObj=this.dateClassObj;
+_45.dateLocaleModule=this.dateLocaleModule;
+_9.set(_45.domNode,"display","none");
+_8.add(_45.domNode,"view");
+_a.place(_45.domNode,this.viewContainer);
+this.onViewAdded(_45);
+},onViewAdded:function(_46){
+},_onViewRemoved:function(_47){
+_47.owner=null;
+_47.buttonContainer=null;
+_8.remove(_47.domNode,"view");
+this.viewContainer.removeChild(_47.domNode);
+this.onViewRemoved(_47);
+},onViewRemoved:function(_48){
+},_setCurrentViewAttr:function(_49){
+var _4a=_5.indexOf(this.views,_49);
+if(_4a!=-1){
+var _4b=this.get("currentView");
+this._currentViewIndex=_4a;
+this._set("currentView",_49);
+this._showView(_4b,_49);
+this.onCurrentViewChange({oldView:_4b,newView:_49});
+}
+},_getCurrentViewAttr:function(){
+return this.views[this._currentViewIndex];
+},onCurrentViewChange:function(e){
+},_configureView:function(_4c,_4d,_4e,_4f){
+var cal=this.dateModule;
+if(_4c.viewKind=="columns"){
+_4c.set("startDate",_4e[0]);
+_4c.set("columnCount",_4f);
+}else{
+if(_4c.viewKind=="matrix"){
+if(_4f>7){
+var s=this.floorToWeek(_4e[0]);
+var e=this.floorToWeek(_4e[1]);
+if(cal.compare(e,_4e[1])!=0){
+e=this.dateModule.add(e,"week",1);
+}
+_4f=this.dateModule.difference(s,e,"day");
+_4c.set("startDate",s);
+_4c.set("columnCount",7);
+_4c.set("rowCount",Math.ceil(_4f/7));
+_4c.set("refStartTime",_4e[0]);
+_4c.set("refEndTime",_4e[1]);
+}else{
+_4c.set("startDate",_4e[0]);
+_4c.set("columnCount",_4f);
+_4c.set("rowCount",1);
+_4c.set("refStartTime",null);
+_4c.set("refEndTime",null);
+}
+}
+}
+},_computeCurrentView:function(_50,_51,_52){
+return _52<=7?this.columnView:this.matrixView;
+},matrixViewRowHeaderClick:function(e){
+var _53=this.matrixView.getExpandedRowIndex();
+if(_53==e.index){
+this.matrixView.collapseRow();
+}else{
+if(_53==-1){
+this.matrixView.expandRow(e.index);
+}else{
+var h=this.matrixView.on("expandAnimationEnd",_4.hitch(this,function(){
+h.remove();
+this.matrixView.expandRow(e.index);
+}));
+this.matrixView.collapseRow();
+}
+}
+},columnViewColumnHeaderClick:function(e){
+var cal=this.dateModule;
+if(cal.compare(e.date,this._timeInterval[0])==0&&this.dateInterval=="day"&&this.dateIntervalSteps==1){
+this.set("dateInterval","week");
+}else{
+this.set("date",e.date);
+this.set("dateInterval","day");
+this.set("dateIntervalSteps",1);
+}
+},viewChangeDuration:0,_showView:function(_54,_55){
+if(_54!=null){
+_9.set(_54.domNode,"display","none");
+}
+if(_55!=null){
+_9.set(_55.domNode,"display","block");
+_55.resize();
+if(!_2("ie")||_2("ie")>7){
+_9.set(_55.domNode,"opacity","1");
+}
+}
+},_setItemsAttr:function(_56){
+this._set("items",_56);
+if(this.currentView){
+this.currentView.set("items",_56);
+if(!this._isEditing){
+this.currentView.invalidateRendering();
+}
+}
+},_setDecorationItemsAttr:function(_57){
+this._set("decorationItems",_57);
+if(this.currentView){
+this.currentView.set("decorationItems",_57);
+this.currentView.invalidateRendering();
+}
+},_setDecorationStoreAttr:function(_58){
+this._set("decorationStore",_58);
+this.decorationStore=_58;
+this.decorationStoreManager.set("store",_58);
+},floorToDay:function(_59,_5a){
+return _16.floorToDay(_59,_5a,this.dateClassObj);
+},floorToWeek:function(d){
+return _16.floorToWeek(d,this.dateClassObj,this.dateModule,this.firstDayOfWeek,this.locale);
+},newDate:function(obj){
+return _16.newDate(obj,this.dateClassObj);
+},isToday:function(_5b){
+return _16.isToday(_5b,this.dateClassObj);
+},isStartOfDay:function(d){
+return _16.isStartOfDay(d,this.dateClassObj,this.dateModule);
+},floorDate:function(_5c,_5d,_5e,_5f){
+return _16.floor(_5c,_5d,_5e,_5f,this.classFuncObj);
+},isOverlapping:function(_60,_61,_62,_63,_64,_65){
+return _16.isOverlapping(_60,_61,_62,_63,_64,_65);
+},animateRange:true,animationRangeDuration:400,_animateRange:function(_66,_67,_68,_69,xTo,_6a){
+if(this.animateRangeTimer){
+clearTimeout(this.animateRangeTimer);
+delete this.animateRangeTimer;
+}
+var _6b=_68?_e.fadeIn:_e.fadeOut;
+_9.set(_66,{left:_69+"px",right:(-_69)+"px"});
+fx.combine([_e.animateProperty({node:_66,properties:{left:xTo,right:-xTo},duration:this.animationRangeDuration/2,onEnd:_6a}),_6b({node:_66,duration:this.animationRangeDuration/2})]).play();
+},_animRangeOutDir:null,_animRangeOutDir:null,nextRange:function(){
+this._animRangeOutDir="left";
+this._animRangeInDir="right";
+this._navigate(1);
+},previousRange:function(){
+this._animRangeOutDir="right";
+this._animRangeInDir="left";
+this._navigate(-1);
+},_navigate:function(dir){
+var d=this.get("date");
+var cal=this.dateModule;
+if(d==null){
+var s=this.get("startDate");
+var e=this.get("endDate");
+var dur=cal.difference(s,e,"day");
+if(dir==1){
+e=cal.add(e,"day",1);
+this.set("startDate",e);
+this.set("endDate",cal.add(e,"day",dur));
+}else{
+s=cal.add(s,"day",-1);
+this.set("startDate",cal.add(s,"day",-dur));
+this.set("endDate",s);
+}
+}else{
+var di=this.get("dateInterval");
+var dis=this.get("dateIntervalSteps");
+this.set("date",cal.add(d,di,dir*dis));
+}
+},goToday:function(){
+this.set("date",this.floorToDay(new this.dateClassObj(),true));
+this.set("dateInterval","day");
+this.set("dateIntervalSteps",1);
+},postCreate:function(){
+this.inherited(arguments);
+this.configureButtons();
+},configureButtons:function(){
+var rtl=!this.isLeftToRight();
+if(this.previousButton){
+this.previousButton.set("label",_17[rtl?"nextButton":"previousButton"]);
+this.own(on(this.previousButton,"click",_4.hitch(this,this.previousRange)));
+}
+if(this.nextButton){
+this.nextButton.set("label",_17[rtl?"previousButton":"nextButton"]);
+this.own(on(this.nextButton,"click",_4.hitch(this,this.nextRange)));
+}
+if(rtl&&this.previousButton&&this.nextButton){
+var t=this.previousButton;
+this.previousButton=this.nextButton;
+this.nextButton=t;
+}
+if(this.todayButton){
+this.todayButton.set("label",_17.todayButton);
+this.own(on(this.todayButton,"click",_4.hitch(this,this.todayButtonClick)));
+}
+if(this.dayButton){
+this.dayButton.set("label",_17.dayButton);
+this.own(on(this.dayButton,"click",_4.hitch(this,this.dayButtonClick)));
+}
+if(this.weekButton){
+this.weekButton.set("label",_17.weekButton);
+this.own(on(this.weekButton,"click",_4.hitch(this,this.weekButtonClick)));
+}
+if(this.fourDaysButton){
+this.fourDaysButton.set("label",_17.fourDaysButton);
+this.own(on(this.fourDaysButton,"click",_4.hitch(this,this.fourDaysButtonClick)));
+}
+if(this.monthButton){
+this.monthButton.set("label",_17.monthButton);
+this.own(on(this.monthButton,"click",_4.hitch(this,this.monthButtonClick)));
+}
+},todayButtonClick:function(e){
+this.goToday();
+},dayButtonClick:function(e){
+if(this.get("date")==null){
+this.set("date",this.floorToDay(new this.dateClassObj(),true));
+}
+this.set("dateInterval","day");
+this.set("dateIntervalSteps",1);
+},weekButtonClick:function(e){
+this.set("dateInterval","week");
+this.set("dateIntervalSteps",1);
+},fourDaysButtonClick:function(e){
+this.set("dateInterval","day");
+this.set("dateIntervalSteps",4);
+},monthButtonClick:function(e){
+this.set("dateInterval","month");
+this.set("dateIntervalSteps",1);
+},updateRenderers:function(obj,_6c){
+if(this.currentView){
+this.currentView.updateRenderers(obj,_6c);
+}
+},getIdentity:function(_6d){
+return _6d?_6d.id:null;
+},_setHoveredItem:function(_6e,_6f){
+if(this.hoveredItem&&_6e&&this.hoveredItem.id!=_6e.id||_6e==null||this.hoveredItem==null){
+var old=this.hoveredItem;
+this.hoveredItem=_6e;
+this.updateRenderers([old,this.hoveredItem],true);
+if(_6e&&_6f){
+this.currentView._updateEditingCapabilities(_6e._item?_6e._item:_6e,_6f);
+}
+}
+},hoveredItem:null,isItemHovered:function(_70){
+return this.hoveredItem!=null&&this.hoveredItem.id==_70.id;
+},isItemEditable:function(_71,_72){
+return this.editable;
+},isItemMoveEnabled:function(_73,_74){
+return this.isItemEditable(_73,_74)&&this.moveEnabled;
+},isItemResizeEnabled:function(_75,_76){
+return this.isItemEditable(_75,_76)&&this.resizeEnabled;
+},onGridClick:function(e){
+},onGridDoubleClick:function(e){
+},onItemClick:function(e){
+},onItemDoubleClick:function(e){
+},onItemContextMenu:function(e){
+},onItemEditBegin:function(e){
+},onItemEditEnd:function(e){
+},onItemEditBeginGesture:function(e){
+},onItemEditMoveGesture:function(e){
+},onItemEditResizeGesture:function(e){
+},onItemEditEndGesture:function(e){
+},onItemRollOver:function(e){
+},onItemRollOut:function(e){
+},onColumnHeaderClick:function(e){
+},onRowHeaderClick:function(e){
+},onExpandRendererClick:function(e){
+},_onRendererCreated:function(e){
+this.onRendererCreated(e);
+},onRendererCreated:function(e){
+},_onRendererRecycled:function(e){
+this.onRendererRecycled(e);
+},onRendererRecycled:function(e){
+},_onRendererReused:function(e){
+this.onRendererReused(e);
+},onRendererReused:function(e){
+},_onRendererDestroyed:function(e){
+this.onRendererDestroyed(e);
+},onRendererDestroyed:function(e){
+},_onRenderersLayoutDone:function(_77){
+this.onRenderersLayoutDone(_77);
+},onRenderersLayoutDone:function(_78){
+}});
 });
