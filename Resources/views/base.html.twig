@@ -3,51 +3,68 @@
 <head>
 	<meta charset="utf-8">
 	{% block page_title %}
-	<title>Tutorial: Hello Dojo!</title>
+		<title>DimeErp</title>
 	{% endblock %}
 	{% block stylesheets %}
 		{% stylesheets %}
-
+			<link rel="stylesheet" href="{{ asset_url }}">
 		{% endstylesheets %}
+		<link rel="stylesheet" href="{{ asset('bundles/dimefrontend/css/dime.css') }}">
 	{% endblock %}
 </head>
-<body>
-<h1 id="greeting">Hello</h1>
-<!-- load Dojo -->
-{% block javascripts %}
+<body class="dbootstrap">
+	{% block loader %}
+		<!-- basic preloader: -->
+		<div id="loader">
+			<div id="loaderInner" style="direction:ltr;">Loading ...</div>
+		</div>
+	{% endblock %}
+	{% block content %}
+		<!-- application -->
+		<div id="main" data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="design: 'headline'">
+			{% block mainmenu %}
+				{{ include('DimeFrontendBundle:Menu:mainmenu.html.twig') }}
+			{% endblock %}
+			{% block sidebar %}
+				{{ include('DimeFrontendBundle:Menu:sidebar.html.twig') }}
+			{% endblock %}
+			{% block tab_container %}
+				{{ include('DimeFrontendBundle:Container:tabcontainer.html.twig') }}
+			{% endblock %}
+		</div>
+	{% endblock %}
+	<!-- load Dojo -->
+	{% block javascripts %}
+		<script>
+			var dojoConfig = {
+				async: true,
+				baseUrl: 'bundles/dimefrontend/js',
+				isDebug: true,
+				parseOnLoad: true,
+				packages: [
+					'dbootstrap',
+					'dime',
+					'dojo',
+					'dijit',
+					'dojox',
+					'dojo-bootstrap'
+				]
+			};
+		</script>
+		{% javascripts
+			'@dojo' %}
+			<script src="{{ asset_url }}"></script>
+		{% endjavascripts %}
+	{% endblock %}
 	<script>
-		var dojoConfig = {
-			async: true,
-			baseUrl: 'bundles/dimefrontend/js',
-			packages: [
-				'dojo',
-				'dijit',
-				'dojox',
-				'dojo-bootstrap'
-			]
-		};
+		require([
+			"dime/app",
+			"dojo/domReady!"
+			],
+			function(dimeApp) {
+				dimeApp.init();
+			}
+		)
 	</script>
-	{% javascripts
-		'@dojo' %}
-		<script src="{{ asset_url }}"></script>
-	{% endjavascripts %}
-{% endblock %}
-<script>
-	require([
-		'dojo/dom',
-		'dojo/fx',
-		'dojo/domReady!'
-	], function (dom, fx) {
-		var greeting = dom.byId('greeting');
-		greeting.innerHTML += ' from Dojo!';
-
-		// ...but now, with an animation!
-		fx.slideTo({
-			node: greeting,
-			top: 100,
-			left: 200
-		}).play();
-	});
-</script>
 </body>
 </html>

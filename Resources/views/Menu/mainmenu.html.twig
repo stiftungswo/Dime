@@ -1,0 +1,83 @@
+<div id="header"
+     data-dojo-type="dijit/MenuBar"
+     data-dojo-props="region:'top', 'class':'primary inverse'">
+	<span class='brand'>DimeErp</span>
+	<div data-dojo-type="dijit/PopupMenuBarItem" id="file">
+		<span>File</span>
+		<div data-dojo-type="dijit/Menu" id="fileMenu">
+			<div data-dojo-type="dijit/MenuItem" id="globals" data-dojo-props="onClick: this.logStrayGlobals">Log globals</div>
+			<div data-dojo-type="dijit/MenuItem" id="widgets" data-dojo-props="onClick: this.logWidgets">Log widgets</div>
+			<div data-dojo-type="dijit/MenuItem" id="destroy" data-dojo-props="iconClass:'dijitIconDelete', onClick:this.tearDown">Destroy All</div>
+		</div>
+	</div>
+	<div data-dojo-type="dijit/PopupMenuBarItem" id="edit">
+		<span>Edit</span>
+		<div data-dojo-type="dijit/Menu" id="editMenu">
+			<div data-dojo-type="dijit/MenuItem" id="cut" data-dojo-props="
+iconClass:'dijitIconCut',
+onClick:function(){ console.log('not actually cutting anything, just a test!') }
+">Cut</div>
+			<div data-dojo-type="dijit/MenuItem" id="copy" data-dojo-props="
+iconClass:'dijitIconCopy',
+onClick: function(){ console.log('not actually copying anything, just a test!') }
+">Copy</div>
+			<div data-dojo-type="dijit/MenuItem" id="paste" data-dojo-props="iconClass:'dijitIconPaste',
+onClick: function(){ console.log('not actually pasting anything, just a test!') }">Paste</div>
+			<div data-dojo-type="dijit/MenuSeparator" id="separator"></div>
+			<div data-dojo-type="dijit/MenuItem" id="undo" data-dojo-props="iconClass:'dijitIconUndo'">Undo</div>
+		</div>
+	</div>
+	<div data-dojo-type="dijit/PopupMenuBarItem" id="view">
+		<span>View</span>
+		<div data-dojo-type="dijit/Menu" id="viewMenu">
+			<div data-dojo-type="dijit/MenuItem">Normal</div>
+			<div data-dojo-type="dijit/MenuItem">Outline</div>
+			<div data-dojo-type="dijit/PopupMenuItem">
+				<span>Zoom</span>
+				<div data-dojo-type="dijit/Menu" id="zoomMenu">
+					<div data-dojo-type="dijit/MenuItem">50%</div>
+					<div data-dojo-type="dijit/MenuItem">75%</div>
+					<div data-dojo-type="dijit/MenuItem">100%</div>
+					<div data-dojo-type="dijit/MenuItem">150%</div>
+					<div data-dojo-type="dijit/MenuItem">200%</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div data-dojo-type="dijit/PopupMenuBarItem" id="themes">
+		<span>Themes</span>
+		<div data-dojo-type="dijit/Menu" id="themeMenu"></div>
+	</div>
+	<div data-dojo-type="dijit/PopupMenuBarItem" id="dialogs">
+		<span>Dialogs</span>
+		<div data-dojo-type="dijit/Menu" id="dialogMenu">
+			<div data-dojo-type="dijit/MenuItem" data-dojo-props="onClick: this.showDialog">slow loading</div>
+			<div data-dojo-type="dijit/MenuItem" data-dojo-props="onClick: this.showDialogAb">action bar</div>
+		</div>
+	</div>
+	<div data-dojo-type="dijit/PopupMenuBarItem" id="inputPadding">
+		<span>TextBox Padding</span>
+		<div data-dojo-type="dijit/Menu" id="inputPaddingMenu">
+			<div data-dojo-type="dijit/CheckedMenuItem" data-dojo-props="onClick:this.setTextBoxPadding, checked:true">theme default</div>
+			<div data-dojo-type="dijit/CheckedMenuItem" data-dojo-props="onClick:this.setTextBoxPadding">0px</div>
+			<div data-dojo-type="dijit/CheckedMenuItem" data-dojo-props="onClick:this.setTextBoxPadding">1px</div>
+			<div data-dojo-type="dijit/CheckedMenuItem" data-dojo-props="onClick:this.setTextBoxPadding">2px</div>
+			<div data-dojo-type="dijit/CheckedMenuItem" data-dojo-props="onClick:this.setTextBoxPadding">3px</div>
+			<div data-dojo-type="dijit/CheckedMenuItem" data-dojo-props="onClick:this.setTextBoxPadding">4px</div>
+			<div data-dojo-type="dijit/CheckedMenuItem" data-dojo-props="onClick:this.setTextBoxPadding">5px</div>
+		</div>
+	</div>
+	<div data-dojo-type="dijit/PopupMenuBarItem" id="help">
+		<span>Help</span>
+		<div data-dojo-type="dijit/Menu" id="helpMenu">
+			<div data-dojo-type="dijit/MenuItem">Help Topics</div>
+			<div data-dojo-type="dijit/MenuItem">About Dijit</div>
+		</div>
+	</div>
+	<div data-dojo-type="dijit/PopupMenuBarItem" data-dojo-props="disabled:true">
+		<span>Disabled</span>
+		<div data-dojo-type="dijit/Menu">
+			<div data-dojo-type="dijit/MenuItem">You should not see this</div>
+		</div>
+	</div>
+</div>

@@ -4,3 +4,19 @@ assetic:
             inputs:
                 - '@DimeFrontendBundle/Resources/public/js/dojo/dojo.js'
             output: 'js/dojo.js'
+        claro:
+            inputs:
+                - '@DimeFrontendBundle/Resources/public/js/dijit/themes/claro/claro.css'
+            output: css/claro.css
+        nihilo:
+            inputs:
+                - '@DimeFrontendBundle/Resources/public/js/dijit/themes/nihilo/nihilo.css'
+            output: css/nihilo.css
+        soria:
+            inputs:
+                - '@DimeFrontendBundle/Resources/public/js/dijit/themes/soria/soria.css'
+            output: css/soria.css
+        tundra:
+            inputs:
+                - '@DimeFrontendBundle/Resources/public/js/dijit/themes/tundra/tundra.css'
+            output: css/tundra.css

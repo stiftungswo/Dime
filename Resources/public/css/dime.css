@@ -1,0 +1,36 @@
+/* Any demo specific styling needed for this tutorial only */
+html, body {
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+}
+
+#main {
+    height: 100%;
+    width: 100%;
+    border: 0;
+}
+
+#loader {
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background:  #fff url('../js/dijit/themes/claro/images/loadingAnimation.gif') no-repeat 10px 23px;
+    z-index: 999;
+    vertical-align: middle;
+}
+
+#loaderInner {
+    padding: 25px 40px;
+    position: relative;
+    left: 0;
+    top: 0;
+    width: 175px;
+    background: #3c3;
+    color: #999;
+}
