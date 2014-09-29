@@ -7,8 +7,6 @@ DirectoryIndex app_dev.php
 
 <IfModule mod_rewrite.c>
     RewriteEngine On
-    RewriteRule ^js - [L]
-    RewriteRule ^css - [L]
     RewriteRule ^bundles - [L]
 
     # Determine the RewriteBase automatically and set it as environment variable.
