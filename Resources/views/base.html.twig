@@ -10,6 +10,7 @@
 			<link rel="stylesheet" href="{{ asset_url }}">
 		{% endstylesheets %}
 		<link rel="stylesheet" href="{{ asset('bundles/dimefrontend/css/dime.css') }}">
+		<link rel="stylesheet" href="{{ asset('bundles/dimefrontend/') }}">
 	{% endblock %}
 </head>
 <body class="dbootstrap">
@@ -47,7 +48,10 @@
 					'dojo',
 					'dijit',
 					'dojox',
-					'dojo-bootstrap'
+					'dojo-bootstrap',
+					'xstyle',
+					'put-selector',
+					'dgrid'
 				]
 			};
 		</script>
@@ -62,7 +66,8 @@
 			"dojo/domReady!"
 			],
 			function(dimeApp) {
-				dimeApp.init();
+				app = new dimeApp();
+				app.init();
 			}
 		)
 	</script>
