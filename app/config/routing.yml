@@ -2,10 +2,10 @@ DimeFrontendBundle:
     resource: "@DimeFrontendBundle/Resources/config/routing.yml"
     prefix:   /
 
-DimeOfferBundle:
-    type: rest
-    resource: "@DimeOfferBundle/Resources/config/routing.yml"
-    prefix:   /api
+#DimeOfferBundle:
+#    type: rest
+#    resource: "@DimeOfferBundle/Resources/config/routing.yml"
+#    prefix:   /api
 
 DimeInvoiceBundle:
     type: rest
