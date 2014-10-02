@@ -15,10 +15,7 @@
 </head>
 <body class="dbootstrap">
 	{% block loader %}
-		<!-- basic preloader: -->
-		<div id="loader">
-			<div id="loaderInner" style="direction:ltr;">Loading ...</div>
-		</div>
+		{{ include('DimeFrontendBundle::Loader.html.twig') }}
 	{% endblock %}
 	{% block content %}
 		<!-- application -->
@@ -59,17 +56,17 @@
 			'@dojo' %}
 			<script src="{{ asset_url }}"></script>
 		{% endjavascripts %}
+		<script>
+			require([
+						"dime/app",
+						"dojo/domReady!"
+					],
+					function(dimeApp) {
+						app = new dimeApp();
+						app.init();
+					}
+			)
+		</script>
 	{% endblock %}
-	<script>
-		require([
-			"dime/app",
-			"dojo/domReady!"
-			],
-			function(dimeApp) {
-				app = new dimeApp();
-				app.init();
-			}
-		)
-	</script>
 </body>
 </html>

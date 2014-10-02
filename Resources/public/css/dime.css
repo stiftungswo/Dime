@@ -20,17 +20,27 @@ html, body {
     left: 0;
     width: 100%;
     height: 100%;
-    background:  #fff url('../js/dijit/themes/claro/images/loadingAnimation.gif') no-repeat 10px 23px;
     z-index: 999;
     vertical-align: middle;
+    background:  #fff;
 }
 
 #loaderInner {
     padding: 25px 40px;
+    margin-left: -125px;
     position: relative;
-    left: 0;
-    top: 0;
-    width: 175px;
-    background: #3c3;
-    color: #999;
+    direction: ltr;
+    top: 50%;
+    left: 50%;
+    height: 70px;
+    background:  #fff url('../js/dijit/themes/claro/images/loadingAnimation.gif') no-repeat 20px 28px;
+    font-family: "Droid Sans", sans-serif;
+    font-size: x-large;
+    width: 250px;
+}
+
+.dimeMenu{
+    border: medium none !important;
+    box-shadow: none !important;
+    width: 100% !important;
 }

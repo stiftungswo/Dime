@@ -5,26 +5,17 @@ define([
         "dojo/dom-style",
         "dojo/dom-geometry",
         "dojo/_base/fx",
-        "dime/Grid",
-        "dime/stores/UserStore",
+        "dojo/store/JsonRest",
+        "dojo/store/Memory",
+        "dojo/store/Cache",
+        "dojo/store/Observable",
         "dime/module"
     ],
-    function(declare, dom, domStyle, domGeometry, baseFx, Grid, UserStore) {
+    function(declare, dom, domStyle, domGeometry, baseFx, JsonRest, Memory, Cache, Observable) {
         return declare('dime.app', [], {
                 startup: function () {
-
-                    // create the data store
-                    //ToDo: Connect to DimeRestApi
+                    // create the data stores
                     this.initStores();
-
-                    // build up and initialize the UI
-                    this.initUi();
-
-                    // put up the loading overlay when the 'fetch' method of the store is called
-                    //aspect.before(store, "fetch", function() {
-                    //    startLoading(registry.byId("tabs").domNode);
-                    //});
-
                 },
 
                 endLoading: function () {
@@ -59,26 +50,14 @@ define([
                 },
 
                 initStores: function () {
-                    this.userStore = new UserStore();
-                },
-
-                initUi: function () {
-                    // summary:
-                    // 		create and setup the UI with layout and widgets
-                    this.initDataGrid();
-                },
-
-                initDataGrid: function () {
-                    this.simpleGrid = new Grid({
-                        store: this.userStore,
-                        columns: {
-                            username: "Username",
-                            firstname: "Firstname",
-                            lastname: "Lastname",
-                            email: "e-mail"
-                        }
-                    }, 'userContainer');
-                    this.simpleGrid.startup();
+                    window.userStore = new Cache(new Observable(new JsonRest({target: 'api/v1/users'})), new Memory({}));
+                    window.timesliceStore = new Cache(new Observable(new JsonRest({target: 'api/v1/timeslices'})), new Memory({}));
+                    window.tagStore = new Cache(new Observable(new JsonRest({target: 'api/v1/tags'})), new Memory({}));
+                    window.settingStore = new Cache(new Observable(new JsonRest({target: 'api/v1/settings'})), new Memory({}));
+                    window.serviceStore = new Cache(new Observable(new JsonRest({target: 'api/v1/services'})), new Memory({}));
+                    window.projectStore = new Cache(new Observable(new JsonRest({target: 'api/v1/projects'})), new Memory({}));
+                    window.customerStore = new Cache(new Observable(new JsonRest({target: 'api/v1/customers'})), new Memory({}));
+                    window.activityStore = new Cache(new Observable(new JsonRest({target: 'api/v1/activities'})), new Memory({}));
                 },
 
                 init: function () {
