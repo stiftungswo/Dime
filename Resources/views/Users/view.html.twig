@@ -1,0 +1,10 @@
+<div class="tabPane" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="title:'Alle Benutzer', style:''">
+	<div id="allUsersGrid" data-dojo-type="dime/Grid" data-dojo-props="store: window.userStore, sort: 'username', columns: [
+	dgrid.editor({label: 'Username', field: 'username', autoSave: true, sortable: true, editOn: 'dblclick', editor: 'dijit/form/TextBox'}),
+	dgrid.editor({label: 'Firstname', field: 'firstname', autoSave: true, editOn: 'dblclick', editor: 'dijit/form/TextBox'}),
+	dgrid.editor({label: 'Lastname', field: 'lastname', autoSave: true, editOn: 'dblclick', editor: 'dijit/form/TextBox'}),
+	dgrid.editor({label: 'e-mail', field: 'email', autoSave: true, editOn: 'dblclick', editor: 'dijit/form/TextBox'}),
+	dgrid.editor({label: 'Enabled', field: 'enabled', autoSave: true, editOn: 'dblclick', editor: 'dijit/form/CheckBox'}),
+	]"></div>
+	{{ render(path('api_1_new_user')) }}
+</div>

@@ -3,9 +3,11 @@
      data-dojo-props="region:'top', 'class':'primary inverse'">
 	<span class='brand'>DimeErp</span>
 	<div data-dojo-type="dijit/PopupMenuBarItem" id="file">
-		<span>File</span>
+		<span>Datei</span>
 		<div data-dojo-type="dijit/Menu" id="fileMenu">
-			<div data-dojo-type="dijit/MenuItem" id="globals" data-dojo-props="onClick: this.savetoFile">Save</div>
+			<div data-dojo-type="dijit/MenuItem" id="new_ent" data-dojo-props="onClick: this.savetoFile">Neu</div>
+			<div data-dojo-type="dijit/MenuItem" id="edit_ent" data-dojo-props="onClick: this.savetoFile">Bearbeiten</div>
+			<div data-dojo-type="dijit/MenuItem" id="del_ent" data-dojo-props="onClick: this.savetoFile">Löschen</div>
 		</div>
 	</div>
 </div>

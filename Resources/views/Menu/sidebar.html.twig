@@ -1,9 +1,13 @@
 <div data-dojo-type="dijit/layout/AccordionContainer" data-dojo-props="region:'leading', splitter:true, minSize:20"
      style="width: 300px;" id="leftAccordion">
-	<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props='selected:true, title:"Users"'>
+	<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props='selected:true, title:"Benutzer"'>
 		<div id="userMenu" class="dimeMenu" data-dojo-type="dijit.Menu">
-			<div id="add" data-dojo-type="dijit.MenuItem"><span>Hinzufügen</span></div>
-			<div id="viewall" data-dojo-type="dijit.MenuItem">Alle Ansehen</div>
+			<div id="viewall" data-dojo-type="dijit.MenuItem">
+				<span>Benutzerliste</span>
+				<script type="dojo/on" data-dojo-event="click">
+					app.addTab("contentTabs", '{{ path('frontend_users_view') }}', "Benutzerliste", true);
+				</script>
+			</div>
 		</div>
 	</div>
 </div>

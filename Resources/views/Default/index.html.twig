@@ -1,1 +1,10 @@
 {% extends 'DimeFrontendBundle::base.html.twig' %}
+
+{% block tab_container %}
+	<div data-dojo-type="dijit/layout/TabContainer" data-dojo-props="region:'center', tabStrip:true" id="contentTabs">
+		<div id="contentTab" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="title:'Willkommen', style:''">
+			<h1>Willkommen</h1>
+			<p>Wähle einen Menupunkt auf der Linken Seite aus.</p>
+		</div>
+	</div>
+{% endblock %}

@@ -1,6 +1,7 @@
 
 define([
         "dojo/_base/declare",
+        "dojo/parser",
         "dojo/dom",
         "dojo/dom-style",
         "dojo/dom-geometry",
@@ -9,14 +10,13 @@ define([
         "dojo/store/Memory",
         "dojo/store/Cache",
         "dojo/store/Observable",
+        "dijit/layout/ContentPane",
+        "dijit/registry",
+        "dgrid/editor",
         "dime/module"
     ],
-    function(declare, dom, domStyle, domGeometry, baseFx, JsonRest, Memory, Cache, Observable) {
+    function(declare, parser, dom, domStyle, domGeometry, baseFx, JsonRest, Memory, Cache, Observable, ContentPane, registry, editor) {
         return declare('dime.app', [], {
-                startup: function () {
-                    // create the data stores
-                    this.initStores();
-                },
 
                 endLoading: function () {
                     // summary:
@@ -49,8 +49,48 @@ define([
                     }
                 },
 
+                basename: function(path, suffix) {
+                    // Returns the filename component of the path
+                    //
+                    // version: 1109.2015
+                    // discuss at: http://phpjs.org/functions/basename
+                    // +   original by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
+                    // +   improved by: Ash Searle (http://hexmen.com/blog/)
+                    // +   improved by: Lincoln Ramsay
+                    // +   improved by: djmix
+                    // *     example 1: basename('/www/site/home.htm', '.htm');
+                    // *     returns 1: 'home'
+                    // *     example 2: basename('ecra.php?p=1');
+                    // *     returns 2: 'ecra.php?p=1'
+                    var b = path.replace(/^.*[\/\\]/g, '');
+
+                    if (typeof(suffix) == 'string' && b.substr(b.length - suffix.length) == suffix) {
+                        b = b.substr(0, b.length - suffix.length);
+                    }
+
+                    return b;
+                },
+
+                addTab: function(tabContainer, href, title, closable){
+                    if (typeof tabContainer === "string"){
+                        tabContainer = registry.byId(tabContainer);
+                    }
+                    var tabName = "tab" + this.basename(href,".html"),
+                        tab = registry.byId(tabName);
+                    if (typeof tab === "undefined"){
+                        tab = new ContentPane({
+                            id: tabName,
+                            title: title,
+                            href: href,
+                            closable: closable,
+                            style: "padding: 0;"
+                        });
+                        tabContainer.addChild(tab);
+                    }
+                    tabContainer.selectChild(tab);
+                },
+
                 initStores: function () {
-                    window.userStore = new Cache(new Observable(new JsonRest({target: 'api/v1/users'})), new Memory({}));
                     window.timesliceStore = new Cache(new Observable(new JsonRest({target: 'api/v1/timeslices'})), new Memory({}));
                     window.tagStore = new Cache(new Observable(new JsonRest({target: 'api/v1/tags'})), new Memory({}));
                     window.settingStore = new Cache(new Observable(new JsonRest({target: 'api/v1/settings'})), new Memory({}));
@@ -58,13 +98,18 @@ define([
                     window.projectStore = new Cache(new Observable(new JsonRest({target: 'api/v1/projects'})), new Memory({}));
                     window.customerStore = new Cache(new Observable(new JsonRest({target: 'api/v1/customers'})), new Memory({}));
                     window.activityStore = new Cache(new Observable(new JsonRest({target: 'api/v1/activities'})), new Memory({}));
+                    window.userStore = new Cache(new Observable(new JsonRest({target: 'api/v1/users'})), new Memory({}));
+                    window.testStore = new JsonRest({target: 'api/v1/users'});
                 },
 
                 init: function () {
                     this.startLoading();
 
-                    // register callback for when dependencies have loaded
-                    this.startup();
+                    this.initStores();
+                    window.dgrid = {
+                        editor: editor
+                    };
+                    parser.parse();
 
                     this.endLoading();
                 }
