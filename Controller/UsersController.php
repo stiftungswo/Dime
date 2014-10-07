@@ -91,6 +91,7 @@ class UsersController extends DimeController
      * }
      * )
      *
+     * @Annotations\Route(requirements={"_format"="html"})
      * @Annotations\View(
      * templateVar = "form"
      * )
