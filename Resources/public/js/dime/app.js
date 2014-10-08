@@ -6,16 +6,13 @@ define([
         "dojo/dom-style",
         "dojo/dom-geometry",
         "dojo/_base/fx",
-        "dojo/store/JsonRest",
-        "dojo/store/Memory",
-        "dojo/store/Cache",
-        "dojo/store/Observable",
         "dijit/layout/ContentPane",
         "dijit/registry",
         "dgrid/editor",
+        "dime/store/baseStore",
         "dime/module"
     ],
-    function(declare, parser, dom, domStyle, domGeometry, baseFx, JsonRest, Memory, Cache, Observable, ContentPane, registry, editor) {
+    function(declare, parser, dom, domStyle, domGeometry, baseFx, ContentPane, registry, editor, baseStore) {
         return declare('dime.app', [], {
 
                 endLoading: function () {
@@ -91,15 +88,14 @@ define([
                 },
 
                 initStores: function () {
-                    window.timesliceStore = new Cache(new Observable(new JsonRest({target: 'api/v1/timeslices'})), new Memory({}));
-                    window.tagStore = new Cache(new Observable(new JsonRest({target: 'api/v1/tags'})), new Memory({}));
-                    window.settingStore = new Cache(new Observable(new JsonRest({target: 'api/v1/settings'})), new Memory({}));
-                    window.serviceStore = new Cache(new Observable(new JsonRest({target: 'api/v1/services'})), new Memory({}));
-                    window.projectStore = new Cache(new Observable(new JsonRest({target: 'api/v1/projects'})), new Memory({}));
-                    window.customerStore = new Cache(new Observable(new JsonRest({target: 'api/v1/customers'})), new Memory({}));
-                    window.activityStore = new Cache(new Observable(new JsonRest({target: 'api/v1/activities'})), new Memory({}));
-                    window.userStore = new Cache(new Observable(new JsonRest({target: 'api/v1/users'})), new Memory({}));
-                    window.testStore = new JsonRest({target: 'api/v1/users'});
+                    window.timesliceStore = new baseStore({entity: 'timeslices'});
+                    window.tagStore = new baseStore({entity: 'tags'});
+                    window.settingStore = new baseStore({entity: 'settings'});
+                    window.serviceStore = new baseStore({entity: 'services'});
+                    window.projectStore = new baseStore({entity: 'projects'});
+                    window.customerStore = new baseStore({entity: 'customers'});
+                    window.activityStore = new baseStore({entity: 'activities'});
+                    window.userStore = new baseStore({entity: 'users'});
                 },
 
                 init: function () {
