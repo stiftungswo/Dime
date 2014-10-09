@@ -93,6 +93,7 @@ node default {
 	      docroot_owner => 'vagrant',
 	      docroot_group => 'vagrant',
 	      serveraliases    => [ $ipaddress, ],
+	      override => ['All'],
 	}
 	
 	package {[ 'php','php-pear', 'php-mbstring', 'php-intl', 'php-xml', 'php-pecl-xdebug', 'php-pecl-apcu', 'php-process', 'php-gd', 'php-mcrypt', ]:}
