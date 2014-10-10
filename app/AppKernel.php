@@ -27,6 +27,7 @@ class AppKernel extends Kernel
             new FOS\RestBundle\FOSRestBundle(),
             new JMS\SerializerBundle\JMSSerializerBundle($this),
             new Nelmio\ApiDocBundle\NelmioApiDocBundle(),
+	        new \Knp\JsonSchemaBundle\KnpJsonSchemaBundle(),
             new Dime\TimetrackerBundle\DimeTimetrackerBundle(),
             new Dime\FrontendBundle\DimeFrontendBundle(),
             new Dime\OfferBundle\DimeOfferBundle(),

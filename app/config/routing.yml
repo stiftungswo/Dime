@@ -19,3 +19,7 @@ DimeTimetrackerBundle:
     
 DimeTimetrackerBundleSecurity:
     resource: "@DimeTimetrackerBundle/Resources/config/security_routing.yml"
+
+json_schema:
+    resource: "@KnpJsonSchemaBundle/Resources/config/routing.yml"
+    prefix: /api/v1
