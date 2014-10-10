@@ -9,10 +9,14 @@ define([
         "dijit/layout/ContentPane",
         "dijit/registry",
         "dgrid/editor",
-        "dime/store/baseStore",
+        "dojo/store/JsonRest",
+        "dojo/store/Memory",
+        "dojo/store/Observable",
+        "dojo/store/Cache",
+        "dime/store/dStore",
         "dime/module"
     ],
-    function(declare, parser, dom, domStyle, domGeometry, baseFx, ContentPane, registry, editor, baseStore) {
+    function(declare, parser, dom, domStyle, domGeometry, baseFx, ContentPane, registry, editor, JsonRest, Memory, Observable, Cache, dStore) {
         return declare('dime.app', [], {
 
                 endLoading: function () {
@@ -88,14 +92,18 @@ define([
                 },
 
                 initStores: function () {
-                    window.timesliceStore = new baseStore({entity: 'timeslices'});
-                    window.tagStore = new baseStore({entity: 'tags'});
-                    window.settingStore = new baseStore({entity: 'settings'});
-                    window.serviceStore = new baseStore({entity: 'services'});
-                    window.projectStore = new baseStore({entity: 'projects'});
-                    window.customerStore = new baseStore({entity: 'customers'});
-                    window.activityStore = new baseStore({entity: 'activities'});
-                    window.userStore = new baseStore({entity: 'users'});
+                    window.timesliceStore = this.createStore('/api/v1/timeslices');
+                    window.tagStore = this.createStore('/api/v1/tags');
+                    window.settingStore = this.createStore('/api/v1/settings');
+                    window.serviceStore = this.createStore('/api/v1/services');
+                    window.projectStore = this.createStore('/api/v1/projects');
+                    window.customerStore = this.createStore('/api/v1/customers');
+                    window.activityStore = this.createStore('/api/v1/activities');
+                    window.userStore = this.createStore('/api/v1/users');
+                },
+
+                createStore: function(target){
+                    return new Observable(new Cache(new JsonRest({target: target}), Memory({})));
                 },
 
                 init: function () {

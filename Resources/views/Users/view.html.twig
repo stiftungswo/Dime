@@ -4,8 +4,8 @@
 	dgrid.editor({label: 'Firstname', field: 'firstname', autoSave: true, editOn: 'dblclick', editor: 'dijit/form/TextBox'}),
 	dgrid.editor({label: 'Lastname', field: 'lastname', autoSave: true, editOn: 'dblclick', editor: 'dijit/form/TextBox'}),
 	dgrid.editor({label: 'e-mail', field: 'email', autoSave: true, editOn: 'dblclick', editor: 'dijit/form/TextBox'}),
-	dgrid.editor({label: 'Enabled', field: 'enabled', autoSave: true, editOn: 'dblclick', editor: 'dijit/form/CheckBox'}),
+	{label: 'Enabled', field: 'enabled', autoSave: true},
 	]"></div>
-	{# ToDo: Make a Javascript Form Fetcher for Jax Like Form Fetching. #}
+	{# ToDo: Make a Javascript Form Fetcher for Ajax like Form Fetching. #}
 	{{ render(path('api_1_new_user')) }}
 </div>
