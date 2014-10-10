@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 use Dime\TimetrackerBundle\Model\DimeEntityInterface;
+use Knp\JsonSchemaBundle\Annotations as Json;
 
 /**
  * Dime\TimetrackerBundle\Entity\Setting
@@ -17,6 +18,7 @@ use Dime\TimetrackerBundle\Model\DimeEntityInterface;
  *      uniqueConstraints={ @ORM\UniqueConstraint(name="unique_setting_name_namespace_user", columns={"`name`", "namespace", "user_id"}) }
  * )
  * @ORM\Entity(repositoryClass="Dime\TimetrackerBundle\Entity\SettingRepository")
+ * @Json\Schema("settings")
  */
 class Setting extends Entity implements DimeEntityInterface
 {

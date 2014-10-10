@@ -6,12 +6,14 @@ use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as JMS;
 use Doctrine\Common\Collections\ArrayCollection;
 use Dime\TimetrackerBundle\Model\DimeEntityInterface;
+use Knp\JsonSchemaBundle\Annotations as Json;
 
 /**
  * Dime\TimetrackerBundle\Entity\Activity
  *
  * @ORM\Table(name="activities")
  * @ORM\Entity(repositoryClass="Dime\TimetrackerBundle\Entity\ActivityRepository")
+ * @Json\Schema("activities")
  */
 class Activity extends Entity implements DimeEntityInterface
 {

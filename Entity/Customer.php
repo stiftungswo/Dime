@@ -8,6 +8,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation as JMS;
 use Doctrine\Common\Collections\ArrayCollection;
 use Dime\TimetrackerBundle\Model\DimeEntityInterface;
+use Knp\JsonSchemaBundle\Annotations as Json;
 
 /**
  * Dime\TimetrackerBundle\Entity\Customer
@@ -18,6 +19,7 @@ use Dime\TimetrackerBundle\Model\DimeEntityInterface;
  *   uniqueConstraints={ @ORM\UniqueConstraint(name="unique_customer_alias_user", columns={"alias", "user_id"}) }
  * )
  * @ORM\Entity(repositoryClass="Dime\TimetrackerBundle\Entity\CustomerRepository")
+ * @Json\Schema("customers")
  */
 class Customer extends Entity implements DimeEntityInterface
 {

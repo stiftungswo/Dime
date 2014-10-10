@@ -8,6 +8,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation as JMS;
 use FOS\UserBundle\Model\User as BaseUser;
 use Dime\TimetrackerBundle\Model\DimeEntityInterface;
+use Knp\JsonSchemaBundle\Annotations as Json;
 
 /**
  * Dime\TimetrackerBundle\Entity\Project
@@ -15,6 +16,7 @@ use Dime\TimetrackerBundle\Model\DimeEntityInterface;
  * @UniqueEntity(fields={"email"})
  * @ORM\Table(name="users")
  * @ORM\Entity(repositoryClass="Dime\TimetrackerBundle\Entity\UserRepository")
+ * @Json\Schema("users")
  */
 class User extends BaseUser implements DimeEntityInterface
 {

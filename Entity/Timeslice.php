@@ -9,6 +9,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation as JMS;
 use Dime\TimetrackerBundle\Model\DimeEntityInterface;
+use Knp\JsonSchemaBundle\Annotations as Json;
 
 /**
  * Dime\TimetrackerBundle\Entity\Timeslice
@@ -16,6 +17,7 @@ use Dime\TimetrackerBundle\Model\DimeEntityInterface;
  * @ORM\Table(name="timeslices")
  * @ORM\Entity(repositoryClass="Dime\TimetrackerBundle\Entity\TimesliceRepository")
  * @ORM\HasLifecycleCallbacks()
+ * @Json\Schema("timeslices")
  */
 class Timeslice extends Entity implements DimeEntityInterface
 {

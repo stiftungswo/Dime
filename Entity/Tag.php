@@ -5,6 +5,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 use Dime\TimetrackerBundle\Model\DimeEntityInterface;
+use Knp\JsonSchemaBundle\Annotations as Json;
 
 /**
  * Dime\TimetrackerBundle\Entity\Tag
@@ -15,6 +16,7 @@ use Dime\TimetrackerBundle\Model\DimeEntityInterface;
  *      uniqueConstraints={ @ORM\UniqueConstraint(name="unique_tag_name_user", columns={"name", "user_id"}) }
  * )
  * @ORM\Entity(repositoryClass="Dime\TimetrackerBundle\Entity\TagRepository")
+ * @Json\Schema("tags")
  */
 class Tag extends Entity implements DimeEntityInterface
 {
