@@ -12,11 +12,11 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 /**
- * Class FrontendUserController
+ * Class FrontendController
  * @package Dime\FrontendBundle\Controller
  * @Route("/frontend/ajax")
  */
-class FrontendUserController extends Controller {
+class FrontendController extends Controller {
 
 	/**
 	 * @return \Symfony\Component\HttpFoundation\Response
