@@ -2,10 +2,22 @@
      style="width: 300px;" id="leftAccordion">
 	<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props='selected:true, title:"Zeiterfassung"'>
 		<div id="timetrackMenu" class="dimeMenu" data-dojo-type="dijit.Menu">
-			<div id="time" data-dojo-type="dijit.MenuItem">
-				<span>Stundenzettel</span>
+			<div id="timemonth" data-dojo-type="dijit.MenuItem">
+				<span>Stundenzettel Monat</span>
 				<script type="dojo/on" data-dojo-event="click">
-					app.addTab("contentTabs", '{{ path('frontend_timetrack_personal') }}', "Stundenzettel", true);
+					app.addTab("contentTabs", '{{ path('frontend_timetrack_personal_month') }}', "Stundenzettel", true);
+				</script>
+			</div>
+			<div id="timeweek" data-dojo-type="dijit.MenuItem">
+				<span>Stundenzettel Woche</span>
+				<script type="dojo/on" data-dojo-event="click">
+					app.addTab("contentTabs", '{{ path('frontend_timetrack_personal_week') }}', "Stundenzettel", true);
+				</script>
+			</div>
+			<div id="timeday" data-dojo-type="dijit.MenuItem">
+				<span>Stundenzettel Tag</span>
+				<script type="dojo/on" data-dojo-event="click">
+					app.addTab("contentTabs", '{{ path('frontend_timetrack_personal_day') }}', "Stundenzettel", true);
 				</script>
 			</div>
 		</div>

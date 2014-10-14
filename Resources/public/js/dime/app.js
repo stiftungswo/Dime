@@ -13,10 +13,11 @@ define([
         "dojo/store/Memory",
         "dojo/store/Observable",
         "dojo/store/Cache",
-        "dime/store/dStore",
+        "dojo/query",
+        "dojo/NodeList-manipulate",
         "dime/module"
     ],
-    function(declare, parser, dom, domStyle, domGeometry, baseFx, ContentPane, registry, editor, JsonRest, Memory, Observable, Cache, dStore) {
+    function(declare, parser, dom, domStyle, domGeometry, baseFx, ContentPane, registry, editor, JsonRest, Memory, Observable, Cache, query) {
         return declare('dime.app', [], {
 
                 endLoading: function () {
@@ -104,6 +105,14 @@ define([
 
                 createStore: function(target){
                     return new Observable(new Cache(new JsonRest({target: target}), Memory({})));
+                },
+
+                require_css: function(href)
+                {
+                    if (typeof href == 'undefined' || href.length == 0) return false;
+
+                    query("head").append('<link rel="stylesheet" type="text/css" href="'+href+'">');
+                    console.log("loading : css : "+ href);
                 },
 
                 init: function () {

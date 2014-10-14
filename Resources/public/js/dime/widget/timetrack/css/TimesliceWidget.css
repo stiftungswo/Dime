@@ -1,0 +1,17 @@
+.timesliceWidget {
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    padding: 5px;
+    width: 135px;
+}
+
+.timesliceWidgetstartedAt {
+    margin-bottom: 5px;
+    margin-left: 5px;
+    width: 120px;
+}
+
+.timesliceWidgetDuration {
+    margin-left: 55px;
+    width: 70px;
+}

@@ -1,0 +1,51 @@
+.activityWidget {
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    float: left;
+    margin-left: 10%;
+    margin-top: 10px;
+    overflow: hidden;
+    padding: 10px;
+    position: relative;
+    width: 900px;
+}
+
+.activityWidgetCustomerProject {
+    float: left;
+    font-size: 24px;
+    width: 21em;
+}
+
+.activityWidgetService {
+    float: left;
+    margin-left: 10px;
+    width: 20em;
+}
+
+.activityWidgetDeleteBtn {
+    float: right;
+    width: 4em;
+}
+
+.acitivtyWidgetDescription {
+
+}
+
+.acitivtyWidgetDescriptionChargeable {
+    float: left;
+    margin-top: 10px;
+    width: 100%;
+}
+
+.activityWidgetChargeable {
+    margin-left: 40px;
+}
+
+.timesliceContainer {
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    float: left;
+    margin-top: 10px;
+    padding: 5px;
+    width: 99%;
+}

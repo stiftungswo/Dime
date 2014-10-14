@@ -29,10 +29,28 @@ class FrontendController extends Controller {
 
 	/**
 	 * @return \Symfony\Component\HttpFoundation\Response
-	 * @Route("/timetrack/personal", name="frontend_timetrack_personal")
+	 * @Route("/timetrack/personal/month", name="frontend_timetrack_personal_month")
 	 */
-	public function timetrackpersonal()
+	public function timetrackpersonalmonth()
 	{
-		return $this->render('DimeFrontendBundle:Time:personal.html.twig');
+		return $this->render('DimeFrontendBundle:Time:personal.html.twig', array('viewtype' => 'month'));
+	}
+
+	/**
+	 * @return \Symfony\Component\HttpFoundation\Response
+	 * @Route("/timetrack/personal/week", name="frontend_timetrack_personal_week")
+	 */
+	public function timetrackpersonalweek()
+	{
+		return $this->render('DimeFrontendBundle:Time:personal.html.twig', array('viewtype' => 'week'));
+	}
+
+	/**
+	 * @return \Symfony\Component\HttpFoundation\Response
+	 * @Route("/timetrack/personal/day", name="frontend_timetrack_personal_day")
+	 */
+	public function timetrackpersonalday()
+	{
+		return $this->render('DimeFrontendBundle:Time:personal.html.twig', array('viewtype' => 'day'));
 	}
 } 
