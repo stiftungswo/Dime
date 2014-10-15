@@ -15,6 +15,7 @@ define([
         "dojo/store/Cache",
         "dojo/query",
         "dojo/NodeList-manipulate",
+        "dojo/NodeList-traverse",
         "dime/module"
     ],
     function(declare, parser, dom, domStyle, domGeometry, baseFx, ContentPane, registry, editor, JsonRest, Memory, Observable, Cache, query) {
@@ -105,14 +106,6 @@ define([
 
                 createStore: function(target){
                     return new Observable(new Cache(new JsonRest({target: target}), Memory({})));
-                },
-
-                require_css: function(href)
-                {
-                    if (typeof href == 'undefined' || href.length == 0) return false;
-
-                    query("head").append('<link rel="stylesheet" type="text/css" href="'+href+'">');
-                    console.log("loading : css : "+ href);
                 },
 
                 init: function () {

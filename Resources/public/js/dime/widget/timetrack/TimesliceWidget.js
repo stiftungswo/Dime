@@ -5,12 +5,13 @@ define([
     'dojo/_base/declare',
     'dojo/text!dime/widget/timetrack/templates/TimesliceWidget.html',
     'dijit/form/DateTextBox',
-    "dijit/form/NumberSpinner"
+    "dijit/form/NumberSpinner",
+    "xstyle!dime/widget/timetrack/css/TimesliceWidget.css"
 ], function (WidgetsInTemplateMixin, TemplatedMixin, WidgetBase, declare, template) {
     return declare("dime.widget.timetrack.TimesliceWidget", [WidgetBase, TemplatedMixin, WidgetsInTemplateMixin], {
         templateString: template,
         baseClass: "timesliceWidget",
-        stylesheet: "bundles/dimefrontend/js/dime/widget/timetrack/css/TimesliceWidget.css",
+        timeslice: null,
         postMixInProperties: function () {
             this.inherited(arguments);
         },
@@ -21,7 +22,8 @@ define([
 
         postCreate: function () {
             this.inherited(arguments);
-            app.require_css(this.stylesheet);
+            this.startedAtNode.set('value', this.timeslice.startedAt);
+            this.durationNode.set('value', this.timeslice.duration);
         },
 
         startup: function () {
