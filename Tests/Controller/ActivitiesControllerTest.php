@@ -21,6 +21,7 @@ class ActivitiesControllerTest extends DimeTestCase
 
         // assert that data has content
         $this->assertTrue(count($data) > 0, 'expected to find activities');
+
         $this->assertEquals('cwe: initial requirements meeting with customer', $data[0]['description']);
     }
 
@@ -47,12 +48,11 @@ class ActivitiesControllerTest extends DimeTestCase
         // create new activity
         $response = $this->jsonRequest('POST', $this->api_prefix.'/activities', json_encode(array(
             'description'   => 'Test',
-            'rate'          => 65.13,
-            'rateReference' => 'customer',
             'service'       => 1,
             'customer'      => 1,
             'project'       => 1,
             'user'          => 1,
+        	'rate'			=> 65.13,
 	        'chargeableReference' => 'customer'
         )));
         $this->assertEquals(201, $response->getStatusCode());

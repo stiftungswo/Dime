@@ -10,22 +10,22 @@ class LoadTimeslices extends AbstractFixture implements OrderedFixtureInterface
 {
 
 	protected $data = array(
-		'requirements-initial'       => array(
+		'requirements_initial_activity'       => array(
 			'duration'  => 7200, // 60 * 120
 			'startedAt' => '2011-11-13 10:02:34',
 			'stoppedAt' => '2011-11-13 12:02:34',
 		),
-		'requirements-documentation' => array(
+		'requirements_documentation_activity' => array(
 			'duration'  => 5400, // 60 * 90
 			'startedAt' => '2011-11-13 13:19:01',
 			'stoppedAt' => '2011-11-13 14:49:01',
 		),
-		'environment-setup'          => array(
+		'environment_setup_activity'          => array(
 			'duration'  => 2520, // 60 * 42
 			'startedAt' => null,
 			'stoppedAt' => null,
 		),
-		'project-setup'              => array(
+		'project_setup_activity'              => array(
 			'duration'  => 4980, // 60 * 83
 			'startedAt' => '2011-11-14 08:24:09',
 			'stoppedAt' => '2011-11-14 09:47:09',

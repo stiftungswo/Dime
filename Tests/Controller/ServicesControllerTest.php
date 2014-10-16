@@ -34,10 +34,8 @@ class ServicesControllerTest extends DimeTestCase
         /* create new service */
         $response = $this->jsonRequest('POST', $this->api_prefix.'/services',
 		    json_encode(array(
-			    'name' => 'Test',
-			    'alias' => 'test',
-			    'rate' => '555',
-			    'rateUnit' => 'h',
+			    'name' => 'consulting',
+			    'alias' => 'cons'
 		    ))
         );
         $this->assertEquals(201, $response->getStatusCode(), $response->getContent());
@@ -54,16 +52,14 @@ class ServicesControllerTest extends DimeTestCase
         $data = json_decode($response->getContent(), true);
 
         // assert that data has content
-        $this->assertEquals('Test', $data['name'], 'expected to find "Test"');
-        $this->assertEquals(555, $data['rate'], 'expected to find rate "555"');
+        $this->assertEquals('consulting', $data['name'], 'expected to find "consulting"');
+        $this->assertEquals('cons', $data['alias'], 'expected to find alias "cons"');
 
         /* modify service */
         $response = $this->jsonRequest('PUT', $this->api_prefix.'/services/' . $id,
 		    json_encode(array(
 			    'name' => 'Modified Test',
 			    'alias' => 'test',
-			    'rate' => '111',
-			    'rateUnit' => 'h',
 			    'foo' => 'bar',
 		    ))
         );
@@ -73,8 +69,6 @@ class ServicesControllerTest extends DimeTestCase
 	    json_encode(array(
 		        'name' => 'Modified Test',
 		        'alias' => 'test',
-		        'rate' => '111',
-		        'rateUnit' => 'h',
 		        'foo' => 'bar',
 		    ))
         );
@@ -88,7 +82,7 @@ class ServicesControllerTest extends DimeTestCase
 
         // assert that data has content
         $this->assertEquals('Modified Test', $data['name'], 'expected to find "Modified Test"');
-        $this->assertEquals(111, $data['rate'], 'expected to find rate "111"');
+        $this->assertEquals('test', $data['alias'], 'expected to find rate "test"');
 
         /* delete service */
         $response = $this->jsonRequest('DELETE', $this->api_prefix.'/services/' . $id);

@@ -16,23 +16,23 @@ class LoadActivities extends AbstractFixture implements OrderedFixtureInterface
 	 * @var array
 	 */
 	protected $data = array(
-		'requirements-initial'       => array(
-			'service'     => 'requirements',
+		'requirements_initial_activity'       => array(
+			'service'     => 'requirements_service',
 			'description' => 'cwe: initial requirements meeting with customer',
 			'rate'        => 50.0,
 		),
-		'requirements-documentation' => array(
-			'service'     => 'requirements',
+		'requirements_documentation_activity' => array(
+			'service'     => 'requirements_service',
 			'description' => 'cwe: requirements documentation',
 			'rate'        => 50.0,
 		),
-		'environment-setup'          => array(
-			'service'     => 'infrastructure',
+		'environment_setup_activity'          => array(
+			'service'     => 'infrastructure_service',
 			'description' => 'cwe: vhost setup, PHP configuration, .vimrc, tags',
 			'rate'        => 50.0,
 		),
-		'project-setup'              => array(
-			'service'     => 'development',
+		'project_setup_activity'              => array(
+			'service'     => 'development_service',
 			'description' => 'cwe: initial project setup (Symfony2, bundles etc.)',
 			'rate'        => 50.0,
 		),
@@ -52,8 +52,7 @@ class LoadActivities extends AbstractFixture implements OrderedFixtureInterface
 			->setCustomer($manager->merge($this->getReference('default-customer')))
 			->setProject($manager->merge($this->getReference('default-project')))
 			->setChargeable(true)
-			->setChargeableReference(ActivityReference::$SERVICE)
-			->setRateReference(ActivityReference::$SERVICE);
+			->setChargeableReference(ActivityReference::$SERVICE);
 
 		foreach($this->data as $key => $data) {
 			$activity = clone $baseActivity;

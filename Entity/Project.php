@@ -106,12 +106,11 @@ class Project extends Entity implements DimeEntityInterface
      */
     protected $budgetTime;
 
-    /**
-     * @var float $rate
-     *
-     * @ORM\Column(type="decimal", scale=2, precision=10, nullable=true)
-     */
-    protected $rate;
+	/**
+	 * @ORM\ManyToOne(targetEntity="Dime\TimetrackerBundle\Entity\RateGroup")
+	 * @ORM\JoinColumn(name="rate_group_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
+	 */
+	protected $rateGroup;
 
     /**
      * @var ArrayCollection $tags
@@ -388,29 +387,6 @@ class Project extends Entity implements DimeEntityInterface
     }
 
     /**
-     * Set rate
-     *
-     * @param  float   $rate
-     * @return Project
-     */
-    public function setRate($rate)
-    {
-        $this->rate = $rate;
-
-        return $this;
-    }
-
-    /**
-     * Get rate
-     *
-     * @return float
-     */
-    public function getRate()
-    {
-        return $this->rate;
-    }
-
-    /**
      * get project as string
      *
      * @return string
@@ -465,6 +441,68 @@ class Project extends Entity implements DimeEntityInterface
     public function setTags(ArrayCollection $tags)
     {
         $this->tags = $tags;
+
+        return $this;
+    }
+
+    /**
+     * Set rateGroup
+     *
+     * @param string $rateGroup
+     *
+     * @return Project
+     */
+    public function setRateGroup($rateGroup)
+    {
+        $this->rateGroup = $rateGroup;
+
+        return $this;
+    }
+
+    /**
+     * Get rateGroup
+     *
+     * @return string
+     */
+    public function getRateGroup()
+    {
+        return $this->rateGroup;
+    }
+
+    /**
+     * Get chargeable
+     *
+     * @return boolean
+     */
+    public function getChargeable()
+    {
+        return $this->chargeable;
+    }
+
+    /**
+     * Set createdAt
+     *
+     * @param \DateTime $createdAt
+     *
+     * @return Project
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * Set updatedAt
+     *
+     * @param \DateTime $updatedAt
+     *
+     * @return Project
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }

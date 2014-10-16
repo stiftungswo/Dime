@@ -33,7 +33,7 @@ class Activity extends Entity implements DimeEntityInterface
      */
     protected $project;
 
-    /**
+    /**¬
      * @var Service $service
      *
      * @ORM\ManyToOne(targetEntity="Service")
@@ -73,15 +73,7 @@ class Activity extends Entity implements DimeEntityInterface
      * @ORM\Column(type="decimal", scale=2, precision=10, nullable=true)
      */
     protected $rate;
-
-    /**
-     * @var integer $rateReference (enum see Model\ActivityReference)
-     *
-     * @JMS\SerializedName("rateReference")
-     * @ORM\Column(name="rate_reference", type="smallint", nullable=true)
-     */
-    protected $rateReference;
-
+     
 	/**
 	 * @var boolean $chargeable
 	 *
@@ -174,43 +166,13 @@ class Activity extends Entity implements DimeEntityInterface
      */
     public function getRate()
     {
-	    switch ($this->rateReference){
-	    case ActivityReference::$ACTIVITY:
-		    return $this->rate;
-	        break;
-	    case ActivityReference::$CUSTOMER:
-		    return $this->getCustomer()->getRate();
-		    break;
-	    case ActivityReference::$PROJECT:
-		    return $this->getProject()->getRate();
-		    break;
-	    case ActivityReference::$SERVICE:
-		    return $this->getService()->getRate();
-		    break;
+	    if( !empty($this->rate) )
+	    	return $this->rate; 
+	    else { 
+	    	if($this->service instanceof Service){
+	    		return $this->getService()->getRate($this->rateGroup)->getValue(); 
+	    	}
 	    }
-    }
-
-    /**
-     * Set rateReference
-     *
-     * @param  string   $rateReference
-     * @return Activity
-     */
-    public function setRateReference($rateReference)
-    {
-        $this->rateReference = $rateReference;
-
-        return $this;
-    }
-
-    /**
-     * Get rateReference
-     *
-     * @return string
-     */
-    public function getRateReference()
-    {
-        return $this->rateReference;
     }
 
     /**
@@ -403,7 +365,22 @@ class Activity extends Entity implements DimeEntityInterface
 		{
 			$duration += $timeslice->getCurrentDuration();
 		}
-		switch($this->getService()->getRateUnit())
+		
+		
+		//TODO urfr refactor!
+		$rateUnit = 'h';
+		
+		
+		if( !empty($this->rate) )
+			$rateUnit = $this.getService()->getRate(RateGroup::$DEFAULT).getRateUnit();
+		else {
+			if($this->service instanceof Service){
+				$rateUnit =  $this->getService()->getRate($this->rateGroup)->getRateUnit();
+			}
+		}
+		
+		
+		switch($rateUnit)
 		{
 		case 's':
 			return $duration;

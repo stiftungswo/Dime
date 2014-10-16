@@ -25,7 +25,6 @@ class CustomerFormType extends AbstractType
             ->add('name')
             ->add('alias')
             ->add('tags')
-	        ->add('rate')
 	        ->add('chargeable', null, array('empty_data' => 'checked', 'required' => false))
             ->add('user')
         ;

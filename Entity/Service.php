@@ -48,18 +48,11 @@ class Service extends Entity implements DimeEntityInterface
     protected $description;
 
     /**
-     * @var float $rate
-     *
-     * @ORM\Column(type="decimal", scale=2, precision=10, nullable=true)
-     */
-    protected $rate;
-
-	/**
-	 * @var string $rateUnit
-	 *
-	 * @ORM\Column(type="text")
-	 */
-	protected $rateUnit;
+     * JMS\Type("array")
+     * @JMS\SerializedName("rates")
+     * @ORM\OneToMany(targetEntity="Dime\TimetrackerBundle\Entity\Rate", mappedBy="service")
+     **/
+     protected $rates;
 
     /**
      * @var ArrayCollection $tags
@@ -77,7 +70,23 @@ class Service extends Entity implements DimeEntityInterface
 	 * @ORM\Column(type="boolean")
 	 */
 	protected $chargeable;
-
+	
+	/**
+	 * @var integer $vat
+	 *
+	 * @ORM\Column(type="decimal", scale=2, precision=10, nullable=true)
+	 */
+	protected $vat;
+	
+	/**
+	 * Entity constructor
+	 */
+	public function __construct()
+	{
+		$this->tags = new ArrayCollection();
+		$this->rates = new ArrayCollection();
+	}
+	
 	/**
 	 * @return boolean
 	 */
@@ -98,13 +107,7 @@ class Service extends Entity implements DimeEntityInterface
 	}
 
 
-    /**
-     * Entity constructor
-     */
-    public function __construct()
-    {
-        $this->tags = new ArrayCollection();
-    }
+
 
     /**
      * Get id
@@ -186,49 +189,18 @@ class Service extends Entity implements DimeEntityInterface
     }
 
     /**
-     * Set rate
-     *
-     * @param  float   $rate
-     * @return Service
-     */
-    public function setRate($rate)
-    {
-        $this->rate = $rate;
-
-        return $this;
-    }
-
-    /**
      * Get rate
      *
      * @return float
      */
-    public function getRate()
+    public function getRate($rateGroup=null)
     {
-        return $this->rate;
+    	if($rateGroup == null){
+    		return $this->getRates()->get(RateGroup::$DEFAULT);
+    	}
+        else 
+        	return $this->getRates()->get($rateGroup->getId());
     }
-
-	/**
-	 * Set Rate Unit
-	 * @param $rateUnit
-	 *
-	 * @return $this
-	 */
-	public function setRateUnit($rateUnit)
-	{
-		$this->rateUnit = $rateUnit;
-		return $this;
-	}
-
-	/**
-	 * Get Rate Unit
-	 *
-	 * @return string
-	 */
-	public function getRateUnit()
-	{
-		return $this->rateUnit;
-	}
 
     /**
      * get service as string
@@ -288,5 +260,101 @@ class Service extends Entity implements DimeEntityInterface
     {
         $this->tags = $tags;
         return $this;
+    }
+
+    /**
+     * Get chargeable
+     *
+     * @return boolean
+     */
+    public function getChargeable()
+    {
+        return $this->chargeable;
+    }
+
+    /**
+     * Set vat
+     *
+     * @param string $vat
+     *
+     * @return Service
+     */
+    public function setVat($vat)
+    {
+        $this->vat = $vat;
+
+        return $this;
+    }
+
+    /**
+     * Get vat
+     *
+     * @return string
+     */
+    public function getVat()
+    {
+        return $this->vat;
+    }
+
+    /**
+     * Set createdAt
+     *
+     * @param \DateTime $createdAt
+     *
+     * @return Service
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * Set updatedAt
+     *
+     * @param \DateTime $updatedAt
+     *
+     * @return Service
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * Add rate
+     *
+     * @param \Dime\TimetrackerBundle\Entity\Rate $rate
+     *
+     * @return Service
+     */
+    public function addRate(\Dime\TimetrackerBundle\Entity\Rate $rate)
+    {
+        $this->rates[] = $rate;
+
+        return $this;
+    }
+
+    /**
+     * Remove rate
+     *
+     * @param \Dime\TimetrackerBundle\Entity\Rate $rate
+     */
+    public function removeRate(\Dime\TimetrackerBundle\Entity\Rate $rate)
+    {
+        $this->rates->removeElement($rate);
+    }
+
+    /**
+     * Get rates
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getRates()
+    {
+        return $this->rates;
     }
 }

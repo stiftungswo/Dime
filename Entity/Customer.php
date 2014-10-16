@@ -49,13 +49,12 @@ class Customer extends Entity implements DimeEntityInterface
      * @ORM\JoinTable(name="customer_tags")
      */
     protected $tags;
-
+	
 	/**
-	 * @var float $rate
-	 *
-	 * @ORM\Column(type="decimal", scale=2, precision=10, nullable=true)
+	 * @ORM\ManyToOne(targetEntity="Dime\TimetrackerBundle\Entity\RateGroup")
+	 * @ORM\JoinColumn(name="rate_group_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
 	 */
-	protected $rate;
+	protected $rateGroup;
 
 	/**
 	 * @var boolean $chargeable
@@ -80,27 +79,6 @@ class Customer extends Entity implements DimeEntityInterface
 	public function setChargeable($chargeable)
 	{
 		$this->chargeable = $chargeable;
-		return $this;
-	}
-
-
-
-	/**
-	 * @return float
-	 */
-	public function getRate()
-	{
-		return $this->rate;
-	}
-
-	/**
-	 * @param float $rate
-	 *
-	 * @return $this
-	 */
-	public function setRate($rate)
-	{
-		$this->rate = $rate;
 		return $this;
 	}
 
@@ -218,6 +196,68 @@ class Customer extends Entity implements DimeEntityInterface
     public function setTags(ArrayCollection $tags)
     {
         $this->tags = $tags;
+
+        return $this;
+    }
+
+    /**
+     * Set rateGroup
+     *
+     * @param string $rateGroup
+     *
+     * @return Customer
+     */
+    public function setRateGroup($rateGroup)
+    {
+        $this->rateGroup = $rateGroup;
+
+        return $this;
+    }
+
+    /**
+     * Get rateGroup
+     *
+     * @return string
+     */
+    public function getRateGroup()
+    {
+        return $this->rateGroup;
+    }
+
+    /**
+     * Get chargeable
+     *
+     * @return boolean
+     */
+    public function getChargeable()
+    {
+        return $this->chargeable;
+    }
+
+    /**
+     * Set createdAt
+     *
+     * @param \DateTime $createdAt
+     *
+     * @return Customer
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * Set updatedAt
+     *
+     * @param \DateTime $updatedAt
+     *
+     * @return Customer
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }

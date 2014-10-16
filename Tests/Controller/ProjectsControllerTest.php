@@ -49,7 +49,6 @@ class ProjectsControllerTest extends DimeTestCase
             'name'          => 'Test',
             'alias'         => 'test',
             'description'   => 'Project test description',
-            'rate'          => 555,
             'customer'      => 1,
             'user'          => 1
         )));
@@ -69,14 +68,13 @@ class ProjectsControllerTest extends DimeTestCase
 
         // assert that data has content
         $this->assertEquals('Test', $data['name'], 'expected to find "Test"');
-        $this->assertEquals(555, $data['rate'], 'expected to find rate "555"');
+        $this->assertEquals('test', $data['alias'], 'expected to find alias "test"');
 
         /* modify project */
         $response = $this->jsonRequest('PUT', $this->api_prefix.'/projects/' . $id, json_encode(array(
             'name'          => 'Modified Test',
-            'alias'         => 'test',
+            'alias'         => 'test2',
             'description'   => 'Project test description update',
-            'rate'          => 111,
             'customer'      => 1,
             'user'          => 1
         )));
@@ -86,7 +84,6 @@ class ProjectsControllerTest extends DimeTestCase
             'name'          => 'Modified Test',
             'alias'         => 'test',
             'description'   => 'Project test description update',
-            'rate'          => 111,
             'customer'      => 1,
             'user'          => 1
         )));
@@ -100,7 +97,7 @@ class ProjectsControllerTest extends DimeTestCase
 
         // assert that data has content
         $this->assertEquals('Modified Test', $data['name'], 'expected to find "Modified Test"');
-        $this->assertEquals(111, $data['rate'], 'expected to find rate "111"');
+        $this->assertEquals('test2', $data['alias'], 'expected to find alias "test2"');
 
         /* delete project */
         $response = $this->jsonRequest('DELETE', $this->api_prefix.'/projects/' . $id);
