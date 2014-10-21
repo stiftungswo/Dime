@@ -24,10 +24,18 @@ define([
             this.inherited(arguments);
             this.startedAtNode.set('value', this.timeslice.startedAt);
             this.durationNode.set('value', this.timeslice.duration);
+            this.delNode.set('parentWidget', this);
+            this.delNode.on('click', this._DelHandler);
         },
 
         startup: function () {
             this.inherited(arguments);
+        },
+
+        _DelHandler: function(){
+            var p = this.parentWidget;
+            window.timesliceStore.remove(p.timeslice.id);
+            p.destroy();
         }
     });
 });

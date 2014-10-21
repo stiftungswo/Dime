@@ -14,7 +14,9 @@ define([
     return declare("dime.widget.timetrack.ActivityWidget", [WidgetBase, TemplatedMixin, WidgetsInTemplateMixin], {
         templateString: template,
         baseClass: "activityWidget",
-        activty: null,
+        activityId: null,
+        timelsiceWidgets: [],
+        store: window.activityStore,
         postMixInProperties: function () {
             this.inherited(arguments);
         },
@@ -24,37 +26,105 @@ define([
             this._setupChildWidgets();
         },
 
-        _setupChildWidgets: function(){
-            this.customerNode.set('store', window.customerStore);
-            this.projectNode.set('store', window.projectStore);
-            this.serviceNode.set('store', window.serviceStore);
-        },
-
-        _fillInitialValues: function(){
-            this.customerNode.set('value', this.activity.customer.id);
-            this.projectNode.set('value', this.activity.project.id);
-            this.serviceNode.set('value', this.activity.service.id);
-            this.descriptionNode.set('value', this.activity.description);
-            this.chargeableNode.set('value', this.activity.chargeable);
-            var containerid = this.timesliceContainer;
-            dojo.forEach(this.activity.timeslices, function(timeslice) {
-                //Make a new Activity Widget for each Activity in the Store
-                var timeslicewidget = new TimesliceWidget({timeslice: timeslice});
-                timeslicewidget.placeAt(containerid);
-            });
-        },
 
         postCreate: function () {
             this.inherited(arguments);
-            this._fillInitialValues();
+            var activity = this.store.get(this.activityId);
+            this._fillInitialValues(activity);
+            this._setupwatchers();
         },
 
         startup: function () {
             this.inherited(arguments);
         },
 
-        putActivity: function(changes){
+        _setupChildWidgets: function(){
+            this.customerNode.set('parentWidget', this);
+            this.customerNode.set('store', window.customerStore);
+            this.projectNode.set('parentWidget', this);
+            this.projectNode.set('store', window.projectStore);
+            this.serviceNode.set('parentWidget', this);
+            this.serviceNode.set('store', window.serviceStore);
+            this.descriptionNode.set('parentWidget', this);
+            this.deleteNode.set('parentWidget', this);
+            //this.chargeableNode.set('parentWidget', this);
+            this.addtimesliceNode.set('parentWidget', this);
+        },
 
+        _fillInitialValues: function(activity){
+            this._updateValues(activity);
+            this._createTimeslices(activity);
+        },
+
+        _createTimeslices: function(activity){
+            var containerid = this.timesliceContainer, timesliceregistry = this.timelsiceWidgets;
+            dojo.forEach(activity.timeslices, function(timeslice) {
+                //Create new Timeslice Widget Children for each Timeslice
+                var timeslicewidget = new TimesliceWidget({timeslice: timeslice});
+                timeslicewidget.placeAt(containerid);
+                timesliceregistry.push(timeslicewidget.id);
+            });
+        },
+
+        _updateValues: function(activity){
+            this.customerNode.set('value', activity.customer.id);
+            this.projectNode.set('value', activity.project.id);
+            this.serviceNode.set('value', activity.service.id);
+            this.descriptionNode.set('value', activity.description);
+            //this.chargeableNode.set('value', activity.chargeable);
+        },
+
+        _setupwatchers: function(){
+            var _watchercallback = this._watchercallback, _destroycallback = this._destroycallback;
+            this.customerNode.watch('value', _watchercallback);
+            this.projectNode.watch('value', _watchercallback);
+            this.serviceNode.watch('value', _watchercallback);
+            this.descriptionNode.watch('value', _watchercallback);
+            //this.chargeableNode.watch('checked', _watchercallback);
+            this.deleteNode.on('click', _destroycallback);
+            this.addtimesliceNode.on('click', this._AddTimesliceHandler);
+        },
+
+        _destroycallback: function(){
+            var store = this.parentWidget.store, parentWidget = this.parentWidget;
+            store.remove(parentWidget.activityId);
+            parentWidget.destroy();
+        },
+
+        _AddTimesliceHandler: function(){
+            var p = this.parentWidget;
+            if (typeof p.newtimesliceDialog == 'undefined'){
+                p.timesliceDialog = new Dialog({
+                    title: "Zeiterfassen",
+                    href: '/api/v1/timeslices/new'
+                });
+            }
+            p.newactivityDialog.show();
+        },
+
+        _watchercallback: function(property, oldvalue, newvalue){
+            if(oldvalue == "") return;
+            var activityId = this.parentWidget.activityId;
+            var activityStore = this.parentWidget.store;
+            switch(this.dojoAttachPoint) {
+                case "customerNode":
+                    activityStore.put({id: activityId, customer: newvalue});
+                    break;
+                case "projectNode":
+                    activityStore.put({id: activityId, project: newvalue});
+                    break;
+                case "serviceNode":
+                    activityStore.put({id: activityId, service: newvalue});
+                    break;
+                case "descriptionNode":
+                    activityStore.put({id: activityId, description: newvalue});
+                    break;
+                case "chargeableNode":
+                    activityStore.put({id: activityId, chargeable: newvalue});
+                    break;
+                default:
+                    break;
+            }
         }
     });
 });

@@ -1,4 +1,4 @@
 {# Twig Template #}
 <div class="tabPane" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="title:'Stundenzettel', style:''">
-	<div data-dojo-type="dime/widget/timetrack/PersonalTimetrackerWidget{{ viewtype|capitalize }}" data-dojo-props="activityStore: window.activityStore"></div>
+	<div id="personalTimetrackWidget{{ viewtype|capitalize }}" data-dojo-type="dime/widget/timetrack/PersonalTimetrackerWidget{{ viewtype|capitalize }}" data-dojo-props="activityStore: window.activityStore"></div>
 </div>
