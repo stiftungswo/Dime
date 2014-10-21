@@ -14,6 +14,7 @@ define([
         onSubmit: function(){
             this.store.put(this.FormatVals(this.gatherFormValues()));
             this.reset();
+            this.getParent().hide();
             return false;
         },
         FormatVals: function(vals){

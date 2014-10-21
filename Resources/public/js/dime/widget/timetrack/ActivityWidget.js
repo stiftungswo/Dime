@@ -5,12 +5,14 @@ define([
     'dojo/_base/declare',
     'dojo/text!dime/widget/timetrack/templates/ActivityWidget.html',
     "dime/widget/timetrack/TimesliceWidget",
+    'dijit/Dialog',
+    'dijit/registry',
     "dijit/form/FilteringSelect",
     "dijit/form/Button",
     "dijit/form/CheckBox",
     "dijit/form/Textarea",
     "xstyle!dime/widget/timetrack/css/ActivityWidget.css"
-], function (WidgetsInTemplateMixin, TemplatedMixin, WidgetBase, declare, template, TimesliceWidget) {
+], function (WidgetsInTemplateMixin, TemplatedMixin, WidgetBase, declare, template, TimesliceWidget, Dialog, registry) {
     return declare("dime.widget.timetrack.ActivityWidget", [WidgetBase, TemplatedMixin, WidgetsInTemplateMixin], {
         templateString: template,
         baseClass: "activityWidget",
@@ -62,7 +64,7 @@ define([
                 //Create new Timeslice Widget Children for each Timeslice
                 var timeslicewidget = new TimesliceWidget({timeslice: timeslice});
                 timeslicewidget.placeAt(containerid);
-                timesliceregistry.push(timeslicewidget.id);
+                timesliceregistry.push(timeslicewidget);
             });
         },
 
@@ -92,14 +94,38 @@ define([
         },
 
         _AddTimesliceHandler: function(){
-            var p = this.parentWidget;
-            if (typeof p.newtimesliceDialog == 'undefined'){
-                p.timesliceDialog = new Dialog({
+            var timesliceDialog = registry.byId('newTimesliceForm');
+            if (typeof timesliceDialog  == 'undefined'){
+                timesliceDialog = new Dialog({
                     title: "Zeiterfassen",
                     href: '/api/v1/timeslices/new'
                 });
             }
-            p.newactivityDialog.show();
+            timesliceDialog.set('parentWidget', this.parentWidget);
+            timesliceDialog.on('hide', this.parentWidget._updateTimeslices);
+            timesliceDialog.show();
+        },
+
+        _updateTimeslices: function(){
+            var p = this.parentWidget, timesliceregistry = p.timelsiceWidgets, activityId = p.activityId, container = p.timesliceContainer;
+            window.timesliceStore.query({activity: activityId}).forEach(function(item){
+                var widget = p._findTimesliceWidget(item.id);
+                if(widget == null){
+                    widget = new TimesliceWidget({timeslice: item});
+                    widget.placeAt(container);
+                    timesliceregistry.push(widget);
+                }
+                else{
+                    widget._updateValues(item);
+                }
+            });
+        },
+
+        _findTimesliceWidget: function(timesliceId){
+            this.timelsiceWidgets.forEach(function(widget){
+                if(widget.timeslice.id == timesliceId) return widget;
+            });
+            return null;
         },
 
         _watchercallback: function(property, oldvalue, newvalue){
