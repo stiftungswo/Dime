@@ -20,7 +20,7 @@ services:
         arguments: [ "@doctrine.orm.entity_manager", "Dime\TimetrackerBundle\Entity\Service", "@form.factory", "@security.context"]
         
     dime.project.handler:
-        class: "Dime\TimetrackerBundle\Handler\\ProjectHandler"
+        class: "Dime\TimetrackerBundle\Handler\ProjectHandler"
         arguments: [ "@doctrine.orm.entity_manager", "Dime\TimetrackerBundle\Entity\\Project", "@form.factory", "@security.context"]
         
     dime.customer.handler:
@@ -30,3 +30,13 @@ services:
     dime.activity.handler:
         class: "Dime\TimetrackerBundle\Handler\ActivityHandler"
         arguments: [ "@doctrine.orm.entity_manager", "Dime\TimetrackerBundle\Entity\Activity", "@form.factory", "@security.context"]
+        
+    dime.rategroup.handler:
+        class: "Dime\TimetrackerBundle\Handler\RateGroupHandler"
+        arguments: [ "@doctrine.orm.entity_manager", "Dime\TimetrackerBundle\Entity\RateGroup", "@form.factory", "@security.context"]
+        
+    dime.rate.handler:
+        class: "Dime\TimetrackerBundle\Handler\RateHandler"
+        arguments: [ "@doctrine.orm.entity_manager", "Dime\TimetrackerBundle\Entity\Rate", "@form.factory", "@security.context"]
+        
+        

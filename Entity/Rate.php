@@ -11,7 +11,7 @@ use Knp\JsonSchemaBundle\Annotations as Json;
  * Dime\TimetrackerBundle\Entity\Rate
  *
  * @ORM\Table(name="rates")
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="Dime\TimetrackerBundle\Entity\RateRepository")
  */
 class Rate extends Entity implements DimeEntityInterface
 {

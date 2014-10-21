@@ -30,3 +30,11 @@ services:
     dime.activity.form.type:
         class: Dime\TimetrackerBundle\Form\Type\ActivityFormType
         tags: [{ name: "form.type", alias: "dime_timetrackerbundle_activityformtype" }]
+        
+    dime.rategroup.form.type:
+        class: Dime\TimetrackerBundle\Form\Type\RateGroupFormType
+        tags: [{ name: "form.type", alias: "dime_timetrackerbundle_rategroupformtype" }]
+
+    dime.rate.form.type:
+        class: Dime\TimetrackerBundle\Form\Type\RateFormType
+        tags: [{ name: "form.type", alias: "dime_timetrackerbundle_rateformtype" }]        

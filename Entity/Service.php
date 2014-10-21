@@ -13,7 +13,6 @@ use Knp\JsonSchemaBundle\Annotations as Json;
 /**
  * Dime\TimetrackerBundle\Entity\Service
  *
- * @UniqueEntity(fields={"alias", "user"})
  * @ORM\Table(
  *   name="services",
  *   uniqueConstraints={ @ORM\UniqueConstraint(name="unique_service_alias_user", columns={"alias", "user_id"}) }
