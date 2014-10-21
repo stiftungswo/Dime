@@ -5,7 +5,7 @@ php:
   - 5.4
 
 before_script:
-    - cp app/config/parameters.yml.travis app/config/parameters.yml
+    - cp app/config/parameters.yml.travis app/config/parameters.yml.dist
     - composer install -n
     - php app/console doctrine:database:create
     - php app/console doctrine:schema:create
