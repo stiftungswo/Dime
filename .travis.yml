@@ -4,7 +4,9 @@ language: php
 php:
   - 5.4
 
+
 before_script:
+    - mysql -e 'create database dime;'
     - cp app/config/parameters.yml.travis app/config/parameters.yml.dist
     - composer install -n
     - php app/console doctrine:database:create
