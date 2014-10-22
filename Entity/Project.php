@@ -14,7 +14,8 @@ use Knp\JsonSchemaBundle\Annotations as Json;
 /**
  * Dime\TimetrackerBundle\Entity\Project
  *
- * @UniqueEntity(fields={"alias", "user"})
+ * TODO urfr check if uniq annotation is correct
+ * UniqueEntity(fields={"alias", "user"})
  * @ORM\Table(
  *   name="projects",
  *   uniqueConstraints={ @ORM\UniqueConstraint(name="unique_project_alias_user", columns={"alias", "user_id"}) }

@@ -16,9 +16,10 @@ use Knp\JsonSchemaBundle\Annotations as Json;
  */
 class RateGroup extends Entity implements DimeEntityInterface
 {
-	
-	public static $DEFAULT = 1;
-	
+
+    //TODO urfr move to other class
+    public static $DEFAULT;
+
 	/**
 	 * @var string $description
 	 *

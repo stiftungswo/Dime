@@ -190,15 +190,27 @@ class Service extends Entity implements DimeEntityInterface
     /**
      * Get rate
      *
-     * @return float
+     * @return Rate
      */
     public function getRate($rateGroup=null)
     {
     	if($rateGroup == null){
-    		return $this->getRates()->get(RateGroup::$DEFAULT);
+    		return $this->getRateByRateGroupId(1); //TODO urfr static reference for default rate-Group
     	}
         else 
-        	return $this->getRates()->get($rateGroup->getId());
+        	return $this->getRateByRateGroupId($rateGroup->getId());
+    }
+
+    /**
+     * @return Rate
+     */
+    private function getRateByRateGroupId($id)
+    {
+        foreach($this->getRates()->toArray() as $key => $rate){
+            if($rate->getRateGroup()->getId() == $id)
+                return $rate;
+        }
+
     }
 
     /**

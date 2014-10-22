@@ -39,7 +39,7 @@ class RateControllerTest extends DimeTestCase
 			    'value' => 100,
 		    	'service' => 1,
 		   		'rateUnit' => 'h',
-			    'rateGroup' => RateGroup::$DEFAULT
+			    'rateGroup' => 1
 		    ))
         );
         $this->assertEquals(201, $response->getStatusCode(), $response->getContent());

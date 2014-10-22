@@ -7,12 +7,16 @@ use JMS\Serializer\Annotation as JMS;
 use Doctrine\Common\Collections\ArrayCollection;
 use Dime\TimetrackerBundle\Model\DimeEntityInterface;
 use Knp\JsonSchemaBundle\Annotations as Json;
+use JMS\Serializer\Annotation\AccessType;
+
 
 /**
  * Dime\TimetrackerBundle\Entity\Activity
  *
+ *
  * @ORM\Table(name="activities")
  * @ORM\Entity(repositoryClass="Dime\TimetrackerBundle\Entity\ActivityRepository")
+ * @ORM\HasLifecycleCallbacks()
  * @Json\Schema("activities")
  */
 class Activity extends Entity implements DimeEntityInterface
@@ -33,7 +37,7 @@ class Activity extends Entity implements DimeEntityInterface
      */
     protected $project;
 
-    /**¬
+    /**
      * @var Service $service
      *
      * @ORM\ManyToOne(targetEntity="Service")
@@ -42,7 +46,7 @@ class Activity extends Entity implements DimeEntityInterface
     protected $service;
 
     /**
-     * @var ArrayCollection $timeslices
+     * @var ArrayCollection $timeslicesø
      *
      * @JMS\Type("array")
      * @JMS\SerializedName("timeslices")
@@ -69,10 +73,10 @@ class Activity extends Entity implements DimeEntityInterface
 
     /**
      * @var float $rate
-     *
+     * @AccessType("public_method")
      * @ORM\Column(type="decimal", scale=2, precision=10, nullable=true)
      */
-    protected $rate;
+    private $rate;
      
 	/**
 	 * @var boolean $chargeable
@@ -162,16 +166,21 @@ class Activity extends Entity implements DimeEntityInterface
     /**
      * Get rate
      *
+     *
+     *
      * @return float
      */
     public function getRate()
     {
 	    if( !empty($this->rate) )
 	    	return $this->rate; 
-	    else { 
+	    else {
 	    	if($this->service instanceof Service){
-	    		return $this->getService()->getRate($this->rateGroup)->getValue(); 
-	    	}
+                $rate =  $this->getService()->getRate($this->getProject()->getRateGroup());
+	    		return $rate->getValue();
+	    	} else {
+                return 0;
+            }
 	    }
     }
 
@@ -372,7 +381,7 @@ class Activity extends Entity implements DimeEntityInterface
 		
 		
 		if( !empty($this->rate) )
-			$rateUnit = $this.getService()->getRate(RateGroup::$DEFAULT).getRateUnit();
+			$rateUnit = $this.getService()->getRate(1).getRateUnit(); //TODO urfr static rate group 1
 		else {
 			if($this->service instanceof Service){
 				$rateUnit =  $this->getService()->getRate($this->rateGroup)->getRateUnit();

@@ -35,6 +35,7 @@ class ProjectFormType extends AbstractType
 	        ->add('chargeable', null, array('empty_data' => 'checked', 'required' => false))
             ->add('tags')
             ->add('user')
+            ->add('rateGroup')
         ;
     }
 

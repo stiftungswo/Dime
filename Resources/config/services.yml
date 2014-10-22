@@ -20,7 +20,7 @@ services:
         arguments: [ "@doctrine.orm.entity_manager", "Dime\TimetrackerBundle\Entity\Service", "@form.factory", "@security.context"]
         
     dime.project.handler:
-        class: "Dime\TimetrackerBundle\Handler\ProjectHandler"
+        class: "Dime\TimetrackerBundle\Handler\\ProjectHandler"
         arguments: [ "@doctrine.orm.entity_manager", "Dime\TimetrackerBundle\Entity\\Project", "@form.factory", "@security.context"]
         
     dime.customer.handler:

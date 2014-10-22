@@ -17,7 +17,7 @@ class LoadRateGroups extends AbstractFixture implements OrderedFixtureInterface
 	{
 		//default must exist
 		$default = new RateGroup();
-		//$default->setId(RateGroup::$DEFAULT); //TODO urfr find solution for initial value
+		//TODO urfr find solution for initial value
 		$default->setName('Default');
 		$default->setDescription('Each service has a rate of the default rate group i.e. this one.');
 		$default->setUser($manager->merge($this->getReference('default-user')));
