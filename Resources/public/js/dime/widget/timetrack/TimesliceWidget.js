@@ -11,56 +11,27 @@ define([
     return declare("dime.widget.timetrack.TimesliceWidget", [WidgetBase, TemplatedMixin, WidgetsInTemplateMixin], {
         templateString: template,
         baseClass: "timesliceWidget",
-        timeslice: null,
         store: window.timesliceStore,
-        postMixInProperties: function () {
-            this.inherited(arguments);
-        },
 
-        buildRendering: function () {
-            this.inherited(arguments);
-        },
-
-        postCreate: function () {
-            this.inherited(arguments);
-            this._updateValues(this.timeslice);
-            this._setParentsonChildren();
+        _setupChildren: function(){
+            this.durationNode.set('parentWidget', this);
+            this.durationNode.watch('value', this._watchercallback);
+            this.startedAtNode.set('parentWidget', this);
+            this.startedAtNode.watch('value', this._watchercallback);
             this.delNode.set('parentWidget', this);
             this.delNode.on('click', this._DelHandler);
-            this._setupwatchers();
         },
 
-        startup: function () {
-            this.inherited(arguments);
-        },
-
-        _updateValues: function(timeslice){
+        _updateValues: function(entity){
             //ToDo: Proper Formating in the Backend.
-            var datestr = timeslice.startedAt.split(" ")[0];
+            var datestr = entity.startedAt.split(" ")[0];
             this.startedAtNode.set('value', datestr);
-            this.durationNode.set('value', timeslice.duration);
-        },
-
-        _setParentsonChildren: function(){
-            this.durationNode.set('parentWidget', this);
-            this.startedAtNode.set('parentWidget', this);
-        },
-
-        _DelHandler: function(){
-            var p = this.parentWidget;
-            window.timesliceStore.remove(p.timeslice.id);
-            p.destroy();
-        },
-
-        _setupwatchers: function(){
-            var _watchercallback = this._watchercallback;
-            this.durationNode.watch('value', _watchercallback);
-            this.startedAtNode.watch('value', _watchercallback);
+            this.durationNode.set('value', entity.duration);
         },
 
         _watchercallback: function(property, oldvalue, newvalue){
             if(oldvalue == "") return;
-            var timesliceId = this.parentWidget.timeslice.id;
+            var timesliceId = this.parentWidget.entity.id;
             var timesliceStore = this.parentWidget.store;
             switch(this.dojoAttachPoint) {
                 case "startedAtNode":

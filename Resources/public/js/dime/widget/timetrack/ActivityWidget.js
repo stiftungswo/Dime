@@ -1,46 +1,24 @@
 define([
     'dijit/_WidgetsInTemplateMixin',
     'dijit/_TemplatedMixin',
-    'dijit/_WidgetBase',
+    'dime/widget/timetrack/_TimetrackerWidgetBase',
     'dojo/_base/declare',
     'dojo/text!dime/widget/timetrack/templates/ActivityWidget.html',
     "dime/widget/timetrack/TimesliceWidget",
-    'dijit/Dialog',
     'dijit/registry',
     "dijit/form/FilteringSelect",
     "dijit/form/Button",
     "dijit/form/CheckBox",
     "dijit/form/Textarea",
     "xstyle!dime/widget/timetrack/css/ActivityWidget.css"
-], function (WidgetsInTemplateMixin, TemplatedMixin, WidgetBase, declare, template, TimesliceWidget, Dialog, registry) {
-    return declare("dime.widget.timetrack.ActivityWidget", [WidgetBase, TemplatedMixin, WidgetsInTemplateMixin], {
+], function (WidgetsInTemplateMixin, TemplatedMixin, _TimetrackerWidgetBase, declare, template, TimesliceWidget, registry) {
+    return declare("dime.widget.timetrack.ActivityWidget", [_TimetrackerWidgetBase, TemplatedMixin, WidgetsInTemplateMixin], {
         templateString: template,
         baseClass: "activityWidget",
-        activityId: null,
-        timelsiceWidgets: [],
         store: window.activityStore,
-        postMixInProperties: function () {
-            this.inherited(arguments);
-        },
+        newtimesliceDialog: null,
 
-        buildRendering: function () {
-            this.inherited(arguments);
-            this._setupChildWidgets();
-        },
-
-
-        postCreate: function () {
-            this.inherited(arguments);
-            var activity = this.store.get(this.activityId);
-            this._fillInitialValues(activity);
-            this._setupwatchers();
-        },
-
-        startup: function () {
-            this.inherited(arguments);
-        },
-
-        _setupChildWidgets: function(){
+        _setupChildren: function(){
             this.customerNode.set('parentWidget', this);
             this.customerNode.set('store', window.customerStore);
             this.projectNode.set('parentWidget', this);
@@ -51,86 +29,42 @@ define([
             this.deleteNode.set('parentWidget', this);
             //this.chargeableNode.set('parentWidget', this);
             this.addtimesliceNode.set('parentWidget', this);
-        },
-
-        _fillInitialValues: function(activity){
-            this._updateValues(activity);
-            this._createTimeslices(activity);
-        },
-
-        _createTimeslices: function(activity){
-            var containerid = this.timesliceContainer, timesliceregistry = this.timelsiceWidgets;
-            dojo.forEach(activity.timeslices, function(timeslice) {
-                //Create new Timeslice Widget Children for each Timeslice
-                var timeslicewidget = new TimesliceWidget({timeslice: timeslice});
-                timeslicewidget.placeAt(containerid);
-                timesliceregistry.push(timeslicewidget);
+            this.customerNode.watch('value', this._watchercallback);
+            this.projectNode.watch('value', this._watchercallback);
+            this.serviceNode.watch('value', this._watchercallback);
+            this.descriptionNode.watch('value', this._watchercallback);
+            //this.chargeableNode.watch('checked', this._watchercallback);
+            this.deleteNode.on('click', this._destroyParentHandler);
+            this.newtimesliceDialog = this._requiredialogonce('newTimesliceForm', this, 'Zeiterfassen', '/api/v1/timeslices/new');
+            this.addtimesliceNode.on('click', function(){
+                var p = this.parentWidget;
+                p.newtimesliceDialog.show();
             });
         },
 
-        _updateValues: function(activity){
-            this.customerNode.set('value', activity.customer.id);
-            this.projectNode.set('value', activity.project.id);
-            this.serviceNode.set('value', activity.service.id);
-            this.descriptionNode.set('value', activity.description);
+        _fillValues: function(){
+            this.inherited(arguments);
+            var results = window.timesliceStore.query({filter: {activity: this.entity.id}});
+            results.forEach(function(entity){
+                this._addChildWidget(entity, TimesliceWidget, this.timesliceContainer)
+            });
+            this.observeHandle = results.observe(function(object, removedFrom, insertedInto){
+                var parentWidget = registry.byId("personalTimetrackWidgetMonth");
+                parentWidget._updateHandler(object, removedFrom, insertedInto, TimesliceWidget, this.timesliceContainer)
+            });
+        },
+
+        _updateValues: function(entity){
+            this.customerNode.set('value', entity.customer.id);
+            this.projectNode.set('value', entity.project.id);
+            this.serviceNode.set('value', entity.service.id);
+            this.descriptionNode.set('value', entity.description);
             //this.chargeableNode.set('value', activity.chargeable);
-        },
-
-        _setupwatchers: function(){
-            var _watchercallback = this._watchercallback, _destroycallback = this._destroycallback;
-            this.customerNode.watch('value', _watchercallback);
-            this.projectNode.watch('value', _watchercallback);
-            this.serviceNode.watch('value', _watchercallback);
-            this.descriptionNode.watch('value', _watchercallback);
-            //this.chargeableNode.watch('checked', _watchercallback);
-            this.deleteNode.on('click', _destroycallback);
-            this.addtimesliceNode.on('click', this._AddTimesliceHandler);
-        },
-
-        _destroycallback: function(){
-            var store = this.parentWidget.store, parentWidget = this.parentWidget;
-            store.remove(parentWidget.activityId);
-            parentWidget.destroy();
-        },
-
-        _AddTimesliceHandler: function(){
-            var timesliceDialog = registry.byId('newTimesliceForm');
-            if (typeof timesliceDialog  == 'undefined'){
-                timesliceDialog = new Dialog({
-                    title: "Zeiterfassen",
-                    href: '/api/v1/timeslices/new'
-                });
-            }
-            timesliceDialog.set('parentWidget', this.parentWidget);
-            timesliceDialog.on('hide', this.parentWidget._updateTimeslices);
-            timesliceDialog.show();
-        },
-
-        _updateTimeslices: function(){
-            var p = this.parentWidget, timesliceregistry = p.timelsiceWidgets, activityId = p.activityId, container = p.timesliceContainer;
-            window.timesliceStore.query({activity: activityId}).forEach(function(item){
-                var widget = p._findTimesliceWidget(item.id);
-                if(widget == null){
-                    widget = new TimesliceWidget({timeslice: item});
-                    widget.placeAt(container);
-                    timesliceregistry.push(widget);
-                }
-                else{
-                    widget._updateValues(item);
-                }
-            });
-        },
-
-        _findTimesliceWidget: function(timesliceId){
-            this.timelsiceWidgets.forEach(function(widget){
-                if(widget.timeslice.id == timesliceId) return widget;
-            });
-            return null;
         },
 
         _watchercallback: function(property, oldvalue, newvalue){
             if(oldvalue == "") return;
-            var activityId = this.parentWidget.activityId;
+            var activityId = this.parentWidget.entity.id;
             var activityStore = this.parentWidget.store;
             switch(this.dojoAttachPoint) {
                 case "customerNode":
