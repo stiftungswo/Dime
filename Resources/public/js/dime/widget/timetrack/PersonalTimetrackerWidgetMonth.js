@@ -3,15 +3,14 @@ define([
     'dijit/_TemplatedMixin',
     'dime/widget/timetrack/_TimetrackerWidgetBase',
     'dojo/_base/declare',
-    'dime/widget/timetrack/_TimetrackerWidgetBase',
     'dojo/text!dime/widget/timetrack/templates/PersonalTimetrackerWidgetMonth.html',
     'dime/widget/timetrack/ActivityWidget',
     'dijit/form/DateTextBox',
     'dijit/registry',
     'dijit/Dialog',
     "xstyle!dime/widget/timetrack/css/PersonalTimetrackerWidgetMonth.css"
-], function (WidgetsInTemplateMixin, TemplatedMixin, _TimetrackerWidgetBase, declare, TimetrackerWidgetBase, template, ActivityWidget, DateTextBox, registry, Dialog) {
-    return declare("dime.widget.timetrack.PersonalTimetrackerWidgetMonth", [_TimetrackerWidgetBase, TemplatedMixin, WidgetsInTemplateMixin, TimetrackerWidgetBase], {
+], function (WidgetsInTemplateMixin, TemplatedMixin, _TimetrackerWidgetBase, declare, template, ActivityWidget, DateTextBox, registry, Dialog) {
+    return declare("dime.widget.timetrack.PersonalTimetrackerWidgetMonth", [_TimetrackerWidgetBase, TemplatedMixin, WidgetsInTemplateMixin], {
         templateString: template,
         selectedMonth: "",
         monthNames: [ "Januar", "Februar", "März", "April", "Mai", "Juni",
@@ -51,7 +50,7 @@ define([
         },
 
         destroy: function(){
-            this.observeHandle.cancel()
+            this.observeHandle.cancel();
             this.inherited(arguments);
         }
     });

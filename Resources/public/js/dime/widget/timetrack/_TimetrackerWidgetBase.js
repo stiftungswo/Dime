@@ -1,26 +1,15 @@
 define([
     'dojo/_base/declare',
     'dijit/_WidgetBase',
+    'dijit/registry',
     'dijit/Dialog'
-], function (declare, WidgetBase, Dialog) {
+], function (declare, WidgetBase, registry, Dialog) {
     return declare('dime.widget.timetrack._TimetrackerWidgetBase', [WidgetBase], {
         //Inherited Default Functions
-        postMixInProperties: function () {
-            this.inherited(arguments);
-        },
-
-        buildRendering: function () {
-            this.inherited(arguments);
-            this._setupChildren();
-        },
-
         postCreate: function () {
             this.inherited(arguments);
+            this._setupChildren();
             this._fillValues();
-        },
-
-        startup: function () {
-            this.inherited(arguments);
         },
 
         //The Entity the Widget Displays as Javascript Object
@@ -105,8 +94,8 @@ define([
                     title: title,
                     href: href
                 });
+                formDialog.set('parentWidget', parent);
             }
-            formDialog.set('parentWidget', parent);
             return formDialog;
         }
     })
