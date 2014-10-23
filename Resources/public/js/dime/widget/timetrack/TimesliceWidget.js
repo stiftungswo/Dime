@@ -1,25 +1,28 @@
 define([
     'dijit/_WidgetsInTemplateMixin',
     'dijit/_TemplatedMixin',
-    'dijit/_WidgetBase',
+    'dime/widget/timetrack/_TimetrackerWidgetBase',
     'dojo/_base/declare',
     'dojo/text!dime/widget/timetrack/templates/TimesliceWidget.html',
     'dijit/form/DateTextBox',
     "dijit/form/NumberSpinner",
     "xstyle!dime/widget/timetrack/css/TimesliceWidget.css"
-], function (WidgetsInTemplateMixin, TemplatedMixin, WidgetBase, declare, template) {
-    return declare("dime.widget.timetrack.TimesliceWidget", [WidgetBase, TemplatedMixin, WidgetsInTemplateMixin], {
+], function (WidgetsInTemplateMixin, TemplatedMixin, _TimetrackerWidgetBase, declare, template) {
+    return declare("dime.widget.timetrack.TimesliceWidget", [_TimetrackerWidgetBase, TemplatedMixin, WidgetsInTemplateMixin], {
         templateString: template,
         baseClass: "timesliceWidget",
         store: window.timesliceStore,
 
         _setupChildren: function(){
             this.durationNode.set('parentWidget', this);
-            this.durationNode.watch('value', this._watchercallback);
             this.startedAtNode.set('parentWidget', this);
-            this.startedAtNode.watch('value', this._watchercallback);
             this.delNode.set('parentWidget', this);
-            this.delNode.on('click', this._DelHandler);
+        },
+
+        _addcallbacks: function(){
+            this.durationNode.watch('value', this._watchercallback);
+            this.startedAtNode.watch('value', this._watchercallback);
+            this.delNode.on('click', this._destroyParentHandler);
         },
 
         _updateValues: function(entity){

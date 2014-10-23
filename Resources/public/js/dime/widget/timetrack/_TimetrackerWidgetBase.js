@@ -10,6 +10,7 @@ define([
             this.inherited(arguments);
             this._setupChildren();
             this._fillValues();
+            this._addcallbacks();
         },
 
         //The Entity the Widget Displays as Javascript Object
@@ -33,19 +34,19 @@ define([
         },
 
         //Function for the Children Handling
-        _updateChildren: function(results){
+        _updateChildren: function(results, parent){
             results.forEach(function(entity){
-                this._findChildWidget(entity.id)._updateValues(entity);
+                parent._findChildWidget(entity.id)._updateValues(entity);
             });
         },
         _updateOneChildWidget: function(widget, entity){
             widget._updateValues(entity);
         },
-        _updateHandler: function(object, removedFrom, insertedInto, type, container){
-            var widget = this._findChildWidget(object.id);
+        _updateHandler: function(object, removedFrom, insertedInto, type, container, parent){
+            var widget = this._findChildWidget(object.id, parent);
             if (widget == null) {
                 if (insertedInto > -1) { // new object inserted
-                    this._addChildWidget(object, type, container);
+                    this._addChildWidget(object, type, container, parent);
                 }
             }
             else{ //updated or deleted Object
@@ -57,16 +58,16 @@ define([
                 }
             }
         },
-        _addChildWidget: function(entity, type, container){
-            var childwidget = new type({entity: entity, parentWidget: this});
+        _addChildWidget: function(entity, type, container, parent){
+            var childwidget = new type({entity: entity, parentWidget: parent});
             childwidget.placeAt(container);
-            this.children.push(childwidget);
+            parent.children.push(childwidget);
         },
         _removeChildWidget: function(widget){
             widget.destroy();
         },
-        _findChildWidget: function(entityId){
-            this.children.forEach(function(widget){
+        _findChildWidget: function(entityId, parent){
+            parent.children.forEach(function(widget){
                 if(widget.entity.id == entityId) return widget;
             });
             return null;
@@ -74,7 +75,7 @@ define([
 
         //Function for Setting up the Widgets Children with the correct Parents and Stores
         _setupChildren: function(){},
-
+        _addcallbacks: function(){},
 
         //Callback fo a Child to destroy its Parent and the Entity Associated.
         _destroyParentHandler: function(){

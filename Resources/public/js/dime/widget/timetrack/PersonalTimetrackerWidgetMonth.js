@@ -29,24 +29,27 @@ define([
         },
 
         _fillValues: function(){
+            var addchildwidgets = this._addChildWidget, parentWidget = this, activityContainer = this.activityContainer;
             this.dateSelectNode.set('value', this.date);
             var results = activityStore.query({filter: {date: ['startdate', 'enddate']}});
             results.forEach(function(entity){
-                this._addChildWidget(entity, ActivityWidget, this.activityContainer)
+                addchildwidgets(entity, ActivityWidget, activityContainer, parentWidget)
             });
             this.observeHandle = results.observe(function(object, removedFrom, insertedInto){
-                var parentWidget = registry.byId("personalTimetrackWidgetMonth");
-                parentWidget._updateHandler(object, removedFrom, insertedInto, ActivityWidget, this.activityContainer)
+                parentWidget._updateHandler(object, removedFrom, insertedInto, ActivityWidget, activityContainer, parentWidget)
+            });
+        },
+
+        _addcallbacks: function(){
+            this.addButtonNode.on('click', function(){
+                var p = this.parentWidget;
+                p.newActivityDialog.show();
             });
         },
 
         _setupChildren: function(){
             this.newActivityDialog = this._requiredialogonce('newActivityDialog', this, 'Neue Aktivität', '/api/v1/activities/new');
             this.addButtonNode.set('parentWidget', this);
-            this.addButtonNode.on('click', function(){
-                var p = this.parentWidget;
-                p.newActivityDialog.show();
-            });
         },
 
         destroy: function(){

@@ -29,13 +29,17 @@ define([
             this.deleteNode.set('parentWidget', this);
             //this.chargeableNode.set('parentWidget', this);
             this.addtimesliceNode.set('parentWidget', this);
+            this.newtimesliceDialog = this._requiredialogonce('newTimesliceForm', this, 'Zeiterfassen', '/api/v1/timeslices/new');
+
+        },
+
+        _addcallbacks: function(){
             this.customerNode.watch('value', this._watchercallback);
             this.projectNode.watch('value', this._watchercallback);
             this.serviceNode.watch('value', this._watchercallback);
             this.descriptionNode.watch('value', this._watchercallback);
             //this.chargeableNode.watch('checked', this._watchercallback);
             this.deleteNode.on('click', this._destroyParentHandler);
-            this.newtimesliceDialog = this._requiredialogonce('newTimesliceForm', this, 'Zeiterfassen', '/api/v1/timeslices/new');
             this.addtimesliceNode.on('click', function(){
                 var p = this.parentWidget;
                 p.newtimesliceDialog.show();
@@ -43,14 +47,14 @@ define([
         },
 
         _fillValues: function(){
+            var addchildwidget = this._addChildWidget, parentWidget = this, timesliceContainer = this.timesliceContainer;
             this.inherited(arguments);
             var results = window.timesliceStore.query({filter: {activity: this.entity.id}});
             results.forEach(function(entity){
-                this._addChildWidget(entity, TimesliceWidget, this.timesliceContainer)
+                addchildwidget(entity, TimesliceWidget, timesliceContainer, parentWidget)
             });
             this.observeHandle = results.observe(function(object, removedFrom, insertedInto){
-                var parentWidget = registry.byId("personalTimetrackWidgetMonth");
-                parentWidget._updateHandler(object, removedFrom, insertedInto, TimesliceWidget, this.timesliceContainer)
+                parentWidget._updateHandler(object, removedFrom, insertedInto, TimesliceWidget, timesliceContainer, parentWidget)
             });
         },
 
