@@ -21,19 +21,30 @@ abstract class AbstractHandler
     
     protected $secContext;
 
-    public function __construct(ObjectManager $om, $entityClass, FormFactoryInterface $formFactory, SecurityContext $secContext)
+	protected $alias;
+
+	protected $formType;
+
+    public function __construct(ObjectManager $om, $entityClass, FormFactoryInterface $formFactory, SecurityContext $secContext, $alias, $formType)
     {
         $this->om = $om;
         $this->entityClass = $entityClass;
         $this->repository = $this->om->getRepository($this->entityClass);
         $this->formFactory = $formFactory;
         $this->secContext = $secContext;
+	    $this->alias = $alias;
+	    $this->formType = $formType;
     }
 
     protected function newClassInstance()
     {
         return new $this->entityClass();
     }
+
+	protected function orderBy($field, $order)
+	{
+		$this->repository->getCurrentQueryBuilder()->addOrderBy($this->alias.'.'.$field, $order);
+	}
 
 	/**
 	 * Processes the form.

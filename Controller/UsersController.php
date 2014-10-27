@@ -26,8 +26,11 @@ class UsersController extends DimeController
      * }
      * )
      *
-     * @Annotations\QueryParam(name="offset", requirements="\d+", nullable=true, description="Offset from which to start listing users.")
-     * @Annotations\QueryParam(name="limit", requirements="\d+", default="5", description="How many users to return.")
+     * @Annotations\QueryParam(name="firstname", requirements="\w+", nullable=true, description="Filer By Firstname")
+     * @Annotations\QueryParam(name="lastname", requirements="\w+", nullable=true, description="Filer By Lastname")
+     * @Annotations\QueryParam(name="username", requirements="\w+", nullable=true, description="Filer By Username")
+     * @Annotations\QueryParam(name="email", requirements="\w+", nullable=true, description="Filer By email")
+     * @Annotations\QueryParam(name="enabled", requirements="/^true|false$/i", nullable=true, description="Filter By enabled")
      *
      * @Annotations\View(
      * templateVar="users"
@@ -35,14 +38,12 @@ class UsersController extends DimeController
      *
      * @Annotations\Route(requirements={"_format"="json|xml"})
      *
-     * @param Request $request
-     *            the request object
      * @param ParamFetcherInterface $paramFetcher
      *            param fetcher service
      *            
      * @return array
      */
-    public function getUsersAction(Request $request, ParamFetcherInterface $paramFetcher)
+    public function getUsersAction(ParamFetcherInterface $paramFetcher)
     {
         $offset = $paramFetcher->get('offset');
         $offset = null == $offset ? 0 : $offset;

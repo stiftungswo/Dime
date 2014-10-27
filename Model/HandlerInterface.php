@@ -15,15 +15,15 @@ interface HandlerInterface
      * @return DimeEntityInterface
      */
     public function get($id);
-    /**
-     * Get a list of Entities.
-     *
-     * @param int $limit the limit of the result
-     * @param int $offset starting from the offset
-     *
-     * @return array
-    */
-    public function all($limit = 5, $offset = 0);
+
+	/**
+	 * Get a list of Entities.
+	 *
+	 * @param array $params
+	 *
+	 * @return array
+	 */
+    public function all($params = array());
     /**
      * Post Entity, creates a new Entity.
      *

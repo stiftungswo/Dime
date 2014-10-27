@@ -25,8 +25,16 @@ class ActivitiesController extends DimeController
      * }
      * )
      *
-     * @Annotations\QueryParam(name="offset", requirements="\d+", nullable=true, description="Offset from which to start listing activitys.")
-     * @Annotations\QueryParam(name="limit", requirements="\d+", default="5", description="How many activitys to return.")
+     *
+     * @Annotations\QueryParam(name="active", requirements="/^true|false$/i", nullable=true, description="Filter By Activity")
+     * @Annotations\QueryParam(array=true, name="date", requirements="/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/", nullable=true, description="Date to filter the Activity by in Format YYYY-MM-DD")
+     * @Annotations\QueryParam(name="customer", requirements="\d+", nullable=true, description="Filter By Customer")
+     * @Annotations\QueryParam(name="project", requirements="\d+", nullable=true, description="Filter By Project")
+     * @Annotations\QueryParam(name="service", requirements="\d+", nullable=true, description="Filter By Service")
+     * @Annotations\QueryParam(name="user", requirements="\d+", nullable=true, description="Filter By User")
+     * @Annotations\QueryParam(name="search", requirements="\w+", nullable=true, description="Filter By Name or alias")
+     * @Annotations\QueryParam(array=true, name="withtags", requirements="\d+", nullable=true, description="Show Entities with these Tags")
+     * @Annotations\QueryParam(array=true, name="withouttags", requirements="\d+", nullable=true, description="Show Entities without this Tags")
      *
      * @Annotations\View(
      * templateVar="activitys"
@@ -34,19 +42,14 @@ class ActivitiesController extends DimeController
      *
      * @Annotations\Route(requirements={"_format"="json|xml"})
      *
-     * @param Request $request
-     *            the request object
      * @param ParamFetcherInterface $paramFetcher
      *            param fetcher activity
      *            
      * @return array
      */
-    public function getActivitiesAction(Request $request, ParamFetcherInterface $paramFetcher)
+    public function getActivitiesAction(ParamFetcherInterface $paramFetcher)
     {
-        $offset = $paramFetcher->get('offset');
-        $offset = null == $offset ? 0 : $offset;
-        $limit = $paramFetcher->get('limit');
-        return $this->container->get($this->handlerSerivce)->all($limit, $offset);
+        return $this->container->get($this->handlerSerivce)->all($paramFetcher->all());
     }
 
     /**
@@ -66,8 +69,6 @@ class ActivitiesController extends DimeController
      *
      * @Annotations\Route(requirements={"_format"="json|xml"})
      *
-     * @param Request $request
-     *            the request object
      * @param int $id
      *            the page id
      *            

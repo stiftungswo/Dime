@@ -28,16 +28,17 @@ class DimeController extends FOSRestController
 
         return $user;
     }
-    
-    /**
-     * Fetch a Entity or throw an 404 Exception.
-     *
-     * @param mixed $id
-     *
-     * @return UserInterface
-     *
-     * @throws NotFoundHttpException
-     */
+
+	/**
+	 * Fetch a Entity or throw an 404 Exception.
+	 *
+	 * @param mixed $id
+	 *
+	 * @param       $service
+	 *
+	 * @return UserInterface
+	 *
+	 */
     protected function getOr404($id, $service)
     {
         if (! ($user = $this->container->get($service)->get($id))) {
@@ -45,4 +46,5 @@ class DimeController extends FOSRestController
         }
         return $user;
     }
+
 }

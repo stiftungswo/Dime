@@ -10,37 +10,31 @@ use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Security\Core\SecurityContext;
 use FOS\UserBundle\Model\UserManager;
 
-class UserHandler extends AbstractHandler implements HandlerInterface
+class UserHandler extends GenericHandler
 {
-    private $formType = 'dime_timetrackerbundle_userformtype';
-    
     private $userManager;
 
      /* (non-PHPdoc)
       * @see \Dime\TimetrackerBundle\Handler\AbstractHandler::__construct()
       */
-     public function __construct(ObjectManager $om, $entityClass, FormFactoryInterface $formFactory, SecurityContext $secContext, UserManager $userManager) 
+     public function __construct(ObjectManager $om, $entityClass, FormFactoryInterface $formFactory, SecurityContext $secContext, UserManager $userManager, \String $alias, \String $formType)
      {
-        parent::__construct($om, $entityClass, $formFactory, $secContext);
+        parent::__construct($om, $entityClass, $formFactory, $secContext, $alias, $formType);
         $this->userManager = $userManager;
      }
 
-    /**
-     * (non-PHPdoc)
-     * @see \Dime\TimetrackerBundle\Model\HandlerInterface::all()
-     */
+	/**
+	 * (non-PHPdoc)
+	 * @see \Dime\TimetrackerBundle\Model\HandlerInterface::all()
+	 *
+	 * @param int $limit
+	 * @param int $offset
+	 *
+	 * @return array
+	 */
     public function all($limit = 5, $offset = 0)
     {
         return $this->repository->findBy(array(), null, $limit, $offset);
-    }
-
-    /**
-     * (non-PHPdoc)
-     * @see \Dime\TimetrackerBundle\Model\HandlerInterface::get()
-     */
-    public function get($id)
-    {
-        return $this->repository->find($id);
     }
 
     /**
@@ -60,15 +54,6 @@ class UserHandler extends AbstractHandler implements HandlerInterface
     public function put(DimeEntityInterface $entity, array $parameters)
     {
         return $this->processForm($entity, $parameters, $this->formType, 'PUT');
-    }
-    
-    /*
-     * (non-PHPdoc)
-     * @see \Dime\TimetrackerBundle\Model\HandlerInterface::delete()
-     */
-    public function delete(DimeEntityInterface $entity)
-    {
-        $this->deleteEntity($entity);
     }
     
     /**

@@ -25,8 +25,11 @@ class ProjectsController extends DimeController
      * }
      * )
      *
-     * @Annotations\QueryParam(name="offset", requirements="\d+", nullable=true, description="Offset from which to start listing projects.")
-     * @Annotations\QueryParam(name="limit", requirements="\d+", default="5", description="How many projects to return.")
+     * @Annotations\QueryParam(name="customer", requirements="\d+", nullable=true, description="Filter By Customer")
+     * @Annotations\QueryParam(name="user", requirements="\d+", nullable=true, description="Filter By User")
+     * @Annotations\QueryParam(name="search", requirements="\w+", nullable=true, description="Filter By Name or alias")
+     * @Annotations\QueryParam(array=true, name="withtags", requirements="\d+", nullable=true, description="Show Entities with these Tags")
+     * @Annotations\QueryParam(array=true, name="withouttags", requirements="\d+", nullable=true, description="Show Entities without this Tags")
      *
      * @Annotations\View(
      * templateVar="projects"

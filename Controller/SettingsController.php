@@ -25,8 +25,9 @@ class SettingsController extends DimeController
      * }
      * )
      *
-     * @Annotations\QueryParam(name="offset", requirements="\d+", nullable=true, description="Offset from which to start listing settings.")
-     * @Annotations\QueryParam(name="limit", requirements="\d+", default="5", description="How many settings to return.")
+     * @Annotations\QueryParam(name="user", requirements="\d+", nullable=true, description="Filter By User")
+     * @Annotations\QueryParam(name="name", requirements="\w+", nullable=true, description="Filter By User")
+     * @Annotations\QueryParam(name="namespace", requirements="\w+", nullable=true, description="Filter By User")
      *
      * @Annotations\View(
      * templateVar="settings"

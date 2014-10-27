@@ -25,8 +25,8 @@ class CustomersController extends DimeController
      * }
      * )
      *
-     * @Annotations\QueryParam(name="offset", requirements="\d+", nullable=true, description="Offset from which to start listing customers.")
-     * @Annotations\QueryParam(name="limit", requirements="\d+", default="5", description="How many customers to return.")
+     * @Annotations\QueryParam(name="user", requirements="\d+", nullable=true, description="Filter By User")
+     * @Annotations\QueryParam(name="search", requirements="\w+", nullable=true, description="Filter By Name or alias")
      *
      * @Annotations\View(
      * templateVar="customers"
