@@ -36,12 +36,14 @@ class UserRepository extends EntityRepository
     {
         return $this;
     }
-    
-    /**
-     * 
-     * @param unknown $limit
-     * @param unknown $offset
-     */
+
+	/**
+	 *
+	 * @param unknown $limit
+	 * @param unknown $offset
+	 *
+	 * @return array
+	 */
     public function findSafeBy($limit, $offset)
     {
         return $this->getEntityManager()
