@@ -22,10 +22,10 @@ class InvoiceController extends FOSRestController
 	 * }
 	 * )
 	 *
-	 * @Annotations\RequestParam(name="nonchargeable", nullable=true, default="false", description="The ID of the Customer")
-	 * @Annotations\RequestParam(name="fixed", nullable=true, default="false", description="Report Fixed Summ in Invoice")
-	 * @Annotations\RequestParam(name="details", nullable=true, default="false", description="Report Charge Details in Invoice")
-	 * @Annotations\RequestParam(name="discounts", array=true, nullable=true, description="Ids of the Discounts to apply")
+	 * @Annotations\RequestParam(name="nonchargeable", nullable=true, requirements="/^true|false$/i", default="false", description="Whether to include nonchargeable projects or not.")
+	 * @Annotations\RequestParam(name="fixed", nullable=true, requirements="/^true|false$/i", default="false", description="Report Fixed Summ in Invoice")
+	 * @Annotations\RequestParam(name="details", nullable=true, requirements="/^true|false$/i", default="false", description="Report Charge Details in Invoice")
+	 * @Annotations\RequestParam(name="discounts", array=true, requirements="\d+", nullable=true, description="Ids of the Discounts to apply")
 	 *
 	 * @Annotations\View(
 	 * templateVar="invoices"

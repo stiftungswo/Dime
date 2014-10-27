@@ -32,8 +32,7 @@ class DiscountController extends DimeController
 	 * }
 	 * )
 	 *
-	 * @Annotations\QueryParam(name="offset", requirements="\d+", nullable=true, description="Offset from which to start listing discounts.")
-	 * @Annotations\QueryParam(name="limit", requirements="\d+", default="5", description="How many discounts to return.")
+	 * @Annotations\QueryParam(name="name", nullable=true, requirements="\w+", description="Filter By Name")
 	 *
 	 * @Annotations\View(
 	 * templateVar="discounts"
@@ -41,19 +40,14 @@ class DiscountController extends DimeController
 	 *
 	 * @Annotations\Route(requirements={"_format"="json|xml"})
 	 *
-	 * @param Request $request
-	 *            the request object
 	 * @param ParamFetcherInterface $paramFetcher
 	 *            param fetcher discount
 	 *
 	 * @return array
 	 */
-	public function getDiscountsAction(Request $request, ParamFetcherInterface $paramFetcher)
+	public function getDiscountsAction(ParamFetcherInterface $paramFetcher)
 	{
-		$offset = $paramFetcher->get('offset');
-		$offset = null == $offset ? 0 : $offset;
-		$limit = $paramFetcher->get('limit');
-		return $this->container->get($this->handlerSerivce)->all($limit, $offset);
+		return $this->container->get($this->handlerSerivce)->all($paramFetcher->all());
 	}
 
 	/**

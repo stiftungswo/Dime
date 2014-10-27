@@ -32,14 +32,14 @@ class DiscountHandler extends AbstractHandler implements HandlerInterface
 	/**
 	 * Get a list of Entities.
 	 *
-	 * @param int $limit  the limit of the result
-	 * @param int $offset starting from the offset
+	 * @param array $params
+	 *
 	 *
 	 * @return array
 	 */
-	public function all($limit = 5, $offset = 0)
+	public function all($params = array())
 	{
-		return $this->repository->findBy(array(), null, $limit, $offset);
+		return $this->repository->findBy($params);
 	}
 
 	/**
