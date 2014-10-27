@@ -49,7 +49,7 @@ define([
         _fillValues: function(){
             var addchildwidget = this._addChildWidget, parentWidget = this, timesliceContainer = this.timesliceContainer;
             this.inherited(arguments);
-            var results = window.timesliceStore.query({filter: {activity: this.entity.id}});
+            var results = window.timesliceStore.query({activity: this.entity.id});
             results.forEach(function(entity){
                 addchildwidget(entity, TimesliceWidget, timesliceContainer, parentWidget)
             });
