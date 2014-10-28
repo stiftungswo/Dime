@@ -34,20 +34,15 @@ class RateController extends DimeController
      *
      * @Annotations\Route(requirements={"_format"="json|xml"})
      *
-     * @param Request $request
-     *            the request object
      * @param ParamFetcherInterface $paramFetcher
      *            param fetcher Rate
      *            
      * @return array
      * 
      */
-    public function getRatesAction(Request $request, ParamFetcherInterface $paramFetcher)
+    public function getRatesAction(ParamFetcherInterface $paramFetcher)
     {
-        $offset = $paramFetcher->get('offset');
-        $offset = null == $offset ? 0 : $offset;
-        $limit = $paramFetcher->get('limit');
-        return $this->container->get($this->handlerSerivce)->all($limit, $offset);
+	    return $this->container->get($this->handlerSerivce)->all($paramFetcher->all());
     }
 
     /**

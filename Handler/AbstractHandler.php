@@ -79,23 +79,37 @@ abstract class AbstractHandler
     /**
      * Clean up filter array
      *
-     * @param array $filter            
-     * @param array $allowed            
+     * @param array $filter
      *
-     * @return array clean filter array
+     * @return array $result
      */
-    protected function cleanFilter(array $filter, array $allowed)
+    protected function cleanFilter(array $filter)
     {
-        $result = array();
-        
-        foreach ($filter as $key => $name) {
-            if (in_array($key, $allowed)) {
-                $result[$key] = $name;
-            }
+        foreach($filter as $key=>$value)
+        {
+	        if (!empty($value))
+	        {
+		        $result[$key]=$value;
+	        }
         }
-        
-        return $result;
+	    return $result;
     }
+
+	/**
+	 * @param array $params
+	 *
+	 * @return bool
+	 */
+	protected function hasParams(array $params)
+	{
+		foreach($params as $param)
+		{
+			if (!empty($param))
+			{
+				return true;
+			}
+		}
+	}
     
     /**
      * Get the current user

@@ -40,8 +40,8 @@ class GenericHandler extends AbstractHandler implements HandlerInterface {
 
 
 		// Filter
-		if($params) {
-			$this->repository->filter($params);
+		if($this->hasParams($params)) {
+			$this->repository->filter($this->cleanFilter($params));
 		}
 
 		// Scope by current user if the User is not set in the Filter Array

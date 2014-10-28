@@ -83,7 +83,7 @@ class LoadRates extends AbstractFixture implements OrderedFixtureInterface
 		//TODO urfr resolve the casting problem of service in the following line of code ->getId() ist workarround which works
 		$rate7->setService($this->getReference('qualityAssurance_service'));
 		$rate7->setUser($manager->merge($this->getReference('default-user')));
-		$manager->persist($rate6);
+		$manager->persist($rate7);
 		$this->addReference('employee7_rate', $rate7);
 		
 		$rate8 = new Rate();

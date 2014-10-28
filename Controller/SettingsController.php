@@ -35,19 +35,14 @@ class SettingsController extends DimeController
      *
      * @Annotations\Route(requirements={"_format"="json|xml"})
      *
-     * @param Request $request
-     *            the request object
      * @param ParamFetcherInterface $paramFetcher
      *            param fetcher service
      *            
      * @return array
      */
-    public function getSettingsAction(Request $request, ParamFetcherInterface $paramFetcher)
+    public function getSettingsAction(ParamFetcherInterface $paramFetcher)
     {
-        $offset = $paramFetcher->get('offset');
-        $offset = null == $offset ? 0 : $offset;
-        $limit = $paramFetcher->get('limit');
-        return $this->container->get($this->handlerSerivce)->all($limit, $offset);
+	    return $this->container->get($this->handlerSerivce)->all($paramFetcher->all());
     }
 
     /**

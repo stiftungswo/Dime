@@ -34,8 +34,6 @@ class RateGroupController extends DimeController
      *
      * @Annotations\Route(requirements={"_format"="json|xml"})
      *
-     * @param Request $request
-     *            the request object
      * @param ParamFetcherInterface $paramFetcher
      *            param fetcher RateGroup
      *            
@@ -43,12 +41,9 @@ class RateGroupController extends DimeController
      * 
      * @Annotations\Get("/rategroups", name="_rategroups")
      */
-    public function getRateGroupsAction(Request $request, ParamFetcherInterface $paramFetcher)
+    public function getRateGroupsAction(ParamFetcherInterface $paramFetcher)
     {
-        $offset = $paramFetcher->get('offset');
-        $offset = null == $offset ? 0 : $offset;
-        $limit = $paramFetcher->get('limit');
-        return $this->container->get($this->handlerSerivce)->all($limit, $offset);
+	    return $this->container->get($this->handlerSerivce)->all($paramFetcher->all());
     }
 
     /**

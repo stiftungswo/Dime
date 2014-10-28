@@ -41,12 +41,9 @@ class CustomersController extends DimeController
      *            
      * @return array
      */
-    public function getCustomersAction(Request $request, ParamFetcherInterface $paramFetcher)
+    public function getCustomersAction(ParamFetcherInterface $paramFetcher)
     {
-        $offset = $paramFetcher->get('offset');
-        $offset = null == $offset ? 0 : $offset;
-        $limit = $paramFetcher->get('limit');
-        return $this->container->get($this->handlerSerivce)->all($limit, $offset);
+	    return $this->container->get($this->handlerSerivce)->all($paramFetcher->all());
     }
 
     /**

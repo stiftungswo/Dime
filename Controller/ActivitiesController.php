@@ -27,14 +27,14 @@ class ActivitiesController extends DimeController
      *
      *
      * @Annotations\QueryParam(name="active", requirements="/^true|false$/i", nullable=true, description="Filter By Activity")
-     * @Annotations\QueryParam(array=true, name="date", requirements="/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/", nullable=true, description="Date to filter the Activity by in Format YYYY-MM-DD")
+     * @Annotations\QueryParam(array=true, name="date", nullable=true, description="Date to filter the Activity by in Format YYYY-MM-DD")
      * @Annotations\QueryParam(name="customer", requirements="\d+", nullable=true, description="Filter By Customer")
      * @Annotations\QueryParam(name="project", requirements="\d+", nullable=true, description="Filter By Project")
      * @Annotations\QueryParam(name="service", requirements="\d+", nullable=true, description="Filter By Service")
      * @Annotations\QueryParam(name="user", requirements="\d+", nullable=true, description="Filter By User")
      * @Annotations\QueryParam(name="search", requirements="\w+", nullable=true, description="Filter By Name or alias")
-     * @Annotations\QueryParam(array=true, name="withtags", requirements="\d+", nullable=true, description="Show Entities with these Tags")
-     * @Annotations\QueryParam(array=true, name="withouttags", requirements="\d+", nullable=true, description="Show Entities without this Tags")
+     * @Annotations\QueryParam(array=true, name="withTags", requirements="\d+", nullable=true, description="Show Entities with these Tags")
+     * @Annotations\QueryParam(array=true, name="withoutTags", requirements="\d+", nullable=true, description="Show Entities without this Tags")
      *
      * @Annotations\View(
      * templateVar="activitys"
