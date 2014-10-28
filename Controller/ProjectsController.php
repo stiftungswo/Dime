@@ -202,9 +202,8 @@ class ProjectsController extends DimeController
      * )
      *
      * @Annotations\Route(requirements={"_format"="json|xml"})
+     * @Annotations\View()
      *
-     * @param Request $request
-     *            the request object
      * @param int $id
      *            the page id
      *            
@@ -212,7 +211,7 @@ class ProjectsController extends DimeController
      *
      * @throws NotFoundHttpException when page not exist
      */
-    public function deleteProjectAction(Request $request, $id)
+    public function deleteProjectAction($id)
     {
         $this->container->get($this->handlerSerivce)->delete($this->getOr404($id, $this->handlerSerivce));
         return $this->view(null, Codes::HTTP_NO_CONTENT);

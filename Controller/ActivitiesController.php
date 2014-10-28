@@ -206,8 +206,8 @@ class ActivitiesController extends DimeController
      *
      * @Annotations\Route(requirements={"_format"="json|xml"})
      *
-     * @param Request $request
-     *            the request object
+     * @Annotations\View()
+     *
      * @param int $id
      *            the page id
      *            
@@ -215,7 +215,7 @@ class ActivitiesController extends DimeController
      *
      * @throws NotFoundHttpException when page not exist
      */
-    public function deleteActivityAction(Request $request, $id)
+    public function deleteActivityAction($id)
     {
         $this->container->get($this->handlerSerivce)->delete($this->getOr404($id, $this->handlerSerivce));
         return $this->view(null, Codes::HTTP_NO_CONTENT);

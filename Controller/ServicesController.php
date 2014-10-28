@@ -199,9 +199,8 @@ class ServicesController extends DimeController
      * )
      *
      * @Annotations\Route(requirements={"_format"="json|xml"})
+     * @Annotations\View()
      *
-     * @param Request $request
-     *            the request object
      * @param int $id
      *            the page id
      *            
@@ -209,7 +208,7 @@ class ServicesController extends DimeController
      *
      * @throws NotFoundHttpException when page not exist
      */
-    public function deleteServiceAction(Request $request, $id)
+    public function deleteServiceAction($id)
     {
         $this->container->get($this->handlerSerivce)->delete($this->getOr404($id, $this->handlerSerivce));
         return $this->view(null, Codes::HTTP_NO_CONTENT);

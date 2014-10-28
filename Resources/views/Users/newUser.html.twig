@@ -1,7 +1,7 @@
 {# Twig Template #}
 {% form_theme form 'DimeFrontendBundle:Form:dojo-fields.html.twig' %}
 
-{{ form_start(form, {'attr': {'id': 'newUserForm', 'data-dojo-id': 'newUserForm', 'data-dojo-props': 'store: window.userStore'}}) }}
+{{ form_start(form, {'attr': {'data-dojo-props': 'store: window.userStore'}}) }}
 <fieldset>
 	<legend>Neuer Benutzer</legend>
 	<table>
