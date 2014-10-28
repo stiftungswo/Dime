@@ -30,10 +30,10 @@ define([
 
         _fillValues: function(){
             var addchildwidgets = this._addChildWidget, parentWidget = this, activityContainer = this.activityContainer;
-            var startdate = new Date(this.date.getFullYear(), this.date.getMonth(), 1);
-            var enddate = new Date(this.date.getFullYear(), this.date.getMonth() + 1, 0);
+            var startdate = new Date(this.date.getFullYear(), this.date.getMonth(), 1), enddate = new Date(this.date.getFullYear(), this.date.getMonth() + 1, 0);
+            var startdatestr = startdate.getFullYear()+'-'+('0' + (startdate.getMonth()+1)).slice(-2)+'-'+('0' + startdate.getDate()).slice(-2), enddatestr = enddate.getFullYear()+'-'+('0' + (enddate.getMonth()+1)).slice(-2)+'-'+('0' + enddate.getDate()).slice(-2);
             this.dateSelectNode.set('value', this.date);
-            var results = activityStore.query({filter: {date: [startdate, enddate]}});
+            var results = activityStore.query({'date[]': [startdatestr, enddatestr]});
             results.forEach(function(entity){
                 addchildwidgets(entity, ActivityWidget, activityContainer, parentWidget)
             });
