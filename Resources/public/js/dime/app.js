@@ -21,6 +21,7 @@ define([
     function(declare, parser, dom, domStyle, domGeometry, baseFx, ContentPane, registry, editor, JsonRest, Memory, Observable, Cache, query) {
         return declare('dime.app', [], {
 
+
                 endLoading: function () {
                     // summary:
                     // 		Indicate not-loading state in the UI
@@ -102,6 +103,9 @@ define([
                     window.customerStore = this.createStore('/api/v1/customers');
                     window.activityStore = this.createStore('/api/v1/activities');
                     window.userStore = this.createStore('/api/v1/users');
+                    window.offerStore = this.createStore('/api/v1/offers');
+                    window.offerStatusUCStore = this.createStore('/api/v1/offerstatusucs');
+                    window.rateGroupStore = this.createStore('/api/v1/rategroups');
                 },
 
                 createStore: function(target){

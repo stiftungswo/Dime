@@ -1,0 +1,18 @@
+<div class="tabPane" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="title:'Offerten', style:'', selectionMode:'single'">
+	<div id="allOffersGrid" data-dojo-type="dime/OfferGrid"></div>
+</div>
+
+<button type="button" id="myButton" data-dojo-type="dijit/form/Button" data-dojo-props="
+    onClick:function(){
+        require(['dijit/registry'], function(registry){
+
+            var widget = registry.byId('allOffersGrid');
+            var editPath = '{{ path('frontend_offer_edit_view',{'id': 1}) }}';
+
+            for(var id in widget.selection){
+                app.addTab('contentTabs', editPath.replace('/1','/'+id), 'Offerte ('+id+')', true);
+            }
+        });
+    }">
+    Edit Offer
+</button>

@@ -1,0 +1,35 @@
+<div class="${baseClass}">
+    <div class="${baseClass}DescriptionChargeable">
+
+        <label for="name">Name </label><div class="${baseClass}Name" data-dojo-attach-point="nameNode" data-dojo-type="dijit/form/TextBox"></div><br>
+
+        <label for="customer">Kunde </label><div class="${baseClass}Customer" data-dojo-attach-point="customerNode" data-dojo-type="dijit/form/TextBox"></div><br>
+
+        <label for="status">Status </label><div class="${baseClass}Status" data-dojo-attach-point="statusNode" data-dojo-type="dijit/form/FilteringSelect" data-dojo-props="store:window.offerStatusUCStore, searchAttr:'text'"></div><br>
+
+        <!-- //TODO urfr update filteringselect to display firstname, lastname -->
+        <label for="accountant">Verantwortlicher </label><div class="${baseClass}Accountant" data-dojo-attach-point="accountantNode" data-dojo-type="dijit/form/FilteringSelect" data-dojo-props="store:window.userStore, searchAttr:'lastName'"></div><br>
+
+        <label for="validTo">Gültig bis </label><div class="${baseClass}ValidTo" data-dojo-attach-point="validToNode" data-dojo-type="dijit/form/DateTextBox" ></div><br>
+
+        <label for="rateGroup">Tarif </label><div class="${baseClass}RateGroup" data-dojo-attach-point="rateGroupNode" data-dojo-type="dijit/form/FilteringSelect" data-dojo-props="store:window.rateGroupStore, searchAttr:'name'"></div><br>
+
+        <label for="description">Beschreibung </label><div class="${baseClass}Description" data-dojo-attach-point="descriptionNode" data-dojo-type="dijit/form/Textarea"></div><br>
+
+        <label for="name">Empfängeradresse </label><br>
+        <div class="${baseClass}receptientAddressLine1" data-dojo-attach-point="receptientAdressLine1Node" data-dojo-type="dijit/form/TextBox"></div><br>
+        <div class="${baseClass}receptientAddressLine2" data-dojo-attach-point="receptientAdressLine2Node" data-dojo-type="dijit/form/TextBox"></div><br>
+        <div class="${baseClass}receptientAddressLine3" data-dojo-attach-point="receptientAdressLine3Node" data-dojo-type="dijit/form/TextBox"></div><br>
+        <div class="${baseClass}receptientAddressLine4" data-dojo-attach-point="receptientAdressLine4Node" data-dojo-type="dijit/form/TextBox"></div><br>
+        <div class="${baseClass}receptientAddressLine5" data-dojo-attach-point="receptientAdressLine5Node" data-dojo-type="dijit/form/TextBox"></div><br>
+
+        <!-- //TODO urfr project to be desplayed -->
+
+        <!-- //TODO urfr offerpositions -->
+
+        <!-- //TODO urfr discounts -->
+
+        <!-- //TODO urfr tags -->
+
+    </div>
+</div>
