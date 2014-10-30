@@ -28,11 +28,24 @@ define([
             this.inherited(arguments);
 
             this.offer = window.offerStore.get(this.editOfferId);
+            console.log(this.offer);
+
             this.nameNode.set('value', this.offer.name);
             this.customerNode.set('value', this.offer.customer.name);
             this.statusNode.set('value', this.offer.status.id);
             this.accountantNode.set('value', this.offer.accountant.id);
-            this.validToNode.set('value', this.offer.validTo);
+            this.validToNode.set('value', this.offer.validTo.split(" ")[0]);
+            this.rateGroupNode.set('value', this.offer.rateGroup.id);
+            this.shortDescriptionNode.set('value', this.offer.shortDescription);
+            this.descriptionNode.set('value', this.offer.description);
+            this.recepientAddressLine1Node.set('value', this.offer.recepientAddressLine1);
+            this.recepientAddressLine2Node.set('value', this.offer.recepientAddressLine2);
+            this.recepientAddressLine3Node.set('value', this.offer.recepientAddressLine3);
+            this.recepientAddressLine4Node.set('value', this.offer.recepientAddressLine4);
+            this.recepientAddressLine5Node.set('value', this.offer.recepientAddressLine5);
+
+
+
         }
 
     });
