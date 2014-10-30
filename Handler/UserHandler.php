@@ -17,7 +17,7 @@ class UserHandler extends GenericHandler
      /* (non-PHPdoc)
       * @see \Dime\TimetrackerBundle\Handler\AbstractHandler::__construct()
       */
-     public function __construct(ObjectManager $om, $entityClass, FormFactoryInterface $formFactory, SecurityContext $secContext, UserManager $userManager, \String $alias, \String $formType)
+     public function __construct(ObjectManager $om, $entityClass, FormFactoryInterface $formFactory, SecurityContext $secContext, UserManager $userManager, $alias, $formType)
      {
         parent::__construct($om, $entityClass, $formFactory, $secContext, $alias, $formType);
         $this->userManager = $userManager;
