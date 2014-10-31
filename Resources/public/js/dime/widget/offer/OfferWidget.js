@@ -27,7 +27,7 @@ define([
         buildRendering: function () {
             this.inherited(arguments);
 
-            this.offer = window.offerStore.get(this.editOfferId);
+            this.offer = window.storeManager.get('offers').get(this.editOfferId);
             console.log(this.offer);
 
             this.nameNode.set('value', this.offer.name);
