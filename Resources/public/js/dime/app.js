@@ -106,6 +106,7 @@ define([
                     window.offerStore = this.createStore('/api/v1/offers');
                     window.offerStatusUCStore = this.createStore('/api/v1/offerstatusucs');
                     window.rateGroupStore = this.createStore('/api/v1/rategroups');
+                    window.offerPositionStore = this.createStore('/api/v1/offerpositions');
                 },
 
                 createStore: function(target){

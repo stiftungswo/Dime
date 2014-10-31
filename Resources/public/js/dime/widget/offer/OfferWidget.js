@@ -5,14 +5,16 @@ define([
     'dijit/_TemplatedMixin',
     'dojo/_base/declare',
     'dojo/text!dime/widget/offer/templates/OfferWidget.html',
-    "dijit/form/TextBox",
-    "dijit/form/FilteringSelect",
-    "dijit/form/DateTextBox",
-    "dijit/form/Textarea",
+    'dijit/form/TextBox',
+    'dijit/form/FilteringSelect',
+    'dijit/form/DateTextBox',
+    'dijit/form/Textarea',
+    'dgrid/OnDemandGrid',
     'dijit/registry',
-    'dijit/Dialog'
-], function (declare, WidgetBase, WidgetsInTemplateMixin, TemplatedMixin, declare, template, Textbox, FilteringSelect, DateTextBox, Textarea, registry, Dialog) {
-    return declare("dime.widget.timetrack.PersonalTimetrackerWidgetMonth", [WidgetBase, TemplatedMixin, WidgetsInTemplateMixin], {
+    'dijit/Dialog',
+    'dime/widget/offer/OfferPositionGrid'
+], function (declare, WidgetBase, WidgetsInTemplateMixin, TemplatedMixin, declare, template, Textbox, FilteringSelect, DateTextBox, Textarea, OnDemandGrid, OfferPositionGrid,  registry, Dialog) {
+    return declare("dime.widget.offer.OfferWidget", [WidgetBase, TemplatedMixin, WidgetsInTemplateMixin], {
 
         templateString: template,
 
@@ -24,7 +26,8 @@ define([
 
         offer: null,
 
-        buildRendering: function () {
+
+        postCreate: function () {
             this.inherited(arguments);
 
             this.offer = window.offerStore.get(this.editOfferId);
@@ -44,8 +47,8 @@ define([
             this.recepientAddressLine4Node.set('value', this.offer.recepientAddressLine4);
             this.recepientAddressLine5Node.set('value', this.offer.recepientAddressLine5);
 
-
-
+            this.offerPositionsNode.setQuery({offer: 1});
+            this.offerPositionsNode.set("sort", [{ attribute: "order", descending: false }]);
         }
 
     });

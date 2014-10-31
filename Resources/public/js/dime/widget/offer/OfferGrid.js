@@ -3,7 +3,7 @@
  */
 define(
     [
-        'dojo/_base/declare',
+        '../../../dojo/_base/declare',
         'dgrid/OnDemandGrid',
         'dgrid/extensions/DijitRegistry',
         'dgrid/Selection',
@@ -12,12 +12,12 @@ define(
 
     ],
     function(declare, OnDemandGrid, DijitRegistry, Selection, Keyboard) {
-        return declare('dime.OfferGrid', [OnDemandGrid, DijitRegistry, Selection, Keyboard], {
+        return declare('dime.widget.offer.OfferGrid', [OnDemandGrid, DijitRegistry, Selection, Keyboard], {
             store: window.offerStore,
             sort: 'name',
             columns: [
                 {label: 'ID', field: 'id', autoSave: true, sortable: true},
-                {label: 'Name', field: 'name', autoSave: true, sortable: true, editOn: 'dblclick', editor: 'dijit/form/TextBox'},
+                {label: 'Name', field: 'name', autoSave: true, sortable: true},
                 {label: 'Kunde', field: 'customer', autoSave: true,  formatter: function(data){
                     return data.name+" ("+data.alias+")";
                 }},
