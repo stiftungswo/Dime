@@ -19,11 +19,11 @@ define([
 
         _setupChildren: function(){
             this.customerNode.set('parentWidget', this);
-            this.customerNode.set('store', window.storeManager.get('customers', true, true));
+            this.customerNode.set('store', window.storeManager.get('customers', true, false, true));
             this.projectNode.set('parentWidget', this);
-            this.projectNode.set('store', window.storeManager.get('projects', true, true));
+            this.projectNode.set('store', window.storeManager.get('projects', true, false, true));
             this.serviceNode.set('parentWidget', this);
-            this.serviceNode.set('store', window.storeManager.get('services', true, true));
+            this.serviceNode.set('store', window.storeManager.get('services', true, false, true));
             this.descriptionNode.set('parentWidget', this);
             this.deleteNode.set('parentWidget', this);
             //this.chargeableNode.set('parentWidget', this);

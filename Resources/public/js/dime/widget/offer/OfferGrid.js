@@ -13,7 +13,7 @@ define(
     ],
     function(declare, OnDemandGrid, DijitRegistry, Selection, Keyboard) {
         return declare('dime.OfferGrid', [OnDemandGrid, DijitRegistry, Selection, Keyboard], {
-            store: window.storeManager.get('offers', true),
+            store: window.storeManager.get('offers', false, true),
             sort: 'name',
             columns: [
                 {label: 'ID', field: 'id', autoSave: true, sortable: true},
