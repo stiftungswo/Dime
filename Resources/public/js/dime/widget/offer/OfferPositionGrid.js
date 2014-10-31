@@ -10,9 +10,9 @@ define(
         'dgrid/Keyboard',
         'dijit/form/TextBox',
     ],
-    function(declare, OnDemandGrid, DijitRegistry, Selection, Keyboard) {
+    function(declare, OnDemandGrid, DijitRegistry, Selection, Keyboard, TextBox) {
         return declare('dime.widget.offer.OfferPositionGrid', [OnDemandGrid, DijitRegistry, Selection, Keyboard], {
-            store: window.offerPositionStore,
+            store: window.storeManager.get('offerpositions', false, true),
             columns: [
                 {label: 'ID', field: 'id', autoSave: true, sortable: true},
                 {label: 'Reihenfolge', field: 'order', autoSave: true, sortable: true},
