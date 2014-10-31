@@ -1,9 +1,8 @@
 define([
     'dojo/_base/declare',
     'dijit/_WidgetBase',
-    'dijit/registry',
-    'dijit/Dialog'
-], function (declare, WidgetBase, registry, Dialog) {
+    'dijit/registry'
+], function (declare, WidgetBase, registry) {
     return declare('dime.widget.timetrack._TimetrackerWidgetBase', [WidgetBase], {
         //Inherited Default Functions
         postCreate: function () {
@@ -85,19 +84,6 @@ define([
         },
 
         //Generic Callback for the watch function with a switch case on the Attach node of the Widget to determine the Action
-        _watchValueHandler: function(property, oldvalue, newvalue){},
-
-        //Functions for FormDialog Handling
-        _requiredialogonce: function(formdomid, parent, title, href){
-            var formDialog = registry.byId(formdomid);
-            if (typeof formDialog  == 'undefined'){
-                formDialog = new Dialog({
-                    title: title,
-                    href: href
-                });
-                formDialog.set('parentWidget', parent);
-            }
-            return formDialog;
-        }
+        _watchValueHandler: function(property, oldvalue, newvalue){}
     })
 });

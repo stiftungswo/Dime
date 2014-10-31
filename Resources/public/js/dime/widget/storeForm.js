@@ -17,6 +17,11 @@ define([
             this.getParent().hide();
             return false;
         },
+        onReset: function(){
+            this.reset();
+            this.getParent().hide();
+            return true;
+        },
         FormatVals: function(vals){
             var returnArr = new Object();
             for (var key in vals) {

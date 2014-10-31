@@ -11,7 +11,7 @@ define([
     return declare("dime.widget.timetrack.TimesliceWidget", [_TimetrackerWidgetBase, TemplatedMixin, WidgetsInTemplateMixin], {
         templateString: template,
         baseClass: "timesliceWidget",
-        store: window.timesliceStore,
+        store: window.storeManager.get('timeslices', true),
 
         _setupChildren: function(){
             this.durationNode.set('parentWidget', this);

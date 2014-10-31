@@ -7,15 +7,16 @@ define([
     "dstore/Cache",
     "dstore/extensions/jsonSchema",
     "dojo/request",
-    "dstore/legacy/DstoreAdapter",
-    "dojo/_base/lang",
-    "dime/store/baseStore"
-], function(declare, Rest, Cache, jsonSchema, request, DstoreAdapter, lang, baseStore){
-    return declare("dime.store.dStore", [Rest, Cache, baseStore], {
+    "dojo/_base/lang"
+], function(declare, Rest, Cache, jsonSchema, request, lang){
+    return declare("dime.store.dStore", [Rest, Cache], {
+        entity: null,
+        basepath: '/api',
+        apiversion: '1',
         constructor: function(args) {
             dojo.safeMixin(this,args);
             this.inherited(arguments);
-            this.setModel();
+            //this.setModel();
             this.setTarget();
         },
         setModel: function(){
@@ -27,8 +28,11 @@ define([
             });
             this.model = jsonSchema(schema);
         },
-        legacy: function(){
-            return new DstoreAdapter(this);
+        getBasepath: function(){
+            return this.basepath+'/v'+this.apiversion;
+        },
+        setTarget: function(target) {
+            this.target = target || this.getBasepath() + '/' + this.entity;
         }
     });
 });
