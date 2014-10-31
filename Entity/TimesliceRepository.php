@@ -47,6 +47,18 @@ class TimesliceRepository extends EntityRepository
         }
         $aliases = $qb->getRootAliases();
         $alias = array_shift($aliases);
+
+	    if (is_array($date) && count($date) == 1) {
+		    $date = array_shift($date);
+	    }
+
+	    if(is_string($date)){
+		    $datetmp = preg_split('#,#', $date);
+		    if(is_array($datetmp)){
+			    $date = $datetmp;
+		    }
+	    }
+
         if (is_array($date)) {
             $qb->andWhere($qb->expr()
                 ->orX($qb->expr()

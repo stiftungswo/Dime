@@ -65,6 +65,13 @@ class ActivityRepository extends EntityRepository
             $date = array_shift($date);
         }
 
+	    if(is_string($date)){
+		    $datetmp = preg_split('#,#', $date);
+		    if(is_array($datetmp)){
+			    $date = $datetmp;
+		    }
+	    }
+
         if (is_array($date)) {
             $qb->andWhere(
                 $qb->expr()->between($alias . '.updatedAt', ':from', ':to')

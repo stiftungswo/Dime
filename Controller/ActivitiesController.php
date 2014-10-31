@@ -27,7 +27,7 @@ class ActivitiesController extends DimeController
      *
      *
      * @Annotations\QueryParam(name="active", requirements="/^true|false$/i", nullable=true, description="Filter By Activity")
-     * @Annotations\QueryParam(array=true, name="date", nullable=true, description="Date to filter the Activity by in Format YYYY-MM-DD")
+     * @Annotations\QueryParam(name="date", nullable=true, description="Date to filter the Activity by in Format YYYY-MM-DD")
      * @Annotations\QueryParam(name="customer", requirements="\d+", nullable=true, description="Filter By Customer")
      * @Annotations\QueryParam(name="project", requirements="\d+", nullable=true, description="Filter By Project")
      * @Annotations\QueryParam(name="service", requirements="\d+", nullable=true, description="Filter By Service")
