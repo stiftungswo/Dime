@@ -15,22 +15,19 @@ define([
     return declare("dime.widget.timetrack.ActivityWidget", [_TimetrackerWidgetBase, TemplatedMixin, WidgetsInTemplateMixin], {
         templateString: template,
         baseClass: "activityWidget",
-        store: window.activityStore,
-        newtimesliceDialog: null,
+        store: window.storeManager.get('activities', true),
 
         _setupChildren: function(){
             this.customerNode.set('parentWidget', this);
-            this.customerNode.set('store', window.customerStore);
+            this.customerNode.set('store', window.storeManager.get('customers', true, true));
             this.projectNode.set('parentWidget', this);
-            this.projectNode.set('store', window.projectStore);
+            this.projectNode.set('store', window.storeManager.get('projects', true, true));
             this.serviceNode.set('parentWidget', this);
-            this.serviceNode.set('store', window.serviceStore);
+            this.serviceNode.set('store', window.storeManager.get('services', true, true));
             this.descriptionNode.set('parentWidget', this);
             this.deleteNode.set('parentWidget', this);
             //this.chargeableNode.set('parentWidget', this);
             this.addtimesliceNode.set('parentWidget', this);
-            this.newtimesliceDialog = this._requiredialogonce('newTimesliceForm', this, 'Zeiterfassen', '/api/v1/timeslices/new');
-
         },
 
         _addcallbacks: function(){
@@ -41,15 +38,15 @@ define([
             //this.chargeableNode.watch('checked', this._watchercallback);
             this.deleteNode.on('click', this._destroyParentHandler);
             this.addtimesliceNode.on('click', function(){
-                var p = this.parentWidget;
-                p.newtimesliceDialog.show();
+                var dialog = window.dialogManager.get('timeslices', 'Zeiterfassen');
+                dialog.show();
             });
         },
 
         _fillValues: function(){
             var addchildwidget = this._addChildWidget, parentWidget = this, timesliceContainer = this.timesliceContainer;
             this.inherited(arguments);
-            var results = window.timesliceStore.query({activity: this.entity.id});
+            var results = window.storeManager.get('timeslices', true).query({activity: this.entity.id});
             results.forEach(function(entity){
                 addchildwidget(entity, TimesliceWidget, timesliceContainer, parentWidget)
             });

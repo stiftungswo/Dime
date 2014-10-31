@@ -33,7 +33,7 @@ define([
             var startdate = new Date(this.date.getFullYear(), this.date.getMonth(), 1), enddate = new Date(this.date.getFullYear(), this.date.getMonth() + 1, 0);
             var startdatestr = startdate.getFullYear()+'-'+('0' + (startdate.getMonth()+1)).slice(-2)+'-'+('0' + startdate.getDate()).slice(-2), enddatestr = enddate.getFullYear()+'-'+('0' + (enddate.getMonth()+1)).slice(-2)+'-'+('0' + enddate.getDate()).slice(-2);
             this.dateSelectNode.set('value', this.date);
-            var results = activityStore.query({'date[]': [startdatestr, enddatestr]});
+            var results = this.store.query({date: [startdatestr, enddatestr]});
             results.forEach(function(entity){
                 addchildwidgets(entity, ActivityWidget, activityContainer, parentWidget)
             });
@@ -44,13 +44,12 @@ define([
 
         _addcallbacks: function(){
             this.addButtonNode.on('click', function(){
-                var p = this.parentWidget;
-                p.newActivityDialog.show();
+                var dialog = window.dialogManager.get('activities', 'Neue Aktivität');
+                dialog.show();
             });
         },
 
         _setupChildren: function(){
-            this.newActivityDialog = this._requiredialogonce('newActivityDialog', this, 'Neue Aktivität', '/api/v1/activities/new');
             this.addButtonNode.set('parentWidget', this);
         },
 

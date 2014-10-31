@@ -9,16 +9,13 @@ define([
         "dijit/layout/ContentPane",
         "dijit/registry",
         "dgrid/editor",
-        "dojo/store/JsonRest",
-        "dojo/store/Memory",
-        "dojo/store/Observable",
-        "dojo/store/Cache",
-        "dojo/query",
+        "dime/store/storeManager",
+        "dime/widget/dialogManager",
         "dojo/NodeList-manipulate",
         "dojo/NodeList-traverse",
         "dime/module"
     ],
-    function(declare, parser, dom, domStyle, domGeometry, baseFx, ContentPane, registry, editor, JsonRest, Memory, Observable, Cache, query) {
+    function(declare, parser, dom, domStyle, domGeometry, baseFx, ContentPane, registry, editor, storeManager, dialogManager) {
         return declare('dime.app', [], {
 
 
@@ -95,23 +92,13 @@ define([
                 },
 
                 initStores: function () {
-                    window.timesliceStore = this.createStore('/api/v1/timeslices');
-                    window.tagStore = this.createStore('/api/v1/tags');
-                    window.settingStore = this.createStore('/api/v1/settings');
-                    window.serviceStore = this.createStore('/api/v1/services');
-                    window.projectStore = this.createStore('/api/v1/projects');
-                    window.customerStore = this.createStore('/api/v1/customers');
-                    window.activityStore = this.createStore('/api/v1/activities');
-                    window.userStore = this.createStore('/api/v1/users');
-                    window.offerStore = this.createStore('/api/v1/offers');
-                    window.offerStatusUCStore = this.createStore('/api/v1/offerstatusucs');
-                    window.rateGroupStore = this.createStore('/api/v1/rategroups');
-                    window.offerPositionStore = this.createStore('/api/v1/offerpositions');
+                    window.storeManager = new storeManager();
+                    window.dialogManager = new dialogManager();
                 },
 
-                createStore: function(target){
-                    return new Observable(new Cache(new JsonRest({target: target}), Memory({})));
-                },
+                //createStore: function(target){
+                //    return new Observable(new Cache(new JsonRest({target: target}), Memory({})));
+                //},
 
                 init: function () {
                     this.startLoading();
