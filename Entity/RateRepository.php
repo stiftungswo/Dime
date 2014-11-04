@@ -21,7 +21,6 @@ class RateRepository extends EntityRepository
      */
     public function search($text, QueryBuilder $qb = null)
     {
-    	//TODO urfr rewrite for Rate
         if ($qb == null) {
             $qb = $this->builder;
         }

@@ -2,6 +2,7 @@
 namespace Dime\TimetrackerBundle\Entity;
 
 use Dime\TimetrackerBundle\Model\ActivityReference;
+use Dime\TimetrackerBundle\Model\DefaultRateGroup;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as JMS;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -89,7 +90,7 @@ class Activity extends Entity implements DimeEntityInterface
 	 * @var integer $chargeableReference (enum see Model\ActivityReference)
 	 *
 	 * @JMS\SerializedName("chargeableReference")
-	 * @ORM\Column(name="cargeable_reference", type="smallint", nullable=true)
+	 * @ORM\Column(name="cargeable_reference", type="smallint")
 	 */
 	protected $chargeableReference;
 
@@ -97,15 +98,49 @@ class Activity extends Entity implements DimeEntityInterface
 	 * @var integer $value
 	 *
 	 * @ORM\Column(type="decimal", scale=2, precision=10, nullable=true)
+	 * @JMS\AccessType("public_method")
 	 */
 	protected $value;
 
 	/**
-	 * @return int
+	 * @return float
 	 */
 	public function getValue()
 	{
-		return $this->value;
+		$value = 0;
+
+		foreach($this->getTimeslices() as $timeslice)
+		{
+			$value += $timeslice->getCurrentDuration();
+		}
+
+		if (!empty($this->value))
+		{
+			$value = $this->value;
+		}
+
+
+		$rateUnit = 's';
+
+		if($this->getService() instanceof Service){
+			$rateUnit =  $this->getService()->getRateByRateGroup($this->getProject()->getRateGroup())->getRateUnit();
+		}
+
+
+		switch($rateUnit)
+		{
+		case 'm':
+			return ($value / 60);
+			break;
+		case 'h':
+			return ($value / 60 / 60);
+			break;
+		case 'd':
+			return ($value / 60 / 60 / 24);
+			break;
+		default:
+			return $value;
+		}
 	}
 
 	/**
@@ -126,6 +161,7 @@ class Activity extends Entity implements DimeEntityInterface
     {
         $this->timeslices = new ArrayCollection();
         $this->tags = new ArrayCollection();
+	    $this->chargeableReference = ActivityReference::$SERVICE;
     }
 
     /**
@@ -172,15 +208,16 @@ class Activity extends Entity implements DimeEntityInterface
      */
     public function getRate()
     {
-	    if( !empty($this->rate) )
-	    	return $this->rate; 
+	    if( empty($this->rate) ){
+		    if($this->getService() instanceof Service){
+			    $rate =  $this->getService()->getRateByRateGroup($this->getProject()->getRateGroup());
+			    return $rate->getValue();
+		    } else {
+			    return 0;
+		    }
+	    }
 	    else {
-	    	if($this->service instanceof Service){
-                $rate =  $this->getService()->getRate($this->getProject()->getRateGroup());
-	    		return $rate->getValue();
-	    	} else {
-                return 0;
-            }
+		    return $this->rate;
 	    }
     }
 
@@ -359,56 +396,8 @@ class Activity extends Entity implements DimeEntityInterface
 	public function setChargeable($chargeable)
 	{
 		$this->chargeable = $chargeable;
+		$this->chargeableReference = ActivityReference::$ACTIVITY;
 		return $this;
-	}
-
-
-	/**
-	 * @return int
-	 */
-	public function getDuration()
-	{
-		if (!empty($this->value))
-		{
-			return $this->value;
-		}
-		$duration = 0;
-		foreach($this->getTimeslices() as $timeslice)
-		{
-			$duration += $timeslice->getCurrentDuration();
-		}
-		
-		
-		//TODO urfr refactor!
-		$rateUnit = 'h';
-		
-		
-		if( !empty($this->rate) )
-			$rateUnit = $this.getService()->getRate(1).getRateUnit(); //TODO urfr static rate group 1
-		else {
-			if($this->service instanceof Service){
-				$rateUnit =  $this->getService()->getRate($this->rateGroup)->getRateUnit();
-			}
-		}
-		
-		
-		switch($rateUnit)
-		{
-		case 's':
-			return $duration;
-			break;
-		case 'm':
-			return ($duration / 60);
-			break;
-		case 'h':
-			return ($duration / 60 / 60);
-			break;
-		case 'd':
-			return ($duration / 60 / 60 / 24);
-			break;
-		default:
-			return $duration;
-		}
 	}
 
 	/**

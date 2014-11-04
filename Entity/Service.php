@@ -1,6 +1,7 @@
 <?php
 namespace Dime\TimetrackerBundle\Entity;
 
+use Dime\TimetrackerBundle\Model\DefaultRateGroup;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -187,26 +188,34 @@ class Service extends Entity implements DimeEntityInterface
         return $this->description;
     }
 
-    /**
-     * Get rate
-     *
-     * @return Rate
-     */
-    public function getRate($rateGroup=null)
+	/**
+	 * Get rate
+	 *
+	 * @param null $rateGroup
+	 *
+	 * @return Rate
+	 */
+    public function getRateByRateGroup($rateGroup = null)
     {
-    	if($rateGroup == null){
-    		return $this->getRateByRateGroupId(1); //TODO urfr static reference for default rate-Group
+    	if($rateGroup instanceof RateGroup){
+		    return $this->getRateByRateGroupId($rateGroup->getId());
     	}
-        else 
-        	return $this->getRateByRateGroupId($rateGroup->getId());
+	    elseif (is_numeric($rateGroup)){
+		    return $this->getRateByRateGroupId($rateGroup);
+	    }
+        else {
+	        return $this->getRateByRateGroupId(DefaultRateGroup::$ID);
+        }
     }
 
-    /**
-     * @return Rate
-     */
+	/**
+	 * @param $id
+	 *
+	 * @return Rate
+	 */
     private function getRateByRateGroupId($id)
     {
-        foreach($this->getRates()->toArray() as $key => $rate){
+        foreach($this->getRates()->toArray() as $rate){
             if($rate->getRateGroup()->getId() == $id)
                 return $rate;
         }
