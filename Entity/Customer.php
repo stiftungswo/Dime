@@ -64,6 +64,24 @@ class Customer extends Entity implements DimeEntityInterface
 	protected $chargeable;
 
 	/**
+	 * @var Swo\CommonsBundle\Entity\Address $address
+	 *
+	 * @ORM\ManyToOne(targetEntity="Swo\CommonsBundle\Entity\Address", cascade={"persist"})
+	 */
+	protected $address;
+
+	/**
+	 * @JMS\Type("array")
+	 * @JMS\SerializedName("phones")
+	 * @ORM\OneToMany(targetEntity="Swo\CommonsBundle\Entity\Phone", cascade={"all"})
+	 * @ORM\JoinTable(name="customer_phones",
+	 *      joinColumns={@ORM\JoinColumn(name="customer_id", referencedColumnName="id")},
+	 *      inverseJoinColumns={@ORM\JoinColumn(name="phone_id", referencedColumnName="id", unique=true)}
+	 * )
+	 */
+	protected $phones;
+
+	/**
 	 * @return boolean
 	 */
 	public function isChargeable()
@@ -261,4 +279,25 @@ class Customer extends Entity implements DimeEntityInterface
 
         return $this;
     }
+
+	/**
+	 * @return Swo\CommonsBundle\Entity\Address
+	 */
+	public function getAddress()
+	{
+		return $this->address;
+	}
+
+	/**
+	 * @param Swo\CommonsBundle\Entity\Address $address
+	 *
+	 * @return $this
+	 */
+	public function setAddress($address)
+	{
+		$this->address = $address;
+		return $this;
+	}
+
+
 }

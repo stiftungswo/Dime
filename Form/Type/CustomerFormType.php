@@ -26,6 +26,8 @@ class CustomerFormType extends AbstractType
             ->add('alias')
             ->add('tags')
 	        ->add('chargeable', null, array('empty_data' => 'checked', 'required' => false))
+	        ->add('address', 'swo_commons_addressformtype')
+	        ->add('phones', 'swo_commons_phoneformtype')
             ->add('user')
         ;
     }
