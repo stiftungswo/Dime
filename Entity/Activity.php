@@ -7,7 +7,6 @@ use JMS\Serializer\Annotation as JMS;
 use Doctrine\Common\Collections\ArrayCollection;
 use Dime\TimetrackerBundle\Model\DimeEntityInterface;
 use Knp\JsonSchemaBundle\Annotations as Json;
-use JMS\Serializer\Annotation\AccessType;
 
 
 /**
@@ -73,7 +72,7 @@ class Activity extends Entity implements DimeEntityInterface
 
     /**
      * @var float $rate
-     * @AccessType("public_method")
+     * @JMS\AccessType("public_method")
      * @ORM\Column(type="decimal", scale=2, precision=10, nullable=true)
      */
     private $rate;
@@ -81,7 +80,8 @@ class Activity extends Entity implements DimeEntityInterface
 	/**
 	 * @var boolean $chargeable
 	 *
-	 * @ORM\Column(type="boolean")
+	 * @ORM\Column(type="boolean", nullable=true)
+	 * @JMS\AccessType("public_method")
 	 */
 	protected $chargeable;
 
@@ -344,6 +344,9 @@ class Activity extends Entity implements DimeEntityInterface
 			break;
 		case ActivityReference::$SERVICE:
 			return $this->getService()->isChargeable();
+			break;
+		default:
+			return $this->chargeable;
 			break;
 		}
 	}
