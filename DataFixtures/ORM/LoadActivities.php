@@ -49,9 +49,7 @@ class LoadActivities extends AbstractFixture implements OrderedFixtureInterface
 	{
 		$baseActivity = new Activity();
 		$baseActivity->setUser($manager->merge($this->getReference('default-user')))
-			->setCustomer($manager->merge($this->getReference('default-customer')))
 			->setProject($manager->merge($this->getReference('default-project')))
-			->setChargeable(true)
 			->setChargeableReference(ActivityReference::$SERVICE);
 
 		foreach($this->data as $key => $data) {

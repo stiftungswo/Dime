@@ -215,11 +215,12 @@ class Activity extends Entity implements DimeEntityInterface
 
 	/**
 	 * Customer for Simplicity
-	 * @JMS\VirtualProperty("customer")
+	 * @JMS\VirtualProperty
+	 * @JMS\SerializedName("customer")
 	 */
 	public function getCustomer()
 	{
-		$this->getProject()->getCustomer();
+		return $this->getProject()->getCustomer();
 	}
 
     /**
