@@ -33,17 +33,19 @@
 
 
 {% block choice_widget_collapsed -%}
-	{% if required and placeholder is none and not placeholder_in_choices and not multiple -%}
+{#	{% if required and placeholder is none and not placeholder_in_choices and not multiple -%}
 		{% set required = false %}
 	{%- endif -%}
+	#}
 	{% if multiple %}
 		<select data-dojo-type="dijit/form/MultiSelect" {{ block('widget_attributes') }}>
 	{% else %}
 		<select data-dojo-type="dijit/form/FilteringSelect" {{ block('widget_attributes') }}>
 	{% endif %}
-		{% if placeholder is not none -%}
+	{#	{% if placeholder is not none -%}
 			<option value=""{% if required and value is empty %} selected="selected"{% endif %}>{{ placeholder|trans({}, translation_domain) }}</option>
 		{%- endif %}
+		#}
 		{%- if preferred_choices|length > 0 -%}
 			{% set options = preferred_choices %}
 			{{- block('choice_widget_options') -}}
