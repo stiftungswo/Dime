@@ -18,8 +18,6 @@ define([
         store: window.storeManager.get('activities', true),
 
         _setupChildren: function(){
-            this.customerNode.set('parentWidget', this);
-            this.customerNode.set('store', window.storeManager.get('customers', true, false, true));
             this.projectNode.set('parentWidget', this);
             this.projectNode.set('store', window.storeManager.get('projects', true, false, true));
             this.serviceNode.set('parentWidget', this);
@@ -31,7 +29,6 @@ define([
         },
 
         _addcallbacks: function(){
-            this.customerNode.watch('value', this._watchercallback);
             this.projectNode.watch('value', this._watchercallback);
             this.serviceNode.watch('value', this._watchercallback);
             this.descriptionNode.watch('value', this._watchercallback);
@@ -56,11 +53,11 @@ define([
         },
 
         _updateValues: function(entity){
-            this.customerNode.set('value', entity.customer.id);
+            this.customerNode.innerHTML(entity.project.customer.name);
             this.projectNode.set('value', entity.project.id);
             this.serviceNode.set('value', entity.service.id);
             this.descriptionNode.set('value', entity.description);
-            //this.chargeableNode.set('value', activity.chargeable);
+            //this.chargeableNode.set('value', entity.chargeable);
         },
 
         _watchercallback: function(property, oldvalue, newvalue){
@@ -68,9 +65,6 @@ define([
             var activityId = this.parentWidget.entity.id;
             var activityStore = this.parentWidget.store;
             switch(this.dojoAttachPoint) {
-                case "customerNode":
-                    activityStore.put({id: activityId, customer: newvalue});
-                    break;
                 case "projectNode":
                     activityStore.put({id: activityId, project: newvalue});
                     break;
