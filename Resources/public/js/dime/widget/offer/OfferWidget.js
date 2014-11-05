@@ -1,51 +1,157 @@
 define([
-    'dojo/_base/declare',
-    'dijit/_WidgetBase',
     'dijit/_WidgetsInTemplateMixin',
     'dijit/_TemplatedMixin',
+    'dime/widget/timetrack/_TimetrackerWidgetBase',
     'dojo/_base/declare',
     'dojo/text!dime/widget/offer/templates/OfferWidget.html',
-    "dijit/form/TextBox",
-    "dijit/form/FilteringSelect",
-    "dijit/form/DateTextBox",
-    "dijit/form/Textarea",
+    'dime/widget/offer/OfferPositionWidget',
     'dijit/registry',
-    'dijit/Dialog'
-], function (declare, WidgetBase, WidgetsInTemplateMixin, TemplatedMixin, declare, template, Textbox, FilteringSelect, DateTextBox, Textarea, registry, Dialog) {
-    return declare("dime.widget.timetrack.PersonalTimetrackerWidgetMonth", [WidgetBase, TemplatedMixin, WidgetsInTemplateMixin], {
+    'dijit/form/TextBox',
+    'dijit/form/DateTextBox',
+    'dijit/form/Textarea',
+    'dijit/Dialog',
+    "dijit/form/FilteringSelect",
+], function ( WidgetsInTemplateMixin, TemplatedMixin,  _TimetrackerWidgetBase, declare,  template,
+              OfferPositionWidget, registry, Textbox, DateTextBox, Textarea, Dialog,  FilteringSelect) {
+    return declare("dime.widget.offer.OfferWidget", [_TimetrackerWidgetBase, TemplatedMixin, WidgetsInTemplateMixin], {
 
         templateString: template,
-
         baseClass: "offerWidget",
-
-        name: "Name",
+        store: window.storeManager.get('offers', false, true),
 
         editOfferId: -1,
 
-        offer: null,
+        entity: null,
 
-        buildRendering: function () {
+        _setupChildren: function(){
+            console.log(this.editOfferId);
+            this.entity = this.store.get(this.editOfferId);
+
+            //todo urfr change types to selection list, where editin ist necessary e.g. customer, accountant
+            this.nameNode.set('parentWidget', this);
+            this.customerNode.set('parentWidget', this);
+            this.customerNode.set('store', window.storeManager.get('customers', true));
+            this.statusNode.set('parentWidget', this);
+            this.statusNode.set('store', window.storeManager.get('offerstatusucs', true));
+            this.statusNode.set('searchAttr','text');
+            this.accountantNode.set('parentWidget', this);
+            this.accountantNode.set('store', window.storeManager.get('users', true));
+            this.accountantNode.set('searchAttr','lastname');
+            this.validToNode.set('parentWidget', this);
+            this.rateGroupNode.set('parentWidget', this);
+            this.rateGroupNode.set('store', window.storeManager.get('rategroups', true));
+            this.rateGroupNode.set('searchAttr','name');
+            this.shortDescriptionNode.set('parentWidget', this);
+            this.descriptionNode.set('parentWidget', this);
+            //TODO urfr refactor concept of addresslines after till added customer address in model
+            this.recepientAddressLine1Node.set('parentWidget', this);
+            this.recepientAddressLine2Node.set('parentWidget', this);
+            this.recepientAddressLine3Node.set('parentWidget', this);
+            this.recepientAddressLine4Node.set('parentWidget', this);
+            this.recepientAddressLine5Node.set('parentWidget', this);
+        },
+
+        _addcallbacks: function(){
+            this.nameNode.watch('value', this._watchercallback);
+            this.customerNode.watch('value', this._watchercallback);
+            this.statusNode.watch('value', this._watchercallback);
+            this.accountantNode.watch('value', this._watchercallback);
+            this.validToNode.watch('value', this._watchercallback);
+            this.rateGroupNode.watch('value', this._watchercallback);
+            this.shortDescriptionNode.watch('value', this._watchercallback);
+            this.descriptionNode.watch('value', this._watchercallback);
+            //TODO urfr refactor concept of addresslines after till added customer address in model
+            this.recepientAddressLine1Node.watch('value', this._watchercallback);
+            this.recepientAddressLine2Node.watch('value', this._watchercallback);
+            this.recepientAddressLine3Node.watch('value', this._watchercallback);
+            this.recepientAddressLine4Node.watch('value', this._watchercallback);
+            this.recepientAddressLine5Node.watch('value', this._watchercallback);
+
+            //TODO urfr make grid view for offer positions editable
+        },
+
+        _fillValues: function(){
+            var addchildwidget = this._addChildWidget, parentWidget = this, offerPositionsContainer = this.offerPositionsContainer;
             this.inherited(arguments);
 
-            this.offer = window.storeManager.get('offers').get(this.editOfferId);
-            console.log(this.offer);
+            var results = window.storeManager.get('offerpositions', true).query({offer: this.entity.id});
 
-            this.nameNode.set('value', this.offer.name);
-            this.customerNode.set('value', this.offer.customer.name);
-            this.statusNode.set('value', this.offer.status.id);
-            this.accountantNode.set('value', this.offer.accountant.id);
-            this.validToNode.set('value', this.offer.validTo.split(" ")[0]);
-            this.rateGroupNode.set('value', this.offer.rateGroup.id);
-            this.shortDescriptionNode.set('value', this.offer.shortDescription);
-            this.descriptionNode.set('value', this.offer.description);
-            this.recepientAddressLine1Node.set('value', this.offer.recepientAddressLine1);
-            this.recepientAddressLine2Node.set('value', this.offer.recepientAddressLine2);
-            this.recepientAddressLine3Node.set('value', this.offer.recepientAddressLine3);
-            this.recepientAddressLine4Node.set('value', this.offer.recepientAddressLine4);
-            this.recepientAddressLine5Node.set('value', this.offer.recepientAddressLine5);
+            results.forEach(function(entity){
+                addchildwidget(entity, OfferPositionWidget, offerPositionsContainer, parentWidget)
+            });
+            this.observeHandle = results.observe(function(object, removedFrom, insertedInto){
+                parentWidget._updateHandler(object, removedFrom, insertedInto, OfferPositionWidget, offerPositionsContainer, parentWidget)
+            });
+        },
 
+        _updateValues: function(entity){
+            //todo urfr update values
+            this.nameNode.set('value', this.entity.name);
+            this.customerNode.set('value', this.entity.customer.name);
+            this.statusNode.set('value', this.entity.status.id);
+            this.accountantNode.set('value', this.entity.accountant.id);
+            this.validToNode.set('value', this.entity.validTo.split(" ")[0]); //separate time from timestamp and only pass date
+            this.rateGroupNode.set('value', this.entity.rateGroup.id);
+            this.shortDescriptionNode.set('value', this.entity.shortDescription);
+            this.descriptionNode.set('value', this.entity.description);
+            //TODO urfr refactor concept of addresslines after till added customer address in model
+            this.recepientAddressLine1Node.set('value', this.entity.recepientAddressLine1);
+            this.recepientAddressLine2Node.set('value', this.entity.recepientAddressLine2);
+            this.recepientAddressLine3Node.set('value', this.entity.recepientAddressLine3);
+            this.recepientAddressLine4Node.set('value', this.entity.recepientAddressLine4);
+            this.recepientAddressLine5Node.set('value', this.entity.recepientAddressLine5);
+        },
 
-
+        _watchercallback: function(property, oldvalue, newvalue){
+            if(oldvalue == "") return;
+            //used because this points to caller not to THIS Widget. Above all elements were populated with parentwidget (THIS).
+            var offerId = this.parentWidget.entity.id;
+            var offerStore = this.parentWidget.store;
+            switch(this.dojoAttachPoint) {
+                case "nameNode":
+                    offerStore.put({id: offerId, name: newvalue});
+                    break;
+                case "customerNode":
+                    offerStore.put({id: offerId, customer: newvalue});
+                    break;
+                case "statusNode":
+                    offerStore.put({id: offerId, status: newvalue});
+                    break;
+                case "accountantNode":
+                    offerStore.put({id: offerId, accountant: newvalue});
+                    break;
+                case "validToNode":
+                    offerStore.put({id: offerId, validTo: newvalue});
+                    break;
+                case "rateGroupNode":
+                    offerStore.put({id: offerId, rateGroup: newvalue});
+                    //this.parentWidget.offerPositionsNode.refresh();
+                    //this.parentWidget.offerPositionsNode.set('query',{offer: this.editOfferId});
+                    break;
+                case "shortDescriptionNode":
+                    offerStore.put({id: offerId, shortDescription: newvalue});
+                    break;
+                case "descriptionNode":
+                    offerStore.put({id: offerId, description: newvalue});
+                    break;
+                case "recepientAddressLine1Node":
+                    offerStore.put({id: offerId, recepientAddressLine1: newvalue});
+                    break;
+                case "recepientAddressLine2Node":
+                    offerStore.put({id: offerId, recepientAddressLine2: newvalue});
+                    break;
+                case "recepientAddressLine3Node":
+                    offerStore.put({id: offerId, recepientAddressLine3: newvalue});
+                    break;
+                case "recepientAddressLine4Node":
+                    offerStore.put({id: offerId, recepientAddressLine4: newvalue});
+                    break;
+                case "recepientAddressLine5Node":
+                    offerStore.put({id: offerId, recepientAddressLine5: newvalue});
+                    break;
+                default:
+                    break;
+            }
         }
 
     });
