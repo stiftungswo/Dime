@@ -24,11 +24,11 @@ class CustomerFormType extends AbstractType
         $builder
             ->add('name')
             ->add('alias')
-            ->add('tags')
+            ->add('tags', 'collection', array('type' => new TagFormType()))
 	        ->add('chargeable', null, array('empty_data' => 'checked', 'required' => false))
 	        ->add('address', 'swo_commons_addressformtype')
-	        ->add('phones', 'swo_commons_phoneformtype')
-            ->add('user')
+	        ->add('phones', 'collection', array('type' => 'swo_commons_phoneformtype'))
+            ->add('user', 'entity', array('class' => 'DimeTimetrackerBundle:User'))
         ;
     }
 

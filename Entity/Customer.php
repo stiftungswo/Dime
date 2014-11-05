@@ -299,5 +299,24 @@ class Customer extends Entity implements DimeEntityInterface
 		return $this;
 	}
 
+	/**
+	 * @return mixed
+	 */
+	public function getPhones()
+	{
+		return $this->phones;
+	}
+
+	/**
+	 * @param mixed $phones
+	 *
+	 * @return $this
+	 */
+	public function setPhones($phones)
+	{
+		$this->phones = $phones;
+		return $this;
+	}
+
 
 }

@@ -31,11 +31,10 @@ class ActivityFormType extends AbstractType
 	        ->add('chargeable', null, array('required' => false))
 	        ->add($builder->create('chargeableReference', 'text', array('empty_data' => ActivityReference::$SERVICE))->addViewTransformer($transformer))
 	        ->add('value')
-            ->add('service')
-            ->add('customer')
-            ->add('project')
-            ->add('tags')
-            ->add('user')
+            ->add('service', 'entity', array('class' => 'DimeTimetrackerBundle:Service'))
+            ->add('project', 'entity', array('class' => 'DimeTimetrackerBundle:Project'))
+            ->add('tags', 'collection', array('type' => new TagFormType()))
+            ->add('user', 'entity', array('class' => 'DimeTimetrackerBundle:User'))
         ;
     }
 
