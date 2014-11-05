@@ -24,7 +24,17 @@ class LoadRates extends AbstractFixture implements OrderedFixtureInterface
 		$rate1->setService($this->getReference('consulting_service')); 
 		$rate1->setUser($manager->merge($this->getReference('default-user')));
 		$manager->persist($rate1);
-		$this->addReference('employee1_rate', $rate1);
+		$this->addReference('consulting_default_rate', $rate1);
+
+        $rate11 = new Rate();
+        $rate11->setRateUnit("CHF/h");
+        $rate11->setValue(80);
+        $rate11->setRateGroup($this->getReference('default_rate_group'));
+        //TODO urfr resolve the casting problem of service in the following line of code ->getId() ist workarround which works
+        $rate11->setService($this->getReference('consulting_service'));
+        $rate11->setUser($manager->merge($this->getReference('default-user')));
+        $manager->persist($rate11);
+        $this->addReference('consulting_canton_rate', $rate11);
 		
 		$rate2 = new Rate();
 		$rate2->setRateUnit("CHF/h");
