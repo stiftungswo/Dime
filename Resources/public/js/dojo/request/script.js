@@ -1,114 +1,220 @@
-/*
-	Copyright (c) 2004-2011, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
+define([
+	'module',
+	'./watch',
+	'./util',
+	'../_base/kernel',
+	'../_base/array',
+	'../_base/lang',
+	'../on',
+	'../dom',
+	'../dom-construct',
+	'../has',
+	'../_base/window'/*=====,
+	'../request',
+	'../_base/declare' =====*/
+], function(module, watch, util, kernel, array, lang, on, dom, domConstruct, has, win/*=====, request, declare =====*/){
+	has.add('script-readystatechange', function(global, document){
+		var script = document.createElement('script');
+		return typeof script['onreadystatechange'] !== 'undefined' &&
+			(typeof global['opera'] === 'undefined' || global['opera'].toString() !== '[object Opera]');
+	});
 
-//>>built
-define("dojo/request/script",["module","./watch","./util","../_base/kernel","../_base/array","../_base/lang","../on","../dom","../dom-construct","../has","../_base/window"],function(_1,_2,_3,_4,_5,_6,on,_7,_8,_9,_a){
-_9.add("script-readystatechange",function(_b,_c){
-var _d=_c.createElement("script");
-return typeof _d["onreadystatechange"]!=="undefined"&&(typeof _b["opera"]==="undefined"||_b["opera"].toString()!=="[object Opera]");
-});
-var _e=_1.id.replace(/[\/\.\-]/g,"_"),_f=0,_10=_9("script-readystatechange")?"readystatechange":"load",_11=/complete|loaded/,_12=_4.global[_e+"_callbacks"]={},_13=[];
-function _14(id,url,_15){
-var doc=(_15||_a.doc),_16=doc.createElement("script");
-_16.type="text/javascript";
-_16.src=url;
-_16.id=id;
-_16.async=true;
-_16.charset="utf-8";
-return doc.getElementsByTagName("head")[0].appendChild(_16);
-};
-function _17(id,_18,_19){
-_8.destroy(_7.byId(id,_18));
-if(_12[id]){
-if(_19){
-_12[id]=function(){
-delete _12[id];
-};
-}else{
-delete _12[id];
-}
-}
-};
-function _1a(dfd){
-var _1b=dfd.response.options,_1c=_1b.ioArgs?_1b.ioArgs.frameDoc:_1b.frameDoc;
-_13.push({id:dfd.id,frameDoc:_1c});
-if(_1b.ioArgs){
-_1b.ioArgs.frameDoc=null;
-}
-_1b.frameDoc=null;
-};
-function _1d(dfd,_1e){
-if(dfd.canDelete){
-_1f._remove(dfd.id,_1e.options.frameDoc,true);
-}
-};
-function _20(_21){
-if(_13&&_13.length){
-_5.forEach(_13,function(_22){
-_1f._remove(_22.id,_22.frameDoc);
-_22.frameDoc=null;
-});
-_13=[];
-}
-return _21.options.jsonp?!_21.data:true;
-};
-function _23(_24){
-return !!this.scriptLoaded;
-};
-function _25(_26){
-var _27=_26.options.checkString;
-return _27&&eval("typeof("+_27+") !== \"undefined\"");
-};
-function _28(_29,_2a){
-if(this.canDelete){
-_1a(this);
-}
-if(_2a){
-this.reject(_2a);
-}else{
-this.resolve(_29);
-}
-};
-function _1f(url,_2b,_2c){
-var _2d=_3.parseArgs(url,_3.deepCopy({},_2b));
-url=_2d.url;
-_2b=_2d.options;
-var dfd=_3.deferred(_2d,_1d,_20,_2b.jsonp?null:(_2b.checkString?_25:_23),_28);
-_6.mixin(dfd,{id:_e+(_f++),canDelete:false});
-if(_2b.jsonp){
-var _2e=new RegExp("[?&]"+_2b.jsonp+"=");
-if(!_2e.test(url)){
-url+=(~url.indexOf("?")?"&":"?")+_2b.jsonp+"="+(_2b.frameDoc?"parent.":"")+_e+"_callbacks."+dfd.id;
-}
-dfd.canDelete=true;
-_12[dfd.id]=function(_2f){
-_2d.data=_2f;
-dfd.handleResponse(_2d);
-};
-}
-if(_3.notify){
-_3.notify.emit("send",_2d,dfd.promise.cancel);
-}
-if(!_2b.canAttach||_2b.canAttach(dfd)){
-var _30=_1f._attach(dfd.id,url,_2b.frameDoc);
-if(!_2b.jsonp&&!_2b.checkString){
-var _31=on(_30,_10,function(evt){
-if(evt.type==="load"||_11.test(_30.readyState)){
-_31.remove();
-dfd.scriptLoaded=evt;
-}
-});
-}
-}
-_2(dfd);
-return _2c?dfd:dfd.promise;
-};
-_1f.get=_1f;
-_1f._attach=_14;
-_1f._remove=_17;
-_1f._callbacksProperty=_e+"_callbacks";
-return _1f;
+	var mid = module.id.replace(/[\/\.\-]/g, '_'),
+		counter = 0,
+		loadEvent = has('script-readystatechange') ? 'readystatechange' : 'load',
+		readyRegExp = /complete|loaded/,
+		callbacks = kernel.global[mid + '_callbacks'] = {},
+		deadScripts = [];
+
+	function attach(id, url, frameDoc){
+		var doc = (frameDoc || win.doc),
+			element = doc.createElement('script');
+
+		element.type = 'text/javascript';
+		element.src = url;
+		element.id = id;
+		element.async = true;
+		element.charset = 'utf-8';
+
+		return doc.getElementsByTagName('head')[0].appendChild(element);
+	}
+
+	function remove(id, frameDoc, cleanup){
+		domConstruct.destroy(dom.byId(id, frameDoc));
+
+		if(callbacks[id]){
+			if(cleanup){
+				// set callback to a function that deletes itself so requests that
+				// are in-flight don't error out when returning and also
+				// clean up after themselves
+				callbacks[id] = function(){
+					delete callbacks[id];
+				};
+			}else{
+				delete callbacks[id];
+			}
+		}
+	}
+
+	function _addDeadScript(dfd){
+		// Be sure to check ioArgs because it can dynamically change in the dojox/io plugins.
+		// See http://bugs.dojotoolkit.org/ticket/15890.
+		var options = dfd.response.options,
+			frameDoc = options.ioArgs ? options.ioArgs.frameDoc : options.frameDoc;
+
+		deadScripts.push({ id: dfd.id, frameDoc: frameDoc });
+
+		if(options.ioArgs){
+			options.ioArgs.frameDoc = null;
+		}
+		options.frameDoc = null;
+	}
+
+	function canceler(dfd, response){
+		if(dfd.canDelete){
+			//For timeouts and cancels, remove the script element immediately to
+			//avoid a response from it coming back later and causing trouble.
+			script._remove(dfd.id, response.options.frameDoc, true);
+		}
+	}
+	function isValid(response){
+		//Do script cleanup here. We wait for one inflight pass
+		//to make sure we don't get any weird things by trying to remove a script
+		//tag that is part of the call chain (IE 6 has been known to
+		//crash in that case).
+		if(deadScripts && deadScripts.length){
+			array.forEach(deadScripts, function(_script){
+				script._remove(_script.id, _script.frameDoc);
+				_script.frameDoc = null;
+			});
+			deadScripts = [];
+		}
+
+		return response.options.jsonp ? !response.data : true;
+	}
+	function isReadyScript(response){
+		return !!this.scriptLoaded;
+	}
+	function isReadyCheckString(response){
+		var checkString = response.options.checkString;
+
+		return checkString && eval('typeof(' + checkString + ') !== "undefined"');
+	}
+	function handleResponse(response, error){
+		if(this.canDelete){
+			_addDeadScript(this);
+		}
+		if(error){
+			this.reject(error);
+		}else{
+			this.resolve(response);
+		}
+	}
+
+	function script(url, options, returnDeferred){
+		var response = util.parseArgs(url, util.deepCopy({}, options));
+		url = response.url;
+		options = response.options;
+
+		var dfd = util.deferred(
+			response,
+			canceler,
+			isValid,
+			options.jsonp ? null : (options.checkString ? isReadyCheckString : isReadyScript),
+			handleResponse
+		);
+
+		lang.mixin(dfd, {
+			id: mid + (counter++),
+			canDelete: false
+		});
+
+		if(options.jsonp){
+			var queryParameter = new RegExp('[?&]' + options.jsonp + '=');
+			if(!queryParameter.test(url)){
+				url += (~url.indexOf('?') ? '&' : '?') +
+					options.jsonp + '=' +
+					(options.frameDoc ? 'parent.' : '') +
+					mid + '_callbacks.' + dfd.id;
+			}
+
+			dfd.canDelete = true;
+			callbacks[dfd.id] = function(json){
+				response.data = json;
+				dfd.handleResponse(response);
+			};
+		}
+
+		if(util.notify){
+			util.notify.emit('send', response, dfd.promise.cancel);
+		}
+
+		if(!options.canAttach || options.canAttach(dfd)){
+			var node = script._attach(dfd.id, url, options.frameDoc);
+
+			if(!options.jsonp && !options.checkString){
+				var handle = on(node, loadEvent, function(evt){
+					if(evt.type === 'load' || readyRegExp.test(node.readyState)){
+						handle.remove();
+						dfd.scriptLoaded = evt;
+					}
+				});
+			}
+		}
+
+		watch(dfd);
+
+		return returnDeferred ? dfd : dfd.promise;
+	}
+	script.get = script;
+	/*=====
+	script = function(url, options){
+		// summary:
+		//		Sends a request using a script element with the given URL and options.
+		// url: String
+		//		URL to request
+		// options: dojo/request/script.__Options?
+		//		Options for the request.
+		// returns: dojo/request.__Promise
+	};
+	script.__BaseOptions = declare(request.__BaseOptions, {
+		// jsonp: String?
+		//		The URL parameter name that indicates the JSONP callback string.
+		//		For instance, when using Yahoo JSONP calls it is normally,
+		//		jsonp: "callback". For AOL JSONP calls it is normally
+		//		jsonp: "c".
+		// checkString: String?
+		//		A string of JavaScript that when evaluated like so:
+		//		"typeof(" + checkString + ") != 'undefined'"
+		//		being true means that the script fetched has been loaded.
+		//		Do not use this if doing a JSONP type of call (use `jsonp` instead).
+		// frameDoc: Document?
+		//		The Document object of a child iframe. If this is passed in, the script
+		//		will be attached to that document. This can be helpful in some comet long-polling
+		//		scenarios with Firefox and Opera.
+	});
+	script.__MethodOptions = declare(null, {
+		// method: String?
+		//		This option is ignored. All requests using this transport are
+		//		GET requests.
+	});
+	script.__Options = declare([script.__BaseOptions, script.__MethodOptions]);
+
+	script.get = function(url, options){
+		// summary:
+		//		Send an HTTP GET request using a script element with the given URL and options.
+		// url: String
+		//		URL to request
+		// options: dojo/request/script.__BaseOptions?
+		//		Options for the request.
+		// returns: dojo/request.__Promise
+	};
+	=====*/
+
+	// TODO: Remove in 2.0
+	script._attach = attach;
+	script._remove = remove;
+	script._callbacksProperty = mid + '_callbacks';
+
+	return script;
 });

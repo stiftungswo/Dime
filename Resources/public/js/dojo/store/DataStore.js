@@ -1,162 +1,259 @@
-/*
-	Copyright (c) 2004-2011, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
+define([
+	"../_base/lang", "../_base/declare", "../Deferred", "../_base/array",
+	"./util/QueryResults", "./util/SimpleQueryEngine" /*=====, "./api/Store" =====*/
+], function(lang, declare, Deferred, array, QueryResults, SimpleQueryEngine /*=====, Store =====*/){
 
-//>>built
-define("dojo/store/DataStore",["../_base/lang","../_base/declare","../Deferred","../_base/array","./util/QueryResults","./util/SimpleQueryEngine"],function(_1,_2,_3,_4,_5,_6){
-var _7=null;
-return _2("dojo.store.DataStore",_7,{target:"",constructor:function(_8){
-_1.mixin(this,_8);
-if(!"idProperty" in _8){
-var _9;
-try{
-_9=this.store.getIdentityAttributes();
-}
-catch(e){
-}
-this.idProperty=(!_9||!idAttributes[0])||this.idProperty;
-}
-var _a=this.store.getFeatures();
-if(!_a["dojo.data.api.Read"]){
-this.get=null;
-}
-if(!_a["dojo.data.api.Identity"]){
-this.getIdentity=null;
-}
-if(!_a["dojo.data.api.Write"]){
-this.put=this.add=null;
-}
-},idProperty:"id",store:null,queryEngine:_6,_objectConverter:function(_b){
-var _c=this.store;
-var _d=this.idProperty;
-function _e(_f){
-var _10={};
-var _11=_c.getAttributes(_f);
-for(var i=0;i<_11.length;i++){
-var _12=_11[i];
-var _13=_c.getValues(_f,_12);
-if(_13.length>1){
-for(var j=0;j<_13.length;j++){
-var _14=_13[j];
-if(typeof _14=="object"&&_c.isItem(_14)){
-_13[j]=_e(_14);
-}
-}
-_14=_13;
-}else{
-var _14=_c.getValue(_f,_12);
-if(typeof _14=="object"&&_c.isItem(_14)){
-_14=_e(_14);
-}
-}
-_10[_11[i]]=_14;
-}
-if(!(_d in _10)&&_c.getIdentity){
-_10[_d]=_c.getIdentity(_f);
-}
-return _10;
-};
-return function(_15){
-return _b(_15&&_e(_15));
-};
-},get:function(id,_16){
-var _17,_18;
-var _19=new _3();
-this.store.fetchItemByIdentity({identity:id,onItem:this._objectConverter(function(_1a){
-_19.resolve(_17=_1a);
-}),onError:function(_1b){
-_19.reject(_18=_1b);
-}});
-if(_17!==undefined){
-return _17==null?undefined:_17;
-}
-if(_18){
-throw _18;
-}
-return _19.promise;
-},put:function(_1c,_1d){
-_1d=_1d||{};
-var id=typeof _1d.id!="undefined"?_1d.id:this.getIdentity(_1c);
-var _1e=this.store;
-var _1f=this.idProperty;
-var _20=new _3();
-if(typeof id=="undefined"){
-_1e.newItem(_1c);
-_1e.save({onComplete:function(){
-_20.resolve(_1c);
-},onError:function(_21){
-_20.reject(_21);
-}});
-}else{
-_1e.fetchItemByIdentity({identity:id,onItem:function(_22){
-if(_22){
-if(_1d.overwrite===false){
-return _20.reject(new Error("Overwriting existing object not allowed"));
-}
-for(var i in _1c){
-if(i!=_1f&&_1c.hasOwnProperty(i)&&_1e.getValue(_22,i)!=_1c[i]){
-_1e.setValue(_22,i,_1c[i]);
-}
-}
-}else{
-if(_1d.overwrite===true){
-return _20.reject(new Error("Creating new object not allowed"));
-}
-_1e.newItem(_1c);
-}
-_1e.save({onComplete:function(){
-_20.resolve(_1c);
-},onError:function(_23){
-_20.reject(_23);
-}});
-},onError:function(_24){
-_20.reject(_24);
-}});
-}
-return _20.promise;
-},add:function(_25,_26){
-(_26=_26||{}).overwrite=false;
-return this.put(_25,_26);
-},remove:function(id){
-var _27=this.store;
-var _28=new _3();
-this.store.fetchItemByIdentity({identity:id,onItem:function(_29){
-try{
-if(_29==null){
-_28.resolve(false);
-}else{
-_27.deleteItem(_29);
-_27.save();
-_28.resolve(true);
-}
-}
-catch(error){
-_28.reject(error);
-}
-},onError:function(_2a){
-_28.reject(_2a);
-}});
-return _28.promise;
-},query:function(_2b,_2c){
-var _2d;
-var _2e=new _3(function(){
-_2d.abort&&_2d.abort();
+// module:
+//		dojo/store/DataStore
+
+
+// No base class, but for purposes of documentation, the base class is dojo/store/api/Store
+var base = null;
+/*===== base = Store; =====*/
+
+return declare("dojo.store.DataStore", base, {
+	// summary:
+	//		This is an adapter for using Dojo Data stores with an object store consumer.
+	//		You can provide a Dojo data store and use this adapter to interact with it through
+	//		the Dojo object store API
+
+	target: "",
+	constructor: function(options){
+		// options: Object?
+		//		This provides any configuration information that will be mixed into the store,
+		//		including a reference to the Dojo data store under the property "store".
+		lang.mixin(this, options);
+ 		if(!"idProperty" in options){
+			var idAttribute; 
+			try{
+				idAttribute = this.store.getIdentityAttributes(); 
+			}catch(e){ 
+	 		// some store are not requiring an item instance to give us the ID attributes 
+	 		// but some other do and throw errors in that case. 
+			} 
+			// if no idAttribute we have implicit id 
+			this.idProperty = (!idAttribute || !idAttributes[0]) || this.idProperty; 
+		}
+		var features = this.store.getFeatures();
+		// check the feature set and null out any methods that shouldn't be available
+		if(!features["dojo.data.api.Read"]){
+			this.get = null;
+		}
+		if(!features["dojo.data.api.Identity"]){
+			this.getIdentity = null;
+		}
+		if(!features["dojo.data.api.Write"]){
+			this.put = this.add = null;
+		}
+	},
+	// idProperty: String
+	//		The object property to use to store the identity of the store items.
+	idProperty: "id",
+	// store:
+	//		The object store to convert to a data store
+	store: null,
+	// queryEngine: Function
+	//		Defines the query engine to use for querying the data store
+	queryEngine: SimpleQueryEngine,
+	
+	_objectConverter: function(callback){
+		var store = this.store;
+		var idProperty = this.idProperty;
+		function convert(item){
+			var object = {};
+			var attributes = store.getAttributes(item);
+			for(var i = 0; i < attributes.length; i++){
+				var attribute = attributes[i];
+				var values = store.getValues(item, attribute);
+				if(values.length > 1){
+					for(var j = 0; j < values.length; j++){
+						var value = values[j];
+						if(typeof value == 'object' && store.isItem(value)){
+							values[j] = convert(value);
+						}
+					}
+					value = values;
+				}else{
+					var value = store.getValue(item, attribute);
+					if(typeof value == 'object' && store.isItem(value)){
+						value = convert(value);
+					}
+				}
+				object[attributes[i]] = value;
+			}
+			if(!(idProperty in object) && store.getIdentity){
+				object[idProperty] = store.getIdentity(item);
+			}
+			return object;
+		}
+		return function(item){
+			return callback(item && convert(item));
+		};
+	},
+	get: function(id, options){
+		// summary:
+		//		Retrieves an object by it's identity. This will trigger a fetchItemByIdentity
+		// id: Object?
+		//		The identity to use to lookup the object
+		var returnedObject, returnedError;
+		var deferred = new Deferred();
+		this.store.fetchItemByIdentity({
+			identity: id,
+			onItem: this._objectConverter(function(object){
+				deferred.resolve(returnedObject = object);
+			}),
+			onError: function(error){
+				deferred.reject(returnedError = error);
+			}
+		});
+		if(returnedObject !== undefined){
+			// if it was returned synchronously
+			return returnedObject == null ? undefined : returnedObject;
+		}
+		if(returnedError){
+			throw returnedError;
+		}
+		return deferred.promise;
+	},
+	put: function(object, options){
+		// summary:
+		//		Stores an object by its identity.
+		// object: Object
+		//		The object to store.
+		// options: Object?
+		//		Additional metadata for storing the data.  Includes a reference to an id
+		//		that the object may be stored with (i.e. { id: "foo" }).
+		options = options || {};
+		var id = typeof options.id != "undefined" ? options.id : this.getIdentity(object);
+		var store = this.store;
+		var idProperty = this.idProperty;
+		var deferred = new Deferred();
+		if(typeof id == "undefined"){
+			store.newItem(object);
+			store.save({
+				onComplete: function(){
+					deferred.resolve(object);
+				},
+				onError: function(error){
+					deferred.reject(error);
+				}
+			});
+		}else{
+			store.fetchItemByIdentity({
+				identity: id,
+				onItem: function(item){
+					if(item){
+						if(options.overwrite === false){
+							return deferred.reject(new Error("Overwriting existing object not allowed"));
+						}
+						for(var i in object){
+							if(i != idProperty && // don't copy id properties since they are immutable and should be omitted for implicit ids
+									object.hasOwnProperty(i) && // don't want to copy methods and inherited properties
+									store.getValue(item, i) != object[i]){
+								store.setValue(item, i, object[i]);
+							}
+						}
+					}else{
+						if(options.overwrite === true){
+							return deferred.reject(new Error("Creating new object not allowed"));
+						}
+						store.newItem(object);
+					}
+					store.save({
+						onComplete: function(){
+							deferred.resolve(object);
+						},
+						onError: function(error){
+							deferred.reject(error);
+						}
+					});
+				},
+				onError: function(error){
+					deferred.reject(error);
+				}
+			});
+		}
+		return deferred.promise;
+	},
+	add: function(object, options){
+		// summary:
+		//		Creates an object, throws an error if the object already exists
+		// object: Object
+		//		The object to store.
+		// options: dojo/store/api/Store.PutDirectives?
+		//		Additional metadata for storing the data.  Includes an "id"
+		//		property if a specific id is to be used.
+		// returns: Number
+		(options = options || {}).overwrite = false;
+		// call put with overwrite being false
+		return this.put(object, options);
+	},
+	remove: function(id){
+		// summary:
+		//		Deletes an object by its identity.
+		// id: Object
+		//		The identity to use to delete the object
+		var store = this.store;
+		var deferred = new Deferred();
+
+		this.store.fetchItemByIdentity({
+			identity: id,
+			onItem: function(item){
+				try{
+					if(item == null){
+						// no item found, return false
+						deferred.resolve(false);
+					}else{
+						// delete and save the change
+						store.deleteItem(item);
+						store.save();
+						deferred.resolve(true);
+					}
+				}catch(error){
+					deferred.reject(error);
+				}
+			},
+			onError: function(error){
+				deferred.reject(error);
+			}
+		});
+		return deferred.promise;
+	},
+	query: function(query, options){
+		// summary:
+		//		Queries the store for objects.
+		// query: Object
+		//		The query to use for retrieving objects from the store
+		// options: Object?
+		//		Optional options object as used by the underlying dojo.data Store.
+		// returns: dojo/store/api/Store.QueryResults
+		//		A query results object that can be used to iterate over results.
+		var fetchHandle;
+		var deferred = new Deferred(function(){ fetchHandle.abort && fetchHandle.abort(); });
+		deferred.total = new Deferred();
+		var converter = this._objectConverter(function(object){return object;});
+		fetchHandle = this.store.fetch(lang.mixin({
+			query: query,
+			onBegin: function(count){
+				deferred.total.resolve(count);
+			},
+			onComplete: function(results){
+				deferred.resolve(array.map(results, converter));
+			},
+			onError: function(error){
+				deferred.reject(error);
+			}
+		}, options));
+		return QueryResults(deferred);
+	},
+	getIdentity: function(object){
+		// summary:
+		//		Fetch the identity for the given object.
+		// object: Object
+		//		The data object to get the identity from.
+		// returns: Number
+		//		The id of the given object.
+		return object[this.idProperty];
+	}
 });
-_2e.total=new _3();
-var _2f=this._objectConverter(function(_30){
-return _30;
-});
-_2d=this.store.fetch(_1.mixin({query:_2b,onBegin:function(_31){
-_2e.total.resolve(_31);
-},onComplete:function(_32){
-_2e.resolve(_4.map(_32,_2f));
-},onError:function(_33){
-_2e.reject(_33);
-}},_2c));
-return _5(_2e);
-},getIdentity:function(_34){
-return _34[this.idProperty];
-}});
 });

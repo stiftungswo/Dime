@@ -1,64 +1,98 @@
-/*
-	Copyright (c) 2004-2011, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
+define([
+	'../json',
+	'../_base/kernel',
+	'../_base/array',
+	'../has',
+	'../has!dom?../selector/_loader' // only included for has() qsa tests
+], function(JSON, kernel, array, has){
+	has.add('activex', typeof ActiveXObject !== 'undefined');
+	has.add('dom-parser', function(global){
+		return 'DOMParser' in global;
+	});
 
-//>>built
-define("dojo/request/handlers",["../json","../_base/kernel","../_base/array","../has","../selector/_loader"],function(_1,_2,_3,_4){
-_4.add("activex",typeof ActiveXObject!=="undefined");
-_4.add("dom-parser",function(_5){
-return "DOMParser" in _5;
-});
-var _6;
-if(_4("activex")){
-var dp=["Msxml2.DOMDocument.6.0","Msxml2.DOMDocument.4.0","MSXML2.DOMDocument.3.0","MSXML.DOMDocument"];
-var _7;
-_6=function(_8){
-var _9=_8.data;
-var _a=_8.text;
-if(_9&&_4("dom-qsa2.1")&&!_9.querySelectorAll&&_4("dom-parser")){
-_9=new DOMParser().parseFromString(_a,"application/xml");
-}
-function _b(p){
-try{
-var _c=new ActiveXObject(p);
-_c.async=false;
-_c.loadXML(_a);
-_9=_c;
-_7=p;
-}
-catch(e){
-return false;
-}
-return true;
-};
-if(!_9||!_9.documentElement){
-if(!_7||!_b(_7)){
-_3.some(dp,_b);
-}
-}
-return _9;
-};
-}
-var _d=function(_e){
-if(!_4("native-xhr2-blob")&&_e.options.handleAs==="blob"&&typeof Blob!=="undefined"){
-return new Blob([_e.xhr.response],{type:_e.xhr.getResponseHeader("Content-Type")});
-}
-return _e.xhr.response;
-};
-var _f={"javascript":function(_10){
-return _2.eval(_10.text||"");
-},"json":function(_11){
-return _1.parse(_11.text||null);
-},"xml":_6,"blob":_d,"arraybuffer":_d,"document":_d};
-function _12(_13){
-var _14=_f[_13.options.handleAs];
-_13.data=_14?_14(_13):(_13.data||_13.text);
-return _13;
-};
-_12.register=function(_15,_16){
-_f[_15]=_16;
-};
-return _12;
+	var handleXML;
+	if(has('activex')){
+		// GUIDs obtained from http://msdn.microsoft.com/en-us/library/ms757837(VS.85).aspx
+		var dp = [
+			'Msxml2.DOMDocument.6.0',
+			'Msxml2.DOMDocument.4.0',
+			'MSXML2.DOMDocument.3.0',
+			'MSXML.DOMDocument' // 2.0
+		];
+		var lastParser;
+
+		handleXML = function(response){
+			var result = response.data;
+			var text = response.text;
+
+			if(result && has('dom-qsa2.1') && !result.querySelectorAll && has('dom-parser')){
+				// http://bugs.dojotoolkit.org/ticket/15631
+				// IE9 supports a CSS3 querySelectorAll implementation, but the DOM implementation
+				// returned by IE9 xhr.responseXML does not. Manually create the XML DOM to gain
+				// the fuller-featured implementation and avoid bugs caused by the inconsistency
+				result = new DOMParser().parseFromString(text, 'application/xml');
+			}
+
+			function createDocument(p) {
+					try{
+						var dom = new ActiveXObject(p);
+						dom.async = false;
+						dom.loadXML(text);
+						result = dom;
+						lastParser = p;
+					}catch(e){ return false; }
+					return true;
+			}
+
+			if(!result || !result.documentElement){
+				// The creation of an ActiveX object is expensive, so we cache the
+				// parser type to avoid trying all parser types each time we handle a
+				// document. There is some concern that some parser types might fail
+				// depending on the document being parsed. If parsing using the cached
+				// parser type fails, we do the more expensive operation of finding one
+				// that works for the given document.
+				// https://bugs.dojotoolkit.org/ticket/15246
+				if(!lastParser || !createDocument(lastParser)) {
+					array.some(dp, createDocument);
+				}
+			}
+
+			return result;
+		};
+	}
+
+	var handleNativeResponse = function(response) {
+		if(!has('native-xhr2-blob') && response.options.handleAs === 'blob' && typeof Blob !== 'undefined'){
+			return new Blob([ response.xhr.response ], { type: response.xhr.getResponseHeader('Content-Type') });
+		}
+
+		return response.xhr.response;
+	}
+
+	var handlers = {
+		'javascript': function(response){
+			return kernel.eval(response.text || '');
+		},
+		'json': function(response){
+			return JSON.parse(response.text || null);
+		},
+		'xml': handleXML,
+		'blob': handleNativeResponse,
+		'arraybuffer': handleNativeResponse,
+		'document': handleNativeResponse
+	};
+
+	function handle(response){
+		var handler = handlers[response.options.handleAs];
+
+		response.data = handler ? handler(response) : (response.data || response.text);
+
+		return response;
+	}
+
+	handle.register = function(name, handler){
+		handlers[name] = handler;
+	};
+
+	return handle;
 });

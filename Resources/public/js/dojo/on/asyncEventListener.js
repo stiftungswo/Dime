@@ -1,38 +1,48 @@
-/*
-	Copyright (c) 2004-2011, The Dojo Foundation All Rights Reserved.
-	Available via Academic Free License >= 2.1 OR the modified BSD license.
-	see: http://dojotoolkit.org/license for details
-*/
+define(['dojo/on', 'dojo/_base/window', 'dojo/dom-construct', 'dojo/domReady!'], function(on, baseWin, domConstruct){
+	// summary:
+	//		This sub module provide an event factory for delayed events (like debounce or throttle)
+	// module:
+	//		dojo/on/asyncEventListener
 
-//>>built
-define("dojo/on/asyncEventListener",["dojo/on","dojo/_base/window","dojo/dom-construct","dojo/domReady!"],function(on,_1,_2){
-var _3=_2.create("div",null,_1.body()),_4,_5;
-on.once(_3,"click",function(e){
-_4=e;
-});
-_3.click();
-try{
-_5=_4.clientX===undefined;
-}
-catch(e){
-_5=true;
-}
-finally{
-_2.destroy(_3);
-}
-function _6(_7){
-var _8={},i;
-for(i in _7){
-_8[i]=_7[i];
-}
-return _8;
-};
-return function(_9){
-if(_5){
-return function(e){
-_9.call(this,_6(e));
-};
-}
-return _9;
-};
+
+	//Testing is the browser support async event access
+	//If not we need to clone the event, otherwise accessing the event properties
+	//will trigger a JS error (invalid member)
+	var testNode = domConstruct.create('div', null, baseWin.body()),
+		testEvent,
+		requiresClone;
+	on.once(testNode, 'click', function(e){
+		testEvent = e;
+	});
+	testNode.click();
+	try{
+		requiresClone = testEvent.clientX === undefined;
+	}catch(e){
+		requiresClone = true;
+	}finally{
+		domConstruct.destroy(testNode);
+	}
+
+	function clone(arg){
+		// summary:
+		//		clone the event
+		// description:
+		//		Used if the browser provides a corrupted event (comming from a node) when passed to an async function
+		var argCopy = {},
+			i;
+		for(i in arg){
+			argCopy[i] = arg[i];
+		}
+		return argCopy;
+	}
+
+	return function(listener){
+		if(requiresClone){
+			return function(e){
+				//lang.clone fail to clone events, so we use a custom function
+				listener.call(this, clone(e));
+			};
+		}
+		return listener;
+	};
 });
