@@ -5,14 +5,14 @@
 
         <label for="customer">Kunde </label><div class="${baseClass}Customer" data-dojo-attach-point="customerNode" data-dojo-type="dijit/form/TextBox"></div><br>
 
-        <label for="status">Status </label><div class="${baseClass}Status" data-dojo-attach-point="statusNode" data-dojo-type="dijit/form/FilteringSelect" data-dojo-props="store:window.offerStatusUCStore, searchAttr:'text'"></div><br>
+        <label for="status">Status </label><div class="${baseClass}Status" data-dojo-attach-point="statusNode" data-dojo-type="dijit/form/FilteringSelect"></div><br>
 
         <!-- //TODO urfr update filteringselect to display firstname, lastname -->
-        <label for="accountant">Verantwortlicher </label><div class="${baseClass}Accountant" data-dojo-attach-point="accountantNode" data-dojo-type="dijit/form/FilteringSelect" data-dojo-props="store:window.userStore, searchAttr:'lastname'"></div><br>
+        <label for="accountant">Verantwortlicher </label><div class="${baseClass}Accountant" data-dojo-attach-point="accountantNode" data-dojo-type="dijit/form/FilteringSelect" ></div><br>
 
         <label for="validTo">Gültig bis </label><div class="${baseClass}ValidTo" data-dojo-attach-point="validToNode" data-dojo-type="dijit/form/DateTextBox" ></div><br>
 
-        <label for="rateGroup">Tarif </label><div class="${baseClass}RateGroup" data-dojo-attach-point="rateGroupNode" data-dojo-type="dijit/form/FilteringSelect" data-dojo-props="store:window.rateGroupStore, searchAttr:'name'"></div><br>
+        <label for="rateGroup">Tarif </label><div class="${baseClass}RateGroup" data-dojo-attach-point="rateGroupNode" data-dojo-type="dijit/form/FilteringSelect"></div><br>
 
         <label for="shortDescription">Kurzbeschreibung </label><div class="${baseClass}ShortDescription" data-dojo-attach-point="shortDescriptionNode" data-dojo-type="dijit/form/Textarea"></div><br>
 
@@ -30,7 +30,9 @@
         <!-- //TODO urfr offerpositions -->
 
         <label>Offerten Positionen</label>
-        <div data-dojo-attach-point="offerPositionsNode" data-dojo-type="dime/widget/offer/OfferPositionGrid"></div>
+        <table>
+        <div data-dojo-attach-point="offerPositionsContainer"></div>
+        </table>
 
         <!-- //TODO urfr discounts -->
 
