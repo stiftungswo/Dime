@@ -73,7 +73,7 @@ class Customer extends Entity implements DimeEntityInterface
 	/**
 	 * @JMS\Type("array")
 	 * @JMS\SerializedName("phones")
-	 * @ORM\OneToMany(targetEntity="Swo\CommonsBundle\Entity\Phone", cascade={"all"})
+	 * @ORM\ManyToMany(targetEntity="Swo\CommonsBundle\Entity\Phone", cascade={"all"})
 	 * @ORM\JoinTable(name="customer_phones",
 	 *      joinColumns={@ORM\JoinColumn(name="customer_id", referencedColumnName="id")},
 	 *      inverseJoinColumns={@ORM\JoinColumn(name="phone_id", referencedColumnName="id", unique=true)}

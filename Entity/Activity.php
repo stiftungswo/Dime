@@ -22,14 +22,6 @@ use Knp\JsonSchemaBundle\Annotations as Json;
 class Activity extends Entity implements DimeEntityInterface
 {
     /**
-     * @var Customer $customer
-     *
-     * @ORM\ManyToOne(targetEntity="Customer")
-     * @ORM\JoinColumn(name="customer_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
-     */
-    protected $customer;
-
-    /**
      * @var Project $project
      *
      * @ORM\ManyToOne(targetEntity="Project")
@@ -221,28 +213,15 @@ class Activity extends Entity implements DimeEntityInterface
 	    }
     }
 
-    /**
-     * Set customer
-     *
-     * @param  Customer $customer
-     * @return Activity
-     */
-    public function setCustomer($customer)
-    {
-        $this->customer = $customer;
-
-        return $this;
-    }
-
-    /**
-     * Get customer
-     *
-     * @return Customer
-     */
-    public function getCustomer()
-    {
-        return $this->customer;
-    }
+	/**
+	 * Customer for Simplicity
+	 * @JMS\VirtualProperty
+	 * @JMS\SerializedName("customer")
+	 */
+	public function getCustomer()
+	{
+		return $this->getProject()->getCustomer();
+	}
 
     /**
      * Set project
@@ -253,7 +232,6 @@ class Activity extends Entity implements DimeEntityInterface
     public function setProject($project)
     {
         $this->project = $project;
-
         return $this;
     }
 
