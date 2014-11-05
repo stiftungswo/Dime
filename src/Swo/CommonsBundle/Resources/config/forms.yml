@@ -1,0 +1,13 @@
+parameters:
+
+services:
+    swo_commons.form_type.address:
+            class: Swo\CommonsBundle\Form\Type\AddressFormType
+            arguments: ["@doctrine.orm.entity_manager"]
+            tags:
+                - { name: form.type, alias: swo_commons_addressformtype }
+
+    swo_commons.form_type.phone:
+                class: Swo\CommonsBundle\Form\Type\PhoneFormType
+                tags:
+                    - { name: form.type, alias: swo_commons_phoneformtype }

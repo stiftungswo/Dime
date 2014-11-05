@@ -2,49 +2,50 @@
 # vi: set ft=ruby :
 
 Vagrant.configure("2") do |config|
-	WEBROOT = "/vagrant"
-	COMPOSERDIR = "/usr/local/bin"
-	
-	config.vm.box = "centos7"
-	config.vm.network :private_network, :ip => '192.168.122.10'
-	config.vm.hostname = "dime.test.local"
-	config.vm.synced_folder "../", "/vagrant", type: 'rsync', 
-		rsync__args: ["--verbose", "--archive", "--delete", "-z"],
-		rsync__exclude: [
-		  "bin/",
-		  ".git/",
-		  "app/bootstrap.php.cache",
-		  "app/config/parameters.yml",
-		  "app/cache/",
-		  "vendor/",
-		  "build/",
-		  "web/bundles/",
-		  "web/css/",
-		  "web/js/",
-		  "web/build.js",
-		  "web/fonts/",
-		  "app/logs/",
-		  ".idea",
-		]
-	
-	config.vm.provider :libvirt do |domain|
-		#domain.storage_pool_name = "vagrant"
-		#domain.host = "vmhost02"
-		#domain.connect_via_ssh = true
-		#domain.username = "root"
-		#domain.id_ssh_key_file = "id_rsa"
-		domain.disk_bus = "virtio"
-		domain.memory = 512
-		domain.cpus = 2
-		domain.volume_cache = 'writeback'
+    config.vm.define :dime do |dime|
+        WEBROOT = "/vagrant"
+        COMPOSERDIR = "/usr/local/bin"
+
+        dime.vm.box = "centos7"
+        dime.vm.network :private_network, :ip => '192.168.122.10'
+        dime.vm.hostname = "dime.test.local"
+        dime.vm.synced_folder "../", "/vagrant", type: 'rsync',
+            rsync__args: ["--verbose", "--archive", "--delete", "-z"],
+            rsync__exclude: [
+              "bin/",
+              ".git/",
+              "app/bootstrap.php.cache",
+              "app/config/parameters.yml",
+              "app/cache/",
+              "vendor/",
+              "build/",
+              "web/bundles/",
+              "web/css/",
+              "web/js/",
+              "web/build.js",
+              "web/fonts/",
+              "app/logs/",
+              ".idea",
+            ]
+
+        dime.vm.provider :libvirt do |domain|
+            domain.storage_pool_name = "vagrant"
+            domain.host = "vmhost02"
+            domain.connect_via_ssh = true
+            domain.username = "root"
+            domain.id_ssh_key_file = "id_rsa"
+            domain.disk_bus = "virtio"
+            domain.memory = 512
+            domain.cpus = 2
+            domain.volume_cache = 'writeback'
+        end
+
+        # This shell provisioner installs librarian-puppet and runs it to install
+        # puppet modules. After that it just runs puppet
+        dime.vm.provision :shell, :path => "shell/bootstrap.sh"
+
+        dime.vm.provision :shell, :path => "shell/root.sh", :privileged => true, :args => [ WEBROOT, COMPOSERDIR ]
+
+        dime.vm.provision :shell, :path => "shell/user.sh", :privileged => false, :args => [ WEBROOT, COMPOSERDIR ]
 	end
-	
-	# This shell provisioner installs librarian-puppet and runs it to install
-	# puppet modules. After that it just runs puppet
-	config.vm.provision :shell, :path => "shell/bootstrap.sh"
-	
-	config.vm.provision :shell, :path => "shell/root.sh", :privileged => true, :args => [ WEBROOT, COMPOSERDIR ]
-	
-	config.vm.provision :shell, :path => "shell/user.sh", :privileged => false, :args => [ WEBROOT, COMPOSERDIR ]
-	
 end

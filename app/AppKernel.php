@@ -28,6 +28,8 @@ class AppKernel extends Kernel
             new JMS\SerializerBundle\JMSSerializerBundle($this),
             new Nelmio\ApiDocBundle\NelmioApiDocBundle(),
 	        new \Knp\JsonSchemaBundle\KnpJsonSchemaBundle(),
+	        new \Swo\CommonsBundle\SwoCommonsBundle(),
+	        new \Misd\PhoneNumberBundle\MisdPhoneNumberBundle(),
             new Dime\TimetrackerBundle\DimeTimetrackerBundle(),
             new Dime\FrontendBundle\DimeFrontendBundle(),
             new Dime\OfferBundle\DimeOfferBundle(),
