@@ -1,6 +1,7 @@
 define([
     'dojo/_base/declare',
-    'dijit/Dialog'
+    'dijit/Dialog',
+    'dime/widget/storeForm'
 ], function (declare, Dialog) {
     return declare('dime.widget.dialogManager', [], {
         dialogs: {},
