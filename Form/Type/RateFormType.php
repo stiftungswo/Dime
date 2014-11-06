@@ -25,7 +25,7 @@ class RateFormType extends AbstractType
             ->add('rateGroup', 'entity', array('class' => 'DimeTimetrackerBundle:RateGroup'))
             ->add('service', 'entity', array('class' => 'DimeTimetrackerBundle:Service'))
             ->add('rateUnit')
-            ->add('value')
+            ->add('rateValue')
             ->add('user', 'entity', array('class' => 'DimeTimetrackerBundle:User'));
     }
 

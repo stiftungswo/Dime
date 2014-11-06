@@ -41,9 +41,10 @@ class Rate extends Entity implements DimeEntityInterface
     /**
      * @var integer $value
      *
-     * @ORM\Column(type="decimal", scale=2, precision=10, nullable=true)
+     * @ORM\Column(name="rate_value", type="decimal", scale=2, precision=10, nullable=true)
+     * @JMS\SerializedName("rateValue")
      */
-    protected $value;
+    protected $rateValue;
 	
 
     /**
@@ -125,9 +126,9 @@ class Rate extends Entity implements DimeEntityInterface
      *
      * @return Rate
      */
-    public function setValue($value)
+    public function setRateValue($rateValue)
     {
-        $this->value = $value;
+        $this->rateValue = $rateValue;
 
         return $this;
     }
@@ -137,9 +138,9 @@ class Rate extends Entity implements DimeEntityInterface
      *
      * @return string
      */
-    public function getValue()
+    public function getRateValue()
     {
-        return $this->value;
+        return $this->rateValue;
     }
 
     /**
