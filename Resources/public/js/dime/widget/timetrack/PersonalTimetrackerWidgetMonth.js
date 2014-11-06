@@ -18,6 +18,7 @@ define([
         baseClass: "personalTimetrackerWidgetMonth",
         date: new Date(),
         observeHandle: null,
+        childtypes: [ 'activities' ],
 
         setMonth: function(){
             this.selectedMonth = this.monthNames[this.date.getMonth()];
@@ -26,6 +27,13 @@ define([
         buildRendering: function () {
             this.setMonth();
             this.inherited(arguments);
+        },
+
+        _handleaddChild: function(entity, entitytype){
+            var parentWidget = this, activityContainer = this.activityContainer;
+            if(entitytype == 'activities'){
+                window.widgetManager.add(entity, 'activities', ActivityWidget, parentWidget, activityContainer)
+            }
         },
 
         _fillValues: function(){

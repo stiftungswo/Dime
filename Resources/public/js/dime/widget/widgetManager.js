@@ -27,6 +27,12 @@ define([
                 widget._updateValues(entity);
             }
         },
+        addChild: function(entity, entitytype){
+            for(var i=0; this.widgets.length; i++){
+                var widget= this.widgets[i];
+                widget._addChild(entity, entitytype);
+            }
+        },
         _findwidget: function(entity, entitytype){
             for(var i=0; this.widgets.length; i++){
                 var widget = this.widgets[i];

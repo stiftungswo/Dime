@@ -4,7 +4,7 @@ define([
     'dime/widget/_Base',
     'dojo/_base/declare',
     'dojo/text!dime/widget/timetrack/templates/ActivityWidget.html',
-    "dime/widget/timetrack/TimesliceWidget",
+    'dime/widget/timetrack/TimesliceWidget',
     'dijit/registry',
     "dijit/form/FilteringSelect",
     "dijit/form/Button",
@@ -16,6 +16,8 @@ define([
         templateString: template,
         baseClass: "activityWidget",
         store: window.storeManager.get('activities', false, true),
+        dialogprops: {},
+        childtypes: [ 'timeslices' ],
 
         _setupChildren: function(){
             this.projectNode.set('parentWidget', this);
@@ -28,6 +30,15 @@ define([
             this.addtimesliceNode.set('parentWidget', this);
         },
 
+        _handleaddChild: function(entity, entitytype){
+            var parentWidget = this, timesliceContainer = this.timesliceContainer;
+            if(entitytype == 'timeslices'){
+                if(entity.activity.id == this.entity.id){
+                    window.widgetManager.add(entity, 'timeslices', TimesliceWidget, parentWidget, timesliceContainer)
+                }
+            }
+        },
+
         _addcallbacks: function(){
             this.projectNode.watch('value', this._watchercallback);
             this.serviceNode.watch('value', this._watchercallback);
@@ -35,7 +46,8 @@ define([
             //this.chargeableNode.watch('checked', this._watchercallback);
             this.deleteNode.on('click', this._destroyParentHandler);
             this.addtimesliceNode.on('click', function(){
-                var dialog = window.dialogManager.get('timeslices', 'Zeiterfassen');
+                var props = this.parentWidget.dialogprops;
+                var dialog = window.dialogManager.get('timeslices', 'Zeiterfassen', props);
                 dialog.show();
             });
         },
@@ -43,6 +55,7 @@ define([
         _fillValues: function(){
             var parentWidget = this, timesliceContainer = this.timesliceContainer;
             this.inherited(arguments);
+            this.dialogprops = {activity: this.entity.id, duration: '8.5h'};
             var timeslicestore = window.storeManager.get('timeslices', false, true);
             var results = timeslicestore.query({activity: this.entity.id});
             results.forEach(function(entity){

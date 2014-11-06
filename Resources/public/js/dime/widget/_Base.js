@@ -24,6 +24,9 @@ define([
         //Refernce to the parent if exists
         parentWidget: null,
 
+        //For WicTypes of Entity do i Want to Listen?
+        childtypes: [],
+
         //Functions for Setting up a Widget
 
         //Called to update the Rendering overwirte in children
@@ -34,6 +37,21 @@ define([
         //Called to Fill all Values from the Entity
         _fillValues: function(){
             this._updateValues(this.entity);
+        },
+
+        //Called By the widgetManager to tell the Widget to make a new Childwidget based on the Entity
+        _addChild: function(entity, entitytype){
+            for(var i=0; this.childtypes.length; i++){
+                var childtype = this.childtypes[i];
+                if(childtype == entitytype){
+                    this._handleaddChild(entity, entitytype);
+                }
+            }
+        },
+
+        //Function to overwrite by the Widget
+        _handleaddChild: function(entity, entitytype){
+
         },
 
         //Function for Setting up the Widgets Children with the correct Parents and Stores
