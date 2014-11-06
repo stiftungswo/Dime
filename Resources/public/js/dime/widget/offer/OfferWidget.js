@@ -109,45 +109,46 @@ define([
             var offerStore = this.parentWidget.store;
             switch(this.dojoAttachPoint) {
                 case "nameNode":
-                    offerStore.put({id: offerId, name: newvalue});
+                    offerStore.put({name: newvalue}, {id: offerId} );
                     break;
                 case "customerNode":
-                    offerStore.put({id: offerId, customer: newvalue});
+                    offerStore.put({customer: newvalue}, {id: offerId});
                     break;
                 case "statusNode":
-                    offerStore.put({id: offerId, status: newvalue});
+                    offerStore.put({status: newvalue}, {id: offerId});
                     break;
                 case "accountantNode":
-                    offerStore.put({id: offerId, accountant: newvalue});
+                    offerStore.put({accountant: newvalue}, {id: offerId});
                     break;
                 case "validToNode":
-                    offerStore.put({id: offerId, validTo: newvalue});
+                    offerStore.put({validTo: newvalue}, {id: offerId});
                     break;
                 case "rateGroupNode":
-                    offerStore.put({id: offerId, rateGroup: newvalue});
-                    //this.parentWidget.offerPositionsNode.refresh();
-                    //this.parentWidget.offerPositionsNode.set('query',{offer: this.editOfferId});
+                    offerStore.put({rateGroup: newvalue}, {id: offerId});
+                    this.parentWidget.children.forEach(function(entry) {
+                        entry._updateValues(entry.entity);
+                    });
                     break;
                 case "shortDescriptionNode":
-                    offerStore.put({id: offerId, shortDescription: newvalue});
+                    offerStore.put({shortDescription: newvalue}, {id: offerId});
                     break;
                 case "descriptionNode":
-                    offerStore.put({id: offerId, description: newvalue});
+                    offerStore.put({description: newvalue}, {id: offerId});
                     break;
                 case "recepientAddressLine1Node":
-                    offerStore.put({id: offerId, recepientAddressLine1: newvalue});
+                    offerStore.put({recepientAddressLine1: newvalue}, {id: offerId});
                     break;
                 case "recepientAddressLine2Node":
-                    offerStore.put({id: offerId, recepientAddressLine2: newvalue});
+                    offerStore.put({recepientAddressLine2: newvalue}, {id: offerId});
                     break;
                 case "recepientAddressLine3Node":
-                    offerStore.put({id: offerId, recepientAddressLine3: newvalue});
+                    offerStore.put({recepientAddressLine3: newvalue}, {id: offerId});
                     break;
                 case "recepientAddressLine4Node":
-                    offerStore.put({id: offerId, recepientAddressLine4: newvalue});
+                    offerStore.put({recepientAddressLine4: newvalue}, {id: offerId});
                     break;
                 case "recepientAddressLine5Node":
-                    offerStore.put({id: offerId, recepientAddressLine5: newvalue});
+                    offerStore.put({recepientAddressLine5: newvalue}, {id: offerId});
                     break;
                 default:
                     break;
