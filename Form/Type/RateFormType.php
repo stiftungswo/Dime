@@ -25,7 +25,7 @@ class RateFormType extends AbstractType
             ->add('rateGroup')
             ->add('service')
             ->add('rateUnit')
-            ->add('value')
+            ->add('rateValue')
             ->add('user');
     }
 

@@ -18,7 +18,7 @@ class LoadRates extends AbstractFixture implements OrderedFixtureInterface
 		//example data
 		$rate1 = new Rate();
 		$rate1->setRateUnit("CHF/h");
-		$rate1->setValue(120);
+		$rate1->setRateValue(120);
 		$rate1->setRateGroup($this->getReference('default_rate_group'));
 		//TODO urfr resolve the casting problem of service in the following line of code ->getId() ist workarround which works
 		$rate1->setService($this->getReference('consulting_service')); 
@@ -28,8 +28,8 @@ class LoadRates extends AbstractFixture implements OrderedFixtureInterface
 
         $rate11 = new Rate();
         $rate11->setRateUnit("CHF/h");
-        $rate11->setValue(80);
-        $rate11->setRateGroup($this->getReference('default_rate_group'));
+        $rate11->setRateValue(80);
+        $rate11->setRateGroup($this->getReference('canton_rate_group'));
         //TODO urfr resolve the casting problem of service in the following line of code ->getId() ist workarround which works
         $rate11->setService($this->getReference('consulting_service'));
         $rate11->setUser($manager->merge($this->getReference('default-user')));
@@ -38,7 +38,7 @@ class LoadRates extends AbstractFixture implements OrderedFixtureInterface
 		
 		$rate2 = new Rate();
 		$rate2->setRateUnit("CHF/h");
-		$rate2->setValue(120);
+		$rate2->setRateValue(120);
 		$rate2->setRateGroup($this->getReference('default_rate_group'));
 		//TODO urfr resolve the casting problem of service in the following line of code ->getId() ist workarround which works
 		$rate2->setService($this->getReference('requirements_service'));
@@ -48,7 +48,7 @@ class LoadRates extends AbstractFixture implements OrderedFixtureInterface
 		
 		$rate3 = new Rate();
 		$rate3->setRateUnit("CHF/h");
-		$rate3->setValue(120);
+		$rate3->setRateValue(120);
 		$rate3->setRateGroup($this->getReference('default_rate_group'));
 		//TODO urfr resolve the casting problem of service in the following line of code ->getId() ist workarround which works
 		$rate3->setService($this->getReference('development_service'));
@@ -58,7 +58,7 @@ class LoadRates extends AbstractFixture implements OrderedFixtureInterface
 		
 		$rate4 = new Rate();
 		$rate4->setRateUnit("CHF/h");
-		$rate4->setValue(120);
+		$rate4->setRateValue(120);
 		$rate4->setRateGroup($this->getReference('default_rate_group'));
 		//TODO urfr resolve the casting problem of service in the following line of code ->getId() ist workarround which works
 		$rate4->setService($this->getReference('testing_service'));
@@ -68,7 +68,7 @@ class LoadRates extends AbstractFixture implements OrderedFixtureInterface
 		
 		$rate5 = new Rate();
 		$rate5->setRateUnit("CHF/h");
-		$rate5->setValue(120);
+		$rate5->setRateValue(120);
 		$rate5->setRateGroup($this->getReference('default_rate_group'));
 		//TODO urfr resolve the casting problem of service in the following line of code ->getId() ist workarround which works
 		$rate5->setService($this->getReference('documentation_service'));
@@ -78,7 +78,7 @@ class LoadRates extends AbstractFixture implements OrderedFixtureInterface
 		
 		$rate6 = new Rate();
 		$rate6->setRateUnit("CHF/h");
-		$rate6->setValue(120);
+		$rate6->setRateValue(120);
 		$rate6->setRateGroup($this->getReference('default_rate_group'));
 		//TODO urfr resolve the casting problem of service in the following line of code ->getId() ist workarround which works
 		$rate6->setService($this->getReference('projectManagement_service'));
@@ -88,7 +88,7 @@ class LoadRates extends AbstractFixture implements OrderedFixtureInterface
 		
 		$rate7 = new Rate();
 		$rate7->setRateUnit("CHF/h");
-		$rate7->setValue(120);
+		$rate7->setRateValue(120);
 		$rate7->setRateGroup($this->getReference('default_rate_group'));
 		//TODO urfr resolve the casting problem of service in the following line of code ->getId() ist workarround which works
 		$rate7->setService($this->getReference('qualityAssurance_service'));
@@ -98,7 +98,7 @@ class LoadRates extends AbstractFixture implements OrderedFixtureInterface
 		
 		$rate8 = new Rate();
 		$rate8->setRateUnit("CHF/h");
-		$rate8->setValue(120);
+		$rate8->setRateValue(120);
 		$rate8->setRateGroup($this->getReference('default_rate_group'));
 		//TODO urfr resolve the casting problem of service in the following line of code ->getId() ist workarround which works
 		$rate8->setService($this->getReference('systemAnalysis_service'));
@@ -108,7 +108,7 @@ class LoadRates extends AbstractFixture implements OrderedFixtureInterface
 
 		$rate9 = new Rate();
 		$rate9->setRateUnit("CHF/h");
-		$rate9->setValue(120);
+		$rate9->setRateValue(120);
 		$rate9->setRateGroup($this->getReference('default_rate_group'));
 		//TODO urfr resolve the casting problem of service in the following line of code ->getId() ist workarround which works
 		$rate9->setService($this->getReference('support_service'));
@@ -118,7 +118,7 @@ class LoadRates extends AbstractFixture implements OrderedFixtureInterface
 		
 		$rate10 = new Rate();
 		$rate10->setRateUnit("CHF/h");
-		$rate10->setValue(120);
+		$rate10->setRateValue(120);
 		$rate10->setRateGroup($this->getReference('default_rate_group'));
 		//TODO urfr resolve the casting problem of service in the following line of code ->getId() ist workarround which works
 		$rate10->setService($this->getReference('infrastructure_service'));
