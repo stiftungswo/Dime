@@ -1,9 +1,12 @@
 <div class="${baseClass}">
-
     <tr>
         <td><label>Reihenfolge </label><div class="${baseClass}Name" data-dojo-attach-point="orderNode" data-dojo-type="dijit/form/TextBox"></div></td>
         <td><label>Service </label><div class="${baseClass}Service" data-dojo-attach-point="serviceNode" data-dojo-type="dijit/form/FilteringSelect"></div></td>
-        <td><label>Tarif </label><div class="${baseClass}Rate" data-dojo-attach-point="rateNode" data-dojo-type="dijit/form/TextBox"></div></td>
+        <td>
+            <label>Tarif </label><div class="${baseClass}ServiceRateValue" data-dojo-attach-point="serviceRateValueNode" data-dojo-type="dijit/form/TextBox"></div>
+            <label>Tarif manuell </label><div class="${baseClass}OfferPositionRateValue" data-dojo-attach-point="offerPositionRateValueNode" data-dojo-type="dijit/form/TextBox"></div>
+        </td>
+        <td><label>Tarif Einheit </label><div class="${baseClass}RateUnit" data-dojo-attach-point="rateUnitNode" data-dojo-type="dijit/form/TextBox"></div></td>
         <td><label>MwSt. </label><div class="${baseClass}VAT" data-dojo-attach-point="VATNode" data-dojo-type="dijit/form/TextBox"></div></td>
         <td><label>Rabatierbar </label><div class="${baseClass}Discountable" data-dojo-attach-point="discountableNode" data-dojo-type="dijit/form/CheckBox"></div></td>
     </tr>

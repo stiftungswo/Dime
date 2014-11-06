@@ -27,17 +27,22 @@ define([
             this.serviceNode.set('parentWidget', this);
             this.serviceNode.set('store', window.storeManager.get('services', true));
             this.serviceNode.set('searchAttr','name');
-            this.rateNode.set('parentWidget', this);
+            this.serviceRateValueNode.set('parentWidget', this);
+            this.offerPositionRateValueNode.set('parentWidget', this);
+            this.rateUnitNode.set('parentWidget', this);
             this.VATNode.set('parentWidget', this);
             this.discountableNode.set('parentWidget', this);
+
         },
 
         _addcallbacks: function(){
             this.orderNode.watch('value', this._watchercallback);
             this.serviceNode.watch('value', this._watchercallback);
-            this.rateNode.watch('value', this._watchercallback);
+            this.serviceRateValueNode.watch('value', this._watchercallback);
+            this.offerPositionRateValueNode.watch('value', this._watchercallback);
             this.VATNode.watch('value', this._watchercallback);
             this.discountableNode.watch('value', this._watchercallback);
+            this.rateUnitNode.watch('value', this._watchercallback);
         },
 
         _fillValues: function(){
@@ -47,11 +52,15 @@ define([
 
         _updateValues: function(entity){
             //todo urfr update values
+            console.log("entity"+entity);
             this.orderNode.set('value', this.entity.order);
             this.serviceNode.set('value', this.entity.service.id);
-            this.rateNode.set('value', this.entity.rate);
+            this.serviceRateValueNode.set('value', this.entity.serviceRate ? this.entity.serviceRate.rateValue : null);
+            this.offerPositionRateValueNode.set('value', this.entity.rateValue);
+            this.rateUnitNode.set('value', this.entity.serviceRate ? this.entity.serviceRate.rateUnit : null);
             this.VATNode.set('value', this.entity.vat);
             this.discountableNode.set('value', this.entity.discountable);
+
         },
 
         _watchercallback: function(property, oldvalue, newvalue){
@@ -61,19 +70,19 @@ define([
             var offerPositionStore = this.parentWidget.store;
             switch(this.dojoAttachPoint) {
                 case "orderNode":
-                    offerPositionStore.put({id: offerPositionId, order: newvalue});
+                    offerPositionStore.put({order: newvalue}, {id: offerPositionId});
                     break;
                 case "serviceNode":
-                    offerPositionStore.put({id: offerPositionId, service: newvalue});
+                    offerPositionStore.put({service: newvalue}, {id: offerPositionId});
                     break;
-                case "rateNode":
-                    offerPositionStore.put({id: offerPositionId, rate: newvalue});
+                case "offerPositionRateValueNode":
+                    offerPositionStore.put({rate: newvalue}, {id: offerPositionId});
                     break;
                 case "VATNode":
-                    offerPositionStore.put({id: offerPositionId, vat: newvalue});
+                    offerPositionStore.put({vat: newvalue}, {id: offerPositionId});
                     break;
                 case "discountableNode":
-                    offerPositionStore.put({id: offerPositionId, discountable: newvalue});
+                    offerPositionStore.put({discountable: newvalue}, {id: offerPositionId});
                     break;
                 default:
                     break;
