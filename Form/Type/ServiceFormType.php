@@ -25,10 +25,10 @@ class ServiceFormType extends AbstractType
             ->add('name')
             ->add('alias')
             ->add('description')
-            ->add('rate')
+            ->add('rates', 'collection', array('type' => new RateFormType()))
 	        ->add('chargeable', null, array('empty_data' => 'checked', 'required' => false))
-            ->add('tags')
-            ->add('user')
+            ->add('tags', 'collection', array('type' => new TagFormType()))
+            ->add('user', 'entity', array('class' => 'DimeTimetrackerBundle:User'))
         ;
     }
 

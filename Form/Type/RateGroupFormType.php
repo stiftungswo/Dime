@@ -24,7 +24,7 @@ class RateGroupFormType extends AbstractType
         $builder
             ->add('name')
             ->add('description')
-            ->add('user');
+            ->add('user', 'entity', array('class' => 'DimeTimetrackerBundle:User'));
     }
 
     public function getName()

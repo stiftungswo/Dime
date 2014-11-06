@@ -22,11 +22,11 @@ class RateFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('rateGroup')
-            ->add('service')
+            ->add('rateGroup', 'entity', array('class' => 'DimeTimetrackerBundle:RateGroup'))
+            ->add('service', 'entity', array('class' => 'DimeTimetrackerBundle:Service'))
             ->add('rateUnit')
             ->add('rateValue')
-            ->add('user');
+            ->add('user', 'entity', array('class' => 'DimeTimetrackerBundle:User'));
     }
 
     public function getName()
