@@ -1,14 +1,14 @@
 define([
     'dijit/_WidgetsInTemplateMixin',
     'dijit/_TemplatedMixin',
-    'dime/widget/timetrack/_TimetrackerWidgetBase',
+    'dime/widget/_Base',
     'dojo/_base/declare',
     'dojo/text!dime/widget/timetrack/templates/TimesliceWidget.html',
     'dijit/form/DateTextBox',
     "dijit/form/NumberSpinner",
     "xstyle!dime/widget/timetrack/css/TimesliceWidget.css"
-], function (WidgetsInTemplateMixin, TemplatedMixin, _TimetrackerWidgetBase, declare, template) {
-    return declare("dime.widget.timetrack.TimesliceWidget", [_TimetrackerWidgetBase, TemplatedMixin, WidgetsInTemplateMixin], {
+], function (WidgetsInTemplateMixin, TemplatedMixin, Base, declare, template) {
+    return declare("dime.widget.timetrack.TimesliceWidget", [Base, TemplatedMixin, WidgetsInTemplateMixin], {
         templateString: template,
         baseClass: "timesliceWidget",
         store: window.storeManager.get('timeslices', true),
@@ -26,6 +26,7 @@ define([
         },
 
         _updateValues: function(entity){
+            this.inherited(arguments);
             //ToDo: Proper Formating in the Backend.
             var datestr = entity.startedAt.split(" ")[0];
             this.startedAtNode.set('value', datestr);
@@ -36,16 +37,20 @@ define([
             if(oldvalue == "") return;
             var timesliceId = this.parentWidget.entity.id;
             var timesliceStore = this.parentWidget.store;
+            var result;
             switch(this.dojoAttachPoint) {
                 case "startedAtNode":
-                    timesliceStore.put({id: timesliceId, startedAt: newvalue});
+                    result = timesliceStore.put({id: timesliceId, startedAt: newvalue});
                     break;
                 case "durationNode":
-                    timesliceStore.put({id: timesliceId, duration: newvalue});
+                    result = timesliceStore.put({id: timesliceId, duration: newvalue});
                     break;
                 default:
                     break;
             }
+            result.then(function(data){
+                window.widgetManager.update(data, 'timeslices');
+            });
         }
     });
 });

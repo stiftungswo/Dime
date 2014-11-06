@@ -9,38 +9,36 @@ define([
 ], function (declare, dStore, DstoreAdapter, JsonRest, Memory, Observable, Cache) {
     return declare('dime.store.storeManager', [], {
         stores: {},
-        get: function(entity, compat, legacy, trailingslash){
-            if(trailingslash) entity = entity+'/';
+        get: function(entity, compat, legacy){
             //Search if store is already defined
             var store;
             if(this._hasstore(entity)){
                 store = this.stores[entity]
             }
             else {
-                if(legacy) {
-                    store = this._makelegacy(entity);
-                }
-                else{
-                    store = new dStore({entity: entity});
-                }
+                //if(legacy) {
+                store = this._makelegacy(entity);
+                //}
+                //else{
+                //    store = new dStore({entity: entity});
+                //}
                 this.stores[entity] = store;
             }
-            if(compat) store = this._compat(store);
+            //if(compat) store = this._compat(store);
             return store;
         },
 
-        create: function(entity, compat, legacy, trailingslash){
-            if(trailingslash) entity = entity+'/';
+        new: function(entity, compat, legacy){
             //Search if store is already defined
             var store;
-            if(legacy) {
-                store = this._makelegacy(entity);
-            }
-            else{
-                store = new dStore({entity: entity});
-            }
+            //if(legacy) {
+            store = this._makelegacy(entity);
+            //}
+            //else{
+            //    store = new dStore({entity: entity});
+            //}
             this.stores[entity] = store;
-            if(compat) store = this._compat(store);
+            //if(compat) store = this._compat(store);
             return store;
         },
 

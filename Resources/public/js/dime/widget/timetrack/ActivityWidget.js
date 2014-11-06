@@ -1,7 +1,7 @@
 define([
     'dijit/_WidgetsInTemplateMixin',
     'dijit/_TemplatedMixin',
-    'dime/widget/timetrack/_TimetrackerWidgetBase',
+    'dime/widget/_Base',
     'dojo/_base/declare',
     'dojo/text!dime/widget/timetrack/templates/ActivityWidget.html',
     "dime/widget/timetrack/TimesliceWidget",
@@ -11,17 +11,17 @@ define([
     "dijit/form/CheckBox",
     "dijit/form/Textarea",
     "xstyle!dime/widget/timetrack/css/ActivityWidget.css"
-], function (WidgetsInTemplateMixin, TemplatedMixin, _TimetrackerWidgetBase, declare, template, TimesliceWidget, registry) {
-    return declare("dime.widget.timetrack.ActivityWidget", [_TimetrackerWidgetBase, TemplatedMixin, WidgetsInTemplateMixin], {
+], function (WidgetsInTemplateMixin, TemplatedMixin, Base, declare, template, TimesliceWidget, registry) {
+    return declare("dime.widget.timetrack.ActivityWidget", [Base, TemplatedMixin, WidgetsInTemplateMixin], {
         templateString: template,
         baseClass: "activityWidget",
-        store: window.storeManager.get('activities', true),
+        store: window.storeManager.get('activities', false, true),
 
         _setupChildren: function(){
             this.projectNode.set('parentWidget', this);
-            this.projectNode.set('store', window.storeManager.get('projects', true, false, true));
+            this.projectNode.set('store', window.storeManager.get('projects', true));
             this.serviceNode.set('parentWidget', this);
-            this.serviceNode.set('store', window.storeManager.get('services', true, false, true));
+            this.serviceNode.set('store', window.storeManager.get('services', true));
             this.descriptionNode.set('parentWidget', this);
             this.deleteNode.set('parentWidget', this);
             //this.chargeableNode.set('parentWidget', this);
@@ -41,19 +41,18 @@ define([
         },
 
         _fillValues: function(){
-            var addchildwidget = this._addChildWidget, parentWidget = this, timesliceContainer = this.timesliceContainer;
+            var parentWidget = this, timesliceContainer = this.timesliceContainer;
             this.inherited(arguments);
-            var results = window.storeManager.get('timeslices', true).query({activity: this.entity.id});
+            var timeslicestore = window.storeManager.get('timeslices', false, true);
+            var results = timeslicestore.query({activity: this.entity.id});
             results.forEach(function(entity){
-                addchildwidget(entity, TimesliceWidget, timesliceContainer, parentWidget)
-            });
-            this.observeHandle = results.observe(function(object, removedFrom, insertedInto){
-                parentWidget._updateHandler(object, removedFrom, insertedInto, TimesliceWidget, timesliceContainer, parentWidget)
+                window.widgetManager.add(entity, 'timeslices', TimesliceWidget, parentWidget, timesliceContainer)
             });
         },
 
         _updateValues: function(entity){
-            this.customerNode.innerHTML(entity.project.customer.name);
+            this.inherited(arguments);
+            this.customerNode.set('value', entity.project.customer.name);
             this.projectNode.set('value', entity.project.id);
             this.serviceNode.set('value', entity.service.id);
             this.descriptionNode.set('value', entity.description);
@@ -64,22 +63,26 @@ define([
             if(oldvalue == "") return;
             var activityId = this.parentWidget.entity.id;
             var activityStore = this.parentWidget.store;
+            var result;
             switch(this.dojoAttachPoint) {
                 case "projectNode":
-                    activityStore.put({id: activityId, project: newvalue});
+                    result = activityStore.put({project: newvalue}, {id: activityId});
                     break;
                 case "serviceNode":
-                    activityStore.put({id: activityId, service: newvalue});
+                    result = activityStore.put({service: newvalue}, {id: activityId});
                     break;
                 case "descriptionNode":
-                    activityStore.put({id: activityId, description: newvalue});
+                    result = activityStore.put({description: newvalue}, {id: activityId});
                     break;
                 case "chargeableNode":
-                    activityStore.put({id: activityId, chargeable: newvalue});
+                    result = activityStore.put({chargeable: newvalue}, {id: activityId});
                     break;
                 default:
                     break;
             }
+            result.then(function(data){
+                window.widgetManager.update(data, 'activities');
+            });
         }
     });
 });

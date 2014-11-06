@@ -1,250 +1,504 @@
-//>>built
-define("dojox/embed/Flash",["dojo/_base/lang","dojo/_base/unload","dojo/_base/array","dojo/query","dojo/has","dojo/dom","dojo/on","dojo/window"],function(_1,_2,_3,_4,_5,_6,on,_7){
-var _8,_9;
-var _a=9;
-var _b="dojox-embed-flash-",_c=0;
-var _d={expressInstall:false,width:320,height:240,swLiveConnect:"true",allowScriptAccess:"sameDomain",allowNetworking:"all",style:null,redirect:null};
-function _e(_f){
-_f=_1.delegate(_d,_f);
-if(!("path" in _f)){
-console.error("dojox.embed.Flash(ctor):: no path reference to a Flash movie was provided.");
-return null;
-}
-if(!("id" in _f)){
-_f.id=(_b+_c++);
-}
-return _f;
+define([
+    	"dojo/_base/lang",
+    	"dojo/_base/unload",
+    	"dojo/_base/array",
+    	"dojo/query",
+    	"dojo/has",
+    	"dojo/dom",
+    	"dojo/on",
+    	"dojo/window"
+        ], function(lang,unload,array,query,has,dom,on,win) {
+
+	// module:
+	//		dojox/embed/Flash
+	// summary:
+	//		Base functionality to insert a flash movie into
+	//		a document on the fly.
+	// example:
+	//	|	var movie=new Flash({ args }, containerNode);
+
+
+	var fMarkup, fVersion;
+	var minimumVersion = 9; // anything below this will throw an error (may overwrite)
+	var keyBase = "dojox-embed-flash-", keyCount=0;
+	var _baseKwArgs = {
+		expressInstall: false,
+		width: 320,
+		height: 240,
+		swLiveConnect: "true",
+		allowScriptAccess: "sameDomain",
+		allowNetworking:"all",
+		style: null,
+		redirect: null
+	};
+
+	function prep(kwArgs){
+		kwArgs = lang.delegate(_baseKwArgs, kwArgs);
+
+		if(!("path" in kwArgs)){
+			console.error("dojox.embed.Flash(ctor):: no path reference to a Flash movie was provided.");
+			return null;
+		}
+
+		if(!("id" in kwArgs)){
+			kwArgs.id = (keyBase + keyCount++);
+		}
+		return kwArgs;
+	}
+
+	if(has('ie')) {
+		fMarkup = function(kwArgs){
+			kwArgs = prep(kwArgs);
+			if(!kwArgs){ return null; }
+
+			var p;
+			var path = kwArgs.path;
+			if(kwArgs.vars){
+				var a = [];
+				for(p in kwArgs.vars){
+					a.push(p + '=' + kwArgs.vars[p]);
+				}
+				kwArgs.params.FlashVars = a.join("&");
+				delete kwArgs.vars;
+			}
+			var s = '<object id="' + kwArgs.id + '" '
+				+ 'classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" '
+				+ 'width="' + kwArgs.width + '" '
+				+ 'height="' + kwArgs.height + '"'
+				+ ((kwArgs.style)?' style="' + kwArgs.style + '"':'')
+				+ '>'
+				+ '<param name="movie" value="' + path + '" />';
+			if(kwArgs.params){
+				for(p in kwArgs.params){
+					s += '<param name="' + p + '" value="' + kwArgs.params[p] + '" />';
+				}
+			}
+			s += '</object>';
+			return { id: kwArgs.id, markup: s };
+		};
+
+		fVersion = (function(){
+			var testVersion = 10, testObj = null;
+			while(!testObj && testVersion > 7){
+				try {
+					testObj = new ActiveXObject("ShockwaveFlash.ShockwaveFlash." + testVersion--);
+				}catch(e){ }
+			}
+			if(testObj){
+				var v = testObj.GetVariable("$version").split(" ")[1].split(",");
+				return {
+					major: (v[0]!=null) ? parseInt(v[0]) : 0,
+					minor: (v[1]!=null) ? parseInt(v[1]) : 0,
+					rev: (v[2]!=null) ? parseInt(v[2]) : 0
+				};
+			}
+			return { major: 0, minor: 0, rev: 0 };
+		})();
+
+		//	attach some cleanup for IE, thanks to deconcept :)
+		unload.addOnWindowUnload(function(){
+			console.warn('***************UNLOAD');
+			var dummy = function(){};
+			var objs = query("object").
+				reverse().
+				style("display", "none").
+				forEach(function(i){
+					for(var p in i){
+						if((p != "FlashVars") && typeof i[p] == "function"){
+							try{
+								i[p] = dummy;
+							}catch(e){}
+						}
+					}
+				});
+		});
+
+	} else {
+		//	*** Sane browsers branch ******************************************************************
+		fMarkup = function(kwArgs){
+			kwArgs = prep(kwArgs);
+			if(!kwArgs){ return null; }
+
+			var p;
+			var path = kwArgs.path;
+			if(kwArgs.vars){
+				var a = [];
+				for(p in kwArgs.vars){
+					a.push(p + '=' + kwArgs.vars[p]);
+				}
+				kwArgs.params.flashVars = a.join("&");
+				delete kwArgs.vars;
+			}
+			var s = '<embed type="application/x-shockwave-flash" '
+				+ 'src="' + path + '" '
+				+ 'id="' + kwArgs.id + '" '
+				+ 'width="' + kwArgs.width + '" '
+				+ 'height="' + kwArgs.height + '"'
+				+ ((kwArgs.style)?' style="' + kwArgs.style + '" ':'')
+
+				+ 'pluginspage="' + window.location.protocol + '//www.adobe.com/go/getflashplayer" ';
+			if(kwArgs.params){
+				for(p in kwArgs.params){
+					s += ' ' + p + '="' + kwArgs.params[p] + '"';
+				}
+			}
+			s += ' />';
+			return { id: kwArgs.id, markup: s };
+		};
+
+		fVersion=(function(){
+			var plugin = navigator.plugins["Shockwave Flash"];
+			if(plugin && plugin.description){
+				var v = plugin.description.replace(/([a-zA-Z]|\s)+/, "").replace(/(\s+r|\s+b[0-9]+)/, ".").split(".");
+				return {
+					major: (v[0]!=null) ? parseInt(v[0]) : 0,
+					minor: (v[1]!=null) ? parseInt(v[1]) : 0,
+					rev: (v[2]!=null) ? parseInt(v[2]) : 0
+				};
+			}
+			return { major: 0, minor: 0, rev: 0 };
+		})();
+	}
+
+
+/*=====
+var __flashArgs = {
+	// path: String
+	//		The URL of the movie to embed.
+	// id: String?
+	//		A unique key that will be used as the id of the created markup.  If you don't
+	//		provide this, a unique key will be generated.
+	// width: Number?
+	//		The width of the embedded movie; the default value is 320px.
+	// height: Number?
+	//		The height of the embedded movie; the default value is 240px
+	// minimumVersion: Number?
+	//		The minimum targeted version of the Flash Player (defaults to 9)
+	// style: String?
+	//		Any CSS style information (i.e. style="background-color:transparent") you want
+	//		to define on the markup.
+	// params: Object?
+	//		A set of key/value pairs that you want to define in the resultant markup.
+	// vars: Object?
+	//		A set of key/value pairs that the Flash movie will interpret as FlashVars.
+	// expressInstall: Boolean?
+	//		Whether or not to include any kind of expressInstall info. Default is false.
+	// redirect: String?
+	//		A url to redirect the browser to if the current Flash version is not supported.
 };
-if(_5("ie")){
-_8=function(_10){
-_10=_e(_10);
-if(!_10){
-return null;
-}
-var p;
-var _11=_10.path;
-if(_10.vars){
-var a=[];
-for(p in _10.vars){
-a.push(p+"="+_10.vars[p]);
-}
-_10.params.FlashVars=a.join("&");
-delete _10.vars;
-}
-var s="<object id=\""+_10.id+"\" "+"classid=\"clsid:D27CDB6E-AE6D-11cf-96B8-444553540000\" "+"width=\""+_10.width+"\" "+"height=\""+_10.height+"\""+((_10.style)?" style=\""+_10.style+"\"":"")+">"+"<param name=\"movie\" value=\""+_11+"\" />";
-if(_10.params){
-for(p in _10.params){
-s+="<param name=\""+p+"\" value=\""+_10.params[p]+"\" />";
-}
-}
-s+="</object>";
-return {id:_10.id,markup:s};
-};
-_9=(function(){
-var _12=10,_13=null;
-while(!_13&&_12>7){
-try{
-_13=new ActiveXObject("ShockwaveFlash.ShockwaveFlash."+_12--);
-}
-catch(e){
-}
-}
-if(_13){
-var v=_13.GetVariable("$version").split(" ")[1].split(",");
-return {major:(v[0]!=null)?parseInt(v[0]):0,minor:(v[1]!=null)?parseInt(v[1]):0,rev:(v[2]!=null)?parseInt(v[2]):0};
-}
-return {major:0,minor:0,rev:0};
-})();
-_2.addOnWindowUnload(function(){
-console.warn("***************UNLOAD");
-var _14=function(){
-};
-var _15=_4("object").reverse().style("display","none").forEach(function(i){
-for(var p in i){
-if((p!="FlashVars")&&typeof i[p]=="function"){
-try{
-i[p]=_14;
-}
-catch(e){
-}
-}
-}
-});
-});
-}else{
-_8=function(_16){
-_16=_e(_16);
-if(!_16){
-return null;
-}
-var p;
-var _17=_16.path;
-if(_16.vars){
-var a=[];
-for(p in _16.vars){
-a.push(p+"="+_16.vars[p]);
-}
-_16.params.flashVars=a.join("&");
-delete _16.vars;
-}
-var s="<embed type=\"application/x-shockwave-flash\" "+"src=\""+_17+"\" "+"id=\""+_16.id+"\" "+"width=\""+_16.width+"\" "+"height=\""+_16.height+"\""+((_16.style)?" style=\""+_16.style+"\" ":"")+"pluginspage=\""+window.location.protocol+"//www.adobe.com/go/getflashplayer\" ";
-if(_16.params){
-for(p in _16.params){
-s+=" "+p+"=\""+_16.params[p]+"\"";
-}
-}
-s+=" />";
-return {id:_16.id,markup:s};
-};
-_9=(function(){
-var _18=navigator.plugins["Shockwave Flash"];
-if(_18&&_18.description){
-var v=_18.description.replace(/([a-zA-Z]|\s)+/,"").replace(/(\s+r|\s+b[0-9]+)/,".").split(".");
-return {major:(v[0]!=null)?parseInt(v[0]):0,minor:(v[1]!=null)?parseInt(v[1]):0,rev:(v[2]!=null)?parseInt(v[2]):0};
-}
-return {major:0,minor:0,rev:0};
-})();
-}
-var _19=function(_1a,_1b){
-if(location.href.toLowerCase().indexOf("file://")>-1){
-throw new Error("dojox.embed.Flash can't be run directly from a file. To instatiate the required SWF correctly it must be run from a server, like localHost.");
-}
-this.available=_9.major;
-this.minimumVersion=_1a.minimumVersion||_a;
-this.id=null;
-this.movie=null;
-this.domNode=null;
-if(_1b){
-_1b=_6.byId(_1b);
-}
-setTimeout(_1.hitch(this,function(){
-if(_1a.expressInstall||this.available&&this.available>=this.minimumVersion){
-if(_1a&&_1b){
-this.init(_1a,_1b);
-}else{
-this.onError("embed.Flash was not provided with the proper arguments.");
-}
-}else{
-if(!this.available){
-this.onError("Flash is not installed.");
-}else{
-this.onError("Flash version detected: "+this.available+" is out of date. Minimum required: "+this.minimumVersion);
-}
-}
-}),100);
-};
-_1.extend(_19,{onReady:function(_1c){
-},onLoad:function(_1d){
-},onError:function(msg){
-},_onload:function(){
-clearInterval(this._poller);
-delete this._poller;
-delete this._pollCount;
-delete this._pollMax;
-this.onLoad(this.movie);
-},init:function(_1e,_1f){
-this.destroy();
-_1f=_6.byId(_1f||this.domNode);
-if(!_1f){
-throw new Error("dojox.embed.Flash: no domNode reference has been passed.");
-}
-var p=0,_20=false;
-this._poller=null;
-this._pollCount=0;
-this._pollMax=15;
-this.pollTime=100;
-if(_19.initialized){
-this.id=_19.place(_1e,_1f);
-this.domNode=_1f;
-setTimeout(_1.hitch(this,function(){
-this.movie=this.byId(this.id,_1e.doc);
-this.onReady(this.movie);
-this._poller=setInterval(_1.hitch(this,function(){
-try{
-p=this.movie.PercentLoaded();
-}
-catch(e){
-console.warn("this.movie.PercentLoaded() failed",e,this.movie);
-}
-if(p==100){
-this._onload();
-}else{
-if(p==0&&this._pollCount++>this._pollMax){
-clearInterval(this._poller);
-throw new Error("Building SWF failed.");
-}
-}
-}),this.pollTime);
-}),1);
-}
-},_destroy:function(){
-try{
-this.domNode.removeChild(this.movie);
-}
-catch(e){
-}
-this.id=this.movie=this.domNode=null;
-},destroy:function(){
-if(!this.movie){
-return;
-}
-var _21=_1.delegate({id:true,movie:true,domNode:true,onReady:true,onLoad:true});
-for(var p in this){
-if(!_21[p]){
-delete this[p];
-}
-}
-if(this._poller){
-on(this,"Load",this,"_destroy");
-}else{
-this._destroy();
-}
-},byId:function(_22,doc){
-doc=doc||document;
-if(doc.embeds[_22]){
-return doc.embeds[_22];
-}
-if(doc[_22]){
-return doc[_22];
-}
-if(window[_22]){
-return window[_22];
-}
-if(document[_22]){
-return document[_22];
-}
-return null;
-}});
-_1.mixin(_19,{minSupported:8,available:_9.major,supported:(_9.major>=_9.required),minimumRequired:_9.required,version:_9,initialized:false,onInitialize:function(){
-_19.initialized=true;
-},__ie_markup__:function(_23){
-return _8(_23);
-},proxy:function(obj,_24){
-_3.forEach((_24 instanceof Array?_24:[_24]),function(_25){
-this[_25]=_1.hitch(this,function(){
-return (function(){
-return eval(this.movie.CallFunction("<invoke name=\""+_25+"\" returntype=\"javascript\">"+"<arguments>"+_3.map(arguments,function(_26){
-return __flash__toXML(_26);
-}).join("")+"</arguments>"+"</invoke>"));
-}).apply(this,arguments||[]);
-});
-},obj);
-}});
-_19.place=function(_27,_28){
-var o=_8(_27);
-_28=_6.byId(_28);
-if(!_28){
-_28=_7.doc.createElement("div");
-_28.id=o.id+"-container";
-_7.body().appendChild(_28);
-}
-if(o){
-_28.innerHTML=o.markup;
-return o.id;
-}
-return null;
-};
-_19.onInitialize();
-_1.setObject("dojox.embed.Flash",_19);
-return _19;
+=====*/
+
+	//	the main entry point
+	var Flash = function(/*__flashArgs*/ kwArgs, /*DOMNode*/ node){
+		// summary:
+		//		Create a wrapper object around a Flash movie; this is the DojoX equivilent
+		//		to SWFObject.
+		//
+		// description:
+		//		Creates a wrapper object around a Flash movie.  Wrapper object will
+		//		insert the movie reference in node; when the browser first starts
+		//		grabbing the movie, onReady will be fired; when the movie has finished
+		//		loading, it will fire onLoad.
+		//
+		//		If your movie uses ExternalInterface, you should use the onLoad event
+		//		to do any kind of proxy setup (see dojox.embed.Flash.proxy); this seems
+		//		to be the only consistent time calling EI methods are stable (since the
+		//		Flash movie will shoot several methods into the window object before
+		//		EI callbacks can be used properly).
+		//
+		// kwArgs: __flashArgs
+		//		The various arguments that will be used to help define the Flash movie.
+		// node: DomNode
+		//		The node where the embed object will be placed
+		//
+		// example:
+		//		Embed a flash movie in a document using the new operator, and get a reference to it.
+		//	|	var movie = new dojox.embed.Flash({
+		//	|		path: "path/to/my/movie.swf",
+		//	|		width: 400,
+		//	|		height: 300
+		//	|	}, myWrapperNode, "testLoaded");
+		//
+		// example:
+		//		Embed a flash movie in a document without using the new operator.
+		//	|	var movie = dojox.embed.Flash({
+		//	|		path: "path/to/my/movie.swf",
+		//	|		width: 400,
+		//	|		height: 300,
+		//	|		style: "position:absolute;top:0;left:0"
+		//	|	}, myWrapperNode, "testLoaded");
+
+		// File can only be run from a server, due to SWF dependency.
+		if(location.href.toLowerCase().indexOf("file://")>-1){
+			throw new Error("dojox.embed.Flash can't be run directly from a file. To instatiate the required SWF correctly it must be run from a server, like localHost.");
+		}
+
+		// available: Number
+		//		If there is a flash player available, and if so what version.
+		this.available = fVersion.major;
+
+		// minimumVersion: Number
+		//		The minimum version of Flash required to run this movie.
+		this.minimumVersion = kwArgs.minimumVersion || minimumVersion;
+
+		// id: String
+		//		The id of the DOMNode to be used for this movie.  Can be used with dojo.byId to get a reference.
+		this.id = null;
+
+		// movie: FlashObject
+		//		A reference to the movie itself.
+		this.movie = null;
+
+		// domNode: DOMNode
+		//		A reference to the DOMNode that contains this movie.
+		this.domNode = null;
+		if(node){
+			node = dom.byId(node);
+		}
+		// setTimeout Fixes #8743 - creating double SWFs
+		// also allows time for code to attach to onError
+		setTimeout(lang.hitch(this, function(){
+			if(kwArgs.expressInstall || this.available && this.available >= this.minimumVersion){
+				if(kwArgs && node){
+					this.init(kwArgs, node);
+				}else{
+					this.onError("embed.Flash was not provided with the proper arguments.");
+				}
+			}else{
+				if(!this.available){
+					this.onError("Flash is not installed.");
+				}else{
+					this.onError("Flash version detected: "+this.available+" is out of date. Minimum required: "+this.minimumVersion);
+				}
+			}
+		}), 100);
+	};
+
+	lang.extend(Flash, {
+		onReady: function(/*HTMLObject*/ movie){
+			// summary:
+			//		Stub function for you to attach to when the movie reference is first
+			//		pushed into the document.
+		},
+		onLoad: function(/*HTMLObject*/ movie){
+			// summary:
+			//		Stub function for you to attach to when the movie has finished downloading
+			//		and is ready to be manipulated.
+		},
+		onError: function(msg){
+
+		},
+		_onload: function(){
+			// summary:
+			//	Internal. Cleans up before calling onLoad.
+			clearInterval(this._poller);
+			delete this._poller;
+			delete this._pollCount;
+			delete this._pollMax;
+			this.onLoad(this.movie);
+		},
+		init: function(/*__flashArgs*/ kwArgs, /*DOMNode?*/ node){
+			// summary:
+			//		Initialize (i.e. place and load) the movie based on kwArgs.
+			this.destroy();		//	ensure we are clean first.
+			node = dom.byId(node || this.domNode);
+			if(!node){ throw new Error("dojox.embed.Flash: no domNode reference has been passed."); }
+
+			// vars to help determine load status
+			var p = 0, testLoaded=false;
+			this._poller = null; this._pollCount = 0; this._pollMax = 15; this.pollTime = 100;
+
+			if(Flash.initialized){
+
+				this.id = Flash.place(kwArgs, node);
+				this.domNode = node;
+
+				setTimeout(lang.hitch(this, function(){
+					this.movie = this.byId(this.id, kwArgs.doc);
+					this.onReady(this.movie);
+
+					this._poller = setInterval(lang.hitch(this, function(){
+
+						// catch errors if not quite ready.
+						try{
+							p = this.movie.PercentLoaded();
+						}catch(e){
+							console.warn("this.movie.PercentLoaded() failed", e, this.movie);
+						}
+
+						if(p == 100){
+							// if percent = 100, movie is fully loaded and we're communicating
+							this._onload();
+
+						}else if(p==0 && this._pollCount++ > this._pollMax){
+							// after several attempts, we're not past zero.
+							clearInterval(this._poller);
+							throw new Error("Building SWF failed.");
+						}
+					}), this.pollTime);
+				}), 1);
+			}
+		},
+		_destroy: function(){
+			// summary:
+			//		Kill the movie and reset all the properties of this object.
+			try{
+				this.domNode.removeChild(this.movie);
+			}catch(e){}
+			this.id = this.movie = this.domNode = null;
+		},
+		destroy: function(){
+			// summary:
+			//		Public interface for destroying all the properties in this object.
+			//		Will also clean all proxied methods.
+			if(!this.movie){ return; }
+
+			//	remove any proxy functions
+			var test = lang.delegate({
+				id: true,
+				movie: true,
+				domNode: true,
+				onReady: true,
+				onLoad: true
+			});
+			for(var p in this){
+				if(!test[p]){
+					delete this[p];
+				}
+			}
+
+			//	poll the movie
+			if(this._poller){
+				//	wait until onLoad to destroy
+				on(this, "Load", this, "_destroy");
+			} else {
+				this._destroy();
+			}
+		},
+		byId: function (movieName, doc){
+			// summary:
+			//		Gets Flash movie by id.
+			// description:
+			//		Probably includes methods for outdated
+			//		browsers, but this should catch all cases.
+			// movieName: String
+			//		The name of the SWF
+			// doc: Object
+			//		The document, if not current window
+			//		(not fully supported)
+			// example:
+			//	|	var movie = dojox.embed.Flash.byId("myId");
+
+			doc = doc || document;
+			if(doc.embeds[movieName]){
+				return doc.embeds[movieName];
+			}
+			if(doc[movieName]){
+				return doc[movieName];
+			}
+			if(window[movieName]){
+				return window[movieName];
+			}
+			if(document[movieName]){
+				return document[movieName];
+			}
+			return null;
+		}
+	});
+
+	//	expose information through the constructor function itself.
+	lang.mixin(Flash, {
+		// summary:
+		//		A singleton object used internally to get information
+		//		about the Flash player available in a browser, and
+		//		as the factory for generating and placing markup in a
+		//		document.
+		//
+		// minSupported: Number
+		//		The minimum supported version of the Flash Player, defaults to 8.
+		// available: Number
+		//		Used as both a detection (i.e. if(dojox.embed.Flash.available){ })
+		//		and as a variable holding the major version of the player installed.
+		// supported: Boolean
+		//		Whether or not the Flash Player installed is supported by dojox.embed.
+		// version: Object
+		//		The version of the installed Flash Player; takes the form of
+		//		{ major, minor, rev }.  To get the major version, you'd do this:
+		//		var v=dojox.embed.Flash.version.major;
+		// initialized: Boolean
+		//		Whether or not the Flash engine is available for use.
+		// onInitialize: Function
+		//		A stub you can connect to if you are looking to fire code when the
+		//		engine becomes available.  A note: DO NOT use this event to
+		//		place a movie in a document; it will usually fire before DOMContentLoaded
+		//		is fired, and you will get an error.  Use dojo.addOnLoad instead.
+		minSupported : 8,
+		available: fVersion.major,
+		supported: (fVersion.major >= fVersion.required),
+		minimumRequired: fVersion.required,
+		version: fVersion,
+		initialized: false,
+		onInitialize: function(){
+			Flash.initialized = true;
+		},
+		__ie_markup__: function(kwArgs){
+			return fMarkup(kwArgs);
+		},
+		proxy: function(/*Flash*/ obj, /*Array|String*/ methods){
+			// summary:
+			//		Create the set of passed methods on the Flash object
+			//		so that you can call that object directly, as opposed to having to
+			//		delve into the internal movie to do this.  Intended to make working
+			//		with Flash movies that use ExternalInterface much easier to use.
+			//
+			// example:
+			//		Create "setMessage" and "getMessage" methods on foo.
+			//	|	var foo = new Flash(args, someNode);
+			//	|	dojo.connect(foo, "onLoad", lang.hitch(foo, function(){
+			//	|		Flash.proxy(this, [ "setMessage", "getMessage" ]);
+			//	|		this.setMessage("Flash.proxy is pretty cool...");
+			//	|		console.log(this.getMessage());
+			//	|	}));
+			array.forEach((methods instanceof Array ? methods : [ methods ]), function(item){
+				this[item] = lang.hitch(this, function(){
+					return (function(){
+						return eval(this.movie.CallFunction(
+							'<invoke name="' + item + '" returntype="javascript">'
+							+ '<arguments>'
+							+ array.map(arguments, function(item){
+								// FIXME:
+								//		investigate if __flash__toXML will
+								//		accept direct application via map()
+								//		(e.g., does it ignore args past the
+								//		first? or does it blow up?)
+								return __flash__toXML(item);
+							}).join("")
+							+ '</arguments>'
+							+ '</invoke>'
+						));
+					}).apply(this, arguments||[]);
+				});
+			}, obj);
+		}
+	});
+
+	Flash.place = function(kwArgs, node){
+		var o = fMarkup(kwArgs);
+		node = dom.byId(node);
+		if(!node){
+			node = win.doc.createElement("div");
+			node.id = o.id+"-container";
+			win.body().appendChild(node);
+		}
+		if(o){
+			node.innerHTML = o.markup;
+			return o.id;
+		}
+		return null;
+	}
+	Flash.onInitialize();
+
+	lang.setObject("dojox.embed.Flash", Flash);
+
+	return Flash;
 });

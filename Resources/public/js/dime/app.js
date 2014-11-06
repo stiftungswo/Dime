@@ -11,11 +11,12 @@ define([
         "dgrid/editor",
         "dime/store/storeManager",
         "dime/widget/dialogManager",
+        "dime/widget/widgetManager",
         "dojo/NodeList-manipulate",
         "dojo/NodeList-traverse",
         "dime/module"
     ],
-    function(declare, parser, dom, domStyle, domGeometry, baseFx, ContentPane, registry, editor, storeManager, dialogManager) {
+    function(declare, parser, dom, domStyle, domGeometry, baseFx, ContentPane, registry, editor, storeManager, dialogManager, widgetManager) {
         return declare('dime.app', [], {
 
 
@@ -91,9 +92,10 @@ define([
                     tabContainer.selectChild(tab);
                 },
 
-                initStores: function () {
+                initManager: function () {
                     window.storeManager = new storeManager();
                     window.dialogManager = new dialogManager();
+                    window.widgetManager = new widgetManager();
                 },
 
                 //createStore: function(target){
@@ -103,7 +105,7 @@ define([
                 init: function () {
                     this.startLoading();
 
-                    this.initStores();
+                    this.initManager();
                     window.dgrid = {
                         editor: editor
                     };
