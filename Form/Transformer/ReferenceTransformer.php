@@ -44,20 +44,28 @@ class ReferenceTransformer implements DataTransformerInterface
 	 */
 	public function transform($value)
 	{
-		switch($value)
-		{
-		case ActivityReference::$SERVICE:
+		if(is_numeric($value)){
+			switch($value)
+			{
+			case ActivityReference::$SERVICE:
+				return 'service';
+				break;
+			case ActivityReference::$CUSTOMER:
+				return 'customer';
+				break;
+			case ActivityReference::$PROJECT:
+				return 'project';
+				break;
+			case ActivityReference::$ACTIVITY:
+				return 'activty';
+				break;
+			default:
+				return 'service';
+				break;
+			}
+		}
+		else{
 			return 'service';
-			break;
-		case ActivityReference::$CUSTOMER:
-			return 'customer';
-			break;
-		case ActivityReference::$PROJECT:
-			return 'project';
-			break;
-		case ActivityReference::$ACTIVITY:
-			return 'activty';
-			break;
 		}
 	}
 

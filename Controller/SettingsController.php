@@ -76,25 +76,33 @@ class SettingsController extends DimeController
         return $this->getOr404($id, $this->handlerSerivce);
     }
 
-    /**
-     * Presents the form to use to create a new Entity.
-     *
-     * @ApiDoc(
-     * resource = true,
-     * statusCodes = {
-     * 200 = "Returned when successful"
-     * }
-     * )
-     *
-     * @Annotations\View(
-     * templateVar = "form"
-     * )
-     *
-     * @return FormTypeInterface
-     */
-    public function newSettingAction()
+	/**
+	 * Presents the form to use to create a new Entity.
+	 *
+	 * @ApiDoc(
+	 * resource = true,
+	 * statusCodes = {
+	 * 200 = "Returned when successful"
+	 * }
+	 * )
+	 *
+	 * @Annotations\View(
+	 * templateVar = "form"
+	 * )
+	 *
+	 * @Annotations\Route(requirements={"_format"="html"})
+	 * @Annotations\QueryParam(name="name", nullable=true, description="Sets the Value Param in the Form.")
+	 * @Annotations\QueryParam(name="namespace", nullable=true, description="Sets the Value Param in the Form.")
+	 * @Annotations\QueryParam(name="value", nullable=true, description="Sets the Value Param in the Form.")
+	 * 
+	 *
+	 * @param ParamFetcherInterface $paramFetcher
+	 *
+	 * @return FormTypeInterface
+	 */
+    public function newSettingAction(ParamFetcherInterface $paramFetcher)
     {
-        return $this->createForm($this->formType);
+	    return $this->get($this->handlerSerivce)->newForm($paramFetcher->all());
     }
 
     /**

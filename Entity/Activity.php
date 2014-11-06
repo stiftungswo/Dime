@@ -8,6 +8,8 @@ use JMS\Serializer\Annotation as JMS;
 use Doctrine\Common\Collections\ArrayCollection;
 use Dime\TimetrackerBundle\Model\DimeEntityInterface;
 use Knp\JsonSchemaBundle\Annotations as Json;
+use Symfony\Component\Debug\Exception\FatalErrorException;
+use Symfony\Component\Security\Acl\Exception\Exception;
 
 
 /**
@@ -352,13 +354,22 @@ class Activity extends Entity implements DimeEntityInterface
 			return $this->chargeable;
 			break;
 		case ActivityReference::$PROJECT:
-			return $this->getProject()->isChargeable();
+			if($this->getProject())
+				return $this->getProject()->isChargeable();
+			else
+				return $this->chargeable;
 			break;
 		case ActivityReference::$CUSTOMER:
-			return $this->getCustomer()->isChargeable();
+			if($this->getCustomer())
+				return $this->getCustomer()->isChargeable();
+			else
+				return $this->chargeable;
 			break;
 		case ActivityReference::$SERVICE:
-			return $this->getService()->isChargeable();
+			if($this->getService())
+				return $this->getService()->isChargeable();
+			else
+				return $this->chargeable;
 			break;
 		default:
 			return $this->chargeable;

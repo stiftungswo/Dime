@@ -75,25 +75,38 @@ class CustomersController extends DimeController
         return $this->getOr404($id, $this->handlerSerivce);
     }
 
-    /**
-     * Presents the form to use to create a new Entity.
-     *
-     * @ApiDoc(
-     * resource = true,
-     * statusCodes = {
-     * 200 = "Returned when successful"
-     * }
-     * )
-     *
-     * @Annotations\View(
-     * templateVar = "form"
-     * )
-     *
-     * @return FormTypeInterface
-     */
-    public function newCustomerAction()
+	/**
+	 * Presents the form to use to create a new Entity.
+	 *
+	 * @ApiDoc(
+	 * resource = true,
+	 * statusCodes = {
+	 * 200 = "Returned when successful"
+	 * }
+	 * )
+	 *
+	 * @Annotations\Route(requirements={"_format"="html"})
+	 * @Annotations\QueryParam(name="tags", nullable=true, description="Sets the Value Param in the Form.")
+	 * @Annotations\QueryParam(name="user", nullable=true, description="Sets the Value Param in the Form.")
+	 * @Annotations\QueryParam(name="activity", nullable=true, description="Sets the Value Param in the Form.")
+	 * @Annotations\QueryParam(name="name", nullable=true, description="Sets the Value Param in the Form.")
+	 * @Annotations\QueryParam(name="phones", nullable=true, description="Sets the Value Param in the Form.")
+	 * @Annotations\QueryParam(name="alias", nullable=true, description="Sets the Value Param in the Form.")
+	 * @Annotations\QueryParam(name="rateGroup", nullable=true, description="Sets the Value Param in the Form.")
+	 * @Annotations\QueryParam(name="chargeable", nullable=true, description="Sets the Value Param in the Form.")
+	 * @Annotations\QueryParam(name="address", nullable=true, description="Sets the Value Param in the Form.")
+	 *
+	 * @Annotations\View(
+	 * templateVar = "form"
+	 * )
+	 *
+	 * @param ParamFetcherInterface $paramFetcher
+	 *
+	 * @return FormTypeInterface
+	 */
+    public function newCustomerAction(ParamFetcherInterface $paramFetcher)
     {
-        return $this->createForm($this->formType);
+	    return $this->get($this->handlerSerivce)->newForm($paramFetcher->all());
     }
 
     /**

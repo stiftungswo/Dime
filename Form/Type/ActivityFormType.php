@@ -33,7 +33,7 @@ class ActivityFormType extends AbstractType
 	        ->add('value')
             ->add('service', 'entity', array('class' => 'DimeTimetrackerBundle:Service'))
             ->add('project', 'entity', array('class' => 'DimeTimetrackerBundle:Project'))
-            ->add('tags', 'collection', array('type' => new TagFormType()))
+	        ->add('tags', 'entity', array('class' => 'DimeTimetrackerBundle:Tag', 'multiple' => true))
             ->add('user', 'entity', array('class' => 'DimeTimetrackerBundle:User'))
         ;
     }

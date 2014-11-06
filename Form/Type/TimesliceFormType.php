@@ -28,7 +28,7 @@ class TimesliceFormType extends AbstractType
             ->add('startedAt', 'datetime', array('required' => false, 'widget' => 'single_text', 'with_seconds' => true))
             ->add('stoppedAt', 'datetime', array('required' => false, 'widget' => 'single_text', 'with_seconds' => true))
             ->add('activity')
-            ->add('tags', 'collection', array('type' => new TagFormType()))
+            ->add('tags', 'entity', array('class' => 'DimeTimetrackerBundle:Tag', 'multiple' => true))
             ->add('user', 'entity', array('class' => 'DimeTimetrackerBundle:User'))
         ;
     }

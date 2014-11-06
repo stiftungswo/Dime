@@ -77,6 +77,17 @@ class GenericHandler extends AbstractHandler implements HandlerInterface {
 	}
 
 	/**
+	 * @param array $values
+	 *
+	 * @return \Symfony\Component\Form\FormInterface
+	 */
+	public function newForm(array $values)
+	{
+		$entity = $this->newClassInstance();
+		return $this->createForm($entity, $this->formType, $values);
+	}
+
+	/**
 	 * Replace data of a Entity.
 	 *
 	 * @api

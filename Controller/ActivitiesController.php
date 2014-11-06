@@ -81,25 +81,39 @@ class ActivitiesController extends DimeController
         return $this->getOr404($id, $this->handlerSerivce);
     }
 
-    /**
-     * Presents the form to use to create a new Entity.
-     *
-     * @ApiDoc(
-     * resource = true,
-     * statusCodes = {
-     * 200 = "Returned when successful"
-     * }
-     * )
-     *
-     * @Annotations\View(
-     * templateVar = "form"
-     * )
-     *
-     * @return FormTypeInterface
-     */
-    public function newActivityAction()
+	/**
+	 * Presents the form to use to create a new Entity.
+	 *
+	 * @ApiDoc(
+	 * resource = true,
+	 * statusCodes = {
+	 * 200 = "Returned when successful"
+	 * }
+	 * )
+	 *
+	 * @Annotations\Route(requirements={"_format"="html"})
+	 * @Annotations\QueryParam(name="value", nullable=true, description="Sets the Value Param in the Form.")
+	 * @Annotations\QueryParam(name="description", nullable=true, description="Sets the Value Param in the Form.")
+	 * @Annotations\QueryParam(name="rate", nullable=true, description="Sets the Value Param in the Form.")
+	 * @Annotations\QueryParam(name="chargeable", nullable=true, description="Sets the Value Param in the Form.")
+	 * @Annotations\QueryParam(name="service", nullable=true, description="Sets the Value Param in the Form.")
+	 * @Annotations\QueryParam(name="project", nullable=true, description="Sets the Value Param in the Form.")
+	 * @Annotations\QueryParam(name="tags", nullable=true, description="Sets the Value Param in the Form.")
+	 * @Annotations\QueryParam(name="user", nullable=true, description="Sets the Value Param in the Form.")
+	 *
+	 * @Annotations\View(
+	 * templateVar = "form"
+	 * )
+	 *
+	 * @param ParamFetcherInterface $paramFetcher
+	 *
+	 *
+	 *
+	 * @return FormTypeInterface
+	 */
+    public function newActivityAction(ParamFetcherInterface $paramFetcher)
     {
-        return $this->createForm($this->formType);
+        return $this->get($this->handlerSerivce)->newForm($paramFetcher->all());
     }
 
     /**
