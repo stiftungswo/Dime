@@ -1,6 +1,8 @@
 define([
-    'dojo/_base/declare'
-], function (declare) {
+    'dojo/_base/declare',
+    "dijit/layout/ContentPane",
+    "dijit/registry",
+], function (declare, ContentPane, registry) {
     return declare('dime.widget.widgetManager',[],{
         widgets: [],
         get: function(entity, entitytype){
@@ -16,6 +18,7 @@ define([
                 }
             }
             this.widgets.push(widget);
+            return widget;
         },
         remove: function(entity, entitytype){
             var widget = this._findwidget(entity, entitytype);
@@ -34,6 +37,36 @@ define([
                     return widget;
                 }
             }
+        },
+        foreach: function(entitytype, callback)
+        {
+            for(var i=0; this.widgets.length; i++){
+                var widget = this.widgets[i];
+                if(widget.entitytype == entitytype){
+                    callback(widget);
+                }
+            }
+        },
+        addTab: function(entity, entitytype, widgettype, tabContainer, title, closable){
+            if (typeof tabContainer === "string"){
+                tabContainer = registry.byId(tabContainer);
+            }
+            var tabName = "tab_" + entitytype + "_"+entity.id,
+                tab = registry.byId(tabName);
+
+            if (typeof tab === "undefined"){
+                tab = new ContentPane({
+                    id: tabName,
+                    title: title,
+                    closable: closable,
+                    style: "padding: 0;"
+                });
+                tabContainer.addChild(tab);
+            }
+            tabContainer.selectChild(tab);
+
+            var widget = this.add(entity, entitytype, widgettype, null, null);
+            tab.addChild(widget);
         }
     });
 });
