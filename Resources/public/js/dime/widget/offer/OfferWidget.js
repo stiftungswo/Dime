@@ -1,7 +1,7 @@
 define([
     'dijit/_WidgetsInTemplateMixin',
     'dijit/_TemplatedMixin',
-    'dime/widget/timetrack/_TimetrackerWidgetBase',
+    'dime/widget/_Base',
     'dojo/_base/declare',
     'dojo/text!dime/widget/offer/templates/OfferWidget.html',
     'dime/widget/offer/OfferPositionWidget',
@@ -11,23 +11,16 @@ define([
     'dijit/form/Textarea',
     'dijit/Dialog',
     "dijit/form/FilteringSelect",
-], function ( WidgetsInTemplateMixin, TemplatedMixin,  _TimetrackerWidgetBase, declare,  template,
+], function ( WidgetsInTemplateMixin, TemplatedMixin,  _Base, declare,  template,
               OfferPositionWidget, registry, Textbox, DateTextBox, Textarea, Dialog,  FilteringSelect) {
-    return declare("dime.widget.offer.OfferWidget", [_TimetrackerWidgetBase, TemplatedMixin, WidgetsInTemplateMixin], {
+    return declare("dime.widget.offer.OfferWidget", [_Base, TemplatedMixin, WidgetsInTemplateMixin], {
 
         templateString: template,
         baseClass: "offerWidget",
         store: window.storeManager.get('offers', false, true),
 
-        editOfferId: -1,
-
-        entity: null,
 
         _setupChildren: function(){
-            console.log(this.editOfferId);
-            this.entity = this.store.get(this.editOfferId);
-
-            //todo urfr change types to selection list, where editin ist necessary e.g. customer, accountant
             this.nameNode.set('parentWidget', this);
             this.customerNode.set('parentWidget', this);
             this.customerNode.set('store', window.storeManager.get('customers', true));
@@ -71,35 +64,30 @@ define([
         },
 
         _fillValues: function(){
-            var addchildwidget = this._addChildWidget, parentWidget = this, offerPositionsContainer = this.offerPositionsContainer;
+            var parentWidget = this, offerPositionsContainer = this.offerPositionsContainer;
             this.inherited(arguments);
-
             var results = window.storeManager.get('offerpositions', true).query({offer: this.entity.id});
-
             results.forEach(function(entity){
-                addchildwidget(entity, OfferPositionWidget, offerPositionsContainer, parentWidget)
-            });
-            this.observeHandle = results.observe(function(object, removedFrom, insertedInto){
-                parentWidget._updateHandler(object, removedFrom, insertedInto, OfferPositionWidget, offerPositionsContainer, parentWidget)
+                window.widgetManager.add(entity, 'offerpositions', OfferPositionWidget, parentWidget, offerPositionsContainer)
             });
         },
 
         _updateValues: function(entity){
-            //todo urfr update values
-            this.nameNode.set('value', this.entity.name);
-            this.customerNode.set('value', this.entity.customer.name);
-            this.statusNode.set('value', this.entity.status.id);
-            this.accountantNode.set('value', this.entity.accountant.id);
-            this.validToNode.set('value', this.entity.validTo.split(" ")[0]); //separate time from timestamp and only pass date
-            this.rateGroupNode.set('value', this.entity.rateGroup.id);
-            this.shortDescriptionNode.set('value', this.entity.shortDescription);
-            this.descriptionNode.set('value', this.entity.description);
+            this.inherited(arguments);
+            this.nameNode.set('value', entity.name);
+            this.customerNode.set('value', entity.customer.name);
+            this.statusNode.set('value', entity.status.id);
+            this.accountantNode.set('value', entity.accountant.id);
+            this.validToNode.set('value', entity.validTo.split(" ")[0]); //separate time from timestamp and only pass date
+            this.rateGroupNode.set('value', entity.rateGroup.id);
+            this.shortDescriptionNode.set('value', entity.shortDescription);
+            this.descriptionNode.set('value', entity.description);
             //TODO urfr refactor concept of addresslines after till added customer address in model
-            this.recepientAddressLine1Node.set('value', this.entity.recepientAddressLine1);
-            this.recepientAddressLine2Node.set('value', this.entity.recepientAddressLine2);
-            this.recepientAddressLine3Node.set('value', this.entity.recepientAddressLine3);
-            this.recepientAddressLine4Node.set('value', this.entity.recepientAddressLine4);
-            this.recepientAddressLine5Node.set('value', this.entity.recepientAddressLine5);
+            this.recepientAddressLine1Node.set('value', entity.recepientAddressLine1);
+            this.recepientAddressLine2Node.set('value', entity.recepientAddressLine2);
+            this.recepientAddressLine3Node.set('value', entity.recepientAddressLine3);
+            this.recepientAddressLine4Node.set('value', entity.recepientAddressLine4);
+            this.recepientAddressLine5Node.set('value', entity.recepientAddressLine5);
         },
 
         _watchercallback: function(property, oldvalue, newvalue){
@@ -107,6 +95,7 @@ define([
             //used because this points to caller not to THIS Widget. Above all elements were populated with parentwidget (THIS).
             var offerId = this.parentWidget.entity.id;
             var offerStore = this.parentWidget.store;
+            var result;
             switch(this.dojoAttachPoint) {
                 case "nameNode":
                     offerStore.put({name: newvalue}, {id: offerId} );
@@ -124,10 +113,7 @@ define([
                     offerStore.put({validTo: newvalue}, {id: offerId});
                     break;
                 case "rateGroupNode":
-                    offerStore.put({rateGroup: newvalue}, {id: offerId});
-                    this.parentWidget.children.forEach(function(entry) {
-                        entry._updateValues(entry.entity);
-                    });
+                    result = offerStore.put({rateGroup: newvalue}, {id: offerId});
                     break;
                 case "shortDescriptionNode":
                     offerStore.put({shortDescription: newvalue}, {id: offerId});
@@ -153,6 +139,11 @@ define([
                 default:
                     break;
             }
+            result.then(function(data){
+                for(var i=0; i<data.offerPositions.length; i++) {
+                    window.widgetManager.update(data.offerPositions[i],'offerpositions');
+                }
+            });
         }
 
     });

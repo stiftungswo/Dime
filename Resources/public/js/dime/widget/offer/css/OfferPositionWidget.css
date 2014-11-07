@@ -1,0 +1,37 @@
+.offerPositionWidget {
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    float: left;
+    margin-left: 20px;
+    margin-top: 10px;
+    overflow: hidden;
+    padding: 10px;
+    position: relative;
+}
+
+.offerPositionWidgetOrder {
+    width: 4em;
+}
+
+.offerPositionWidgetService {
+    width: 10em;
+}
+
+.offerPositionWidgetServiceRateValue {
+    width: 5em;
+}
+
+.offerPositionWidgetOfferPositionRateValue {
+    width: 5em;
+}
+
+.offerPositionWidgetRateUnit {
+    width: 5emx;
+}
+
+.offerPositionWidgetVAT {
+    width: 4em;
+}
+
+.offerPositionWidgetDiscountable {
+}

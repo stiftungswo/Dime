@@ -62,14 +62,4 @@ class FrontendController extends Controller {
     {
         return $this->render('DimeFrontendBundle:Offers:view.html.twig');
     }
-
-    /**
-     * @return \Symfony\Component\HttpFoundation\Response
-     * @Route("/offeredit/{id}", name="frontend_offer_edit_view")
-     */
-    public function editOfferAction($id)
-    {
-        return $this->render('DimeFrontendBundle:Offers:edit.html.twig', array('editOfferId' => $id));
-    }
-
 } 
