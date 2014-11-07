@@ -96,7 +96,7 @@ node default {
 	      override => ['All'],
 	}
 	
-	package {[ 'php','php-pear', 'php-mbstring', 'php-intl', 'php-xml', 'php-pecl-xdebug', 'php-pecl-apcu', 'php-process', 'php-gd', 'php-mcrypt', ]:}
+	package {[ 'php','php-pear', 'php-mbstring', 'php-intl', 'php-xml', 'php-pecl-xdebug', 'php-pecl-apcu', 'php-process', 'php-gd', 'php-mcrypt', 'php-phpunit-PHPUnit', ]:}
     # Set development values to our php.ini and xdebug.ini
     augeas { 'set-php-ini-values':
          context => '/files/etc/php.ini',
