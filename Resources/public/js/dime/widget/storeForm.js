@@ -7,12 +7,17 @@ define([
 ], function(declare, Manager){
     return declare("dime.widget.storeForm", [Manager], {
         store: null,
+        storetype: null,
         constructor: function(args) {
             dojo.safeMixin(this,args);
             this.inherited(arguments);
+            this.store = window.storeManager.get(this.storetype, false, true);
         },
         onSubmit: function(){
-            this.store.put(this.FormatVals(this.gatherFormValues()));
+            var result = this.store.put(this.FormatVals(this.gatherFormValues())), storetype = this.storetype;
+            result.then(function(data){
+                window.widgetManager.addChild(data, storetype);
+            });
             this.reset();
             this.getParent().hide();
             return false;
