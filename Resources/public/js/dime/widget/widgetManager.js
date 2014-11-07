@@ -19,7 +19,7 @@ define([
         },
         remove: function(entity, entitytype){
             var widget = this._findwidget(entity, entitytype);
-            widget.destroy();
+            widget.destroyRecursive();
         },
         update: function(entity, entitytype){
             var widget = this._findwidget(entity, entitytype);
@@ -28,13 +28,18 @@ define([
             }
         },
         addChild: function(entity, entitytype){
-            for(var i=0; this.widgets.length; i++){
+            for(var i=0; i < this.widgets.length; i++){
                 var widget= this.widgets[i];
                 widget._addChild(entity, entitytype);
             }
         },
+        register: function(entity, entitytype, widget){
+            widget.entitytype = entitytype;
+            widget.entity = entity;
+            this.widgets.push(widget);
+        },
         _findwidget: function(entity, entitytype){
-            for(var i=0; this.widgets.length; i++){
+            for(var i=0; i < this.widgets.length; i++){
                 var widget = this.widgets[i];
                 if(widget.entity.id == entity.id && widget.entitytype == entitytype){
                     return widget;

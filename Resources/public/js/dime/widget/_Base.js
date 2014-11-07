@@ -41,7 +41,7 @@ define([
 
         //Called By the widgetManager to tell the Widget to make a new Childwidget based on the Entity
         _addChild: function(entity, entitytype){
-            for(var i=0; this.childtypes.length; i++){
+            for(var i=0; i < this.childtypes.length; i++){
                 var childtype = this.childtypes[i];
                 if(childtype == entitytype){
                     this._handleaddChild(entity, entitytype);
@@ -63,8 +63,9 @@ define([
 
         //Function to Destroy the Widget and its entity in the Remote Store.
         cleandestroy: function(){
-            if(!this.store == null && !this.entity == null){
+            if(this.store && this.entity){
                 this.store.remove(this.entity.id);
+                this.destroy();
             }
         },
 

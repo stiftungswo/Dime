@@ -5,7 +5,7 @@ define([
     'dojo/_base/declare',
     'dojo/text!dime/widget/timetrack/templates/TimesliceWidget.html',
     'dijit/form/DateTextBox',
-    "dijit/form/NumberSpinner",
+    "dijit/form/TextBox",
     "xstyle!dime/widget/timetrack/css/TimesliceWidget.css"
 ], function (WidgetsInTemplateMixin, TemplatedMixin, Base, declare, template) {
     return declare("dime.widget.timetrack.TimesliceWidget", [Base, TemplatedMixin, WidgetsInTemplateMixin], {
@@ -27,9 +27,7 @@ define([
 
         _updateValues: function(entity){
             this.inherited(arguments);
-            //ToDo: Proper Formating in the Backend.
-            var datestr = entity.startedAt.split(" ")[0];
-            this.startedAtNode.set('value', datestr);
+            this.startedAtNode.set('value', entity.startedAt);
             this.durationNode.set('value', entity.duration);
         },
 
@@ -40,10 +38,10 @@ define([
             var result;
             switch(this.dojoAttachPoint) {
                 case "startedAtNode":
-                    result = timesliceStore.put({id: timesliceId, startedAt: newvalue});
+                    result = timesliceStore.put({startedAt: newvalue}, {id: timesliceId});
                     break;
                 case "durationNode":
-                    result = timesliceStore.put({id: timesliceId, duration: newvalue});
+                    result = timesliceStore.put({duration: newvalue}, {id: timesliceId});
                     break;
                 default:
                     break;

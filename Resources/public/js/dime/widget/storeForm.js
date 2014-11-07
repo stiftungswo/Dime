@@ -14,17 +14,16 @@ define([
             this.store = window.storeManager.get(this.storetype, false, true);
         },
         onSubmit: function(){
-            var result = this.store.put(this.FormatVals(this.gatherFormValues())), storetype = this.storetype;
+            var result = this.store.put(this.FormatVals(this.gatherFormValues())), storetype = this.storetype, parent = this.getParent();
             result.then(function(data){
                 window.widgetManager.addChild(data, storetype);
             });
-            this.reset();
-            this.getParent().hide();
+            window.dialogManager.remove(parent.entity, parent.dialogtype);
             return false;
         },
         onReset: function(){
-            this.reset();
-            this.getParent().hide();
+            var parent = this.getParent();
+            window.dialogManager.remove(parent.entity, parent.dialogtype);
             return true;
         },
         FormatVals: function(vals){

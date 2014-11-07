@@ -19,6 +19,8 @@ define([
         date: new Date(),
         observeHandle: null,
         childtypes: [ 'activities' ],
+        entity: {id: 1},
+        entitytype: 'entityless',
 
         setMonth: function(){
             this.selectedMonth = this.monthNames[this.date.getMonth()];
@@ -26,6 +28,7 @@ define([
 
         buildRendering: function () {
             this.setMonth();
+            window.widgetManager.register(this.entity, this.entitytype, this);
             this.inherited(arguments);
         },
 
