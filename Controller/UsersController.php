@@ -45,10 +45,7 @@ class UsersController extends DimeController
      */
     public function getUsersAction(ParamFetcherInterface $paramFetcher)
     {
-        $offset = $paramFetcher->get('offset');
-        $offset = null == $offset ? 0 : $offset;
-        $limit = $paramFetcher->get('limit');
-        return $this->container->get($this->handlerSerivce)->all($limit, $offset);
+        return $this->container->get($this->handlerSerivce)->all($paramFetcher->all());
     }
 
     /**

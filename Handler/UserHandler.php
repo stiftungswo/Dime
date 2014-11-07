@@ -25,16 +25,28 @@ class UserHandler extends GenericHandler
 
 	/**
 	 * (non-PHPdoc)
-	 * @see \Dime\TimetrackerBundle\Model\HandlerInterface::all()
+	 * @see      \Dime\TimetrackerBundle\Model\HandlerInterface::all()
 	 *
-	 * @param int $limit
-	 * @param int $offset
+	 * @param array $params
 	 *
 	 * @return array
 	 */
-    public function all($limit = 5, $offset = 0)
+    public function all($params = array())
     {
-        return $this->repository->findBy(array(), null, $limit, $offset);
+	    $this->repository->createCurrentQueryBuilder($this->alias);
+
+
+	    // Filter
+	    if($this->hasParams($params)) {
+		    $this->repository->filter($this->cleanFilter($params));
+	    }
+
+	    //Add Ordering
+	    $this->orderBy('id', 'ASC');
+	    $this->orderBy('updatedAt','ASC');
+
+	    // Pagination
+	    return $this->repository->getCurrentQueryBuilder()->getQuery()->getResult();
     }
 
     /**

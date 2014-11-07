@@ -39,7 +39,7 @@ class ActivityRateTest extends DimeTestCase
         //default test rate
         $response = $this->jsonRequest('POST', $this->api_prefix . '/rates',
             json_encode(array(
-                'value' => 100,
+                'rateValue' => 100,
                 'service' => $testServiceId,
                 'rateUnit' => 'h',
                 'rateGroup' => 1
@@ -52,7 +52,7 @@ class ActivityRateTest extends DimeTestCase
         //specific test rate
         $response = $this->jsonRequest('POST', $this->api_prefix . '/rates',
             json_encode(array(
-                'value' => 200,
+                'rateValue' => 200,
                 'service' => $testServiceId,
                 'rateUnit' => 'h',
                 'rateGroup' => $testRateGroupId
@@ -77,14 +77,13 @@ class ActivityRateTest extends DimeTestCase
         $response = $this->jsonRequest('POST', $this->api_prefix . '/activities', json_encode(array(
             'description' => 'test',
             'service' => $testServiceId,
-            'customer' => 1,
             'project' => $testProjectId,
             'user' => 1
         )));
         $data = json_decode($response->getContent(), true);
-        $testActivityId = $data['id'];
-        $this->assertEquals(201, $response->getStatusCode());
 
+        $this->assertEquals(201, $response->getStatusCode());
+	    $testActivityId = $data['id'];
 
 
         // Testcases

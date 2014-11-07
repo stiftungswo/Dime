@@ -39,7 +39,7 @@ class Rate extends Entity implements DimeEntityInterface
     protected $service;
     
     /**
-     * @var integer $value
+     * @var integer $rateValue
      *
      * @ORM\Column(name="rate_value", type="decimal", scale=2, precision=10, nullable=true)
      * @JMS\SerializedName("rateValue")
@@ -122,7 +122,7 @@ class Rate extends Entity implements DimeEntityInterface
     /**
      * Set value
      *
-     * @param string $value
+     * @param string $rateValue
      *
      * @return Rate
      */

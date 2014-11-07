@@ -50,8 +50,8 @@ class GenericHandler extends AbstractHandler implements HandlerInterface {
 		}
 
 		//Add Ordering
-		$this->orderBy('updatedAt','DESC');
-		$this->orderBy('id', 'DESC');
+		$this->orderBy('id', 'ASC');
+		$this->orderBy('updatedAt','ASC');
 
 		// Pagination
 		return $this->repository->getCurrentQueryBuilder()->getQuery()->getResult();
