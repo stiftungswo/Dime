@@ -3,9 +3,11 @@
 namespace Dime\TimetrackerBundle\Entity;
 
 use DateTime;
+use Dime\TimetrackerBundle\Form\Transformer\DurationTransformer;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Swo\CommonsBundle\Form\Transformer\JsDateTransformer;
 use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation as JMS;
 use Dime\TimetrackerBundle\Model\DimeEntityInterface;
@@ -42,7 +44,7 @@ class Timeslice extends Entity implements DimeEntityInterface
 
     /**
      * @var integer $duration (in seconds)
-     *
+     * @JMS\Exclude()
      * @ORM\Column(type="integer", nullable=false)
      */
     protected $duration = 0;
@@ -51,7 +53,7 @@ class Timeslice extends Entity implements DimeEntityInterface
      * @var datetime $startedAt
      *
      * @Assert\DateTime()
-     * @JMS\SerializedName("startedAt")
+     * @JMS\Exclude()
      * @ORM\Column(name="started_at", type="datetime", nullable=true)
      */
     protected $startedAt;
@@ -60,7 +62,7 @@ class Timeslice extends Entity implements DimeEntityInterface
      * @var datetime $stoppedAt
      *
      * @Assert\DateTime()
-     * @JMS\SerializedName("stoppedAt")
+     * @JMS\Exclude()
      * @ORM\Column(name="stopped_at", type="datetime", nullable=true)
      */
     protected $stoppedAt;
@@ -120,6 +122,16 @@ class Timeslice extends Entity implements DimeEntityInterface
         return $this->duration;
     }
 
+	/**
+	 * @JMS\VirtualProperty()
+	 * @JMS\SerializedName("duration")
+	 */
+	public function serializeDuration()
+	{
+		$transformer = new DurationTransformer();
+		return $transformer->transform($this->getDuration());
+	}
+
     /**
      * Set started_at
      *
@@ -146,6 +158,16 @@ class Timeslice extends Entity implements DimeEntityInterface
         return $this->startedAt;
     }
 
+	/**
+	 * @JMS\VirtualProperty
+	 * @JMS\SerializedName("startedAt")
+	 */
+	public function serializeStartedAt()
+	{
+		$transfomer = new JsDateTransformer();
+		return $transfomer->transform($this->getStartedAt());
+	}
+
     /**
      * Set stopped_at
      *
@@ -171,6 +193,16 @@ class Timeslice extends Entity implements DimeEntityInterface
     {
         return $this->stoppedAt;
     }
+
+	/**
+	 * @JMS\VirtualProperty
+	 * @JMS\SerializedName("stoppedAt")
+	 */
+	public function serializeStoppedAt()
+	{
+		$transfomer = new JsDateTransformer();
+		return $transfomer->transform($this->getStoppedAt());
+	}
 
     /**
      * Add tag

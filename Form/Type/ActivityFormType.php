@@ -2,6 +2,7 @@
 
 namespace Dime\TimetrackerBundle\Form\Type;
 
+use Dime\TimetrackerBundle\Form\Transformer\DurationTransformer;
 use Dime\TimetrackerBundle\Form\Transformer\ReferenceTransformer;
 use Dime\TimetrackerBundle\Model\ActivityReference;
 use Symfony\Component\Form\AbstractType;
@@ -30,7 +31,7 @@ class ActivityFormType extends AbstractType
             ->add('rate')
 	        ->add('chargeable', null, array('required' => false))
 	        ->add($builder->create('chargeableReference', 'text', array('empty_data' => ActivityReference::$SERVICE))->addViewTransformer($transformer))
-	        ->add('value')
+	        ->add($builder->create('value', 'text')->addViewTransformer(new DurationTransformer()))
             ->add('service', 'entity', array('class' => 'DimeTimetrackerBundle:Service'))
             ->add('project', 'entity', array('class' => 'DimeTimetrackerBundle:Project'))
 	        ->add('tags', 'entity', array('class' => 'DimeTimetrackerBundle:Tag', 'multiple' => true))
