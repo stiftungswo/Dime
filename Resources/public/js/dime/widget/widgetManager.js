@@ -24,6 +24,14 @@ define([
             var widget = this._findwidget(entity, entitytype);
             widget.destroyRecursive();
         },
+        removeChildren: function(parent){
+            for(var i=0; i < this.widgets.length; i++){
+                var widget = this.widgets[i];
+                if(widget.parentWidget == parent){
+                    widget.destroyRecursive();
+                }
+            }
+        },
         update: function(entity, entitytype){
             var widget = this._findwidget(entity, entitytype);
             if(widget){
@@ -49,9 +57,19 @@ define([
                 }
             }
         },
+        _findAllByType: function(entitytype){
+            var returnval = [];
+            for(var i=0; i < this.widgets.length; i++){
+                var widget = this.widgets[i];
+                if(widget.entitytype == entitytype){
+                    returnval.push(widget)
+                }
+            }
+            return returnval;
+        },
         foreach: function(entitytype, callback)
         {
-            for(var i=0; this.widgets.length; i++){
+            for(var i=0; i < this.widgets.length; i++){
                 var widget = this.widgets[i];
                 if(widget.entitytype == entitytype){
                     callback(widget);
