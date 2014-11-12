@@ -10,3 +10,6 @@
 [submodule "src/Dime/OfferBundle"]
 	path = src/Dime/OfferBundle
 	url = https://github.com/stiftungswo/DimeOfferBundle.git
+[submodule "DimePrintingBundle"]
+	path = src/Dime/PrintingBundle
+	url = https://github.com/stiftungswo/DimePrintingBundle.git
