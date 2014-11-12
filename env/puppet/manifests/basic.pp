@@ -1,6 +1,6 @@
 class basic{
   # Enable EPEL Repos before everithing else
-  class {'epel': stage => first} ->
+  #class {'epel': stage => first} ->
   class {"basic::users":} ->
   class {"basic::packages":} ->
   class {"basic::helpers":}
@@ -16,6 +16,10 @@ class basic::users{
 class basic::packages{
   package{"curl": ensure => installed}
   package{"vim-enhanced":  ensure => installed}
+  exec{'rpm -Uvh https://mirror.webtatic.com/yum/el7/epel-release.rpm':
+    before => Exec['webtatic'],
+  }
+  exec{'rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm': alias => 'webtatic'}
 }
 
 
