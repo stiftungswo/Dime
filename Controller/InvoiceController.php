@@ -2,11 +2,14 @@
 
 namespace Dime\InvoiceBundle\Controller;
 
-use Doctrine\Common\Annotations\Annotation\IgnoreAnnotation;
+use Ps\PdfBundle\Annotation\Pdf;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Request\ParamFetcherInterface;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use FOS\RestBundle\Controller\Annotations;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class InvoiceController extends FOSRestController
 {
@@ -125,6 +128,18 @@ class InvoiceController extends FOSRestController
 			$paramFetcher->get('details', true),
 			$paramFetcher->get('discounts', true)
 		);
+	}
+
+	/**
+	 * @Annotations\Get("/invoices/print/{name}", name="print_invoice", requirements={"_format"="pdf"})
+	 *
+	 * @param         $name
+	 *
+	 * @return \Symfony\Component\HttpFoundation\Response
+	 */
+	public function printInvoiceAction($name)
+	{
+		return $this->get('dime.print.pdf')->render('DimeInvoiceBundle:Invoice:test.pdf.twig', array('name' => $name));
 	}
 
 }
