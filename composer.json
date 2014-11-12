@@ -44,7 +44,8 @@
         "knplabs/json-schema-bundle": "dev-master",
         "misd/phone-number-bundle" : ">=1.0.2",
         "doctrine/migrations": "1.0.*@dev",
-        "doctrine/doctrine-migrations-bundle": "2.1.*@dev"
+        "doctrine/doctrine-migrations-bundle": "2.1.*@dev",
+        "psliwa/pdf-bundle": "~1.0@dev"
 	},
 	"scripts" : {
 		"post-install-cmd" : [
