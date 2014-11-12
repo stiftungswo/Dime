@@ -1,8 +1,8 @@
 define([
     'dojo/_base/declare',
     'dijit/Dialog',
-    'dime/widget/storeForm'
-], function (declare, Dialog) {
+    'dijit/registry'
+], function (declare, Dialog, registry) {
     return declare('dime.widget.dialogManager', [], {
         dialogs: {},
         basepath: '/api/v1',
@@ -19,6 +19,13 @@ define([
             }
             return dialog;
         },
+        remove: function(entity, type){
+            if(this._hasdialog(entity+'_'+type)){
+                var dialog = this.dialogs[entity+'_'+type];
+                delete this.dialogs[entity+'_'+type];
+                dialog.destroyRecursive();
+            }
+        },
         _hasdialog: function(search){
             for (var key in this.dialogs) {
                 if(key == search)return true;
@@ -29,6 +36,8 @@ define([
             return new Dialog({
                 title: title,
                 href: this.basepath+'/'+entity+'/'+type+query,
+                entity: entity,
+                dialogtype: type,
                 onHide: function(){
                     this.getChildren().forEach(function(child){
                         if(typeof child.reset == 'function') child.reset();
