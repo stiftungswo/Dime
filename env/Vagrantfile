@@ -29,11 +29,11 @@ Vagrant.configure("2") do |config|
             ]
 
         dime.vm.provider :libvirt do |domain|
-            domain.storage_pool_name = "vagrant"
-            domain.host = "vmhost02"
-            domain.connect_via_ssh = true
-            domain.username = "root"
-            domain.id_ssh_key_file = "id_rsa"
+            #domain.storage_pool_name = "vagrant"
+            #domain.host = "vmhost02"
+            #domain.connect_via_ssh = true
+            #domain.username = "root"
+            #domain.id_ssh_key_file = "id_rsa"
             domain.disk_bus = "virtio"
             domain.memory = 512
             domain.cpus = 2
