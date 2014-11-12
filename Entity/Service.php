@@ -215,10 +215,15 @@ class Service extends Entity implements DimeEntityInterface
 	 */
     private function getRateByRateGroupId($id)
     {
+        $default = null;
         foreach($this->getRates()->toArray() as $rate){
             if($rate->getRateGroup()->getId() == $id)
                 return $rate;
+            if($rate->getRateGroup()->getId() == DefaultRateGroup::$ID)
+                $default = $rate;
         }
+        return $default;
+
 
     }
 
