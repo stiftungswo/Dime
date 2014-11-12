@@ -70,9 +70,9 @@ class InvoiceHandler extends ContainerAware
 
 	public function allByProject($id, $nonChargeable = false, $fixed = false, $details = true, $discounts = array())
 	{
-		$this->nonChargeable = $nonChargeable;
-		$this->fixed = $fixed;
-		$this->details = $details;
+		$this->nonChargeable = boolval($nonChargeable);
+		$this->fixed = boolval($fixed);
+		$this->details = boolval($details);
 		$this->discounts = $discounts;
 		return $this->fillInvoice($this->customerRepo->findByProject($id), array($this->projectRepo->find($id)));
 	}
@@ -92,6 +92,8 @@ class InvoiceHandler extends ContainerAware
 				$project->setItems(array());
 			}
 		}
+		$invoice->setGross($this->fixed);
+		$invoice->setNet();
 		return $invoice;
 	}
 
@@ -102,7 +104,6 @@ class InvoiceHandler extends ContainerAware
 			$discount = $this->discountRepo->find($discoutid);
 			$invoice->addDiscount($discount);
 		}
-		$invoice->setGross($this->fixed)->setNet();
 		return $invoice;
 	}
 

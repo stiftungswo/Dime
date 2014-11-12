@@ -2,6 +2,7 @@
 
 namespace Dime\InvoiceBundle\Controller;
 
+use Dime\TimetrackerBundle\Controller\DimeController;
 use Ps\PdfBundle\Annotation\Pdf;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Request\ParamFetcherInterface;
@@ -11,7 +12,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class InvoiceController extends FOSRestController
+class InvoiceController extends DimeController
 {
 	private $handlerSerivce = 'dime.invoice.handler';
 
@@ -102,9 +103,10 @@ class InvoiceController extends FOSRestController
 	 * }
 	 * )
 	 *
-	 * @Annotations\RequestParam(name="nonchargeable", nullable=true, default="false", description="The ID of the Customer")
-	 * @Annotations\RequestParam(name="fixed", nullable=true, default="false", description="Report Fixed Summ in Invoice")
-	 * @Annotations\RequestParam(name="details", nullable=true, default="false", description="Report Charge Details in Invoice")
+	 * @Annotations\QueryParam(name="nonchargeable", nullable=true, default="false", description="The ID of the Customer")
+	 * @Annotations\QueryParam(name="fixed", nullable=true, default="false", description="Report Fixed Summ in Invoice")
+	 * @Annotations\QueryParam(name="details", nullable=true, default="false", description="Report Charge Details in Invoice")
+	 * @Annotations\QueryParam(name="discounts", array=true, nullable=true, description="Ids of the Discounts")
 	 *
 	 * @Annotations\View(
 	 * templateVar="invoices"
@@ -131,15 +133,53 @@ class InvoiceController extends FOSRestController
 	}
 
 	/**
-	 * @Annotations\Get("/invoices/print/{name}", name="print_invoice", requirements={"_format"="pdf"})
+	 * @Annotations\Get("/invoices/print/{type}/{id}", name="print_invoice", requirements={"_format"="pdf"})
 	 *
-	 * @param         $name
+	 * @Annotations\QueryParam(name="nonchargeable", nullable=true, default="false", description="The ID of the Customer")
+	 * @Annotations\QueryParam(name="fixed", nullable=true, default="false", description="Report Fixed Summ in Invoice")
+	 * @Annotations\QueryParam(name="details", nullable=true, default="false", description="Report Charge Details in Invoice")
+	 * @Annotations\QueryParam(name="discounts", array=true, nullable=true, description="Ids of the Discounts")
+	 *
+	 * @param                       $type
+	 * @param                       $id
+	 *
+	 * @param ParamFetcherInterface $paramFetcher
 	 *
 	 * @return \Symfony\Component\HttpFoundation\Response
 	 */
-	public function printInvoiceAction($name)
+	public function printInvoiceAction($type, $id, ParamFetcherInterface $paramFetcher)
 	{
-		return $this->get('dime.print.pdf')->render('DimeInvoiceBundle:Invoice:test.pdf.twig', array('name' => $name));
+		switch($type){
+		case 'customer':
+			$invoice = $this->get($this->handlerSerivce)->allByCustomer($id,
+				$paramFetcher->get('nonchargeable', true),
+				$paramFetcher->get('fixed', true),
+				$paramFetcher->get('details', true),
+				$paramFetcher->get('discounts', true)
+			);
+			break;
+		case 'project':
+			$invoice = $this->container->get($this->handlerSerivce)->allByProject($id,
+				$paramFetcher->get('nonchargeable', true),
+				$paramFetcher->get('fixed', true),
+				$paramFetcher->get('details', true),
+				$paramFetcher->get('discounts', true)
+			);
+			break;
+		case 'service':
+			$invoice = $this->get($this->handlerSerivce)->allByService($id,
+				$paramFetcher->get('nonchargeable', true),
+				$paramFetcher->get('fixed', true),
+				$paramFetcher->get('details', true),
+				$paramFetcher->get('discounts', true)
+			);
+			break;
+		default:
+			throw new \InvalidArgumentException("type can only be customer, project or serivice");
+			break;
+		}
+		//return $this->render('DimeInvoiceBundle:Invoice:print.pdf.twig', array('invoice' => $invoice));
+		return $this->get('dime.print.pdf')->render('DimeInvoiceBundle:Invoice:print.pdf.twig', array('invoice' => $invoice));
 	}
 
 }

@@ -1,0 +1,47 @@
+{# Twig Template #}
+{% set customer = invoice.customer %}
+<!DOCTYPE pdf SYSTEM "%resources%/dtd/doctype.dtd">
+<pdf>
+	<dynamic-page>
+		<h1>Rechnung für {{ customer.name }}</h1>
+		{% if customer.address %}
+			{% set address = customer.address %}
+			<table>
+				<tr>
+					<td>{{ address.street }} {{ address.streetnumber }}</td>
+					<td>{{ address.city.plz }} {{ address.city.name }}</td>
+					<td>{{ address.state }} {{ address.country }}</td>
+				</tr>
+			</table>
+		{% endif %}
+		{% for invoiceproject in invoice.projects %}
+			<div color="red">Projekt {{ invoiceproject.project.name }}</div>
+			<table>
+				<tr>
+					<td>Typ</td>
+				    <td>Anzahl</td>
+					<td>Ansatz</td>
+					<td>Kosten</td>
+				</tr>
+				{% for item in invoiceproject.items %}
+				<tr>
+					<td>{{ item.type }}</td>
+					<td>{{ item.value }}</td>
+					<td>{{ item.rate }} {{ item.rateUnit }}</td>
+					<td>{{ item.charge }} CHF</td>
+				</tr>
+				{% endfor %}
+			</table>
+		{% endfor %}
+		<table>
+			{% for discount in invoice.discounts %}
+				<tr>
+					<td>{{ discount.name }}</td>
+					<td>{{ discount.value }} {% if discount.percentage %}%{% else %}CHF{% endif %}</td>
+				</tr>
+			{% endfor %}
+		</table>
+		<p>Brutto Kosten: {{ invoice.gross }} CHF</p>
+		<p>Netto Kosten: {{ invoice.net }} CHF</p>
+	</dynamic-page>
+</pdf>

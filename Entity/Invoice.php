@@ -41,7 +41,7 @@ class Invoice {
 		$gross = 0;
 		foreach($this->projects as $project)
 		{
-			if (!$fixed)
+			if ($fixed == false)
 			{
 				foreach($project->getItems() as $item)
 				{

@@ -11,8 +11,8 @@ namespace Dime\InvoiceBundle\Entity;
 use Dime\TimetrackerBundle\Entity\Project;
 
 class InvoiceProject {
-	protected $project;
-	protected $items;
+	public $project;
+	public $items;
 
 	public function __construct()
 	{
@@ -20,7 +20,7 @@ class InvoiceProject {
 	}
 
 	/**
-	 * @return \SplObjectStorage
+	 *
 	 */
 	public function getItems()
 	{
