@@ -11,19 +11,22 @@ define([
     'dijit/form/Textarea',
     'dijit/Dialog',
     "dijit/form/FilteringSelect",
+    'dijit/form/Button',
 ], function ( WidgetsInTemplateMixin, TemplatedMixin,  _Base, declare,  template,
-              OfferPositionWidget, registry, Textbox, DateTextBox, Textarea, Dialog,  FilteringSelect) {
+              OfferPositionWidget, registry, Textbox, DateTextBox, Textarea, Dialog,  FilteringSelect, Button) {
     return declare("dime.widget.offer.OfferWidget", [_Base, TemplatedMixin, WidgetsInTemplateMixin], {
 
         templateString: template,
         baseClass: "offerWidget",
         store: window.storeManager.get('offers', false, true),
+        dialogprops: {},
 
 
         _setupChildren: function(){
             this.nameNode.set('parentWidget', this);
             this.customerNode.set('parentWidget', this);
             this.customerNode.set('store', window.storeManager.get('customers', true));
+            this.statusNode.set('searchAttr','name');
             this.statusNode.set('parentWidget', this);
             this.statusNode.set('store', window.storeManager.get('offerstatusucs', true));
             this.statusNode.set('searchAttr','text');
@@ -42,6 +45,7 @@ define([
             this.recepientAddressLine3Node.set('parentWidget', this);
             this.recepientAddressLine4Node.set('parentWidget', this);
             this.recepientAddressLine5Node.set('parentWidget', this);
+            this.addOfferPositionNode.set('parentWidget', this);
         },
 
         _addcallbacks: function(){
@@ -59,8 +63,20 @@ define([
             this.recepientAddressLine3Node.watch('value', this._watchercallback);
             this.recepientAddressLine4Node.watch('value', this._watchercallback);
             this.recepientAddressLine5Node.watch('value', this._watchercallback);
-
-            //TODO urfr make grid view for offer positions editable
+            this.addOfferPositionNode.on('click', function(){
+                //directly in widget
+                var offerPositionsContainer = this.parentWidget.offerPositionsContainer;
+                var parentWidget = this.parentWidget;
+                var offerPositionsStore = window.storeManager.get('offerpositions', false, true)
+                var newOfferPosition = {order:0, offer:this.parentWidget.entity.id, service:1, discountable:true, vat:8};
+                offerPositionsStore.put(newOfferPosition).then(function(data){
+                    window.widgetManager.add(data, 'offerpositions', OfferPositionWidget, parentWidget, offerPositionsContainer);
+                });
+                //dialog
+                //var props = this.parentWidget.dialogprops;
+                //var dialog = window.dialogManager.get('offerpositions', 'Offerten Position', props);
+                //dialog.show();
+            });
         },
 
         _fillValues: function(){
@@ -75,11 +91,11 @@ define([
         _updateValues: function(entity){
             this.inherited(arguments);
             this.nameNode.set('value', entity.name);
-            this.customerNode.set('value', entity.customer.name);
-            this.statusNode.set('value', entity.status.id);
-            this.accountantNode.set('value', entity.accountant.id);
-            this.validToNode.set('value', entity.validTo.split(" ")[0]); //separate time from timestamp and only pass date
-            this.rateGroupNode.set('value', entity.rateGroup.id);
+            this.customerNode.set('value', entity.customer ? entity.customer.name : null);
+            this.statusNode.set('value', entity.status ? entity.status.id : null);
+            this.accountantNode.set('value', entity.accountant ? entity.accountant.id : null);
+            this.validToNode.set('value', entity.validTo ? entity.validTo.split(" ")[0] : null); //separate time from timestamp and only pass date
+            this.rateGroupNode.set('value', entity.rateGroup ? entity.rateGroup.id : null);
             this.shortDescriptionNode.set('value', entity.shortDescription);
             this.descriptionNode.set('value', entity.description);
             //TODO urfr refactor concept of addresslines after till added customer address in model

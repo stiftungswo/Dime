@@ -24,23 +24,31 @@ define([
 
         _setupChildren: function(){
             this.offerGridNode.store = this.store;
-            this.editButtonNode.offersWidget = this;
-            this.editButtonNode.offerGrid = this.offerGridNode;
+            this.editOfferNode.offersWidget = this;
+            this.editOfferNode.offerGrid = this.offerGridNode;
+            this.deleteOfferNode.offerGrid = this.offerGridNode;
 
         },
 
         _addcallbacks: function(){
-            this.editButtonNode.on('click', function(){
+            this.editOfferNode.on('click', function(){
                 //this in the button
                 for(var id in this.offerGrid.selection){
                     when(this.offersWidget.store.get(id)).then(function(item){
-                        console.log(item);
                         window.widgetManager.addTab(item, 'offers', OfferWidget, 'contentTabs', 'Offerte ('+item.id+')', true);
                         //window.widgetManager.add(entity, 'activities', ActivityWidget, parentWidget, activityContainer)
                     });
-
-
                 }
+            });
+            this.deleteOfferNode.on('click', function(){
+                //this in the button
+                for(var id in this.offerGrid.selection){
+                    when(window.storeManager.get('offers', true, false).remove(id));
+                }
+            });
+            this.addOfferNode.on('click', function(){
+                //this in the button
+                window.storeManager.get('offers',true,false).add({name:'New Offer', accountant:1});
             });
         },
 
@@ -63,7 +71,7 @@ define([
                 case "offerGridNode":
                     offerStore.put({name: newvalue}, {id: offerId} );
                     break;
-                case "editButtonNode":
+                case "editOfferNode":
                     offerStore.put({customer: newvalue}, {id: offerId});
                     break;
                 default:

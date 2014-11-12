@@ -19,17 +19,15 @@ define(
                 {label: 'ID', field: 'id', autoSave: true, sortable: true},
                 {label: 'Name', field: 'name', autoSave: true, sortable: true, editOn: 'dblclick', editor: 'dijit/form/TextBox'},
                 {label: 'Kunde', field: 'customer', autoSave: true,  formatter: function(data){
-                    return data.name+" ("+data.alias+")";
+                    return data ? data.name+" ("+data.alias+")" : null;
                 }},
                 {label: 'Status', field: 'status', autoSave: true, formatter: function(data){
-                    return data.text;
+                    return data? data.text : null;
                 }},
                 {label: 'Verantwortlich', field: 'accountant', autoSave: true, sortable: true, formatter: function(data){
-                    return data.firstname +" "+data.lastname;
+                    return data ? data.firstname +" "+data.lastname : null;
                 }},
             ]
-
-
         })
     }
 );

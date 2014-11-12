@@ -3,7 +3,7 @@
 
         <label for="name">Name </label><div class="${baseClass}Name" data-dojo-attach-point="nameNode" data-dojo-type="dijit/form/TextBox"></div><br>
 
-        <label for="customer">Kunde </label><div class="${baseClass}Customer" data-dojo-attach-point="customerNode" data-dojo-type="dijit/form/TextBox"></div><br>
+        <label for="customer">Kunde </label><div class="${baseClass}Customer" data-dojo-attach-point="customerNode" data-dojo-type="dijit/form/FilteringSelect"></div><br>
 
         <label for="status">Status </label><div class="${baseClass}Status" data-dojo-attach-point="statusNode" data-dojo-type="dijit/form/FilteringSelect"></div><br>
 
@@ -29,10 +29,18 @@
 
         <!-- //TODO urfr offerpositions -->
 
+
+
         <label>Offerten Positionen</label>
         <table>
         <div data-dojo-attach-point="offerPositionsContainer"></div>
         </table>
+
+        <br>
+
+        <div data-dojo-attach-point="offerPositionsCtrlNode">
+            <div data-dojo-attach-point="addOfferPositionNode" data-dojo-type="dijit/form/Button" data-dojo-props="'class':'primary'">+</div>
+        </div>
 
         <!-- //TODO urfr discounts -->
 
