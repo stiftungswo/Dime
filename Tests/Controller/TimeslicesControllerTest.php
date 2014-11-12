@@ -21,7 +21,7 @@ class TimeslicesControllerTest extends DimeTestCase
 
         // assert that data has content
         $this->assertTrue(count($data) > 0, 'expected to find timeslices got '.$response->getContent());
-        $this->assertEquals($data[0]['duration'], '7200', 'expected to find duration "7200"');
+        $this->assertEquals($data[0]['duration'], '2h', 'expected to find duration "2h"');
     }
 
     public function testGetTimesliceAction()
@@ -38,7 +38,7 @@ class TimeslicesControllerTest extends DimeTestCase
 
         // assert that data has content
         $this->assertTrue(count($data) > 0, 'expected to find activities');
-        $this->assertEquals($data['duration'], '7200', 'expected to find duration "7200"');
+        $this->assertEquals($data['duration'], '2h', 'expected to find duration "7200"');
     }
 
     public function testPostPutDeleteTimeslicesActions()
@@ -66,15 +66,15 @@ class TimeslicesControllerTest extends DimeTestCase
         $data = json_decode($response->getContent(), true);
 
         // assert that data has content
-        $this->assertEquals($data['startedAt'], '2012-02-10 19:00:00', 'expected to find "2012-02-10 19:00:00"');
-        $this->assertEquals($data['stoppedAt'], '2012-02-10 19:30:00', 'expected to find rate "2012-02-10 19:30:00"');
+        $this->assertEquals($data['startedAt'], '2012-02-10', 'expected to find "2012-02-10 19:00:00"');
+        $this->assertEquals($data['stoppedAt'], '2012-02-10', 'expected to find rate "2012-02-10 19:30:00"');
 
         // modify activity
         $response = $this->jsonRequest('PUT', $this->api_prefix.'/timeslices/' . $id, json_encode(array(
             'activity'    => '1',
             'startedAt'   => '2012-02-10 19:00:00',
             'stoppedAt'   => '2012-02-10 19:30:00',
-            'duration'    => '7200',
+            'duration'    => '2h',
             'user'        => '1'
         )));
         $this->assertEquals(200, $response->getStatusCode(), $response->getContent());
@@ -91,11 +91,11 @@ class TimeslicesControllerTest extends DimeTestCase
         // check created activity
         $response = $this->jsonRequest('GET', $this->api_prefix.'/timeslices/' . $id);
 
-        // convert json to array
+        // convert json to arraymysql
         $data = json_decode($response->getContent(), true);
 
         // assert that data has content
-        $this->assertEquals($data['duration'], '7200', 'expected to find "7200"');
+        $this->assertEquals($data['duration'], '2h', 'expected to find "2h"');
 
         // delete activity
         $response = $this->jsonRequest('DELETE', $this->api_prefix.'/timeslices/' . $id);

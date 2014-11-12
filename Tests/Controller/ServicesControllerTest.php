@@ -60,7 +60,6 @@ class ServicesControllerTest extends DimeTestCase
 		    json_encode(array(
 			    'name' => 'Modified Test',
 			    'alias' => 'test',
-			    'foo' => 'bar',
 		    ))
         );
         $this->assertEquals(200, $response->getStatusCode(), $response->getContent());
@@ -69,7 +68,6 @@ class ServicesControllerTest extends DimeTestCase
 	    json_encode(array(
 		        'name' => 'Modified Test',
 		        'alias' => 'test',
-		        'foo' => 'bar',
 		    ))
         );
         $this->assertEquals(404, $response->getStatusCode());

@@ -82,25 +82,35 @@ class TimeslicesController extends DimeController
         return $this->getOr404($id, $this->handlerSerivce);
     }
 
-    /**
-     * Presents the form to use to create a new Entity.
-     *
-     * @ApiDoc(
-     * resource = true,
-     * statusCodes = {
-     * 200 = "Returned when successful"
-     * }
-     * )
-     *
-     * @Annotations\View(
-     * templateVar = "form"
-     * )
-     *
-     * @return FormTypeInterface
-     */
-    public function newTimesliceAction()
+	/**
+	 * Presents the form to use to create a new Entity.
+	 *
+	 * @ApiDoc(
+	 * resource = true,
+	 * statusCodes = {
+	 * 200 = "Returned when successful"
+	 * }
+	 * )
+	 *
+	 * @Annotations\Route(requirements={"_format"="html"})
+	 * @Annotations\QueryParam(name="duration", nullable=true, description="Sets the Value Param in the Form.")
+	 * @Annotations\QueryParam(name="startedAt", nullable=true, description="Sets the Value Param in the Form.")
+	 * @Annotations\QueryParam(name="stoppedAt", nullable=true, description="Sets the Value Param in the Form.")
+	 * @Annotations\QueryParam(name="tags", nullable=true, description="Sets the Value Param in the Form.")
+	 * @Annotations\QueryParam(name="user", nullable=true, description="Sets the Value Param in the Form.")
+	 * @Annotations\QueryParam(name="activity", nullable=true, description="Sets the Value Param in the Form.")
+	 *
+	 * @Annotations\View(
+	 * templateVar = "form"
+	 * )
+	 *
+	 * @param ParamFetcherInterface $paramFetcher
+	 *
+	 * @return FormTypeInterface
+	 */
+    public function newTimesliceAction(ParamFetcherInterface $paramFetcher)
     {
-        return $this->createForm($this->formType);
+	    return $this->get($this->handlerSerivce)->newForm($paramFetcher->all());
     }
 
     /**

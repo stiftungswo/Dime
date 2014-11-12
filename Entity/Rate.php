@@ -30,6 +30,14 @@ class Rate extends Entity implements DimeEntityInterface
 	 * @JMS\SerializedName("rateUnit")
 	 */
 	protected $rateUnit;
+
+	/**
+	 * @var string $rateUnitType
+	 *
+	 * @ORM\Column(name="rate_unit_type", type="text")
+	 * @JMS\Exclude()
+	 */
+	protected $rateUnitType;
 	
     /**
      * @ORM\ManyToOne(targetEntity="Service", inversedBy="rates")
@@ -39,7 +47,7 @@ class Rate extends Entity implements DimeEntityInterface
     protected $service;
     
     /**
-     * @var integer $value
+     * @var integer $rateValue
      *
      * @ORM\Column(name="rate_value", type="decimal", scale=2, precision=10, nullable=true)
      * @JMS\SerializedName("rateValue")
@@ -122,7 +130,7 @@ class Rate extends Entity implements DimeEntityInterface
     /**
      * Set value
      *
-     * @param string $value
+     * @param string $rateValue
      *
      * @return Rate
      */
@@ -170,4 +178,24 @@ class Rate extends Entity implements DimeEntityInterface
 
         return $this;
     }
+
+	/**
+	 * @return string
+	 */
+	public function getRateUnitType()
+	{
+		return $this->rateUnitType;
+	}
+
+	/**
+	 * @param string $rateUnitType
+	 *
+	 * @return $this
+	 */
+	public function setRateUnitType($rateUnitType)
+	{
+		$this->rateUnitType = $rateUnitType;
+		return $this;
+	}
+
 }

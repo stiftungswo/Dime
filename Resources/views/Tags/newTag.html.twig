@@ -1,10 +1,8 @@
 {# Twig Template #}
 {% form_theme form 'DimeFrontendBundle:Form:dojo-fields.html.twig' %}
 
-{{ form_start(form, {'attr': {'data-dojo-props': 'storetype: "timeslices"'}}) }}
-{{ form_row(form.duration) }}
-{{ form_row(form.startedAt) }}
-{{ form_row(form.activity) }}
+{{ form_start(form, {'attr': {'data-dojo-props': 'storetype: "tags"'}}) }}
+{{ form_row(form) }}
 <button data-dojo-type="dijit/form/Button" type="submit">Senden</button>
 <button data-dojo-type="dijit/form/Button" type="reset">Abbrechen</button>
-</form>
+{{ form_end(form) }}

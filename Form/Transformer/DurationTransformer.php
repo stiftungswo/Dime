@@ -1,18 +1,17 @@
 <?php
 /**
  * Author: Till Wegmüller
- * Date: 9/23/14
+ * Date: 11/7/14
  * Dime
  */
 
 namespace Dime\TimetrackerBundle\Form\Transformer;
 
 
-use Dime\TimetrackerBundle\Model\ActivityReference;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
-class ReferenceTransformer implements DataTransformerInterface
+class DurationTransformer implements DataTransformerInterface
 {
 
 	/**
@@ -45,28 +44,18 @@ class ReferenceTransformer implements DataTransformerInterface
 	public function transform($value)
 	{
 		if(is_numeric($value)){
-			switch($value)
-			{
-			case ActivityReference::$SERVICE:
-				return 'service';
-				break;
-			case ActivityReference::$CUSTOMER:
-				return 'customer';
-				break;
-			case ActivityReference::$PROJECT:
-				return 'project';
-				break;
-			case ActivityReference::$ACTIVITY:
-				return 'activty';
-				break;
-			default:
-				return 'service';
-				break;
+			$time = $value / 3600;
+			if($time >= 1){
+				return $time.'h';
 			}
+			$time = $value / 60;
+			if($time >= 1){
+				return $time.'m';
+			}
+			$time = $value;
+			return $time.'s';
 		}
-		else{
-			return 'service';
-		}
+		return $value;
 	}
 
 	/**
@@ -95,22 +84,22 @@ class ReferenceTransformer implements DataTransformerInterface
 	 */
 	public function reverseTransform($value)
 	{
-		switch($value)
-		{
-		case "service":
-			return ActivityReference::$SERVICE;
-			break;
-		case "customer":
-			return ActivityReference::$CUSTOMER;
-			break;
-		case "project":
-			return ActivityReference::$PROJECT;
-			break;
-		case "activty":
-			return ActivityReference::$ACTIVITY;
-			break;
-		default:
-			return ActivityReference::$ACTIVITY;
+		if(is_string($value)){
+			$format = substr($value, -1);
+			$time = substr($value, 0, -1);
+			$time = floatval(str_replace(',', '.', $time));
+			switch($format){
+			case 'h':
+				$time = $time * 3600;
+				break;
+			case 'm':
+				$time = $time * 60;
+				break;
+			default:
+				break;
+			}
+			return $time;
 		}
+		return $value;
 	}
 }

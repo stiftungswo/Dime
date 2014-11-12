@@ -75,25 +75,38 @@ class ServicesController extends DimeController
         return $this->getOr404($id, $this->handlerSerivce);
     }
 
-    /**
-     * Presents the form to use to create a new Entity.
-     *
-     * @ApiDoc(
-     * resource = true,
-     * statusCodes = {
-     * 200 = "Returned when successful"
-     * }
-     * )
-     *
-     * @Annotations\View(
-     * templateVar = "form"
-     * )
-     *
-     * @return FormTypeInterface
-     */
-    public function newServiceAction()
+	/**
+	 * Presents the form to use to create a new Entity.
+	 *
+	 * @ApiDoc(
+	 * resource = true,
+	 * statusCodes = {
+	 * 200 = "Returned when successful"
+	 * }
+	 * )
+	 *
+	 * @Annotations\View(
+	 * templateVar = "form"
+	 * )
+	 *
+	 * @Annotations\Route(requirements={"_format"="html"})
+	 * @Annotations\QueryParam(name="tags", nullable=true, description="Sets the Value Param in the Form.")
+	 * @Annotations\QueryParam(name="user", nullable=true, description="Sets the Value Param in the Form.")
+	 * @Annotations\QueryParam(name="name", nullable=true, description="Sets the Value Param in the Form.")
+	 * @Annotations\QueryParam(name="alias", nullable=true, description="Sets the Value Param in the Form.")
+	 * @Annotations\QueryParam(name="description", nullable=true, description="Sets the Value Param in the Form.")
+	 * @Annotations\QueryParam(name="rates", nullable=true, description="Sets the Value Param in the Form.")
+	 * @Annotations\QueryParam(name="tags", nullable=true, description="Sets the Value Param in the Form.")
+	 * @Annotations\QueryParam(name="chargeable", nullable=true, description="Sets the Value Param in the Form.")
+	 * @Annotations\QueryParam(name="vat", nullable=true, description="Sets the Value Param in the Form.")
+	 *
+	 * @param ParamFetcherInterface $paramFetcher
+	 *
+	 * @return FormTypeInterface
+	 */
+    public function newServiceAction(ParamFetcherInterface $paramFetcher)
     {
-        return $this->createForm($this->formType);
+	    return $this->get($this->handlerSerivce)->newForm($paramFetcher->all());
     }
 
     /**

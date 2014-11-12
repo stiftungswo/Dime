@@ -50,8 +50,8 @@ class GenericHandler extends AbstractHandler implements HandlerInterface {
 		}
 
 		//Add Ordering
-		$this->orderBy('updatedAt','DESC');
-		$this->orderBy('id', 'DESC');
+		$this->orderBy('id', 'ASC');
+		$this->orderBy('updatedAt','ASC');
 
 		// Pagination
 		return $this->repository->getCurrentQueryBuilder()->getQuery()->getResult();
@@ -74,6 +74,17 @@ class GenericHandler extends AbstractHandler implements HandlerInterface {
 			$parameters['user'] = $this->getCurrentUser()->getId();
 		}
 		return $this->processForm($entity, $parameters, $this->formType, 'POST');
+	}
+
+	/**
+	 * @param array $values
+	 *
+	 * @return \Symfony\Component\Form\FormInterface
+	 */
+	public function newForm(array $values)
+	{
+		$entity = $this->newClassInstance();
+		return $this->createForm($entity, $this->formType, $values);
 	}
 
 	/**

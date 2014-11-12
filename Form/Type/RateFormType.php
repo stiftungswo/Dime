@@ -2,6 +2,7 @@
 
 namespace Dime\TimetrackerBundle\Form\Type;
 
+use Dime\TimetrackerBundle\Model\RateUnitType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -24,6 +25,7 @@ class RateFormType extends AbstractType
         $builder
             ->add('rateGroup', 'entity', array('class' => 'DimeTimetrackerBundle:RateGroup'))
             ->add('service', 'entity', array('class' => 'DimeTimetrackerBundle:Service'))
+	        ->add('rateUnitType', 'choice', array('choice_list' => new RateUnitType()))
             ->add('rateUnit')
             ->add('rateValue')
             ->add('user', 'entity', array('class' => 'DimeTimetrackerBundle:User'));

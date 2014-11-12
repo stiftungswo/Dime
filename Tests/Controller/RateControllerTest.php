@@ -27,7 +27,7 @@ class RateControllerTest extends DimeTestCase
 
         // assert that data has content
         $this->assertTrue(count($data) > 0, 'expected to find rates');
-        $this->assertEquals(120, $data['value'], 'expected to get 120');
+        $this->assertEquals(120, $data['rateValue'], 'expected to get 120');
     }
 
     public function testPostPutDeleteServiceActions()
@@ -36,7 +36,7 @@ class RateControllerTest extends DimeTestCase
         /* create new service */
         $response = $this->jsonRequest('POST', $this->api_prefix.'/rates',
 		    json_encode(array(
-			    'value' => 100,
+			    'rateValue' => 100,
 		    	'service' => 1,
 		   		'rateUnit' => 'h',
 			    'rateGroup' => 1
@@ -56,13 +56,13 @@ class RateControllerTest extends DimeTestCase
         $data = json_decode($response->getContent(), true);
 
         // assert that data has content
-        $this->assertEquals(100, $data['value'], 'expected to find value 100');
+        $this->assertEquals(100, $data['rateValue'], 'expected to find value 100');
         $this->assertEquals('h', $data['rateUnit'], 'expected to find rate unit "h"');
 
         /* modify service */
         $response = $this->jsonRequest('PUT', $this->api_prefix.'/rates/' . $id,
 		    json_encode(array(
-			    'value' => 120,
+			    'rateValue' => 120,
 			    'rateUnit' => 'EUR/h'
 		    ))
         );
@@ -70,7 +70,7 @@ class RateControllerTest extends DimeTestCase
 
         $response = $this->jsonRequest('PUT', $this->api_prefix.'/rates/' . ($id+100),
 	    json_encode(array(
-			    'value' => 200,
+			    'rateValue' => 200,
 			    'rateUnit' => 'fail'
 		    ))
         );
@@ -83,7 +83,7 @@ class RateControllerTest extends DimeTestCase
         $data = json_decode($response->getContent(), true);
 
         // assert that data has content
-        $this->assertEquals(120, $data['value'], 'expected to find value 120');
+        $this->assertEquals(120, $data['rateValue'], 'expected to find value 120');
         $this->assertEquals('EUR/h', $data['rateUnit'], 'expected to find rate unit "EUR/h"');
 
         /* delete service */

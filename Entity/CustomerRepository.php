@@ -53,7 +53,7 @@ class CustomerRepository extends EntityRepository
 
 	public function findByService($id)
 	{
-		return $this->getEntityManager()->createQuery("SELECT c FROM DimeTimetrackerBundle:Customer c WHERE c.id IN (SELECT IDENTITY(a.customer) FROM DimeTimetrackerBundle:Activity a WHERE a.service = :id)")
+		return $this->getEntityManager()->createQuery("SELECT c FROM DimeTimetrackerBundle:Customer c WHERE c.id IN (SELECT IDENTITY(a.project.customer) FROM DimeTimetrackerBundle:Activity a WHERE a.service = :id)")
 			->setParameters(array(
 				':id' => $id,
 			))
@@ -63,7 +63,7 @@ class CustomerRepository extends EntityRepository
 
 	public function findByProject($id)
 	{
-		return $this->getEntityManager()->createQuery("SELECT c FROM DimeTimetrackerBundle:Customer c WHERE c.id IN (SELECT IDENTITY(a.customer) FROM DimeTimetrackerBundle:Activity a WHERE a.project = :id)")
+		return $this->getEntityManager()->createQuery("SELECT c FROM DimeTimetrackerBundle:Customer c WHERE c.id IN(SELECT IDENTITY(p.customer) FROM DimeTimetrackerBundle:Project p WHERE p.id = :id)")
 			->setParameters(array(
 				':id' => $id,
 			))

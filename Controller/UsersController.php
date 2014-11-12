@@ -45,10 +45,7 @@ class UsersController extends DimeController
      */
     public function getUsersAction(ParamFetcherInterface $paramFetcher)
     {
-        $offset = $paramFetcher->get('offset');
-        $offset = null == $offset ? 0 : $offset;
-        $limit = $paramFetcher->get('limit');
-        return $this->container->get($this->handlerSerivce)->all($limit, $offset);
+        return $this->container->get($this->handlerSerivce)->all($paramFetcher->all());
     }
 
     /**
@@ -82,26 +79,35 @@ class UsersController extends DimeController
         return $this->getOr404($id, $this->handlerSerivce);
     }
 
-    /**
-     * Presents the form to use to create a new Entity.
-     *
-     * @ApiDoc(
-     * resource = true,
-     * statusCodes = {
-     * 200 = "Returned when successful"
-     * }
-     * )
-     *
-     * @Annotations\Route(requirements={"_format"="html"})
-     * @Annotations\View(
-     * templateVar = "form"
-     * )
-     *
-     * @return FormTypeInterface
-     */
-    public function newUserAction()
+	/**
+	 * Presents the form to use to create a new Entity.
+	 *
+	 * @ApiDoc(
+	 * resource = true,
+	 * statusCodes = {
+	 * 200 = "Returned when successful"
+	 * }
+	 * )
+	 *
+	 * @Annotations\Route(requirements={"_format"="html"})
+	 * @Annotations\View(
+	 * templateVar = "form"
+	 * )
+	 *
+	 * @Annotations\Route(requirements={"_format"="html"})
+	 * @Annotations\QueryParam(name="firstname", nullable=true, description="Sets the Value Param in the Form.")
+	 * @Annotations\QueryParam(name="lastname", nullable=true, description="Sets the Value Param in the Form.")
+	 * @Annotations\QueryParam(name="username", nullable=true, description="Sets the Value Param in the Form.")
+	 * @Annotations\QueryParam(name="email", nullable=true, description="Sets the Value Param in the Form.")
+	 * @Annotations\QueryParam(name="enabled", nullable=true, description="Sets the Value Param in the Form.")
+	 *
+	 * @param ParamFetcherInterface $paramFetcher
+	 *
+	 * @return FormTypeInterface
+	 */
+    public function newUserAction(ParamFetcherInterface $paramFetcher)
     {
-        return $this->createForm($this->formType);
+	    return $this->get($this->handlerSerivce)->newForm($paramFetcher->all());
     }
 
     /**

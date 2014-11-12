@@ -64,9 +64,7 @@ class RateGroupController extends DimeController
      * @Annotations\Route(requirements={"_format"="json|xml"})
      * 
      * @Annotations\Get("/rategroups/{id}", name="_rategroups")
-     *
-     * @param Request $request
-     *            the request object
+
      * @param int $id
      *            the page id
      *            
@@ -79,27 +77,33 @@ class RateGroupController extends DimeController
         return $this->getOr404($id, $this->handlerSerivce);
     }
 
-    /**
-     * Presents the form to use to create a new Entity.
-     *
-     * @ApiDoc(
-     * resource = true,
-     * statusCodes = {
-     * 200 = "Returned when successful"
-     * }
-     * )
-     *
-     * @Annotations\View(
-     * templateVar = "form"
-     * )
-     * 
-     * @Annotations\Get("/rategroups/new", name="_rategroups")
-     *
-     * @return FormTypeInterface
-     */
-    public function newRateGroupAction()
+	/**
+	 * Presents the form to use to create a new Entity.
+	 *
+	 * @ApiDoc(
+	 * resource = true,
+	 * statusCodes = {
+	 * 200 = "Returned when successful"
+	 * }
+	 * )
+	 *
+	 * @Annotations\View(
+	 * templateVar = "form"
+	 * )
+	 *
+	 * @Annotations\Get("/rategroups/new", name="_rategroups", requirements={"_format"="html"})
+	 * @Annotations\QueryParam(name="tags", nullable=true, description="Sets the Value Param in the Form.")
+	 * @Annotations\QueryParam(name="user", nullable=true, description="Sets the Value Param in the Form.")
+	 * @Annotations\QueryParam(name="name", nullable=true, description="Sets the Value Param in the Form.")
+	 * @Annotations\QueryParam(name="description", nullable=true, description="Sets the Value Param in the Form.")
+	 *
+	 * @param ParamFetcherInterface $paramFetcher
+	 *
+	 * @return FormTypeInterface
+	 */
+    public function newRateGroupAction(ParamFetcherInterface $paramFetcher)
     {
-        return $this->createForm($this->formType);
+	    return $this->get($this->handlerSerivce)->newForm($paramFetcher->all());
     }
 
     /**

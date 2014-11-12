@@ -49,12 +49,15 @@ abstract class AbstractHandler
 	/**
 	 * Processes the form.
 	 *
-	 * @param array  $parameters
-	 * @param String $method
+	 * @param DimeEntityInterface $entity
+	 * @param array               $parameters
+	 * @param                     $form
+	 * @param String              $method
 	 *
+	 *
+	 * @param array               $formoptions
 	 *
 	 * @return \Dime\TimetrackerBundle\Model\DimeEntityInterface|mixed
-	 * @throws \Dime\TimetrackerBundle\Exception\InvalidFormException
 	 */
     protected function processForm(DimeEntityInterface $entity, array $parameters, $form, $method = "PUT", $formoptions = array())
     {
@@ -70,6 +73,26 @@ abstract class AbstractHandler
         throw new InvalidFormException('Invalid submitted data', $form);
     }
 
+	/**
+	 * Make a Form from an Entity
+	 *
+	 * @param DimeEntityInterface $entity
+	 * @param                     $formtype
+	 * @param array               $values
+	 * @param array               $formoptions
+	 *
+	 * @return \Symfony\Component\Form\FormInterface
+	 */
+	protected function createForm(DimeEntityInterface $entity, $formtype, array $values, $formoptions = array()){
+		$form = $this->formFactory->create($formtype, $entity, $formoptions);
+		$form->submit($values, true);
+		return $form;
+	}
+
+	/**
+	 * Remove The Entity From Database.
+	 * @param DimeEntityInterface $entity
+	 */
     protected function deleteEntity(DimeEntityInterface $entity)
     {
         $this->om->remove($entity);
