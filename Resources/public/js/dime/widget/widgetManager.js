@@ -6,7 +6,22 @@ define([
     return declare('dime.widget.widgetManager',[],{
         widgets: [],
         get: function(entity, entitytype){
-            return this._findwidget(entity, entitytype);
+            for(var i=0; i < this.widgets.length; i++){
+                var widget = this.widgets[i];
+                if(widget.entity.id == entity.id && widget.entitytype == entitytype){
+                    return widget;
+                }
+            }
+        },
+        all: function(entity, entitytype){
+            var widgets = [];
+            for(var i=0; i < this.widgets.length; i++){
+                var widget = this.widgets[i];
+                if(widget.entity.id == entity.id && widget.entitytype == entitytype){
+                    widget.push(widget);
+                }
+            }
+            return widgets;
         },
         add: function(entity, entitytype, widgettype, parent, container){
             var widget = new widgettype({entity: entity, entitytype: entitytype});
@@ -21,8 +36,11 @@ define([
             return widget;
         },
         remove: function(entity, entitytype){
-            var widget = this._findwidget(entity, entitytype);
-            widget.destroyRecursive();
+            this.foreach(entitytype, function(widget){
+                if(widget.entity.id == entity.id) {
+                    widget.destroyRecursive();
+                }
+            });
         },
         removeChildren: function(parent){
             for(var i=0; i < this.widgets.length; i++){
@@ -33,10 +51,11 @@ define([
             }
         },
         update: function(entity, entitytype){
-            var widget = this._findwidget(entity, entitytype);
-            if(widget){
-                widget._updateValues(entity);
-            }
+            this.foreach(entitytype, function(widget){
+                if(widget.entity.id == entity.id){
+                    widget._updateValues(entity);
+                }
+            });
         },
         addChild: function(entity, entitytype){
             for(var i=0; i < this.widgets.length; i++){
@@ -48,24 +67,6 @@ define([
             widget.entitytype = entitytype;
             widget.entity = entity;
             this.widgets.push(widget);
-        },
-        _findwidget: function(entity, entitytype){
-            for(var i=0; i < this.widgets.length; i++){
-                var widget = this.widgets[i];
-                if(widget.entity.id == entity.id && widget.entitytype == entitytype){
-                    return widget;
-                }
-            }
-        },
-        _findAllByType: function(entitytype){
-            var returnval = [];
-            for(var i=0; i < this.widgets.length; i++){
-                var widget = this.widgets[i];
-                if(widget.entitytype == entitytype){
-                    returnval.push(widget)
-                }
-            }
-            return returnval;
         },
         foreach: function(entitytype, callback)
         {

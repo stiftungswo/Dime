@@ -1,6 +1,6 @@
 <div data-dojo-type="dijit/layout/AccordionContainer" data-dojo-props="region:'leading', splitter:true, minSize:20"
      style="width: 300px;" id="leftAccordion">
-	<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props='selected:true, title:"Zeiterfassung"'>
+	<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props='selected:false, title:"Zeiterfassung"'>
 		<div class="dimeMenu" data-dojo-type="dijit.Menu">
 			<div data-dojo-type="dijit.MenuItem">
 				<span>Stundenzettel Monat</span>
@@ -22,17 +22,47 @@
 			</div>
 		</div>
 	</div>
-    <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props='selected:false, title:"Offerte"'>
+    <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props='selected:false, title:"Offerten"'>
         <div class="dimeMenu" data-dojo-type="dijit.Menu">
             <div data-dojo-type="dijit.MenuItem">
-                <span>Offerten</span>
+                <span>Übersicht</span>
                 <script type="dojo/on" data-dojo-event="click">
 					app.addTab("contentTabs", '{{ path('frontend_offers_view') }}', "Offerten", true);
 				</script>
             </div>
         </div>
     </div>
-	{# <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props='selected:false, title:"Services"'>
+	<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props='selected:false, title:"Kunden"'>
+		<div class="dimeMenu" data-dojo-type="dijit.Menu">
+			<div data-dojo-type="dijit.MenuItem">
+				<span>Übersicht</span>
+				<script type="dojo/on" data-dojo-event="click">
+					app.addTab("contentTabs", '{{ path('frontend_customers_view') }}', "Kunden", true);
+				</script>
+			</div>
+		</div>
+	</div>
+	<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props='selected:false, title:"Aufträge/Projekte"'>
+		<div class="dimeMenu" data-dojo-type="dijit.Menu">
+			<div data-dojo-type="dijit.MenuItem">
+				<span>Übersicht</span>
+				<script type="dojo/on" data-dojo-event="click">
+					app.addTab("contentTabs", '{{ path('frontend_projects_view') }}', "Aufträge", true);
+				</script>
+			</div>
+		</div>
+	</div>
+	<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props='selected:false, title:"Mitarbeiter"'>
+		<div class="dimeMenu" data-dojo-type="dijit.Menu">
+			<div data-dojo-type="dijit.MenuItem">
+				<span>Übersicht</span>
+				<script type="dojo/on" data-dojo-event="click">
+					app.addTab("contentTabs", '{{ path('frontend_users_view') }}', "Benutzerliste", true);
+				</script>
+			</div>
+		</div>
+	</div>
+	<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props='selected:true, title:"Stammdaten"'>
 		<div class="dimeMenu" data-dojo-type="dijit.Menu">
 			<div data-dojo-type="dijit.MenuItem">
 				<span>Services</span>
@@ -40,14 +70,16 @@
 					app.addTab("contentTabs", '{{ path('frontend_services_view') }}', "Services", true);
 				</script>
 			</div>
-		</div>
-	</div> #}
-	<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props='selected:false, title:"Benutzer"'>
-		<div class="dimeMenu" data-dojo-type="dijit.Menu">
 			<div data-dojo-type="dijit.MenuItem">
-				<span>Benutzerliste</span>
+				<span>Tags</span>
 				<script type="dojo/on" data-dojo-event="click">
-					app.addTab("contentTabs", '{{ path('frontend_users_view') }}', "Benutzerliste", true);
+					app.addTab("contentTabs", '{{ path('frontend_tags_view') }}', "Tags", true);
+				</script>
+			</div>
+			<div data-dojo-type="dijit.MenuItem">
+				<span>Tarif Gruppen</span>
+				<script type="dojo/on" data-dojo-event="click">
+					app.addTab("contentTabs", '{{ path('frontend_rategroups_view') }}', "Tarif Gruppen", true);
 				</script>
 			</div>
 		</div>
