@@ -33,15 +33,17 @@ class Invoice {
 	}
 
 	/**
-
+	 * @param $fixed
+	 *
 	 * @return $this
+	 * ToDO: Fix.
 	 */
 	public function setGross($fixed)
 	{
 		$gross = 0;
 		foreach($this->projects as $project)
 		{
-			if ($fixed == false)
+			if (false == $fixed)
 			{
 				foreach($project->getItems() as $item)
 				{
