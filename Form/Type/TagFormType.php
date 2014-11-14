@@ -15,7 +15,7 @@ class TagFormType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('name')->add('system');
+        $builder->add('name')->add('system')->add('user', 'entity', array('class' => 'DimeTimetrackerBundle:User'));
     }
 
     /*

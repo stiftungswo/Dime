@@ -44,11 +44,6 @@ class GenericHandler extends AbstractHandler implements HandlerInterface {
 			$this->repository->filter($this->cleanFilter($params));
 		}
 
-		// Scope by current user if the User is not set in the Filter Array
-		if(!isset($params['user'])) {
-			$this->repository->scopeByField('user', $this->getCurrentUser()->getId());
-		}
-
 		//Add Ordering
 		$this->orderBy('id', 'ASC');
 		$this->orderBy('updatedAt','ASC');
