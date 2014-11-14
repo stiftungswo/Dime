@@ -67,3 +67,10 @@ rates:
     prefix:   /v1
     name_prefix:  api_1_
     defaults: { _format: json }    
+
+rateunittypes:
+    type:     rest
+    resource: Dime\TimetrackerBundle\Controller\RateUnitTypeController
+    prefix:   /v1
+    name_prefix:  api_1_
+    defaults: { _format: json }

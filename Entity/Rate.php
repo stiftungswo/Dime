@@ -35,6 +35,7 @@ class Rate extends Entity implements DimeEntityInterface
 	 * @var string $rateUnitType
 	 *
 	 * @ORM\Column(name="rate_unit_type", type="text", nullable=true)
+	 * @JMS\SerializedName("rateUnitType")
 	 */
 	protected $rateUnitType;
 	

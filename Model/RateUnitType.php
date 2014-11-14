@@ -16,13 +16,17 @@ class RateUnitType extends LazyChoiceList {
 	public static $Minutely = 'm';
 	public static $Dayly = 't';
 	public static $NoChange = '0';
+	public static function ChoiceList()
+	{
+		return array(
+			RateUnitType::$NoChange => 'Anderes',
+			RateUnitType::$Hourly => 'Stunden',
+			RateUnitType::$Minutely => 'Minuten',
+			RateUnitType::$Dayly => 'Tage'
+		);
+	}
 	protected function loadChoiceList()
 	{
-		return new SimpleChoiceList(array(
-			$this::$NoChange => 'Anderes',
-			$this::$Hourly => 'Stunden',
-			$this::$Minutely => 'Minuten',
-			$this::$Dayly => 'Tage'
-		));
+		return new SimpleChoiceList($this::ChoiceList());
 	}
 } 
