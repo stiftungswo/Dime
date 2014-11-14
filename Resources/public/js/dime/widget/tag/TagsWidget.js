@@ -7,10 +7,9 @@ define([
     'dime/widget/_Base',
     'dojo/_base/declare',
     'dojo/text!dime/widget/tag/templates/TagsWidget.html',
-    'dojo/when',
     'dime/widget/tag/TagGrid',
     'dijit/form/Button'
-], function ( WidgetsInTemplateMixin, TemplatedMixin,  _Base, declare, template, when) {
+], function ( WidgetsInTemplateMixin, TemplatedMixin,  _Base, declare, template) {
     return declare("dime.widget.tag.TagsWidget", [_Base, TemplatedMixin, WidgetsInTemplateMixin], {
 
         templateString: template,
@@ -29,7 +28,7 @@ define([
             this.deleteNode.on('click', function(){
                 //this in the button
                 for(var id in this.parentWidget.GridNode.selection){
-                    when(this.parentWidget.store.remove(id));
+                    this.parentWidget.store.remove(id);
                 }
             });
             this.addNode.on('click', function(){

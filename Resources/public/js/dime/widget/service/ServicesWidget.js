@@ -40,7 +40,7 @@ define([
             this.deleteNode.on('click', function(){
                 //this in the button
                 for(var id in this.parentWidget.GridNode.selection){
-                    when(this.parentWidget.store.remove(id));
+                    this.parentWidget.store.remove(id);
                 }
             });
             this.addNode.on('click', function(){

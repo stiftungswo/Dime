@@ -7,10 +7,9 @@ define([
     'dime/widget/_Base',
     'dojo/_base/declare',
     'dojo/text!dime/widget/rategroup/templates/RateGroupsWidget.html',
-    'dojo/when',
     'dime/widget/rategroup/RateGroupGrid',
     'dijit/form/Button'
-], function ( WidgetsInTemplateMixin, TemplatedMixin,  _Base, declare, template, when) {
+], function ( WidgetsInTemplateMixin, TemplatedMixin,  _Base, declare, template) {
     return declare("dime.widget.rategroup.RateGroupsWidget", [_Base, TemplatedMixin, WidgetsInTemplateMixin], {
 
         templateString: template,
