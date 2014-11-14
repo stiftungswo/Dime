@@ -25,6 +25,7 @@ define([
             this.rateValueNode.set('parentWidget', this);
             this.rateUnitNode.set('parentWidget', this);
             this.rateUnitTypeNode.set('parentWidget', this);
+            this.rateUnitTypeNode.set('store', window.storeManager.get('rateunittypes', false, true));
             this.delNode.set('parentWidget', this);
         },
 

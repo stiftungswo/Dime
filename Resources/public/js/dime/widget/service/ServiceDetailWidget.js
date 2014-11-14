@@ -24,6 +24,11 @@ define([
             this.descriptionNode.set('parentWidget', this);
             this.chargeableNode.set('parentWidget', this);
             this.vatNode.set('parentWidget', this);
+            this.vatNode.set('constraints', {
+                min: 0,
+                max: 100,
+                pattern: "#0.####%"
+            });
             this.addRateNode.set('parentWidget', this);
         },
 
