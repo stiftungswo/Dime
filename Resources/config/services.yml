@@ -42,4 +42,7 @@ services:
         class: %generic_handler%
         arguments: [ "@doctrine.orm.entity_manager", "Dime\TimetrackerBundle\Entity\Rate", "@form.factory", "@security.context", "r", "dime_timetrackerbundle_rateformtype"]
         
-        
+    dime.standarddiscount.handler:
+         class: %generic_handler%
+         arguments: [ "@doctrine.orm.entity_manager", "Dime\TimetrackerBundle\Entity\StandardDiscount", "@form.factory", "@security.context", "sd", "dime_timetrackerbundle_standarddiscountformtype"]
+

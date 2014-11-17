@@ -66,4 +66,11 @@ rates:
     resource: Dime\TimetrackerBundle\Controller\RateController
     prefix:   /v1
     name_prefix:  api_1_
-    defaults: { _format: json }    
+    defaults: { _format: json }
+
+standarddiscounts:
+    type:     rest
+    resource: Dime\TimetrackerBundle\Controller\StandardDiscountController
+    prefix:   /v1
+    name_prefix:  api_1_
+    defaults: { _format: json }
