@@ -28,7 +28,7 @@ define([
             return store;
         },
 
-        new: function(entity, compat, legacy){
+        make: function(entity, compat, legacy){
             //Search if store is already defined
             var store;
             //if(legacy) {

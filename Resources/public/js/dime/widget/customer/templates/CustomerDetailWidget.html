@@ -1,0 +1,25 @@
+<div class="${baseClass}">
+    <label for="name">Name </label><div class="${baseClass}Name" data-dojo-attach-point="nameNode" data-dojo-type="dijit/form/TextBox"></div><br>
+
+    <label for="alias">Alias </label><div class="${baseClass}Alias" data-dojo-attach-point="aliasNode" data-dojo-type="dijit/form/TextBox"></div><br>
+
+    <!--<label for="rateGroup">Tarif Gruppe </label><div class="${baseClass}RateGroup" data-dojo-attach-point="rateGroupNode" data-dojo-type="dijit/form/FilteringSelect"></div><br>-->
+
+    <label for="chargeable">Verechenbar </label><div class="${baseClass}Chargeable" data-dojo-attach-point="chargeableNode" data-dojo-type="dijit/form/CheckBox" ></div><br>
+
+    <label for="address">Addresse </label>
+	<div class="${baseClass}Address" data-dojo-attach-point="addressNode" data-dojo-type="dime/widget/swocommons/AddressWidget" ></div>
+
+	<br>
+
+    <label>Telefone</label>
+    <table>
+        <div data-dojo-attach-point="PhoneContainer"></div>
+    </table>
+
+    <br>
+
+    <div data-dojo-attach-point="PhoneCtrlNode">
+        <div data-dojo-attach-point="addPhoneNode" data-dojo-type="dijit/form/Button" data-dojo-props="'class':'primary'">+</div>
+    </div>
+</div>

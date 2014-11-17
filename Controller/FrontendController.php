@@ -20,9 +20,9 @@ class FrontendController extends Controller {
 
 	/**
 	 * @return \Symfony\Component\HttpFoundation\Response
-	 * @Route("/viewallusers", name="frontend_users_view")
+	 * @Route("/view/users", name="frontend_users_view")
 	 */
-	public function viewAllAction()
+	public function viewUsersAction()
 	{
 		return $this->render('DimeFrontendBundle:Users:view.html.twig');
 	}
@@ -56,10 +56,56 @@ class FrontendController extends Controller {
 
     /**
      * @return \Symfony\Component\HttpFoundation\Response
-     * @Route("/offers", name="frontend_offers_view")
+     * @Route("/view/offers", name="frontend_offers_view")
      */
     public function viewOffersAction()
     {
         return $this->render('DimeFrontendBundle:Offers:view.html.twig');
     }
+
+	/**
+	 * @return \Symfony\Component\HttpFoundation\Response
+	 * @Route("/view/services", name="frontend_services_view")
+	 */
+	public function viewServicesAction()
+	{
+		return $this->render('DimeFrontendBundle:Services:view.html.twig');
+	}
+
+	/**
+	 * @return \Symfony\Component\HttpFoundation\Response
+	 * @Route("/view/customers", name="frontend_customers_view")
+	 */
+	public function viewCustomersAction()
+	{
+		return $this->render('DimeFrontendBundle:Customers:view.html.twig');
+	}
+
+	/**
+	 * @return \Symfony\Component\HttpFoundation\Response
+	 * @Route("/view/tags", name="frontend_tags_view")
+	 */
+	public function viewTagsAction()
+	{
+		return $this->render('DimeFrontendBundle:Tags:view.html.twig');
+	}
+
+	/**
+	 * @return \Symfony\Component\HttpFoundation\Response
+	 * @Route("/view/rategroups", name="frontend_rategroups_view")
+	 */
+	public function viewRategroupsAction()
+	{
+		return $this->render('DimeFrontendBundle:RateGroups:view.html.twig');
+	}
+
+	/**
+	 * @return \Symfony\Component\HttpFoundation\Response
+	 * @Route("/view/projects", name="frontend_projects_view")
+	 */
+	public function viewProjectsAction()
+	{
+		return $this->render('DimeFrontendBundle:Projects:view.html.twig');
+	}
+
 } 
