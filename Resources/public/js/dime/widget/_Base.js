@@ -1,7 +1,7 @@
 define([
     'dojo/_base/declare',
     'dijit/_WidgetBase',
-    'dijit/registry'
+    'dijit/registry',
 ], function (declare, WidgetBase, registry) {
     return declare('dime.widget.timetrack._TimetrackerWidgetBase', [WidgetBase], {
         //Inherited Default Functions
@@ -10,6 +10,7 @@ define([
             this._setupChildren();
             this._fillValues();
             this._addcallbacks();
+            this.watch('disabled', this._disable);
         },
 
         //The Entity the Widget Displays as Javascript Object
@@ -60,6 +61,14 @@ define([
 
         //Overwrite and Setup Callbacks Here
         _addcallbacks: function(){},
+
+        _disable: function(){
+            var base = this;
+            this._attachPoints.forEach(function(node){
+                var attachPoint = base[node];
+                    attachPoint.set('disabled',true);
+            });
+        },
 
         //Function to Destroy the Widget and its entity in the Remote Store.
         cleandestroy: function(){
