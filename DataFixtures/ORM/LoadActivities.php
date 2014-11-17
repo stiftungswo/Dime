@@ -41,7 +41,7 @@ class LoadActivities extends AbstractFixture implements OrderedFixtureInterface
 	/**
 	 * loads fixtures to database
 	 *
-	 * @param  Doctrine\Common\Persistence\ObjectManager $manager
+	 * @param  \Doctrine\Common\Persistence\ObjectManager $manager
 	 *
 	 * @return LoadActivities
 	 */

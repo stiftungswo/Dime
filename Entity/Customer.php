@@ -64,16 +64,16 @@ class Customer extends Entity implements DimeEntityInterface
 	protected $chargeable;
 
 	/**
-	 * @var Swo\CommonsBundle\Entity\Address $address
+	 * @var \Swo\CommonsBundle\Entity\Address $address
 	 *
-	 * @ORM\ManyToOne(targetEntity="Swo\CommonsBundle\Entity\Address", cascade={"persist"})
+	 * @ORM\ManyToOne(targetEntity="\Swo\CommonsBundle\Entity\Address", cascade={"persist"})
 	 */
 	protected $address;
 
 	/**
 	 * @JMS\Type("array")
 	 * @JMS\SerializedName("phones")
-	 * @ORM\ManyToMany(targetEntity="Swo\CommonsBundle\Entity\Phone", cascade={"all"})
+	 * @ORM\ManyToMany(targetEntity="\Swo\CommonsBundle\Entity\Phone", cascade={"all"})
 	 * @ORM\JoinTable(name="customer_phones",
 	 *      joinColumns={@ORM\JoinColumn(name="customer_id", referencedColumnName="id")},
 	 *      inverseJoinColumns={@ORM\JoinColumn(name="phone_id", referencedColumnName="id", unique=true)}
@@ -281,7 +281,7 @@ class Customer extends Entity implements DimeEntityInterface
     }
 
 	/**
-	 * @return Swo\CommonsBundle\Entity\Address
+	 * @return \Swo\CommonsBundle\Entity\Address
 	 */
 	public function getAddress()
 	{
@@ -289,7 +289,7 @@ class Customer extends Entity implements DimeEntityInterface
 	}
 
 	/**
-	 * @param Swo\CommonsBundle\Entity\Address $address
+	 * @param \Swo\CommonsBundle\Entity\Address $address
 	 *
 	 * @return $this
 	 */

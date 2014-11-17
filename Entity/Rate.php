@@ -18,7 +18,7 @@ class Rate extends Entity implements DimeEntityInterface
 	
 	/**
 	 * @ORM\ManyToOne(targetEntity="Dime\TimetrackerBundle\Entity\RateGroup")
-	 * @ORM\JoinColumn(name="rate_group_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
+	 * @ORM\JoinColumn(name="rate_group_id", referencedColumnName="id", onDelete="SET NULL")
 	 * @JMS\SerializedName("rateGroup")
 	 */
 	protected $rateGroup;
@@ -34,8 +34,8 @@ class Rate extends Entity implements DimeEntityInterface
 	/**
 	 * @var string $rateUnitType
 	 *
-	 * @ORM\Column(name="rate_unit_type", type="text")
-	 * @JMS\Exclude()
+	 * @ORM\Column(name="rate_unit_type", type="text", nullable=true)
+	 * @JMS\SerializedName("rateUnitType")
 	 */
 	protected $rateUnitType;
 	

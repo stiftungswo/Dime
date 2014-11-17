@@ -12,7 +12,7 @@ class LoadRates extends AbstractFixture implements OrderedFixtureInterface
 	/**
 	 * Load data fixtures with the passed EntityManager
 	 *
-	 * @param Doctrine\Common\Persistence\ObjectManager $manager
+	 * @param \Doctrine\Common\Persistence\ObjectManager $manager
 	 */
 	public function load(ObjectManager $manager)
 	{

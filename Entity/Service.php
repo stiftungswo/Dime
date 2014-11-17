@@ -74,7 +74,7 @@ class Service extends Entity implements DimeEntityInterface
 	/**
 	 * @var integer $vat
 	 *
-	 * @ORM\Column(type="decimal", scale=2, precision=10, nullable=true)
+	 * @ORM\Column(type="decimal", scale=4, precision=10, nullable=true)
 	 */
 	protected $vat;
 	
