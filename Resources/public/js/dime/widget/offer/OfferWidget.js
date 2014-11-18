@@ -13,10 +13,11 @@ define([
     "dijit/form/FilteringSelect",
     'dijit/form/Button',
     'dime/widget/timetrack/StandardDiscountWidget',
+    'dime/widget/offer/OfferDiscountWidget',
     'dojo/when',
     'xstyle!dime/widget/offer/css/OfferWidget.css'
 ], function ( WidgetsInTemplateMixin, TemplatedMixin,  _Base, declare,  template,
-              OfferPositionWidget, registry, Textbox, DateTextBox, Textarea, Dialog,  FilteringSelect, Button, StandardDiscountWidget, when) {
+              OfferPositionWidget, registry, Textbox, DateTextBox, Textarea, Dialog,  FilteringSelect, Button, StandardDiscountWidget, OfferDiscountWidget,  when) {
     return declare("dime.widget.offer.OfferWidget", [_Base, TemplatedMixin, WidgetsInTemplateMixin], {
 
         templateString: template,
@@ -26,6 +27,8 @@ define([
 
 
         _setupChildren: function(){
+
+            //Offer
             this.nameNode.set('parentWidget', this);
             this.customerNode.set('parentWidget', this);
             this.customerNode.set('store', window.storeManager.get('customers', true));
@@ -48,13 +51,23 @@ define([
             this.recepientAddressLine3Node.set('parentWidget', this);
             this.recepientAddressLine4Node.set('parentWidget', this);
             this.recepientAddressLine5Node.set('parentWidget', this);
+
+            //OfferPositions
             this.addOfferPositionNode.set('parentWidget', this);
+
+            //Standard Discounts
             this.addStandardDiscountSelectNode.set('parentWidget', this);
             this.addStandardDiscountSelectNode.set('store', window.storeManager.get('standarddiscounts', true))
             this.addStandardDiscountNode.set('parentWidget', this);
+
+            //OfferDiscounts
+            this.addOfferDiscountNode.set('parentWidget', this);
+
         },
 
         _addcallbacks: function(){
+
+            //Offer
             this.nameNode.watch('value', this._watchercallback);
             this.customerNode.watch('value', this._watchercallback);
             this.statusNode.watch('value', this._watchercallback);
@@ -69,9 +82,14 @@ define([
             this.recepientAddressLine3Node.watch('value', this._watchercallback);
             this.recepientAddressLine4Node.watch('value', this._watchercallback);
             this.recepientAddressLine5Node.watch('value', this._watchercallback);
+
+
+            var parentWidget = this.parentWidget;
+
+            //Offer Positions
             this.addOfferPositionNode.on('click', function(){
                 var offerPositionsContainer = this.parentWidget.offerPositionsContainer;
-                var parentWidget = this.parentWidget;
+
                 var offerPositionsStore = window.storeManager.get('offerpositions', false, true)
                 var newOfferPosition = {order:0, offer:this.parentWidget.entity.id, service:1, discountable:true, vat:8};
 
@@ -79,6 +97,8 @@ define([
                     window.widgetManager.add(data, 'offerpositions', OfferPositionWidget, parentWidget, offerPositionsContainer);
                 });
             });
+
+            //StandardDiscount
             this.addStandardDiscountNode.on('click', function(){
                 var standardDiscounts = [];
                 this.parentWidget.entity.standardDiscounts.forEach(function(discount){
@@ -104,23 +124,51 @@ define([
                     });
                 });
             });
+
+            //OfferDiscount
+
+            this.addOfferDiscountNode.on('click', function(){
+                var parentWidget = this.parentWidget;
+                var offerDiscountsContainer = this.parentWidget.offerDiscountsContainer;
+                var offerDiscountStore = window.storeManager.get('offerdiscounts', false, true)
+                var newOfferDiscount = {name:"New...", percentage:false, minus:true, value:0, offer:this.parentWidget.entity.id};
+
+                offerDiscountStore.put(newOfferDiscount).then(function(discount){
+                    window.widgetManager.add(discount,'offerdiscounts',OfferDiscountWidget, parentWidget, offerDiscountsContainer)
+                });
+            });
         },
 
         _fillValues: function(){
+
+            //Offer Positions
             var parentWidget = this, offerPositionsContainer = this.offerPositionsContainer, discountsContainer = this.discountsContainer;
             this.inherited(arguments);
             var results = window.storeManager.get('offerpositions', true).query({offer: this.entity.id});
             results.forEach(function(entity){
-                window.widgetManager.add(entity, 'offerpositions', OfferPositionWidget, parentWidget, offerPositionsContainer)
+                window.widgetManager.add(entity, 'offerpositions', OfferPositionWidget, parentWidget, offerPositionsContainer);
             });
+
+            //Standard Discounts
             var standardDiscounts = this.entity.standardDiscounts;
             if(standardDiscounts){
                 this.entity.standardDiscounts.forEach(function(entity){
-                    var widget = window.widgetManager.add(entity,'standarddiscounts',StandardDiscountWidget, parentWidget, discountsContainer)
+                    var widget = window.widgetManager.add(entity,'standarddiscounts',StandardDiscountWidget, parentWidget, discountsContainer);
                     widget.set('disabled', true);
                     widget.set('offerId', parentWidget.entity.id);
                 });
             }
+
+            //Offer Discounts
+            var offerDiscounts = this.entity.offerDiscounts;
+            var offerDiscountsContainer = this.offerDiscountsContainer;
+            if(offerDiscounts){
+                this.entity.offerDiscounts.forEach(function(discount){
+                    window.widgetManager.add(discount,'offerdiscounts',OfferDiscountWidget, parentWidget, offerDiscountsContainer);
+                });
+            }
+
+
         },
 
         _updateValues: function(entity){
