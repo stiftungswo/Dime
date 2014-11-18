@@ -20,22 +20,11 @@ class InvoiceItem {
 
 	public function __construct(Activity $activity)
 	{
-		$this->type     = $activity->getService()->getName();
+		$this->type     = $activity->getName();
 		$this->rate     = $activity->getRate();
 		$this->value   = $activity->getValue();
-		$this->rateUnit = $activity->getService()->getRateByRateGroup($activity->getProject()->getRateGroup())->getRateUnit();
-		$this->rateUnitType = $activity->getService()->getRateByRateGroup($activity->getProject()->getRateGroup())->getRateUnitType();
-		switch($this->rateUnitType){
-		case RateUnitType::$Hourly:
-			$this->value = ($this->value / 3600);
-			break;
-		case RateUnitType::$Minutely:
-			$this->value = ($this->value / 60);
-			break;
-		case RateUnitType::$Dayly:
-			$this->value = ($this->value / 86400);
-			break;
-		}
-		$this->charge = ceil($this->rate * $this->value);
+		$this->rateUnit = $activity->getRateUnit();
+		$this->rateUnitType = $activity->getRateUnitType();
+		$this->charge = ceil($activity->getCharge());
 	}
 } 
