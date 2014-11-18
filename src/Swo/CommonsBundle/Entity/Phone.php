@@ -5,6 +5,7 @@ namespace Swo\CommonsBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Misd\PhoneNumberBundle\Validator\Constraints\PhoneNumber as AssertPhoneNumber;
+use JMS\Serializer\Annotation as JMS;
 
 
 /**
@@ -26,6 +27,7 @@ class Phone
 	 *
 	 * @AssertPhoneNumber(defaultRegion="CH")
 	 * @ORM\Column(type="phone_number")
+	 * @JMS\SerializedName("Number")
 	 */
 	protected $number;
 
@@ -34,6 +36,7 @@ class Phone
 	 * @var String
 	 *
 	 * @ORM\Column(type="string")
+	 * @JMS\SerializedName("Type")
 	 */
 	protected $type;
 
