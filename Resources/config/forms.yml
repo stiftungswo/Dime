@@ -37,4 +37,8 @@ services:
 
     dime.rate.form.type:
         class: Dime\TimetrackerBundle\Form\Type\RateFormType
-        tags: [{ name: "form.type", alias: "dime_timetrackerbundle_rateformtype" }]        
+        tags: [{ name: "form.type", alias: "dime_timetrackerbundle_rateformtype" }]
+
+    dime.standarddiscount.form.type:
+        class: Dime\TimetrackerBundle\Form\Type\StandardDiscountFormType
+        tags: [{ name: "form.type", alias: "dime_timetrackerbundle_standarddiscountformtype" }]
