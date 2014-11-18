@@ -18,7 +18,7 @@ define([
         store: window.storeManager.get('activities', false, true),
         dialogprops: {},
         childtypes: [ 'timeslices' ],
-
+        //ToDo: Refactor to newest standards.
         _setupChildren: function(){
             this.projectNode.set('parentWidget', this);
             this.projectNode.set('store', window.storeManager.get('projects', true));
@@ -88,7 +88,11 @@ define([
                     result = activityStore.put({description: newvalue}, {id: activityId});
                     break;
                 case "chargeableNode":
-                    result = activityStore.put({chargeable: newvalue}, {id: activityId});
+                    //if(newvalue != entity.chargeable)
+                        if(newvalue == false)
+                            result = store.put({chargeable: '0'}, {id: entity.id} );
+                        else
+                            result = store.put({chargeable: '1'}, {id: entity.id} );
                     break;
                 default:
                     break;

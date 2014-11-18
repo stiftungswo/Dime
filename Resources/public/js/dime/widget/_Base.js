@@ -3,7 +3,7 @@ define([
     'dijit/_WidgetBase',
     'dijit/registry',
 ], function (declare, WidgetBase, registry) {
-    return declare('dime.widget.timetrack._TimetrackerWidgetBase', [WidgetBase], {
+    return declare('dime.widget._Base', [WidgetBase], {
         //Inherited Default Functions
         postCreate: function () {
             this.inherited(arguments);

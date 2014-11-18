@@ -6,56 +6,48 @@ define([
     'dijit/_TemplatedMixin',
     'dime/widget/_Base',
     'dojo/_base/declare',
-    'dojo/text!dime/widget/service/templates/ServiceDetailWidget.html',
-    'dime/widget/rate/RateWidget',
+    'dojo/text!dime/widget/project/templates/ProjectDetailWidget.html',
     'dijit/form/TextBox',
     'dijit/form/Button'
-], function ( WidgetsInTemplateMixin, TemplatedMixin,  _Base, declare,  template, RateWidget) {
-    return declare("dime.widget.service.ServiceDetailWidget", [_Base, TemplatedMixin, WidgetsInTemplateMixin], {
+], function ( WidgetsInTemplateMixin, TemplatedMixin,  _Base, declare,  template) {
+    return declare("dime.widget.project.ProjectDetailWidget", [_Base, TemplatedMixin, WidgetsInTemplateMixin], {
 
         templateString: template,
-        baseClass: "serviceDetailWidget",
-        store: window.storeManager.get('services', false, true),
+        baseClass: "projectDetailWidget",
+        store: window.storeManager.get('projects', false, true),
 
 
         _setupChildren: function(){
             this.nameNode.set('parentWidget', this);
             this.aliasNode.set('parentWidget', this);
             this.descriptionNode.set('parentWidget', this);
+            this.deadlineNode.set('parentWidget', this);
+
+            this.customerNode.set('disabled', true);
+            this.customerNode.set('store', window.storeManager.get('customers', false, true));
+
+            this.budgetPriceNode.set('disabled', true);
+            this.currentPriceNode.set('disabled', true);
+            this.budgetTimeNode.set('disabled', true);
+            this.currentTimeNode.set('disabled', true);
+            this.fixedPriceNode.set('disabled', true);
+
+            this.rateGroupNode.set('parentWidget', this);
+            this.rateGroupNode.set('store', window.storeManager.get('rategroups', false, true));
+
             this.chargeableNode.set('parentWidget', this);
-            this.vatNode.set('parentWidget', this);
-            this.vatNode.set('constraints', {
-                min: 0,
-                max: 100,
-                pattern: "#0.####%"
-            });
-            this.addRateNode.set('parentWidget', this);
         },
 
         _addcallbacks: function(){
             this.nameNode.watch('value', this._watchercallback);
             this.aliasNode.watch('value', this._watchercallback);
             this.descriptionNode.watch('value', this._watchercallback);
-            this.chargeableNode.watch('value', this._watchercallback);
-            this.vatNode.watch('value', this._watchercallback);
-            this.addRateNode.on('click', function(){
-                var RateContainer = this.parentWidget.RateContainer;
-                var parentWidget = this.parentWidget;
-                var store = window.storeManager.get('rates', false, true);
-                var newEntity = { service: this.parentWidget.entity.id, rateGroup: 1};
-                store.put(newEntity).then(function(data){
-                    window.widgetManager.add(data, 'rates', RateWidget, parentWidget, RateContainer);
-                });
-            });
+            this.rateGroupNode.watch('value', this._watchercallback);
+            this.chargeableNode.watch('checked', this._watchercallback);
         },
 
         _fillValues: function(){
-            var parentWidget = this, RateContainer = this.RateContainer;
             this.inherited(arguments);
-            var results = window.storeManager.get('rates', true).query({service: this.entity.id});
-            results.forEach(function(entity){
-                window.widgetManager.add(entity, 'rates', RateWidget, parentWidget, RateContainer)
-            });
         },
 
         _updateValues: function(entity){
@@ -63,8 +55,14 @@ define([
             this.nameNode.set('value', entity.name);
             this.aliasNode.set('value', entity.alias);
             this.descriptionNode.set('value', entity.description ? entity.description : '');
-            this.chargeableNode.set('value', entity.chargeable ? entity.chargeable : false);
-            this.vatNode.set('value', entity.vat ? entity.vat : '');
+            this.rateGroupNode.set('value', entity.rateGroup ? entity.rateGroup.id : '');
+            this.customerNode.set('value', entity.customer ? entity.customer.id : '');
+            this.budgetPriceNode.set('value', entity.budgetPrice ? entity.budgetPrice : '');
+            this.currentPriceNode.set('value', entity.currentPrice ? entity.currentPrice : '');
+            this.budgetTimeNode.set('value', entity.budgetTime ? entity.budgetTime : '');
+            this.currentTimeNode.set('value', entity.currentTime ? entity.currentTime : '');
+            this.fixedPriceNode.set('value', entity.fixedPrice ? entity.fixedPrice : '');
+            this.chargeableNode.set('checked', entity.chargeable ? entity.chargeable : false);
         },
 
         _watchercallback: function(property, oldvalue, newvalue){
@@ -86,6 +84,10 @@ define([
                     if(newvalue != entity.description)
                         result = store.put({description: newvalue}, {id: entity.id} );
                     break;
+                case "rateGroupNode":
+                    if(newvalue != entity.rateGroup.id)
+                        result = store.put({rateGroup: newvalue}, {id: entity.id} );
+                    break;
                 case "chargeableNode":
                     if(newvalue != entity.chargeable)
                         if(newvalue == false)
@@ -93,15 +95,11 @@ define([
                         else
                             result = store.put({chargeable: '1'}, {id: entity.id} );
                     break;
-                case "vatNode":
-                    if(newvalue != entity.vat)
-                        result = store.put({vat: newvalue}, {id: entity.id} );
-                    break;
                 default:
                     break;
             }
             result.then(function(data){
-                window.widgetManager.update(data, 'services');
+                window.widgetManager.update(data, 'projects');
             });
         }
 
