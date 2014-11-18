@@ -3,14 +3,12 @@ namespace Dime\TimetrackerBundle\Entity;
 
 use Dime\TimetrackerBundle\Form\Transformer\DurationTransformer;
 use Dime\TimetrackerBundle\Model\ActivityReference;
-use Dime\TimetrackerBundle\Model\DefaultRateGroup;
+use Dime\TimetrackerBundle\Model\RateUnitType;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as JMS;
 use Doctrine\Common\Collections\ArrayCollection;
 use Dime\TimetrackerBundle\Model\DimeEntityInterface;
 use Knp\JsonSchemaBundle\Annotations as Json;
-use Symfony\Component\Debug\Exception\FatalErrorException;
-use Symfony\Component\Security\Acl\Exception\Exception;
 
 
 /**
@@ -27,7 +25,7 @@ class Activity extends Entity implements DimeEntityInterface
     /**
      * @var Project $project
      *
-     * @ORM\ManyToOne(targetEntity="Project")
+     * @ORM\ManyToOne(targetEntity="Project", inversedBy="activities")
      * @ORM\JoinColumn(name="project_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
      */
     protected $project;
@@ -118,6 +116,60 @@ class Activity extends Entity implements DimeEntityInterface
 	}
 
 	/**
+	 * The Type of Rate Unit Associated with the Activty.
+	 * @return string
+	 * @JMS\VirtualProperty()
+	 * @JMS\SerializedName("rateUnitType")
+	 */
+	public function getRateUnitType()
+	{
+		return $this->getService()->getRateByRateGroup($this->getProject()->getRateGroup())->getRateUnitType();
+	}
+
+	/**
+	 * Retunrs the Associated Rate Unit
+	 * @return string
+	 * @JMS\VirtualProperty()
+	 * @JMS\SerializedName("rateUnit")
+	 */
+	public function getRateUnit()
+	{
+		return $this->getService()->getRateByRateGroup($this->getProject()->getRateGroup())->getRateUnit();
+	}
+
+	/**
+	 * Returns How mch the whole Activity Costs
+	 * @return float
+	 * @JMS\VirtualProperty()
+	 * @JMS\SerializedName("charge")
+	 */
+	public function getCharge()
+	{
+		$value = $this->getValue();
+		switch ($this->getRateUnitType()) {
+		case RateUnitType::$Hourly:
+			$value = ($value / 3600);
+			break;
+		case RateUnitType::$Minutely:
+			$value = ($value / 60);
+			break;
+		case RateUnitType::$Dayly:
+			$value = ($value / 86400);
+			break;
+		}
+		return ($this->getRate() * $value);
+	}
+
+	/**
+	 * Returns the Name the Activty has.
+	 * @return string
+	 */
+	public function getName()
+	{
+		return $this->getService()->getName();
+	}
+
+	/**
 	 * @param int $value
 	 *
 	 * @return $this
@@ -131,11 +183,23 @@ class Activity extends Entity implements DimeEntityInterface
 	/**
 	 * @JMS\VirtualProperty()
 	 * @JMS\SerializedName("value")
+	 * @return string
 	 */
 	public function serializeValue()
 	{
-		$transformer = new DurationTransformer();
-		return $transformer->transform($this->getValue());
+		$value = $this->getValue();
+		switch ($this->getRateUnitType()){
+		case RateUnitType::$Hourly:
+			return ($value / 3600).'h';
+			break;
+		case RateUnitType::$Minutely:
+			return ($value / 60).'m';
+			break;
+		case RateUnitType::$Dayly:
+			return ($value / 86400).'d';
+			break;
+		}
+		return $value;
 	}
 
     /**

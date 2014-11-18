@@ -2,9 +2,9 @@
 namespace Dime\TimetrackerBundle\Entity;
 
 use DateTime;
+use Dime\TimetrackerBundle\Model\RateUnitType;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation as JMS;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -14,12 +14,7 @@ use Knp\JsonSchemaBundle\Annotations as Json;
 /**
  * Dime\TimetrackerBundle\Entity\Project
  *
- * TODO urfr check if uniq annotation is correct
- * UniqueEntity(fields={"alias", "user"})
- * @ORM\Table(
- *   name="projects",
- *   uniqueConstraints={ @ORM\UniqueConstraint(name="unique_project_alias_user", columns={"alias", "user_id"}) }
- * )
+ * @ORM\Table(name="projects")
  * @ORM\Entity(repositoryClass="Dime\TimetrackerBundle\Entity\ProjectRepository")
  * @Json\Schema("projects")
  */
@@ -131,6 +126,44 @@ class Project extends Entity implements DimeEntityInterface
 	protected $chargeable;
 
 	/**
+	 * @var ArrayCollection $activities
+	 * @JMS\Type("array")
+	 * @JMS\SerializedName("activities")
+	 * @ORM\OneToMany(targetEntity="Dime\TimetrackerBundle\Entity\Activity", mappedBy="project", cascade={"all"})
+	 */
+	protected $activities;
+
+	/**
+	 * @JMS\VirtualProperty()
+	 * @JMS\SerializedName("currentPrice")
+	 */
+	public function getCurrentPrice()
+	{
+		$price = 0;
+		foreach($this->activities as $activity)
+		{
+			$price += $activity->getCharge();
+		}
+		return $price;
+	}
+
+	/**
+	 * @JMS\VirtualProperty()
+	 * @JMS\SerializedName("currentTime")
+	 */
+	public function getCurrentTime()
+	{
+		$duration = 0;
+		foreach($this->activities as $activity)
+		{
+			if($activity->getRateUnitType() !== RateUnitType::$NoChange){
+				$duration += $activity->getValue();
+			}
+		}
+		return ($duration / 3600).'h';
+	}
+
+	/**
 	 * @return boolean
 	 */
 	public function isChargeable()
@@ -155,6 +188,7 @@ class Project extends Entity implements DimeEntityInterface
     public function __construct()
     {
         $this->tags = new ArrayCollection();
+	    $this->activities = new ArrayCollection();
     }
 
     /**

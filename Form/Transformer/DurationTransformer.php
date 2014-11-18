@@ -95,6 +95,8 @@ class DurationTransformer implements DataTransformerInterface
 			case 'm':
 				$time = $time * 60;
 				break;
+			case 'd':
+				$time = $time * 86400;
 			default:
 				break;
 			}
