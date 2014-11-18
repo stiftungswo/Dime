@@ -12,8 +12,11 @@ define([
     'dijit/Dialog',
     "dijit/form/FilteringSelect",
     'dijit/form/Button',
+    'dime/widget/timetrack/StandardDiscountWidget',
+    'dojo/when',
+    'xstyle!dime/widget/offer/css/OfferWidget.css'
 ], function ( WidgetsInTemplateMixin, TemplatedMixin,  _Base, declare,  template,
-              OfferPositionWidget, registry, Textbox, DateTextBox, Textarea, Dialog,  FilteringSelect, Button) {
+              OfferPositionWidget, registry, Textbox, DateTextBox, Textarea, Dialog,  FilteringSelect, Button, StandardDiscountWidget, when) {
     return declare("dime.widget.offer.OfferWidget", [_Base, TemplatedMixin, WidgetsInTemplateMixin], {
 
         templateString: template,
@@ -46,6 +49,9 @@ define([
             this.recepientAddressLine4Node.set('parentWidget', this);
             this.recepientAddressLine5Node.set('parentWidget', this);
             this.addOfferPositionNode.set('parentWidget', this);
+            this.addStandardDiscountSelectNode.set('parentWidget', this);
+            this.addStandardDiscountSelectNode.set('store', window.storeManager.get('standarddiscounts', true))
+            this.addStandardDiscountNode.set('parentWidget', this);
         },
 
         _addcallbacks: function(){
@@ -64,28 +70,57 @@ define([
             this.recepientAddressLine4Node.watch('value', this._watchercallback);
             this.recepientAddressLine5Node.watch('value', this._watchercallback);
             this.addOfferPositionNode.on('click', function(){
-                //directly in widget
                 var offerPositionsContainer = this.parentWidget.offerPositionsContainer;
                 var parentWidget = this.parentWidget;
                 var offerPositionsStore = window.storeManager.get('offerpositions', false, true)
                 var newOfferPosition = {order:0, offer:this.parentWidget.entity.id, service:1, discountable:true, vat:8};
+
                 offerPositionsStore.put(newOfferPosition).then(function(data){
                     window.widgetManager.add(data, 'offerpositions', OfferPositionWidget, parentWidget, offerPositionsContainer);
                 });
-                //dialog
-                //var props = this.parentWidget.dialogprops;
-                //var dialog = window.dialogManager.get('offerpositions', 'Offerten Position', props);
-                //dialog.show();
+            });
+            this.addStandardDiscountNode.on('click', function(){
+                var standardDiscounts = [];
+                this.parentWidget.entity.standardDiscounts.forEach(function(discount){
+                    standardDiscounts.push(discount.id);
+                });
+
+                var newDiscountId = this.parentWidget.addStandardDiscountSelectNode.item.id;
+                standardDiscounts.push(newDiscountId);
+
+                var parentWidget = this.parentWidget;
+                var discountsContainer = this.parentWidget.discountsContainer;
+
+                //put requires to update the widget, every time...
+                var result = this.parentWidget.store.put({ standardDiscounts:standardDiscounts}, {id: this.parentWidget.entity.id});
+
+                when(result,function(offer){
+                    //...update hapeens here!
+                    window.widgetManager.update(offer, 'offers');
+                    offer.standardDiscounts.forEach(function(discount){
+                        if(discount.id == newDiscountId ){
+                            var widget = window.widgetManager.add(discount,'standarddiscounts',StandardDiscountWidget, parentWidget, discountsContainer).set("disabled", true);
+                        }
+                    });
+                });
             });
         },
 
         _fillValues: function(){
-            var parentWidget = this, offerPositionsContainer = this.offerPositionsContainer;
+            var parentWidget = this, offerPositionsContainer = this.offerPositionsContainer, discountsContainer = this.discountsContainer;
             this.inherited(arguments);
             var results = window.storeManager.get('offerpositions', true).query({offer: this.entity.id});
             results.forEach(function(entity){
                 window.widgetManager.add(entity, 'offerpositions', OfferPositionWidget, parentWidget, offerPositionsContainer)
             });
+            var standardDiscounts = this.entity.standardDiscounts;
+            if(standardDiscounts){
+                this.entity.standardDiscounts.forEach(function(entity){
+                    var widget = window.widgetManager.add(entity,'standarddiscounts',StandardDiscountWidget, parentWidget, discountsContainer)
+                    widget.set('disabled', true);
+                    widget.set('offerId', parentWidget.entity.id);
+                });
+            }
         },
 
         _updateValues: function(entity){
@@ -156,6 +191,7 @@ define([
                     break;
             }
             result.then(function(data){
+                window.widgetManager.update(data, 'offers');
                 for(var i=0; i<data.offerPositions.length; i++) {
                     window.widgetManager.update(data.offerPositions[i],'offerpositions');
                 }

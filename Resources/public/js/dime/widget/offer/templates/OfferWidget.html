@@ -1,22 +1,19 @@
 <div class="${baseClass}">
     <div class="${baseClass}DescriptionChargeable">
 
-        <label for="name">Name </label><div class="${baseClass}Name" data-dojo-attach-point="nameNode" data-dojo-type="dijit/form/TextBox"></div><br>
+        <div class=".input"><label>Name </label><div class="${baseClass}Name" data-dojo-attach-point="nameNode" data-dojo-type="dijit/form/TextBox"></div><br></div>
 
-        <label for="customer">Kunde </label><div class="${baseClass}Customer" data-dojo-attach-point="customerNode" data-dojo-type="dijit/form/FilteringSelect"></div><br>
+        <label>Kunde </label><div class="${baseClass}Customer" data-dojo-attach-point="customerNode" data-dojo-type="dijit/form/FilteringSelect"></div><br>
 
-        <label for="status">Status </label><div class="${baseClass}Status" data-dojo-attach-point="statusNode" data-dojo-type="dijit/form/FilteringSelect"></div><br>
+        <label>Status </label><div class="${baseClass}Status" data-dojo-attach-point="statusNode" data-dojo-type="dijit/form/FilteringSelect"></div><br>
 
         <!-- //TODO urfr update filteringselect to display firstname, lastname -->
-        <label for="accountant">Verantwortlicher </label><div class="${baseClass}Accountant" data-dojo-attach-point="accountantNode" data-dojo-type="dijit/form/FilteringSelect" ></div><br>
+        <label>Verantwortlicher </label><div class="${baseClass}Accountant" data-dojo-attach-point="accountantNode" data-dojo-type="dijit/form/FilteringSelect" ></div><br>
 
-        <label for="validTo">Gültig bis </label><div class="${baseClass}ValidTo" data-dojo-attach-point="validToNode" data-dojo-type="dijit/form/DateTextBox" ></div><br>
+        <label>Gültig bis </label><div class="${baseClass}ValidTo" data-dojo-attach-point="validToNode" data-dojo-type="dijit/form/DateTextBox" ></div><br>
 
-        <label for="rateGroup">Tarif </label><div class="${baseClass}RateGroup" data-dojo-attach-point="rateGroupNode" data-dojo-type="dijit/form/FilteringSelect"></div><br>
+        <label>Tarif </label><div class="${baseClass}RateGroup" data-dojo-attach-point="rateGroupNode" data-dojo-type="dijit/form/FilteringSelect"></div><br>
 
-        <label for="shortDescription">Kurzbeschreibung </label><div class="${baseClass}ShortDescription" data-dojo-attach-point="shortDescriptionNode" data-dojo-type="dijit/form/Textarea"></div><br>
-
-        <label for="description">Beschreibung </label><div class="${baseClass}Description" data-dojo-attach-point="descriptionNode" data-dojo-type="dijit/form/Textarea"></div><br>
 
         <label for="name">Empfängeradresse </label><br>
         <div class="${baseClass}recepientAddressLine1" data-dojo-attach-point="recepientAddressLine1Node" data-dojo-type="dijit/form/TextBox"></div><br>
@@ -25,6 +22,10 @@
         <div class="${baseClass}recepientAddressLine4" data-dojo-attach-point="recepientAddressLine4Node" data-dojo-type="dijit/form/TextBox"></div><br>
         <div class="${baseClass}recepientAddressLine5" data-dojo-attach-point="recepientAddressLine5Node" data-dojo-type="dijit/form/TextBox"></div><br>
 
+        <label>Kurzbeschreibung </label><div class="${baseClass}ShortDescription" data-dojo-attach-point="shortDescriptionNode" data-dojo-type="dijit/form/Textarea"></div><br>
+
+        <label>Beschreibung </label><div class="${baseClass}Description" data-dojo-attach-point="descriptionNode" data-dojo-type="dijit/form/Textarea"></div><br>
+
         <!-- //TODO urfr project to be desplayed -->
 
         <!-- //TODO urfr offerpositions -->
@@ -32,19 +33,16 @@
 
 
         <label>Offerten Positionen</label>
-        <table>
-        <div data-dojo-attach-point="offerPositionsContainer"></div>
-        </table>
-
+        <div class="${baseClass}OfferPositionsContainer" data-dojo-attach-point="offerPositionsContainer"></div>
         <br>
-
-        <div data-dojo-attach-point="offerPositionsCtrlNode">
-            <div data-dojo-attach-point="addOfferPositionNode" data-dojo-type="dijit/form/Button" data-dojo-props="'class':'primary'">+</div>
-        </div>
-
-        <!-- //TODO urfr discounts -->
-
-        <!-- //TODO urfr tags -->
+        <div data-dojo-attach-point="addOfferPositionNode" data-dojo-type="dijit/form/Button" data-dojo-props="'class':'primary'">+</div>
+        <br>
+        <br>
+        <label>Standard Rabatte</label>
+        <div class="${baseClass}DiscountsContainer" data-dojo-attach-point="discountsContainer"></div>
+        <br>
+        <div class="${baseClass}StandardDiscountSelect" data-dojo-attach-point="addStandardDiscountSelectNode" data-dojo-type="dijit/form/FilteringSelect"></div>
+        <div data-dojo-attach-point="addStandardDiscountNode" data-dojo-type="dijit/form/Button" data-dojo-props="'class':'primary'">+</div>
 
     </div>
 </div>
