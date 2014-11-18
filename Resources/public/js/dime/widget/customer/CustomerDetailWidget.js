@@ -100,7 +100,10 @@ define([
                     break;
                 case "chargeableNode":
                     if(newvalue != entity.chargeable)
-                        result = store.put({chargeable: newvalue}, {id: entity.id} );
+                        if(newvalue == false)
+                            result = store.put({chargeable: '0'}, {id: entity.id} );
+                        else
+                            result = store.put({chargeable: '1'}, {id: entity.id} );
                     break;
                 case "addressNode":
                     if(newvalue != entity.address)
