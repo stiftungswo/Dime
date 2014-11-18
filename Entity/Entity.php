@@ -27,7 +27,7 @@ abstract class Entity
      *
      * @JMS\Exclude
      * @ORM\ManyToOne(targetEntity="Dime\TimetrackerBundle\Entity\User")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
      */
     protected $user;
 
