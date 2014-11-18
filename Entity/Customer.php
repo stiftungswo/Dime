@@ -53,6 +53,7 @@ class Customer extends Entity implements DimeEntityInterface
 	/**
 	 * @ORM\ManyToOne(targetEntity="Dime\TimetrackerBundle\Entity\RateGroup")
 	 * @ORM\JoinColumn(name="rate_group_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
+	 * @JMS\SerializedName("rateGroup")
 	 */
 	protected $rateGroup;
 
@@ -73,7 +74,7 @@ class Customer extends Entity implements DimeEntityInterface
 	/**
 	 * @JMS\Type("array")
 	 * @JMS\SerializedName("phones")
-	 * @ORM\ManyToMany(targetEntity="\Swo\CommonsBundle\Entity\Phone", cascade={"all"})
+	 * @ORM\ManyToMany(targetEntity="\Swo\CommonsBundle\Entity\Phone", cascade={"all"}, orphanRemoval=true)
 	 * @ORM\JoinTable(name="customer_phones",
 	 *      joinColumns={@ORM\JoinColumn(name="customer_id", referencedColumnName="id")},
 	 *      inverseJoinColumns={@ORM\JoinColumn(name="phone_id", referencedColumnName="id", unique=true)}

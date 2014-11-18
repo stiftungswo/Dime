@@ -24,6 +24,7 @@ class CustomerFormType extends AbstractType
         $builder
             ->add('name')
             ->add('alias')
+	        ->add('rateGroup')
 	        ->add('tags', 'entity', array('class' => 'DimeTimetrackerBundle:Tag', 'multiple' => true))
 	        ->add('chargeable', null, array('empty_data' => 'checked', 'required' => false))
 	        ->add('address', 'swo_commons_addressformtype')
