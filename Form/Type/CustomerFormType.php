@@ -26,7 +26,7 @@ class CustomerFormType extends AbstractType
             ->add('alias')
 	        ->add('rateGroup')
 	        ->add('tags', 'entity', array('class' => 'DimeTimetrackerBundle:Tag', 'multiple' => true))
-	        ->add('chargeable', null, array('empty_data' => 'checked', 'required' => false))
+	        ->add('chargeable', 'choice', array('empty_data' => '1', 'required' => false, 'choices' => array('0' => false, '1' => true)))
 	        ->add('address', 'swo_commons_addressformtype')
 	        ->add('phones', 'collection', array('type' => 'swo_commons_phoneformtype'))
             ->add('user', 'entity', array('class' => 'DimeTimetrackerBundle:User'))

@@ -105,6 +105,7 @@ class Project extends Entity implements DimeEntityInterface
 	/**
 	 * @ORM\ManyToOne(targetEntity="Dime\TimetrackerBundle\Entity\RateGroup")
 	 * @ORM\JoinColumn(name="rate_group_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
+	 * @JMS\SerializedName("rateGroup")
 	 */
 	protected $rateGroup;
 
