@@ -97,7 +97,10 @@ class Customer extends Entity implements DimeEntityInterface
 	 */
 	public function setChargeable($chargeable)
 	{
-		$this->chargeable = $chargeable;
+		if($chargeable !== 'empty')
+		{
+			$this->chargeable = $chargeable;
+		}
 		return $this;
 	}
 

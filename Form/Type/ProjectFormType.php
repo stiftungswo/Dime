@@ -32,7 +32,7 @@ class ProjectFormType extends AbstractType
             ->add('budgetPrice')
             ->add('fixedPrice')
             ->add('budgetTime')
-	        ->add('chargeable', 'choice', array('empty_data' => '1', 'required' => false, 'choices' => array('0' => false, '1' => true)))
+	        ->add('chargeable', 'choice', array('empty_data' => 'empty', 'required' => false, 'choices' => array('0' => false, '1' => true)))
 	        ->add('tags', 'entity', array('class' => 'DimeTimetrackerBundle:Tag', 'multiple' => true))
             ->add('user', 'entity', array('class' => 'DimeTimetrackerBundle:User'))
             ->add('rateGroup', 'entity', array('class' => 'DimeTimetrackerBundle:RateGroup'))

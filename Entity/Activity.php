@@ -75,7 +75,7 @@ class Activity extends Entity implements DimeEntityInterface
 	 * @var boolean $chargeable
 	 *
 	 * @ORM\Column(type="boolean", nullable=true)
-	 * @JMS\AccessType("public_method")
+	 * @JMS\Exclude()
 	 */
 	protected $chargeable;
 
@@ -84,8 +84,9 @@ class Activity extends Entity implements DimeEntityInterface
 	 *
 	 * @JMS\SerializedName("chargeableReference")
 	 * @ORM\Column(name="cargeable_reference", type="smallint")
+	 * @JMS\Exclude()
 	 */
-	protected $chargeableReference;
+	protected $chargeableReference = 1;
 
 	/**
 	 * @var integer $value
@@ -163,6 +164,8 @@ class Activity extends Entity implements DimeEntityInterface
 	/**
 	 * Returns the Name the Activty has.
 	 * @return string
+	 * @JMS\VirtualProperty()
+	 * @JMS\SerializedName("name")
 	 */
 	public function getName()
 	{
@@ -401,6 +404,16 @@ class Activity extends Entity implements DimeEntityInterface
 	 */
 	public function isChargeable()
 	{
+		return $this->chargeable;
+	}
+
+	/**
+	 * @return bool
+	 * @JMS\VirtualProperty()
+	 * @JMS\SerializedName("chargeable")
+	 */
+	public function serializeChargeable()
+	{
 		switch($this->getChargeableReference())
 		{
 		case ActivityReference::$ACTIVITY:
@@ -437,8 +450,10 @@ class Activity extends Entity implements DimeEntityInterface
 	 */
 	public function setChargeable($chargeable)
 	{
-		$this->chargeable = $chargeable;
-		$this->chargeableReference = ActivityReference::$ACTIVITY;
+		if($chargeable !== 'empty')
+		{
+			$this->chargeable = $chargeable;
+		}
 		return $this;
 	}
 
