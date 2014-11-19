@@ -52,7 +52,7 @@ Class Address
 	 * The Streetnumber
 	 * @var String
 	 *
-	 * @ORM\Column(type="string")
+	 * @ORM\Column(type="string", nullable=true)
 	 */
 	protected $streetnumber;
 	/**
@@ -111,7 +111,9 @@ Class Address
 	 */
 	public function serializeStreet()
 	{
-		return $this->getStreet()->getName();
+		if($this->getStreet())
+			return $this->getStreet()->getName();
+		return '';
 	}
 	/**
 	 * Set city
@@ -141,7 +143,9 @@ Class Address
 	 */
 	public function serializeCity()
 	{
-		return $this->getCity()->getName();
+		if($this->getCity())
+			return $this->getCity()->getName();
+		return '';
 	}
 
 	/**
@@ -151,7 +155,9 @@ Class Address
 	 */
 	public function serializePlz()
 	{
-		return $this->getCity()->getPlz();
+		if($this->getCity())
+			return $this->getCity()->getPlz();
+		return '';
 	}
 	/**
 	 * Set state
@@ -181,7 +187,9 @@ Class Address
 	 */
 	public function serializeState()
 	{
-		return $this->getState()->getName();
+		if($this->getState())
+			return $this->getState()->getName();
+		return '';
 	}
 
 	/**
@@ -191,7 +199,9 @@ Class Address
 	 */
 	public function serializeStateShortcode()
 	{
-		return $this->getState()->getShortcode();
+		if($this->getState())
+			return $this->getState()->getShortcode();
+		return '';
 	}
 
 	/**
@@ -222,7 +232,9 @@ Class Address
 	 */
 	public function serializeCountry()
 	{
-		return $this->getCountry()->getName();
+		if($this->getCountry())
+			return $this->getCountry()->getName();
+		return '';
 	}
 
 	public function __toString()
