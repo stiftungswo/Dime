@@ -70,9 +70,6 @@ node default {
 				}
 		}
 	}
-	class {'mysql::bindings':
-		php_enable      => true,
-	}
 	class {'mysql::client':
 		package_name	=> 'mariadb',
 	}
@@ -86,7 +83,9 @@ node default {
 	class { 'apache': 
 		mpm_module => 'prefork',
 	}
-	class {'apache::mod::php':}
+	class {'apache::mod::php':
+      package_name => 'php56w',
+  }
 	apache::vhost { 'dime.test.local':
 	      port          => '80',
 	      docroot       => '/vagrant/web',
@@ -96,7 +95,7 @@ node default {
 	      override => ['All'],
 	}
 	
-	package {[ 'php','php-pear', 'php-mbstring', 'php-intl', 'php-xml', 'php-pecl-xdebug', 'php-pecl-apcu', 'php-process', 'php-gd', 'php-mcrypt', ]:}
+	package {[ 'php56w', 'php56w-pear', 'php56w-mbstring', 'php56w-intl', 'php56w-xml', 'php56w-pecl-xdebug', 'php56w-pecl-apcu', 'php56w-process', 'php56w-gd', 'php56w-mcrypt', 'php-phpunit-PHPUnit', 'php56w-phpdbg', 'php56w-pdo', 'php56w-mysql', ]:}
     # Set development values to our php.ini and xdebug.ini
     augeas { 'set-php-ini-values':
          context => '/files/etc/php.ini',
@@ -109,7 +108,7 @@ node default {
              'set PHP/realpath_cache_ttl 7200',
              'set Date/date.timezone Europe/Zurich',
          ],
-         require => Package['php'],
+         require => Package['php56w'],
          notify  => Service['httpd'],
     }
 
@@ -123,7 +122,7 @@ node default {
              'set Xdebug/xdebug.remote_log /vagrant/xdebug.log',
              'set Xdebug/xdebug.max_nesting_level 250',
          ],
-         require => Package['php'],
+         require => Package['php56w'],
          notify  => Service['httpd'],
      }
      
