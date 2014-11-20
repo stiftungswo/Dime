@@ -9,93 +9,120 @@ use Doctrine\Common\Persistence\ObjectManager;
 class LoadServices extends AbstractFixture implements OrderedFixtureInterface
 {
 	/**
+	 * @var array
+	 * Data to be loaded
+	 */
+	protected $data = array(
+		'zivih_service'       => array(
+			'name'     => 'Zivistunden',
+			'alias' => 'zivistunden',
+		),
+		'leiterh_service'       => array(
+			'name'     => 'Einsatzleiterstunden',
+			'alias' => 'einsatzleiterstuden',
+		),
+		'entsorgung_service'       => array(
+			'name'     => 'Grüngutentsorgung',
+			'alias' => 'grüngutentsorgung',
+		),
+		'transport1_service'       => array(
+			'name'     => 'Transport Personen',
+			'alias' => 'transport-personen',
+		),
+		'transport2_service'       => array(
+			'name'     => 'Transport Material',
+			'alias' => 'transport-material',
+		),
+		'motorsense_service'       => array(
+			'name'     => 'Motorsense',
+			'alias' => 'motorsense',
+		),
+		'handwerkzeug_service'       => array(
+			'name'     => 'Handwerkzeug',
+			'alias' => 'handwerkzeug',
+		),
+		'motorsaege_service'       => array(
+			'name'     => 'Motorsäge',
+			'alias' => 'motorsaege',
+		),
+		'motormaeher_service'       => array(
+			'name'     => 'Motormäher',
+			'alias' => 'motormaeher',
+		),
+		'dumper_service'       => array(
+			'name'     => 'Dumper',
+			'alias' => 'dumper',
+		),
+		'habegger_service'       => array(
+			'name'     => 'Habegger',
+			'alias' => 'habegger',
+		),
+		'entbuschungszange_service'       => array(
+			'name'     => 'Entbuschungszange',
+			'alias' => 'entbuschungszange',
+		),
+	);
+
+	protected $baseData = array(
+		'user' => 'ref:default-user',
+		'chargeable' => true,
+	);
+
+	/**
 	 * Load data fixtures with the passed EntityManager
 	 *
 	 * @param \Doctrine\Common\Persistence\ObjectManager $manager
 	 */
 	public function load(ObjectManager $manager)
 	{
-		$consulting = new Service();
-		$consulting->setName('Consulting');
-		$consulting->setAlias('consulting');
-		$consulting->setChargeable(true);
-		$consulting->setUser($manager->merge($this->getReference('default-user')));
-		$manager->persist($consulting);
-		$this->addReference('consulting_service', $consulting);
+		$baseEntity = new Service();
+		foreach($this->baseData as $key=>$value)
+		{
+			$this->set($baseEntity, $key, $value, $manager);
+		}
 
-		$requirements = new Service();
-		$requirements->setName('Requirements');
-		$requirements->setAlias('requirements');
-		$requirements->setChargeable(true);
-		$requirements->setUser($manager->merge($this->getReference('default-user')));
-		$manager->persist($requirements);
-		$this->addReference('requirements_service', $requirements);
+		foreach($this->data as $key => $data) {
+			$entity = clone $baseEntity;
+			foreach($data as $name => $value)
+			{
+				$this->set($entity, $name, $value, $manager);
+			}
 
-		$development = new Service();
-		$development->setName('Development');
-		$development->setAlias('development');
-		$development->setChargeable(true);
-		$development->setUser($manager->merge($this->getReference('default-user')));
-		$manager->persist($development);
-		$this->addReference('development_service', $development);
-
-		$testing = new Service();
-		$testing->setName('Testing');
-		$testing->setAlias('testing');
-		$testing->setChargeable(true);
-		$testing->setUser($manager->merge($this->getReference('default-user')));
-		$manager->persist($testing);
-		$this->addReference('testing_service', $testing);
-
-		$documentation = new Service();
-		$documentation->setName('Documentation');
-		$documentation->setAlias('documentation');
-		$documentation->setChargeable(true);
-		$documentation->setUser($manager->merge($this->getReference('default-user')));
-		$manager->persist($documentation);
-		$this->addReference('documentation_service', $documentation);
-
-		$projectManagement = new Service();
-		$projectManagement->setName('Project management');
-		$projectManagement->setAlias('project-management');
-		$projectManagement->setChargeable(true);
-		$projectManagement->setUser($manager->merge($this->getReference('default-user')));
-		$manager->persist($projectManagement);
-		$this->addReference('projectManagement_service', $projectManagement);
-
-		$qualityAssurance = new Service();
-		$qualityAssurance->setName('Quality assurance');
-		$qualityAssurance->setAlias('quality-assurance');
-		$qualityAssurance->setChargeable(true);
-		$qualityAssurance->setUser($manager->merge($this->getReference('default-user')));
-		$manager->persist($qualityAssurance);
-		$this->addReference('qualityAssurance_service', $qualityAssurance);
-
-		$systemAnalysis = new Service();
-		$systemAnalysis->setName('System analysis');
-		$systemAnalysis->setAlias('system-analysis');
-		$systemAnalysis->setChargeable(true);
-		$systemAnalysis->setUser($manager->merge($this->getReference('default-user')));
-		$manager->persist($systemAnalysis);
-		$this->addReference('systemAnalysis_service', $systemAnalysis);
-
-		$support = new Service();
-		$support->setName('Support');
-		$support->setAlias('support');
-		$support->setChargeable(true);
-		$support->setUser($manager->merge($this->getReference('default-user')));
-		$manager->persist($support);
-		$this->addReference('support_service', $support);
-
-		$infrastructure = new Service();
-		$infrastructure->setName('Infrastructure');
-		$infrastructure->setAlias('infrastructure');
-		$infrastructure->setChargeable(true);
-		$infrastructure->setUser($manager->merge($this->getReference('default-user')));
-		$manager->persist($infrastructure);
-		$this->addReference('infrastructure_service', $infrastructure);
+			$manager->persist($entity);
+			$this->addReference($key, $entity);
+		}
 
 		$manager->flush();
+	}
+
+	private function set($entity, $property, $value, ObjectManager $manager)
+	{
+		if(is_array($value)){
+			$functionName = 'add' . ucfirst($property);
+			foreach($value as $val)
+			{
+				if(preg_match('/^ref:/', $val) === 1) {
+					$param = preg_replace('/^ref:/', '', $val);
+					$entity->$functionName($manager->merge($this->getReference($param)));
+				} elseif (preg_match('/^const:/', $val) === 1){
+					$param = preg_replace('/^const:/', '', $val);
+					$entity->$functionName(constant($param));
+				} else {
+					$entity->$functionName($val);
+				}
+			}
+		} else {
+			$functionName = 'set' . ucfirst($property);
+			if(preg_match('/^ref:/', $value) === 1) {
+				$param = preg_replace('/^ref:/', '', $value);
+				$entity->$functionName($manager->merge($this->getReference($param)));
+			} elseif (preg_match('/^const:/', $value) === 1){
+				$param = preg_replace('/^const:/', '', $value);
+				$entity->$functionName(constant($param));
+			} else {
+				$entity->$functionName($value);
+			}
+		}
 	}
 
 	/**

@@ -9,33 +9,89 @@ use Doctrine\Common\Persistence\ObjectManager;
 class LoadProjects extends AbstractFixture implements OrderedFixtureInterface
 {
 	/**
+	 * @var array
+	 * Data to be loaded
+	 */
+	protected $data = array(
+		'default-project'       => array(
+			'name'     => 'Büro',
+			'alias' => 'buero',
+			'customer' => 'ref:swo-customer',
+			'description' => 'Büro Arbeiten',
+		),
+		'second-project'       => array(
+			'name'     => 'Cargo',
+			'alias' => 'cargo',
+			'customer' => 'ref:swo-customer',
+			'description' => 'Cargo Unterhaltsarbeiten',
+		),
+		'third-project'       => array(
+			'name'     => 'Chrutzelriet',
+			'alias' => 'chrutzelriet',
+			'customer' => 'ref:duebendorf-customer',
+			'description' => 'Arbeiten im Chrutzelriet',
+		),
+	);
+
+	protected $baseData = array(
+		'user'      => 'ref:default-user',
+		'chargeable'    => true,
+	);
+	/**
 	 * Load data fixtures with the passed EntityManager
 	 *
 	 * @param \Doctrine\Common\Persistence\ObjectManager $manager
 	 */
 	public function load(ObjectManager $manager)
 	{
-		$phpugl = new Project();
-		$phpugl->setName('CWE2011');
-		$phpugl->setAlias('cwe2011');
-		$phpugl->setDescription('PHPUGL Coding Weekend 2011');
-		$phpugl->setChargeable(true);
-		$phpugl->setUser($manager->merge($this->getReference('default-user')));
-		$phpugl->setCustomer($manager->merge($this->getReference('default-customer')));
+		$baseEntity = new Project();
+		foreach($this->baseData as $key=>$value)
+		{
+			$this->set($baseEntity, $key, $value, $manager);
+		}
 
-		$manager->persist($phpugl);
-		$this->addReference('default-project', $phpugl);
+		foreach($this->data as $key => $data) {
+			$entity = clone $baseEntity;
+			foreach($data as $name => $value)
+			{
+				$this->set($entity, $name, $value, $manager);
+			}
 
-		$phpugl = new Project();
-		$phpugl->setName('CWE2012');
-		$phpugl->setAlias('cwe2012');
-		$phpugl->setDescription('PHPUGL Coding Weekend 2012');
-		$phpugl->setChargeable(true);
-		$phpugl->setUser($manager->merge($this->getReference('default-user')));
-		$phpugl->setCustomer($manager->merge($this->getReference('another-customer')));
+			$manager->persist($entity);
+			$this->addReference($key, $entity);
+		}
 
-		$manager->persist($phpugl);
 		$manager->flush();
+	}
+
+	private function set($entity, $property, $value, ObjectManager $manager)
+	{
+		if(is_array($value)){
+			$functionName = 'add' . ucfirst($property);
+			foreach($value as $val)
+			{
+				if(preg_match('/^ref:/', $val) === 1) {
+					$param = preg_replace('/^ref:/', '', $val);
+					$entity->$functionName($manager->merge($this->getReference($param)));
+				} elseif (preg_match('/^const:/', $val) === 1){
+					$param = preg_replace('/^const:/', '', $val);
+					$entity->$functionName(constant($param));
+				} else {
+					$entity->$functionName($val);
+				}
+			}
+		} else {
+			$functionName = 'set' . ucfirst($property);
+			if(preg_match('/^ref:/', $value) === 1) {
+				$param = preg_replace('/^ref:/', '', $value);
+				$entity->$functionName($manager->merge($this->getReference($param)));
+			} elseif (preg_match('/^const:/', $value) === 1){
+				$param = preg_replace('/^const:/', '', $value);
+				$entity->$functionName(constant($param));
+			} else {
+				$entity->$functionName($value);
+			}
+		}
 	}
 
 	/**

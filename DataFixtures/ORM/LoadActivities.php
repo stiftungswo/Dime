@@ -16,22 +16,30 @@ class LoadActivities extends AbstractFixture implements OrderedFixtureInterface
 	 * @var array
 	 */
 	protected $data = array(
-		'requirements_initial_activity'       => array(
-			'service'     => 'requirements_service',
-			'description' => 'cwe: initial requirements meeting with customer',
+		'buero_programming_activity'       => array(
+			'service'     => 'ref:zivih_service',
+			'project'   => 'ref:default-project',
+			'description' => 'DimERP Programmieren',
 		),
-		'requirements_documentation_activity' => array(
-			'service'     => 'requirements_service',
-			'description' => 'cwe: requirements documentation',
+		'buero_infrastructure_activity' => array(
+			'service'     => 'ref:zivih_service',
+			'project'   => 'ref:default-project',
+			'description' => 'Arbeiten an der Infrastrucktur',
 		),
-		'environment_setup_activity'          => array(
-			'service'     => 'infrastructure_service',
-			'description' => 'cwe: vhost setup, PHP configuration, .vimrc, tags',
+		'cargo_zivi_activity'          => array(
+			'service'     => 'ref:zivih_service',
+			'project'   => 'ref:default-project',
+			'description' => 'Arbeiten im Cargo',
 		),
-		'project_setup_activity'              => array(
-			'service'     => 'development_service',
-			'description' => 'cwe: initial project setup (Symfony2, bundles etc.)',
+		'chrutzi_leiter_activity'              => array(
+			'service'     => 'ref:leiterh_service',
+			'project'   => 'ref:third-project',
+			'description' => 'EInsatzleiterstunden im Chrutzelriet',
 		),
+	);
+
+	protected $baseData = array(
+		'user' => 'ref:default-user',
 	);
 
 	/**
@@ -43,22 +51,48 @@ class LoadActivities extends AbstractFixture implements OrderedFixtureInterface
 	 */
 	public function load(ObjectManager $manager)
 	{
-		$baseActivity = new Activity();
-		$baseActivity->setUser($manager->merge($this->getReference('default-user')))
-			->setProject($manager->merge($this->getReference('default-project')))
-			->setChargeableReference(ActivityReference::$SERVICE);
+		$baseEntity = new Activity();
+		foreach($this->baseData as $key=>$value)
+		{
+			$this->set($baseEntity, $key, $value, $manager);
+		}
 
 		foreach($this->data as $key => $data) {
-			$activity = clone $baseActivity;
-			$activity->setService($manager->merge($this->getReference($data['service'])))
-				->setDescription($data['description']);
+			$entity = clone $baseEntity;
+			foreach($data as $name => $value)
+			{
+				$this->set($entity, $name, $value, $manager);
+			}
 
-			$manager->persist($activity);
-			$this->addReference($key, $activity);
+			$manager->persist($entity);
+			$this->addReference($key, $entity);
 		}
 
 		$manager->flush();
+	}
 
+	private function set($entity, $property, $value, ObjectManager $manager)
+	{
+		if(is_array($value)){
+			$functionName = 'add' . ucfirst($property);
+			foreach($value as $val)
+			{
+				if(preg_match('/^ref:/', $val) === 1) {
+					$param = preg_replace('/^ref:/', '', $val);
+					$entity->$functionName($manager->merge($this->getReference($param)));
+				} else {
+					$entity->$functionName($val);
+				}
+			}
+		} else {
+			$functionName = 'set' . ucfirst($property);
+			if(preg_match('/^ref:/', $value) === 1) {
+				$param = preg_replace('/^ref:/', '', $value);
+				$entity->$functionName($manager->merge($this->getReference($param)));
+			} else {
+				$entity->$functionName($value);
+			}
+		}
 	}
 
 	/**

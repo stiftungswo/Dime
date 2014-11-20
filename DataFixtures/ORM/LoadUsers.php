@@ -8,6 +8,31 @@ use Doctrine\Common\Persistence\ObjectManager;
 
 class LoadUsers extends AbstractFixture implements OrderedFixtureInterface
 {
+	protected $data = array(
+		'default-user' => array(
+			'username' => 'admin',
+			'plainpassword' => 'kitten',
+			'firstname' => 'Default',
+			'lastname' => 'User',
+			'email' => 'admin@example.com',
+			'role' => array(
+				User::ROLE_SUPER_ADMIN,
+			),
+		),
+		'test-user' => array(
+			'username' => 'test',
+			'plainpassword' => 'kitten',
+			'firstname' => 'Test',
+			'lastname' => 'User',
+			'email' => 'test@example.com',
+			'role' => array(
+				User::ROLE_DEFAULT,
+			),
+		),
+	);
+	protected $baseData = array(
+		'enabled' => true,
+	);
 	/**
 	 * Load data fixtures with the passed EntityManager
 	 *
@@ -15,34 +40,54 @@ class LoadUsers extends AbstractFixture implements OrderedFixtureInterface
 	 */
 	public function load(ObjectManager $manager)
 	{
-		$defaultUser = new User();
-		$defaultUser->setUsername('admin');
-		$defaultUser->setPlainPassword('kitten');
-		$defaultUser->setEnabled(true);
-		$defaultUser->addRole(User::ROLE_SUPER_ADMIN);
+		$baseEntity = new User();
+		foreach($this->baseData as $key=>$value)
+		{
+			$this->set($baseEntity, $key, $value, $manager);
+		}
 
-		$defaultUser->setFirstname('Default');
-		$defaultUser->setLastname('User');
-		$defaultUser->setEmail('admin@example.com');
+		foreach($this->data as $key => $data) {
+			$entity = clone $baseEntity;
+			foreach($data as $name => $value)
+			{
+				$this->set($entity, $name, $value, $manager);
+			}
 
-		$manager->persist($defaultUser);
-
-		$testUser = new User();
-		$testUser->setUsername('test');
-		$testUser->setPlainPassword('kitten');
-		$testUser->setEnabled(true);
-		$testUser->addRole(User::ROLE_DEFAULT);
-
-		$testUser->setFirstname('Test');
-		$testUser->setLastname('User');
-		$testUser->setEmail('test@example.com');
-
-		$manager->persist($testUser);
+			$manager->persist($entity);
+			$this->addReference($key, $entity);
+		}
 
 		$manager->flush();
+	}
 
-		$this->addReference('default-user', $defaultUser);
-		$this->addReference('test-user', $testUser);
+	private function set($entity, $property, $value, ObjectManager $manager)
+	{
+		if(is_array($value)){
+			$functionName = 'add' . ucfirst($property);
+			foreach($value as $val)
+			{
+				if(preg_match('/^ref:/', $val) === 1) {
+					$param = preg_replace('/^ref:/', '', $val);
+					$entity->$functionName($manager->merge($this->getReference($param)));
+				} elseif (preg_match('/^const:/', $val) === 1){
+					$param = preg_replace('/^const:/', '', $val);
+					$entity->$functionName(constant($param));
+				} else {
+					$entity->$functionName($val);
+				}
+			}
+		} else {
+			$functionName = 'set' . ucfirst($property);
+			if(preg_match('/^ref:/', $value) === 1) {
+				$param = preg_replace('/^ref:/', '', $value);
+				$entity->$functionName($manager->merge($this->getReference($param)));
+			} elseif (preg_match('/^const:/', $value) === 1){
+				$param = preg_replace('/^const:/', '', $value);
+				$entity->$functionName(constant($param));
+			} else {
+				$entity->$functionName($value);
+			}
+		}
 	}
 
 	/**
