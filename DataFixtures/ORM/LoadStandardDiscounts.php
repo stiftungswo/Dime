@@ -13,7 +13,7 @@ class LoadStandardDiscounts extends AbstractFixture implements OrderedFixtureInt
 			'name' => 'Skonto 2%',
 			'minus' => true,
 			'percentage' => true,
-			'value' => 0.2,
+			'value' => 0.02,
 		),
 		'flatrate_standarddiscount' => array(
 			'name' => 'Flat Rate 10CHF',
