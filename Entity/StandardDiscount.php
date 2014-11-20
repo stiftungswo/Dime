@@ -4,6 +4,7 @@ namespace Dime\TimetrackerBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Dime\TimetrackerBundle\Model\DimeEntityInterface;
+use JMS\Serializer\Annotation as JMS;
 
 /**
  * Class StandardDiscount
@@ -37,6 +38,20 @@ class StandardDiscount extends Entity implements DimeEntityInterface
 	 * @ORM\Column(type="boolean", nullable=true)
 	 */
 	protected $minus;
+
+    /**
+     * @JMS\VirtualProperty
+     * @JMS\SerializedName("getCalculatedDiscount")
+     *
+     * @return fload
+     */
+    public function getCalculatedDiscount($subtotal=0)
+    {
+        if($this->percentage)
+            return $this->value * $subtotal;
+        else
+            return $this->value;
+    }
 
 	/**
 	 * @return mixed
