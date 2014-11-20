@@ -505,7 +505,12 @@ class Project extends Entity implements DimeEntityInterface
      */
     public function getRateGroup()
     {
-        return $this->rateGroup;
+        $rateGroup = $this->rateGroup;
+	    if($rateGroup === null)
+	    {
+		    return $this->getCustomer()->getRateGroup();
+	    }
+	    return $rateGroup;
     }
 
     /**
