@@ -24,6 +24,7 @@ define([
             this.serviceNode.set('store', window.storeManager.get('services', false, true));
             this.userNode.set('parentWidget', this);
             this.userNode.set('store', window.storeManager.get('users', false, true));
+            this.userNode.set('searchAttr', 'username');
             this.projectNode.set('parentWidget', this);
             this.projectNode.set('store', window.storeManager.get('projects', false, true));
             this.descriptionNode.set('parentWidget', this);
