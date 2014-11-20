@@ -20,7 +20,6 @@ define([
         baseClass: "discountWidget",
         store: null,
         entity: null,
-        offerId: null,
 
         _setupChildren: function(){
             this.store = window.storeManager.get('discounts', false, true);
@@ -33,38 +32,37 @@ define([
         },
 
         _addcallbacks: function(){
-
             this.nameNode.watch('value', this._watchercallback);
             this.minusNode.watch('value', this._watchercallback);
             this.percentageNode.watch('value', this._watchercallback);
             this.valueNode.watch('value', this._watchercallback);
 
             this.deleteNode.on('click', function(){
+
                 //the widget is on the offer widget and has to remove himselve from the offer
-                var offerId = this.parentWidget.offerId;
+                var offerId = null;
+                if(this.parentWidget.parentWidget.baseClass === "offerWidget")
+                    offerId = this.parentWidget.parentWidget.entity.id;
                 if(offerId)
                 {
-                    console.log("offerid "+offerId);
                     var discoutIdToRemove = this.parentWidget.entity.id;
                     var offerStore = window.storeManager.get('offers', true, false);
                     var result = offerStore.get(offerId);
                     var newStandardDisocunts = [];
 
                     when(result, function(offer){
-
                         offer.standardDiscounts.forEach(function(discount){
                             if(!(discount.id == discoutIdToRemove))
                                 newStandardDisocunts.push(discount.id);
                         });
-                        console.log("put "+newStandardDisocunts);
                         //after put an update of the widget is necessary...
                         var update = offerStore.put({standardDiscounts: newStandardDisocunts},{id:offerId})
 
                         when(update, function(entity){
                             //... the update happens here!
                             window.widgetManager.update(entity, "offers");
+                            window.widgetManager.update(entity, "offers");
                         });
-
                     });
                 }
                 window.widgetManager.remove(this.parentWidget.entity, 'standarddiscounts');

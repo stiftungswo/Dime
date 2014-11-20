@@ -38,10 +38,7 @@ define([
             this.percentageNode.watch('checked', this._watchercallback);
             this.valueNode.watch('value', this._watchercallback);
 
-            this.deleteNode.on('click', function(){
-                this.parentWidget.store.remove(this.parentWidget.entity.id);
-                window.widgetManager.remove(this.parentWidget.entity, 'offerdiscounts');
-            });
+            this.deleteNode.on('click', this._destroyParentWithUpdateHandler);
 
 
         },
@@ -71,30 +68,38 @@ define([
         },
 
         _watchercallback: function(property, oldvalue, newvalue){
-            console.log(property+" "+oldvalue+" "+newvalue);
-            if(oldvalue == "") return;
+            //if(oldvalue == "") return;
             var entityid = this.parentWidget.entity.id;
             var store = this.parentWidget.store;
             var result = null;
-            console.log(this.dojoAttachPoint);
             switch(this.dojoAttachPoint) {
                 case "nameNode":
                     result = store.put({name: newvalue}, {id: entityid});
                     break;
                 case "minusNode":
-                    result = store.put({minus: newvalue}, {id: entityid});
+                    if(newvalue == false)
+                        result = store.put({minus: '0'}, {id: entityid} );
+                    else
+                        result = store.put({minus: '1'}, {id: entityid} );
                     break;
                 case "percentageNode":
-                    result = store.put({percentage: newvalue}, {id: entityid});
+                    if(newvalue == false)
+                        result = store.put({percentage: '0'}, {id: entityid} );
+                    else
+                        result = store.put({percentage: '1'}, {id: entityid} );
                     break;
                 case "valueNode":
                     result = store.put({value: newvalue}, {id: entityid});
+                    break;
+                case "nameNode":
+                    result = store.put({name: newvalue}, {id: entityid});
                     break;
                 default:
                     break;
             }
             result.then(function(data){
                 window.widgetManager.update(data, 'offerdiscounts');
+                window.widgetManager.update(data.offer, 'offers');
             });
         }
 
