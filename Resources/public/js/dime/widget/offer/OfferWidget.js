@@ -7,16 +7,18 @@ define([
     'dime/widget/offer/OfferPositionWidget',
     'dijit/registry',
     'dijit/form/TextBox',
+    'dijit/form/NumberTextBox',
     'dijit/form/DateTextBox',
     'dijit/form/Textarea',
     'dijit/Dialog',
     "dijit/form/FilteringSelect",
     'dijit/form/Button',
     'dime/widget/timetrack/StandardDiscountWidget',
+    'dime/widget/offer/OfferDiscountWidget',
     'dojo/when',
     'xstyle!dime/widget/offer/css/OfferWidget.css'
 ], function ( WidgetsInTemplateMixin, TemplatedMixin,  _Base, declare,  template,
-              OfferPositionWidget, registry, Textbox, DateTextBox, Textarea, Dialog,  FilteringSelect, Button, StandardDiscountWidget, when) {
+              OfferPositionWidget, registry, Textbox, NumberTextBox, DateTextBox, Textarea, Dialog,  FilteringSelect, Button, StandardDiscountWidget, OfferDiscountWidget,  when) {
     return declare("dime.widget.offer.OfferWidget", [_Base, TemplatedMixin, WidgetsInTemplateMixin], {
 
         templateString: template,
@@ -26,6 +28,8 @@ define([
 
 
         _setupChildren: function(){
+
+            //Offer
             this.nameNode.set('parentWidget', this);
             this.customerNode.set('parentWidget', this);
             this.customerNode.set('store', window.storeManager.get('customers', true));
@@ -48,13 +52,33 @@ define([
             this.recepientAddressLine3Node.set('parentWidget', this);
             this.recepientAddressLine4Node.set('parentWidget', this);
             this.recepientAddressLine5Node.set('parentWidget', this);
+
+            //OfferPositions
             this.addOfferPositionNode.set('parentWidget', this);
+
+            //Standard Discounts
             this.addStandardDiscountSelectNode.set('parentWidget', this);
             this.addStandardDiscountSelectNode.set('store', window.storeManager.get('standarddiscounts', true))
             this.addStandardDiscountNode.set('parentWidget', this);
+
+            //OfferDiscounts
+            this.addOfferDiscountNode.set('parentWidget', this);
+
+            //Calculation
+            this.subtotalNode.set('parentWidget', this);
+            this.subtotalNode.set('disabled', true);
+            this.totalVATNode.set('parentWidget', this);
+            this.totalVATNode.set('disabled', true)
+            this.totalDiscountsNode.set('parentWidget', this);
+            this.totalDiscountsNode.set('disabled', true);
+            this.totalNode.set('parentWidget', this);
+            this.totalNode.set('disabled', true);
+
         },
 
         _addcallbacks: function(){
+
+            //Offer
             this.nameNode.watch('value', this._watchercallback);
             this.customerNode.watch('value', this._watchercallback);
             this.statusNode.watch('value', this._watchercallback);
@@ -69,21 +93,37 @@ define([
             this.recepientAddressLine3Node.watch('value', this._watchercallback);
             this.recepientAddressLine4Node.watch('value', this._watchercallback);
             this.recepientAddressLine5Node.watch('value', this._watchercallback);
-            this.addOfferPositionNode.on('click', function(){
-                var offerPositionsContainer = this.parentWidget.offerPositionsContainer;
-                var parentWidget = this.parentWidget;
-                var offerPositionsStore = window.storeManager.get('offerpositions', false, true)
-                var newOfferPosition = {order:0, offer:this.parentWidget.entity.id, service:1, discountable:true, vat:8};
 
-                offerPositionsStore.put(newOfferPosition).then(function(data){
+
+            //Offer Positions
+            this.addOfferPositionNode.on('click', function(){
+                var parentWidget = this.parentWidget;
+                var offerPositionsContainer = this.parentWidget.offerPositionsContainer;
+
+                var offerPositionsStore = window.storeManager.get('offerpositions', false, true);
+                var newOfferPosition = {order:0, offer:this.parentWidget.entity.id, service:1, discountable:true, vat:0.08};
+
+                var offerPositionResult = offerPositionsStore.put(newOfferPosition);
+
+                when(offerPositionResult, function(data){
                     window.widgetManager.add(data, 'offerpositions', OfferPositionWidget, parentWidget, offerPositionsContainer);
                 });
             });
+
+            //StandardDiscount
             this.addStandardDiscountNode.on('click', function(){
+                if(!this.parentWidget.addStandardDiscountSelectNode.item)
+                {
+                    alert("No discount selected");
+                    return;
+                }
+
                 var standardDiscounts = [];
+                var parentWidget = this.parentWidget;
                 this.parentWidget.entity.standardDiscounts.forEach(function(discount){
                     standardDiscounts.push(discount.id);
                 });
+
 
                 var newDiscountId = this.parentWidget.addStandardDiscountSelectNode.item.id;
                 standardDiscounts.push(newDiscountId);
@@ -99,28 +139,56 @@ define([
                     window.widgetManager.update(offer, 'offers');
                     offer.standardDiscounts.forEach(function(discount){
                         if(discount.id == newDiscountId ){
-                            var widget = window.widgetManager.add(discount,'standarddiscounts',StandardDiscountWidget, parentWidget, discountsContainer).set("disabled", true);
+                            window.widgetManager.add(discount,'standarddiscounts',StandardDiscountWidget, parentWidget, discountsContainer).set("disabled", true);
                         }
                     });
+                });
+            });
+
+            //OfferDiscount
+
+            this.addOfferDiscountNode.on('click', function(){
+                var parentWidget = this.parentWidget;
+                var offerDiscountsContainer = this.parentWidget.offerDiscountsContainer;
+                var offerDiscountStore = window.storeManager.get('offerdiscounts', false, true)
+                var newOfferDiscount = {name:"New...", percentage:0, minus:1, value:0, offer:this.parentWidget.entity.id};
+
+                offerDiscountStore.put(newOfferDiscount).then(function(discount){
+                    window.widgetManager.add(discount,'offerdiscounts',OfferDiscountWidget, parentWidget, offerDiscountsContainer)
                 });
             });
         },
 
         _fillValues: function(){
+
+            //Offer Positions
             var parentWidget = this, offerPositionsContainer = this.offerPositionsContainer, discountsContainer = this.discountsContainer;
             this.inherited(arguments);
             var results = window.storeManager.get('offerpositions', true).query({offer: this.entity.id});
             results.forEach(function(entity){
-                window.widgetManager.add(entity, 'offerpositions', OfferPositionWidget, parentWidget, offerPositionsContainer)
+                window.widgetManager.add(entity, 'offerpositions', OfferPositionWidget, parentWidget, offerPositionsContainer);
             });
+
+            //Standard Discounts
             var standardDiscounts = this.entity.standardDiscounts;
             if(standardDiscounts){
                 this.entity.standardDiscounts.forEach(function(entity){
-                    var widget = window.widgetManager.add(entity,'standarddiscounts',StandardDiscountWidget, parentWidget, discountsContainer)
+                    var widget = window.widgetManager.add(entity,'standarddiscounts',StandardDiscountWidget, parentWidget, discountsContainer);
                     widget.set('disabled', true);
                     widget.set('offerId', parentWidget.entity.id);
                 });
             }
+
+            //Offer Discounts
+            var offerDiscounts = this.entity.offerDiscounts;
+            var offerDiscountsContainer = this.offerDiscountsContainer;
+            if(offerDiscounts){
+                this.entity.offerDiscounts.forEach(function(discount){
+                    window.widgetManager.add(discount,'offerdiscounts',OfferDiscountWidget, parentWidget, offerDiscountsContainer);
+                });
+            }
+
+
         },
 
         _updateValues: function(entity){
@@ -139,6 +207,13 @@ define([
             this.recepientAddressLine3Node.set('value', entity.recepientAddressLine3);
             this.recepientAddressLine4Node.set('value', entity.recepientAddressLine4);
             this.recepientAddressLine5Node.set('value', entity.recepientAddressLine5);
+            //Calculation
+
+            this.subtotalNode.set('value', entity.subtotal);
+            this.totalVATNode.set('value', entity.totalVAT);
+            this.totalDiscountsNode.set('value', entity.totalDiscounts);
+            this.totalNode.set('value', entity.total);
+
         },
 
         _watchercallback: function(property, oldvalue, newvalue){

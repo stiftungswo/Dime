@@ -2,7 +2,8 @@ define([
     'dojo/_base/declare',
     'dijit/_WidgetBase',
     'dijit/registry',
-], function (declare, WidgetBase, registry) {
+    'dojo/when',
+], function (declare, WidgetBase, registry, when) {
     return declare('dime.widget._Base', [WidgetBase], {
         //Inherited Default Functions
         postCreate: function () {
@@ -82,7 +83,26 @@ define([
             this.parentWidget.cleandestroy();
         },
 
+        _destroyParentWithUpdateHandler: function(){
+            var superParent = this.parentWidget.parentWidget;
+            this.parentWidget.cleandestroy();
+            superParent.updateFromStore();
+        },
+
         //Generic Callback for the watch function with a switch case on the Attach node of the Widget to determine the Action
-        _watchValueHandler: function(property, oldvalue, newvalue){}
+        _watchValueHandler: function(property, oldvalue, newvalue){},
+
+        //updates from store
+        updateFromStore: function(){
+            console.log("updateFrom Store");
+            console.log(this.entity);
+            var result = this.store.get(this.entity.id);
+            var thisPointer = this;
+            when(result, function(data){
+                console.log("update from store, after get");
+                console.log(data);
+                thisPointer._updateValues(data);
+            });
+        }
     })
 });

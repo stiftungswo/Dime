@@ -6,6 +6,7 @@ define([
     'dojo/text!dime/widget/offer/templates/OfferPositionWidget.html',
     'dijit/registry',
     'dijit/form/TextBox',
+    'dijit/form/NumberTextBox',
     'dijit/form/DateTextBox',
     'dijit/form/Textarea',
     'dijit/form/CheckBox',
@@ -14,7 +15,7 @@ define([
     'dijit/form/Button',
     'xstyle!dime/widget/offer/css/OfferPositionWidget.css'
 ], function (WidgetsInTemplateMixin, TemplatedMixin, _Base, declare,
-             template, registry, Textbox, DateTextBox, Textarea, CheckBox,  Dialog ) {
+             template, registry, Textbox, NumberTextBox, DateTextBox, Textarea, CheckBox,  Dialog ) {
     return declare("dime.widget.offer.OfferPositionWidget", [_Base, TemplatedMixin, WidgetsInTemplateMixin], {
 
         templateString: template,
@@ -24,45 +25,47 @@ define([
 
         _setupChildren: function(){
             this.store = window.storeManager.get('offerpositions', false, true);
-            //todo urfr change types to selection list, where editin ist necessary e.g. customer, accountant
+
             this.orderNode.set('parentWidget', this);
             this.serviceNode.set('parentWidget', this);
             this.serviceNode.set('store', window.storeManager.get('services', true));
             this.serviceNode.set('searchAttr','name');
-            this.serviceRateValueNode.set('parentWidget', this);
-            this.serviceRateValueNode.set('disabled',true);
-            this.offerPositionRateValueNode.set('parentWidget', this);
+            this.rateValueNode.set('parentWidget', this);
             this.rateUnitNode.set('parentWidget', this);
-            this.rateUnitNode.set('disabled',true);
             this.VATNode.set('parentWidget', this);
+            this.VATNode.constraints = {
+                min: 0,
+                max: 100,
+                pattern: "#0.##%"
+            };
             this.discountableNode.set('parentWidget', this);
+            this.amountNode.set('parentWidget', this);
+            this.totalNode.set('parentWidget', this);
+            this.totalNode.set('disabled', true);
             this.deleteNode.set('parentWidget', this);
-
         },
 
         _addcallbacks: function(){
             this.orderNode.watch('value', this._watchercallback);
             this.serviceNode.watch('value', this._watchercallback);
-            this.serviceRateValueNode.watch('value', this._watchercallback);
-            this.offerPositionRateValueNode.watch('value', this._watchercallback);
+            this.rateValueNode.watch('value', this._watchercallback);
             this.VATNode.watch('value', this._watchercallback);
             this.discountableNode.watch('value', this._watchercallback);
             this.rateUnitNode.watch('value', this._watchercallback);
-            this.deleteNode.on('click', function(){
-                this.parentWidget.store.remove(this.parentWidget.entity.id);
-                window.widgetManager.remove(this.parentWidget.entity, 'offerpositions');
-            });
+            this.amountNode.watch('value', this._watchercallback);
+            this.deleteNode.on('click', this._destroyParentHandler);
         },
 
         _updateValues: function(entity){
             this.inherited(arguments);
             this.orderNode.set('value', entity.order);
             this.serviceNode.set('value', entity.service ? entity.service.id : null);
-            this.serviceRateValueNode.set('value', entity.serviceRate ? entity.serviceRate.rateValue : null);
-            this.offerPositionRateValueNode.set('value', entity.rateValue);
-            this.rateUnitNode.set('value', entity.serviceRate ? entity.serviceRate.rateUnit : null);
+            this.rateValueNode.set('value', entity.rateValue);
+            this.rateUnitNode.set('value', entity.rateUnit);
+            this.amountNode.set('value', entity.amount);
             this.VATNode.set('value', entity.vat);
             this.discountableNode.set('value', entity.discountable);
+            this.totalNode.set('value', entity.total);
 
         },
 
@@ -79,8 +82,14 @@ define([
                 case "serviceNode":
                     result = offerPositionStore.put({service: newvalue}, {id: offerPositionId});
                     break;
-                case "offerPositionRateValueNode":
+                case "rateValueNode":
                     result = offerPositionStore.put({rateValue: newvalue}, {id: offerPositionId});
+                    break;
+                case "rateUnitNode":
+                    result = offerPositionStore.put({rateUnit: newvalue}, {id: offerPositionId});
+                    break;
+                case "amountNode":
+                    result = offerPositionStore.put({amount: newvalue}, {id: offerPositionId});
                     break;
                 case "VATNode":
                     result = offerPositionStore.put({vat: newvalue}, {id: offerPositionId});
@@ -93,6 +102,7 @@ define([
             }
             result.then(function(data){
                 window.widgetManager.update(data, 'offerpositions');
+                window.widgetManager.update(data.offer, 'offers');
             });
         }
 
