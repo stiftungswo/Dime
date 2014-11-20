@@ -22,8 +22,8 @@ define([
 
         _updateValues: function(entity){
             if(entity != null){
-                this.telnrNode.set('value', entity.Number ? entity.Number : '');
-                this.teltypeNode.set('value', entity.Type ? entity.Type : '');
+                this.telnrNode.set('value', entity.Number || '');
+                this.teltypeNode.set('value', entity.Type || '');
                 this.inherited(arguments);
             }
         },

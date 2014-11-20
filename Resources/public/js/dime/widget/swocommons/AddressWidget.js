@@ -31,12 +31,12 @@ define([
 
         _updateValues: function(entity){
             if(entity != null){
-                this.streetnumberNode.set('value', entity.streetnumber ? entity.streetnumber : '');
-                this.streetNode.set('value', entity.street ? entity.street : '');
-                this.plzNode.set('value', entity.plz ? entity.plz : 0);
-                this.cityNode.set('value', entity.city ? entity.city : '');
-                this.stateNode.set('value', entity.state ? entity.state : '');
-                this.countryNode.set('value', entity.country ? entity.country : '');
+                this.streetnumberNode.set('value', entity.streetnumber || '');
+                this.streetNode.set('value', entity.street || '');
+                this.plzNode.set('value', entity.plz || 0);
+                this.cityNode.set('value', entity.city || '');
+                this.stateNode.set('value', entity.state || '');
+                this.countryNode.set('value', entity.country || '');
                 this.inherited(arguments);
             }
         },

@@ -40,9 +40,9 @@ define([
         _updateValues: function(entity){
             this.inherited(arguments);
             this.rateGroupNode.set('value', entity.rateGroup ? entity.rateGroup.id : 1);
-            this.rateValueNode.set('value', entity.rateValue ? entity.rateValue : 0);
-            this.rateUnitNode.set('value', entity.rateUnit ? entity.rateUnit : '');
-            this.rateUnitTypeNode.set('value', entity.rateUnitType ? entity.rateUnitType : '');
+            this.rateValueNode.set('value', entity.rateValue || 0);
+            this.rateUnitNode.set('value', entity.rateUnit || '');
+            this.rateUnitTypeNode.set('value', entity.rateUnitType || '');
         },
 
         _watchercallback: function(property, oldvalue, newvalue){
@@ -53,7 +53,7 @@ define([
             var result;
             switch(this.dojoAttachPoint) {
                 case "rateGroupNode":
-                    if(newvalue != entity.rateGroup.id)
+                    if(newvalue != (entity.rateGroup ? entity.rateGroup.id : 0))
                         result = store.put({rateGroup: newvalue}, {id: entity.id} );
                     break;
                 case "rateValueNode":

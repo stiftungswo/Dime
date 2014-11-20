@@ -76,8 +76,8 @@ define([
             this.nameNode.set('value', entity.name);
             this.aliasNode.set('value', entity.alias);
             this.rateGroupNode.set('value', entity.rateGroup ? entity.rateGroup.id : 1);
-            this.chargeableNode.set('value', entity.chargeable ? entity.chargeable : false);
-            this.addressNode._updateValues(entity.address ? entity.address : null);
+            this.chargeableNode.set('value', entity.chargeable || true);
+            this.addressNode._updateValues(entity.address || null);
         },
 
         _watchercallback: function(property, oldvalue, newvalue){
@@ -95,7 +95,7 @@ define([
                         result = store.put({alias: newvalue}, {id: entity.id} );
                     break;
                 case "rateGroupNode":
-                    if(newvalue != entity.rateGroup.id)
+                    if(newvalue != (entity.rateGroup ? entity.rateGroup.id : 0))
                         result = store.put({rateGroup: newvalue}, {id: entity.id} );
                     break;
                 case "chargeableNode":
