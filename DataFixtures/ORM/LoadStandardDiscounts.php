@@ -20,7 +20,7 @@ class LoadStandardDiscounts extends AbstractFixture implements OrderedFixtureInt
         $discount1->setName('Skonto 2%');
         $discount1->setMinus(true);
         $discount1->setPercentage(true);
-        $discount1->setValue(0.2);
+        $discount1->setValue(0.02);
         $discount1->setUser($manager->merge($this->getReference('default-user')));
 		$this->addReference('skonto_standarddiscount', $discount1);
 		$manager->persist($discount1);
