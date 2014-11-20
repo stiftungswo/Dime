@@ -122,7 +122,7 @@ class Project extends Entity implements DimeEntityInterface
 	/**
 	 * @var boolean $chargeable
 	 *
-	 * @ORM\Column(type="boolean")
+	 * @ORM\Column(type="boolean", nullable=true)
 	 */
 	protected $chargeable;
 
