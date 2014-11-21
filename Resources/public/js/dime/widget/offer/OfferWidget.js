@@ -33,7 +33,7 @@ define([
             this.nameNode.set('parentWidget', this);
             this.customerNode.set('parentWidget', this);
             this.customerNode.set('store', window.storeManager.get('customers', true));
-            this.statusNode.set('searchAttr','name');
+            this.customerNode.set('searchAttr','name');
             this.statusNode.set('parentWidget', this);
             this.statusNode.set('store', window.storeManager.get('offerstatusucs', true));
             this.statusNode.set('searchAttr','text');
@@ -73,6 +73,8 @@ define([
             this.totalDiscountsNode.set('disabled', true);
             this.totalNode.set('parentWidget', this);
             this.totalNode.set('disabled', true);
+
+            this.fixedPriceNode.set('parentWidget', this);
 
         },
 
@@ -157,6 +159,8 @@ define([
                     window.widgetManager.add(discount,'offerdiscounts',OfferDiscountWidget, parentWidget, offerDiscountsContainer)
                 });
             });
+
+
         },
 
         _fillValues: function(){
@@ -188,11 +192,14 @@ define([
                 });
             }
 
+            this.fixedPriceNode.watch('value', this._watchercallback);
 
         },
 
         _updateValues: function(entity){
             this.inherited(arguments);
+            console.log("_updateValues this");
+            console.log(this);
             this.nameNode.set('value', entity.name);
             this.customerNode.set('value', entity.customer ? entity.customer.name : null);
             this.statusNode.set('value', entity.status ? entity.status.id : null);
@@ -213,6 +220,8 @@ define([
             this.totalVATNode.set('value', entity.totalVAT);
             this.totalDiscountsNode.set('value', entity.totalDiscounts);
             this.totalNode.set('value', entity.total);
+
+            this.fixedPriceNode.set('value', entity.fixedPrice);
 
         },
 
@@ -261,6 +270,9 @@ define([
                     break;
                 case "recepientAddressLine5Node":
                     offerStore.put({recepientAddressLine5: newvalue}, {id: offerId});
+                    break;
+                case "fixedPriceNode":
+                    offerStore.put({fixedPrice: newvalue}, {id: offerId});
                     break;
                 default:
                     break;
