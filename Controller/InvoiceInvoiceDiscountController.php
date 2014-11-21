@@ -16,11 +16,11 @@ use FOS\RestBundle\Util\Codes;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use FOS\RestBundle\Controller\Annotations;
 
-class DiscountController extends DimeController
+class InvoiceDiscountController extends DimeController
 {
 	private $handlerSerivce = 'dime.discount.handler';
 
-	private $formType = 'dime_invoicebundle_discountformtype';
+	private $formType = 'dime_invoicebundle_invoicediscountformtype';
 
 	/**
 	 * List all Entities.
@@ -55,8 +55,8 @@ class DiscountController extends DimeController
 	 *
 	 * @ApiDoc(
 	 * resource = true,
-	 * description = "Gets a Discount for a given id",
-	 * output = "Dime\TimetrackerBundle\Entity\Discount",
+	 * description = "Gets a InvoiceDiscount for a given id",
+	 * output = "Dime\TimetrackerBundle\Entity\InvoiceDiscount",
 	 * statusCodes = {
 	 * 200 = "Returned when successful",
 	 * 404 = "Returned when the page is not found"
@@ -108,7 +108,7 @@ class DiscountController extends DimeController
 	 * @ApiDoc(
 	 * resource = true,
 	 * description = "Creates a new page from the submitted data.",
-	 * input = "Dime\TimetrackerBundle\Form\Type\DiscountFormType",
+	 * input = "Dime\TimetrackerBundle\Form\Type\InvoiceDiscountFormType",
 	 * statusCodes = {
 	 * 201 = "Returned when successful",
 	 * 400 = "Returned when the form has errors"
@@ -137,11 +137,11 @@ class DiscountController extends DimeController
 	 *
 	 * @ApiDoc(
 	 * resource = true,
-	 * input = "Dime\TimetrackerBundle\Form\Type\DiscountFormType",
+	 * input = "Dime\TimetrackerBundle\Form\Type\InvoiceDiscountFormType",
 	 * statusCodes = {
 	 * 200 = "Returned when the Entity was updated",
 	 * 400 = "Returned when the form has errors",
-	 * 404 = "Returned when the Discount does not exist"
+	 * 404 = "Returned when the InvoiceDiscount does not exist"
 	 * }
 	 * )
 	 *
@@ -197,10 +197,10 @@ class DiscountController extends DimeController
 	 *
 	 * @ApiDoc(
 	 * resource = true,
-	 * input = "Dime\TimetrackerBundle\Form\Type\DiscountFormType",
+	 * input = "Dime\TimetrackerBundle\Form\Type\InvoiceDiscountFormType",
 	 * statusCodes = {
 	 * 204 = "Returned when successful",
-	 * 404 = "Returned when Discount does not exist."
+	 * 404 = "Returned when InvoiceDiscount does not exist."
 	 * }
 	 * )
 	 *

@@ -10,12 +10,12 @@ namespace Dime\InvoiceBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Class Discount
+ * Class InvoiceDiscount
  * @package Dime\InvoiceBundle\Entity
  * @ORM\Entity()
  * @ORM\Table(name="discounts")
  */
-class Discount
+class InvoiceDiscount
 {
 	/**
 	 * @var

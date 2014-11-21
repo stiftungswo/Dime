@@ -12,7 +12,7 @@ use Dime\TimetrackerBundle\Handler\AbstractHandler;
 use Dime\TimetrackerBundle\Model\DimeEntityInterface;
 use Dime\TimetrackerBundle\Model\HandlerInterface;
 
-class DiscountHandler extends AbstractHandler implements HandlerInterface
+class InvoiceDiscountHandler extends AbstractHandler implements HandlerInterface
 {
 	private $formType = 'dime_invoicebundle_discountformtype';
 	/**

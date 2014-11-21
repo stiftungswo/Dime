@@ -4,5 +4,5 @@ services:
         arguments: [ "@doctrine.orm.entity_manager" ]
 
     dime.discount.handler:
-        class: "Dime\InvoiceBundle\Handler\DiscountHandler"
+        class: "Dime\InvoiceBundle\Handler\InvoiceDiscountHandler"
         arguments: [ "@doctrine.orm.entity_manager", "Dime\InvoiceBundle\Entity\Discount", "@form.factory", "@security.context"]

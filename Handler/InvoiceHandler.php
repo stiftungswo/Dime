@@ -9,7 +9,7 @@ namespace Dime\InvoiceBundle\Handler;
 
 
 use Dime\InvoiceBundle\Entity\Invoice;
-use Dime\InvoiceBundle\Entity\Discount;
+use Dime\InvoiceBundle\Entity\InvoiceDiscount;
 use Dime\InvoiceBundle\Entity\InvoiceItem;
 use Dime\InvoiceBundle\Entity\InvoiceProject;
 use Doctrine\ORM\EntityManager;
