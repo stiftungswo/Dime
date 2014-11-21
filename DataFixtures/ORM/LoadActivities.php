@@ -34,7 +34,30 @@ class LoadActivities extends AbstractFixture implements OrderedFixtureInterface
 		'chrutzi_leiter_activity'              => array(
 			'service'     => 'ref:leiterh_service',
 			'project'   => 'ref:third-project',
-			'description' => 'EInsatzleiterstunden im Chrutzelriet',
+			'description' => 'Einsatzleiterstunden im Chrutzelriet',
+		),
+		'chrutzi_zivih_activity'              => array(
+			'service'     => 'ref:zivih_service',
+			'project'   => 'ref:third-project',
+			'description' => 'Zivistunden im Chrutzelriet',
+		),
+		'chrutzi_entsorgung_activity'              => array(
+			'service'     => 'ref:entsorgung_service',
+			'project'   => 'ref:third-project',
+			'value'     => '100',
+			'description' => 'Grüngutentsorgung im Chrutzelriet',
+		),
+		'chrutzi_transport1_activity'              => array(
+			'service'     => 'ref:transport1_service',
+			'project'   => 'ref:third-project',
+			'value'     => '1',
+			'description' => 'Transport Personen zum Chrutzelriet',
+		),
+		'chrutzi_transport2_activity'              => array(
+			'service'     => 'ref:transport2_service',
+			'project'   => 'ref:third-project',
+			'value'     => '1',
+			'description' => 'Transport Material zum Chrutzelriet',
 		),
 	);
 
