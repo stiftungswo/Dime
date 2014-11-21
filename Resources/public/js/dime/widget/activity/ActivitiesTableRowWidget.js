@@ -40,7 +40,10 @@ define([
         },
 
         _fillValues: function(){
-            this.inherited(arguments)
+            this.inherited(arguments);
+            if(this.entity.rateUnitType != 0){
+                this.valueNode.set('disabled', true);
+            }
         },
 
         _updateValues: function(entity){
@@ -56,32 +59,34 @@ define([
 
         _watchercallback: function(property, oldvalue, newvalue){
             if(oldvalue == newvalue) return;
+            if(oldvalue == "") return;
             //used because this points to caller not to THIS Widget. Above all elements were populated with parentwidget (THIS).
             var entity = this.parentWidget.entity;
             var store = this.parentWidget.store;
             var result;
             switch(this.dojoAttachPoint) {
                 case "serviceNode":
-                    if(newvalue != entity.service.id)
-                        result = store.put({service: newvalue}, {id: entity.id} );
+                    if(newvalue == entity.service.id) return;
+                    result = store.put({service: newvalue}, {id: entity.id});
                     break;
                 case "userNode":
-                    if(newvalue != entity.user.id)
+                    if(newvalue == entity.user.id) return;
                         result = store.put({user: newvalue}, {id: entity.id} );
                     break;
                 case "projectNode":
-                    if(newvalue != entity.project.id)
-                        result = store.put({project: newvalue}, {id: entity.id} );
+                    if(newvalue == entity.project.id) return;
+                    result = store.put({project: newvalue}, {id: entity.id} );
                     break;
                 case "descriptionNode":
-                    if(newvalue != entity.description)
-                        result = store.put({description: newvalue}, {id: entity.id} );
+                    if(newvalue == entity.description) return;
+                    result = store.put({description: newvalue}, {id: entity.id} );
                     break;
                 case "valueNode":
-                    if(newvalue != entity.value)
-                        result = store.put({value: newvalue}, {id: entity.id} );
+                    if(newvalue == entity.value) return;
+                    result = store.put({value: newvalue}, {id: entity.id} );
                     break;
                 default:
+                    return;
                     break;
             }
             result.then(function(data){

@@ -4,8 +4,9 @@ define([
     'dime/widget/_Base',
     'dojo/_base/declare',
     'dojo/text!dime/widget/activity/templates/ActivitiesTableWidget.html',
-    'dime/widget/activity/ActivitiesTableRowWidget'
-], function (WidgetsInTemplateMixin, TemplatedMixin,  _Base, declare,  template, ActivitiesTableRowWidget) {
+    'dime/widget/activity/ActivitiesTableRowWidget',
+    'dojo/when'
+], function (WidgetsInTemplateMixin, TemplatedMixin,  _Base, declare,  template, ActivitiesTableRowWidget, when) {
     return declare("dime.widget.activity.ActivitiesTableWidget", [_Base, TemplatedMixin, WidgetsInTemplateMixin], {
         templateString: template,
         baseClass: "activitiesTableWidget",

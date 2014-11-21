@@ -1,0 +1,19 @@
+.projectDetailWidget {
+    height: 100% !important;
+    width: 100% !important;
+}
+
+.projectDetailWidgetTabContainer {
+    height: 50% !important;
+    width: 100% !important;
+}
+
+.projectDetailWidgetTabContainerPane {
+    height: 100% !important;
+    width: 100% !important;
+    padding: 0;
+}
+
+.projectDetailWidgetHeaderData {
+    height: 50% !important;
+}
