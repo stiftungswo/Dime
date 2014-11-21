@@ -90,7 +90,7 @@ define([
                     break;
             }
             result.then(function(data){
-                window.widgetManager.update(data, 'projects');
+                window.widgetManager.update(data, 'activities');
             });
         }
     });

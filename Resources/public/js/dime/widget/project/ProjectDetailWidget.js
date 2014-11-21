@@ -8,14 +8,14 @@ define([
     'dojo/_base/declare',
     'dojo/text!dime/widget/project/templates/ProjectDetailWidget.html',
     'dime/widget/activity/ActivitiesTableWidget',
-    'dojo/when',
+    'dime/widget/timeslice/TimesliceTableWidget',
     'dijit/form/TextBox',
     'dijit/form/Button',
     'dijit/form/DateTextBox',
     'dijit/form/FilteringSelect',
     'dijit/form/CheckBox',
     'xstyle!dime/widget/project/css/ProjectDetailWidget.css'
-], function ( WidgetsInTemplateMixin, TemplatedMixin,  _Base, declare,  template, ActivitiesTableWidget, when) {
+], function ( WidgetsInTemplateMixin, TemplatedMixin,  _Base, declare,  template, ActivitiesTableWidget, TimesliceTableWidget) {
     return declare("dime.widget.project.ProjectDetailWidget", [_Base, TemplatedMixin, WidgetsInTemplateMixin], {
 
         templateString: template,
@@ -54,11 +54,18 @@ define([
 
         _fillValues: function(){
             this._updateValues(this.entity);
+            var entity = this.entity;
             var activityStore = window.storeManager.get('activities', false, true), activityNode = this.activitiesNode;
-            activityStore.query({project: this.entity.id}).then(function(activities){
+            var timesliceStore = window.storeManager.get('timeslices', false, true), timesliceNode = this.timesliceNode;
+            activityStore.query({project: entity.id}).then(function(activities){
                 var activitytable = new ActivitiesTableWidget({activities: activities});
                 activitytable.placeAt(activityNode);
                 activitytable.startup();
+            });
+            timesliceStore.query({project: entity.id}).then(function(timeslices){
+                var timeslicetable = new TimesliceTableWidget({timeslices: timeslices, activityquery: {project: entity.id}});
+                timeslicetable.placeAt(timesliceNode);
+                timeslicetable.startup();
             });
         },
 
