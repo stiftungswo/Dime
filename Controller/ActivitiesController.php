@@ -28,7 +28,6 @@ class ActivitiesController extends DimeController
      *
      * @Annotations\QueryParam(name="active", requirements="/^true|false$/i", nullable=true, description="Filter By Activity")
      * @Annotations\QueryParam(name="date", nullable=true, description="Date to filter the Activity by in Format YYYY-MM-DD")
-     * @Annotations\QueryParam(name="customer", requirements="\d+", nullable=true, description="Filter By Customer")
      * @Annotations\QueryParam(name="project", requirements="\d+", nullable=true, description="Filter By Project")
      * @Annotations\QueryParam(name="service", requirements="\d+", nullable=true, description="Filter By Service")
      * @Annotations\QueryParam(name="user", requirements="\d+", nullable=true, description="Filter By User")
@@ -37,7 +36,7 @@ class ActivitiesController extends DimeController
      * @Annotations\QueryParam(array=true, name="withoutTags", requirements="\d+", nullable=true, description="Show Entities without this Tags")
      *
      * @Annotations\View(
-     * templateVar="activitys"
+     * templateVar="activities"
      * )
      *
      * @Annotations\Route(requirements={"_format"="json|xml"})
