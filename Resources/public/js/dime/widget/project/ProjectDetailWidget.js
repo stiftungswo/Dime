@@ -7,9 +7,13 @@ define([
     'dime/widget/_Base',
     'dojo/_base/declare',
     'dojo/text!dime/widget/project/templates/ProjectDetailWidget.html',
+    'dime/widget/activity/ActivitiesTableWidget',
     'dijit/form/TextBox',
-    'dijit/form/Button'
-], function ( WidgetsInTemplateMixin, TemplatedMixin,  _Base, declare,  template) {
+    'dijit/form/Button',
+    'dijit/form/DateTextBox',
+    'dijit/form/FilteringSelect',
+    'dijit/form/CheckBox'
+], function ( WidgetsInTemplateMixin, TemplatedMixin,  _Base, declare,  template, ActivitiesTableWidget) {
     return declare("dime.widget.project.ProjectDetailWidget", [_Base, TemplatedMixin, WidgetsInTemplateMixin], {
 
         templateString: template,
@@ -47,25 +51,29 @@ define([
         },
 
         _fillValues: function(){
-            this.inherited(arguments);
+            this._updateValues(this.entity);
+            var activitytable = new ActivitiesTableWidget({activities: this.entity.activities});
+            activitytable.placeAt(this.activitiesNode);
+            activitytable.startup();
         },
 
         _updateValues: function(entity){
             this.inherited(arguments);
             this.nameNode.set('value', entity.name);
             this.aliasNode.set('value', entity.alias);
-            this.descriptionNode.set('value', entity.description ? entity.description : '');
-            this.rateGroupNode.set('value', entity.rateGroup ? entity.rateGroup.id : '');
-            this.customerNode.set('value', entity.customer ? entity.customer.id : '');
-            this.budgetPriceNode.set('value', entity.budgetPrice ? entity.budgetPrice : '');
-            this.currentPriceNode.set('value', entity.currentPrice ? entity.currentPrice : '');
-            this.budgetTimeNode.set('value', entity.budgetTime ? entity.budgetTime : '');
-            this.currentTimeNode.set('value', entity.currentTime ? entity.currentTime : '');
-            this.fixedPriceNode.set('value', entity.fixedPrice ? entity.fixedPrice : '');
-            this.chargeableNode.set('checked', entity.chargeable ? entity.chargeable : false);
+            this.descriptionNode.set('value', entity.description || '');
+            this.rateGroupNode.set('value', entity.rateGroup ? entity.rateGroup.id : 1);
+            this.customerNode.set('value', entity.customer ? entity.customer.id : 1);
+            this.budgetPriceNode.set('value', entity.budgetPrice || '');
+            this.currentPriceNode.set('value', entity.currentPrice || '');
+            this.budgetTimeNode.set('value', entity.budgetTime || '');
+            this.currentTimeNode.set('value', entity.currentTime || '');
+            this.fixedPriceNode.set('value', entity.fixedPrice || '');
+            this.chargeableNode.set('checked', entity.chargeable || true);
         },
 
         _watchercallback: function(property, oldvalue, newvalue){
+            if(oldvalue == '') return;
             if(oldvalue == newvalue) return;
             //used because this points to caller not to THIS Widget. Above all elements were populated with parentwidget (THIS).
             var entity = this.parentWidget.entity;
@@ -85,7 +93,7 @@ define([
                         result = store.put({description: newvalue}, {id: entity.id} );
                     break;
                 case "rateGroupNode":
-                    if(newvalue != entity.rateGroup.id)
+                    if(newvalue != (entity.rateGroup ? entity.rateGroup.id : 0))
                         result = store.put({rateGroup: newvalue}, {id: entity.id} );
                     break;
                 case "chargeableNode":

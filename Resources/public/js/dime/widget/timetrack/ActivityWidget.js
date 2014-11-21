@@ -74,25 +74,29 @@ define([
 
         _watchercallback: function(property, oldvalue, newvalue){
             if(oldvalue == "") return;
-            var activityId = this.parentWidget.entity.id;
+            var entity = this.parentWidget.entity;
             var activityStore = this.parentWidget.store;
             var result;
             switch(this.dojoAttachPoint) {
                 case "projectNode":
-                    result = activityStore.put({project: newvalue}, {id: activityId});
+                    if(newvalue != entity.project.id)
+                        result = activityStore.put({project: newvalue}, {id: entity.id});
                     break;
                 case "serviceNode":
-                    result = activityStore.put({service: newvalue}, {id: activityId});
+                    if(newvalue != entity.service.id)
+                        result = activityStore.put({service: newvalue}, {id: entity.id});
                     break;
                 case "descriptionNode":
-                    result = activityStore.put({description: newvalue}, {id: activityId});
+                    if(newvalue != entity.description)
+                        result = activityStore.put({description: newvalue}, {id: entity.id});
                     break;
                 case "chargeableNode":
-                    //if(newvalue != entity.chargeable)
+                    if(newvalue != entity.chargeable){
                         if(newvalue == false)
                             result = store.put({chargeable: '0'}, {id: entity.id} );
                         else
                             result = store.put({chargeable: '1'}, {id: entity.id} );
+                    }
                     break;
                 default:
                     break;

@@ -62,9 +62,9 @@ define([
             this.inherited(arguments);
             this.nameNode.set('value', entity.name);
             this.aliasNode.set('value', entity.alias);
-            this.descriptionNode.set('value', entity.description ? entity.description : '');
-            this.chargeableNode.set('value', entity.chargeable ? entity.chargeable : false);
-            this.vatNode.set('value', entity.vat ? entity.vat : '');
+            this.descriptionNode.set('value', entity.description || '');
+            this.chargeableNode.set('value', entity.chargeable || true);
+            this.vatNode.set('value', entity.vat || '');
         },
 
         _watchercallback: function(property, oldvalue, newvalue){
