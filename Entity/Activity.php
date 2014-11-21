@@ -65,6 +65,7 @@ class Activity extends Entity implements DimeEntityInterface
     protected $description;
 
     /**
+     * TODO refactoring rename to rateValue to be coherent with offerposition
      * @var float $rate
      * @JMS\AccessType("public_method")
      * @ORM\Column(type="decimal", scale=2, precision=10, nullable=true)
@@ -96,6 +97,20 @@ class Activity extends Entity implements DimeEntityInterface
 	 */
 	protected $value;
 
+    /**
+     * @ORM\Column(name="rate_unit", type="text", nullable=true)
+     * @JMS\SerializedName("rateUnit")
+     */
+    protected $rateUnit;
+
+    /**
+     * @var string $rateUnitType
+     *
+     * @ORM\Column(name="rate_unit_type", type="text", nullable=true)
+     * @JMS\SerializedName("rateUnitType")
+     */
+    protected $rateUnitType;
+
 	/**
 	 * @return float
 	 */
@@ -116,27 +131,40 @@ class Activity extends Entity implements DimeEntityInterface
 		return $value;
 	}
 
-	/**
-	 * The Type of Rate Unit Associated with the Activty.
-	 * @return string
-	 * @JMS\VirtualProperty()
-	 * @JMS\SerializedName("rateUnitType")
-	 */
-	public function getRateUnitType()
-	{
-		return $this->getService()->getRateByRateGroup($this->getProject()->getRateGroup())->getRateUnitType();
-	}
+    /**
+     * Auto generate duration if empty
+     *
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     * @return Offerposition
+     */
+    public function updateEmptyRateFromDefault()
+    {
+        $serviceRate = $this->getServiceRate();
+        if($this->rate == null)
+            $this->rate = $serviceRate->getRateValue();
+        if($this->rateUnit == null)
+            $this->rateUnit = $serviceRate->getRateUnit();
+        if($this->rateUnitType == null)
+            $this->rateUnitType = $serviceRate->getRateUnitType();
+        return $this;
+    }
 
-	/**
-	 * Retunrs the Associated Rate Unit
-	 * @return string
-	 * @JMS\VirtualProperty()
-	 * @JMS\SerializedName("rateUnit")
-	 */
-	public function getRateUnit()
-	{
-		return $this->getService()->getRateByRateGroup($this->getProject()->getRateGroup())->getRateUnit();
-	}
+    /**
+     * return the Rate from the service according the offers rate group
+     * @JMS\VirtualProperty
+     * @JMS\SerializedName("serviceRate")
+     *
+     * @return Rate
+     */
+    public function getServiceRate()
+    {
+        if(empty($this->service))
+            return null;
+        return $this->service->getRateByRateGroup($this->project->getRateGroup());
+    }
+
+
 
 	/**
 	 * Returns How mch the whole Activity Costs
@@ -444,18 +472,18 @@ class Activity extends Entity implements DimeEntityInterface
 	}
 
 	/**
-	 * @param boolean $chargeable
-	 *
-	 * @return $this
-	 */
-	public function setChargeable($chargeable)
-	{
-		if($chargeable !== 'empty')
-		{
-			$this->chargeable = $chargeable;
-		}
-		return $this;
-	}
+ * @param boolean $chargeable
+ *
+ * @return $this
+ */
+    public function setChargeable($chargeable)
+    {
+        if($chargeable !== 'empty')
+        {
+            $this->chargeable = $chargeable;
+        }
+        return $this;
+    }
 
 	/**
 	 * @return int
@@ -476,5 +504,52 @@ class Activity extends Entity implements DimeEntityInterface
 		return $this;
 	}
 
+    /**
+     * Set rate
+     *
+     * @param string $rate
+     *
+     * @return OfferPosition
+     */
+    public function setRateUnit($rateUnit)
+    {
+        $this->rateUnit = $rateUnit;
+
+        return $this;
+    }
+
+    /**
+     * Get rate
+     *
+     * @return double
+     */
+    public function getRateUnit()
+    {
+        return $this->rateUnit;
+    }
+
+    /**
+     * Set rate
+     *
+     * @param string $rate
+     *
+     * @return OfferPosition
+     */
+    public function setRateUnitType($rateUnitType)
+    {
+        $this->rateUnitType = $rateUnitType;
+
+        return $this;
+    }
+
+    /**
+     * Get rate
+     *
+     * @return double
+     */
+    public function getRateUnitType()
+    {
+        return $this->rateUnitType;
+    }
 
 }
