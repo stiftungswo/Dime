@@ -14,48 +14,111 @@ use Swo\CommonsBundle\Entity\AddressStreet;
 class LoadCustomers extends AbstractFixture implements OrderedFixtureInterface
 {
 	/**
+	 * @var array
+	 * Data to be loaded
+	 */
+	protected $data = array(
+		'swo-customer'       => array(
+			'name'     => 'StiftungSWO',
+			'alias' => 'stiftungswo',
+			'address'   => array(
+				'streetnumber' => '18b',
+				'street' => 'Bahnstrasse',
+				'city'  => 'Dübendorf',
+				'plz' => 8600,
+				'state' => 'Zürich',
+				'state_shortcode' => 'ZH',
+				'country' => 'Schweiz',
+			),
+		),
+		'duebendorf-customer'       => array(
+			'name'     => 'Dübendorf',
+			'alias' => 'duebendorf',
+			'address'   => array(
+				'streetnumber' => '5',
+				'street' => 'Hauptstrasse',
+				'city'  => 'Dübendorf',
+				'plz' => 8600,
+				'state' => 'Zürich',
+				'state_shortcode' => 'ZH',
+				'country' => 'Schweiz',
+			),
+		),
+	);
+
+	protected $baseData = array(
+		'user'  => 'ref:default-user',
+		'chargeable' => true,
+	);
+	/**
 	 * Load data fixtures with the passed EntityManager
 	 *
 	 * @param \Doctrine\Common\Persistence\ObjectManager $manager
 	 */
 	public function load(ObjectManager $manager)
 	{
-		$customer1 = new Customer();
-		$customer1->setName('CWE Customer');
-		$customer1->setAlias('cc');
-		$customer1->setChargeable(true);
-		$customer1->setUser($manager->merge($this->getReference('default-user')));
-		$address = new Address();
-		$address->setStreetnumber('18b');
-		$addressStreet = new AddressStreet();
-		$addressStreet->setName('BlubStrasse');
-		$address->setStreet($addressStreet);
-		$addressCity = new AddressCity();
-		$addressCity->setName('Zürich');
-		$addressCity->setPlz(8000);
-		$address->setCity($addressCity);
-		$addressState = new AddressState();
-		$addressState->setName('Zürich');
-		$addressState->setShortcode('ZH');
-		$address->setState($addressState);
-		$addressCountry = new AddressCountry();
-		$addressCountry->setName('Schweiz');
-		$address->setCountry($addressCountry);
-		$customer1->setAddress($address);
+		$baseEntity = new Customer();
+		foreach($this->baseData as $key=>$value)
+		{
+			$this->set($baseEntity, $key, $value, $manager);
+		}
 
-		$manager->persist($customer1);
+		foreach($this->data as $key => $data) {
+			$entity = clone $baseEntity;
+			foreach($data as $name => $value)
+			{
+				if($name === 'address') {
+					$addressdata    = $value;
+					$address        = new Address();
+					$addressStreet  = new AddressStreet();
+					$addressCity    = new AddressCity();
+					$addressState   = new AddressState();
+					$addressCountry = new AddressCountry();
+					$addressStreet->setName($addressdata['street']);
+					$addressCity->setName($addressdata['city'])->setPlz($addressdata['plz']);
+					$addressState->setName($addressdata['state'])->setShortcode($addressdata['state_shortcode']);
+					$addressCountry->setName($addressdata['country']);
+					$address
+						->setStreetnumber($addressdata['streetnumber'])
+						->setStreet($addressStreet)
+						->setCity($addressCity)
+						->setState($addressState)
+						->setCountry($addressCountry);
+					$entity->setAddress($address);
+				} else {
+					$this->set($entity, $name, $value, $manager);
+				}
+			}
 
-		$customer2 = new Customer();
-		$customer2->setName('Another Customer');
-		$customer2->setAlias('ac');
-		$customer2->setChargeable(true);
-		$customer2->setUser($manager->merge($this->getReference('default-user')));
+			$manager->persist($entity);
+			$this->addReference($key, $entity);
+		}
 
-		$manager->persist($customer2);
 		$manager->flush();
+	}
 
-		$this->addReference('default-customer', $customer1);
-		$this->addReference('another-customer', $customer2);
+	private function set($entity, $property, $value, ObjectManager $manager)
+	{
+		if(is_array($value)){
+			$functionName = 'add' . ucfirst($property);
+			foreach($value as $val)
+			{
+				if(preg_match('/^ref:/', $val) === 1) {
+					$param = preg_replace('/^ref:/', '', $val);
+					$entity->$functionName($manager->merge($this->getReference($param)));
+				} else {
+					$entity->$functionName($val);
+				}
+			}
+		} else {
+			$functionName = 'set' . ucfirst($property);
+			if(preg_match('/^ref:/', $value) === 1) {
+				$param = preg_replace('/^ref:/', '', $value);
+				$entity->$functionName($manager->merge($this->getReference($param)));
+			} else {
+				$entity->$functionName($value);
+			}
+		}
 	}
 
 	/**

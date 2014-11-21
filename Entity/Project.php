@@ -122,7 +122,7 @@ class Project extends Entity implements DimeEntityInterface
 	/**
 	 * @var boolean $chargeable
 	 *
-	 * @ORM\Column(type="boolean")
+	 * @ORM\Column(type="boolean", nullable=true)
 	 */
 	protected $chargeable;
 
@@ -505,7 +505,12 @@ class Project extends Entity implements DimeEntityInterface
      */
     public function getRateGroup()
     {
-        return $this->rateGroup;
+        $rateGroup = $this->rateGroup;
+	    if($rateGroup === null)
+	    {
+		    return $this->getCustomer()->getRateGroup();
+	    }
+	    return $rateGroup;
     }
 
     /**

@@ -26,6 +26,10 @@ jms_serializer:
         file_cache:
             dir: "%kernel.cache_dir%/serializer"
         auto_detection: true
+        directories:
+            FOSUB:
+                namespace_prefix: "FOS\\UserBundle"
+                path: "@DimeTimetrackerBundle/Resources/config/serializer"
 
 fos_rest:
     routing_loader:
