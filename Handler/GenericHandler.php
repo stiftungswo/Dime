@@ -94,9 +94,6 @@ class GenericHandler extends AbstractHandler implements HandlerInterface {
 	 */
 	public function put(DimeEntityInterface $entity, array $parameters)
 	{
-		if(!isset($parameters['user'])) {
-			$parameters['user'] = $this->getCurrentUser()->getId();
-		}
 		return $this->processForm($entity, $parameters, $this->formType, 'PUT');
 	}
 

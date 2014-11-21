@@ -32,12 +32,12 @@ class LoadTimeslices extends AbstractFixture implements OrderedFixtureInterface
 		),
 		'time5' => array(
 			'duration'  => 30600, // 8.5 * 3600
-			'startedAt' => '2014-11-23 08:00:00',
+			'startedAt' => '2014-11-24 08:00:00',
 			'activity'  => 'ref:chrutzi_zivih_activity',
 		),
 		'time6' => array(
 			'duration'  => 30600, // 8.5 * 3600
-			'startedAt' => '2014-11-23 08:00:00',
+			'startedAt' => '2014-11-25 08:00:00',
 			'activity'  => 'ref:chrutzi_zivih_activity',
 			'user'      => 'ref:test-user'
 		),
