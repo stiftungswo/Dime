@@ -12,15 +12,15 @@ class Invoice {
 	protected $customer;
 	protected $projects;
 	protected $gross;
-	protected $discounts;
+	protected $invoiceDiscounts;
 	protected $net;
 
 	public function setNet()
 	{
 		$net = $this->gross;
-		if(!empty($this->discounts))
+		if(!empty($this->invoiceDiscounts))
 		{
-			foreach($this->discounts as $discount)
+			foreach($this->invoiceDiscounts as $discount)
 			{
 				if($discount instanceof InvoiceDiscount)
 				{
@@ -70,14 +70,14 @@ class Invoice {
 	/**
 	 * @return mixed
 	 */
-	public function getDiscounts()
+	public function getInvoiceDiscounts()
 	{
-		return $this->discounts;
+		return $this->invoiceDiscounts;
 	}
 
-	public function addDiscount(InvoiceDiscount $discount)
+	public function addInvoiceDiscount(InvoiceDiscount $discount)
 	{
-		$this->discounts[] = $discount;
+		$this->invoiceDiscounts[] = $discount;
 		return $this;
 	}
 
@@ -86,9 +86,9 @@ class Invoice {
 	 *
 	 * @return $this
 	 */
-	public function setDiscounts($discounts)
+	public function setInvoiceDiscounts($discounts)
 	{
-		$this->discounts = $discounts;
+		$this->invoiceDiscounts = $discounts;
 		return $this;
 	}
 
@@ -153,17 +153,4 @@ class Invoice {
 		$this->projects = $projects;
 		return $this;
 	}
-
-
-
-	/**
-	 * @param InvoiceProject $project
-	 *
-	 * @return $this
-	 */
-/*	public function removeProject(InvoiceProject $project)
-	{
-		$this->projects->detach($project);
-		return $this;
-	}*/
 } 

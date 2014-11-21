@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Class InvoiceDiscount
  * @package Dime\InvoiceBundle\Entity
  * @ORM\Entity()
- * @ORM\Table(name="discounts")
+ * @ORM\Table(name="invoiceDiscounts")
  */
 class InvoiceDiscount
 {

@@ -34,7 +34,7 @@
 			</table>
 		{% endfor %}
 		<table>
-			{% for discount in invoice.discounts %}
+			{% for discount in invoice.invoiceDiscounts %}
 				<tr>
 					<td>{{ discount.name }}</td>
 					<td>{{ discount.value }} {% if discount.percentage %}%{% else %}CHF{% endif %}</td>

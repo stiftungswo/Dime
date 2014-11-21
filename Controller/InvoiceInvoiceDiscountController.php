@@ -35,7 +35,7 @@ class InvoiceDiscountController extends DimeController
 	 * @Annotations\QueryParam(name="name", nullable=true, requirements="\w+", description="Filter By Name")
 	 *
 	 * @Annotations\View(
-	 * templateVar="discounts"
+	 * templateVar="invoiceDiscounts"
 	 * )
 	 *
 	 * @Annotations\Route(requirements={"_format"="json|xml"})

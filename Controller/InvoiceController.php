@@ -29,7 +29,7 @@ class InvoiceController extends DimeController
 	 * @Annotations\RequestParam(name="nonchargeable", nullable=true, requirements="/^true|false$/i", default="false", description="Whether to include nonchargeable projects or not.")
 	 * @Annotations\RequestParam(name="fixed", nullable=true, requirements="/^true|false$/i", default="false", description="Report Fixed Summ in Invoice")
 	 * @Annotations\RequestParam(name="details", nullable=true, requirements="/^true|false$/i", default="false", description="Report Charge Details in Invoice")
-	 * @Annotations\RequestParam(name="discounts", array=true, requirements="\d+", nullable=true, description="Ids of the Discounts to apply")
+	 * @Annotations\RequestParam(name="invoiceDiscounts", array=true, requirements="\d+", nullable=true, description="Ids of the Discounts to apply")
 	 *
 	 * @Annotations\View(
 	 * templateVar="invoices"
@@ -51,7 +51,7 @@ class InvoiceController extends DimeController
 			$paramFetcher->get('nonchargeable', true),
 			$paramFetcher->get('fixed', true),
 			$paramFetcher->get('details', true),
-			$paramFetcher->get('discounts', true)
+			$paramFetcher->get('invoiceDiscounts', true)
 		);
 	}
 
@@ -89,7 +89,7 @@ class InvoiceController extends DimeController
 			$paramFetcher->get('nonchargeable', true),
 			$paramFetcher->get('fixed', true),
 			$paramFetcher->get('details', true),
-			$paramFetcher->get('discounts', true)
+			$paramFetcher->get('invoiceDiscounts', true)
 		);
 	}
 
@@ -106,7 +106,7 @@ class InvoiceController extends DimeController
 	 * @Annotations\QueryParam(name="nonchargeable", nullable=true, default="false", description="The ID of the Customer")
 	 * @Annotations\QueryParam(name="fixed", nullable=true, default="false", description="Report Fixed Summ in Invoice")
 	 * @Annotations\QueryParam(name="details", nullable=true, default="false", description="Report Charge Details in Invoice")
-	 * @Annotations\QueryParam(name="discounts", array=true, nullable=true, description="Ids of the Discounts")
+	 * @Annotations\QueryParam(name="invoiceDiscounts", array=true, nullable=true, description="Ids of the Discounts")
 	 *
 	 * @Annotations\View(
 	 * templateVar="invoices"
@@ -128,7 +128,7 @@ class InvoiceController extends DimeController
 			$paramFetcher->get('nonchargeable', true),
 			$paramFetcher->get('fixed', true),
 			$paramFetcher->get('details', true),
-			$paramFetcher->get('discounts', true)
+			$paramFetcher->get('invoiceDiscounts', true)
 		);
 	}
 
@@ -138,7 +138,7 @@ class InvoiceController extends DimeController
 	 * @Annotations\QueryParam(name="nonchargeable", nullable=true, default="false", description="The ID of the Customer")
 	 * @Annotations\QueryParam(name="fixed", nullable=true, default="false", description="Report Fixed Summ in Invoice")
 	 * @Annotations\QueryParam(name="details", nullable=true, default="false", description="Report Charge Details in Invoice")
-	 * @Annotations\QueryParam(name="discounts", array=true, nullable=true, description="Ids of the Discounts")
+	 * @Annotations\QueryParam(name="invoiceDiscounts", array=true, nullable=true, description="Ids of the Discounts")
 	 *
 	 * @param                       $type
 	 * @param                       $id
@@ -155,7 +155,7 @@ class InvoiceController extends DimeController
 				$paramFetcher->get('nonchargeable', true),
 				$paramFetcher->get('fixed', true),
 				$paramFetcher->get('details', true),
-				$paramFetcher->get('discounts', true)
+				$paramFetcher->get('invoiceDiscounts', true)
 			);
 			break;
 		case 'project':
@@ -163,7 +163,7 @@ class InvoiceController extends DimeController
 				$paramFetcher->get('nonchargeable', true),
 				$paramFetcher->get('fixed', true),
 				$paramFetcher->get('details', true),
-				$paramFetcher->get('discounts', true)
+				$paramFetcher->get('invoiceDiscounts', true)
 			);
 			break;
 		case 'service':
@@ -171,7 +171,7 @@ class InvoiceController extends DimeController
 				$paramFetcher->get('nonchargeable', true),
 				$paramFetcher->get('fixed', true),
 				$paramFetcher->get('details', true),
-				$paramFetcher->get('discounts', true)
+				$paramFetcher->get('invoiceDiscounts', true)
 			);
 			break;
 		default:
