@@ -7,7 +7,14 @@ invoices:
 
 invoiceDiscounts:
     type:     rest
-    resource: Dime\InvoiceBundle\Controller\DiscountController
+    resource: Dime\InvoiceBundle\Controller\InvoiceDiscountController
+    prefix:   /v1
+    name_prefix:  api_1_
+    defaults: { _format: json }
+
+invoiceItems:
+    type:     rest
+    resource: Dime\InvoiceBundle\Controller\InvoiceItemController
     prefix:   /v1
     name_prefix:  api_1_
     defaults: { _format: json }

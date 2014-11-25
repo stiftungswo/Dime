@@ -7,15 +7,20 @@
 
 namespace Dime\InvoiceBundle\Entity;
 
+use Dime\OfferBundle\Entity\OfferDiscount;
+use Dime\TimetrackerBundle\Entity\Entity;
+use Dime\TimetrackerBundle\Model\DimeEntityInterface;
 use Doctrine\ORM\Mapping as ORM;
+use Knp\JsonSchemaBundle\Annotations as Json;
 
 /**
  * Class InvoiceDiscount
  * @package Dime\InvoiceBundle\Entity
  * @ORM\Entity()
  * @ORM\Table(name="invoiceDiscounts")
+ * @Json\Schema("invoiceDiscount")
  */
-class InvoiceDiscount
+class InvoiceDiscount extends Entity implements DimeEntityInterface
 {
 	/**
 	 * @var
@@ -122,6 +127,15 @@ class InvoiceDiscount
 	public function setValue($value)
 	{
 		$this->value = $value;
+		return $this;
+	}
+
+	public function setFromOfferDiscount(OfferDiscount $offerDiscount)
+	{
+		$this->setName($offerDiscount->getName());
+		$this->setMinus($offerDiscount->getMinus());
+		$this->setPercentage($offerDiscount->getPercentage());
+		$this->setValue($offerDiscount->getValue());
 		return $this;
 	}
 

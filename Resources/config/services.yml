@@ -1,8 +1,15 @@
+parameters:
+    generic_handler: "Dime\TimetrackerBundle\Handler\GenericHandler"
+
 services:
     dime.invoice.handler:
         class: "Dime\InvoiceBundle\Handler\InvoiceHandler"
-        arguments: [ "@doctrine.orm.entity_manager" ]
+        arguments: [ "@doctrine.orm.entity_manager", "Dime\InvoiceBundle\Entity\Invoice", "@form.factory", "@security.context", "in", "dime_invoicebundle_invoiceformtype"]
 
-    dime.discount.handler:
-        class: "Dime\InvoiceBundle\Handler\InvoiceDiscountHandler"
-        arguments: [ "@doctrine.orm.entity_manager", "Dime\InvoiceBundle\Entity\Discount", "@form.factory", "@security.context"]
+    dime.invoicediscount.handler:
+        class: %generic_handler%
+        arguments: [ "@doctrine.orm.entity_manager", "Dime\InvoiceBundle\Entity\InvoiceDiscount", "@form.factory", "@security.context", "id", "dime_invoicebundle_invoicediscountformtype"]
+
+    dime.invoiceitem.handler:
+        class: %generic_handler%
+        arguments: [ "@doctrine.orm.entity_manager", "Dime\InvoiceBundle\Entity\InvoiceItem", "@form.factory", "@security.context", "it", "dime_invoicebundle_invoiceitemformtype"]

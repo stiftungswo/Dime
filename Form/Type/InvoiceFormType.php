@@ -12,22 +12,24 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class InvoiceDiscountFormType extends AbstractType
+class InvoiceFormType extends AbstractType
 {
 	public function buildForm(FormBuilderInterface $builder, array $options)
 	{
 		$builder
 			->add('name')
-			->add('vaue')
-			->add('percentage')
-			->add('minus')
+			->add('description')
+			->add('alias')
+			->add('standardDiscounts','entity', array('class' => 'DimeTimetrackerBundle:StandardDiscount', 'multiple' => true))
+			->add('invoiceDiscounts','entity', array('class' => 'DimeInvoiceBundle:InvoiceDiscount', 'multiple' => true))
+			->add('tags', 'entity', array('class' => 'DimeTimetrackerBundle:Tag', 'multiple' => true))
 			;
 	}
 
 	public function setDefaultOptions(OptionsResolverInterface $resolver)
 	{
 		$resolver->setDefaults(array(
-			'data_class' => 'Dime\InvoiceBundle\Entity\InvoiceDiscount',
+			'data_class' => 'Dime\InvoiceBundle\Entity\Invoice',
 			'csrf_protection' => false,
 			'allow_extra_fields' => true,
 		));
@@ -41,6 +43,6 @@ class InvoiceDiscountFormType extends AbstractType
 	 */
 	public function getName()
 	{
-		return 'dime_invoicebundle_invoicediscountformtype';
+		return 'dime_invoicebundle_invoiceformtype';
 	}
 }

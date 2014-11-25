@@ -1,5 +1,5 @@
 {# Twig Template #}
-{% set customer = invoice.customer %}
+{% set customer = invoice.project.customer %}
 <!DOCTYPE pdf SYSTEM "%resources%/dtd/doctype.dtd">
 <pdf>
 	<dynamic-page>
@@ -9,32 +9,42 @@
 			<table>
 				<tr>
 					<td>{{ address.street }} {{ address.streetnumber }}</td>
+				</tr>
+				<tr>
 					<td>{{ address.city.plz }} {{ address.city.name }}</td>
+				</tr>
+				<tr>
 					<td>{{ address.state }} {{ address.country }}</td>
 				</tr>
 			</table>
 		{% endif %}
-		{% for invoiceproject in invoice.projects %}
-			<div color="red">Projekt {{ invoiceproject.project.name }}</div>
-			<table>
-				<tr>
-					<td>Typ</td>
-				    <td>Anzahl</td>
-					<td>Ansatz</td>
-					<td>Kosten</td>
-				</tr>
-				{% for item in invoiceproject.items %}
-				<tr>
-					<td>{{ item.type }}</td>
-					<td>{{ item.value }}</td>
-					<td>{{ item.rate }} {{ item.rateUnit }}</td>
-					<td>{{ item.charge }} CHF</td>
-				</tr>
-				{% endfor %}
-			</table>
-		{% endfor %}
+		<br/>
+		<br/>
+		<div color="red">Projekt {{ invoice.project.name }}</div>
+		<table>
+			<tr>
+				<td>Typ</td>
+			    <td>Anzahl</td>
+				<td>Ansatz</td>
+				<td>Kosten</td>
+			</tr>
+			{% for item in invoice.items %}
+			<tr>
+				<td>{{ item.type }}</td>
+				<td>{{ item.value }}</td>
+				<td>{{ item.rate }} {{ item.rateUnit }}</td>
+				<td>{{ item.charge }} CHF</td>
+			</tr>
+			{% endfor %}
+		</table>
 		<table>
 			{% for discount in invoice.invoiceDiscounts %}
+				<tr>
+					<td>{{ discount.name }}</td>
+					<td>{{ discount.value }} {% if discount.percentage %}%{% else %}CHF{% endif %}</td>
+				</tr>
+			{% endfor %}
+			{% for discount in invoice.standardDiscounts %}
 				<tr>
 					<td>{{ discount.name }}</td>
 					<td>{{ discount.value }} {% if discount.percentage %}%{% else %}CHF{% endif %}</td>

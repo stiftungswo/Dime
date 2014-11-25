@@ -1,24 +1,19 @@
 <?php
-/**
- * Author: Till Wegmüller
- * Date: 9/26/14
- * Dime
- */
 
 namespace Dime\InvoiceBundle\Controller;
 
-
-use Dime\TimetrackerBundle\Controller\DimeController;
+use Dime\TimetrackerBundle\Exception\InvalidFormException;
 use FOS\RestBundle\View\View;
 use Symfony\Component\HttpFoundation\Request;
 use FOS\RestBundle\Request\ParamFetcherInterface;
 use FOS\RestBundle\Util\Codes;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use FOS\RestBundle\Controller\Annotations;
+use Dime\TimetrackerBundle\Controller\DimeController;
 
 class InvoiceDiscountController extends DimeController
 {
-	private $handlerSerivce = 'dime.discount.handler';
+	private $handlerSerivce = 'dime.invoicediscount.handler';
 
 	private $formType = 'dime_invoicebundle_invoicediscountformtype';
 
@@ -32,22 +27,28 @@ class InvoiceDiscountController extends DimeController
 	 * }
 	 * )
 	 *
-	 * @Annotations\QueryParam(name="name", nullable=true, requirements="\w+", description="Filter By Name")
+	 * @Annotations\QueryParam(name="invoice", requirements="\d+", nullable=true, description="Filter By Invoice")
+	 * @Annotations\QueryParam(name="user", requirements="\d+", nullable=true, description="Filter By User")
+	 * @Annotations\QueryParam(array=true, name="withtags", requirements="\d+", nullable=true, description="Show Entities with these Tags")
+	 * @Annotations\QueryParam(array=true, name="withouttags", requirements="\d+", nullable=true, description="Show Entities without this Tags")
 	 *
 	 * @Annotations\View(
-	 * templateVar="invoiceDiscounts"
+	 * templateVar="invoicediscounts"
 	 * )
 	 *
 	 * @Annotations\Route(requirements={"_format"="json|xml"})
 	 *
+	 * @Annotations\Get("/invoicediscounts", name="_invoicediscount")
+	 *
 	 * @param ParamFetcherInterface $paramFetcher
-	 *            param fetcher discount
+	 *            param fetcher service
 	 *
 	 * @return array
 	 */
-	public function getDiscountsAction(ParamFetcherInterface $paramFetcher)
+	public function getInvoiceDiscountsAction(ParamFetcherInterface $paramFetcher)
 	{
-		return $this->container->get($this->handlerSerivce)->all($paramFetcher->all());
+		$result = $this->container->get($this->handlerSerivce)->all($paramFetcher->all());
+		return $result;
 	}
 
 	/**
@@ -55,20 +56,20 @@ class InvoiceDiscountController extends DimeController
 	 *
 	 * @ApiDoc(
 	 * resource = true,
-	 * description = "Gets a InvoiceDiscount for a given id",
-	 * output = "Dime\TimetrackerBundle\Entity\InvoiceDiscount",
+	 * description = "Gets a Timeslice for a given id",
+	 * output = "Dime\TimetrackerBundle\Entity\Timeslice",
 	 * statusCodes = {
 	 * 200 = "Returned when successful",
 	 * 404 = "Returned when the page is not found"
 	 * }
 	 * )
 	 *
-	 * @Annotations\View(templateVar="discount")
+	 * @Annotations\View(templateVar="invoicediscount")
 	 *
 	 * @Annotations\Route(requirements={"_format"="json|xml"})
 	 *
-	 * @param Request $request
-	 *            the request object
+	 * @Annotations\Get("/invoicediscounts/{id}", name="_invoicediscount")
+	 *
 	 * @param int $id
 	 *            the page id
 	 *
@@ -76,30 +77,9 @@ class InvoiceDiscountController extends DimeController
 	 *
 	 * @throws NotFoundHttpException when page not exist
 	 */
-	public function getDiscountAction($id)
+	public function getInvoiceDiscountAction($id)
 	{
 		return $this->getOr404($id, $this->handlerSerivce);
-	}
-
-	/**
-	 * Presents the form to use to create a new Entity.
-	 *
-	 * @ApiDoc(
-	 * resource = true,
-	 * statusCodes = {
-	 * 200 = "Returned when successful"
-	 * }
-	 * )
-	 *
-	 * @Annotations\View(
-	 * templateVar = "form"
-	 * )
-	 *
-	 * @return FormTypeInterface
-	 */
-	public function newDiscountAction()
-	{
-		return $this->createForm($this->formType);
 	}
 
 	/**
@@ -108,7 +88,7 @@ class InvoiceDiscountController extends DimeController
 	 * @ApiDoc(
 	 * resource = true,
 	 * description = "Creates a new page from the submitted data.",
-	 * input = "Dime\TimetrackerBundle\Form\Type\InvoiceDiscountFormType",
+	 * input = "Dime\TimetrackerBundle\Form\Type\TimesliceFormType",
 	 * statusCodes = {
 	 * 201 = "Returned when successful",
 	 * 400 = "Returned when the form has errors"
@@ -117,16 +97,18 @@ class InvoiceDiscountController extends DimeController
 	 *
 	 * @Annotations\Route(requirements={"_format"="json|xml"})
 	 *
+	 * @Annotations\Post("/invoicediscounts", name="_invoicediscount")
+	 *
 	 * @param Request $request
 	 *            the request object
 	 *
 	 * @return FormTypeInterface|View
 	 */
-	public function postDiscountAction(Request $request)
+	public function postInvoiceDiscountAction(Request $request)
 	{
 		try {
-			$newDiscount = $this->container->get($this->handlerSerivce)->post($request->request->all());
-			return $this->view($newDiscount, Codes::HTTP_CREATED);
+			$newTimeslice = $this->container->get($this->handlerSerivce)->post($request->request->all());
+			return $this->view($newTimeslice, Codes::HTTP_CREATED);
 		} catch (InvalidFormException $exception) {
 			return $exception->getForm();
 		}
@@ -137,27 +119,26 @@ class InvoiceDiscountController extends DimeController
 	 *
 	 * @ApiDoc(
 	 * resource = true,
-	 * input = "Dime\TimetrackerBundle\Form\Type\InvoiceDiscountFormType",
+	 * input = "Dime\TimetrackerBundle\Form\Type\TimesliceFormType",
 	 * statusCodes = {
 	 * 200 = "Returned when the Entity was updated",
 	 * 400 = "Returned when the form has errors",
-	 * 404 = "Returned when the InvoiceDiscount does not exist"
+	 * 404 = "Returned when the Timeslice does not exist"
 	 * }
 	 * )
 	 *
 	 * @Annotations\Route(requirements={"_format"="json|xml"})
 	 *
+	 * @Annotations\Put("/invoicediscounts/{id}", name="_invoicediscount")
+	 *
 	 * @param Request $request
-	 *            the request object
-	 * @param int $id
+	 * @param int     $id
 	 *            the page id
 	 *
 	 * @return FormTypeInterface|View
 	 *
-	 * @throws NotFoundHttpException when page not exist
-	 *
 	 */
-	public function putDiscountAction(Request $request, $id)
+	public function putInvoiceDiscountAction(Request $request, $id)
 	{
 		try {
 			$entity = $this->getOr404($id, $this->handlerSerivce);
@@ -169,45 +150,22 @@ class InvoiceDiscountController extends DimeController
 	}
 
 	/**
-	 * Presents the form to use to edit a Entity.
-	 *
-	 * @ApiDoc(
-	 * resource = true,
-	 * statusCodes = {
-	 * 200 = "Returned when successful",
-	 * 404 = "Returned when the Entity does not exist"
-	 * }
-	 * )
-	 *
-	 * @Annotations\View(
-	 * templateVar = "form"
-	 * )
-	 *
-	 *
-	 * @param unknown $id
-	 * @return FormTypeInterface
-	 */
-	public function editDiscountAction($id)
-	{
-		return $this->createForm($this->formType, $this->getOr404($id, $this->handlerSerivce));
-	}
-
-	/**
 	 * Delete existing Entity
 	 *
 	 * @ApiDoc(
 	 * resource = true,
-	 * input = "Dime\TimetrackerBundle\Form\Type\InvoiceDiscountFormType",
+	 * input = "Dime\TimetrackerBundle\Form\Type\TimesliceFormType",
 	 * statusCodes = {
 	 * 204 = "Returned when successful",
-	 * 404 = "Returned when InvoiceDiscount does not exist."
+	 * 404 = "Returned when Timeslice does not exist."
 	 * }
 	 * )
 	 *
 	 * @Annotations\Route(requirements={"_format"="json|xml"})
+	 * @Annotations\View()
 	 *
-	 * @param Request $request
-	 *            the request object
+	 * @Annotations\Delete("/invoicediscounts/{id}", name="_invoicediscount")
+	 *
 	 * @param int $id
 	 *            the page id
 	 *
@@ -215,9 +173,9 @@ class InvoiceDiscountController extends DimeController
 	 *
 	 * @throws NotFoundHttpException when page not exist
 	 */
-	public function deleteDiscountAction(Request $request, $id)
+	public function deleteInvoiceDiscountAction($id)
 	{
 		$this->container->get($this->handlerSerivce)->delete($this->getOr404($id, $this->handlerSerivce));
 		return $this->view(null, Codes::HTTP_NO_CONTENT);
 	}
-} 
+}
