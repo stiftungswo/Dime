@@ -1,7 +1,6 @@
 <?php
 namespace Dime\TimetrackerBundle\Entity;
 
-use Dime\TimetrackerBundle\Form\Transformer\DurationTransformer;
 use Dime\TimetrackerBundle\Model\ActivityReference;
 use Dime\TimetrackerBundle\Model\RateUnitType;
 use Doctrine\ORM\Mapping as ORM;
@@ -136,7 +135,7 @@ class Activity extends Entity implements DimeEntityInterface
      *
      * @ORM\PrePersist
      * @ORM\PreUpdate
-     * @return Offerposition
+     * @return Activity
      */
     public function updateEmptyRateFromDefault()
     {
@@ -505,11 +504,11 @@ class Activity extends Entity implements DimeEntityInterface
 	}
 
     /**
-     * Set rate
+     * Set rateUnit
      *
-     * @param string $rate
+     * @param string $rateUnit
      *
-     * @return OfferPosition
+     * @return Activity
      */
     public function setRateUnit($rateUnit)
     {
@@ -519,9 +518,9 @@ class Activity extends Entity implements DimeEntityInterface
     }
 
     /**
-     * Get rate
+     * Get rateUnit
      *
-     * @return double
+     * @return string
      */
     public function getRateUnit()
     {
@@ -531,9 +530,9 @@ class Activity extends Entity implements DimeEntityInterface
     /**
      * Set rate
      *
-     * @param string $rate
+     * @param string $rateUnitType
      *
-     * @return OfferPosition
+     * @return Activity
      */
     public function setRateUnitType($rateUnitType)
     {
@@ -543,9 +542,9 @@ class Activity extends Entity implements DimeEntityInterface
     }
 
     /**
-     * Get rate
+     * Get rateUnitType
      *
-     * @return double
+     * @return string
      */
     public function getRateUnitType()
     {

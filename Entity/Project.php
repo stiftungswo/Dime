@@ -550,4 +550,40 @@ class Project extends Entity implements DimeEntityInterface
 
         return $this;
     }
+
+	/**
+	 * @return ArrayCollection
+	 */
+	public function getActivities()
+	{
+		return $this->activities;
+	}
+
+	/**
+	 * @param ArrayCollection $activities
+	 *
+	 * @return $this
+	 */
+	public function setActivities($activities)
+	{
+		$this->activities = $activities;
+		return $this;
+	}
+
+	/**
+	 * @param Activity $activity
+	 *
+	 * @return $this
+	 */
+	public function addActivity(Activity $activity)
+	{
+		$this->activities[] = $activity;
+		return $this;
+	}
+
+	public function removeActivity(Activity $activity)
+	{
+		$this->activities->remove($activity);
+		return $this;
+	}
 }
