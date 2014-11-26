@@ -212,35 +212,35 @@ define([
             if(oldvalue == "") return;
             //used because this points to caller not to THIS Widget. Above all elements were populated with parentwidget (THIS).
             var entity = this.parentWidget.entity;
-            var offerStore = this.parentWidget.store;
+            var store = this.parentWidget.store;
             var result;
             switch(this.dojoAttachPoint) {
                 case "nameNode":
-                    offerStore.put({name: newvalue}, {id: entity.id} );
+                    result = store.put({name: newvalue}, {id: entity.id} );
                     break;
                 case "customerNode":
-                    offerStore.put({customer: newvalue}, {id: entity.id});
+                    result = store.put({customer: newvalue}, {id: entity.id});
                     break;
                 case "statusNode":
-                    offerStore.put({status: newvalue}, {id: entity.id});
+                    result = store.put({status: newvalue}, {id: entity.id});
                     break;
                 case "accountantNode":
-                    offerStore.put({accountant: newvalue}, {id: entity.id});
+                    result = store.put({accountant: newvalue}, {id: entity.id});
                     break;
                 case "validToNode":
-                    offerStore.put({validTo: newvalue}, {id: entity.id});
+                    result = store.put({validTo: newvalue}, {id: entity.id});
                     break;
                 case "rateGroupNode":
-                    result = offerStore.put({rateGroup: newvalue}, {id: entity.id});
+                    result = store.put({rateGroup: newvalue}, {id: entity.id});
                     break;
                 case "shortDescriptionNode":
-                    offerStore.put({shortDescription: newvalue}, {id: entity.id});
+                    result = store.put({shortDescription: newvalue}, {id: entity.id});
                     break;
                 case "descriptionNode":
-                    offerStore.put({description: newvalue}, {id: entity.id});
+                    result = store.put({description: newvalue}, {id: entity.id});
                     break;
                 case "fixedPriceNode":
-                    offerStore.put({fixedPrice: newvalue}, {id: entity.id});
+                    result = store.put({fixedPrice: newvalue}, {id: entity.id});
                     break;
                 case "addressNode":
                     if(newvalue == entity.address) return;
