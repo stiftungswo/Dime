@@ -12,6 +12,7 @@ use Dime\TimetrackerBundle\Entity\Activity;
 use Dime\TimetrackerBundle\Entity\Entity;
 use Dime\TimetrackerBundle\Model\DimeEntityInterface;
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as JMS;
 use Knp\JsonSchemaBundle\Annotations as Json;
 
 /**
@@ -44,6 +45,7 @@ class InvoiceItem extends Entity implements DimeEntityInterface
 	/**
 	 * @var string
 	 * @ORM\Column(type="string")
+	 * @JMS\SerializedName("rateUnit")
 	 */
 	protected $rateUnit;
 

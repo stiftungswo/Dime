@@ -206,6 +206,17 @@ class Invoice extends Entity implements DimeEntityInterface
 		return $this;
 	}
 
+	/**
+	 * @param InvoiceItem $item
+	 *
+	 * @return $this
+	 */
+	public function removeItem(InvoiceItem $item)
+	{
+		$this->items->removeElement($item);
+		return $this;
+	}
+
 
 	/**
 	 * @return mixed

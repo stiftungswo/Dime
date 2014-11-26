@@ -1,4 +1,8 @@
 services:
-        dime.discount.form.type:
-            class: Dime\InvoiceBundle\Form\Type\InvoiceDiscountFormType
-            tags: [{ name: "form.type", alias: "dime_invoicebundle_discountformtype" }]
+    dime_invoicebundle_invoicediscountformtype:
+        class: Dime\InvoiceBundle\Form\Type\InvoiceDiscountFormType
+        tags: [{ name: "form.type", alias: "dime_invoicebundle_invoicediscountformtype" }]
+
+    dime.invoicebundel.invoice.formtype:
+        class: Dime\InvoiceBundle\Form\Type\InvoiceFormType
+        tags: [{ name: "form.type", alias: "dime_invoicebundle_invoiceformtype" }]

@@ -12,6 +12,7 @@ use Dime\InvoiceBundle\Entity\InvoiceDiscount;
 use Dime\InvoiceBundle\Entity\InvoiceItem;
 use Dime\TimetrackerBundle\Entity\Project;
 use Dime\TimetrackerBundle\Handler\GenericHandler;
+use Doctrine\Common\Collections\ArrayCollection;
 
 class InvoiceHandler extends GenericHandler
 {
@@ -52,6 +53,11 @@ class InvoiceHandler extends GenericHandler
 
 	public function updateInvoiceItems(Invoice $invoice)
 	{
+		foreach($invoice->getItems() as $item)
+		{
+			$invoice->removeItem($item);
+			$this->om->remove($item);
+		}
 		foreach($invoice->getProject()->getActivities() as $activity){
 			$item = new InvoiceItem();
 			$item->setFromActivity($activity);

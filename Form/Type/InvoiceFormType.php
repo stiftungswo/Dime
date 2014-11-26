@@ -23,7 +23,7 @@ class InvoiceFormType extends AbstractType
 			->add('standardDiscounts','entity', array('class' => 'DimeTimetrackerBundle:StandardDiscount', 'multiple' => true))
 			->add('invoiceDiscounts','entity', array('class' => 'DimeInvoiceBundle:InvoiceDiscount', 'multiple' => true))
 			->add('tags', 'entity', array('class' => 'DimeTimetrackerBundle:Tag', 'multiple' => true))
-			;
+		;
 	}
 
 	public function setDefaultOptions(OptionsResolverInterface $resolver)

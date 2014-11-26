@@ -3,11 +3,13 @@
 namespace Dime\InvoiceBundle\Controller;
 
 use Dime\TimetrackerBundle\Controller\DimeController;
+use Dime\TimetrackerBundle\Exception\InvalidFormException;
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\Request\ParamFetcherInterface;
 use FOS\RestBundle\Util\Codes;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use FOS\RestBundle\Controller\Annotations;
+use Symfony\Component\HttpFoundation\Request;
 
 class InvoiceController extends DimeController
 {
@@ -73,6 +75,42 @@ class InvoiceController extends DimeController
 	}
 
 	/**
+	 * Update existing Entity.
+	 *
+	 * @ApiDoc(
+	 * resource = true,
+	 * input = "Dime\TimetrackerBundle\Form\Type\ProjectFormType",
+	 * statusCodes = {
+	 * 200 = "Returned when the Entity was updated",
+	 * 400 = "Returned when the form has errors",
+	 * 404 = "Returned when the Project does not exist"
+	 * }
+	 * )
+	 *
+	 * @Annotations\Route(requirements={"_format"="json|xml"})
+	 *
+	 * @param Request $request
+	 *            the request object
+	 * @param int $id
+	 *            the page id
+	 *
+	 * @return FormTypeInterface|View
+	 *
+	 * @throws NotFoundHttpException when page not exist
+	 *
+	 */
+	public function putInvoiceAction(Request $request, $id)
+	{
+		try {
+			$entity = $this->getOr404($id, $this->handlerSerivce);
+			$entity = $this->container->get($this->handlerSerivce)->put($entity, $request->request->all());
+			return $this->view($entity, Codes::HTTP_OK);
+		} catch (InvalidFormException $exception) {
+			return $exception->getForm();
+		}
+	}
+
+	/**
 	 * Delete existing Entity
 	 *
 	 * @ApiDoc(
@@ -111,6 +149,8 @@ class InvoiceController extends DimeController
 	 * 404 = "Returned when entity does not exist"
 	 * }
 	 * )
+	 *
+	 * @Annotations\View(templateVar="invoice")
 	 *
 	 * @Annotations\Get("/invoices/project/{id}", name="_invoices")
 	 *
