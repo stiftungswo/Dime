@@ -30,15 +30,15 @@ define([
         },
 
         _updateValues: function(entity){
-            if(entity != null){
-                this.streetnumberNode.set('value', entity.streetnumber || '');
-                this.streetNode.set('value', entity.street || '');
-                this.plzNode.set('value', entity.plz || 0);
-                this.cityNode.set('value', entity.city || '');
-                this.stateNode.set('value', entity.state || '');
-                this.countryNode.set('value', entity.country || '');
-                this.inherited(arguments);
-            }
+            if(entity == null) return;
+            this.entity = entity;
+            this.streetnumberNode.set('value', entity.streetnumber || '');
+            this.streetNode.set('value', entity.street || '');
+            this.plzNode.set('value', entity.plz || 0);
+            this.cityNode.set('value', entity.city || '');
+            this.stateNode.set('value', entity.state || '');
+            this.countryNode.set('value', entity.country || '');
+
         },
 
         _watchercallback: function(property, oldvalue, newvalue){
@@ -47,28 +47,28 @@ define([
             if(entity != null){
                 switch(this.dojoAttachPoint) {
                     case "streetnumberNode":
-                        if(newvalue != entity.streetnumber)
-                            entity.streetnumber = newvalue;
+                        if(newvalue == entity.streetnumber) return;
+                        entity.streetnumber = newvalue;
                         break;
                     case "streetNode":
-                        if(newvalue != entity.street)
-                            entity.street = newvalue;
+                        if(newvalue == entity.street) return;
+                        entity.street = newvalue;
                         break;
                     case "plzNode":
-                        if(newvalue != entity.plz)
-                            entity.plz = newvalue;
+                        if(newvalue == entity.plz) return;
+                        entity.plz = newvalue;
                         break;
                     case "cityNode":
-                        if(newvalue != entity.city)
-                            entity.city = newvalue;
+                        if(newvalue == entity.city) return;
+                        entity.city = newvalue;
                         break;
                     case "stateNode":
-                        if(newvalue != entity.state)
-                            entity.state = newvalue;
+                        if(newvalue == entity.state) return;
+                        entity.state = newvalue;
                         break;
                     case "countryNode":
-                        if(newvalue != entity.country)
-                            entity.country = newvalue;
+                        if(newvalue == entity.country) return;
+                        entity.country = newvalue;
                         break;
                     default:
                         break;

@@ -5,7 +5,10 @@ define([
     'dojo/_base/declare',
     'dojo/text!dime/widget/offer/templates/OfferWidget.html',
     'dime/widget/offer/OfferPositionWidget',
-    'dijit/registry',
+    'dime/widget/timetrack/StandardDiscountWidget',
+    'dime/widget/offer/OfferDiscountWidget',
+    'dojo/when',
+    'dime/widget/swocommons/AddressWidget',
     'dijit/form/TextBox',
     'dijit/form/NumberTextBox',
     'dijit/form/DateTextBox',
@@ -13,12 +16,9 @@ define([
     'dijit/Dialog',
     "dijit/form/FilteringSelect",
     'dijit/form/Button',
-    'dime/widget/timetrack/StandardDiscountWidget',
-    'dime/widget/offer/OfferDiscountWidget',
-    'dojo/when',
     'xstyle!dime/widget/offer/css/OfferWidget.css'
 ], function ( WidgetsInTemplateMixin, TemplatedMixin,  _Base, declare,  template,
-              OfferPositionWidget, registry, Textbox, NumberTextBox, DateTextBox, Textarea, Dialog,  FilteringSelect, Button, StandardDiscountWidget, OfferDiscountWidget,  when) {
+              OfferPositionWidget, StandardDiscountWidget, OfferDiscountWidget,  when) {
     return declare("dime.widget.offer.OfferWidget", [_Base, TemplatedMixin, WidgetsInTemplateMixin], {
 
         templateString: template,
@@ -33,7 +33,6 @@ define([
             this.nameNode.set('parentWidget', this);
             this.customerNode.set('parentWidget', this);
             this.customerNode.set('store', window.storeManager.get('customers', true));
-            this.customerNode.set('searchAttr','name');
             this.statusNode.set('parentWidget', this);
             this.statusNode.set('store', window.storeManager.get('offerstatusucs', true));
             this.statusNode.set('searchAttr','text');
@@ -46,12 +45,7 @@ define([
             this.rateGroupNode.set('searchAttr','name');
             this.shortDescriptionNode.set('parentWidget', this);
             this.descriptionNode.set('parentWidget', this);
-            //TODO urfr refactor concept of addresslines after till added customer address in model
-            this.recepientAddressLine1Node.set('parentWidget', this);
-            this.recepientAddressLine2Node.set('parentWidget', this);
-            this.recepientAddressLine3Node.set('parentWidget', this);
-            this.recepientAddressLine4Node.set('parentWidget', this);
-            this.recepientAddressLine5Node.set('parentWidget', this);
+            this.addressNode.set('parentWidget', this);
 
             //OfferPositions
             this.addOfferPositionNode.set('parentWidget', this);
@@ -68,7 +62,7 @@ define([
             this.subtotalNode.set('parentWidget', this);
             this.subtotalNode.set('disabled', true);
             this.totalVATNode.set('parentWidget', this);
-            this.totalVATNode.set('disabled', true)
+            this.totalVATNode.set('disabled', true);
             this.totalDiscountsNode.set('parentWidget', this);
             this.totalDiscountsNode.set('disabled', true);
             this.totalNode.set('parentWidget', this);
@@ -89,13 +83,10 @@ define([
             this.rateGroupNode.watch('value', this._watchercallback);
             this.shortDescriptionNode.watch('value', this._watchercallback);
             this.descriptionNode.watch('value', this._watchercallback);
-            //TODO urfr refactor concept of addresslines after till added customer address in model
-            this.recepientAddressLine1Node.watch('value', this._watchercallback);
-            this.recepientAddressLine2Node.watch('value', this._watchercallback);
-            this.recepientAddressLine3Node.watch('value', this._watchercallback);
-            this.recepientAddressLine4Node.watch('value', this._watchercallback);
-            this.recepientAddressLine5Node.watch('value', this._watchercallback);
+            this.addressNode.watch('entity', this._watchercallback);
 
+
+            this.fixedPriceNode.watch('value', this._watchercallback);
 
             //Offer Positions
             this.addOfferPositionNode.on('click', function(){
@@ -121,7 +112,6 @@ define([
                 }
 
                 var standardDiscounts = [];
-                var parentWidget = this.parentWidget;
                 this.parentWidget.entity.standardDiscounts.forEach(function(discount){
                     standardDiscounts.push(discount.id);
                 });
@@ -192,28 +182,21 @@ define([
                 });
             }
 
-            this.fixedPriceNode.watch('value', this._watchercallback);
+
 
         },
 
         _updateValues: function(entity){
             this.inherited(arguments);
-            console.log("_updateValues this");
-            console.log(this);
             this.nameNode.set('value', entity.name);
-            this.customerNode.set('value', entity.customer ? entity.customer.name : null);
+            this.customerNode.set('value', entity.customer ? entity.customer.id : null);
             this.statusNode.set('value', entity.status ? entity.status.id : null);
             this.accountantNode.set('value', entity.accountant ? entity.accountant.id : null);
-            this.validToNode.set('value', entity.validTo ? entity.validTo.split(" ")[0] : null); //separate time from timestamp and only pass date
+            this.validToNode.set('value', entity.validTo ? entity.validTo.split(" ")[0] : null); //Todo separate time from timestamp and only pass date
             this.rateGroupNode.set('value', entity.rateGroup ? entity.rateGroup.id : null);
             this.shortDescriptionNode.set('value', entity.shortDescription);
             this.descriptionNode.set('value', entity.description);
-            //TODO urfr refactor concept of addresslines after till added customer address in model
-            this.recepientAddressLine1Node.set('value', entity.recepientAddressLine1);
-            this.recepientAddressLine2Node.set('value', entity.recepientAddressLine2);
-            this.recepientAddressLine3Node.set('value', entity.recepientAddressLine3);
-            this.recepientAddressLine4Node.set('value', entity.recepientAddressLine4);
-            this.recepientAddressLine5Node.set('value', entity.recepientAddressLine5);
+            this.addressNode._updateValues(entity.customer.address || null);
             //Calculation
 
             this.subtotalNode.set('value', entity.subtotal);
@@ -228,51 +211,40 @@ define([
         _watchercallback: function(property, oldvalue, newvalue){
             if(oldvalue == "") return;
             //used because this points to caller not to THIS Widget. Above all elements were populated with parentwidget (THIS).
-            var offerId = this.parentWidget.entity.id;
+            var entity = this.parentWidget.entity;
             var offerStore = this.parentWidget.store;
             var result;
             switch(this.dojoAttachPoint) {
                 case "nameNode":
-                    offerStore.put({name: newvalue}, {id: offerId} );
+                    offerStore.put({name: newvalue}, {id: entity.id} );
                     break;
                 case "customerNode":
-                    offerStore.put({customer: newvalue}, {id: offerId});
+                    offerStore.put({customer: newvalue}, {id: entity.id});
                     break;
                 case "statusNode":
-                    offerStore.put({status: newvalue}, {id: offerId});
+                    offerStore.put({status: newvalue}, {id: entity.id});
                     break;
                 case "accountantNode":
-                    offerStore.put({accountant: newvalue}, {id: offerId});
+                    offerStore.put({accountant: newvalue}, {id: entity.id});
                     break;
                 case "validToNode":
-                    offerStore.put({validTo: newvalue}, {id: offerId});
+                    offerStore.put({validTo: newvalue}, {id: entity.id});
                     break;
                 case "rateGroupNode":
-                    result = offerStore.put({rateGroup: newvalue}, {id: offerId});
+                    result = offerStore.put({rateGroup: newvalue}, {id: entity.id});
                     break;
                 case "shortDescriptionNode":
-                    offerStore.put({shortDescription: newvalue}, {id: offerId});
+                    offerStore.put({shortDescription: newvalue}, {id: entity.id});
                     break;
                 case "descriptionNode":
-                    offerStore.put({description: newvalue}, {id: offerId});
-                    break;
-                case "recepientAddressLine1Node":
-                    offerStore.put({recepientAddressLine1: newvalue}, {id: offerId});
-                    break;
-                case "recepientAddressLine2Node":
-                    offerStore.put({recepientAddressLine2: newvalue}, {id: offerId});
-                    break;
-                case "recepientAddressLine3Node":
-                    offerStore.put({recepientAddressLine3: newvalue}, {id: offerId});
-                    break;
-                case "recepientAddressLine4Node":
-                    offerStore.put({recepientAddressLine4: newvalue}, {id: offerId});
-                    break;
-                case "recepientAddressLine5Node":
-                    offerStore.put({recepientAddressLine5: newvalue}, {id: offerId});
+                    offerStore.put({description: newvalue}, {id: entity.id});
                     break;
                 case "fixedPriceNode":
-                    offerStore.put({fixedPrice: newvalue}, {id: offerId});
+                    offerStore.put({fixedPrice: newvalue}, {id: entity.id});
+                    break;
+                case "addressNode":
+                    if(newvalue == entity.address) return;
+                    result = store.put({address: newvalue}, {id: entity.id} );
                     break;
                 default:
                     break;

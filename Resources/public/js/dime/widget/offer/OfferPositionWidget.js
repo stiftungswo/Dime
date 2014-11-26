@@ -83,9 +83,6 @@ define([
                 this.rateUnitNode.set('style','background-color: '+differentColor);
             else
                 this.rateUnitNode.set('style','background-color: '+sameColor);
-
-            console.log(this.rateUnitTypeNode.get('value'));
-            console.log(entity.serviceRate.rateUnitType);
             if(this.rateUnitTypeNode.get('value') != entity.serviceRate.rateUnitType)
                 this.rateUnitTypeNode.set('style','background-color: '+differentColor);
             else
