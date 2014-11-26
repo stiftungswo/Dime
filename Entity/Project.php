@@ -583,7 +583,7 @@ class Project extends Entity implements DimeEntityInterface
 
 	public function removeActivity(Activity $activity)
 	{
-		$this->activities->remove($activity);
+		$this->activities->removeElement($activity);
 		return $this;
 	}
 }
