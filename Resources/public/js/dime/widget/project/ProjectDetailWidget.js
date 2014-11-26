@@ -9,13 +9,14 @@ define([
     'dojo/text!dime/widget/project/templates/ProjectDetailWidget.html',
     'dime/widget/activity/ActivitiesTableWidget',
     'dime/widget/timeslice/TimesliceTableWidget',
+    'dime/widget/invoice/InvoiceDetailWidget',
     'dijit/form/TextBox',
     'dijit/form/Button',
     'dijit/form/DateTextBox',
     'dijit/form/FilteringSelect',
     'dijit/form/CheckBox',
     'xstyle!dime/widget/project/css/ProjectDetailWidget.css'
-], function ( WidgetsInTemplateMixin, TemplatedMixin,  _Base, declare,  template, ActivitiesTableWidget, TimesliceTableWidget) {
+], function ( WidgetsInTemplateMixin, TemplatedMixin,  _Base, declare,  template, ActivitiesTableWidget, TimesliceTableWidget, InvoiceDetailWidget) {
     return declare("dime.widget.project.ProjectDetailWidget", [_Base, TemplatedMixin, WidgetsInTemplateMixin], {
 
         templateString: template,
@@ -50,6 +51,11 @@ define([
             this.descriptionNode.watch('value', this._watchercallback);
             this.rateGroupNode.watch('value', this._watchercallback);
             this.chargeableNode.watch('checked', this._watchercallback);
+            this.invoiceNode.on('click', function(){
+                request('/api/v1/invoices/project/' + this.parentWidget.entity.id, {handleAs: "json"}).then(function(entity){
+                    window.widgetManager.addTab(entity, 'invoices', InvoiceDetailWidget, 'contentTabs', 'Rechnung ('+entity.id+')', true);
+                });
+            });
         },
 
         _fillValues: function(){

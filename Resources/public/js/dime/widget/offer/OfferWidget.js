@@ -9,6 +9,8 @@ define([
     'dime/widget/offer/OfferDiscountWidget',
     'dojo/when',
     'dojo/dom-prop',
+    'dime/widget/project/ProjectDetailWidget',
+    'dojo/request',
     'dime/widget/swocommons/AddressWidget',
     'dijit/form/TextBox',
     'dijit/form/NumberTextBox',
@@ -19,7 +21,7 @@ define([
     'dijit/form/Button',
     'xstyle!dime/widget/offer/css/OfferWidget.css'
 ], function ( WidgetsInTemplateMixin, TemplatedMixin,  _Base, declare,  template,
-              OfferPositionWidget, StandardDiscountWidget, OfferDiscountWidget,  when, domProp) {
+              OfferPositionWidget, StandardDiscountWidget, OfferDiscountWidget,  when, domProp, ProjectDetailWidget, request) {
     return declare("dime.widget.offer.OfferWidget", [_Base, TemplatedMixin, WidgetsInTemplateMixin], {
 
         templateString: template,
@@ -47,6 +49,7 @@ define([
             this.shortDescriptionNode.set('parentWidget', this);
             this.descriptionNode.set('parentWidget', this);
             this.addressNode.set('parentWidget', this);
+            this.createprojectNode.set('parentWidget', this);
 
             //OfferPositions
             this.addOfferPositionNode.set('parentWidget', this);
@@ -149,6 +152,14 @@ define([
 
                 offerDiscountStore.put(newOfferDiscount).then(function(discount){
                     window.widgetManager.add(discount,'offerdiscounts',OfferDiscountWidget, parentWidget, offerDiscountsContainer)
+                });
+            });
+
+            //Create Project from Offer
+            this.createprojectNode.on('click', function(){
+                var OfferId = this.parentWidget.entity.id;
+                request.get('/api/v1/projects/offer/'+OfferId, {handleAs: 'json'}).then(function(data){
+                    window.widgetManager.addTab(data, 'projects', ProjectDetailWidget, 'contentTabs', 'Projekt ('+data.id+')', true);
                 });
             });
 

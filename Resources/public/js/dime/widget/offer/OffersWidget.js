@@ -13,8 +13,10 @@ define([
     'dijit/Dialog',
     'dijit/form/FilteringSelect',
     'dojo/when',
+    'dojo/request',
+    'dime/widget/project/ProjectDetailWidget'
 ], function ( WidgetsInTemplateMixin, TemplatedMixin,  _Base, declare,  OfferGrid, template,
-              OfferWidget, registry, Textbox, DateTextBox, Textarea, Dialog,  FilteringSelect, when) {
+              OfferWidget, registry, Textbox, DateTextBox, Textarea, Dialog,  FilteringSelect, when, request, ProjectDetailWidget) {
     return declare("dime.widget.offer.OfferWidget", [_Base, TemplatedMixin, WidgetsInTemplateMixin], {
 
         templateString: template,
@@ -27,7 +29,7 @@ define([
             this.editOfferNode.offersWidget = this;
             this.editOfferNode.offerGrid = this.offerGridNode;
             this.deleteOfferNode.offerGrid = this.offerGridNode;
-
+            this.createprojectNode.offerGrid = this.offerGridNode;
         },
 
         _addcallbacks: function(){
@@ -49,6 +51,14 @@ define([
             this.addOfferNode.on('click', function(){
                 //this in the button
                 window.storeManager.get('offers',true,false).add({name:'New Offer', accountant:1});
+            });
+            //Create Project from Offer
+            this.createprojectNode.on('click', function(){
+                for(var id in this.offerGrid.selection) {
+                    request.get('/api/v1/projects/offer/' + id, {handleAs: 'json'}).then(function (data) {
+                        window.widgetManager.addTab(data, 'projects', ProjectDetailWidget, 'contentTabs', 'Projekt (' + data.id + ')', true);
+                    });
+                }
             });
         },
 
