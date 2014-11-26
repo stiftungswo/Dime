@@ -10,11 +10,12 @@ define([
     'dime/widget/invoice/InvoiceItemTableWidget',
     'dojo/dom-prop',
     'dojo/request',
+    'dime/widget/timetrack/StandardDiscountWidget',
     'dijit/form/TextBox',
     'dijit/form/Button',
     //'dime/widget/customer/CustomerDetailWidget',
     'dijit/form/FilteringSelect'
-], function ( WidgetsInTemplateMixin, TemplatedMixin,  _Base, declare,  template, InvoiceItemTableWidget, domProp, request) {
+], function ( WidgetsInTemplateMixin, TemplatedMixin,  _Base, declare,  template, InvoiceItemTableWidget, domProp, request, StandardDiscountWidget) {
     return declare("dime.widget.invoice.InvoiceDetailWidget", [_Base, TemplatedMixin, WidgetsInTemplateMixin], {
 
         templateString: template,
@@ -72,10 +73,10 @@ define([
                 var discountsContainer = this.parentWidget.discountsContainer;
 
                 //put requires to update the widget, every time...
-                this.parentWidget.store.put({ standardDiscounts:standardDiscounts}, {id: this.parentWidget.entity.id}).then(function(offer){
+                this.parentWidget.store.put({ standardDiscounts: standardDiscounts}, {id: this.parentWidget.entity.id}).then(function(invoice){
                     //...update hapeens here!
-                    window.widgetManager.update(offer, 'offers');
-                    offer.standardDiscounts.forEach(function(discount){
+                    window.widgetManager.update(invoice, 'invoices');
+                    invoice.standardDiscounts.forEach(function(discount){
                         if(discount.id == newDiscountId ){
                             window.widgetManager.add(discount,'standarddiscounts',StandardDiscountWidget, parentWidget, discountsContainer).set("disabled", true);
                         }
@@ -89,7 +90,7 @@ define([
             this.itemtable.placeAt(this.itemNode);
             this.itemtable.startup();
             //Standard Discounts
-            var standardDiscounts = this.entity.standardDiscounts;
+            var standardDiscounts = this.entity.standardDiscounts, parentWidget = this, discountsContainer = this.discountsContainer;
             if(standardDiscounts){
                 this.entity.standardDiscounts.forEach(function(entity){
                     var widget = window.widgetManager.add(entity,'standarddiscounts',StandardDiscountWidget, parentWidget, discountsContainer);
