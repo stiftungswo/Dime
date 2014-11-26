@@ -58,7 +58,7 @@ define([
 
             //Standard Discounts
             this.addStandardDiscountSelectNode.set('parentWidget', this);
-            this.addStandardDiscountSelectNode.set('store', window.storeManager.get('standarddiscounts', true))
+            this.addStandardDiscountSelectNode.set('store', window.storeManager.get('standarddiscounts', true));
             this.addStandardDiscountNode.set('parentWidget', this);
 
             //OfferDiscounts

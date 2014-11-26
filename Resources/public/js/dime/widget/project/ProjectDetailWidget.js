@@ -93,27 +93,27 @@ define([
             var result;
             switch(this.dojoAttachPoint) {
                 case "nameNode":
-                    if(newvalue != entity.name)
-                        result = store.put({name: newvalue}, {id: entity.id} );
+                    if(newvalue == entity.name) return;
+                    result = store.put({name: newvalue}, {id: entity.id} );
                     break;
                 case "aliasNode":
-                    if(newvalue != entity.alias)
-                        result = store.put({alias: newvalue}, {id: entity.id} );
+                    if(newvalue == entity.alias) return;
+                    result = store.put({alias: newvalue}, {id: entity.id} );
                     break;
                 case "descriptionNode":
-                    if(newvalue != entity.description)
-                        result = store.put({description: newvalue}, {id: entity.id} );
+                    if(newvalue == entity.description) return;
+                    result = store.put({description: newvalue}, {id: entity.id} );
                     break;
                 case "rateGroupNode":
-                    if(newvalue != (entity.rateGroup ? entity.rateGroup.id : 0))
-                        result = store.put({rateGroup: newvalue}, {id: entity.id} );
+                    if(newvalue == (entity.rateGroup ? entity.rateGroup.id : 0)) return;
+                    result = store.put({rateGroup: newvalue}, {id: entity.id} );
                     break;
                 case "chargeableNode":
-                    if(newvalue != entity.chargeable)
-                        if(newvalue == false)
-                            result = store.put({chargeable: '0'}, {id: entity.id} );
-                        else
-                            result = store.put({chargeable: '1'}, {id: entity.id} );
+                    if(newvalue == entity.chargeable) return;
+                    if(newvalue == false)
+                        result = store.put({chargeable: '0'}, {id: entity.id} );
+                    else
+                        result = store.put({chargeable: '1'}, {id: entity.id} );
                     break;
                 default:
                     break;

@@ -11,7 +11,7 @@ define([
     'dijit/Dialog',
     'dojo/when',
     'dijit/form/Button',
-    'xstyle!dime/widget/timetrack/css/StandardDiscountWidget.css',
+    'xstyle!dime/widget/timetrack/css/StandardDiscountWidget.css'
 ], function (WidgetsInTemplateMixin, TemplatedMixin, _Base, declare,
              template, registry, Textbox, NumberTextBox, CheckBox,  Dialog , when) {
     return declare("dime.widget.timetrack.StandardDiscountWidget", [_Base, TemplatedMixin, WidgetsInTemplateMixin], {
@@ -56,7 +56,7 @@ define([
                                 newStandardDisocunts.push(discount.id);
                         });
                         //after put an update of the widget is necessary...
-                        var update = offerStore.put({standardDiscounts: newStandardDisocunts},{id:offerId})
+                        var update = offerStore.put({standardDiscounts: newStandardDisocunts},{id:offerId});
 
                         when(update, function(entity){
                             //... the update happens here!

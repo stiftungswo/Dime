@@ -52,6 +52,16 @@
 			</div>
 		</div>
 	</div>
+	<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props='selected:false, title:"Rechnungen"'>
+		<div class="dimeMenu" data-dojo-type="dijit.Menu">
+			<div data-dojo-type="dijit.MenuItem">
+				<span>Übersicht</span>
+				<script type="dojo/on" data-dojo-event="click">
+					app.addTab("contentTabs", '{{ path('frontend_invoices_view') }}', "Rechnungen", true);
+				</script>
+			</div>
+		</div>
+	</div>
 	<div data-dojo-type="dijit/layout/ContentPane" data-dojo-props='selected:false, title:"Mitarbeiter"'>
 		<div class="dimeMenu" data-dojo-type="dijit.Menu">
 			<div data-dojo-type="dijit.MenuItem">

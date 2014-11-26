@@ -108,4 +108,13 @@ class FrontendController extends Controller {
 		return $this->render('DimeFrontendBundle:Projects:view.html.twig');
 	}
 
+	/**
+	 * @return \Symfony\Component\HttpFoundation\Response
+	 * @Route("/view/invoices", name="frontend_invoices_view")
+	 */
+	public function viewInvoicesAction()
+	{
+		return $this->render('DimeFrontendBundle:Invoices:view.html.twig');
+	}
+
 } 
