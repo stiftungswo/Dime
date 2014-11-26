@@ -82,6 +82,7 @@ class Invoice extends Entity implements DimeEntityInterface
 	 *      joinColumns={@ORM\JoinColumn(name="invoice_id", referencedColumnName="id")},
 	 *      inverseJoinColumns={@ORM\JoinColumn(name="invoicediscount_id", referencedColumnName="id", unique=true)}
 	 *      )
+	 * @JMS\SerializedName("invoiceDiscounts")
 	 */
 	protected $invoiceDiscounts;
 
@@ -92,6 +93,7 @@ class Invoice extends Entity implements DimeEntityInterface
 	 *      joinColumns={@ORM\JoinColumn(name="invoice_id", referencedColumnName="id")},
 	 *      inverseJoinColumns={@ORM\JoinColumn(name="standard_discount_id", referencedColumnName="id", unique=true)}
 	 *      )
+	 * @JMS\SerializedName("standardDiscounts")
 	 */
 	protected $standardDiscounts;
 
