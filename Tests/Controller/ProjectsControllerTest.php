@@ -21,7 +21,7 @@ class ProjectsControllerTest extends DimeTestCase
 
         // assert that data has content
         $this->assertTrue(count($data) > 0, 'expected to find projects');
-        $this->assertEquals('CWE2011', $data[0]['name'], 'expected to find "CWE2011" first');
+        $this->assertEquals('Büro', $data[0]['name'], 'expected to find "Büro" first');
     }
 
     public function testGetProjectAction()
@@ -38,7 +38,7 @@ class ProjectsControllerTest extends DimeTestCase
 
         // assert that data has content
         $this->assertTrue(count($data) > 0, 'expected to find projects');
-        $this->assertEquals('CWE2011', $data['name'], 'expected to find "CWE2011"');
+        $this->assertEquals('Büro', $data['name'], 'expected to find "Büro"');
     }
 
     public function testPostPutDeleteProjectActions()

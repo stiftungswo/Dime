@@ -21,7 +21,7 @@ class CustomersControllerTest extends DimeTestCase
 
         // assert that data has content
         $this->assertTrue(count($data) > 0, 'expected to find customers');
-        $this->assertEquals('CWE Customer', $data[0]['name'], 'expected to find "Another Customer" first');
+        $this->assertEquals('StiftungSWO', $data[0]['name'], 'expected to find "Another Customer" first');
     }
 
     public function testGetCustomerAction()
@@ -38,7 +38,7 @@ class CustomersControllerTest extends DimeTestCase
 
         // assert that data has content
         $this->assertTrue(count($data) > 0, 'expected to find customers');
-        $this->assertEquals('CWE Customer', $data['name']);
+        $this->assertEquals('StiftungSWO', $data['name']);
     }
 
     public function testPostPutDeleteCustomerActions()
@@ -51,7 +51,7 @@ class CustomersControllerTest extends DimeTestCase
 		        'alias' => 'test'
 	        ))
         );
-        $this->assertEquals(201, $response->getStatusCode());
+        $this->assertEquals(201, $response->getStatusCode(), $response->getContent());
 
         // convert json to array
         $data = json_decode($response->getContent(), true);

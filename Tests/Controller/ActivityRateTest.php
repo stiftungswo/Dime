@@ -28,7 +28,8 @@ class ActivityRateTest extends DimeTestCase
         $response = $this->jsonRequest('POST', $this->api_prefix . '/services',
             json_encode(array(
                 'name' => 'Test service',
-                'alias' => 'Test service'
+                'alias' => 'Test service',
+	            'chargeable' => '1',
             ))
         );
         $this->assertEquals(201, $response->getStatusCode(), $response->getContent());
@@ -70,7 +71,7 @@ class ActivityRateTest extends DimeTestCase
             ))
         );
         $data = json_decode($response->getContent(), true);
-        $this->assertEquals(201, $response->getStatusCode());
+        $this->assertEquals(201, $response->getStatusCode(), $response->getContent());
         $testProjectId = $data['id'];
 
         //test activity
@@ -128,7 +129,7 @@ class ActivityRateTest extends DimeTestCase
         //rea rate on activity should be 100 because of default rate and not manually set
         $response = $this->jsonRequest('GET', $this->api_prefix . '/activities/' . $testActivityId);
         $data = json_decode($response->getContent(), true);
-        $this->assertEquals(200, $data['rate'], 'expected activity to use rate of test rate group with value 200');
+        $this->assertEquals(100, $data['rate'], 'expected activity to use rate of test rate group with value 200');
 
         // modify activity
         $response = $this->jsonRequest('PUT', $this->api_prefix.'/activities/' . $testActivityId, json_encode(array(

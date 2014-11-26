@@ -25,7 +25,7 @@ class ServicesControllerTest extends DimeTestCase
 
         // assert that data has content
         $this->assertTrue(count($data) > 0, 'expected to find services');
-        $this->assertEquals('Consulting', $data['name'], 'expected to find "consulting"');
+        $this->assertEquals('Zivistunden', $data['name'], 'expected to find "consulting"');
     }
 
     public function testPostPutDeleteServiceActions()

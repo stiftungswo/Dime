@@ -22,7 +22,7 @@ class ActivitiesControllerTest extends DimeTestCase
         // assert that data has content
         $this->assertTrue(count($data) > 0, 'expected to find activities');
 
-        $this->assertEquals('cwe: initial requirements meeting with customer', $data[0]['description']);
+        $this->assertEquals('DimERP Programmieren', $data[0]['description']);
     }
 
     public function testGetActivityAction()
@@ -39,7 +39,7 @@ class ActivitiesControllerTest extends DimeTestCase
 
         // assert that data has content
         $this->assertTrue(count($data) > 0, 'expected to find activities');
-        $this->assertEquals('cwe: initial requirements meeting with customer', $data['description'], 'expected to find "consulting"');
+        $this->assertEquals('DimERP Programmieren', $data['description'], 'expected to find "consulting"');
     }
 
     public function testPostPutDeleteActivityActions()
@@ -53,7 +53,7 @@ class ActivitiesControllerTest extends DimeTestCase
             'user'          => 1,
 	        'chargeableReference' => 'customer'
         )));
-        $this->assertEquals(201, $response->getStatusCode());
+        $this->assertEquals(201, $response->getStatusCode(), $response->getContent());
 
         // convert json to array
         $data = json_decode($response->getContent(), true);
