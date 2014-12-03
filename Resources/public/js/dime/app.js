@@ -12,11 +12,13 @@ define([
         "dime/store/storeManager",
         "dime/widget/dialogManager",
         "dime/widget/widgetManager",
+        "dime/event/eventManager",
         "dojo/NodeList-manipulate",
         "dojo/NodeList-traverse",
         "dime/module"
     ],
-    function(declare, parser, dom, domStyle, domGeometry, baseFx, ContentPane, registry, editor, storeManager, dialogManager, widgetManager) {
+    function(declare, parser, dom, domStyle, domGeometry, baseFx, ContentPane, registry,
+             editor, storeManager, dialogManager, widgetManager, eventManager) {
         return declare('dime.app', [], {
 
 
@@ -417,6 +419,7 @@ define([
                     window.storeManager = new storeManager();
                     window.dialogManager = new dialogManager();
                     window.widgetManager = new widgetManager();
+                    window.eventManager = new eventManager();
                 },
 
                 init: function () {

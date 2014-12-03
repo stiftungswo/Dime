@@ -1,83 +1,25 @@
 define([
     'dojo/_base/declare',
-    "dijit/layout/ContentPane",
-    "dijit/registry",
+    'dijit/layout/ContentPane',
+    'dijit/registry'
 ], function (declare, ContentPane, registry) {
     return declare('dime.widget.widgetManager',[],{
-        widgets: [],
-        get: function(entity, entitytype){
-            for(var i=0; i < this.widgets.length; i++){
-                var widget = this.widgets[i];
-                if(widget.entity.id == entity.id && widget.entitytype == entitytype){
-                    return widget;
-                }
-            }
-        },
-        all: function(entity, entitytype){
-            var widgets = [];
-            for(var i=0; i < this.widgets.length; i++){
-                var widget = this.widgets[i];
-                if(widget.entity.id == entity.id && widget.entitytype == entitytype){
-                    widget.push(widget);
-                }
-            }
-            return widgets;
-        },
-        add: function(entity, entitytype, widgettype, parent, container){
-            var widget = new widgettype({entity: entity, entitytype: entitytype});
-            if(parent){
-                widget.parentWidget = parent;
-                parent.children.push(widget);
+        add: function(entity, entitytype, widgettype, container, disabled){
+            disabled  = disabled || false;
+            require([widgettype], function(WidgetType){
+                var widget = new WidgetType({entity: entity, entitytype: entitytype, disabled: disabled});
                 if(container) {
-                    widget.placeAt(container);
+                    if(container.addChild){
+                        container.addChild(widget);
+                    } else {
+                        widget.placeAt(container);
+                    }
                 }
-            }
-            this.widgets.push(widget);
-            return widget;
-        },
-        remove: function(entity, entitytype){
-            this.foreach(entitytype, function(widget){
-                if(widget.entity.id == entity.id) {
-                    widget.destroyRecursive();
-                }
+                window.eventManager.fire('widgetCreate', entitytype, {widget: widget});
             });
-        },
-        removeChildren: function(parent){
-            for(var i=0; i < this.widgets.length; i++){
-                var widget = this.widgets[i];
-                if(widget.parentWidget == parent){
-                    widget.destroyRecursive();
-                }
-            }
-        },
-        update: function(entity, entitytype){
-            this.foreach(entitytype, function(widget){
-                if(widget.entity.id == entity.id){
-                    widget._updateValues(entity);
-                }
-            });
-        },
-        addChild: function(entity, entitytype){
-            for(var i=0; i < this.widgets.length; i++){
-                var widget= this.widgets[i];
-                widget._addChild(entity, entitytype);
-            }
-        },
-        register: function(entity, entitytype, widget){
-            widget.entitytype = entitytype;
-            widget.entity = entity;
-            this.widgets.push(widget);
-        },
-        foreach: function(entitytype, callback)
-        {
-            for(var i=0; i < this.widgets.length; i++){
-                var widget = this.widgets[i];
-                if(widget.entitytype == entitytype){
-                    callback(widget);
-                }
-            }
         },
         addTab: function(entity, entitytype, widgettype, tabContainer, title, closable){
+
             if (typeof tabContainer === "string"){
                 tabContainer = registry.byId(tabContainer);
             }
@@ -94,9 +36,12 @@ define([
                 tabContainer.addChild(tab);
             }
             tabContainer.selectChild(tab);
+            //tab.on('close', function(){
+                //this.destroyRecursive();
+                //window.widgetManager.destroyRecursive(this);
+            //});
 
-            var widget = this.add(entity, entitytype, widgettype, null, null);
-            tab.addChild(widget);
+            this.add(entity, entitytype, widgettype, tab);
         }
     });
 });

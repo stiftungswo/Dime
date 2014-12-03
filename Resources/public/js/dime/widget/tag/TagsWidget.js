@@ -14,28 +14,33 @@ define([
 
         templateString: template,
         baseClass: "tagsWidget",
-        store: window.storeManager.get('tags',false, true),
-
-
-        _setupChildren: function(){
-            this.GridNode.set('parentWidget', this);
-            this.deleteNode.set('parentWidget', this);
-            this.addNode.set('parentWidget', this);
-
-        },
-
-        _addcallbacks: function(){
-            this.deleteNode.on('click', function(){
-                //this in the button
-                for(var id in this.parentWidget.GridNode.selection){
-                    this.parentWidget.store.remove(id);
+        store: 'tags',
+        config: {
+            values: {
+                GridNode:{
+                    store: 'tags'
+                },
+                addNode: {},
+                deleteNode: {}
+            },
+            callbacks:{
+                deleteNode:{
+                    callbackName: 'click',
+                    callbackFunction: function(){
+                        //this in the button
+                        for(var id in this.getParent().GridNode.selection){
+                            this.getParent().getStore().remove(id);
+                        }
+                    }
+                },
+                addNode: {
+                    callbackName: 'click',
+                    callbackFunction: function(){
+                        //this in the button
+                        this.getParent().getStore().add({ name:'NewTag'});
+                    }
                 }
-            });
-            this.addNode.on('click', function(){
-                //this in the button
-                this.parentWidget.store.add({ name:'NewTag'});
-            });
+            }
         }
     });
 });
-

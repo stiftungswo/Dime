@@ -10,7 +10,7 @@
 	<!--<label>Kunde </label><div class="${baseClass}Customer" data-dojo-attach-point="customerNode" data-dojo-type="dime/widget/customer/CustomerDetailWidget" data-dojo-props="allowEdit: false, minimal: true" ></div><br/>-->
 
 	<label>Rechnungspositionen:</label><br/>
-	<div class="${baseClass}InvoiceItems" data-dojo-attach-point="itemNode"></div><br/>
+	<div class="${baseClass}InvoiceItems" data-dojo-attach-point="itemsNode" data-dojo-type="dime/widget/GenericTableWidget" data-dojo-props="doStartup: false"></div>
 
 	<label>Brutto </label><div class="${baseClass}Gross" data-dojo-attach-point="grossNode" data-dojo-type="dijit/form/TextBox"></div> CHF<br/>
 	<label>Netto </label><div class="${baseClass}net" data-dojo-attach-point="netNode" data-dojo-type="dijit/form/TextBox"></div> CHF<br/>

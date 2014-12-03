@@ -7,46 +7,51 @@ define([
     'dime/widget/_Base',
     'dojo/_base/declare',
     'dojo/text!dime/widget/service/templates/ServicesWidget.html',
-    'dime/widget/service/ServiceDetailWidget',
     'dojo/when',
     'dime/widget/service/ServiceGrid',
     'dijit/form/Button'
-], function ( WidgetsInTemplateMixin, TemplatedMixin,  _Base, declare, template, ServiceDetailWidget, when) {
+], function ( WidgetsInTemplateMixin, TemplatedMixin,  _Base, declare, template, when) {
     return declare("dime.widget.service.ServicesWidget", [_Base, TemplatedMixin, WidgetsInTemplateMixin], {
 
         templateString: template,
         baseClass: "servicesWidget",
-        store: window.storeManager.get('services',false, true),
-
-
-        _setupChildren: function(){
-            this.GridNode.set('parentWidget', this);
-            this.GridNode.set('store', this.store);
-            this.editNode.set('parentWidget', this);
-            this.deleteNode.set('parentWidget', this);
-            this.addNode.set('parentWidget', this);
-
-        },
-
-        _addcallbacks: function(){
-            this.editNode.on('click', function(){
-                //this in the button
-                for(var id in this.parentWidget.GridNode.selection){
-                    when(this.parentWidget.store.get(id)).then(function(item){
-                        window.widgetManager.addTab(item, 'services', ServiceDetailWidget, 'contentTabs', 'Service ('+item.id+')', true);
-                    });
+        store: 'services',
+        config: {
+            values: {
+                GridNode:{
+                    store: 'services'
+                },
+                editNode: {}
+            },
+            callbacks:{
+                editNode:{
+                    callbackName: 'click',
+                    callbackFunction: function(){
+                        //this in the button
+                        for(var id in this.getParent().GridNode.selection){
+                            when(this.getParent().getStore().get(id)).then(function(item){
+                                window.widgetManager.addTab(item, 'services', 'dime/widget/service/ServiceDetailWidget', 'contentTabs', 'Service ('+item.id+')', true);
+                            });
+                        }
+                    }
+                },
+                deleteNode:{
+                    callbackName: 'click',
+                    callbackFunction: function(){
+                        //this in the button
+                        for(var id in this.getParent().GridNode.selection){
+                            this.getParent().getStore().remove(id);
+                        }
+                    }
+                },
+                addNode: {
+                    callbackName: 'click',
+                    callbackFunction: function(){
+                        //this in the button
+                        this.getParent().getStore().add({ name:'New Service', alias:'newsrv'});
+                    }
                 }
-            });
-            this.deleteNode.on('click', function(){
-                //this in the button
-                for(var id in this.parentWidget.GridNode.selection){
-                    this.parentWidget.store.remove(id);
-                }
-            });
-            this.addNode.on('click', function(){
-                //this in the button
-                this.parentWidget.store.add({ name:'New Service', alias:'new'});
-            });
+            }
         }
     });
 });

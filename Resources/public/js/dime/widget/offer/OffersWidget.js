@@ -3,93 +3,71 @@ define([
     'dijit/_TemplatedMixin',
     'dime/widget/_Base',
     'dojo/_base/declare',
-    'dime/widget/offer/OfferGrid',
     'dojo/text!dime/widget/offer/templates/OffersWidget.html',
-    'dime/widget/offer/OfferWidget',
+    'dojo/when',
+    'dojo/request',
     'dijit/registry',
+    'dime/widget/offer/OfferDetailWidget',
+    'dime/widget/offer/OfferGrid',
     'dijit/form/TextBox',
     'dijit/form/DateTextBox',
     'dijit/form/Textarea',
     'dijit/Dialog',
-    'dijit/form/FilteringSelect',
-    'dojo/when',
-    'dojo/request',
-    'dime/widget/project/ProjectDetailWidget'
-], function ( WidgetsInTemplateMixin, TemplatedMixin,  _Base, declare,  OfferGrid, template,
-              OfferWidget, registry, Textbox, DateTextBox, Textarea, Dialog,  FilteringSelect, when, request, ProjectDetailWidget) {
-    return declare("dime.widget.offer.OfferWidget", [_Base, TemplatedMixin, WidgetsInTemplateMixin], {
+    'dijit/form/FilteringSelect'
+], function ( WidgetsInTemplateMixin, TemplatedMixin,  _Base, declare, template, when, request) {
+    return declare("dime.widget.offer.OffersWidget", [_Base, TemplatedMixin, WidgetsInTemplateMixin], {
 
         templateString: template,
         baseClass: "offersWidget",
-        store: null,
-
-
-        _setupChildren: function(){
-            this.offerGridNode.store = this.store;
-            this.editOfferNode.offersWidget = this;
-            this.editOfferNode.offerGrid = this.offerGridNode;
-            this.deleteOfferNode.offerGrid = this.offerGridNode;
-            this.createprojectNode.offerGrid = this.offerGridNode;
-        },
-
-        _addcallbacks: function(){
-            this.editOfferNode.on('click', function(){
-                //this in the button
-                for(var id in this.offerGrid.selection){
-                    when(this.offersWidget.store.get(id)).then(function(item){
-                        window.widgetManager.addTab(item, 'offers', OfferWidget, 'contentTabs', 'Offerte ('+item.id+')', true);
-                        //window.widgetManager.add(entity, 'activities', ActivityWidget, parentWidget, activityContainer)
-                    });
+        store: 'offers',
+        config: {
+            values: {
+                GridNode: {
+                    store: 'offers'
+                },
+                addNode: {},
+                editNode: {},
+                deleteNode: {},
+                projectNode: {}
+            },
+            callbacks: {
+                editNode:{
+                    callbackName: 'click',
+                    callbackFunction: function(){
+                        for(var id in this.getParent().GridNode.selection){
+                            when(this.getParent().getStore().get(id)).then(function(item){
+                                window.widgetManager.addTab(item, 'offers', 'dime/widget/offer/OfferDetailWidget', 'contentTabs', 'Offerte ('+item.id+')', true);
+                            });
+                        }
+                    }
+                },
+                deleteNode:{
+                    callbackName: 'click',
+                    callbackFunction: function(){
+                        //this in the button
+                        for(var id in this.getParent().GridNode.selection){
+                            this.getParent().getStore().remove(id);
+                        }
+                    }
+                },
+                addNode: {
+                    callbackName: 'click',
+                    callbackFunction: function(){
+                        //this in the button
+                        this.getParent().getStore().add({name:'New Offer', accountant:1});
+                    }
+                },
+                projectNode: {
+                    callbackName: 'click',
+                    callbackFunction: function() {
+                        for (var id in this.getParent().GridNode.selection) {
+                            request.get('/api/v1/projects/offer/' + id, {handleAs: 'json'}).then(function (data) {
+                                window.widgetManager.addTab(data, 'projects', 'dime/widget/project/ProjectDetailWidget', 'contentTabs', 'Projekt (' + data.id + ')', true);
+                            });
+                        }
+                    }
                 }
-            });
-            this.deleteOfferNode.on('click', function(){
-                //this in the button
-                for(var id in this.offerGrid.selection){
-                    when(window.storeManager.get('offers', true, false).remove(id));
-                }
-            });
-            this.addOfferNode.on('click', function(){
-                //this in the button
-                window.storeManager.get('offers',true,false).add({name:'New Offer', accountant:1});
-            });
-            //Create Project from Offer
-            this.createprojectNode.on('click', function(){
-                for(var id in this.offerGrid.selection) {
-                    request.get('/api/v1/projects/offer/' + id, {handleAs: 'json'}).then(function (data) {
-                        window.widgetManager.addTab(data, 'projects', ProjectDetailWidget, 'contentTabs', 'Projekt (' + data.id + ')', true);
-                    });
-                }
-            });
-        },
-
-
-        _fillValues: function(){
-            var parentWidget = this, offerPositionsContainer = this.offerPositionsContainer;
-            this.inherited(arguments);
-        },
-
-        _updateValues: function(entity){
-        },
-
-        _watchercallback: function(property, oldvalue, newvalue){
-            if(oldvalue == "") return;
-            //used because this points to caller not to THIS Widget. Above all elements were populated with parentwidget (THIS).
-            var offerId = this.parentWidget.entity.id;
-            var offerStore = this.parentWidget.store;
-            var result;
-            switch(this.dojoAttachPoint) {
-                case "offerGridNode":
-                    offerStore.put({name: newvalue}, {id: offerId} );
-                    break;
-                case "editOfferNode":
-                    offerStore.put({customer: newvalue}, {id: offerId});
-                    break;
-                default:
-                    break;
             }
-            result.then(function(data){
-                window.widgetManager.update(data, 'offers');
-            });
         }
     });
 });

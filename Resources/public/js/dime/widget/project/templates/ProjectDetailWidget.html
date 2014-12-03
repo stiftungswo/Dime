@@ -26,10 +26,10 @@
 	</div>
 	<div class="${baseClass}TabContainer" data-dojo-attach-point="tabContainer" data-dojo-type="dijit/layout/TabContainer" data-dojo-props="nested: true">
 		<div class="${baseClass}TabContainerPane" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="title:'Aktivitäten:', selected:true">
-			<div class="${baseClass}Activities" data-dojo-attach-point="activitiesNode"></div>
+			<div class="${baseClass}Activities" data-dojo-attach-point="activitiesNode" data-dojo-type="dime/widget/GenericTableWidget" data-dojo-props="doStartup: false"></div>
 		</div>
 		<div class="${baseClass}TabContainerPane" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="title:'Arbeit:'">
-			<div class="${baseClass}Timeslices" data-dojo-attach-point="timesliceNode"></div>
+			<div class="${baseClass}Timeslices" data-dojo-attach-point="timeslicesNode" data-dojo-type="dime/widget/GenericTableWidget" data-dojo-props="doStartup: false"></div>
 		</div>
 	</div>
 	<div data-dojo-attach-point="invoiceNode" data-dojo-type="dijit/form/Button">Rechnung erstellen</div>

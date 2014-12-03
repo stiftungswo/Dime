@@ -7,130 +7,175 @@ define([
     'dime/widget/_Base',
     'dojo/_base/declare',
     'dojo/text!dime/widget/project/templates/ProjectDetailWidget.html',
-    'dime/widget/activity/ActivitiesTableWidget',
-    'dime/widget/timeslice/TimesliceTableWidget',
-    'dime/widget/invoice/InvoiceDetailWidget',
+    'dojo/request',
+    'dime/widget/GenericTableWidget',
     'dijit/form/TextBox',
     'dijit/form/Button',
     'dijit/form/DateTextBox',
     'dijit/form/FilteringSelect',
     'dijit/form/CheckBox',
+    'dijit/layout/TabContainer',
+    'dijit/layout/ContentPane',
     'xstyle!dime/widget/project/css/ProjectDetailWidget.css'
-], function ( WidgetsInTemplateMixin, TemplatedMixin,  _Base, declare,  template, ActivitiesTableWidget, TimesliceTableWidget, InvoiceDetailWidget) {
+], function ( WidgetsInTemplateMixin, TemplatedMixin,  _Base, declare,  template, request) {
     return declare("dime.widget.project.ProjectDetailWidget", [_Base, TemplatedMixin, WidgetsInTemplateMixin], {
 
         templateString: template,
         baseClass: "projectDetailWidget",
-        store: window.storeManager.get('projects', false, true),
-
-
-        _setupChildren: function(){
-            this.nameNode.set('parentWidget', this);
-            this.aliasNode.set('parentWidget', this);
-            this.descriptionNode.set('parentWidget', this);
-            this.deadlineNode.set('parentWidget', this);
-
-            this.customerNode.set('disabled', true);
-            this.customerNode.set('store', window.storeManager.get('customers', false, true));
-
-            this.budgetPriceNode.set('disabled', true);
-            this.currentPriceNode.set('disabled', true);
-            this.budgetTimeNode.set('disabled', true);
-            this.currentTimeNode.set('disabled', true);
-            this.fixedPriceNode.set('disabled', true);
-
-            this.rateGroupNode.set('parentWidget', this);
-            this.rateGroupNode.set('store', window.storeManager.get('rategroups', false, true));
-
-            this.chargeableNode.set('parentWidget', this);
-        },
-
-        _addcallbacks: function(){
-            this.nameNode.watch('value', this._watchercallback);
-            this.aliasNode.watch('value', this._watchercallback);
-            this.descriptionNode.watch('value', this._watchercallback);
-            this.rateGroupNode.watch('value', this._watchercallback);
-            this.chargeableNode.watch('checked', this._watchercallback);
-            this.invoiceNode.on('click', function(){
-                request('/api/v1/invoices/project/' + this.parentWidget.entity.id, {handleAs: "json"}).then(function(entity){
-                    window.widgetManager.addTab(entity, 'invoices', InvoiceDetailWidget, 'contentTabs', 'Rechnung ('+entity.id+')', true);
-                });
-            });
-        },
-
-        _fillValues: function(){
-            this._updateValues(this.entity);
-            var entity = this.entity;
-            var activityStore = window.storeManager.get('activities', false, true), activityNode = this.activitiesNode;
-            var timesliceStore = window.storeManager.get('timeslices', false, true), timesliceNode = this.timesliceNode;
-            activityStore.query({project: entity.id}).then(function(activities){
-                var activitytable = new ActivitiesTableWidget({activities: activities});
-                activitytable.placeAt(activityNode);
-                activitytable.startup();
-            });
-            timesliceStore.query({project: entity.id}).then(function(timeslices){
-                var timeslicetable = new TimesliceTableWidget({timeslices: timeslices, activityquery: {project: entity.id}});
-                timeslicetable.placeAt(timesliceNode);
-                timeslicetable.startup();
-            });
-        },
-
-        _updateValues: function(entity){
-            this.inherited(arguments);
-            this.nameNode.set('value', entity.name);
-            this.aliasNode.set('value', entity.alias);
-            this.descriptionNode.set('value', entity.description || '');
-            this.rateGroupNode.set('value', entity.rateGroup ? entity.rateGroup.id : 1);
-            this.customerNode.set('value', entity.customer ? entity.customer.id : 1);
-            this.budgetPriceNode.set('value', entity.budgetPrice || '');
-            this.currentPriceNode.set('value', entity.currentPrice || '');
-            this.budgetTimeNode.set('value', entity.budgetTime || '');
-            this.currentTimeNode.set('value', entity.currentTime || '');
-            this.fixedPriceNode.set('value', entity.fixedPrice || '');
-            this.chargeableNode.set('checked', entity.chargeable || true);
-        },
-
-        _watchercallback: function(property, oldvalue, newvalue){
-            if(oldvalue == '') return;
-            if(oldvalue == newvalue) return;
-            //used because this points to caller not to THIS Widget. Above all elements were populated with parentwidget (THIS).
-            var entity = this.parentWidget.entity;
-            var store = this.parentWidget.store;
-            var result;
-            switch(this.dojoAttachPoint) {
-                case "nameNode":
-                    if(newvalue == entity.name) return;
-                    result = store.put({name: newvalue}, {id: entity.id} );
-                    break;
-                case "aliasNode":
-                    if(newvalue == entity.alias) return;
-                    result = store.put({alias: newvalue}, {id: entity.id} );
-                    break;
-                case "descriptionNode":
-                    if(newvalue == entity.description) return;
-                    result = store.put({description: newvalue}, {id: entity.id} );
-                    break;
-                case "rateGroupNode":
-                    if(newvalue == (entity.rateGroup ? entity.rateGroup.id : 0)) return;
-                    result = store.put({rateGroup: newvalue}, {id: entity.id} );
-                    break;
-                case "chargeableNode":
-                    if(newvalue == entity.chargeable) return;
-                    if(newvalue == false)
-                        result = store.put({chargeable: '0'}, {id: entity.id} );
-                    else
-                        result = store.put({chargeable: '1'}, {id: entity.id} );
-                    break;
-                default:
-                    break;
+        store: 'projects',
+        entityType: 'projects',
+        independant: true,
+        config: {
+            values: {
+                nameNode: {
+                    widgetProperty: 'value',
+                    entityProperty: 'name',
+                    nullValue: ''
+                },
+                aliasNode: {
+                    widgetProperty: 'value',
+                    entityProperty: 'alias',
+                    nullValue: ''
+                },
+                descriptionNode: {
+                    widgetProperty: 'value',
+                    entityProperty: 'description',
+                    nullValue: ''
+                },
+                deadlineNode: {
+                    widgetProperty: 'value',
+                    entityProperty: 'deadline',
+                    nullValue: new Date()
+                },
+                customerNode: {
+                    widgetProperty: 'value',
+                    entityProperty: 'customer',
+                    nullValue: '',
+                    disabled: true,
+                    store: 'customers',
+                    idProperty: 'id'
+                },
+                rateGroupNode: {
+                    widgetProperty: 'value',
+                    entityProperty: 'rateGroup',
+                    nullValue: '',
+                    store: 'rategroups',
+                    idProperty: 'id'
+                },
+                budgetPriceNode: {
+                    widgetProperty: 'value',
+                    entityProperty: 'budgetPrice',
+                    nullValue: '',
+                    disabled: true
+                },
+                currentPriceNode: {
+                    widgetProperty: 'value',
+                    entityProperty: 'currentPrice',
+                    nullValue: '',
+                    disabled: true
+                },
+                budgetTimeNode: {
+                    widgetProperty: 'value',
+                    entityProperty: 'budgetTime',
+                    nullValue: '',
+                    disabled: true
+                },
+                currentTimeNode: {
+                    widgetProperty: 'value',
+                    entityProperty: 'currentTime',
+                    nullValue: '',
+                    disabled: true
+                },
+                fixedPriceNode: {
+                    widgetProperty: 'value',
+                    entityProperty: 'fixedPrice',
+                    nullValue: '',
+                    disabled: true
+                },
+                chargeableNode: {
+                    widgetProperty: 'value',
+                    entityProperty: 'chargeable',
+                    nullValue: true,
+                    disabled: true
+                },
+                activitiesNode: {
+                    childWidgetType: 'dime/widget/activity/ActivitiesTableRowWidget',
+                    header: [ 'Service', 'Projekt', 'Mitarbeiter', 'Beschreibung', 'Anzahl', 'Einheit', 'Preis per Einheit', 'Preis' ],
+                    store: 'activities',
+                    entitytype: 'activities',
+                    unidirectional: false,
+                    widgetProperty: 'updateValues',
+                    prototype:  {
+                        project: 'entityref:id',
+                        service: 1
+                    },
+                    entityProperty: 'activities'
+                },
+                timeslicesNode: {
+                    childWidgetType: 'dime/widget/timeslice/TimesliceTableRowWidget',
+                    queryPrototype: {
+                        project: 'id'
+                    },
+                    prototype:  {
+                        project: 'entityref:id'
+                    },
+                    header: [ 'Datum', 'Mitarbeiter', 'Aktivität', 'Zeit' ],
+                    store: 'timeslices',
+                    entitytype: 'timeslices'
+                }
+            },
+            callbacks:{
+                invoiceNode:{
+                    callbackName: 'click',
+                    callbackFunction: function() {
+                        request('/api/v1/invoices/project/' + this.getParent().entity.id, {handleAs: "json"}).then(function(entity){
+                            window.widgetManager.addTab(entity, 'invoices', 'dime/widget/invoice/InvoiceDetailWidget', 'contentTabs', 'Rechnung ('+entity.id+')', true);
+                        });
+                    }
+                }
+            },
+            events:{
+                updateActivities:{
+                    Topic: 'entityUpdate',
+                    subTopic: 'activities',
+                    eventFunction: 'updateActivities'
+                },
+                createActivities:{
+                    Topic: 'entityCreate',
+                    subTopic: 'activities',
+                    eventFunction: 'updateActivities'
+                },
+                updateTimeslices:{
+                    Topic: 'entityUpdate',
+                    subTopic: 'timeslices',
+                    eventFunction: 'updateTimeslices'
+                },
+                createTimeslices:{
+                    Topic: 'entityCreate',
+                    subTopic: 'timeslices',
+                    eventFunction: 'updateTimeslices'
+                }
             }
-            result.then(function(data){
-                window.widgetManager.update(data, 'projects');
-            });
         },
 
         resize: function(){
             this.tabContainer.resize();
+        },
+
+        updateActivities: function(arg){
+            var activity = arg.entity, changedProperty = arg.changedProperty, oldValue = arg.oldValue;
+            var newValue = arg.newValue, base = this, project = this.entity;
+            if(activity.project.id === project.id){
+                base.forceUpdate();
+            }
+        },
+
+        updateTimeslices: function(arg){
+            var timeslice = arg.entity, changedProperty = arg.changedProperty, oldValue = arg.oldValue;
+            var newValue = arg.newValue, base = this, project = this.entity;
+            if(timeslice.project.id === project.id){
+                base.forceUpdate();
+            }
         }
 
     });

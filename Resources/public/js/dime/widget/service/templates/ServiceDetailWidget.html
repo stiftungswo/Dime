@@ -5,18 +5,10 @@
 
     <label for="description">Beschreibung </label><div class="${baseClass}Description" data-dojo-attach-point="descriptionNode" data-dojo-type="dijit/form/TextBox"></div><br>
 
-    <label for="chargeable">Verechenbar </label><div class="${baseClass}Chargeable" data-dojo-attach-point="chargeableNode" data-dojo-type="dijit/form/TextBox" ></div><br>
+    <label for="chargeable">Verechenbar </label><div class="${baseClass}Chargeable" data-dojo-attach-point="chargeableNode" data-dojo-type="dijit/form/CheckBox" ></div><br>
 
     <label for="vat">MwSt </label><div class="${baseClass}Vat" data-dojo-attach-point="vatNode" data-dojo-type="dijit/form/NumberTextBox" ></div><br>
 
     <label>Raten</label>
-    <table>
-        <div data-dojo-attach-point="RateContainer"></div>
-    </table>
-
-    <br>
-
-    <div data-dojo-attach-point="RateCtrlNode">
-        <div data-dojo-attach-point="addRateNode" data-dojo-type="dijit/form/Button" data-dojo-props="'class':'primary'">+</div>
-    </div>
+	<div class="${baseClass}Rates" data-dojo-attach-point="ratesNode" data-dojo-type="dime/widget/GenericTableWidget" data-dojo-props="doStartup: false"></div>
 </div>

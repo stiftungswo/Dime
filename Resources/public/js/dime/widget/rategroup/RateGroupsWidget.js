@@ -14,26 +14,33 @@ define([
 
         templateString: template,
         baseClass: "rategroupsWidget",
-        store: window.storeManager.get('rategroups',false, true),
-
-
-        _setupChildren: function(){
-            this.GridNode.set('parentWidget', this);
-            this.deleteNode.set('parentWidget', this);
-            this.addNode.set('parentWidget', this);
-        },
-
-        _addcallbacks: function(){
-            this.deleteNode.on('click', function(){
-                //this in the button
-                for(var id in this.parentWidget.GridNode.selection){
-                    this.parentWidget.store.remove(id);
+        store: 'rategroups',
+        config: {
+            values: {
+                GridNode:{
+                    store: 'rategroups'
+                },
+                addNode: {},
+                deleteNode: {}
+            },
+            callbacks:{
+                deleteNode:{
+                    callbackName: 'click',
+                    callbackFunction: function(){
+                        //this in the button
+                        for(var id in this.getParent().GridNode.selection){
+                            this.getParent().getStore().remove(id);
+                        }
+                    }
+                },
+                addNode: {
+                    callbackName: 'click',
+                    callbackFunction: function(){
+                        //this in the button
+                        this.getParent().getStore().add({ name:'NewRateGroup'});
+                    }
                 }
-            });
-            this.addNode.on('click', function(){
-                //this in the button
-                this.parentWidget.store.add({ name:'NewRateGroup'});
-            });
+            }
         }
     });
 });

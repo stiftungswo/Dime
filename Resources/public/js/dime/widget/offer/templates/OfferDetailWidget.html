@@ -22,31 +22,16 @@
 
         <label>Beschreibung </label><div class="${baseClass}Description" data-dojo-attach-point="descriptionNode" data-dojo-type="dijit/form/Textarea"></div><br>
 
-        <!-- //TODO urfr project to be desplayed -->
-
-        <!-- //TODO urfr offerpositions -->
-
-
 
         <label>Offerten Positionen</label>
-        <div class="${baseClass}OfferPositionsContainer" data-dojo-attach-point="offerPositionsContainer"></div>
-        <br>
-        <div data-dojo-attach-point="addOfferPositionNode" data-dojo-type="dijit/form/Button" data-dojo-props="'class':'primary'">+</div>
-        <br>
-        <br>
+	    <div class="${baseClass}OfferPositionsNode" data-dojo-attach-point="offerPositionsNode" data-dojo-type="dime/widget/GenericTableWidget" data-dojo-props="doStartup: false"></div>
+
         <label>Standard Abzüge</label>
-        <div class="${baseClass}DiscountsContainer" data-dojo-attach-point="discountsContainer"></div>
-        <br>
-        <div class="${baseClass}StandardDiscountSelect" data-dojo-attach-point="addStandardDiscountSelectNode" data-dojo-type="dijit/form/FilteringSelect"></div>
-        <div data-dojo-attach-point="addStandardDiscountNode" data-dojo-type="dijit/form/Button" data-dojo-props="'class':'primary'">+</div>
-        <br>
-        <br>
+	    <div class="${baseClass}DiscountsNode" data-dojo-attach-point="discountsNode" data-dojo-type="dime/widget/GenericTableWidget" data-dojo-props="doStartup: false"></div>
+
         <label>Abzüge</label>
-        <div class="${baseClass}OfferDiscountsContainer" data-dojo-attach-point="offerDiscountsContainer"></div>
-        <br>
-        <div data-dojo-attach-point="addOfferDiscountNode" data-dojo-type="dijit/form/Button" data-dojo-props="'class':'primary'">+</div>
-        <br>
-        <br>
+	    <div class="${baseClass}OfferDiscountsNode" data-dojo-attach-point="offerDiscountsNode" data-dojo-type="dime/widget/GenericTableWidget" data-dojo-props="doStartup: false"></div>
+
         <label>Total</label><br>
         <br>
         <label>Subtotal </label><div class="${baseClass}Subtotal" data-dojo-attach-point="subtotalNode" data-dojo-type="dijit/form/NumberTextBox" ></div><br>
@@ -56,7 +41,7 @@
         <label>Fixpreis </label><div class="${baseClass}fixedPrice" data-dojo-attach-point="fixedPriceNode" data-dojo-type="dijit/form/NumberTextBox" ></div><br>
 		<br/>
 	    <a data-dojo-attach-point="printNode" class="icon-print" href=""></a>
-	    <button data-dojo-attach-point="createprojectNode" data-dojo-type="dijit/form/Button">Auftrag erstellen</button>
+	    <button data-dojo-attach-point="projectNode" data-dojo-type="dijit/form/Button">Auftrag erstellen</button>
 	    <br/>
     </div>
 </div>
