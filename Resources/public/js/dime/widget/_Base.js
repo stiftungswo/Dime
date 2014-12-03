@@ -242,7 +242,7 @@ define([
                         attachPoint.customStartup();
                     }
                 } else {
-                    console.log('Wrong attachtPoint '+ nodeKey);
+                    console.log('Wrong attachPoint '+ nodeKey);
                 }
             }
         },
