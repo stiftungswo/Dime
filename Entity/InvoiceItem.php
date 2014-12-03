@@ -18,7 +18,7 @@ use Knp\JsonSchemaBundle\Annotations as Json;
 /**
  * Class InvoiceItem
  * @package Dime\InvoiceBundle\Entity
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="Dime\InvoiceBundle\Entity\InvoiceItemRepository")
  * @ORM\Table(name="invoice_items")
  * @Json\Schema("invoiceItems")
  */
