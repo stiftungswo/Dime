@@ -202,8 +202,14 @@ define([
 
         removeSelectedChildren: function(){
             var children = this.getSelectedChildren();
+            var createable = this.createable, linkable = this.linkable, subentity = this.subentity;
+            var table = this, parentEntity = table._getParentEntity();
             children.forEach(function(child){
-                child.cleanDestroy();
+                if(createable) {
+                    child.cleanDestroy();
+                } else if(linkable || subentity) {
+                    table.unlinkEntity(child.entity, parentEntity);
+                }
             });
         },
 
@@ -321,6 +327,36 @@ define([
                 });
             });
         },
+
+        unlinkEntity: function(entity, parent){
+            var table = this;
+            var parentStore = table.getParent().getStore();
+            var parentEntityType = table.getParent().entitytype;
+            var entityProperty = table.entityProperty;
+            parent = parent || table._getParentEntity();
+            var ids = [], oldids = [], hash = {}, entities = table.value;
+            for(var i=0; i < entities.length ; i++){
+                var subent = entities[i];
+                oldids.push(subent.id);
+            }
+            for(var l=0; l < entities.length ; l++){
+                var subent2 = entities[l];
+                if(subent2.id !== entity.id) {
+                    ids.push(subent2.id);
+                }
+            }
+            hash[entityProperty] = ids;
+            parentStore.put(hash, {id: parent.id}).then(function(result){
+                window.eventManager.fire('entityUpdate', parentEntityType, {
+                    entity: result,
+                    changedProperty: entityProperty,
+                    oldValue: oldids,
+                    newValue: ids,
+                    fromStore: true
+                });
+            });
+        },
+
         addEntityToParent: function(subEntity, parent){
             var table= this;
             parent = parent || table._getParentEntity();
