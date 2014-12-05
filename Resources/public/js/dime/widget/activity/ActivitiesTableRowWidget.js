@@ -13,7 +13,7 @@ define([
         templateString: template,
         baseClass: "activitiesTableRowWidget",
         store: 'activities',
-
+        independant: true,
         config: {
             values: {
                 chargeNode: {
@@ -69,7 +69,7 @@ define([
             }
         },
 
-        _fillValues: function(){
+        _updateValues: function(){
             this.inherited(arguments);
             if(this.entity.rateUnitType != 0){
                 this.valueNode.set('disabled', true);

@@ -17,6 +17,7 @@ define([
         templateString: template,
         baseClass: "rateWidget",
         store: 'rates',
+        independant: true,
         config: {
             values: {
                 rateGroupNode: {

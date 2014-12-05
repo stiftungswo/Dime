@@ -41,13 +41,19 @@ define([
 
         prototype: null,
 
+        createable: false,
+
+        linkable: false,
+
+        subentity: false,
+
         //Make one Childwidget for every Entity found i either Value or queried from store
         _InitTable: function(){
             if(this.entity){
                 this.value = this.entity;
                 delete this.entity;
             }
-            var header = this.header, row = domConstruct.create('tr'), thead = this.tableHead, base = this;
+            var header = this.header, row = domConstruct.create('tr'), thead = this.tableHead, base = this, entityType = this.entitytype;
             for(var count=0; count < header.length; count++){
                 var td = domConstruct.create('td', {
                     innerHTML: header[count]
@@ -73,12 +79,28 @@ define([
 
                 }
             } else {
-                this.selectEntNode.destroyRecursive();
+                this.selectEntNode.destroy();
             }
+            if(! this.createable && !this.linkable && !this.subentity){
+                this.addRowNode.destroy();
+                this.delRowNode.destroy();
+            }
+            window.eventManager.subscribe('widgetCreate', entityType, base.id, function(arg){
+                var widget = arg.widget, parent = widget.getParent();
+                if(parent.id === base.id) {
+                    window.widgetManager.add(widget.entity, entityType, 'dijit/form/CheckBox', widget)
+                }
+            });
         },
 
         _updateValues: function(value){
-            var table = this, childWidgetType = this.childWidgetType, entitytype = this.entitytype, disabled = this.disabled;
+            var table = this, childWidgetType = this.childWidgetType, entitytype = this.entitytype, disabled = this.disabled, query = table.query, store = table.getStore();
+            if(query && value == null){
+                store.query(query).then(function(result){
+                    table._updateValues(result);
+                });
+                return;
+            }
             this.value = value;
             var children = this.getChildWidgets();
             for (var i = 0; i < value.length; i++) {
@@ -103,54 +125,19 @@ define([
 
         _addcallbacks: function(){
             //Function to add an entity in a List
+            //Todo Clone Function via Select Checkbox.
             this.addRowNode.on('click', function(){
-                var table = this.getParent(), prototype = table.prototype, selectNode = table.selectEntNode, store = table.getStore(), entityType = table.entitytype;
-                var entity = table._getParentEntity(), entityProperty = table.entityProperty, initialobject, unidirectional = table.unidirectional;
-                var parentStore = table.getParent().getStore();
-                var parentEntityType = table.getParent().entitytype;
-                if(prototype) {
-                    initialobject = table._resolvePrototype(prototype);
-                } else {
-                    //Todo Find better solution to get object of id, as dojo.when would require async programming
-                    initialobject = when(store.get(selectNode.get('value')), function(entity){return entity;})
-                }
-                if(!unidirectional){
-                    store.put(initialobject).then(function(result){
-                        window.eventManager.fire('entityCreate', entityType, {
-                            entity: result
-                        });
-                    });
-                    return;
-                }
-                var ids = [], oldids = [], hash = {}, entities = entity[entityProperty];
-                for(var i=0; i < entities.length ; i++){
-                    var subent = entities[i];
-                    ids.push(subent.id);
-                }
-                oldids = ids.slice(0);
-                ids.push(initialobject.id);
-                hash[entityProperty] = ids;
-                parentStore.put(hash, {id: entity.id}).then(function(result){
-                    window.eventManager.fire('entityUpdate', parentEntityType, {
-                        entity: result,
-                        changedProperty: entityProperty,
-                        oldValue: oldids,
-                        newValue: ids,
-                        fromStore: true
-                    });
-                });
+                var table = this.getParent();
+                //if(table.getSelectedChildren()){
+                //  table.cloneSelectedChildren();
+                //} else {
+                table.addNewChild();
+                //}
             });
 
             this.delRowNode.on('click', function(){
-                //Take Selection
-
-                //Take parent and Update Relation
-                //Fire EntityUpdate on sucess
-
-                //If not Unidirectional use entity CleanDestroy
-
-                //Else use destroyWidget
-
+                var table = this.getParent();
+                table.removeSelectedChildren();
             });
 
         },
@@ -167,8 +154,74 @@ define([
             return store;
         },
 
+        addNewChild: function(prototype){
+            var table = this, entity;
+            prototype = prototype || table.prototype;
+            var createable = table.createable, linkable = table.linkable, subentity = table.subentity;
+            if(prototype) {
+                entity = table._resolvePrototype(prototype);
+            } else {
+                //Todo Find better solution to get object of id, as dojo.when would require async programming
+                entity = when(store.get(selectNode.get('value')), function(entity){return entity;})
+            }
+            if(createable){
+                table.putEntity(entity, linkable);
+            } else if(linkable) {
+                table.linkEntity(entity);
+            } else if(subentity){
+                table.addEntityToParent(entity);
+            } else {
+                console.log('Table ' + table.id + ' does not know what to do, as neither creatable, linkable or subentity are true');
+            }
+        },
+
+        getSelectedChildren: function(){
+            var children = this.getChildren();
+            var selectedchildren = [];
+            for(var i=0; i<children.length; i++){
+                var child = children[i];
+                var childrenschildren = child.getChildren();
+                for(var l=0; l<childrenschildren.length; l++){
+                    var childChild = childrenschildren[l];
+                    var childChildtype = this.ifget(childChild, 'type'), childChildValue = this.ifget(childChild, 'value');
+                    if(childChildtype === 'checkbox' && childChildValue === 'on'){
+                        selectedchildren.push(child);
+                    }
+                }
+            }
+            return selectedchildren;
+        },
+
+        ifget: function(widget, property){
+            if(widget) {
+                if (widget.get) {
+                    return widget.get(property);
+                }
+            }
+        },
+
+        removeSelectedChildren: function(){
+            var children = this.getSelectedChildren();
+            children.forEach(function(child){
+                child.cleanDestroy();
+            });
+        },
+
+        cloneSelectedChildren: function(){
+
+        },
+
         _getParentEntity: function(){
-            return this.getParent().entity;
+            var hasentity = false, entity;
+            var parent = this.getParent();
+            while(!hasentity){
+                if(parent.entity){
+                    entity = parent.entity;
+                    hasentity = true;
+                }
+                parent = parent.getParent();
+            }
+            return entity;
         },
 
         _resolvePrototype: function(prototype){
@@ -229,6 +282,65 @@ define([
 
         getChildWidgets: function(){
             return this.containerNode ? registry.findWidgets(this.containerNode) : []; // dijit/_WidgetBase[]
+        },
+
+        putEntity: function(entity, link){
+            link = link || false;
+            var entityType = this.entitytype, store = this.getStore();
+            store.put(entity).then(function(result){
+                window.eventManager.fire('entityCreate', entityType, {
+                    entity: result
+                });
+                if(link){
+                    this.linkEntity(result);
+                }
+            });
+        },
+
+        linkEntity: function(entity, parent){
+            var table = this;
+            var parentStore = table.getParent().getStore();
+            var parentEntityType = table.getParent().entitytype;
+            var entityProperty = table.entityProperty;
+            parent = parent || table._getParentEntity();
+            var ids = [], oldids = [], hash = {}, entities = table.value;
+            for(var i=0; i < entities.length ; i++){
+                var subent = entities[i];
+                ids.push(subent.id);
+            }
+            oldids = ids.slice(0);
+            ids.push(entity.id);
+            hash[entityProperty] = ids;
+            parentStore.put(hash, {id: parent.id}).then(function(result){
+                window.eventManager.fire('entityUpdate', parentEntityType, {
+                    entity: result,
+                    changedProperty: entityProperty,
+                    oldValue: oldids,
+                    newValue: ids,
+                    fromStore: true
+                });
+            });
+        },
+        addEntityToParent: function(subEntity, parent){
+            var table= this;
+            parent = parent || table._getParentEntity();
+            var parentStore = table.getParent().getStore();
+            var parentEntityType = table.getParent().entitytype;
+            var entityProperty = table.entityProperty;
+            var entities = table.value;
+            var oldentities = entities.slice(0);
+            entities.push(subEntity);
+            var hash = {};
+            hash[entityProperty] = entities;
+            parentStore.put(hash, {id: parent.id}).then(function(result) {
+                window.eventManager.fire('entityUpdate', parentEntityType, {
+                    entity: result,
+                    changedProperty: entityProperty,
+                    oldValue: oldentities,
+                    newValue: entities,
+                    fromStore: true
+                });
+            });
         }
 
     });

@@ -120,7 +120,8 @@ define([
                         discountable: true,
                         vat: 0.08
                     },
-                    unidirectional: false,
+                    createable: true,
+                    linkable: false,
                     store: 'offerpositions',
                     entityProperty: 'offerPositions',
                     entitytype: 'offerpositions'
@@ -130,7 +131,8 @@ define([
                     header: [ 'Name', 'Reduktion', 'Prozent', 'Wert' ],
                     widgetProperty: 'updateValues',
                     entityProperty: 'standardDiscounts',
-                    unidirectional: true,
+                    createable: false,
+                    linkable: true,
                     selectable: {
                         store: 'standarddiscounts'
                     },
@@ -142,7 +144,8 @@ define([
                     childWidgetType: 'dime/widget/offer/OfferDiscountRowWidget',
                     header: [ 'Name', 'Reduktion', 'Prozent', 'Wert' ],
                     widgetProperty: 'updateValues',
-                    unidirectional: false,
+                    createable: true,
+                    linkable: false,
                     store: 'offerdiscounts',
                     entityProperty: 'offerDiscounts',
                     entitytype: 'offerdiscounts'

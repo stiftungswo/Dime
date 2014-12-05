@@ -103,13 +103,15 @@ define([
                     header: [ 'Service', 'Projekt', 'Mitarbeiter', 'Beschreibung', 'Anzahl', 'Einheit', 'Preis per Einheit', 'Preis' ],
                     store: 'activities',
                     entitytype: 'activities',
-                    unidirectional: false,
+                    createable: true,
                     widgetProperty: 'updateValues',
                     prototype:  {
                         project: 'entityref:id',
                         service: 1
                     },
-                    entityProperty: 'activities'
+                    queryPrototype: {
+                        project: 'id'
+                    }
                 },
                 timeslicesNode: {
                     childWidgetType: 'dime/widget/timeslice/TimesliceTableRowWidget',
@@ -119,6 +121,7 @@ define([
                     prototype:  {
                         project: 'entityref:id'
                     },
+                    createable: true,
                     header: [ 'Datum', 'Mitarbeiter', 'Aktivität', 'Zeit' ],
                     store: 'timeslices',
                     entitytype: 'timeslices'

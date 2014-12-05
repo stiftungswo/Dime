@@ -67,14 +67,16 @@ define([
                     entitytype: 'invoiceitems',
                     widgetProperty: 'updateValues',
                     entityProperty: 'items',
-                    unidirectional: false
+                    createable: false,
+                    linkable: false
                 },
                 discountsNode: {
                     childWidgetType: 'dime/widget/timetrack/StandardDiscountRowWidget',
                     header: [ 'Name', 'Reduktion', 'Prozent', 'Wert' ],
                     widgetProperty: 'updateValues',
                     entityProperty: 'standardDiscounts',
-                    unidirectional: true,
+                    createable: false,
+                    linkable: true,
                     selectable: {
                         store: 'standarddiscounts'
                     },
@@ -86,7 +88,8 @@ define([
                 //    childWidgetType: 'dime/widget/offer/OfferDiscountRowWidget',
                 //    header: [ 'Name', 'Reduktion', 'Prozent', 'Wert' ],
                 //    widgetProperty: 'updateValues',
-                //    unidirectional: false,
+                //    createable: true,
+                //    linkable: false,
                 //    store: 'offerdiscounts',
                 //    entityProperty: 'offerDiscounts',
                 //    entitytype: 'offerdiscounts'

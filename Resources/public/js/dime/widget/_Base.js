@@ -280,18 +280,29 @@ define([
             for (var nodeKey in config.values) {
                 var attachPoint = base[nodeKey], node = config.values[nodeKey];
                 if(attachPoint) {
+                    var focused = attachPoint.get('focused');
                     if (node.widgetProperty) {
                         if (node.widgetProperty === 'updateValues') {
-                            attachPoint._updateValues(entity[node.entityProperty]);
+                            if(node.entityProperty) {
+                                attachPoint._updateValues(entity[node.entityProperty]);
+                            } else {
+                                attachPoint._updateValues(null);
+                            }
                         } else if (node.idProperty) {
                             var value = entity[node.entityProperty];
                             if (value) {
-                                attachPoint.set(node.widgetProperty, value[node.idProperty]);
+                                if(!focused) {
+                                    attachPoint.set(node.widgetProperty, value[node.idProperty]);
+                                }
                             } else {
-                                attachPoint.set(node.widgetProperty, node.nullValue);
+                                if(!focused) {
+                                    attachPoint.set(node.widgetProperty, node.nullValue);
+                                }
                             }
                         } else {
-                            attachPoint.set(node.widgetProperty, entity[node.entityProperty] || node.nullValue);
+                            if(!focused) {
+                                attachPoint.set(node.widgetProperty, entity[node.entityProperty] || node.nullValue);
+                            }
                         }
                     }
                 }
@@ -349,7 +360,6 @@ define([
 
         //Generic Callback for the watch function which uses the config object to update the entity if needed.
         _watcherCallback: function(property, oldvalue, newvalue){
-            if(oldvalue == "") return;
             if(oldvalue == newvalue) return;
             var handler;
             if(this.handlesEntity){
@@ -366,7 +376,11 @@ define([
                     var hash = {}, optionhash = {};
                     var idProperty = node.idProperty || configdefaults.idProperty;
                     var entityProperty = node.entityProperty;
-                    if(entity[entityProperty] == newvalue) return;
+                    if(entity[entityProperty].id){
+                        if (entity[entityProperty].id == newvalue) return;
+                    } else {
+                        if (entity[entityProperty] == newvalue) return;
+                    }
                     if (independant) {
                         if(newvalue === false) newvalue = '0';
                         if(newvalue === true) newvalue ='1';

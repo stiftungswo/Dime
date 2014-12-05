@@ -7,7 +7,7 @@ define([
     'dime/widget/_Base',
     'dojo/_base/declare',
     'dojo/text!dime/widget/customer/templates/CustomerDetailWidget.html',
-    'dime/widget/swocommons/PhoneRowWidget',
+    'dime/widget/GenericTableWidget',
     'dime/widget/swocommons/AddressWidget',
     'dijit/form/TextBox',
     'dijit/form/FilteringSelect',
@@ -64,7 +64,7 @@ define([
                     entityType: 'phones',
                     widgetProperty: 'updateValues',
                     entityProperty: 'phones',
-                    unidirectional: true,
+                    subentity: true,
                     entitytype: 'phones'
                 }
             }

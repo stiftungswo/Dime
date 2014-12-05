@@ -58,11 +58,13 @@ define([
                         service: 'id'
                     },
                     prototype:  {
-                        service: 'entityref:id'
+                        service: 'entityref:id',
+                        rateGroup: 1
                     },
                     store: 'rates',
                     entitytype: 'rates',
-                    unidirectional: false,
+                    createable: true,
+                    linkable: false,
                     entityProperty: 'rates',
                     widgetProperty: 'updateValues'
                 }
