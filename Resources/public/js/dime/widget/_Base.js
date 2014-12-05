@@ -376,11 +376,7 @@ define([
                     var hash = {}, optionhash = {};
                     var idProperty = node.idProperty || configdefaults.idProperty;
                     var entityProperty = node.entityProperty;
-                    if(entity[entityProperty].id){
-                        if (entity[entityProperty].id == newvalue) return;
-                    } else {
-                        if (entity[entityProperty] == newvalue) return;
-                    }
+                    if (entity[entityProperty] == newvalue) return;
                     if (independant) {
                         if(newvalue === false) newvalue = '0';
                         if(newvalue === true) newvalue ='1';
