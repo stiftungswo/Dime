@@ -75,7 +75,7 @@ class AppKernel extends Kernel
         ))) {
             return '/tmp/app/log/' . $this->environment;
         } else {
-            return $this->rootDir . '/log/' . $this->environment;
+            return $this->rootDir . '/logs/' . $this->environment;
         }
     }
 }
