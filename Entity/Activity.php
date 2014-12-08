@@ -339,6 +339,10 @@ class Activity extends Entity implements DimeEntityInterface
     public function setService($service)
     {
         $this->service = $service;
+	    $rate = $this->getServiceRate();
+	    $this->setRateUnitType($rate->getRateUnitType());
+	    $this->setRateUnit($rate->getRateUnit());
+	    $this->setRate($rate->getRateValue());
 
         return $this;
     }
