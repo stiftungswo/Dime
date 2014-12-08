@@ -60,9 +60,6 @@ define([
                 }, row);
             }
             domConstruct.place(row, thead);
-            this.addRowNode.set('getParent()', this);
-            this.delRowNode.set('getParent()', this);
-            this.selectEntNode.set('getParent()', this);
             if(this.selectable){
                 for(var selectPropKey in this.selectable){
                     var selectProp = this.selectable[selectPropKey];

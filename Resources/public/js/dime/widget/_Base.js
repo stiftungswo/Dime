@@ -280,7 +280,9 @@ define([
             for (var nodeKey in config.values) {
                 var attachPoint = base[nodeKey], node = config.values[nodeKey];
                 if(attachPoint) {
-                    var focused = attachPoint.get('focused');
+                    if(attachPoint.get) {
+                        var focused = attachPoint.get('focused');
+                    }
                     if (node.widgetProperty) {
                         if (node.widgetProperty === 'updateValues') {
                             if(node.entityProperty) {
@@ -377,6 +379,10 @@ define([
                     var idProperty = node.idProperty || configdefaults.idProperty;
                     var entityProperty = node.entityProperty;
                     if (entity[entityProperty] == newvalue) return;
+                    if(node.idProperty){
+                        var subEnt = entity[entityProperty];
+                        if(subEnt[idProperty] === newvalue) return;
+                    }
                     if (independant) {
                         if(newvalue === false) newvalue = '0';
                         if(newvalue === true) newvalue ='1';
