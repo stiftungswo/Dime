@@ -17,45 +17,45 @@ class LoadActivities extends AbstractFixture implements OrderedFixtureInterface
 	 */
 	protected $data = array(
 		'buero_programming_activity'       => array(
-			'service'     => 'ref:zivih_service',
 			'project'   => 'ref:default-project',
+			'service'     => 'ref:zivih_service',
 			'description' => 'DimERP Programmieren',
 		),
 		'buero_infrastructure_activity' => array(
-			'service'     => 'ref:zivih_service',
 			'project'   => 'ref:default-project',
+			'service'     => 'ref:zivih_service',
 			'description' => 'Arbeiten an der Infrastrucktur',
 		),
 		'cargo_zivi_activity'          => array(
-			'service'     => 'ref:zivih_service',
 			'project'   => 'ref:default-project',
+			'service'     => 'ref:zivih_service',
 			'description' => 'Arbeiten im Cargo',
 		),
 		'chrutzi_leiter_activity'              => array(
-			'service'     => 'ref:leiterh_service',
 			'project'   => 'ref:third-project',
+			'service'     => 'ref:leiterh_service',
 			'description' => 'Einsatzleiterstunden im Chrutzelriet',
 		),
 		'chrutzi_zivih_activity'              => array(
-			'service'     => 'ref:zivih_service',
 			'project'   => 'ref:third-project',
+			'service'     => 'ref:zivih_service',
 			'description' => 'Zivistunden im Chrutzelriet',
 		),
 		'chrutzi_entsorgung_activity'              => array(
-			'service'     => 'ref:entsorgung_service',
 			'project'   => 'ref:third-project',
+			'service'     => 'ref:entsorgung_service',
 			'value'     => '100',
 			'description' => 'Grüngutentsorgung im Chrutzelriet',
 		),
 		'chrutzi_transport1_activity'              => array(
-			'service'     => 'ref:transport1_service',
 			'project'   => 'ref:third-project',
+			'service'     => 'ref:transport1_service',
 			'value'     => '1',
 			'description' => 'Transport Personen zum Chrutzelriet',
 		),
 		'chrutzi_transport2_activity'              => array(
-			'service'     => 'ref:transport2_service',
 			'project'   => 'ref:third-project',
+			'service'     => 'ref:transport2_service',
 			'value'     => '1',
 			'description' => 'Transport Material zum Chrutzelriet',
 		),
