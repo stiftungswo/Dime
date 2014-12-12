@@ -184,7 +184,7 @@ class InvoiceController extends DimeController
 	 */
 	public function printInvoiceAction($id)
 	{
-		return $this->get('dime.print.pdf')->render('DimeInvoiceBundle:Invoice:print.pdf.twig', array('invoice' => $this->getOr404($id, $this->handlerSerivce)));
+		return $this->get('dime.print.pdf')->render('DimeInvoiceBundle:Invoice:print.pdf.twig', array('invoice' => $this->getOr404($id, $this->handlerSerivce)), 'DimeInvoiceBundle:Invoice:stylesheet.xml.twig');
 	}
 
 	/**

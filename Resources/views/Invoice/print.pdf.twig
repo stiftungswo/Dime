@@ -2,56 +2,104 @@
 {% set customer = invoice.project.customer %}
 <!DOCTYPE pdf SYSTEM "%resources%/dtd/doctype.dtd">
 <pdf>
-	<dynamic-page>
-		<h1>Rechnung für {{ customer.name }}</h1>
+	<dynamic-page page-size="a4">
+		<div class="logo"><img src="{{ pdf_image('SwoCommonsBundle:swo_logo_big.png') }}"/></div>
+		<div class="absenderHeader">
+			8600 Dübendorf<br/>
+			Im Schatzacker 5<br/>
+			Telefon: 044 822 13 40<br/>
+			Telefax: 044 822 13 66<br/>
+			Mail: swo@stiftungswo.ch<br/>
+			www.stiftungswo.ch<br/>
+		</div>
 		{% if customer.address %}
 			{% set address = customer.address %}
-			<table>
-				<tr>
-					<td>{{ address.street }} {{ address.streetnumber }}</td>
-				</tr>
-				<tr>
-					<td>{{ address.city.plz }} {{ address.city.name }}</td>
-				</tr>
-				<tr>
-					<td>{{ address.state }} {{ address.country }}</td>
-				</tr>
-			</table>
+			<div class="recipientAddress">
+				{{ customer.name }}<br/>
+				{{ address.street }} {{ address.streetnumber }}<br/>
+				{{ address.city.plz }} {{ address.city.name }}<br/>
+				{{ address.state }} {{ address.country }}<br/>
+			</div>
 		{% endif %}
-		<br/>
-		<br/>
-		<div color="red">Projekt {{ invoice.project.name }}</div>
-		<table>
-			<tr>
-				<td>Typ</td>
-			    <td>Anzahl</td>
-				<td>Ansatz</td>
-				<td>Kosten</td>
+		<div class="header">
+			<div class="ortdatum">Dübendorf,   {{ invoice.updatedAt|date("d.m.Y") }}</div><br/>
+			{% if invoice.user %}
+			<div class="accountant">Sachbearbeiter: {{ invoice.user }}</div><br/>
+			{% endif %}
+			<div class="invoiceIDKey">Rechnung Nr. {{ invoice.id }}</div><br/>
+			{% if invoice.offer %}
+			<div class="offerID">Offerte Nr. {{ invoice.offer.id }}</div><br/>
+			{% endif %}
+			{% if invoice.project %}
+			<div class="projectID">Auftrag Nr. {{ invoice.project.id }}</div><br/>
+			{% endif %}
+			<div class="mwstNR">MwSt-ID CHE-108.024.134 MWST</div><br/>
+			<!--<div class="dateRange">Aufwandzeitraum $START - $END</p>-->
+			{% if invoice.offer %}
+			<div class="offerShortDescription">{{ invoice.offer.shortdescription }}</div><br/>
+			{% endif %}
+		</div>
+		<table class="maintable" breakable="false">
+			<tr class="thead">
+				<td class="firstrow">Bezeichnung</td>
+				<td class="secondrow number">Anzahl</td>
+				<td class="thirdrow">Einheit</td>
+				<td class="fourthrow number">Ansatz Fr.</td>
+				<td class="fifthrow number">MwSt Satz</td>
+				<td class="sixthrow number">Teilbetrag Fr. inkl MwSt.</td>
 			</tr>
 			{% for item in invoice.items %}
-			<tr>
+			<tr class="tbody">
 				<td>{{ item.type }}</td>
-				<td>{{ item.value }}</td>
-				<td>{{ item.rate }} {{ item.rateUnit }}</td>
-				<td>{{ item.charge }} CHF</td>
+				<td class="number">{{ item.value }}</td>
+				<td>{{ item.rateUnit }}</td>
+				<td class="number">{{ item.rate }}</td>
+				<td class="number">8%</td>
+				<td class="number">{{ item.charge }}</td>
 			</tr>
 			{% endfor %}
+			<tr class="tfoot">
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td class="number">Subtotal</td>
+				<td class="number">{{ invoice.gross }}</td>
+			</tr>
 		</table>
-		<table>
+		<table class="discounttable" breakable="false">
+			<tr class="thead">
+				<td class="firstrow number">Abzug</td>
+				<td class="secondrow number">Betrag</td>
+			</tr>
 			{% for discount in invoice.invoiceDiscounts %}
-				<tr>
-					<td>{{ discount.name }}</td>
-					<td>{{ discount.value }} {% if discount.percentage %}%{% else %}CHF{% endif %}</td>
+				<tr class="tbody">
+					<td class="number">{{ discount.name }}</td>
+					<td class="number">{% if discount.percentage %}{{ discount.value*100 }}%{% else %}{{ discount.value }} CHF{% endif %}</td>
 				</tr>
 			{% endfor %}
 			{% for discount in invoice.standardDiscounts %}
-				<tr>
-					<td>{{ discount.name }}</td>
-					<td>{{ discount.value }} {% if discount.percentage %}%{% else %}CHF{% endif %}</td>
+				<tr class="tbody">
+					<td class="number">{{ discount.name }}</td>
+					<td class="number">{% if discount.percentage %}{{ discount.value*100 }}%{% else %}{{ discount.value }} CHF{% endif %}</td>
 				</tr>
 			{% endfor %}
+			<tr class="tfoot">
+				<td class="number">Abzüge Total</td>
+				<td class="number">00.00{# Total der Abzüge #}</td>
+			</tr>
 		</table>
-		<p>Brutto Kosten: {{ invoice.gross }} CHF</p>
-		<p>Netto Kosten: {{ invoice.net }} CHF</p>
+		<table class="sumtable" breakable="false">
+			<tr class="tbody">
+				<td class="firstrow number"></td>
+				<td class="secondrow number">MwSt. Total</td>
+				<td class="thirdrow number">00.00{# Total der MwSt zusammengezählt#}</td>
+			</tr>
+			<tr class="tfoot">
+				<td>Zahlbar 30 Tage netto</td>
+				<td class="number">Rechnungstotal</td>
+				<td class="number">{{ invoice.net }}</td>
+			</tr>
+		</table>
 	</dynamic-page>
 </pdf>
