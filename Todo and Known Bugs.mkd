@@ -1,0 +1,53 @@
+# Missing Features
+* Ein EntityOverview Widget mit:
+    * Funktionen zum Filtern der Ergebnismenge
+    * Add & Remove Buttons, die ein neue Leeres Widget öffnen, oder um bestätigung fragen
+    * Clone Button '++'
+    * Edit Button der neuen Tab öffnet
+    * Doppel Click triggert eine edit operation
+    * Tastatur Support
+* DateFilteredTable
+* _ListBase.js
+    * Clone Funktion
+    * Code in Funktionen auslagern und für ablauf Wichtigen Code in GenericTableWidget bewegen
+* Kunde
+    * Telefone (nonIndependant Entities in Listen ermöglichen)
+    * Zusätzliche Addressen Pro Kunde (Kontakte Modul?)
+    * Mehr als ein Kontakt per Kunde
+    * Firmennamensfeld (Kontakte Modul?)
+* Timeslices
+    * duration umbennen in amount
+    * Funktion zum erstellen eines Timeslice nur anhand des Projektes
+    * GUI Eigene Liste zum Filtern per Datum zusätzlich zu projekt
+* Activities
+    * rate in rateValue umbenennen
+    * value in amount umbenennen
+* Invoice/Rechnung
+    * MwSt von offerte übernehmen
+    * MwSt berechnungen
+    * Anpassen an Offerte und Projekt Standards
+    * Discounts von Offerte übernehmen
+    * Freihandrechnung
+* Benutzer
+    * active Status Variable einführen
+    * Fullname Variable einführen
+* Persöhnliche Zeiterfassung Widget an Coding Standards anpassen
+* Mitarbeiter Daten Widget an Coding Standards anpassen
+* OffertePosition
+    * Discountable bei Rabattberechnung berücksichtigen
+    * Subtotal ohne MwSt zusützlich zu Subtotal mit MwSt
+* Tarif
+    * Tarif änderungs ProzessModul
+* Offerte
+    * Sperren von Offerten
+    * Subtotal mit und ohne MwSt
+* Neues Loading Logo einfügen
+
+# Known Bugs or Limitations
+* Übersichts Tabelle
+    * Tabelle kann sich füllen und danach gleich wieder leeren (vermutlich fehlende sort order. Workaround: Tab Schliesen und wieder öffnen)
+* Tarif
+    * Änderung der Tarife hat keine auswirkung auf bereits erstellte Offerten/Projekte/Rechnungen
+* Offerte
+    * Der Teilbetrag der einzelenen OffertPositionen wird nur inkl MwSt berechnet
+* Lange Ladezeiten (nur beim ersten Laden. kann Reduziertwerden indem javascript dateine Paketiert werden)
