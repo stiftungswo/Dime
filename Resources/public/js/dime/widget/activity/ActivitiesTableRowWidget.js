@@ -47,7 +47,7 @@ define([
                     entityProperty: 'user',
                     nullValue: 1,
                     store: 'users',
-                    searchAttr: 'username',
+                    searchAttr: 'fullname',
                     idProperty: 'id'
                 },
                 projectNode: {

@@ -49,7 +49,7 @@ define([
                     entityProperty: 'accountant',
                     nullValue: '',
                     store: 'users',
-                    searchAttr: 'lastname',
+                    searchAttr: 'fullname',
                     idProperty: 'id'
                 },
                 validToNode: {
