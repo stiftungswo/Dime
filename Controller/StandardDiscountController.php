@@ -24,9 +24,6 @@ class StandardDiscountController extends DimeController
      * 200 = "Returned when successful"
      * }
      * )
-     *
-     * @Annotations\QueryParam(name="invoice", requirements="\d+", nullable=true, description="Filter By Project")
-     * @Annotations\QueryParam(name="offer", requirements="\d+", nullable=true, description="Filter By Service")
      * @Annotations\QueryParam(name="user", requirements="\d+", nullable=true, description="Filter By User")
      * @Annotations\QueryParam(array=true, name="withtags", requirements="\d+", nullable=true, description="Show Entities with these Tags")
      * @Annotations\QueryParam(array=true, name="withouttags", requirements="\d+", nullable=true, description="Show Entities without this Tags")

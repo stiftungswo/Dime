@@ -26,8 +26,8 @@ class SettingsController extends DimeController
      * )
      *
      * @Annotations\QueryParam(name="user", requirements="\d+", nullable=true, description="Filter By User")
-     * @Annotations\QueryParam(name="name", requirements="\w+", nullable=true, description="Filter By User")
-     * @Annotations\QueryParam(name="namespace", requirements="\w+", nullable=true, description="Filter By User")
+     * @Annotations\QueryParam(name="name", nullable=true, description="Filter By User")
+     * @Annotations\QueryParam(name="namespace", nullable=true, description="Filter By User")
      *
      * @Annotations\View(
      * templateVar="settings"

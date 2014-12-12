@@ -4,6 +4,7 @@ namespace Dime\TimetrackerBundle\Entity;
 
 use Doctrine\ORM\EntityRepository as Base;
 use Doctrine\ORM\QueryBuilder;
+use Symfony\Bridge\Monolog\Logger;
 
 /**
  * EntityRepository
@@ -87,10 +88,16 @@ abstract class EntityRepository extends Base
 
         $aliases = $qb->getRootAliases();
         $alias = array_shift($aliases);
-
-        $qb->andWhere(
-            $qb->expr()->eq($alias . '.' . $field, ':' . $field)
-        );
+	    $value = str_replace('*', '%', $value);
+	    if(strpos($value, '%') === false){
+		    $qb->andWhere(
+			    $qb->expr()->eq($alias . '.' . $field, ':' . $field)
+		    );
+	    } else {
+		    $qb->andWhere(
+			    $qb->expr()->like($alias . '.' . $field, ':' . $field)
+		    );
+	    }
         $qb->setParameter($field, $value);
 
         return $this;
