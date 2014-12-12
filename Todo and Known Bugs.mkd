@@ -30,7 +30,6 @@
     * Freihandrechnung
 * Benutzer
     * active Status Variable einführen
-    * Fullname Variable einführen
 * Persöhnliche Zeiterfassung Widget an Coding Standards anpassen
 * Mitarbeiter Daten Widget an Coding Standards anpassen
 * OffertePosition
