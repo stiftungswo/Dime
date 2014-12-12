@@ -8,7 +8,8 @@ define([
     'dijit/form/TextBox',
     'dijit/form/NumberTextBox',
     'dijit/form/CheckBox',
-    'dijit/form/Button'
+    'dijit/form/Button',
+    'xstyle!dime/widget/offer/css/OfferDiscountRowWidget.css'
 ], function (WidgetsInTemplateMixin, TemplatedMixin, _Base, declare, template) {
     return declare("dime.widget.offer.OfferDiscountRowWidget", [_Base, TemplatedMixin, WidgetsInTemplateMixin], {
 

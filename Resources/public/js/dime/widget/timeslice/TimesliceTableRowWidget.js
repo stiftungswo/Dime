@@ -7,7 +7,8 @@ define([
     'dijit/form/FilteringSelect',
     'dijit/form/Textarea',
     'dijit/form/TextBox',
-    'dijit/form/NumberTextBox'
+    'dijit/form/NumberTextBox',
+    'xstyle!dime/widget/timeslice/css/TimesliceTableRowWidget.css'
 ], function (WidgetsInTemplateMixin, TemplatedMixin,  _Base, declare,  template) {
     return declare("dime.widget.timeslice.TimesliceTableRowWidget", [_Base, TemplatedMixin, WidgetsInTemplateMixin], {
         templateString: template,

@@ -10,12 +10,13 @@ define([
     'dijit/form/DateTextBox',
     'dijit/form/CheckBox',
     'dijit/form/FilteringSelect',
-    'dijit/form/Button'
+    'dijit/form/Button',
+    'xstyle!dime/widget/offer/css/OfferPositionRowWidget.css'
 ], function (WidgetsInTemplateMixin, TemplatedMixin, _Base, declare, template) {
     return declare("dime.widget.offer.OfferPositionRowWidget", [_Base, TemplatedMixin, WidgetsInTemplateMixin], {
 
         templateString: template,
-        baseClass: "offerPositionWidget",
+        baseClass: "offerPositionRowWidget",
         store: 'offerpositions',
         entitytype: 'offerpositions',
         independant: true,

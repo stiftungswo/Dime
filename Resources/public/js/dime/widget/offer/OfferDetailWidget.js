@@ -12,12 +12,13 @@ define([
     'dijit/form/Textarea',
     'dime/widget/swocommons/AddressWidget',
     'dijit/form/FilteringSelect',
-    'dijit/form/Button'
+    'dijit/form/Button',
+    'xstyle!dime/widget/offer/css/OfferDetailWidget.css'
 ], function ( WidgetsInTemplateMixin, TemplatedMixin,  _Base, declare,  template, request) {
     return declare("dime.widget.offer.OfferDetailWidget", [_Base, TemplatedMixin, WidgetsInTemplateMixin], {
 
         templateString: template,
-        baseClass: "offerWidget",
+        baseClass: "offerDetailWidget",
         store: 'offers',
         entitytype: 'offers',
         independant: true,

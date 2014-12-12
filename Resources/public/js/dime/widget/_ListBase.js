@@ -13,11 +13,8 @@ define([
                 this.customStartup();
             }
         },
-        //Todo Add Support for add and Delete Unidirectional and bidirectional
 
         //Todo Add Complete Support for dependant Widgets.
-
-        //
         unidirectional: false,
         //Prevents Startup if false
         doStartup: true,

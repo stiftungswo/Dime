@@ -1,30 +1,25 @@
-<div class="${baseClass}">
+<div class="${baseClass}Wrapper">
 	<div class="${baseClass}HeaderData">
-	    <label>Name </label><div class="${baseClass}Name" data-dojo-attach-point="nameNode" data-dojo-type="dijit/form/TextBox"></div><br/>
-
-	    <label>Alias </label><div class="${baseClass}Alias" data-dojo-attach-point="aliasNode" data-dojo-type="dijit/form/TextBox"></div><br/>
-
-	    <label>Beschreibung </label><div class="${baseClass}Description" data-dojo-attach-point="descriptionNode" data-dojo-type="dijit/form/TextBox"></div><br/>
-
-	    <label>Deadline </label><div class="${baseClass}Deadline" data-dojo-attach-point="deadlineNode" data-dojo-type="dijit/form/DateTextBox" ></div><br/>
-
-	    <label>Customer </label><div class="${baseClass}Customer" data-dojo-attach-point="customerNode" data-dojo-type="dijit/form/FilteringSelect" ></div><br/>
-
-		<label>Kosten Budget </label><div class="${baseClass}BudgetPrice" data-dojo-attach-point="budgetPriceNode" data-dojo-type="dijit/form/TextBox" ></div> CHF<br/>
-
-		<label>Verbuchte Kosten </label><div class="${baseClass}CurrentPrice" data-dojo-attach-point="currentPriceNode" data-dojo-type="dijit/form/TextBox" ></div> CHF<br/>
-
-		<label>Zeit Budget </label><div class="${baseClass}BudgetTime" data-dojo-attach-point="budgetTimeNode" data-dojo-type="dijit/form/TextBox" ></div><br/>
-
-		<label>Verbuchte Zeit </label><div class="${baseClass}CurrentTime" data-dojo-attach-point="currentTimeNode" data-dojo-type="dijit/form/TextBox" ></div><br/>
-
-		<label>Fixpreis </label><div class="${baseClass}FixedPrice" data-dojo-attach-point="fixedPriceNode" data-dojo-type="dijit/form/TextBox" ></div><br/>
-
-		<label>Tarif Gruppe </label><div class="${baseClass}RateGroup" data-dojo-attach-point="rateGroupNode" data-dojo-type="dijit/form/FilteringSelect" ></div><br/>
-
-		<label>Verechenbar </label><div class="${baseClass}Chargeable" data-dojo-attach-point="chargeableNode" data-dojo-type="dijit/form/CheckBox" ></div><br/>
+		<div class="${baseClass}TitleData DimePanel">
+	        <div class="${baseClass} ${baseClass}Name"><label>Name </label><div data-dojo-attach-point="nameNode" data-dojo-type="dijit/form/TextBox"></div></div>
+	        <div class="${baseClass} ${baseClass}Alias"><label>Alias </label><div data-dojo-attach-point="aliasNode" data-dojo-type="dijit/form/TextBox"></div></div>
+		</div>
+		<div class="DimePanel">
+			<div class="${baseClass} ${baseClass}Customer"><label>Kunde </label><div data-dojo-attach-point="customerNode" data-dojo-type="dijit/form/FilteringSelect" ></div></div>
+			<div class="${baseClass} ${baseClass}Chargeable"><label>Verechenbar </label><div data-dojo-attach-point="chargeableNode" data-dojo-type="dijit/form/CheckBox" ></div></div>
+			<div class="${baseClass} ${baseClass}RateGroup"><label>Tarif Gruppe </label><div data-dojo-attach-point="rateGroupNode" data-dojo-type="dijit/form/FilteringSelect" ></div></div>
+			<div class="${baseClass} ${baseClass}Deadline"><label>Deadline </label><div data-dojo-attach-point="deadlineNode" data-dojo-type="dijit/form/DateTextBox" ></div></div>
+	        <div class="${baseClass} ${baseClass}Description"><label>Beschreibung </label><div data-dojo-attach-point="descriptionNode" data-dojo-type="dijit/form/TextBox"></div></div>
+		</div>
+	    <div class="DimePanel">
+			<div class="${baseClass} ${baseClass}BudgetPrice"><label>Kosten Budget </label><div data-dojo-attach-point="budgetPriceNode" data-dojo-type="dijit/form/TextBox" ></div> CHF</div>
+			<div class="${baseClass} ${baseClass}BudgetTime"><label>Zeit Budget </label><div data-dojo-attach-point="budgetTimeNode" data-dojo-type="dijit/form/TextBox" ></div></div>
+			<div class="${baseClass} ${baseClass}CurrentPrice"><label>Verbuchte Kosten </label><div data-dojo-attach-point="currentPriceNode" data-dojo-type="dijit/form/TextBox" ></div> CHF</div>
+			<div class="${baseClass} ${baseClass}CurrentTime"><label>Verbuchte Zeit </label><div data-dojo-attach-point="currentTimeNode" data-dojo-type="dijit/form/TextBox" ></div></div>
+		    <div class="${baseClass} ${baseClass}FixedPrice"><label>Fixpreis </label><div data-dojo-attach-point="fixedPriceNode" data-dojo-type="dijit/form/TextBox" ></div></div>
+	    </div>
 	</div>
-	<div class="${baseClass}TabContainer" data-dojo-attach-point="tabContainer" data-dojo-type="dijit/layout/TabContainer" data-dojo-props="nested: true">
+	<div class="${baseClass} ${baseClass}TabContainer" data-dojo-attach-point="tabContainer" data-dojo-type="dijit/layout/TabContainer" data-dojo-props="nested: true">
 		<div class="${baseClass}TabContainerPane" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="title:'Aktivitäten:', selected:true">
 			<div class="${baseClass}Activities" data-dojo-attach-point="activitiesNode" data-dojo-type="dime/widget/GenericTableWidget" data-dojo-props="doStartup: false"></div>
 		</div>

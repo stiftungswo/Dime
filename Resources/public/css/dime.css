@@ -44,3 +44,13 @@ html, body {
     box-shadow: none !important;
     width: 100% !important;
 }
+
+.DimePanel {
+    width: 1000px;
+    margin-top: 5px;
+    padding: 5px;
+    border: 1px solid #AEAEAE;
+    border-radius: 3px;
+    margin-left: 10px;
+    float: left;
+}

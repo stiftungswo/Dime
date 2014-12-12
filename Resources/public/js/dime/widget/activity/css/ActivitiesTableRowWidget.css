@@ -1,0 +1,32 @@
+.activitiesTableRowWidgetService{
+    width: 190px;
+}
+
+.activitiesTableRowWidgetProject{
+    width: 160px;
+}
+
+.activitiesTableRowWidgetUser{
+    width: 160px;
+}
+
+.activitiesTableRowWidgetDescription{
+    width: 400px;
+    height: 50px;
+}
+
+.activitiesTableRowWidgetValue{
+    width: 70px;
+}
+
+.activitiesTableRowWidgetRateUnit{
+    width: 70px;
+}
+
+.activitiesTableRowWidgetRate{
+    width: 110px;
+}
+
+.activitiesTableRowWidgetCharge{
+    width: 100px;
+}

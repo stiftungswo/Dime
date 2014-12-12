@@ -7,7 +7,8 @@ define([
     'dijit/form/FilteringSelect',
     'dijit/form/Textarea',
     'dijit/form/TextBox',
-    'dijit/form/NumberTextBox'
+    'dijit/form/NumberTextBox',
+    'xstyle!dime/widget/activity/css/ActivitiesTableRowWidget.css'
 ], function (WidgetsInTemplateMixin, TemplatedMixin,  _Base, declare,  template) {
     return declare("dime.widget.activity.ActivitiesTableRowWidget", [_Base, TemplatedMixin, WidgetsInTemplateMixin], {
         templateString: template,

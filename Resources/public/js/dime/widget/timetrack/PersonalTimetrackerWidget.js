@@ -22,7 +22,7 @@ define([
         entitytype: 'entityless',
         viewtype: 'Week',
         titlebase: 'Meine aktivitäten',
-
+        //Todo twm Refactor to newest Standards.
         _setTitle: function(){
             var titlevalue;
             switch(this.viewtype){
@@ -116,7 +116,6 @@ define([
         _watchercallback: function(property, oldvalue, newvalue){
             var parent = this.parentWidget;
             var date = parent.date;
-            //ToDo twm check if newvalue is in the already Rendered Range of Oldvalue if So do nothing.
             parent.date = newvalue;
             window.widgetManager.removeChildren(parent);
             parent._updateValues();

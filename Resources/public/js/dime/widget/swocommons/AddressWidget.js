@@ -5,7 +5,8 @@ define([
     'dojo/_base/declare',
     'dojo/text!dime/widget/swocommons/templates/AddressWidget.html',
     'dijit/form/NumberTextBox',
-    'dijit/form/TextBox'
+    'dijit/form/TextBox',
+    'xstyle!dime/widget/swocommons/css/AddressWidget.css'
 ], function (WidgetsInTemplateMixin, TemplatedMixin, Base, declare, template) {
     return declare("dime.widget.swocommons.AddressWidget", [Base, TemplatedMixin, WidgetsInTemplateMixin], {
         templateString: template,

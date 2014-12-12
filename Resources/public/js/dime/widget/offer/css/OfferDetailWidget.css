@@ -1,0 +1,112 @@
+.offerDetailWidget {
+    float: left;
+    margin-left: 10px;
+    margin-top: 5px;
+}
+
+.offerDetailWidgetPanel {
+    width: 98%;
+    margin-right: 10px;
+    margin-left: -10px;
+}
+
+.offerDetailWidget label {
+    margin-right: 5px;
+}
+
+.offerDetailWidgetAccountant {
+    width: 100%;
+}
+
+.offerDetailWidgetAccountant .dijitTextBox {
+    margin-left: 20px;
+}
+
+.offerDetailWidgetValidTo {
+    width: 100%;
+}
+
+.offerDetailWidgetValidTo .dijitDateTextBox {
+    margin-left: 136px;
+}
+
+.offerDetailWidgetRateGroup .dijitTextBox {
+    margin-left: 167px;
+}
+
+.offerDetailWidgetAddress {
+    width: 100%;
+}
+
+.offerDetailWidgetShortDescription {
+    width: 99%;
+    height: 100px;
+}
+
+.offerDetailWidgetShortDescription .dijitTextBox {
+    height: 80px;
+}
+
+.offerDetailWidgetDescription {
+    width: 99%;
+    height: 72mm;
+}
+
+.offerDetailWidgetDescription .dijitTextBox {
+    height: 72mm;
+}
+
+.offerDetailWidgetDiscountsNode {
+    width: 48%;
+    border: 1px solid #AEAEAE;
+    border-radius: 3px;
+    padding-left: 5px;
+}
+
+.offerDetailWidgetOfferDiscountsNode {
+    width: 48%;
+    border: 1px solid #AEAEAE;
+    border-radius: 3px;
+    padding-left: 5px;
+    
+}
+
+.offerDetailWidgetPriceSummary {
+    width: 100%;
+}
+
+.offerDetailWidgetSubtotal {
+    width: 100%;
+}
+
+.offerDetailWidgetSubtotal .dijitTextBox {
+    margin-left: 29px;
+}
+
+.offerDetailWidgetTotalVAT {
+    width: 100%;
+}
+
+.offerDetailWidgetTotalDiscounts {
+    width: 100%;
+}
+
+.offerDetailWidgetTotalDiscounts .dijitTextBox {
+    margin-left: 35px;
+}
+
+.offerDetailWidgetTotal {
+    width: 100%;
+}
+
+.offerDetailWidgetTotal .dijitTextBox {
+    margin-left: 51px;
+}
+
+.offerDetailWidgetFixedPrice {
+    width: 100%;
+}
+
+.offerDetailWidgetFixedPrice .dijitTextBox {
+    margin-left: 34px;
+}

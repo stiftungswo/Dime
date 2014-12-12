@@ -1,0 +1,35 @@
+.offerPositionRowWidgetOrder {
+  width: 100px;
+}
+
+.offerPositionRowWidgetService {
+  width: 400px;
+}
+
+.offerPositionRowWidgetRateValue {
+  width: 100px;
+}
+
+.offerPositionRowWidgetRateUnit {
+  width: 100px;
+}
+
+.offerPositionRowWidgetRateUnitType {
+  width: 100px;
+}
+
+.offerPositionRowWidgetAmount {
+  width: 100px;
+}
+
+.offerPositionRowWidgetVAT {
+  width: 100px;
+}
+
+.offerPositionRowWidgetDiscountable{
+  margin-left: 25px;
+}
+
+.offerPositionRowWidgetTotal {
+  width: 100px;
+}
