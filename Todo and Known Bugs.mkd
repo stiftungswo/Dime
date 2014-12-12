@@ -53,3 +53,4 @@
     * Addressfelder sind leer. (Kommt noch, bis dahin addressfeld unter Kunde gebrauchen)
 * Lange Ladezeiten (nur beim ersten Laden. kann Reduziertwerden indem javascript dateine Paketiert werden)
 * Automatische Tests fallen durch.
+* Tags not editable
