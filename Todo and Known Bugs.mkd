@@ -50,4 +50,6 @@
     * Änderung der Tarife hat keine auswirkung auf bereits erstellte Offerten/Projekte/Rechnungen
 * Offerte
     * Der Teilbetrag der einzelenen OffertPositionen wird nur inkl MwSt berechnet
+    * Addressfelder sind leer. (Kommt noch, bis dahin addressfeld unter Kunde gebrauchen)
 * Lange Ladezeiten (nur beim ersten Laden. kann Reduziertwerden indem javascript dateine Paketiert werden)
+* Automatische Tests fallen durch.
