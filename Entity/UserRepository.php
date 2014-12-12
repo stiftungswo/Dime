@@ -38,21 +38,82 @@ class UserRepository extends EntityRepository
     }
 
 	/**
+	 * @param $value
+	 * @param $qb
 	 *
-	 * @param unknown $limit
-	 * @param unknown $offset
-	 *
-	 * @return array
+	 * @return $this
 	 */
-    public function findSafeBy($limit, $offset)
-    {
-        return $this->getEntityManager()
-        ->createQuery(
-            'SELECT u.id, u.username, u.firstname, u.lastname, u.createdAt, u.updatedAt, u.email, u.enabled FROM DimeTimetrackerBundle:User u'
-        )
-        ->setMaxResults($limit)
-        ->setFirstResult($offset)
-        ->getResult();
-    }
+	public function scopeByFullname($value, QueryBuilder $qb = null)
+	{
+		if ($qb == null) {
+			$qb = $this->builder;
+		}
 
+		$aliases = $qb->getRootAliases();
+		$alias = array_shift($aliases);
+		$value = str_replace('*', '%', $value);
+		if(strpos($value, ' ') !== false){
+			$fullname = str_split($value, strpos($value, ' '));
+			if(is_array($fullname)) {
+				$firstname = trim($fullname[0]);
+				$lastname = trim($fullname[1]);
+			} else {
+				$firstname = $fullname;
+				$lastname = null;
+			}
+		} else {
+			$firstname = $value;
+			$lastname = null;
+		}
+
+		$qb->andWhere(
+			$qb->expr()->like($alias . '.firstname', ':firstname')
+		);
+		if($lastname) {
+			$qb->andWhere(
+				$qb->expr()->like($alias . '.lastname', ':lastname')
+			);
+		}
+		$qb->setParameter('firstname', $firstname);
+		if($lastname){
+			$qb->setParameter('lastname', $lastname);
+		}
+
+		return $this;
+	}
+
+	/**
+	 * Add different filter option to query
+	 *
+	 * @param array        $filter
+	 * @param QueryBuilder $qb
+	 *
+	 * @return EntityRepository
+	 */
+	public function filter(array $filter, QueryBuilder $qb = null)
+	{
+		if ($qb == null) {
+			$qb = $this->builder;
+		}
+
+		if ($filter != null) {
+			foreach ($filter as $key => $value) {
+				switch($key) {
+				case 'date':
+					$this->scopeByDate($value, $qb);
+					break;
+				case 'search':
+					$this->search($value, $qb);
+					break;
+				case 'fullname':
+					$this->scopeByFullname($value, $qb);
+					break;
+				default:
+					$this->scopeByField($key, $value, $qb);
+					break;
+				}
+			}
+		}
+		return $this;
+	}
 }
