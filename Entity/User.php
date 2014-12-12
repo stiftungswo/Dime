@@ -149,7 +149,9 @@ class User extends BaseUser implements DimeEntityInterface
         if (empty($user)) {
             $user = $this->getId();
         }
-
+	    if(!is_string($user)){
+		    $user = strval($user);
+	    }
         return $user;
     }
 

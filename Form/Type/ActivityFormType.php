@@ -32,8 +32,9 @@ class ActivityFormType extends AbstractType
 	        ->add('chargeable', 'choice', array('empty_data' => '1', 'required' => false, 'choices' => array('0' => false, '1' => true)))
 	        ->add($builder->create('chargeableReference', 'text', array('empty_data' => ActivityReference::$SERVICE))->addViewTransformer($transformer))
 	        ->add($builder->create('value', 'text')->addViewTransformer(new DurationTransformer()))
-            ->add('service', 'entity', array('class' => 'DimeTimetrackerBundle:Service'))
+            //Service has to be set after Project due to Dependencies.
             ->add('project', 'entity', array('class' => 'DimeTimetrackerBundle:Project'))
+	        ->add('service', 'entity', array('class' => 'DimeTimetrackerBundle:Service'))
 	        ->add('tags', 'entity', array('class' => 'DimeTimetrackerBundle:Tag', 'multiple' => true))
             ->add('user', 'entity', array('class' => 'DimeTimetrackerBundle:User'))
         ;
