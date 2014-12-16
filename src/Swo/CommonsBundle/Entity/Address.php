@@ -241,4 +241,9 @@ Class Address
 	{
 		return $this->getStreet().' '.$this->getStreetnumber().' - '.$this->getCity()->getPlz().' '.$this->getCity().' - '.$this->getState().' '.$this->getCountry();
 	}
+
+	public function __clone()
+	{
+		unset($this->id);
+	}
 }
