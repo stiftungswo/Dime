@@ -21,7 +21,7 @@ define([
         //The Value we get set from out Parent
         value: null,
         //Tell the Logic to not watch value
-        independant: false,
+        independant: true,
         //The Widget which we use as our child
         childWidgetType: '',
         //If Set make a Query to the store with this Prototype

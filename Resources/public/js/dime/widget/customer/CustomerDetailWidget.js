@@ -60,7 +60,6 @@ define([
                         Type: 'Mobile'
                     },
                     header: [ 'Nummer', 'Typ' ],
-                    store: 'phones',
                     entityType: 'phones',
                     widgetProperty: 'updateValues',
                     entityProperty: 'phones',

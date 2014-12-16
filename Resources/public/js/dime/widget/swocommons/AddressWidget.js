@@ -11,6 +11,8 @@ define([
     return declare("dime.widget.swocommons.AddressWidget", [Base, TemplatedMixin, WidgetsInTemplateMixin], {
         templateString: template,
         baseClass: "addressWidget",
+        entitytype: 'address',
+        independant: false,
         config: {
             values: {
                 streetnumberNode: {

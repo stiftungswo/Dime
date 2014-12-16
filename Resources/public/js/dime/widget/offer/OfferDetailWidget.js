@@ -76,9 +76,9 @@ define([
                     nullValue: ''
                 },
                 addressNode: {
-                    widgetProperty: 'value',
+                    widgetProperty: 'updateValues',
                     entityProperty: 'address',
-                    nullValue: ''
+                    nullValue: null
                 },
                 projectNode: {},
                 subtotalNode: {

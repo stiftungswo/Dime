@@ -174,7 +174,7 @@ define([
         entity: null,
 
         //If the Widget handles the Entity or not
-        handlesEntity: false,
+        handlesEntity: true,
 
         //The Store the Widget uses to Query for children
         store: null,
@@ -264,7 +264,9 @@ define([
             for (var nodeKey in config.values) {
                 var attachPoint = base[nodeKey], node = config.values[nodeKey];
                 if (attachPoint) {
-                    if (!node.independant) {
+                    if (node.independant || attachPoint.independant) {
+                        //Do Nothing for Independant Nodes
+                    } else {
                         attachPoint.watch(node.widgetProperty, node.watchercallback || base._watcherCallback);
                     }
                 }
@@ -361,53 +363,92 @@ define([
         },
 
         //Generic Callback for the watch function which uses the config object to update the entity if needed.
-        _watcherCallback: function(property, oldvalue, newvalue){
+        _watcherCallback: function(property, oldvalue, newvalue, caller){
+            //dojo watch api seems quite Trigger Happy Return if nothing has changed
+            caller = caller || this.dojoAttachPoint;
             if(oldvalue == newvalue) return;
             var handler;
+            //Get The Widget who puts the Values into the Store(handler)
             if(this.handlesEntity){
+                //Seldom the case but you can have a Widget whos been watched by its parent but still handles its entity seperate from the Parent
                 handler = this;
             } else {
+                //Normal Case. eg, A Textbox inside a compound widget got updated and the compund widget puts the Values into the store
                 handler = this.getParent();
             }
-            var store = handler.getStore(), entity = handler.entity, caller = this.dojoAttachPoint;
+            var store = handler.getStore(), entity = handler.entity;
             var config = handler.config, configdefaults = handler.configdefaults, independant = handler.independant;
+            var node = config.values[caller];
+            //As dojo.watch is triggerhappy, there is a variable, which allows to manual block execution. (used by updateValues)
             if(handler._blockwatcherCallback) return;
-            for(var nodeKey in config.values){
-                var node = config.values[nodeKey];
-                if (nodeKey == caller && node.widgetProperty === property) {
-                    var hash = {}, optionhash = {};
-                    var idProperty = node.idProperty || configdefaults.idProperty;
-                    var entityProperty = node.entityProperty;
-                    if (entity[entityProperty] == newvalue) return;
-                    if(node.idProperty){
-                        var subEnt = entity[entityProperty];
-                        if(subEnt[idProperty] === newvalue) return;
-                    }
-                    if (independant) {
-                        if(newvalue === false) newvalue = '0';
-                        if(newvalue === true) newvalue ='1';
-                        hash[entityProperty] = newvalue;
-                        optionhash[idProperty] = entity[idProperty];
-                        store.put(hash, optionhash).then(function (data) {
-                            window.eventManager.fire('entityUpdate', handler.entitytype, {
-                                entity: data,
-                                changedProperty: entityProperty,
-                                oldValue: oldvalue,
-                                newValue: newvalue,
-                                fromStore: true
-                            });
-                        });
-                    } else {
-                        handler.entity[entityProperty] = newvalue;
+            if (node.widgetProperty === property) {
+                var hash = {}, optionhash = {};
+                var idProperty = node.idProperty || configdefaults.idProperty;
+                var entityProperty = node.entityProperty;
+                //Check to reduce Trigger Happines i.e we got triggered becouse of updateValues()
+                if (entity[entityProperty] == newvalue) return;
+                if(node.idProperty){
+                    //Same as above but for subentities
+                    var subEnt = entity[entityProperty];
+                    if(subEnt[idProperty] === newvalue) return;
+                }
+                hash[entityProperty] = newvalue;
+                if (independant) {
+                    //If we manage our entity Ourselves
+                    if(newvalue === false) newvalue = '0';
+                    if(newvalue === true) newvalue ='1';
+                    hash[entityProperty] = newvalue;
+                    optionhash[idProperty] = entity[idProperty];
+                    store.put(hash, optionhash).then(function (data) {
                         window.eventManager.fire('entityUpdate', handler.entitytype, {
-                            entity: handler.entity,
+                            entity: data,
                             changedProperty: entityProperty,
                             oldValue: oldvalue,
-                            newValue: newvalue
+                            newValue: newvalue,
+                            fromStore: true
                         });
-                    }
+                    });
+                } else {
+                    //If our Parent must watch what we do and then update itself, to change eg. address.
+                    //Apparently In one Case it would be usefull dojo.watch is not triggerhappy. I.e when a attr of a watched object changes.
+                    //So We Call the Watchercallback of our Parent
+                    handler.getParent()._watcherCallback(handler.widgetProperty, null, hash, handler.dojoAttachPoint);
                 }
             }
+        },
+
+        cloneEntity: function(){
+            return this.clone(this.entity);
+        },
+
+        clone: function(obj){
+            var copy;
+
+            // Handle the 3 simple types, and null or undefined
+            if (null == obj || "object" != typeof obj) return obj;
+
+            // Handle Date
+            if (obj instanceof Date) {
+                copy = new Date();
+                copy.setTime(obj.getTime());
+                return copy;
+            }
+
+            // Handle Array
+            if (obj instanceof Array) {
+                return obj.slice(0);
+            }
+
+            // Handle Object
+            if (obj instanceof Object) {
+                copy = {};
+                for (var attr in obj) {
+                    if (obj.hasOwnProperty(attr)) copy[attr] = this.clone(obj[attr]);
+                }
+                return copy;
+            }
+
+            throw new Error("Unable to copy obj! Its type isn't supported.");
         },
 
         _parsedomProp: function(domPropVal){

@@ -9,6 +9,7 @@ define([
     'dijit/form/Button'
 ], function (WidgetsInTemplateMixin, TemplatedMixin, WidgetBase, declare, template, ListBase) {
     return declare('dime.widget.GenericTableWidget', [ListBase, WidgetBase, TemplatedMixin, WidgetsInTemplateMixin], {
-        templateString: template
+        templateString: template,
+        independant: true
     });
 });
