@@ -110,4 +110,9 @@ abstract class Entity
     {
         return (string) $this->getId();
     }
+
+    public function __clone()
+    {
+        unset($this->id);
+    }
 }

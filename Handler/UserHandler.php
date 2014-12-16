@@ -56,6 +56,9 @@ class UserHandler extends GenericHandler
     public function post(array $parameters)
     {
         $entity = $this->userManager->createUser();
+        if(isset($parameters['id'])){
+            unset($parameters['id']);
+        }
         return $this->processForm($entity, $parameters, $this->formType,'POST');
     }
 
@@ -65,6 +68,9 @@ class UserHandler extends GenericHandler
      */
     public function put(DimeEntityInterface $entity, array $parameters)
     {
+        if(isset($parameters['id'])){
+            unset($parameters['id']);
+        }
         return $this->processForm($entity, $parameters, $this->formType, 'PUT');
     }
     
