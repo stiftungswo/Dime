@@ -3,7 +3,7 @@
 namespace Dime\TimetrackerBundle\Parser;
 
 /**
- * a duration parser
+ * a value parser
  *
  * Example:
  * [+-]02:30:15    => [sign: [+-], number: 9015]
@@ -13,7 +13,7 @@ namespace Dime\TimetrackerBundle\Parser;
  */
 class DurationParser extends AbstractParser
 {
-    protected $regex = '/(?P<sign>[+-])?(?P<duration>(\d+((:\d+)?(:\d+)?)?[hms]?([,\.]\d+[h])?(\s+)?(\d+[ms])?(\s+)?(\d+[s])?)?)/';
+    protected $regex = '/(?P<sign>[+-])?(?P<value>(\d+((:\d+)?(:\d+)?)?[hms]?([,\.]\d+[h])?(\s+)?(\d+[ms])?(\s+)?(\d+[s])?)?)/';
     protected $matches = array();
 
     public function clean($input)
@@ -32,7 +32,7 @@ class DurationParser extends AbstractParser
                 $duration = 0;
                 if (preg_match_all(
                     '/(?P<number>(\d+([,\.]\d+)?(:\d+)?))(?P<unit>[hms])/',
-                    $this->matches['duration'],
+                    $this->matches['value'],
                     $items
                 )
                 ) {
@@ -58,7 +58,7 @@ class DurationParser extends AbstractParser
                         }
                     }
                 } else {
-                    $time = explode(':', $this->matches['duration']);
+                    $time = explode(':', $this->matches['value']);
 
                     if (isset($time[0])) {
                         $duration += $this->calcDuration($time[0], 'h');
@@ -72,19 +72,19 @@ class DurationParser extends AbstractParser
                 }
 
                 // check if already set and run operation
-                if (isset($this->result['duration'])) {
+                if (isset($this->result['value'])) {
                     if ($this->matches['sign'] == '-') {
                         $duration *= -1;
                     }
 
-                    if ($this->result['duration']['sign'] == '-') {
-                        $duration -= $this->result['duration']['number'];
+                    if ($this->result['value']['sign'] == '-') {
+                        $duration -= $this->result['value']['number'];
                     } else {
-                        $duration += $this->result['duration']['number'];
+                        $duration += $this->result['value']['number'];
                     }
                 }
 
-                $this->result['duration'] = array(
+                $this->result['value'] = array(
                     'sign' => $this->matches['sign'],
                     'number' => $duration
                 );

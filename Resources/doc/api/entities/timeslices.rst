@@ -46,7 +46,7 @@ An array with timeslices.
             "id": 1,
             "activity": {},
             "tags": [],
-            "duration": int,
+            "value": int,
             "startedAt": "DATETIME (YYYY-MM-DD HH:mm:ss)",
             "stoppedAt": "DATETIME (YYYY-MM-DD HH:mm:ss)",
             "createdAt": "DATETIME (YYYY-MM-DD HH:mm:ss)",
@@ -76,7 +76,7 @@ A single timeslice.
         "id": 1,
         "activity": {},
         "tags": [],
-        "duration": int,
+        "value": int,
         "startedAt": "DATETIME (YYYY-MM-DD HH:mm:ss)",
         "stoppedAt": "DATETIME (YYYY-MM-DD HH:mm:ss)",
         "createdAt": "DATETIME (YYYY-MM-DD HH:mm:ss)",
@@ -91,7 +91,7 @@ POST /api/timeslices
 
     {
         "activity": ID,
-        "duration": int,
+        "value": int,
         "startedAt": "DATETIME (YYYY-MM-DD HH:mm:ss)",
         "stoppedAt": "DATETIME (YYYY-MM-DD HH:mm:ss)"
     }
@@ -101,7 +101,7 @@ POST /api/timeslices
 +============+==================================================+
 | name       | Name of timeslice                                |
 +------------+--------------------------------------------------+
-| duration   | Duration is an integer                           |
+| value   | Duration is an integer                           |
 |            | * Seconds is the base                            |
 |            | * Default is "0"                                 |
 |            | * Auto-calculated when only start and stop given |
@@ -118,7 +118,7 @@ The new created timeslice.
     {
         "id": 1,
         "activity": {},
-        "duration": int,
+        "value": int,
         "startedAt": "DATETIME (YYYY-MM-DD HH:mm:ss)",
         "stoppedAt": "DATETIME (YYYY-MM-DD HH:mm:ss)",
         "createdAt": "DATETIME (YYYY-MM-DD HH:mm:ss)",
@@ -133,7 +133,7 @@ PUT /api/timeslices/:id
 
     {
         "activity": ID,
-        "duration": int,
+        "value": int,
         "startedAt": "DATETIME (YYYY-MM-DD HH:mm:ss)",
         "stoppedAt": "DATETIME (YYYY-MM-DD HH:mm:ss)"
     }
@@ -155,7 +155,7 @@ The modified timeslice.
     {
         "id": 1,
         "activity": {},
-        "duration": int,
+        "value": int,
         "startedAt": "DATETIME (YYYY-MM-DD HH:mm:ss)",
         "stoppedAt": "DATETIME (YYYY-MM-DD HH:mm:ss)",
         "createdAt": "DATETIME (YYYY-MM-DD HH:mm:ss)",

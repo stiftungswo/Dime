@@ -88,10 +88,18 @@ abstract class EntityRepository extends Base
 
         $aliases = $qb->getRootAliases();
         $alias = array_shift($aliases);
-	    $value = str_replace('*', '%', $value);
-	    $qb->andWhere(
-		    $qb->expr()->like($alias . '.' . $field, ':' . $field)
-	    );
+        if (strpos($value,'*') !== false) {
+            $value = str_replace('*', '%', $value);
+            $qb->andWhere(
+                $qb->expr()->like($alias . '.' . $field, ':' . $field)
+            );
+        } else
+        {
+            $qb->andWhere(
+                $qb->expr()->eq($alias . '.' . $field, ':' . $field)
+            );
+        }
+
         $qb->setParameter($field, $value);
 
         return $this;

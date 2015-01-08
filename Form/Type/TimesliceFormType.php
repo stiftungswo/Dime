@@ -24,7 +24,7 @@ class TimesliceFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add($builder->create('duration', 'text')->addViewTransformer(new DurationTransformer()))
+            ->add($builder->create('value', 'text')->addViewTransformer(new DurationTransformer()))
             ->add('startedAt', 'datetime', array('required' => false, 'widget' => 'single_text', 'with_seconds' => true))
             ->add('stoppedAt', 'datetime', array('required' => false, 'widget' => 'single_text', 'with_seconds' => true))
             ->add('activity')

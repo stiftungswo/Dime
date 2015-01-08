@@ -93,7 +93,7 @@ class TimeslicesController extends DimeController
 	 * )
 	 *
 	 * @Annotations\Route(requirements={"_format"="html"})
-	 * @Annotations\QueryParam(name="duration", nullable=true, description="Sets the Value Param in the Form.")
+	 * @Annotations\QueryParam(name="value", nullable=true, description="Sets the Value Param in the Form.")
 	 * @Annotations\QueryParam(name="startedAt", nullable=true, description="Sets the Value Param in the Form.")
 	 * @Annotations\QueryParam(name="stoppedAt", nullable=true, description="Sets the Value Param in the Form.")
 	 * @Annotations\QueryParam(name="tags", nullable=true, description="Sets the Value Param in the Form.")

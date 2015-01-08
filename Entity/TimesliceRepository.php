@@ -230,7 +230,7 @@ class TimesliceRepository extends EntityRepository
     }
 
     /**
-     * Fetch all activities id where a timeslice has stoppedAt is NULL and duration is '0'.
+     * Fetch all activities id where a timeslice has stoppedAt is NULL and value is '0'.
      * This query is a native one, because Doctrine DQL can not fetch only the activity_id.
      *
      * @param $date, Date            
@@ -249,7 +249,7 @@ class TimesliceRepository extends EntityRepository
     }
 
     /**
-     * Fetch all activities id where a timeslice has stoppedAt is NULL and duration is '0'.
+     * Fetch all activities id where a timeslice has stoppedAt is NULL and value is '0'.
      * This query is a native one, because Doctrine DQL can not fetch only the activity_id.
      *
      * @param
@@ -272,7 +272,7 @@ class TimesliceRepository extends EntityRepository
     }
 
     /**
-     * Fetch all activities id where a timeslice has stoppedAt is NULL and duration is '0'.
+     * Fetch all activities id where a timeslice has stoppedAt is NULL and value is '0'.
      * This query is a native one, because Doctrine DQL can not fetch only the activity_id.
      *
      * @return array, list of activity ids
@@ -282,7 +282,7 @@ class TimesliceRepository extends EntityRepository
     {
         $rsm = new ResultSetMapping();
         $rsm->addScalarResult('activity_id', 'activity');
-        $sql = 'SELECT DISTINCT t.activity_id FROM timeslices t WHERE t.stopped_at IS NULL AND t.duration = 0';
+        $sql = 'SELECT DISTINCT t.activity_id FROM timeslices t WHERE t.stopped_at IS NULL AND t.value = 0';
         $query = $this->getEntityManager()->createNativeQuery($sql, $rsm);
         return array_map("array_pop", $query->getResult());
     }

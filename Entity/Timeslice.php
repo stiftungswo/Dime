@@ -4,6 +4,7 @@ namespace Dime\TimetrackerBundle\Entity;
 
 use DateTime;
 use Dime\TimetrackerBundle\Form\Transformer\DurationTransformer;
+use Dime\TimetrackerBundle\Model\RateUnitType;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -43,11 +44,11 @@ class Timeslice extends Entity implements DimeEntityInterface
     protected $tags;
 
     /**
-     * @var integer $duration (in seconds)
+     * @var integer $value (in seconds)
      * @JMS\Exclude()
      * @ORM\Column(type="integer", nullable=false)
      */
-    protected $duration = 0;
+    protected $value = 0;
 
     /**
      * @var datetime $startedAt
@@ -100,36 +101,40 @@ class Timeslice extends Entity implements DimeEntityInterface
     }
 
     /**
-     * Set duration
+     * Set value
      *
-     * @param  integer   $duration
+     * @param  integer   $value
+     *
      * @return Timeslice
      */
-    public function setDuration($duration)
+    public function setValue($value)
     {
-        $this->duration = $duration;
+        $this->value = $value;
 
         return $this;
     }
 
     /**
-     * Get duration in seconds
+     * Get value in seconds
      *
      * @return int
      */
-    public function getDuration()
+    public function getValue()
     {
-        return $this->duration;
+        return $this->value;
     }
 
 	/**
 	 * @JMS\VirtualProperty()
-	 * @JMS\SerializedName("duration")
+	 * @JMS\SerializedName("value")
 	 */
-	public function serializeDuration()
+	public function serializeValue()
 	{
-		$transformer = new DurationTransformer();
-		return $transformer->transform($this->getDuration());
+        if($this->getActivity()->getRateUnitType() === RateUnitType::$NoChange) {
+            return $this->value;
+        }
+        $transformer = new DurationTransformer();
+        return $transformer->transform($this->getValue());
 	}
 
     /**
@@ -254,30 +259,48 @@ class Timeslice extends Entity implements DimeEntityInterface
     }
 
     /**
-     * Auto generate duration if empty
+     * Auto generate value if empty
+     */
+    public function updateValueOnEmpty()
+    {
+        if (empty($this->value) && !empty($this->startedAt) && !empty($this->stoppedAt)) {
+            $this->value = abs($this->stoppedAt->getTimestamp() - $this->startedAt->getTimestamp());
+        }
+    }
+
+    /**
+     * Asume Started Today if Start is empty
+     */
+    public function updateStartOnEmpty()
+    {
+        if(empty($this->startedAt)){
+            $this->startedAt = new DateTime('now');
+        }
+    }
+
+    /**
+     * Unified Call for Pre Persist/Update
      *
      * @ORM\PrePersist
      * @ORM\PreUpdate
      * @return Timeslice
      */
-    public function updateDurationOnEmpty()
+    public function updateOnEmpty()
     {
-        if (empty($this->duration) && !empty($this->startedAt) && !empty($this->stoppedAt)) {
-            $this->duration = abs($this->stoppedAt->getTimestamp() - $this->startedAt->getTimestamp());
-        }
-
+        $this->updateStartOnEmpty();
+        $this->updateValueOnEmpty();
         return $this;
     }
 
     /**
-     * Get duration in seconds from start to now
+     * Get value in seconds from start to now
      *
      * @return int
      */
     public function getCurrentDuration()
     {
-        if ($this->getDuration()) {
-            return $this->getDuration();
+        if ($this->getValue()) {
+            return $this->getValue();
         }
 
         if ($this->getStartedAt() instanceof DateTime) {

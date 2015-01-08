@@ -10,35 +10,63 @@ class LoadTimeslices extends AbstractFixture implements OrderedFixtureInterface
 {
 
 	protected $data = array(
-		'time1' => array(
-			'duration'  => 7200, // 2 * 3600
+		'buero_programming_activity1' => array(
+			'value'  => 7200, // 2 * 3600
 			'startedAt' => '2014-11-20 10:00:00',
 			'activity'  => 'ref:buero_programming_activity'
 		),
-		'time2' => array(
-			'duration'  => 5400, // 1.5 * 3600
+		'buero_infrastructure_activity1' => array(
+			'value'  => 5400, // 1.5 * 3600
 			'startedAt' => '2014-11-21 13:00:00',
 			'activity'  => 'ref:buero_infrastructure_activity',
 		),
-		'time3' => array(
-			'duration'  => 9000, // 2.5 * 3600
+		'cargo_zivi_activity1' => array(
+			'value'  => 9000, // 2.5 * 3600
 			'startedAt' => '2014-11-22 08:00:00',
 			'activity'  => 'ref:cargo_zivi_activity',
 		),
-		'time4' => array(
-			'duration'  => 30600, // 8.5 * 3600
+		'chrutzi_leiter_activity1' => array(
+			'value'  => 30600, // 8.5 * 3600
 			'startedAt' => '2014-11-23 08:00:00',
 			'activity'  => 'ref:chrutzi_leiter_activity',
 		),
-		'time5' => array(
-			'duration'  => 30600, // 8.5 * 3600
+		'chrutzi_zivih_activity1' => array(
+			'value'  => 30600, // 8.5 * 3600
 			'startedAt' => '2014-11-24 08:00:00',
 			'activity'  => 'ref:chrutzi_zivih_activity',
 		),
-		'time6' => array(
-			'duration'  => 30600, // 8.5 * 3600
+		'chrutzi_zivih_activity2' => array(
+			'value'  => 30600, // 8.5 * 3600
 			'startedAt' => '2014-11-25 08:00:00',
 			'activity'  => 'ref:chrutzi_zivih_activity',
+			'user'      => 'ref:test-user'
+		),
+		'chrutzi_entsorgung_activity1' => array(
+			'value'  => 100, // 100 Kg
+			'startedAt' => '2014-11-25 08:00:00',
+			'activity'  => 'ref:chrutzi_entsorgung_activity',
+			'user'      => 'ref:test-user'
+		),
+		'chrutzi_transport1_activity1' => array(
+			'value'  => 1, // Pauschal per einsatz
+			'startedAt' => '2014-11-25 08:00:00',
+			'activity'  => 'ref:chrutzi_transport1_activity',
+			'user'      => 'ref:test-user'
+		),
+		'chrutzi_transport1_activity2' => array(
+			'value'  => 1, // Pauschal per einsatz
+			'startedAt' => '2014-11-26 08:00:00',
+			'activity'  => 'ref:chrutzi_transport1_activity',
+			'user'      => 'ref:test-user'
+		),
+		'chrutzi_transport2_activity1' => array(
+			'value'  => 1, // Pauschal per einsatz
+			'activity'  => 'ref:chrutzi_transport2_activity',
+			'user'      => 'ref:test-user'
+		),
+		'chrutzi_transport2_activity2' => array(
+			'value'  => 1, // Pauschal per einsatz
+			'activity'  => 'ref:chrutzi_transport2_activity',
 			'user'      => 'ref:test-user'
 		),
 	);

@@ -21,7 +21,7 @@ class TimeslicesControllerTest extends DimeTestCase
 
         // assert that data has content
         $this->assertTrue(count($data) > 0, 'expected to find timeslices got '.$response->getContent());
-        $this->assertEquals($data[0]['duration'], '2h', 'expected to find duration "2h"');
+        $this->assertEquals($data[0]['value'], '2h', 'expected to find value "2h"');
     }
 
     public function testGetTimesliceAction()
@@ -38,7 +38,7 @@ class TimeslicesControllerTest extends DimeTestCase
 
         // assert that data has content
         $this->assertTrue(count($data) > 0, 'expected to find activities');
-        $this->assertEquals($data['duration'], '2h', 'expected to find duration "7200"');
+        $this->assertEquals($data['value'], '2h', 'expected to find value "7200"');
     }
 
     public function testPostPutDeleteTimeslicesActions()
@@ -49,7 +49,7 @@ class TimeslicesControllerTest extends DimeTestCase
             'activity'    => '1',
             'startedAt'   => '2012-02-10 19:00:00',
             'stoppedAt'   => '2012-02-10 19:30:00',
-            'duration'    => '',
+            'value'    => '',
             'user'        => '1'
         )));
         $this->assertEquals(201, $response->getStatusCode(), $response->getContent());
@@ -74,7 +74,7 @@ class TimeslicesControllerTest extends DimeTestCase
             'activity'    => '1',
             'startedAt'   => '2012-02-10 19:00:00',
             'stoppedAt'   => '2012-02-10 19:30:00',
-            'duration'    => '2h',
+            'value'    => '2h',
             'user'        => '1'
         )));
         $this->assertEquals(200, $response->getStatusCode(), $response->getContent());
@@ -83,7 +83,7 @@ class TimeslicesControllerTest extends DimeTestCase
             'activity'    => '1',
             'startedAt'   => '2012-02-10 19:00:00',
             'stoppedAt'   => '2012-02-10 19:30:00',
-            'duration'    => '',
+            'value'    => '',
             'user'        => '1'
         )));
         $this->assertEquals(404, $response->getStatusCode(), $response->getContent());
@@ -95,7 +95,7 @@ class TimeslicesControllerTest extends DimeTestCase
         $data = json_decode($response->getContent(), true);
 
         // assert that data has content
-        $this->assertEquals($data['duration'], '2h', 'expected to find "2h"');
+        $this->assertEquals($data['value'], '2h', 'expected to find "2h"');
 
         // delete activity
         $response = $this->jsonRequest('DELETE', $this->api_prefix.'/timeslices/' . $id);

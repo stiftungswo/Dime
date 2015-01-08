@@ -137,7 +137,7 @@ class ActivityDecoder
         $timeslice->setActivity($activity);
         $timeslice->setUser($this->getCurrentUser());
         $activity->addTimeslice($timeslice);
-        if (isset($result['range']) || isset($result['duration'])) {
+        if (isset($result['range']) || isset($result['value'])) {
             // process time range
             if (isset($result['range'])) {
                 $range = $result['range'];
@@ -158,21 +158,21 @@ class ActivityDecoder
                 $timeslice->setStartedAt($start);
                 $timeslice->setStoppedAt($stop);
             } else {
-                // track date for duration
+                // track date for value
                 $date->setTime(0, 0, 0);
                 $timeslice->setStartedAt($date);
                 $timeslice->setStoppedAt($date);
             }
             
-            // process duration
-            if (isset($result['duration'])) {
-                if (empty($result['duration']['sign'])) {
-                    $timeslice->setDuration($result['duration']['number']);
+            // process value
+            if (isset($result['value'])) {
+                if (empty($result['value']['sign'])) {
+                    $timeslice->setDuration($result['value']['number']);
                 } else {
-                    if ($result['duration']['sign'] == '-') {
-                        $timeslice->setDuration($timeslice->getCurrentDuration() - $result['duration']['number']);
+                    if ($result['value']['sign'] == '-') {
+                        $timeslice->setDuration($timeslice->getCurrentDuration() - $result['value']['number']);
                     } else {
-                        $timeslice->setDuration($timeslice->getCurrentDuration() + $result['duration']['number']);
+                        $timeslice->setDuration($timeslice->getCurrentDuration() + $result['value']['number']);
                     }
                 }
             }

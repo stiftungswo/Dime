@@ -44,19 +44,16 @@ class LoadActivities extends AbstractFixture implements OrderedFixtureInterface
 		'chrutzi_entsorgung_activity'              => array(
 			'project'   => 'ref:third-project',
 			'service'     => 'ref:entsorgung_service',
-			'value'     => '100',
 			'description' => 'Grüngutentsorgung im Chrutzelriet',
 		),
 		'chrutzi_transport1_activity'              => array(
 			'project'   => 'ref:third-project',
 			'service'     => 'ref:transport1_service',
-			'value'     => '1',
 			'description' => 'Transport Personen zum Chrutzelriet',
 		),
 		'chrutzi_transport2_activity'              => array(
 			'project'   => 'ref:third-project',
 			'service'     => 'ref:transport2_service',
-			'value'     => '1',
 			'description' => 'Transport Material zum Chrutzelriet',
 		),
 	);

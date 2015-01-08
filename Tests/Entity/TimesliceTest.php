@@ -9,7 +9,7 @@ class TimesliceTest extends \PHPUnit_Framework_TestCase
     public function testGetCurrentDurationWithGivenDuration()
     {
         $Timeslice = new Timeslice();
-        $Timeslice->setDuration(200);
+        $Timeslice->setValue(200);
         $this->assertEquals(200, $Timeslice->getCurrentDuration());
     }
 

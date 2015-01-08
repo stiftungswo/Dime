@@ -118,7 +118,7 @@ class ActivitiesControllerTest extends DimeTestCase
 //         $this->assertEquals('cc', $content['customer']['alias']);
 //         $this->assertEquals('CWE2011', $content['project']['name']);
 //         $this->assertEquals('Testing', $content['service']['name']);
-//         $this->assertEquals(7200, $content['timeslices'][0]['duration']);
+//         $this->assertEquals(7200, $content['timeslices'][0]['value']);
 
 //         // delete activity
 //         $response = $this->jsonRequest('DELETE', $this->api_prefix.'/activities/' . $content['id']);

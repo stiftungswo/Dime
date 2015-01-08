@@ -115,16 +115,11 @@ class Activity extends Entity implements DimeEntityInterface
 	 */
 	public function getValue()
 	{
-		if (!empty($this->value))
-		{
-			return $this->value;
-		}
-
 		$value = 0;
 
 		foreach($this->getTimeslices() as $timeslice)
 		{
-			$value += $timeslice->getDuration();
+			$value += $timeslice->getValue();
 		}
 
 		return $value;
