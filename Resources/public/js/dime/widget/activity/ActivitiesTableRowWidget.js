@@ -72,11 +72,7 @@ define([
 
         _updateValues: function(){
             this.inherited(arguments);
-            if(this.entity.rateUnitType != 0){
-                this.valueNode.set('disabled', true);
-            } else {
-                this.valueNode.set('disabled', false);
-            }
+            this.valueNode.set('disabled', true);
         }
     });
 });

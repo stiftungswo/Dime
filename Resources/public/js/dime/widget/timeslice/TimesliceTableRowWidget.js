@@ -41,9 +41,9 @@ define([
                     },
                     idProperty: 'id'
                 },
-                durationNode: {
+                valueNode: {
                     widgetProperty: 'value',
-                    entityProperty: 'duration',
+                    entityProperty: 'value',
                     nullValue: '0h'
                 }
             }
