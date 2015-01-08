@@ -89,12 +89,12 @@ class Activity extends Entity implements DimeEntityInterface
 	protected $chargeableReference = 1;
 
 	/**
-	 * @var integer $value
+	 * var integer $value
 	 *
-	 * @ORM\Column(type="decimal", scale=2, precision=10, nullable=true)
-	 * @JMS\Exclude()
+	 * ORM\Column(type="decimal", scale=2, precision=10, nullable=true)
+	 * JMS\Exclude()
 	 */
-	protected $value;
+	//protected $value;
 
     /**
      * @ORM\Column(name="rate_unit", type="text", nullable=true)
@@ -195,15 +195,16 @@ class Activity extends Entity implements DimeEntityInterface
 	}
 
 	/**
-	 * @param int $value
+	 * param int $value
 	 *
-	 * @return $this
-	 */
-	public function setValue($value)
-	{
-		$this->value = $value;
-		return $this;
-	}
+	 * return $this
+	 *
+	* public function setValue($value)
+	* {
+	* 	$this->value = $value;
+	* 	return $this;
+	* }
+	 * /
 
 	/**
 	 * @JMS\VirtualProperty()
