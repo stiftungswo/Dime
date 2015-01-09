@@ -118,6 +118,7 @@ define([
                     queryPrototype: {
                         project: 'id'
                     },
+                    widgetProperty: 'updateValues',
                     prototype:  {
                         project: 'entityref:id'
                     },

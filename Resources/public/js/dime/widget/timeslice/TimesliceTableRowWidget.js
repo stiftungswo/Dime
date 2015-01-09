@@ -14,6 +14,7 @@ define([
         templateString: template,
         baseClass: "timesliceTableRowWidget",
         store: 'timeslices',
+        independant: true,
         //Todo Make Filter for active users. (User do not have a active Property in db Yet)
 
         config: {

@@ -385,12 +385,16 @@ define([
                 var hash = {}, optionhash = {};
                 var idProperty = node.idProperty || configdefaults.idProperty;
                 var entityProperty = node.entityProperty;
-                //Check to reduce Trigger Happines i.e we got triggered becouse of updateValues()
+                //Check to reduce Trigger Happines i.e we got triggered because of updateValues()
                 if (entity[entityProperty] == newvalue) return;
                 if(node.idProperty){
                     //Same as above but for subentities
                     var subEnt = entity[entityProperty];
-                    if(subEnt[idProperty] === newvalue) return;
+                    //There is some case where The Property might not be defined. We thus then want to post the default Value
+                    if(subEnt) {
+                        //Otherwise break trigger Happiness
+                        if (subEnt[idProperty] === newvalue) return;
+                    }
                 }
                 hash[entityProperty] = newvalue;
                 if (independant) {
