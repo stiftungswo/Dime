@@ -36,7 +36,45 @@ abstract class EntityRepository extends Base
      *
      * @return QueryBuilder
      */
-    abstract public function scopeByDate($date, QueryBuilder $qb = null);
+    public function scopeByDate($date, QueryBuilder $qb = null)
+    {
+        if ($qb == null) {
+            $qb = $this->builder;
+        }
+        $aliases = $qb->getRootAliases();
+        $alias = array_shift($aliases);
+
+        if (is_array($date) && count($date) == 1) {
+            $date = array_shift($date);
+        }
+
+        if(is_string($date)){
+            $datetmp = preg_split('#,#', $date);
+            if(is_array($datetmp)){
+                $date = $datetmp;
+            }
+        }
+
+        if (is_array($date)) {
+            $qb->andWhere(
+                $qb->expr()->orX(
+                    $qb->expr()->between($alias . '.createdAt', ':from', ':to'),
+                    $qb->expr()->between($alias . '.updatedAt', ':from', ':to')
+                )
+            );
+            $qb->setParameter('from', $date[0] . ' 00:00:00');
+            $qb->setParameter('to', $date[1] . ' 23:59:59');
+        } else {
+            $qb->andWhere(
+                $qb->expr()->orX(
+                    $qb->expr()->like($alias . '.createdAt', ':date'),
+                    $qb->expr()->like($alias . '.updatedAt', ':date')
+                )
+            );
+            $qb->setParameter('date', $date . '%');
+        }
+        return $this;
+    }
 
     /**
      * Create a new current query builder

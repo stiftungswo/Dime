@@ -60,21 +60,27 @@ class TimesliceRepository extends EntityRepository
 	    }
 
         if (is_array($date)) {
-            $qb->andWhere($qb->expr()
-                ->orX($qb->expr()
-                ->between($alias . '.startedAt', ':from', ':to'), $qb->expr()
-                ->andX($qb->expr()
-                ->isNull($alias . '.startedAt'), $qb->expr()
-                ->between($alias . '.createdAt', ':from', ':to'))));
+            $qb->andWhere(
+                $qb->expr()->orX(
+                    $qb->expr()->between($alias . '.startedAt', ':from', ':to'),
+                    $qb->expr()->andX(
+                        $qb->expr()->isNull($alias . '.startedAt'),
+                        $qb->expr()->between($alias . '.createdAt', ':from', ':to')
+                    )
+                )
+            );
             $qb->setParameter('from', $date[0] . ' 00:00:00');
             $qb->setParameter('to', $date[1] . ' 23:59:59');
         } else {
-            $qb->andWhere($qb->expr()
-                ->orX($qb->expr()
-                ->like($alias . '.startedAt', ':date'), $qb->expr()
-                ->andX($qb->expr()
-                ->isNull($alias . '.startedAt'), $qb->expr()
-                ->like($alias . '.createdAt', ':date'))));
+            $qb->andWhere(
+                $qb->expr()->orX(
+                    $qb->expr()->like($alias . '.startedAt', ':date'),
+                    $qb->expr()->andX(
+                        $qb->expr()->isNull($alias . '.startedAt'),
+                        $qb->expr()->like($alias . '.createdAt', ':date')
+                    )
+                )
+            );
             $qb->setParameter('date', $date . '%');
         }
         return $this;

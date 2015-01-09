@@ -43,54 +43,6 @@ class ActivityRepository extends EntityRepository
     }
 
     /**
-     * Filter by date string or with array of 2 date strings.
-     * TODO Filter by date - no datetime functions at the moment
-     *
-     * @param                            $date, date string or array with data string
-     * @param \Doctrine\ORM\QueryBuilder $qb
-     *
-     * @return \Doctrine\ORM\QueryBuilder
-     * @throws \Exception when $qb is null
-     */
-    public function scopeByDate($date, QueryBuilder $qb = null)
-    {
-        if ($qb == null) {
-            $qb = $this->builder;
-        }
-
-        $aliases = $qb->getRootAliases();
-        $alias = array_shift($aliases);
-
-        if (is_array($date) && count($date) == 1) {
-            $date = array_shift($date);
-        }
-
-	    if(is_string($date)){
-		    $datetmp = preg_split('#,#', $date);
-		    if(is_array($datetmp)){
-			    $date = $datetmp;
-		    }
-	    }
-
-        if (is_array($date)) {
-            $qb->andWhere(
-                $qb->expr()->between($alias . '.updatedAt', ':from', ':to')
-            );
-            $qb->setParameter('from', $date[0]. ' 00:00:00');
-            $qb->setParameter('to', $date[1] . ' 23:59:59');
-        } else {
-            $qb->andWhere(
-                $qb->expr()->like($alias . '.updatedAt', ':date')
-            );
-            $qb->setParameter('date', $date . '%');
-        }
-
-        //print($qb->getQuery()->getSQL());
-
-        return $this;
-    }
-
-    /**
      * Filter active or non active activities. Active activities
      * has a timeslice where stoppedAt is null and duration is 0.
      *

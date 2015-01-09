@@ -108,6 +108,7 @@ abstract class AbstractHandler
      */
     protected function cleanFilter(array $filter)
     {
+        $result = array();
         foreach($filter as $key=>$value)
         {
 	        if (!empty($value))

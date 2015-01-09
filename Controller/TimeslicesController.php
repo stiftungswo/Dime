@@ -26,7 +26,7 @@ class TimeslicesController extends DimeController
      * )
      *
      * @Annotations\QueryParam(name="activity", requirements="\d+", nullable=true, description="Filter By Activity")
-     * @Annotations\QueryParam(name="date", nullable=true, description="Date to filter the Activity by in Format YYYY-MM-DD")
+     * @Annotations\QueryParam(name="date", nullable=true, description="Filter by date use Format YYYY-MM-DD or YYYY-MM-DD,YYYY-MM-DD to specify daterange")
      * @Annotations\QueryParam(name="customer", requirements="\d+", nullable=true, description="Filter By Customer")
      * @Annotations\QueryParam(name="project", requirements="\d+", nullable=true, description="Filter By Project")
      * @Annotations\QueryParam(name="service", requirements="\d+", nullable=true, description="Filter By Service")
