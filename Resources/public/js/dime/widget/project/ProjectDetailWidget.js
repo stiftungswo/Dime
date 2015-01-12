@@ -9,6 +9,7 @@ define([
     'dojo/text!dime/widget/project/templates/ProjectDetailWidget.html',
     'dojo/request',
     'dime/widget/GenericTableWidget',
+    'dime/widget/DateFilteredTableWidget',
     'dijit/form/TextBox',
     'dijit/form/Button',
     'dijit/form/DateTextBox',
@@ -123,7 +124,7 @@ define([
                         project: 'entityref:id'
                     },
                     createable: true,
-                    header: [ 'Datum', 'Mitarbeiter', 'Aktivität', 'Zeit' ],
+                    header: [ 'Datum', 'Mitarbeiter', 'Aktivität', 'Menge' ],
                     store: 'timeslices',
                     entitytype: 'timeslices'
                 }

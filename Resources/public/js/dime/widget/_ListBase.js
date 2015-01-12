@@ -112,7 +112,7 @@ define([
                 var childwidget = children[l];
                 var ent = this.getEntityByChildWidget(childwidget);
                 if(!ent){
-                    this.removeChildWidget(childwidget);
+                    childwidget.destroyRecursive();
                 }
             }
         },

@@ -137,9 +137,9 @@ define([
                     // Keep this here (works, but for code commented-out below for file size reasons)
                     // var tal= [];
                     var txt_words = [
-                        'Sun', 'Mon', 'Tues', 'Wednes', 'Thurs', 'Fri', 'Satur',
-                        'January', 'February', 'March', 'April', 'May', 'June',
-                        'July', 'August', 'September', 'October', 'November', 'December'
+                        'Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag',
+                        'Januar', 'Februar', 'März', 'April', 'Mai', 'Juni',
+                        'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'
                     ];
                     // trailing backslash -> (dropped)
                     // a backslash followed by any character (including backslash) -> the character
@@ -172,7 +172,7 @@ define([
                         },
                         l: function () {
                             // Full day name; Monday...Sunday
-                            return txt_words[f.w()] + 'day';
+                            return txt_words[f.w()];
                         },
                         N: function () {
                             // ISO-8601 day of week; 1[Mon]..7[Sun]
@@ -394,6 +394,57 @@ define([
                         return format.replace(formatChr, formatChrCb);
                     };
                     return this.date(format, timestamp);
+                },
+
+                getDateRange: function(range, date){
+                    if(range == 'Month'){
+                        return [ new Date(date.getFullYear(), date.getMonth(), 1), new Date(date.getFullYear(), date.getMonth() + 1, 0)];
+                    } else if(range == 'Week'){
+                        var d1 = new Date();
+                        var weekNo = app.date('W', eval(date.getTime()/1000));
+                        //Reset d1 to Last Monday
+                        var numOfdaysPastSinceLastMonday = eval(d1.getDay()- 1);
+                        d1.setDate(d1.getDate() - numOfdaysPastSinceLastMonday);
+                        //Calculate Delta of Weeks between the Week Today and the Target Week
+                        var weekNoToday = app.date('W', eval(d1.getTime()/1000));
+                        var weeksInTheFuture = eval( weekNo - weekNoToday );
+                        //Add the Week Delta to Date in Days
+                        d1.setDate(d1.getDate() + eval( 7 * weeksInTheFuture ));
+                        //This Results in the Monday which is Delta Weeks Past or Future of Today
+                        var startdate = new Date(d1.getFullYear(), d1.getMonth(), d1.getDate());
+                        //Now Add Six to get the Coresponding Sunday
+                        d1.setDate(d1.getDate() + 6);
+                        var enddate = new Date(d1.getFullYear(), d1.getMonth(), d1.getDate());
+                        return [ startdate, enddate ];
+                    } else {
+                        return [date, date];
+                    }
+                },
+
+                StepDate: function(direction, type, amount, date){
+                    var returndate = new Date(date.getTime());
+                    if (direction === 'advance') {
+                        if(type == 'Year'){
+                            returndate.setFullYear(date.getFullYear() + amount);
+                        } else if (type == 'Month') {
+                            returndate.setMonth(date.getMonth() + amount);
+                        } else if (type == 'Week') {
+                            returndate.setDate(date.getDate() + eval( 7 * amount));
+                        } else {
+                            returndate.setDate(date.getDate() + amount);
+                        }
+                    } else {
+                        if(type == 'Year'){
+                            returndate.setFullYear(date.getFullYear() - amount);
+                        } else if (type == 'Month') {
+                            returndate.setMonth(date.getMonth() - amount);
+                        } else if (type == 'Week') {
+                            returndate.setDate(date.getDate() - (7 * amount));
+                        } else {
+                            returndate.setDate(date.getDate() - amount);
+                        }
+                    }
+                    return returndate;
                 },
 
                 addTab: function(tabContainer, href, title, closable){
