@@ -43,6 +43,36 @@ class ActivityRepository extends EntityRepository
     }
 
     /**
+     * Search for the Virtual Property name
+     *
+     * @param string                     $name
+     * @param \Doctrine\ORM\QueryBuilder $qb
+     *
+     * @return \Doctrine\ORM\QueryBuilder
+     * @throws \Exception when $qb is null
+     */
+    public function name($name, QueryBuilder $qb = null)
+    {
+        if ($qb == null) {
+            $qb = $this->builder;
+        }
+
+        if (strpos($name,'*') !== false) {
+            $name = str_replace('*', '%', $name);
+        }
+
+        $aliases = $qb->getRootAliases();
+        $alias = array_shift($aliases);
+
+        $qb->andWhere(
+            $qb->join($alias.'.service', 's', null, null, 's.id')->expr()->like('s.name', ':name')
+        );
+        $qb->setParameter('name', $name);
+
+        return $this;
+    }
+
+    /**
      * Filter active or non active activities. Active activities
      * has a timeslice where stoppedAt is null and duration is 0.
      *
@@ -213,6 +243,9 @@ class ActivityRepository extends EntityRepository
                         break;
                     case 'search':
                         $this->search($value, $qb);
+                        break;
+                    case 'name':
+                        $this->name($value, $qb);
                         break;
                     default:
                         $this->scopeByField($key, $value, $qb);

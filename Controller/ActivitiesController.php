@@ -35,6 +35,7 @@ class ActivitiesController extends DimeController
      * @Annotations\QueryParam(name="search", requirements="\w+", nullable=true, description="Filter By Name or alias")
      * @Annotations\QueryParam(array=true, name="withTags", requirements="\d+", nullable=true, description="Show Entities with these Tags")
      * @Annotations\QueryParam(array=true, name="withoutTags", requirements="\d+", nullable=true, description="Show Entities without this Tags")
+     * @Annotations\QueryParam(name="name", nullable=true, description="Filter on Name Property")
      *
      * @Annotations\View(
      * templateVar="activities"
