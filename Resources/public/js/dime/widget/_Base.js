@@ -216,6 +216,7 @@ define([
                             }
                             attachPoint.set('store', store);
                         }
+                        //Todo Merge with Function from _ListBase.js
                         else if (propKey === 'queryPrototype') {
                             var query = {};
                             for (var querypropKey in prop) {

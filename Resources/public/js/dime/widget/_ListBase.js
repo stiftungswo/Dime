@@ -137,7 +137,18 @@ define([
         },
 
         _startEventListeners: function(){
+            var table = this;
+            window.eventManager.subscribe('entityCreate', table.entitytype, table.id, function(arg){
+                table._updateValues();
+            });
 
+            window.eventManager.subscribe('entityUpdate', table.entitytype, table.id, function(arg){
+                table._updateValues();
+            });
+
+            window.eventManager.subscribe('entityDelete', table.entitytype, table.id, function(arg){
+                table._updateValues();
+            });
         },
 
         getStore: function(){
@@ -167,6 +178,15 @@ define([
             } else {
                 console.log('Table ' + table.id + ' does not know what to do, as neither creatable, linkable or subentity are true');
             }
+        },
+
+        _mkNewEntityDialog: function(){
+            var table = this;
+            var dialogprops = table.dialogprops || {};
+            if(dialogprops.queryPrototype){
+                dialogprops.query = table._resolvePrototype(dialogprops.queryPrototype);
+            }
+            window.dialogManager.show('dime/widget/timeslice/NewTimesliceDialog', dialogprops);
         },
 
         getSelectedChildren: function(){
@@ -224,6 +244,7 @@ define([
             return entity;
         },
 
+        //Todo Merge with Function from _base.js
         _resolvePrototype: function(prototype){
             var entity = this._getParentEntity();
             for(var protoKey in prototype){
