@@ -114,7 +114,9 @@ class ActivitiesController extends DimeController
 	 */
     public function newActivityAction(ParamFetcherInterface $paramFetcher)
     {
-        return $this->get($this->handlerSerivce)->newForm($paramFetcher->all());
+        $parameters = $paramFetcher->all();
+        $settingsParameters['classname'] = 'activity';
+        return $this->get($this->handlerSerivce)->newEntity($parameters, $settingsParameters);
     }
 
     /**

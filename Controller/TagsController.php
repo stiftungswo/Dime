@@ -96,7 +96,9 @@ class TagsController extends DimeController
 	 */
     public function newTagAction(ParamFetcherInterface $paramFetcher)
     {
-	    return $this->get($this->handlerSerivce)->newForm($paramFetcher->all());
+        $parameters = $paramFetcher->all();
+        $settingsParameters['classname'] = 'tag';
+        return $this->get($this->handlerSerivce)->newEntity($parameters, $settingsParameters);
     }
 
     /**

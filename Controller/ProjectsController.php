@@ -115,7 +115,9 @@ class ProjectsController extends DimeController
 	 */
     public function newProjectAction(ParamFetcherInterface $paramFetcher)
     {
-	    return $this->get($this->handlerSerivce)->newForm($paramFetcher->all());
+        $parameters = $paramFetcher->all();
+        $settingsParameters['classname'] = 'project';
+        return $this->get($this->handlerSerivce)->newEntity($parameters, $settingsParameters);
     }
 
     /**

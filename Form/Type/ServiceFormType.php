@@ -23,7 +23,7 @@ class ServiceFormType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('alias')
+            ->add('alias', null, array('required' => false))
             ->add('description')
             ->add('rates', 'collection', array('type' => new RateFormType()))
 	        ->add('vat')

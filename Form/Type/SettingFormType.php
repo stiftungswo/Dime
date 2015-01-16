@@ -24,7 +24,8 @@ class SettingFormType extends AbstractType
         $builder
             ->add('namespace')
             ->add('name')
-            ->add('value');
+            ->add('value')
+            ->add('user', 'entity', array('class' => 'DimeTimetrackerBundle:User'));
     }
 
     public function getName()

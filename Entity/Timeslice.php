@@ -129,12 +129,16 @@ class Timeslice extends Entity implements DimeEntityInterface
 	 * @JMS\SerializedName("value")
 	 */
 	public function serializeValue()
-	{
-        if($this->getActivity()->getRateUnitType() === RateUnitType::$NoChange) {
-            return $this->value;
+    {
+        if(is_callable(array($this->activity, 'getRateUnitType'))) {
+            if($this->getActivity()->getRateUnitType() === RateUnitType::$NoChange) {
+                return $this->getValue();
+            }
+            $transformer = new DurationTransformer();
+            return $transformer->transform($this->getValue());
+        } else {
+            return $this->getValue();
         }
-        $transformer = new DurationTransformer();
-        return $transformer->transform($this->getValue());
 	}
 
     /**

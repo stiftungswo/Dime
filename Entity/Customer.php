@@ -34,7 +34,6 @@ class Customer extends Entity implements DimeEntityInterface
     /**
      * @var string $alias
      *
-     * @Assert\NotBlank()
      * @Gedmo\Slug(fields={"name"})
      * @ORM\Column(type="string", length=30)
      */
@@ -62,7 +61,7 @@ class Customer extends Entity implements DimeEntityInterface
 	 *
 	 * @ORM\Column(type="boolean")
 	 */
-	protected $chargeable;
+	protected $chargeable = true;
 
 	/**
 	 * @var \Swo\CommonsBundle\Entity\Address $address

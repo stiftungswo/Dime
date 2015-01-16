@@ -78,36 +78,40 @@ class RateController extends DimeController
         return $this->getOr404($id, $this->handlerSerivce);
     }
 
-	/**
-	 * Presents the form to use to create a new Entity.
-	 *
-	 * @ApiDoc(
-	 * resource = true,
-	 * statusCodes = {
-	 * 200 = "Returned when successful"
-	 * }
-	 * )
-	 *
-	 * @Annotations\View(
-	 * templateVar = "form"
-	 * )
-	 *
-	 * @Annotations\Route(requirements={"_format"="html"})
-	 * @Annotations\QueryParam(name="tags", nullable=true, description="Sets the Value Param in the Form.")
-	 * @Annotations\QueryParam(name="user", nullable=true, description="Sets the Value Param in the Form.")
-	 * @Annotations\QueryParam(name="rateGroup", nullable=true, description="Sets the Value Param in the Form.")
-	 * @Annotations\QueryParam(name="rateUnit", nullable=true, description="Sets the Value Param in the Form.")
-	 * @Annotations\QueryParam(name="service", nullable=true, description="Sets the Value Param in the Form.")
-	 * @Annotations\QueryParam(name="value", nullable=true, description="Sets the Value Param in the Form.")
-	 *
-	 *
-	 * @param ParamFetcherInterface $paramFetcher
-	 *
-	 * @return FormTypeInterface
-	 */
+    /**
+     * Presents the form to use to create a new Entity.
+     *
+     * @ApiDoc(
+     * resource = true,
+     * statusCodes = {
+     * 200 = "Returned when successful"
+     * }
+     * )
+     *
+     * @Annotations\View(
+     * templateVar = "form"
+     * )
+     *
+     * @Annotations\Route(requirements={"_format"="html"})
+     * @Annotations\QueryParam(name="tags", nullable=true, description="Sets the Value Param in the Form.")
+     * @Annotations\QueryParam(name="user", nullable=true, description="Sets the Value Param in the Form.")
+     * @Annotations\QueryParam(name="rateGroup", nullable=true, description="Sets the Value Param in the Form.")
+     * @Annotations\QueryParam(name="rateUnit", nullable=true, description="Sets the Value Param in the Form.")
+     * @Annotations\QueryParam(name="rateUnitType", nullable=true, description="Sets the Value Param in the Form.")
+     * @Annotations\QueryParam(name="service", nullable=true, description="Sets the Value Param in the Form.")
+     * @Annotations\QueryParam(name="value", nullable=true, description="Sets the Value Param in the Form.")
+     *
+     *
+     * @param ParamFetcherInterface $paramFetcher
+     *
+     *
+     * @return mixed
+     */
     public function newRateAction(ParamFetcherInterface $paramFetcher)
     {
-	    return $this->get($this->handlerSerivce)->newForm($paramFetcher->all());
+        $parameters = $paramFetcher->all();
+        $settingsParameters['classname'] = 'rate';
+        return $this->get($this->handlerSerivce)->newEntity($parameters, $settingsParameters);
     }
 
     /**

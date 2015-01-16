@@ -4,9 +4,7 @@ namespace Dime\TimetrackerBundle\Handler;
 use Doctrine\Common\Persistence\ObjectManager;
 use Dime\TimetrackerBundle\Model\DimeEntityInterface;
 use Dime\TimetrackerBundle\Exception\InvalidFormException;
-use Symfony\Component\Form\FormFactoryInterface;
-use Symfony\Component\HttpFoundation\Session\Session;
-use Symfony\Component\Security\Core\SecurityContext;
+use Symfony\Component\DependencyInjection\Container;
 
 abstract class AbstractHandler
 {
@@ -25,13 +23,16 @@ abstract class AbstractHandler
 
 	protected $formType;
 
-    public function __construct(ObjectManager $om, $entityClass, FormFactoryInterface $formFactory, SecurityContext $secContext, $alias, $formType)
+    protected $container;
+
+    public function __construct(ObjectManager $om, $entityClass, Container $container, $alias, $formType)
     {
         $this->om = $om;
         $this->entityClass = $entityClass;
         $this->repository = $this->om->getRepository($this->entityClass);
-        $this->formFactory = $formFactory;
-        $this->secContext = $secContext;
+        $this->formFactory = $container->get('form.factory');
+        $this->secContext = $container->get('security.context');
+        $this->container = $container;
 	    $this->alias = $alias;
 	    $this->formType = $formType;
     }

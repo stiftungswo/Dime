@@ -115,4 +115,27 @@ abstract class Entity
     {
         unset($this->id);
     }
+
+    public function sanitize(array $parameters)
+    {
+        $retval = array();
+        $properties = $this->getProperties();
+        foreach($parameters as $key => $value)
+        {
+            if(array_key_exists($key, $properties)){
+                $retval[$key] = $value;
+            }
+        }
+        return $retval;
+    }
+
+    public function getProperties()
+    {
+        $retval = array();
+        foreach($this as $key => $value)
+        {
+            $retval[] = $key;
+        }
+        return $retval;
+    }
 }

@@ -103,7 +103,9 @@ class RateGroupController extends DimeController
 	 */
     public function newRateGroupAction(ParamFetcherInterface $paramFetcher)
     {
-	    return $this->get($this->handlerSerivce)->newForm($paramFetcher->all());
+        $parameters = $paramFetcher->all();
+        $settingsParameters['classname'] = 'rategroup';
+        return $this->get($this->handlerSerivce)->newEntity($parameters, $settingsParameters);
     }
 
     /**

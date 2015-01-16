@@ -23,7 +23,7 @@ class RateFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('rateGroup', 'entity', array('class' => 'DimeTimetrackerBundle:RateGroup'))
+            ->add('rateGroup', 'entity', array('class' => 'DimeTimetrackerBundle:RateGroup', 'empty_data' => '1'))
             ->add('service', 'entity', array('class' => 'DimeTimetrackerBundle:Service'))
 	        ->add('rateUnitType', 'choice', array('choice_list' => new RateUnitType()))
             ->add('rateUnit')

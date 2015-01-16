@@ -39,7 +39,6 @@ class Project extends Entity implements DimeEntityInterface
     /**
      * @var string $alias
      *
-     * @Assert\NotBlank()
      * @Gedmo\Slug(fields={"name"})
      * @ORM\Column(type="string", length=30)
      */

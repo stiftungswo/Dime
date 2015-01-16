@@ -31,6 +31,16 @@ abstract class EntityRepository extends Base
     /**
      * @abstract
      *
+     * @param array $parameters
+     * @param       $entity
+     *
+     * @return mixed
+     */
+    //abstract public function fillDefaults(array $parameters, $entity);
+
+    /**
+     * @abstract
+     *
      * @param                   $date
      * @param QueryBuilder      $qb
      *

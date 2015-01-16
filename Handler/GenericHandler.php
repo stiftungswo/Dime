@@ -75,14 +75,57 @@ class GenericHandler extends AbstractHandler implements HandlerInterface {
 	}
 
 	/**
-	 * @param array $values
+	 * Returns a new valid Entity
 	 *
-	 * @return \Symfony\Component\Form\FormInterface
+	 *
+	 * @param array $parameters
+	 *
+	 * @param array $settingsParams
+	 *
+	 * @return mixed
+	 *
 	 */
-	public function newForm(array $values)
+	public function newEntity(array $parameters, array $settingsParams)
 	{
-		$entity = $this->newClassInstance();
-		return $this->createForm($entity, $this->formType, $values);
+		if(!isset($settingsParams['user'])) {
+			$settingsParams['user'] = $this->getCurrentUser()->getId();
+		}
+		$settings = $this->fillFromSettings($settingsParams);
+		$parameters = $this->cleanFilter($parameters);
+		foreach($parameters as $key => $value)
+		{
+			$settings[$key] = $value;
+		}
+		return $this->post($settings);
+	}
+
+	protected function fillFromSettings(array $parameters)
+	{
+		$settingsManager = $this->container->get('dime.setting.manager');
+		$parameters = $this->cleanFilter($parameters);
+		$systemSettings = $settingsManager->all(
+			array(
+				'namespace' => '/etc/defaults/'.$parameters['classname']
+			),
+			$parameters
+		);
+		$userSettings = $settingsManager->all(
+			array(
+				'namespace' => '/usr/defaults/'.$parameters['classname'],
+				'user' => $parameters['user']
+			),
+			$parameters
+		);
+		$retval = array();
+		foreach($systemSettings as $systemSetting)
+		{
+			$retval[$systemSetting->getName()] = $systemSetting->getValue();
+		}
+		foreach($userSettings as $userSetting)
+		{
+			$retval[$userSetting->getName()] = $userSetting->getValue();
+		}
+		return $retval;
 	}
 
 	/**

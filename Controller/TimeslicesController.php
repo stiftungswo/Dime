@@ -93,12 +93,13 @@ class TimeslicesController extends DimeController
 	 * )
 	 *
 	 * @Annotations\Route(requirements={"_format"="html"})
-	 * @Annotations\QueryParam(name="value", nullable=true, description="Sets the Value Param in the Form.")
-	 * @Annotations\QueryParam(name="startedAt", nullable=true, description="Sets the Value Param in the Form.")
-	 * @Annotations\QueryParam(name="stoppedAt", nullable=true, description="Sets the Value Param in the Form.")
-	 * @Annotations\QueryParam(name="tags", nullable=true, description="Sets the Value Param in the Form.")
-	 * @Annotations\QueryParam(name="user", nullable=true, description="Sets the Value Param in the Form.")
-	 * @Annotations\QueryParam(name="activity", nullable=true, description="Sets the Value Param in the Form.")
+	 * @Annotations\QueryParam(name="value", nullable=true, description="Sets the Value Field")
+	 * @Annotations\QueryParam(name="startedAt", nullable=true, description="Sets startedAt Field")
+	 * @Annotations\QueryParam(name="stoppedAt", nullable=true, description="Sets the stoppedAt Field")
+	 * @Annotations\QueryParam(name="tags", nullable=true, description="Sets the tags Field")
+	 * @Annotations\QueryParam(name="user", nullable=true, description="Sets the user Field")
+	 * @Annotations\QueryParam(name="activity", nullable=true, description="Sets the activity Field")
+     * @Annotations\QueryParam(name="project", nullable=true, description="Limits the Activity Filed to this Project")
 	 *
 	 * @Annotations\View(
 	 * templateVar = "form"
@@ -110,7 +111,13 @@ class TimeslicesController extends DimeController
 	 */
     public function newTimesliceAction(ParamFetcherInterface $paramFetcher)
     {
-	    return $this->get($this->handlerSerivce)->newForm($paramFetcher->all());
+        $parameters = $paramFetcher->all();
+        $settingsParameters['classname'] = 'timeslice';
+        if(isset($parameters['project'])){
+            $settingsParameters['project'] = $parameters['project'];
+            unset($parameters['project']);
+        }
+	    return $this->get($this->handlerSerivce)->newEntity($parameters, $settingsParameters);
     }
 
     /**

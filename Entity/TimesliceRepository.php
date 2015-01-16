@@ -29,6 +29,19 @@ class TimesliceRepository extends EntityRepository
         return $this;
     }
 
+    public function scopeByLatest(QueryBuilder $qb =null)
+    {
+        if ($qb == null) {
+            $qb = $this->builder;
+        }
+        $aliases = $qb->getRootAliases();
+        $alias = array_shift($aliases);
+
+        $qb->orderBy($alias.'.startedAt', 'DESC');
+        $qb->setMaxResults(1);
+        return $this;
+    }
+
     /**
      * Scope by date,
      * Not implemented yet.
@@ -223,6 +236,9 @@ class TimesliceRepository extends EntityRepository
                         break;
                     case 'withoutTags':
                         $this->scopeWithoutTags($value, $qb);
+                        break;
+                    case 'latest' :
+                        $this->scopeByLatest($qb);
                         break;
                     default:
                         $this->scopeByField($key, $value, $qb);
