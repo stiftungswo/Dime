@@ -45,6 +45,8 @@ define([
 
         subentity: false,
 
+        selectable: false,
+
         //Make one Childwidget for every Entity found i either Value or queried from store
         _InitTable: function(){
             if(this.entity){
@@ -167,9 +169,9 @@ define([
             if(prototype) {
                 entity = table._resolvePrototype(prototype);
                 table._uploadEntity(entity);
-            } else if(table.selectNode) {
+            } else if(table.selectable) {
                 //Todo Find better solution to get object of id, as dojo.when would require async programming
-                entity = when(store.get(selectNode.get('value')), function(entity){return entity;});
+                entity = when(table.getStore().get(table.selectNode.get('value')), function(entity){return entity;});
                 table._uploadEntity(entity);
             } else {
                 app.newEntity(table.entitytype, {query: table.query});

@@ -121,6 +121,9 @@ define([
                         discountable: true,
                         vat: 0.08
                     },
+                    queryPrototype: {
+                        offer: 'id'
+                    },
                     createable: true,
                     linkable: false,
                     store: 'offerpositions',
@@ -132,6 +135,7 @@ define([
                     header: [ 'Name', 'Reduktion', 'Prozent', 'Wert' ],
                     widgetProperty: 'updateValues',
                     entityProperty: 'standardDiscounts',
+                    selectable: true,
                     createable: false,
                     linkable: true,
                     selectable: {
@@ -147,6 +151,9 @@ define([
                     widgetProperty: 'updateValues',
                     createable: true,
                     linkable: false,
+                    queryPrototype: {
+                        offer: 'id'
+                    },
                     store: 'offerdiscounts',
                     entityProperty: 'offerDiscounts',
                     entitytype: 'offerdiscounts'
