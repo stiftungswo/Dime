@@ -6,6 +6,7 @@ use Dime\TimetrackerBundle\Model\DimeEntityInterface;
 use FOS\UserBundle\Model\UserInterface;
 use Dime\TimetrackerBundle\Exception\InvalidFormException;
 use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Security\Core\SecurityContext;
 use FOS\UserBundle\Model\UserManager;
@@ -17,9 +18,9 @@ class UserHandler extends GenericHandler
      /* (non-PHPdoc)
       * @see \Dime\TimetrackerBundle\Handler\AbstractHandler::__construct()
       */
-     public function __construct(ObjectManager $om, $entityClass, FormFactoryInterface $formFactory, SecurityContext $secContext, UserManager $userManager, $alias, $formType)
+     public function __construct(ObjectManager $om, $entityClass, Container $container, UserManager $userManager, $alias, $formType)
      {
-        parent::__construct($om, $entityClass, $formFactory, $secContext, $alias, $formType);
+         parent::__construct($om, $entityClass, $container, $alias, $formType);
         $this->userManager = $userManager;
      }
 
