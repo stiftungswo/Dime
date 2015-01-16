@@ -4,12 +4,12 @@ parameters:
 services:
     dime.invoice.handler:
         class: "Dime\InvoiceBundle\Handler\InvoiceHandler"
-        arguments: [ "@doctrine.orm.entity_manager", "Dime\InvoiceBundle\Entity\Invoice", "@form.factory", "@security.context", "inv", "dime_invoicebundle_invoiceformtype" ]
+        arguments: [ "@doctrine.orm.entity_manager", "Dime\InvoiceBundle\Entity\Invoice", "@service_container", "inv", "dime_invoicebundle_invoiceformtype" ]
 
     dime.invoicediscount.handler:
         class: %generic_handler%
-        arguments: [ "@doctrine.orm.entity_manager", "Dime\InvoiceBundle\Entity\InvoiceDiscount", "@form.factory", "@security.context", "invd", "dime_invoicebundle_invoicediscountformtype" ]
+        arguments: [ "@doctrine.orm.entity_manager", "Dime\InvoiceBundle\Entity\InvoiceDiscount", "@service_container", "invd", "dime_invoicebundle_invoicediscountformtype" ]
 
     dime.invoiceitem.handler:
         class: %generic_handler%
-        arguments: [ "@doctrine.orm.entity_manager", "Dime\InvoiceBundle\Entity\InvoiceItem", "@form.factory", "@security.context", "invt", "dime_invoicebundle_invoiceitemformtype" ]
+        arguments: [ "@doctrine.orm.entity_manager", "Dime\InvoiceBundle\Entity\InvoiceItem", "@service_container", "invt", "dime_invoicebundle_invoiceitemformtype" ]
