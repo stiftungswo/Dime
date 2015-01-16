@@ -35,7 +35,24 @@ define([
                         }
                     }
                 }
+            },
+            events: {
+                //Called after an entity has been sucessfully posted
+                storeCreateNotify: {
+                    //Which Topic to subscribe to.
+                    Topic: 'entityCreate',
+                    //Which subtopic to subscribe to
+                    subTopic: 'invoices',
+                    //The Function to execute should event be fired.
+                    eventFunction: 'storeCreateNotify'
+                    //arg contains the Following Properties
+                    //entity: The created Entity
+                }
             }
+        },
+
+        storeCreateNotify: function(args){
+            this.GridNode.store.notify(args.entity);
         }
     });
 });

@@ -13,12 +13,13 @@ define([
         "dime/widget/dialogManager",
         "dime/widget/widgetManager",
         "dime/event/eventManager",
+        "dojo/request",
         "dojo/NodeList-manipulate",
         "dojo/NodeList-traverse",
         "dime/module"
     ],
     function(declare, parser, dom, domStyle, domGeometry, baseFx, ContentPane, registry,
-             editor, storeManager, dialogManager, widgetManager, eventManager) {
+             editor, storeManager, dialogManager, widgetManager, eventManager, request) {
         return declare('dime.app', [], {
 
 
@@ -464,6 +465,17 @@ define([
                         tabContainer.addChild(tab);
                     }
                     tabContainer.selectChild(tab);
+                },
+
+                newEntity: function(entitytype, properties){
+                    //Else ask the Backend to Create the Entity
+                    properties = properties || {};
+                    properties.handleAs = 'xml';
+                    request('/api/v1/'+entitytype+'/new', properties).then(function(result){
+                        window.eventManager.fire('entityCreate', entitytype, {
+                            entity: result
+                        });
+                    });
                 },
 
                 initManager: function () {

@@ -118,7 +118,7 @@ define([
                     //The Function to execute should event be fired.
                     eventFunction: 'somefunctionintheclassiwantexecuted'
                     //arg contains the Following Properties
-                    //entity: The updated Entity
+                    //entity: The created Entity
                 },
                 //Called after an entity has been successfully deleted
                 event3:{

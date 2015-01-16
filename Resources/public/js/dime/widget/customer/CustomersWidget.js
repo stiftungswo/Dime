@@ -19,7 +19,8 @@ define([
         config: {
             values: {
                 GridNode:{
-                    store: 'customers'
+                    store: 'customers',
+                    entitytype: 'customers'
                 },
                 editNode: {},
                 addNode: {},
@@ -50,10 +51,28 @@ define([
                     callbackName: 'click',
                     callbackFunction: function(){
                         //this in the button
-                        this.getParent().getStore().add({ name:'New Customer', alias:'newcust'});
+                        //this.getParent().getStore().add({ name:'New Customer', alias:'newcust'});
+                        app.newEntity('customers');
                     }
                 }
+            },
+            events: {
+                //Called after an entity has been sucessfully posted
+                storeCreateNotify: {
+                    //Which Topic to subscribe to.
+                    Topic: 'entityCreate',
+                    //Which subtopic to subscribe to
+                    subTopic: 'customers',
+                    //The Function to execute should event be fired.
+                    eventFunction: 'storeCreateNotify'
+                    //arg contains the Following Properties
+                    //entity: The created Entity
+                }
             }
+        },
+
+        storeCreateNotify: function(args){
+            this.GridNode.store.notify(args.entity);
         }
     });
 });

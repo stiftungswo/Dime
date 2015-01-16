@@ -3,8 +3,9 @@ define([
     'dijit/_WidgetBase',
     'dojo/dom-construct',
     'dojo/when',
-    'dijit/registry'
-], function (declare, WidgetBase, domConstruct, when, registry) {
+    'dijit/registry',
+    'dojo/request'
+], function (declare, WidgetBase, domConstruct, when, registry, request) {
     return declare('dime.widget._ListBase', [WidgetBase], {
         //A List Widget Groups a Number of Child widgets into a List and handles their addition and removal
         postCreate: function () {
@@ -162,13 +163,23 @@ define([
         addNewChild: function(prototype){
             var table = this, entity;
             prototype = prototype || table.prototype;
-            var createable = table.createable, linkable = table.linkable, subentity = table.subentity;
+
             if(prototype) {
                 entity = table._resolvePrototype(prototype);
-            } else {
+                table._uploadEntity(entity);
+            } else if(table.selectNode) {
                 //Todo Find better solution to get object of id, as dojo.when would require async programming
-                entity = when(store.get(selectNode.get('value')), function(entity){return entity;})
+                entity = when(store.get(selectNode.get('value')), function(entity){return entity;});
+                table._uploadEntity(entity);
+            } else {
+                app.newEntity(table.entitytype, {query: table.query});
             }
+
+        },
+
+        _uploadEntity: function(entity){
+            var table = this;
+            var createable = table.createable, linkable = table.linkable, subentity = table.subentity;
             if(createable){
                 table.putEntity(entity, linkable);
             } else if(linkable) {
@@ -247,22 +258,29 @@ define([
         //Todo Merge with Function from _base.js
         _resolvePrototype: function(prototype){
             var entity = this._getParentEntity();
+            var result = {};
             for(var protoKey in prototype){
-                var protoVal = prototype[protoKey];
-                if(typeof protoVal === 'string'){
-                    if(protoVal.indexOf(':') > -1){
-                        var ref = protoVal.split(':');
-                        switch(ref[0]){
-                            case 'entityref':
-                                prototype[protoKey] = entity[ref[1]];
-                                break;
-                            default:
-                                break;
+                if(prototype.hasOwnProperty(protoKey)) {
+                    var protoVal = prototype[protoKey];
+                    if (typeof protoVal === 'string') {
+                        if (protoVal.indexOf(':') > -1) {
+                            var ref = protoVal.split(':');
+                            switch (ref[0]) {
+                                case 'entityref':
+                                    result[protoKey] = entity[ref[1]];
+                                    break;
+                                default:
+                                    break;
+                            }
+                        } else {
+                            result[protoKey] = prototype[protoKey];
                         }
+                    } else {
+                        result[protoKey] = prototype[protoKey];
                     }
                 }
             }
-            return prototype;
+            return result;
         },
 
         customStartup: function(){

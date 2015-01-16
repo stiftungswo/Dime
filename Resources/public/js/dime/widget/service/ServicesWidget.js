@@ -48,11 +48,30 @@ define([
                     callbackName: 'click',
                     callbackFunction: function(){
                         //this in the button
-                        this.getParent().getStore().add({ name:'New Service', alias:'newsrv'});
+                        //this.getParent().getStore().add({ name:'New Service', alias:'newsrv'});
+                        app.newEntity('services');
                     }
                 }
+            },
+            events: {
+                //Called after an entity has been sucessfully posted
+                storeCreateNotify: {
+                    //Which Topic to subscribe to.
+                    Topic: 'entityCreate',
+                    //Which subtopic to subscribe to
+                    subTopic: 'services',
+                    //The Function to execute should event be fired.
+                    eventFunction: 'storeCreateNotify'
+                    //arg contains the Following Properties
+                    //entity: The created Entity
+                }
             }
+        },
+
+        storeCreateNotify: function(args){
+            this.GridNode.store.notify(args.entity);
         }
+
     });
 });
 

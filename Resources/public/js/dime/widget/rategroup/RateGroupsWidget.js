@@ -37,7 +37,8 @@ define([
                     callbackName: 'click',
                     callbackFunction: function(){
                         //this in the button
-                        this.getParent().getStore().add({ name:'NewRateGroup'});
+                        //this.getParent().getStore().add({ name:'NewRateGroup'});
+                        app.newEntity('rateGroups');
                     }
                 }
             }
