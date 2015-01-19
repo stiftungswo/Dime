@@ -78,7 +78,7 @@ class ResolveSettingSubscriber extends ContainerAware implements EventSubscriber
 				break;
 			}
 		}
-		$setting->setValue($newDate);
+		$setting->setValue(date_format($newDate, 'Y-m-d'));
 		return new ResolveSettingEvent($setting, $parameters);
 	}
 
@@ -97,7 +97,7 @@ class ResolveSettingSubscriber extends ContainerAware implements EventSubscriber
 		$handler = $this->container->get('dime.activity.handler');
 		$activities = $handler->all(array('project' => $parameters['project'], 'name' => $activityString));
 		$activity = array_shift($activities);
-		$setting->setValue($activity);
+		$setting->setValue($activity->getId());
 		return new ResolveSettingEvent($setting, $parameters);
 	}
 }
