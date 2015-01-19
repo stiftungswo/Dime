@@ -13,6 +13,7 @@ define([
 ], function (WidgetsInTemplateMixin, TemplatedMixin, _Base, declare, template) {
     return declare("dime.widget.offer.OfferDiscountRowWidget", [_Base, TemplatedMixin, WidgetsInTemplateMixin], {
 
+        independant: true,
         templateString: template,
         baseClass: "offerDiscountWidget",
         store: 'offerdiscounts',

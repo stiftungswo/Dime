@@ -201,49 +201,56 @@ define([
             var base = this, config = this.config, configdefaults = this.configdefaults, entity = this.entity;
             for(var nodeKey in config.values) {
                 var attachPoint = base[nodeKey], node = config.values[nodeKey];
-                if (attachPoint) {
-                    if(attachPoint.set) {
-                        //attachPoint.set('getParent()', base);
+                try {
+                    if (attachPoint.set) {
                         attachPoint.set('disabled', base.disabled);
                     }
                     for (var propKey in node) {
                         var prop = node[propKey];
-                        if (propKey === 'store') {
-                            if (typeof(prop == "String")) {
-                                var store = window.storeManager.get(prop, false, true);
-                            } else {
-                                var store = prop;
+                        try {
+                            if (propKey === 'store') {
+                                if (typeof(prop == "String")) {
+                                    var store = window.storeManager.get(prop, false, true);
+                                } else {
+                                    var store = prop;
+                                }
+                                attachPoint.set('store', store);
                             }
-                            attachPoint.set('store', store);
-                        }
-                        //Todo Merge with Function from _ListBase.js
-                        else if (propKey === 'queryPrototype') {
-                            var query = {};
-                            for (var querypropKey in prop) {
-                                var queryprop = prop[querypropKey];
-                                query[querypropKey] = entity[queryprop];
+                            //Todo Merge with Function from _ListBase.js
+                            else if (propKey === 'queryPrototype') {
+                                var query = {};
+                                for (var querypropKey in prop) {
+                                    var queryprop = prop[querypropKey];
+                                    query[querypropKey] = entity[queryprop];
+                                }
+                                attachPoint.set('query', query);
                             }
-                            attachPoint.set('query', query);
-                        }
-                        else if(prop === 'base' ){
-                            attachPoint.set(propKey, base);
-                        }
-                        else if(propKey === 'domProp'){
-                            for(var domPropKey in prop){
-                                var domPropVal = base._parsedomProp(prop[domPropKey]);
-                                domProp.set(attachPoint, domPropKey, domPropVal);
+                            else if (prop === 'base') {
+                                attachPoint.set(propKey, base);
+                            }
+                            else if (propKey === 'domProp') {
+                                for (var domPropKey in prop) {
+                                    var domPropVal = base._parsedomProp(prop[domPropKey]);
+                                    domProp.set(attachPoint, domPropKey, domPropVal);
+                                }
+                            }
+                            else {
+                                attachPoint.set(propKey, prop);
                             }
                         }
-                        else {
-                            attachPoint.set(propKey, prop);
+                        catch(err){
+                            console.error('Unable to set property '+propKey+' on attachPoint '+nodeKey);
+                            console.error(err);
                         }
                     }
                     if (attachPoint.doStartup == false) {
                         attachPoint.set('doStartup', true);
                         attachPoint.customStartup();
                     }
-                } else {
-                    console.log('Wrong attachPoint '+ nodeKey);
+                }
+                catch(err){
+                    console.error('Error while configuring attachPoint '+nodeKey);
+                    console.error(err);
                 }
             }
         },
@@ -252,9 +259,19 @@ define([
         _addcallbacks: function(){
             var base = this, config = this.config, configdefaults = this.configdefaults;
             for(var nodeKey in config.callbacks){
-                var attachPoint = base[nodeKey], node = config.callbacks[nodeKey];
-                if(attachPoint) {
-                    attachPoint.on(node.callbackName, node.callbackFunction)
+                try {
+                    var attachPoint = base[nodeKey], node = config.callbacks[nodeKey];
+                    if (attachPoint) {
+                        attachPoint.on(node.callbackName, node.callbackFunction)
+                    }
+                }
+                catch(err){
+                    if(node) {
+                        console.error('Error While Configuring callback ' + node.callbackName + ' for attachPoint ' + nodeKey);
+                    } else {
+                        console.error('Error While Configuring attachPoint ' + nodeKey);
+                    }
+                    console.error(err);
                 }
             }
         },
@@ -264,12 +281,18 @@ define([
             var base = this, config = this.config, configdefaults = this.configdefaults;
             for (var nodeKey in config.values) {
                 var attachPoint = base[nodeKey], node = config.values[nodeKey];
-                if (attachPoint) {
-                    if (node.independant || attachPoint.independant) {
-                        //Do Nothing for Independant Nodes
-                    } else {
-                        attachPoint.watch(node.widgetProperty, node.watchercallback || base._watcherCallback);
+                try {
+                    if (attachPoint) {
+                        if (node.independant || attachPoint.independant || !node.widgetProperty) {
+                            //Do Nothing for Independant or Non Value Nodes
+                        } else {
+                            attachPoint.watch(node.widgetProperty, node.watchercallback || base._watcherCallback);
+                        }
                     }
+                }
+                catch(err){
+                    console.error('Error While Configuring Watcher for attachPoint '+nodeKey);
+                    console.error(err);
                 }
             }
             this.watch('disabled', this._disable);
@@ -417,7 +440,12 @@ define([
                     //If our Parent must watch what we do and then update itself, to change eg. address.
                     //Apparently In one Case it would be usefull dojo.watch is not triggerhappy. I.e when a attr of a watched object changes.
                     //So We Call the Watchercallback of our Parent
-                    handler.getParent()._watcherCallback(handler.widgetProperty, null, hash, handler.dojoAttachPoint);
+                    //Todo Better Implementation.
+                    if(handler.widgetProperty) {
+                        handler.getParent()._watcherCallback(handler.widgetProperty, null, hash, handler.dojoAttachPoint);
+                    } else {
+                        handler.getParent()._watcherCallback('updateValues', null, hash, handler.dojoAttachPoint);
+                    }
                 }
             }
         },

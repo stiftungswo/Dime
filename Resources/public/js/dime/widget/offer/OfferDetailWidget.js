@@ -135,7 +135,6 @@ define([
                     header: [ 'Name', 'Reduktion', 'Prozent', 'Wert' ],
                     widgetProperty: 'updateValues',
                     entityProperty: 'standardDiscounts',
-                    selectable: true,
                     createable: false,
                     linkable: true,
                     selectable: {
@@ -179,20 +178,40 @@ define([
                 updateOfferPositions:{
                     Topic: 'entityUpdate',
                     subTopic: 'offerpositions',
-                    eventFunction: 'updateOfferPositions'
+                    eventFunction: 'updateOffer'
                 },
                 createOfferPositions:{
                     Topic: 'entityCreate',
                     subTopic: 'offerpositions',
-                    eventFunction: 'updateOfferPositions'
+                    eventFunction: 'updateOffer'
+                },
+                deleteOfferPositions:{
+                    Topic: 'entityDelete',
+                    subTopic: 'offerpositions',
+                    eventFunction: 'updateOffer'
+                },
+                updateOfferDiscounts:{
+                    Topic: 'entityUpdate',
+                    subTopic: 'offerdiscounts',
+                    eventFunction: 'updateOffer'
+                },
+                createOfferDiscounts:{
+                    Topic: 'entityCreate',
+                    subTopic: 'offerdiscounts',
+                    eventFunction: 'updateOffer'
+                },
+                deleteOfferDiscounts:{
+                    Topic: 'entityDelete',
+                    subTopic: 'offerdiscounts',
+                    eventFunction: 'updateOffer'
                 }
             }
         },
 
-        updateOfferPositions: function(arg){
-            var offerpostition = arg.entity, changedProperty = arg.changedProperty, oldValue = arg.oldValue;
-            var newValue = arg.newValue, base = this, offer = this.entity;
-            if(offerpostition.offer.id === offer.id){
+        updateOffer: function(arg){
+            var entity = arg.entity;
+            var base = this, offer = this.entity;
+            if(entity.offer.id === offer.id){
                 base.forceUpdate();
             }
         }
