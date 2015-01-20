@@ -19,8 +19,7 @@ define([
         config: {
             values: {
                 GridNode:{
-                    collection: window.storeManager.get('customers'),
-                    entitytype: 'customers'
+                    collection: window.storeManager.get('customers')
                 },
                 editNode: {},
                 addNode: {},

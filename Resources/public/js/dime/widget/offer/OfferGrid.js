@@ -26,7 +26,7 @@ define(
                 }},
                 {label: 'Verantwortlich', field: 'accountant', autoSave: true, sortable: true, formatter: function(data){
                     return data ? data.firstname +" "+data.lastname : null;
-                }},
+                }}
             ]
         })
     }

@@ -18,7 +18,9 @@ define(
             columns: [
                 {label: 'Name', field: 'name'},
                 {label: 'Alias', field: 'alias'},
-                {label: 'Tarif Gruppe', field: 'rateGroup'},
+                {label: 'Tarif Gruppe', field: 'rateGroup', formatter: function(data){
+                    return data? data.name : null;
+                }},
                 {label: 'Verechenbar', field: 'chargeable'}
             ]
         })

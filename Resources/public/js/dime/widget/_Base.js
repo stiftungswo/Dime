@@ -310,27 +310,32 @@ define([
                         var focused = attachPoint.get('focused');
                     }
                     if (node.widgetProperty) {
-                        if (node.widgetProperty === 'updateValues') {
-                            if(node.entityProperty) {
-                                attachPoint._updateValues(entity[node.entityProperty]);
-                            } else {
-                                attachPoint._updateValues(null);
-                            }
-                        } else if (node.idProperty) {
-                            var value = entity[node.entityProperty];
-                            if (value) {
-                                if(!focused) {
-                                    attachPoint.set(node.widgetProperty, value[node.idProperty]);
+                        try {
+                            if (node.widgetProperty === 'updateValues') {
+                                if (node.entityProperty) {
+                                    attachPoint._updateValues(entity[node.entityProperty]);
+                                } else {
+                                    attachPoint._updateValues(null);
+                                }
+                            } else if (node.idProperty) {
+                                var value = entity[node.entityProperty];
+                                if (value) {
+                                    if (!focused) {
+                                        attachPoint.set(node.widgetProperty, value[node.idProperty]);
+                                    }
+                                } else {
+                                    if (!focused) {
+                                        attachPoint.set(node.widgetProperty, node.nullValue);
+                                    }
                                 }
                             } else {
-                                if(!focused) {
-                                    attachPoint.set(node.widgetProperty, node.nullValue);
+                                if (!focused) {
+                                    attachPoint.set(node.widgetProperty, entity[node.entityProperty] || node.nullValue);
                                 }
                             }
-                        } else {
-                            if(!focused) {
-                                attachPoint.set(node.widgetProperty, entity[node.entityProperty] || node.nullValue);
-                            }
+                        } catch(err){
+                            console.error('Error while setting attribute '+node.widgetProperty+' on '+nodeKey);
+                            console.error(err);
                         }
                     }
                 }
