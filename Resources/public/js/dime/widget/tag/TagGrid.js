@@ -13,7 +13,7 @@ define(
     ],
     function(declare, OnDemandGrid, DijitRegistry, Selection, Keyboard, editor) {
         return declare('dime.widget.tag.TagGrid', [OnDemandGrid, DijitRegistry, Selection, Keyboard], {
-            store: window.storeManager.get('tags',false, true),
+
             sort: 'name',
             columns: [
                 editor({label: 'Name', field: 'name', autoSave: true}, 'dijit/form/TextBox', 'dblclick')

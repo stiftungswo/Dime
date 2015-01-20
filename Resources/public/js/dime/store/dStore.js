@@ -20,6 +20,7 @@ define([
             //this.setModel();
             this.setTarget();
         },
+
         setModel: function(){
             var requestUrl = this.getBasepath()+'/schemas/'+this.entity+'.json';
             var headers = lang.delegate(this.headers, { Accept: this.accepts });
@@ -29,11 +30,25 @@ define([
             });
             this.model = jsonSchema(schema);
         },
+
         getBasepath: function(){
             return this.basepath+'/v'+this.apiversion;
         },
+
         setTarget: function(target) {
-            this.target = target || this.getBasepath() + '/' + this.entity+'/';
+            this.target = target || this.getBasepath() + '/' + this.entity;
+        },
+
+        newEntity: function(options) {
+            options = options || {};
+            var headers = lang.mixin({ Accept: this.accepts }, this.headers, options.headers || options);
+            var store = this;
+            return request(this.target + '/new', {
+                headers: headers
+            }).then(function (response) {
+                return store._restore(store.parse(response), true);
+            });
         }
+
     });
 });

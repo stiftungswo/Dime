@@ -13,7 +13,7 @@ define(
     ],
     function(declare, OnDemandGrid, DijitRegistry, Selection, Keyboard) {
         return declare('dime.widget.service.ServiceGrid', [OnDemandGrid, DijitRegistry, Selection, Keyboard], {
-            store: null,
+
             sort: 'name',
             columns: [
                 {label: 'Name', field: 'name'},

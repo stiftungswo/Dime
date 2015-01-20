@@ -170,16 +170,12 @@ define([
 			var expectedObject = { id: 1, name: 'one' };
 			mockRequest.setResponseText(store.stringify(expectedObject));
 			return store.get('anything').then(function (object) {
-				expectedObject._scenario = 'update';
-				expectedObject.saved = true;
 				mockRequest.setResponseText(store.stringify(expectedObject));
-				return object.save().then(function (result) {
+				return store.put(object).then(function (result) {
 					assert.deepEqual(store.stringify(result), store.stringify(expectedObject));
 				});
 			});
 		}
-
-		// TODO: Add tests for emitting add, update, and remove events
 	});
 	registerSuite(tests);
 });

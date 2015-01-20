@@ -18,7 +18,7 @@ define([
         config: {
             values: {
                 GridNode:{
-                    store: 'rategroups'
+                    collection: window.storeManager.get('rategroups')
                 },
                 addNode: {},
                 deleteNode: {}

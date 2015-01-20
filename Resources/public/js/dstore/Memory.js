@@ -4,15 +4,13 @@ define([
 	'dojo/_base/array',
 	'./Store',
 	'./Promised',
-	'./objectQueryEngine',
+	'./SimpleQuery',
 	'./QueryResults'
-	// TODO: Do we still need the api/Store dep for docs? If not, remove it and rename StoreBase to Store.
-	/*=====, './api/Store' =====*/
-], function (declare, lang, arrayUtil, StoreBase, Promised, objectQueryEngine, QueryResults/*=====, Store =====*/) {
+], function (declare, lang, arrayUtil, Store, Promised, SimpleQuery, QueryResults) {
 
 	// module:
 	//		dstore/Memory
-	return declare([StoreBase, Promised], {
+	return declare([Store, Promised, SimpleQuery ], {
 		constructor: function () {
 			// summary:
 			//		Creates a memory object store.
@@ -20,10 +18,17 @@ define([
 			//		This provides any configuration information that will be mixed into the store.
 			//		This should generally include the data property to provide the starting set of data.
 
-			this.setData(this.data || []);
+			// Add a version property so subcollections can detect when they're using stale data
+			this.storage.version = 0;
 		},
 
-		queryEngine: objectQueryEngine,
+		postscript: function () {
+			this.inherited(arguments);
+
+			// Set the data in `postscript` so subclasses can override `data` in their constructors
+			// (e.g., a LocalStorage store that retrieves its data from localStorage)
+			this.setData(this.data || []);
+		},
 
 		// data: Array
 		//		The array of all the objects in the memory store
@@ -56,8 +61,8 @@ define([
 				index = storage.index,
 				data = storage.fullData;
 
-			var model = this.model;
-			if (model && !(object instanceof model)) {
+			var Model = this.Model;
+			if (Model && !(object instanceof Model)) {
 				// if it is not the correct type, restore a
 				// properly typed version of the object. Note that we do not allow
 				// mutation here
@@ -88,7 +93,17 @@ define([
 			var destination;
 			if ('beforeId' in options) {
 				var beforeId = options.beforeId;
-				destination = beforeId !== null ? index[beforeId] : data.length;
+
+				if (beforeId === null) {
+					destination = data.length;
+				} else {
+					destination = index[beforeId];
+
+					// Account for the removed item
+					if (previousIndex < destination) {
+						--destination;
+					}
+				}
 
 				if (destination !== undefined) {
 					event.beforeId = beforeId;
@@ -138,8 +153,7 @@ define([
 				var removed = data.splice(index[id], 1)[0];
 				// now we have to reindex
 				this._reindex();
-				// TODO: The id property makes it seem like an event id. Maybe targetId would be better.
-				this.emit('remove', {id: id, target: removed});
+				this.emit('delete', {id: id, target: removed});
 				return true;
 			}
 		},
@@ -161,20 +175,18 @@ define([
 			}
 			var storage = this.storage;
 			storage.fullData = this.data = data;
-			this.total = data.length;
 			this._reindex();
-			this.emit('refresh');
 		},
 
 		_reindex: function () {
 			var storage = this.storage;
 			var index = storage.index = {};
 			var data = storage.fullData;
-			var model = this.model;
+			var Model = this.Model;
 			var ObjectPrototype = Object.prototype;
 			for (var i = 0, l = data.length; i < l; i++) {
 				var object = data[i];
-				if (model && !(object instanceof model)) {
+				if (Model && !(object instanceof Model)) {
 					var restoredObject = this._restore(object,
 							// only allow mutation if it is a plain object
 							// (which is generally the expected input),
@@ -217,6 +229,10 @@ define([
 			return new QueryResults(data.slice(start, end), {
 				totalLength: data.length
 			});
+		},
+
+		_includePropertyInSubCollection: function (name) {
+			return name !== 'data' && this.inherited(arguments);
 		}
 	});
 });

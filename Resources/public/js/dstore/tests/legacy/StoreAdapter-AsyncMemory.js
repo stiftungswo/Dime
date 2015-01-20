@@ -6,9 +6,10 @@ define([
 	'dojo/store/Memory',
 	'dojo/store/util/QueryResults',
 	'../sorting',
-	'dstore/Model',
 	'dstore/legacy/StoreAdapter'
-], function (declare, Deferred, registerSuite, assert, Memory, QueryResults, sorting, Model, StoreAdapter) {
+], function (declare, Deferred, registerSuite, assert, Memory, QueryResults, sorting, StoreAdapter) {
+
+	var Model = function () {};
 
 	function makeAsync(query){
 		return function(){
@@ -51,9 +52,9 @@ define([
 						{id: 5, name: 'five', prime: true, mappedTo: 'A'}
 					]
 				}),
-				model: Model
+				Model: Model
 			});
-			store.model.prototype.describe = function () {
+			store.Model.prototype.describe = function () {
 				return this.name + ' is ' + (this.prime ? '' : 'not ') + 'a prime';
 			};
 		},
@@ -134,7 +135,7 @@ define([
 				assert.isTrue(result);
 				return store.get(3);
 			}).then(function (three) {
-				assert.strictEqual(three, undefined);	
+				assert.strictEqual(three, undefined);
 			});
 		},
 

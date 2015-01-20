@@ -1,12 +1,16 @@
 define([
 	'../Store',
-	'../Model',
 	'dojo/_base/declare',
 	'dojo/_base/lang',
 	'intern!object',
 	'intern/chai!assert'
-], function (Store, Model, declare, lang, registerSuite, assert) {
+], function (Store, declare, lang, registerSuite, assert) {
 
+	var Model = declare(null, {
+		constructor: function (args) {
+			declare.safeMixin(this, args);
+		}
+	});
 	var store;
 	registerSuite({
 		name: 'dstore Store',
@@ -63,7 +67,7 @@ define([
 					type: 'filter', arguments: [ filter1 ], normalizedArguments: [ {
 						type: 'eq',
 						args: { // we have to match Argument type, which is not a real array
-							0: 'prop1', 
+							0: 'prop1',
 							1: 'one'
 						}
 					} ]
@@ -132,7 +136,7 @@ define([
 				}
 			});
 			var store = new Store({
-				model: TestModel
+				Model: TestModel
 			});
 			var restoredObject = store._restore({foo: 'original'});
 			assert.strictEqual(restoredObject.foo, 'original');
@@ -162,7 +166,7 @@ define([
 				events.push(event.type);
 			});
 			// test comma delimited as well
-			store.on('update, remove', function (event) {
+			store.on('update, delete', function (event) {
 				events.push(event.type);
 			});
 			store.put({});
@@ -170,7 +174,7 @@ define([
 			store.remove(1);
 
 			assert.deepEqual(methodCalls, ['put', 'add', 'remove']);
-			assert.deepEqual(events, ['update', 'add', 'remove']);
+			assert.deepEqual(events, ['update', 'add', 'delete']);
 		},
 
 		'events with beforeId': function () {
@@ -187,6 +191,18 @@ define([
 			assert.deepEqual(beforeIds, [ 123, 321 ]);
 		},
 
+		'emit should catch errors thrown by listeners': function () {
+			var store = new Store(),
+				testEmit = lang.hitch(store, 'emit', 'test-event');
+
+			assert.doesNotThrow(testEmit);
+
+			store.on('test-event', function () {
+				throw new Error('listener error');
+			});
+			assert.doesNotThrow(testEmit);
+		},
+
 		forEach: function () {
 			var store = new (declare(Store, {
 				fetch: function () {
@@ -200,8 +216,21 @@ define([
 				assert.strictEqual(instance, store);
 			});
 			assert.deepEqual(results, [0, 1, 2]);
-		}
+		},
 
-		// TODO: Add map test and tests for other Store features
+		'extends declare-based Model constructors and adds a _store reference on the prototype': function () {
+			var DeclaredTestModel = declare(null);
+
+			var store = new Store({ Model: DeclaredTestModel });
+			assert.notStrictEqual(store.Model, DeclaredTestModel);
+			assert.instanceOf(new store.Model(), DeclaredTestModel);
+		},
+
+		'does not extend Model constructors not based on declare': function () {
+			function TestModel() {}
+
+			var store = new Store({ Model: TestModel });
+			assert.strictEqual(store.Model, TestModel);
+		}
 	});
 });

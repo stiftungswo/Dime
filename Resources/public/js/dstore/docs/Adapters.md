@@ -13,19 +13,18 @@ require([
 });
 ``` 
 
-This provides  to the methods and properties inherited from `dstore/api/Store`, the `StoreAdapter` module also exposes the following method.
-
+This provides all the methods and properties inherited from `dstore/api/Store`.
 
 ## DstoreAdapter
 
-The `dstore/legacy/DstoreAdapter` module allows a dstore store to be used as a legacy Dojo object stores. Create an adapted version of an existing dstore store by creating a `DstoreAdapter` instance with the `store` property referencing the dstore:
+The `dstore/legacy/DstoreAdapter` module allows a dstore store to be used as a legacy Dojo object store. Create an adapted version of an existing dstore store by creating a `DstoreAdapter` instance with the `store` property referencing the dstore:
 ```js
 require([
     'dstore/legacy/DstoreAdapter',
     'dstore/Memory'
 ], function(DstoreAdapter, Memory) {
     var store = new Memory({...});
-    var adaptedStore = new DstoreAdapter({store: store});
+    var adaptedStore = new DstoreAdapter(store);
 });
 ```
 If the dstore store is trackable (mixed in `dstore/Trackable`), the result sets returned from `query()` calls will be observable (have an `observe()` method).

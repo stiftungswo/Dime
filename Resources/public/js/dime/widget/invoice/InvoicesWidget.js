@@ -19,7 +19,7 @@ define([
         config: {
             values: {
                 GridNode:{
-                    store: 'invoices'
+                    collection: window.storeManager.get('invoices')
                 },
                 editNode: {}
             },
@@ -52,7 +52,7 @@ define([
         },
 
         storeCreateNotify: function(args){
-            this.GridNode.store.notify(args.entity);
+            this.GridNode.collection.emit('add', args.entity);
         }
     });
 });

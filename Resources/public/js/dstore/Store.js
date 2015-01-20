@@ -19,10 +19,6 @@ define([
 	// JS engine.
 	has.add('object-proto', !!{}.__proto__ && !({}).watch);
 	var hasProto = has('object-proto');
-	var excludePropertiesOnCopy = {
-		data: true,
-		total: true
-	};
 
 	function emitUpdateEvent(type) {
 		return function (result, args) {
@@ -49,17 +45,19 @@ define([
 		constructor: function (options) {
 			// perform the mixin
 			options && declare.safeMixin(this, options);
-			if (this.model) {
+
+			if (this.Model && this.Model.createSubclass) {
 				// we need a distinct model for each store, so we can
 				// save the reference back to this store on it.
 				// we always create a new model to be safe.
-				this.model = declare(this.model, {});
-				// give a reference back to the store for saving, etc.
-				this.model.prototype._store = this;
+				this.Model = this.Model.createSubclass([]).extend({
+					// give a reference back to the store for saving, etc.
+					_store: this
+				});
 			}
+
 			// the object the store can use for holding any local data or events
 			this.storage = new Evented();
-			this.storage.version = 0;
 			var store = this;
 			if (this.autoEmitEvents) {
 				// emit events when modification operations are called
@@ -67,7 +65,7 @@ define([
 				aspect.after(this, 'put', emitUpdateEvent('update'));
 				aspect.after(this, 'remove', function (result, args) {
 					when(result, function () {
-						store.emit('remove', {id: args[0]});
+						store.emit('delete', {id: args[0]});
 					});
 					return result;
 				});
@@ -135,7 +133,13 @@ define([
 		emit: function (type, event) {
 			event = event || {};
 			event.type = type;
-			return this.storage.emit(type, event);
+			try {
+				return this.storage.emit(type, event);
+			} finally {
+				// Return the initial value of event.cancelable because a listener error makes it impossible
+				// to know whether the event was actually canceled
+				return event.cancelable;
+			}
 		},
 
 		// parse: Function
@@ -149,13 +153,13 @@ define([
 		//		function can be specified to control how objects are serialized to strings
 		stringify: null,
 
-		// model: Function
+		// Model: Function
 		//		This should be a entity (like a class/constructor) with a 'prototype' property that will be
 		//		used as the prototype for all objects returned from this store. One can set
-		//		this to the Model from dstore/Model to return Model objects, or leave this
+		//		this to the Model from dmodel/Model to return Model objects, or leave this
 		//		to null if you don't want any methods to decorate the returned
 		//		objects (this can improve performance by avoiding prototype setting),
-		model: null,
+		Model: null,
 
 		_restore: function (object, mutateAllowed) {
 			// summary:
@@ -182,13 +186,13 @@ define([
 			// returns: Object
 			//		An instance of the store model, with all the properties that were defined
 			//		on object. This may or may not be the same object that was passed in.
-			var model = this.model;
-			if (model && object) {
-				var prototype = model.prototype;
+			var Model = this.Model;
+			if (Model && object) {
+				var prototype = Model.prototype;
 				var restore = prototype._restore;
 				if (restore) {
 					// the prototype provides its own restore method
-					object = restore.call(object, model, mutateAllowed);
+					object = restore.call(object, Model, mutateAllowed);
 				} else if (hasProto && mutateAllowed) {
 					// the fast easy way
 					// http://jsperf.com/setting-the-prototype
@@ -209,20 +213,23 @@ define([
 			//		be copied onto the new instance. Note, that should only be called
 			//		when new objects are being created, not when existing objects
 			//		are being restored from storage.
-			return new this.model(properties);
+			return new this.Model(properties);
 		},
 
 		_createSubCollection: function (kwArgs) {
 			var newCollection = lang.delegate(this.constructor.prototype);
 
 			for (var i in this) {
-				if ((!(i in newCollection) || newCollection[i] !== this[i])
-					&& !excludePropertiesOnCopy.hasOwnProperty(i)) {
+				if (this._includePropertyInSubCollection(i, newCollection)) {
 					newCollection[i] = this[i];
 				}
 			}
 
-			return lang.mixin(newCollection, kwArgs);
+			return declare.safeMixin(newCollection, kwArgs);
+		},
+
+		_includePropertyInSubCollection: function (name, subCollection) {
+			return !(name in subCollection) || subCollection[name] !== this[name];
 		},
 
 		// queryLog: __QueryLogEntry[]
@@ -241,8 +248,6 @@ define([
 		}),
 
 		Filter: Filter,
-
-		map: new QueryMethod({ type: 'map' }),
 
 		sort: new QueryMethod({
 			type: 'sort',
@@ -270,7 +275,12 @@ define([
 				}
 				return sorted;
 			}
-		})
+		}),
+
+		_getQuerierFactory: function (type) {
+			var uppercaseType = type[0].toUpperCase() + type.substr(1);
+			return this['_create' + uppercaseType + 'Querier'];
+		}
 
 /*====,
 		get: function (id) {
@@ -356,12 +366,12 @@ define([
 			//		Indicate if the sort order should be descending (defaults to ascending)
 			// returns: Collection
 		},
-		range: function (start, end) {
+		fetchRange: function (kwArgs) {
 			// summary:
-			//		Retrieves a range of objects from the collection, returning a new collection with the objects indicated by the range
-			// start: Number
+			//		Retrieves a range of objects from the collection, returning a promise to an array.
+			// kwArgs.start: Number
 			//		The starting index of objects to return (0-indexed)
-			// end?: Number
+			// kwArgs.end: Number
 			//		The exclusive end of objects to return
 			// returns: Collection
 		},
@@ -377,18 +387,6 @@ define([
 			//		The object to use as |this| in the callback.
 			// returns:
 			//		undefined|Promise
-		},
-		map: function (callback, thisObject) {
-			// summary:
-			//		Maps the query results, based on
-			//		https://developer.mozilla.org/en/Core_JavaScript_1.5_Reference/Objects/Array/map.
-			//		Note that this may executed asynchronously. The callback may be called
-			//		after this function returns.
-			// callback:
-			//		Function that is called for each object in the query results
-			// thisObject:
-			//		The object to use as |this| in the callback.
-			// returns: Array|Promise
 		},
 		fetch: function () {
 			// summary:
@@ -428,28 +426,7 @@ define([
 			//		from this result set (due to an object being deleted, or changed such that it
 			//		is not a part of the result set).
 
-		},
-
-		// total: Number|Promise?
-		//		This property should be included in if the query options included the 'count'
-		//		property limiting the result set. This property indicates the total number of objects
-		//		matching the query (as if "start" and "count" weren't present). This may be
-		//		a promise if the query is asynchronous.
-		total: 0,
-		// sorted: Collection.SortInformation[]|Function
-		//		If the collection has been sorted, this is an array of sort objects or a comparator function.
-		//		If sorted by one or more properties, `sorted` is an array of objects where each contains a property name
-		//		and an optional flag indicating whether it should be sorted descending. If sorted using a custom
-		//		comparator, `sorted` is the comparator function.
-		sorted: [],
-		// filtered: String|Object|Function|Array
-		//		If the collection has been filtered, this is an object that indicates the query that
-		//		was used to filter it.
-		filtered: {},
-		// ranged: Object
-		//		If the collection has been subsetted with range, this is an object that indicates the start
-		//		and end of the range
-		ranged: {}
+		}
 	});
 
 	Collection.SortInformation = declare(null, {

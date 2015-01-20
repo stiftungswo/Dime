@@ -4,9 +4,10 @@ define([
 	'intern/chai!assert',
 	'dojo/store/Memory',
 	'../sorting',
-	'dstore/Model',
 	'dstore/legacy/StoreAdapter'
-], function (declare, registerSuite, assert, Memory, sorting, Model, StoreAdapter) {
+], function (declare, registerSuite, assert, Memory, sorting, StoreAdapter) {
+
+	var Model = function () {};
 
 	function getResultsArray(store) {
 		var results = [];
@@ -32,9 +33,9 @@ define([
 						{id: 5, name: 'five', prime: true, mappedTo: 'A'}
 					]
 				}),
-				model: Model
+				Model: Model
 			});
-			store.model.prototype.describe = function () {
+			store.Model.prototype.describe = function () {
 				return this.name + ' is ' + (this.prime ? '' : 'not ') + 'a prime';
 			};
 		},
@@ -46,7 +47,7 @@ define([
 			assert.strictEqual(store.getIdentity(store.get(1)), 1);
 		},
 
-		'model': function () {
+		'Model': function () {
 			assert.strictEqual(store.get(1).describe(), 'one is not a prime');
 			assert.strictEqual(store.get(3).describe(), 'three is a prime');
 			var results = getResultsArray(store.filter({even: true}));
@@ -186,7 +187,5 @@ define([
 		}, function sort() {
 			return store.sort.apply(store, arguments).fetch();
 		})
-
-		// TODO: Test that fetch adds .data and .total properties to the collection
 	});
 });

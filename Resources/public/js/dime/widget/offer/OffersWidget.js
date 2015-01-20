@@ -23,7 +23,7 @@ define([
         config: {
             values: {
                 GridNode: {
-                    store: 'offers'
+                    collection: window.storeManager.get('offers')
                 },
                 addNode: {},
                 editNode: {},
@@ -85,7 +85,7 @@ define([
         },
 
         storeCreateNotify: function(args){
-            this.GridNode.store.notify(args.entity);
+            this.GridNode.collection.emit('add', args.entity);
         }
     });
 });

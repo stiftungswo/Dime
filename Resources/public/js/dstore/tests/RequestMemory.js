@@ -3,15 +3,23 @@ define([
 	'intern/chai!assert',
 	'require',
 	'dojo/when',
-	'../RequestMemory'
-], function (registerSuite, assert, require, when, RequestMemory) {
+	'dojo/_base/array',
+	'dojo/_base/declare',
+	'../RequestMemory',
+	'../Trackable'
+], function (registerSuite, assert, require, when, arrayUtil, declare, RequestMemory, Trackable) {
 
 	var store;
+	function mapResultIds(results) {
+		return arrayUtil.map(results, function (item) {
+			return item.id;
+		});
+	}
 	registerSuite({
 		name: 'RequestMemory',
 
 		beforeEach: function () {
-			store = new RequestMemory({
+			store = new (declare([RequestMemory, Trackable]))({
 				target: require.toUrl('dstore/tests/data/treeTestRoot')
 			});
 		},
@@ -25,7 +33,6 @@ define([
 			});
 		},
 
-		// TODO: Test what put is supposed to resolve to
 		'.put': function () {
 			var updatedItem;
 			return when(store.get('node5')).then(function (item) {
@@ -40,7 +47,6 @@ define([
 			});
 		},
 
-		// TODO: Test what add is supposed to resolve to
 		'.add': function () {
 			var newItem = { 'id': 'node6', 'name':'node5', 'someProperty':'somePropertyB' };
 			return when(store.add(newItem), function () {
@@ -50,7 +56,6 @@ define([
 			});
 		},
 
-		// TODO: Test what remove is supposed to resolve to
 		'.remove': function () {
 			return when(store.get('node3')).then(function (item) {
 				assert.ok(item);
@@ -64,9 +69,7 @@ define([
 		},
 
 		'filter': function () {
-			var results = store.filter({ someProperty: 'somePropertyB' }).map(function (item) {
-				return item.id;
-			}).fetch();
+			var results = store.filter({ someProperty: 'somePropertyB' }).fetch().then(mapResultIds);
 			return when(results, function (data) {
 				assert.deepEqual(data.slice(), [ 'node2', 'node5' ]);
 			});
@@ -76,18 +79,14 @@ define([
 			var results = store.sort([
 					{ property: 'someProperty', descending: true },
 					{ property: 'name', descending: false }
-				]).map(function (item) {
-					return item.id;
-				}).fetch();
+				]).fetch().then(mapResultIds);
 			return when(results, function (data) {
 				assert.deepEqual(data.slice(), [ 'node3', 'node2', 'node5', 'node1', 'node4' ]);
 			});
 		},
 
 		'.fetchRange': function () {
-			var results = store.map(function (item) {
-					return item.id;
-				}).fetchRange({start: 1, end: 4});
+			var results = store.fetchRange({start: 1, end: 4}).then(mapResultIds);
 			return when(results, function (data) {
 				assert.deepEqual(data.slice(), [ 'node2', 'node3', 'node4' ]);
 			});
@@ -99,14 +98,11 @@ define([
 					return item.someProperty !== 'somePropertyB';
 				})
 				.sort('name', true)
-				.map(function (item) {
-					return item.id;
-				}).fetchRange({start: 1, end: 3});
+				.fetchRange({start: 1, end: 3}).then(mapResultIds);
 			return when(results, function (data) {
 				assert.deepEqual(data.slice(), [ 'node3', 'node1' ]);
 			});
 		}
-		// TODO: Add tests for all permutations of filter, sort, range queries
 	});
 });
 

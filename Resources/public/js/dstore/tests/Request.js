@@ -8,8 +8,7 @@ define([
 	'dojo/when',
 	'dojo/promise/all',
 	'dstore/Request',
-	'dstore/Model',
-	'dstore/objectQueryEngine',
+	'dstore/SimpleQuery',
 	'./mockRequest',
 	'dojo/text!./data/treeTestRoot'
 
@@ -23,11 +22,12 @@ define([
 	when,
 	whenAll,
 	Request,
-	Model,
-	objectQueryEngine,
+	SimpleQuery,
 	mockRequest,
 	treeTestRootData
 ) {
+
+	var Model = declare(null, {});
 
 	function runHeaderTest(method, args) {
 		return store[method].apply(store, args).then(function () {
@@ -97,9 +97,9 @@ define([
 				store = new Store({
 					target: '/mockRequest/',
 					headers: globalHeaders,
-					model: Model
+					Model: Model
 				});
-				store.model.prototype.describe = function () {
+				store.Model.prototype.describe = function () {
 					return 'name is ' + this.name;
 				};
 				createRequestTests.store = store;
@@ -123,9 +123,6 @@ define([
 				return store.filter('data/treeTestRoot').forEach(function (object) {
 					i++;
 					assert.strictEqual(object.name, 'node' + i);
-					// the intrinsic methods
-					assert.equal(typeof object.save, 'function');
-					assert.equal(typeof object.remove, 'function');
 					// the method we added
 					assert.equal(typeof object.describe, 'function');
 				});
@@ -245,8 +242,7 @@ define([
 				});
 			},
 
-			// TODO: Convert this to a test of all permutations of filter, sort, and range calls
-			'filter+sort+range': function () {
+			'filter+sort+fetchRange': function () {
 				var filter = { prop1: 'Prop1Value', prop2: 'Prop2Value' };
 				var collection = store.filter(filter).sort('prop1');
 				return runCollectionTest(collection, {start: 15, end: 25}, {
@@ -257,12 +253,9 @@ define([
 				});
 			},
 
-			// TODO: Add test of all permutations of filter, sort, and range calls w/ Range header enabled
-
-			'composition with client-side query engine': function () {
-				var RestWithQueryEngine = declare(Store, {
-					target: '/mockRequest/',
-					queryEngine: objectQueryEngine
+			'composition with client-side queriers': function () {
+				var RestWithQueryEngine = declare([ Store, SimpleQuery ], {
+					target: '/mockRequest/'
 				});
 
 				var store = new RestWithQueryEngine(),
@@ -275,7 +268,6 @@ define([
 				var filter = { odd: true },
 					filteredCollection = store.filter(filter),
 					sortedCollection,
-					rangeResults,
 					getTopQueryLogEntry = function (collection) {
 						var queryLog = collection.queryLog;
 						return queryLog[queryLog.length - 1];

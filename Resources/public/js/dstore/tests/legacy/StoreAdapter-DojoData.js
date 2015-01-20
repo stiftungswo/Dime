@@ -9,9 +9,10 @@ define([
 	'dojo/_base/lang',
 	'dojo/when',
 	'dstore/legacy/StoreAdapter',
-	'dstore/Model',
 	'../data/testData'
-], function (declare, Deferred, ItemFileWriteStore, DataStore, registerSuite, assert, Memory, lang, when, StoreAdapter, Model, testData) {
+], function (declare, Deferred, ItemFileWriteStore, DataStore, registerSuite, assert, Memory, lang, when, StoreAdapter, testData) {
+
+	var Model = function () {};
 
 	function getResultsArray(store) {
 		var results = [];
@@ -33,9 +34,9 @@ define([
 			});
 			store = new StoreAdapter({
 				objectStore: dataStore,
-				model: Model
+				Model: Model
 			});
-			store.model.prototype.describe = function () {
+			store.Model.prototype.describe = function () {
 				return this.name + ' is ' + (this.prime ? '' : 'not ') + 'a prime';
 			};
 		},
@@ -47,7 +48,7 @@ define([
 			assert.strictEqual(store.getIdentity(store.get(1)), 1);
 		},
 
-		'model': function () {
+		'Model': function () {
 			assert.strictEqual(store.get(1).describe(), 'one is not a prime');
 			assert.strictEqual(store.get(3).describe(), 'three is a prime');
 			var results = getResultsArray(store.filter({even: true}));
@@ -89,8 +90,6 @@ define([
 			assert.isTrue(store.get(6).perfect);
 		}
 		// if we have the update DataStore (as of Dojo 1.10), we will use these tests as well
-
-		// TODO: Test that fetch adds .data and .total properties to the collection
 	}, DataStore.prototype.add &&
 	{
 		'put update': function () {

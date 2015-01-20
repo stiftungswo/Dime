@@ -16,29 +16,29 @@ define([
                 store = this.stores[entity]
             }
             else {
-                //if(legacy) {
-                store = this._makelegacy(entity);
-                //}
-                //else{
-                //    store = new dStore({entity: entity});
-                //}
+                if(legacy) {
+                    store = this._makelegacy(entity);
+                }
+                else{
+                    store = new dStore({entity: entity});
+                }
                 this.stores[entity] = store;
             }
-            //if(compat) store = this._compat(store);
+            if(compat) store = this._compat(store);
             return store;
         },
 
         make: function(entity, compat, legacy){
             //Search if store is already defined
             var store;
-            //if(legacy) {
-            store = this._makelegacy(entity);
-            //}
-            //else{
-            //    store = new dStore({entity: entity});
-            //}
+            if(legacy) {
+                store = this._makelegacy(entity);
+            }
+            else{
+                store = new dStore({entity: entity});
+            }
             this.stores[entity] = store;
-            //if(compat) store = this._compat(store);
+            if(compat) store = this._compat(store);
             return store;
         },
 

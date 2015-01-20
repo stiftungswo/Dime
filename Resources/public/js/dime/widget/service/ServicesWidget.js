@@ -19,7 +19,7 @@ define([
         config: {
             values: {
                 GridNode:{
-                    store: 'services'
+                    collection: window.storeManager.get('services')
                 },
                 editNode: {}
             },
@@ -69,7 +69,7 @@ define([
         },
 
         storeCreateNotify: function(args){
-            this.GridNode.store.notify(args.entity);
+            this.GridNode.collection.emit('add', args.entity);
         }
 
     });

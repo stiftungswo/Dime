@@ -11,7 +11,7 @@ define([
 
 	// module:
 	//		dstore/Trackable
-	var undef, revision = 0;
+	var revision = 0;
 
 	function createRange(newStart, newEnd) {
 		return {
@@ -74,15 +74,13 @@ define([
 		}
 	}
 
-	return declare(null, {
-		currentRange: [],
-
+	var trackablePrototype = {
 		track: function () {
 			var store = this.store || this;
 
 			// monitor for updates by listening to these methods
 			var handles = [];
-			var eventTypes = {add: 1, update: 1, remove: 1};
+			var eventTypes = {add: 1, update: 1, 'delete': 1};
 			// register to listen for updates
 			for (var type in eventTypes) {
 				handles.push(
@@ -94,7 +92,6 @@ define([
 				);
 			}
 
-				// TODO: What should we do if there are mixed calls to `fetch` and `fetchRange`?
 			function makeFetch() {
 				return function () {
 					var self = this;
@@ -140,11 +137,8 @@ define([
 			var observed = declare.safeMixin(lang.delegate(this), {
 				_ranges: [],
 
-				// TODO: What should we do if there are mixed calls to `fetch` and `fetchRange`?
 				fetch: makeFetch(),
 				fetchRange: makeFetchRange(),
-				fetchSync: makeFetch(),
-				fetchRangeSync: makeFetchRange(),
 
 				releaseRange: function (start, end) {
 					if (this._partialResults) {
@@ -186,21 +180,25 @@ define([
 				});
 			}
 
+			// Create a function that applies all queriers in the query log
+			// in order to determine whether a new or updated item belongs
+			// in the results and at what position.
 			var queryExecutor;
-			if (this.queryEngine) {
-				arrayUtil.forEach(this.queryLog, function (entry) {
-					var existingQuerier = queryExecutor,
-						querier = entry.querier;
+			arrayUtil.forEach(this.queryLog, function (entry) {
+				var existingQuerier = queryExecutor,
+					querier = entry.querier;
+
+				if (querier) {
 					queryExecutor = existingQuerier
 						? function (data) { return querier(existingQuerier(data)); }
 						: querier;
-				});
-			}
+				}
+			});
 
 			var defaultEventProps = {
 					'add': { index: undefined },
 					'update': { previousIndex: undefined, index: undefined },
-					'remove': { previousIndex: undefined }
+					'delete': { previousIndex: undefined }
 				},
 				findObject = function (data, id, start, end) {
 					start = start !== undefined ? start : 0;
@@ -245,7 +243,7 @@ define([
 						removalRangeIndex = -1,
 						insertedInto = -1,
 						insertionRangeIndex = -1;
-					if (type === 'remove' || type === 'update') {
+					if (type === 'delete' || type === 'update') {
 						// remove the old one
 						for (i = 0; removedFrom === -1 && i < ranges.length; ++i) {
 							range = ranges[i];
@@ -274,8 +272,7 @@ define([
 						if (queryExecutor) {
 							// with a queryExecutor, we can determine the correct sorted index for the change
 
-							if (queryExecutor.matches ? queryExecutor.matches(target) :
-									queryExecutor([target]).length) {
+							if (queryExecutor([target]).length) {
 								var begin = 0,
 									end = ranges.length - 1,
 									sampleArray,
@@ -394,5 +391,14 @@ define([
 
 			return observed;
 		}
-	});
+	};
+
+	var Trackable =  declare(null, trackablePrototype);
+	Trackable.create = function (target, properties) {
+		// create a delegate of an existing store with trackability functionality mixed in
+		target = declare.safeMixin(lang.delegate(target), trackablePrototype);
+		declare.safeMixin(target, properties);
+		return target;
+	};
+	return Trackable;
 });

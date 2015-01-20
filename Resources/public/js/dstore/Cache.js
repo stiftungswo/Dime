@@ -27,12 +27,9 @@ define([
 		if (!store.cachingStore) {
 			store.cachingStore = new Memory();
 		}
-		if (!store.queryEngine) {
-			store.queryEngine = store.cachingStore.queryEngine;
-		}
-		store.cachingStore.model = store.model;
-		store.cachingStore.idProperty = store.idProperty;
 
+		store.cachingStore.Model = store.Model;
+		store.cachingStore.idProperty = store.idProperty;
 	}
 	var CachePrototype = {
 		cachingStore: null,
@@ -169,15 +166,17 @@ define([
 		},
 		_createSubCollection: function () {
 			var subCollection = this.inherited(arguments);
-			// TODO: Is this going to be added to Store.js?
 			subCollection._parent = this;
 			return subCollection;
 		},
 
 		sort: cachingQuery('sort'),
 		filter: cachingQuery('filter'),
-		map: cachingQuery('map')
 
+		_getQuerierFactory: function (type) {
+			var cachingStore = this.cachingStore;
+			return this.inherited(arguments) || lang.hitch(cachingStore, cachingStore._getQuerierFactory(type));
+		}
 	};
 	var Cache = declare(null, CachePrototype);
 	Cache.create = function (target, properties) {

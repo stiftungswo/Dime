@@ -18,7 +18,7 @@ define([
         config: {
             values: {
                 GridNode:{
-                    store: 'tags'
+                    collection: window.storeManager.get('tags')
                 },
                 addNode: {},
                 deleteNode: {}
@@ -58,7 +58,7 @@ define([
         },
 
         storeCreateNotify: function(args){
-            this.GridNode.store.notify(args.entity);
+            this.GridNode.collection.emit('add', args.entity);
         }
     });
 });

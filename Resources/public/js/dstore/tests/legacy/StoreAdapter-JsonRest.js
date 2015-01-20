@@ -7,9 +7,10 @@ define([
 	'dojo/_base/lang',
 	'dojo/when',
 	'dojo/store/JsonRest',
-	'dstore/Model',
 	'dstore/legacy/StoreAdapter'
-], function (require, registerSuite, assert, declare, JSON, lang, when, JsonRest, Model, StoreAdapter) {
+], function (require, registerSuite, assert, declare, JSON, lang, when, JsonRest, StoreAdapter) {
+
+	var Model = function () {};
 
 	var legacyStore = new JsonRest({
 		target: require.toUrl('dstore/tests/x.y').match(/(.+)x\.y$/)[1],
@@ -22,9 +23,9 @@ define([
 	});
 	var adaptedStore = new StoreAdapter({
 		objectStore: legacyStore,
-		model: Model
+		Model: Model
 	});
-	adaptedStore.model.prototype.describe = function () {
+	adaptedStore.Model.prototype.describe = function () {
 		return 'name is ' + this.name;
 	};
 
@@ -38,9 +39,9 @@ define([
 				});
 			}
 		}),
-		model: Model
+		Model: Model
 	});
-	store.model.prototype.describe = function () {
+	store.Model.prototype.describe = function () {
 		return 'name is ' + this.name;
 	};
 
@@ -74,8 +75,6 @@ define([
 				assert.strictEqual(object.name, 'node' + i);
 			}));
 		}
-
-		// TODO: Test that fetch adds .data and .total properties to the collection
 	});
 
 	registerSuite({

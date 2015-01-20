@@ -20,7 +20,7 @@ define([
         config: {
             values: {
                 GridNode:{
-                    store: 'projects'
+                    collection: window.storeManager.get('projects')
                 },
                 editNode: {},
                 addNode: {},
@@ -82,7 +82,7 @@ define([
         },
 
         storeCreateNotify: function(args){
-            this.GridNode.store.notify(args.entity);
+            this.GridNode.collection.emit('add', args.entity);
         }
     });
 });
