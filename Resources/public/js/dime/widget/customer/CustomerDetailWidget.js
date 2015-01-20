@@ -45,7 +45,7 @@ define([
                 },
                 rateGroupNode: {
                     widgetProperty: 'value',
-                    entityProperty: 'rategroup',
+                    entityProperty: 'rateGroup',
                     nullValue: 1,
                     store: 'rategroups',
                     idProperty: 'id'
