@@ -53,3 +53,5 @@
 * Lange Ladezeiten (nur beim ersten Laden. kann Reduziertwerden indem javascript dateine Paketiert werden)
 * Automatische Tests fallen durch.
 * Tags not editable
+* Addresse
+    * PLZ nicht eintragbar.
