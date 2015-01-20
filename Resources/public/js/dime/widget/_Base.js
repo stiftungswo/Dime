@@ -210,7 +210,7 @@ define([
                         try {
                             if (propKey === 'store') {
                                 if (typeof(prop == "String")) {
-                                    var store = window.storeManager.get(prop, false, true);
+                                    var store = base.getStore(prop);
                                 } else {
                                     var store = prop;
                                 }
@@ -536,10 +536,18 @@ define([
             window.eventManager.fire('widgetUpdate', this.entitytype, {widget: this });
         },
 
-        getStore: function(){
-            var store = this.store;
+        getStore: function(store){
+            store = store || this.store;
             if(typeof store === 'string'){
-                return window.storeManager.get(store, false, true);
+                return window.storeManager.get(store, true);
+            }
+            return store;
+        },
+
+        getdStore: function(dStore){
+            dStore = dStore || this.collection;
+            if(typeof store === 'string'){
+                return window.storeManager.get(dStore);
             }
             return store;
         },

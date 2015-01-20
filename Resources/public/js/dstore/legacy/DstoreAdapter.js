@@ -162,7 +162,7 @@ define([
 		}
 	};
 
-	var delegatedMethods = [ 'get', 'put', 'add', 'remove', 'getIdentity' ];
+	var delegatedMethods = [ 'get', 'put', 'add', 'remove', 'getIdentity', 'evict' ];
 	arrayUtil.forEach(delegatedMethods, function (methodName) {
 		adapterPrototype[methodName] = function () {
 			var store = this.store;

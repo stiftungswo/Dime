@@ -14,17 +14,17 @@ define([
             var store;
             if(this._hasstore(entity)){
                 store = this.stores[entity]
-            }
-            else {
+            } else {
                 if(legacy) {
                     store = this._makelegacy(entity);
-                }
-                else{
+                } else {
                     store = new dStore({entity: entity});
                 }
                 this.stores[entity] = store;
             }
-            if(compat) store = this._compat(store);
+            if(compat){
+                store = this._compat(store);
+            }
             return store;
         },
 
@@ -33,12 +33,13 @@ define([
             var store;
             if(legacy) {
                 store = this._makelegacy(entity);
-            }
-            else{
+            } else {
                 store = new dStore({entity: entity});
             }
             this.stores[entity] = store;
-            if(compat) store = this._compat(store);
+            if(compat){
+                store = this._compat(store);
+            }
             return store;
         },
 

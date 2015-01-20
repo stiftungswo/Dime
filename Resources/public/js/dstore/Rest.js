@@ -73,7 +73,7 @@ define([
 					? { 'Put-Default-Position': (this.defaultNewToStart ? 'start' : 'end') }
 					: null);
 
-			var initialResponse = request(hasId ? this.target+ '/' + id : this.target +'/', {
+			var initialResponse = request(hasId ? this.target+ '/' + id : this.target, {
 				method: hasId && !options.incremental ? 'PUT' : 'POST',
 				data: this.stringify(object),
 				headers: lang.mixin({
