@@ -2,6 +2,7 @@
 
 namespace Dime\TimetrackerBundle\Entity;
 
+use Carbon\Carbon;
 use DateTime;
 use Dime\TimetrackerBundle\Form\Transformer\DurationTransformer;
 use Dime\TimetrackerBundle\Model\RateUnitType;
@@ -54,7 +55,7 @@ class Timeslice extends Entity implements DimeEntityInterface
      * @var datetime $startedAt
      *
      * @Assert\DateTime()
-     * @JMS\Exclude()
+     * @JMS\SerializedName("startedAt")
      * @ORM\Column(name="started_at", type="datetime", nullable=true)
      */
     protected $startedAt;
@@ -63,7 +64,7 @@ class Timeslice extends Entity implements DimeEntityInterface
      * @var datetime $stoppedAt
      *
      * @Assert\DateTime()
-     * @JMS\Exclude()
+     * @JMS\SerializedName("stoppedAt")
      * @ORM\Column(name="stopped_at", type="datetime", nullable=true)
      */
     protected $stoppedAt;
@@ -160,22 +161,15 @@ class Timeslice extends Entity implements DimeEntityInterface
     /**
      * Get started_at
      *
-     * @return DateTime
+     * @return Carbon
      */
     public function getStartedAt()
     {
-        return $this->startedAt;
+        if(is_null($this->startedAt)){
+            return null;
+        }
+        return Carbon::instance($this->startedAt);
     }
-
-	/**
-	 * @JMS\VirtualProperty
-	 * @JMS\SerializedName("startedAt")
-	 */
-	public function serializeStartedAt()
-	{
-		$transfomer = new JsDateTransformer();
-		return $transfomer->transform($this->getStartedAt());
-	}
 
     /**
      * Set stopped_at
@@ -196,22 +190,15 @@ class Timeslice extends Entity implements DimeEntityInterface
     /**
      * Get stopped_at
      *
-     * @return DateTime
+     * @return Carbon
      */
     public function getStoppedAt()
     {
-        return $this->stoppedAt;
+        if(is_null($this->stoppedAt)){
+            return null;
+        }
+        return Carbon::instance($this->stoppedAt);
     }
-
-	/**
-	 * @JMS\VirtualProperty
-	 * @JMS\SerializedName("stoppedAt")
-	 */
-	public function serializeStoppedAt()
-	{
-		$transfomer = new JsDateTransformer();
-		return $transfomer->transform($this->getStoppedAt());
-	}
 
     /**
      * Add tag
@@ -273,12 +260,30 @@ class Timeslice extends Entity implements DimeEntityInterface
     }
 
     /**
-     * Asume Started Today if Start is empty
+     * Asume Started Now if Start is empty
      */
     public function updateStartOnEmpty()
     {
         if(empty($this->startedAt)){
-            $this->startedAt = new DateTime('now');
+            $this->startedAt = Carbon::now();
+        }
+    }
+
+    /**
+     * Try to fill out stoppedAt if Empty
+     * There are two Possibilities
+     *      * We have value and started (Assume started + value then)
+     *      * We have started and non time or no value (Assume started)
+     *      * As last Failsafe we assume stopped to be now
+     */
+    public function updateStopOnEmpty()
+    {
+        if(empty($this->stoppedAt)){
+            if(!empty($this->startedAt) && ($this->activity->getRateUnitType() === RateUnitType::$NoChange || empty($this->value))){
+                $this->stoppedAt = $this->getStartedAt();
+            } else if(!empty($this->startedAt) && ! empty($this->value)){
+                $this->stoppedAt = $this->getStartedAt()->addSeconds($this->getValue());
+            }
         }
     }
 
@@ -292,6 +297,7 @@ class Timeslice extends Entity implements DimeEntityInterface
     public function updateOnEmpty()
     {
         $this->updateStartOnEmpty();
+        $this->updateStopOnEmpty();
         $this->updateValueOnEmpty();
         return $this;
     }
