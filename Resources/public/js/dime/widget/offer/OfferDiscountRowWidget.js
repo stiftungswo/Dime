@@ -1,7 +1,7 @@
 define([
     'dijit/_WidgetsInTemplateMixin',
     'dijit/_TemplatedMixin',
-    'dime/widget/_Base',
+    'dime/common/EntityBoundWidget',
     'dojo/_base/declare',
     'dojo/text!dime/widget/offer/templates/OfferDiscountRowWidget.html',
     'dijit/registry',
@@ -10,40 +10,37 @@ define([
     'dijit/form/CheckBox',
     'dijit/form/Button',
     'xstyle!dime/widget/offer/css/OfferDiscountRowWidget.css'
-], function (WidgetsInTemplateMixin, TemplatedMixin, _Base, declare, template) {
-    return declare("dime.widget.offer.OfferDiscountRowWidget", [_Base, TemplatedMixin, WidgetsInTemplateMixin], {
+], function (WidgetsInTemplateMixin, TemplatedMixin, EntityBoundWidget, declare, template) {
+    return declare("dime.widget.offer.OfferDiscountRowWidget", [EntityBoundWidget, TemplatedMixin, WidgetsInTemplateMixin], {
 
         independant: true,
         templateString: template,
         baseClass: "offerDiscountWidget",
-        store: 'offerdiscounts',
-        entitytype: 'offerdiscounts',
-        config: {
-            values: {
-                nameNode: {
-                    widgetProperty: 'value',
-                    entityProperty: 'name',
-                    nullValue: ''
-                },
-                minusNode: {
-                    widgetProperty: 'value',
-                    entityProperty: 'minus',
-                    nullValue: '',
-                    intermediateChanges: 'base'
-                },
-                percentageNode: {
-                    widgetProperty: 'value',
-                    entityProperty: 'percentage',
-                    nullValue: ''
-                },
-                valueNode: {
-                    widgetProperty: 'value',
-                    entityProperty: 'value',
-                    nullValue: ''
-                }
+        collection: 'offerdiscounts',
+        childConfig: {
+            nameNode: {
+                widgetProperty: 'value',
+                entityProperty: 'name',
+                nullValue: ''
+            },
+            minusNode: {
+                widgetProperty: 'value',
+                entityProperty: 'minus',
+                nullValue: '',
+                intermediateChanges: 'base'
+            },
+            percentageNode: {
+                widgetProperty: 'value',
+                entityProperty: 'percentage',
+                nullValue: ''
+            },
+            valueNode: {
+                widgetProperty: 'value',
+                entityProperty: 'value',
+                nullValue: ''
             }
         },
-        _updateValues: function(entity){
+        _updateView: function(entity){
             if(entity.percentage){
                 this.valueNode.set('constraints', {
                     min: 0,

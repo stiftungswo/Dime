@@ -5,11 +5,11 @@ define([
     "dojo/_base/declare",
     "dstore/Rest",
     "dstore/Cache",
-    "dstore/extensions/jsonSchema",
     "dstore/Trackable",
     "dojo/request",
-    "dojo/_base/lang"
-], function(declare, Rest, Cache, jsonSchema, Trackable, request, lang){
+    "dojo/_base/lang",
+    "dojo/when"
+], function(declare, Rest, Cache, Trackable, request, lang, when){
     return declare("dime.store.dStore", [Rest, Cache, Trackable], {
         entity: null,
         basepath: '/api',
@@ -41,13 +41,26 @@ define([
 
         newEntity: function(options) {
             options = options || {};
-            var headers = lang.mixin({ Accept: this.accepts }, this.headers, options.headers || options);
+            var headers = lang.mixin({ Accept: this.accepts }, this.headers, options.headers);
+            var query = options.query || {};
             var store = this;
-            return request(this.target + '/new', {
-                headers: headers
-            }).then(function (response) {
-                return store._restore(store.parse(response), true);
+            var initialResponse = request(this.target + '/new', {
+                headers: headers,
+                query: query
             });
+            return initialResponse.then(function (response) {
+                var event = {};
+
+                var result = event.target = store._restore(store.parse(response), true);
+
+                when(initialResponse.response, function (httpResponse) {
+                    if(httpResponse.status === 200) {
+                        store.emit('add', event);
+                    }
+                });
+                return result;
+            });
+
         }
 
     });

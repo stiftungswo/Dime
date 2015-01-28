@@ -4,15 +4,15 @@
 define([
     'dijit/_WidgetsInTemplateMixin',
     'dijit/_TemplatedMixin',
-    'dime/widget/_Base',
+    'dime/common/EntityBoundWidget',
     'dojo/_base/declare',
     'dojo/text!dime/widget/rate/templates/RateRowWidget.html',
     'dijit/form/TextBox',
     'dijit/form/NumberTextBox',
     "dijit/form/FilteringSelect",
     'dijit/form/Button'
-], function ( WidgetsInTemplateMixin, TemplatedMixin,  _Base, declare,  template) {
-    return declare("dime.widget.rate.RateRowWidget", [_Base, TemplatedMixin, WidgetsInTemplateMixin], {
+], function ( WidgetsInTemplateMixin, TemplatedMixin,  EntityBoundWidget, declare,  template) {
+    return declare("dime.widget.rate.RateRowWidget", [EntityBoundWidget, TemplatedMixin, WidgetsInTemplateMixin], {
 
         templateString: template,
         baseClass: "rateWidget",

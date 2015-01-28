@@ -4,15 +4,15 @@
 define([
     'dijit/_WidgetsInTemplateMixin',
     'dijit/_TemplatedMixin',
-    'dime/widget/_Base',
+    'dime/common/EntityBoundWidget',
     'dojo/_base/declare',
     'dojo/text!dime/widget/project/templates/ProjectsWidget.html',
     'dojo/when',
     'dojo/request',
     'dime/widget/project/ProjectGrid',
     'dijit/form/Button'
-], function ( WidgetsInTemplateMixin, TemplatedMixin,  _Base, declare, template, when, request){
-    return declare("dime.widget.project.ProjectsWidget", [_Base, TemplatedMixin, WidgetsInTemplateMixin], {
+], function ( WidgetsInTemplateMixin, TemplatedMixin,  EntityBoundWidget, declare, template, when, request){
+    return declare("dime.widget.project.ProjectsWidget", [EntityBoundWidget, TemplatedMixin, WidgetsInTemplateMixin], {
 
         templateString: template,
         baseClass: "projectsWidget",

@@ -1,0 +1,21 @@
+<div>
+	<div class="dateFilter">
+		<button data-dojo-attach-point="monthbackButton" data-dojo-type="dijit/form/Button" ><<<-</button>
+		<button data-dojo-attach-point="weekbackButton" data-dojo-type="dijit/form/Button" ><<-</button>
+		<button data-dojo-attach-point="daybackButton" data-dojo-type="dijit/form/Button" ><-</button>
+		<div class="${baseClass}FromDate" data-dojo-type="dijit/form/DateTextBox" data-dojo-attach-point="dateFromNode"></div>
+		<div class="${baseClass}ToDate" data-dojo-type="dijit/form/DateTextBox" data-dojo-attach-point="dateToNode"></div>
+		<button data-dojo-attach-point="dayadvanceButton" data-dojo-type="dijit/form/Button" >-></button>
+		<button data-dojo-attach-point="weekadvanceButton" data-dojo-type="dijit/form/Button" >->></button>
+		<button data-dojo-attach-point="monthadvanceButton" data-dojo-type="dijit/form/Button" >->></button>
+	</div>
+	<table>
+		<thead data-dojo-attach-point="tableHeadNode">
+
+		</thead>
+		<tbody data-dojo-attach-point="containerNode">
+
+		</tbody>
+	</table>
+	<div data-dojo-attach-point="actionNode"></div>
+</div>

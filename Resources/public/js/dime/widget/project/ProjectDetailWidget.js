@@ -4,12 +4,12 @@
 define([
     'dijit/_WidgetsInTemplateMixin',
     'dijit/_TemplatedMixin',
-    'dime/widget/_Base',
+    'dime/common/EntityBoundWidget',
     'dojo/_base/declare',
     'dojo/text!dime/widget/project/templates/ProjectDetailWidget.html',
     'dojo/request',
-    'dime/widget/GenericTableWidget',
-    'dime/widget/DateFilteredTableWidget',
+    'dime/table/GenericTableWidget',
+    'dime/table/DateFilteredTableWidget',
     'dijit/form/TextBox',
     'dijit/form/Button',
     'dijit/form/DateTextBox',
@@ -18,8 +18,8 @@ define([
     'dijit/layout/TabContainer',
     'dijit/layout/ContentPane',
     'xstyle!dime/widget/project/css/ProjectDetailWidget.css'
-], function ( WidgetsInTemplateMixin, TemplatedMixin,  _Base, declare,  template, request) {
-    return declare("dime.widget.project.ProjectDetailWidget", [_Base, TemplatedMixin, WidgetsInTemplateMixin], {
+], function ( WidgetsInTemplateMixin, TemplatedMixin,  EntityBoundWidget, declare,  template, request) {
+    return declare("dime.widget.project.ProjectDetailWidget", [EntityBoundWidget, TemplatedMixin, WidgetsInTemplateMixin], {
 
         templateString: template,
         baseClass: "projectDetailWidget",
@@ -106,10 +106,6 @@ define([
                     entitytype: 'activities',
                     createable: true,
                     widgetProperty: 'updateValues',
-                    prototype:  {
-                        project: 'entityref:id',
-                        service: 1
-                    },
                     queryPrototype: {
                         project: 'id'
                     }
@@ -120,9 +116,6 @@ define([
                         project: 'id'
                     },
                     widgetProperty: 'updateValues',
-                    prototype:  {
-                        project: 'entityref:id'
-                    },
                     createable: true,
                     header: [ 'Datum', 'Mitarbeiter', 'Aktivität', 'Menge' ],
                     store: 'timeslices',
@@ -168,19 +161,11 @@ define([
         },
 
         updateActivities: function(arg){
-            var activity = arg.entity, changedProperty = arg.changedProperty, oldValue = arg.oldValue;
-            var newValue = arg.newValue, base = this, project = this.entity;
-            if(activity.project.id === project.id){
-                base.forceUpdate();
-            }
+            this.forceUpdate();
         },
 
         updateTimeslices: function(arg){
-            var timeslice = arg.entity, changedProperty = arg.changedProperty, oldValue = arg.oldValue;
-            var newValue = arg.newValue, base = this, project = this.entity;
-            if(timeslice.project.id === project.id){
-                base.forceUpdate();
-            }
+            this.forceUpdate();
         }
 
     });

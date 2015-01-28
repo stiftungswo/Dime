@@ -4,14 +4,14 @@
 define([
     'dijit/_WidgetsInTemplateMixin',
     'dijit/_TemplatedMixin',
-    'dime/widget/_Base',
+    'dime/common/EntityBoundWidget',
     'dojo/_base/declare',
     'dojo/text!dime/widget/service/templates/ServicesWidget.html',
     'dojo/when',
     'dime/widget/service/ServiceGrid',
     'dijit/form/Button'
-], function ( WidgetsInTemplateMixin, TemplatedMixin,  _Base, declare, template, when) {
-    return declare("dime.widget.service.ServicesWidget", [_Base, TemplatedMixin, WidgetsInTemplateMixin], {
+], function ( WidgetsInTemplateMixin, TemplatedMixin,  EntityBoundWidget, declare, template, when) {
+    return declare("dime.widget.service.ServicesWidget", [EntityBoundWidget, TemplatedMixin, WidgetsInTemplateMixin], {
 
         templateString: template,
         baseClass: "servicesWidget",

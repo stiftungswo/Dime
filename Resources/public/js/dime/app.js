@@ -1,25 +1,22 @@
 
 define([
         "dojo/_base/declare",
-        "dojo/parser",
         "dojo/dom",
         "dojo/dom-style",
         "dojo/dom-geometry",
         "dojo/_base/fx",
         "dijit/layout/ContentPane",
         "dijit/registry",
-        "dgrid/editor",
         "dime/store/storeManager",
-        "dime/widget/dialogManager",
         "dime/widget/widgetManager",
         "dime/event/eventManager",
         "dojo/request",
+        "moment/moment",
         "dojo/NodeList-manipulate",
         "dojo/NodeList-traverse",
         "dime/module"
     ],
-    function(declare, parser, dom, domStyle, domGeometry, baseFx, ContentPane, registry,
-             editor, storeManager, dialogManager, widgetManager, eventManager, request) {
+    function(declare, dom, domStyle, domGeometry, baseFx, ContentPane, registry, storeManager, widgetManager, eventManager, request, moment) {
         return declare('dime.app', [], {
 
 
@@ -480,18 +477,15 @@ define([
 
                 initManager: function () {
                     window.storeManager = new storeManager();
-                    window.dialogManager = new dialogManager();
                     window.widgetManager = new widgetManager();
                     window.eventManager = new eventManager();
+                    window.timeManager = new moment;
                 },
 
                 init: function () {
                     this.startLoading();
 
                     this.initManager();
-                    window.dgrid = {
-                        editor: editor
-                    };
 
                     this.endLoading();
                 }

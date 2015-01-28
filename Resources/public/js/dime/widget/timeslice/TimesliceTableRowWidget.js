@@ -1,7 +1,7 @@
 define([
     'dijit/_WidgetsInTemplateMixin',
     'dijit/_TemplatedMixin',
-    'dime/widget/_Base',
+    'dime/common/EntityBoundWidget',
     'dojo/_base/declare',
     'dojo/text!dime/widget/timeslice/templates/TimesliceTableRowWidget.html',
     'dijit/form/FilteringSelect',
@@ -9,8 +9,8 @@ define([
     'dijit/form/TextBox',
     'dijit/form/NumberTextBox',
     'xstyle!dime/widget/timeslice/css/TimesliceTableRowWidget.css'
-], function (WidgetsInTemplateMixin, TemplatedMixin,  _Base, declare,  template) {
-    return declare("dime.widget.timeslice.TimesliceTableRowWidget", [_Base, TemplatedMixin, WidgetsInTemplateMixin], {
+], function (WidgetsInTemplateMixin, TemplatedMixin,  EntityBoundWidget, declare,  template) {
+    return declare("dime.widget.timeslice.TimesliceTableRowWidget", [EntityBoundWidget, TemplatedMixin, WidgetsInTemplateMixin], {
         templateString: template,
         baseClass: "timesliceTableRowWidget",
         store: 'timeslices',

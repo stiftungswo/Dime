@@ -1,14 +1,14 @@
 define([
     'dijit/_WidgetsInTemplateMixin',
     'dijit/_TemplatedMixin',
-    'dime/widget/_Base',
+    'dime/common/EntityBoundWidget',
     'dojo/_base/declare',
     'dojo/text!dime/widget/swocommons/templates/AddressWidget.html',
     'dijit/form/NumberTextBox',
     'dijit/form/TextBox',
     'xstyle!dime/widget/swocommons/css/AddressWidget.css'
-], function (WidgetsInTemplateMixin, TemplatedMixin, Base, declare, template) {
-    return declare("dime.widget.swocommons.AddressWidget", [Base, TemplatedMixin, WidgetsInTemplateMixin], {
+], function (WidgetsInTemplateMixin, TemplatedMixin, EntityBoundWidget, declare, template) {
+    return declare("dime.widget.swocommons.AddressWidget", [EntityBoundWidget, TemplatedMixin, WidgetsInTemplateMixin], {
         templateString: template,
         baseClass: "addressWidget",
         entitytype: 'address',

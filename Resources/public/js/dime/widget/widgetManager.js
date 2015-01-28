@@ -4,10 +4,10 @@ define([
     'dijit/registry'
 ], function (declare, ContentPane, registry) {
     return declare('dime.widget.widgetManager',[],{
-        add: function(entity, entitytype, widgettype, container, disabled){
+        add: function(entity, widgettype, container, disabled, callback){
             disabled  = disabled || false;
             require([widgettype], function(WidgetType){
-                var widget = new WidgetType({entity: entity, entitytype: entitytype, disabled: disabled});
+                var widget = new WidgetType({entity: entity, disabled: disabled});
                 if(container) {
                     if(container.addChild){
                         container.addChild(widget);
@@ -15,7 +15,10 @@ define([
                         widget.placeAt(container);
                     }
                 }
-                window.eventManager.fire('widgetCreate', entitytype, {widget: widget});
+                if(callback) {
+                    //Calls Function passed at Parameter Callback with this set to the widgetcreated.
+                    callback.apply(widget);
+                }
             });
         },
         addTab: function(entity, entitytype, widgettype, tabContainer, title, closable){
@@ -36,12 +39,8 @@ define([
                 tabContainer.addChild(tab);
             }
             tabContainer.selectChild(tab);
-            //tab.on('close', function(){
-                //this.destroyRecursive();
-                //window.widgetManager.destroyRecursive(this);
-            //});
 
-            this.add(entity, entitytype, widgettype, tab);
+            this.add(entity, widgettype, tab);
         }
     });
 });

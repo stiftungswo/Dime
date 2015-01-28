@@ -4,14 +4,14 @@
 define([
     'dijit/_WidgetsInTemplateMixin',
     'dijit/_TemplatedMixin',
-    'dime/widget/_Base',
+    'dime/common/EntityBoundWidget',
     'dojo/_base/declare',
     'dojo/text!dime/widget/user/templates/UserDetailWidget.html',
     'dijit/form/TextBox',
     'dijit/form/CheckBox',
     'xstyle!dime/widget/user/css/UserDetailWidget.css'
-], function ( WidgetsInTemplateMixin, TemplatedMixin,  _Base, declare,  template) {
-    return declare("dime.widget.user.UserDetailWidget", [_Base, TemplatedMixin, WidgetsInTemplateMixin], {
+], function ( WidgetsInTemplateMixin, TemplatedMixin,  EntityBoundWidget, declare,  template) {
+    return declare("dime.widget.user.UserDetailWidget", [EntityBoundWidget, TemplatedMixin, WidgetsInTemplateMixin], {
 
         templateString: template,
         baseClass: "userDetailWidget",
