@@ -21,6 +21,133 @@ use Knp\JsonSchemaBundle\Annotations as Json;
  */
 class Employee extends User implements DimeEntityInterface
 {
+
+    /**
+     * @var datetime $workingHours
+     */
+    protected $workingHours;
+
+    /**
+     * @return DateTime
+     */
+    public function getWorkingHours()
+    {
+        return $this->workingHours;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getEndDate()
+    {
+        return $this->endDate;
+    }
+
+    /**
+     * @param DateTime $endDate
+     */
+    public function setEndDate($endDate)
+    {
+        $this->endDate = $endDate;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getStartDate()
+    {
+        return $this->startDate;
+    }
+
+    /**
+     * @param DateTime $startDate
+     */
+    public function setStartDate($startDate)
+    {
+        $this->startDate = $startDate;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getHolidays()
+    {
+        return $this->holidays;
+    }
+
+    /**
+     * @param DateTime $holidays
+     */
+    public function setHolidays($holidays)
+    {
+        $this->holidays = $holidays;
+    }
+
+    /**
+     * @var datetime $workingDays
+     */
+    protected $workingDays;
+
+    /**
+     * @var datetime $time_stamp
+     */
+    protected $time_stamp;
+
+    /**
+     * @var datetime $holiday
+     */
+    protected $holiday;
+
+    /**
+     * @var datetime $no_remaining_days
+     */
+    protected $no_remaining_days;
+
+    /**
+     * @var datetime $last_day_of_week
+     */
+    protected $last_day_of_week;
+
+    /**
+     * @var datetime $last_day_of_week
+     */
+    protected $last_day_of_week;
+
+    /**
+     * @var datetime $first_day_of_week
+     */
+    protected $first_day_of_week;
+
+    /**
+     * @var datetime $start
+     */
+    protected $start;
+
+    /**
+     * @var datetime $end
+     */
+    protected $end;
+
+    /**
+     * @var datetime $holidays
+     */
+    protected $holidays;
+
+    /**
+     * @var datetime $endDate
+     */
+    protected $endDate;
+
+    /**
+     * @var datetime $startDate
+     */
+    protected $startDate;
+
+    /**
+     * @var datetime $no_full_weeks
+     */
+    protected $no_full_weeks;
+
     /**
      * @var string $name
      *
@@ -145,8 +272,6 @@ class Employee extends User implements DimeEntityInterface
     {
         $start = "2015-01-31";
         $end = "2015-01-01";
-        $Marray="2015-01-01,2015-01-02";
-        $holidays = explode(",",['Marray']);
         getAllWorkingDays($start,$end,$holidays);
     }
 
