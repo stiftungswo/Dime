@@ -5,7 +5,7 @@ define([
     'dojo/_base/declare',
     'dojo/text!dime/table/templates/GenericTableWidget.html'
 ], function (WidgetsInTemplateMixin, TemplatedMixin, tableBase, declare, template) {
-    return declare('dime.table.GenericTableWidget', [
+    return declare('dime.common.GenericTableWidget', [
         tableBase,
         TemplatedMixin,
         WidgetsInTemplateMixin

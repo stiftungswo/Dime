@@ -7,14 +7,6 @@ define([
 ], function (declare, WidgetBase, domConstruct, registry, Container) {
     return declare('dime.table._tableBase', [WidgetBase, Container], {
 
-        postCreate: function () {
-            this.inherited(arguments);
-        },
-
-        buildRendering: function(){
-            this.inherited(arguments);
-        },
-
         header: null,
 
         value: null,
@@ -105,6 +97,25 @@ define([
             window.widgetManager.add(entity, this.childWidgetType, this, this.disabled);
         },
 
+        _removeChildWidget: function(widget){
+            this.removeChild(widget);
+            widget.destroyRecursive();
+        },
+
+        _removeChildByEntity: function(entity){
+            var child = this.getChildByEntity(entity);
+            if(child){
+                this._removeChildWidget(child);
+            }
+        },
+
+        _removeChildByEntityId: function(id){
+            var child = this.getChildByEntityId(id);
+            if(child){
+                this._removeChildWidget(child);
+            }
+        },
+
         _renderHeader: function(header){
             var row = domConstruct.create('tr'), thead = this.tableHeadNode;
             for(var count=0; count < header.length; count++){
@@ -122,13 +133,11 @@ define([
             var table = this;
             var children = this.getChildWidgets();
             children.forEach(function(child){
-                table.removeChild(child);
-                child.destroyRecursive();
+                table._removeChildWidget(child);
             });
             value.forEach(function(entity){
                 table._addChildWidget(entity);
             });
         }
-
     });
 });

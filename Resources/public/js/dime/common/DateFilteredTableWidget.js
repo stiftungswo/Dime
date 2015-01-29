@@ -11,7 +11,7 @@ define([
     'dijit/form/Button',
     'dijit/form/DateTextBox'
 ], function (tableBase, storeMixin, AddRowButtonMixin, DeleteRowButtonMixin, CheckBoxSelectionMixin,  WidgetsInTemplateMixin, TemplatedMixin, declare, template) {
-    return declare('dime.widget.DateFilteredTableWidget', [
+    return declare('dime.common.DateFilteredTableWidget', [
         tableBase,
         storeMixin,
         AddRowButtonMixin,

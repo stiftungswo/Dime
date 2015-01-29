@@ -10,6 +10,6 @@ define(
         'dgrid/Keyboard'
     ],
     function(declare, OnDemandGrid, DijitRegistry, Selection, Keyboard) {
-        return declare('dime.Grid', [OnDemandGrid, DijitRegistry, Selection, Keyboard], {});
+        return declare('dime.common.Grid', [OnDemandGrid, DijitRegistry, Selection, Keyboard], {});
     }
 );

@@ -23,22 +23,6 @@ define([
             this.collection.remove(entity.id);
         },
 
-        _removeChildByEntity: function(entity){
-            var child = this.getChildByEntity(entity);
-            if(child){
-                this.removeChild(child);
-                child.destroyRecursive();
-            }
-        },
-
-        _removeChildByEntityId: function(id){
-            var child = this.getChildByEntityId(id);
-            if(child){
-                this.removeChild(child);
-                child.destroyRecursive();
-            }
-        },
-
         _setCollectionAttr: function(collection){
             if(this.query){
                 this.collection = collection.filter(this.query);

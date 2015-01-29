@@ -19,9 +19,9 @@ define([
                     base.selection.push(event.rows[0].id);
                 });
                 grid.on('dgrid-deselect', function (event) {
-                    var id = event.rows[0].id;
-                    if(base.selection.indexOf(id)>-1){
-                        base.selection.slice(base.selection.indexOf(id), 1);
+                    var id = event.rows[0].id, index = base.selection.indexOf(id);
+                    if(index > -1){
+                        base.selection.splice(index, 1);
                     }
                 });
             }
