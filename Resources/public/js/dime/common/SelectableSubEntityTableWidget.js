@@ -8,7 +8,7 @@ define([
     'dime/table/DeleteRowButtonMixin',
     'dime/table/CheckBoxSelectionMixin',
     'dojo/_base/declare',
-    'dojo/text!dime/table/templates/GenericTableWidget.html',
+    'dojo/text!dime/common/templates/GenericTableWidget.html',
     'dijit/form/FilteringSelect',
     'dijit/form/Button'
 ], function (WidgetsInTemplateMixin, TemplatedMixin, tableBase, subEntityMixin, subEntitySelectionMixin, AddRowButtonMixin, DeleteRowButtonMixin, CheckBoxSelectionMixin, declare, template) {

@@ -7,7 +7,7 @@ define([
     'dijit/_WidgetsInTemplateMixin',
     'dijit/_TemplatedMixin',
     'dojo/_base/declare',
-    'dojo/text!dime/widget/templates/DateFilteredTableWidget.html',
+    'dojo/text!dime/common/templates/DateFilteredTableWidget.html',
     'dijit/form/Button',
     'dijit/form/DateTextBox'
 ], function (tableBase, storeMixin, AddRowButtonMixin, DeleteRowButtonMixin, CheckBoxSelectionMixin,  WidgetsInTemplateMixin, TemplatedMixin, declare, template) {

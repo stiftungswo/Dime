@@ -3,7 +3,7 @@ define([
     'dijit/_TemplatedMixin',
     'dime/table/_tableBase',
     'dojo/_base/declare',
-    'dojo/text!dime/table/templates/GenericTableWidget.html'
+    'dojo/text!dime/common/templates/GenericTableWidget.html'
 ], function (WidgetsInTemplateMixin, TemplatedMixin, tableBase, declare, template) {
     return declare('dime.common.GenericTableWidget', [
         tableBase,
