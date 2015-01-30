@@ -4,19 +4,23 @@
 define(
     [
         'dojo/_base/declare',
-        'dgrid/OnDemandGrid',
-        'dgrid/extensions/DijitRegistry',
-        'dgrid/Selection',
-        'dgrid/Keyboard',
-        'dgrid/editor',
+        'dime/common/Grid',
+        'dgrid/Editor',
         'dijit/form/TextBox'
     ],
-    function(declare, OnDemandGrid, DijitRegistry, Selection, Keyboard, editor) {
-        return declare('dime.widget.tag.TagGrid', [OnDemandGrid, DijitRegistry, Selection, Keyboard], {
+    function(declare, Grid, Editor) {
+        return declare('dime.widget.tag.TagGrid', [Grid, Editor], {
 
             sort: 'name',
+            collection: window.storeManager.get('tags'),
             columns: [
-                editor({label: 'Name', field: 'name', autoSave: true}, 'dijit/form/TextBox', 'dblclick')
+                {
+                    label: 'Name',
+                    field: 'name',
+                    autoSave: true,
+                    editor: 'dijit/form/TextBox',
+                    editOn: 'dblclick'
+                }
             ]
         })
     }

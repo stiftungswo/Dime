@@ -8,16 +8,29 @@ define(
         'dgrid/extensions/DijitRegistry',
         'dgrid/Selection',
         'dgrid/Keyboard',
-        'dgrid/editor',
+        'dgrid/Editor',
         'dijit/form/TextBox'
     ],
-    function(declare, OnDemandGrid, DijitRegistry, Selection, Keyboard, editor) {
-        return declare('dime.widget.rategroup.RateGroupGrid', [OnDemandGrid, DijitRegistry, Selection, Keyboard], {
+    function(declare, OnDemandGrid, DijitRegistry, Selection, Keyboard, Editor) {
+        return declare('dime.widget.rategroup.RateGroupGrid', [OnDemandGrid, DijitRegistry, Selection, Keyboard, Editor], {
 
             sort: 'name',
+            collection: window.storeManager.get('rategroups'),
             columns: [
-                editor({label: 'Name', field: 'name', autoSave: true}, 'dijit/form/TextBox', 'dblclick'),
-                editor({label: 'Beschreibung', field: 'description', autoSave: true}, 'dijit/form/TextBox', 'dblclick')
+                {
+                    label: 'Name',
+                    field: 'name',
+                    autoSave: true,
+                    editor: 'dijit/form/TextBox',
+                    editOn: 'dblclick'
+                },
+                {
+                    label: 'Beschreibung',
+                    field: 'description',
+                    autoSave: true,
+                    editor: 'dijit/form/TextBox',
+                    editOn: 'dblclick'
+                }
             ]
         })
     }

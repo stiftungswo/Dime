@@ -2,47 +2,18 @@
  * Created by Till Wegmüller on 11/13/14.
  */
 define([
+    'dime/common/EntityOverviewWidget',
     'dijit/_WidgetsInTemplateMixin',
     'dijit/_TemplatedMixin',
-    'dime/common/EntityBoundWidget',
     'dojo/_base/declare',
     'dojo/text!dime/widget/rategroup/templates/RateGroupsWidget.html',
-    'dime/widget/rategroup/RateGroupGrid',
-    'dijit/form/Button'
-], function ( WidgetsInTemplateMixin, TemplatedMixin,  EntityBoundWidget, declare, template) {
-    return declare("dime.widget.rategroup.RateGroupsWidget", [EntityBoundWidget, TemplatedMixin, WidgetsInTemplateMixin], {
+    'dime/widget/rategroup/RateGroupGrid'
+], function (EntityOverviewWidget, WidgetsInTemplateMixin, TemplatedMixin, declare, template) {
+    return declare("dime.widget.rategroup.RateGroupsWidget", [EntityOverviewWidget, TemplatedMixin, WidgetsInTemplateMixin], {
 
         templateString: template,
         baseClass: "rategroupsWidget",
-        store: 'rategroups',
-        config: {
-            values: {
-                GridNode:{
-                    collection: window.storeManager.get('rategroups')
-                },
-                addNode: {},
-                deleteNode: {}
-            },
-            callbacks:{
-                deleteNode:{
-                    callbackName: 'click',
-                    callbackFunction: function(){
-                        //this in the button
-                        for(var id in this.getParent().GridNode.selection){
-                            this.getParent().getStore().remove(id);
-                        }
-                    }
-                },
-                addNode: {
-                    callbackName: 'click',
-                    callbackFunction: function(){
-                        //this in the button
-                        //this.getParent().getStore().add({ name:'NewRateGroup'});
-                        app.newEntity('rateGroups');
-                    }
-                }
-            }
-        }
+        collection: 'rategroups'
     });
 });
 
