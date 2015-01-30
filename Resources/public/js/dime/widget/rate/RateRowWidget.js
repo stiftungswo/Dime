@@ -9,41 +9,37 @@ define([
     'dojo/text!dime/widget/rate/templates/RateRowWidget.html',
     'dijit/form/TextBox',
     'dijit/form/NumberTextBox',
-    "dijit/form/FilteringSelect",
-    'dijit/form/Button'
+    "dijit/form/FilteringSelect"
 ], function ( WidgetsInTemplateMixin, TemplatedMixin,  EntityBoundWidget, declare,  template) {
     return declare("dime.widget.rate.RateRowWidget", [EntityBoundWidget, TemplatedMixin, WidgetsInTemplateMixin], {
 
         templateString: template,
         baseClass: "rateWidget",
-        store: 'rates',
+        collection: 'rates',
         independant: true,
-        config: {
-            values: {
-                rateGroupNode: {
-                    widgetProperty: 'value',
-                    entityProperty: 'rateGroup',
-                    nullValue: 1,
-                    store: 'rategroups',
-                    idProperty: 'id'
-                },
-                rateValueNode: {
-                    widgetProperty: 'value',
-                    entityProperty: 'rateValue',
-                    nullValue: ''
-                },
-                rateUnitNode: {
-                    widgetProperty: 'value',
-                    entityProperty: 'rateUnit',
-                    nullValue: ''
-                },
-                rateUnitTypeNode: {
-                    widgetProperty: 'value',
-                    entityProperty: 'rateUnitType',
-                    nullValue: 0,
-                    store: 'rateunittypes',
-                    idProperty: 'id'
-                }
+        childConfig: {
+            rateGroupNode: {
+                widgetProperty: 'value',
+                entityProperty: 'rateGroup',
+                nullValue: 1,
+                store: 'rategroups',
+                idProperty: 'id'
+            },
+            rateValueNode: {
+                widgetProperty: 'value',
+                entityProperty: 'rateValue',
+                nullValue: ''
+            },
+            rateUnitNode: {
+                widgetProperty: 'value',
+                entityProperty: 'rateUnit',
+                nullValue: ''
+            },
+            rateUnitTypeNode: {
+                widgetProperty: 'value',
+                entityProperty: 'rateUnitType',
+                nullValue: 0,
+                store: 'rateunittypes'
             }
         }
     });

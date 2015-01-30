@@ -11,6 +11,14 @@ define([
 
         _started: false,
 
+        blockUpdate: false,
+
+        startup: function(){
+            if(!this.blockUpdate) {
+                this._updateView();
+            }
+        },
+
         createRow: function(){
             this.collection.newEntity({ query: this.query });
         },
@@ -24,11 +32,7 @@ define([
         },
 
         _setCollectionAttr: function(collection){
-            if(this.query){
-                this.collection = collection.filter(this.query);
-            } else {
-                this.collection = collection;
-            }
+            this.collection = collection;
             var table = this;
             this.collection.on('add', function(event){
                 table._addChildWidget(event.target);
@@ -40,14 +44,6 @@ define([
                     table._removeChildByEntityId(event.id);
                 }
             });
-            this._updateView();
-        },
-
-        _setQueryAttr: function(query) {
-            this.query = query;
-            if(this.collection){
-                this.set('collection', this.get('collection'));
-            }
         },
 
         _setQueryPrototypeAttr: function(queryPrototype) {
@@ -56,12 +52,12 @@ define([
         },
 
         _renderQuery: function(queryPrototype){
-            var parent = this.getParent(), query = {};
-            var entity = parent.entity;
+            var query = {};
+            var parentEntity = this.get('parentEntity');
             for(var propKey in queryPrototype){
                 if(queryPrototype.hasOwnProperty(propKey)) {
                     var prop = queryPrototype[propKey];
-                    query[propKey] = entity[prop];
+                    query[propKey] = parentEntity[prop];
                 }
             }
             return query;
@@ -69,11 +65,17 @@ define([
 
         _updateView: function(){
             var table = this;
+            var collection;
+            if(this.query){
+                collection = this.collection.filter(this.query);
+            } else {
+                collection = this.collection;
+            }
             this.getChildWidgets().forEach(function(child){
-                this.removeChild(child);
+                table.removeChild(child);
                 child.destroyRecursive();
             });
-            this.collection.forEach(function(entity){
+            collection.forEach(function(entity){
                 table._addChildWidget(entity);
             });
         }

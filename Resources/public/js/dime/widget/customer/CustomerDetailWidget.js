@@ -7,7 +7,7 @@ define([
     'dime/common/EntityBoundWidget',
     'dojo/_base/declare',
     'dojo/text!dime/widget/customer/templates/CustomerDetailWidget.html',
-    'dime/table/GenericTableWidget',
+    'dime/common/GenericSubEntityTableWidget',
     'dime/widget/swocommons/AddressWidget',
     'dijit/form/TextBox',
     'dijit/form/FilteringSelect',
@@ -37,7 +37,7 @@ define([
                 nullValue: ''
             },
             addressNode: {
-                widgetProperty: 'updateValues',
+                widgetProperty: 'entity',
                 entityProperty: 'address',
                 nullValue: ''
             },
@@ -50,19 +50,11 @@ define([
             },
             phonesNode: {
                 childWidgetType: 'dime/widget/swocommons/PhoneRowWidget',
-                queryPrototype: {
-                    customer: 'id'
-                },
-                prototype: {
-                    Number: '000000',
-                    Type: 'Mobile'
-                },
                 header: [ 'Nummer', 'Typ' ],
-                entityType: 'phones',
-                widgetProperty: 'updateValues',
+                widgetProperty: 'value',
                 entityProperty: 'phones',
-                subentity: true,
-                entitytype: 'phones'
+                creatable: true,
+                deleteable: true
             }
         }
     });

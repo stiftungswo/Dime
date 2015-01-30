@@ -53,6 +53,7 @@ define([
 
         //Called to update the Rendering
         _updateView: function(entity){
+            if(!entity) return;
             var base = this;
             base._blockwatcherCallback = true;
             base._attachPoints.forEach(function(attachPoint){
@@ -62,8 +63,11 @@ define([
                 try {
                     var focused = node.get('focused');
                     if(node.widgetProperty){
+                        if(node.queryPrototype && node.resolveProto){
+                            node.set('query', base._configResolvePrototype(node.queryPrototype));
+                        }
+                        var value = entity[node.entityProperty];
                         if (node.idProperty) {
-                            var value = entity[node.entityProperty];
                             if (value) {
                                 if (!focused) {
                                     node.set(node.widgetProperty, value[node.idProperty]);
@@ -75,7 +79,7 @@ define([
                             }
                         } else {
                             if (!focused) {
-                                node.set(node.widgetProperty, entity[node.entityProperty] || node.nullValue);
+                                node.set(node.widgetProperty, value || node.nullValue);
                             }
                         }
                     }

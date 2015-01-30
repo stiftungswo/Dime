@@ -44,6 +44,18 @@ define([
             this._configCallbacks();
         },
 
+        _configResolvePrototype: function(proto){
+            var query = {};
+            var entity = this.get('entity');
+            for(var propKey in proto){
+                if(proto.hasOwnProperty(propKey)) {
+                    var prop = proto[propKey];
+                    query[propKey] = entity[prop];
+                }
+            }
+            return query;
+        },
+
         _configBase: function(){
             this._config(this.baseConfig, this);
         },

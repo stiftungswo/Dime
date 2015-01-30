@@ -12,7 +12,7 @@ define([
     'dijit/form/TextBox',
     'dijit/form/Button',
     'dijit/form/FilteringSelect',
-    'dime/table/GenericTableWidget'
+    'dime/common/GenericTableWidget'
 ], function ( WidgetsInTemplateMixin, TemplatedMixin,  EntityBoundWidget, declare,  template, request) {
     return declare("dime.widget.invoice.InvoiceDetailWidget", [EntityBoundWidget, TemplatedMixin, WidgetsInTemplateMixin], {
 

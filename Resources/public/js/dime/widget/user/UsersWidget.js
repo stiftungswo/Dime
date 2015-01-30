@@ -2,58 +2,29 @@
  * Created by Till Wegmüller on 11/13/14.
  */
 define([
+    'dime/common/EntityOverviewWidget',
     'dijit/_WidgetsInTemplateMixin',
     'dijit/_TemplatedMixin',
-    'dime/common/EntityBoundWidget',
     'dojo/_base/declare',
-    'dojo/text!dime/widget/user/templates/UsersWidget.html',
-    'dojo/when',
-    'dojo/request',
-    'dime/widget/user/UserGrid',
-    'dijit/form/Button'
-], function ( WidgetsInTemplateMixin, TemplatedMixin,  EntityBoundWidget, declare, template, when){
-    return declare("dime.widget.user.UsersWidget", [EntityBoundWidget, TemplatedMixin, WidgetsInTemplateMixin], {
+    'dojo/text!dime/widget/user/templates/UsersWidget.html'
+], function (EntityOverviewWidget, WidgetsInTemplateMixin, TemplatedMixin, declare, template){
+    return declare("dime.widget.user.UsersWidget", [EntityOverviewWidget, TemplatedMixin, WidgetsInTemplateMixin], {
 
         templateString: template,
         baseClass: "usersWidget",
-        store: 'users',
-        config: {
-            values: {
-                GridNode:{
-                    store: 'users'
-                },
-                editNode: {},
-                addNode: {}
-            },
-            callbacks:{
-                editNode:{
-                    callbackName: 'click',
-                    callbackFunction: function(){
-                        //this in the button
-                        for(var id in this.getParent().GridNode.selection){
-                            when(this.getParent().getStore().get(id)).then(function(item){
-                                window.widgetManager.addTab(item, 'users', 'dime/widget/user/UserDetailWidget', 'contentTabs', 'Mitarbeiter ('+item.id+')', true);
-                            });
-                        }
-                    }
-                },
-                deleteNode:{
-                    callbackName: 'click',
-                    callbackFunction: function(){
-                        //this in the button
-                        for(var id in this.getParent().GridNode.selection){
-                            this.getParent().getStore().remove(id);
-                        }
-                    }
-                },
-                addNode: {
-                    callbackName: 'click',
-                    callbackFunction: function(){
-                        //this in the button
-                        //this.getParent().getStore().add({ username:'New User', email:'new@user.com', plainpassword:''});
-                    }
-                }
-            }
+        collection: 'users',
+        editTitleProperty: 'Mitarbeiter',
+        editWidget: 'dime/widget/user/UserDetailWidget',
+        dGrid: {
+            sort: 'username',
+            columns: [
+                {label: 'Benutzername', field: 'username'},
+                {label: 'Vorname', field: 'firstname'},
+                {label: 'Nachname', field: 'lastname'},
+                {label: 'e-Mail', field: 'email'},
+                {label: 'Login', field: 'enabled'},
+                {label: 'Gesperrt', field: 'locked'}
+            ]
         }
     });
 });

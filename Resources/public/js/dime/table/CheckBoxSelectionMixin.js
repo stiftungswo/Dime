@@ -19,7 +19,7 @@ define([
         },
 
         _addChildWidget: function(entity){
-            window.widgetManager.add(entity, this.childWidgetType, this, this.disabled, this._addSelectionCheckBox);
+            window.widgetManager.add(entity, this.childWidgetType, this, this.disabled, this._addSelectionCheckBox, true);
         },
 
         _getSelectionAttr: function(){

@@ -1,27 +1,28 @@
 <div class="${baseClass}">
-    <label>Name </label><div class="${baseClass}Name" data-dojo-attach-point="nameNode" data-dojo-type="dijit/form/TextBox"></div><br/>
+	<div class="DimePanel ${baseClass}Panel">
+	    <label>Name </label><div class="${baseClass}Name" data-dojo-attach-point="nameNode" data-dojo-type="dijit/form/TextBox"></div>
 
-    <label>Alias </label><div class="${baseClass}Alias" data-dojo-attach-point="aliasNode" data-dojo-type="dijit/form/TextBox"></div><br/>
+	    <label>Alias </label><div class="${baseClass}Alias" data-dojo-attach-point="aliasNode" data-dojo-type="dijit/form/TextBox"></div>
 
-    <label>Beschreibung </label><div class="${baseClass}Description" data-dojo-attach-point="descriptionNode" data-dojo-type="dijit/form/TextBox"></div><br/>
+	    <label>Beschreibung </label><div class="${baseClass}Description" data-dojo-attach-point="descriptionNode" data-dojo-type="dijit/form/TextBox"></div>
 
-    <label>Projekt </label><div class="${baseClass}Project" data-dojo-attach-point="projectNode" data-dojo-type="dijit/form/FilteringSelect" ></div><br/>
+	    <label>Projekt </label><div class="${baseClass}Project" data-dojo-attach-point="projectNode" data-dojo-type="dijit/form/FilteringSelect" ></div>
+	</div>
+	<!--<label>Kunde </label><div class="${baseClass}Customer" data-dojo-attach-point="customerNode" data-dojo-type="dime/widget/customer/CustomerDetailWidget" data-dojo-props="disabled: true" ></div><br/>-->
+	<div class="DimePanel ${baseClass}Panel">
+		<label>Rechnungspositionen:</label><br/>
+		<div class="${baseClass}InvoiceItems" data-dojo-attach-point="itemsNode" data-dojo-type="dime/common/GenericStoreTableWidget"></div>
+	</div>
 
-	<!--<label>Kunde </label><div class="${baseClass}Customer" data-dojo-attach-point="customerNode" data-dojo-type="dime/widget/customer/CustomerDetailWidget" data-dojo-props="allowEdit: false, minimal: true" ></div><br/>-->
+	<div class="DimePanel ${baseClass}Panel">
+		<label>Brutto </label><div class="${baseClass}Gross" data-dojo-attach-point="grossNode" data-dojo-type="dijit/form/TextBox"></div> CHF<br/>
+		<label>Netto </label><div class="${baseClass}net" data-dojo-attach-point="netNode" data-dojo-type="dijit/form/TextBox"></div> CHF<br/>
+	</div>
 
-	<label>Rechnungspositionen:</label><br/>
-	<div class="${baseClass}InvoiceItems" data-dojo-attach-point="itemsNode" data-dojo-type="dime/widget/GenericTableWidget" data-dojo-props="doStartup: false"></div>
 
-	<label>Brutto </label><div class="${baseClass}Gross" data-dojo-attach-point="grossNode" data-dojo-type="dijit/form/TextBox"></div> CHF<br/>
-	<label>Netto </label><div class="${baseClass}net" data-dojo-attach-point="netNode" data-dojo-type="dijit/form/TextBox"></div> CHF<br/>
-
-	<label>Standard Abzüge</label>
-	<div class="${baseClass}DiscountsContainer" data-dojo-attach-point="discountsContainer"></div>
-	<br>
-	<div class="${baseClass}StandardDiscountSelect" data-dojo-attach-point="addStandardDiscountSelectNode" data-dojo-type="dijit/form/FilteringSelect"></div>
-	<div data-dojo-attach-point="addStandardDiscountNode" data-dojo-type="dijit/form/Button" data-dojo-props="'class':'primary'">+</div>
-	<br>
-	<br>
+	<div class="DimePanel ${baseClass}Panel">
+		<div class="${baseClass} ${baseClass}DiscountsNode"><label>Standard Abzüge</label><div data-dojo-attach-point="discountsNode" data-dojo-type="dime/common/SelectableSubEntityTableWidget"></div></div>
+	</div>
 
 	<a data-dojo-attach-point="printNode" class="icon-print" href=""></a>
 	<button data-dojo-attach-point="updateNode" data-dojo-type="dijit/form/Button">Rechnung Updaten</button>

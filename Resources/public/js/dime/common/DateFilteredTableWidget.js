@@ -7,10 +7,11 @@ define([
     'dijit/_WidgetsInTemplateMixin',
     'dijit/_TemplatedMixin',
     'dojo/_base/declare',
+    'moment/moment',
     'dojo/text!dime/common/templates/DateFilteredTableWidget.html',
     'dijit/form/Button',
     'dijit/form/DateTextBox'
-], function (tableBase, storeMixin, AddRowButtonMixin, DeleteRowButtonMixin, CheckBoxSelectionMixin,  WidgetsInTemplateMixin, TemplatedMixin, declare, template) {
+], function (tableBase, storeMixin, AddRowButtonMixin, DeleteRowButtonMixin, CheckBoxSelectionMixin,  WidgetsInTemplateMixin, TemplatedMixin, declare, moment, template) {
     return declare('dime.common.DateFilteredTableWidget', [
         tableBase,
         storeMixin,
@@ -26,7 +27,7 @@ define([
             from: new Date(),
             to: new Date()
         },
-        blockUpdate: false,
+        blockUpdate: true,
         startup: function() {
             this.inherited(arguments);
             var thisweek = app.getDateRange('Week', new Date());
@@ -36,10 +37,14 @@ define([
             this.dateToNode.set('value', this.dateRange.to);
             this._UpdateDateQuery();
             this._InitActions();
+            this.blockUpdate = false;
+            this._updateView();
         },
 
         _UpdateDateQuery: function(){
-            this.query.date = app.date('Y-m-d', this.dateRange.from) + ',' + app.date('Y-m-d', this.dateRange.to);
+            var query = this.get('query');
+            query.date = app.date('Y-m-d', this.dateRange.from) + ',' + app.date('Y-m-d', this.dateRange.to);
+            this.set('query', query);
         },
 
         _StepOne: function(direction, type){
@@ -51,7 +56,7 @@ define([
             base.dateToNode.set('value', newToDate);
             dateRange.to = newToDate;
             base._UpdateDateQuery();
-            base._updateValues();
+            base._updateView();
             base.blockUpdate = false;
         },
 
@@ -61,14 +66,14 @@ define([
                 if(!base.blockUpdate) {
                     dateRange.from = newvalue;
                     base._UpdateDateQuery();
-                    base._updateValues();
+                    base._updateView();
                 }
             });
             base.dateToNode.watch('value', function(property, oldvalue, newvalue){
                 if(!base.blockUpdate) {
                     dateRange.to = newvalue;
                     base._UpdateDateQuery();
-                    base._updateValues();
+                    base._updateView();
                 }
             });
 

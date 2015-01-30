@@ -7,7 +7,6 @@ define([
     'dijit/registry',
     'dijit/form/TextBox',
     'dijit/form/NumberTextBox',
-    'dijit/form/DateTextBox',
     'dijit/form/CheckBox',
     'dijit/form/FilteringSelect',
     'dijit/form/Button',
@@ -41,9 +40,7 @@ define([
             rateUnitNode: {
                 widgetProperty: 'value',
                 entityProperty: 'rateUnit',
-                nullValue: '',
-                store: 'rateunittypes',
-                searchAttr: 'name'
+                nullValue: ''
             },
             rateUnitTypeNode: {
                 widgetProperty: 'value',

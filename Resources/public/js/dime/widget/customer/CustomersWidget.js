@@ -2,16 +2,13 @@
  * Created by Till Wegmüller on 11/13/14.
  */
 define([
+    'dime/common/EntityOverviewWidget',
     'dijit/_WidgetsInTemplateMixin',
     'dijit/_TemplatedMixin',
-    'dime/common/EntityBoundWidget',
     'dojo/_base/declare',
-    'dojo/text!dime/widget/customer/templates/CustomersWidget.html',
-    'dojo/when',
-    'dime/widget/customer/CustomerGrid',
-    'dijit/form/Button'
-], function ( WidgetsInTemplateMixin, TemplatedMixin,  EntityBoundWidget, declare, template, when) {
-    return declare("dime.widget.customer.CustomersWidget", [EntityBoundWidget, TemplatedMixin, WidgetsInTemplateMixin], {
+    'dojo/text!dime/widget/customer/templates/CustomersWidget.html'
+], function (EntityOverviewWidget, WidgetsInTemplateMixin, TemplatedMixin, declare, template) {
+    return declare("dime.widget.customer.CustomersWidget", [EntityOverviewWidget, TemplatedMixin, WidgetsInTemplateMixin], {
 
         templateString: template,
         baseClass: "customersWidget",

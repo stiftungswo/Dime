@@ -4,6 +4,7 @@ define([
     'dime/common/EntityBoundWidget',
     'dojo/_base/declare',
     'dojo/text!dime/widget/timeslice/templates/TimesliceTableRowWidget.html',
+    'dime/form/DateTextBox',
     'dijit/form/FilteringSelect',
     'dijit/form/Textarea',
     'dijit/form/TextBox',
@@ -13,40 +14,39 @@ define([
     return declare("dime.widget.timeslice.TimesliceTableRowWidget", [EntityBoundWidget, TemplatedMixin, WidgetsInTemplateMixin], {
         templateString: template,
         baseClass: "timesliceTableRowWidget",
-        store: 'timeslices',
+        collection: 'timeslices',
         independant: true,
         //Todo Make Filter for active users. (User do not have a active Property in db Yet)
 
-        config: {
-            values: {
-                startedAtNode: {
-                    widgetProperty: 'value',
-                    entityProperty: 'startedAt',
-                    nullValue: new Date()
+        childConfig: {
+            startedAtNode: {
+                widgetProperty: 'value',
+                entityProperty: 'startedAt',
+                nullValue: new Date()
+            },
+            userNode: {
+                widgetProperty: 'value',
+                entityProperty: 'user',
+                nullValue: 1,
+                store: 'users',
+                searchAttr: 'username',
+                idProperty: 'id'
+            },
+            activityNode: {
+                widgetProperty: 'value',
+                entityProperty: 'activity',
+                nullValue: 1,
+                store: 'activities',
+                queryPrototype: {
+                    project: 'id'
                 },
-                userNode: {
-                    widgetProperty: 'value',
-                    entityProperty: 'user',
-                    nullValue: 1,
-                    store: 'users',
-                    searchAttr: 'username',
-                    idProperty: 'id'
-                },
-                activityNode: {
-                    widgetProperty: 'value',
-                    entityProperty: 'activity',
-                    nullValue: 1,
-                    store: 'activities',
-                    queryPrototype: {
-                        project: 'id'
-                    },
-                    idProperty: 'id'
-                },
-                valueNode: {
-                    widgetProperty: 'value',
-                    entityProperty: 'value',
-                    nullValue: '0h'
-                }
+                resolveProto: true,
+                idProperty: 'id'
+            },
+            valueNode: {
+                widgetProperty: 'value',
+                entityProperty: 'value',
+                nullValue: ''
             }
         }
     });

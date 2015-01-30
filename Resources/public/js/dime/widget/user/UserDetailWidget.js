@@ -15,42 +15,39 @@ define([
 
         templateString: template,
         baseClass: "userDetailWidget",
-        store:'users',
-        entityType: 'users',
+        collection:'users',
         independant: true,
-        config: {
-            values: {
-                usernameNode: {
-                    widgetProperty: 'value',
-                    entityProperty: 'username',
-                    nullValue: ''
-                },
-                emailNode: {
-                    widgetProperty: 'value',
-                    entityProperty: 'email',
-                    nullValue: ''
-                },
-                firstnameNode: {
-                    widgetProperty: 'value',
-                    entityProperty: 'firstname',
-                    nullValue: ''
-                },
-                lastnameNode: {
-                    widgetProperty: 'value',
-                    entityProperty: 'lastname',
-                    nullValue: ''
-                },
-                plainpasswordNode: {},
-                enabledNode: {
-                    widgetProperty: 'checked',
-                    entityProperty: 'enabled',
-                    nullValue: ''
-                },
-                lockedNode: {
-                    widgetProperty: 'checked',
-                    entityProperty: 'locked',
-                    nullValue: ''
-                }
+        childConfig: {
+            usernameNode: {
+                widgetProperty: 'value',
+                entityProperty: 'username',
+                nullValue: ''
+            },
+            emailNode: {
+                widgetProperty: 'value',
+                entityProperty: 'email',
+                nullValue: ''
+            },
+            firstnameNode: {
+                widgetProperty: 'value',
+                entityProperty: 'firstname',
+                nullValue: ''
+            },
+            lastnameNode: {
+                widgetProperty: 'value',
+                entityProperty: 'lastname',
+                nullValue: ''
+            },
+            plainpasswordNode: {},
+            enabledNode: {
+                widgetProperty: 'checked',
+                entityProperty: 'enabled',
+                nullValue: ''
+            },
+            lockedNode: {
+                widgetProperty: 'checked',
+                entityProperty: 'locked',
+                nullValue: ''
             }
         },
         _setupWatchers: function(){
@@ -62,7 +59,7 @@ define([
                 var handler;
                 var hash = {}, optionhash = {};
                 //Get The Widget who puts the Values into the Store(handler)
-                if(this.handlesEntity){
+                if(this.entity){
                     //Seldom the case but you can have a Widget whos been watched by its parent but still handles its entity seperate from the Parent
                     handler = this;
                 } else {
@@ -73,18 +70,10 @@ define([
                 if(handler._blockwatcherCallback) return;
                 hash['plainpassword'] = newvalue;
                 optionhash['id'] = entity['id'];
-                store.put(hash, optionhash).then(function (data) {
-                    window.eventManager.fire('entityUpdate', handler.entitytype, {
-                        entity: data,
-                        changedProperty: 'plainpassword',
-                        oldValue: oldvalue,
-                        newValue: newvalue,
-                        fromStore: true
-                    });
-                });
+                store.put(hash, optionhash);
             });
         },
-        _updateValues: function(entity){
+        _updateView: function(entity){
             this.inherited(arguments);
             this._blockwatcherCallback = true;
             this.plainpasswordNode.set('value', '');

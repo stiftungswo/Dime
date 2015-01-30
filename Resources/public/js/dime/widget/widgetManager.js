@@ -4,7 +4,7 @@ define([
     'dijit/registry'
 ], function (declare, ContentPane, registry) {
     return declare('dime.widget.widgetManager',[],{
-        add: function(entity, widgettype, container, disabled, callback){
+        add: function(entity, widgettype, container, disabled, callback, forceStart){
             disabled  = disabled || false;
             require([widgettype], function(WidgetType){
                 var widget = new WidgetType({entity: entity, disabled: disabled});
@@ -18,6 +18,9 @@ define([
                 if(callback) {
                     //Calls Function passed at Parameter Callback with this set to the widgetcreated.
                     callback.apply(widget);
+                }
+                if(forceStart){
+                    widget.startup();
                 }
             });
         },

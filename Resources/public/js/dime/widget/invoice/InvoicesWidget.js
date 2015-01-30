@@ -2,16 +2,13 @@
  * Created by Till Wegmüller on 11/13/14.
  */
 define([
+    'dime/common/EntityOverviewWidget',
     'dijit/_WidgetsInTemplateMixin',
     'dijit/_TemplatedMixin',
-    'dime/common/EntityBoundWidget',
     'dojo/_base/declare',
-    'dojo/text!dime/widget/invoice/templates/InvoicesWidget.html',
-    'dojo/when',
-    'dime/widget/invoice/InvoiceGrid',
-    'dijit/form/Button'
-], function ( WidgetsInTemplateMixin, TemplatedMixin,  EntityBoundWidget, declare, template, when) {
-    return declare("dime.widget.invoice.InvoicesWidget", [EntityBoundWidget, TemplatedMixin, WidgetsInTemplateMixin], {
+    'dojo/text!dime/widget/invoice/templates/InvoicesWidget.html'
+], function (EntityOverviewWidget, WidgetsInTemplateMixin, TemplatedMixin, declare, template) {
+    return declare("dime.widget.invoice.InvoicesWidget", [EntityOverviewWidget, TemplatedMixin, WidgetsInTemplateMixin], {
 
         templateString: template,
         baseClass: "invoicesWidget",

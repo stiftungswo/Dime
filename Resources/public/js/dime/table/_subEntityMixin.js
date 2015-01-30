@@ -9,8 +9,7 @@ define([
 
         _setValueAttr: function(){
             this.inherited(arguments);
-            var parent = this.getParent();
-            this.set('collection', parent.get('collection'));
+            this.set('collection', this.get('parentCollection'));
         },
 
         createRow: function(){

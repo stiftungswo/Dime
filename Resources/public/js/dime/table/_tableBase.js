@@ -15,6 +15,10 @@ define([
 
         selection: [],
 
+        parentEntity: null,
+
+        parentLoopMax: 5,
+
         getChildWidgets: function(){
             return this.containerNode ? registry.findWidgets(this.containerNode) : []; // dijit/_WidgetBase[]
         },
@@ -94,7 +98,7 @@ define([
         },
 
         _addChildWidget: function(entity){
-            window.widgetManager.add(entity, this.childWidgetType, this, this.disabled);
+            window.widgetManager.add(entity, this.childWidgetType, this, this.disabled, null, true);
         },
 
         _removeChildWidget: function(widget){
@@ -127,6 +131,30 @@ define([
                 domConstruct.empty(thead);
             }
             domConstruct.place(row, thead);
+        },
+
+        _getParentEntityAttr: function(){
+            var parentEntity = null, parent = this;
+            for(var i=0; i <= this.parentLoopMax; i++){
+                parent = parent.getParent();
+                if(parent.entity){
+                    parentEntity = parent.entity;
+                    break;
+                }
+            }
+            return parentEntity;
+        },
+
+        _getParentCollectionAttr: function(){
+            var parentCollection = null, parent = this;
+            for(var i=0; i <= this.parentLoopMax; i++){
+                parent = parent.getParent();
+                if(parent.collection){
+                    parentCollection = parent.collection;
+                    break;
+                }
+            }
+            return parentCollection;
         },
 
         _updateView: function(value){

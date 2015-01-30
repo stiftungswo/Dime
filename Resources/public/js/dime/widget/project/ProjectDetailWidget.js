@@ -8,11 +8,11 @@ define([
     'dojo/_base/declare',
     'dojo/text!dime/widget/project/templates/ProjectDetailWidget.html',
     'dojo/request',
-    'dime/table/GenericTableWidget',
-    'dime/table/DateFilteredTableWidget',
+    'dime/common/GenericStoreTableWidget',
+    'dime/common/DateFilteredTableWidget',
     'dijit/form/TextBox',
     'dijit/form/Button',
-    'dijit/form/DateTextBox',
+    'dime/form/DateTextBox',
     'dijit/form/FilteringSelect',
     'dijit/form/CheckBox',
     'dijit/layout/TabContainer',
@@ -23,149 +23,127 @@ define([
 
         templateString: template,
         baseClass: "projectDetailWidget",
-        store: 'projects',
-        entityType: 'projects',
+        collection: 'projects',
         independant: true,
-        config: {
-            values: {
-                nameNode: {
-                    widgetProperty: 'value',
-                    entityProperty: 'name',
-                    nullValue: ''
-                },
-                aliasNode: {
-                    widgetProperty: 'value',
-                    entityProperty: 'alias',
-                    nullValue: ''
-                },
-                descriptionNode: {
-                    widgetProperty: 'value',
-                    entityProperty: 'description',
-                    nullValue: ''
-                },
-                deadlineNode: {
-                    widgetProperty: 'value',
-                    entityProperty: 'deadline',
-                    nullValue: new Date()
-                },
-                customerNode: {
-                    widgetProperty: 'value',
-                    entityProperty: 'customer',
-                    nullValue: '',
-                    disabled: true,
-                    store: 'customers',
-                    idProperty: 'id'
-                },
-                rateGroupNode: {
-                    widgetProperty: 'value',
-                    entityProperty: 'rateGroup',
-                    nullValue: '',
-                    store: 'rategroups',
-                    idProperty: 'id'
-                },
-                budgetPriceNode: {
-                    widgetProperty: 'value',
-                    entityProperty: 'budgetPrice',
-                    nullValue: '',
-                    disabled: true
-                },
-                currentPriceNode: {
-                    widgetProperty: 'value',
-                    entityProperty: 'currentPrice',
-                    nullValue: '',
-                    disabled: true
-                },
-                budgetTimeNode: {
-                    widgetProperty: 'value',
-                    entityProperty: 'budgetTime',
-                    nullValue: '',
-                    disabled: true
-                },
-                currentTimeNode: {
-                    widgetProperty: 'value',
-                    entityProperty: 'currentTime',
-                    nullValue: '',
-                    disabled: true
-                },
-                fixedPriceNode: {
-                    widgetProperty: 'value',
-                    entityProperty: 'fixedPrice',
-                    nullValue: '',
-                    disabled: true
-                },
-                chargeableNode: {
-                    widgetProperty: 'value',
-                    entityProperty: 'chargeable',
-                    nullValue: true,
-                    disabled: true
-                },
-                activitiesNode: {
-                    childWidgetType: 'dime/widget/activity/ActivitiesTableRowWidget',
-                    header: [ 'Service', 'Projekt', 'Mitarbeiter', 'Beschreibung', 'Anzahl', 'Einheit', 'Preis per Einheit', 'Preis' ],
-                    store: 'activities',
-                    entitytype: 'activities',
-                    createable: true,
-                    widgetProperty: 'updateValues',
-                    queryPrototype: {
-                        project: 'id'
-                    }
-                },
-                timeslicesNode: {
-                    childWidgetType: 'dime/widget/timeslice/TimesliceTableRowWidget',
-                    queryPrototype: {
-                        project: 'id'
-                    },
-                    widgetProperty: 'updateValues',
-                    createable: true,
-                    header: [ 'Datum', 'Mitarbeiter', 'Aktivität', 'Menge' ],
-                    store: 'timeslices',
-                    entitytype: 'timeslices'
-                }
+        childConfig: {
+            nameNode: {
+                widgetProperty: 'value',
+                entityProperty: 'name',
+                nullValue: ''
             },
-            callbacks:{
-                invoiceNode:{
-                    callbackName: 'click',
-                    callbackFunction: function() {
-                        request('/api/v1/invoices/project/' + this.getParent().entity.id, {handleAs: "json"}).then(function(entity){
-                            window.widgetManager.addTab(entity, 'invoices', 'dime/widget/invoice/InvoiceDetailWidget', 'contentTabs', 'Rechnung ('+entity.id+')', true);
-                        });
-                    }
-                }
+            aliasNode: {
+                widgetProperty: 'value',
+                entityProperty: 'alias',
+                nullValue: ''
             },
-            events:{
-                updateActivities:{
-                    Topic: 'entityUpdate',
-                    subTopic: 'activities',
-                    eventFunction: 'updateActivities'
+            descriptionNode: {
+                widgetProperty: 'value',
+                entityProperty: 'description',
+                nullValue: ''
+            },
+            deadlineNode: {
+                widgetProperty: 'value',
+                entityProperty: 'deadline',
+                nullValue: new Date()
+            },
+            customerNode: {
+                widgetProperty: 'value',
+                entityProperty: 'customer',
+                nullValue: '',
+                disabled: true,
+                store: 'customers',
+                idProperty: 'id'
+            },
+            rateGroupNode: {
+                widgetProperty: 'value',
+                entityProperty: 'rateGroup',
+                nullValue: '',
+                store: 'rategroups',
+                idProperty: 'id'
+            },
+            budgetPriceNode: {
+                widgetProperty: 'value',
+                entityProperty: 'budgetPrice',
+                nullValue: '',
+                disabled: true
+            },
+            currentPriceNode: {
+                widgetProperty: 'value',
+                entityProperty: 'currentPrice',
+                nullValue: '',
+                disabled: true
+            },
+            budgetTimeNode: {
+                widgetProperty: 'value',
+                entityProperty: 'budgetTime',
+                nullValue: '',
+                disabled: true
+            },
+            currentTimeNode: {
+                widgetProperty: 'value',
+                entityProperty: 'currentTime',
+                nullValue: '',
+                disabled: true
+            },
+            fixedPriceNode: {
+                widgetProperty: 'value',
+                entityProperty: 'fixedPrice',
+                nullValue: '',
+                disabled: true
+            },
+            chargeableNode: {
+                widgetProperty: 'value',
+                entityProperty: 'chargeable',
+                nullValue: true,
+                disabled: true
+            },
+            activitiesNode: {
+                childWidgetType: 'dime/widget/activity/ActivitiesTableRowWidget',
+                header: ['Service', 'Projekt', 'Mitarbeiter', 'Beschreibung', 'Anzahl', 'Einheit', 'Preis per Einheit', 'Preis'],
+                queryPrototype: {
+                    project: 'id'
                 },
-                createActivities:{
-                    Topic: 'entityCreate',
-                    subTopic: 'activities',
-                    eventFunction: 'updateActivities'
+                collection: 'activities',
+                creatable: true,
+                deleteable: true
+            },
+            timeslicesNode: {
+                childWidgetType: 'dime/widget/timeslice/TimesliceTableRowWidget',
+                queryPrototype: {
+                    project: 'id'
                 },
-                updateTimeslices:{
-                    Topic: 'entityUpdate',
-                    subTopic: 'timeslices',
-                    eventFunction: 'updateTimeslices'
-                },
-                createTimeslices:{
-                    Topic: 'entityCreate',
-                    subTopic: 'timeslices',
-                    eventFunction: 'updateTimeslices'
+                header: ['Datum', 'Mitarbeiter', 'Aktivität', 'Menge'],
+                collection: 'timeslices',
+                creatable: true,
+                deleteable: true
+            }
+        },
+        callbacks:{
+            invoiceNode:{
+                callbackName: 'click',
+                callbackFunction: function() {
+                    request('/api/v1/invoices/project/' + this.getParent().entity.id, {handleAs: "json"}).then(function(entity){
+                        window.widgetManager.addTab(entity, 'invoices', 'dime/widget/invoice/InvoiceDetailWidget', 'contentTabs', 'Rechnung ('+entity.id+')', true);
+                    });
                 }
             }
         },
 
+        startup: function(){
+            this.inherited(arguments);
+            var base = this;
+            var activityCollection = window.storeManager.get('activities'),
+                timesliceCollection = window.storeManager.get('timeslices');
+            activityCollection.on('add, update, delete', function(event){
+                base.forceViewUpdate();
+            });
+            timesliceCollection.on('add, update, delete', function(event){
+                base.forceViewUpdate();
+            });
+        },
+
         resize: function(){
             this.tabContainer.resize();
-        },
-
-        updateActivities: function(arg){
-            this.forceUpdate();
-        },
-
-        updateTimeslices: function(arg){
-            this.forceUpdate();
         }
 
     });

@@ -5,11 +5,11 @@ define([
     'dojo/_base/declare',
     'dojo/text!dime/widget/offer/templates/OfferDetailWidget.html',
     'dojo/request',
-    'dime/table/GenericTableWidget',
-    'dime/table/GenericStoreTableWidget',
+    'dime/common/SelectableSubEntityTableWidget',
+    'dime/common/GenericStoreTableWidget',
     'dijit/form/TextBox',
     'dijit/form/NumberTextBox',
-    'dijit/form/DateTextBox',
+    'dime/form/DateTextBox',
     'dijit/form/Textarea',
     'dime/widget/swocommons/AddressWidget',
     'dijit/form/FilteringSelect',
@@ -127,7 +127,12 @@ define([
                 widgetProperty: 'value',
                 entityProperty: 'standardDiscounts',
                 header: [ 'Name', 'Reduktion', 'Prozent', 'Wert' ],
-                disabled: true
+                disabled: true,
+                selectionBox: {
+                    store: window.storeManager.adapt('standarddiscounts')
+                },
+                creatable: true,
+                deleteable: true
             },
             offerDiscountsNode: {
                 childWidgetType: 'dime/widget/offer/OfferDiscountRowWidget',
@@ -150,7 +155,7 @@ define([
                 callbackName: 'click',
                 callbackFunction: function(){
                     var OfferId = this.getParent().entity.id;
-                    request.get('/api/v1/projects/offer/'+OfferId, {handleAs: 'json'}).then(function(data){
+                    request('/api/v1/projects/offer/'+OfferId, {handleAs: 'json'}).then(function(data){
                         window.widgetManager.addTab(data, 'projects', 'dime/widget/project/ProjectDetailWidget', 'contentTabs', 'Projekt ('+data.id+')', true);
                     });
                 }
