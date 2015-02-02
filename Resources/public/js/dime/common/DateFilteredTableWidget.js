@@ -27,12 +27,10 @@ define([
         blockUpdate: true,
 
         constructor: function(){
-            this.inherited(arguments);
             this.dateRange = {
                 from: new Date(),
                 to: new Date()
             };
-            this.blockUpdate = true;
         },
 
         startup: function() {
