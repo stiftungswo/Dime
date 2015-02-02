@@ -20,6 +20,10 @@ define([
 
         editTabBar: 'contentTabs',
 
+        constructor: function(){
+            this.selection = [];
+        },
+
         startup: function(){
             this.inherited(arguments);
             var base = this;

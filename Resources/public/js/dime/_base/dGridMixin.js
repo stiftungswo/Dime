@@ -6,6 +6,10 @@ define([
 
         selection: [],
 
+        constructor: function(){
+            this.selection = [];
+        },
+
         postCreate: function(){
             this.inherited(arguments);
             var base = this;
@@ -16,19 +20,21 @@ define([
                 grid.startup();
                 grid.on('dgrid-select', function (event) {
                     // Report the item from the selected row to the console.
-                    base.selection.push(event.rows[0].id);
+                    var selection = base.get('selection');
+                    event.rows.forEach(function(row){
+                        selection.push(row.id);
+                    });
                 });
                 grid.on('dgrid-deselect', function (event) {
-                    var id = event.rows[0].id, index = base.selection.indexOf(id);
-                    if(index > -1){
-                        base.selection.splice(index, 1);
-                    }
+                    var selection = base.get('selection');
+                    event.rows.forEach(function(row) {
+                        var index = selection.indexOf(row.id);
+                        if (index > -1) {
+                            selection.splice(index, 1);
+                        }
+                    });
                 });
             }
-        },
-
-        _getSelectionAttr: function(){
-            return this.selection;
         }
     });
 });

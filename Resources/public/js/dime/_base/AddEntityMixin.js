@@ -3,6 +3,13 @@ define([
     'dijit/form/Button'
 ], function (declare) {
     return declare(null, {
+
+        selection: [],
+
+        constructor: function(){
+            this.selection = [];
+        },
+
         startup: function(){
             var base = this;
             if(base.addEntityNode) {
@@ -13,8 +20,8 @@ define([
         },
 
         addEntity: function(){
-            var collection = this.collection;
-            var query = this.query || {};
+            var collection = this.get('collection');
+            var query = this.get('query') || {};
             collection.newEntity({query: query});
         }
     });

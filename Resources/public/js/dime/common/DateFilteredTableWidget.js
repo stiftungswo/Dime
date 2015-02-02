@@ -23,11 +23,18 @@ define([
     ], {
         templateString: template,
         independant: true,
-        dateRange: {
-            from: new Date(),
-            to: new Date()
-        },
+        dateRange: {},
         blockUpdate: true,
+
+        constructor: function(){
+            this.inherited(arguments);
+            this.dateRange = {
+                from: new Date(),
+                to: new Date()
+            };
+            this.blockUpdate = true;
+        },
+
         startup: function() {
             this.inherited(arguments);
             var thisweek = app.getDateRange('Week', new Date());
