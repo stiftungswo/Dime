@@ -40,10 +40,9 @@ define([
                     style: "padding: 0;"
                 });
                 tabContainer.addChild(tab);
+                this.add(entity, widgettype, tab);
             }
             tabContainer.selectChild(tab);
-
-            this.add(entity, widgettype, tab);
         }
     });
 });
