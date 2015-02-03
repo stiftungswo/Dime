@@ -35,13 +35,17 @@ define([
             this.collection = collection;
             var table = this;
             this.collection.on('add', function(event){
-                table._addChildWidget(event.target);
+                if(!table._destroyed) {
+                    table._addChildWidget(event.target);
+                }
             });
             this.collection.on('delete', function(event){
-                if(event.target) {
-                    table._removeChildByEntity(event.target);
-                } else if(event.id){
-                    table._removeChildByEntityId(event.id);
+                if(!table._destroyed) {
+                    if (event.target) {
+                        table._removeChildByEntity(event.target);
+                    } else if (event.id) {
+                        table._removeChildByEntityId(event.id);
+                    }
                 }
             });
         },
