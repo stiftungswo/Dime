@@ -66,8 +66,8 @@ class TimeslicesControllerTest extends DimeTestCase
         $data = json_decode($response->getContent(), true);
 
         // assert that data has content
-        $this->assertEquals($data['startedAt'], '2012-02-10', 'expected to find "2012-02-10 19:00:00"');
-        $this->assertEquals($data['stoppedAt'], '2012-02-10', 'expected to find rate "2012-02-10 19:30:00"');
+        $this->assertEquals($data['startedAt'], '2012-02-10 19:00:00', 'expected to find "2012-02-10 19:00:00"');
+        $this->assertEquals($data['stoppedAt'], '2012-02-10 19:30:00', 'expected to find rate "2012-02-10 19:30:00"');
 
         // modify activity
         $response = $this->jsonRequest('PUT', $this->api_prefix.'/timeslices/' . $id, json_encode(array(
