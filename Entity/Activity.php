@@ -179,7 +179,7 @@ class Activity extends Entity implements DimeEntityInterface
 			$value = ($value / 60);
 			break;
 		case RateUnitType::$Dayly:
-			$value = ($value / 86400);
+			$value = ($value / 30240);
 			break;
 		}
 		return ($this->getRate() * $value);
@@ -228,7 +228,7 @@ class Activity extends Entity implements DimeEntityInterface
 			return ($value / 60).'m';
 			break;
 		case RateUnitType::$Dayly:
-			return ($value / 86400).'d';
+			return ($value / 30240).'d';
 			break;
 		}
 		return $value;

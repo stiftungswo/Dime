@@ -64,7 +64,7 @@ class ResolveSettingSubscriber extends ContainerAware implements EventSubscriber
 		$timeslices = $handler->all(array('user' => $parameters['user'], 'latest' => true));
 		$lasttimeslice = array_shift($timeslices);
 		if($lasttimeslice) {
-			$newDate = Carbon::parse($lasttimeslice->getStartedAt());
+			$newDate = Carbon::instance($lasttimeslice->getStartedAt());
 			if(strpos($setting->getValue(), 'ignoreWeekend') !== false) {
 				$newDate->addDay();
 			} else {
