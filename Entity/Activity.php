@@ -135,6 +135,8 @@ class Activity extends Entity implements DimeEntityInterface
     public function updateEmptyRateFromDefault()
     {
         $serviceRate = $this->getServiceRate();
+        if($serviceRate === null)
+            return $this;
         if($this->rate == null)
             $this->rate = $serviceRate->getRateValue();
         if($this->rateUnit == null)
@@ -191,7 +193,11 @@ class Activity extends Entity implements DimeEntityInterface
 	 */
 	public function getName()
 	{
-		return $this->getService()->getName();
+        if($this->getService()) {
+            return $this->getService()->getName();
+        } else {
+            return '';
+        }
 	}
 
 	/**

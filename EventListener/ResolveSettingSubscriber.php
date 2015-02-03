@@ -8,6 +8,7 @@
 namespace Dime\TimetrackerBundle\EventListener;
 
 
+use Carbon\Carbon;
 use Dime\TimetrackerBundle\Event\ResolveSettingEvent;
 use Dime\TimetrackerBundle\TimetrackEvents;
 use Symfony\Component\DependencyInjection\ContainerAware;
@@ -62,21 +63,25 @@ class ResolveSettingSubscriber extends ContainerAware implements EventSubscriber
 		$handler = $this->container->get('dime.timeslice.handler');
 		$timeslices = $handler->all(array('user' => $parameters['user'], 'latest' => true));
 		$lasttimeslice = array_shift($timeslices);
-		$lastEntryDate = $lasttimeslice->getStartedAt();
-		if(strpos($setting->getValue(), 'ignoreWeekend') !== false){
-			$newDate = date_modify($lastEntryDate, '+ 1 day');
-		} else {
-			switch(date_format($lastEntryDate, 'N')){
-			case 5:
-				$newDate = date_modify($lastEntryDate, '+ 3 day');
-				break;
-			case 6:
-				$newDate = date_modify($lastEntryDate, '+ 2 day');
-				break;
-			default:
-				$newDate = date_modify($lastEntryDate, '+ 1 day');
-				break;
+		if($lasttimeslice) {
+			$newDate = Carbon::parse($lasttimeslice->getStartedAt());
+			if(strpos($setting->getValue(), 'ignoreWeekend') !== false) {
+				$newDate->addDay();
+			} else {
+				switch($newDate->dayOfWeek) {
+				case 5:
+					$newDate->addDays(3);
+					break;
+				case 6:
+					$newDate->addDays(2);
+					break;
+				default:
+					$newDate->addDay();
+					break;
+				}
 			}
+		} else {
+			$newDate = Carbon::now();
 		}
 		$setting->setValue(date_format($newDate, 'Y-m-d'));
 		return new ResolveSettingEvent($setting, $parameters);
