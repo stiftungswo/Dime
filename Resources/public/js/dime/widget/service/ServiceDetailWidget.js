@@ -16,8 +16,7 @@ define([
 
         templateString: template,
         baseClass: "serviceDetailWidget",
-        store:'services',
-        entityType: 'services',
+        collection:'services',
         independant: true,
         childConfig: {
             nameNode: {
