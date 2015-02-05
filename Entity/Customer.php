@@ -66,7 +66,7 @@ class Customer extends Entity implements DimeEntityInterface
 	/**
 	 * @var \Swo\CommonsBundle\Entity\Address $address
 	 *
-	 * @ORM\ManyToOne(targetEntity="\Swo\CommonsBundle\Entity\Address", cascade={"persist"})
+	 * @ORM\ManyToOne(targetEntity="\Swo\CommonsBundle\Entity\Address", cascade={"all"})
 	 */
 	protected $address;
 
