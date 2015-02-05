@@ -2,29 +2,20 @@
 
 namespace Swo\CommonsBundle\Form\Type;
 
-use Doctrine\Common\Persistence\ObjectManager;
-use Swo\CommonsBundle\Form\Transformer\AddressCityTransformer;
-use Swo\CommonsBundle\Form\Transformer\AddressStreetTransformer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class AddressFormType extends AbstractType
 {
-	private $om;
-
-	public function __construct(ObjectManager $om)
-	{
-		$this->om = $om;
-	}
-
 	public function buildForm(FormBuilderInterface $builder, array $options)
 	{
-		$builder->add('street', new AddressStreetFormType($this->om), array())
-			->add('streetnumber', 'text', array())
-			->add('city', new AddressCityFormType($this->om), array())
-			->add('state', new AddressStateFormType($this->om), array())
-			->add('country', new AddressCountryFormType($this->om), array());
+		$builder->add('street')
+			->add('streetnumber')
+			->add('plz')
+			->add('city')
+			->add('state')
+			->add('country');
 	}
 
 	public function getName()
