@@ -5,6 +5,8 @@
 }
 
 .offerDetailWidgetPanel {
+    overflow-x: hidden;
+    overflow-y: auto;
     width: 98%;
     margin-right: 10px;
     margin-left: -10px;
