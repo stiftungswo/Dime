@@ -58,7 +58,7 @@ Update to last version
     git pull
     git submodule update
     php composer.phar self-update
-    php composer.phar install -v
+    php composer.phar update -v
     app/console assetic:dump
     app/console assets:install --symlink
 
