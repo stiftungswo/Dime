@@ -143,11 +143,6 @@ define([
                 collection: 'offerdiscounts',
                 creatable: true,
                 deleteable: true
-            },
-            printNode:{
-                domProp: {
-                    href: '/api/v1/offers/{id}/print'
-                }
             }
         },
         callbacks: {
@@ -158,6 +153,12 @@ define([
                     request('/api/v1/projects/offer/'+OfferId, {handleAs: 'json'}).then(function(data){
                         window.widgetManager.addTab(data, 'projects', 'dime/widget/project/ProjectDetailWidget', 'contentTabs', 'Projekt ('+data.id+')', true);
                     });
+                }
+            },
+            printNode:{
+                callbackName: 'click',
+                callbackFunction: function(){
+                    this.getParent().printOffer();
                 }
             }
         },
@@ -173,6 +174,10 @@ define([
             offerDiscountCollection.on('add, update, delete', function(event){
                 base.forceViewUpdate();
             });
+        },
+
+        printOffer: function(){
+            window.open('/api/v1/offers/'+this.entity.id+'/print');
         }
 
     });

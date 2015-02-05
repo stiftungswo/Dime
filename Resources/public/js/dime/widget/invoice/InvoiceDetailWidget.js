@@ -81,7 +81,7 @@ define([
                 store: 'standarddiscounts',
                 entitytype: 'standarddiscounts',
                 disabled: true
-            },
+            }
             //invoiceDiscountsNode: {
             //    childWidgetType: 'dime/widget/offer/OfferDiscountRowWidget',
             //    header: [ 'Name', 'Reduktion', 'Prozent', 'Wert' ],
@@ -91,12 +91,7 @@ define([
             //    store: 'offerdiscounts',
             //    entityProperty: 'offerDiscounts',
             //    entitytype: 'offerdiscounts'
-            //},
-            printNode:{
-                domProp: {
-                    href: 'api/v1/invoices/{id}/print'
-                }
-            }
+            //}
         },
         callbacks:{
             updateNode:{
@@ -104,18 +99,20 @@ define([
                 callbackFunction:function(){
                     var id = this.getParent().entity.id, parent = this.getParent();
                     request.get('/api/v1/invoices/'+id+'/update', {handleAs: 'json'}).then(function(data){
-                        parent._updateValues(data);
+                        parent._updateView(data);
                     });
+                }
+            },
+            printNode:{
+                callbackName: 'click',
+                callbackFunction: function(){
+                    this.getParent().printInvoice();
                 }
             }
         },
 
-        updateInvoiceItems: function(arg){
-            var item = arg.entity, changedProperty = arg.changedProperty, oldValue = arg.oldValue;
-            var newValue = arg.newValue, base = this, invoice = this.entity;
-            if(item.invoice.id === item.id){
-                base.forceUpdate();
-            }
+        printInvoice: function(){
+            window.open('/api/v1/invoices/'+this.entity.id+'/print');
         }
     });
 });
