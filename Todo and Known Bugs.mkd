@@ -11,6 +11,7 @@
     * Zusätzliche Addressen Pro Kunde (Kontakte Modul?)
     * Mehr als ein Kontakt per Kunde
     * Firmennamensfeld (Kontakte Modul?)
+    * Auswahlfeld Herr und Frau
 * Activities
     * rate in rateValue umbenennen
     * value in amount umbenennen
