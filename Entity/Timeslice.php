@@ -261,7 +261,7 @@ class Timeslice extends Entity implements DimeEntityInterface
     public function updateValueOnEmpty()
     {
         if (empty($this->value) && !empty($this->startedAt) && !empty($this->stoppedAt)) {
-            $this->value = abs($this->stoppedAt->getTimestamp() - $this->startedAt->getTimestamp());
+            $this->value = $this->getStartedAt()->diffInSeconds($this->getStoppedAt());
         }
     }
 
@@ -319,18 +319,12 @@ class Timeslice extends Entity implements DimeEntityInterface
             return $this->getValue();
         }
 
-        if ($this->getStartedAt() instanceof DateTime) {
-            if ($this->getStoppedAt() instanceof DateTime) {
-                $end = $this->getStoppedAt();
-            } else {
-                $end = new DateTime('now');
-            }
-
-            $duration = $this->getStartedAt()->diff($end);
-
-            return $duration->format('%a') * 24 * 60 * 60
-                + $duration->format('%h') * 60 * 60
-                + $duration->format('%i') * 60;
+        if ($this->getStoppedAt() instanceof Carbon) {
+            $end = $this->getStoppedAt();
+        } else {
+            $end = Carbon::now();
         }
+
+        return $this->getStartedAt()->diffInSeconds($end);
     }
 }
