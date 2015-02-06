@@ -228,6 +228,7 @@ class ActivityRepository extends EntityRepository
 
         if ($filter != null) {
             foreach ($filter as $key => $value) {
+                $value = $this->interpretComplexQuery($key, $value);
                 switch($key) {
                     case 'active':
                         $this->scopeByActive($value, $qb);

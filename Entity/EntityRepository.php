@@ -31,16 +31,6 @@ abstract class EntityRepository extends Base
     /**
      * @abstract
      *
-     * @param array $parameters
-     * @param       $entity
-     *
-     * @return mixed
-     */
-    //abstract public function fillDefaults(array $parameters, $entity);
-
-    /**
-     * @abstract
-     *
      * @param                   $date
      * @param QueryBuilder      $qb
      *
@@ -154,6 +144,35 @@ abstract class EntityRepository extends Base
     }
 
     /**
+     * Take a Parameter that has match= in its value and Construct the Query
+     *
+     * eg. fullname=match=* Results in not filtering
+     * eg. fullname=match=Mar Results in a result where fullname is like %Mar%
+     *
+     * @param              $field
+     * @param string       $value
+     *
+     * @return string
+     */
+    public function interpretMatchQuery($field, $value)
+    {
+        $query = substr($value, (strpos($value, '=')+1));
+        if($query !== '*'){
+            $query = '*'.$query.'*';
+        }
+        return $query;
+    }
+
+    public function interpretComplexQuery($field, $value)
+    {
+        if(strpos($value, 'match') !== false) {
+            $value = $this->interpretMatchQuery($field, $value);
+        }
+
+        return $value;
+    }
+
+    /**
      * Add different filter option to query
      *
      * @param array        $filter
@@ -169,6 +188,7 @@ abstract class EntityRepository extends Base
 
         if ($filter != null) {
             foreach ($filter as $key => $value) {
+                $value = $this->interpretComplexQuery($key, $value);
                 switch($key) {
                     case 'date':
                         $this->scopeByDate($value, $qb);

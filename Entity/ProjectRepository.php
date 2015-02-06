@@ -141,6 +141,7 @@ class ProjectRepository extends EntityRepository
 
         if ($filter != null) {
             foreach ($filter as $key => $value) {
+                $value = $this->interpretComplexQuery($key, $value);
                 switch($key) {
                     case 'withTags':
                         $this->scopeWithTags($value, $qb);

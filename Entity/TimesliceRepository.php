@@ -218,6 +218,7 @@ class TimesliceRepository extends EntityRepository
         if ($filter != null) {
             $activity_data = array();
             foreach ($filter as $key => $value) {
+                $value = $this->interpretComplexQuery($key, $value);
                 switch ($key) {
                     case 'date':
                         $this->scopeByDate($value, $qb);

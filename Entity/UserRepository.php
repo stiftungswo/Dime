@@ -66,16 +66,22 @@ class UserRepository extends EntityRepository
 			$lastname = null;
 		}
 
-		$qb->andWhere(
-			$qb->expr()->like($alias . '.firstname', ':firstname')
-		);
-		if($lastname) {
+		if(!$lastname){
+			$qb->Where(
+				$qb->expr()->like($alias . '.firstname', ':param')
+			);
+			$qb->orWhere(
+				$qb->expr()->like($alias . '.lastname', ':param')
+			);
+			$qb->setParameter('param', $firstname);
+		} else {
+			$qb->Where(
+				$qb->expr()->like($alias . '.firstname', ':firstname')
+			);
 			$qb->andWhere(
 				$qb->expr()->like($alias . '.lastname', ':lastname')
 			);
-		}
-		$qb->setParameter('firstname', $firstname);
-		if($lastname){
+			$qb->setParameter('firstname', $firstname);
 			$qb->setParameter('lastname', $lastname);
 		}
 
@@ -98,6 +104,7 @@ class UserRepository extends EntityRepository
 
 		if ($filter != null) {
 			foreach ($filter as $key => $value) {
+				$value = $this->interpretComplexQuery($key, $value);
 				switch($key) {
 				case 'date':
 					$this->scopeByDate($value, $qb);
