@@ -17,8 +17,8 @@
 			<div class="recipientAddress">
 				{{ customer.name }}<br/>
 				{{ address.street }} {{ address.streetnumber }}<br/>
-				{{ address.city.plz }} {{ address.city.name }}<br/>
-				{{ address.state }} {{ address.country }}<br/>
+				{{ address.plz }} {{ address.city }}<br/>
+				{% if address.state %}{{ address.state }}{% endif %}{% if address.country %}{{ address.country }}{% endif %}<br/>
 			</div>
 		{% endif %}
 		<div class="header">
