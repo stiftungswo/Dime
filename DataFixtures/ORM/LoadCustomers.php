@@ -70,20 +70,14 @@ class LoadCustomers extends AbstractFixture implements OrderedFixtureInterface
 				if($name === 'address') {
 					$addressdata    = $value;
 					$address        = new Address();
-					$addressStreet  = new AddressStreet();
-					$addressCity    = new AddressCity();
-					$addressState   = new AddressState();
-					$addressCountry = new AddressCountry();
-					$addressStreet->setName($addressdata['street']);
-					$addressCity->setName($addressdata['city'])->setPlz($addressdata['plz']);
-					$addressState->setName($addressdata['state'])->setShortcode($addressdata['state_shortcode']);
-					$addressCountry->setName($addressdata['country']);
 					$address
-						->setStreetnumber($addressdata['streetnumber'])
-						->setStreet($addressStreet)
-						->setCity($addressCity)
-						->setState($addressState)
-						->setCountry($addressCountry);
+						->setStreet($addressdata['street'])
+						->setCity($addressdata['city'])
+						->setPlz($addressdata['plz'])
+						->setState($addressdata['state'])
+						//->setShortcode($addressdata['state_shortcode'])
+						->setCountry($addressdata['country'])
+						->setStreetnumber($addressdata['streetnumber']);
 					$entity->setAddress($address);
 				} else {
 					$this->set($entity, $name, $value, $manager);

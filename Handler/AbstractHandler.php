@@ -68,7 +68,7 @@ abstract class AbstractHandler
         if ($form->isValid()) {
             $entity = $form->getData();
             $this->om->persist($entity);
-            $this->om->flush($entity);
+            $this->om->flush();
             return $entity;
         }
         throw new InvalidFormException('Invalid submitted data', $form);
