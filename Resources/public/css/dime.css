@@ -45,6 +45,14 @@ html, body {
     width: 100% !important;
 }
 
+.dbootstrap .dijitMenuBar .brand {
+    float: left;
+}
+
+.dimeUserMenu {
+    float: right;
+}
+
 .DimePanel {
     width: 1000px;
     margin-top: 5px;

@@ -2,12 +2,12 @@
      data-dojo-type="dijit/MenuBar"
      data-dojo-props="region:'top', 'class':'primary inverse'">
 	<span class='brand'>DimeErp</span>
-	<div data-dojo-type="dijit/PopupMenuBarItem" id="file">
-		<span>Datei</span>
-		<div data-dojo-type="dijit/Menu" id="fileMenu">
-			<div data-dojo-type="dijit/MenuItem" id="new_ent" data-dojo-props="onClick: this.savetoFile">Neu</div>
-			<div data-dojo-type="dijit/MenuItem" id="edit_ent" data-dojo-props="onClick: this.savetoFile">Bearbeiten</div>
-			<div data-dojo-type="dijit/MenuItem" id="del_ent" data-dojo-props="onClick: this.savetoFile">Löschen</div>
+	<div class="dimeUserMenu" data-dojo-type="dijit/PopupMenuBarItem">
+		<span><span class="icon-user"></span>  {{ app.user.fullname }}</span>
+		<div data-dojo-type="dijit/Menu">
+			<div data-dojo-type="dijit/MenuItem" data-dojo-props="onClick: function(){window.open('{{ path('fos_user_profile_edit') }}', '_blank')}">Einstellungen</div>
+			<div data-dojo-type="dijit/MenuItem" data-dojo-props="onClick: function(){window.open('{{ path('fos_user_change_password') }}', '_blank')}">Passwort ändern</div>
+			<div data-dojo-type="dijit/MenuItem" data-dojo-props="onClick: function(){window.open('{{ path('fos_user_security_logout') }}', '_parent')}">Ausloggen</div>
 		</div>
 	</div>
 </div>
