@@ -24,6 +24,7 @@ class Employee extends User implements DimeEntityInterface
 
     /**
      * @var datetime $workingHours
+     * Calculatable
      */
     protected $workingHours;
 
@@ -85,36 +86,47 @@ class Employee extends User implements DimeEntityInterface
 
     /**
      * @var datetime $workingDays
+     * Calculatable
      */
     protected $workingDays;
 
     /**
+     * DateTime <> Timestap see
+     * http://php.net/manual/de/function.time.php
+     * and
+     * http://php.net/manual/de/datetime.gettimestamp.php
      * @var datetime $time_stamp
+     * Calculatable
      */
     protected $time_stamp;
 
     /**
      * @var datetime $holiday
+     * I Suggest a separate Entity, with Holiday dates and a oneToMany Relation
      */
     protected $holiday;
 
     /**
      * @var datetime $no_remaining_days
+     * Calculatable
      */
     protected $no_remaining_days;
 
     /**
      * @var datetime $last_day_of_week
+     * Calculatable
      */
     protected $last_day_of_week;
 
     /**
      * @var datetime $last_day_of_week
+     * Duplcate
      */
-    protected $last_day_of_week;
+    //protected $last_day_of_week;
 
     /**
      * @var datetime $first_day_of_week
+     * Calculatable
      */
     protected $first_day_of_week;
 
@@ -130,21 +142,25 @@ class Employee extends User implements DimeEntityInterface
 
     /**
      * @var datetime $holidays
+     * Duplcate
      */
     protected $holidays;
 
     /**
      * @var datetime $endDate
+     * Duplicate
      */
     protected $endDate;
 
     /**
      * @var datetime $startDate
+     * Duplicate
      */
     protected $startDate;
 
     /**
      * @var datetime $no_full_weeks
+     * Calculatable
      */
     protected $no_full_weeks;
 
@@ -232,35 +248,10 @@ class Employee extends User implements DimeEntityInterface
     }
 
     /**
-     * Set createdAt
-     *
-     * @param \DateTime $createdAt
-     *
-     * @return Employee
-     */
-    public function setCreatedAt($createdAt)
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    /**
-     * Set updatedAt
-     *
-     * @param \DateTime $updatedAt
-     *
-     * @return Employee
-     */
-    public function setUpdatedAt($updatedAt)
-    {
-        $this->updatedAt = $updatedAt;
-
-        return $this;
-    }
-
-    /**
      * @return ArrayCollection
+     * Im Unsure if Employees should be linked to Activities
+     * If So then It would only be unidirectinal and inside Activities
+     * Maybe have a look at Entity Manager aware Entities and Lifecycle Events, to save the Hours worked as number in this eintity
      */
     public function getActivities()
     {
@@ -272,11 +263,28 @@ class Employee extends User implements DimeEntityInterface
     {
         $start = "2015-01-31";
         $end = "2015-01-01";
-        getAllWorkingDays($start,$end,$holidays);
+        //Use $this-> to access functions inside class
+        //use of uninitialized Variables.
+        $this->getAllWorkingDays($start,$end,$holidays);
     }
 
+    /**
+     * Todo Document Algorythm Here as Plaintext.
+     *
+     * @param $startDate
+     * @param $endDate
+     * @param $holidays
+     *
+     * @return float|int
+     */
 	function getAllWorkingDays($startDate,$endDate,$holidays)
     {
+        //Beware It is bestpractice to work with Types Objects in Symfony
+
+        //Beware, that Workingdays have 8.4h and not 24h.
+
+        //Also Have a look at https://github.com/briannesbitt/Carbon
+        // It has many differnce getting and Calculation functions.
         $endDate = strtotime($endDate);
         $startDate = strtotime($startDate);
 
@@ -294,6 +302,7 @@ class Employee extends User implements DimeEntityInterface
         $first_day_of_week = date("N", $startDate);
         $last_day_of_week = date("N", $endDate);
 
+        //Be careful not to reinvant the wheel to much Date Claculation Brekas people.
         //Februar wechssel Jahr
         if ($first_day_of_week <= $last_day_of_week)
         {
