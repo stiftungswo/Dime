@@ -18,11 +18,10 @@ define([
         dGrid: {
             sort: 'name',
             columns: [
+                {label: 'ID', field: 'id', sortable: true},
                 {label: 'Name', field: 'name'},
                 {label: 'Alias', field: 'alias'},
-                {label: 'Beschreibung', field: 'description'},
-                {label: 'Verechenbar', field: 'chargeable'},
-                {label: 'Deadline', field: 'deadline'}
+                {label: 'Beschreibung', field: 'description'}
             ]
         },
         childConfig: {},

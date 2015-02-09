@@ -18,6 +18,7 @@ define([
         dGrid: {
             sort: 'username',
             columns: [
+                {label: 'ID', field: 'id', sortable: true},
                 {label: 'Benutzername', field: 'username'},
                 {label: 'Vorname', field: 'firstname'},
                 {label: 'Nachname', field: 'lastname'},

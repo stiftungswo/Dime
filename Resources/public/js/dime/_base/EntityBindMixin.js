@@ -30,13 +30,15 @@ define([
             var base = this;
             base._attachPoints.forEach(function(attachPoint){
                 var node = base[attachPoint];
-                try {
-                    if(node.widgetProperty){
-                        node.watch(node.widgetProperty, base._watcherCallback);
+                if(!node.disabled) {
+                    try {
+                        if (node.widgetProperty) {
+                            node.watch(node.widgetProperty, base._watcherCallback);
+                        }
+                    } catch (err) {
+                        console.error('Error While Configuring Watcher for attachPoint ' + attachPoint);
+                        console.error(err);
                     }
-                } catch(err){
-                    console.error('Error While Configuring Watcher for attachPoint '+attachPoint);
-                    console.error(err);
                 }
             });
         },

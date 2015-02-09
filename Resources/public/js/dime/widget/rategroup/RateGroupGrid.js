@@ -17,6 +17,7 @@ define(
             sort: 'name',
             collection: window.storeManager.get('rategroups'),
             columns: [
+                {label: 'ID', field: 'id', sortable: true},
                 {
                     label: 'Name',
                     field: 'name',
