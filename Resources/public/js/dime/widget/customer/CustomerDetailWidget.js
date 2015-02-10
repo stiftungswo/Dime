@@ -12,7 +12,8 @@ define([
     'dijit/form/TextBox',
     'dijit/form/FilteringSelect',
     'dijit/form/CheckBox',
-    'dijit/form/Button'
+    'dijit/form/Button',
+    'xstyle!dime/widget/customer/css/CustomerDetailWidget.css'
 ], function ( WidgetsInTemplateMixin, TemplatedMixin,  EntityBoundWidget, declare,  template) {
     return declare("dime.widget.customer.CustomerDetailWidget", [EntityBoundWidget, TemplatedMixin, WidgetsInTemplateMixin], {
 
@@ -34,6 +35,26 @@ define([
             chargeableNode: {
                 widgetProperty: 'value',
                 entityProperty: 'chargeable',
+                nullValue: ''
+            },
+            companyNode: {
+                widgetProperty: 'value',
+                entityProperty: 'company',
+                nullValue: ''
+            },
+            departmentNode: {
+                widgetProperty: 'value',
+                entityProperty: 'department',
+                nullValue: ''
+            },
+            salutationNode: {
+                widgetProperty: 'value',
+                entityProperty: 'salutation',
+                nullValue: ''
+            },
+            fullnameNode: {
+                widgetProperty: 'value',
+                entityProperty: 'fullname',
                 nullValue: ''
             },
             addressNode: {

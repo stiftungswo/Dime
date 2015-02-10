@@ -1,17 +1,26 @@
 <div class="${baseClass}">
-    <label>Name </label><div class="${baseClass}Name" data-dojo-attach-point="nameNode" data-dojo-type="dijit/form/TextBox"></div><br>
+    <div class="DimePanel ${baseClass}Panel">
+        <div class="${baseClass} ${baseClass}Name"><label>Name</label><div data-dojo-attach-point="nameNode" data-dojo-type="dijit/form/TextBox"></div></div>
+        <div class="${baseClass} ${baseClass}Alias"><label>Alias</label><div data-dojo-attach-point="aliasNode" data-dojo-type="dijit/form/TextBox"></div></div>
+    </div>
+    <div class="DimePanel ${baseClass}Panel">
+        <div class="${baseClass} ${baseClass}RateGroup"><label>Tarif Gruppe</label><div data-dojo-attach-point="rateGroupNode" data-dojo-type="dijit/form/FilteringSelect"></div></div>
+        <div class="${baseClass} ${baseClass}Chargeable"><label>Verechenbar</label><div data-dojo-attach-point="chargeableNode" data-dojo-type="dijit/form/CheckBox" ></div></div>
+    </div>
 
-    <label>Alias </label><div class="${baseClass}Alias" data-dojo-attach-point="aliasNode" data-dojo-type="dijit/form/TextBox"></div><br>
+    <div class="DimePanel ${baseClass}Panel">
+        <div class="${baseClass} ${baseClass}Salutation"><label>Anrede</label><div data-dojo-attach-point="salutationNode" data-dojo-type="dijit/form/TextBox"></div></div>
+        <div class="${baseClass} ${baseClass}Fullname"><label>Name</label><div data-dojo-attach-point="fullnameNode" data-dojo-type="dijit/form/TextBox"></div></div>
+        <div class="${baseClass} ${baseClass}Company"><label>Firma</label><div data-dojo-attach-point="companyNode" data-dojo-type="dijit/form/TextBox"></div></div>
+        <div class="${baseClass} ${baseClass}Department"><label>Abteilung</label><div data-dojo-attach-point="departmentNode" data-dojo-type="dijit/form/TextBox"></div></div>
+    </div>
 
-    <label>Tarif Gruppe </label><div class="${baseClass}RateGroup" data-dojo-attach-point="rateGroupNode" data-dojo-type="dijit/form/FilteringSelect"></div><br>
-
-    <label>Verechenbar </label><div class="${baseClass}Chargeable" data-dojo-attach-point="chargeableNode" data-dojo-type="dijit/form/CheckBox" ></div><br>
-
-    <label>Addresse </label>
-	<div class="${baseClass}Address" data-dojo-attach-point="addressNode" data-dojo-type="dime/widget/swocommons/AddressWidget" ></div>
-
-	<br>
-
-    <label>Telefone</label><br/>
-	<div class="${baseClass}Phones" data-dojo-attach-point="phonesNode" data-dojo-type="dime/common/GenericSubEntityTableWidget"></div>
+    <div class="DimePanel ${baseClass}Panel">
+        <label>Addresse:</label><br/>
+	    <div class="${baseClass}Address" data-dojo-attach-point="addressNode" data-dojo-type="dime/widget/swocommons/AddressWidget" ></div>
+    </div>
+    <div class="DimePanel ${baseClass}Panel">
+        <label>Telefone:</label><br/>
+        <div class="${baseClass}Phones" data-dojo-attach-point="phonesNode" data-dojo-type="dime/common/GenericSubEntityTableWidget"></div>
+    </div>
 </div>
