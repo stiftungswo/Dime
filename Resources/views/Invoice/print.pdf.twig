@@ -15,10 +15,12 @@
 		{% if customer.address %}
 			{% set address = customer.address %}
 			<div class="recipientAddress">
-				{{ customer.name }}<br/>
+				{%  if customer.company %}{{ customer.company }}{% endif %}<br/>
+				{% if customer.department %}{{ customer.department }}{% endif %}<br/>
+				{% if customer.salutation %}{{ customer.salutation }} {% endif %}{% if customer.fullname %}{{ customer.fullname }}{% else %}{{ customer.name }}{% endif %}<br/>
 				{{ address.street }} {{ address.streetnumber }}<br/>
 				{{ address.plz }} {{ address.city }}<br/>
-				{% if address.state %}{{ address.state }}{% endif %}{% if address.country %}{{ address.country }}{% endif %}<br/>
+				{% if address.state %}{{ address.state }} {% endif %}{% if address.country %}{{ address.country }}{% endif %}<br/>
 			</div>
 		{% endif %}
 		<div class="header">
