@@ -29,7 +29,7 @@ define([
                 entityProperty: 'user',
                 nullValue: 1,
                 store: 'users',
-                searchAttr: 'username',
+                searchAttr: 'fullname',
                 idProperty: 'id'
             },
             activityNode: {
@@ -37,10 +37,6 @@ define([
                 entityProperty: 'activity',
                 nullValue: 1,
                 store: 'activities',
-                queryPrototype: {
-                    project: 'id'
-                },
-                resolveProto: true,
                 idProperty: 'id'
             },
             valueNode: {
@@ -48,6 +44,11 @@ define([
                 entityProperty: 'value',
                 nullValue: ''
             }
+        },
+
+        startup: function(){
+            this.inherited(arguments);
+            this.activityNode.query = this.getParent().query;
         }
     });
 });
