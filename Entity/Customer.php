@@ -48,6 +48,34 @@ class Customer extends Entity implements DimeEntityInterface
      * @ORM\JoinTable(name="customer_tags")
      */
     protected $tags;
+
+    /**
+     * @var String
+     *
+     * @ORM\Column(type="string", length=60, nullable=true)
+     */
+    protected $company;
+
+    /**
+     * @var String
+     *
+     * @ORM\Column(type="string", length=60, nullable=true)
+     */
+    protected $department;
+
+    /**
+     * @var String
+     *
+     * @ORM\Column(type="string", length=60, nullable=true)
+     */
+    protected $fullname;
+
+    /**
+     * @var String
+     *
+     * @ORM\Column(type="string", length=60, nullable=true)
+     */
+    protected $salutation;
 	
 	/**
 	 * @ORM\ManyToOne(targetEntity="Dime\TimetrackerBundle\Entity\RateGroup")
@@ -320,6 +348,83 @@ class Customer extends Entity implements DimeEntityInterface
 		$this->phones = $phones;
 		return $this;
 	}
+
+    /**
+     * @return String
+     */
+    public function getCompany()
+    {
+        return $this->company;
+    }
+
+    /**
+     * @param String $company
+     *
+     * @return $this
+     */
+    public function setCompany($company)
+    {
+        $this->company = $company;
+        return $this;
+    }
+
+    /**
+     * @return String
+     */
+    public function getDepartment()
+    {
+        return $this->department;
+    }
+
+    /**
+     * @param String $department
+     *
+     * @return $this
+     */
+    public function setDepartment($department)
+    {
+        $this->department = $department;
+        return $this;
+    }
+
+    /**
+     * @return String
+     */
+    public function getFullname()
+    {
+        return $this->fullname;
+    }
+
+    /**
+     * @param String $fullname
+     *
+     * @return $this
+     */
+    public function setFullname($fullname)
+    {
+        $this->fullname = $fullname;
+        return $this;
+    }
+
+    /**
+     * @return String
+     */
+    public function getSalutation()
+    {
+        return $this->salutation;
+    }
+
+    /**
+     * @param String $salutation
+     *
+     * @return $this
+     */
+    public function setSalutation($salutation)
+    {
+        $this->salutation = $salutation;
+        return $this;
+    }
+
 
 
 }

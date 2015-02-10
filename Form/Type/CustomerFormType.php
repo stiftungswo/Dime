@@ -23,6 +23,10 @@ class CustomerFormType extends AbstractType
     {
         $builder
             ->add('name')
+            ->add('salutation')
+            ->add('department')
+            ->add('company')
+            ->add('fullname')
             ->add('alias', null, array('required' => false))
 	        ->add('rateGroup')
 	        ->add('tags', 'entity', array('class' => 'DimeTimetrackerBundle:Tag', 'multiple' => true))

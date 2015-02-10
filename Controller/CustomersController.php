@@ -32,6 +32,12 @@ class CustomersController extends DimeController
      * )
      *
      * @Annotations\QueryParam(name="user", requirements="\d+", nullable=true, description="Filter By User")
+     * @Annotations\QueryParam(name="name", requirements="\d+", nullable=true, description="Filter By Name")
+     * @Annotations\QueryParam(name="alias", requirements="\d+", nullable=true, description="Filter By Alias")
+     * @Annotations\QueryParam(name="fullname", requirements="\d+", nullable=true, description="Filter By Fullname")
+     * @Annotations\QueryParam(name="salutation", requirements="\d+", nullable=true, description="Filter By Salutation")
+     * @Annotations\QueryParam(name="company", requirements="\d+", nullable=true, description="Filter By Company")
+     * @Annotations\QueryParam(name="department", requirements="\d+", nullable=true, description="Filter By Department")
      * @Annotations\QueryParam(name="search", requirements="\w+", nullable=true, description="Filter By Name or alias")
      *
      * @Annotations\View(
@@ -99,6 +105,10 @@ class CustomersController extends DimeController
 	 * @Annotations\QueryParam(name="user", nullable=true, description="Sets the Value Param in the Form.")
 	 * @Annotations\QueryParam(name="activity", nullable=true, description="Sets the Value Param in the Form.")
 	 * @Annotations\QueryParam(name="name", nullable=true, description="Sets the Value Param in the Form.")
+     * @Annotations\QueryParam(name="company", nullable=true, description="Sets the Company Param in the Form.")
+     * @Annotations\QueryParam(name="fullname", nullable=true, description="Sets the Fullname Param in the Form.")
+     * @Annotations\QueryParam(name="department", nullable=true, description="Sets the Department Param in the Form.")
+     * @Annotations\QueryParam(name="salutation", nullable=true, description="Sets the Salutation Param in the Form.")
 	 * @Annotations\QueryParam(name="phones", nullable=true, description="Sets the Value Param in the Form.")
 	 * @Annotations\QueryParam(name="alias", nullable=true, description="Sets the Value Param in the Form.")
 	 * @Annotations\QueryParam(name="rateGroup", nullable=true, description="Sets the Value Param in the Form.")
