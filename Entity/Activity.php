@@ -88,14 +88,6 @@ class Activity extends Entity implements DimeEntityInterface
 	 */
 	protected $chargeableReference = 1;
 
-	/**
-	 * var integer $value
-	 *
-	 * ORM\Column(type="decimal", scale=2, precision=10, nullable=true)
-	 * JMS\Exclude()
-	 */
-	//protected $value;
-
     /**
      * @ORM\Column(name="rate_unit", type="text", nullable=true)
      * @JMS\SerializedName("rateUnit")
@@ -182,7 +174,7 @@ class Activity extends Entity implements DimeEntityInterface
 			$value = ($value / 30240);
 			break;
 		}
-		return ($this->getRate() * $value);
+		return round(($this->getRate() * $value), 2);
 	}
 
 	/**
@@ -222,13 +214,13 @@ class Activity extends Entity implements DimeEntityInterface
 		$value = $this->getValue();
 		switch ($this->getRateUnitType()){
 		case RateUnitType::$Hourly:
-			return ($value / 3600).'h';
+			return round(($value / 3600), 2).'h';
 			break;
 		case RateUnitType::$Minutely:
-			return ($value / 60).'m';
+			return round(($value / 60), 2).'m';
 			break;
 		case RateUnitType::$Dayly:
-			return ($value / 30240).'d';
+			return round(($value / 30240), 2).'d';
 			break;
 		}
 		return $value;

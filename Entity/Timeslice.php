@@ -150,9 +150,13 @@ class Timeslice extends Entity implements DimeEntityInterface
      */
     public function setStartedAt($startedAt)
     {
+        if($startedAt === null) {
+            $this->startedAt = null;
+            return $this;
+        }
         if (!$startedAt instanceof DateTime && !empty($startedAt)) {
             $startedAt = new Carbon($startedAt);
-        } elseif (!$startedAt instanceof Carbon){
+        } elseif (!$startedAt instanceof Carbon && $startedAt instanceof DateTime){
             $startedAt = Carbon::instance($startedAt);
         }
         if($startedAt->hour === 0){
