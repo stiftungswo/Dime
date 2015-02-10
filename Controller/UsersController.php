@@ -1,7 +1,9 @@
 <?php
 namespace Dime\TimetrackerBundle\Controller;
 
+use Dime\TimetrackerBundle\Exception\InvalidFormException;
 use FOS\RestBundle\View\View;
+use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use FOS\RestBundle\Request\ParamFetcherInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,6 +23,8 @@ class UsersController extends DimeController
      *
      * @ApiDoc(
      * resource = true,
+     * output = "Dime\TimetrackerBundle\Entity\User",
+     * section="users",
      * statusCodes = {
      * 200 = "Returned when successful"
      * }
@@ -56,6 +60,7 @@ class UsersController extends DimeController
      * resource = true,
      * description = "Gets a User for a given id",
      * output = "Dime\TimetrackerBundle\Entity\User",
+     * section="users",
      * statusCodes = {
      * 200 = "Returned when successful",
      * 404 = "Returned when the page is not found"
@@ -66,8 +71,6 @@ class UsersController extends DimeController
      *
      * @Annotations\Route(requirements={"_format"="json|xml"})
      *
-     * @param Request $request
-     *            the request object
      * @param int $id
      *            the page id
      *            
@@ -80,37 +83,6 @@ class UsersController extends DimeController
         return $this->getOr404($id, $this->handlerSerivce);
     }
 
-	/**
-	 * Presents the form to use to create a new Entity.
-	 *
-	 * @ApiDoc(
-	 * resource = true,
-	 * statusCodes = {
-	 * 200 = "Returned when successful"
-	 * }
-	 * )
-	 *
-	 * @Annotations\Route(requirements={"_format"="html"})
-	 * @Annotations\View(
-	 * templateVar = "form"
-	 * )
-	 *
-	 * @Annotations\Route(requirements={"_format"="html"})
-	 * @Annotations\QueryParam(name="firstname", nullable=true, description="Sets the Value Param in the Form.")
-	 * @Annotations\QueryParam(name="lastname", nullable=true, description="Sets the Value Param in the Form.")
-	 * @Annotations\QueryParam(name="username", nullable=true, description="Sets the Value Param in the Form.")
-	 * @Annotations\QueryParam(name="email", nullable=true, description="Sets the Value Param in the Form.")
-	 * @Annotations\QueryParam(name="enabled", nullable=true, description="Sets the Value Param in the Form.")
-	 *
-	 * @param ParamFetcherInterface $paramFetcher
-	 *
-	 * @return FormTypeInterface
-	 */
-    public function newUserAction(ParamFetcherInterface $paramFetcher)
-    {
-	    return $this->get($this->handlerSerivce)->newForm($paramFetcher->all());
-    }
-
     /**
      * Create a new Entity from the submitted data.
      *
@@ -118,6 +90,8 @@ class UsersController extends DimeController
      * resource = true,
      * description = "Creates a new page from the submitted data.",
      * input = "Dime\TimetrackerBundle\Form\Type\UserFormType",
+     * output = "Dime\TimetrackerBundle\Entity\User",
+     * section="users",
      * statusCodes = {
      * 201 = "Returned when successful",
      * 400 = "Returned when the form has errors"
@@ -147,6 +121,8 @@ class UsersController extends DimeController
      * @ApiDoc(
      * resource = true,
      * input = "Dime\TimetrackerBundle\Form\Type\UserFormType",
+     * output = "Dime\TimetrackerBundle\Entity\User",
+     * section="users",
      * statusCodes = {
      * 200 = "Returned when the Entity was updated",
      * 400 = "Returned when the form has errors",
@@ -178,35 +154,11 @@ class UsersController extends DimeController
     }
 
     /**
-     * Presents the form to use to edit a Entity.
-     *
-     * @ApiDoc(
-     * resource = true,
-     * statusCodes = {
-     * 200 = "Returned when successful",
-     * 404 = "Returned when the Entity does not exist"
-     * }
-     * )
-     *
-     * @Annotations\View(
-     * templateVar = "form"
-     * )
-     *
-     *
-     * @param unknown $id            
-     * @return FormTypeInterface
-     */
-    public function editUserAction($id)
-    {
-        return $this->createForm($this->formType, $this->getOr404($id, $this->handlerSerivce));
-    }
-
-    /**
      * Delete existing Entity
      *
      * @ApiDoc(
      * resource = true,
-     * input = "Dime\TimetrackerBundle\Form\Type\UserFormType",
+     * section="users",
      * statusCodes = {
      * 204 = "Returned when successful",
      * 404 = "Returned when User does not exist."
@@ -233,7 +185,9 @@ class UsersController extends DimeController
      * Enable the User
      *
      * @ApiDoc(
+     * description="Enable The User Specified by ID",
      * resource = true,
+     * section="users",
      * statusCodes = {
      * 204 = "Returned when successful",
      * 404 = "Returned when entity does not exist"
@@ -252,6 +206,8 @@ class UsersController extends DimeController
      * Lock the User
      *
      * @ApiDoc(
+     * description="Lock The User Specified By Id",
+     * section="users",
      * resource = true,
      * statusCodes = {
      * 204 = "Returned when successful",

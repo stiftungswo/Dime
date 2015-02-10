@@ -4,11 +4,13 @@ namespace Dime\TimetrackerBundle\Controller;
 
 use Dime\TimetrackerBundle\Exception\InvalidFormException;
 use FOS\RestBundle\View\View;
+use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\HttpFoundation\Request;
 use FOS\RestBundle\Request\ParamFetcherInterface;
 use FOS\RestBundle\Util\Codes;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use FOS\RestBundle\Controller\Annotations;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ServicesController extends DimeController
 {
@@ -21,6 +23,8 @@ class ServicesController extends DimeController
      *
      * @ApiDoc(
      * resource = true,
+     * output = "Dime\TimetrackerBundle\Entity\Service",
+     * section="services",
      * statusCodes = {
      * 200 = "Returned when successful"
      * }
@@ -52,6 +56,7 @@ class ServicesController extends DimeController
      * resource = true,
      * description = "Gets a Service for a given id",
      * output = "Dime\TimetrackerBundle\Entity\Service",
+     * section="services",
      * statusCodes = {
      * 200 = "Returned when successful",
      * 404 = "Returned when the page is not found"
@@ -62,8 +67,6 @@ class ServicesController extends DimeController
      *
      * @Annotations\Route(requirements={"_format"="json|xml"})
      *
-     * @param Request $request
-     *            the request object
      * @param int $id
      *            the page id
      *            
@@ -81,6 +84,10 @@ class ServicesController extends DimeController
      *
      * @ApiDoc(
      * resource = true,
+     * input = "Dime\TimetrackerBundle\Form\Type\ServiceFormType",
+     * output = "Dime\TimetrackerBundle\Entity\Service",
+     * description="A Frontend Function for Post for Languages which suck, Which acts on Parameters Defined in Settings",
+     * section="services",
      * statusCodes = {
      * 200 = "Returned when successful"
      * }
@@ -119,6 +126,8 @@ class ServicesController extends DimeController
      * resource = true,
      * description = "Creates a new page from the submitted data.",
      * input = "Dime\TimetrackerBundle\Form\Type\ServiceFormType",
+     * output = "Dime\TimetrackerBundle\Entity\Service",
+     * section="services",
      * statusCodes = {
      * 201 = "Returned when successful",
      * 400 = "Returned when the form has errors"
@@ -148,6 +157,8 @@ class ServicesController extends DimeController
      * @ApiDoc(
      * resource = true,
      * input = "Dime\TimetrackerBundle\Form\Type\ServiceFormType",
+     * output = "Dime\TimetrackerBundle\Entity\Service",
+     * section="services",
      * statusCodes = {
      * 200 = "Returned when the Entity was updated",
      * 400 = "Returned when the form has errors",
@@ -179,35 +190,11 @@ class ServicesController extends DimeController
     }
 
     /**
-     * Presents the form to use to edit a Entity.
-     *
-     * @ApiDoc(
-     * resource = true,
-     * statusCodes = {
-     * 200 = "Returned when successful",
-     * 404 = "Returned when the Entity does not exist"
-     * }
-     * )
-     *
-     * @Annotations\View(
-     * templateVar = "form"
-     * )
-     *
-     *
-     * @param unknown $id            
-     * @return FormTypeInterface
-     */
-    public function editServiceAction($id)
-    {
-        return $this->createForm($this->formType, $this->getOr404($id, $this->handlerSerivce));
-    }
-
-    /**
      * Delete existing Entity
      *
      * @ApiDoc(
      * resource = true,
-     * input = "Dime\TimetrackerBundle\Form\Type\ServiceFormType",
+     * section="services",
      * statusCodes = {
      * 204 = "Returned when successful",
      * 404 = "Returned when Service does not exist."

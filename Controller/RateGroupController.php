@@ -2,12 +2,15 @@
 
 namespace Dime\TimetrackerBundle\Controller;
 
+use Dime\TimetrackerBundle\Exception\InvalidFormException;
 use FOS\RestBundle\View\View;
+use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\HttpFoundation\Request;
 use FOS\RestBundle\Request\ParamFetcherInterface;
 use FOS\RestBundle\Util\Codes;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use FOS\RestBundle\Controller\Annotations;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class RateGroupController extends DimeController
 {
@@ -20,6 +23,8 @@ class RateGroupController extends DimeController
      *
      * @ApiDoc(
      * resource = true,
+     * output = "Dime\TimetrackerBundle\Entity\RateGroup",
+     * section="rateGroups",
      * statusCodes = {
      * 200 = "Returned when successful"
      * }
@@ -53,6 +58,7 @@ class RateGroupController extends DimeController
      * resource = true,
      * description = "Gets a RateGroup for a given id",
      * output = "Dime\TimetrackerBundle\Entity\RateGroup",
+     * section="rateGroups",
      * statusCodes = {
      * 200 = "Returned when successful",
      * 404 = "Returned when the page is not found"
@@ -82,6 +88,10 @@ class RateGroupController extends DimeController
 	 *
 	 * @ApiDoc(
 	 * resource = true,
+     * input = "Dime\TimetrackerBundle\Form\Type\RateGroupFormType",
+     * output = "Dime\TimetrackerBundle\Entity\RateGroup",
+     * section="rateGroups",
+     * description="A Frontend Function for Post for Languages which suck, Which acts on Parameters Defined in Settings",
 	 * statusCodes = {
 	 * 200 = "Returned when successful"
 	 * }
@@ -115,6 +125,8 @@ class RateGroupController extends DimeController
      * resource = true,
      * description = "Creates a new page from the submitted data.",
      * input = "Dime\TimetrackerBundle\Form\Type\RateGroupFormType",
+     * output = "Dime\TimetrackerBundle\Entity\RateGroup",
+     * section="rateGroups",
      * statusCodes = {
      * 201 = "Returned when successful",
      * 400 = "Returned when the form has errors"
@@ -146,6 +158,8 @@ class RateGroupController extends DimeController
      * @ApiDoc(
      * resource = true,
      * input = "Dime\TimetrackerBundle\Form\Type\RateGroupFormType",
+     * output = "Dime\TimetrackerBundle\Entity\RateGroup",
+     * section="rateGroups",
      * statusCodes = {
      * 200 = "Returned when the Entity was updated",
      * 400 = "Returned when the form has errors",
@@ -179,36 +193,11 @@ class RateGroupController extends DimeController
     }
 
     /**
-     * Presents the form to use to edit a Entity.
-     *
-     * @ApiDoc(
-     * resource = true,
-     * statusCodes = {
-     * 200 = "Returned when successful",
-     * 404 = "Returned when the Entity does not exist"
-     * }
-     * )
-     *
-     * @Annotations\View(
-     * templateVar = "form"
-     * )
-     *
-     * @Annotations\Get("/rategroups/{id}/edit", name="_rategroups")
-     *
-     * @param unknown $id            
-     * @return FormTypeInterface
-     */
-    public function editRateGroupAction($id)
-    {
-        return $this->createForm($this->formType, $this->getOr404($id, $this->handlerSerivce));
-    }
-
-    /**
      * Delete existing Entity
      *
      * @ApiDoc(
      * resource = true,
-     * input = "Dime\TimetrackerBundle\Form\Type\RateGroupFormType",
+     * section="rateGroups",
      * statusCodes = {
      * 204 = "Returned when successful",
      * 404 = "Returned when RateGroup does not exist."

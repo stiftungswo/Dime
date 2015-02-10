@@ -2,12 +2,15 @@
 
 namespace Dime\TimetrackerBundle\Controller;
 
+use Dime\TimetrackerBundle\Exception\InvalidFormException;
 use FOS\RestBundle\View\View;
+use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\HttpFoundation\Request;
 use FOS\RestBundle\Request\ParamFetcherInterface;
 use FOS\RestBundle\Util\Codes;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use FOS\RestBundle\Controller\Annotations;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class TagsController extends DimeController
 {
@@ -20,6 +23,8 @@ class TagsController extends DimeController
      *
      * @ApiDoc(
      * resource = true,
+     * output = "Dime\TimetrackerBundle\Entity\Tag",
+     * section="tags",
      * statusCodes = {
      * 200 = "Returned when successful"
      * }
@@ -50,6 +55,7 @@ class TagsController extends DimeController
      * resource = true,
      * description = "Gets a Tag for a given id",
      * output = "Dime\TimetrackerBundle\Entity\Tag",
+     * section="tags",
      * statusCodes = {
      * 200 = "Returned when successful",
      * 404 = "Returned when the page is not found"
@@ -77,6 +83,9 @@ class TagsController extends DimeController
 	 *
 	 * @ApiDoc(
 	 * resource = true,
+     * input = "Dime\TimetrackerBundle\Form\Type\TagFormType",
+     * output = "Dime\TimetrackerBundle\Entity\Tag",
+     * section="tags",
 	 * statusCodes = {
 	 * 200 = "Returned when successful"
 	 * }
@@ -108,6 +117,8 @@ class TagsController extends DimeController
      * resource = true,
      * description = "Creates a new page from the submitted data.",
      * input = "Dime\TimetrackerBundle\Form\Type\TagFormType",
+     * output = "Dime\TimetrackerBundle\Entity\Tag",
+     * section="tags",
      * statusCodes = {
      * 201 = "Returned when successful",
      * 400 = "Returned when the form has errors"
@@ -137,6 +148,8 @@ class TagsController extends DimeController
      * @ApiDoc(
      * resource = true,
      * input = "Dime\TimetrackerBundle\Form\Type\TagFormType",
+     * output = "Dime\TimetrackerBundle\Entity\Tag",
+     * section="tags",
      * statusCodes = {
      * 200 = "Returned when the Entity was updated",
      * 400 = "Returned when the form has errors",
@@ -168,35 +181,11 @@ class TagsController extends DimeController
     }
 
     /**
-     * Presents the form to use to edit a Entity.
-     *
-     * @ApiDoc(
-     * resource = true,
-     * statusCodes = {
-     * 200 = "Returned when successful",
-     * 404 = "Returned when the Entity does not exist"
-     * }
-     * )
-     *
-     * @Annotations\View(
-     * templateVar = "form"
-     * )
-     *
-     *
-     * @param unknown $id            
-     * @return FormTypeInterface
-     */
-    public function editTagAction($id)
-    {
-        return $this->createForm($this->formType, $this->getOr404($id, $this->handlerSerivce));
-    }
-
-    /**
      * Delete existing Entity
      *
      * @ApiDoc(
      * resource = true,
-     * input = "Dime\TimetrackerBundle\Form\Type\TagFormType",
+     * section="tags",
      * statusCodes = {
      * 204 = "Returned when successful",
      * 404 = "Returned when Tag does not exist."

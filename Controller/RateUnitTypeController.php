@@ -10,6 +10,7 @@ namespace Dime\TimetrackerBundle\Controller;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use FOS\RestBundle\Controller\Annotations;
 use Dime\TimetrackerBundle\Model\RateUnitType;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class RateUnitTypeController extends DimeController
 {
@@ -18,6 +19,9 @@ class RateUnitTypeController extends DimeController
 	 *
 	 * @ApiDoc(
 	 * resource = true,
+	 * output = "Dime\TimetrackerBundle\Model\RateUnittype",
+	 * description="Gets a Collection of RateUnitTypes, RateUnitTypes are Application internal Constants",
+	 * section="rateUnitTypes",
 	 * statusCodes = {
 	 * 200 = "Returned when successful"
 	 * }
@@ -48,8 +52,9 @@ class RateUnitTypeController extends DimeController
 	 *
 	 * @ApiDoc(
 	 * resource = true,
-	 * description = "Gets a RateGroup for a given id",
-	 * output = "Dime\TimetrackerBundle\Entity\RateGroup",
+	 * description = "Gets a RateUnitType for a given id",
+	 * output = "Dime\TimetrackerBundle\Model\RateUnittype",
+	 * section="rateUnitTypes",
 	 * statusCodes = {
 	 * 200 = "Returned when successful",
 	 * 404 = "Returned when the page is not found"
@@ -69,7 +74,7 @@ class RateUnitTypeController extends DimeController
 	 *
 	 * @throws NotFoundHttpException when page not exist
 	 */
-	public function getRateGroupAction($id)
+	public function getRateUnitTypeAction($id)
 	{
 		return array('id' => $id, 'name' => RateUnitType::ChoiceList()[$id]);
 	}

@@ -2,12 +2,15 @@
 
 namespace Dime\TimetrackerBundle\Controller;
 
+use Dime\TimetrackerBundle\Exception\InvalidFormException;
 use FOS\RestBundle\View\View;
+use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\HttpFoundation\Request;
 use FOS\RestBundle\Request\ParamFetcherInterface;
 use FOS\RestBundle\Util\Codes;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use FOS\RestBundle\Controller\Annotations;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class CustomersController extends DimeController
 {
@@ -20,6 +23,9 @@ class CustomersController extends DimeController
      *
      * @ApiDoc(
      * resource = true,
+     * description="Gets a Collection of Customers",
+     * output = "Dime\TimetrackerBundle\Entity\Customer",
+     * section="customers",
      * statusCodes = {
      * 200 = "Returned when successful"
      * }
@@ -51,6 +57,7 @@ class CustomersController extends DimeController
      * resource = true,
      * description = "Gets a Customer for a given id",
      * output = "Dime\TimetrackerBundle\Entity\Customer",
+     * section="customers",
      * statusCodes = {
      * 200 = "Returned when successful",
      * 404 = "Returned when the page is not found"
@@ -61,8 +68,6 @@ class CustomersController extends DimeController
      *
      * @Annotations\Route(requirements={"_format"="json|xml"})
      *
-     * @param Request $request
-     *            the request object
      * @param int $id
      *            the page id
      *            
@@ -79,6 +84,10 @@ class CustomersController extends DimeController
 	 * Presents the form to use to create a new Entity.
 	 *
 	 * @ApiDoc(
+     * input="Dime\TimetrackerBundle\Form\Type\CustomerFormType",
+     * output = "Dime\TimetrackerBundle\Entity\Customer",
+     * section="customers",
+     * description="A Frontend Function for Post for Languages which suck, Which acts on Parameters Defined in Settings",
 	 * resource = true,
 	 * statusCodes = {
 	 * 200 = "Returned when successful"
@@ -118,6 +127,8 @@ class CustomersController extends DimeController
      * resource = true,
      * description = "Creates a new page from the submitted data.",
      * input = "Dime\TimetrackerBundle\Form\Type\CustomerFormType",
+     * output = "Dime\TimetrackerBundle\Entity\Customer",
+     * section="customers",
      * statusCodes = {
      * 201 = "Returned when successful",
      * 400 = "Returned when the form has errors"
@@ -147,6 +158,8 @@ class CustomersController extends DimeController
      * @ApiDoc(
      * resource = true,
      * input = "Dime\TimetrackerBundle\Form\Type\CustomerFormType",
+     * output = "Dime\TimetrackerBundle\Entity\Customer",
+     * section="customers",
      * statusCodes = {
      * 200 = "Returned when the Entity was updated",
      * 400 = "Returned when the form has errors",
@@ -178,35 +191,11 @@ class CustomersController extends DimeController
     }
 
     /**
-     * Presents the form to use to edit a Entity.
-     *
-     * @ApiDoc(
-     * resource = true,
-     * statusCodes = {
-     * 200 = "Returned when successful",
-     * 404 = "Returned when the Entity does not exist"
-     * }
-     * )
-     *
-     * @Annotations\View(
-     * templateVar = "form"
-     * )
-     *
-     *
-     * @param unknown $id            
-     * @return FormTypeInterface
-     */
-    public function editCustomerAction($id)
-    {
-        return $this->createForm($this->formType, $this->getOr404($id, $this->handlerSerivce));
-    }
-
-    /**
      * Delete existing Entity
      *
      * @ApiDoc(
      * resource = true,
-     * input = "Dime\TimetrackerBundle\Form\Type\CustomerFormType",
+     * section="customers",
      * statusCodes = {
      * 204 = "Returned when successful",
      * 404 = "Returned when Customer does not exist."

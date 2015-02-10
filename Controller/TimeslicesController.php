@@ -2,12 +2,14 @@
 
 namespace Dime\TimetrackerBundle\Controller;
 
+use Dime\TimetrackerBundle\Exception\InvalidFormException;
 use FOS\RestBundle\View\View;
 use Symfony\Component\HttpFoundation\Request;
 use FOS\RestBundle\Request\ParamFetcherInterface;
 use FOS\RestBundle\Util\Codes;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use FOS\RestBundle\Controller\Annotations;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class TimeslicesController extends DimeController
 {
@@ -20,6 +22,9 @@ class TimeslicesController extends DimeController
      *
      * @ApiDoc(
      * resource = true,
+     * output = "Dime\TimetrackerBundle\Entity\Timeslice",
+     * section="timeslices",
+     * description="Get Collection of Timeslices",
      * statusCodes = {
      * 200 = "Returned when successful"
      * }
@@ -59,6 +64,7 @@ class TimeslicesController extends DimeController
      * resource = true,
      * description = "Gets a Timeslice for a given id",
      * output = "Dime\TimetrackerBundle\Entity\Timeslice",
+     * section="timeslices",
      * statusCodes = {
      * 200 = "Returned when successful",
      * 404 = "Returned when the page is not found"
@@ -69,8 +75,6 @@ class TimeslicesController extends DimeController
      *
      * @Annotations\Route(requirements={"_format"="json|xml"})
      *
-     * @param Request $request
-     *            the request object
      * @param int $id
      *            the page id
      *            
@@ -88,6 +92,10 @@ class TimeslicesController extends DimeController
 	 *
 	 * @ApiDoc(
 	 * resource = true,
+     * input = "Dime\TimetrackerBundle\Form\Type\TimesliceFormType",
+     * description="A Frontend Function for Post for Languages which suck, Which acts on Parameters Defined in Settings",
+     * output = "Dime\TimetrackerBundle\Entity\Timeslice",
+     * section="timeslices",
 	 * statusCodes = {
 	 * 200 = "Returned when successful"
 	 * }
@@ -157,6 +165,8 @@ class TimeslicesController extends DimeController
      * @ApiDoc(
      * resource = true,
      * input = "Dime\TimetrackerBundle\Form\Type\TimesliceFormType",
+     * output = "Dime\TimetrackerBundle\Entity\Timeslice",
+     * section="timeslices",
      * statusCodes = {
      * 200 = "Returned when the Entity was updated",
      * 400 = "Returned when the form has errors",
@@ -182,33 +192,9 @@ class TimeslicesController extends DimeController
             $entity = $this->getOr404($id, $this->handlerSerivce);
             $entity = $this->container->get($this->handlerSerivce)->put($entity, $request->request->all());
             return $this->view($entity, Codes::HTTP_OK);
-        } catch (InvalidFormException $exception) {
+        } catch(InvalidFormException $exception) {
             return $exception->getForm();
         }
-    }
-
-    /**
-     * Presents the form to use to edit a Entity.
-     *
-     * @ApiDoc(
-     * resource = true,
-     * statusCodes = {
-     * 200 = "Returned when successful",
-     * 404 = "Returned when the Entity does not exist"
-     * }
-     * )
-     *
-     * @Annotations\View(
-     * templateVar = "form"
-     * )
-     *
-     *
-     * @param unknown $id            
-     * @return FormTypeInterface
-     */
-    public function editTimesliceAction($id)
-    {
-        return $this->createForm($this->formType, $this->getOr404($id, $this->handlerSerivce));
     }
 
     /**
@@ -216,7 +202,7 @@ class TimeslicesController extends DimeController
      *
      * @ApiDoc(
      * resource = true,
-     * input = "Dime\TimetrackerBundle\Form\Type\TimesliceFormType",
+     * section="timeslices",
      * statusCodes = {
      * 204 = "Returned when successful",
      * 404 = "Returned when Timeslice does not exist."

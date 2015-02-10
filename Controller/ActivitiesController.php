@@ -4,11 +4,13 @@ namespace Dime\TimetrackerBundle\Controller;
 
 use Dime\TimetrackerBundle\Exception\InvalidFormException;
 use FOS\RestBundle\View\View;
+use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\HttpFoundation\Request;
 use FOS\RestBundle\Request\ParamFetcherInterface;
 use FOS\RestBundle\Util\Codes;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use FOS\RestBundle\Controller\Annotations;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ActivitiesController extends DimeController
 {
@@ -20,15 +22,19 @@ class ActivitiesController extends DimeController
      * List all Entities.
      *
      * @ApiDoc(
-     * resource = true,
-     * statusCodes = {
-     * 200 = "Returned when successful"
-     * }
+     *  description = "Get Collection of Activities",
+     *  section = "activities",
+     *  output = "Dime\TimetrackerBundle\Entity\Ativity",
+     *  statusCodes = {
+     *      200 = "Returned when successful",
+     *      405 = "Returned on Unsupported Method",
+     *      500 = "Returned on Error"
+     *  }
      * )
      *
      *
-     * @Annotations\QueryParam(name="active", requirements="/^true|false$/i", nullable=true, description="Filter By Activity")
-     * @Annotations\QueryParam(name="date", nullable=true, description="Date to filter the Activity by in Format YYYY-MM-DD")
+     * Annotations\QueryParam(name="active", requirements="/^true|false$/i", nullable=true, description="Deprecated: Shows Activities where there are Timeslices without EndTimes. Due to changes this can not happen. Is Ignored")
+     * @Annotations\QueryParam(name="date", nullable=true, description="Filter by Date. Use Format YYYY-MM-DD. To Filter by range use YYYY-MM-DD,YYYY-MM-DD")
      * @Annotations\QueryParam(name="project", requirements="\d+", nullable=true, description="Filter By Project")
      * @Annotations\QueryParam(name="service", requirements="\d+", nullable=true, description="Filter By Service")
      * @Annotations\QueryParam(name="user", requirements="\d+", nullable=true, description="Filter By User")
@@ -60,9 +66,12 @@ class ActivitiesController extends DimeController
      * resource = true,
      * description = "Gets a Activity for a given id",
      * output = "Dime\TimetrackerBundle\Entity\Activity",
+     * section = "activities",
      * statusCodes = {
      * 200 = "Returned when successful",
-     * 404 = "Returned when the page is not found"
+     * 404 = "Returned when the page is not found",
+     * 405 = "Returned on Unsupported Method",
+     * 500 = "Returned on Error"
      * }
      * )
      *
@@ -87,8 +96,14 @@ class ActivitiesController extends DimeController
 	 *
 	 * @ApiDoc(
 	 * resource = true,
+     * section="activities",
+     * output = "Dime\TimetrackerBundle\Entity\Activity",
+     * input = "Dime\TimetrackerBundle\Form\Type\ActivityFormType",
+     * description="A Frontend Function for Post for Languages which suck, Which acts on Parameters Defined in Settings",
 	 * statusCodes = {
-	 * 200 = "Returned when successful"
+	 * 200 = "Returned when successful",
+     * 405 = "Returned on Unsupported Method",
+     * 500 = "Returned on Error"
 	 * }
 	 * )
 	 *
@@ -109,8 +124,7 @@ class ActivitiesController extends DimeController
 	 * @param ParamFetcherInterface $paramFetcher
 	 *
 	 *
-	 *
-	 * @return FormTypeInterface
+     *
 	 */
     public function newActivityAction(ParamFetcherInterface $paramFetcher)
     {
@@ -124,8 +138,10 @@ class ActivitiesController extends DimeController
      *
      * @ApiDoc(
      * resource = true,
-     * description = "Creates a new page from the submitted data.",
+     * description = "Creates a new activity from the submitted data.",
      * input = "Dime\TimetrackerBundle\Form\Type\ActivityFormType",
+     * output = "Dime\TimetrackerBundle\Entity\Activity",
+     * section="activities",
      * statusCodes = {
      * 201 = "Returned when successful",
      * 400 = "Returned when the form has errors"
@@ -155,6 +171,9 @@ class ActivitiesController extends DimeController
      * @ApiDoc(
      * resource = true,
      * input = "Dime\TimetrackerBundle\Form\Type\ActivityFormType",
+     * output = "Dime\TimetrackerBundle\Entity\Activity",
+     * section="activities",
+     * description="Update Activity Data of Given Id",
      * statusCodes = {
      * 200 = "Returned when the Entity was updated",
      * 400 = "Returned when the form has errors",
@@ -186,35 +205,11 @@ class ActivitiesController extends DimeController
     }
 
     /**
-     * Presents the form to use to edit a Entity.
-     *
-     * @ApiDoc(
-     * resource = true,
-     * statusCodes = {
-     * 200 = "Returned when successful",
-     * 404 = "Returned when the Entity does not exist"
-     * }
-     * )
-     *
-     * @Annotations\View(
-     * templateVar = "form"
-     * )
-     *
-     *
-     * @param unknown $id            
-     * @return FormTypeInterface
-     */
-    public function editActivityAction($id)
-    {
-        return $this->createForm($this->formType, $this->getOr404($id, $this->handlerSerivce));
-    }
-
-    /**
      * Delete existing Entity
      *
      * @ApiDoc(
      * resource = true,
-     * input = "Dime\TimetrackerBundle\Form\Type\ActivityFormType",
+     * section="activities",
      * statusCodes = {
      * 204 = "Returned when successful",
      * 404 = "Returned when Activity does not exist."

@@ -2,12 +2,15 @@
 
 namespace Dime\TimetrackerBundle\Controller;
 
+use Dime\TimetrackerBundle\Exception\InvalidFormException;
 use FOS\RestBundle\View\View;
+use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\HttpFoundation\Request;
 use FOS\RestBundle\Request\ParamFetcherInterface;
 use FOS\RestBundle\Util\Codes;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use FOS\RestBundle\Controller\Annotations;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class StandardDiscountController extends DimeController
 {
@@ -20,6 +23,8 @@ class StandardDiscountController extends DimeController
      *
      * @ApiDoc(
      * resource = true,
+     * output = "Dime\TimetrackerBundle\Entity\StandardDiscount",
+     * section="standarddiscounts",
      * statusCodes = {
      * 200 = "Returned when successful"
      * }
@@ -53,7 +58,8 @@ class StandardDiscountController extends DimeController
      * @ApiDoc(
      * resource = true,
      * description = "Gets a Timeslice for a given id",
-     * output = "Dime\TimetrackerBundle\Entity\Timeslice",
+     * output = "Dime\TimetrackerBundle\Entity\StandardDiscount",
+     * section="standarddiscounts",
      * statusCodes = {
      * 200 = "Returned when successful",
      * 404 = "Returned when the page is not found"
@@ -66,8 +72,6 @@ class StandardDiscountController extends DimeController
      *
      * @Annotations\Get("/standarddiscounts/{id}", name="_standarddiscount")
      *
-     * @param Request $request
-     *            the request object
      * @param int $id
      *            the page id
      *            
@@ -80,36 +84,6 @@ class StandardDiscountController extends DimeController
         return $this->getOr404($id, $this->handlerSerivce);
     }
 
-	/**
-	 * Presents the form to use to create a new Entity.
-	 *
-	 * @ApiDoc(
-	 * resource = true,
-	 * statusCodes = {
-	 * 200 = "Returned when successful"
-	 * }
-	 * )
-	 *
-	 * @Annotations\Route(requirements={"_format"="html"})
-	 * @Annotations\QueryParam(name="minus", nullable=true, description="Sets the Value Param in the Form.")
-	 * @Annotations\QueryParam(name="percentage", nullable=true, description="Sets the Value Param in the Form.")
-	 * @Annotations\QueryParam(name="value", nullable=true, description="Sets the Value Param in the Form.")
-	 *
-	 * @Annotations\View(
-	 * templateVar = "form"
-	 * )
-     *
-     * @Annotations\Get("/standarddiscounts/new", name="_standarddiscount")
-	 *
-	 * @param ParamFetcherInterface $paramFetcher
-	 *
-	 * @return FormTypeInterface
-	 */
-    public function newStandardDiscountAction(ParamFetcherInterface $paramFetcher)
-    {
-	    return $this->get($this->handlerSerivce)->newForm($paramFetcher->all());
-    }
-
     /**
      * Create a new Entity from the submitted data.
      *
@@ -117,6 +91,8 @@ class StandardDiscountController extends DimeController
      * resource = true,
      * description = "Creates a new page from the submitted data.",
      * input = "Dime\TimetrackerBundle\Form\Type\TimesliceFormType",
+     * output = "Dime\TimetrackerBundle\Entity\StandardDiscount",
+     * section="standarddiscounts",
      * statusCodes = {
      * 201 = "Returned when successful",
      * 400 = "Returned when the form has errors"
@@ -148,6 +124,8 @@ class StandardDiscountController extends DimeController
      * @ApiDoc(
      * resource = true,
      * input = "Dime\TimetrackerBundle\Form\Type\TimesliceFormType",
+     * output = "Dime\TimetrackerBundle\Entity\StandardDiscount",
+     * section="standarddiscounts",
      * statusCodes = {
      * 200 = "Returned when the Entity was updated",
      * 400 = "Returned when the form has errors",
@@ -159,13 +137,11 @@ class StandardDiscountController extends DimeController
      *
      * @Annotations\Put("/standarddiscounts/{id}", name="_standarddiscount")
      *
-     * @param int $id
+     * @param Request $request
+     * @param int     $id
      *            the page id
-     *            
-     * @return FormTypeInterface|View
      *
-     * @throws NotFoundHttpException when page not exist
-     *        
+     * @return View|FormTypeInterface
      */
     public function putStandardDiscountAction(Request $request, $id)
     {
@@ -179,36 +155,11 @@ class StandardDiscountController extends DimeController
     }
 
     /**
-     * Presents the form to use to edit a Entity.
-     *
-     * @ApiDoc(
-     * resource = true,
-     * statusCodes = {
-     * 200 = "Returned when successful",
-     * 404 = "Returned when the Entity does not exist"
-     * }
-     * )
-     *
-     * @Annotations\View(
-     * templateVar = "form"
-     * )
-     *
-     * @Annotations\Get("/standarddiscounts/{id}/edit", name="_standarddiscount")
-     *
-     * @param unknown $id            
-     * @return FormTypeInterface
-     */
-    public function editStandardDiscountAction($id)
-    {
-        return $this->createForm($this->formType, $this->getOr404($id, $this->handlerSerivce));
-    }
-
-    /**
      * Delete existing Entity
      *
      * @ApiDoc(
      * resource = true,
-     * input = "Dime\TimetrackerBundle\Form\Type\TimesliceFormType",
+     * section="standarddiscounts",
      * statusCodes = {
      * 204 = "Returned when successful",
      * 404 = "Returned when Timeslice does not exist."

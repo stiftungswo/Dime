@@ -2,12 +2,15 @@
 
 namespace Dime\TimetrackerBundle\Controller;
 
+use Dime\TimetrackerBundle\Exception\InvalidFormException;
 use FOS\RestBundle\View\View;
+use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\HttpFoundation\Request;
 use FOS\RestBundle\Request\ParamFetcherInterface;
 use FOS\RestBundle\Util\Codes;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use FOS\RestBundle\Controller\Annotations;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ProjectsController extends DimeController
 {
@@ -20,6 +23,9 @@ class ProjectsController extends DimeController
      *
      * @ApiDoc(
      * resource = true,
+     * description="Get a Collection of Projects",
+     * output = "Dime\TimetrackerBundle\Entity\Project",
+     * section="projects",
      * statusCodes = {
      * 200 = "Returned when successful"
      * }
@@ -54,6 +60,7 @@ class ProjectsController extends DimeController
      * resource = true,
      * description = "Gets a Project for a given id",
      * output = "Dime\TimetrackerBundle\Entity\Project",
+     * section="projects",
      * statusCodes = {
      * 200 = "Returned when successful",
      * 404 = "Returned when the page is not found"
@@ -64,8 +71,6 @@ class ProjectsController extends DimeController
      *
      * @Annotations\Route(requirements={"_format"="json|xml"})
      *
-     * @param Request $request
-     *            the request object
      * @param int $id
      *            the page id
      *            
@@ -83,6 +88,10 @@ class ProjectsController extends DimeController
 	 *
 	 * @ApiDoc(
 	 * resource = true,
+     * input = "Dime\TimetrackerBundle\Form\Type\ProjectFormType",
+     * output = "Dime\TimetrackerBundle\Entity\Project",
+     * description="A Frontend Function for Post for Languages which suck, Which acts on Parameters Defined in Settings",
+     * section="projects",
 	 * statusCodes = {
 	 * 200 = "Returned when successful"
 	 * }
@@ -125,8 +134,10 @@ class ProjectsController extends DimeController
      *
      * @ApiDoc(
      * resource = true,
-     * description = "Creates a new page from the submitted data.",
+     * description = "Creates a new Project from the submitted data.",
      * input = "Dime\TimetrackerBundle\Form\Type\ProjectFormType",
+     * output = "Dime\TimetrackerBundle\Entity\Project",
+     * section="projects",
      * statusCodes = {
      * 201 = "Returned when successful",
      * 400 = "Returned when the form has errors"
@@ -156,6 +167,8 @@ class ProjectsController extends DimeController
      * @ApiDoc(
      * resource = true,
      * input = "Dime\TimetrackerBundle\Form\Type\ProjectFormType",
+     * output = "Dime\TimetrackerBundle\Entity\Project",
+     * section="projects",
      * statusCodes = {
      * 200 = "Returned when the Entity was updated",
      * 400 = "Returned when the form has errors",
@@ -187,35 +200,11 @@ class ProjectsController extends DimeController
     }
 
     /**
-     * Presents the form to use to edit a Entity.
-     *
-     * @ApiDoc(
-     * resource = true,
-     * statusCodes = {
-     * 200 = "Returned when successful",
-     * 404 = "Returned when the Entity does not exist"
-     * }
-     * )
-     *
-     * @Annotations\View(
-     * templateVar = "form"
-     * )
-     *
-     *
-     * @param unknown $id            
-     * @return FormTypeInterface
-     */
-    public function editProjectAction($id)
-    {
-        return $this->createForm($this->formType, $this->getOr404($id, $this->handlerSerivce));
-    }
-
-    /**
      * Delete existing Entity
      *
      * @ApiDoc(
      * resource = true,
-     * input = "Dime\TimetrackerBundle\Form\Type\ProjectFormType",
+     * section="projects",
      * statusCodes = {
      * 204 = "Returned when successful",
      * 404 = "Returned when Project does not exist."

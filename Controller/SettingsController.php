@@ -2,12 +2,15 @@
 
 namespace Dime\TimetrackerBundle\Controller;
 
+use Dime\TimetrackerBundle\Exception\InvalidFormException;
 use FOS\RestBundle\View\View;
+use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\HttpFoundation\Request;
 use FOS\RestBundle\Request\ParamFetcherInterface;
 use FOS\RestBundle\Util\Codes;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use FOS\RestBundle\Controller\Annotations;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class SettingsController extends DimeController
 {
@@ -20,6 +23,8 @@ class SettingsController extends DimeController
      *
      * @ApiDoc(
      * resource = true,
+     * section="settings",
+     * output = "Dime\TimetrackerBundle\Entity\Setting",
      * statusCodes = {
      * 200 = "Returned when successful"
      * }
@@ -50,6 +55,7 @@ class SettingsController extends DimeController
      *
      * @ApiDoc(
      * resource = true,
+     * section="settings",
      * description = "Gets a Setting for a given id",
      * output = "Dime\TimetrackerBundle\Entity\Setting",
      * statusCodes = {
@@ -62,8 +68,6 @@ class SettingsController extends DimeController
      *
      * @Annotations\Route(requirements={"_format"="json|xml"})
      *
-     * @param Request $request
-     *            the request object
      * @param int $id
      *            the page id
      *            
@@ -76,35 +80,6 @@ class SettingsController extends DimeController
         return $this->getOr404($id, $this->handlerSerivce);
     }
 
-	/**
-	 * Presents the form to use to create a new Entity.
-	 *
-	 * @ApiDoc(
-	 * resource = true,
-	 * statusCodes = {
-	 * 200 = "Returned when successful"
-	 * }
-	 * )
-	 *
-	 * @Annotations\View(
-	 * templateVar = "form"
-	 * )
-	 *
-	 * @Annotations\Route(requirements={"_format"="html"})
-	 * @Annotations\QueryParam(name="name", nullable=true, description="Sets the Value Param in the Form.")
-	 * @Annotations\QueryParam(name="namespace", nullable=true, description="Sets the Value Param in the Form.")
-	 * @Annotations\QueryParam(name="value", nullable=true, description="Sets the Value Param in the Form.")
-	 * 
-	 *
-	 * @param ParamFetcherInterface $paramFetcher
-	 *
-	 * @return FormTypeInterface
-	 */
-    public function newSettingAction(ParamFetcherInterface $paramFetcher)
-    {
-	    return $this->get($this->handlerSerivce)->newForm($paramFetcher->all());
-    }
-
     /**
      * Create a new Entity from the submitted data.
      *
@@ -112,6 +87,8 @@ class SettingsController extends DimeController
      * resource = true,
      * description = "Creates a new page from the submitted data.",
      * input = "Dime\TimetrackerBundle\Form\Type\SettingFormType",
+     * output = "Dime\TimetrackerBundle\Entity\Setting",
+     * section="settings",
      * statusCodes = {
      * 201 = "Returned when successful",
      * 400 = "Returned when the form has errors"
@@ -141,6 +118,8 @@ class SettingsController extends DimeController
      * @ApiDoc(
      * resource = true,
      * input = "Dime\TimetrackerBundle\Form\Type\SettingFormType",
+     * output = "Dime\TimetrackerBundle\Entity\Setting",
+     * section="settings",
      * statusCodes = {
      * 200 = "Returned when the Entity was updated",
      * 400 = "Returned when the form has errors",
@@ -172,35 +151,11 @@ class SettingsController extends DimeController
     }
 
     /**
-     * Presents the form to use to edit a Entity.
-     *
-     * @ApiDoc(
-     * resource = true,
-     * statusCodes = {
-     * 200 = "Returned when successful",
-     * 404 = "Returned when the Entity does not exist"
-     * }
-     * )
-     *
-     * @Annotations\View(
-     * templateVar = "form"
-     * )
-     *
-     *
-     * @param unknown $id            
-     * @return FormTypeInterface
-     */
-    public function editSettingAction($id)
-    {
-        return $this->createForm($this->formType, $this->getOr404($id, $this->handlerSerivce));
-    }
-
-    /**
      * Delete existing Entity
      *
      * @ApiDoc(
      * resource = true,
-     * input = "Dime\TimetrackerBundle\Form\Type\SettingFormType",
+     * section="settings",
      * statusCodes = {
      * 204 = "Returned when successful",
      * 404 = "Returned when Setting does not exist."
