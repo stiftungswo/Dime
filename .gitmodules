@@ -16,3 +16,6 @@
 [submodule "src/Dime/EmployeeBundle"]
 	path = src/Dime/EmployeeBundle
 	url = https://github.com/stiftungswo/DimeEmployeeBundle.git
+[submodule "src/Swo/Money"]
+	path = src/Swo/Money
+	url = https://github.com/stiftungswo/money
