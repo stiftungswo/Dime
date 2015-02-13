@@ -2,6 +2,11 @@
 namespace Dime\TimetrackerBundle\Entity;
 
 use DateTime;
+use DeepCopy\DeepCopy;
+use DeepCopy\Filter\Doctrine\DoctrineCollectionFilter;
+use DeepCopy\Filter\KeepFilter;
+use DeepCopy\Filter\SetNullFilter;
+use DeepCopy\Matcher\PropertyMatcher;
 use Dime\TimetrackerBundle\Model\DimeEntityInterface;
 use Dime\TimetrackerBundle\Model\RateUnitType;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -161,8 +166,21 @@ class Project extends Entity implements DimeEntityInterface
 				$duration += $activity->getValue();
 			}
 		}
-		return ($duration / 3600).'h';
+		return ($duration / RateUnitType::$HourInSeconds).'h';
 	}
+
+    public static function getCopyFilters(DeepCopy $deepCopy)
+    {
+        $deepCopy = parent::getCopyFilters($deepCopy);
+        $deepCopy->addFilter(new KeepFilter(), new PropertyMatcher(self::class, 'customer'));
+        $deepCopy->addFilter(new KeepFilter(), new PropertyMatcher(self::class, 'rateGroup'));
+        $deepCopy->addFilter(new KeepFilter(), new PropertyMatcher(self::class, 'tags'));
+        $deepCopy->addFilter(new DoctrineCollectionFilter(), new PropertyMatcher(self::class, 'activities'));
+        $deepCopy->addFilter(new SetNullFilter(), new PropertyMatcher(self::class, 'name'));
+        $deepCopy->addFilter(new SetNullFilter(), new PropertyMatcher(self::class, 'alias'));
+        $deepCopy = Activity::getCopyFilters($deepCopy);
+        return $deepCopy;
+    }
 
 	/**
 	 * @return boolean

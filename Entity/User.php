@@ -1,6 +1,7 @@
 <?php
 namespace Dime\TimetrackerBundle\Entity;
 
+use DateTime;
 use DeepCopy\DeepCopy;
 use DeepCopy\Filter\SetNullFilter;
 use DeepCopy\Matcher\PropertyMatcher;
@@ -47,7 +48,7 @@ class User extends BaseUser implements DimeEntityInterface
     protected $lastname;
 
     /**
-     * @var datetime $createdAt
+     * @var DateTime $createdAt
      *
      * @Gedmo\Timestampable(on="create")
      * @JMS\SerializedName("createdAt")

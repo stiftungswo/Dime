@@ -3,13 +3,13 @@
 namespace Dime\TimetrackerBundle\Controller;
 
 use Dime\TimetrackerBundle\Exception\InvalidFormException;
-use FOS\RestBundle\View\View;
-use Symfony\Component\Form\FormTypeInterface;
-use Symfony\Component\HttpFoundation\Request;
+use FOS\RestBundle\Controller\Annotations;
 use FOS\RestBundle\Request\ParamFetcherInterface;
 use FOS\RestBundle\Util\Codes;
+use FOS\RestBundle\View\View;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
-use FOS\RestBundle\Controller\Annotations;
+use Symfony\Component\Form\FormTypeInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class CustomersController extends DimeController
@@ -227,4 +227,30 @@ class CustomersController extends DimeController
         $this->container->get($this->handlerSerivce)->delete($this->getOr404($id, $this->handlerSerivce));
         return $this->view(null, Codes::HTTP_NO_CONTENT);
     }
+
+	/**
+	 * Duplicate Entity
+	 *
+	 * @ApiDoc(
+	 *  resource= true,
+	 *  section="customers",
+	 *  output = "Dime\TimetrackerBundle\Entity\Customer",
+	 *  statusCodes={
+	 *      200 = "Returned when successful",
+	 *      404 = "Returned when entity does not exist"
+	 *  }
+	 * )
+	 *
+	 * @Annotations\Get("/customers/{id}/duplicate", name="_customers_dup")
+	 *
+	 * @Annotations\Route(requirements={"_format"="json|xml"})
+	 *
+	 * @param $id
+	 *
+	 * @return \Dime\TimetrackerBundle\Model\DimeEntityInterface
+	 */
+	public function duplicateCustomerAction($id)
+	{
+		return $this->get($this->handlerSerivce)->duplicate($this->getOr404($id, $this->handlerSerivce));
+	}
 }

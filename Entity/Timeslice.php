@@ -4,16 +4,18 @@ namespace Dime\TimetrackerBundle\Entity;
 
 use Carbon\Carbon;
 use DateTime;
+use DeepCopy\DeepCopy;
+use DeepCopy\Filter\KeepFilter;
+use DeepCopy\Matcher\PropertyMatcher;
 use Dime\TimetrackerBundle\Form\Transformer\DurationTransformer;
-use Dime\TimetrackerBundle\Model\RateUnitType;
-use Gedmo\Mapping\Annotation as Gedmo;
-use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\ArrayCollection;
-use Swo\CommonsBundle\Form\Transformer\JsDateTransformer;
-use Symfony\Component\Validator\Constraints as Assert;
-use JMS\Serializer\Annotation as JMS;
 use Dime\TimetrackerBundle\Model\DimeEntityInterface;
+use Dime\TimetrackerBundle\Model\RateUnitType;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+use JMS\Serializer\Annotation as JMS;
 use Knp\JsonSchemaBundle\Annotations as Json;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Dime\TimetrackerBundle\Entity\Timeslice
@@ -141,6 +143,14 @@ class Timeslice extends Entity implements DimeEntityInterface
             return $this->getValue();
         }
 	}
+
+    public static function getCopyFilters(DeepCopy $deepCopy)
+    {
+        $deepCopy = parent::getCopyFilters($deepCopy);
+        $deepCopy->addFilter(new KeepFilter(), new PropertyMatcher(self::class, 'tags'));
+        $deepCopy->addFilter(new KeepFilter(), new PropertyMatcher(self::class, 'activity'));
+        return $deepCopy;
+    }
 
     /**
      * Set started_at

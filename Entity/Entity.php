@@ -3,7 +3,6 @@ namespace Dime\TimetrackerBundle\Entity;
 
 use DateTime;
 use DeepCopy\DeepCopy;
-use DeepCopy\Filter\KeepFilter;
 use DeepCopy\Filter\SetNullFilter;
 use DeepCopy\Matcher\PropertyMatcher;
 use Doctrine\ORM\Mapping as ORM;
@@ -122,7 +121,7 @@ abstract class Entity
         $deepCopy->addFilter(new SetNullFilter(), new PropertyMatcher(static::class, 'id'));
         $deepCopy->addFilter(new SetNullFilter(), new PropertyMatcher(static::class, 'createdAt'));
         $deepCopy->addFilter(new SetNullFilter(), new PropertyMatcher(static::class, 'updatedAt'));
-        $deepCopy->addFilter(new KeepFilter(), new PropertyMatcher(static::class, 'user'));
+        $deepCopy->addFilter(new SetNullFilter(), new PropertyMatcher(static::class, 'user'));
         return $deepCopy;
     }
 

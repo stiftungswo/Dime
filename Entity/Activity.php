@@ -1,6 +1,10 @@
 <?php
 namespace Dime\TimetrackerBundle\Entity;
 
+use DeepCopy\DeepCopy;
+use DeepCopy\Filter\Doctrine\DoctrineCollectionFilter;
+use DeepCopy\Filter\KeepFilter;
+use DeepCopy\Matcher\PropertyMatcher;
 use Dime\TimetrackerBundle\Model\ActivityReference;
 use Dime\TimetrackerBundle\Model\DimeEntityInterface;
 use Dime\TimetrackerBundle\Model\RateUnitType;
@@ -69,7 +73,7 @@ class Activity extends Entity implements DimeEntityInterface
      * @JMS\AccessType("public_method")
      * @ORM\Column(type="decimal", scale=2, precision=10, nullable=true)
      */
-    private $rate;
+    protected $rate;
      
 	/**
 	 * @var boolean $chargeable
@@ -233,6 +237,17 @@ class Activity extends Entity implements DimeEntityInterface
     {
         $this->timeslices = new ArrayCollection();
         $this->tags = new ArrayCollection();
+    }
+
+    public static function getCopyFilters(DeepCopy $deepCopy)
+    {
+        $deepCopy = parent::getCopyFilters($deepCopy);
+        $deepCopy->addFilter(new KeepFilter(), new PropertyMatcher(self::class, 'tags'));
+        $deepCopy->addFilter(new KeepFilter(), new PropertyMatcher(self::class, 'project'));
+        $deepCopy->addFilter(new KeepFilter(), new PropertyMatcher(self::class, 'service'));
+        $deepCopy->addFilter(new DoctrineCollectionFilter(), new PropertyMatcher(self::class, 'timeslices'));
+        $deepCopy = Timeslice::getCopyFilters($deepCopy);
+        return $deepCopy;
     }
 
     /**

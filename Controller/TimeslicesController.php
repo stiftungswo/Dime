@@ -3,12 +3,12 @@
 namespace Dime\TimetrackerBundle\Controller;
 
 use Dime\TimetrackerBundle\Exception\InvalidFormException;
-use FOS\RestBundle\View\View;
-use Symfony\Component\HttpFoundation\Request;
+use FOS\RestBundle\Controller\Annotations;
 use FOS\RestBundle\Request\ParamFetcherInterface;
 use FOS\RestBundle\Util\Codes;
+use FOS\RestBundle\View\View;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
-use FOS\RestBundle\Controller\Annotations;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class TimeslicesController extends DimeController
@@ -32,7 +32,7 @@ class TimeslicesController extends DimeController
      *
      * @Annotations\QueryParam(name="activity", requirements="\d+", nullable=true, description="Filter By Activity")
      * @Annotations\QueryParam(name="date", nullable=true, description="Filter by date use Format YYYY-MM-DD or YYYY-MM-DD,YYYY-MM-DD to specify daterange")
-     * @Annotations\QueryParam(name="customer", requirements="\d+", nullable=true, description="Filter By Customer")
+     * @Annotations\QueryParam(name="customer", requirements="\d+", nullable=true, description="Filter By Timeslice")
      * @Annotations\QueryParam(name="project", requirements="\d+", nullable=true, description="Filter By Project")
      * @Annotations\QueryParam(name="service", requirements="\d+", nullable=true, description="Filter By Service")
      * @Annotations\QueryParam(name="user", requirements="\d+", nullable=true, description="Filter By User")
@@ -224,4 +224,30 @@ class TimeslicesController extends DimeController
         $this->container->get($this->handlerSerivce)->delete($this->getOr404($id, $this->handlerSerivce));
         return $this->view(null, Codes::HTTP_NO_CONTENT);
     }
+
+	/**
+	 * Duplicate Entity
+	 *
+	 * @ApiDoc(
+	 *  resource= true,
+	 *  section="timeslices",
+	 *  output = "Dime\TimetrackerBundle\Entity\Timeslice",
+	 *  statusCodes={
+	 *      200 = "Returned when successful",
+	 *      404 = "Returned when entity does not exist"
+	 *  }
+	 * )
+	 *
+	 * @Annotations\Get("/timeslices/{id}/duplicate", name="_timeslices_dup")
+	 *
+	 * @Annotations\Route(requirements={"_format"="json|xml"})
+	 *
+	 * @param $id
+	 *
+	 * @return \Dime\TimetrackerBundle\Model\DimeEntityInterface
+	 */
+	public function duplicateTimesliceAction($id)
+	{
+		return $this->get($this->handlerSerivce)->duplicate($this->getOr404($id, $this->handlerSerivce));
+	}
 }

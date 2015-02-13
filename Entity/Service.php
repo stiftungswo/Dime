@@ -1,15 +1,19 @@
 <?php
 namespace Dime\TimetrackerBundle\Entity;
 
+use DeepCopy\DeepCopy;
+use DeepCopy\Filter\Doctrine\DoctrineCollectionFilter;
+use DeepCopy\Filter\KeepFilter;
+use DeepCopy\Filter\SetNullFilter;
+use DeepCopy\Matcher\PropertyMatcher;
 use Dime\TimetrackerBundle\Model\DefaultRateGroup;
-use Gedmo\Mapping\Annotation as Gedmo;
-use Doctrine\ORM\Mapping as ORM;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Symfony\Component\Validator\Constraints as Assert;
-use JMS\Serializer\Annotation as JMS;
-use Doctrine\Common\Collections\ArrayCollection;
 use Dime\TimetrackerBundle\Model\DimeEntityInterface;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+use JMS\Serializer\Annotation as JMS;
 use Knp\JsonSchemaBundle\Annotations as Json;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Dime\TimetrackerBundle\Entity\Service
@@ -85,6 +89,17 @@ class Service extends Entity implements DimeEntityInterface
 		$this->tags = new ArrayCollection();
 		$this->rates = new ArrayCollection();
 	}
+
+    public static function getCopyFilters(DeepCopy $deepCopy)
+    {
+        $deepCopy = parent::getCopyFilters($deepCopy);
+        $deepCopy->addFilter(new KeepFilter(), new PropertyMatcher(self::class, 'tags'));
+        $deepCopy->addFilter(new DoctrineCollectionFilter(), new PropertyMatcher(self::class, 'rates'));
+        $deepCopy->addFilter(new SetNullFilter(), new PropertyMatcher(self::class, 'name'));
+        $deepCopy->addFilter(new SetNullFilter(), new PropertyMatcher(self::class, 'alias'));
+        $deepCopy = Rate::getCopyFilters($deepCopy);
+        return $deepCopy;
+    }
 	
 	/**
 	 * @return boolean

@@ -1,10 +1,12 @@
 <?php
 namespace Dime\TimetrackerBundle\Entity;
 
+use DeepCopy\DeepCopy;
+use DeepCopy\Filter\KeepFilter;
+use DeepCopy\Matcher\PropertyMatcher;
+use Dime\TimetrackerBundle\Model\DimeEntityInterface;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as JMS;
-use Doctrine\Common\Collections\ArrayCollection;
-use Dime\TimetrackerBundle\Model\DimeEntityInterface;
 use Knp\JsonSchemaBundle\Annotations as Json;
 
 /**
@@ -53,6 +55,14 @@ class Rate extends Entity implements DimeEntityInterface
      * @JMS\SerializedName("rateValue")
      */
     protected $rateValue;
+
+    public static function getCopyFilters(DeepCopy $deepCopy)
+    {
+        $deepCopy = parent::getCopyFilters($deepCopy);
+        $deepCopy->addFilter(new KeepFilter(), new PropertyMatcher(self::class, 'rateGroup'));
+        $deepCopy->addFilter(new KeepFilter(), new PropertyMatcher(self::class, 'service'));
+        return $deepCopy;
+    }
 	
 
     /**

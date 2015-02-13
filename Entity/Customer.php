@@ -1,14 +1,18 @@
 <?php
 namespace Dime\TimetrackerBundle\Entity;
 
-use Gedmo\Mapping\Annotation as Gedmo;
+use DeepCopy\DeepCopy;
+use DeepCopy\Filter\KeepFilter;
+use DeepCopy\Filter\SetNullFilter;
+use DeepCopy\Matcher\PropertyMatcher;
+use Dime\TimetrackerBundle\Model\DimeEntityInterface;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+use JMS\Serializer\Annotation as JMS;
+use Knp\JsonSchemaBundle\Annotations as Json;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
-use JMS\Serializer\Annotation as JMS;
-use Doctrine\Common\Collections\ArrayCollection;
-use Dime\TimetrackerBundle\Model\DimeEntityInterface;
-use Knp\JsonSchemaBundle\Annotations as Json;
 
 /**
  * Dime\TimetrackerBundle\Entity\Customer
@@ -108,6 +112,17 @@ class Customer extends Entity implements DimeEntityInterface
 	 * )
 	 */
 	protected $phones;
+
+    public static function getCopyFilters(DeepCopy $deepCopy)
+    {
+        $deepCopy = parent::getCopyFilters($deepCopy);
+        $deepCopy->addFilter(new KeepFilter(), new PropertyMatcher(self::class, 'tags'));
+        $deepCopy->addFilter(new KeepFilter(), new PropertyMatcher(self::class, 'rateGroup'));
+        $deepCopy->addFilter(new SetNullFilter(), new PropertyMatcher(self::class, 'phones'));
+        $deepCopy->addFilter(new SetNullFilter(), new PropertyMatcher(self::class, 'name'));
+        $deepCopy->addFilter(new SetNullFilter(), new PropertyMatcher(self::class, 'alias'));
+        return $deepCopy;
+    }
 
 	/**
 	 * @return boolean
