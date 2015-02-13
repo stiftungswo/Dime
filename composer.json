@@ -46,7 +46,8 @@
         "doctrine/migrations": "1.0.*@dev",
         "doctrine/doctrine-migrations-bundle": "2.1.*@dev",
         "psliwa/pdf-bundle": "~1.0@dev",
-	  	"nesbot/carbon": "dev-master"
+	  	"nesbot/carbon": "dev-master",
+	  	"myclabs/deep-copy": "*"
 	},
 	"scripts" : {
 		"post-install-cmd" : [
