@@ -20,6 +20,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use JMS\Serializer\Annotation as JMS;
 use Knp\JsonSchemaBundle\Annotations as Json;
+use Swo\CommonsBundle\Filter\NewNameFilter;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -173,7 +174,7 @@ class Invoice extends Entity implements DimeEntityInterface
 		$deepCopy->addFilter(new KeepFilter(), new PropertyMatcher(self::class, 'standardDiscounts'));
 		$deepCopy->addFilter(new DoctrineCollectionFilter(), new PropertyMatcher(self::class, 'items'));
 		$deepCopy->addFilter(new DoctrineCollectionFilter(), new PropertyMatcher(self::class, 'invoiceDiscounts'));
-		$deepCopy->addFilter(new SetNullFilter(), new PropertyMatcher(self::class, 'name'));
+		$deepCopy->addFilter(new NewNameFilter('Invoice'), new PropertyMatcher(self::class, 'name'));
 		$deepCopy->addFilter(new SetNullFilter(), new PropertyMatcher(self::class, 'alias'));
 		$deepCopy = InvoiceDiscount::getCopyFilters($deepCopy);
 		$deepCopy = InvoiceItem::getCopyFilters($deepCopy);
