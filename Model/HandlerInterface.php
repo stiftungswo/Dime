@@ -1,8 +1,6 @@
 <?php
 namespace Dime\TimetrackerBundle\Model;
 
-use Dime\TimetrackerBundle\Model\DimeEntityInterface;
-
 interface HandlerInterface
 {
     /**
@@ -66,4 +64,15 @@ interface HandlerInterface
      * 
      */
     public function delete(DimeEntityInterface $entity);
+
+    /**
+     * Duplicates an Entity
+     *
+     * @api
+     *
+     * @param DimeEntityInterface $entity
+     *
+     * @return DimeEntityInterface
+     */
+    public function duplicate(DimeEntityInterface $entity);
 }

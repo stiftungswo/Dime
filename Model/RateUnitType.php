@@ -16,6 +16,9 @@ class RateUnitType extends LazyChoiceList {
 	public static $Minutely = 'm';
 	public static $Dayly = 't';
 	public static $NoChange = '0';
+	public static $DayInSeconds = 30240;
+	public static $HourInSeconds = 3600;
+	public static $MinuteInSeconds = 60;
 	public static function ChoiceList()
 	{
 		return array(

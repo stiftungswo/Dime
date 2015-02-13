@@ -8,6 +8,7 @@
 namespace Dime\TimetrackerBundle\Handler;
 
 
+use DeepCopy\DeepCopy;
 use Dime\TimetrackerBundle\Model\DimeEntityInterface;
 use Dime\TimetrackerBundle\Model\HandlerInterface;
 
@@ -65,9 +66,6 @@ class GenericHandler extends AbstractHandler implements HandlerInterface {
 	public function post(array $parameters)
 	{
 		$entity = $this->newClassInstance();
-		if(!isset($parameters['user'])) {
-			$parameters['user'] = $this->getCurrentUser()->getId();
-		}
 		if(isset($parameters['id'])){
 			unset($parameters['id']);
 		}
@@ -157,5 +155,21 @@ class GenericHandler extends AbstractHandler implements HandlerInterface {
 	public function delete(DimeEntityInterface $entity)
 	{
 		$this->deleteEntity($entity);
+	}
+
+	/**
+	 * Duplicate an Entity
+	 * @param DimeEntityInterface $entity
+	 *
+	 * @return mixed
+	 */
+	public function duplicate(DimeEntityInterface $entity)
+	{
+		$deepCopy = new DeepCopy();
+		$deepCopy = $entity::getCopyFilters($deepCopy);
+		$newEntity = $deepCopy->copy($entity);
+		$this->om->persist($newEntity);
+		$this->om->flush();
+		return $newEntity;
 	}
 }

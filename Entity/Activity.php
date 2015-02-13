@@ -2,11 +2,11 @@
 namespace Dime\TimetrackerBundle\Entity;
 
 use Dime\TimetrackerBundle\Model\ActivityReference;
+use Dime\TimetrackerBundle\Model\DimeEntityInterface;
 use Dime\TimetrackerBundle\Model\RateUnitType;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as JMS;
-use Doctrine\Common\Collections\ArrayCollection;
-use Dime\TimetrackerBundle\Model\DimeEntityInterface;
 use Knp\JsonSchemaBundle\Annotations as Json;
 
 
@@ -214,13 +214,13 @@ class Activity extends Entity implements DimeEntityInterface
 		$value = $this->getValue();
 		switch ($this->getRateUnitType()){
 		case RateUnitType::$Hourly:
-			return round(($value / 3600), 2).'h';
+			return round(($value / RateUnitType::$HourInSeconds), 2).'h';
 			break;
 		case RateUnitType::$Minutely:
-			return round(($value / 60), 2).'m';
+			return round(($value / RateUnitType::$MinuteInSeconds), 2).'m';
 			break;
 		case RateUnitType::$Dayly:
-			return round(($value / 30240), 2).'d';
+			return round(($value / RateUnitType::$DayInSeconds), 2).'d';
 			break;
 		}
 		return $value;

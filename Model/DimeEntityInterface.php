@@ -2,6 +2,9 @@
 namespace Dime\TimetrackerBundle\Model;
 
 
-interface DimeEntityInterface{
+use DeepCopy\DeepCopy;
 
+interface DimeEntityInterface
+{
+	static function getCopyFilters(DeepCopy $deepCopy);
 }

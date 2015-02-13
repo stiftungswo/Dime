@@ -2,14 +2,15 @@
 namespace Dime\TimetrackerBundle\Entity;
 
 use DateTime;
+use Dime\TimetrackerBundle\Model\DimeEntityInterface;
 use Dime\TimetrackerBundle\Model\RateUnitType;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
-use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation as JMS;
-use Doctrine\Common\Collections\ArrayCollection;
-use Dime\TimetrackerBundle\Model\DimeEntityInterface;
 use Knp\JsonSchemaBundle\Annotations as Json;
+use Swo\Money\lib\Money\Money;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Dime\TimetrackerBundle\Entity\Project
@@ -358,13 +359,16 @@ class Project extends Entity implements DimeEntityInterface
     /**
      * Set budgetPrice
      *
-     * @param  integer $budgetPrice
+     * @param  integer | Money $budgetPrice
      * @return Project
      */
     public function setBudgetPrice($budgetPrice)
     {
-        $this->budgetPrice = $budgetPrice;
-
+        if($budgetPrice instanceof Money){
+            $this->budgetPrice = $budgetPrice->getAmount();
+        } else {
+            $this->budgetPrice = $budgetPrice;
+        }
         return $this;
     }
 
@@ -381,13 +385,16 @@ class Project extends Entity implements DimeEntityInterface
     /**
      * Set fixedPrice
      *
-     * @param  integer $fixedPrice
+     * @param  integer | Money $fixedPrice
      * @return Project
      */
     public function setFixedPrice($fixedPrice)
     {
-        $this->fixedPrice = $fixedPrice;
-
+        if($fixedPrice instanceof Money){
+            $this->fixedPrice = $fixedPrice->getAmount();
+        } else {
+            $this->fixedPrice = $fixedPrice;
+        }
         return $this;
     }
 

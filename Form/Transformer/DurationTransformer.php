@@ -8,6 +8,7 @@
 namespace Dime\TimetrackerBundle\Form\Transformer;
 
 
+use Dime\TimetrackerBundle\Model\RateUnitType;
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
@@ -44,11 +45,15 @@ class DurationTransformer implements DataTransformerInterface
 	public function transform($value)
 	{
 		if(is_numeric($value)){
-			$time = $value / 3600;
+			$time = $value / RateUnitType::$DayInSeconds;
+			if($time >= 1){
+				return $time.'d';
+			}
+			$time = $value / RateUnitType::$HourInSeconds;
 			if($time >= 1){
 				return $time.'h';
 			}
-			$time = $value / 60;
+			$time = $value / RateUnitType::$MinuteInSeconds;
 			if($time >= 1){
 				return $time.'m';
 			}
@@ -90,13 +95,13 @@ class DurationTransformer implements DataTransformerInterface
 			$time = floatval(str_replace(',', '.', $time));
 			switch($format){
 			case 'h':
-				$time = $time * 3600;
+				$time = $time * RateUnitType::$HourInSeconds;
 				break;
 			case 'm':
-				$time = $time * 60;
+				$time = $time * RateUnitType::$MinuteInSeconds;
 				break;
 			case 'd':
-				$time = $time * 86400;
+				$time = $time * RateUnitType::$DayInSeconds;
 				break;
 			default:
 				$time = $value;

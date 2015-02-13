@@ -1,14 +1,17 @@
 <?php
 namespace Dime\TimetrackerBundle\Entity;
 
-use Gedmo\Mapping\Annotation as Gedmo;
+use DeepCopy\DeepCopy;
+use DeepCopy\Filter\SetNullFilter;
+use DeepCopy\Matcher\PropertyMatcher;
+use Dime\TimetrackerBundle\Model\DimeEntityInterface;
 use Doctrine\ORM\Mapping as ORM;
+use FOS\UserBundle\Model\User as BaseUser;
+use Gedmo\Mapping\Annotation as Gedmo;
+use JMS\Serializer\Annotation as JMS;
+use Knp\JsonSchemaBundle\Annotations as Json;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
-use JMS\Serializer\Annotation as JMS;
-use FOS\UserBundle\Model\User as BaseUser;
-use Dime\TimetrackerBundle\Model\DimeEntityInterface;
-use Knp\JsonSchemaBundle\Annotations as Json;
 
 /**
  * Dime\TimetrackerBundle\Entity\Project
@@ -164,4 +167,13 @@ class User extends BaseUser implements DimeEntityInterface
 	{
 		return $this->getFirstname().' '.$this->getLastname();
 	}
+
+    static function getCopyFilters(DeepCopy $deepCopy)
+    {
+        $deepCopy->skipUncloneable(true);
+        $deepCopy->addFilter(new SetNullFilter(), new PropertyMatcher(static::class, 'id'));
+        $deepCopy->addFilter(new SetNullFilter(), new PropertyMatcher(static::class, 'createdAt'));
+        $deepCopy->addFilter(new SetNullFilter(), new PropertyMatcher(static::class, 'updatedAt'));
+        return $deepCopy;
+    }
 }
