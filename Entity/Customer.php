@@ -11,6 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use JMS\Serializer\Annotation as JMS;
 use Knp\JsonSchemaBundle\Annotations as Json;
+use Swo\CommonsBundle\Filter\NewNameFilter;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -119,7 +120,7 @@ class Customer extends Entity implements DimeEntityInterface
         $deepCopy->addFilter(new KeepFilter(), new PropertyMatcher(self::class, 'tags'));
         $deepCopy->addFilter(new KeepFilter(), new PropertyMatcher(self::class, 'rateGroup'));
         $deepCopy->addFilter(new SetNullFilter(), new PropertyMatcher(self::class, 'phones'));
-        $deepCopy->addFilter(new SetNullFilter(), new PropertyMatcher(self::class, 'name'));
+        $deepCopy->addFilter(new NewNameFilter('Customer'), new PropertyMatcher(self::class, 'name'));
         $deepCopy->addFilter(new SetNullFilter(), new PropertyMatcher(self::class, 'alias'));
         return $deepCopy;
     }
