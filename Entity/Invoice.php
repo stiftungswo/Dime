@@ -7,15 +7,20 @@
 
 namespace Dime\InvoiceBundle\Entity;
 
+use DeepCopy\DeepCopy;
+use DeepCopy\Filter\Doctrine\DoctrineCollectionFilter;
+use DeepCopy\Filter\KeepFilter;
+use DeepCopy\Filter\SetNullFilter;
+use DeepCopy\Matcher\PropertyMatcher;
 use Dime\TimetrackerBundle\Entity\Entity;
 use Dime\TimetrackerBundle\Entity\StandardDiscount;
+use Dime\TimetrackerBundle\Model\DimeEntityInterface;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
 use JMS\Serializer\Annotation as JMS;
-use Doctrine\Common\Collections\ArrayCollection;
-use Dime\TimetrackerBundle\Model\DimeEntityInterface;
 use Knp\JsonSchemaBundle\Annotations as Json;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class Invoice
@@ -157,6 +162,22 @@ class Invoice extends Entity implements DimeEntityInterface
 			}
 		}
 		return $this;
+	}
+
+	public static function getCopyFilters(DeepCopy $deepCopy)
+	{
+		$deepCopy = parent::getCopyFilters($deepCopy);
+		$deepCopy->addFilter(new KeepFilter(), new PropertyMatcher(self::class, 'project'));
+		$deepCopy->addFilter(new KeepFilter(), new PropertyMatcher(self::class, 'offer'));
+		$deepCopy->addFilter(new KeepFilter(), new PropertyMatcher(self::class, 'tags'));
+		$deepCopy->addFilter(new KeepFilter(), new PropertyMatcher(self::class, 'standardDiscounts'));
+		$deepCopy->addFilter(new DoctrineCollectionFilter(), new PropertyMatcher(self::class, 'items'));
+		$deepCopy->addFilter(new DoctrineCollectionFilter(), new PropertyMatcher(self::class, 'invoiceDiscounts'));
+		$deepCopy->addFilter(new SetNullFilter(), new PropertyMatcher(self::class, 'name'));
+		$deepCopy->addFilter(new SetNullFilter(), new PropertyMatcher(self::class, 'alias'));
+		$deepCopy = InvoiceDiscount::getCopyFilters($deepCopy);
+		$deepCopy = InvoiceItem::getCopyFilters($deepCopy);
+		return $deepCopy;
 	}
 
 	/**

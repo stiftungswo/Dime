@@ -4,12 +4,14 @@ namespace Dime\InvoiceBundle\Controller;
 
 use Dime\TimetrackerBundle\Controller\DimeController;
 use Dime\TimetrackerBundle\Exception\InvalidFormException;
-use FOS\RestBundle\View\View;
+use FOS\RestBundle\Controller\Annotations;
 use FOS\RestBundle\Request\ParamFetcherInterface;
 use FOS\RestBundle\Util\Codes;
+use FOS\RestBundle\View\View;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
-use FOS\RestBundle\Controller\Annotations;
+use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class InvoiceController extends DimeController
 {
@@ -20,6 +22,8 @@ class InvoiceController extends DimeController
 	 *
 	 * @ApiDoc(
 	 * resource = true,
+	 * output = "Dime\InvoiceBundle\Entity\Invoice",
+	 * section="invoices",
 	 * statusCodes = {
 	 * 200 = "Returned when successful"
 	 * }
@@ -51,7 +55,8 @@ class InvoiceController extends DimeController
 	 * @ApiDoc(
 	 * resource = true,
 	 * description = "Gets a Invoice for a given id",
-	 * output = "Dime\TimetrackerBundle\Entity\Invoice",
+	 * output = "Dime\InvoiceBundle\Entity\Invoice",
+	 * section="invoices",
 	 * statusCodes = {
 	 * 200 = "Returned when successful",
 	 * 404 = "Returned when the page is not found"
@@ -79,7 +84,9 @@ class InvoiceController extends DimeController
 	 *
 	 * @ApiDoc(
 	 * resource = true,
-	 * input = "Dime\TimetrackerBundle\Form\Type\ProjectFormType",
+	 * input = "Dime\InvoiceBundle\Form\Type\ProjectFormType",
+	 * output = "Dime\InvoiceBundle\Entity\Invoice",
+	 * section="invoices",
 	 * statusCodes = {
 	 * 200 = "Returned when the Entity was updated",
 	 * 400 = "Returned when the form has errors",
@@ -115,7 +122,9 @@ class InvoiceController extends DimeController
 	 *
 	 * @ApiDoc(
 	 * resource = true,
-	 * input = "Dime\TimetrackerBundle\Form\Type\InvoiceFormType",
+	 * input = "Dime\InvoiceBundle\Form\Type\InvoiceFormType",
+	 * output = "Dime\InvoiceBundle\Entity\Invoice",
+	 * section="invoices",
 	 * statusCodes = {
 	 * 204 = "Returned when successful",
 	 * 404 = "Returned when Invoice does not exist."
@@ -144,6 +153,8 @@ class InvoiceController extends DimeController
 	 *
 	 * @ApiDoc(
 	 * resource = true,
+	 * output = "Dime\TimetrackerBundle\Entity\Project",
+	 * section="invoices",
 	 * statusCodes = {
 	 * 200 = "Returned when successful",
 	 * 404 = "Returned when entity does not exist"
@@ -169,6 +180,7 @@ class InvoiceController extends DimeController
 	 *
 	 * @ApiDoc(
 	 * resource = true,
+	 * section="invoices",
 	 * statusCodes = {
 	 * 200 = "Returned when successful",
 	 * 404 = "Returned when entity does not exist"
@@ -192,6 +204,8 @@ class InvoiceController extends DimeController
 	 *
 	 * @ApiDoc(
 	 * resource = true,
+	 * output = "Dime\InvoiceBundle\Entity\Invoice",
+	 * section="invoices",
 	 * statusCodes = {
 	 * 200 = "Returned when successful",
 	 * 404 = "Returned when entity does not exist"
@@ -208,5 +222,30 @@ class InvoiceController extends DimeController
 	public function updateInvoiceAction($id)
 	{
 		return $this->get($this->handlerSerivce)->updateInvoiceItems($this->getOr404($id, $this->handlerSerivce));
+	}
+
+	/**
+	 * Duplicate Entity
+	 *
+	 * @ApiDoc(
+	 *  resource= true,
+	 *  section="invoices",
+	 *  statusCodes={
+	 *      200 = "Returned when successful",
+	 *      404 = "Returned when entity does not exist"
+	 *  }
+	 * )
+	 *
+	 * @Annotations\Get("/invoices/{id}/duplicate", name="_invoices_dup")
+	 *
+	 * @Annotations\Route(requirements={"_format"="json|xml"})
+	 *
+	 * @param $id
+	 *
+	 * @return \Dime\InvoiceBundle\Entity\Invoice
+	 */
+	public function duplicateInvoiceAction($id)
+	{
+		return $this->get($this->handlerSerivce)->duplicate($this->getOr404($id, $this->handlerSerivce));
 	}
 }

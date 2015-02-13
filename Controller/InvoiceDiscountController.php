@@ -2,14 +2,16 @@
 
 namespace Dime\InvoiceBundle\Controller;
 
+use Dime\TimetrackerBundle\Controller\DimeController;
 use Dime\TimetrackerBundle\Exception\InvalidFormException;
-use FOS\RestBundle\View\View;
-use Symfony\Component\HttpFoundation\Request;
+use FOS\RestBundle\Controller\Annotations;
 use FOS\RestBundle\Request\ParamFetcherInterface;
 use FOS\RestBundle\Util\Codes;
+use FOS\RestBundle\View\View;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
-use FOS\RestBundle\Controller\Annotations;
-use Dime\TimetrackerBundle\Controller\DimeController;
+use Symfony\Component\Form\FormTypeInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class InvoiceDiscountController extends DimeController
 {
@@ -22,6 +24,8 @@ class InvoiceDiscountController extends DimeController
 	 *
 	 * @ApiDoc(
 	 * resource = true,
+	 * output = "Dime\InvoiceBundle\Entity\InvoiceDiscount",
+	 * section="invoicediscounts",
 	 * statusCodes = {
 	 * 200 = "Returned when successful"
 	 * }
@@ -57,7 +61,8 @@ class InvoiceDiscountController extends DimeController
 	 * @ApiDoc(
 	 * resource = true,
 	 * description = "Gets a Timeslice for a given id",
-	 * output = "Dime\TimetrackerBundle\Entity\Timeslice",
+	 * output = "Dime\InvoiceBundle\Entity\InvoiceDiscount",
+	 * section="invoicediscounts",
 	 * statusCodes = {
 	 * 200 = "Returned when successful",
 	 * 404 = "Returned when the page is not found"
@@ -88,7 +93,9 @@ class InvoiceDiscountController extends DimeController
 	 * @ApiDoc(
 	 * resource = true,
 	 * description = "Creates a new page from the submitted data.",
-	 * input = "Dime\TimetrackerBundle\Form\Type\TimesliceFormType",
+	 * input = "Dime\InvoiceBundle\Form\Type\InvoiceDiscountFormType",
+	 * output = "Dime\InvoiceBundle\Entity\InvoiceDiscount",
+	 * section="invoicediscounts",
 	 * statusCodes = {
 	 * 201 = "Returned when successful",
 	 * 400 = "Returned when the form has errors"
@@ -119,7 +126,9 @@ class InvoiceDiscountController extends DimeController
 	 *
 	 * @ApiDoc(
 	 * resource = true,
-	 * input = "Dime\TimetrackerBundle\Form\Type\TimesliceFormType",
+	 * input = "Dime\InvoiceBundle\Form\Type\InvoiceDiscountFormType",
+	 * output = "Dime\InvoiceBundle\Entity\InvoiceDiscount",
+	 * section="invoicediscounts",
 	 * statusCodes = {
 	 * 200 = "Returned when the Entity was updated",
 	 * 400 = "Returned when the form has errors",
@@ -154,7 +163,7 @@ class InvoiceDiscountController extends DimeController
 	 *
 	 * @ApiDoc(
 	 * resource = true,
-	 * input = "Dime\TimetrackerBundle\Form\Type\TimesliceFormType",
+	 * section="invoicediscounts",
 	 * statusCodes = {
 	 * 204 = "Returned when successful",
 	 * 404 = "Returned when Timeslice does not exist."
@@ -177,5 +186,32 @@ class InvoiceDiscountController extends DimeController
 	{
 		$this->container->get($this->handlerSerivce)->delete($this->getOr404($id, $this->handlerSerivce));
 		return $this->view(null, Codes::HTTP_NO_CONTENT);
+	}
+
+	/**
+	 * Duplicate Entity
+	 *
+	 * @ApiDoc(
+	 *  resource= true,
+	 *  input = "Dime\InvoiceBundle\Form\Type\InvoiceDiscountFormType",
+	 *  output = "Dime\InvoiceBundle\Entity\InvoiceDiscount",
+	 *  section="invoicediscounts",
+	 *  statusCodes={
+	 *      200 = "Returned when successful",
+	 *      404 = "Returned when entity does not exist"
+	 *  }
+	 * )
+	 *
+	 * @Annotations\Get("/invoicediscounts/{id}/duplicate", name="_invoices_dup")
+	 *
+	 * @Annotations\Route(requirements={"_format"="json|xml"})
+	 *
+	 * @param $id
+	 *
+	 * @return \Dime\InvoiceBundle\Entity\InvoiceDiscount
+	 */
+	public function duplicateInvoiceDiscountAction($id)
+	{
+		return $this->get($this->handlerSerivce)->duplicate($this->getOr404($id, $this->handlerSerivce));
 	}
 }

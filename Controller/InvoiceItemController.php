@@ -2,14 +2,14 @@
 
 namespace Dime\InvoiceBundle\Controller;
 
-use Dime\TimetrackerBundle\Exception\InvalidFormException;
-use FOS\RestBundle\View\View;
-use Symfony\Component\HttpFoundation\Request;
+use Dime\TimetrackerBundle\Controller\DimeController;
+use FOS\RestBundle\Controller\Annotations;
 use FOS\RestBundle\Request\ParamFetcherInterface;
 use FOS\RestBundle\Util\Codes;
+use FOS\RestBundle\View\View;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
-use FOS\RestBundle\Controller\Annotations;
-use Dime\TimetrackerBundle\Controller\DimeController;
+use Symfony\Component\Form\FormTypeInterface;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class InvoiceItemController extends DimeController
 {
@@ -20,6 +20,8 @@ class InvoiceItemController extends DimeController
 	 *
 	 * @ApiDoc(
 	 * resource = true,
+	 * output = "Dime\InvoiceBundle\Entity\InvoiceItem",
+	 * section="invoiceitems",
 	 * statusCodes = {
 	 * 200 = "Returned when successful"
 	 * }
@@ -55,7 +57,8 @@ class InvoiceItemController extends DimeController
 	 * @ApiDoc(
 	 * resource = true,
 	 * description = "Gets a Timeslice for a given id",
-	 * output = "Dime\TimetrackerBundle\Entity\Timeslice",
+	 * output = "Dime\InvoiceBundle\Entity\InvoiceItem",
+	 * section="invoiceitems",
 	 * statusCodes = {
 	 * 200 = "Returned when successful",
 	 * 404 = "Returned when the page is not found"
@@ -85,10 +88,9 @@ class InvoiceItemController extends DimeController
 	 *
 	 * @ApiDoc(
 	 * resource = true,
-	 * input = "Dime\TimetrackerBundle\Form\Type\TimesliceFormType",
 	 * statusCodes = {
 	 * 204 = "Returned when successful",
-	 * 404 = "Returned when Timeslice does not exist."
+	 * 404 = "Returned when Entity does not exist."
 	 * }
 	 * )
 	 *
