@@ -36,10 +36,6 @@ define([
         postCreate: function(){
             this.inherited(arguments);
             this._configChildren();
-        },
-
-        startup: function(){
-            this.inherited(arguments);
             this._configEvents();
             this._configCallbacks();
         },
