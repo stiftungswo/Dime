@@ -19,3 +19,6 @@
 [submodule "src/Swo/Money"]
 	path = src/Swo/Money
 	url = https://github.com/stiftungswo/money
+[submodule "src/Dime/ReportBundle"]
+	path = src/Dime/ReportBundle
+	url = https://github.com/stiftungswo/DimeReportBundle.git
