@@ -6,7 +6,6 @@ This report bundel generates reports in REST readable JSON files of the followin
 - Percentage of time spent on service per project
 - TimeSpent per Project grouped by Project Category
 - Time that a user would have to work vs. time user has already worked. (May be in Employee Bundle)
-- 
 
 ## General Proposal
 
