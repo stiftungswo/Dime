@@ -1,17 +1,22 @@
 # Dime - ReportBundle
 
-The report bundle should visualize the timeslices of the activities in a certain time range and maybe put some nice
-charts. It will be the first example implementation to extend the DimeTimetrackerFrontendBundle.
+This report bundel generates reports in REST readable JSON files of the following:
+- Percentage of time spent on project per user
+- Percentage of time spent on service per user
+- Percentage of time spent on service per project
+- TimeSpent per Project grouped by Project Category
+- Time that a user would have to work vs. time user has already worked. (May be in Employee Bundle)
+- 
 
 ## General Proposal
 
-Dime is a time tracker based on Symfony2. It provide an REST API and this Bundle will be the Frontend for it. At the
-moment we use Bootstrap as HTML framework and Backbone.js as rest client.
+DimeErp is a small ERP Solution for small businesses based on Dime Timetracker. This Bundle provides the REST API for making nice charts and Tables.
 
 ## Requirements
 
 - DimeTimetrackerBundle
-- DimeTimetrackerFrontendBundle
+- DimeOfferBUndle
+- DimeEmployeeBundle
 
 ## Configuration
 
@@ -37,4 +42,3 @@ Add to `AppKernel.php`:
 
 ## Initialization
 
-    app/console dime:publish-assets
