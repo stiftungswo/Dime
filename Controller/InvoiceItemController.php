@@ -88,6 +88,7 @@ class InvoiceItemController extends DimeController
 	 *
 	 * @ApiDoc(
 	 * resource = true,
+	 * section="invoiceitems",
 	 * statusCodes = {
 	 * 204 = "Returned when successful",
 	 * 404 = "Returned when Entity does not exist."
