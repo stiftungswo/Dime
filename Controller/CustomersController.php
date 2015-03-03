@@ -241,7 +241,6 @@ class CustomersController extends DimeController
 	 *  }
 	 * )
 	 *
-	 * @Annotations\Get("/customers/{id}/duplicate", name="_customers_dup")
 	 *
 	 * @Annotations\Route(requirements={"_format"="json|xml"})
 	 *

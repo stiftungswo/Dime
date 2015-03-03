@@ -31,7 +31,7 @@ class ServicesController extends DimeController
      * )
      *
      * @Annotations\QueryParam(name="user", requirements="\d+", nullable=true, description="Filter By User")
-     * @Annotations\QueryParam(name="search", requirements="\w+", nullable=true, description="Filter By Name or alias")
+     * @Annotations\QueryParam(name="search", nullable=true, description="Filter By Name or alias")
      *
      * @Annotations\View(
      * templateVar="services"
@@ -230,7 +230,6 @@ class ServicesController extends DimeController
 	 *  }
 	 * )
 	 *
-	 * @Annotations\Get("/services/{id}/duplicate", name="_services_dup")
 	 *
 	 * @Annotations\Route(requirements={"_format"="json|xml"})
 	 *

@@ -197,7 +197,6 @@ class StandardDiscountController extends DimeController
 	 *  }
 	 * )
 	 *
-	 * @Annotations\Get("/standarddiscounts/{id}/duplicate", name="_standarddiscounts_dup")
 	 *
 	 * @Annotations\Route(requirements={"_format"="json|xml"})
 	 *

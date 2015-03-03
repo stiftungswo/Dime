@@ -38,7 +38,7 @@ class ActivitiesController extends DimeController
      * @Annotations\QueryParam(name="project", requirements="\d+", nullable=true, description="Filter By Project")
      * @Annotations\QueryParam(name="service", requirements="\d+", nullable=true, description="Filter By Service")
      * @Annotations\QueryParam(name="user", requirements="\d+", nullable=true, description="Filter By User")
-     * @Annotations\QueryParam(name="search", requirements="\w+", nullable=true, description="Filter By Name or alias")
+     * @Annotations\QueryParam(name="search", nullable=true, description="Filter By Name or alias")
      * @Annotations\QueryParam(array=true, name="withTags", requirements="\d+", nullable=true, description="Show Entities with these Tags")
      * @Annotations\QueryParam(array=true, name="withoutTags", requirements="\d+", nullable=true, description="Show Entities without this Tags")
      * @Annotations\QueryParam(name="name", nullable=true, description="Filter on Name Property")
@@ -246,7 +246,6 @@ class ActivitiesController extends DimeController
 	 *  }
 	 * )
 	 *
-	 * @Annotations\Get("/activities/{id}/duplicate", name="_activities_dup")
 	 *
 	 * @Annotations\Route(requirements={"_format"="json|xml"})
 	 *

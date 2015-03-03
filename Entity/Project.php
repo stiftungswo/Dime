@@ -7,6 +7,7 @@ use DeepCopy\Filter\Doctrine\DoctrineCollectionFilter;
 use DeepCopy\Filter\KeepFilter;
 use DeepCopy\Filter\SetNullFilter;
 use DeepCopy\Matcher\PropertyMatcher;
+use Dime\TimetrackerBundle\Form\Transformer\DurationTransformer;
 use Dime\TimetrackerBundle\Model\DimeEntityInterface;
 use Dime\TimetrackerBundle\Model\RateUnitType;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -103,7 +104,7 @@ class Project extends Entity implements DimeEntityInterface
     /**
      * @var integer $budgetTime
      *
-     * @JMS\SerializedName("budgetTime")
+     * @JMS\Exclude()
      * @ORM\Column(name="budget_time", type="integer", length=255, nullable=true)
      */
     protected $budgetTime;
@@ -168,6 +169,16 @@ class Project extends Entity implements DimeEntityInterface
 			}
 		}
 		return ($duration / RateUnitType::$HourInSeconds).'h';
+	}
+
+	/**
+	 * @JMS\VirtualProperty()
+	 * @JMS\SerializedName("budgetTime")
+	 */
+	public function serializeBudgetTime()
+	{
+		$transformer = new DurationTransformer();
+		return $transformer->transform($this->getBudgetPrice());
 	}
 
     public static function getCopyFilters(DeepCopy $deepCopy)

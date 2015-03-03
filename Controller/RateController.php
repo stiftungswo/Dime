@@ -236,7 +236,6 @@ class RateController extends DimeController
 	 *  }
 	 * )
 	 *
-	 * @Annotations\Get("/rates/{id}/duplicate", name="_rates_dup")
 	 *
 	 * @Annotations\Route(requirements={"_format"="json|xml"})
 	 *

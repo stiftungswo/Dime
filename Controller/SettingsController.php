@@ -191,7 +191,6 @@ class SettingsController extends DimeController
 	 *  }
 	 * )
 	 *
-	 * @Annotations\Get("/settings/{id}/duplicate", name="_settings_dup")
 	 *
 	 * @Annotations\Route(requirements={"_format"="json|xml"})
 	 *

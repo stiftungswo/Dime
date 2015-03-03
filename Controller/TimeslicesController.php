@@ -8,6 +8,7 @@ use FOS\RestBundle\Request\ParamFetcherInterface;
 use FOS\RestBundle\Util\Codes;
 use FOS\RestBundle\View\View;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -136,6 +137,8 @@ class TimeslicesController extends DimeController
      * resource = true,
      * description = "Creates a new page from the submitted data.",
      * input = "Dime\TimetrackerBundle\Form\Type\TimesliceFormType",
+     * output = "Dime\TimetrackerBundle\Entity\Timeslice",
+     * section="timeslices",
      * statusCodes = {
      * 201 = "Returned when successful",
      * 400 = "Returned when the form has errors"
@@ -238,7 +241,6 @@ class TimeslicesController extends DimeController
 	 *  }
 	 * )
 	 *
-	 * @Annotations\Get("/timeslices/{id}/duplicate", name="_timeslices_dup")
 	 *
 	 * @Annotations\Route(requirements={"_format"="json|xml"})
 	 *

@@ -221,7 +221,6 @@ class TagsController extends DimeController
 	 *  }
 	 * )
 	 *
-	 * @Annotations\Get("/tags/{id}/duplicate", name="_tags_dup")
 	 *
 	 * @Annotations\Route(requirements={"_format"="json|xml"})
 	 *

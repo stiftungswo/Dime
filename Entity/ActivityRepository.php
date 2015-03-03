@@ -2,8 +2,8 @@
 
 namespace Dime\TimetrackerBundle\Entity;
 
-use Dime\TimetrackerBundle\Entity\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
+
 /**
  * ActivityRepository
  *
@@ -36,7 +36,15 @@ class ActivityRepository extends EntityRepository
         $aliases = $qb->getRootAliases();
         $alias = array_shift($aliases);
 
-        $qb->andWhere($qb->expr()->like($alias . '.description', ':text'));
+        $qb->andWhere(
+	        $qb->expr()->orX()->addMultiple(array(
+		        $qb->expr()->like($alias . '.description', ':text'),
+		        $qb->join($alias.'.service', 's', null, null, 's.id')->expr()->orX()->addMultiple(array(
+			        $qb->expr()->like('s.name', ':text'),
+			        $qb->expr()->like('s.alias', ':text')
+		        ))
+            ))
+        );
         $qb->setParameter('text', '%'  . $text . '%');
 
         return $this;

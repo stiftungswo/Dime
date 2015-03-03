@@ -240,7 +240,6 @@ class ProjectsController extends DimeController
 	 *  }
 	 * )
 	 *
-	 * @Annotations\Get("/projects/{id}/duplicate", name="_projects_dup")
 	 *
 	 * @Annotations\Route(requirements={"_format"="json|xml"})
 	 *
