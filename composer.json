@@ -1,8 +1,8 @@
 {
     "name": "phpugl/dime-report-bundle",
     "type": "symfony-bundle",
-    "description": "Report bundle for dime timetracker",
-    "homepage": "https://github.com/phpugl/DimeTimetrackerFrontendBundle",
+    "description": "Report bundle for DimeERP",
+    "homepage": "https://github.com/phpugl/DimeTimetrackerReportBundle",
     "license": "MIT",
     "authors": [
         {
@@ -14,8 +14,7 @@
         "psr-0": { "Dime\\ReportBundle": "" }
     },
     "require": {
-        "php": ">=5.3.3",
-        "phpugl/dime-timetracker-frontend-bundle": "0.2.*"
+        "php": ">=5.6"
     },
     "minimum-stability": "dev",
     "target-dir": "Dime/ReportBundle"

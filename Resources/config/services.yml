@@ -1,1 +1,4 @@
 services:
+    dime.chart.handler:
+        class: Dime\ReportBundle\Handler\ChartHandler
+        arguments: [ "@doctrine.orm.entity_manager", "@service_container"]

@@ -1,0 +1,6 @@
+report:
+    type:     annotation
+    resource: Dime\ReportBundle\Controller\ChartController
+    prefix:   /v1
+    name_prefix:  api_1_
+    defaults: { _format: json }
