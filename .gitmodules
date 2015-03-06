@@ -22,3 +22,6 @@
 [submodule "src/Dime/ReportBundle"]
 	path = src/Dime/ReportBundle
 	url = https://github.com/stiftungswo/DimeReportBundle.git
+[submodule "src/Dime/VelvelReportBundle"]
+	path = src/Dime/VelvelReportBundle
+	url = https://github.com/Velvel/VelvelReportBundle.git
