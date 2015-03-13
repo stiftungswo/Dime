@@ -19,6 +19,27 @@ class Configuration implements ConfigurationInterface
     {
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('dime_invoice');
+	    $rootNode
+	    ->children()
+		    ->arrayNode('sender')
+		        ->children()
+		            ->scalarNode('name')->end()
+		            ->scalarNode('plz')->end()
+		            ->scalarNode('city')->end()
+		            ->scalarNode('street')->end()
+		            ->scalarNode('streetnumber')->end()
+		            ->scalarNode('phone')->end()
+		            ->scalarNode('fax')->end()
+		            ->scalarNode('mail')->end()
+		            ->scalarNode('web')->end()
+		            ->scalarNode('mwstId')->end()
+		            ->scalarNode('bank')->end()
+		            ->scalarNode('iban')->end()
+		            ->scalarNode('kontoNr')->end()
+		        ->end()
+		    ->end()
+		    ->scalarNode('mwstPercent')->end()
+	    ->end();
 
         // Here you should define the parameters that are allowed to
         // configure your bundle. See the documentation linked above for

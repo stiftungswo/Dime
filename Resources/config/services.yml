@@ -13,3 +13,19 @@ services:
     dime.invoiceitem.handler:
         class: %generic_handler%
         arguments: [ "@doctrine.orm.entity_manager", "Dime\InvoiceBundle\Entity\InvoiceItem", "@service_container", "invt", "dime_invoicebundle_invoiceitemformtype" ]
+
+    dime.invoice.configreader:
+        class: Dime\InvoiceBundle\Service\InvoiceConfigurationValueReader
+        calls:
+            - [ setContainer,  [@service_container] ]
+
+    twig.extension.invoiceconfig:
+        class: Dime\InvoiceBundle\Extensions\InvoiceConfigurationExtension
+        arguments: [@dime.invoice.configreader]
+        tags:
+            - { name: twig.extension }
+
+    twig.extension.float2moneystring:
+        class: Dime\InvoiceBundle\Extensions\Float2MoneyStringExtension
+        tags:
+            - { name: twig.extension }

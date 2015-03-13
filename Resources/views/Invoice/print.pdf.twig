@@ -5,12 +5,12 @@
 	<dynamic-page page-size="a4">
 		<div class="logo"><img src="{{ pdf_image('SwoCommonsBundle:swo_logo_big.png') }}"/></div>
 		<div class="absenderHeader">
-			8600 Dübendorf<br/>
-			Im Schatzacker 5<br/>
-			Telefon: 044 822 13 40<br/>
-			Telefax: 044 822 13 66<br/>
-			Mail: swo@stiftungswo.ch<br/>
-			www.stiftungswo.ch<br/>
+			{{ invoiceconfig.senderPlz }} {{ invoiceconfig.senderCity }}<br/>
+			{{ invoiceconfig.senderStreet }} {{ invoiceconfig.senderStreetnumber }}<br/>
+			Telefon: {{ invoiceconfig.senderPhone }}<br/>
+			Telefax: {{ invoiceconfig.senderFax }}<br/>
+			Mail: {{ invoiceconfig.senderMail }}<br/>
+			{{ invoiceconfig.senderWeb }}<br/>
 		</div>
 		{% if customer.address %}
 			{% set address = customer.address %}
@@ -24,7 +24,7 @@
 			</div>
 		{% endif %}
 		<div class="header">
-			<div class="ortdatum">Dübendorf,   {{ invoice.updatedAt|date("d.m.Y") }}</div><br/>
+			<div class="ortdatum">{{ invoiceconfig.senderCity }},   {{ invoice.updatedAt|date("d.m.Y") }}</div><br/>
 			{% if invoice.user %}
 			<div class="accountant">Sachbearbeiter: {{ invoice.user }}</div><br/>
 			{% endif %}
@@ -35,7 +35,7 @@
 			{% if invoice.project %}
 			<div class="projectID">Auftrag Nr. {{ invoice.project.id }}</div><br/>
 			{% endif %}
-			<div class="mwstNR">MwSt-ID CHE-108.024.134 MWST</div><br/>
+			<div class="mwstNR">MwSt-ID {{ invoiceconfig.senderMwstId }}</div><br/>
 			<!--<div class="dateRange">Aufwandzeitraum $START - $END</p>-->
 			{% if invoice.offer %}
 			<div class="offerShortDescription">{{ invoice.offer.shortdescription }}</div><br/>
@@ -56,7 +56,7 @@
 				<td class="number">{{ item.value }}</td>
 				<td>{{ item.rateUnit }}</td>
 				<td class="number">{{ item.rate }}</td>
-				<td class="number">8%</td>
+				<td class="number">{{ invoiceconfig.mwstPercent }}%</td>
 				<td class="number">{{ item.charge }}</td>
 			</tr>
 			{% endfor %}
@@ -104,4 +104,65 @@
 			</tr>
 		</table>
 	</dynamic-page>
+	<page margin="192mm 5mm 5mm 5mm">
+		<table height="100mm" width="200mm" border.type="none">
+			<tr border.type="none">
+				<td height="100mm" width="55mm" border.type="none">
+					<div margin="18mm 0 0 0" font-size="14">
+						<div font-style="bold">{{ invoiceconfig.senderName }}</div><br/>
+						{{ invoiceconfig.senderPlz }} {{ invoiceconfig.senderCity }}
+					</div>
+					<div margin="9mm 4mm 0 20mm" text-align="right">
+						{{ invoiceconfig.senderKontoNr }}
+					</div>
+					<div margin="6mm 3mm 0 0">
+						<div margin="0" padding="0" font-size="14" text-align="center">
+							  {{ invoice.net|float2moneystring(2)|charbox(2) }}<div margin="0" padding="0" float="right" width="6mm"></div>{{ invoice.net|float2moneystring(1)|charbox(8) }}
+						</div>
+					</div>
+					<div margin="7mm 0 0 0" font-size="14">
+						{% if customer.salutation %}{{ customer.salutation }} {% endif %}{% if customer.fullname %}{{ customer.fullname }}{% else %}{{ customer.name }}{% endif %}<br/>
+						{{ address.street }} {{ address.streetnumber }}<br/>
+						{{ address.plz }} {{ address.city }}<br/>
+					</div>
+				</td>
+				<td border.type="none">
+					<table border.type="none">
+						<tr border.type="none">
+							<td height="80mm" width="62mm" border.type="none">
+								<div margin="18mm 0 0 3mm" font-size="14">
+									<div font-style="bold">{{ invoiceconfig.senderName }}</div><br/>
+									{{ invoiceconfig.senderPlz }} {{ invoiceconfig.senderCity }}
+								</div>
+								<div margin="9mm 4mm 0 20mm" text-align="right">
+									{{ invoiceconfig.senderKontoNr }}
+								</div>
+								<div margin="6mm 2mm 0 0">
+									<div margin="0" padding="0" font-size="14" text-align="center">
+										{{ invoice.net|float2moneystring(2)|charbox(2) }}<div margin="0" padding="0" float="right" width="6mm"></div>{{ invoice.net|float2moneystring(1)|charbox(8) }}
+									</div>
+								</div>
+							</td>
+							<td height="80mm" border.type="none">
+								<div height="26mm" width="100%">
+									<div height="100%" width="58mm">
+										<div margin="10mm 0 0 3mm" font-size="14">
+											Rechnungs- Nr. {{ invoice.id }}
+										</div>
+									</div>
+								</div>
+								<div height="54mm" width="100%">
+									<div margin="26mm 0 0 3mm" font-size="14">
+										{% if customer.salutation %}{{ customer.salutation }} {% endif %}{% if customer.fullname %}{{ customer.fullname }}{% else %}{{ customer.name }}{% endif %}<br/>
+										{{ address.street }} {{ address.streetnumber }}<br/>
+										{{ address.plz }} {{ address.city }}<br/>
+									</div>
+								</div>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</table>
+	</page>
 </pdf>
