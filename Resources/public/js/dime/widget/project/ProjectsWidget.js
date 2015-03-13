@@ -30,7 +30,7 @@ define([
                 callbackName: 'click',
                 callbackFunction: function() {
                     var base = this.getParent();
-                    var targetUrl = '/api/v1/invoice/project/',
+                    var targetUrl = '/api/v1/invoices/project/',
                         options = {handleAs: 'json'},
                         editWidget = 'dime/widget/invoice/InvoiceDetailWidget',
                         entitytype = 'invoices',
