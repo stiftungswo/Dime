@@ -6,8 +6,10 @@ define([
     'dijit/_WidgetsInTemplateMixin',
     'dijit/_TemplatedMixin',
     'dojo/_base/declare',
-    'dojo/text!dime/widget/project/templates/ProjectsWidget.html'
-], function (EntityOverviewWidget, WidgetsInTemplateMixin, TemplatedMixin, declare, template){
+    'dojo/text!dime/widget/project/templates/ProjectsWidget.html',
+    'dojo/request',
+    'dime/common/Grid'
+], function (EntityOverviewWidget, WidgetsInTemplateMixin, TemplatedMixin, declare, template, request){
     return declare("dime.widget.project.ProjectsWidget", [EntityOverviewWidget, TemplatedMixin, WidgetsInTemplateMixin], {
 
         templateString: template,
@@ -26,7 +28,7 @@ define([
         },
         childConfig: {},
         callbacks: {
-            projectNode: {
+            invoiceNode: {
                 callbackName: 'click',
                 callbackFunction: function() {
                     var base = this.getParent();

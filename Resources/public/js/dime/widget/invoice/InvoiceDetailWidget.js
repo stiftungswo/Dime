@@ -12,14 +12,19 @@ define([
     'dijit/form/TextBox',
     'dijit/form/Button',
     'dijit/form/FilteringSelect',
-    'dime/common/GenericTableWidget'
+    'dime/common/GenericTableWidget',
+    'dime/common/GenericStoreTableWidget',
+    'dime/common/SelectableSubEntityTableWidget',
+    'xstyle!dime/widget/invoice/css/InvoiceDetailWidget.css'
 ], function ( WidgetsInTemplateMixin, TemplatedMixin,  EntityBoundWidget, declare,  template, request) {
     return declare("dime.widget.invoice.InvoiceDetailWidget", [EntityBoundWidget, TemplatedMixin, WidgetsInTemplateMixin], {
 
         templateString: template,
         baseClass: "invoiceDetailWidget",
-        collection:'invoices',
-        independant: true,
+        collection: 'invoices',
+        baseConfig: {
+            independant: true
+        },
         childConfig: {
             nameNode: {
                 widgetProperty: 'value',
@@ -56,31 +61,26 @@ define([
             },
             updateNode: {},
             itemsNode: {
-                childWidgetType: 'dime/widget/invoice/InvoiceItemTableRowWidget',
+                childWidgetType: 'dime/widget/invoice/InvoiceItemRowWidget',
                 header: [ 'Typ', 'Anzahl', 'Ansatz', 'Einheit', 'Kosten' ],
                 queryPrototype: {
                     invoice: 'id'
                 },
-                store: 'invoiceitems',
-                entitytype: 'invoiceitems',
-                widgetProperty: 'updateValues',
-                entityProperty: 'items',
-                createable: false,
-                linkable: false
+                collection: 'invoiceitems',
+                creatable: true,
+                deleteable: true
             },
             discountsNode: {
                 childWidgetType: 'dime/widget/timetrack/StandardDiscountRowWidget',
-                header: [ 'Name', 'Reduktion', 'Prozent', 'Wert' ],
-                widgetProperty: 'updateValues',
+                widgetProperty: 'value',
                 entityProperty: 'standardDiscounts',
-                createable: false,
-                linkable: true,
-                selectable: {
-                    store: 'standarddiscounts'
+                header: [ 'Name', 'Reduktion', 'Prozent', 'Wert' ],
+                disabled: true,
+                selectionBox: {
+                    store: window.storeManager.adapt('standarddiscounts')
                 },
-                store: 'standarddiscounts',
-                entitytype: 'standarddiscounts',
-                disabled: true
+                creatable: true,
+                deleteable: true
             }
             //invoiceDiscountsNode: {
             //    childWidgetType: 'dime/widget/offer/OfferDiscountRowWidget',

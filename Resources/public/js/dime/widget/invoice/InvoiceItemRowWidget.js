@@ -3,14 +3,17 @@ define([
     'dijit/_TemplatedMixin',
     'dime/common/EntityBoundWidget',
     'dojo/_base/declare',
-    'dojo/text!dime/widget/invoice/templates/InvoiceItemTableRowWidget.html',
-    'dijit/form/TextBox'
+    'dojo/text!dime/widget/invoice/templates/InvoiceItemRowWidget.html',
+    'dijit/form/TextBox',
+    'xstyle!dime/widget/invoice/css/InvoiceItemRowWidget.css'
 ], function (WidgetsInTemplateMixin, TemplatedMixin,  EntityBoundWidget, declare,  template) {
-    return declare("dime.widget.invoice.InvoiceItemTableRowWidget", [EntityBoundWidget, TemplatedMixin, WidgetsInTemplateMixin], {
+    return declare("dime.widget.invoice.InvoiceItemRowWidget", [EntityBoundWidget, TemplatedMixin, WidgetsInTemplateMixin], {
         templateString: template,
-        baseClass: "invoiceItemTableRowWidget",
+        baseClass: "invoiceItemRowWidget",
         collection: 'invoiceitems',
-        independant: false,
+        baseConfig: {
+            independant: true
+        },
         childConfig: {
             typeNode: {
                 widgetProperty: 'value',

@@ -40,20 +40,14 @@ define([
                 callbackName: 'click',
                 callbackFunction: function() {
                     var base = this.getParent();
-                    var targetUrl = '/api/v1/projects/offer/',
-                        options = {handleAs: 'json'},
-                        editWidget = 'dime/widget/project/ProjectDetailWidget',
-                        entitytype = 'projects',
-                        tabContainer = 'contentTabs',
-                        titleProperty = 'Projekt';
                     base.selection.forEach(function(id){
-                        request.get( targetUrl + id, options ).then(function (data) {
+                        request.get( '/api/v1/projects/offer/' + id, {handleAs: 'xml'} ).then(function (data) {
                             window.widgetManager.addTab(
                                 data,
-                                entitytype,
-                                editWidget,
-                                tabContainer,
-                                titleProperty+' (' + data.id + ')',
+                                'projects',
+                                'dime/widget/project/ProjectDetailWidget',
+                                'contentTabs',
+                                'Projekt'+' (' + data.id + ')',
                                 true
                             );
                         });
