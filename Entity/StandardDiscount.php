@@ -5,7 +5,7 @@ namespace Dime\TimetrackerBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Dime\TimetrackerBundle\Model\DimeEntityInterface;
 use JMS\Serializer\Annotation as JMS;
-use Swo\Money\lib\Money\Money;
+use Money\Money;
 
 /**
  * Class StandardDiscount
@@ -128,33 +128,5 @@ class StandardDiscount extends Entity implements DimeEntityInterface
 	{
 		$this->value = $value;
 		return $this;
-	}
-
-	/**
-	 * Returns the Positive or negative integer Value of which shall be subtracted of gross.
-	 *
-	 * @param $gross
-	 *
-	 * @return float|int $amount
-	 */
-	public function getModifier($gross)
-	{
-		$amount = $this->value;
-		if ($this->percentage)
-		{
-			$amount = $this->percentofgross($gross, $this->value, 10);
-		}
-		if($this->minus)
-		{
-			$amount = floatval('-'.$amount);
-		}
-		return $amount;
-	}
-
-	private function percentofgross($gross, $percent, $precision)
-	{
-		$res = round( $percent * $gross, $precision );
-
-		return $res;
 	}
 } 

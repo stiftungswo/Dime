@@ -16,50 +16,62 @@ class LoadServices extends AbstractFixture implements OrderedFixtureInterface
 		'zivih_service'       => array(
 			'name'     => 'Zivistunden',
 			'alias' => 'zivistunden',
+			'vat'   => 0.08,
 		),
 		'leiterh_service'       => array(
 			'name'     => 'Einsatzleiterstunden',
 			'alias' => 'einsatzleiterstuden',
+			'vat'   => 0.08,
 		),
 		'entsorgung_service'       => array(
 			'name'     => 'Grüngutentsorgung',
 			'alias' => 'grüngutentsorgung',
+			'vat'   => 0.08,
 		),
 		'transport1_service'       => array(
 			'name'     => 'Transport Personen',
 			'alias' => 'transport-personen',
+			'vat'   => 0.08,
 		),
 		'transport2_service'       => array(
 			'name'     => 'Transport Material',
 			'alias' => 'transport-material',
+			'vat'   => 0.08,
 		),
 		'motorsense_service'       => array(
 			'name'     => 'Motorsense',
 			'alias' => 'motorsense',
+			'vat'   => 0.08,
 		),
 		'handwerkzeug_service'       => array(
 			'name'     => 'Handwerkzeug',
 			'alias' => 'handwerkzeug',
+			'vat'   => 0.08,
 		),
 		'motorsaege_service'       => array(
 			'name'     => 'Motorsäge',
 			'alias' => 'motorsaege',
+			'vat'   => 0.08,
 		),
 		'motormaeher_service'       => array(
 			'name'     => 'Motormäher',
 			'alias' => 'motormaeher',
+			'vat'   => 0.08,
 		),
 		'dumper_service'       => array(
 			'name'     => 'Dumper',
 			'alias' => 'dumper',
+			'vat'   => 0.08,
 		),
 		'habegger_service'       => array(
 			'name'     => 'Habegger',
 			'alias' => 'habegger',
+			'vat'   => 0.08,
 		),
 		'entbuschungszange_service'       => array(
 			'name'     => 'Entbuschungszange',
 			'alias' => 'entbuschungszange',
+			'vat'   => 0.08,
 		),
 	);
 

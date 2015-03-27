@@ -12,6 +12,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as JMS;
 use Knp\JsonSchemaBundle\Annotations as Json;
+use Money\Money;
 
 
 /**
@@ -68,12 +69,11 @@ class Activity extends Entity implements DimeEntityInterface
     protected $description;
 
     /**
-     * TODO refactoring rename to rateValue to be coherent with offerposition
-     * @var float $rate
-     * @JMS\AccessType("public_method")
-     * @ORM\Column(type="decimal", scale=2, precision=10, nullable=true)
+     * @ORM\Column(name="rate_value", type="money", nullable=true)
+     * @JMS\SerializedName("rateValue")
+     * @JMS\Type(name="Money")
      */
-    protected $rate;
+    protected $rateValue;
      
 	/**
 	 * @var boolean $chargeable
@@ -92,7 +92,12 @@ class Activity extends Entity implements DimeEntityInterface
 	 */
 	protected $chargeableReference = 1;
 
-    /**
+	/**
+	 * @ORM\Column(type="decimal", scale=2, precision=10, nullable=true)
+	 */
+	protected $vat;
+
+	/**
      * @ORM\Column(name="rate_unit", type="text", nullable=true)
      * @JMS\SerializedName("rateUnit")
      */
@@ -107,9 +112,11 @@ class Activity extends Entity implements DimeEntityInterface
     protected $rateUnitType;
 
 	/**
+	 * @param bool $pure
+	 *
 	 * @return float
 	 */
-	public function getValue()
+	public function getValue($pure = false)
 	{
 		$value = 0;
 
@@ -117,7 +124,19 @@ class Activity extends Entity implements DimeEntityInterface
 		{
 			$value += $timeslice->getValue();
 		}
-
+		if(!$pure) {
+			switch($this->getRateUnitType()) {
+			case RateUnitType::$Hourly:
+				return round(($value / RateUnitType::$HourInSeconds), 2);
+				break;
+			case RateUnitType::$Minutely:
+				return round(($value / RateUnitType::$MinuteInSeconds), 2);
+				break;
+			case RateUnitType::$Dayly:
+				return round(($value / RateUnitType::$DayInSeconds), 2);
+				break;
+			}
+		}
 		return $value;
 	}
 
@@ -133,8 +152,8 @@ class Activity extends Entity implements DimeEntityInterface
         $serviceRate = $this->getServiceRate();
         if($serviceRate === null)
             return $this;
-        if($this->rate == null)
-            $this->rate = $serviceRate->getRateValue();
+        if($this->rateValue == null)
+            $this->rateValue = $serviceRate->getRateValue();
         if($this->rateUnit == null)
             $this->rateUnit = $serviceRate->getRateUnit();
         if($this->rateUnitType == null)
@@ -160,25 +179,17 @@ class Activity extends Entity implements DimeEntityInterface
 
 	/**
 	 * Returns How mch the whole Activity Costs
-	 * @return float
+	 * @return Money
 	 * @JMS\VirtualProperty()
+	 * @JMS\Type(name="Money")
 	 * @JMS\SerializedName("charge")
 	 */
 	public function getCharge()
 	{
-		$value = $this->getValue();
-		switch ($this->getRateUnitType()) {
-		case RateUnitType::$Hourly:
-			$value = ($value / 3600);
-			break;
-		case RateUnitType::$Minutely:
-			$value = ($value / 60);
-			break;
-		case RateUnitType::$Dayly:
-			$value = ($value / 30240);
-			break;
+		if($this->getRateValue() instanceof Money) {
+			return $this->getRateValue()->multiply($this->getValue());
 		}
-		return round(($this->getRate() * $value), 2);
+		return Money::CHF(0.00);
 	}
 
 	/**
@@ -197,18 +208,6 @@ class Activity extends Entity implements DimeEntityInterface
 	}
 
 	/**
-	 * param int $value
-	 *
-	 * return $this
-	 *
-	* public function setValue($value)
-	* {
-	* 	$this->value = $value;
-	* 	return $this;
-	* }
-	 * /
-
-	/**
 	 * @JMS\VirtualProperty()
 	 * @JMS\SerializedName("value")
 	 * @return string
@@ -218,16 +217,30 @@ class Activity extends Entity implements DimeEntityInterface
 		$value = $this->getValue();
 		switch ($this->getRateUnitType()){
 		case RateUnitType::$Hourly:
-			return round(($value / RateUnitType::$HourInSeconds), 2).'h';
+			return $value.'h';
 			break;
 		case RateUnitType::$Minutely:
-			return round(($value / RateUnitType::$MinuteInSeconds), 2).'m';
+			return $value.'m';
 			break;
 		case RateUnitType::$Dayly:
-			return round(($value / RateUnitType::$DayInSeconds), 2).'d';
+			return $value.'d';
 			break;
 		}
 		return $value;
+	}
+
+	/**
+	 * @JMS\VirtualProperty
+	 * @JMS\SerializedName("calculatedVAT")
+	 * @JMS\Type(name="Money")
+	 * @return Money
+	 */
+	public function getCalculatedVAT()
+	{
+		if($this->rateValue instanceof Money && is_numeric($this->getValue()) && is_numeric($this->vat))
+			return $this->rateValue->multiply((float)$this->getValue())->multiply((float)$this->vat);
+		else
+			return null;
 	}
 
     /**
@@ -278,34 +291,32 @@ class Activity extends Entity implements DimeEntityInterface
     /**
      * Set rate
      *
-     * @param  float    $rate
+     * @param  float    $rateValue
      * @return Activity
      */
-    public function setRate($rate)
+    public function setRateValue($rateValue)
     {
-        $this->rate = $rate;
+        $this->rateValue = $rateValue;
         return $this;
     }
 
     /**
      * Get rate
      *
-     *
-     *
-     * @return float
+     * @return Money
      */
-    public function getRate()
+    public function getRateValue()
     {
-	    if( empty($this->rate) ){
+	    if( empty($this->rateValue) ){
 		    if($this->getService() instanceof Service){
 			    $rate =  $this->getService()->getRateByRateGroup($this->getProject()->getRateGroup());
 			    return $rate->getRateValue();
 		    } else {
-			    return 0;
+			    return null;
 		    }
 	    }
 	    else {
-		    return $this->rate;
+		    return $this->rateValue;
 	    }
     }
 
@@ -353,7 +364,7 @@ class Activity extends Entity implements DimeEntityInterface
 	    $rate = $this->getServiceRate();
 	    $this->setRateUnitType($rate->getRateUnitType());
 	    $this->setRateUnit($rate->getRateUnit());
-	    $this->setRate($rate->getRateValue());
+	    $this->setRateValue($rate->getRateValue());
 
         return $this;
     }
@@ -565,5 +576,26 @@ class Activity extends Entity implements DimeEntityInterface
     {
         return $this->rateUnitType;
     }
+
+	/**
+	 * @return mixed
+	 */
+	public function getVat()
+	{
+		return $this->vat;
+	}
+
+	/**
+	 * @param mixed $vat
+	 *
+	 * @return $this
+	 */
+	public function setVat($vat)
+	{
+		$this->vat = $vat;
+		return $this;
+	}
+
+
 
 }

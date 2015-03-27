@@ -15,8 +15,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use JMS\Serializer\Annotation as JMS;
 use Knp\JsonSchemaBundle\Annotations as Json;
+use Money\Money;
 use Swo\CommonsBundle\Filter\NewNameFilter;
-use Swo\Money\lib\Money\Money;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -31,7 +31,7 @@ class Project extends Entity implements DimeEntityInterface
     /**
      * @var Customer $customer
      *
-     * @ORM\ManyToOne(targetEntity="Customer", inversedBy="projects")
+     * @ORM\ManyToOne(targetEntity="Customer")
      * @ORM\JoinColumn(name="customer_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
      */
     protected $customer;
@@ -89,7 +89,8 @@ class Project extends Entity implements DimeEntityInterface
      * @var integer $budgetPrice
      *
      * @JMS\SerializedName("budgetPrice")
-     * @ORM\Column(name="budget_price", type="integer", nullable=true)
+     * @JMS\Type(name="Money")
+     * @ORM\Column(name="budget_price", type="money", nullable=true)
      */
     protected $budgetPrice;
 
@@ -97,7 +98,8 @@ class Project extends Entity implements DimeEntityInterface
      * @var integer $fixedPrice
      *
      * @JMS\SerializedName("fixedPrice")
-     * @ORM\Column(name="fixed_price", type="integer", length=255, nullable=true)
+     * @JMS\Type(name="Money")
+     * @ORM\Column(name="fixed_price", type="money", length=255, nullable=true)
      */
     protected $fixedPrice;
 
@@ -129,6 +131,8 @@ class Project extends Entity implements DimeEntityInterface
 	/**
 	 * @var boolean $chargeable
 	 *
+	 * TODO Check if it works
+	 *
 	 * @ORM\Column(type="boolean", nullable=true)
 	 */
 	protected $chargeable;
@@ -143,14 +147,15 @@ class Project extends Entity implements DimeEntityInterface
 
 	/**
 	 * @JMS\VirtualProperty()
+	 * @JMS\Type(name="Money")
 	 * @JMS\SerializedName("currentPrice")
 	 */
 	public function getCurrentPrice()
 	{
-		$price = 0;
+		$price = Money::CHF(0);
 		foreach($this->activities as $activity)
 		{
-			$price += $activity->getCharge();
+			$price->add($activity->getCharge());
 		}
 		return $price;
 	}
@@ -165,7 +170,7 @@ class Project extends Entity implements DimeEntityInterface
 		foreach($this->activities as $activity)
 		{
 			if($activity->getRateUnitType() !== RateUnitType::$NoChange){
-				$duration += $activity->getValue();
+				$duration += $activity->getValue(true);
 			}
 		}
 		return ($duration / RateUnitType::$HourInSeconds).'h';
@@ -178,7 +183,7 @@ class Project extends Entity implements DimeEntityInterface
 	public function serializeBudgetTime()
 	{
 		$transformer = new DurationTransformer();
-		return $transformer->transform($this->getBudgetPrice());
+		return $transformer->transform($this->getBudgetTime());
 	}
 
     public static function getCopyFilters(DeepCopy $deepCopy)
@@ -386,26 +391,22 @@ class Project extends Entity implements DimeEntityInterface
         return $this->description;
     }
 
-    /**
-     * Set budgetPrice
-     *
-     * @param  integer | Money $budgetPrice
-     * @return Project
-     */
+	/**
+	 * Set budgetPrice
+	 *
+	 * @param Money $budgetPrice
+	 * @return Project
+	 */
     public function setBudgetPrice($budgetPrice)
     {
-        if($budgetPrice instanceof Money){
-            $this->budgetPrice = $budgetPrice->getAmount();
-        } else {
-            $this->budgetPrice = $budgetPrice;
-        }
+        $this->budgetPrice = $budgetPrice;
         return $this;
     }
 
     /**
      * Get budgetPrice
      *
-     * @return int
+     * @return Money
      */
     public function getBudgetPrice()
     {
@@ -415,23 +416,19 @@ class Project extends Entity implements DimeEntityInterface
     /**
      * Set fixedPrice
      *
-     * @param  integer | Money $fixedPrice
+     * @param  Money $fixedPrice
      * @return Project
      */
     public function setFixedPrice($fixedPrice)
     {
-        if($fixedPrice instanceof Money){
-            $this->fixedPrice = $fixedPrice->getAmount();
-        } else {
-            $this->fixedPrice = $fixedPrice;
-        }
+        $this->fixedPrice = $fixedPrice;
         return $this;
     }
 
     /**
      * Get fixedPrice
      *
-     * @return int
+     * @return Money
      */
     public function getFixedPrice()
     {
@@ -550,16 +547,6 @@ class Project extends Entity implements DimeEntityInterface
 	        return $this->getCustomer()->getRateGroup();
 	    }
 	    return $rateGroup;
-    }
-
-    /**
-     * Get chargeable
-     *
-     * @return boolean
-     */
-    public function getChargeable()
-    {
-        return $this->chargeable;
     }
 
     /**

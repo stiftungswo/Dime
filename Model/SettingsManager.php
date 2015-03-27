@@ -143,4 +143,18 @@ class SettingsManager extends ContainerAware implements HandlerInterface
 		}
 		return $entity;
 	}
+
+	/**
+	 * Duplicates an Entity
+	 *
+	 * @api
+	 *
+	 * @param DimeEntityInterface $entity
+	 *
+	 * @return DimeEntityInterface
+	 */
+	public function duplicate(DimeEntityInterface $entity)
+	{
+		// TODO: Implement duplicate() method.
+	}
 }

@@ -8,6 +8,7 @@ use Dime\TimetrackerBundle\Model\DimeEntityInterface;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as JMS;
 use Knp\JsonSchemaBundle\Annotations as Json;
+use Money\Money;
 
 /**
  * Dime\TimetrackerBundle\Entity\Rate
@@ -49,10 +50,11 @@ class Rate extends Entity implements DimeEntityInterface
     protected $service;
     
     /**
-     * @var integer $rateValue
+     * @var Money $rateValue
      *
-     * @ORM\Column(name="rate_value", type="decimal", scale=2, precision=10, nullable=true)
+     * @ORM\Column(name="rate_value", type="money", nullable=true)
      * @JMS\SerializedName("rateValue")
+     * @JMS\Type(name="Money")
      */
     protected $rateValue;
 

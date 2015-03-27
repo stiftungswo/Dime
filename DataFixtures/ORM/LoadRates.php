@@ -5,31 +5,32 @@ use Dime\TimetrackerBundle\Entity\Rate;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
+use Money\Money;
 
 class LoadRates extends AbstractFixture implements OrderedFixtureInterface
 {
 	protected $data = array(
 		'zivih_default_rate' => array(
 			'rateUnit' => 'CHF/h',
-			'rateValue' => 100,
+			'rateValue' => 10000,
 			'rateGroup' => 'ref:default_rate_group',
 			'service' => 'ref:zivih_service',
 		),
 		'zivih_canton_rate' => array(
 			'rateUnit' => 'CHF/h',
-			'rateValue' => 80,
+			'rateValue' => 8000,
 			'rateGroup' => 'ref:canton_rate_group',
 			'service' => 'ref:zivih_service',
 		),
 		'leiterh_default_rate' => array(
 			'rateUnit' => 'CHF/h',
-			'rateValue' => 160,
+			'rateValue' => 16000,
 			'rateGroup' => 'ref:default_rate_group',
 			'service' => 'ref:leiterh_service',
 		),
 		'entsorgung_default_rate' => array(
 			'rateUnit' => 'Kg',
-			'rateValue' => 30,
+			'rateValue' => 3000,
 			'rateUnitType' => 'const:\Dime\TimetrackerBundle\Model\RateUnitType::NoChange',
 			'rateGroup' => 'ref:default_rate_group',
 			'service' => 'ref:entsorgung_service',
@@ -37,56 +38,56 @@ class LoadRates extends AbstractFixture implements OrderedFixtureInterface
 		'transport1_default_rate' => array(
 			'rateUnit' => 'KM',
 			'rateUnitType' => 'const:\Dime\TimetrackerBundle\Model\RateUnitType::NoChange',
-			'rateValue' => 65,
+			'rateValue' => 6500,
 			'rateGroup' => 'ref:default_rate_group',
 			'service' => 'ref:transport1_service',
 		),
 		'transport2_default_rate' => array(
 			'rateUnit' => 'KM',
-			'rateValue' => 50,
+			'rateValue' => 5000,
 			'rateUnitType' => 'const:\Dime\TimetrackerBundle\Model\RateUnitType::NoChange',
 			'rateGroup' => 'ref:default_rate_group',
 			'service' => 'ref:transport2_service',
 		),
 		'motorsense_default_rate' => array(
 			'rateUnit' => 'CHF/h',
-			'rateValue' => 40,
+			'rateValue' => 4000,
 			'rateGroup' => 'ref:default_rate_group',
 			'service' => 'ref:motorsense_service',
 		),
 		'handwerkzeug_default_rate' => array(
 			'rateUnit' => 'CHF/h',
-			'rateValue' => 30,
+			'rateValue' => 3000,
 			'rateGroup' => 'ref:default_rate_group',
 			'service' => 'ref:handwerkzeug_service',
 		),
 		'motorsaege_default_rate' => array(
 			'rateUnit' => 'CHF/h',
-			'rateValue' => 90,
+			'rateValue' => 9000,
 			'rateGroup' => 'ref:default_rate_group',
 			'service' => 'ref:motorsaege_service',
 		),
 		'motormaeher_default_rate' => array(
 			'rateUnit' => 'CHF/h',
-			'rateValue' => 110,
+			'rateValue' => 11000,
 			'rateGroup' => 'ref:default_rate_group',
 			'service' => 'ref:motormaeher_service',
 		),
 		'dumper_default_rate' => array(
 			'rateUnit' => 'CHF/h',
-			'rateValue' => 200,
+			'rateValue' => 20000,
 			'rateGroup' => 'ref:default_rate_group',
 			'service' => 'ref:dumper_service',
 		),
 		'habegger_default_rate' => array(
 			'rateUnit' => 'CHF/h',
-			'rateValue' => 200,
+			'rateValue' => 20000,
 			'rateGroup' => 'ref:default_rate_group',
 			'service' => 'ref:habegger_service',
 		),
 		'entbuschungszange_default_rate' => array(
 			'rateUnit' => 'CHF/h',
-			'rateValue' => 75,
+			'rateValue' => 7500,
 			'rateGroup' => 'ref:default_rate_group',
 			'service' => 'ref:entbuschungszange_service',
 		),
@@ -112,6 +113,9 @@ class LoadRates extends AbstractFixture implements OrderedFixtureInterface
 			$entity = clone $baseEntity;
 			foreach($data as $name => $value)
 			{
+				if($name==='rateValue'){
+					$value = Money::CHF($value);
+				}
 				$this->set($entity, $name, $value, $manager);
 			}
 

@@ -144,6 +144,19 @@ class Timeslice extends Entity implements DimeEntityInterface
         }
 	}
 
+	/**
+	 * @JMS\VirtualProperty()
+	 * @JMS\SerializedName("project")
+	 */
+	public function getProject()
+	{
+		if(is_callable(array($this->activity, 'getProject')))
+		{
+			return $this->getActivity()->getProject();
+		}
+		return null;
+	}
+
     public static function getCopyFilters(DeepCopy $deepCopy, $keepActivity = true)
     {
         $deepCopy = parent::getCopyFilters($deepCopy);
