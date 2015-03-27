@@ -25,7 +25,7 @@ parameters:
     sender_mwstId:      01-3123-123-123
     sender_bank:         Testbank 8000 Zürich
     sender_iban:         CH0000000000000
-    sender_konotNr:     07-007-07
+    sender_kontoNr:     07-007-07
     sender_name:         Stiftung Wirtschaft und Oekologie
     mwst_percent:        8
 
