@@ -7,6 +7,8 @@
 
 namespace Dime\InvoiceBundle\Entity;
 
+use Carbon\Carbon;
+use DateTime;
 use DeepCopy\DeepCopy;
 use DeepCopy\Filter\Doctrine\DoctrineCollectionFilter;
 use DeepCopy\Filter\KeepFilter;
@@ -22,6 +24,7 @@ use JMS\Serializer\Annotation as JMS;
 use Knp\JsonSchemaBundle\Annotations as Json;
 use Swo\CommonsBundle\Filter\NewNameFilter;
 use Symfony\Component\Validator\Constraints as Assert;
+use Money\Money;
 
 /**
  * Class Invoice
@@ -29,7 +32,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Table(name="invoices")
  * @ORM\Entity(repositoryClass="Dime\InvoiceBundle\Entity\InvoiceRepository")
- * @ORM\HasLifecycleCallbacks()
  * @Json\Schema("invoices")
  */
 class Invoice extends Entity implements DimeEntityInterface
@@ -53,7 +55,7 @@ class Invoice extends Entity implements DimeEntityInterface
 
 	/**
 	 * @var string
-	 * @ORM\Column(type="text")
+	 * @ORM\Column(type="text", nullable=true)
 	 */
 	protected $description;
 
@@ -68,12 +70,6 @@ class Invoice extends Entity implements DimeEntityInterface
 	 * @ORM\ManyToOne(targetEntity="Dime\OfferBundle\Entity\Offer")
 	 */
 	protected $offer;
-
-	/**
-	 * @var float
-	 * @ORM\Column(type="decimal", scale=2, precision=4, nullable=true)
-	 */
-	protected $gross;
 
 	/**
 	 * @var ArrayCollection
@@ -113,6 +109,26 @@ class Invoice extends Entity implements DimeEntityInterface
 	 */
 	protected $tags;
 
+	/**
+	 * @var DateTime
+	 * @ORM\Column(name="start", type="date")
+	 */
+	protected $start;
+
+	/**
+	 * @var DateTime
+	 * @ORM\Column(name="end", type="date")
+	 */
+	protected $end;
+
+	/**
+	 * @var Money
+	 * @JMS\SerializedName("fixedPrice")
+	 * @JMS\Type(name="Money")
+	 * @ORM\Column(name="fixed_price", type="money", nullable=true)
+	 */
+	protected $fixedPrice;
+
 
 	public function __construct()
 	{
@@ -121,48 +137,78 @@ class Invoice extends Entity implements DimeEntityInterface
 	}
 
 	/**
-	 * @return float $net
-	 * @JMS\VirtualProperty()
-	 * @JMS\SerializedName("net")
+	 * @JMS\VirtualProperty
+	 * @JMS\SerializedName("totalDiscounts")
+	 * @JMS\Type(name="Money")
+	 * @return Money
 	 */
-	public function getNet()
+	public function getTotalDiscounts()
 	{
-		$gross = $this->getGross();
-		$net = $gross;
-		foreach($this->getInvoiceDiscounts() as $discount)
-		{
-			if($discount instanceof InvoiceDiscount)
-			{
-				$net = $net + $discount->getModifier($gross);
+		$totalDiscounts = Money::CHF(0);
+		if($this->getStandardDiscounts()) {
+			foreach ($this->getStandardDiscounts() as $standardDiscount) {
+				$totalDiscounts = $totalDiscounts->add($standardDiscount->getCalculatedDiscount($this->getSubtotal()));
 			}
 		}
-		foreach($this->getStandardDiscounts() as $discount)
-		{
-			if($discount instanceof StandardDiscount)
-			{
-				$net = $net + $discount->getModifier($gross);
+		if($this->getInvoiceDiscounts()) {
+			foreach ($this->getInvoiceDiscounts() as $invoiceDiscount) {
+				$totalDiscounts = $totalDiscounts->add($invoiceDiscount->getCalculatedDiscount($this->getSubtotal()));
 			}
 		}
-		return $net;
+		return $totalDiscounts;
 	}
 
 	/**
-	 * @ORM\PrePersist
-	 * @ORM\PreUpdate
+	 * @JMS\VirtualProperty
+	 * @JMS\SerializedName("total")
+	 * @JMS\Type(name="Money")
+	 * @return Money
 	 */
-	public function updateGross()
+	public function getTotal()
 	{
-		$fixed = $this->getProject()->getFixedPrice();
-		if($fixed > 0){
-			$this->gross = $fixed;
-			return $this;
-		}
-		foreach($this->getItems() as $item) {
-			if($item instanceof InvoiceItem){
-				$this->gross += $item->getCharge();
+		return $this->getSubtotal()->subtract($this->getTotalDiscounts());
+	}
+
+	/**
+	 * @JMS\VirtualProperty
+	 * @JMS\SerializedName("subtotal")
+	 * @JMS\Type(name="Money")
+	 * @return Money
+	 */
+	public function getSubtotal()
+	{
+		if($this->getItems()){
+			$subtotal = Money::CHF(0);
+			foreach ($this->getItems() as $item) {
+				if(!empty($item->getTotal()))
+					$subtotal = $subtotal->add($item->getTotal());
 			}
+			return $subtotal;
+		} else {
+			return null;
 		}
-		return $this;
+	}
+
+	/**
+	 * /**
+	 * @JMS\VirtualProperty
+	 * @JMS\SerializedName("totalVAT")
+	 * @JMS\Type(name="Money")
+	 * @return Money
+	 */
+	public function getTotalVAT()
+	{
+		if($this->getItems()){
+			$totalVAT = Money::CHF(0);
+			foreach ($this->getItems() as $invoicePosition) {
+				if($invoicePosition->getCalculatedVAT()) {
+					$totalVAT = $totalVAT->add($invoicePosition->getCalculatedVAT());
+				}
+			}
+			return $totalVAT;
+		} else {
+			return null;
+		}
 	}
 
 	public static function getCopyFilters(DeepCopy $deepCopy)
@@ -179,25 +225,6 @@ class Invoice extends Entity implements DimeEntityInterface
 		$deepCopy = InvoiceDiscount::getCopyFilters($deepCopy);
 		$deepCopy = InvoiceItem::getCopyFilters($deepCopy);
 		return $deepCopy;
-	}
-
-	/**
-	 * @return float
-	 */
-	public function getGross()
-	{
-		return $this->gross;
-	}
-
-	/**
-	 * @param float $gross
-	 *
-	 * @return $this
-	 */
-	public function setGross($gross)
-	{
-		$this->gross = $gross;
-		return $this;
 	}
 
 	/**
@@ -405,5 +432,67 @@ class Invoice extends Entity implements DimeEntityInterface
 		return $this;
 	}
 
+	/**
+	 * @return DateTime
+	 */
+	public function getStart()
+	{
+		if(is_null($this->start)){
+			return null;
+		}
+		return Carbon::instance($this->start);
+	}
+
+	/**
+	 * @param DateTime $start
+	 *
+	 * @return $this
+	 */
+	public function setStart($start)
+	{
+		$this->start = $start;
+		return $this;
+	}
+
+	/**
+	 * @return Carbon
+	 */
+	public function getEnd()
+	{
+		if(is_null($this->end)){
+			return null;
+		}
+		return Carbon::instance($this->end);
+	}
+
+	/**
+	 * @param DateTime $end
+	 *
+	 * @return $this
+	 */
+	public function setEnd($end)
+	{
+		$this->end = $end;
+		return $this;
+	}
+
+	/**
+	 * @return Money
+	 */
+	public function getFixedPrice()
+	{
+		return $this->fixedPrice;
+	}
+
+	/**
+	 * @param Money $fixedPrice
+	 *
+	 * @return $this
+	 */
+	public function setFixedPrice($fixedPrice)
+	{
+		$this->fixedPrice = $fixedPrice;
+		return $this;
+	}
 
 } 

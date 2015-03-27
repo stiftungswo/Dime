@@ -14,6 +14,7 @@ use Dime\TimetrackerBundle\Model\DimeEntityInterface;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as JMS;
 use Knp\JsonSchemaBundle\Annotations as Json;
+use Money\Money;
 
 /**
  * Class InvoiceItem
@@ -34,13 +35,15 @@ class InvoiceItem extends Entity implements DimeEntityInterface
 	 * @var string
 	 * @ORM\Column(type="string")
 	 */
-	protected $type;
+	protected $name;
 
 	/**
 	 * @var int
-	 * @ORM\Column(type="integer")
+	 * @ORM\Column(name="rate_value", type="money", nullable=true)
+	 * @JMS\SerializedName("rateValue")
+	 * @JMS\Type(name="Money")
 	 */
-	protected $rate;
+	protected $rateValue;
 
 	/**
 	 * @var string
@@ -50,16 +53,28 @@ class InvoiceItem extends Entity implements DimeEntityInterface
 	protected $rateUnit;
 
 	/**
-	 * @var float
-	 * @ORM\Column(type="string")
+	 * @ORM\Column(type="decimal", scale=2, precision=10, nullable=true)
 	 */
-	protected $value;
+	protected $vat;
 
 	/**
-	 * @var float
-	 * @ORM\Column(type="decimal", scale=2, precision=10)
+	 * @var string
+	 * @ORM\Column(type="string")
 	 */
-	protected $charge;
+	protected $amount;
+
+	/**
+	 * @var Money
+	 * @JMS\Type(name="Money")
+	 * @ORM\Column(name="total", type="money")
+	 */
+	protected $total;
+
+	/**
+	 * @var Activity
+	 * @ORM\ManyToOne(targetEntity="Dime\TimetrackerBundle\Entity\Activity", )
+	 */
+	protected $activity;
 
 	/**
 	 * @param Activity $activity
@@ -68,30 +83,46 @@ class InvoiceItem extends Entity implements DimeEntityInterface
 	 */
 	public function setFromActivity(Activity $activity)
 	{
-		$this->type         = $activity->getName();
-		$this->rate         = $activity->getRate();
-		$this->value        = $activity->serializeValue();
+		$this->name         = $activity->getName();
+		$this->rateValue    = $activity->getRateValue();
+		$this->amount       = $activity->serializeValue();
 		$this->rateUnit     = $activity->getRateUnit();
-		$this->charge       = ceil($activity->getCharge());
+		$this->vat          = $activity->getVat();
+		$this->total        = $activity->getCharge();
+		$this->activity     = $activity;
 		return $this;
 	}
 
 	/**
-	 * @return float
+	 * @JMS\VirtualProperty
+	 * @JMS\SerializedName("calculatedVAT")
+	 * @JMS\Type(name="Money")
+	 * @return Money
 	 */
-	public function getCharge()
+	public function getCalculatedVAT()
 	{
-		return $this->charge;
+		if($this->rateValue instanceof Money && is_numeric($this->amount) && is_numeric($this->vat))
+			return $this->rateValue->multiply($this->amount)->multiply($this->vat);
+		else
+			return null;
 	}
 
 	/**
-	 * @param float $charge
+	 * @return Money
+	 */
+	public function getTotal()
+	{
+		return $this->total;
+	}
+
+	/**
+	 * @param Money $total
 	 *
 	 * @return $this
 	 */
-	public function setCharge($charge)
+	public function setTotal($total)
 	{
-		$this->charge = $charge;
+		$this->total = $total;
 		return $this;
 	}
 
@@ -136,57 +167,97 @@ class InvoiceItem extends Entity implements DimeEntityInterface
 	/**
 	 * @return int
 	 */
-	public function getRate()
+	public function getRateValue()
 	{
-		return $this->rate;
+		return $this->rateValue;
 	}
 
 	/**
-	 * @param int $rate
+	 * @param int $rateValue
 	 *
 	 * @return $this
 	 */
-	public function setRate($rate)
+	public function setRateValue($rateValue)
 	{
-		$this->rate = $rate;
+		$this->rateValue = $rateValue;
 		return $this;
 	}
 
 	/**
 	 * @return string
 	 */
-	public function getType()
+	public function getName()
 	{
-		return $this->type;
+		return $this->name;
 	}
 
 	/**
-	 * @param string $type
+	 * @param string $name
 	 *
 	 * @return $this
 	 */
-	public function setType($type)
+	public function setName($name)
 	{
-		$this->type = $type;
+		$this->name = $name;
 		return $this;
 	}
 
 	/**
 	 * @return float
 	 */
-	public function getValue()
+	public function getAmount()
 	{
-		return $this->value;
+		return $this->amount;
 	}
 
 	/**
-	 * @param float $value
+	 * @param float $amount
 	 *
 	 * @return $this
 	 */
-	public function setValue($value)
+	public function setAmount($amount)
 	{
-		$this->value = $value;
+		$this->amount = $amount;
 		return $this;
 	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getVat()
+	{
+		return $this->vat;
+	}
+
+	/**
+	 * @param mixed $vat
+	 *
+	 * @return $this
+	 */
+	public function setVat($vat)
+	{
+		$this->vat = $vat;
+		return $this;
+	}
+
+	/**
+	 * @return Activity
+	 */
+	public function getActivity()
+	{
+		return $this->activity;
+	}
+
+	/**
+	 * @param Activity $activity
+	 *
+	 * @return $this
+	 */
+	public function setActivity($activity)
+	{
+		$this->activity = $activity;
+		return $this;
+	}
+
+
 } 

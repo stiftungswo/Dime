@@ -153,7 +153,7 @@ class InvoiceController extends DimeController
 	 *
 	 * @ApiDoc(
 	 * resource = true,
-	 * output = "Dime\TimetrackerBundle\Entity\Project",
+	 * output = "Dime\InvoiceBundle\Entity\Invoice",
 	 * section="invoices",
 	 * statusCodes = {
 	 * 200 = "Returned when successful",
@@ -161,7 +161,7 @@ class InvoiceController extends DimeController
 	 * }
 	 * )
 	 *
-	 * @Annotations\View(templateVar="invoice")
+	 * @Annotations\View()
 	 *
 	 * @Annotations\Get("/invoices/project/{id}", name="_invoices")
 	 *
@@ -221,7 +221,7 @@ class InvoiceController extends DimeController
 	 */
 	public function updateInvoiceAction($id)
 	{
-		return $this->get($this->handlerSerivce)->updateInvoiceItems($this->getOr404($id, $this->handlerSerivce));
+		return $this->get($this->handlerSerivce)->updateInvoice($this->getOr404($id, $this->handlerSerivce));
 	}
 
 	/**

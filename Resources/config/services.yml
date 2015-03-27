@@ -24,8 +24,3 @@ services:
         arguments: [@dime.invoice.configreader]
         tags:
             - { name: twig.extension }
-
-    twig.extension.float2moneystring:
-        class: Dime\InvoiceBundle\Extensions\Float2MoneyStringExtension
-        tags:
-            - { name: twig.extension }

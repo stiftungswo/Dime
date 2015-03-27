@@ -47,7 +47,7 @@ class InvoiceItemRepository extends EntityRepository
      * @param integer|string             $tagIdOrName
      * @param \Doctrine\ORM\QueryBuilder $qb
      *
-     * @return \Doctrine\ORM\QueryBuilder
+     * @return InvoiceItemRepository
      */
     public function scopeWithTag($tagIdOrName, QueryBuilder $qb = null)
     {
@@ -76,7 +76,7 @@ class InvoiceItemRepository extends EntityRepository
      * @param integer|string             $tagIdOrName
      * @param \Doctrine\ORM\QueryBuilder $qb
      *
-     * @return \Doctrine\ORM\QueryBuilder
+     * @return InvoiceItemRepository
      */
     public function scopeWithoutTag($tagIdOrName, QueryBuilder $qb = null)
     {
@@ -112,7 +112,7 @@ class InvoiceItemRepository extends EntityRepository
      * @param array                      $filter
      * @param \Doctrine\ORM\QueryBuilder $qb
      *
-     * @return ActivityRepository
+     * @return InvoiceItemRepository
      */
     public function filter(array $filter, QueryBuilder $qb = null)
     {
@@ -148,7 +148,7 @@ class InvoiceItemRepository extends EntityRepository
 	 * @param                   $date
 	 * @param QueryBuilder      $qb
 	 *
-	 * @return QueryBuilder
+	 * @return InvoiceItemRepository
 	 */
 	public function scopeByDate($date, QueryBuilder $qb = null)
 	{

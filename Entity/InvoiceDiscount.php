@@ -12,6 +12,7 @@ use Dime\TimetrackerBundle\Entity\Entity;
 use Dime\TimetrackerBundle\Model\DimeEntityInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\JsonSchemaBundle\Annotations as Json;
+use Money\Money;
 
 /**
  * Class InvoiceDiscount
@@ -22,13 +23,6 @@ use Knp\JsonSchemaBundle\Annotations as Json;
  */
 class InvoiceDiscount extends Entity implements DimeEntityInterface
 {
-	/**
-	 * @var
-	 * @ORM\Id()
-	 * @ORM\Column(type="integer", name="id")
-	 * @ORM\GeneratedValue(strategy="AUTO")
-	 */
-	protected $id;
 	/**
 	 * @var
 	 * @ORM\Column(type="string")
@@ -52,6 +46,19 @@ class InvoiceDiscount extends Entity implements DimeEntityInterface
 	 * @ORM\Column(type="boolean", nullable=true)
 	 */
 	protected $minus;
+
+	/**
+	 * @param Money $subtotal
+	 *
+	 * @return Money
+	 */
+	public function getCalculatedDiscount(Money $subtotal)
+	{
+		if($this->percentage)
+			return $subtotal->multiply(floatval($this->value));
+		else
+			return Money::CHF($this->value);
+	}
 
 	/**
 	 * @return mixed
@@ -130,6 +137,11 @@ class InvoiceDiscount extends Entity implements DimeEntityInterface
 		return $this;
 	}
 
+	/**
+	 * @param OfferDiscount $offerDiscount
+	 *
+	 * @return $this
+	 */
 	public function setFromOfferDiscount(OfferDiscount $offerDiscount)
 	{
 		$this->setName($offerDiscount->getName());
@@ -137,33 +149,5 @@ class InvoiceDiscount extends Entity implements DimeEntityInterface
 		$this->setPercentage($offerDiscount->getPercentage());
 		$this->setValue($offerDiscount->getValue());
 		return $this;
-	}
-
-	/**
-	 * Returns the Positive or negative integer Value of which shall be subtracted of gross.
-	 *
-	 * @param $gross
-	 *
-	 * @return float|int $amount
-	 */
-	public function getModifier($gross)
-	{
-		$amount = $this->value;
-		if ($this->percentage)
-		{
-			$amount = $this->percentofgross($gross, $this->value, 10);
-		}
-		if($this->minus)
-		{
-			$amount = floatval('-'.$amount);
-		}
-		return $amount;
-	}
-
-	private function percentofgross($gross, $percent, $precision)
-	{
-		$res = round( ($percent/100) * $gross, $precision );
-
-		return $res;
 	}
 } 

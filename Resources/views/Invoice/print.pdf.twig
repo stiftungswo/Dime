@@ -36,7 +36,9 @@
 			<div class="projectID">Auftrag Nr. {{ invoice.project.id }}</div><br/>
 			{% endif %}
 			<div class="mwstNR">MwSt-ID {{ invoiceconfig.senderMwstId }}</div><br/>
-			<!--<div class="dateRange">Aufwandzeitraum $START - $END</p>-->
+			{% if invoice.start and invoice.end %}
+			<div class="dateRange">Aufwandzeitraum {{ invoice.start|date('d.m.Y') }} - {{ invoice.end|date('d.m.Y') }}</div>
+			{% endif %}
 			{% if invoice.offer %}
 			<div class="offerShortDescription">{{ invoice.offer.shortdescription }}</div><br/>
 			{% endif %}
@@ -52,12 +54,12 @@
 			</tr>
 			{% for item in invoice.items %}
 			<tr class="tbody">
-				<td>{{ item.type }}</td>
-				<td class="number">{{ item.value }}</td>
+				<td>{{ item.name }}</td>
+				<td class="number">{{ item.amount }}</td>
 				<td>{{ item.rateUnit }}</td>
-				<td class="number">{{ item.rate }}</td>
+				<td class="number">{{ item.rateValue }}</td>
 				<td class="number">{{ invoiceconfig.mwstPercent }}%</td>
-				<td class="number">{{ item.charge }}</td>
+				<td class="number">{{ item.total }}</td>
 			</tr>
 			{% endfor %}
 			<tr class="tfoot">
@@ -66,7 +68,7 @@
 				<td></td>
 				<td></td>
 				<td class="number">Subtotal</td>
-				<td class="number">{{ invoice.gross }}</td>
+				<td class="number">{{ invoice.subtotal }}</td>
 			</tr>
 		</table>
 		<table class="discounttable" breakable="false">
@@ -88,19 +90,19 @@
 			{% endfor %}
 			<tr class="tfoot">
 				<td class="number">Abzüge Total</td>
-				<td class="number">00.00{# Total der Abzüge #}</td>
+				<td class="number">{{ invoice.getTotalDiscounts() }}</td>
 			</tr>
 		</table>
 		<table class="sumtable" breakable="false">
 			<tr class="tbody">
 				<td class="firstrow number"></td>
 				<td class="secondrow number">MwSt. Total</td>
-				<td class="thirdrow number">00.00{# Total der MwSt zusammengezählt#}</td>
+				<td class="thirdrow number">{{ invoice.getTotalVAT() }}</td>
 			</tr>
 			<tr class="tfoot">
 				<td>Zahlbar 30 Tage netto</td>
 				<td class="number">Rechnungstotal</td>
-				<td class="number">{{ invoice.net }}</td>
+				<td class="number">{{ invoice.total }}</td>
 			</tr>
 		</table>
 	</dynamic-page>
@@ -117,7 +119,7 @@
 					</div>
 					<div margin="6mm 3mm 0 0">
 						<div margin="0" padding="0" font-size="14" text-align="center">
-							  {{ invoice.net|float2moneystring(2)|charbox(2) }}<div margin="0" padding="0" float="right" width="6mm"></div>{{ invoice.net|float2moneystring(1)|charbox(8) }}
+							  {{ invoice.total|money_get_decimals|charbox(2) }}<div margin="0" padding="0" float="right" width="6mm"></div>{{ invoice.total|money_get_digits|charbox(8) }}
 						</div>
 					</div>
 					<div margin="7mm 0 0 0" font-size="14">
@@ -139,7 +141,7 @@
 								</div>
 								<div margin="6mm 2mm 0 0">
 									<div margin="0" padding="0" font-size="14" text-align="center">
-										{{ invoice.net|float2moneystring(2)|charbox(2) }}<div margin="0" padding="0" float="right" width="6mm"></div>{{ invoice.net|float2moneystring(1)|charbox(8) }}
+										{{ invoice.total|money_get_decimals|charbox(2) }}<div margin="0" padding="0" float="right" width="6mm"></div>{{ invoice.total|money_get_digits|charbox(8) }}
 									</div>
 								</div>
 							</td>
