@@ -4,14 +4,19 @@
 		<div class="${baseClass} ${baseClass}Alias"><label>Alias</label><div data-dojo-attach-point="aliasNode" data-dojo-type="dijit/form/TextBox"></div></div>
 		<div class="${baseClass} ${baseClass}Description"><label>Beschreibung</label><div data-dojo-attach-point="descriptionNode" data-dojo-type="dijit/form/TextBox"></div></div>
 		<div class="${baseClass} ${baseClass}Project"><label>Projekt</label><div data-dojo-attach-point="projectNode" data-dojo-type="dijit/form/FilteringSelect" ></div></div>
+		<div class="${baseClass} ${baseClass}Start"><label>Start</label><div data-dojo-attach-point="startNode" data-dojo-type="dime/form/DateTextBox" ></div></div>
+		<div class="${baseClass} ${baseClass}End"><label>Ende</label><div data-dojo-attach-point="endNode" data-dojo-type="dime/form/DateTextBox" ></div></div>
 	</div>
 	<div class="DimePanel ${baseClass}Panel">
 		<div class="${baseClass} ${baseClass}InvoiceItems"><label>Rechnungspositionen:</label><div data-dojo-attach-point="itemsNode" data-dojo-type="dime/common/GenericStoreTableWidget"></div></div>
 	</div>
 
 	<div class="DimePanel ${baseClass}Panel">
-		<div class="${baseClass} ${baseClass}Gross"><label>Brutto </label><div data-dojo-attach-point="grossNode" data-dojo-type="dijit/form/TextBox"></div></div>
-		<div class="${baseClass} ${baseClass}net"><label>Netto </label><div data-dojo-attach-point="netNode" data-dojo-type="dijit/form/TextBox"></div></div>
+		<div class="${baseClass} ${baseClass}PriceSummary"><label>Total</label></div>
+		<div class="${baseClass} ${baseClass}Subtotal"><label>Subtotal</label><div data-dojo-attach-point="subtotalNode" data-dojo-type="dijit/form/NumberTextBox" ></div></div>
+		<div class="${baseClass} ${baseClass}TotalVAT"><label>Davon MwSt.</label><div data-dojo-attach-point="totalVATNode" data-dojo-type="dijit/form/NumberTextBox" ></div></div>
+		<div class="${baseClass} ${baseClass}TotalDiscounts"><label>Abzüge</label><div data-dojo-attach-point="totalDiscountsNode" data-dojo-type="dijit/form/NumberTextBox" ></div></div>
+		<div class="${baseClass} ${baseClass}Total"><label>Total</label><div data-dojo-attach-point="totalNode" data-dojo-type="dijit/form/NumberTextBox" ></div></div>
 	</div>
 
 	<div class="DimePanel ${baseClass}Panel">

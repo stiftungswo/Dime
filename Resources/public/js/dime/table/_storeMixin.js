@@ -13,6 +13,9 @@ define([
 
         blockUpdate: false,
 
+        //Property in the Child which stores the Reference to its Parent
+        parentprop: 'entity',
+
         startup: function(){
             if(!this.blockUpdate) {
                 this._updateView();
@@ -35,7 +38,7 @@ define([
             this.collection = collection;
             var table = this;
             this.collection.on('add', function(event){
-                if(!table._destroyed) {
+                if(!table._destroyed && table.checkParentRef(event.target)) {
                     table._addChildWidget(event.target);
                 }
             });
@@ -53,6 +56,12 @@ define([
         _setQueryPrototypeAttr: function(queryPrototype) {
             this.queryPrototype = queryPrototype;
             this.set('query', this._renderQuery(queryPrototype));
+        },
+
+        checkParentRef: function(entity){
+            //Check that the object which we have got is really the one we should manage or if another Table manages it.
+            var parentEntity = this.get('parentEntity');
+            return entity[this.parentprop].id === parentEntity.id;
         },
 
         _renderQuery: function(queryPrototype){

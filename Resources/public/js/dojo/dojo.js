@@ -217,7 +217,7 @@
 		executed = 5;
 
 	if(has("dojo-trace-api")){
-		// these make debugging nice; but using strings for symbols is a gross rookie error; don't do it for production code
+		// these make debugging nice; but using strings for symbols is a subtotal rookie error; don't do it for production code
 		requested = "requested";
 		arrived = "arrived";
 		nonmodule = "not-a-module";

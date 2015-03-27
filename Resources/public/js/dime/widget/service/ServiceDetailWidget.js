@@ -57,7 +57,8 @@ define([
                 },
                 collection: 'rates',
                 creatable: true,
-                deleteable: true
+                deleteable: true,
+                parentprop: 'service'
             }
         }
     });

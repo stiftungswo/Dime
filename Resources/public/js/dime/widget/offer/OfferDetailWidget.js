@@ -120,7 +120,8 @@ define([
                 },
                 collection: 'offerpositions',
                 creatable: true,
-                deleteable: true
+                deleteable: true,
+                parentprop: 'offer'
             },
             discountsNode: {
                 childWidgetType: 'dime/widget/timetrack/StandardDiscountRowWidget',
@@ -132,7 +133,8 @@ define([
                     store: window.storeManager.adapt('standarddiscounts')
                 },
                 creatable: true,
-                deleteable: true
+                deleteable: true,
+                parentprop: 'offer'
             },
             offerDiscountsNode: {
                 childWidgetType: 'dime/widget/offer/OfferDiscountRowWidget',
@@ -142,7 +144,8 @@ define([
                 },
                 collection: 'offerdiscounts',
                 creatable: true,
-                deleteable: true
+                deleteable: true,
+                parentprop: 'offer'
             }
         },
         callbacks: {

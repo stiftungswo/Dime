@@ -31,6 +31,7 @@ define([
             selection.forEach(function(id){
                 store.remove(id);
             });
+            this.set('selection', []);
         }
     });
 });

@@ -12,6 +12,8 @@ define([
     'dijit/form/TextBox',
     'dijit/form/Button',
     'dijit/form/FilteringSelect',
+    'dime/form/DateTextBox',
+    'dijit/form/NumberTextBox',
     'dime/common/GenericTableWidget',
     'dime/common/GenericStoreTableWidget',
     'dime/common/SelectableSubEntityTableWidget',
@@ -49,26 +51,41 @@ define([
                 idProperty: 'id',
                 disabled: true
             },
-            grossNode: {
+            subtotalNode: {
                 widgetProperty: 'value',
-                entityProperty: 'gross',
-                nullValue: 0
+                entityProperty: 'subtotal',
+                nullValue: '',
+                disabled: true
             },
-            netNode:{
+            totalVATNode: {
                 widgetProperty: 'value',
-                entityProperty: 'net',
-                nullValue: 0
+                entityProperty: 'totalVAT',
+                nullValue: '',
+                disabled: true
+            },
+            totalDiscountsNode: {
+                widgetProperty: 'value',
+                entityProperty: 'totalDiscounts',
+                nullValue: '',
+                disabled: true
+            },
+            totalNode: {
+                widgetProperty: 'value',
+                entityProperty: 'total',
+                nullValue: '',
+                disabled: true
             },
             updateNode: {},
             itemsNode: {
                 childWidgetType: 'dime/widget/invoice/InvoiceItemRowWidget',
-                header: [ 'Typ', 'Anzahl', 'Ansatz', 'Einheit', 'Kosten' ],
+                header: [ 'Typ', 'Anzahl', 'Ansatz', 'Einheit', 'Mwst.', 'Kosten' ],
                 queryPrototype: {
                     invoice: 'id'
                 },
                 collection: 'invoiceitems',
                 creatable: true,
-                deleteable: true
+                deleteable: true,
+                parentprop: 'invoice'
             },
             discountsNode: {
                 childWidgetType: 'dime/widget/timetrack/StandardDiscountRowWidget',
@@ -80,17 +97,21 @@ define([
                     store: window.storeManager.adapt('standarddiscounts')
                 },
                 creatable: true,
-                deleteable: true
+                deleteable: true,
+                parentprop: 'invoice'
             }
             //invoiceDiscountsNode: {
-            //    childWidgetType: 'dime/widget/offer/OfferDiscountRowWidget',
+            //    childWidgetType: 'dime/widget/invoice/InvoiceDiscountRowWidget',
             //    header: [ 'Name', 'Reduktion', 'Prozent', 'Wert' ],
-            //    widgetProperty: 'updateValues',
-            //    createable: true,
-            //    linkable: false,
-            //    store: 'offerdiscounts',
-            //    entityProperty: 'offerDiscounts',
-            //    entitytype: 'offerdiscounts'
+            //    widgetProperty: 'value',
+            //    entityProperty: 'invoiceDiscounts',
+            //    queryPrototype: {
+            //        invoice: 'id'
+            //    },
+            //    creatable: true,
+            //    deleteable: true,
+            //    collection: 'invoicediscounts',
+            //    parentprop: 'invoice'
             //}
         },
         callbacks:{

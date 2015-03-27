@@ -15,34 +15,45 @@ define([
             independant: true
         },
         childConfig: {
-            typeNode: {
+            nameNode: {
                 widgetProperty: 'value',
-                entityProperty: 'type',
-                nullValue: 0,
+                entityProperty: 'name',
+                nullValue: '',
                 disabled: true
             },
-            valueNode: {
+            rateValueNode: {
                 widgetProperty: 'value',
-                entityProperty: 'value',
-                nullValue: 0,
-                disabled: true
-            },
-            rateNode: {
-                widgetProperty: 'value',
-                entityProperty: 'rate',
-                nullValue: 0,
+                entityProperty: 'rateValue',
+                nullValue: '',
                 disabled: true
             },
             rateUnitNode: {
                 widgetProperty: 'value',
                 entityProperty: 'rateUnit',
-                nullValue: 0,
+                nullValue: '',
                 disabled: true
             },
-            chargeNode: {
+            amountNode: {
                 widgetProperty: 'value',
-                entityProperty: 'charge',
-                nullValue: 0,
+                entityProperty: 'amount',
+                nullValue: '',
+                disabled: true
+            },
+            VATNode: {
+                widgetProperty: 'value',
+                entityProperty: 'vat',
+                nullValue: '',
+                constraints: {
+                    min: 0,
+                    max: 100,
+                    pattern: "#0.##%"
+                },
+                disabled: true
+            },
+            totalNode: {
+                widgetProperty: 'value',
+                entityProperty: 'total',
+                nullValue: '',
                 disabled: true
             }
         }

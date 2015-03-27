@@ -50,7 +50,6 @@ define([
                 widgetProperty: 'value',
                 entityProperty: 'customer',
                 nullValue: '',
-                disabled: true,
                 store: 'customers',
                 idProperty: 'id'
             },
@@ -105,7 +104,8 @@ define([
                 },
                 collection: 'activities',
                 creatable: true,
-                deleteable: true
+                deleteable: true,
+                parentprop: 'project'
             },
             timeslicesNode: {
                 childWidgetType: 'dime/widget/timeslice/TimesliceTableRowWidget',
@@ -115,7 +115,8 @@ define([
                 header: ['Datum', 'Mitarbeiter', 'Aktivität', 'Menge'],
                 collection: 'timeslices',
                 creatable: true,
-                deleteable: true
+                deleteable: true,
+                parentprop: 'project'
             }
         },
         callbacks:{
