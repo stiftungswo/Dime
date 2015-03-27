@@ -37,6 +37,7 @@ class AppKernel extends Kernel
             new Dime\OfferBundle\DimeOfferBundle(),
 	        new Dime\InvoiceBundle\DimeInvoiceBundle(),
 	        new Dime\ReportBundle\DimeReportBundle(),
+	        new \Tbbc\MoneyBundle\TbbcMoneyBundle(),
         );
         
         if (in_array($this->getEnvironment(), array(

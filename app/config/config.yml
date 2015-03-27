@@ -31,6 +31,9 @@ framework:
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
+    form:
+        resources:
+            - 'TbbcMoneyBundle:Form:fields.html.twig'
 
 # Assetic Configuration
 assetic:
@@ -68,3 +71,25 @@ swiftmailer:
     spool:     { type: memory }
 
 nelmio_api_doc: ~
+
+tbbc_money:
+    currencies: ["CHF"]
+    reference_currency: "CHF"
+    decimals: 2
+
+dime_invoice:
+    sender:
+        name: %sender_name%
+        plz: %sender_plz%
+        city: %sender_city%
+        street: %sender_street%
+        streetnumber: %sender_streetnumber%
+        phone: %sender_phone%
+        fax: %sender_fax%
+        mail: %sender_mail%
+        web: %sender_web%
+        mwstId: %sender_mwstid%
+        bank: %sender_bank%
+        iban: %sender_iban%
+        kontoNr: %sender_kontonr%
+    mwstPercent: 8
