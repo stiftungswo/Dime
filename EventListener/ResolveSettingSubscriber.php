@@ -13,7 +13,6 @@ use Dime\TimetrackerBundle\Event\ResolveSettingEvent;
 use Dime\TimetrackerBundle\TimetrackEvents;
 use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\Validator\Constraints\DateTime;
 
 class ResolveSettingSubscriber extends ContainerAware implements EventSubscriberInterface
 {

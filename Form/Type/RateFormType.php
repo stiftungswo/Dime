@@ -27,7 +27,7 @@ class RateFormType extends AbstractType
             ->add('service', 'entity', array('class' => 'DimeTimetrackerBundle:Service'))
 	        ->add('rateUnitType', 'choice', array('choice_list' => new RateUnitType()))
             ->add('rateUnit')
-            ->add('rateValue')
+            ->add('rateValue', 'tbbc_simple_money')
             ->add('user', 'entity', array('class' => 'DimeTimetrackerBundle:User'));
     }
 
