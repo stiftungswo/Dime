@@ -81,12 +81,10 @@
 .claro .dijitSelectMenu td.dijitMenuItemIconCell,
 .claro .dijitSelectMenu td.dijitMenuArrowCell {
   /* so that arrow and icon cells from MenuItem are not displayed */
-
   display: none;
 }
 .claro .dijitSelectMenu td.dijitMenuItemLabel {
   /* line up menu text with text in select box (in LTR and RTL modes) */
-
   padding: 2px;
 }
 .claro .dijitSelectMenu .dijitMenuSeparatorTop {

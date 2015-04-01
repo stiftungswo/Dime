@@ -1,5 +1,4 @@
-@import url("//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css");
-
+@import "bootstrap/css/bootstrap.min.css";
 /* Add additional stylesheets below
 -------------------------------------------------- */
 /*
@@ -44,7 +43,7 @@ body .sidebar .nav li.nav-header {
 }
 body .sidebar .nav li.nav-header i {
   margin-right: 10px;
-  margin-left: 10px;
+  font-size: 150%;
 }
 body .sidebar .nav li a {
   color: #999;
@@ -52,7 +51,6 @@ body .sidebar .nav li a {
 }
 body .sidebar .nav li.active a {
   color: #FFFFFF;
-  background-color: #428bca;
 }
 body .main {
   background-color: #FFFFFF;

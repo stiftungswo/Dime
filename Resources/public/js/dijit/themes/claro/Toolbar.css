@@ -41,7 +41,6 @@
 .claro .dijitToolbar .dijitComboBox .dijitButtonNode {
   border-width: 0;
   /* on hover/active, border-->1px, padding-->1px */
-
   padding: 2px;
   -moz-border-radius: 2px;
   border-radius: 2px;
@@ -57,7 +56,6 @@
   background-color: rgba(171, 214, 255, 0);
   background-image: none;
   /* cancel gradient for normal buttons, we don't want any gradient besides toolbar's on non-hovered buttons */
-
 }
 .dj_ie .claro .dijitToolbar .dijitButton .dijitButtonNode,
 .dj_ie .claro .dijitToolbar .dijitDropDownButton .dijitButtonNode,
@@ -66,7 +64,6 @@
 .dj_ie .claro .dijitToolbar .dijitComboBox .dijitButtonNode {
   background-color: transparent;
   /* for IE, which doesn't understand rgba(...) */
-
 }
 /* hover status */
 .dj_ie .claro .dijitToolbar .dijitButtonHover .dijitButtonNode,
@@ -75,7 +72,6 @@
 .dj_ie .claro .dijitToolbar .dijitComboButton .dijitDownArrowButtonHover,
 .dj_ie .claro .dijitToolbar .dijitToggleButtonHover .dijitButtonNode {
   /* button should still turn blue on hover, so need to override .dj_ie rules above */
-
   background-color: #abd6ff;
 }
 /* active status */
@@ -84,18 +80,15 @@
 .dj_ie .claro .dijitToolbar .dijitComboButtonActive .dijitButtonNode,
 .dj_ie .claro .dijitToolbar .dijitToggleButtonActive .dijitButtonNode {
   /* button should still turn blue on press, so need to override .dj_ie rules above */
-
   background-color: #abd6ff;
 }
 .claro .dijitToolbar .dijitComboButton .dijitStretch {
   /* no rounded border on side adjacent to arrow */
-
   -moz-border-radius: 2px 0 0 2px;
   border-radius: 2px 0 0 2px;
 }
 .claro .dijitToolbar .dijitComboButton .dijitArrowButton {
   /* no rounded border on side adjacent to button */
-
   -moz-border-radius: 0 2px 2px 0;
   border-radius: 0 2px 2px 0;
 }
@@ -181,13 +174,11 @@
 .claro .dijitToolbar .dijitComboButtonHover .dijitDownArrowButton {
   padding-left: 2px;
   /* since there's no left border, don't reduce from 2px --> 1px */
-
 }
 /* toggle button checked status */
 .claro .dijitToolbar .dijitToggleButtonChecked .dijitButtonNode {
   margin: 0;
   /* remove margin and add a border */
-
   border-width: 1px;
   border-style: solid;
   background-image: none;
@@ -197,7 +188,6 @@
 }
 .claro .dijitToolbarSeparator {
   /* separator icon in the editor sprite */
-
   background: url("../../icons/images/editorIconsEnabled.png");
 }
 /* Toolbar inside of disabled Editor */

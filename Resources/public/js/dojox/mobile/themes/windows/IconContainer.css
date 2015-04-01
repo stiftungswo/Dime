@@ -1,7 +1,5 @@
 @import url("../common/domButtons/DomButtonColorButtons.css");
-
 @import url("../common/domButtons/DomButtonBlackCircleCross.css");
-
 @import url("../common/IconContainer_keyframes.css");
 /* dojox.mobile.IconContainer */
 .mblIconContainer {
@@ -13,7 +11,6 @@
   position: relative;
   overflow: hidden;
   /* for focus frame */
-
   list-style-type: none;
   float: left;
   -webkit-tap-highlight-color: rgba(255, 255, 255, 0);

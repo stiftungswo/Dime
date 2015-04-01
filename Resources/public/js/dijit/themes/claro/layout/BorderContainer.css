@@ -31,7 +31,6 @@ Splitters and gutters:
 */
 .claro .dijitBorderContainer {
   /* matches the width of the splitters between panes */
-
   padding: 5px;
 }
 .claro .dijitSplitContainer-child,
@@ -39,7 +38,6 @@ Splitters and gutters:
   /* By default put borders on all children of BorderContainer,
 	 *  to give illusion of borders on the splitters themselves.
 	 */
-
   border: 1px #b5bcc7 solid;
 }
 .claro .dijitBorderContainer-dijitTabContainerTop,
@@ -50,12 +48,10 @@ Splitters and gutters:
   /* except that TabContainer defines borders on it's sub-nodes (tablist and dijitTabPaneWrapper),
 	 * so override rule setting border on domNode
 	 */
-
   border: none;
 }
 .claro .dijitBorderContainer-dijitBorderContainer {
   /* make nested BorderContainers look like a single big widget with lots of splitters */
-
   border: 0;
   padding: 0;
 }

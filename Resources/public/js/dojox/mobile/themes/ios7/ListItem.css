@@ -1,12 +1,10 @@
 @import url("../common/domButtons/DomButtonGrayArrow.css");
-
 @import url("../common/domButtons/DomButtonWhiteCheck.css");
 /* dojox.mobile.ListItem */
 .mblListItem {
   position: relative;
   overflow: hidden;
   /* for focus frame */
-
   padding: 0 8px;
   height: 50px;
   list-style-type: none;

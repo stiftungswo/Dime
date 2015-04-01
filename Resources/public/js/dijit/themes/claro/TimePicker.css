@@ -30,11 +30,9 @@
   border-bottom: none;
   background-color: #fff;
   /* TODO: useless?   Appears to be overridden by settings on individual elements */
-
 }
 .claro .dijitTimePickerItem {
   /* dijitTimePickerItem refers to both Tick's (minor values like 2:15, 2:30, 2:45) and Marker's (major values like 2PM, 3PM) */
-
   background-image: url("images/standardGradient.png");
   background-repeat: repeat-x;
   background-image: -moz-linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
@@ -48,14 +46,12 @@
 }
 .claro .dijitTimePickerTick {
   /* minor value */
-
   color: #818181;
   background-color: #efefef;
   font-size: 0.818em;
 }
 .claro .dijitTimePickerMarker {
   /* major value - 1:00, 2:00, times on the hour */
-
   background-color: #e5f2fe;
   font-size: 1em;
   white-space: nowrap;
@@ -91,7 +87,6 @@
 .claro .dijitTimePicker .dijitArrowButtonInner {
   height: 100%;
   /* hack claro.button.css */
-
   background-image: url("form/images/commonFormArrows.png");
   background-repeat: no-repeat;
   background-position: -140px 45%;

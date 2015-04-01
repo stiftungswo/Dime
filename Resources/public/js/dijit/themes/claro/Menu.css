@@ -124,7 +124,6 @@ There are three areas of styling for the Menu:
   height: auto;
   margin-top: 1px;
   /* prevents spacing above/below separator */
-
   border-bottom: 1px solid #b5bcc7;
 }
 .claro .dijitMenuSeparatorBottom {
@@ -138,7 +137,6 @@ There are three areas of styling for the Menu:
   background-repeat: no-repeat;
   background-position: -15px 50%;
   /* unchecked checkbox */
-
   width: 15px;
   height: 16px;
 }
@@ -149,17 +147,14 @@ There are three areas of styling for the Menu:
 .claro .dijitCheckedMenuItemChecked .dijitCheckedMenuItemIcon {
   background-position: 0 50%;
   /* checked checkbox */
-
 }
 .claro .dijitRadioMenuItem .dijitMenuItemIcon {
   background-position: -105px 50%;
   /* unfilled circle */
-
 }
 .claro .dijitRadioMenuItemChecked .dijitMenuItemIcon {
   background-position: -90px 50%;
   /* filled circle */
-
 }
 /*ComboBox Menu*/
 .claro .dijitComboBoxMenu {
@@ -175,7 +170,6 @@ There are three areas of styling for the Menu:
 .claro .dijitComboBoxMenuActive .dijitMenuItemSelected {
   background-color: #7dbdfa;
   /* TODO: why is this a different color than normal .dijitMenuItemSelected? */
-
 }
 .claro .dijitMenuPreviousButton,
 .claro .dijitMenuNextButton {

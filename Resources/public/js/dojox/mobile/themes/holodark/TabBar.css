@@ -156,7 +156,6 @@
   color: #ffffff;
   background-color: #333333;
   /* TODO: to compat */
-
   background-image: none;
 }
 .mblTabBarStandardTab .mblTabBarButtonIconArea {
@@ -174,7 +173,6 @@
   color: #ffffff;
   background-color: #33b5e5;
   /* TODO: to compat */
-
   background-image: -webkit-gradient(linear, left top, left bottom, from(#313031), to(#959595), color-stop(0.5, #5a555a), color-stop(0.5, #616161));
   background-image: linear-gradient(to bottom, #313031 0%, #5a555a 50%, #616161 50%, #959595 100%);
 }
@@ -297,7 +295,6 @@
 @media (max-width: 500px) {
   .mblTabBarTabBar {
     /* Tab separator only for width < 500 (because TabBar._largeScreenWidth == 500)*/
-  
   }
   .mblTabBarTabBar .mblTabBarButton + .mblTabBarButton:before {
     content: url('images/vseparator.png');

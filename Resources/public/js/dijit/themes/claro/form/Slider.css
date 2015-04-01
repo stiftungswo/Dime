@@ -120,7 +120,6 @@
 .claro .dijitSliderDisabled .dijitSliderLeftBumper {
   background-color: #d3d3d3;
   /* left side of slider, fill matches border */
-
   background-image: none;
 }
 .claro .dijitSliderDisabled .dijitSliderRemainingBarH,
@@ -181,7 +180,6 @@
 .claro .dijitSliderDisabled .dijitSliderBottomBumper {
   background-color: #d3d3d3;
   /* bottom side of slider, fill matches border */
-
 }
 .claro .dijitSliderDisabled .dijitSliderRemainingBarV,
 .claro .dijitSliderDisabled .dijitSliderTopBumper {
@@ -274,7 +272,6 @@
 .claro .dijitSliderHover .dijitSliderDecrementIconV,
 .claro .dijitSliderHover .dijitSliderIncrementIconV {
   /* dijitSliderActive should be treated as dijitSliderHover since "clicking the slider" has no meaning */
-
   border: solid 1px #759dc0;
   background-color: #ffffff;
 }

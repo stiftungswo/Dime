@@ -27,7 +27,6 @@
  */
 .claro .dijitButtonNode {
   /* rules for dijit.form.*Button widgets and arrow nodes on ComboBox, Spinner etc. */
-
   -webkit-transition-property: background-color;
   -moz-transition-property: background-color;
   transition-property: background-color;
@@ -40,7 +39,6 @@
 .claro .dijitComboButton .dijitButtonNode,
 .claro .dijitToggleButton .dijitButtonNode {
   /* rules for the dijit.form.*Button widgets (see also ComboButton section below) */
-
   border: 1px solid #759dc0;
   padding: 2px 4px 4px 4px;
   color: #000000;
@@ -62,7 +60,6 @@
   border-left-width: 0;
   padding: 4px 2px 4px 2px;
   /* TODO: still needed? */
-
 }
 /*arrow styles for down/up/left/right directions*/
 .claro .dijitArrowButtonInner {
@@ -156,7 +153,6 @@
 .claro table.dijitComboButton {
   border-collapse: separate;
   /* override dijit.css so that ComboBox rounded corners work */
-
 }
 .claro .dijitComboButton .dijitStretch {
   -moz-border-radius: 4px 0 0 4px;

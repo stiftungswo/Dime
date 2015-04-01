@@ -29,10 +29,8 @@
 .claro .dijitRadio,
 .claro .dijitRadioIcon {
   /* inside a toggle button */
-
   background-image: url("../form/images/checkboxRadioButtonStates.png");
   /* checkbox sprite image */
-
   background-repeat: no-repeat;
   width: 15px;
   height: 15px;
@@ -42,29 +40,23 @@
 .dj_ie6 .claro .dijitRadio,
 .dj_ie6 .claro .dijitRadioIcon {
   /* inside a toggle button */
-
   background-image: url("../form/images/checkboxAndRadioButtons_IE6.png");
   /* checkbox sprite image */
-
 }
 .claro .dijitRadio {
   /* unselected */
-
   background-position: -105px;
 }
 .claro .dijitToggleButton .dijitRadioIcon {
   /* unselected */
-
   background-position: -107px;
 }
 .claro .dijitRadioDisabled {
   /* unselected and disabled */
-
   background-position: -165px;
 }
 .claro .dijitRadioHover {
   /* hovering over an unselected enabled radio button */
-
   background-position: -135px;
 }
 .claro .dijitRadioChecked {
@@ -78,6 +70,5 @@
 }
 .claro .dijitRadioCheckedDisabled {
   /* selected but disabled */
-
   background-position: -150px;
 }

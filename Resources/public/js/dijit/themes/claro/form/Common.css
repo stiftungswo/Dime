@@ -19,7 +19,6 @@
   width: 0;
   background-color: transparent;
   /* so the INPUT doesn't obscure the border in rtl+a11y */
-
 }
 /* Padding for the input area of TextBox based widgets, and corresponding padding for the
  * down arrow button and the placeholder.   placeholder is explicitly listed  because
@@ -44,7 +43,6 @@
 .claro .dijitTextBox,
 .claro .dijitTextBox .dijitButtonNode {
   /* color for (outer) border on *TextBox widgets, and border between input and buttons on ComboBox and Spinner */
-
   border-color: #b5bcc7;
   -webkit-transition-property: background-color, border;
   -moz-transition-property: background-color, border;
@@ -127,12 +125,10 @@
 }
 .dj_webkit .claro .dijitDisabled input {
   /* because WebKit lightens disabled input/textarea no matter what color you specify */
-
   color: #757575;
 }
 .dj_webkit .claro textarea.dijitTextAreaDisabled {
   /* because WebKit lightens disabled input/textarea no matter what color you specify */
-
   color: #1b1b1b;
 }
 /*========================= for special widgets =========================*/
@@ -208,7 +204,6 @@
 .claro div.dijitComboBoxDisabled .dijitArrowButtonInner {
   /* specific selector set to override background-position setting from Button.js
 	 * (.claro .dijitComboBoxDisabled .dijitArrowButtonInner) */
-
   background-position: 0 50%;
   background-color: #efefef;
 }

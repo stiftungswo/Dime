@@ -30,7 +30,6 @@
   /* transparent (but clickable) <img> node inside of each <td>, overlaying the color swatch.
 	 * displays border around a color swatch
 	 * overrides border color in dijit.css */
-
   border: 1px solid #d3d3d3;
 }
 .claro .dijitColorPalette .dijitPaletteCell:hover .dijitPaletteImg {

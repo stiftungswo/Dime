@@ -56,7 +56,6 @@
 .claro .dijitTabContainerLeft-tabs,
 .claro .dijitTabContainerRight-tabs {
   /* todo: add common class name for this div */
-
   border-color: #b5bcc7;
 }
 .claro .dijitTabCloseButton {
@@ -74,7 +73,6 @@
 }
 .claro .dijitTabSpacer {
   /* set the spacer invisible.  note that height:0 doesn't work on IE/quirks, it's still 10px. */
-
   display: none;
 }
 .claro .dijitTab {
@@ -120,10 +118,8 @@
 /*************** top tab ***************/
 .claro .dijitTabContainerTop-tabs .dijitTab {
   /* unselected (and not hovered/pressed) tab */
-
   top: 1px;
   /* used for overlap */
-
   margin-right: 1px;
   padding: 3px 6px;
   border-bottom-width: 0;
@@ -141,7 +137,6 @@
 }
 .claro .dijitTabContainerTop-tabs .dijitTabChecked {
   /* selected tab */
-
   padding-bottom: 4px;
   padding-top: 9px;
   background-image: url("images/tabTopSelected.png");
@@ -157,10 +152,8 @@
 /*************** bottom tab ***************/
 .claro .dijitTabContainerBottom-tabs .dijitTab {
   /* unselected (and not hovered/pressed) tab */
-
   top: -1px;
   /* used for overlap */
-
   margin-right: 1px;
   padding: 3px 6px;
   border-top-width: 0;
@@ -194,10 +187,8 @@
 /*************** left tab ***************/
 .claro .dijitTabContainerLeft-tabs .dijitTab {
   /* unselected (and not hovered/pressed) tab */
-
   left: 1px;
   /* used for overlap */
-
   margin-bottom: 1px;
   padding: 3px 8px 4px 4px;
   background-image: url("images/tabLeftUnselected.png");
@@ -224,10 +215,8 @@
 /*************** right tab ***************/
 .claro .dijitTabContainerRight-tabs .dijitTab {
   /* unselected (and not hovered/pressed) tab */
-
   left: -1px;
   /* used for overlap */
-
   margin-bottom: 1px;
   padding: 3px 8px 4px 4px;
   background-image: url("images/tabRightUnselected.png");
@@ -240,7 +229,6 @@
 }
 .claro .dijitTabContainerRight-tabs .dijitTabChecked {
   /* selected tab */
-
   padding-left: 5px;
   border-left-width: 0;
   background-image: url("images/tabRightSelected.png");
@@ -316,7 +304,6 @@
   background-color: #d3d3d3;
   border: 1px solid #b5bcc7;
   /* to match border of TabContainer itself */
-
 }
 .claro .tabStripButtonDisabled .dijitTabStripSlideLeftIcon {
   background-position: -175px 50%;
@@ -350,7 +337,6 @@
   border-radius: 2px;
   top: 0;
   /* to override top: 1px/-1px for normal tabs */
-
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
   box-shadow: none;
@@ -390,7 +376,6 @@
 .claro .dijitTabPaneWrapperNested {
   border: none;
   /* prevent double border */
-
 }
 .claro .dijitTabContainer .dijitTab,
 .claro .dijitTabContainer .tabStripButton {

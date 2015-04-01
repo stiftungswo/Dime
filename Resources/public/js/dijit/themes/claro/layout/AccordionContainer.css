@@ -33,7 +33,6 @@
 .claro .dijitAccordionInnerContainer {
   background-color: #efefef;
   /* gray, for closed pane */
-
   border: solid 1px #b5bcc7;
   margin-bottom: 1px;
   -webkit-transition-property: background-color, border;
@@ -49,7 +48,6 @@
 .claro .dijitAccordionTitle {
   background-color: transparent;
   /* pick up color from dijitAccordionInnerContainer */
-
   background-image: url("../images/standardGradient.png");
   background-repeat: repeat-x;
   background-image: -moz-linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
@@ -65,14 +63,12 @@
   /* this extends the blue trim styling of the title bar to wrapping around the node.
 	 * done by setting margin
 	 */
-
   background-color: #ffffff;
   border: 1px solid #759dc0;
   margin: 0 2px 2px;
 }
 .claro .dijitAccordionContainer .dijitAccordionContainer-child {
   /* this is affecting the child widget itself */
-
   padding: 9px;
 }
 /* Hover state for closed pane */
@@ -119,5 +115,4 @@
   background-image: linear-gradient(rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 100%);
   _background-image: none;
   /* avoid effect when clicking the title of the open pane */
-
 }

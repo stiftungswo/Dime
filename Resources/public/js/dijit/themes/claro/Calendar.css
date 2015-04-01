@@ -58,7 +58,6 @@
   /* treat dijitCalendarActive like hover since there's
 	 * no concept of clicking a Calendar as a whole (although you can click things inside the calendar)
 	 */
-
   background-color: #abd6ff;
   border: solid 1px #759dc0;
 }
@@ -103,7 +102,6 @@
 }
 .claro .dijitA11ySideArrow {
   /* text +/- labels instead of arrow icons, for high contrast mode */
-
   display: none;
 }
 .claro .dijitCalendarDayLabelTemplate {
@@ -146,10 +144,8 @@
   padding: 3px 5px 3px 4px;
   border: solid 1px #ffffff;
   /* intentionally matches background-color, no visible border until hover/selection */
-
   background-color: rgba(171, 212, 251, 0);
   /* transparent causes black-flash animation problem on webkit */
-
   -webkit-transition-property: background-color, border;
   -moz-transition-property: background-color, border;
   transition-property: background-color, border;
@@ -162,7 +158,6 @@
   color: #759dc0;
   border-color: #e5f2fe;
   /* intentionally matches background-color, no visible border until hover/selection */
-
 }
 .claro .dijitCalendarYearContainer {
   vertical-align: middle;
@@ -177,7 +172,6 @@
 }
 .claro .dijitCalendarYearLabel span {
   /* trying to center next/current/previous year vertically, doesn't work on IE6/7 though */
-
   vertical-align: middle;
 }
 .claro .dijitCalendarSelectedYear {
@@ -211,7 +205,6 @@
   border: solid 1px #ffffff;
   padding: 0 5px 0 5px;
   /* reduced by 1 to make room for border */
-
   background-color: #e5f2fe;
 }
 /* End Hovered Calendar Style */
@@ -222,7 +215,6 @@
   border: solid 1px #759dc0;
   padding: 0 5px 0 5px;
   /* reduced by 1 to make room for border */
-
   background-color: #7dbdfa;
 }
 .claro .dijitCalendarActiveDate .dijitCalendarDateLabel,
@@ -282,7 +274,6 @@
 .claro .dijitCalendarMonthMenu .dijitCalendarMonthLabel {
   border-top: solid 1px #ffffff;
   /* intentionally invisible until hover */
-
   border-bottom: solid 1px #ffffff;
   padding: 2px 0;
 }
