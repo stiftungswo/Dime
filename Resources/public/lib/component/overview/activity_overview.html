@@ -1,0 +1,33 @@
+<table class="table table-bordered table-hover">
+  <thead>
+    <tr>
+		<td>ID</td>
+		<td>Service</td>
+		<td>Beschreibung</td>
+	    <td>Preis</td>
+	    <td>Einheit</td>
+	    <td>Anzahl</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="entity in entities" ng-click="selectEntity(entity.id)" ng-class="isSelected(entity)? 'info': ''">
+		<td>{{entity.id}}</td>
+		<td>
+			<select class="form-control" ng-model="entity.service" on-change="addSaveField('service', entity)">
+				<option ng-repeat="service in services" ng-value="service"
+				        ng-selected="service.id == entity.service.id">{{ service.name }}
+				</option>
+			</select>
+		</td>
+		<td><textarea class="form-control tiny" ng-model="entity.description" on-change="addSaveField('description', entity)"></textarea></td>
+	    <td>{{entity.rateValue}}</td>
+	    <td>{{entity.rateUnit}}</td>
+	    <td>{{entity.value}}</td>
+    </tr>
+  </tbody>
+</table>
+<div class="controllbuttons">
+  <button type="button" class="btn btn-primary" ng-click="createEntity()">+</button>
+  <button type="button" class="btn btn-primary">++</button>
+  <button type="button" class="btn btn-danger" ng-click="deleteEntity()">-</button>
+</div>

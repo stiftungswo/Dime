@@ -1,0 +1,26 @@
+<table class="table table-bordered table-hover">
+  <thead>
+    <tr>
+	    <td>ID</td>
+	    <td>Name</td>
+	    <td>Beschreibung</td>
+	    <td>Start</td>
+	    <td>Ende</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="entity in entities" ng-click="selectEntity(entity.id)" ng-doubleclick="openEditView(entity.id)" ng-class="isSelected(entity)? 'info': ''">
+	    <td>{{entity.id}}</td>
+	    <td>{{entity.name}}</td>
+	    <td>{{entity.description}}</td>
+	    <td>{{entity.start}}</td>
+	    <td>{{entity.end}}</td>
+    </tr>
+  </tbody>
+</table>
+<div class="controllbuttons">
+  <button type="button" class="btn btn-primary" ng-click="createEntity()">+</button>
+  <button type="button" class="btn btn-primary">++</button>
+  <button type="button" class="btn btn-primary" ng-click="openEditView()">Edit</button>
+  <button type="button" class="btn btn-danger" ng-click="deleteEntity()">-</button>
+</div>

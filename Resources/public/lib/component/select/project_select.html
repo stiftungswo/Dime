@@ -1,0 +1,8 @@
+<div class="dropdown" ng-class="{'open': open}">
+	<input type="text" ng-model="selector" ng-focus="openSelectionBox()">
+	<div class="dropdown-menu">
+		<div ng-repeat="entity in entities | filter:{name: selector}">
+			<div ng-click="select(entity)">{{entity.name}}</div>
+		</div>
+	</div>
+</div>

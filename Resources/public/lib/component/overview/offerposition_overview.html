@@ -1,0 +1,45 @@
+<table class="table table-bordered table-hover">
+  <thead>
+    <tr>
+		<td>Reihenfolge</td>
+		<td>Service</td>
+		<td>Tarif</td>
+	    <td>Tarif Einheit</td>
+	    <td>Einheits-Typ</td>
+	    <td>Menge</td>
+	    <td>MwSt.</td>
+	    <td>Rabatierbar</td>
+	    <td>Total</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="entity in entities | offerpostionOrder" ng-click="selectEntity(entity.id)" ng-class="isSelected(entity)? 'info': ''">
+		<td><input class="form-control" type="text" ng-model="entity.order" on-change="addSaveField('order', entity)"/></td>
+		<td>
+			<select class="form-control" ng-model="entity.service" on-change="addSaveField('service', entity)">
+				<option ng-repeat="service in services" ng-value="service"
+				        ng-selected="service.id == entity.service.id">{{ service.name }}
+				</option>
+			</select>
+		</td>
+	    <td><input class="form-control" type="text" ng-model="entity.rateValue" on-change="addSaveField('rateValue', entity)"/></td>
+	    <td><input class="form-control" type="text" ng-model="entity.rateUnit" on-change="addSaveField('rateUnit', entity)"/></td>
+	    <td>
+		    <select class="form-control" ng-model="entity.rateUnitType" on-change="addSaveField('rateUnitType', entity)">
+			    <option ng-repeat="rateUnitType in rateUnitTypes" ng-value="rateUnitType.id"
+			            ng-selected="rateUnitType.id == entity.rateUnitType">{{ rateUnitType.name }}
+			    </option>
+		    </select>
+	    </td>
+	    <td><input class="form-control" type="text" ng-model="entity.amount" on-change="addSaveField('amount', entity)"/></td>
+	    <td><input-percentage htmlclass="'form-control'" value="entity.vat" on-change="addSaveField('vat', entity)"></input-percentage></td>
+	    <td><input class="form-control checkbox" type="checkbox" ng-model="entity.discountable" on-change="addSaveField('discountable', entity)"/></td>
+	    <td>{{entity.total}}</td>
+    </tr>
+  </tbody>
+</table>
+<div class="controllbuttons">
+  <button type="button" class="btn btn-primary" ng-click="createEntity()">+</button>
+  <button type="button" class="btn btn-primary">++</button>
+  <button type="button" class="btn btn-danger" ng-click="deleteEntity()">-</button>
+</div>

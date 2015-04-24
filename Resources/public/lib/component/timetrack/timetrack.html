@@ -1,0 +1,32 @@
+<div class="container-fluid form-inline">
+	<div class="panel panel-default col-md-4">
+		<div class="panel-body">
+			<div class="row"><h4>Zeiterfassung für {{employee.fullname}}</h4></div>
+			<div class="row">
+				<label class="control-label">e-Mail:</label>
+				<input class="form-control" type="text" ng-model="employee.email"/>
+			</div>
+			<div class="row">
+				<label class="control-label">Vorname:</label>
+				<input class="form-control" type="text" ng-model="employee.firstname"/>
+			</div>
+			<div class="row">
+				<label class="control-label">Nachname:</label>
+				<input class="form-control" type="text" ng-model="employee.lastname"/>
+			</div>
+		</div>
+	</div>
+	<div class="panel panel-default col-md-8">
+		<div class="panel-body">
+			<div class="row"><h4>Ist-Sollstunden</h4></div>
+			<div class="row">
+
+			</div>
+		</div>
+	</div>
+	<div class="panel panel-default col-md-12">
+		<div class="panel-body">
+			<timeslice-overview filterByUser="employee"></timeslice-overview>
+		</div>
+	</div>
+</div>

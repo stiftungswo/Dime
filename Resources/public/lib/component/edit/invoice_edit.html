@@ -1,0 +1,44 @@
+<div>
+	<div class="DimePanel form-inline container-fluid">
+		<div class="form-group DimePanel">
+			<div class="row"><label class="col-sm-2 control-label">Name</label><input class="form-control" type="text" ng-model="entity.name" on-change="addSaveField('name')")></div>
+			<div class="row">
+				<label class="col-sm-2 control-label">Auftrag</label>
+				{{entity.project.name}}
+			</div>
+			<div class="row" ng-if="entity.offer">
+				<label class="col-sm-2 control-label">Offerte</label>
+				{{entity.offer.name}}
+			</div>
+		</div>
+		<div class="form-group DimePanel">
+			<div class="row"><label class="col-sm-2 control-label">Startdatum</label><input class="form-control" type="date" ng-model="entity.start"></div>
+			<div class="row"><label class="col-sm-2 control-label">Enddatum</label><input class="form-control" type="date" ng-model="entity.end"></div>
+		</div>
+		<div class="form-group DimePanel">
+			<div class="row">
+				<label class="col-sm-2 control-label">Beschreibung</label>
+			</div>
+			<div class="row">
+				<textarea class="form-control col-sm-12" ng-model="entity.description" on-change="addSaveField('description')" style="margin-left: 20px;"></textarea>
+			</div>
+		</div>
+		<div class="DimePanel">
+			<invoiceitem-overview invoice="entity.id"></invoiceitem-overview>
+		</div>
+		<div class="DimePanel">
+			<standardDiscount-overview invoice="entity.id"></standardDiscount-overview>
+			<invoiceDiscount-overview invoice="entity.id"></invoiceDiscount-overview>
+		</div>
+		<div class="form-group DimePanel">
+			<div class="row"><label class="col-sm-3 control-label">Subtotal</label><div>{{entity.subtotal}}</div></div>
+			<div class="row"><label class="col-sm-3 control-label">Davon Mwst.</label><div>{{entity.totalVAT}}</div></div>
+			<div class="row"><label class="col-sm-3 control-label">Total Abzüge</label><div>{{entity.totalDiscounts}}</div></div>
+			<div class="row"><label class="col-sm-3 control-label">Total</label><div>{{entity.total}}</div></div>
+		</div>
+	</div>
+	<div class="DimeControllButtons">
+		<button type="button" class="btn btn-primary" ng-click="saveEntity()"><error-icon value="saveState" timeout="20"></error-icon></button>
+		<button type="button" class="btn btn-primary">Rechnung Updaten</button>
+	</div>
+</div>

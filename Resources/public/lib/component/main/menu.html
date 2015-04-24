@@ -1,0 +1,7 @@
+<div>
+  <accordion close-others="oneAtATime">
+    <accordion-group ng-repeat="menu in menus" heading="{{menu.title}}" is-open="menu.isOpen">
+      <a ng-repeat="item in menu.items" href="{{item.link}}"><span>{{item.title}}</span></a>
+    </accordion-group>
+  </accordion>
+</div>

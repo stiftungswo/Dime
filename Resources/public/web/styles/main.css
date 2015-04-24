@@ -1,0 +1,82 @@
+a {
+  text-decoration: none;
+}
+
+.extra-space {
+  padding-left: 10px;
+}
+
+[ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+   display: none !important;
+}
+
+ul {
+  list-style-type: none;
+}
+
+main-menu {
+  width: 10%;
+  float: left;
+  height: 95%;
+}
+
+main {
+  width: 100%;
+}
+
+maintabset{
+  width: 89%;
+  float: right;
+  height: 95%;
+}
+
+.navbar{
+  width: 100%;
+  height: 5%;
+  background-color: black;
+}
+
+.DimePanel {
+    width: 99%;
+    margin: 2px;
+    padding: 5px;
+    border: 1px solid #AEAEAE;
+    border-radius: 3px;
+    float: left;
+}
+
+.DimeControllButtons{
+    margin-top: 10px;
+    float: left;
+}
+
+.row{
+    margin-top: 2px;
+}
+
+textarea.form-control{
+    width: 90% !important;
+    height: 200px;
+}
+
+textarea.tiny{
+    height: auto;
+}
+
+.page-title{
+    color: white;
+    margin-left: 10px;
+    margin-top: 7px;
+}
+
+.navbar{
+    border-radius: 0;
+}
+
+.form-control{
+    max-width: 100%;
+}
+
+.table{
+    table-layout: fixed;
+}

@@ -1,0 +1,24 @@
+<div class="modal-header">
+	<h4 class="modal-title">Login</h4>
+</div>
+<div class="modal-body">
+	<div class="container-fuid form">
+		<div class="form-group">
+			<div class="row">
+				<label class="col-sm-1 control-label">Benutzername</label>
+				<input class="form-control" type="text" ng-model="username">
+			</div>
+			<div class="row">
+				<label class="col-sm-1 control-label">Passwort</label>
+				<input class="form-control" type="text" ng-model="password">
+			</div>
+			<div class="row">
+				<label class="col-sm-1 control-label">Remember me!</label>
+				<input class="form-control checkbox" type="checkbox" ng-model="rememberme">
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-primary" ng-click="login()">Login</button>
+</div>
