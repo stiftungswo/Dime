@@ -12,20 +12,20 @@ use FOS\RestBundle\Util\Codes;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use FOS\RestBundle\Controller\Annotations;
 
-class EmployeeController extends DimeController
+class PeriodController extends DimeController
 {
 
-	private $handlerSerivce = 'dime.employee.handler';
+	private $handlerSerivce = 'dime.period.handler';
 
-	private $formType = 'dime_timetrackerbundle_employeeformtype';
+	private $formType = 'dime_timetrackerbundle_periodformtype';
 
 	/**
 	 * List all Entities.
 	 *
 	 * @ApiDoc(
 	 * resource = true,
-	 * output = "Dime\EmployeeBundle\Entity\Employee",
-	 * section="employees",
+	 * output = "Dime\EmployeeBundle\Entity\Period",
+	 * section="periods",
 	 * statusCodes = {
 	 * 200 = "Returned when successful"
 	 * }
@@ -39,7 +39,7 @@ class EmployeeController extends DimeController
 	 * @Annotations\QueryParam(name="enabled", requirements="/^true|false$/i", nullable=true, description="Filter By enabled")
 	 *
 	 * @Annotations\View(
-	 * templateVar="employees"
+	 * templateVar="periods"
 	 * )
 	 *
 	 * @Annotations\Route(requirements={"_format"="json|xml"})
@@ -49,7 +49,7 @@ class EmployeeController extends DimeController
 	 *
 	 * @return array
 	 */
-	public function getEmployeesAction(ParamFetcherInterface $paramFetcher)
+	public function getPeriodsAction(ParamFetcherInterface $paramFetcher)
 	{
 		return $this->container->get($this->handlerSerivce)->all($paramFetcher->all());
 	}
@@ -59,16 +59,16 @@ class EmployeeController extends DimeController
 	 *
 	 * @ApiDoc(
 	 * resource = true,
-	 * description = "Gets a Employee for a given id",
-	 * output = "Dime\EmployeeBundle\Entity\Employee",
-	 * section="employees",
+	 * description = "Gets a Period for a given id",
+	 * output = "Dime\EmployeeBundle\Entity\Period",
+	 * section="periods",
 	 * statusCodes = {
 	 * 200 = "Returned when successful",
 	 * 404 = "Returned when the page is not found"
 	 * }
 	 * )
 	 *
-	 * @Annotations\View(templateVar="employee")
+	 * @Annotations\View(templateVar="period")
 	 *
 	 * @Annotations\Route(requirements={"_format"="json|xml"})
 	 *
@@ -79,9 +79,46 @@ class EmployeeController extends DimeController
 	 *
 	 * @throws NotFoundHttpException when page not exist
 	 */
-	public function getEmployeeAction($id)
+	public function getPeriodAction($id)
 	{
 		return $this->getOr404($id, $this->handlerSerivce);
+	}
+
+	/**
+	 * Presents the form to use to create a new Entity.
+	 *
+	 * @ApiDoc(
+	 * resource = true,
+	 * section="periods",
+	 * output = "Dime\EmployeeBundle\Entity\Period",
+	 * input = "Dime\EmployeeBundle\Form\Type\PeriodFormType",
+	 * description="A Frontend Function for Post for Languages which suck, Which acts on Parameters Defined in Settings",
+	 * statusCodes = {
+	 * 200 = "Returned when successful",
+	 * 405 = "Returned on Unsupported Method",
+	 * 500 = "Returned on Error"
+	 * }
+	 * )
+	 *
+	 * @Annotations\Route(requirements={"_format"="html"})
+	 * @Annotations\QueryParam(name="start", nullable=true, description="Sets the Period Start")
+	 * @Annotations\QueryParam(name="end", nullable=true, description="Sets the Period End")
+	 *
+	 *
+	 * @Annotations\View(
+	 * templateVar = "form"
+	 * )
+	 *
+	 * @param ParamFetcherInterface $paramFetcher
+	 *
+	 *
+	 *
+	 */
+	public function newActivityAction(ParamFetcherInterface $paramFetcher)
+	{
+		$parameters = $paramFetcher->all();
+		$settingsParameters['classname'] = 'period';
+		return $this->get($this->handlerSerivce)->newEntity($parameters, $settingsParameters);
 	}
 
 	/**
@@ -90,9 +127,9 @@ class EmployeeController extends DimeController
 	 * @ApiDoc(
 	 * resource = true,
 	 * description = "Creates a new page from the submitted data.",
-	 * input = "Dime\EmployeeBundle\Form\Type\EmployeeFormType",
-	 * output = "Dime\EmployeeBundle\Entity\Employee",
-	 * section="employees",
+	 * input = "Dime\EmployeeBundle\Form\Type\PeriodFormType",
+	 * output = "Dime\EmployeeBundle\Entity\Period",
+	 * section="periods",
 	 * statusCodes = {
 	 * 201 = "Returned when successful",
 	 * 400 = "Returned when the form has errors"
@@ -106,11 +143,11 @@ class EmployeeController extends DimeController
 	 *
 	 * @return FormTypeInterface|View
 	 */
-	public function postEmployeeAction(Request $request)
+	public function postPeriodAction(Request $request)
 	{
 		try {
-			$newEmployee = $this->container->get($this->handlerSerivce)->post($request->request->all());
-			return $this->view($newEmployee, Codes::HTTP_CREATED);
+			$newPeriod = $this->container->get($this->handlerSerivce)->post($request->request->all());
+			return $this->view($newPeriod, Codes::HTTP_CREATED);
 		} catch (InvalidFormException $exception) {
 			return $exception->getForm();
 		}
@@ -121,13 +158,13 @@ class EmployeeController extends DimeController
 	 *
 	 * @ApiDoc(
 	 * resource = true,
-	 * input = "Dime\EmployeeBundle\Form\Type\EmployeeFormType",
-	 * output = "Dime\EmployeeBundle\Entity\Employee",
-	 * section="employees",
+	 * input = "Dime\EmployeeBundle\Form\Type\PeriodFormType",
+	 * output = "Dime\EmployeeBundle\Entity\Period",
+	 * section="periods",
 	 * statusCodes = {
 	 * 200 = "Returned when the Entity was updated",
 	 * 400 = "Returned when the form has errors",
-	 * 404 = "Returned when the Employee does not exist"
+	 * 404 = "Returned when the Period does not exist"
 	 * }
 	 * )
 	 *
@@ -143,7 +180,7 @@ class EmployeeController extends DimeController
 	 * @throws NotFoundHttpException when page not exist
 	 *
 	 */
-	public function putEmployeeAction(Request $request, $id)
+	public function putPeriodAction(Request $request, $id)
 	{
 		try {
 			$entity = $this->getOr404($id, $this->handlerSerivce);
@@ -159,10 +196,10 @@ class EmployeeController extends DimeController
 	 *
 	 * @ApiDoc(
 	 * resource = true,
-	 * section="employees",
+	 * section="periods",
 	 * statusCodes = {
 	 * 204 = "Returned when successful",
-	 * 404 = "Returned when Employee does not exist."
+	 * 404 = "Returned when Period does not exist."
 	 * }
 	 * )
 	 *
@@ -176,19 +213,19 @@ class EmployeeController extends DimeController
 	 *
 	 * @throws NotFoundHttpException when page not exist
 	 */
-	public function deleteEmployeeAction($id)
+	public function deletePeriodAction($id)
 	{
 		$this->container->get($this->handlerSerivce)->delete($this->getOr404($id, $this->handlerSerivce));
 		return $this->view(null, Codes::HTTP_NO_CONTENT);
 	}
 
 	/**
-	 * Enable the Employee
+	 * Enable the Period
 	 *
 	 * @ApiDoc(
-	 * description="Enable The Employee Specified by ID",
+	 * description="Enable The Period Specified by ID",
 	 * resource = true,
-	 * section="employees",
+	 * section="periods",
 	 * statusCodes = {
 	 * 204 = "Returned when successful",
 	 * 404 = "Returned when entity does not exist"
@@ -197,18 +234,18 @@ class EmployeeController extends DimeController
 	 *
 	 * @Annotations\Route(requirements={"_format"="json|xml"})
 	 */
-	public function enableEmployeeAction($id)
+	public function enablePeriodAction($id)
 	{
 		$this->container->get($this->handlerSerivce)->enable($this->getOr404($id, $this->handlerSerivce));
 		return $this->view(null, Codes::HTTP_NO_CONTENT);
 	}
 
 	/**
-	 * Lock the Employee
+	 * Lock the Period
 	 *
 	 * @ApiDoc(
-	 * description="Lock The Employee Specified By Id",
-	 * section="employees",
+	 * description="Lock The Period Specified By Id",
+	 * section="periods",
 	 * resource = true,
 	 * statusCodes = {
 	 * 204 = "Returned when successful",
@@ -218,33 +255,9 @@ class EmployeeController extends DimeController
 	 *
 	 * @Annotations\Route(requirements={"_format"="json|xml"})
 	 */
-	public function lockEmployeeAction($id)
+	public function lockPeriodAction($id)
 	{
 		$this->container->get($this->handlerSerivce)->lock($this->getOr404($id, $this->handlerSerivce));
 		return $this->view(null, Codes::HTTP_NO_CONTENT);
-	}
-
-	/**
-	 * Get Curently Logged in User.
-	 *
-	 * @ApiDoc(
-	 * description="Return the currently logged in user Object",
-	 * section="users",
-	 * resource = true,
-	 * output = "Dime\EmployeeBundle\Entity\Employee",
-	 * statusCodes = {
-	 * 200 = "Returned when successful",
-	 * 404 = "Returned when entity does not exist"
-	 * }
-	 * )
-	 *
-	 * @Annotations\Get("/employees/current", name="_curentEmployee")
-	 */
-	public function currentEmployeeAction()
-	{
-		if (! ($user = $this->container->get($this->handlerSerivce)->current())) {
-			throw new NotFoundHttpException(sprintf('The resource \'%s\' was not found.', $user->getId()));
-		}
-		return $user;
 	}
 }

@@ -1,0 +1,8 @@
+services:
+    dime.employee.form.type:
+        class: Dime\EmployeeBundle\Form\Type\EmployeeFormType
+        tags: [{ name: form.type, alias: dime_employee_employeeformtype }]
+
+    dime.period.form.type:
+            class: Dime\EmployeeBundle\Form\Type\PeriodFormType
+            tags: [{ name: form.type, alias: dime_employee_periodformtype }]
