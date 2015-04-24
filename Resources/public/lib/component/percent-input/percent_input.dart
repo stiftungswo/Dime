@@ -30,24 +30,27 @@ class PercentageInputField{
   String text;
 
   String _toPercentage(double val){
-    int position = val.toString().indexOf('.');
-    String str = val.toString().replaceAll('.','');
-    for(int i = 0;i < 2;i++){
-      if(str.startsWith('0')){
-        str=str.replaceFirst('0', '');
-        str=str+'0';
-      } else {
-        str=str+'0';
+    if(val != null) {
+      int position = val.toString().indexOf('.');
+      String str = val.toString().replaceAll('.', '');
+      for (int i = 0;i < 2;i++) {
+        if (str.startsWith('0')) {
+          str = str.replaceFirst('0', '');
+          str = str + '0';
+        } else {
+          str = str + '0';
+        }
       }
-    }
-    String resString = '';
-    for(int i=0;i<str.length;i++){
-      if(i==position){
-        resString=resString+'.';
+      String resString = '';
+      for (int i = 0;i < str.length;i++) {
+        if (i == position) {
+          resString = resString + '.';
+        }
+        resString = resString + str.substring(i, i + 1);
       }
-      resString = resString+str.substring(i,i+1);
+      return resString + '%';
     }
-    return resString+'%';
+    return '';
   }
 
   double _toNumber(String percentage){
