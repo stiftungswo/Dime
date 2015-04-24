@@ -31,7 +31,7 @@ class ServiceRepository extends EntityRepository
         $qb->andWhere($qb->expr()->orX(
                 $qb->expr()->like($alias . '.description', ':text_like'),
                 $qb->expr()->like($alias . '.name', ':text_like'),
-                $qb->expr()->eq($alias . '.alias', ':text_like')
+                $qb->expr()->like($alias . '.alias', ':text_like')
             ));
         $qb->setParameter('text_like', '%' . $text . '%');
 

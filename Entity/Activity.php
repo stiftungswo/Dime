@@ -93,7 +93,7 @@ class Activity extends Entity implements DimeEntityInterface
 	protected $chargeableReference = 1;
 
 	/**
-	 * @ORM\Column(type="decimal", scale=2, precision=10, nullable=true)
+	 * @ORM\Column(type="decimal", scale=3, precision=10, nullable=true)
 	 */
 	protected $vat;
 
@@ -186,10 +186,20 @@ class Activity extends Entity implements DimeEntityInterface
 	 */
 	public function getCharge()
 	{
-		if($this->getRateValue() instanceof Money) {
-			return $this->getRateValue()->multiply($this->getValue());
+
+		$total = $this->getRateValue();
+		if($total === null)
+			return null;
+		if($this->getValue() !== null)
+		{
+			$total = $total->multiply($this->getValue());
 		}
-		return Money::CHF(0.00);
+		$vat = $this->getCalculatedVAT();
+		if($vat instanceof Money)
+		{
+			$total = $total->add($vat);
+		}
+		return $total;
 	}
 
 	/**

@@ -47,6 +47,15 @@ abstract class AbstractHandler
 		$this->repository->getCurrentQueryBuilder()->addOrderBy($this->alias.'.'.$field, $order);
 	}
 
+	function cleanNULL(array $parameters){
+		foreach($parameters as $key => $value){
+			if($value === NULL){
+				unset($parameters[$key]);
+			}
+		}
+		return $parameters;
+	}
+
 	/**
 	 * Processes the form.
 	 *
@@ -107,11 +116,19 @@ abstract class AbstractHandler
      *
      * @return array $result
      */
-    protected function cleanFilter(array $filter)
+    protected function cleanParameterBag(array $filter)
     {
         $result = array();
         foreach($filter as $key=>$value)
         {
+	        if(is_array($value))
+	        {
+		        $value = $this->cleanParameterBag($value);
+		        if(isset($value['id']))
+		        {
+			        $value = $value['id'];
+		        }
+	        }
 	        if (!empty($value))
 	        {
 		        $result[$key]=$value;
@@ -134,6 +151,7 @@ abstract class AbstractHandler
 				return true;
 			}
 		}
+		return false;
 	}
     
     /**

@@ -13,6 +13,7 @@ use JMS\Serializer\Annotation as JMS;
 use Knp\JsonSchemaBundle\Annotations as Json;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
+use Dime\TimetrackerBundle\Annotation\DiscriminatorEntry;
 
 /**
  * Dime\TimetrackerBundle\Entity\Project
@@ -21,6 +22,9 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(name="users")
  * @ORM\Entity(repositoryClass="Dime\TimetrackerBundle\Entity\UserRepository")
  * @Json\Schema("users")
+ * @ORM\InheritanceType("SINGLE_TABLE")
+ * @ORM\DiscriminatorColumn(name="discr",type="string")
+ * @DiscriminatorEntry(value="person")
  */
 class User extends BaseUser implements DimeEntityInterface
 {

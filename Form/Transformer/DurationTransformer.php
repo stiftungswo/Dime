@@ -45,10 +45,6 @@ class DurationTransformer implements DataTransformerInterface
 	public function transform($value)
 	{
 		if(is_numeric($value)){
-			$time = $value / RateUnitType::$DayInSeconds;
-			if($time >= 1){
-				return $time.'d';
-			}
 			$time = $value / RateUnitType::$HourInSeconds;
 			if($time >= 1){
 				return $time.'h';

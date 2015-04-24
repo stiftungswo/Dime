@@ -33,6 +33,7 @@ class ActivityFormType extends AbstractType
 	        ->add($builder->create('chargeableReference', 'text', array('empty_data' => ActivityReference::$SERVICE))->addViewTransformer($transformer))
             //Service has to be set after Project due to Dependencies.
             ->add('project', 'entity', array('class' => 'DimeTimetrackerBundle:Project'))
+	        ->add('vat')
 	        ->add('service', 'entity', array('class' => 'DimeTimetrackerBundle:Service'))
 	        ->add('tags', 'entity', array('class' => 'DimeTimetrackerBundle:Tag', 'multiple' => true))
             ->add('user', 'entity', array('class' => 'DimeTimetrackerBundle:User'))

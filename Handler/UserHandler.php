@@ -39,7 +39,7 @@ class UserHandler extends GenericHandler
 
 	    // Filter
 	    if($this->hasParams($params)) {
-		    $this->repository->filter($this->cleanFilter($params));
+		    $this->repository->filter($this->cleanParameterBag($params));
 	    }
 
 	    //Add Ordering
@@ -60,6 +60,7 @@ class UserHandler extends GenericHandler
         if(isset($parameters['id'])){
             unset($parameters['id']);
         }
+	    $parameters = $this->cleanParameterBag($parameters);
         return $this->processForm($entity, $parameters, $this->formType,'POST');
     }
 
@@ -72,6 +73,7 @@ class UserHandler extends GenericHandler
         if(isset($parameters['id'])){
             unset($parameters['id']);
         }
+	    $parameters = $this->cleanParameterBag($parameters);
         return $this->processForm($entity, $parameters, $this->formType, 'PUT');
     }
     
@@ -113,4 +115,9 @@ class UserHandler extends GenericHandler
         }
         throw new InvalidFormException('Invalid submitted data', $form);
     }
+
+	public function current()
+	{
+		return $this->secContext->getToken()->getUser();
+	}
 }

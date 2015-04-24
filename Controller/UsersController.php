@@ -222,4 +222,28 @@ class UsersController extends DimeController
         $this->container->get($this->handlerSerivce)->lock($this->getOr404($id, $this->handlerSerivce));
         return $this->view(null, Codes::HTTP_NO_CONTENT);
     }
+
+	/**
+	 * Get Curently Logged in User.
+	 *
+	 * @ApiDoc(
+	 * description="Return the currently logged in user Object",
+	 * section="users",
+	 * resource = true,
+	 * output = "Dime\TimetrackerBundle\Entity\User",
+	 * statusCodes = {
+	 * 200 = "Returned when successful",
+	 * 404 = "Returned when entity does not exist"
+	 * }
+	 * )
+	 *
+	 * @Annotations\Get("/users/current", name="_curentUser")
+	 */
+	public function currentUserAction()
+	{
+		if (! ($user = $this->container->get($this->handlerSerivce)->current())) {
+			throw new NotFoundHttpException(sprintf('The resource \'%s\' was not found.', $user->getId()));
+		}
+		return $user;
+	}
 }

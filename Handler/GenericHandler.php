@@ -42,7 +42,7 @@ class GenericHandler extends AbstractHandler implements HandlerInterface {
 
 		// Filter
 		if($this->hasParams($params)) {
-			$this->repository->filter($this->cleanFilter($params));
+			$this->repository->filter($this->cleanParameterBag($params));
 		}
 
 		//Add Ordering
@@ -69,6 +69,7 @@ class GenericHandler extends AbstractHandler implements HandlerInterface {
 		if(isset($parameters['id'])){
 			unset($parameters['id']);
 		}
+		$parameters = $this->cleanParameterBag($parameters);
 		return $this->processForm($entity, $parameters, $this->formType, 'POST');
 	}
 
@@ -89,7 +90,7 @@ class GenericHandler extends AbstractHandler implements HandlerInterface {
 			$settingsParams['user'] = $this->getCurrentUser()->getId();
 		}
 		$settings = $this->fillFromSettings($settingsParams);
-		$parameters = $this->cleanFilter($parameters);
+		$parameters = $this->cleanParameterBag($parameters);
 		foreach($parameters as $key => $value)
 		{
 			$settings[$key] = $value;
@@ -100,7 +101,7 @@ class GenericHandler extends AbstractHandler implements HandlerInterface {
 	protected function fillFromSettings(array $parameters)
 	{
 		$settingsManager = $this->container->get('dime.setting.manager');
-		$parameters = $this->cleanFilter($parameters);
+		$parameters = $this->cleanParameterBag($parameters);
 		$systemSettings = $settingsManager->all(
 			array(
 				'namespace' => '/etc/defaults/'.$parameters['classname']
@@ -141,6 +142,7 @@ class GenericHandler extends AbstractHandler implements HandlerInterface {
 		if(isset($parameters['id'])){
 			unset($parameters['id']);
 		}
+		$parameters = $this->cleanParameterBag($parameters);
 		return $this->processForm($entity, $parameters, $this->formType, 'PUT');
 	}
 
