@@ -119,9 +119,23 @@ class InvoiceHandler extends GenericHandler
 	public function updateInvoice(Invoice $invoice)
 	{
 		if($invoice->getProject()instanceof Project) {
-			foreach($invoice->getItems() as $item) {
-				if($item->getActivity() instanceof Activity) {
-					$item->setFromActivity($item->getActivity());
+			foreach($invoice->getProject()->getActivities() as $activity) {
+				$hasactvity = false;
+				foreach($invoice->getItems() as $item) {
+					$itemactivity = $item->getActivity();
+					if($itemactivity instanceof Activity){
+						if($itemactivity->getId() === $activity->getId())
+						{
+							$hasactvity = true;
+							$item->setFromActivity($activity);
+						}
+					}
+				}
+				if(!$hasactvity){
+					$item = new InvoiceItem();
+					$item->setFromActivity($activity);
+					$item->setInvoice($invoice);
+					$invoice->addItem($item);
 				}
 			}
 		}

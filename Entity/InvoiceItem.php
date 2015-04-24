@@ -53,7 +53,7 @@ class InvoiceItem extends Entity implements DimeEntityInterface
 	protected $rateUnit;
 
 	/**
-	 * @ORM\Column(type="decimal", scale=2, precision=10, nullable=true)
+	 * @ORM\Column(type="decimal", scale=3, precision=10, nullable=true)
 	 */
 	protected $vat;
 

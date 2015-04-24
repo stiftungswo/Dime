@@ -5,8 +5,8 @@
 	<dynamic-page page-size="a4">
 		<div class="logo"><img src="{{ pdf_image('SwoCommonsBundle:swo_logo_big.png') }}"/></div>
 		<div class="absenderHeader">
-			{{ invoiceconfig.senderPlz }} {{ invoiceconfig.senderCity }}<br/>
 			{{ invoiceconfig.senderStreet }} {{ invoiceconfig.senderStreetnumber }}<br/>
+			{{ invoiceconfig.senderPlz }} {{ invoiceconfig.senderCity }}<br/>
 			Telefon: {{ invoiceconfig.senderPhone }}<br/>
 			Telefax: {{ invoiceconfig.senderFax }}<br/>
 			Mail: {{ invoiceconfig.senderMail }}<br/>
@@ -58,7 +58,7 @@
 				<td class="number">{{ item.amount }}</td>
 				<td>{{ item.rateUnit }}</td>
 				<td class="number">{{ item.rateValue }}</td>
-				<td class="number">{{ invoiceconfig.mwstPercent }}%</td>
+				<td class="number">{% if item.vat %}{{ item.vat * 100 }}%{% else %}0%{% endif %}</td>
 				<td class="number">{{ item.total }}</td>
 			</tr>
 			{% endfor %}
@@ -123,7 +123,11 @@
 						</div>
 					</div>
 					<div margin="7mm 0 0 0" font-size="14">
+						{% if customer.company %}
+						{{ customer.company }}<br/>
+						{% else %}
 						{% if customer.salutation %}{{ customer.salutation }} {% endif %}{% if customer.fullname %}{{ customer.fullname }}{% else %}{{ customer.name }}{% endif %}<br/>
+						{% endif %}
 						{{ address.street }} {{ address.streetnumber }}<br/>
 						{{ address.plz }} {{ address.city }}<br/>
 					</div>
@@ -155,7 +159,11 @@
 								</div>
 								<div height="54mm" width="100%">
 									<div margin="26mm 0 0 3mm" font-size="14">
-										{% if customer.salutation %}{{ customer.salutation }} {% endif %}{% if customer.fullname %}{{ customer.fullname }}{% else %}{{ customer.name }}{% endif %}<br/>
+										{% if customer.company %}
+											{{ customer.company }}<br/>
+										{% else %}
+											{% if customer.salutation %}{{ customer.salutation }} {% endif %}{% if customer.fullname %}{{ customer.fullname }}{% else %}{{ customer.name }}{% endif %}<br/>
+										{% endif %}
 										{{ address.street }} {{ address.streetnumber }}<br/>
 										{{ address.plz }} {{ address.city }}<br/>
 									</div>

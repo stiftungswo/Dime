@@ -20,6 +20,8 @@ class InvoiceFormType extends AbstractType
 			->add('name')
 			->add('description')
 			->add('alias')
+			->add('start', 'datetime', array('required' => false, 'widget' => 'single_text', 'with_seconds' => true))
+			->add('end', 'datetime', array('required' => false, 'widget' => 'single_text', 'with_seconds' => true))
 			->add('standardDiscounts','entity', array('class' => 'DimeTimetrackerBundle:StandardDiscount', 'multiple' => true))
 			->add('invoiceDiscounts','entity', array('class' => 'DimeInvoiceBundle:InvoiceDiscount', 'multiple' => true))
 			->add('tags', 'entity', array('class' => 'DimeTimetrackerBundle:Tag', 'multiple' => true))
