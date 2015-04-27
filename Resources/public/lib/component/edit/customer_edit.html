@@ -1,0 +1,41 @@
+<div class="form-inline container-fluid">
+	<div class="form-group DimePanel">
+		<div class="row">
+			<label class="col-sm-2 control-label">Name</label>
+			<input class="form-control" type="text" ng-model="entity.name" on-change="addSaveField('name')">
+		</div>
+		<div class="row">
+			<label class="col-sm-2 control-label">Firma</label>
+			<input class="form-control" type="text" ng-model="entity.company" on-change="addSaveField('company')">
+		</div>
+		<div class="row">
+			<label class="col-sm-2 control-label">Abteilung</label>
+			<input class="form-control" type="text" ng-model="entity.department" on-change="addSaveField('department')">
+		</div>
+		<div class="row">
+			<label class="col-sm-2 control-label">Anrede</label>
+			<input class="form-control" type="text" ng-model="entity.salutation" on-change="addSaveField('salutation')">
+		</div>
+		<div class="row">
+			<label class="col-sm-2 control-label">Name</label>
+			<input class="form-control" type="text" ng-model="entity.fullname" on-change="addSaveField('fullname')">
+		</div>
+		<div class="row">
+			<label class="col-sm-2 control-label">Tarif Gruppe</label>
+			<select class="form-control" model="entity.rateGroup" on-change="addSaveField('rateGroup')">
+				<option ng-repeat="rateGroup in rateGroups" ng-value="rateGroup" ng-selected="rateGroup.id == entity.rateGroup.id">{{rateGroup.name}}</option>
+			</select>
+		</div>
+		<div class="row">
+			<label class="col-sm-2 control-label">Verechenbar</label>
+			<input class="form-control checkbox" type="checkbox" ng-model="entity.chargeable" on-change="addSaveField('chargeable')"/>
+		</div>
+		<div class="row">
+			<label class="col-sm-2 control-label">Addresse</label>
+			<address-edit address="entity.address"  on-change="addSaveField('address')"></address-edit>
+		</div>
+	</div>
+</div>
+<div class="DimeControllButtons">
+	<button type="button" class="btn btn-primary" ng-click="saveEntity()"><error-icon value="saveState" timeout="20"></error-icon></button>
+</div>

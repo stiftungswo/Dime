@@ -25,6 +25,8 @@ class EntityEdit extends AttachAware implements ScopeAware{
     this.rootScope = scope.rootScope;
   }
 
+  EntityEdit.Child(this.entType);
+
   EntityEdit(RouteProvider routeProvider, this.store, this.entType){
     _entId = routeProvider.parameters['id'];
   }
@@ -125,4 +127,39 @@ class InvoiceEditComponent extends EntityEdit{
   attach(){
     reload();
   }
+}
+
+@Component(
+    selector: 'customer-edit',
+    templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/edit/customer_edit.html',
+    useShadowDom: false
+)
+class CustomerEditComponent extends EntityEdit{
+
+  List<RateGroup> rateGroups;
+
+  CustomerEditComponent(RouteProvider routeProvider, ObjectStore store): super(routeProvider, store, Customer);
+  attach(){
+    this.store.list(RateGroup).then((QueryResult result){
+      this.rateGroups = result.toList();
+    });
+    reload();
+  }
+}
+
+@Component(
+    selector: 'address-edit',
+    templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/edit/address_edit.html',
+    useShadowDom: false,
+    map: const{
+      'address': '<=>address'
+    }
+)
+class AddressEditComponent extends EntityEdit{
+  AddressEditComponent(): super.Child(Address);
+  attach(){
+    //Dont Reload its not working.
+  }
+
+  Address address;
 }

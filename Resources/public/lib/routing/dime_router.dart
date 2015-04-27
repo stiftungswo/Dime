@@ -32,6 +32,14 @@ void dimeRouteInitializer(Router router, RouteViewFactory views) {
     'invoice_edit': ngRoute(
           path: '/invoices/edit/:id',
           viewHtml: '<invoice-edit></invoice-edit>'
-      )
+      ),
+      'customer_overview': ngRoute(
+          path: '/customers/overview',
+          viewHtml: '<customer-overview></customer-overview>'
+      ),
+      'customer_edit': ngRoute(
+          path: '/customers/edit/:id',
+          viewHtml: '<customer-edit></customer-edit>'
+      ),
   });
 }

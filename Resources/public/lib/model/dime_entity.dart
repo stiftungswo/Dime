@@ -59,7 +59,11 @@ class Entity{
         newval.id = val.id;
         ent.Set(field, newval);
       } else {
-        ent.Set(field, val);
+        try {
+          val.id = null;
+        } finally {
+          ent.Set(field, val);
+        }
       }
     }
     this._toUpdate = new List();
@@ -300,7 +304,7 @@ class Customer extends Entity with BaseFields, TagFields{
   Customer.clone(Customer original): super.clone(original){
     this.name = original.name;
     this.user = original.user;
-    this.Company = original.Company;
+    this.company = original.company;
     this.chargeable = original.chargeable;
     this.address = original.address;
     this.department = original.department;
@@ -310,7 +314,7 @@ class Customer extends Entity with BaseFields, TagFields{
   }
   bool chargeable;
   Address address;
-  String Company;
+  String company;
   String department;
   String fullname;
   String salutation;
