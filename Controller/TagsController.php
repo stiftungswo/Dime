@@ -33,7 +33,7 @@ class TagsController extends DimeController
      * @Annotations\QueryParam(name="search", requirements="\w+", nullable=true, description="Filter By Name or alias")
      *
      * @Annotations\View(
-     * templateVar="tags"
+     * serializerEnableMaxDepthChecks=true
      * )
      *
      * @Annotations\Route(requirements={"_format"="json|xml"})
@@ -62,7 +62,9 @@ class TagsController extends DimeController
      * }
      * )
      *
-     * @Annotations\View(templateVar="tag")
+     * @Annotations\View(
+     * serializerEnableMaxDepthChecks=true
+     * )
      *
      * @Annotations\Route(requirements={"_format"="json|xml"})
      *
@@ -92,7 +94,7 @@ class TagsController extends DimeController
 	 * )
 	 *
 	 * @Annotations\View(
-	 * templateVar = "form"
+	 * serializerEnableMaxDepthChecks=true
 	 * )
 	 *
 	 * @Annotations\Route(requirements={"_format"="html"})
@@ -127,6 +129,10 @@ class TagsController extends DimeController
      *
      * @Annotations\Route(requirements={"_format"="json|xml"})
      *
+     * @Annotations\View(
+     * serializerEnableMaxDepthChecks=true
+     * )
+     *
      * @param Request $request
      *            the request object
      *            
@@ -158,6 +164,10 @@ class TagsController extends DimeController
      * )
      *
      * @Annotations\Route(requirements={"_format"="json|xml"})
+     *
+     * @Annotations\View(
+     * serializerEnableMaxDepthChecks=true
+     * )
      *
      * @param Request $request
      *            the request object
@@ -193,7 +203,9 @@ class TagsController extends DimeController
      * )
      *
      * @Annotations\Route(requirements={"_format"="json|xml"})
-     * @Annotations\View()
+     * @Annotations\View(
+     * serializerEnableMaxDepthChecks=true
+     * )
      *
      * @param int $id
      *            the page id
@@ -223,6 +235,10 @@ class TagsController extends DimeController
 	 *
 	 *
 	 * @Annotations\Route(requirements={"_format"="json|xml"})
+	 *
+	 * @Annotations\View(
+	 * serializerEnableMaxDepthChecks=true
+	 * )
 	 *
 	 * @param $id
 	 *

@@ -49,8 +49,7 @@ fos_rest:
             - { path: '^/', stop: true }
 
 sensio_framework_extra:
-    view:
-        annotations: false
+    view:    { annotations: false }
     router:
         annotations: true
 

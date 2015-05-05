@@ -44,7 +44,7 @@ class ActivitiesController extends DimeController
      * @Annotations\QueryParam(name="name", nullable=true, description="Filter on Name Property")
      *
      * @Annotations\View(
-     * templateVar="activities"
+     * serializerEnableMaxDepthChecks=true
      * )
      *
      * @Annotations\Route(requirements={"_format"="json|xml"})
@@ -75,7 +75,9 @@ class ActivitiesController extends DimeController
      * }
      * )
      *
-     * @Annotations\View(templateVar="activity")
+     * @Annotations\View(
+     * serializerEnableMaxDepthChecks=true
+     * )
      *
      * @Annotations\Route(requirements={"_format"="json|xml"})
      *
@@ -118,7 +120,7 @@ class ActivitiesController extends DimeController
 	 * @Annotations\QueryParam(name="user", nullable=true, description="Sets the Value Param in the Form.")
 	 *
 	 * @Annotations\View(
-	 * templateVar = "form"
+	 * serializerEnableMaxDepthChecks=true
 	 * )
 	 *
 	 * @param ParamFetcherInterface $paramFetcher
@@ -146,6 +148,10 @@ class ActivitiesController extends DimeController
      * 201 = "Returned when successful",
      * 400 = "Returned when the form has errors"
      * }
+     * )
+     *
+     * @Annotations\View(
+     * serializerEnableMaxDepthChecks=true
      * )
      *
      * @Annotations\Route(requirements={"_format"="json|xml"})
@@ -183,6 +189,10 @@ class ActivitiesController extends DimeController
      *
      * @Annotations\Route(requirements={"_format"="json|xml"})
      *
+     * @Annotations\View(
+     * serializerEnableMaxDepthChecks=true
+     * )
+     *
      * @param Request $request
      *            the request object
      * @param int $id
@@ -218,7 +228,9 @@ class ActivitiesController extends DimeController
      *
      * @Annotations\Route(requirements={"_format"="json|xml"})
      *
-     * @Annotations\View()
+     * @Annotations\View(
+     * serializerEnableMaxDepthChecks=true
+     * )
      *
      * @param int $id
      *            the page id
@@ -248,6 +260,10 @@ class ActivitiesController extends DimeController
 	 *
 	 *
 	 * @Annotations\Route(requirements={"_format"="json|xml"})
+	 *
+	 * @Annotations\View(
+	 * serializerEnableMaxDepthChecks=true
+	 * )
 	 *
 	 * @param $id
 	 *

@@ -46,6 +46,7 @@ class Rate extends Entity implements DimeEntityInterface
      * @ORM\ManyToOne(targetEntity="Service", inversedBy="rates")
      * @ORM\JoinColumn(name="service_id", referencedColumnName="id")
      * @JMS\SerializedName("service")
+     * @JMS\MaxDepth(1)
      **/
     protected $service;
     

@@ -42,7 +42,7 @@ class TimeslicesController extends DimeController
      * @Annotations\QueryParam(array=true, name="withouttags", requirements="\d+", nullable=true, description="Show Entities without this Tags")
      *
      * @Annotations\View(
-     * templateVar="timeslices"
+     * serializerEnableMaxDepthChecks=true
      * )
      *
      * @Annotations\Route(requirements={"_format"="json|xml"})
@@ -72,7 +72,9 @@ class TimeslicesController extends DimeController
      * }
      * )
      *
-     * @Annotations\View(templateVar="timeslice")
+     * @Annotations\View(
+     * serializerEnableMaxDepthChecks=true
+     * )
      *
      * @Annotations\Route(requirements={"_format"="json|xml"})
      *
@@ -112,7 +114,7 @@ class TimeslicesController extends DimeController
      * @Annotations\QueryParam(name="project", nullable=true, description="Limits the Activity Filed to this Project")
 	 *
 	 * @Annotations\View(
-	 * templateVar = "form"
+	 * serializerEnableMaxDepthChecks=true
 	 * )
 	 *
 	 * @param ParamFetcherInterface $paramFetcher
@@ -147,6 +149,10 @@ class TimeslicesController extends DimeController
      *
      * @Annotations\Route(requirements={"_format"="json|xml"})
      *
+     * @Annotations\View(
+     * serializerEnableMaxDepthChecks=true
+     * )
+     *
      * @param Request $request
      *            the request object
      *            
@@ -178,6 +184,10 @@ class TimeslicesController extends DimeController
      * )
      *
      * @Annotations\Route(requirements={"_format"="json|xml"})
+     *
+     * @Annotations\View(
+     * serializerEnableMaxDepthChecks=true
+     * )
      *
      * @param Request $request
      *            the request object
@@ -213,7 +223,9 @@ class TimeslicesController extends DimeController
      * )
      *
      * @Annotations\Route(requirements={"_format"="json|xml"})
-     * @Annotations\View()
+     * @Annotations\View(
+     * serializerEnableMaxDepthChecks=true
+     * )
      *
      * @param int $id
      *            the page id

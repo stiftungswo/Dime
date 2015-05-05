@@ -105,6 +105,7 @@ class Customer extends Entity implements DimeEntityInterface
 
 	/**
 	 * @JMS\Type("array")
+	 * @JMS\MaxDepth(1)
 	 * @JMS\SerializedName("phones")
 	 * @ORM\ManyToMany(targetEntity="\Swo\CommonsBundle\Entity\Phone", cascade={"all"}, orphanRemoval=true)
 	 * @ORM\JoinTable(name="customer_phones",

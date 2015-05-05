@@ -38,7 +38,7 @@ class ProjectsController extends DimeController
      * @Annotations\QueryParam(array=true, name="withouttags", requirements="\d+", nullable=true, description="Show Entities without this Tags")
      *
      * @Annotations\View(
-     * templateVar="projects"
+     * serializerEnableMaxDepthChecks=true
      * )
      *
      * @Annotations\Route(requirements={"_format"="json|xml"})
@@ -67,7 +67,9 @@ class ProjectsController extends DimeController
      * }
      * )
      *
-     * @Annotations\View(templateVar="project")
+     * @Annotations\View(
+     * serializerEnableMaxDepthChecks=true
+     * )
      *
      * @Annotations\Route(requirements={"_format"="json|xml"})
      *
@@ -98,7 +100,7 @@ class ProjectsController extends DimeController
 	 * )
 	 *
 	 * @Annotations\View(
-	 * templateVar = "form"
+	 * serializerEnableMaxDepthChecks=true
 	 * )
 	 *
 	 * @Annotations\Route(requirements={"_format"="html"})
@@ -146,6 +148,10 @@ class ProjectsController extends DimeController
      *
      * @Annotations\Route(requirements={"_format"="json|xml"})
      *
+     * @Annotations\View(
+     * serializerEnableMaxDepthChecks=true
+     * )
+     *
      * @param Request $request
      *            the request object
      *            
@@ -177,6 +183,10 @@ class ProjectsController extends DimeController
      * )
      *
      * @Annotations\Route(requirements={"_format"="json|xml"})
+     *
+     * @Annotations\View(
+     * serializerEnableMaxDepthChecks=true
+     * )
      *
      * @param Request $request
      *            the request object
@@ -212,7 +222,9 @@ class ProjectsController extends DimeController
      * )
      *
      * @Annotations\Route(requirements={"_format"="json|xml"})
-     * @Annotations\View()
+     * @Annotations\View(
+     * serializerEnableMaxDepthChecks=true
+     * )
      *
      * @param int $id
      *            the page id
@@ -242,6 +254,10 @@ class ProjectsController extends DimeController
 	 *
 	 *
 	 * @Annotations\Route(requirements={"_format"="json|xml"})
+	 *
+	 * @Annotations\View(
+	 * serializerEnableMaxDepthChecks=true
+	 * )
 	 *
 	 * @param $id
 	 *

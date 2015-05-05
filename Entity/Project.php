@@ -139,6 +139,7 @@ class Project extends Entity implements DimeEntityInterface
 
 	/**
 	 * @var ArrayCollection $activities
+	 * @JMS\MaxDepth(1)
 	 * @JMS\Type("array")
 	 * @JMS\SerializedName("activities")
 	 * @ORM\OneToMany(targetEntity="Dime\TimetrackerBundle\Entity\Activity", mappedBy="project", cascade={"all"})

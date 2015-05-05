@@ -31,6 +31,7 @@ class Timeslice extends Entity implements DimeEntityInterface
      * @var Activity $activity
      *
      * @Assert\NotNull()
+     * @JMS\MaxDepth(1)
      * @ORM\ManyToOne(targetEntity="Activity", inversedBy="timeslices", cascade="persist")
      * @ORM\JoinColumn(name="activity_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      */
@@ -40,6 +41,7 @@ class Timeslice extends Entity implements DimeEntityInterface
      * @var ArrayCollection $tags
      *
      * @JMS\Type("array")
+     * @JMS\MaxDepth(1)
      * @JMS\SerializedName("tags")
      * @ORM\ManyToMany(targetEntity="Tag", cascade="persist")
      * @ORM\JoinTable(name="timeslice_tags")
@@ -147,6 +149,7 @@ class Timeslice extends Entity implements DimeEntityInterface
 	/**
 	 * @JMS\VirtualProperty()
 	 * @JMS\SerializedName("project")
+	 * @JMS\MaxDepth(1)
 	 */
 	public function getProject()
 	{

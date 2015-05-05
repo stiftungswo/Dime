@@ -35,7 +35,7 @@ class SettingsController extends DimeController
      * @Annotations\QueryParam(name="namespace", nullable=true, description="Filter By User")
      *
      * @Annotations\View(
-     * templateVar="settings"
+     * serializerEnableMaxDepthChecks=true
      * )
      *
      * @Annotations\Route(requirements={"_format"="json|xml"})
@@ -64,7 +64,9 @@ class SettingsController extends DimeController
      * }
      * )
      *
-     * @Annotations\View(templateVar="setting")
+     * @Annotations\View(
+     * serializerEnableMaxDepthChecks=true
+     * )
      *
      * @Annotations\Route(requirements={"_format"="json|xml"})
      *
@@ -97,6 +99,10 @@ class SettingsController extends DimeController
      *
      * @Annotations\Route(requirements={"_format"="json|xml"})
      *
+     * @Annotations\View(
+     * serializerEnableMaxDepthChecks=true
+     * )
+     *
      * @param Request $request
      *            the request object
      *            
@@ -128,6 +134,10 @@ class SettingsController extends DimeController
      * )
      *
      * @Annotations\Route(requirements={"_format"="json|xml"})
+     *
+     * @Annotations\View(
+     * serializerEnableMaxDepthChecks=true
+     * )
      *
      * @param Request $request
      *            the request object
@@ -163,7 +173,9 @@ class SettingsController extends DimeController
      * )
      *
      * @Annotations\Route(requirements={"_format"="json|xml"})
-     * @Annotations\View()
+     * @Annotations\View(
+     * serializerEnableMaxDepthChecks=true
+     * )
      *
      * @param int $id
      *            the page id
@@ -193,6 +205,10 @@ class SettingsController extends DimeController
 	 *
 	 *
 	 * @Annotations\Route(requirements={"_format"="json|xml"})
+	 *
+	 * @Annotations\View(
+	 * serializerEnableMaxDepthChecks=true
+	 * )
 	 *
 	 * @param $id
 	 *

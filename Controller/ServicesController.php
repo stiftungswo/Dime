@@ -34,7 +34,7 @@ class ServicesController extends DimeController
      * @Annotations\QueryParam(name="search", nullable=true, description="Filter By Name or alias")
      *
      * @Annotations\View(
-     * templateVar="services"
+     * serializerEnableMaxDepthChecks=true
      * )
      *
      * @Annotations\Route(requirements={"_format"="json|xml"})
@@ -63,7 +63,9 @@ class ServicesController extends DimeController
      * }
      * )
      *
-     * @Annotations\View(templateVar="service")
+     * @Annotations\View(
+     * serializerEnableMaxDepthChecks=true
+     * )
      *
      * @Annotations\Route(requirements={"_format"="json|xml"})
      *
@@ -94,7 +96,7 @@ class ServicesController extends DimeController
      * )
      *
      * @Annotations\View(
-     * templateVar = "form"
+     * serializerEnableMaxDepthChecks=true
      * )
      *
      * @Annotations\Route(requirements={"_format"="html"})
@@ -136,6 +138,10 @@ class ServicesController extends DimeController
      *
      * @Annotations\Route(requirements={"_format"="json|xml"})
      *
+     * @Annotations\View(
+     * serializerEnableMaxDepthChecks=true
+     * )
+     *
      * @param Request $request
      *            the request object
      *            
@@ -167,6 +173,10 @@ class ServicesController extends DimeController
      * )
      *
      * @Annotations\Route(requirements={"_format"="json|xml"})
+     *
+     * @Annotations\View(
+     * serializerEnableMaxDepthChecks=true
+     * )
      *
      * @param Request $request
      *            the request object
@@ -202,7 +212,9 @@ class ServicesController extends DimeController
      * )
      *
      * @Annotations\Route(requirements={"_format"="json|xml"})
-     * @Annotations\View()
+     * @Annotations\View(
+     * serializerEnableMaxDepthChecks=true
+     * )
      *
      * @param int $id
      *            the page id
@@ -232,6 +244,10 @@ class ServicesController extends DimeController
 	 *
 	 *
 	 * @Annotations\Route(requirements={"_format"="json|xml"})
+	 *
+	 * @Annotations\View(
+	 * serializerEnableMaxDepthChecks=true
+	 * )
 	 *
 	 * @param $id
 	 *

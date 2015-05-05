@@ -28,6 +28,7 @@ abstract class Entity
     /**
      * @var User $user
      *
+     * @JMS\MaxDepth(1)
      * @Gedmo\Blameable(on="create")
      * @ORM\ManyToOne(targetEntity="Dime\TimetrackerBundle\Entity\User")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")

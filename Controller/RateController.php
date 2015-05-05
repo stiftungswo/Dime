@@ -36,7 +36,7 @@ class RateController extends DimeController
      * @Annotations\QueryParam(name="service", requirements="\d+", nullable=true, description="Filter By Service")
      *
      * @Annotations\View(
-     * templateVar="rates"
+     * serializerEnableMaxDepthChecks=true
      * )
      *
      * @Annotations\Route(requirements={"_format"="json|xml"})
@@ -66,7 +66,9 @@ class RateController extends DimeController
      * }
      * )
      *
-     * @Annotations\View(templateVar="rate")
+     * @Annotations\View(
+     * serializerEnableMaxDepthChecks=true
+     * )
      *
      * @Annotations\Route(requirements={"_format"="json|xml"})
      *
@@ -98,7 +100,7 @@ class RateController extends DimeController
      * )
      *
      * @Annotations\View(
-     * templateVar = "form"
+     * serializerEnableMaxDepthChecks=true
      * )
      *
      * @Annotations\Route(requirements={"_format"="html"})
@@ -139,7 +141,10 @@ class RateController extends DimeController
      * )
      *
      * @Annotations\Route(requirements={"_format"="json|xml"})
-     * 
+     *
+     * @Annotations\View(
+     * serializerEnableMaxDepthChecks=true
+     * )
      *
      * @param Request $request
      *            the request object
@@ -172,6 +177,10 @@ class RateController extends DimeController
      * )
      *
      * @Annotations\Route(requirements={"_format"="json|xml"})
+     *
+     * @Annotations\View(
+     * serializerEnableMaxDepthChecks=true
+     * )
      * 
      *
      * @param Request $request
@@ -208,7 +217,9 @@ class RateController extends DimeController
      * )
      *
      * @Annotations\Route(requirements={"_format"="json|xml"})
-     * @Annotations\View()
+     * @Annotations\View(
+     * serializerEnableMaxDepthChecks=true
+     * )
      *
      * @param int $id
      *            the page id
@@ -238,6 +249,10 @@ class RateController extends DimeController
 	 *
 	 *
 	 * @Annotations\Route(requirements={"_format"="json|xml"})
+	 *
+	 * @Annotations\View(
+	 * serializerEnableMaxDepthChecks=true
+	 * )
 	 *
 	 * @param $id
 	 *

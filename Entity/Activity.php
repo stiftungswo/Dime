@@ -29,6 +29,7 @@ class Activity extends Entity implements DimeEntityInterface
     /**
      * @var Project $project
      *
+     * @JMS\MaxDepth(1)
      * @ORM\ManyToOne(targetEntity="Project", inversedBy="activities")
      * @ORM\JoinColumn(name="project_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
      */
@@ -37,6 +38,7 @@ class Activity extends Entity implements DimeEntityInterface
     /**
      * @var Service $service
      *
+     * @JMS\MaxDepth(1)
      * @ORM\ManyToOne(targetEntity="Service")
      * @ORM\JoinColumn(name="service_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
      */
@@ -46,6 +48,7 @@ class Activity extends Entity implements DimeEntityInterface
      * @var ArrayCollection $timeslicesø
      *
      * @JMS\Type("array")
+     * @JMS\MaxDepth(1)
      * @JMS\SerializedName("timeslices")
      * @ORM\OneToMany(targetEntity="Timeslice", mappedBy="activity", cascade="persist")
      */

@@ -34,7 +34,7 @@ class StandardDiscountController extends DimeController
      * @Annotations\QueryParam(array=true, name="withouttags", requirements="\d+", nullable=true, description="Show Entities without this Tags")
      *
      * @Annotations\View(
-     * templateVar="standarddiscounts"
+     * serializerEnableMaxDepthChecks=true
      * )
      *
      * @Annotations\Route(requirements={"_format"="json|xml"})
@@ -66,7 +66,9 @@ class StandardDiscountController extends DimeController
      * }
      * )
      *
-     * @Annotations\View(templateVar="standarddiscount")
+     * @Annotations\View(
+     * serializerEnableMaxDepthChecks=true
+     * )
      *
      * @Annotations\Route(requirements={"_format"="json|xml"})
      *
@@ -103,6 +105,10 @@ class StandardDiscountController extends DimeController
      *
      * @Annotations\Post("/standarddiscounts", name="_standarddiscount")
      *
+     * @Annotations\View(
+     * serializerEnableMaxDepthChecks=true
+     * )
+     *
      * @param Request $request
      *            the request object
      *            
@@ -137,6 +143,10 @@ class StandardDiscountController extends DimeController
      *
      * @Annotations\Put("/standarddiscounts/{id}", name="_standarddiscount")
      *
+     * @Annotations\View(
+     * serializerEnableMaxDepthChecks=true
+     * )
+     *
      * @param Request $request
      * @param int     $id
      *            the page id
@@ -167,7 +177,9 @@ class StandardDiscountController extends DimeController
      * )
      *
      * @Annotations\Route(requirements={"_format"="json|xml"})
-     * @Annotations\View()
+     * @Annotations\View(
+     * serializerEnableMaxDepthChecks=true
+     * )
      *
      * @Annotations\Delete("/standarddiscounts/{id}", name="_standarddiscount")
      *
@@ -199,6 +211,10 @@ class StandardDiscountController extends DimeController
 	 *
 	 *
 	 * @Annotations\Route(requirements={"_format"="json|xml"})
+	 *
+	 * @Annotations\View(
+	 * serializerEnableMaxDepthChecks=true
+	 * )
 	 *
 	 * @param $id
 	 *
