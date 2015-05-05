@@ -22,8 +22,7 @@ class MenuComponent implements ScopeAware {
     new Menu.withItems('Kunden', [new Menu('Übersicht', '/customers/overview')]),
     new Menu.withItems('Stammdaten', [
       new Menu('Services', '/services/overview'),
-      new Menu('Tags', '/tags/overview'),
-      new Menu('Tarif Gruppen', '/taggroups/overview'),
+      new Menu('Tarif Gruppen', '/rateGroups/overview'),
       ]),
     ];
   

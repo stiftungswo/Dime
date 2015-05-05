@@ -13,11 +13,11 @@ import 'package:DimeClient/hammock/dime_hammock.dart';
 import 'package:DimeClient/component/overview/entity_overview.dart';
 import 'package:DimeClient/component/errorIcon/error_icon.dart';
 import 'package:DimeClient/component/edit/entity_edit.dart';
-import 'package:DimeClient/component/login/login_modal.dart';
 import 'package:DimeClient/service/user_auth.dart';
 import 'package:DimeClient/component/timetrack/timetrack.dart';
 import 'package:DimeClient/service/filters.dart';
 import 'package:DimeClient/component/select/entity_select.dart';
+import 'package:DimeClient/component/login/login.dart';
 import 'package:DimeClient/component/percent-input/percent_input.dart';
 
 class AppModule extends Module {
@@ -29,7 +29,6 @@ class AppModule extends Module {
     bind(ActivityOverviewComponent);
     bind(TimesliceOverviewComponent);
     bind(ErrorIconComponent);
-    bind(LoginModal);
     bind(UserAuthProvider);
     bind(TimetrackComponent);
     bind(UserFilter);
@@ -47,6 +46,11 @@ class AppModule extends Module {
     bind(CustomerOverviewComponent);
     bind(CustomerEditComponent);
     bind(AddressEditComponent);
+    bind(ServiceOverviewComponent);
+    bind(ServiceEditComponent);
+    bind(RateOverviewComponent);
+    bind(RateGroupOverviewComponent);
+    bind(Login);
     install(new Hammock());
     bind(RouteInitializerFn, toValue: dimeRouteInitializer);
     bind(HammockConfig, toFactory: createHammockConfig, inject: [Injector]);

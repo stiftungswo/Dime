@@ -1,0 +1,24 @@
+<table class="table table-bordered table-hover">
+  <thead>
+    <tr>
+      <td>ID</td>
+      <td>Name</td>
+      <td>Alias</td>
+      <td>Beschreibung</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="entity in entities">
+      <td>{{entity.id}}</td>
+      <td><input type="text" class="form-control" ng-model="entity.name" on-change="addSaveField('name', entity)"/></td>
+      <td>{{entity.alias}}</td>
+      <td><textarea class="form-control tiny" ng-model="entity.description" on-change="addSaveField('description', entity)"></textarea></td>
+    </tr>
+  </tbody>
+</table>
+<div class="controllbuttons">
+	<button type="button" class="btn btn-primary" ng-click="saveAllEntities()"><error-icon value="saveState" timeout="20"></error-icon></button>
+	<button type="button" class="btn btn-primary" ng-click="createEntity()">+</button>
+	<button type="button" class="btn btn-primary">++</button>
+	<button type="button" class="btn btn-danger" ng-click="deleteEntity()">-</button>
+</div>

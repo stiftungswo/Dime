@@ -50,7 +50,7 @@ class EntityEdit extends AttachAware implements ScopeAware{
   }
 
   saveEntity(){
-    rootScope.emit('saveEntity');
+    rootScope.emit('saveChanges');
     if(this.entity.needsUpdate) {
       store.update(this.entity.toSaveObj()).then((CommandResponse result) {
         this.saveState = 'success';
@@ -122,11 +122,7 @@ class OfferEditComponent extends EntityEdit{
     useShadowDom: false
 )
 class InvoiceEditComponent extends EntityEdit{
-
   InvoiceEditComponent(RouteProvider routeProvider, ObjectStore store): super(routeProvider, store, Invoice);
-  attach(){
-    reload();
-  }
 }
 
 @Component(
@@ -162,4 +158,13 @@ class AddressEditComponent extends EntityEdit{
   }
 
   Address address;
+}
+
+@Component(
+    selector: 'service-edit',
+    templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/edit/service_edit.html',
+    useShadowDom: false
+)
+class ServiceEditComponent extends EntityEdit{
+  ServiceEditComponent(RouteProvider routeProvider, ObjectStore store): super(routeProvider, store, Service);
 }

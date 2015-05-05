@@ -32,13 +32,12 @@
 	<!-- Optional bootstrap theme CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 	<!-- angular ui CSS -->
-	<link rel="stylesheet" href="{{ asset('bundles/dimefrontend/packages/angular_ui/css/angular.css')}}">
+	<link rel="stylesheet" href="{{ asset('bundles/dimefrontend/web/packages/angular_ui/css/angular.css')}}">
 
 	<link rel="stylesheet" href="{{ asset('bundles/dimefrontend/web/styles/main.css') }}">
 </head>
 
 <body ng-cloak>
-<login></login>
 <div class="navbar">
 	<h1 class="page-title">DimeERP</h1>
 </div>
@@ -48,6 +47,6 @@
 </main>
 
 <script type="application/dart" src="{{ asset('bundles/dimefrontend/web/main.dart') }}"></script>
-<script type="text/javascript" src="{{ asset('bundles/dimefrontend/packages/browser/dart.js') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/dimefrontend/web/packages/browser/dart.js') }}"></script>
 </body>
 </html>

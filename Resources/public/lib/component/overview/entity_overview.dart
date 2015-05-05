@@ -1,10 +1,8 @@
 library entity_overview_component;
 
-import 'dart:mirrors';
 import 'package:angular/angular.dart';
 import 'package:hammock/hammock.dart';
 import 'package:DimeClient/model/dime_entity.dart';
-import 'dart:async';
 
 class EntityOverview extends AttachAware implements ScopeAware{
 
@@ -19,8 +17,14 @@ class EntityOverview extends AttachAware implements ScopeAware{
   Router router;
 
   int saveCounter;
+  int errorCounter;
 
   RootScope rootScope;
+
+  String loadState = 'default';
+  String saveState = 'default';
+
+  String routename;
 
   get selectedEntity{
     for(Entity ent in this.entities){
@@ -33,14 +37,17 @@ class EntityOverview extends AttachAware implements ScopeAware{
 
   set scope(Scope scope){
     this.rootScope = scope.rootScope;
-    this.rootScope.on('saveEntity').listen(saveCallback);
+    this.rootScope.on('saveChanges').listen(saveCallback);
   }
 
   void saveCallback(ScopeEvent e) {
-    this.saveAllEntities();
+    this.saveAllEntities(emit: false);
   }
 
-  void saveAllEntities(){
+  void saveAllEntities({emit: true}){
+    if(emit) {
+      rootScope.emit('saveChanges');
+    }
     this.saveCounter = 0;
     for(Entity entity in entities){
       if(entity.needsUpdate){
@@ -50,18 +57,29 @@ class EntityOverview extends AttachAware implements ScopeAware{
     }
   }
 
+  //Todo Insert Command Response into List instead of reloading whole List
   saveEntity(Entity entity){
     store.update(entity.toSaveObj()).then((CommandResponse result){
       this.saveCounter -= 1;
       if(this.saveCounter == 0){
-        this.reload();
+        this.handleSaveFinish();
       }
     }, onError:(_) {
       this.saveCounter -= 1;
+      this.errorCounter += 1;
       if(this.saveCounter == 0){
-        this.reload();
+        this.handleSaveFinish();
       }
     });
+  }
+
+  handleSaveFinish(){
+    if(this.errorCounter>0){
+      this.saveState = 'error';
+    } else {
+      this.saveState = 'success';
+      this.reload();
+    }
   }
   
   void selectEntity(int entId){
@@ -74,9 +92,10 @@ class EntityOverview extends AttachAware implements ScopeAware{
     return false;
   }
 
+  //Todo Insert Command Response into List instead of reloading whole List
   createEntity({Entity newEnt, Map<String,dynamic> params}){
-    if(newEnt == null) {
-      newEnt = reflectClass(type).newInstance(new Symbol(''), []).reflectee;
+    if(newEnt == null){
+      newEnt = this.cEnt();
       newEnt.init(params: params);
     }
     this.store.create(newEnt).then((CommandResponse resp){
@@ -90,10 +109,15 @@ class EntityOverview extends AttachAware implements ScopeAware{
     });
   }
 
+  cEnt(){
+    return new Entity();
+  }
+
   duplicateEntity(){
 
   }
 
+  //Todo Remove Command Response from List instead of reloading whole List
   deleteEntity([int entId]){
     if(entId == null){
       entId = this.selectedEntId;
@@ -123,11 +147,6 @@ class EntityOverview extends AttachAware implements ScopeAware{
     }
   }
   
-  String get routename {
-    String tmp = reflectClass(type).reflectedType.toString().toLowerCase();
-    return tmp+'_edit';
-  }
-  
   attach(){
     reload();
   }
@@ -142,7 +161,7 @@ class EntityOverview extends AttachAware implements ScopeAware{
     entity.addFieldtoUpdate(name);
   }
 
-  EntityOverview(this.type, this.store, {this.router});
+  EntityOverview(this.type, this.store, this.routename, {this.router});
 }
 
 @Component(
@@ -151,7 +170,10 @@ class EntityOverview extends AttachAware implements ScopeAware{
     useShadowDom: false
 )
 class ProjectOverviewComponent extends EntityOverview{
-  ProjectOverviewComponent(ObjectStore store, Router router): super(Project, store, router: router);
+  ProjectOverviewComponent(ObjectStore store, Router router): super(Project, store, 'project_edit', router: router);
+  cEnt(){
+    return new Project();
+  }
 }
 
 @Component(
@@ -160,7 +182,10 @@ class ProjectOverviewComponent extends EntityOverview{
     useShadowDom: false
 )
 class CustomerOverviewComponent extends EntityOverview{
-  CustomerOverviewComponent(ObjectStore store, Router router): super(Customer, store, router: router);
+  CustomerOverviewComponent(ObjectStore store, Router router): super(Customer, store, 'customer_edit', router: router);
+  cEnt(){
+    return new Customer();
+  }
 }
 
 @Component(
@@ -169,7 +194,10 @@ class CustomerOverviewComponent extends EntityOverview{
     useShadowDom: false
 )
 class OfferOverviewComponent extends EntityOverview{
-  OfferOverviewComponent(ObjectStore store, Router router): super(Offer, store, router: router);
+  OfferOverviewComponent(ObjectStore store, Router router): super(Offer, store, 'offer_edit', router: router);
+  cEnt(){
+    return new Offer();
+  }
 }
 
 @Component(
@@ -181,7 +209,10 @@ class OfferOverviewComponent extends EntityOverview{
     }
 )
 class OfferPositionOverviewComponent extends EntityOverview{
-  OfferPositionOverviewComponent(ObjectStore store): super(OfferPosition, store);
+  OfferPositionOverviewComponent(ObjectStore store): super(OfferPosition, store, '');
+  cEnt(){
+    return new OfferPosition();
+  }
 
   int _offerId;
   set offerId(int id){
@@ -219,7 +250,10 @@ class OfferPositionOverviewComponent extends EntityOverview{
     useShadowDom: false
 )
 class InvoiceOverviewComponent extends EntityOverview{
-  InvoiceOverviewComponent(ObjectStore store, Router router): super(Invoice, store, router: router);
+  InvoiceOverviewComponent(ObjectStore store, Router router): super(Invoice, store, 'invoice_edit', router: router);
+  cEnt(){
+    return new Invoice();
+  }
 }
 
 @Component(
@@ -231,7 +265,10 @@ class InvoiceOverviewComponent extends EntityOverview{
     }
 )
 class InvoiceItemOverviewComponent extends EntityOverview{
-  InvoiceItemOverviewComponent(ObjectStore store, Router router): super(InvoiceItem, store, router: router);
+  InvoiceItemOverviewComponent(ObjectStore store): super(InvoiceItem, store, '');
+  cEnt(){
+    return new InvoiceItem();
+  }
 
   int _invoiceId;
   set invoiceId(int id){
@@ -255,6 +292,75 @@ class InvoiceItemOverviewComponent extends EntityOverview{
 }
 
 @Component(
+    selector: 'service-overview',
+    templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/overview/service_overview.html',
+    useShadowDom: false
+)
+class ServiceOverviewComponent extends EntityOverview{
+  ServiceOverviewComponent(ObjectStore store, Router router): super(Service, store, 'service_edit', router: router);
+  cEnt(){
+    return new Service();
+  }
+}
+
+@Component(
+    selector: 'rate-overview',
+    templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/overview/rate_overview.html',
+    useShadowDom: false,
+    map: const{
+        'service': '=>!serviceId'
+    }
+)
+class RateOverviewComponent extends EntityOverview{
+  RateOverviewComponent(ObjectStore store): super(Rate, store, '');
+  cEnt(){
+    return new Rate();
+  }
+
+  int _serviceId;
+  set serviceId(int id){
+    if(id!=null) {
+      this._serviceId = id;
+      reload();
+    }
+  }
+
+  reload({Map<String,dynamic> params}){
+    super.reload(params: {
+        'service': this._serviceId
+    });
+  }
+
+  List<RateGroup> rateGroups;
+  List<RateUnitType> rateUnitTypes;
+
+  attach() {
+    this.store.list(RateGroup).then((QueryResult result) {
+      this.rateGroups = result.toList();
+    });
+    this.store.list(RateUnitType).then((QueryResult result) {
+      this.rateUnitTypes = result.toList();
+    });
+  }
+
+  createEntity({Entity newEnt, Map<String,dynamic> params}){
+    super.createEntity(params: {'service': this._serviceId});
+  }
+}
+
+@Component(
+    selector: 'rateGroup-overview',
+    templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/overview/rateGroup_overview.html',
+    useShadowDom: false
+)
+class RateGroupOverviewComponent extends EntityOverview{
+  RateGroupOverviewComponent(ObjectStore store): super(RateGroup, store, '');
+  cEnt(){
+    return new RateGroup();
+  }
+}
+
+@Component(
     selector: 'activity-overview',
     templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/overview/activity_overview.html',
     useShadowDom: false,
@@ -271,7 +377,10 @@ class ActivityOverviewComponent extends EntityOverview{
 
   List<Service> services;
 
-  ActivityOverviewComponent(ObjectStore store): super(Activity, store);
+  ActivityOverviewComponent(ObjectStore store): super(Activity, store, '');
+  cEnt(){
+    return new Activity();
+  }
 
   attach() {
     this.store.list(Service).then((QueryResult result) {
@@ -311,7 +420,10 @@ class TimesliceOverviewComponent extends EntityOverview{
 
   DateTime lastdate;
 
-  TimesliceOverviewComponent(ObjectStore store): super(Timeslice, store);
+  TimesliceOverviewComponent(ObjectStore store): super(Timeslice, store, '');
+  cEnt(){
+    return new Timeslice();
+  }
 
   reload({Map<String,dynamic> params}){
     super.reload(params: {'user': _employee.id});
@@ -320,7 +432,6 @@ class TimesliceOverviewComponent extends EntityOverview{
   createEntity({Entity newEnt, Map<String,dynamic> params}){
     if(!(this.selectedProject is Project)) return;
     Timeslice slice = new Timeslice();
-    var refcomponent = reflect(this);
     List names = ['activity', 'value', 'startedAt'];
     for(var name in names){
       Setting settingForName;
@@ -332,15 +443,40 @@ class TimesliceOverviewComponent extends EntityOverview{
       if(settingForName.value.contains('action:')){
         var actionForSetting = settingForName.value.split(':');
         actionForSetting.add(name);
-        slice.Set(name, refcomponent.invoke(new Symbol('timesliceAction'+actionForSetting.elementAt(1)), actionForSetting.sublist(2)).reflectee);
+        slice = setInSlice(slice, name, function: 'timesliceAction'+actionForSetting.elementAt(1), args: actionForSetting.sublist(2));
       } else {
-        slice.Set(name, settingForName.value);
+        slice = setInSlice(slice, name, value: settingForName.value);
       }
       slice.addFieldtoUpdate(name);
     }
-    slice.user = _employee;
+    slice.Set('user', this._employee);
     slice.addFieldtoUpdate('user');
     super.createEntity(newEnt: slice.toSaveObj());
+  }
+
+  Timeslice setInSlice(Timeslice slice, String property, {String function, List args, var value}){
+    if(value != null){
+      slice.Set(property, value);
+      return slice;
+    }
+    if(function != null){
+      switch(function){
+      case 'timesliceActionbyName':
+        slice.Set(property, this.timesliceActionbyName(args.first, property));
+        break;
+      case 'timesliceActionnextDate':
+        slice.Set(property, this.timesliceActionnextDate());
+        break;
+      default:
+        break;
+      }
+    }
+    return slice;
+  }
+
+  deleteEntity([int entId]){
+    this.lastdate = null;
+    super.deleteEntity(entId);
   }
 
   timesliceActionbyName(String NamePattern, String timesliceFieldName){
@@ -354,7 +490,7 @@ class TimesliceOverviewComponent extends EntityOverview{
     return '';
   }
 
-  timesliceActionnextDate(String timesliceFieldName){
+  timesliceActionnextDate(){
     if(lastdate is DateTime) {
       lastdate = lastdate.add(new Duration(days: 1));
     } else {
@@ -366,6 +502,11 @@ class TimesliceOverviewComponent extends EntityOverview{
           lastdate = slice.startedAt;
         }
       }
+      lastdate = lastdate.add(new Duration(days: 1));
+    }
+    if(lastdate.weekday == DateTime.SATURDAY){
+      lastdate = lastdate.add(new Duration(days: 2));
+    } else if(lastdate.weekday == DateTime.SUNDAY){
       lastdate = lastdate.add(new Duration(days: 1));
     }
     return lastdate;

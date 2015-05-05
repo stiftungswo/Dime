@@ -24,3 +24,10 @@ dependencies:
 transformers:
 - script_inliner
 - angular
+- $dart2js:
+    checked: false
+    minify: false
+    verbose: false
+    suppressWarnings: false
+    suppressHints: false
+    terse: false

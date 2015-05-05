@@ -1,2 +1,2 @@
 1.9.1
-di/module_transformer,observe,script_inliner,smoke/src/default_transformer
+angular,script_inliner

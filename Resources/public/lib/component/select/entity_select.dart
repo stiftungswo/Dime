@@ -10,7 +10,7 @@ class EntitySelect extends EntityOverview implements ScopeAware{
   Scope scope;
   dom.Element element;
   bool open = false;
-  EntitySelect(Type type, ObjectStore store, this.element): super(type, store);
+  EntitySelect(Type type, ObjectStore store, this.element): super(type, store, '');
 
   String selector = '';
 
