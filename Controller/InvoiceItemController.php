@@ -33,7 +33,7 @@ class InvoiceItemController extends DimeController
 	 * @Annotations\QueryParam(array=true, name="withouttags", requirements="\d+", nullable=true, description="Show Entities without this Tags")
 	 *
 	 * @Annotations\View(
-	 * templateVar="invoiceitems"
+	 * serializerEnableMaxDepthChecks=true
 	 * )
 	 *
 	 * @Annotations\Route(requirements={"_format"="json|xml"})
@@ -65,7 +65,9 @@ class InvoiceItemController extends DimeController
 	 * }
 	 * )
 	 *
-	 * @Annotations\View(templateVar="invoicediscount")
+	 * @Annotations\View(
+	 * serializerEnableMaxDepthChecks=true
+	 * )
 	 *
 	 * @Annotations\Route(requirements={"_format"="json|xml"})
 	 *
@@ -96,7 +98,9 @@ class InvoiceItemController extends DimeController
 	 * )
 	 *
 	 * @Annotations\Route(requirements={"_format"="json|xml"})
-	 * @Annotations\View()
+	 * @Annotations\View(
+	 * serializerEnableMaxDepthChecks=true
+	 * )
 	 *
 	 * @Annotations\Delete("/invoiceitems/{id}", name="_invoiceitem")
 	 *

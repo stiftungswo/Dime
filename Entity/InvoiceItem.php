@@ -28,6 +28,7 @@ class InvoiceItem extends Entity implements DimeEntityInterface
 	/**
 	 * @var Invoice
 	 * @ORM\ManyToOne(targetEntity="Dime\InvoiceBundle\Entity\Invoice", inversedBy="items")
+	 * @JMS\MaxDepth(1)
 	 */
 	protected $invoice;
 

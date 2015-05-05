@@ -34,7 +34,7 @@ class InvoiceController extends DimeController
 	 * @Annotations\QueryParam(name="offer", requirements="\d+", nullable=true, description="Filter By Offer")
 	 *
 	 * @Annotations\View(
-	 * templateVar="entity"
+	 * serializerEnableMaxDepthChecks=true
 	 * )
 	 *
 	 * @Annotations\Route(requirements={"_format"="json|xml"})
@@ -63,7 +63,9 @@ class InvoiceController extends DimeController
 	 * }
 	 * )
 	 *
-	 * @Annotations\View(templateVar="invoice")
+	 * @Annotations\View(
+	 * serializerEnableMaxDepthChecks=true
+	 * )
 	 *
 	 * @Annotations\Route(requirements={"_format"="json|xml"})
 	 *
@@ -95,6 +97,10 @@ class InvoiceController extends DimeController
 	 * )
 	 *
 	 * @Annotations\Route(requirements={"_format"="json|xml"})
+	 *
+	 * @Annotations\View(
+	 * serializerEnableMaxDepthChecks=true
+	 * )
 	 *
 	 * @param Request $request
 	 *            the request object
@@ -133,7 +139,9 @@ class InvoiceController extends DimeController
 	 *
 	 * @Annotations\Route(requirements={"_format"="json|xml"})
 	 *
-	 * @Annotations\View()
+	 * @Annotations\View(
+	 * serializerEnableMaxDepthChecks=true
+	 * )
 	 *
 	 * @param int $id
 	 *            the page id
@@ -161,7 +169,9 @@ class InvoiceController extends DimeController
 	 * }
 	 * )
 	 *
-	 * @Annotations\View()
+	 * @Annotations\View(
+	 * serializerEnableMaxDepthChecks=true
+	 * )
 	 *
 	 * @Annotations\Get("/invoices/project/{id}", name="_invoices")
 	 *
@@ -190,6 +200,10 @@ class InvoiceController extends DimeController
 	 * @Annotations\Get("/invoices/{id}/print", name="_invoices_print")
 	 *
 	 * @Annotations\Route(requirements={"_format"="json|xml"})
+	 *
+	 * @Annotations\View(
+	 * serializerEnableMaxDepthChecks=true
+	 * )
 	 * @param $id
 	 *
 	 * @return \Dime\InvoiceBundle\Entity\Invoice
@@ -215,6 +229,10 @@ class InvoiceController extends DimeController
 	 * @Annotations\Get("/invoices/{id}/update", name="_invoices_update")
 	 *
 	 * @Annotations\Route(requirements={"_format"="json|xml"})
+	 *
+	 * @Annotations\View(
+	 * serializerEnableMaxDepthChecks=true
+	 * )
 	 * @param $id
 	 *
 	 * @return \Dime\InvoiceBundle\Entity\Invoice
@@ -239,6 +257,10 @@ class InvoiceController extends DimeController
 	 * @Annotations\Get("/invoices/{id}/duplicate", name="_invoices_dup")
 	 *
 	 * @Annotations\Route(requirements={"_format"="json|xml"})
+	 *
+	 * @Annotations\View(
+	 * serializerEnableMaxDepthChecks=true
+	 * )
 	 *
 	 * @param $id
 	 *

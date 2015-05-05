@@ -37,7 +37,7 @@ class InvoiceDiscountController extends DimeController
 	 * @Annotations\QueryParam(array=true, name="withouttags", requirements="\d+", nullable=true, description="Show Entities without this Tags")
 	 *
 	 * @Annotations\View(
-	 * templateVar="invoicediscounts"
+	 * serializerEnableMaxDepthChecks=true
 	 * )
 	 *
 	 * @Annotations\Route(requirements={"_format"="json|xml"})
@@ -69,7 +69,9 @@ class InvoiceDiscountController extends DimeController
 	 * }
 	 * )
 	 *
-	 * @Annotations\View(templateVar="invoicediscount")
+	 * @Annotations\View(
+	 * serializerEnableMaxDepthChecks=true
+	 * )
 	 *
 	 * @Annotations\Route(requirements={"_format"="json|xml"})
 	 *
@@ -106,6 +108,10 @@ class InvoiceDiscountController extends DimeController
 	 *
 	 * @Annotations\Post("/invoicediscounts", name="_invoicediscount")
 	 *
+	 * @Annotations\View(
+	 * serializerEnableMaxDepthChecks=true
+	 * )
+	 *
 	 * @param Request $request
 	 *            the request object
 	 *
@@ -140,6 +146,10 @@ class InvoiceDiscountController extends DimeController
 	 *
 	 * @Annotations\Put("/invoicediscounts/{id}", name="_invoicediscount")
 	 *
+	 * @Annotations\View(
+	 * serializerEnableMaxDepthChecks=true
+	 * )
+	 *
 	 * @param Request $request
 	 * @param int     $id
 	 *            the page id
@@ -171,7 +181,9 @@ class InvoiceDiscountController extends DimeController
 	 * )
 	 *
 	 * @Annotations\Route(requirements={"_format"="json|xml"})
-	 * @Annotations\View()
+	 * @Annotations\View(
+	 * serializerEnableMaxDepthChecks=true
+	 * )
 	 *
 	 * @Annotations\Delete("/invoicediscounts/{id}", name="_invoicediscount")
 	 *
@@ -205,6 +217,10 @@ class InvoiceDiscountController extends DimeController
 	 * @Annotations\Get("/invoicediscounts/{id}/duplicate", name="_invoices_dup")
 	 *
 	 * @Annotations\Route(requirements={"_format"="json|xml"})
+	 *
+	 * @Annotations\View(
+	 * serializerEnableMaxDepthChecks=true
+	 * )
 	 *
 	 * @param $id
 	 *
