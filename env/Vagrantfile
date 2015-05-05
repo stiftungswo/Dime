@@ -37,7 +37,7 @@ Vagrant.configure("2") do |config|
                 domain.id_ssh_key_file = "id_rsa"
             end
             domain.disk_bus = "virtio"
-            domain.memory = 512
+            domain.memory = 4096
             domain.cpus = 2
             domain.volume_cache = 'writeback'
         end
