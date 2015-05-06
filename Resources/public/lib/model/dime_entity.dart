@@ -20,7 +20,7 @@ class Entity{
     }
   }
   Entity.fromMap(Map<String,dynamic> map){
-    if(map==null)return;
+    if(map==null||map.isEmpty) return;
     this.id=map['id'];
     this.createdAt=DateTime.parse(map['createdAt']);
     this.updatedAt=DateTime.parse(map['updatedAt']);
@@ -135,7 +135,7 @@ class Tag extends Entity{
     this.system = original.system;
   }
   Tag.fromMap(Map<String,dynamic> map): super.fromMap(map){
-    if(map==null) return;
+    if(map==null||map.isEmpty) return;
     this.system = map['system'];
   }
   Map<String,dynamic> toMap(){
@@ -181,7 +181,7 @@ class Setting extends Entity{
     this.value = original.value;
   }
   Setting.fromMap(Map<String,dynamic> map): super.fromMap(map){
-    if(map==null) return;
+    if(map==null||map.isEmpty) return;
     this.namespace = map['namespace'];
     this.value = map['value'];
   }
@@ -321,7 +321,7 @@ class Project extends Entity{
     }
   }
   Project.fromMap(Map<String,dynamic> map): super.fromMap(map){
-    if(map==null) return;
+    if(map==null||map.isEmpty) return;
     this.currentPrice = map['currentPrice'];
     this.budgetPrice = map['budgetPrice'];
     this.currentTime = map['currentTime'];
@@ -460,7 +460,7 @@ class Offer extends Entity{
     }
   }
   Offer.fromMap(Map<String,dynamic> map): super.fromMap(map){
-    if(map==null) return;
+    if(map==null||map.isEmpty) return;
     this.subtotal = map['subtotal'];
     this.totalVAT = map['totalVAT'];
     this.totalDiscounts = map['totalDiscounts'];
@@ -493,6 +493,7 @@ class Offer extends Entity{
     });
     return m;
   }
+  String type = 'offers';
   String subtotal;
   String totalVAT;
   String totalDiscounts;
@@ -552,7 +553,7 @@ class OfferStatusUC extends Entity{
     }
   }
   OfferStatusUC.fromMap(Map<String,dynamic> map): super.fromMap(map){
-    if(map==null) return;
+    if(map==null||map.isEmpty) return;
     this.text = map['text'];
     this.active = map['active'];
   }
@@ -660,7 +661,7 @@ class OfferPosition extends Entity{
     return array;
   }
   OfferPosition.fromMap(Map<String,dynamic> map): super.fromMap(map){
-    if(map==null) return;
+    if(map==null||map.isEmpty) return;
     this.total = map['total'];
     this.calculatedRateValue = map['calculatedRateValue'];
     this.calculatedVAT = map['calculatedVAT'];
@@ -689,6 +690,7 @@ class OfferPosition extends Entity{
     });
     return m;
   }
+  String type = 'offerstatusucs';
   //Todo Modify to getters
   bool isManualRateValueSet;
   bool isManualRateUnitSet;
@@ -720,6 +722,7 @@ class OfferDiscount extends StandardDiscount{
     }
     return array;
   }
+  String type = 'offerdiscounts';
 }
 
 class Invoice extends Entity{
@@ -791,7 +794,7 @@ class Invoice extends Entity{
     }
   }
   Invoice.fromMap(Map<String,dynamic> map): super.fromMap(map){
-    if(map==null) return;
+    if(map==null||map.isEmpty) return;
     this.subtotal = map['subtotal'];
     this.totalVAT = map['totalVAT'];
     this.totalDiscounts = map['totalDiscounts'];
@@ -816,6 +819,7 @@ class Invoice extends Entity{
     });
     return m;
   }
+  String type = 'invoices';
   String totalDiscounts;
   String total;
   String subtotal;
@@ -895,7 +899,7 @@ class InvoiceItem extends Entity{
     return array;
   }
   InvoiceItem.fromMap(Map<String,dynamic> map): super.fromMap(map){
-    if(map==null) return;
+    if(map==null||map.isEmpty) return;
     this.total = map['total'];
     this.amount = map['amount'];
     this.rateValue = map['rateValue'];
@@ -914,6 +918,7 @@ class InvoiceItem extends Entity{
     });
     return m;
   }
+  String type = 'invoiceitems';
   String rateValue;
   String rateUnit;
   dynamic amount;
@@ -933,6 +938,7 @@ class InvoiceDiscount extends StandardDiscount{
     }
     return array;
   }
+  String type = 'invoicediscounts';
 }
 
 class StandardDiscount extends Entity{
@@ -988,7 +994,7 @@ class StandardDiscount extends Entity{
     return array;
   }
   StandardDiscount.fromMap(Map<String,dynamic> map): super.fromMap(map){
-    if(map==null) return;
+    if(map==null||map.isEmpty) return;
     this.value = map['value'];
     this.percentage = map['percentage'];
     this.minus = map['minus'];
@@ -1002,6 +1008,7 @@ class StandardDiscount extends Entity{
     });
     return m;
   }
+  String type = 'standarddiscounts';
   double value;
   bool percentage;
   bool minus;
@@ -1076,7 +1083,7 @@ class Customer extends Entity{
     }
   }
   Customer.fromMap(Map<String,dynamic> map): super.fromMap(map){
-    if(map==null) return;
+    if(map==null||map.isEmpty) return;
     this.address = new Address.fromMap(map['address']);
     this.chargeable = map['chargeable'];
     this.company = map['company'];
@@ -1217,7 +1224,7 @@ class Address{
     }
   }
   Address.fromMap(Map<String,dynamic> map){
-    if(map==null) return;
+    if(map==null||map.isEmpty) return;
     this.id = map['id'];
     this.street = map['street'];
     this.streetnumber = map['streetnumber'];
@@ -1344,7 +1351,7 @@ class Activity extends Entity{
     return activities;
   }
   Activity.fromMap(Map<String,dynamic> map): super.fromMap(map){
-    if(map==null) return;
+    if(map==null||map.isEmpty) return;
     this.project = new Project.fromMap(map['project']);
     this.serviceRate = new Rate.fromMap(map['serviceRate']);
     this.charge = map['charge'];
@@ -1449,7 +1456,7 @@ class Timeslice extends Entity with TagFields{
     return timeslices;
   }
   Timeslice.fromMap(Map<String,dynamic> map): super.fromMap(map){
-    if(map==null) return;
+    if(map==null||map.isEmpty) return;
     this.project = new Project.fromMap(map['project']);
     this.value = map['value'];
     this.startedAt = DateTime.parse(map['startedAt']);
@@ -1533,7 +1540,7 @@ class User extends Entity{
     }
   }
   User.fromMap(Map<String,dynamic> map): super.fromMap(map){
-    if(map==null) return;
+    if(map==null||map.isEmpty) return;
     this.username = map['username'];
     this.firstname = map['firstname'];
     this.lastname = map['lastname'];
@@ -1600,7 +1607,7 @@ class Employee extends User{
     }
   }
   Employee.fromMap(Map<String,dynamic> map): super.fromMap(map){
-    if(map==null) return;
+    if(map==null||map.isEmpty) return;
     this.workingPeriods = WorkingPeriod.listFromResource(map['workingPeriods']);
     this.freePeriods = FreePeriod.listFromResource(map['freePeriods']);
   }
@@ -1666,7 +1673,7 @@ class Period extends Entity{
     return array;
   }
   Period.fromMap(Map<String,dynamic> map): super.fromMap(map){
-    if(map==null) return;
+    if(map==null||map.isEmpty) return;
     this.start = DateTime.parse(map['start']);
     this.end = DateTime.parse(map['end']);
     this.pensum = map['pensum'];
@@ -1768,7 +1775,7 @@ class Service extends Entity{
     }
   }
   Service.fromMap(Map<String,dynamic> map): super.fromMap(map){
-    if(map==null) return;
+    if(map==null||map.isEmpty) return;
     this.description = map['description'];
     this.chargeable = map['chargeable'];
     this.vat = map['vat'];
@@ -1862,7 +1869,7 @@ class Rate extends Entity{
     return array;
   }
   Rate.fromMap(Map<String,dynamic> map): super.fromMap(map){
-    if(map==null) return;
+    if(map==null||map.isEmpty) return;
     this.rateValue = map['rateValue'];
     this.rateUnit = map['rateUnit'];
     this.rateUnitType = map['rateUnitType'];
@@ -1923,7 +1930,7 @@ class RateGroup extends Entity{
     }
   }
   RateGroup.fromMap(Map<String,dynamic> map): super.fromMap(map){
-    if(map==null) return;
+    if(map==null||map.isEmpty) return;
     this.description = map['description'];
   }
   Map<String,dynamic> toMap(){
@@ -1933,16 +1940,17 @@ class RateGroup extends Entity{
     });
     return m;
   }
-  String type = 'rateGroups';
+  String type = 'rategroups';
   String description;
 }
 
 class RateUnitType{
   String id;
   String name;
+  String type = 'rateunittypes';
   RateUnitType();
   RateUnitType.fromMap(Map<String,dynamic> map){
-    if(map==null) return;
+    if(map==null||map.isEmpty) return;
     this.id = map['id'];
     this.name = map['name'];
   }

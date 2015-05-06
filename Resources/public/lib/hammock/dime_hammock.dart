@@ -168,7 +168,7 @@ HammockConfig createHammockConfig(Injector inj) {
                 return new RateGroup.fromMap(r.content);
               }
           },
-          "rateunituypes" : {
+          "rateunittypes" : {
               "type" : RateUnitType,
               "deserializer" : (Resource r){
                 if(r.content is String)return new RateUnitType();
