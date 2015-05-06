@@ -14,5 +14,20 @@ parameters:
     mailer_user:       ~
     mailer_password:   ~
 
+    sender_plz:          8000
+    sender_city:         Zürich
+    sender_street:       Teststrasse
+    sender_streetnumber: 1
+    sender_phone:        0348161827252
+    sender_fax:          1032719382312
+    sender_mail:         im@mail.to
+    sender_web:          www.imaweb.addr
+    sender_mwstId:      01-3123-123-123
+    sender_bank:         Testbank 8000 Zürich
+    sender_iban:         CH0000000000000
+    sender_kontoNr:     07-007-07
+    sender_name:         Stiftung Wirtschaft und Oekologie
+    mwst_percent:        8
+
     locale:            en
     secret:            ThisTokenIsNotSoSecretChangeIt
