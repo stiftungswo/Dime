@@ -1,4 +1,4 @@
-<div class="panel panel-default">
+<div class="row" style="display: table;margin: 0 auto;margin-bottom: 5px;">
 	<button type="button" class="btn btn-default" ng-click="previousMonth()"><<<-</button>
 	<button type="button" class="btn btn-default" ng-click="previousWeek()"><<-</button>
 	<button type="button" class="btn btn-default" ng-click="previousDay()"><-</button>
@@ -7,7 +7,6 @@
 	<button type="button" class="btn btn-default" ng-click="nextDay()">-></button>
 	<button type="button" class="btn btn-default" ng-click="nextWeek()">->></button>
 	<button type="button" class="btn btn-default" ng-click="nextMonth()">->>></button>
-	<project-select project="selectedProject"></project-select>
 </div>
 <table class="table table-bordered table-hover">
 	<thead>
@@ -34,8 +33,24 @@
 	</tr>
 	</tbody>
 </table>
-<div class="controllbuttons">
-	<button type="button" class="btn btn-primary" ng-click="createEntity()">+</button>
-	<button type="button" class="btn btn-primary" ng-click="duplicateEntity()">++</button>
-	<button type="button" class="btn btn-danger" ng-click="deleteEntity()">-</button>
+<div class="controllbuttons container-inline">
+	<div class="row form-inline">
+		<div class="col-md-2">
+			<label>Projekt</label>
+			<project-select project="selectedProject"></project-select>
+		</div>
+		<div class="col-md-2">
+			<label>Aktivität</label>
+			<setting-edit namespace="'/usr/defaults/timeslice'" name="'activity'" defaultvalue="'Zivi*'"></setting-edit>
+		</div>
+		<div class="col-md-2">
+			<label>Einzutragende Zeit</label>
+			<setting-edit namespace="'/usr/defaults/timeslice'" name="'value'" defaultvalue="'8.5h'"></setting-edit>
+		</div>
+		<div class="col-md-12" style="margin-top: 5px;">
+			<button type="button" class="btn btn-primary" ng-click="createEntity()">+</button>
+			<button type="button" class="btn btn-primary" ng-click="duplicateEntity()">++</button>
+			<button type="button" class="btn btn-danger" ng-click="deleteEntity()">-</button>
+		</div>
+	</div>
 </div>

@@ -5,12 +5,13 @@ import 'package:DimeClient/model/dime_entity.dart';
 import 'package:hammock/hammock.dart';
 import 'package:DimeClient/component/overview/entity_overview.dart';
 import 'dart:html' as dom;
+import 'package:DimeClient/service/setting_manager.dart';
 
 class EntitySelect extends EntityOverview implements ScopeAware{
   Scope scope;
   dom.Element element;
   bool open = false;
-  EntitySelect(Type type, ObjectStore store, this.element): super(type, store, '');
+  EntitySelect(Type type, ObjectStore store, this.element, SettingsManager manager): super(type, store, '', manager);
 
   String selector = '';
 
@@ -50,5 +51,5 @@ class EntitySelect extends EntityOverview implements ScopeAware{
   }
 )
 class ProjectSelectComponent extends EntitySelect{
-  ProjectSelectComponent(ObjectStore store, dom.Element element): super(Project, store, element);
+  ProjectSelectComponent(ObjectStore store, dom.Element element, SettingsManager manager): super(Project, store, element, manager);
 }

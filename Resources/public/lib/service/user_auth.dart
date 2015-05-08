@@ -6,11 +6,13 @@ import 'package:hammock/hammock.dart';
 import 'package:crypto/crypto.dart';
 import 'dart:html';
 import 'dart:convert';
+import 'package:DimeClient/service/setting_manager.dart';
 
 @Injectable()
 class UserAuthProvider{
   final String dimelocalStoreAuthKey = 'dimeAuthToken';
   Employee employee = new Employee();
+  SettingsManager manager;
   ObjectStore store;
   HttpDefaultHeaders headers;
 
@@ -30,11 +32,12 @@ class UserAuthProvider{
     window.localStorage[dimelocalStoreAuthKey] = token;
   }
 
-  UserAuthProvider(this.store, this.headers);
+  UserAuthProvider(this.store, this.headers, this.manager);
 
   loadUserData(){
     this.store.customQueryOne(Employee, new CustomRequestParams(method: 'GET', url: '/api/v1/employees/current')).then((Employee result){
       this.employee = result;
+      manager.loadUserSettings(employee.id);
     }, onError: (_){
 
     });

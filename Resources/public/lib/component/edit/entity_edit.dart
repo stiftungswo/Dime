@@ -12,8 +12,6 @@ class EntityEdit extends AttachAware implements ScopeAware{
 
   ObjectStore store;
 
-  NgModel model;
-
   dynamic entity;
 
   String loadState = 'default';

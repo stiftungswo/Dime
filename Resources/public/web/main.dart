@@ -19,6 +19,8 @@ import 'package:DimeClient/service/filters.dart';
 import 'package:DimeClient/component/select/entity_select.dart';
 import 'package:DimeClient/component/login/login.dart';
 import 'package:DimeClient/component/percent-input/percent_input.dart';
+import 'package:DimeClient/component/setting/setting.dart';
+import 'package:DimeClient/service/setting_manager.dart';
 
 class AppModule extends Module {
   AppModule() {
@@ -51,6 +53,8 @@ class AppModule extends Module {
     bind(RateOverviewComponent);
     bind(RateGroupOverviewComponent);
     bind(Login);
+    bind(SettingEditComponent);
+    bind(SettingsManager);
     install(new Hammock());
     bind(RouteInitializerFn, toValue: dimeRouteInitializer);
     bind(HammockConfig, toFactory: createHammockConfig, inject: [Injector]);

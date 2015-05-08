@@ -2,6 +2,7 @@ library dime.login;
 
 import 'package:angular/angular.dart';
 import 'package:DimeClient/service/user_auth.dart';
+import 'dart:async';
 
 @Component(
     selector: 'login',
@@ -17,17 +18,19 @@ class Login extends AttachAware implements ScopeAware {
   UserAuthProvider auth;
   Router router;
 
+  Timer loadingTimer;
+
   Login(this.auth, this.router);
 
   attach(){
     if(auth.isAuthSaved) {
       auth.login();
-      router.go('timetrack', {});
+      this.loadingTimer = new Timer(new Duration(seconds: 2),() {router.go('timetrack', {});});
     }
   }
 
   void login(){
     auth.login(this.username, this.password, this.rememberme);
-    router.go('timetrack', {});
+    this.loadingTimer = new Timer(new Duration(seconds: 2),() {router.go('timetrack', {});});
   }
 }

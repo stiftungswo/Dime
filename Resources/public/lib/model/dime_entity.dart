@@ -179,6 +179,8 @@ class Setting extends Entity{
   Setting.clone(Setting original): super.clone(original){
     this.namespace = original.namespace;
     this.value = original.value;
+    this.user = original.user;
+    this.name = original.name;
   }
   Setting.fromMap(Map<String,dynamic> map): super.fromMap(map){
     if(map==null||map.isEmpty) return;
@@ -190,6 +192,7 @@ class Setting extends Entity{
     m.addAll({
         "namespace": this.namespace,
         "value": this.value,
+        "user": this.user.id,
     });
     return m;
   }

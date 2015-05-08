@@ -3,6 +3,7 @@ library entity_overview_component;
 import 'package:angular/angular.dart';
 import 'package:hammock/hammock.dart';
 import 'package:DimeClient/model/dime_entity.dart';
+import 'package:DimeClient/service/setting_manager.dart';
 
 class EntityOverview extends AttachAware implements ScopeAware{
 
@@ -25,6 +26,8 @@ class EntityOverview extends AttachAware implements ScopeAware{
   String saveState = 'default';
 
   String routename;
+
+  SettingsManager settingsManager;
 
   get selectedEntity{
     for(Entity ent in this.entities){
@@ -57,9 +60,10 @@ class EntityOverview extends AttachAware implements ScopeAware{
     }
   }
 
-  //Todo Insert Command Response into List instead of reloading whole List
   saveEntity(Entity entity){
-    store.update(entity.toSaveObj()).then((CommandResponse result){
+    store.update(entity.toSaveObj()).then((Entity resp){
+      this.entities.removeWhere((enty) => enty.id == resp.id);
+      this.entities.add(resp);
       this.saveCounter -= 1;
       if(this.saveCounter == 0){
         this.handleSaveFinish();
@@ -78,7 +82,6 @@ class EntityOverview extends AttachAware implements ScopeAware{
       this.saveState = 'error';
     } else {
       this.saveState = 'success';
-      this.reload();
     }
   }
   
@@ -92,17 +95,16 @@ class EntityOverview extends AttachAware implements ScopeAware{
     return false;
   }
 
-  //Todo Insert Command Response into List instead of reloading whole List
-  createEntity({Entity newEnt, Map<String,dynamic> params}){
+  createEntity({var newEnt, Map<String,dynamic> params}){
     if(newEnt == null){
       newEnt = this.cEnt();
       newEnt.init(params: params);
     }
-    this.store.create(newEnt).then((CommandResponse resp){
+    this.store.create(newEnt).then((Entity resp){
       if(this.router != null) {
-        this.openEditView(resp.content['id']);
+        this.openEditView(resp.id);
       } else {
-        reload();
+        this.entities.add(resp);
       }
     }, onError: (_){
 
@@ -117,7 +119,6 @@ class EntityOverview extends AttachAware implements ScopeAware{
 
   }
 
-  //Todo Remove Command Response from List instead of reloading whole List
   deleteEntity([int entId]){
     if(entId == null){
       entId = this.selectedEntId;
@@ -126,7 +127,7 @@ class EntityOverview extends AttachAware implements ScopeAware{
       if(this.store != null) {
         var ent = this.entities.singleWhere((enty) => enty.id == entId);
         this.store.delete(ent.toSaveObj()).then((CommandResponse resp) {
-          reload();
+          this.entities.removeWhere((enty) => enty.id == entId);
         }, onError: (_) {
 
         });
@@ -161,7 +162,7 @@ class EntityOverview extends AttachAware implements ScopeAware{
     entity.addFieldtoUpdate(name);
   }
 
-  EntityOverview(this.type, this.store, this.routename, {this.router});
+  EntityOverview(this.type, this.store, this.routename, this.settingsManager, {this.router});
 }
 
 @Component(
@@ -170,7 +171,7 @@ class EntityOverview extends AttachAware implements ScopeAware{
     useShadowDom: false
 )
 class ProjectOverviewComponent extends EntityOverview{
-  ProjectOverviewComponent(ObjectStore store, Router router): super(Project, store, 'project_edit', router: router);
+  ProjectOverviewComponent(ObjectStore store, Router router, SettingsManager manager): super(Project, store, 'project_edit', manager, router: router);
   cEnt(){
     return new Project();
   }
@@ -182,7 +183,7 @@ class ProjectOverviewComponent extends EntityOverview{
     useShadowDom: false
 )
 class CustomerOverviewComponent extends EntityOverview{
-  CustomerOverviewComponent(ObjectStore store, Router router): super(Customer, store, 'customer_edit', router: router);
+  CustomerOverviewComponent(ObjectStore store, Router router, SettingsManager manager): super(Customer, store, 'customer_edit', manager, router: router);
   cEnt(){
     return new Customer();
   }
@@ -194,7 +195,7 @@ class CustomerOverviewComponent extends EntityOverview{
     useShadowDom: false
 )
 class OfferOverviewComponent extends EntityOverview{
-  OfferOverviewComponent(ObjectStore store, Router router): super(Offer, store, 'offer_edit', router: router);
+  OfferOverviewComponent(ObjectStore store, Router router, SettingsManager manager): super(Offer, store, 'offer_edit', manager, router: router);
   cEnt(){
     return new Offer();
   }
@@ -209,7 +210,7 @@ class OfferOverviewComponent extends EntityOverview{
     }
 )
 class OfferPositionOverviewComponent extends EntityOverview{
-  OfferPositionOverviewComponent(ObjectStore store): super(OfferPosition, store, '');
+  OfferPositionOverviewComponent(ObjectStore store, SettingsManager manager): super(OfferPosition, store, '', manager);
   cEnt(){
     return new OfferPosition();
   }
@@ -250,7 +251,7 @@ class OfferPositionOverviewComponent extends EntityOverview{
     useShadowDom: false
 )
 class InvoiceOverviewComponent extends EntityOverview{
-  InvoiceOverviewComponent(ObjectStore store, Router router): super(Invoice, store, 'invoice_edit', router: router);
+  InvoiceOverviewComponent(ObjectStore store, Router router, SettingsManager manager): super(Invoice, store, 'invoice_edit', manager, router: router);
   cEnt(){
     return new Invoice();
   }
@@ -265,7 +266,7 @@ class InvoiceOverviewComponent extends EntityOverview{
     }
 )
 class InvoiceItemOverviewComponent extends EntityOverview{
-  InvoiceItemOverviewComponent(ObjectStore store): super(InvoiceItem, store, '');
+  InvoiceItemOverviewComponent(ObjectStore store, SettingsManager manager): super(InvoiceItem, store, '', manager);
   cEnt(){
     return new InvoiceItem();
   }
@@ -297,7 +298,7 @@ class InvoiceItemOverviewComponent extends EntityOverview{
     useShadowDom: false
 )
 class ServiceOverviewComponent extends EntityOverview{
-  ServiceOverviewComponent(ObjectStore store, Router router): super(Service, store, 'service_edit', router: router);
+  ServiceOverviewComponent(ObjectStore store, Router router, SettingsManager manager): super(Service, store, 'service_edit', manager, router: router);
   cEnt(){
     return new Service();
   }
@@ -312,7 +313,7 @@ class ServiceOverviewComponent extends EntityOverview{
     }
 )
 class RateOverviewComponent extends EntityOverview{
-  RateOverviewComponent(ObjectStore store): super(Rate, store, '');
+  RateOverviewComponent(ObjectStore store, SettingsManager manager): super(Rate, store, '', manager);
   cEnt(){
     return new Rate();
   }
@@ -354,7 +355,7 @@ class RateOverviewComponent extends EntityOverview{
     useShadowDom: false
 )
 class RateGroupOverviewComponent extends EntityOverview{
-  RateGroupOverviewComponent(ObjectStore store): super(RateGroup, store, '');
+  RateGroupOverviewComponent(ObjectStore store, SettingsManager manager): super(RateGroup, store, '', manager);
   cEnt(){
     return new RateGroup();
   }
@@ -377,7 +378,7 @@ class ActivityOverviewComponent extends EntityOverview{
 
   List<Service> services;
 
-  ActivityOverviewComponent(ObjectStore store): super(Activity, store, '');
+  ActivityOverviewComponent(ObjectStore store, SettingsManager manager): super(Activity, store, '', manager);
   cEnt(){
     return new Activity();
   }
@@ -407,11 +408,9 @@ class TimesliceOverviewComponent extends EntityOverview{
     }
     this._employee = employee;
     this.reload();
-    this.loadSettings();
   }
 
   List<Activity> activities;
-  List<Setting> timesliceSettings = new List<Setting>();
 
   DateTime filterStartDate = new DateTime.now();
   DateTime filterEndDate;
@@ -420,7 +419,7 @@ class TimesliceOverviewComponent extends EntityOverview{
 
   DateTime lastdate;
 
-  TimesliceOverviewComponent(ObjectStore store): super(Timeslice, store, '');
+  TimesliceOverviewComponent(ObjectStore store, SettingsManager manager): super(Timeslice, store, '', manager);
   cEnt(){
     return new Timeslice();
   }
@@ -436,9 +435,9 @@ class TimesliceOverviewComponent extends EntityOverview{
     for(var name in names){
       Setting settingForName;
       try {
-        settingForName = this.timesliceSettings.singleWhere((i) => i.name == name && !i.namespace.contains('/usr/defaults'));
+        settingForName = this.settingsManager.getOneSetting('/usr/defaults/timeslice', name);
       } catch(exception, stackTrace) {
-        settingForName = this.timesliceSettings.singleWhere((i) => i.name == name && i.namespace.contains('/etc/defaults'));
+        settingForName = this.settingsManager.getOneSetting('/etc/defaults/timeslice', name, system: true);
       }
       if(settingForName.value.contains('action:')){
         var actionForSetting = settingForName.value.split(':');
@@ -525,16 +524,6 @@ class TimesliceOverviewComponent extends EntityOverview{
     this.filterEndDate = this.filterStartDate;
     this.filterEndDate = this.filterEndDate.add(new Duration(days: 4, hours: 23, minutes: 59));
     loadActivtyData();
-  }
-
-  loadSettings(){
-    this.timesliceSettings = new List<Setting>();
-    this.store.list(Setting, params: {'namespace': '/etc/defaults/timeslice'}).then((QueryResult result) {
-      this.timesliceSettings.addAll(result.toList());
-    });
-    this.store.list(Setting, params: {'namespace': '/usr/defaults/timelice', 'user': this._employee.id}).then((QueryResult result){
-      this.timesliceSettings.addAll(result.toList());
-    });
   }
 
   loadActivtyData(){
