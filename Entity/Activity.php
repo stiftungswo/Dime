@@ -213,8 +213,8 @@ class Activity extends Entity implements DimeEntityInterface
 	 */
 	public function getName()
 	{
-        if($this->getService()) {
-            return $this->getService()->getName();
+        if($this->getService()&&$this->getProject()) {
+            return $this->getProject()->getName().' - '.$this->getService()->getName();
         } else {
             return '';
         }
@@ -378,7 +378,7 @@ class Activity extends Entity implements DimeEntityInterface
 	    $this->setRateUnitType($rate->getRateUnitType());
 	    $this->setRateUnit($rate->getRateUnit());
 	    $this->setRateValue($rate->getRateValue());
-
+	    $this->setVat($service->getVat());
         return $this;
     }
 
