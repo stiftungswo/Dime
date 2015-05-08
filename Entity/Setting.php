@@ -41,7 +41,7 @@ class Setting extends Entity implements DimeEntityInterface
     /**
      * @var string
      *
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable=true)
      */
     protected $value;
 
