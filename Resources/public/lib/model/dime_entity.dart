@@ -579,6 +579,7 @@ class OfferPosition extends Entity{
       this.offer = new Offer()
         ..id = params['offer'];
     }
+    this.order = 999;
   }
   OfferPosition();
   OfferPosition.clone(OfferPosition original): super.clone(original){
@@ -690,10 +691,11 @@ class OfferPosition extends Entity{
         "vat": this.vat,
         "discountable": this.discountable,
         "service": this.service is Entity ? this.service.toMap(): null,
+        "offer": this.offer is Entity ? this.offer.toMap(): null,
     });
     return m;
   }
-  String type = 'offerstatusucs';
+  String type = 'offerpositions';
   //Todo Modify to getters
   bool isManualRateValueSet;
   bool isManualRateUnitSet;
@@ -840,6 +842,10 @@ class Invoice extends Entity{
 class InvoiceItem extends Entity{
   init({Map<String,dynamic> params}){
     this.name = 'New Item';
+    if(params!=null) {
+      this.invoice = new Invoice()
+        ..id = params['invoice'];
+    }
   }
   InvoiceItem();
   InvoiceItem.clone(InvoiceItem original): super.clone(original){
@@ -848,6 +854,7 @@ class InvoiceItem extends Entity{
     this.rateUnit=original.rateUnit;
     this.activity=original.activity;
     this.vat=original.vat;
+    this.invoice=original.invoice;
   }
   newObj(){
     return new InvoiceItem();
@@ -866,6 +873,8 @@ class InvoiceItem extends Entity{
           return this.activity;
         case 'vat':
           return this.vat;
+        case 'invoice':
+          return this.invoice;
         default:
           break;
       }
@@ -889,6 +898,9 @@ class InvoiceItem extends Entity{
       case 'vat':
         this.vat = value;
         break;
+      case 'invoice':
+        this.invoice = value;
+        break;
       default:
         super.Set(property, value);
         break;
@@ -909,6 +921,7 @@ class InvoiceItem extends Entity{
     this.rateUnit = map['rateUnit'];
     this.vat = map['vat'];
     this.activity = new Activity.fromMap(map['activity']);
+    this.invoice = new Invoice.fromMap(map['invoice']);
   }
   Map<String,dynamic> toMap(){
     Map m = super.toMap();
@@ -918,10 +931,12 @@ class InvoiceItem extends Entity{
         "rateUnit": this.rateUnit,
         "vat": this.vat,
         "activity": this.activity is Entity ? this.activity.toMap(): null,
+        "invoice": this.invoice is Entity ? this.invoice.toMap(): null,
     });
     return m;
   }
   String type = 'invoiceitems';
+  Invoice invoice;
   String rateValue;
   String rateUnit;
   dynamic amount;
@@ -1379,6 +1394,7 @@ class Activity extends Entity{
         "rateValue": this.rateValue,
         "rateUnit": this.rateUnit,
         "rateUnitType": this.rateUnitType,
+        "project": this.project is Entity ? this.project.toMap(): null,
     });
     return m;
   }

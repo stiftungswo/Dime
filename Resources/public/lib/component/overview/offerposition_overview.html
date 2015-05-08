@@ -15,13 +15,7 @@
   <tbody>
     <tr ng-repeat="entity in entities | offerpostionOrder" ng-click="selectEntity(entity.id)" ng-class="isSelected(entity)? 'info': ''">
 		<td><input class="form-control" type="text" ng-model="entity.order" on-change="addSaveField('order', entity)"/></td>
-		<td>
-			<select class="form-control" ng-model="entity.service" on-change="addSaveField('service', entity)">
-				<option ng-repeat="service in services" ng-value="service"
-				        ng-selected="service.id == entity.service.id">{{ service.name }}
-				</option>
-			</select>
-		</td>
+		<td><service-select service="entity.service" callback="entity.addFieldtoUpdate(name)" field="'service'"></service-select></td>
 	    <td><input class="form-control" type="text" ng-model="entity.rateValue" on-change="addSaveField('rateValue', entity)"/></td>
 	    <td><input class="form-control" type="text" ng-model="entity.rateUnit" on-change="addSaveField('rateUnit', entity)"/></td>
 	    <td>

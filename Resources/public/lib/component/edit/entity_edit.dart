@@ -44,15 +44,14 @@ class EntityEdit extends AttachAware implements ScopeAware{
 
   addSaveField(String name){
     this.entity.addFieldtoUpdate(name);
-    print('Called onChange for $name');
   }
 
   saveEntity(){
     rootScope.emit('saveChanges');
     if(this.entity.needsUpdate) {
-      store.update(this.entity.toSaveObj()).then((CommandResponse result) {
+      store.update(this.entity.toSaveObj()).then((result) {
         this.saveState = 'success';
-        reload();
+        this.entity = result;
       }, onError:(_) {
         this.saveState = 'error';
       });
@@ -70,7 +69,9 @@ class ProjectEditComponent extends EntityEdit{
 
   List<RateGroup> rateGroups;
 
-  ProjectEditComponent(RouteProvider routeProvider, ObjectStore store): super(routeProvider, store, Project);
+  Router router;
+
+  ProjectEditComponent(RouteProvider routeProvider, ObjectStore store, this.router): super(routeProvider, store, Project);
   attach(){
     this.store.list(Customer).then((QueryResult result){
       this.customers = result.toList();
@@ -79,6 +80,12 @@ class ProjectEditComponent extends EntityEdit{
       this.rateGroups = result.toList();
     });
     reload();
+  }
+
+  openInvoice(){
+    this.store.customQueryOne(Invoice, new CustomRequestParams(method: 'GET', url: '/api/v1/invoices/project/${this.entity.id}')).then((invoice){
+      router.go('invoice_edit', {'id': invoice.id});
+    });
   }
 }
 
@@ -96,7 +103,9 @@ class OfferEditComponent extends EntityEdit{
 
   List<Employee> users;
 
-  OfferEditComponent(RouteProvider routeProvider, ObjectStore store): super(routeProvider, store, Offer);
+  Router router;
+
+  OfferEditComponent(RouteProvider routeProvider, ObjectStore store, this.router): super(routeProvider, store, Offer);
   attach(){
     this.store.list(Customer).then((QueryResult result){
       this.customers = result.toList();
@@ -111,6 +120,12 @@ class OfferEditComponent extends EntityEdit{
       this.users = result.toList();
     });
     reload();
+  }
+
+  openProject(){
+    this.store.customQueryOne(Project, new CustomRequestParams(method: 'GET', url: '/api/v1/projects/offer/${this.entity.id}')).then((project){
+      router.go('project_edit', {'id': project.id});
+    });
   }
 }
 

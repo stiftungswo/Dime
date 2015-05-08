@@ -55,6 +55,10 @@ class AppModule extends Module {
     bind(Login);
     bind(SettingEditComponent);
     bind(SettingsManager);
+    bind(ActivitySelectComponent);
+    bind(ServiceSelectComponent);
+    bind(OfferStatusSelectComponent);
+    bind(CustomerSelectComponent);
     install(new Hammock());
     bind(RouteInitializerFn, toValue: dimeRouteInitializer);
     bind(HammockConfig, toFactory: createHammockConfig, inject: [Injector]);

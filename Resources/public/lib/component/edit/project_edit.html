@@ -7,9 +7,7 @@
 		<div class="form-group DimePanel">
 			<div class="row">
 				<label class="col-sm-1 control-label">Kunde</label>
-				<select class="form-control" ng-model="entity.customer" on-change="addSaveField('customer')">
-					<option ng-repeat="customer in customers" ng-value="customer" ng-selected="customer.id == entity.customer.id">{{customer.name}}</option>
-				</select>
+				<customer-select customer="entity.customer" callback="entity.addFieldtoUpdate(name)" field="'customer'"></customer-select>
 			</div>
 			<div class="row"><label class="col-sm-1 control-label">Verechenbar</label><input type="checkbox" ng-model="entity.chargeable"></div>
 		</div>
@@ -20,7 +18,7 @@
 					<option ng-repeat="rateGroup in rateGroups" ng-value="rateGroup" ng-selected="rateGroup.id == entity.rateGroup.id">{{rateGroup.name}}</option>
 				</select>
 			</div>
-			<div class="row"><label class="col-sm-1 control-label">Deadline</label><input class="form-control" type="text" ng-model="entity.deadline"></div>
+			<div class="row"><label class="col-sm-1 control-label">Deadline</label><input class="form-control" type="date" ng-model="entity.deadline"></div>
 		</div>
 		<div class="form-group DimePanel">
 			<div class="row"><label class="col-sm-1 control-label">Beschreibung</label><textarea class="form-control" ng-model="entity.description" on-change="addSaveField('description')"></textarea></div>
@@ -38,6 +36,6 @@
 	</div>
 	<div class="DimeControllButtons">
 		<button type="button" class="btn btn-primary" ng-click="saveEntity()"><error-icon value="saveState" timeout="20"></error-icon></button>
-		<button type="button" class="btn btn-primary">Rechnung erstellen</button>
+		<button type="button" class="btn btn-primary" ng-click="openInvoice()">Rechnung erstellen</button>
 	</div>
 </div>

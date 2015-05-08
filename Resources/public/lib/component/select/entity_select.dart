@@ -11,6 +11,8 @@ class EntitySelect extends EntityOverview implements ScopeAware{
   Scope scope;
   dom.Element element;
   bool open = false;
+  Function callback;
+  String field;
   EntitySelect(Type type, ObjectStore store, this.element, SettingsManager manager): super(type, store, '', manager);
 
   String selector = '';
@@ -27,12 +29,11 @@ class EntitySelect extends EntityOverview implements ScopeAware{
   get selectedEntity => _selectedEntity;
 
   select(entity){
-    if(selectedEntity == null){
-      this.selectedEntity = entity;
-    } else if(selectedEntity.id != entity.id) {
-      this.selectedEntity = entity;
-    }
+    this.selectedEntity = entity;
     this.open = false;
+    if(this.callback != null){
+      callback({"name": this.field});
+    }
   }
 
   openSelectionBox(){
@@ -47,9 +48,70 @@ class EntitySelect extends EntityOverview implements ScopeAware{
   templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/select/project_select.html',
   useShadowDom: false,
   map: const{
-    'project': '<=>selectedEntity'
+      'project': '<=>selectedEntity',
+      'callback': '&callback',
+      'field': '=>!field'
   }
 )
 class ProjectSelectComponent extends EntitySelect{
   ProjectSelectComponent(ObjectStore store, dom.Element element, SettingsManager manager): super(Project, store, element, manager);
+}
+
+@Component(
+    selector: 'activity-select',
+    templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/select/activity_select.html',
+    useShadowDom: false,
+    map: const{
+        'activity': '<=>selectedEntity',
+        'project': '=>!projectId',
+        'callback': '&callback',
+        'field': '=>!field'
+    }
+)
+class ActivitySelectComponent extends EntitySelect{
+  ActivitySelectComponent(ObjectStore store, dom.Element element, SettingsManager manager): super(Activity, store, element, manager);
+
+  int projectId;
+}
+
+@Component(
+    selector: 'service-select',
+    templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/select/service_select.html',
+    useShadowDom: false,
+    map: const{
+        'service': '<=>selectedEntity',
+        'callback': '&callback',
+        'field': '=>!field'
+    }
+)
+class ServiceSelectComponent extends EntitySelect{
+  ServiceSelectComponent(ObjectStore store, dom.Element element, SettingsManager manager): super(Service, store, element, manager);
+}
+
+@Component(
+    selector: 'customer-select',
+    templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/select/customer_select.html',
+    useShadowDom: false,
+    map: const{
+        'customer': '<=>selectedEntity',
+        'callback': '&callback',
+        'field': '=>!field'
+    }
+)
+class CustomerSelectComponent extends EntitySelect{
+  CustomerSelectComponent(ObjectStore store, dom.Element element, SettingsManager manager): super(Customer, store, element, manager);
+}
+
+@Component(
+    selector: 'offerstatus-select',
+    templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/select/offerstatus_select.html',
+    useShadowDom: false,
+    map: const{
+        'status': '<=>selectedEntity',
+        'callback': '&callback',
+        'field': '=>!field'
+    }
+)
+class OfferStatusSelectComponent extends EntitySelect{
+  OfferStatusSelectComponent(ObjectStore store, dom.Element element, SettingsManager manager): super(OfferStatusUC, store, element, manager);
 }

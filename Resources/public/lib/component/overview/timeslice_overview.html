@@ -8,7 +8,7 @@
 	<button type="button" class="btn btn-default" ng-click="nextWeek()">->></button>
 	<button type="button" class="btn btn-default" ng-click="nextMonth()">->>></button>
 </div>
-<table class="table table-bordered table-hover">
+<table class="table table-bordered table-hover form">
 	<thead>
 	<tr>
 		<td>Service</td>
@@ -19,17 +19,10 @@
 	</thead>
 	<tbody>
 	<tr ng-repeat="entity in entities | timeslicedatefilter: filterStartDate:filterEndDate | orderBy:'startedAt'" ng-click="selectEntity(entity.id)" ng-class="isSelected(entity)? 'info': ''">
-		<td>
-			<!-- Todo Convert to typeahead kind of input -->
-			<select class="form-control" ng-model="entity.activity" on-change="addSaveField('activity', entity)">
-				<option ng-repeat="activity in activities | projectvaluefilter: entity.project.id" ng-value="activity"
-				        ng-selected="activity.id == entity.activity.id">{{ activity.project.name}} - {{ activity.name }}
-				</option>
-			</select>
-		</td>
-		<td><input type="date" class="form-control" ng-model="entity.startedAt" on-change="addSaveField('startedAt', entity)"/></td>
-		<td><input type="date" class="form-control" ng-model="entity.stoppedAt" on-change="addSaveField('stoppedAt', entity)"/></td>
-		<td><input class="form-control" ng-model="entity.value" on-change="addSaveField('value', entity)"/></td>
+		<td><activity-select activity="entity.activity" project="entity.project.id" on-change="addSaveField('activity', entity)"></activity-select></td>
+		<td><input style="width: 100%;" type="date" class="form-control" ng-model="entity.startedAt" on-change="addSaveField('startedAt', entity)"/></td>
+		<td><input style="width: 100%;" type="date" class="form-control" ng-model="entity.stoppedAt" on-change="addSaveField('stoppedAt', entity)"/></td>
+		<td><input style="width: 100%;" class="form-control" ng-model="entity.value" on-change="addSaveField('value', entity)"/></td>
 	</tr>
 	</tbody>
 </table>
@@ -41,7 +34,7 @@
 		</div>
 		<div class="col-md-2">
 			<label>Aktivität</label>
-			<setting-edit namespace="'/usr/defaults/timeslice'" name="'activity'" defaultvalue="'Zivi*'"></setting-edit>
+			<setting-edit namespace="'/usr/defaults/timeslice'" name="'activity'" defaultvalue="'action:byName:Zivi*'"></setting-edit>
 		</div>
 		<div class="col-md-2">
 			<label>Einzutragende Zeit</label>

@@ -17,8 +17,8 @@ class EntityOverview extends AttachAware implements ScopeAware{
 
   Router router;
 
-  int saveCounter;
-  int errorCounter;
+  int saveCounter = 0;
+  int errorCounter = 0;
 
   RootScope rootScope;
 
@@ -371,8 +371,10 @@ class RateGroupOverviewComponent extends EntityOverview{
 )
 class ActivityOverviewComponent extends EntityOverview{
 
+  int _projectId;
 
   set projectId(int id){
+    this._projectId = id;
     super.reload(params: {'project': id});
   }
 
@@ -387,6 +389,10 @@ class ActivityOverviewComponent extends EntityOverview{
     this.store.list(Service).then((QueryResult result) {
       this.services = result.toList();
     });
+  }
+
+  createEntity({var newEnt, Map<String,dynamic> params}){
+    super.createEntity(params: {'project': this._projectId});
   }
 }
 
