@@ -82,11 +82,46 @@ class InvoiceController extends DimeController
 	}
 
 	/**
+	 * Create a new Entity from the submitted data.
+	 *
+	 * @ApiDoc(
+	 * resource = true,
+	 * description = "Creates a new Invoice from the submitted data.",
+	 * input = "Dime\OfferBundle\Form\Type\InvoiceFormType",
+	 * section="invoices",
+	 * output = "Dime\OfferBundle\Entity\Invoice",
+	 * statusCodes = {
+	 * 201 = "Returned when successful",
+	 * 400 = "Returned when the form has errors"
+	 * }
+	 * )
+	 *
+	 * @Annotations\Route(requirements={"_format"="json|xml"})
+	 *
+	 * @Annotations\View(
+	 * serializerEnableMaxDepthChecks=true
+	 * )
+	 *
+	 * @param Request $request
+	 *            the request object
+	 *
+	 * @return FormTypeInterface|View
+	 */
+	public function postInvoiceAction(Request $request)
+	{
+		try {
+			return $this->view($this->container->get($this->handlerSerivce)->post($request->request->all()), Codes::HTTP_CREATED);
+		} catch (InvalidFormException $exception) {
+			return $exception->getForm();
+		}
+	}
+
+	/**
 	 * Update existing Entity.
 	 *
 	 * @ApiDoc(
 	 * resource = true,
-	 * input = "Dime\InvoiceBundle\Form\Type\ProjectFormType",
+	 * input = "Dime\InvoiceBundle\Form\Type\InvoiceFormType",
 	 * output = "Dime\InvoiceBundle\Entity\Invoice",
 	 * section="invoices",
 	 * statusCodes = {

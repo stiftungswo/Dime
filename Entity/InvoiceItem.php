@@ -48,7 +48,7 @@ class InvoiceItem extends Entity implements DimeEntityInterface
 
 	/**
 	 * @var string
-	 * @ORM\Column(type="string")
+	 * @ORM\Column(type="string", nullable=true)
 	 * @JMS\SerializedName("rateUnit")
 	 */
 	protected $rateUnit;
@@ -60,14 +60,15 @@ class InvoiceItem extends Entity implements DimeEntityInterface
 
 	/**
 	 * @var string
-	 * @ORM\Column(type="string")
+	 * @ORM\Column(type="string", nullable=true)
 	 */
 	protected $amount;
 
 	/**
 	 * @var Money
 	 * @JMS\Type(name="Money")
-	 * @ORM\Column(name="total", type="money")
+	 * @JMS\AccessType(type="public_method")
+	 * @ORM\Column(name="total", type="money", nullable=true)
 	 */
 	protected $total;
 
@@ -103,9 +104,25 @@ class InvoiceItem extends Entity implements DimeEntityInterface
 	public function getCalculatedVAT()
 	{
 		if($this->rateValue instanceof Money && is_numeric($this->amount) && is_numeric($this->vat))
-			return $this->rateValue->multiply($this->amount)->multiply($this->vat);
+			return $this->rateValue->multiply((float)$this->amount)->multiply((float)$this->vat);
 		else
 			return null;
+	}
+
+	public function getcalculatedTotal(){
+		$total = $this->getRateValue();
+		if($total === null)
+			return null;
+		if($this->getAmount() !== null)
+		{
+			$total = $total->multiply((float)$this->getAmount());
+		}
+		$vat = $this->getCalculatedVAT();
+		if($vat instanceof Money)
+		{
+			$total = $total->add($vat);
+		}
+		return $total;
 	}
 
 	/**
@@ -113,7 +130,10 @@ class InvoiceItem extends Entity implements DimeEntityInterface
 	 */
 	public function getTotal()
 	{
-		return $this->total;
+		if($this->total) {
+			return $this->total;
+		}
+		return $this->getcalculatedTotal();
 	}
 
 	/**

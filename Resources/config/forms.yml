@@ -3,6 +3,10 @@ services:
         class: Dime\InvoiceBundle\Form\Type\InvoiceDiscountFormType
         tags: [{ name: "form.type", alias: "dime_invoicebundle_invoicediscountformtype" }]
 
-    dime.invoicebundel.invoice.formtype:
+    dime.invoicebundle.invoice.formtype:
         class: Dime\InvoiceBundle\Form\Type\InvoiceFormType
         tags: [{ name: "form.type", alias: "dime_invoicebundle_invoiceformtype" }]
+
+    dime.invoicebundle.invoiceitem.formtype:
+            class: Dime\InvoiceBundle\Form\Type\InvoiceItemFormType
+            tags: [{ name: "form.type", alias: "dime_invoicebundle_invoiceitemformtype" }]
