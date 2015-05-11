@@ -1,5 +1,9 @@
 {# Twig Template #}
+{% if invoice.customer %}
+{% set customer = invoice.customer %}
+{% else %}
 {% set customer = invoice.project.customer %}
+{% endif %}
 <!DOCTYPE pdf SYSTEM "%resources%/dtd/doctype.dtd">
 <pdf>
 	<dynamic-page page-size="a4">

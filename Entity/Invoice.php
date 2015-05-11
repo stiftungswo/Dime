@@ -14,6 +14,7 @@ use DeepCopy\Filter\Doctrine\DoctrineCollectionFilter;
 use DeepCopy\Filter\KeepFilter;
 use DeepCopy\Filter\SetNullFilter;
 use DeepCopy\Matcher\PropertyMatcher;
+use Dime\TimetrackerBundle\Entity\Customer;
 use Dime\TimetrackerBundle\Entity\Entity;
 use Dime\TimetrackerBundle\Entity\StandardDiscount;
 use Dime\TimetrackerBundle\Model\DimeEntityInterface;
@@ -47,7 +48,6 @@ class Invoice extends Entity implements DimeEntityInterface
 	/**
 	 * @var string $alias
 	 *
-	 * @Assert\NotBlank()
 	 * @Gedmo\Slug(fields={"name"})
 	 * @ORM\Column(type="string", length=30)
 	 */
@@ -113,13 +113,13 @@ class Invoice extends Entity implements DimeEntityInterface
 
 	/**
 	 * @var DateTime
-	 * @ORM\Column(name="start", type="date")
+	 * @ORM\Column(name="start", type="date", nullable=true)
 	 */
 	protected $start;
 
 	/**
 	 * @var DateTime
-	 * @ORM\Column(name="end", type="date")
+	 * @ORM\Column(name="end", type="date", nullable=true)
 	 */
 	protected $end;
 
@@ -130,6 +130,13 @@ class Invoice extends Entity implements DimeEntityInterface
 	 * @ORM\Column(name="fixed_price", type="money", nullable=true)
 	 */
 	protected $fixedPrice;
+
+	/**
+	 * @var Customer
+	 * @ORM\ManyToOne(targetEntity="Dime\TimetrackerBundle\Entity\Customer")
+	 * @ORM\JoinColumn(name="customer_id", referencedColumnName="id", nullable=true, onDelete="SET NULL"))
+	 */
+	protected $customer;
 
 
 	public function __construct()
@@ -168,7 +175,10 @@ class Invoice extends Entity implements DimeEntityInterface
 	 */
 	public function getTotal()
 	{
-		return $this->getSubtotal()->subtract($this->getTotalDiscounts());
+		if($this->getSubtotal()) {
+			return $this->getSubtotal()->subtract($this->getTotalDiscounts());
+		}
+		return Money::CHF(0);
 	}
 
 	/**
@@ -494,6 +504,31 @@ class Invoice extends Entity implements DimeEntityInterface
 	public function setFixedPrice($fixedPrice)
 	{
 		$this->fixedPrice = $fixedPrice;
+		return $this;
+	}
+
+	/**
+	 * @return Customer
+	 */
+	public function getCustomer()
+	{
+		if($this->customer) {
+			return $this->customer;
+		}
+		if($this->getProject()) {
+			return $this->getProject()->getCustomer();
+		}
+		return null;
+	}
+
+	/**
+	 * @param Customer $customer
+	 *
+	 * @return $this
+	 */
+	public function setCustomer($customer)
+	{
+		$this->customer = $customer;
 		return $this;
 	}
 
