@@ -2,7 +2,7 @@
 	<div class="DimePanel form-inline container-fluid">
 		<div class="form-group DimePanel">
 			<div class="row"><label class="col-sm-2 control-label">Name</label><input class="form-control" type="text" ng-model="entity.name" on-change="addSaveField('name')"></div>
-			<div class="row">
+			<div class="row" ng-if="entity.project">
 				<label class="col-sm-2 control-label">Auftrag</label>
 				{{entity.project.name}}
 			</div>
@@ -10,10 +10,14 @@
 				<label class="col-sm-2 control-label">Offerte</label>
 				{{entity.offer.name}}
 			</div>
+			<div class="row">
+				<label class="col-sm-2 control-label">Kunde</label>
+				<customer-select customer="entity.customer" callback="entity.addFieldtoUpdate(name)" field="'customer'"></customer-select>
+			</div>
 		</div>
 		<div class="form-group DimePanel">
-			<div class="row"><label class="col-sm-2 control-label">Startdatum</label><input class="form-control" type="date" ng-model="entity.start"></div>
-			<div class="row"><label class="col-sm-2 control-label">Enddatum</label><input class="form-control" type="date" ng-model="entity.end"></div>
+			<div class="row"><label class="col-sm-2 control-label">Startdatum</label><input class="form-control" type="date" ng-model="entity.start" on-change="addSaveField('start')"></div>
+			<div class="row"><label class="col-sm-2 control-label">Enddatum</label><input class="form-control" type="date" ng-model="entity.end" on-change="addSaveField('end')"></div>
 		</div>
 		<div class="form-group DimePanel">
 			<div class="row">
@@ -39,6 +43,7 @@
 	</div>
 	<div class="DimeControllButtons">
 		<button type="button" class="btn btn-primary" ng-click="saveEntity()"><error-icon value="saveState" timeout="20"></error-icon></button>
-		<button type="button" class="btn btn-primary">Rechnung Updaten</button>
+		<button type="button" class="btn btn-primary" ng-click="updateInvoicefromProject()">Rechnung Updaten</button>
+		<button type="button" class="btn btn-primary" ng-click="printInvoice()"><span class="glyphicon glyphicon-print"></span></button>
 	</div>
 </div>

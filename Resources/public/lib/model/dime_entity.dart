@@ -335,7 +335,9 @@ class Project extends Entity{
     this.deadline =map['deadline']!=null ? DateTime.parse(map['deadline']):null;
     this.customer = new Customer.fromMap(map['customer']);
     this.rateGroup = new RateGroup.fromMap(map['rateGroup']);
-    this.activities = Activity.listFromMap(map['activities']);
+    if(map['activities']!=null) {
+      this.activities = Activity.listFromMap(map['activities']);
+    }
   }
   Map<String,dynamic> toMap(){
     Map m = super.toMap();
@@ -477,9 +479,15 @@ class Offer extends Entity{
     this.status = new OfferStatusUC.fromMap(map['status']);
     this.address = new Address.fromMap(map['address']);
     this.rateGroup = new RateGroup.fromMap(map['rateGroup']);
-    this.offerPositions = OfferPosition.listFromMap(map['offerPositions']);
-    this.standardDiscounts = StandardDiscount.listFromMap(map['standardDiscounts']);
-    this.offerDiscounts = OfferDiscount.listFromMap(map['offerDiscounts']);
+    if(map['offerPositions']!=null) {
+      this.offerPositions = OfferPosition.listFromMap(map['offerPositions']);
+    }
+    if(map['standardDiscounts']!=null) {
+      this.standardDiscounts = StandardDiscount.listFromMap(map['standardDiscounts']);
+    }
+    if(map['offerDiscounts']!=null) {
+      this.offerDiscounts = OfferDiscount.listFromMap(map['offerDiscounts']);
+    }
   }
   Map<String,dynamic> toMap(){
     Map m = super.toMap();
@@ -761,6 +769,8 @@ class Invoice extends Entity{
           return this.start;
         case 'end':
           return this.end;
+        case 'customer':
+          return this.customer;
         default:
           break;
       }
@@ -793,6 +803,9 @@ class Invoice extends Entity{
       case 'end':
         this.end = value;
         break;
+      case 'customer':
+        this.customer = value;
+        break;
       default:
         super.Set(property, value);
         break;
@@ -809,9 +822,16 @@ class Invoice extends Entity{
     this.description = map['description'];
     this.project = new Project.fromMap(map['project']);
     this.offer = new Offer.fromMap(map['offer']);
-    this.items = InvoiceItem.listFromMap(map['items']);
-    this.standardDiscounts = StandardDiscount.listFromMap(map['standardDiscounts']);
-    this.invoiceDiscounts = InvoiceDiscount.listFromMap(map['invoiceDiscounts']);
+    this.customer = new Customer.fromMap(map['customer']);
+    if(map['items']!=null) {
+      this.items = InvoiceItem.listFromMap(map['items']);
+    }
+    if(map['standardDiscounts']!=null) {
+      this.standardDiscounts = StandardDiscount.listFromMap(map['standardDiscounts']);
+    }
+    if(map['invoiceDiscounts']!=null) {
+      this.invoiceDiscounts = InvoiceDiscount.listFromMap(map['invoiceDiscounts']);
+    }
   }
   Map<String,dynamic> toMap(){
     Map m = super.toMap();
@@ -821,6 +841,7 @@ class Invoice extends Entity{
         "description": this.description,
         "project": this.project is Entity ? this.project.toMap(): null,
         "offer": this.offer is Entity ? this.offer.toMap(): null,
+        "customer": this.customer is Entity ? this.customer.toMap(): null,
     });
     return m;
   }
@@ -830,6 +851,7 @@ class Invoice extends Entity{
   String subtotal;
   String totalVAT;
   String description;
+  Customer customer;
   Project project;
   Offer offer;
   List<InvoiceItem> items;
@@ -1381,7 +1403,9 @@ class Activity extends Entity{
     this.rateValue = map['rateValue'];
     this.rateUnit = map['rateUnit'];
     this.rateUnitType = map['rateUnitType'];
-    this.timeslices = Timeslice.listFromMap(map['timeslices']);
+    if(map['timeslices']!=null) {
+      this.timeslices = Timeslice.listFromMap(map['timeslices']);
+    }
   }
   Map<String,dynamic> toMap(){
     Map m = super.toMap();
@@ -1627,8 +1651,12 @@ class Employee extends User{
   }
   Employee.fromMap(Map<String,dynamic> map): super.fromMap(map){
     if(map==null||map.isEmpty) return;
-    this.workingPeriods = WorkingPeriod.listFromResource(map['workingPeriods']);
-    this.freePeriods = FreePeriod.listFromResource(map['freePeriods']);
+    if(map['workingPeriods']!=null) {
+      this.workingPeriods = WorkingPeriod.listFromResource(map['workingPeriods']);
+    }
+    if(map['freePeriods']!=null) {
+      this.freePeriods = FreePeriod.listFromResource(map['freePeriods']);
+    }
   }
   String type = 'employees';
   List<WorkingPeriod> workingPeriods;

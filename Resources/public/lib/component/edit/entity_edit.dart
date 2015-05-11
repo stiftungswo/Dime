@@ -3,6 +3,7 @@ library entity_edit;
 import 'package:angular/angular.dart';
 import 'package:hammock/hammock.dart';
 import 'package:DimeClient/model/dime_entity.dart';
+import 'dart:html';
 
 class EntityEdit extends AttachAware implements ScopeAware{
 
@@ -127,6 +128,10 @@ class OfferEditComponent extends EntityEdit{
       router.go('project_edit', {'id': project.id});
     });
   }
+
+  printOffer(){
+    window.open('/api/v1/offers/${this.entity.id}/print', 'Offer Print');
+  }
 }
 
 @Component(
@@ -136,6 +141,16 @@ class OfferEditComponent extends EntityEdit{
 )
 class InvoiceEditComponent extends EntityEdit{
   InvoiceEditComponent(RouteProvider routeProvider, ObjectStore store): super(routeProvider, store, Invoice);
+
+  printInvoice(){
+    window.open('/api/v1/invoices/${this.entity.id}/print', 'Invoice Print');
+  }
+
+  updateInvoicefromProject(){
+    this.store.customQueryOne(Invoice, new CustomRequestParams(method: 'GET', url: '/api/v1/invoices/${this.entity.id}/update')).then((invoice){
+      this.entity = invoice;
+    });
+  }
 }
 
 @Component(
