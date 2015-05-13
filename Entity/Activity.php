@@ -214,10 +214,25 @@ class Activity extends Entity implements DimeEntityInterface
 	public function getName()
 	{
         if($this->getService()&&$this->getProject()) {
-            return $this->getProject()->getName().' - '.$this->getService()->getName();
+            return $this->getId().' '.$this->getProject()->getName().' - '.$this->getService()->getName();
         } else {
             return '';
         }
+	}
+
+	/**
+	 * Returns the Alias the Activty has.
+	 * @return string
+	 * @JMS\VirtualProperty()
+	 * @JMS\SerializedName("alias")
+	 */
+	public function getAlias()
+	{
+		if($this->getService()) {
+			return $this->getService()->getAlias();
+		} else {
+			return '';
+		}
 	}
 
 	/**
