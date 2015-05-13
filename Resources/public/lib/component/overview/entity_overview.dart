@@ -4,6 +4,7 @@ import 'package:angular/angular.dart';
 import 'package:hammock/hammock.dart';
 import 'package:DimeClient/model/dime_entity.dart';
 import 'package:DimeClient/service/setting_manager.dart';
+import 'package:DimeClient/service/data_cache.dart';
 
 class EntityOverview extends AttachAware implements ScopeAware{
 
@@ -111,12 +112,21 @@ class EntityOverview extends AttachAware implements ScopeAware{
     });
   }
 
-  cEnt(){
+  cEnt({Entity entity}){
+    if(entity !=null){
+      return new Entity.clone(entity);
+    }
     return new Entity();
   }
 
   duplicateEntity(){
-
+    var ent = this.selectedEntity;
+    if(ent != null){
+      var newEnt = this.cEnt(entity: ent);
+      this.store.create(newEnt).then((result){
+        this.entities.add(result);
+      });
+    }
   }
 
   deleteEntity([int entId]){
@@ -172,7 +182,10 @@ class EntityOverview extends AttachAware implements ScopeAware{
 )
 class ProjectOverviewComponent extends EntityOverview{
   ProjectOverviewComponent(ObjectStore store, Router router, SettingsManager manager): super(Project, store, 'project_edit', manager, router: router);
-  cEnt(){
+  cEnt({Project entity}){
+    if(entity !=null){
+      return new Project.clone(entity);
+    }
     return new Project();
   }
 }
@@ -184,7 +197,10 @@ class ProjectOverviewComponent extends EntityOverview{
 )
 class CustomerOverviewComponent extends EntityOverview{
   CustomerOverviewComponent(ObjectStore store, Router router, SettingsManager manager): super(Customer, store, 'customer_edit', manager, router: router);
-  cEnt(){
+  cEnt({Customer entity}){
+    if(entity !=null){
+      return new Customer.clone(entity);
+    }
     return new Customer();
   }
 }
@@ -196,7 +212,10 @@ class CustomerOverviewComponent extends EntityOverview{
 )
 class OfferOverviewComponent extends EntityOverview{
   OfferOverviewComponent(ObjectStore store, Router router, SettingsManager manager): super(Offer, store, 'offer_edit', manager, router: router);
-  cEnt(){
+  cEnt({Offer entity}){
+    if(entity !=null){
+      return new Offer.clone(entity);
+    }
     return new Offer();
   }
 }
@@ -211,7 +230,10 @@ class OfferOverviewComponent extends EntityOverview{
 )
 class OfferPositionOverviewComponent extends EntityOverview{
   OfferPositionOverviewComponent(ObjectStore store, SettingsManager manager): super(OfferPosition, store, '', manager);
-  cEnt(){
+  cEnt({OfferPosition entity}){
+    if(entity !=null){
+      return new OfferPosition.clone(entity);
+    }
     return new OfferPosition();
   }
 
@@ -252,7 +274,10 @@ class OfferPositionOverviewComponent extends EntityOverview{
 )
 class InvoiceOverviewComponent extends EntityOverview{
   InvoiceOverviewComponent(ObjectStore store, Router router, SettingsManager manager): super(Invoice, store, 'invoice_edit', manager, router: router);
-  cEnt(){
+  cEnt({Invoice entity}){
+    if(entity !=null){
+      return new Invoice.clone(entity);
+    }
     return new Invoice();
   }
 }
@@ -267,7 +292,10 @@ class InvoiceOverviewComponent extends EntityOverview{
 )
 class InvoiceItemOverviewComponent extends EntityOverview{
   InvoiceItemOverviewComponent(ObjectStore store, SettingsManager manager): super(InvoiceItem, store, '', manager);
-  cEnt(){
+  cEnt({InvoiceItem entity}){
+    if(entity !=null){
+      return new InvoiceItem.clone(entity);
+    }
     return new InvoiceItem();
   }
 
@@ -299,7 +327,10 @@ class InvoiceItemOverviewComponent extends EntityOverview{
 )
 class ServiceOverviewComponent extends EntityOverview{
   ServiceOverviewComponent(ObjectStore store, Router router, SettingsManager manager): super(Service, store, 'service_edit', manager, router: router);
-  cEnt(){
+  cEnt({Service entity}){
+    if(entity !=null){
+      return new Service.clone(entity);
+    }
     return new Service();
   }
 }
@@ -314,7 +345,10 @@ class ServiceOverviewComponent extends EntityOverview{
 )
 class RateOverviewComponent extends EntityOverview{
   RateOverviewComponent(ObjectStore store, SettingsManager manager): super(Rate, store, '', manager);
-  cEnt(){
+  cEnt({Rate entity}){
+    if(entity !=null){
+      return new Rate.clone(entity);
+    }
     return new Rate();
   }
 
@@ -356,7 +390,10 @@ class RateOverviewComponent extends EntityOverview{
 )
 class RateGroupOverviewComponent extends EntityOverview{
   RateGroupOverviewComponent(ObjectStore store, SettingsManager manager): super(RateGroup, store, '', manager);
-  cEnt(){
+  cEnt({RateGroup entity}){
+    if(entity !=null){
+      return new RateGroup.clone(entity);
+    }
     return new RateGroup();
   }
 }
@@ -381,7 +418,10 @@ class ActivityOverviewComponent extends EntityOverview{
   List<Service> services;
 
   ActivityOverviewComponent(ObjectStore store, SettingsManager manager): super(Activity, store, '', manager);
-  cEnt(){
+  cEnt({Activity entity}){
+    if(entity !=null){
+      return new Activity.clone(entity);
+    }
     return new Activity();
   }
 
@@ -406,6 +446,8 @@ class ActivityOverviewComponent extends EntityOverview{
 )
 class TimesliceOverviewComponent extends EntityOverview{
 
+  DataCache _cache;
+
   Employee _employee;
 
   set employee(Employee employee){
@@ -416,7 +458,7 @@ class TimesliceOverviewComponent extends EntityOverview{
     this.reload();
   }
 
-  List<Activity> activities;
+  List<Activity> activities= [];
 
   DateTime filterStartDate = new DateTime.now();
   DateTime filterEndDate;
@@ -425,8 +467,11 @@ class TimesliceOverviewComponent extends EntityOverview{
 
   DateTime lastdate;
 
-  TimesliceOverviewComponent(ObjectStore store, SettingsManager manager): super(Timeslice, store, '', manager);
-  cEnt(){
+  TimesliceOverviewComponent(ObjectStore store, SettingsManager manager, this._cache): super(Timeslice, store, '', manager);
+  cEnt({Timeslice entity}){
+    if(entity !=null){
+      return new Timeslice.clone(entity);
+    }
     return new Timeslice();
   }
 
@@ -437,7 +482,7 @@ class TimesliceOverviewComponent extends EntityOverview{
   createEntity({Entity newEnt, Map<String,dynamic> params}){
     if(!(this.selectedProject is Project)) return;
     Timeslice slice = new Timeslice();
-    List names = ['activity', 'value', 'startedAt'];
+    List names = ['activity', 'value'];
     for(var name in names){
       Setting settingForName;
       try {
@@ -454,8 +499,10 @@ class TimesliceOverviewComponent extends EntityOverview{
       }
       slice.addFieldtoUpdate(name);
     }
+    slice.Set('startedAt', this.timesliceActionnextDate());
     slice.Set('user', this._employee);
     slice.addFieldtoUpdate('user');
+    slice.addFieldtoUpdate('startedAt');
     super.createEntity(newEnt: slice.toSaveObj());
   }
 
@@ -487,9 +534,9 @@ class TimesliceOverviewComponent extends EntityOverview{
   timesliceActionbyName(String NamePattern, String timesliceFieldName){
     if(timesliceFieldName == 'activity'){
       try {
-        return this.activities.singleWhere((i) => i.name.contains(new RegExp(NamePattern)) && i.project.id == selectedProject.id);
-      } catch(exception){
-        return this.activities.where((i) => i.name.contains(new RegExp(NamePattern)) && i.project.id == selectedProject.id).first;
+        return this.activities.singleWhere((i) => (i.name.contains(new RegExp(NamePattern)) && i.project.id == selectedProject.id) || (i.alias.contains(new RegExp(NamePattern)) && i.project.id == selectedProject.id));
+      } catch (exception) {
+        return this.activities.where((i) => (i.name.contains(new RegExp(NamePattern)) && i.project.id == selectedProject.id) || (i.alias.contains(new RegExp(NamePattern)) && i.project.id == selectedProject.id)).first;
       }
     }
     return '';
@@ -533,7 +580,7 @@ class TimesliceOverviewComponent extends EntityOverview{
   }
 
   loadActivtyData(){
-    this.store.list(Activity).then((QueryResult result) {
+    this._cache.list(Activity).then((QueryResult result) {
       this.activities = result.toList();
     });
   }

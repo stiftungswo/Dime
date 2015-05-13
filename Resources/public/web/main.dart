@@ -21,6 +21,7 @@ import 'package:DimeClient/component/login/login.dart';
 import 'package:DimeClient/component/percent-input/percent_input.dart';
 import 'package:DimeClient/component/setting/setting.dart';
 import 'package:DimeClient/service/setting_manager.dart';
+import 'package:DimeClient/service/data_cache.dart';
 
 class AppModule extends Module {
   AppModule() {
@@ -59,6 +60,7 @@ class AppModule extends Module {
     bind(ServiceSelectComponent);
     bind(OfferStatusSelectComponent);
     bind(CustomerSelectComponent);
+    bind(DataCache);
     install(new Hammock());
     bind(RouteInitializerFn, toValue: dimeRouteInitializer);
     bind(HammockConfig, toFactory: createHammockConfig, inject: [Injector]);

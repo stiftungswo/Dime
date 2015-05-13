@@ -56,6 +56,8 @@ class EntityEdit extends AttachAware implements ScopeAware{
       }, onError:(_) {
         this.saveState = 'error';
       });
+    } else {
+      this.reload();
     }
   }
 }

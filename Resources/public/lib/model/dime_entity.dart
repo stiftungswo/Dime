@@ -7,7 +7,6 @@ class Entity{
   Entity();
 
   Entity.clone(Entity original){
-    this.id = original.id;
     this.name = original.name;
     this.user=original.user;
   }
@@ -22,8 +21,8 @@ class Entity{
   Entity.fromMap(Map<String,dynamic> map){
     if(map==null||map.isEmpty) return;
     this.id=map['id'];
-    this.createdAt=DateTime.parse(map['createdAt']);
-    this.updatedAt=DateTime.parse(map['updatedAt']);
+    this.createdAt= map['createdAt']!=null ? DateTime.parse(map['createdAt']):null;
+    this.updatedAt= map['updatedAt']!=null ? DateTime.parse(map['updatedAt']): null;
     this.name=map['name'];
     this.alias=map['alias'];
     this.user=new User.fromMap(map['user']);
@@ -179,8 +178,6 @@ class Setting extends Entity{
   Setting.clone(Setting original): super.clone(original){
     this.namespace = original.namespace;
     this.value = original.value;
-    this.user = original.user;
-    this.name = original.name;
   }
   Setting.fromMap(Map<String,dynamic> map): super.fromMap(map){
     if(map==null||map.isEmpty) return;
@@ -366,7 +363,7 @@ class Project extends Entity{
   RateGroup rateGroup;
   bool chargeable;
   DateTime deadline;
-  List<Activity> activities;
+  List<Activity> activities = [];
 }
 
 class Offer extends Entity{
@@ -599,6 +596,7 @@ class OfferPosition extends Entity{
     this.rateUnitType=original.rateUnitType;
     this.vat=original.vat;
     this.discountable=original.discountable;
+    this.offer = original.offer;
   }
   newObj(){
     return new OfferPosition();
@@ -726,8 +724,19 @@ class OfferPosition extends Entity{
 
 class OfferDiscount extends StandardDiscount{
   OfferDiscount();
-  OfferDiscount.clone(OfferDiscount original): super.clone(original);
-  OfferDiscount.fromMap(Map<String,dynamic> map): super.fromMap(map);
+  OfferDiscount.clone(OfferDiscount original): super.clone(original){
+    this.offer = original.offer;
+  }
+  OfferDiscount.fromMap(Map<String,dynamic> map): super.fromMap(map){
+    this.offer = new Offer.fromMap(map['offer']);
+  }
+  Map<String,dynamic> toMap(){
+    Map m = super.toMap();
+    m.addAll({
+        "offer": this.offer is Entity ? this.offer.toMap(): null,
+    });
+    return m;
+  }
   static List<OfferDiscount> listFromMap(List content){
     List<OfferDiscount> array = new List<OfferDiscount>();
     for(var element in content){
@@ -736,6 +745,7 @@ class OfferDiscount extends StandardDiscount{
     return array;
   }
   String type = 'offerdiscounts';
+  Offer offer;
 }
 
 class Invoice extends Entity{
@@ -744,7 +754,12 @@ class Invoice extends Entity{
   }
   Invoice();
   Invoice.clone(Invoice original): super.clone(original){
-    this.name=original.name;
+    this.description = original.description;
+    this.customer = original.customer;
+    this.project=original.project;
+    this.offer=original.offer;
+    this.start = original.start;
+    this.end = original.end;
   }
   newObj(){
     return new Invoice();
@@ -876,7 +891,7 @@ class InvoiceItem extends Entity{
     this.rateUnit=original.rateUnit;
     this.activity=original.activity;
     this.vat=original.vat;
-    this.invoice=original.invoice;
+    this.invoice = original.invoice;
   }
   newObj(){
     return new InvoiceItem();
@@ -969,8 +984,19 @@ class InvoiceItem extends Entity{
 
 class InvoiceDiscount extends StandardDiscount{
   InvoiceDiscount();
-  InvoiceDiscount.clone(InvoiceDiscount original): super.clone(original);
-  InvoiceDiscount.fromMap(Map<String,dynamic> map): super.fromMap(map);
+  InvoiceDiscount.clone(InvoiceDiscount original): super.clone(original){
+    this.invoice = original.invoice;
+  }
+  InvoiceDiscount.fromMap(Map<String,dynamic> map): super.fromMap(map){
+    this.invoice = new Invoice.fromMap(map['invoice']);
+  }
+  Map<String,dynamic> toMap(){
+    Map m = super.toMap();
+    m.addAll({
+        "invoice": this.invoice is Entity ? this.invoice.toMap(): null,
+    });
+    return m;
+  }
   static List<InvoiceDiscount> listFromMap(List content){
     List<InvoiceDiscount> array = new List<InvoiceDiscount>();
     for(var element in content){
@@ -979,6 +1005,7 @@ class InvoiceDiscount extends StandardDiscount{
     return array;
   }
   String type = 'invoicediscounts';
+  Invoice invoice;
 }
 
 class StandardDiscount extends Entity{
@@ -1502,8 +1529,8 @@ class Timeslice extends Entity with TagFields{
     if(map==null||map.isEmpty) return;
     this.project = new Project.fromMap(map['project']);
     this.value = map['value'];
-    this.startedAt = DateTime.parse(map['startedAt']);
-    this.stoppedAt = DateTime.parse(map['stoppedAt']);
+    this.startedAt = map['startedAt'] !=null ? DateTime.parse(map['startedAt']):null;
+    this.stoppedAt = map['stoppedAt'] !=null ? DateTime.parse(map['stoppedAt']):null;
     this.activity = new Activity.fromMap(map['activity']);
   }
   Map<String,dynamic> toMap(){
@@ -1721,8 +1748,8 @@ class Period extends Entity{
   }
   Period.fromMap(Map<String,dynamic> map): super.fromMap(map){
     if(map==null||map.isEmpty) return;
-    this.start = DateTime.parse(map['start']);
-    this.end = DateTime.parse(map['end']);
+    this.start = map['start']!=null ? DateTime.parse(map['start']):null;
+    this.end = map['end']!=null ? DateTime.parse(map['end']):null;
     this.pensum = map['pensum'];
     this.employee = new Employee.fromMap(map['employee']);
   }

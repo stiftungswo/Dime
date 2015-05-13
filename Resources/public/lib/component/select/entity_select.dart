@@ -3,19 +3,21 @@ library entity_select;
 import 'package:angular/angular.dart';
 import 'package:DimeClient/model/dime_entity.dart';
 import 'package:hammock/hammock.dart';
-import 'package:DimeClient/component/overview/entity_overview.dart';
+import 'package:DimeClient/service/data_cache.dart';
 import 'dart:html' as dom;
-import 'package:DimeClient/service/setting_manager.dart';
 
-class EntitySelect extends EntityOverview implements ScopeAware{
+class EntitySelect extends AttachAware implements ScopeAware{
+  DataCache store;
   Scope scope;
   dom.Element element;
   bool open = false;
   Function callback;
   String field;
-  EntitySelect(Type type, ObjectStore store, this.element, SettingsManager manager): super(type, store, '', manager);
-
+  Type type;
+  List entities = [];
   String selector = '';
+
+  EntitySelect(this.type, this.store, this.element);
 
   dynamic _selectedEntity;
 
@@ -24,6 +26,12 @@ class EntitySelect extends EntityOverview implements ScopeAware{
       selector = entity.name;
     }
     _selectedEntity = entity;
+  }
+
+  attach(){
+    this.store.list(this.type).then((QueryResult result) {
+      this.entities = result.toList();
+    });
   }
 
   get selectedEntity => _selectedEntity;
@@ -54,7 +62,7 @@ class EntitySelect extends EntityOverview implements ScopeAware{
   }
 )
 class ProjectSelectComponent extends EntitySelect{
-  ProjectSelectComponent(ObjectStore store, dom.Element element, SettingsManager manager): super(Project, store, element, manager);
+  ProjectSelectComponent(DataCache store, dom.Element element): super(Project, store, element);
 }
 
 @Component(
@@ -69,7 +77,7 @@ class ProjectSelectComponent extends EntitySelect{
     }
 )
 class ActivitySelectComponent extends EntitySelect{
-  ActivitySelectComponent(ObjectStore store, dom.Element element, SettingsManager manager): super(Activity, store, element, manager);
+  ActivitySelectComponent(DataCache store, dom.Element element): super(Activity, store, element);
 
   int projectId;
 }
@@ -85,7 +93,7 @@ class ActivitySelectComponent extends EntitySelect{
     }
 )
 class ServiceSelectComponent extends EntitySelect{
-  ServiceSelectComponent(ObjectStore store, dom.Element element, SettingsManager manager): super(Service, store, element, manager);
+  ServiceSelectComponent(DataCache store, dom.Element element): super(Service, store, element);
 }
 
 @Component(
@@ -99,7 +107,7 @@ class ServiceSelectComponent extends EntitySelect{
     }
 )
 class CustomerSelectComponent extends EntitySelect{
-  CustomerSelectComponent(ObjectStore store, dom.Element element, SettingsManager manager): super(Customer, store, element, manager);
+  CustomerSelectComponent(DataCache store, dom.Element element): super(Customer, store, element);
 }
 
 @Component(
@@ -113,5 +121,5 @@ class CustomerSelectComponent extends EntitySelect{
     }
 )
 class OfferStatusSelectComponent extends EntitySelect{
-  OfferStatusSelectComponent(ObjectStore store, dom.Element element, SettingsManager manager): super(OfferStatusUC, store, element, manager);
+  OfferStatusSelectComponent(DataCache store, dom.Element element): super(OfferStatusUC, store, element);
 }
