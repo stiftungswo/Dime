@@ -38,7 +38,7 @@ class Activity extends Entity implements DimeEntityInterface
     /**
      * @var Service $service
      *
-     * @JMS\MaxDepth(1)
+     * @JMS\MaxDepth(2)
      * @ORM\ManyToOne(targetEntity="Service")
      * @ORM\JoinColumn(name="service_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
      */
@@ -48,7 +48,7 @@ class Activity extends Entity implements DimeEntityInterface
      * @var ArrayCollection $timeslicesø
      *
      * @JMS\Type("array")
-     * @JMS\MaxDepth(1)
+     * @JMS\Exclude()
      * @JMS\SerializedName("timeslices")
      * @ORM\OneToMany(targetEntity="Timeslice", mappedBy="activity", cascade="persist")
      */
