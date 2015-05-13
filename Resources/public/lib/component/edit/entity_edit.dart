@@ -3,6 +3,7 @@ library entity_edit;
 import 'package:angular/angular.dart';
 import 'package:hammock/hammock.dart';
 import 'package:DimeClient/model/dime_entity.dart';
+import 'package:DimeClient/service/data_cache.dart';
 import 'dart:html';
 
 class EntityEdit extends AttachAware implements ScopeAware{
@@ -11,7 +12,7 @@ class EntityEdit extends AttachAware implements ScopeAware{
 
   String _entId;
 
-  ObjectStore store;
+  DataCache store;
 
   dynamic entity;
 
@@ -74,7 +75,7 @@ class ProjectEditComponent extends EntityEdit{
 
   Router router;
 
-  ProjectEditComponent(RouteProvider routeProvider, ObjectStore store, this.router): super(routeProvider, store, Project);
+  ProjectEditComponent(RouteProvider routeProvider, DataCache store, this.router): super(routeProvider, store, Project);
   attach(){
     this.store.list(Customer).then((QueryResult result){
       this.customers = result.toList();
@@ -108,7 +109,7 @@ class OfferEditComponent extends EntityEdit{
 
   Router router;
 
-  OfferEditComponent(RouteProvider routeProvider, ObjectStore store, this.router): super(routeProvider, store, Offer);
+  OfferEditComponent(RouteProvider routeProvider, DataCache store, this.router): super(routeProvider, store, Offer);
   attach(){
     this.store.list(Customer).then((QueryResult result){
       this.customers = result.toList();
@@ -142,7 +143,7 @@ class OfferEditComponent extends EntityEdit{
     useShadowDom: false
 )
 class InvoiceEditComponent extends EntityEdit{
-  InvoiceEditComponent(RouteProvider routeProvider, ObjectStore store): super(routeProvider, store, Invoice);
+  InvoiceEditComponent(RouteProvider routeProvider, DataCache store): super(routeProvider, store, Invoice);
 
   printInvoice(){
     window.open('/api/v1/invoices/${this.entity.id}/print', 'Invoice Print');
@@ -164,7 +165,7 @@ class CustomerEditComponent extends EntityEdit{
 
   List<RateGroup> rateGroups;
 
-  CustomerEditComponent(RouteProvider routeProvider, ObjectStore store): super(routeProvider, store, Customer);
+  CustomerEditComponent(RouteProvider routeProvider, DataCache store): super(routeProvider, store, Customer);
   attach(){
     this.store.list(RateGroup).then((QueryResult result){
       this.rateGroups = result.toList();
@@ -196,5 +197,5 @@ class AddressEditComponent extends EntityEdit{
     useShadowDom: false
 )
 class ServiceEditComponent extends EntityEdit{
-  ServiceEditComponent(RouteProvider routeProvider, ObjectStore store): super(routeProvider, store, Service);
+  ServiceEditComponent(RouteProvider routeProvider, DataCache store): super(routeProvider, store, Service);
 }

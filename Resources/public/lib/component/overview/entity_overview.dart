@@ -8,13 +8,15 @@ import 'package:DimeClient/service/data_cache.dart';
 
 class EntityOverview extends AttachAware implements ScopeAware{
 
+  bool needsmanualAdd = false;
+
   int selectedEntId;
 
   List entities = [];
 
   Type type;
 
-  ObjectStore store;
+  DataCache store;
 
   Router router;
 
@@ -124,7 +126,9 @@ class EntityOverview extends AttachAware implements ScopeAware{
     if(ent != null){
       var newEnt = this.cEnt(entity: ent);
       this.store.create(newEnt).then((result){
-        this.entities.add(result);
+        if(needsmanualAdd) {
+          this.entities.add(result);
+        }
         result.cloneDescendants(ent);
         for(var entity in result.descendantsToUpdate){
           this.store.create(entity);
@@ -185,7 +189,7 @@ class EntityOverview extends AttachAware implements ScopeAware{
     useShadowDom: false
 )
 class ProjectOverviewComponent extends EntityOverview{
-  ProjectOverviewComponent(ObjectStore store, Router router, SettingsManager manager): super(Project, store, 'project_edit', manager, router: router);
+  ProjectOverviewComponent(DataCache store, Router router, SettingsManager manager): super(Project, store, 'project_edit', manager, router: router);
   cEnt({Project entity}){
     if(entity !=null){
       return new Project.clone(entity);
@@ -200,7 +204,7 @@ class ProjectOverviewComponent extends EntityOverview{
     useShadowDom: false
 )
 class CustomerOverviewComponent extends EntityOverview{
-  CustomerOverviewComponent(ObjectStore store, Router router, SettingsManager manager): super(Customer, store, 'customer_edit', manager, router: router);
+  CustomerOverviewComponent(DataCache store, Router router, SettingsManager manager): super(Customer, store, 'customer_edit', manager, router: router);
   cEnt({Customer entity}){
     if(entity !=null){
       return new Customer.clone(entity);
@@ -215,7 +219,7 @@ class CustomerOverviewComponent extends EntityOverview{
     useShadowDom: false
 )
 class OfferOverviewComponent extends EntityOverview{
-  OfferOverviewComponent(ObjectStore store, Router router, SettingsManager manager): super(Offer, store, 'offer_edit', manager, router: router);
+  OfferOverviewComponent(DataCache store, Router router, SettingsManager manager): super(Offer, store, 'offer_edit', manager, router: router);
   cEnt({Offer entity}){
     if(entity !=null){
       return new Offer.clone(entity);
@@ -233,13 +237,15 @@ class OfferOverviewComponent extends EntityOverview{
     }
 )
 class OfferPositionOverviewComponent extends EntityOverview{
-  OfferPositionOverviewComponent(ObjectStore store, SettingsManager manager): super(OfferPosition, store, '', manager);
+  OfferPositionOverviewComponent(DataCache store, SettingsManager manager): super(OfferPosition, store, '', manager);
   cEnt({OfferPosition entity}){
     if(entity !=null){
       return new OfferPosition.clone(entity);
     }
     return new OfferPosition();
   }
+
+  bool needsmanualAdd = true;
 
   int _offerId;
   set offerId(int id){
@@ -267,7 +273,7 @@ class OfferPositionOverviewComponent extends EntityOverview{
     useShadowDom: false
 )
 class InvoiceOverviewComponent extends EntityOverview{
-  InvoiceOverviewComponent(ObjectStore store, Router router, SettingsManager manager): super(Invoice, store, 'invoice_edit', manager, router: router);
+  InvoiceOverviewComponent(DataCache store, Router router, SettingsManager manager): super(Invoice, store, 'invoice_edit', manager, router: router);
   cEnt({Invoice entity}){
     if(entity !=null){
       return new Invoice.clone(entity);
@@ -285,13 +291,15 @@ class InvoiceOverviewComponent extends EntityOverview{
     }
 )
 class InvoiceItemOverviewComponent extends EntityOverview{
-  InvoiceItemOverviewComponent(ObjectStore store, SettingsManager manager): super(InvoiceItem, store, '', manager);
+  InvoiceItemOverviewComponent(DataCache store, SettingsManager manager): super(InvoiceItem, store, '', manager);
   cEnt({InvoiceItem entity}){
     if(entity !=null){
       return new InvoiceItem.clone(entity);
     }
     return new InvoiceItem();
   }
+
+  bool needsmanualAdd = true;
 
   int _invoiceId;
   set invoiceId(int id){
@@ -320,7 +328,7 @@ class InvoiceItemOverviewComponent extends EntityOverview{
     useShadowDom: false
 )
 class ServiceOverviewComponent extends EntityOverview{
-  ServiceOverviewComponent(ObjectStore store, Router router, SettingsManager manager): super(Service, store, 'service_edit', manager, router: router);
+  ServiceOverviewComponent(DataCache store, Router router, SettingsManager manager): super(Service, store, 'service_edit', manager, router: router);
   cEnt({Service entity}){
     if(entity !=null){
       return new Service.clone(entity);
@@ -338,13 +346,15 @@ class ServiceOverviewComponent extends EntityOverview{
     }
 )
 class RateOverviewComponent extends EntityOverview{
-  RateOverviewComponent(ObjectStore store, SettingsManager manager): super(Rate, store, '', manager);
+  RateOverviewComponent(DataCache store, SettingsManager manager): super(Rate, store, '', manager);
   cEnt({Rate entity}){
     if(entity !=null){
       return new Rate.clone(entity);
     }
     return new Rate();
   }
+
+  bool needsmanualAdd = true;
 
   int _serviceId;
   set serviceId(int id){
@@ -373,7 +383,7 @@ class RateOverviewComponent extends EntityOverview{
     useShadowDom: false
 )
 class RateGroupOverviewComponent extends EntityOverview{
-  RateGroupOverviewComponent(ObjectStore store, SettingsManager manager): super(RateGroup, store, '', manager);
+  RateGroupOverviewComponent(DataCache store, SettingsManager manager): super(RateGroup, store, '', manager);
   cEnt({RateGroup entity}){
     if(entity !=null){
       return new RateGroup.clone(entity);
@@ -403,13 +413,15 @@ class ActivityOverviewComponent extends EntityOverview{
     }
   }
 
-  ActivityOverviewComponent(ObjectStore store, SettingsManager manager): super(Activity, store, '', manager);
+  ActivityOverviewComponent(DataCache store, SettingsManager manager): super(Activity, store, '', manager);
   cEnt({Activity entity}){
     if(entity !=null){
       return new Activity.clone(entity);
     }
     return new Activity();
   }
+
+  bool needsmanualAdd = true;
 
   attach() {}
 
@@ -428,8 +440,6 @@ class ActivityOverviewComponent extends EntityOverview{
 )
 class TimesliceOverviewComponent extends EntityOverview{
 
-  DataCache _cache;
-
   Employee _employee;
 
   set employee(Employee employee){
@@ -440,6 +450,8 @@ class TimesliceOverviewComponent extends EntityOverview{
     this.reload();
   }
 
+  bool needsmanualAdd = true;
+
   List<Activity> activities= [];
 
   DateTime filterStartDate = new DateTime.now();
@@ -449,7 +461,7 @@ class TimesliceOverviewComponent extends EntityOverview{
 
   DateTime lastdate;
 
-  TimesliceOverviewComponent(ObjectStore store, SettingsManager manager, this._cache): super(Timeslice, store, '', manager);
+  TimesliceOverviewComponent(DataCache store, SettingsManager manager): super(Timeslice, store, '', manager);
   cEnt({Timeslice entity}){
     if(entity !=null){
       return new Timeslice.clone(entity);
@@ -562,7 +574,7 @@ class TimesliceOverviewComponent extends EntityOverview{
   }
 
   loadActivtyData(){
-    this._cache.list(Activity).then((QueryResult result) {
+    this.store.list(Activity).then((QueryResult result) {
       this.activities = result.toList();
     });
   }
