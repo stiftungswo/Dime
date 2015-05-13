@@ -7,7 +7,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="entity in entities">
+    <tr ng-repeat="entity in entities" ng-click="selectEntity(entity.id)" ng-class="isSelected(entity)? 'info': ''">
       <td>{{entity.id}}</td>
       <td><input type="text" class="form-control" ng-model="entity.name" on-change="addSaveField('name', entity)"/></td>
       <td><textarea class="form-control tiny" ng-model="entity.description" on-change="addSaveField('description', entity)"></textarea></td>

@@ -37,8 +37,16 @@ class Entity{
     };
   }
 
+  cloneDescendants(Entity original){
+
+  }
+
+  List _descendantsToUpdate = [];
+
+  List get descendantsToUpdate => _descendantsToUpdate;
+
   int id;
-  List<String> _toUpdate = new List<String>();
+  List<String> _toUpdate = [];
   String type = 'entities';
 
   DateTime createdAt;
@@ -352,6 +360,13 @@ class Project extends Entity{
     });
     return m;
   }
+  cloneDescendants(Project original){
+    for(Activity activity in original.activities){
+      Activity clone = new Activity.clone(activity);
+      clone.project = this;
+      this._descendantsToUpdate.add(clone);
+    }
+  }
   String type = 'projects';
   String currentPrice;
   String budgetPrice;
@@ -380,6 +395,9 @@ class Offer extends Entity{
     this.description=original.description;
     this.status=original.status;
     this.address=original.address;
+    for(StandardDiscount discount in original.standardDiscounts){
+      this.standardDiscounts.add(discount);
+    }
   }
   newObj(){
     return new Offer();
@@ -501,6 +519,18 @@ class Offer extends Entity{
     });
     return m;
   }
+  cloneDescendants(Offer original){
+    for(OfferPosition entity in original.offerPositions){
+      OfferPosition clone = new OfferPosition.clone(entity);
+      clone.offer = this;
+      this._descendantsToUpdate.add(clone);
+    }
+    for(OfferDiscount entity in original.offerDiscounts){
+      OfferDiscount clone = new OfferDiscount.clone(entity);
+      clone.offer = this;
+      this._descendantsToUpdate.add(clone);
+    }
+  }
   String type = 'offers';
   String subtotal;
   String totalVAT;
@@ -512,9 +542,9 @@ class Offer extends Entity{
   User accountant;
   String shortDescription;
   String description;
-  List<OfferPosition> offerPositions;
-  List<StandardDiscount> standardDiscounts;
-  List<OfferDiscount> offerDiscounts;
+  List<OfferPosition> offerPositions = [];
+  List<StandardDiscount> standardDiscounts = [];
+  List<OfferDiscount> offerDiscounts = [];
   OfferStatusUC status;
   Address address;
   String fixedPrice;
@@ -675,11 +705,11 @@ class OfferPosition extends Entity{
     this.total = map['total'];
     this.calculatedRateValue = map['calculatedRateValue'];
     this.calculatedVAT = map['calculatedVAT'];
-    this.order = map['order'];
+    this.order = map['order'] != null ? map['order']: 0;
     this.amount = map['amount'];
     this.rateValue = map['rateValue'];
     this.rateUnit = map['rateUnit'];
-    this.rateUnitType = map['rateUnitType'];
+    this.rateUnitType = map['rateUnitType'] != null ? map['rateUnitType']: 0;
     this.vat = map['vat'];
     this.discountable = map['discountable'];
     this.offer = new Offer.fromMap(map['offer']);
@@ -702,11 +732,10 @@ class OfferPosition extends Entity{
     return m;
   }
   String type = 'offerpositions';
-  //Todo Modify to getters
-  bool isManualRateValueSet;
-  bool isManualRateUnitSet;
-  bool isManualRateUnitTypeSet;
-  bool isManualVATSet;
+  bool get isManualRateValueSet => serviceRate.rateValue == rateValue;
+  bool get isManualRateUnitSet => serviceRate.rateUnit == rateUnit;
+  bool get isManualRateUnitTypeSet => serviceRate.rateUnitType == rateUnitType;
+  bool get isManualVATSet => service.vat == vat;
   Offer offer;
   Rate serviceRate;
   String calculatedRateValue;
@@ -760,6 +789,9 @@ class Invoice extends Entity{
     this.offer=original.offer;
     this.start = original.start;
     this.end = original.end;
+    for(StandardDiscount discount in original.standardDiscounts){
+      this.standardDiscounts.add(discount);
+    }
   }
   newObj(){
     return new Invoice();
@@ -860,6 +892,18 @@ class Invoice extends Entity{
     });
     return m;
   }
+  cloneDescendants(Invoice original){
+    for(InvoiceItem entity in original.items){
+      InvoiceItem clone = new InvoiceItem.clone(entity);
+      clone.invoice = this;
+      this._descendantsToUpdate.add(clone);
+    }
+    for(InvoiceDiscount entity in original.invoiceDiscounts){
+      InvoiceDiscount clone = new InvoiceDiscount.clone(entity);
+      clone.invoice = this;
+      this._descendantsToUpdate.add(clone);
+    }
+  }
   String type = 'invoices';
   String totalDiscounts;
   String total;
@@ -869,9 +913,9 @@ class Invoice extends Entity{
   Customer customer;
   Project project;
   Offer offer;
-  List<InvoiceItem> items;
-  List<InvoiceDiscount> invoiceDiscounts;
-  List<StandardDiscount> standardDiscounts;
+  List<InvoiceItem> items = [];
+  List<InvoiceDiscount> invoiceDiscounts = [];
+  List<StandardDiscount> standardDiscounts = [];
   DateTime start;
   DateTime end;
 }
@@ -887,6 +931,7 @@ class InvoiceItem extends Entity{
   InvoiceItem();
   InvoiceItem.clone(InvoiceItem original): super.clone(original){
     this.name=original.name;
+    this.amount = original.amount;
     this.rateValue=original.rateValue;
     this.rateUnit=original.rateUnit;
     this.activity=original.activity;
@@ -1093,6 +1138,7 @@ class Customer extends Entity{
     this.fullname = original.fullname;
     this.salutation = original.salutation;
     this.rateGroup = original.rateGroup;
+    this.address = new Address.clone(original.address);
   }
   newObj(){
     return new Customer();
@@ -1230,7 +1276,6 @@ class Phone{
 class Address{
   Address();
   Address.clone(Address original){
-    this.id = original.id;
     this.street = original.street;
     this.streetnumber = original.streetnumber;
     this.city = original.city;
@@ -1429,7 +1474,7 @@ class Activity extends Entity{
     this.customer = new Customer.fromMap(map['customer']);
     this.rateValue = map['rateValue'];
     this.rateUnit = map['rateUnit'];
-    this.rateUnitType = map['rateUnitType'];
+    this.rateUnitType = map['rateUnitType'] != null ? map['rateUnitType']: 0;
     if(map['timeslices']!=null) {
       this.timeslices = Timeslice.listFromMap(map['timeslices']);
     }
@@ -1461,7 +1506,7 @@ class Activity extends Entity{
   String rateValue;
   String rateUnit;
   String rateUnitType;
-  List<Timeslice> timeslices;
+  List<Timeslice> timeslices = [];
 }
 
 class Timeslice extends Entity with TagFields{
@@ -1558,6 +1603,7 @@ class User extends Entity{
     //Todo I should generate a new username
     this.firstname=original.firstname;
     this.lastname=original.lastname;
+    this.email = original.email;
   }
   newObj(){
     return new User();
@@ -1864,8 +1910,15 @@ class Service extends Entity{
     });
     return m;
   }
+  cloneDescendants(Service original){
+    for(Rate entity in original.rates){
+      Rate clone = new Rate.clone(entity);
+      clone.service = this;
+      this._descendantsToUpdate.add(clone);
+    }
+  }
   String type = 'services';
-  List<Rate> rates;
+  List<Rate> rates = [];
   String description;
   bool chargeable;
   double vat;
@@ -1946,7 +1999,7 @@ class Rate extends Entity{
     if(map==null||map.isEmpty) return;
     this.rateValue = map['rateValue'];
     this.rateUnit = map['rateUnit'];
-    this.rateUnitType = map['rateUnitType'];
+    this.rateUnitType = map['rateUnitType'] != null ? map['rateUnitType']: 0;
     this.rateGroup = new RateGroup.fromMap(map['rateGroup']);
     this.service = new Service.fromMap(map['service']);
   }

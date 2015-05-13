@@ -18,13 +18,7 @@
 		<td><service-select service="entity.service" callback="entity.addFieldtoUpdate(name)" field="'service'"></service-select></td>
 	    <td><input class="form-control" type="text" ng-model="entity.rateValue" on-change="addSaveField('rateValue', entity)"/></td>
 	    <td><input class="form-control" type="text" ng-model="entity.rateUnit" on-change="addSaveField('rateUnit', entity)"/></td>
-	    <td>
-		    <select class="form-control" ng-model="entity.rateUnitType" on-change="addSaveField('rateUnitType', entity)">
-			    <option ng-repeat="rateUnitType in rateUnitTypes" ng-value="rateUnitType.id"
-			            ng-selected="rateUnitType.id == entity.rateUnitType">{{ rateUnitType.name }}
-			    </option>
-		    </select>
-	    </td>
+	    <td><rateunittype-select rateunittype="entity.rateUnitType" callback="entity.addFieldtoUpdate(name)" field="'rateUnitType'"></rateunittype-select></td>
 	    <td><input class="form-control" type="text" ng-model="entity.amount" on-change="addSaveField('amount', entity)"/></td>
 	    <td><input-percentage htmlclass="'form-control'" value="entity.vat" on-change="addSaveField('vat', entity)"></input-percentage></td>
 	    <td><input class="form-control checkbox" type="checkbox" ng-model="entity.discountable" on-change="addSaveField('discountable', entity)"/></td>

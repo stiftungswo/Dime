@@ -9,22 +9,10 @@
   </thead>
   <tbody>
     <tr ng-repeat="entity in entities" ng-click="selectEntity(entity.id)" ng-class="isSelected(entity)? 'info': ''">
-	    <td>
-		    <select class="form-control" model="entity.rateGroup" on-change="addSaveField('rateGroup', entity)">
-			    <option ng-repeat="rateGroup in rateGroups" ng-value="rateGroup"
-			            ng-selected="rateGroup.id == entity.rateGroup.id">{{rateGroup.name}}
-			    </option>
-		    </select>
-	    </td>
+	    <td><rategroup-select rategroup="entity.rateGroup" callback="entity.addFieldtoUpdate(name)" field="'rateGroup'"></rategroup-select></td>
 	    <td><input class="form-control" type="text" ng-model="entity.rateValue" on-change="addSaveField('rateValue', entity)"/></td>
 	    <td><input class="form-control" type="text" ng-model="entity.rateUnit" on-change="addSaveField('rateUnit', entity)"/></td>
-	    <td>
-		    <select class="form-control" ng-model="entity.rateUnitType" on-change="addSaveField('rateUnitType', entity)">
-			    <option ng-repeat="rateUnitType in rateUnitTypes" ng-value="rateUnitType.id"
-			            ng-selected="rateUnitType.id == entity.rateUnitType">{{ rateUnitType.name }}
-			    </option>
-		    </select>
-	    </td>
+	    <td><rateunittype-select rateunittype="entity.rateUnitType" callback="entity.addFieldtoUpdate(name)" field="'rateUnitType'"></rateunittype-select></td>
     </tr>
   </tbody>
 </table>

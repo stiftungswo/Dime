@@ -123,3 +123,38 @@ class CustomerSelectComponent extends EntitySelect{
 class OfferStatusSelectComponent extends EntitySelect{
   OfferStatusSelectComponent(DataCache store, dom.Element element): super(OfferStatusUC, store, element);
 }
+
+@Component(
+    selector: 'rategroup-select',
+    templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/select/rategroup_select.html',
+    useShadowDom: false,
+    map: const{
+        'rategroup': '<=>selectedEntity',
+        'callback': '&callback',
+        'field': '=>!field'
+    }
+)
+class RateGroupSelectComponent extends EntitySelect{
+  RateGroupSelectComponent(DataCache store, dom.Element element): super(RateGroup, store, element);
+}
+
+@Component(
+    selector: 'rateunittype-select',
+    templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/select/rateunittype_select.html',
+    useShadowDom: false,
+    map: const{
+        'rateunittype': '<=>selectedEntity',
+        'callback': '&callback',
+        'field': '=>!field'
+    }
+)
+class RateUnitTypeSelectComponent extends EntitySelect{
+  RateUnitTypeSelectComponent(DataCache store, dom.Element element): super(RateGroup, store, element);
+
+  set selectedEntity(entity){
+    if(entity != null) {
+      selector = entity.name;
+    }
+    _selectedEntity = entity.id;
+  }
+}

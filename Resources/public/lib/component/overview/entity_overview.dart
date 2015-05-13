@@ -125,6 +125,10 @@ class EntityOverview extends AttachAware implements ScopeAware{
       var newEnt = this.cEnt(entity: ent);
       this.store.create(newEnt).then((result){
         this.entities.add(result);
+        result.cloneDescendants(ent);
+        for(var entity in result.descendantsToUpdate){
+          this.store.create(entity);
+        }
       });
     }
   }
@@ -250,17 +254,7 @@ class OfferPositionOverviewComponent extends EntityOverview{
     });
   }
 
-  List<Service> services;
-  List<RateUnitType> rateUnitTypes;
-
-  attach() {
-    this.store.list(Service).then((QueryResult result) {
-      this.services = result.toList();
-    });
-    this.store.list(RateUnitType).then((QueryResult result) {
-      this.rateUnitTypes = result.toList();
-    });
-  }
+  attach(){}
 
   createEntity({Entity newEnt, Map<String,dynamic> params}){
     super.createEntity(params: {'offer': this._offerId});
@@ -366,17 +360,7 @@ class RateOverviewComponent extends EntityOverview{
     });
   }
 
-  List<RateGroup> rateGroups;
-  List<RateUnitType> rateUnitTypes;
-
-  attach() {
-    this.store.list(RateGroup).then((QueryResult result) {
-      this.rateGroups = result.toList();
-    });
-    this.store.list(RateUnitType).then((QueryResult result) {
-      this.rateUnitTypes = result.toList();
-    });
-  }
+  attach(){}
 
   createEntity({Entity newEnt, Map<String,dynamic> params}){
     super.createEntity(params: {'service': this._serviceId});
@@ -411,11 +395,13 @@ class ActivityOverviewComponent extends EntityOverview{
   int _projectId;
 
   set projectId(int id){
-    this._projectId = id;
-    super.reload(params: {'project': id});
+    if(id != null) {
+      this._projectId = id;
+      super.reload(params: {
+          'project': id
+      });
+    }
   }
-
-  List<Service> services;
 
   ActivityOverviewComponent(ObjectStore store, SettingsManager manager): super(Activity, store, '', manager);
   cEnt({Activity entity}){
@@ -425,11 +411,7 @@ class ActivityOverviewComponent extends EntityOverview{
     return new Activity();
   }
 
-  attach() {
-    this.store.list(Service).then((QueryResult result) {
-      this.services = result.toList();
-    });
-  }
+  attach() {}
 
   createEntity({var newEnt, Map<String,dynamic> params}){
     super.createEntity(params: {'project': this._projectId});
