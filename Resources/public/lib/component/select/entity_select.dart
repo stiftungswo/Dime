@@ -4,6 +4,7 @@ import 'package:angular/angular.dart';
 import 'package:DimeClient/model/dime_entity.dart';
 import 'package:hammock/hammock.dart';
 import 'package:DimeClient/service/data_cache.dart';
+import 'package:DimeClient/service/user_context.dart';
 import 'dart:html' as dom;
 
 class EntitySelect extends AttachAware implements ScopeAware{
@@ -156,5 +157,39 @@ class RateUnitTypeSelectComponent extends EntitySelect{
       selector = entity.name;
     }
     _selectedEntity = entity.id;
+  }
+}
+
+@Component(
+    selector: 'user-select',
+    templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/select/user_select.html',
+    useShadowDom: false,
+    map: const{
+        'useContext': '=>!useContext',
+        'user': '<=>selectedEntity',
+        'callback': '&callback',
+        'field': '=>!field'
+    }
+)
+class UserSelectComponent extends EntitySelect{
+  UserSelectComponent(DataCache store, dom.Element element, this.context): super(Employee, store, element);
+  UserContext context;
+  bool useContext = false;
+
+  set selectedEntity(entity){
+    if(entity != null) {
+      selector = entity.fullname;
+    }
+    if(useContext) {
+      this.context.switchContext(entity);
+    }
+    _selectedEntity = entity;
+  }
+
+  attach(){
+    super.attach();
+    if(useContext){
+      this.selector = context.employee.fullname;
+    }
   }
 }

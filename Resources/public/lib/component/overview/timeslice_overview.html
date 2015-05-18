@@ -29,6 +29,10 @@
 <div class="controllbuttons container-inline">
 	<div class="row form-inline">
 		<div class="col-md-2">
+			<label>Benutzer</label>
+			<user-select useContext="true"></user-select>
+		</div>
+		<div class="col-md-2">
 			<label>Projekt</label>
 			<project-select project="selectedProject"></project-select>
 		</div>
@@ -37,7 +41,7 @@
 			<setting-edit namespace="'/usr/defaults/timeslice'" name="'activity'" defaultvalue="'action:byName:Zivi*'"></setting-edit>
 		</div>
 		<div class="col-md-2">
-			<label>Einzutragende Zeit</label>
+			<label>Einzutragender Wert</label>
 			<setting-edit namespace="'/usr/defaults/timeslice'" name="'value'" defaultvalue="'8.5h'"></setting-edit>
 		</div>
 		<div class="col-md-12" style="margin-top: 5px;">

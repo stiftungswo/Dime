@@ -7,11 +7,12 @@ import 'package:crypto/crypto.dart';
 import 'dart:html';
 import 'dart:convert';
 import 'package:DimeClient/service/setting_manager.dart';
+import 'package:DimeClient/service/user_context.dart';
 
 @Injectable()
 class UserAuthProvider{
   final String dimelocalStoreAuthKey = 'dimeAuthToken';
-  Employee employee = new Employee();
+  UserContext context;
   SettingsManager manager;
   ObjectStore store;
   HttpDefaultHeaders headers;
@@ -32,12 +33,12 @@ class UserAuthProvider{
     window.localStorage[dimelocalStoreAuthKey] = token;
   }
 
-  UserAuthProvider(this.store, this.headers, this.manager);
+  UserAuthProvider(this.store, this.headers, this.manager, this.context);
 
   loadUserData(){
     this.store.customQueryOne(Employee, new CustomRequestParams(method: 'GET', url: '/api/v1/employees/current')).then((Employee result){
-      this.employee = result;
-      manager.loadUserSettings(employee.id);
+      this.context.switchContext(result);
+      manager.loadUserSettings(result.id);
     }, onError: (_){
 
     });

@@ -5,6 +5,7 @@ import 'package:hammock/hammock.dart';
 import 'package:DimeClient/model/dime_entity.dart';
 import 'package:DimeClient/service/setting_manager.dart';
 import 'package:DimeClient/service/data_cache.dart';
+import 'package:DimeClient/service/user_context.dart';
 
 class EntityOverview extends AttachAware implements ScopeAware{
 
@@ -171,6 +172,7 @@ class EntityOverview extends AttachAware implements ScopeAware{
   }
 
   reload({Map<String,dynamic> params}){
+    this.entities = [];
     this.store.list(this.type, params: params).then((QueryResult result) {
       this.entities = result.toList();
     });
@@ -442,6 +444,8 @@ class TimesliceOverviewComponent extends EntityOverview{
 
   Employee _employee;
 
+  UserContext context;
+
   set employee(Employee employee){
     if(employee.id == null){
       return;
@@ -449,6 +453,8 @@ class TimesliceOverviewComponent extends EntityOverview{
     this._employee = employee;
     this.reload();
   }
+
+  get employee => this._employee;
 
   bool needsmanualAdd = true;
 
@@ -461,7 +467,9 @@ class TimesliceOverviewComponent extends EntityOverview{
 
   DateTime lastdate;
 
-  TimesliceOverviewComponent(DataCache store, SettingsManager manager): super(Timeslice, store, '', manager);
+  TimesliceOverviewComponent(DataCache store, SettingsManager manager, this.context): super(Timeslice, store, '', manager){
+    this.context.onSwitch((Employee employee) => this.employee = employee);
+  }
   cEnt({Timeslice entity}){
     if(entity !=null){
       return new Timeslice.clone(entity);
@@ -571,6 +579,7 @@ class TimesliceOverviewComponent extends EntityOverview{
     this.filterEndDate = this.filterStartDate;
     this.filterEndDate = this.filterEndDate.add(new Duration(days: 4, hours: 23, minutes: 59));
     loadActivtyData();
+    this.employee = this.context.employee;
   }
 
   loadActivtyData(){

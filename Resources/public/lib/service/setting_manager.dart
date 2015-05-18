@@ -3,21 +3,26 @@ library dime.setting.manager;
 import 'package:angular/angular.dart';
 import 'package:hammock/hammock.dart';
 import 'package:DimeClient/model/dime_entity.dart';
+import 'package:DimeClient/service/user_context.dart';
 import 'dart:async';
 
 @Injectable()
 class SettingsManager{
+  UserContext context;
   ObjectStore store;
   List<Setting> userSettings;
   List<Setting> systemSettings;
   int _currentUserId;
   List<Setting> toCreate;
   bool allowCreate = false;
-  SettingsManager(this.store){
+  SettingsManager(this.store, this.context){
     this.loadSystemSettings();
   }
 
-  loadUserSettings(int userId){
+  loadUserSettings([int userId]){
+    if(userId == null){
+      userId = this.context.employee.id;
+    }
     this.store.list(Setting, params: {'namespace': '/usr*', 'user': userId}).then((QueryResult result){
       this.userSettings = result.toList();
     });

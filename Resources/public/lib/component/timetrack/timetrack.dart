@@ -4,6 +4,7 @@ import 'package:angular/angular.dart';
 import 'package:DimeClient/model/dime_entity.dart';
 import 'package:hammock/hammock.dart';
 import 'package:DimeClient/service/user_auth.dart';
+import 'package:DimeClient/service/user_context.dart';
 
 @Component(
   selector: 'timetrack',
@@ -12,20 +13,13 @@ import 'package:DimeClient/service/user_auth.dart';
 )
 class TimetrackComponent extends AttachAware implements ScopeAware{
   ObjectStore store;
+  UserContext context;
   UserAuthProvider auth;
   Scope scope;
   String loadState = 'default';
   String saveState = 'default';
-  Employee _employee;
-  Employee get employee{
-    if(_employee == null) {
-      return auth.employee;
-    } else {
-      return _employee;
-    }
-  }
 
-  set employee(Employee employee) => _employee;
+  get employee => this.context.employee;
 
   attach(){
 
@@ -35,5 +29,5 @@ class TimetrackComponent extends AttachAware implements ScopeAware{
     scope.rootScope.emit('saveChanges');
   }
 
-  TimetrackComponent(this.store, this.auth);
+  TimetrackComponent(this.store, this.auth, this.context);
 }
