@@ -25,9 +25,7 @@ class DataCache{
     return future;
   }
 
-  Future one(Type type, id){
-    return this._store.one(type, id);
-  }
+  Future one(Type type, id) => this._store.one(type, id);
 
   Future delete(object){
     return this._store.delete(object).then((result) {
@@ -62,5 +60,11 @@ class DataCache{
       return result;
     });
   }
+
+  Future customQueryOne(type, CustomRequestParams params) => this._store.customQueryOne(type, params);
+
+  Future customCommand(type, CustomRequestParams params) => this._store.customCommand(type, params);
+
+  Future customQueryList(type, CustomRequestParams params) => this._store.customQueryList(type, params);
 
 }
