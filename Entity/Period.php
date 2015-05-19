@@ -8,11 +8,10 @@
 namespace Dime\EmployeeBundle\Entity;
 
 
-use DeepCopy\DeepCopy;
 use Dime\TimetrackerBundle\Entity\Entity;
 use Dime\TimetrackerBundle\Model\DimeEntityInterface;
 use Carbon\Carbon;
-use Dime\TimetrackerBundle\Model\RateUnitType;
+use JMS\Serializer\Annotation as JMS;
 
 abstract class Period extends Entity implements DimeEntityInterface
 {
@@ -21,9 +20,16 @@ abstract class Period extends Entity implements DimeEntityInterface
 	protected $pensum;
 	protected $employee;
 
-	public function getPeriodInWeekDays()
+	/**
+	 * @JMS\VirtualProperty()
+	 * @JMS\SerializedName("targetTime")
+	 */
+	public function getTargetTime()
 	{
-		return $this->getStart()->diffInWeekdays($this->getEnd()) * $this->getPensum();
+		if($this->pensum && $this->getStart() instanceof Carbon && $this->getEnd() instanceof Carbon) {
+			return $this->getStart()->diffInSeconds($this->getEnd()) * $this->getPensum();
+		}
+		return null;
 	}
 
 	/**

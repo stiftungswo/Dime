@@ -1,7 +1,7 @@
 <?php
 namespace Dime\EmployeeBundle\Entity;
 
-use DeepCopy\DeepCopy;
+use Dime\TimetrackerBundle\Entity\Timeslice;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -37,28 +37,59 @@ class Employee extends User implements DimeEntityInterface
 	 */
 	protected $freePeriods;
 
-	public function getSollWorkingDays()
+	/**
+	 * @var integer
+	 * @ORM\Column(type="integer")
+	 * @JMS\SerializedName("realTime")
+	 */
+	protected $realTime;
+
+	/**
+	 * Returns targetTime in Seconds
+	 * @return integer
+	 * @JMS\VirtualProperty()
+	 * @JMS\SerializedName("targetTime")
+	 */
+	public function getTargetTime()
 	{
-		$workingDays = 0;
-		foreach($this->getWorkingPeriods() as $workingPeriod)
-		{
-			$workingDays += $workingPeriod->getPeriodInWeekDays();
+		$targetTime = 0;
+		foreach($this->getWorkingPeriods() as $period){
+			$targetTime += $period->getTargetTime();
 		}
-		foreach($this->getFreePeriods() as $freePeriod)
-		{
-			$workingDays -= $freePeriod->getPeriodInWeekDays();
+		foreach($this->getFreePeriods() as $period){
+			$targetTime -= $period->getTargetTime();
 		}
-		return $workingDays;
+		return $targetTime;
 	}
 
-	public function getSollWorkingHours()
+	/**
+	 * @param Timeslice $slice
+	 *
+	 * @return $this
+	 */
+	public function addRealTime(Timeslice $slice)
 	{
-		return $this->getSollWorkingDays() * 8.4;
+		$this->setRealTime($this->getRealTime() + $slice->getValue());
+		return $this;
 	}
 
-	public function getIstWorkingHours()
+	/**
+	 * @return integer
+	 */
+	public function getRealTime()
 	{
+		return $this->realTime;
+	}
 
+	/**
+	 * @param integer $realTime
+	 *
+	 * @return $this
+	 */
+	public function setRealTime($realTime)
+	{
+		$this->realTime = $realTime;
+		return $this;
 	}
 
 	public function __construct()
