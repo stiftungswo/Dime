@@ -199,35 +199,4 @@ class InvoiceDiscountController extends DimeController
 		$this->container->get($this->handlerSerivce)->delete($this->getOr404($id, $this->handlerSerivce));
 		return $this->view(null, Codes::HTTP_NO_CONTENT);
 	}
-
-	/**
-	 * Duplicate Entity
-	 *
-	 * @ApiDoc(
-	 *  resource= true,
-	 *  input = "Dime\InvoiceBundle\Form\Type\InvoiceDiscountFormType",
-	 *  output = "Dime\InvoiceBundle\Entity\InvoiceDiscount",
-	 *  section="invoicediscounts",
-	 *  statusCodes={
-	 *      200 = "Returned when successful",
-	 *      404 = "Returned when entity does not exist"
-	 *  }
-	 * )
-	 *
-	 * @Annotations\Get("/invoicediscounts/{id}/duplicate", name="_invoices_dup")
-	 *
-	 * @Annotations\Route(requirements={"_format"="json|xml"})
-	 *
-	 * @Annotations\View(
-	 * serializerEnableMaxDepthChecks=true
-	 * )
-	 *
-	 * @param $id
-	 *
-	 * @return \Dime\InvoiceBundle\Entity\InvoiceDiscount
-	 */
-	public function duplicateInvoiceDiscountAction($id)
-	{
-		return $this->get($this->handlerSerivce)->duplicate($this->getOr404($id, $this->handlerSerivce));
-	}
 }

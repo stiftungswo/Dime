@@ -223,22 +223,6 @@ class Invoice extends Entity implements DimeEntityInterface
 		}
 	}
 
-	public static function getCopyFilters(DeepCopy $deepCopy)
-	{
-		$deepCopy = parent::getCopyFilters($deepCopy);
-		$deepCopy->addFilter(new KeepFilter(), new PropertyMatcher(self::class, 'project'));
-		$deepCopy->addFilter(new KeepFilter(), new PropertyMatcher(self::class, 'offer'));
-		$deepCopy->addFilter(new KeepFilter(), new PropertyMatcher(self::class, 'tags'));
-		$deepCopy->addFilter(new KeepFilter(), new PropertyMatcher(self::class, 'standardDiscounts'));
-		$deepCopy->addFilter(new DoctrineCollectionFilter(), new PropertyMatcher(self::class, 'items'));
-		$deepCopy->addFilter(new DoctrineCollectionFilter(), new PropertyMatcher(self::class, 'invoiceDiscounts'));
-		$deepCopy->addFilter(new NewNameFilter('Invoice'), new PropertyMatcher(self::class, 'name'));
-		$deepCopy->addFilter(new SetNullFilter(), new PropertyMatcher(self::class, 'alias'));
-		$deepCopy = InvoiceDiscount::getCopyFilters($deepCopy);
-		$deepCopy = InvoiceItem::getCopyFilters($deepCopy);
-		return $deepCopy;
-	}
-
 	/**
 	 * @return ArrayCollection
 	 */

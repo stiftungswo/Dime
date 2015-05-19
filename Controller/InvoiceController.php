@@ -276,33 +276,4 @@ class InvoiceController extends DimeController
 	{
 		return $this->get($this->handlerSerivce)->updateInvoice($this->getOr404($id, $this->handlerSerivce));
 	}
-
-	/**
-	 * Duplicate Entity
-	 *
-	 * @ApiDoc(
-	 *  resource= true,
-	 *  section="invoices",
-	 *  statusCodes={
-	 *      200 = "Returned when successful",
-	 *      404 = "Returned when entity does not exist"
-	 *  }
-	 * )
-	 *
-	 * @Annotations\Get("/invoices/{id}/duplicate", name="_invoices_dup")
-	 *
-	 * @Annotations\Route(requirements={"_format"="json|xml"})
-	 *
-	 * @Annotations\View(
-	 * serializerEnableMaxDepthChecks=true
-	 * )
-	 *
-	 * @param $id
-	 *
-	 * @return \Dime\InvoiceBundle\Entity\Invoice
-	 */
-	public function duplicateInvoiceAction($id)
-	{
-		return $this->get($this->handlerSerivce)->duplicate($this->getOr404($id, $this->handlerSerivce));
-	}
 }
