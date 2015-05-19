@@ -3,15 +3,15 @@
 		<div class="panel-body">
 			<div class="row"><h4>Zeiterfassung für {{employee.fullname}}</h4></div>
 			<div class="row">
-				<label class="control-label">e-Mail:</label>
+				<label class="control-label col-md-2">e-Mail:</label>
 				<input class="form-control" type="text" ng-model="employee.email"/>
 			</div>
 			<div class="row">
-				<label class="control-label">Vorname:</label>
+				<label class="control-label col-md-2">Vorname:</label>
 				<input class="form-control" type="text" ng-model="employee.firstname"/>
 			</div>
 			<div class="row">
-				<label class="control-label">Nachname:</label>
+				<label class="control-label col-md-2">Nachname:</label>
 				<input class="form-control" type="text" ng-model="employee.lastname"/>
 			</div>
 		</div>
@@ -20,7 +20,7 @@
 		<div class="panel-body">
 			<div class="row"><h4>Ist-Sollstunden</h4></div>
 			<div class="row">
-
+				<workperiod-overview></workperiod-overview>
 			</div>
 		</div>
 	</div>

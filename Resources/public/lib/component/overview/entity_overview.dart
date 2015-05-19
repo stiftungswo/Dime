@@ -618,3 +618,18 @@ class TimesliceOverviewComponent extends EntityOverview{
     this.filterEndDate = this.filterEndDate.add(new Duration(days: 1));
   }
 }
+
+@Component(
+    selector: 'rateGroup-overview',
+    templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/overview/rateGroup_overview.html',
+    useShadowDom: false
+)
+class WorkingPeriodOverviewComponent extends EntityOverview{
+  WorkingPeriodOverviewComponent(DataCache store, SettingsManager manager): super(WorkingPeriod, store, '', manager);
+  cEnt({WorkingPeriod entity}){
+    if(entity !=null){
+      return new WorkingPeriod.clone(entity);
+    }
+    return new WorkingPeriod();
+  }
+}

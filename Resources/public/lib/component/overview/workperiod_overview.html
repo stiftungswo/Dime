@@ -1,0 +1,27 @@
+<table class="table table-bordered table-hover form">
+	<thead>
+	<tr>
+		<td>Start</td>
+		<td>Ende</td>
+		<td>Pensum</td>
+		<td>Istzeit</td>
+		<td>Sollzeit</td>
+	</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="entity in entities" ng-click="selectEntity(entity.id)" ng-class="isSelected(entity)? 'info': ''">
+			<td><input style="width: 100%;" type="date" class="form-control" ng-model="entity.start" on-change="addSaveField('start', entity)"/></td>
+			<td><input style="width: 100%;" type="date" class="form-control" ng-model="entity.end" on-change="addSaveField('end', entity)"/></td>
+			<td><input style="width: 100%;" class="form-control" ng-model="entity.pensum" on-change="addSaveField('pensum', entity)"/></td>
+			<td>{{entity.realtime}}</td>
+			<td>{{entity.targettime}}</td>
+		</tr>
+	</tbody>
+</table>
+<div class="controllbuttons container-inline">
+	<div class="col-md-12">
+		<button type="button" class="btn btn-primary" ng-click="createEntity()">+</button>
+		<button type="button" class="btn btn-primary" ng-click="duplicateEntity()">++</button>
+		<button type="button" class="btn btn-danger" ng-click="deleteEntity()">-</button>
+	</div>
+</div>

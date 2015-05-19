@@ -1812,8 +1812,11 @@ class Period extends Entity{
   String type = 'periods';
   DateTime start;
   DateTime end;
-  dynamic pensum;
+  int pensum;
   Employee employee;
+  get targettime{
+
+  }
 }
 
 class WorkingPeriod extends Period{
@@ -1827,6 +1830,9 @@ class WorkingPeriod extends Period{
       array.add(t);
     }
     return array;
+  }
+  newObj(){
+    return new WorkingPeriod();
   }
   String type = 'workingPeriods';
 }
@@ -1842,6 +1848,9 @@ class FreePeriod extends Period{
       array.add(t);
     }
     return array;
+  }
+  newObj(){
+    return new FreePeriod();
   }
   String type = 'freePeriods';
 }
