@@ -61,11 +61,6 @@ class Employee extends User implements DimeEntityInterface
 
 	}
 
-	static function getCopyFilters(DeepCopy $deepCopy)
-	{
-		// TODO: Implement getCopyFilters() method.
-	}
-
 	public function __construct()
 	{
 		$this->workingPeriods = new ArrayCollection();

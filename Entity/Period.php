@@ -26,11 +26,6 @@ abstract class Period extends Entity implements DimeEntityInterface
 		return $this->getStart()->diffInWeekdays($this->getEnd()) * $this->getPensum();
 	}
 
-	static function getCopyFilters(DeepCopy $deepCopy)
-	{
-		// TODO: Implement getCopyFilters() method.
-	}
-
 	/**
 	 * @return float
 	 */
