@@ -187,19 +187,6 @@ class Project extends Entity implements DimeEntityInterface
 		return $transformer->transform($this->getBudgetTime());
 	}
 
-    public static function getCopyFilters(DeepCopy $deepCopy)
-    {
-        $deepCopy = parent::getCopyFilters($deepCopy);
-        $deepCopy->addFilter(new KeepFilter(), new PropertyMatcher(self::class, 'customer'));
-        $deepCopy->addFilter(new KeepFilter(), new PropertyMatcher(self::class, 'rateGroup'));
-        $deepCopy->addFilter(new KeepFilter(), new PropertyMatcher(self::class, 'tags'));
-        $deepCopy->addFilter(new DoctrineCollectionFilter(), new PropertyMatcher(self::class, 'activities'));
-        $deepCopy->addFilter(new NewNameFilter('Project'), new PropertyMatcher(self::class, 'name'));
-        $deepCopy->addFilter(new SetNullFilter(), new PropertyMatcher(self::class, 'alias'));
-        $deepCopy = Activity::getCopyFilters($deepCopy, false);
-        return $deepCopy;
-    }
-
 	/**
 	 * @return boolean
 	 */

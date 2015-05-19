@@ -172,13 +172,4 @@ class User extends BaseUser implements DimeEntityInterface
 	{
 		return $this->getFirstname().' '.$this->getLastname();
 	}
-
-    static function getCopyFilters(DeepCopy $deepCopy)
-    {
-        $deepCopy->skipUncloneable(true);
-        $deepCopy->addFilter(new SetNullFilter(), new PropertyMatcher(static::class, 'id'));
-        $deepCopy->addFilter(new SetNullFilter(), new PropertyMatcher(static::class, 'createdAt'));
-        $deepCopy->addFilter(new SetNullFilter(), new PropertyMatcher(static::class, 'updatedAt'));
-        return $deepCopy;
-    }
 }

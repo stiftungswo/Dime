@@ -280,19 +280,6 @@ class Activity extends Entity implements DimeEntityInterface
         $this->tags = new ArrayCollection();
     }
 
-    public static function getCopyFilters(DeepCopy $deepCopy, $keepProject = true)
-    {
-	    $deepCopy = parent::getCopyFilters($deepCopy);
-	    $deepCopy->addFilter(new KeepFilter(), new PropertyMatcher(self::class, 'tags'));
-	    if($keepProject) {
-		    $deepCopy->addFilter(new KeepFilter(), new PropertyMatcher(self::class, 'project'));
-        }
-        $deepCopy->addFilter(new KeepFilter(), new PropertyMatcher(self::class, 'service'));
-        $deepCopy->addFilter(new DoctrineCollectionFilter(), new PropertyMatcher(self::class, 'timeslices'));
-        $deepCopy = Timeslice::getCopyFilters($deepCopy, false);
-        return $deepCopy;
-    }
-
     /**
      * Set description
      *

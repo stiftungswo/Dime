@@ -93,48 +93,6 @@ class ActivitiesController extends DimeController
         return $this->getOr404($id, $this->handlerSerivce);
     }
 
-	/**
-	 * Presents the form to use to create a new Entity.
-	 *
-	 * @ApiDoc(
-	 * resource = true,
-     * section="activities",
-     * output = "Dime\TimetrackerBundle\Entity\Activity",
-     * input = "Dime\TimetrackerBundle\Form\Type\ActivityFormType",
-     * description="A Frontend Function for Post for Languages which suck, Which acts on Parameters Defined in Settings",
-	 * statusCodes = {
-	 * 200 = "Returned when successful",
-     * 405 = "Returned on Unsupported Method",
-     * 500 = "Returned on Error"
-	 * }
-	 * )
-	 *
-	 * @Annotations\Route(requirements={"_format"="html"})
-	 * @Annotations\QueryParam(name="value", nullable=true, description="Sets the Value Param in the Form.")
-	 * @Annotations\QueryParam(name="description", nullable=true, description="Sets the Value Param in the Form.")
-	 * @Annotations\QueryParam(name="rate", nullable=true, description="Sets the Value Param in the Form.")
-	 * @Annotations\QueryParam(name="chargeable", nullable=true, description="Sets the Value Param in the Form.")
-	 * @Annotations\QueryParam(name="service", nullable=true, description="Sets the Value Param in the Form.")
-	 * @Annotations\QueryParam(name="project", nullable=true, description="Sets the Value Param in the Form.")
-	 * @Annotations\QueryParam(name="tags", nullable=true, description="Sets the Value Param in the Form.")
-	 * @Annotations\QueryParam(name="user", nullable=true, description="Sets the Value Param in the Form.")
-	 *
-	 * @Annotations\View(
-	 * serializerEnableMaxDepthChecks=true
-	 * )
-	 *
-	 * @param ParamFetcherInterface $paramFetcher
-	 *
-	 *
-     *
-	 */
-    public function newActivityAction(ParamFetcherInterface $paramFetcher)
-    {
-        $parameters = $paramFetcher->all();
-        $settingsParameters['classname'] = 'activity';
-        return $this->get($this->handlerSerivce)->newEntity($parameters, $settingsParameters);
-    }
-
     /**
      * Create a new Entity from the submitted data.
      *
@@ -244,33 +202,4 @@ class ActivitiesController extends DimeController
         $this->container->get($this->handlerSerivce)->delete($this->getOr404($id, $this->handlerSerivce));
         return $this->view(null, Codes::HTTP_NO_CONTENT);
     }
-
-	/**
-	 * Duplicate Entity
-	 *
-	 * @ApiDoc(
-	 *  resource= true,
-	 *  section="activities",
-	 *  output = "Dime\TimetrackerBundle\Entity\Activity",
-	 *  statusCodes={
-	 *      200 = "Returned when successful",
-	 *      404 = "Returned when entity does not exist"
-	 *  }
-	 * )
-	 *
-	 *
-	 * @Annotations\Route(requirements={"_format"="json|xml"})
-	 *
-	 * @Annotations\View(
-	 * serializerEnableMaxDepthChecks=true
-	 * )
-	 *
-	 * @param $id
-	 *
-	 * @return \Dime\TimetrackerBundle\Model\DimeEntityInterface
-	 */
-	public function duplicateActivityAction($id)
-	{
-		return $this->get($this->handlerSerivce)->duplicate($this->getOr404($id, $this->handlerSerivce));
-	}
 }

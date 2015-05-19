@@ -116,29 +116,6 @@ abstract class Entity
         return (string) $this->getId();
     }
 
-    public static function getCopyFilters(DeepCopy $deepCopy)
-    {
-        $deepCopy->skipUncloneable(true);
-        $deepCopy->addFilter(new SetNullFilter(), new PropertyMatcher(static::class, 'id'));
-        $deepCopy->addFilter(new SetNullFilter(), new PropertyMatcher(static::class, 'createdAt'));
-        $deepCopy->addFilter(new SetNullFilter(), new PropertyMatcher(static::class, 'updatedAt'));
-        $deepCopy->addFilter(new SetNullFilter(), new PropertyMatcher(static::class, 'user'));
-        return $deepCopy;
-    }
-
-    public function sanitize(array $parameters)
-    {
-        $retval = array();
-        $properties = $this->getProperties();
-        foreach($parameters as $key => $value)
-        {
-            if(array_key_exists($key, $properties)){
-                $retval[$key] = $value;
-            }
-        }
-        return $retval;
-    }
-
     public function getProperties()
     {
         $retval = array();

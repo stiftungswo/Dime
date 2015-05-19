@@ -85,52 +85,6 @@ class ProjectsController extends DimeController
         return $this->getOr404($id, $this->handlerSerivce);
     }
 
-	/**
-	 * Presents the form to use to create a new Entity.
-	 *
-	 * @ApiDoc(
-	 * resource = true,
-     * input = "Dime\TimetrackerBundle\Form\Type\ProjectFormType",
-     * output = "Dime\TimetrackerBundle\Entity\Project",
-     * description="A Frontend Function for Post for Languages which suck, Which acts on Parameters Defined in Settings",
-     * section="projects",
-	 * statusCodes = {
-	 * 200 = "Returned when successful"
-	 * }
-	 * )
-	 *
-	 * @Annotations\View(
-	 * serializerEnableMaxDepthChecks=true
-	 * )
-	 *
-	 * @Annotations\Route(requirements={"_format"="html"})
-	 * @Annotations\QueryParam(name="tags", nullable=true, description="Sets the Value Param in the Form.")
-	 * @Annotations\QueryParam(name="user", nullable=true, description="Sets the Value Param in the Form.")
-	 * @Annotations\QueryParam(name="name", nullable=true, description="Sets the Value Param in the Form.")
-	 * @Annotations\QueryParam(name="customer", nullable=true, description="Sets the Value Param in the Form.")
-	 * @Annotations\QueryParam(name="alias", nullable=true, description="Sets the Value Param in the Form.")
-	 * @Annotations\QueryParam(name="startedAt", nullable=true, description="Sets the Value Param in the Form.")
-	 * @Annotations\QueryParam(name="stoppedAt", nullable=true, description="Sets the Value Param in the Form.")
-	 * @Annotations\QueryParam(name="deadline", nullable=true, description="Sets the Value Param in the Form.")
-	 * @Annotations\QueryParam(name="description", nullable=true, description="Sets the Value Param in the Form.")
-	 * @Annotations\QueryParam(name="budgetPrice", nullable=true, description="Sets the Value Param in the Form.")
-	 * @Annotations\QueryParam(name="fixedPrice", nullable=true, description="Sets the Value Param in the Form.")
-	 * @Annotations\QueryParam(name="budgetTime", nullable=true, description="Sets the Value Param in the Form.")
-	 * @Annotations\QueryParam(name="rateGroup", nullable=true, description="Sets the Value Param in the Form.")
-	 * @Annotations\QueryParam(name="chargeable", nullable=true, description="Sets the Value Param in the Form.")
-	 *
-	 *
-	 * @param ParamFetcherInterface $paramFetcher
-	 *
-	 * @return FormTypeInterface
-	 */
-    public function newProjectAction(ParamFetcherInterface $paramFetcher)
-    {
-        $parameters = $paramFetcher->all();
-        $settingsParameters['classname'] = 'project';
-        return $this->get($this->handlerSerivce)->newEntity($parameters, $settingsParameters);
-    }
-
     /**
      * Create a new Entity from the submitted data.
      *
@@ -238,33 +192,4 @@ class ProjectsController extends DimeController
         $this->container->get($this->handlerSerivce)->delete($this->getOr404($id, $this->handlerSerivce));
         return $this->view(null, Codes::HTTP_NO_CONTENT);
     }
-	
-	/**
-	 * Duplicate Entity
-	 *
-	 * @ApiDoc(
-	 *  resource= true,
-	 *  section="projects",
-	 *  output = "Dime\TimetrackerBundle\Entity\Project",
-	 *  statusCodes={
-	 *      200 = "Returned when successful",
-	 *      404 = "Returned when entity does not exist"
-	 *  }
-	 * )
-	 *
-	 *
-	 * @Annotations\Route(requirements={"_format"="json|xml"})
-	 *
-	 * @Annotations\View(
-	 * serializerEnableMaxDepthChecks=true
-	 * )
-	 *
-	 * @param $id
-	 *
-	 * @return \Dime\TimetrackerBundle\Model\DimeEntityInterface
-	 */
-	public function duplicateProjectAction($id)
-	{
-		return $this->get($this->handlerSerivce)->duplicate($this->getOr404($id, $this->handlerSerivce));
-	}
 }

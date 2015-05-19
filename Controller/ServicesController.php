@@ -82,46 +82,6 @@ class ServicesController extends DimeController
     }
 
     /**
-     * Presents the form to use to create a new Entity.
-     *
-     * @ApiDoc(
-     * resource = true,
-     * input = "Dime\TimetrackerBundle\Form\Type\ServiceFormType",
-     * output = "Dime\TimetrackerBundle\Entity\Service",
-     * description="A Frontend Function for Post for Languages which suck, Which acts on Parameters Defined in Settings",
-     * section="services",
-     * statusCodes = {
-     * 200 = "Returned when successful"
-     * }
-     * )
-     *
-     * @Annotations\View(
-     * serializerEnableMaxDepthChecks=true
-     * )
-     *
-     * @Annotations\Route(requirements={"_format"="html"})
-     * @Annotations\QueryParam(name="tags", nullable=true, description="Sets the Value Param in the Form.")
-     * @Annotations\QueryParam(name="user", nullable=true, description="Sets the Value Param in the Form.")
-     * @Annotations\QueryParam(name="name", nullable=true, description="Sets the Value Param in the Form.")
-     * @Annotations\QueryParam(name="alias", nullable=true, description="Sets the Value Param in the Form.")
-     * @Annotations\QueryParam(name="description", nullable=true, description="Sets the Value Param in the Form.")
-     * @Annotations\QueryParam(name="rates", nullable=true, description="Sets the Value Param in the Form.")
-     * @Annotations\QueryParam(name="tags", nullable=true, description="Sets the Value Param in the Form.")
-     * @Annotations\QueryParam(name="chargeable", nullable=true, description="Sets the Value Param in the Form.")
-     * @Annotations\QueryParam(name="vat", nullable=true, description="Sets the Value Param in the Form.")
-     *
-     * @param ParamFetcherInterface $paramFetcher
-     *
-     * @return mixed
-     */
-    public function newServiceAction(ParamFetcherInterface $paramFetcher)
-    {
-        $parameters = $paramFetcher->all();
-        $settingsParameters['classname'] = 'service';
-        return $this->get($this->handlerSerivce)->newEntity($parameters, $settingsParameters);
-    }
-
-    /**
      * Create a new Entity from the submitted data.
      *
      * @ApiDoc(
@@ -228,33 +188,4 @@ class ServicesController extends DimeController
         $this->container->get($this->handlerSerivce)->delete($this->getOr404($id, $this->handlerSerivce));
         return $this->view(null, Codes::HTTP_NO_CONTENT);
     }
-
-	/**
-	 * Duplicate Entity
-	 *
-	 * @ApiDoc(
-	 *  resource= true,
-	 *  section="services",
-	 *  output = "Dime\TimetrackerBundle\Entity\Service",
-	 *  statusCodes={
-	 *      200 = "Returned when successful",
-	 *      404 = "Returned when entity does not exist"
-	 *  }
-	 * )
-	 *
-	 *
-	 * @Annotations\Route(requirements={"_format"="json|xml"})
-	 *
-	 * @Annotations\View(
-	 * serializerEnableMaxDepthChecks=true
-	 * )
-	 *
-	 * @param $id
-	 *
-	 * @return \Dime\TimetrackerBundle\Model\DimeEntityInterface
-	 */
-	public function duplicateServiceAction($id)
-	{
-		return $this->get($this->handlerSerivce)->duplicate($this->getOr404($id, $this->handlerSerivce));
-	}
 }

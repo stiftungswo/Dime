@@ -74,60 +74,6 @@ class GenericHandler extends AbstractHandler implements HandlerInterface {
 	}
 
 	/**
-	 * Returns a new valid Entity
-	 *
-	 *
-	 * @param array $parameters
-	 *
-	 * @param array $settingsParams
-	 *
-	 * @return mixed
-	 *
-	 */
-	public function newEntity(array $parameters, array $settingsParams)
-	{
-		if(!isset($settingsParams['user'])) {
-			$settingsParams['user'] = $this->getCurrentUser()->getId();
-		}
-		$settings = $this->fillFromSettings($settingsParams);
-		$parameters = $this->cleanParameterBag($parameters);
-		foreach($parameters as $key => $value)
-		{
-			$settings[$key] = $value;
-		}
-		return $this->post($settings);
-	}
-
-	protected function fillFromSettings(array $parameters)
-	{
-		$settingsManager = $this->container->get('dime.setting.manager');
-		$parameters = $this->cleanParameterBag($parameters);
-		$systemSettings = $settingsManager->all(
-			array(
-				'namespace' => '/etc/defaults/'.$parameters['classname']
-			),
-			$parameters
-		);
-		$userSettings = $settingsManager->all(
-			array(
-				'namespace' => '/usr/defaults/'.$parameters['classname'],
-				'user' => $parameters['user']
-			),
-			$parameters
-		);
-		$retval = array();
-		foreach($systemSettings as $systemSetting)
-		{
-			$retval[$systemSetting->getName()] = $systemSetting->getValue();
-		}
-		foreach($userSettings as $userSetting)
-		{
-			$retval[$userSetting->getName()] = $userSetting->getValue();
-		}
-		return $retval;
-	}
-
-	/**
 	 * Replace data of a Entity.
 	 *
 	 * @api
@@ -157,21 +103,5 @@ class GenericHandler extends AbstractHandler implements HandlerInterface {
 	public function delete(DimeEntityInterface $entity)
 	{
 		$this->deleteEntity($entity);
-	}
-
-	/**
-	 * Duplicate an Entity
-	 * @param DimeEntityInterface $entity
-	 *
-	 * @return mixed
-	 */
-	public function duplicate(DimeEntityInterface $entity)
-	{
-		$deepCopy = new DeepCopy();
-		$deepCopy = $entity::getCopyFilters($deepCopy);
-		$newEntity = $deepCopy->copy($entity);
-		$this->om->persist($newEntity);
-		$this->om->flush();
-		return $newEntity;
 	}
 }

@@ -160,16 +160,6 @@ class Timeslice extends Entity implements DimeEntityInterface
 		return null;
 	}
 
-    public static function getCopyFilters(DeepCopy $deepCopy, $keepActivity = true)
-    {
-        $deepCopy = parent::getCopyFilters($deepCopy);
-        $deepCopy->addFilter(new KeepFilter(), new PropertyMatcher(self::class, 'tags'));
-	    if($keepActivity) {
-		    $deepCopy->addFilter(new KeepFilter(), new PropertyMatcher(self::class, 'activity'));
-	    }
-        return $deepCopy;
-    }
-
     /**
      * Set started_at
      *

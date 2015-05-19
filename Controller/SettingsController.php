@@ -189,33 +189,4 @@ class SettingsController extends DimeController
         $this->container->get($this->handlerSerivce)->delete($this->getOr404($id, $this->handlerSerivce));
         return $this->view(null, Codes::HTTP_NO_CONTENT);
     }
-
-	/**
-	 * Duplicate Entity
-	 *
-	 * @ApiDoc(
-	 *  resource= true,
-	 *  section="settings",
-	 *  output = "Dime\TimetrackerBundle\Entity\Setting",
-	 *  statusCodes={
-	 *      200 = "Returned when successful",
-	 *      404 = "Returned when entity does not exist"
-	 *  }
-	 * )
-	 *
-	 *
-	 * @Annotations\Route(requirements={"_format"="json|xml"})
-	 *
-	 * @Annotations\View(
-	 * serializerEnableMaxDepthChecks=true
-	 * )
-	 *
-	 * @param $id
-	 *
-	 * @return \Dime\TimetrackerBundle\Model\DimeEntityInterface
-	 */
-	public function duplicateSettingAction($id)
-	{
-		return $this->get($this->handlerSerivce)->duplicate($this->getOr404($id, $this->handlerSerivce));
-	}
 }

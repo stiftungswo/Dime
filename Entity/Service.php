@@ -91,17 +91,6 @@ class Service extends Entity implements DimeEntityInterface
 		$this->tags = new ArrayCollection();
 		$this->rates = new ArrayCollection();
 	}
-
-    public static function getCopyFilters(DeepCopy $deepCopy)
-    {
-        $deepCopy = parent::getCopyFilters($deepCopy);
-        $deepCopy->addFilter(new KeepFilter(), new PropertyMatcher(self::class, 'tags'));
-        $deepCopy->addFilter(new DoctrineCollectionFilter(), new PropertyMatcher(self::class, 'rates'));
-        $deepCopy->addFilter(new NewNameFilter('Service'), new PropertyMatcher(self::class, 'name'));
-        $deepCopy->addFilter(new SetNullFilter(), new PropertyMatcher(self::class, 'alias'));
-        $deepCopy = Rate::getCopyFilters($deepCopy);
-        return $deepCopy;
-    }
 	
 	/**
 	 * @return boolean

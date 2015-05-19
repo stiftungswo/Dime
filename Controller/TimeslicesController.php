@@ -90,48 +90,6 @@ class TimeslicesController extends DimeController
         return $this->getOr404($id, $this->handlerSerivce);
     }
 
-	/**
-	 * Presents the form to use to create a new Entity.
-	 *
-	 * @ApiDoc(
-	 * resource = true,
-     * input = "Dime\TimetrackerBundle\Form\Type\TimesliceFormType",
-     * description="A Frontend Function for Post for Languages which suck, Which acts on Parameters Defined in Settings",
-     * output = "Dime\TimetrackerBundle\Entity\Timeslice",
-     * section="timeslices",
-	 * statusCodes = {
-	 * 200 = "Returned when successful"
-	 * }
-	 * )
-	 *
-	 * @Annotations\Route(requirements={"_format"="html"})
-	 * @Annotations\QueryParam(name="value", nullable=true, description="Sets the Value Field")
-	 * @Annotations\QueryParam(name="startedAt", nullable=true, description="Sets startedAt Field")
-	 * @Annotations\QueryParam(name="stoppedAt", nullable=true, description="Sets the stoppedAt Field")
-	 * @Annotations\QueryParam(name="tags", nullable=true, description="Sets the tags Field")
-	 * @Annotations\QueryParam(name="user", nullable=true, description="Sets the user Field")
-	 * @Annotations\QueryParam(name="activity", nullable=true, description="Sets the activity Field")
-     * @Annotations\QueryParam(name="project", nullable=true, description="Limits the Activity Filed to this Project")
-	 *
-	 * @Annotations\View(
-	 * serializerEnableMaxDepthChecks=true
-	 * )
-	 *
-	 * @param ParamFetcherInterface $paramFetcher
-	 *
-	 * @return FormTypeInterface
-	 */
-    public function newTimesliceAction(ParamFetcherInterface $paramFetcher)
-    {
-        $parameters = $paramFetcher->all();
-        $settingsParameters['classname'] = 'timeslice';
-        if(isset($parameters['project'])){
-            $settingsParameters['project'] = $parameters['project'];
-            unset($parameters['project']);
-        }
-	    return $this->get($this->handlerSerivce)->newEntity($parameters, $settingsParameters);
-    }
-
     /**
      * Create a new Entity from the submitted data.
      *
@@ -239,29 +197,4 @@ class TimeslicesController extends DimeController
         $this->container->get($this->handlerSerivce)->delete($this->getOr404($id, $this->handlerSerivce));
         return $this->view(null, Codes::HTTP_NO_CONTENT);
     }
-
-	/**
-	 * Duplicate Entity
-	 *
-	 * @ApiDoc(
-	 *  resource= true,
-	 *  section="timeslices",
-	 *  output = "Dime\TimetrackerBundle\Entity\Timeslice",
-	 *  statusCodes={
-	 *      200 = "Returned when successful",
-	 *      404 = "Returned when entity does not exist"
-	 *  }
-	 * )
-	 *
-	 *
-	 * @Annotations\Route(requirements={"_format"="json|xml"})
-	 *
-	 * @param $id
-	 *
-	 * @return \Dime\TimetrackerBundle\Model\DimeEntityInterface
-	 */
-	public function duplicateTimesliceAction($id)
-	{
-		return $this->get($this->handlerSerivce)->duplicate($this->getOr404($id, $this->handlerSerivce));
-	}
 }

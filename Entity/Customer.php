@@ -115,17 +115,6 @@ class Customer extends Entity implements DimeEntityInterface
 	 */
 	protected $phones;
 
-    public static function getCopyFilters(DeepCopy $deepCopy)
-    {
-        $deepCopy = parent::getCopyFilters($deepCopy);
-        $deepCopy->addFilter(new KeepFilter(), new PropertyMatcher(self::class, 'tags'));
-        $deepCopy->addFilter(new KeepFilter(), new PropertyMatcher(self::class, 'rateGroup'));
-        $deepCopy->addFilter(new SetNullFilter(), new PropertyMatcher(self::class, 'phones'));
-        $deepCopy->addFilter(new NewNameFilter('Customer'), new PropertyMatcher(self::class, 'name'));
-        $deepCopy->addFilter(new SetNullFilter(), new PropertyMatcher(self::class, 'alias'));
-        return $deepCopy;
-    }
-
 	/**
 	 * @return boolean
 	 */

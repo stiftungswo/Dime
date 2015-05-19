@@ -86,46 +86,6 @@ class RateController extends DimeController
     }
 
     /**
-     * Presents the form to use to create a new Entity.
-     *
-     * @ApiDoc(
-     * resource = true,
-     * input = "Dime\TimetrackerBundle\Form\Type\RateFormType",
-     * output = "Dime\TimetrackerBundle\Entity\Rate",
-     * description="A Frontend Function for Post for Languages which suck, Which acts on Parameters Defined in Settings",
-     * section="rates",
-     * statusCodes = {
-     * 200 = "Returned when successful"
-     * }
-     * )
-     *
-     * @Annotations\View(
-     * serializerEnableMaxDepthChecks=true
-     * )
-     *
-     * @Annotations\Route(requirements={"_format"="html"})
-     * @Annotations\QueryParam(name="tags", nullable=true, description="Sets the Value Param in the Form.")
-     * @Annotations\QueryParam(name="user", nullable=true, description="Sets the Value Param in the Form.")
-     * @Annotations\QueryParam(name="rateGroup", nullable=true, description="Sets the Value Param in the Form.")
-     * @Annotations\QueryParam(name="rateUnit", nullable=true, description="Sets the Value Param in the Form.")
-     * @Annotations\QueryParam(name="rateUnitType", nullable=true, description="Sets the Value Param in the Form.")
-     * @Annotations\QueryParam(name="service", nullable=true, description="Sets the Value Param in the Form.")
-     * @Annotations\QueryParam(name="value", nullable=true, description="Sets the Value Param in the Form.")
-     *
-     *
-     * @param ParamFetcherInterface $paramFetcher
-     *
-     *
-     * @return mixed
-     */
-    public function newRateAction(ParamFetcherInterface $paramFetcher)
-    {
-        $parameters = $paramFetcher->all();
-        $settingsParameters['classname'] = 'rate';
-        return $this->get($this->handlerSerivce)->newEntity($parameters, $settingsParameters);
-    }
-
-    /**
      * Create a new Entity from the submitted data.
      *
      * @ApiDoc(
@@ -233,33 +193,4 @@ class RateController extends DimeController
         $this->container->get($this->handlerSerivce)->delete($this->getOr404($id, $this->handlerSerivce));
         return $this->view(null, Codes::HTTP_NO_CONTENT);
     }
-
-	/**
-	 * Duplicate Entity
-	 *
-	 * @ApiDoc(
-	 *  resource= true,
-	 *  section="rates",
-	 *  output = "Dime\TimetrackerBundle\Entity\Rate",
-	 *  statusCodes={
-	 *      200 = "Returned when successful",
-	 *      404 = "Returned when entity does not exist"
-	 *  }
-	 * )
-	 *
-	 *
-	 * @Annotations\Route(requirements={"_format"="json|xml"})
-	 *
-	 * @Annotations\View(
-	 * serializerEnableMaxDepthChecks=true
-	 * )
-	 *
-	 * @param $id
-	 *
-	 * @return \Dime\TimetrackerBundle\Model\DimeEntityInterface
-	 */
-	public function duplicateRateAction($id)
-	{
-		return $this->get($this->handlerSerivce)->duplicate($this->getOr404($id, $this->handlerSerivce));
-	}
 }

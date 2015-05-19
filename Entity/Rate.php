@@ -58,14 +58,6 @@ class Rate extends Entity implements DimeEntityInterface
      * @JMS\Type(name="Money")
      */
     protected $rateValue;
-
-    public static function getCopyFilters(DeepCopy $deepCopy)
-    {
-        $deepCopy = parent::getCopyFilters($deepCopy);
-        $deepCopy->addFilter(new KeepFilter(), new PropertyMatcher(self::class, 'rateGroup'));
-        $deepCopy->addFilter(new KeepFilter(), new PropertyMatcher(self::class, 'service'));
-        return $deepCopy;
-    }
 	
 
     /**
