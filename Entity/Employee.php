@@ -39,8 +39,8 @@ class Employee extends User implements DimeEntityInterface
 
 	/**
 	 * @var integer
-	 * @ORM\Column(type="integer")
-	 * @JMS\SerializedName("realTime")
+	 * ORM\Column(type="integer")
+	 * JMS\SerializedName("realTime")
 	 */
 	protected $realTime;
 
