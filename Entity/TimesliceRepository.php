@@ -1,9 +1,8 @@
 <?php
 namespace Dime\TimetrackerBundle\Entity;
 
-use Dime\TimetrackerBundle\Entity\EntityRepository;
-use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Query\ResultSetMapping;
+use Doctrine\ORM\QueryBuilder;
 
 /**
  * TimesliceRepository

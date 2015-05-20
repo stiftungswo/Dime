@@ -4,7 +4,6 @@ namespace Dime\TimetrackerBundle\Entity;
 
 use Doctrine\ORM\EntityRepository as Base;
 use Doctrine\ORM\QueryBuilder;
-use Symfony\Bridge\Monolog\Logger;
 
 /**
  * EntityRepository

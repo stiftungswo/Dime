@@ -2,8 +2,8 @@
 
 namespace Dime\TimetrackerBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use Dime\TimetrackerBundle\Model\DimeEntityInterface;
+use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as JMS;
 use Money\Money;
 

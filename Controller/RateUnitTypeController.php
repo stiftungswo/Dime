@@ -7,9 +7,9 @@
 
 namespace Dime\TimetrackerBundle\Controller;
 
-use Nelmio\ApiDocBundle\Annotation\ApiDoc;
-use FOS\RestBundle\Controller\Annotations;
 use Dime\TimetrackerBundle\Model\RateUnitType;
+use FOS\RestBundle\Controller\Annotations;
+use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class RateUnitTypeController extends DimeController

@@ -1,9 +1,9 @@
 <?php
 namespace Dime\TimetrackerBundle\Handler;
 
-use Doctrine\Common\Persistence\ObjectManager;
-use Dime\TimetrackerBundle\Model\DimeEntityInterface;
 use Dime\TimetrackerBundle\Exception\InvalidFormException;
+use Dime\TimetrackerBundle\Model\DimeEntityInterface;
+use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\DependencyInjection\Container;
 
 abstract class AbstractHandler

@@ -2,9 +2,9 @@
 
 namespace Dime\TimetrackerBundle\Form\Transformer;
 
-use Symfony\Component\Form\DataTransformerInterface;
-use Doctrine\Common\Persistence\ObjectManager;
 use Dime\TimetrackerBundle\Entity\Tag;
+use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\Form\DataTransformerInterface;
 
 class TagTransformer implements DataTransformerInterface
 {

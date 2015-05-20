@@ -2,7 +2,6 @@
 namespace Dime\TimetrackerBundle\DataFixtures\ORM;
 
 use Dime\TimetrackerBundle\Entity\Activity;
-use Dime\TimetrackerBundle\Model\ActivityReference;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;

@@ -4,9 +4,6 @@ namespace Dime\TimetrackerBundle\Entity;
 
 use Carbon\Carbon;
 use DateTime;
-use DeepCopy\DeepCopy;
-use DeepCopy\Filter\KeepFilter;
-use DeepCopy\Matcher\PropertyMatcher;
 use Dime\TimetrackerBundle\Form\Transformer\DurationTransformer;
 use Dime\TimetrackerBundle\Model\DimeEntityInterface;
 use Dime\TimetrackerBundle\Model\RateUnitType;

@@ -2,7 +2,6 @@
 
 namespace Dime\TimetrackerBundle\Entity;
 
-use Dime\TimetrackerBundle\Entity\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
 
 /**

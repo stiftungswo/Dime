@@ -7,8 +7,6 @@
 
 namespace Dime\TimetrackerBundle\Handler;
 
-
-use DeepCopy\DeepCopy;
 use Dime\TimetrackerBundle\Model\DimeEntityInterface;
 use Dime\TimetrackerBundle\Model\HandlerInterface;
 

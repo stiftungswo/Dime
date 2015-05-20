@@ -1,10 +1,6 @@
 <?php
 namespace Dime\TimetrackerBundle\Entity;
 
-use DeepCopy\DeepCopy;
-use DeepCopy\Filter\Doctrine\DoctrineCollectionFilter;
-use DeepCopy\Filter\KeepFilter;
-use DeepCopy\Matcher\PropertyMatcher;
 use Dime\TimetrackerBundle\Model\ActivityReference;
 use Dime\TimetrackerBundle\Model\DimeEntityInterface;
 use Dime\TimetrackerBundle\Model\RateUnitType;

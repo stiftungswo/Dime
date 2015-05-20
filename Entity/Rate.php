@@ -1,9 +1,6 @@
 <?php
 namespace Dime\TimetrackerBundle\Entity;
 
-use DeepCopy\DeepCopy;
-use DeepCopy\Filter\KeepFilter;
-use DeepCopy\Matcher\PropertyMatcher;
 use Dime\TimetrackerBundle\Model\DimeEntityInterface;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as JMS;

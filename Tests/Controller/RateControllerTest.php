@@ -2,8 +2,6 @@
 
 namespace Dime\TimetrackerBundle\Tests\Controller;
 
-use Dime\TimetrackerBundle\Entity\RateGroup;
-
 class RateControllerTest extends DimeTestCase
 {
     public function testAuthentification()

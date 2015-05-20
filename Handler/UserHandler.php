@@ -1,15 +1,12 @@
 <?php
 namespace Dime\TimetrackerBundle\Handler;
 
-use Dime\TimetrackerBundle\Model\HandlerInterface;
-use Dime\TimetrackerBundle\Model\DimeEntityInterface;
-use FOS\UserBundle\Model\UserInterface;
 use Dime\TimetrackerBundle\Exception\InvalidFormException;
+use Dime\TimetrackerBundle\Model\DimeEntityInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use Symfony\Component\DependencyInjection\Container;
-use Symfony\Component\Form\FormFactoryInterface;
-use Symfony\Component\Security\Core\SecurityContext;
+use FOS\UserBundle\Model\UserInterface;
 use FOS\UserBundle\Model\UserManager;
+use Symfony\Component\DependencyInjection\Container;
 
 class UserHandler extends GenericHandler
 {

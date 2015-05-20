@@ -12,8 +12,8 @@
 namespace Dime\TimetrackerBundle\Composer;
 
 use Symfony\Component\ClassLoader\ClassCollectionLoader;
-use Symfony\Component\Process\Process;
 use Symfony\Component\Process\PhpExecutableFinder;
+use Symfony\Component\Process\Process;
 
 /**
  * @author Jordi Boggiano <j.boggiano@seld.be>

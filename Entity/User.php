@@ -2,9 +2,7 @@
 namespace Dime\TimetrackerBundle\Entity;
 
 use DateTime;
-use DeepCopy\DeepCopy;
-use DeepCopy\Filter\SetNullFilter;
-use DeepCopy\Matcher\PropertyMatcher;
+use Dime\TimetrackerBundle\Annotation\DiscriminatorEntry;
 use Dime\TimetrackerBundle\Model\DimeEntityInterface;
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
@@ -13,7 +11,6 @@ use JMS\Serializer\Annotation as JMS;
 use Knp\JsonSchemaBundle\Annotations as Json;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
-use Dime\TimetrackerBundle\Annotation\DiscriminatorEntry;
 
 /**
  * Dime\TimetrackerBundle\Entity\Project

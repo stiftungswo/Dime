@@ -2,9 +2,9 @@
 
 namespace Dime\TimetrackerBundle\Tests\Controller;
 
-use Symfony\Component\BrowserKit\Cookie;
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Bundle\FrameworkBundle\Client;
+use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\BrowserKit\Cookie;
 
 class DimeTestCase extends WebTestCase
 {

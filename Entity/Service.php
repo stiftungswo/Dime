@@ -1,11 +1,6 @@
 <?php
 namespace Dime\TimetrackerBundle\Entity;
 
-use DeepCopy\DeepCopy;
-use DeepCopy\Filter\Doctrine\DoctrineCollectionFilter;
-use DeepCopy\Filter\KeepFilter;
-use DeepCopy\Filter\SetNullFilter;
-use DeepCopy\Matcher\PropertyMatcher;
 use Dime\TimetrackerBundle\Model\DefaultRateGroup;
 use Dime\TimetrackerBundle\Model\DimeEntityInterface;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -13,7 +8,6 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use JMS\Serializer\Annotation as JMS;
 use Knp\JsonSchemaBundle\Annotations as Json;
-use Swo\CommonsBundle\Filter\NewNameFilter;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**

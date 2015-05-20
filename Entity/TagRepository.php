@@ -2,9 +2,8 @@
 
 namespace Dime\TimetrackerBundle\Entity;
 
-use Dime\TimetrackerBundle\Entity\Tag;
-use Dime\TimetrackerBundle\Entity\User;
 use Doctrine\ORM\QueryBuilder;
+
 /**
  * TagRepository
  *

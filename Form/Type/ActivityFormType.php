@@ -2,7 +2,6 @@
 
 namespace Dime\TimetrackerBundle\Form\Type;
 
-use Dime\TimetrackerBundle\Form\Transformer\DurationTransformer;
 use Dime\TimetrackerBundle\Form\Transformer\ReferenceTransformer;
 use Dime\TimetrackerBundle\Model\ActivityReference;
 use Symfony\Component\Form\AbstractType;
