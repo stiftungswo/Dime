@@ -2,8 +2,6 @@
 
 namespace Dime\InvoiceBundle;
 
-use Knp\JsonSchemaBundle\DependencyInjection\Compiler\RegisterJsonSchemasPass;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 class DimeInvoiceBundle extends Bundle

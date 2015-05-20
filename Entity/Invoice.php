@@ -9,11 +9,6 @@ namespace Dime\InvoiceBundle\Entity;
 
 use Carbon\Carbon;
 use DateTime;
-use DeepCopy\DeepCopy;
-use DeepCopy\Filter\Doctrine\DoctrineCollectionFilter;
-use DeepCopy\Filter\KeepFilter;
-use DeepCopy\Filter\SetNullFilter;
-use DeepCopy\Matcher\PropertyMatcher;
 use Dime\TimetrackerBundle\Entity\Customer;
 use Dime\TimetrackerBundle\Entity\Entity;
 use Dime\TimetrackerBundle\Entity\StandardDiscount;
@@ -23,9 +18,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use JMS\Serializer\Annotation as JMS;
 use Knp\JsonSchemaBundle\Annotations as Json;
-use Swo\CommonsBundle\Filter\NewNameFilter;
-use Symfony\Component\Validator\Constraints as Assert;
 use Money\Money;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class Invoice

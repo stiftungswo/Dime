@@ -15,8 +15,6 @@ use Dime\TimetrackerBundle\Entity\Activity;
 use Dime\TimetrackerBundle\Entity\Project;
 use Dime\TimetrackerBundle\Entity\Timeslice;
 use Dime\TimetrackerBundle\Handler\GenericHandler;
-use Dime\TimetrackerBundle\Model\ActivityReference;
-use Symfony\Component\Validator\Constraints\Time;
 
 class InvoiceHandler extends GenericHandler
 {
