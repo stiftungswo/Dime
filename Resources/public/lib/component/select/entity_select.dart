@@ -29,10 +29,8 @@ class EntitySelect extends AttachAware implements ScopeAware{
     _selectedEntity = entity;
   }
 
-  attach(){
-    this.store.list(this.type).then((QueryResult result) {
-      this.entities = result.toList();
-    });
+  attach() async{
+    this.entities = (await this.store.list(this.type)).toList();
   }
 
   get selectedEntity => _selectedEntity;
@@ -45,9 +43,12 @@ class EntitySelect extends AttachAware implements ScopeAware{
     }
   }
 
-  openSelectionBox(){
-    this.open = true;
-    this.selector = '';
+  toggleSelectionBox(){
+    if(this.open){
+      this.open = false;
+    } else {
+      this.open = true;
+    }
   }
 
 }
@@ -123,6 +124,12 @@ class CustomerSelectComponent extends EntitySelect{
 )
 class OfferStatusSelectComponent extends EntitySelect{
   OfferStatusSelectComponent(DataCache store, dom.Element element): super(OfferStatusUC, store, element);
+  set selectedEntity(entity){
+    if(entity != null) {
+      selector = entity.text;
+    }
+    _selectedEntity = entity;
+  }
 }
 
 @Component(
@@ -150,13 +157,24 @@ class RateGroupSelectComponent extends EntitySelect{
     }
 )
 class RateUnitTypeSelectComponent extends EntitySelect{
-  RateUnitTypeSelectComponent(DataCache store, dom.Element element): super(RateGroup, store, element);
+  RateUnitTypeSelectComponent(DataCache store, dom.Element element): super(RateUnitType, store, element);
 
+  dynamic tmpSelector;
   set selectedEntity(entity){
-    if(entity != null) {
-      selector = entity.name;
+    if(entity == null) {
+      return;
     }
-    _selectedEntity = entity.id;
+    if(entity is String){
+      tmpSelector = entity;
+    } else {
+      selector = entity.name;
+      _selectedEntity = entity.id;
+    }
+  }
+
+  attach() async {
+    await super.attach();
+    selectedEntity = this.entities.singleWhere((i) => i.id == tmpSelector);
   }
 }
 

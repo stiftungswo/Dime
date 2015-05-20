@@ -1,8 +1,8 @@
 <div class="dropdown" ng-class="{'open': open}">
-	<input class="form-control" type="text" ng-model="selector" ng-focus="openSelectionBox()">
+	<input class="form-control" type="text" ng-model="selector" ng-click="toggleSelectionBox()" ng-focus="toggleSelectionBox()">
 	<div class="dropdown-menu">
 		<div ng-repeat="entity in entities | filter:{name: selector}">
-			<div ng-click="select(entity)">{{entity.name}}</div>
+			<div ng-click="select(entity)">{{entity.text}}</div>
 		</div>
 	</div>
 </div>

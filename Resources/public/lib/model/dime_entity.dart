@@ -78,6 +78,9 @@ class Entity{
         var newval = val.newObj();
         newval.id = val.id;
         ent.Set(field, newval);
+      } else if (val is RateUnitType){
+        // In the case of RateUnitType the Response needs to only contain the id
+        ent.Set(field, val.id);
       } else {
         //Entities not inheriting from Entity (Subentities) have to have id removed otherwise the backend throws an error
         try {
@@ -746,7 +749,7 @@ class OfferPosition extends Entity{
   int amount;
   String rateValue;
   String rateUnit;
-  String rateUnitType;
+  dynamic rateUnitType;
   double vat;
   bool discountable;
 }
@@ -1505,7 +1508,7 @@ class Activity extends Entity{
   String description;
   String rateValue;
   String rateUnit;
-  String rateUnitType;
+  dynamic rateUnitType;
   List<Timeslice> timeslices = [];
 }
 
@@ -2026,7 +2029,7 @@ class Rate extends Entity{
   String type = 'rates';
   String rateValue;
   String rateUnit;
-  String rateUnitType;
+  dynamic rateUnitType;
   RateGroup rateGroup;
   Service service;
 }
@@ -2081,7 +2084,7 @@ class RateGroup extends Entity{
 }
 
 class RateUnitType{
-  String id;
+  dynamic id;
   String name;
   String type = 'rateunittypes';
   RateUnitType();

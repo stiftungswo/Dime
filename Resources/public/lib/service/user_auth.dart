@@ -6,6 +6,7 @@ import 'package:hammock/hammock.dart';
 import 'package:crypto/crypto.dart';
 import 'dart:html';
 import 'dart:convert';
+import 'dart:async';
 import 'package:DimeClient/service/setting_manager.dart';
 import 'package:DimeClient/service/user_context.dart';
 
@@ -35,12 +36,11 @@ class UserAuthProvider{
 
   UserAuthProvider(this.store, this.headers, this.manager, this.context);
 
-  loadUserData(){
-    this.store.customQueryOne(Employee, new CustomRequestParams(method: 'GET', url: '/api/v1/employees/current')).then((Employee result){
+  Future loadUserData(){
+    return this.store.customQueryOne(Employee, new CustomRequestParams(method: 'GET', url: '/api/v1/employees/current')).then((Employee result){
       this.context.switchContext(result);
       manager.loadUserSettings(result.id);
-    }, onError: (_){
-
+      return result;
     });
   }
 
@@ -49,7 +49,7 @@ class UserAuthProvider{
     return 'Basic $auth';
   }
 
-  void login([String username, String password, bool save = false]){
+  Future login([String username, String password, bool save = false]) {
     if(isAuthSaved){
       authHeader = authToken;
     } else {
@@ -63,6 +63,7 @@ class UserAuthProvider{
         throw new Exception();
       }
     }
-    loadUserData();
+    manager.loadSystemSettings();
+    return loadUserData();
   }
 }

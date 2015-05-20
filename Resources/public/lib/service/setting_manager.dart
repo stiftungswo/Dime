@@ -15,9 +15,7 @@ class SettingsManager{
   int _currentUserId;
   List<Setting> toCreate;
   bool allowCreate = false;
-  SettingsManager(this.store, this.context){
-    this.loadSystemSettings();
-  }
+  SettingsManager(this.store, this.context);
 
   loadUserSettings([int userId]){
     if(userId == null){
