@@ -8,9 +8,9 @@
 namespace Dime\EmployeeBundle\Entity;
 
 
+use Carbon\Carbon;
 use Dime\TimetrackerBundle\Entity\Entity;
 use Dime\TimetrackerBundle\Model\DimeEntityInterface;
-use Carbon\Carbon;
 use JMS\Serializer\Annotation as JMS;
 
 abstract class Period extends Entity implements DimeEntityInterface

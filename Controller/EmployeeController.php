@@ -3,14 +3,14 @@ namespace Dime\EmployeeBundle\Controller;
 
 use Dime\TimetrackerBundle\Controller\DimeController;
 use Dime\TimetrackerBundle\Exception\InvalidFormException;
-use FOS\RestBundle\View\View;
-use Symfony\Component\Form\FormTypeInterface;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use FOS\RestBundle\Request\ParamFetcherInterface;
-use Symfony\Component\HttpFoundation\Request;
-use FOS\RestBundle\Util\Codes;
-use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use FOS\RestBundle\Controller\Annotations;
+use FOS\RestBundle\Request\ParamFetcherInterface;
+use FOS\RestBundle\Util\Codes;
+use FOS\RestBundle\View\View;
+use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use Symfony\Component\Form\FormTypeInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class EmployeeController extends DimeController
 {

@@ -7,9 +7,9 @@
 
 namespace Dime\EmployeeBundle\Entity;
 
+use Carbon\Carbon;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
-use Carbon\Carbon;
 
 /**
  * Class WorkingPeriod

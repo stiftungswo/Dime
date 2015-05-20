@@ -2,12 +2,10 @@
 
 namespace Dime\TimetrackerBundle\Form\Type;
 
+use Dime\TimetrackerBundle\Form\Transformer\PasswordCryptTransformer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Doctrine\ORM\EntityManager;
-use Dime\TimetrackerBundle\Form\Transformer\PasswordCryptTransformer;
-use FOS\UserBundle\Model\UserManagerInterface;
 
 class EmployeeFormType extends AbstractType
 {   

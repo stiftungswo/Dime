@@ -1,16 +1,16 @@
 <?php
 namespace Dime\EmployeeBundle\Entity;
 
+use Dime\TimetrackerBundle\Annotation\DiscriminatorEntry;
 use Dime\TimetrackerBundle\Entity\Timeslice;
+use Dime\TimetrackerBundle\Entity\User;
+use Dime\TimetrackerBundle\Model\DimeEntityInterface;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
-use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation as JMS;
-use Doctrine\Common\Collections\ArrayCollection;
-use Dime\TimetrackerBundle\Model\DimeEntityInterface;
 use Knp\JsonSchemaBundle\Annotations as Json;
-use Dime\TimetrackerBundle\Annotation\DiscriminatorEntry;
-use Dime\TimetrackerBundle\Entity\User;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Dime\EmployeeBundle\Entity\Employee
