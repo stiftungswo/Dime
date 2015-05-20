@@ -17,11 +17,6 @@ DimeTimetrackerBundle:
     prefix: /api
     resource: "@DimeTimetrackerBundle/Resources/config/routing.yml"
 
-DimeReportBundle:
-    type: rest
-    prefix: /api
-    resource: "@DimeReportBundle/Resources/config/routing.yml"
-
 DimeEmployeeBundle:
     type: rest
     prefix: /api
