@@ -1,6 +1,7 @@
 <table class="table table-bordered table-hover">
   <thead>
     <tr>
+	    <td>Bezeichnung</td>
 		<td>Tarif</td>
 	    <td>Tarif Einheit</td>
 	    <td>Menge</td>
@@ -10,10 +11,11 @@
   </thead>
   <tbody>
     <tr ng-repeat="entity in entities" ng-click="selectEntity(entity.id)" ng-class="isSelected(entity)? 'info': ''">
-	    <td><input class="form-control" type="text" ng-model="entity.rateValue" on-change="addSaveField('rateValue', entity)"/></td>
-	    <td><input class="form-control" type="text" ng-model="entity.rateUnit" on-change="addSaveField('rateUnit', entity)"/></td>
-	    <td><input class="form-control" type="text" ng-model="entity.amount" on-change="addSaveField('amount', entity)"/></td>
-	    <td><input-percentage htmlclass="'form-control'" value="entity.vat" on-change="addSaveField('vat', entity)"></input-percentage></td>
+	    <td><input class="form-control" type="text" ng-model="entity.name" ng-change="addSaveField('name', entity)"/></td>
+	    <td><input class="form-control" type="text" ng-model="entity.rateValue" ng-change="addSaveField('rateValue', entity)"/></td>
+	    <td><input class="form-control" type="text" ng-model="entity.rateUnit" ng-change="addSaveField('rateUnit', entity)"/></td>
+	    <td><input class="form-control" type="text" ng-model="entity.amount" ng-change="addSaveField('amount', entity)"/></td>
+	    <td><input-percentage htmlclass="'form-control'" value="entity.vat" ng-change="addSaveField('vat', entity)"></input-percentage></td>
 	    <td>{{entity.total}}</td>
     </tr>
   </tbody>

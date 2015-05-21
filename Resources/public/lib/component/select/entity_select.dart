@@ -164,7 +164,7 @@ class RateUnitTypeSelectComponent extends EntitySelect{
     if(entity == null) {
       return;
     }
-    if(entity is String){
+    if(entity is String || entity is int){
       tmpSelector = entity;
     } else {
       selector = entity.name;

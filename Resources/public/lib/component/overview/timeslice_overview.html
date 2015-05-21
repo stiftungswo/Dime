@@ -20,9 +20,9 @@
 	<tbody>
 	<tr ng-repeat="entity in entities | timeslicedatefilter: filterStartDate:filterEndDate | orderBy:'startedAt'" ng-click="selectEntity(entity.id)" ng-class="isSelected(entity)? 'info': ''">
 		<td><activity-select activity="entity.activity" project="entity.project.id" callback="entity.addFieldtoUpdate(name)" field="'activity'"></activity-select></td>
-		<td><input style="width: 100%;" type="date" class="form-control" ng-model="entity.startedAt" on-change="addSaveField('startedAt', entity)"/></td>
-		<td><input style="width: 100%;" type="date" class="form-control" ng-model="entity.stoppedAt" on-change="addSaveField('stoppedAt', entity)"/></td>
-		<td><input style="width: 100%;" class="form-control" ng-model="entity.value" on-change="addSaveField('value', entity)"/></td>
+		<td><input style="width: 100%;" type="date" class="form-control" ng-model="entity.startedAt" ng-change="addSaveField('startedAt', entity)"/></td>
+		<td><input style="width: 100%;" type="date" class="form-control" ng-model="entity.stoppedAt" ng-change="addSaveField('stoppedAt', entity)"/></td>
+		<td><input style="width: 100%;" class="form-control" ng-model="entity.value" ng-change="addSaveField('value', entity)"/></td>
 	</tr>
 	</tbody>
 </table>

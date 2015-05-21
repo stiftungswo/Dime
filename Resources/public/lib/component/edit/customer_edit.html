@@ -2,37 +2,37 @@
 	<div class="form-group DimePanel">
 		<div class="row">
 			<label class="col-sm-2 control-label">Name</label>
-			<input class="form-control" type="text" ng-model="entity.name" on-change="addSaveField('name')">
+			<input class="form-control" type="text" ng-model="entity.name" ng-change="addSaveField('name')">
 		</div>
 		<div class="row">
 			<label class="col-sm-2 control-label">Firma</label>
-			<input class="form-control" type="text" ng-model="entity.company" on-change="addSaveField('company')">
+			<input class="form-control" type="text" ng-model="entity.company" ng-change="addSaveField('company')">
 		</div>
 		<div class="row">
 			<label class="col-sm-2 control-label">Abteilung</label>
-			<input class="form-control" type="text" ng-model="entity.department" on-change="addSaveField('department')">
+			<input class="form-control" type="text" ng-model="entity.department" ng-change="addSaveField('department')">
 		</div>
 		<div class="row">
 			<label class="col-sm-2 control-label">Anrede</label>
-			<input class="form-control" type="text" ng-model="entity.salutation" on-change="addSaveField('salutation')">
+			<input class="form-control" type="text" ng-model="entity.salutation" ng-change="addSaveField('salutation')">
 		</div>
 		<div class="row">
 			<label class="col-sm-2 control-label">Name</label>
-			<input class="form-control" type="text" ng-model="entity.fullname" on-change="addSaveField('fullname')">
+			<input class="form-control" type="text" ng-model="entity.fullname" ng-change="addSaveField('fullname')">
 		</div>
 		<div class="row">
 			<label class="col-sm-2 control-label">Tarif Gruppe</label>
-			<select class="form-control" model="entity.rateGroup" on-change="addSaveField('rateGroup')">
+			<select class="form-control" model="entity.rateGroup" ng-change="addSaveField('rateGroup')">
 				<option ng-repeat="rateGroup in rateGroups" ng-value="rateGroup" ng-selected="rateGroup.id == entity.rateGroup.id">{{rateGroup.name}}</option>
 			</select>
 		</div>
 		<div class="row">
 			<label class="col-sm-2 control-label">Verechenbar</label>
-			<input class="form-control checkbox" type="checkbox" ng-model="entity.chargeable" on-change="addSaveField('chargeable')"/>
+			<input class="form-control checkbox" type="checkbox" ng-model="entity.chargeable" ng-change="addSaveField('chargeable')"/>
 		</div>
 		<div class="row">
 			<label class="col-sm-2 control-label">Addresse</label>
-			<address-edit address="entity.address"  on-change="addSaveField('address')"></address-edit>
+			<address-edit address="entity.address"  ng-change="addSaveField('address')"></address-edit>
 		</div>
 	</div>
 </div>

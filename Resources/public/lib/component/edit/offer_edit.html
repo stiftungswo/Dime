@@ -1,6 +1,6 @@
 <div class="form-inline container-fluid">
 	<div class="form-group DimePanel">
-		<div class="row"><label class="col-sm-2 control-label">Name</label><input class="form-control" type="text" ng-model="entity.name" on-change="addSaveField('name')"></div>
+		<div class="row"><label class="col-sm-2 control-label">Name</label><input class="form-control" type="text" ng-model="entity.name" ng-change="addSaveField('name')"></div>
 		<div class="row">
 			<label class="col-sm-2 control-label">Kunde</label>
 			<customer-select customer="entity.customer" callback="entity.addFieldtoUpdate(name)" field="'customer'"></customer-select>
@@ -13,20 +13,20 @@
 	<div class="form-group DimePanel">
 		<div class="row">
 			<label class="col-sm-2 control-label">Verantwortlicher Mitarbeiter</label>
-			<select class="form-control" model="entity.user" on-change="addSaveField('user')">
+			<select class="form-control" model="entity.user" ng-change="addSaveField('user')">
 				<option ng-repeat="user in users" ng-value="user" ng-selected="user.id == entity.user.id">{{user.fullname}}</option>
 			</select>
 		</div>
 		<div class="row"><label class="col-sm-2 control-label">Gültig bis</label><input class="form-control" type="date" ng-model="entity.validTo"></div>
 		<div class="row">
 			<label class="col-sm-2 control-label">Tarif</label>
-			<select class="form-control" model="entity.rateGroup" on-change="addSaveField('rateGroup')">
+			<select class="form-control" model="entity.rateGroup" ng-change="addSaveField('rateGroup')">
 				<option ng-repeat="rateGroup in rateGroups" ng-value="rateGroup" ng-selected="rateGroup.id == entity.rateGroup.id">{{rateGroup.name}}</option>
 			</select>
 		</div>
 		<div class="row">
 			<label class="col-sm-2 control-label">Addresse</label>
-			<address-edit address="entity.address"  on-change="addSaveField('address')"></address-edit>
+			<address-edit address="entity.address"  ng-change="addSaveField('address')"></address-edit>
 		</div>
 	</div>
 	<div class="form-group DimePanel">
@@ -34,13 +34,13 @@
 			<label class="col-sm-2 control-label">Kurzbeschreibung</label>
 		</div>
 		<div class="row">
-			<textarea class="form-control col-sm-12" ng-model="entity.shortDescription" on-change="addSaveField('shortDescription')" style="margin-left: 20px;"></textarea>
+			<textarea class="form-control col-sm-12" ng-model="entity.shortDescription" ng-change="addSaveField('shortDescription')" style="margin-left: 20px;"></textarea>
 		</div>
 		<div class="row">
 			<label class="col-sm-2 control-label">Beschreibung</label>
 		</div>
 		<div class="row">
-			<textarea class="form-control col-sm-12" ng-model="entity.description" on-change="addSaveField('description')" style="margin-left: 20px;"></textarea>
+			<textarea class="form-control col-sm-12" ng-model="entity.description" ng-change="addSaveField('description')" style="margin-left: 20px;"></textarea>
 		</div>
 	</div>
 	<div class="DimePanel">
@@ -55,7 +55,7 @@
 		<div class="row"><label class="col-sm-3 control-label">Davon Mwst.</label><div>{{entity.totalVAT}}</div></div>
 		<div class="row"><label class="col-sm-3 control-label">Total Abzüge</label><div>{{entity.totalDiscounts}}</div></div>
 		<div class="row"><label class="col-sm-3 control-label">Total</label><div>{{entity.total}}</div></div>
-		<div class="row"><label class="col-sm-2 control-label">Fixpreis</label><input class="form-control" type="text" ng-model="entity.fixedPrice" on-change="addSaveField('fixedPrice')"></div>
+		<div class="row"><label class="col-sm-2 control-label">Fixpreis</label><input class="form-control" type="text" ng-model="entity.fixedPrice" ng-change="addSaveField('fixedPrice')"></div>
 	</div>
 </div>
 <div class="DimeControllButtons">
