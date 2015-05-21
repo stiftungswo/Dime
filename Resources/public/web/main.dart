@@ -1,4 +1,4 @@
-// Copyright (c) 2015, <your name>. All rights reserved. Use of this source code
+// Copyright (c) 2015, Till Wegmüller. All rights reserved. Use of this source code
 // is governed by a BSD-style license that can be found in the LICENSE file.
 
 import 'package:angular/angular.dart';
@@ -23,6 +23,7 @@ import 'package:DimeClient/component/setting/setting.dart';
 import 'package:DimeClient/service/setting_manager.dart';
 import 'package:DimeClient/service/data_cache.dart';
 import 'package:DimeClient/service/user_context.dart';
+import 'package:DimeClient/component/date/dateToTextInput.dart';
 
 class AppModule extends Module {
   AppModule() {
@@ -66,6 +67,7 @@ class AppModule extends Module {
     bind(RateUnitTypeSelectComponent);
     bind(UserSelectComponent);
     bind(UserContext);
+    bind(DateToTextInput);
     install(new Hammock());
     bind(RouteInitializerFn, toValue: dimeRouteInitializer);
     bind(HammockConfig, toFactory: createHammockConfig, inject: [Injector]);

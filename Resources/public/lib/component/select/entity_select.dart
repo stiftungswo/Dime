@@ -45,9 +45,25 @@ class EntitySelect extends AttachAware implements ScopeAware{
 
   toggleSelectionBox(){
     if(this.open){
-      this.open = false;
+      this.closeSelectionBox();
     } else {
+      this.openSelectionBox();
+    }
+  }
+
+  openSelectionBox(){
+    if(!this.open){
+      this.selector = '';
       this.open = true;
+    }
+  }
+
+  get EntText => _selectedEntity.name;
+
+  closeSelectionBox(){
+    if(this.open){
+      this.selector = EntText;
+      this.open = false;
     }
   }
 
@@ -130,6 +146,7 @@ class OfferStatusSelectComponent extends EntitySelect{
     }
     _selectedEntity = entity;
   }
+  get EntText => _selectedEntity.text;
 }
 
 @Component(
@@ -172,6 +189,8 @@ class RateUnitTypeSelectComponent extends EntitySelect{
     }
   }
 
+  get EntText => _selectedEntity;
+
   attach() async {
     await super.attach();
     selectedEntity = this.entities.singleWhere((i) => i.id == tmpSelector);
@@ -203,6 +222,8 @@ class UserSelectComponent extends EntitySelect{
     }
     _selectedEntity = entity;
   }
+
+  get EntText => _selectedEntity.fullname;
 
   attach(){
     super.attach();
