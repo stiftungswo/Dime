@@ -4,6 +4,7 @@ import 'package:angular/angular.dart';
 import 'package:hammock/hammock.dart';
 import 'package:DimeClient/model/dime_entity.dart';
 import 'package:DimeClient/service/data_cache.dart';
+import 'package:DimeClient/service/status.dart';
 import 'dart:html';
 
 class EntityEdit extends AttachAware implements ScopeAware{
@@ -14,10 +15,9 @@ class EntityEdit extends AttachAware implements ScopeAware{
 
   DataCache store;
 
-  dynamic entity;
+  StatusService statusservice;
 
-  String loadState = 'default';
-  String saveState = 'default';
+  dynamic entity;
 
   RootScope rootScope;
 
@@ -27,7 +27,7 @@ class EntityEdit extends AttachAware implements ScopeAware{
 
   EntityEdit.Child(this.entType);
 
-  EntityEdit(RouteProvider routeProvider, this.store, this.entType){
+  EntityEdit(RouteProvider routeProvider, this.store, this.entType, this.statusservice){
     _entId = routeProvider.parameters['id'];
   }
 
@@ -35,28 +35,30 @@ class EntityEdit extends AttachAware implements ScopeAware{
     reload();
   }
 
-  reload(){
-    this.store.one(this.entType, this._entId).then((result){
-      this.entity = result;
-      this.loadState = 'success';
-    }, onError:(_) {
-      this.loadState = 'error';
-    });
+  reload() async{
+    this.statusservice.setStatusToLoading();
+    try {
+      this.entity = (await this.store.one(this.entType, this._entId));
+      this.statusservice.setStatusToSuccess();
+    } catch (e){
+      this.statusservice.setStatusToError();
+    }
   }
 
   addSaveField(String name){
     this.entity.addFieldtoUpdate(name);
   }
 
-  saveEntity(){
+  saveEntity() async{
     rootScope.emit('saveChanges');
     if(this.entity.needsUpdate) {
-      store.update(this.entity.toSaveObj()).then((result) {
-        this.saveState = 'success';
-        this.entity = result;
-      }, onError:(_) {
-        this.saveState = 'error';
-      });
+      this.statusservice.setStatusToLoading();
+      try {
+        this.entity = (await store.update(this.entity.toSaveObj()));
+        this.statusservice.setStatusToSuccess();
+      } catch (e){
+        this.statusservice.setStatusToError();
+      }
     } else {
       this.reload();
     }
@@ -75,21 +77,24 @@ class ProjectEditComponent extends EntityEdit{
 
   Router router;
 
-  ProjectEditComponent(RouteProvider routeProvider, DataCache store, this.router): super(routeProvider, store, Project);
+  ProjectEditComponent(RouteProvider routeProvider, DataCache store, this.router, StatusService status): super(routeProvider, store, Project, status);
   attach(){
-    this.store.list(Customer).then((QueryResult result){
-      this.customers = result.toList();
-    });
-    this.store.list(RateGroup).then((QueryResult result){
-      this.rateGroups = result.toList();
-    });
+    loadRateGroups();
+    loadCustomers();
     reload();
   }
 
-  openInvoice(){
-    this.store.customQueryOne(Invoice, new CustomRequestParams(method: 'GET', url: '/api/v1/invoices/project/${this.entity.id}')).then((invoice){
-      router.go('invoice_edit', {'id': invoice.id});
-    });
+  loadCustomers() async{
+    this.customers = (await this.store.list(Customer)).toList();
+  }
+
+  loadRateGroups() async{
+    this.rateGroups = (await this.store.list(RateGroup)).toList();
+  }
+
+  openInvoice() async{
+    var invoice = (await this.store.customQueryOne(Invoice, new CustomRequestParams(method: 'GET', url: '/api/v1/invoices/project/${this.entity.id}')));
+    router.go('invoice_edit', {'id': invoice.id});
   }
 }
 
@@ -109,27 +114,34 @@ class OfferEditComponent extends EntityEdit{
 
   Router router;
 
-  OfferEditComponent(RouteProvider routeProvider, DataCache store, this.router): super(routeProvider, store, Offer);
+  OfferEditComponent(RouteProvider routeProvider, DataCache store, this.router, StatusService status): super(routeProvider, store, Offer, status);
   attach(){
-    this.store.list(Customer).then((QueryResult result){
-      this.customers = result.toList();
-    });
-    this.store.list(RateGroup).then((QueryResult result){
-      this.rateGroups = result.toList();
-    });
-    this.store.list(OfferStatusUC).then((QueryResult result){
-      this.states = result.toList();
-    });
-    this.store.list(Employee).then((QueryResult result){
-      this.users = result.toList();
-    });
+    loadRateGroups();
+    loadOfferStates();
+    loadUsers();
+    loadCustomers();
     reload();
   }
 
-  openProject(){
-    this.store.customQueryOne(Project, new CustomRequestParams(method: 'GET', url: '/api/v1/projects/offer/${this.entity.id}')).then((project){
-      router.go('project_edit', {'id': project.id});
-    });
+  loadCustomers() async{
+    this.customers = (await this.store.list(Customer)).toList();
+  }
+
+  loadRateGroups() async{
+    this.rateGroups = (await this.store.list(RateGroup)).toList();
+  }
+
+  loadOfferStates() async {
+    this.states = (await this.store.list(OfferStatusUC)).toList();
+  }
+
+  loadUsers() async{
+    this.users = (await this.store.list(Employee)).toList();
+  }
+
+  openProject() async{
+    var project = (await this.store.customQueryOne(Project, new CustomRequestParams(method: 'GET', url: '/api/v1/projects/offer/${this.entity.id}')));
+    router.go('project_edit', {'id': project.id});
   }
 
   printOffer(){
@@ -143,16 +155,20 @@ class OfferEditComponent extends EntityEdit{
     useShadowDom: false
 )
 class InvoiceEditComponent extends EntityEdit{
-  InvoiceEditComponent(RouteProvider routeProvider, DataCache store): super(routeProvider, store, Invoice);
+  InvoiceEditComponent(RouteProvider routeProvider, DataCache store, StatusService status): super(routeProvider, store, Invoice, status);
 
   printInvoice(){
     window.open('/api/v1/invoices/${this.entity.id}/print', 'Invoice Print');
   }
 
-  updateInvoicefromProject(){
-    this.store.customQueryOne(Invoice, new CustomRequestParams(method: 'GET', url: '/api/v1/invoices/${this.entity.id}/update')).then((invoice){
-      this.entity = invoice;
-    });
+  updateInvoicefromProject() async{
+    this.statusservice.setStatusToLoading();
+    try {
+      this.entity = (await this.store.customQueryOne(Invoice, new CustomRequestParams(method: 'GET', url: '/api/v1/invoices/${this.entity.id}/update')));
+      this.statusservice.setStatusToSuccess();
+    } catch (e){
+      this.statusservice.setStatusToError();
+    }
   }
 }
 
@@ -165,12 +181,14 @@ class CustomerEditComponent extends EntityEdit{
 
   List<RateGroup> rateGroups;
 
-  CustomerEditComponent(RouteProvider routeProvider, DataCache store): super(routeProvider, store, Customer);
+  CustomerEditComponent(RouteProvider routeProvider, DataCache store, StatusService status): super(routeProvider, store, Customer, status);
   attach(){
-    this.store.list(RateGroup).then((QueryResult result){
-      this.rateGroups = result.toList();
-    });
+    loadRateGroups();
     reload();
+  }
+
+  loadRateGroups() async{
+    this.rateGroups = (await this.store.list(RateGroup)).toList();
   }
 }
 
@@ -197,5 +215,5 @@ class AddressEditComponent extends EntityEdit{
     useShadowDom: false
 )
 class ServiceEditComponent extends EntityEdit{
-  ServiceEditComponent(RouteProvider routeProvider, DataCache store): super(routeProvider, store, Service);
+  ServiceEditComponent(RouteProvider routeProvider, DataCache store, StatusService status): super(routeProvider, store, Service, status);
 }

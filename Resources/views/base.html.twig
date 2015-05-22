@@ -32,21 +32,22 @@
 	<!-- Optional bootstrap theme CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 	<!-- angular ui CSS -->
-	<link rel="stylesheet" href="{{ asset('bundles/dimefrontend/build/web/packages/angular_ui/css/angular.css')}}">
+	<link rel="stylesheet" href="{{ asset('bundles/dimefrontend/web/packages/angular_ui/css/angular.css')}}">
 
-	<link rel="stylesheet" href="{{ asset('bundles/dimefrontend/build/web/styles/main.css') }}">
+	<link rel="stylesheet" href="{{ asset('bundles/dimefrontend/web/styles/main.css') }}">
 </head>
 
 <body ng-cloak>
 <div class="navbar">
-	<h1 class="page-title">DimeERP</h1>
+	<h1 class="page-title col-md-4">DimeERP</h1>
+	<statusbar></statusbar>
 </div>
 <main>
 	<main-menu></main-menu>
 	<maintabset></maintabset>
 </main>
 
-<script type="text/javascript" src="{{ asset('bundles/dimefrontend/build/web/main.dart.js') }}"></script>
-<script type="text/javascript" src="{{ asset('bundles/dimefrontend/build/web/packages/browser/dart.js') }}"></script>
+<script type="application/dart" src="{{ asset('bundles/dimefrontend/web/main.dart') }}"></script>
+<script type="text/javascript" src="{{ asset('bundles/dimefrontend/web/packages/browser/dart.js') }}"></script>
 </body>
 </html>

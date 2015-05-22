@@ -24,6 +24,8 @@ import 'package:DimeClient/service/setting_manager.dart';
 import 'package:DimeClient/service/data_cache.dart';
 import 'package:DimeClient/service/user_context.dart';
 import 'package:DimeClient/component/date/dateToTextInput.dart';
+import 'package:DimeClient/service/status.dart';
+import 'package:DimeClient/component/statusbar/statusbar.dart';
 
 class AppModule extends Module {
   AppModule() {
@@ -68,6 +70,8 @@ class AppModule extends Module {
     bind(UserSelectComponent);
     bind(UserContext);
     bind(DateToTextInput);
+    bind(StatusService);
+    bind(StatusBarComponent);
     install(new Hammock());
     bind(RouteInitializerFn, toValue: dimeRouteInitializer);
     bind(HammockConfig, toFactory: createHammockConfig, inject: [Injector]);

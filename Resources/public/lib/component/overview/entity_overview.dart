@@ -6,6 +6,7 @@ import 'package:DimeClient/model/dime_entity.dart';
 import 'package:DimeClient/service/setting_manager.dart';
 import 'package:DimeClient/service/data_cache.dart';
 import 'package:DimeClient/service/user_context.dart';
+import 'package:DimeClient/service/status.dart';
 
 class EntityOverview extends AttachAware implements ScopeAware{
 
@@ -21,13 +22,9 @@ class EntityOverview extends AttachAware implements ScopeAware{
 
   Router router;
 
-  int saveCounter = 0;
-  int errorCounter = 0;
+  StatusService statusservice;
 
   RootScope rootScope;
-
-  String loadState = 'default';
-  String saveState = 'default';
 
   String routename;
 
@@ -44,48 +41,26 @@ class EntityOverview extends AttachAware implements ScopeAware{
 
   set scope(Scope scope){
     this.rootScope = scope.rootScope;
-    this.rootScope.on('saveChanges').listen(saveCallback);
+    this.rootScope.on('saveChanges').listen(saveAllEntities);
   }
 
-  void saveCallback(ScopeEvent e) {
-    this.saveAllEntities(emit: false);
-  }
-
-  void saveAllEntities({emit: true}){
-    if(emit) {
-      rootScope.emit('saveChanges');
-    }
-    this.saveCounter = 0;
+  void saveAllEntities([ScopeEvent e]){
     for(Entity entity in entities){
       if(entity.needsUpdate){
-        this.saveCounter += 1;
         this.saveEntity(entity);
       }
     }
   }
 
-  saveEntity(Entity entity){
-    store.update(entity.toSaveObj()).then((Entity resp){
+  saveEntity(Entity entity) async{
+    this.statusservice.setStatusToLoading();
+    try {
+      Entity resp = await store.update(entity.toSaveObj());
       this.entities.removeWhere((enty) => enty.id == resp.id);
       this.entities.add(resp);
-      this.saveCounter -= 1;
-      if(this.saveCounter == 0){
-        this.handleSaveFinish();
-      }
-    }, onError:(_) {
-      this.saveCounter -= 1;
-      this.errorCounter += 1;
-      if(this.saveCounter == 0){
-        this.handleSaveFinish();
-      }
-    });
-  }
-
-  handleSaveFinish(){
-    if(this.errorCounter>0){
-      this.saveState = 'error';
-    } else {
-      this.saveState = 'success';
+      this.statusservice.setStatusToSuccess();
+    } catch (e) {
+      this.statusservice.setStatusToError();
     }
   }
   
@@ -99,20 +74,23 @@ class EntityOverview extends AttachAware implements ScopeAware{
     return false;
   }
 
-  createEntity({var newEnt, Map<String,dynamic> params}){
+  createEntity({var newEnt, Map<String,dynamic> params}) async{
+    this.statusservice.setStatusToLoading();
     if(newEnt == null){
       newEnt = this.cEnt();
       newEnt.init(params: params);
     }
-    this.store.create(newEnt).then((Entity resp){
-      if(this.router != null) {
+    try {
+      Entity resp = await this.store.create(newEnt);
+      this.statusservice.setStatusToSuccess();
+      if (this.router != null) {
         this.openEditView(resp.id);
       } else {
         this.entities.add(resp);
       }
-    }, onError: (_){
-
-    });
+    } catch (e){
+      this.statusservice.setStatusToError();
+    }
   }
 
   cEnt({Entity entity}){
@@ -122,36 +100,42 @@ class EntityOverview extends AttachAware implements ScopeAware{
     return new Entity();
   }
 
-  duplicateEntity(){
+  duplicateEntity() async{
     var ent = this.selectedEntity;
     if(ent != null){
+      this.statusservice.setStatusToLoading();
       var newEnt = this.cEnt(entity: ent);
-      this.store.create(newEnt).then((result){
-        if(needsmanualAdd) {
+      try {
+        var result = await this.store.create(newEnt);
+        if (needsmanualAdd) {
           this.entities.add(result);
         }
         result.cloneDescendants(ent);
-        for(var entity in result.descendantsToUpdate){
-          this.store.create(entity);
+        for (var entity in result.descendantsToUpdate) {
+          await this.store.create(entity);
         }
-      });
+        this.statusservice.setStatusToSuccess();
+      } catch (e){
+        this.statusservice.setStatusToError();
+      }
     }
   }
 
-  deleteEntity([int entId]){
+  deleteEntity([int entId]) async{
     if(entId == null){
       entId = this.selectedEntId;
     }
     if(entId != null) {
-      if(this.store != null) {
-        var ent = this.entities.singleWhere((enty) => enty.id == entId);
-        this.store.delete(ent.toSaveObj()).then((CommandResponse resp) {
-          this.entities.removeWhere((enty) => enty.id == entId);
-        }, onError: (_) {
-
-        });
-      } else {
+      this.statusservice.setStatusToLoading();
+      try{
+        if(this.store != null) {
+          var ent = this.entities.singleWhere((enty) => enty.id == entId);
+          CommandResponse resp = await this.store.delete(ent.toSaveObj());
+        }
         this.entities.removeWhere((enty) => enty.id == entId);
+        this.statusservice.setStatusToSuccess();
+      } catch (e){
+        this.statusservice.setStatusToError();
       }
     }
   }
@@ -171,18 +155,22 @@ class EntityOverview extends AttachAware implements ScopeAware{
     reload();
   }
 
-  reload({Map<String,dynamic> params}){
+  reload({Map<String,dynamic> params}) async{
     this.entities = [];
-    this.store.list(this.type, params: params).then((QueryResult result) {
-      this.entities = result.toList();
-    });
+    this.statusservice.setStatusToLoading();
+    try {
+      this.entities = (await this.store.list(this.type, params: params)).toList();
+      this.statusservice.setStatusToSuccess();
+    } catch(e){
+      this.statusservice.setStatusToError();
+    }
   }
 
   addSaveField(String name, Entity entity){
     entity.addFieldtoUpdate(name);
   }
 
-  EntityOverview(this.type, this.store, this.routename, this.settingsManager, {this.router});
+  EntityOverview(this.type, this.store, this.routename, this.settingsManager, this.statusservice, {this.router});
 }
 
 @Component(
@@ -191,7 +179,7 @@ class EntityOverview extends AttachAware implements ScopeAware{
     useShadowDom: false
 )
 class ProjectOverviewComponent extends EntityOverview{
-  ProjectOverviewComponent(DataCache store, Router router, SettingsManager manager): super(Project, store, 'project_edit', manager, router: router);
+  ProjectOverviewComponent(DataCache store, Router router, SettingsManager manager, StatusService status): super(Project, store, 'project_edit', manager, status, router: router);
   cEnt({Project entity}){
     if(entity !=null){
       return new Project.clone(entity);
@@ -206,7 +194,7 @@ class ProjectOverviewComponent extends EntityOverview{
     useShadowDom: false
 )
 class CustomerOverviewComponent extends EntityOverview{
-  CustomerOverviewComponent(DataCache store, Router router, SettingsManager manager): super(Customer, store, 'customer_edit', manager, router: router);
+  CustomerOverviewComponent(DataCache store, Router router, SettingsManager manager, StatusService status): super(Customer, store, 'customer_edit', manager, status, router: router);
   cEnt({Customer entity}){
     if(entity !=null){
       return new Customer.clone(entity);
@@ -221,7 +209,7 @@ class CustomerOverviewComponent extends EntityOverview{
     useShadowDom: false
 )
 class OfferOverviewComponent extends EntityOverview{
-  OfferOverviewComponent(DataCache store, Router router, SettingsManager manager): super(Offer, store, 'offer_edit', manager, router: router);
+  OfferOverviewComponent(DataCache store, Router router, SettingsManager manager, StatusService status): super(Offer, store, 'offer_edit', manager, status, router: router);
   cEnt({Offer entity}){
     if(entity !=null){
       return new Offer.clone(entity);
@@ -239,7 +227,7 @@ class OfferOverviewComponent extends EntityOverview{
     }
 )
 class OfferPositionOverviewComponent extends EntityOverview{
-  OfferPositionOverviewComponent(DataCache store, SettingsManager manager): super(OfferPosition, store, '', manager);
+  OfferPositionOverviewComponent(DataCache store, SettingsManager manager, StatusService status): super(OfferPosition, store, '', manager, status);
   cEnt({OfferPosition entity}){
     if(entity !=null){
       return new OfferPosition.clone(entity);
@@ -275,7 +263,7 @@ class OfferPositionOverviewComponent extends EntityOverview{
     useShadowDom: false
 )
 class InvoiceOverviewComponent extends EntityOverview{
-  InvoiceOverviewComponent(DataCache store, Router router, SettingsManager manager): super(Invoice, store, 'invoice_edit', manager, router: router);
+  InvoiceOverviewComponent(DataCache store, Router router, SettingsManager manager, StatusService status): super(Invoice, store, 'invoice_edit', manager, status, router: router);
   cEnt({Invoice entity}){
     if(entity !=null){
       return new Invoice.clone(entity);
@@ -293,7 +281,7 @@ class InvoiceOverviewComponent extends EntityOverview{
     }
 )
 class InvoiceItemOverviewComponent extends EntityOverview{
-  InvoiceItemOverviewComponent(DataCache store, SettingsManager manager): super(InvoiceItem, store, '', manager);
+  InvoiceItemOverviewComponent(DataCache store, SettingsManager manager, StatusService status): super(InvoiceItem, store, '', manager, status);
   cEnt({InvoiceItem entity}){
     if(entity !=null){
       return new InvoiceItem.clone(entity);
@@ -330,7 +318,7 @@ class InvoiceItemOverviewComponent extends EntityOverview{
     useShadowDom: false
 )
 class ServiceOverviewComponent extends EntityOverview{
-  ServiceOverviewComponent(DataCache store, Router router, SettingsManager manager): super(Service, store, 'service_edit', manager, router: router);
+  ServiceOverviewComponent(DataCache store, Router router, SettingsManager manager, StatusService status): super(Service, store, 'service_edit', manager, status, router: router);
   cEnt({Service entity}){
     if(entity !=null){
       return new Service.clone(entity);
@@ -348,7 +336,7 @@ class ServiceOverviewComponent extends EntityOverview{
     }
 )
 class RateOverviewComponent extends EntityOverview{
-  RateOverviewComponent(DataCache store, SettingsManager manager): super(Rate, store, '', manager);
+  RateOverviewComponent(DataCache store, SettingsManager manager, StatusService status): super(Rate, store, '', manager, status);
   cEnt({Rate entity}){
     if(entity !=null){
       return new Rate.clone(entity);
@@ -385,7 +373,7 @@ class RateOverviewComponent extends EntityOverview{
     useShadowDom: false
 )
 class RateGroupOverviewComponent extends EntityOverview{
-  RateGroupOverviewComponent(DataCache store, SettingsManager manager): super(RateGroup, store, '', manager);
+  RateGroupOverviewComponent(DataCache store, SettingsManager manager, StatusService status): super(RateGroup, store, '', manager, status);
   cEnt({RateGroup entity}){
     if(entity !=null){
       return new RateGroup.clone(entity);
@@ -415,7 +403,7 @@ class ActivityOverviewComponent extends EntityOverview{
     }
   }
 
-  ActivityOverviewComponent(DataCache store, SettingsManager manager): super(Activity, store, '', manager);
+  ActivityOverviewComponent(DataCache store, SettingsManager manager, StatusService status): super(Activity, store, '', manager, status);
   cEnt({Activity entity}){
     if(entity !=null){
       return new Activity.clone(entity);
@@ -467,7 +455,7 @@ class TimesliceOverviewComponent extends EntityOverview{
 
   DateTime lastdate;
 
-  TimesliceOverviewComponent(DataCache store, SettingsManager manager, this.context): super(Timeslice, store, '', manager){
+  TimesliceOverviewComponent(DataCache store, SettingsManager manager, this.context, StatusService status): super(Timeslice, store, '', manager, status){
     this.context.onSwitch((Employee employee) => this.employee = employee);
   }
   cEnt({Timeslice entity}){
@@ -582,10 +570,8 @@ class TimesliceOverviewComponent extends EntityOverview{
     this.employee = this.context.employee;
   }
 
-  loadActivtyData(){
-    this.store.list(Activity).then((QueryResult result) {
-      this.activities = result.toList();
-    });
+  loadActivtyData() async{
+    this.activities = (await this.store.list(Activity)).toList();
   }
 
   previousMonth(){
@@ -625,7 +611,7 @@ class TimesliceOverviewComponent extends EntityOverview{
     useShadowDom: false
 )
 class WorkingPeriodOverviewComponent extends EntityOverview{
-  WorkingPeriodOverviewComponent(DataCache store, SettingsManager manager): super(WorkingPeriod, store, '', manager);
+  WorkingPeriodOverviewComponent(DataCache store, SettingsManager manager, StatusService status): super(WorkingPeriod, store, '', manager, status);
   cEnt({WorkingPeriod entity}){
     if(entity !=null){
       return new WorkingPeriod.clone(entity);

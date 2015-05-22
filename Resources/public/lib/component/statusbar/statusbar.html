@@ -1,0 +1,6 @@
+<div class="col-md-2 btn-lg">
+	<alert ng-if="statusservice.success == statusservice.status" type="'success'"><span class="glyphicon glyphicon-ok"></span> Successfull</alert>
+	<alert ng-if="statusservice.error == statusservice.status" type="'danger'"><span class="glyphicon glyphicon-remove"></span> Error</alert>
+	<alert ng-if="statusservice.loading == statusservice.status" type="'warning'"><span class="glyphicon glyphicon-refresh glyphicon-animate-spin"></span> Loading...</alert>
+	<div ng-if="statusservice.defaultVal == statusservice.status"><span class="glyphicon glyphicon-grain"></span> Inactive</div>
+</div>

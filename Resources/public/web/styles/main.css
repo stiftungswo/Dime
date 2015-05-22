@@ -71,6 +71,7 @@ textarea.tiny{
 
 .navbar{
     border-radius: 0;
+    color: white;
 }
 
 .form-control{
@@ -79,4 +80,19 @@ textarea.tiny{
 
 .table{
     table-layout: fixed;
+}
+
+.glyphicon-animate-spin {
+    animation: spin 1s infinite linear;
+    -webkit-animation: spin-webkit 1s infinite linear;
+}
+
+@keyframes spin {
+    from { transform: scale(1) rotate(0deg);}
+    to { transform: scale(1) rotate(360deg);}
+}
+
+@-webkit-keyframes spin-webkit {
+    from { -webkit-transform: rotate(0deg);}
+    to { -webkit-transform: rotate(360deg);}
 }

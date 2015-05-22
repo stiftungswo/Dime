@@ -5,6 +5,7 @@ import 'package:hammock/hammock.dart';
 import 'package:DimeClient/model/dime_entity.dart';
 import 'package:DimeClient/service/user_context.dart';
 import 'dart:async';
+import 'package:DimeClient/service/status.dart';
 
 @Injectable()
 class SettingsManager{
@@ -15,22 +16,35 @@ class SettingsManager{
   int _currentUserId;
   List<Setting> toCreate;
   bool allowCreate = false;
-  SettingsManager(this.store, this.context);
+  StatusService statusservice;
+  SettingsManager(this.store, this.context, this.statusservice);
 
-  loadUserSettings([int userId]){
-    if(userId == null){
-      userId = this.context.employee.id;
+  loadUserSettings([int userId]) async{
+    this.statusservice.setStatusToLoading();
+    try {
+      if (userId == null) {
+        userId = this.context.employee.id;
+      }
+      this.userSettings = (await this.store.list(Setting, params: {
+          'namespace': '/usr*', 'user': userId
+      })).toList();
+      this._currentUserId = userId;
+      this.statusservice.setStatusToSuccess();
+    } catch (e){
+      this.statusservice.setStatusToError();
     }
-    this.store.list(Setting, params: {'namespace': '/usr*', 'user': userId}).then((QueryResult result){
-      this.userSettings = result.toList();
-    });
-    this._currentUserId = userId;
   }
 
-  loadSystemSettings(){
-    this.store.list(Setting, params: {'namespace': '/etc*'}).then((QueryResult result) {
-      this.systemSettings = result.toList();
-    });
+  loadSystemSettings() async{
+    this.statusservice.setStatusToLoading();
+    try {
+      this.systemSettings = (await this.store.list(Setting, params: {
+          'namespace': '/etc*'
+      })).toList();
+      this.statusservice.setStatusToSuccess();
+    } catch (e){
+      this.statusservice.setStatusToError();
+    }
   }
 
   getSettings(String namespace, {bool system: false}){
@@ -47,24 +61,35 @@ class SettingsManager{
     return this.userSettings.singleWhere((setting) => setting.namespace == namespace && setting.name == name);
   }
 
-  Future<Setting> createSetting(String namespace, String name, String value){
-    User usr = new User()..id = this._currentUserId;
-    Setting setting = new Setting()
-      ..user = usr
-      ..namespace = namespace
-      ..name = name
-      ..value =value;
-    return this.store.create(setting).then((Setting setting) {
+  Future<Setting> createSetting(String namespace, String name, String value) async{
+    this.statusservice.setStatusToLoading();
+    try {
+      User usr = new User()
+        ..id = this._currentUserId;
+      Setting setting = new Setting()
+        ..user = usr
+        ..namespace = namespace
+        ..name = name
+        ..value = value;
+      setting = (await this.store.create(setting));
       this.userSettings.add(setting);
+      this.statusservice.setStatusToSuccess();
       return setting;
-    });
+    } catch (e){
+      this.statusservice.setStatusToError();
+    }
   }
 
-  Future<Setting> updateSetting(Setting toUpdate){
-    return this.store.update(toUpdate).then((Setting updatedSetting){
+  Future<Setting> updateSetting(Setting toUpdate) async{
+    this.statusservice.setStatusToLoading();
+    try {
+      Setting updatedSetting = (await this.store.update(toUpdate));
       this.userSettings.removeWhere((setting) => setting.id == toUpdate.id);
       this.userSettings.add(updatedSetting);
+      this.statusservice.setStatusToSuccess();
       return updatedSetting;
-    });
+    } catch(e){
+      this.statusservice.setStatusToError();
+    }
   }
 }

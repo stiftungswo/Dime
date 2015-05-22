@@ -16,8 +16,6 @@ class TimetrackComponent extends AttachAware implements ScopeAware{
   UserContext context;
   UserAuthProvider auth;
   Scope scope;
-  String loadState = 'default';
-  String saveState = 'default';
 
   get employee => this.context.employee;
 

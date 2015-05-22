@@ -2,7 +2,7 @@ library entity_select;
 
 import 'package:angular/angular.dart';
 import 'package:DimeClient/model/dime_entity.dart';
-import 'package:hammock/hammock.dart';
+import 'package:DimeClient/service/status.dart';
 import 'package:DimeClient/service/data_cache.dart';
 import 'package:DimeClient/service/user_context.dart';
 import 'dart:html' as dom;
@@ -17,8 +17,9 @@ class EntitySelect extends AttachAware implements ScopeAware{
   Type type;
   List entities = [];
   String selector = '';
+  StatusService statusservice;
 
-  EntitySelect(this.type, this.store, this.element);
+  EntitySelect(this.type, this.store, this.element, this.statusservice);
 
   dynamic _selectedEntity;
 
@@ -30,7 +31,13 @@ class EntitySelect extends AttachAware implements ScopeAware{
   }
 
   attach() async{
-    this.entities = (await this.store.list(this.type)).toList();
+    this.statusservice.setStatusToLoading();
+    try {
+      this.entities = (await this.store.list(this.type)).toList();
+      this.statusservice.setStatusToSuccess();
+    } catch (e){
+      this.statusservice.setStatusToError();
+    }
   }
 
   get selectedEntity => _selectedEntity;
@@ -80,7 +87,7 @@ class EntitySelect extends AttachAware implements ScopeAware{
   }
 )
 class ProjectSelectComponent extends EntitySelect{
-  ProjectSelectComponent(DataCache store, dom.Element element): super(Project, store, element);
+  ProjectSelectComponent(DataCache store, dom.Element element, StatusService status): super(Project, store, element, status);
 }
 
 @Component(
@@ -95,7 +102,7 @@ class ProjectSelectComponent extends EntitySelect{
     }
 )
 class ActivitySelectComponent extends EntitySelect{
-  ActivitySelectComponent(DataCache store, dom.Element element): super(Activity, store, element);
+  ActivitySelectComponent(DataCache store, dom.Element element, StatusService status): super(Activity, store, element, status);
 
   int projectId;
 }
@@ -111,7 +118,7 @@ class ActivitySelectComponent extends EntitySelect{
     }
 )
 class ServiceSelectComponent extends EntitySelect{
-  ServiceSelectComponent(DataCache store, dom.Element element): super(Service, store, element);
+  ServiceSelectComponent(DataCache store, dom.Element element, StatusService status): super(Service, store, element, status);
 }
 
 @Component(
@@ -125,7 +132,7 @@ class ServiceSelectComponent extends EntitySelect{
     }
 )
 class CustomerSelectComponent extends EntitySelect{
-  CustomerSelectComponent(DataCache store, dom.Element element): super(Customer, store, element);
+  CustomerSelectComponent(DataCache store, dom.Element element, StatusService status): super(Customer, store, element, status);
 }
 
 @Component(
@@ -139,7 +146,7 @@ class CustomerSelectComponent extends EntitySelect{
     }
 )
 class OfferStatusSelectComponent extends EntitySelect{
-  OfferStatusSelectComponent(DataCache store, dom.Element element): super(OfferStatusUC, store, element);
+  OfferStatusSelectComponent(DataCache store, dom.Element element, StatusService status): super(OfferStatusUC, store, element, status);
   set selectedEntity(entity){
     if(entity != null) {
       selector = entity.text;
@@ -160,7 +167,7 @@ class OfferStatusSelectComponent extends EntitySelect{
     }
 )
 class RateGroupSelectComponent extends EntitySelect{
-  RateGroupSelectComponent(DataCache store, dom.Element element): super(RateGroup, store, element);
+  RateGroupSelectComponent(DataCache store, dom.Element element, StatusService status): super(RateGroup, store, element, status);
 }
 
 @Component(
@@ -174,7 +181,7 @@ class RateGroupSelectComponent extends EntitySelect{
     }
 )
 class RateUnitTypeSelectComponent extends EntitySelect{
-  RateUnitTypeSelectComponent(DataCache store, dom.Element element): super(RateUnitType, store, element);
+  RateUnitTypeSelectComponent(DataCache store, dom.Element element, StatusService status): super(RateUnitType, store, element, status);
 
   dynamic tmpSelector;
   set selectedEntity(entity){
@@ -209,7 +216,7 @@ class RateUnitTypeSelectComponent extends EntitySelect{
     }
 )
 class UserSelectComponent extends EntitySelect{
-  UserSelectComponent(DataCache store, dom.Element element, this.context): super(Employee, store, element);
+  UserSelectComponent(DataCache store, dom.Element element, this.context, StatusService status): super(Employee, store, element, status);
   UserContext context;
   bool useContext = false;
 
