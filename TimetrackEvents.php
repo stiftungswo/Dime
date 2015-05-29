@@ -10,13 +10,17 @@ namespace Dime\TimetrackerBundle;
 
 final class TimetrackEvents {
 	/**
-	 * The setting.resolve Event is thrown everytime Settings
-	 * are loaded and could need some Aditional Code Execution
-	 *
-	 * The event listener receives an
-	 * Dime\TimetrackerBundle\Event\ResolveSettingEvent instance.
-	 *
 	 * @var string
 	 */
-	const SETTING_RESOLVE = 'setting.resolve';
+	const ENTITY_PRE_FORM_SET_DATA = 'dime.entity.pre_form_set_data';
+
+	/**
+	 * @var string
+	 */
+	const ENTITY_PRE_PERSIST = 'dime.entity.pre_persist';
+
+	/**
+	 * @var string
+	 */
+	const ENTITY_POST_PERSIST = 'dime.entity.post_persist';
 }

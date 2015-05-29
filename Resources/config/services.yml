@@ -45,15 +45,3 @@ services:
     dime.standarddiscount.handler:
          class: %generic_handler%
          arguments: [ "@doctrine.orm.entity_manager", "Dime\TimetrackerBundle\Entity\StandardDiscount",  "@service_container", "sd", "dime_timetrackerbundle_standarddiscountformtype"]
-
-    dime.setting.resolver:
-         class: Dime\TimetrackerBundle\EventListener\ResolveSettingSubscriber
-         calls:
-            - [ setContainer,  [@service_container] ]
-         tags:
-            - { name: kernel.event_subscriber }
-
-    dime.setting.manager:
-        class: Dime\TimetrackerBundle\Model\SettingsManager
-        calls:
-            - [ setContainer,  [@service_container] ]

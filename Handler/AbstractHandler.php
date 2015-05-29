@@ -1,8 +1,10 @@
 <?php
 namespace Dime\TimetrackerBundle\Handler;
 
+use Dime\TimetrackerBundle\Event\DimeEntityPersistEvent;
 use Dime\TimetrackerBundle\Exception\InvalidFormException;
 use Dime\TimetrackerBundle\Model\DimeEntityInterface;
+use Dime\TimetrackerBundle\TimetrackEvents;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\DependencyInjection\Container;
 
@@ -25,6 +27,8 @@ abstract class AbstractHandler
 
     protected $container;
 
+	protected $eventDispatcher;
+
     public function __construct(ObjectManager $om, $entityClass, Container $container, $alias, $formType)
     {
         $this->om = $om;
@@ -32,6 +36,7 @@ abstract class AbstractHandler
         $this->repository = $this->om->getRepository($this->entityClass);
         $this->formFactory = $container->get('form.factory');
         $this->secContext = $container->get('security.context');
+	    $this->eventDispatcher = $container->get('event_dispatcher');
         $this->container = $container;
 	    $this->alias = $alias;
 	    $this->formType = $formType;
@@ -76,8 +81,11 @@ abstract class AbstractHandler
         $form->submit($parameters, 'PUT' !== $method);
         if ($form->isValid()) {
             $entity = $form->getData();
+	        $refclas = new \ReflectionClass($this->entityClass);
+	        $this->eventDispatcher->dispatch(TimetrackEvents::ENTITY_PRE_PERSIST.'.'.$method.'.'.$refclas->getShortName(), new DimeEntityPersistEvent($entity));
             $this->om->persist($entity);
             $this->om->flush();
+	        $this->eventDispatcher->dispatch(TimetrackEvents::ENTITY_POST_PERSIST.'.'.$method.'.'.$refclas->getShortName(), new DimeEntityPersistEvent($entity));
             return $entity;
         }
         throw new InvalidFormException('Invalid submitted data', $form);

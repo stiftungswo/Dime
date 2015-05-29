@@ -164,10 +164,11 @@ abstract class EntityRepository extends Base
 
     public function interpretComplexQuery($field, $value)
     {
-        if(strpos($value, 'match') !== false) {
-            $value = $this->interpretMatchQuery($field, $value);
-        }
-
+	    if(is_string($value)) {
+		    if(strpos($value, 'match') !== false) {
+			    $value = $this->interpretMatchQuery($field, $value);
+		    }
+	    }
         return $value;
     }
 
