@@ -155,10 +155,13 @@ class EntityOverview extends AttachAware implements ScopeAware{
     reload();
   }
 
-  reload({Map<String,dynamic> params}) async{
+  reload({Map<String,dynamic> params, bool evict: false}) async{
     this.entities = [];
     this.statusservice.setStatusToLoading();
     try {
+      if(evict){
+        this.store.evict(this.type);
+      }
       this.entities = (await this.store.list(this.type, params: params)).toList();
       this.statusservice.setStatusToSuccess();
     } catch(e){
@@ -244,10 +247,10 @@ class OfferPositionOverviewComponent extends EntityOverview{
       reload();
     }
   }
-  reload({Map<String,dynamic> params}){
+  reload({Map<String,dynamic> params, bool evict: false}){
     super.reload(params: {
         'offer': this._offerId
-    });
+    }, evict: evict);
   }
 
   attach(){}
@@ -299,10 +302,10 @@ class InvoiceItemOverviewComponent extends EntityOverview{
     }
   }
 
-  reload({Map<String,dynamic> params}){
+  reload({Map<String,dynamic> params, bool evict: false}){
     super.reload(params: {
         'invoice': this._invoiceId
-    });
+    }, evict: evict);
   }
 
   attach() {}
@@ -354,10 +357,10 @@ class RateOverviewComponent extends EntityOverview{
     }
   }
 
-  reload({Map<String,dynamic> params}){
+  reload({Map<String,dynamic> params, bool evict: false}){
     super.reload(params: {
         'service': this._serviceId
-    });
+    }, evict: evict);
   }
 
   attach(){}
@@ -465,8 +468,8 @@ class TimesliceOverviewComponent extends EntityOverview{
     return new Timeslice();
   }
 
-  reload({Map<String,dynamic> params}){
-    super.reload(params: {'user': _employee.id});
+  reload({Map<String,dynamic> params, bool evict: false}){
+    super.reload(params: {'user': _employee.id}, evict: evict);
   }
 
   createEntity({Entity newEnt, Map<String,dynamic> params}){

@@ -35,9 +35,12 @@ class EntityEdit extends AttachAware implements ScopeAware{
     reload();
   }
 
-  reload() async{
+  reload({bool evict: false}) async{
     this.statusservice.setStatusToLoading();
     try {
+      if(evict){
+        this.store.evict(this.entType);
+      }
       this.entity = (await this.store.one(this.entType, this._entId));
       this.statusservice.setStatusToSuccess();
     } catch (e){
@@ -94,6 +97,7 @@ class ProjectEditComponent extends EntityEdit{
 
   openInvoice() async{
     var invoice = (await this.store.customQueryOne(Invoice, new CustomRequestParams(method: 'GET', url: '/api/v1/invoices/project/${this.entity.id}')));
+    this.store.evict(Invoice, true);
     router.go('invoice_edit', {'id': invoice.id});
   }
 }
@@ -141,6 +145,7 @@ class OfferEditComponent extends EntityEdit{
 
   openProject() async{
     var project = (await this.store.customQueryOne(Project, new CustomRequestParams(method: 'GET', url: '/api/v1/projects/offer/${this.entity.id}')));
+    this.store.evict(Project, true);
     router.go('project_edit', {'id': project.id});
   }
 

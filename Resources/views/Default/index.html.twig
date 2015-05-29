@@ -1,1 +1,6 @@
-{% extends 'DimeFrontendBundle::base.html.twig' %}
+{% set buildtype = 'debug' %}
+{% if buildtype == 'release' %}
+	{% extends 'DimeFrontendBundle::base-release.html.twig' %}
+{% else %}
+	{% extends 'DimeFrontendBundle::base.html.twig' %}
+{% endif %}

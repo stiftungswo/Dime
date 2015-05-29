@@ -67,4 +67,10 @@ class DataCache{
 
   Future customQueryList(type, CustomRequestParams params) => this._store.customQueryList(type, params);
 
+  void evict(Type type,[bool reload = false]) async{
+    this._cache.remove(type.hashCode);
+    if(reload){
+      await this.list(type);
+    }
+  }
 }

@@ -1146,6 +1146,17 @@ class Customer extends Entity{
   newObj(){
     return new Customer();
   }
+  init({Map<String,dynamic> params}){
+    if(params!=null) {
+      if (params.containsKey('name')) {
+        this.name = params['name'];
+      } else{
+        this.name = 'New Customer';
+      }
+    } else {
+      this.name = 'New Customer';
+    }
+  }
   dynamic Get(String property){
     var val = super.Get(property);
     if(val == null) {
