@@ -10,15 +10,60 @@ namespace Dime\EmployeeBundle\Entity;
 
 use Carbon\Carbon;
 use Dime\TimetrackerBundle\Entity\Entity;
+use Dime\TimetrackerBundle\Entity\Timeslice;
 use Dime\TimetrackerBundle\Model\DimeEntityInterface;
+use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 use JMS\Serializer\Annotation as JMS;
+use Knp\JsonSchemaBundle\Annotations as Json;
+use Symfony\Component\Validator\Constraints as Assert;
 
-abstract class Period extends Entity implements DimeEntityInterface
+/**
+ * Class WorkingPeriod
+ * @package Dime\EmployeeBundle\Entity
+ * @ORM\Table("WorkingPeriods")
+ * @ORM\Entity(repositoryClass="Dime\EmployeeBundle\Entity\PeriodRepository")
+ */
+class Period extends Entity implements DimeEntityInterface
 {
+	/**
+	 * @var Carbon
+	 * @ORM\Column(type="date")
+	 */
 	protected $start;
+
+	/**
+	 * @var Carbon
+	 * @ORM\Column(type="date")
+	 */
 	protected $end;
+
+	/**
+	 * @var float
+	 * @ORM\Column(type="decimal", nullable=true, precision=10, scale=2)
+	 */
 	protected $pensum;
+
+	/**
+	 * @var Employee
+	 * @ORM\ManyToOne(targetEntity="Dime\EmployeeBundle\Entity\Employee", inversedBy="workingPeriods")
+	 */
 	protected $employee;
+
+	/**
+	 * @var int
+	 * Holidays in Seconds that are in this Period
+	 * @ORM\Column(type="integer", nullable=true)
+	 */
+	protected $holidays;
+
+	/**
+	 * @var int
+	 * RealTime in Seconds
+	 * @ORM\Column(type="integer", nullable=true)
+	 * @JMS\SerializedName("realTime")
+	 */
+	protected $realTime;
 
 	/**
 	 * @JMS\VirtualProperty()
@@ -27,9 +72,34 @@ abstract class Period extends Entity implements DimeEntityInterface
 	public function getTargetTime()
 	{
 		if($this->pensum && $this->getStart() instanceof Carbon && $this->getEnd() instanceof Carbon) {
-			return $this->getStart()->diffInSeconds($this->getEnd()) * $this->getPensum();
+			$weekdays = $this->getStart()->diffInWeekdays($this->getEnd());
+			$seconds = $weekdays * 30240;
+			$seconds -= $this->holidays;
+			return $seconds * $this->getPensum();
 		}
 		return null;
+	}
+
+	public function insertHolidays(array $holidays)
+	{
+		foreach($holidays as $holiday){
+			if($holiday instanceof Holiday){
+				if($holiday->getDate()->between($this->getStart(), $this->getEnd())) {
+					$this->holidays += $holiday->getDuration();
+				}
+			}
+		}
+		return $this;
+	}
+
+	public function insertRealTime(array $timeslices)
+	{
+		foreach($timeslices as $slice){
+			if($slice instanceof Timeslice) {
+				$this->realTime += $slice->getValue();
+			}
+		}
+		return $this;
 	}
 
 	/**
@@ -56,11 +126,10 @@ abstract class Period extends Entity implements DimeEntityInterface
 	 */
 	public function getStart()
 	{
-		if($this->start instanceof Carbon) {
-			return $this->start;
-		} else {
-			return Carbon::instance($this->start);
+		if(is_null($this->start)){
+			return null;
 		}
+		return Carbon::instance($this->start);
 	}
 
 	/**
@@ -79,11 +148,10 @@ abstract class Period extends Entity implements DimeEntityInterface
 	 */
 	public function getEnd()
 	{
-		if($this->end instanceof Carbon) {
-			return $this->end;
-		} else {
-			return Carbon::instance($this->end);
+		if(is_null($this->end)){
+			return null;
 		}
+		return Carbon::instance($this->end);
 	}
 
 	/**
@@ -94,6 +162,63 @@ abstract class Period extends Entity implements DimeEntityInterface
 	public function setEnd($end)
 	{
 		$this->end = $end;
+		return $this;
+	}
+
+	/**
+	 * @return Employee
+	 */
+	public function getEmployee()
+	{
+		return $this->employee;
+	}
+
+	/**
+	 * @param Employee $employee
+	 *
+	 * @return $this
+	 */
+	public function setEmployee($employee)
+	{
+		$this->employee = $employee;
+		return $this;
+	}
+
+	/**
+	 * @return int
+	 */
+	public function getHolidays()
+	{
+		return $this->holidays;
+	}
+
+	/**
+	 * @param int $holidays
+	 *
+	 * @return $this
+	 */
+	public function setHolidays($holidays)
+	{
+		$this->holidays = $holidays;
+		return $this;
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getRealTime()
+	{
+		return $this->realTime;
+	}
+
+	/**
+	 * @param mixed $realTime
+	 *
+	 * @return $this
+	 */
+	public function setRealTime($realTime)
+	{
+		$this->realTime = $realTime;
 		return $this;
 	}
 

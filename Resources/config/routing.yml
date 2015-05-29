@@ -11,3 +11,10 @@ periods:
     prefix:   /v1
     name_prefix:  api_1_
     defaults: { _format: json }
+
+holidays:
+    type:     rest
+    resource: Dime\EmployeeBundle\Controller\HolidayController
+    prefix:   /v1
+    name_prefix:  api_1_
+    defaults: { _format: json }

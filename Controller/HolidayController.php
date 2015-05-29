@@ -12,20 +12,20 @@ use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class PeriodController extends DimeController
+class HolidayController extends DimeController
 {
 
-	private $handlerSerivce = 'dime.period.handler';
+	private $handlerSerivce = 'dime.holiday.handler';
 
-	private $formType = 'dime_timetrackerbundle_periodformtype';
+	private $formType = 'dime_timetrackerbundle_holidayformtype';
 
 	/**
 	 * List all Entities.
 	 *
 	 * @ApiDoc(
 	 * resource = true,
-	 * output = "Dime\EmployeeBundle\Entity\Period",
-	 * section="periods",
+	 * output = "Dime\EmployeeBundle\Entity\Holiday",
+	 * section="holidays",
 	 * statusCodes = {
 	 * 200 = "Returned when successful"
 	 * }
@@ -39,7 +39,7 @@ class PeriodController extends DimeController
 	 * @Annotations\QueryParam(name="enabled", requirements="/^true|false$/i", nullable=true, description="Filter By enabled")
 	 *
 	 * @Annotations\View(
-	 * templateVar="periods"
+	 * templateVar="holidays"
 	 * )
 	 *
 	 * @Annotations\Route(requirements={"_format"="json|xml"})
@@ -49,7 +49,7 @@ class PeriodController extends DimeController
 	 *
 	 * @return array
 	 */
-	public function getPeriodsAction(ParamFetcherInterface $paramFetcher)
+	public function getHolidaysAction(ParamFetcherInterface $paramFetcher)
 	{
 		return $this->container->get($this->handlerSerivce)->all($paramFetcher->all());
 	}
@@ -59,16 +59,16 @@ class PeriodController extends DimeController
 	 *
 	 * @ApiDoc(
 	 * resource = true,
-	 * description = "Gets a Period for a given id",
-	 * output = "Dime\EmployeeBundle\Entity\Period",
-	 * section="periods",
+	 * description = "Gets a Holiday for a given id",
+	 * output = "Dime\EmployeeBundle\Entity\Holiday",
+	 * section="holidays",
 	 * statusCodes = {
 	 * 200 = "Returned when successful",
 	 * 404 = "Returned when the page is not found"
 	 * }
 	 * )
 	 *
-	 * @Annotations\View(templateVar="period")
+	 * @Annotations\View(templateVar="holiday")
 	 *
 	 * @Annotations\Route(requirements={"_format"="json|xml"})
 	 *
@@ -79,7 +79,7 @@ class PeriodController extends DimeController
 	 *
 	 * @throws NotFoundHttpException when page not exist
 	 */
-	public function getPeriodAction($id)
+	public function getHolidayAction($id)
 	{
 		return $this->getOr404($id, $this->handlerSerivce);
 	}
@@ -90,9 +90,9 @@ class PeriodController extends DimeController
 	 * @ApiDoc(
 	 * resource = true,
 	 * description = "Creates a new page from the submitted data.",
-	 * input = "Dime\EmployeeBundle\Form\Type\PeriodFormType",
-	 * output = "Dime\EmployeeBundle\Entity\Period",
-	 * section="periods",
+	 * input = "Dime\EmployeeBundle\Form\Type\HolidayFormType",
+	 * output = "Dime\EmployeeBundle\Entity\Holiday",
+	 * section="holidays",
 	 * statusCodes = {
 	 * 201 = "Returned when successful",
 	 * 400 = "Returned when the form has errors"
@@ -106,11 +106,11 @@ class PeriodController extends DimeController
 	 *
 	 * @return FormTypeInterface|View
 	 */
-	public function postPeriodAction(Request $request)
+	public function postHolidayAction(Request $request)
 	{
 		try {
-			$newPeriod = $this->container->get($this->handlerSerivce)->post($request->request->all());
-			return $this->view($newPeriod, Codes::HTTP_CREATED);
+			$newHoliday = $this->container->get($this->handlerSerivce)->post($request->request->all());
+			return $this->view($newHoliday, Codes::HTTP_CREATED);
 		} catch (InvalidFormException $exception) {
 			return $exception->getForm();
 		}
@@ -121,13 +121,13 @@ class PeriodController extends DimeController
 	 *
 	 * @ApiDoc(
 	 * resource = true,
-	 * input = "Dime\EmployeeBundle\Form\Type\PeriodFormType",
-	 * output = "Dime\EmployeeBundle\Entity\Period",
-	 * section="periods",
+	 * input = "Dime\EmployeeBundle\Form\Type\HolidayFormType",
+	 * output = "Dime\EmployeeBundle\Entity\Holiday",
+	 * section="holidays",
 	 * statusCodes = {
 	 * 200 = "Returned when the Entity was updated",
 	 * 400 = "Returned when the form has errors",
-	 * 404 = "Returned when the Period does not exist"
+	 * 404 = "Returned when the Holiday does not exist"
 	 * }
 	 * )
 	 *
@@ -143,7 +143,7 @@ class PeriodController extends DimeController
 	 * @throws NotFoundHttpException when page not exist
 	 *
 	 */
-	public function putPeriodAction(Request $request, $id)
+	public function putHolidayAction(Request $request, $id)
 	{
 		try {
 			$entity = $this->getOr404($id, $this->handlerSerivce);
@@ -159,10 +159,10 @@ class PeriodController extends DimeController
 	 *
 	 * @ApiDoc(
 	 * resource = true,
-	 * section="periods",
+	 * section="holidays",
 	 * statusCodes = {
 	 * 204 = "Returned when successful",
-	 * 404 = "Returned when Period does not exist."
+	 * 404 = "Returned when Holiday does not exist."
 	 * }
 	 * )
 	 *
@@ -176,7 +176,7 @@ class PeriodController extends DimeController
 	 *
 	 * @throws NotFoundHttpException when page not exist
 	 */
-	public function deletePeriodAction($id)
+	public function deleteHolidayAction($id)
 	{
 		$this->container->get($this->handlerSerivce)->delete($this->getOr404($id, $this->handlerSerivce));
 		return $this->view(null, Codes::HTTP_NO_CONTENT);
