@@ -43,8 +43,8 @@
 			{% if invoice.start and invoice.end %}
 			<div class="dateRange">Aufwandzeitraum {{ invoice.start|date('d.m.Y') }} - {{ invoice.end|date('d.m.Y') }}</div>
 			{% endif %}
-			{% if invoice.offer %}
-			<div class="offerShortDescription">{{ invoice.offer.shortdescription }}</div><br/>
+			{% if invoice.description %}
+			<div class="offerShortDescription">{{ invoice.description }}</div><br/>
 			{% endif %}
 		</div>
 		<table class="maintable" breakable="false">
