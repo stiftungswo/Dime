@@ -8,6 +8,7 @@
 namespace Dime\EmployeeBundle\EventListener;
 
 
+use Dime\EmployeeBundle\Entity\Period;
 use Dime\TimetrackerBundle\Event\DimeEntityPersistEvent;
 use Dime\TimetrackerBundle\TimetrackEvents;
 use Symfony\Component\DependencyInjection\ContainerAware;
@@ -61,14 +62,17 @@ class TimeslicePrePersistSubscriber extends ContainerAware implements EventSubsc
 			'timeslice' => $event->getEntity()
 		));
 		$period = array_shift($arr);
-		$realTime = $period->getRealTime();
-		if($method == 'PUT') {
-			$timesliceHandler = $this->container->get('dime.timeslice.handler');
-			$timeslice = $timesliceHandler->get($event->getEntity()->getId());
-			$realTime -= $timeslice->getValue();
+		if($period instanceof Period) {
+			$realTime = $period->getRealTime();
+			if($method == 'PUT') {
+				$timesliceHandler = $this->container->get('dime.timeslice.handler');
+				$timeslice        = $timesliceHandler->get($event->getEntity()->getId());
+				$realTime -= $timeslice->getValue();
+			}
+			$realTime += $event->getEntity()->getValue();
+			$this->container->get('dime.period.handler')->put($period, array('realTime' => $realTime));
+
 		}
-		$realTime += $event->getEntity()->getValue();
-		$this->container->get('dime.period.handler')->put($period, array('realTime' => $realTime));
 		return $event;
 	}
 }
