@@ -29,7 +29,7 @@ class UserFormType extends AbstractType
             ->add('lastname')
             ->add('email', 'email')
             ->add('enabled', 'choice', array('required' => false, 'choices' => array('0' => false, '1' => true)))
-            ->add('locked', 'choice', array('required' => false, 'choices' => array('0' => false, '1' => true)))
+            ->add('locked', 'choice', array('required' => true, 'choices' => array('0' => false, '1' => true), 'empty_data' => '0'))
         ;
     }
 

@@ -115,7 +115,7 @@ class ActivityRateTest extends DimeTestCase
         //rea rate on activity should be 100 because of default rate and not manually set
         $response = $this->jsonRequest('GET', $this->api_prefix . '/activities/' . $testActivityId);
         $data = json_decode($response->getContent(), true);
-        $this->assertEquals(100, $data['rate'], 'expected activity to use rate of default rate group with value 100');
+        $this->assertEquals(100, $data['rateValue'], 'expected activity to use rate of default rate group with value 100');
 
         //set specific rategroup on project, expect rate on activity to be according specific rate
         /* modify project */
@@ -127,17 +127,17 @@ class ActivityRateTest extends DimeTestCase
         //rea rate on activity should be 100 because of default rate and not manually set
         $response = $this->jsonRequest('GET', $this->api_prefix . '/activities/' . $testActivityId);
         $data = json_decode($response->getContent(), true);
-        $this->assertEquals(100, $data['rate'], 'expected activity to use rate of test rate group with value 200');
+        $this->assertEquals(100, $data['rateValue'], 'expected activity to use rate of test rate group with value 200');
 
         // modify activity
         $response = $this->jsonRequest('PUT', $this->api_prefix.'/activities/' . $testActivityId, json_encode(array(
-            'rate'          => 77
+            'rateValue'          => 77
         )));
         $this->assertEquals(200, $response->getStatusCode());
 
         $response = $this->jsonRequest('GET', $this->api_prefix . '/activities/' . $testActivityId);
         $data = json_decode($response->getContent(), true);
-        $this->assertEquals(77, $data['rate'], 'expected activity to use rate of test rate group with value 77');
+        $this->assertEquals(77, $data['rateValue'], 'expected activity to use rate of test rate group with value 77');
 
 
         //cleanupt testdata

@@ -72,7 +72,7 @@ class ActivitiesControllerTest extends DimeTestCase
         // modify activity
         $response = $this->jsonRequest('PUT', $this->api_prefix.'/activities/' . $id, json_encode(array(
             'description'   => 'Modified Test',
-            'rate'          => 111,
+            'rateValue'          => 111,
             'service'       => 1,
             'project'       => 1,
             'user'          => 1
@@ -81,7 +81,7 @@ class ActivitiesControllerTest extends DimeTestCase
 
         $response = $this->jsonRequest('PUT', $this->api_prefix.'/activities/' . ($id+100), json_encode(array(
             'description'   => 'Modified Test',
-            'rate'          => 111,
+            'rateValue'          => 111,
             'service'       => 1,
             'project'       => 1,
             'user'          => 1
@@ -96,7 +96,7 @@ class ActivitiesControllerTest extends DimeTestCase
 
         // assert that data has content
         $this->assertEquals('Modified Test', $data['description'], 'expected to find "Modified Test"');
-        $this->assertEquals(111, $data['rate'], 'expected to find rate "111"');
+        $this->assertEquals(111, $data['rateValue'], 'expected to find rateValue "111"');
 
         // delete activity
         $response = $this->jsonRequest('DELETE', $this->api_prefix.'/activities/' . $id);
@@ -106,37 +106,4 @@ class ActivitiesControllerTest extends DimeTestCase
         $response = $this->jsonRequest('GET', $this->api_prefix.'/activities/' . $id);
         $this->assertEquals(404, $response->getStatusCode());
     }
-
-//     public function testPostActivityParsingAction()
-//     {
-//         $this->loginas('admin');
-//         $response = $this->jsonRequest('POST', $this->api_prefix.'/activities', '{"parse": "10:00-12:00 @cc/CWE2011:testing new magic oneline input"}');
-//         $this->assertEquals(201, $response->getStatusCode(), $response->getContent());
-//         $content = json_decode($response->getContent(), true);
-
-//         $this->assertEquals('new magic oneline input', $content['description']);
-//         $this->assertEquals('cc', $content['customer']['alias']);
-//         $this->assertEquals('CWE2011', $content['project']['name']);
-//         $this->assertEquals('Testing', $content['service']['name']);
-//         $this->assertEquals(7200, $content['timeslices'][0]['value']);
-
-//         // delete activity
-//         $response = $this->jsonRequest('DELETE', $this->api_prefix.'/activities/' . $content['id']);
-//         $this->assertEquals(204, $response->getStatusCode());
-
-//         $response = $this->jsonRequest('POST', $this->api_prefix.'/activities', '{"parse": "@cc/CWE2011:testing new magic oneline input"}');
-//         $this->assertEquals(201, $response->getStatusCode(), $response->getContent());
-//         $content = json_decode($response->getContent(), true);
-
-//         $this->assertEquals('new magic oneline input', $content['description']);
-//         $this->assertEquals('cc', $content['customer']['alias']);
-//         $this->assertEquals('CWE2011', $content['project']['name']);
-//         $this->assertEquals('Testing', $content['service']['name']);
-//         $this->assertEquals(1, count($content['timeslices']));
-
-//         // delete activity
-//         $response = $this->jsonRequest('DELETE', $this->api_prefix.'/activities/' . $content['id']);
-//         $this->assertEquals(204, $response->getStatusCode());
-
-//     }
 }
