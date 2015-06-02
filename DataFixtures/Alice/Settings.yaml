@@ -1,0 +1,21 @@
+Dime\TimetrackerBundle\Entity\Setting:
+    settingTimesliceDefaultActivity:
+        namespace: /etc/defaults/timeslice
+        name: activity
+        value: action:byName:Zivi*
+        user: @userAdmin
+    settingTimesliceDefaultValue:
+            namespace: /etc/defaults/timeslice
+            name: value
+            value: 30240
+            user: @userAdmin
+    settingTimesliceDefaultStartedAt:
+            namespace: /etc/defaults/timeslice
+            name: startedAt
+            value: action:nextDate
+            user: @userAdmin
+    setting{1..5}:
+            namespace: /etc/defaults/<current()>
+            name: name
+            value: New <word()>
+            user: @user*

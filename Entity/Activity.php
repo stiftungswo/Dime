@@ -169,8 +169,9 @@ class Activity extends Entity implements DimeEntityInterface
      */
     public function getServiceRate()
     {
-        if(empty($this->service))
-            return null;
+        if(empty($this->service)) {
+	        return null;
+        }
         return $this->service->getRateByRateGroup($this->project->getRateGroup());
     }
 

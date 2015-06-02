@@ -1,0 +1,15 @@
+Swo\CommonsBundle\Entity\Address:
+    addressCustomer{1..10}:
+        streetnumber: <buildingNumber()>
+        street: <streetName()>
+        city: <city()>
+        plz: <postcode()>
+        state: <state()>
+        country: <country()>
+
+Dime\TimetrackerBundle\Entity\Customer:
+    customer{1..10}:
+        name: <company()>
+        address: @addressCustomer<current()>
+        user: @user*
+        chargeable: true

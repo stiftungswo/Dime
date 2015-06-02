@@ -1,0 +1,21 @@
+Dime\TimetrackerBundle\Entity\Activity:
+    activityHour{1..100}:
+        project: @project*
+        service: @serviceHour*
+        description: <sentence(4)>
+        user: @user*
+    activityDay{1..100}:
+        project: @project*
+        service: @serviceDay*
+        description: <sentence(4)>
+        user: @user*
+    activityNone{1..100}:
+        project: @project*
+        service: @serviceNone*
+        description: <sentence(4)>
+        user: @user*
+    activityPauschal{1..100}:
+        project: @project*
+        service: @servicePauschal*
+        description: <sentence(4)>
+        user: @user*

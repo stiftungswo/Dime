@@ -1,0 +1,6 @@
+Dime\TimetrackerBundle\Entity\RateGroup:
+    rateGroupDefault:
+        id: 1
+        user: @userAdmin
+        name: Default
+        description: Each service has a rate of the default rate group i.e. this one.

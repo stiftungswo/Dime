@@ -45,3 +45,8 @@ services:
     dime.standarddiscount.handler:
          class: %generic_handler%
          arguments: [ "@doctrine.orm.entity_manager", "Dime\TimetrackerBundle\Entity\StandardDiscount",  "@service_container", "sd", "dime_timetrackerbundle_standarddiscountformtype"]
+
+    rate.alice.processor:
+        class: Dime\TimetrackerBundle\DataFixtures\Alice\RateProcessor
+        tags:
+            -  { name: h4cc_alice_fixtures.processor }

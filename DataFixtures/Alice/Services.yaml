@@ -1,0 +1,29 @@
+Dime\TimetrackerBundle\Entity\Service:
+    serviceHour{1..3}:
+        name: <word()>
+        alias: <slug()>
+        vat: <randomElement(array (0.025, 0.08))>
+        user: @userAdmin
+        chargeable: true
+        rates: 2x @rateHour*
+    serviceDay{1..3}:
+        name: <word()>
+        alias: <slug()>
+        vat: <randomElement(array (0.025, 0.08))>
+        user: @userAdmin
+        chargeable: true
+        rates: 2x @rateDay*
+    serviceNone{1..3}:
+        name: <word()>
+        alias: <slug()>
+        vat: <randomElement(array (0.025, 0.08))>
+        user: @userAdmin
+        chargeable: true
+        rates: 2x @rateNone*
+    servicePauschal{1..3}:
+        name: <word()>
+        alias: <slug()>
+        vat: <randomElement(array (0.025, 0.08))>
+        user: @userAdmin
+        chargeable: true
+        rates: 2x @ratePauschal*
