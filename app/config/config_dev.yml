@@ -32,5 +32,13 @@ monolog:
 assetic:
     use_controller: true
 
+h4cc_alice_fixtures:
+    locale: de_DE                               # default
+    seed: 112312127637325                       # default
+    do_flush: true                              # default
+
+    schema_tool: null                           # default
+    doctrine: orm                               # default
+
 #swiftmailer:
 #    delivery_address: me@example.com

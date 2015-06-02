@@ -48,6 +48,9 @@
         "psliwa/pdf-bundle": "~1.0@dev",
 	  	"nesbot/carbon": "dev-master"
 	},
+    "require-dev" : {
+        "h4cc/alice-fixtures-bundle" : ">=0.5.1"
+    },
 	"scripts" : {
 		"post-install-cmd" : [
 			"Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
