@@ -95,7 +95,7 @@ node default {
 	      override => ['All'],
 	}
 	
-	package {[ 'php56w', 'php56w-pear', 'php56w-mbstring', 'php56w-intl', 'php56w-xml', 'php56w-pecl-xdebug', 'php56w-pecl-apcu', 'php56w-process', 'php56w-gd', 'php56w-mcrypt', 'php-phpunit-PHPUnit', 'php56w-phpdbg', 'php56w-pdo', 'php56w-mysql', ]:}
+	package {[ 'php56w', 'php56w-pear', 'php56w-mbstring', 'php56w-intl', 'php56w-xml', 'php56w-pecl-xdebug', 'php56w-pecl-apcu', 'php56w-process', 'php56w-gd', 'php56w-mcrypt', 'php-phpunit-PHPUnit', 'php56w-phpdbg', 'php56w-pdo', 'php56w-mysql', 'unzip']:}
     # Set development values to our php.ini and xdebug.ini
     augeas { 'set-php-ini-values':
          context => '/files/etc/php.ini',
