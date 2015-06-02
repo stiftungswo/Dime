@@ -21,7 +21,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Class WorkingPeriod
  * @package Dime\EmployeeBundle\Entity
- * @ORM\Table("WorkingPeriods")
+ * @ORM\Table(name="WorkingPeriods")
  * @ORM\Entity(repositoryClass="Dime\EmployeeBundle\Entity\PeriodRepository")
  */
 class Period extends Entity implements DimeEntityInterface
