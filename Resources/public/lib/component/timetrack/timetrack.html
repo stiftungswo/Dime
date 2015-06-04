@@ -14,13 +14,17 @@
 				<label class="control-label col-md-3">Nachname:</label>
 				<input class="form-control" type="text" ng-model="employee.lastname"/>
 			</div>
+			<div class="row">
+				<label class="control-label col-md-3">Ist/Sollzeit</label>
+				<div class="form-control">{{employee.realTime | secondsToHours}} / {{employee.targetTime | secondsToHours}}</div>
+			</div>
 		</div>
 	</div>
 	<div class="panel panel-default col-md-8">
 		<div class="panel-body">
 			<div class="row"><h4>Ist-Sollstunden</h4></div>
 			<div class="row">
-				<workperiod-overview></workperiod-overview>
+				<period-overview></period-overview>
 			</div>
 		</div>
 	</div>

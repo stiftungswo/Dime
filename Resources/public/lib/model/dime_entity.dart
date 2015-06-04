@@ -1715,8 +1715,10 @@ class Employee extends User{
       switch (property) {
         case 'workingPeriods':
           return this.workingPeriods;
-        case 'freePeriods':
-          return this.freePeriods;
+        case 'realTime':
+          return this.realTime;
+        case 'targetTime':
+          return this.targetTime;
         default:
           break;
       }
@@ -1728,8 +1730,11 @@ class Employee extends User{
       case 'workingPeriods':
         this.workingPeriods = value;
         break;
-      case 'freePeriods':
-        this.freePeriods = value;
+      case 'realTime':
+        this.realTime = value;
+        break;
+      case 'targetTime':
+        this.targetTime = value;
         break;
       default:
         super.Set(property, value);
@@ -1739,15 +1744,15 @@ class Employee extends User{
   Employee.fromMap(Map<String,dynamic> map): super.fromMap(map){
     if(map==null||map.isEmpty) return;
     if(map['workingPeriods']!=null) {
-      this.workingPeriods = WorkingPeriod.listFromResource(map['workingPeriods']);
-    }
-    if(map['freePeriods']!=null) {
-      this.freePeriods = FreePeriod.listFromResource(map['freePeriods']);
+      this.workingPeriods = Period.listFromResource(map['workingPeriods']);
+      this.realTime = map['realTime'];
+      this.targetTime = map['targetTime'];
     }
   }
   String type = 'employees';
-  List<WorkingPeriod> workingPeriods;
-  List<FreePeriod> freePeriods;
+  List<Period> workingPeriods;
+  int realTime;
+  int targetTime;
 }
 
 class Period extends Entity{
@@ -1758,6 +1763,16 @@ class Period extends Entity{
     this.pensum=original.pensum;
     this.employee=original.employee;
   }
+
+  init({Map<String,dynamic>params}){
+    if(params!=null) {
+      if (params.containsKey('employee')) {
+        this.employee = new Employee()
+          ..id = params['employee'];
+      }
+    }
+  }
+
   newObj(){
     return new Period();
   }
@@ -1773,6 +1788,12 @@ class Period extends Entity{
           return this.pensum;
         case 'employee':
           return this.employee;
+        case 'holidays':
+          return this.holidays;
+        case 'realTime':
+          return this.realTime;
+        case 'targetTime':
+          return this.targetTime;
         default:
           break;
       }
@@ -1793,6 +1814,15 @@ class Period extends Entity{
       case 'employee':
         this.employee = value;
         break;
+      case 'holidays':
+        this.holidays = value;
+        break;
+      case 'realTime':
+        this.realTime = value;
+        break;
+      case 'targetTime':
+        this.targetTime = value;
+        break;
       default:
         super.Set(property, value);
         break;
@@ -1812,6 +1842,9 @@ class Period extends Entity{
     this.end = map['end']!=null ? DateTime.parse(map['end']):null;
     this.pensum = map['pensum'];
     this.employee = new Employee.fromMap(map['employee']);
+    this.holidays = map['holidays'];
+    this.realTime = map['realTime'];
+    this.targetTime = map['targetTime'];
   }
   Map<String,dynamic> toMap(){
     Map m = super.toMap();
@@ -1820,6 +1853,9 @@ class Period extends Entity{
         "end": this.end is DateTime ? this.end.toString():null,
         "pensum": this.pensum,
         "employee": this.employee is Entity ? this.employee.toMap(): null,
+        "holidays": this.holidays,
+        "realTime": this.realTime,
+        "targetTime": this.targetTime
     });
     return m;
   }
@@ -1828,45 +1864,71 @@ class Period extends Entity{
   DateTime end;
   int pensum;
   Employee employee;
-  get targettime{
-
-  }
+  int holidays;
+  int realTime;
+  int targetTime;
 }
 
-class WorkingPeriod extends Period{
-  WorkingPeriod();
-  WorkingPeriod.clone(WorkingPeriod original):super.clone(original);
-  WorkingPeriod.fromMap(Map<String,dynamic> map): super.fromMap(map);
-  static List<WorkingPeriod> listFromResource(List content){
-    List<WorkingPeriod> array = new List<WorkingPeriod>();
+class Holiday extends Entity{
+  Holiday();
+  Holiday.clone(Holiday original): super.clone(original){
+    this.date = original.date;
+    this.duration = original.duration;
+  }
+  newObj(){
+    return new Holiday();
+  }
+  dynamic Get(String property){
+    var val = super.Get(property);
+    if(val == null) {
+      switch (property) {
+        case 'date':
+          return this.date;
+        case 'duration':
+          return this.duration;
+        default:
+          break;
+      }
+    }
+    return val;
+  }
+  void Set(String property, var value){
+    switch(property){
+      case 'date':
+        this.date = value;
+        break;
+      case 'duration':
+        this.duration = value;
+        break;
+      default:
+        super.Set(property, value);
+        break;
+    }
+  }
+  static List<Holiday> listFromResource(List content){
+    List<Holiday> array = new List<Holiday>();
     for(var element in content){
-      WorkingPeriod t = new WorkingPeriod.fromMap(element);
+      Holiday t = new Holiday.fromMap(element);
       array.add(t);
     }
     return array;
   }
-  newObj(){
-    return new WorkingPeriod();
+  Holiday.fromMap(Map<String,dynamic> map): super.fromMap(map){
+    if (map == null || map.isEmpty) return;
+    this.date = map['date'] != null ? DateTime.parse(map['date']) : null;
+    this.duration = map['duration'];
   }
-  String type = 'workingPeriods';
-}
-
-class FreePeriod extends Period{
-  FreePeriod();
-  FreePeriod.clone(FreePeriod original): super.clone(original);
-  FreePeriod.fromMap(Map<String,dynamic> map): super.fromMap(map);
-  static List<FreePeriod> listFromResource(List content){
-    List<FreePeriod> array = new List<FreePeriod>();
-    for(var element in content){
-      FreePeriod t = new FreePeriod.fromMap(element);
-      array.add(t);
-    }
-    return array;
+  Map<String,dynamic> toMap(){
+    Map m = super.toMap();
+    m.addAll({
+        "date": this.date is DateTime ? this.date.toString(): null,
+        "duration": this.duration,
+    });
+    return m;
   }
-  newObj(){
-    return new FreePeriod();
-  }
-  String type = 'freePeriods';
+  String type = 'holidays';
+  DateTime date;
+  int duration;
 }
 
 class Service extends Entity{

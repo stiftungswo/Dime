@@ -184,6 +184,26 @@ HammockConfig createHammockConfig(Injector inj) {
                 if(r.content is String)return new Customer();
                 return new Customer.fromMap(r.content);
               }
+          },
+          "periods" : {
+              "type" : Period,
+              "serializer" : (Period ent){
+                return ent.toResource();
+              },
+              "deserializer" : (Resource r){
+                if(r.content is String)return new Period();
+                return new Period.fromMap(r.content);
+              }
+          },
+          "holidays" : {
+              "type" : Holiday,
+              "serializer" : (Holiday ent){
+                return ent.toResource();
+              },
+              "deserializer" : (Resource r){
+                if(r.content is String)return new Holiday();
+                return new Holiday.fromMap(r.content);
+              }
           }
       }
     )

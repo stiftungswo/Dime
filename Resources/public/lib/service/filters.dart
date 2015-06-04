@@ -51,3 +51,14 @@ class OfferPositionOrderByOrderField {
       return offerPositions;
   }
 }
+
+@Formatter(name: 'secondsToHours')
+class SecondsToHours{
+  String call(int seconds){
+    if(seconds != null) {
+      return (seconds / 3600).roundToDouble().toString() + 'h';
+    } else {
+      return null;
+    }
+  }
+}

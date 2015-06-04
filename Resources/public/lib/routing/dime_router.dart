@@ -36,26 +36,30 @@ void dimeRouteInitializer(Router router, RouteViewFactory views) {
     'invoice_edit': ngRoute(
           path: '/invoices/edit/:id',
           viewHtml: '<invoice-edit></invoice-edit>'
-      ),
-      'customer_overview': ngRoute(
-          path: '/customers/overview',
-          viewHtml: '<customer-overview></customer-overview>'
-      ),
-      'customer_edit': ngRoute(
-          path: '/customers/edit/:id',
-          viewHtml: '<customer-edit></customer-edit>'
-      ),
-      'service_overview': ngRoute(
-          path: '/services/overview',
-          viewHtml: '<service-overview></service-overview>'
-      ),
-      'service_edit': ngRoute(
-          path: '/services/edit/:id',
-          viewHtml: '<service-edit></service-edit>'
-      ),
-      'rateGroup_overview': ngRoute(
-          path: '/rateGroups/overview',
-          viewHtml: '<rateGroup-overview></rateGroup-overview>'
-      ),
+    ),
+    'customer_overview': ngRoute(
+        path: '/customers/overview',
+        viewHtml: '<customer-overview></customer-overview>'
+    ),
+    'customer_edit': ngRoute(
+        path: '/customers/edit/:id',
+        viewHtml: '<customer-edit></customer-edit>'
+    ),
+    'service_overview': ngRoute(
+        path: '/services/overview',
+        viewHtml: '<service-overview></service-overview>'
+    ),
+    'service_edit': ngRoute(
+        path: '/services/edit/:id',
+        viewHtml: '<service-edit></service-edit>'
+    ),
+    'rateGroup_overview': ngRoute(
+        path: '/rateGroups/overview',
+        viewHtml: '<rateGroup-overview></rateGroup-overview>'
+    ),
+    'holiday_overview': ngRoute(
+        path: '/holidays/overview',
+        viewHtml: '<holiday-overview></holiday-overview>'
+    ),
   });
 }

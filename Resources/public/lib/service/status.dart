@@ -16,15 +16,11 @@ class StatusService{
   setStatusToLoading(){
     this.status = loading;
     numLoading += 1;
-    print(status);
-    print(numLoading);
   }
 
   setStatusToError(){
     this.status = error;
     numLoading -= 1;
-    print(status);
-    print(numLoading);
   }
 
   setStatusToSuccess(){
@@ -32,14 +28,10 @@ class StatusService{
       this.status = success;
     }
     numLoading -= 1;
-    print(status);
-    print(numLoading);
   }
 
   resetStatus(){
     this.status = defaultVal;
     numLoading = 0;
-    print(status);
-    print(numLoading);
   }
 }

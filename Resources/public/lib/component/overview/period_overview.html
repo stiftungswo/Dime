@@ -12,9 +12,9 @@
 		<tr ng-repeat="entity in entities" ng-click="selectEntity(entity.id)" ng-class="isSelected(entity)? 'info': ''">
 			<td><input style="width: 100%;" type="date" class="form-control" ng-model="entity.start" ng-change="addSaveField('start', entity)"/></td>
 			<td><input style="width: 100%;" type="date" class="form-control" ng-model="entity.end" ng-change="addSaveField('end', entity)"/></td>
-			<td><input style="width: 100%;" class="form-control" ng-model="entity.pensum" ng-change="addSaveField('pensum', entity)"/></td>
-			<td>{{entity.realtime}}</td>
-			<td>{{entity.targettime}}</td>
+			<td><input-percentage htmlclass="'form-control'" value="entity.pensum" ng-change="addSaveField('pensum', entity)"></input-percentage></td>
+			<td>{{entity.realTime | secondsToHours}}</td>
+			<td>{{entity.targetTime | secondsToHours}}</td>
 		</tr>
 	</tbody>
 </table>

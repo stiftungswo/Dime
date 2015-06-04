@@ -72,6 +72,9 @@ class AppModule extends Module {
     bind(DateToTextInput);
     bind(StatusService);
     bind(StatusBarComponent);
+    bind(PeriodOverviewComponent);
+    bind(SecondsToHours);
+    bind(HolidayOverviewComponent);
     install(new Hammock());
     bind(RouteInitializerFn, toValue: dimeRouteInitializer);
     bind(HammockConfig, toFactory: createHammockConfig, inject: [Injector]);
