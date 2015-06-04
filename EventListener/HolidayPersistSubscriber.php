@@ -1,7 +1,7 @@
 <?php
 /**
  * Author: Till Wegmüller
- * Date: 5/29/15
+ * Date: 6/4/15
  * Dime
  */
 
@@ -14,9 +14,8 @@ use Dime\TimetrackerBundle\TimetrackEvents;
 use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class TimeslicePrePersistSubscriber extends ContainerAware implements EventSubscriberInterface
+class HolidayPersistSubscriber extends ContainerAware implements EventSubscriberInterface
 {
-
 	/**
 	 * Returns an array of event names this subscriber wants to listen to.
 	 *
@@ -40,39 +39,43 @@ class TimeslicePrePersistSubscriber extends ContainerAware implements EventSubsc
 	public static function getSubscribedEvents()
 	{
 		return array(
-			TimetrackEvents::ENTITY_PRE_PERSIST.'.PUT.Timeslice' => array(
-				array('updatePeriods')
+			TimetrackEvents::ENTITY_POST_PERSIST.'.PUT.Holiday' => array(
+				array('periodAditional')
 			),
-			TimetrackEvents::ENTITY_PRE_PERSIST.'.POST.Timeslice' => array(
-				array('updatePeriodsOnPost')
-			)
+			TimetrackEvents::ENTITY_POST_PERSIST.'.POST.Holiday' => array(
+				array('periodAditional')
+			),
+			TimetrackEvents::ENTITY_POST_DELETE.'.Holiday' => array(
+				array('periodOnHolidayDelete')
+			),
 		);
 	}
 
-	public function updatePeriodsOnPost(DimeEntityPersistEvent $event)
+	public function periodOnHolidayDelete(DimeEntityPersistEvent $event)
 	{
-		return $this->updatePeriods($event, 'POST');
+		$this->periodAditional($event, 'DELETE');
 	}
 
-	public function updatePeriods(DimeEntityPersistEvent $event, $method = 'PUT')
+	public function periodAditional(DimeEntityPersistEvent $event, $method = 'PUT')
 	{
+		$om = $this->container->get('doctrine.orm.entity_manager');
 		$periodHandler = $this->container->get('dime.period.handler');
-		$arr = $periodHandler->all(array(
-			'employee' => $event->getEntity()->getUser()->getId(),
-			'timeslice' => $event->getEntity()
+		$periods = $periodHandler->all(array(
+			'holiday' => $event->getEntity()
 		));
-		$period = array_shift($arr);
-		if($period instanceof Period) {
-			$realTime = $period->getRealTime();
-			if($method == 'PUT') {
-				$timesliceHandler = $this->container->get('dime.timeslice.handler');
-				$timeslice        = $timesliceHandler->get($event->getEntity()->getId());
-				$realTime -= $timeslice->getValue();
+		foreach($periods as $period) {
+			if($period instanceof Period) {
+				if($period->getStart() instanceof \DateTime && $period->getEnd() instanceof \DateTime) {
+					if($method == 'DELETE'){
+						$period->removeHolidays(array($event->getEntity()));
+					} else {
+						$period->insertHolidays(array($event->getEntity()));
+					}
+					$om->persist($period);
+				}
 			}
-			$realTime += $event->getEntity()->getValue();
-			$this->container->get('dime.period.handler')->put($period, array('realTime' => $realTime));
-
 		}
+		$om->flush();
 		return $event;
 	}
 }

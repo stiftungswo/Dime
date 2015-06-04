@@ -27,14 +27,14 @@ class Holiday extends Entity implements DimeEntityInterface {
 
 	/**
 	 * @var Carbon
-	 * @ORM\Column(type="date")
+	 * @ORM\Column(type="date", nullable=true)
 	 */
 	protected $date;
 
 	/**
 	 * @var int
 	 * Duration in Seconds
-	 * @ORM\Column(type="integer")
+	 * @ORM\Column(type="integer", nullable=true)
 	 */
 	protected $duration;
 
@@ -43,7 +43,10 @@ class Holiday extends Entity implements DimeEntityInterface {
 	 */
 	public function getDate()
 	{
-		return $this->date;
+		if(is_null($this->date)){
+			return null;
+		}
+		return Carbon::instance($this->date);
 	}
 
 	/**

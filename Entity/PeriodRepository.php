@@ -42,6 +42,9 @@ class PeriodRepository extends EntityRepository
 				case 'timeslice':
 					$this->scopeByTimeslice($value, $qb);
 					break;
+				case 'holiday':
+					$this->scopeByHoliday($value, $qb);
+					break;
 				default:
 					$this->scopeByField($key, $value, $qb);
 				}
@@ -64,6 +67,22 @@ class PeriodRepository extends EntityRepository
 			$qb->expr()->gte($alias . '.end', ':time')
 		);
 		$qb->setParameter('time', $slice->getStartedAt());
+	}
+
+	public function scopeByHoliday(Holiday $day, QueryBuilder $qb = null)
+	{
+		if ($qb == null) {
+			$qb = $this->builder;
+		}
+		$aliases = $qb->getRootAliases();
+		$alias = array_shift($aliases);
+
+
+		$qb->andWhere(
+			$qb->expr()->lte($alias . '.start', ':time'),
+			$qb->expr()->gte($alias . '.end', ':time')
+		);
+		$qb->setParameter('time', $day->getDate());
 	}
 
 	/**

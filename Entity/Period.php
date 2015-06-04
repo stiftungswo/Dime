@@ -28,13 +28,13 @@ class Period extends Entity implements DimeEntityInterface
 {
 	/**
 	 * @var Carbon
-	 * @ORM\Column(type="date")
+	 * @ORM\Column(type="date", nullable=true)
 	 */
 	protected $start;
 
 	/**
 	 * @var Carbon
-	 * @ORM\Column(type="date")
+	 * @ORM\Column(type="date", nullable=true)
 	 */
 	protected $end;
 
@@ -82,10 +82,24 @@ class Period extends Entity implements DimeEntityInterface
 
 	public function insertHolidays(array $holidays)
 	{
+		return $this->handleHolidaysChange($holidays, 'ADD');
+	}
+
+	public function removeHolidays(array $holidays)
+	{
+		return $this->handleHolidaysChange($holidays, 'DELETE');
+	}
+
+	private function handleHolidaysChange(array $holidays, $method)
+	{
 		foreach($holidays as $holiday){
 			if($holiday instanceof Holiday){
 				if($holiday->getDate()->between($this->getStart(), $this->getEnd())) {
-					$this->holidays += $holiday->getDuration();
+					if($method == 'DELETE'){
+						$this->holidays -= $holiday->getDuration();
+					} else {
+						$this->holidays += $holiday->getDuration();
+					}
 				}
 			}
 		}
