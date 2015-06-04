@@ -19,12 +19,11 @@ class AppKernel extends Kernel
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             
-            // added packages
+            // vendor packages
             new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
             new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
 	        new Ps\PdfBundle\PsPdfBundle(),
-	        new Dime\PrintingBundle\DimePrintingBundle(),
             new FOS\UserBundle\FOSUserBundle(),
             new FOS\RestBundle\FOSRestBundle(),
             new JMS\SerializerBundle\JMSSerializerBundle($this),
@@ -32,12 +31,15 @@ class AppKernel extends Kernel
 	        new \Knp\JsonSchemaBundle\KnpJsonSchemaBundle(),
 	        new \Swo\CommonsBundle\SwoCommonsBundle(),
 	        new \Misd\PhoneNumberBundle\MisdPhoneNumberBundle(),
-            new Dime\TimetrackerBundle\DimeTimetrackerBundle(),
-            new Dime\FrontendBundle\DimeFrontendBundle(),
-            new Dime\OfferBundle\DimeOfferBundle(),
+	        new \Tbbc\MoneyBundle\TbbcMoneyBundle(),
+
+	        //Own Bundles
+	        new Dime\PrintingBundle\DimePrintingBundle(),
+	        new Dime\FrontendBundle\DimeFrontendBundle(),
+	        new Dime\OfferBundle\DimeOfferBundle(),
 	        new Dime\InvoiceBundle\DimeInvoiceBundle(),
 	        new Dime\EmployeeBundle\DimeEmployeeBundle(),
-	        new \Tbbc\MoneyBundle\TbbcMoneyBundle(),
+	        new Dime\TimetrackerBundle\DimeTimetrackerBundle(),
         );
         
         if (in_array($this->getEnvironment(), array(
