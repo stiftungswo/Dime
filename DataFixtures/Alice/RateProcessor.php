@@ -21,7 +21,9 @@ class RateProcessor implements ProcessorInterface {
 	public function preProcess($object)
 	{
 		if(property_exists($object, 'rateValue')){
-			$object->setRateValue(Money::CHF($object->getRateValue().'.00'));
+			if(!$object->getRateValue() instanceof Money) {
+				$object->setRateValue(Money::CHF($object->getRateValue() . '.00'));
+			}
 		}
 	}
 

@@ -321,7 +321,7 @@ class Activity extends Entity implements DimeEntityInterface
     {
 	    if( empty($this->rateValue) ){
 		    if($this->getService() instanceof Service){
-			    $rate =  $this->getService()->getRateByRateGroup($this->getProject()->getRateGroup());
+			    $rate =  $this->getServiceRate();
 			    return $rate->getRateValue();
 		    } else {
 			    return null;
@@ -374,10 +374,12 @@ class Activity extends Entity implements DimeEntityInterface
     {
         $this->service = $service;
 	    $rate = $this->getServiceRate();
-	    $this->setRateUnitType($rate->getRateUnitType());
-	    $this->setRateUnit($rate->getRateUnit());
-	    $this->setRateValue($rate->getRateValue());
-	    $this->setVat($service->getVat());
+	    if(!is_null($rate)) {
+		    $this->setRateUnitType($rate->getRateUnitType());
+		    $this->setRateUnit($rate->getRateUnit());
+		    $this->setRateValue($rate->getRateValue());
+		    $this->setVat($service->getVat());
+	    }
         return $this;
     }
 

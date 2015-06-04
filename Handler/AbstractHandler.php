@@ -113,8 +113,11 @@ abstract class AbstractHandler
 	 */
     protected function deleteEntity(DimeEntityInterface $entity)
     {
+	    $refclas = new \ReflectionClass($this->entityClass);
+	    $this->eventDispatcher->dispatch(TimetrackEvents::ENTITY_PRE_DELETE.'.'.$refclas->getShortName(), new DimeEntityPersistEvent($entity));
         $this->om->remove($entity);
         $this->om->flush();
+	    $this->eventDispatcher->dispatch(TimetrackEvents::ENTITY_POST_DELETE.'.'.$refclas->getShortName(), new DimeEntityPersistEvent($entity));
     }
 
     /**

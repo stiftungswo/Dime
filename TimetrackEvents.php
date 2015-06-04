@@ -23,4 +23,14 @@ final class TimetrackEvents {
 	 * @var string
 	 */
 	const ENTITY_POST_PERSIST = 'dime.entity.post_persist';
+
+	/**
+	 * @var string
+	 */
+	const ENTITY_PRE_DELETE = 'dime.entity.pre_delete';
+
+	/**
+	 * @var string
+	 */
+	const ENTITY_POST_DELETE = 'dime.entity.post_delete';
 }

@@ -1,8 +1,10 @@
 <?php
 namespace Dime\TimetrackerBundle\Handler;
 
+use Dime\TimetrackerBundle\Event\DimeEntityPersistEvent;
 use Dime\TimetrackerBundle\Exception\InvalidFormException;
 use Dime\TimetrackerBundle\Model\DimeEntityInterface;
+use Dime\TimetrackerBundle\TimetrackEvents;
 use Doctrine\Common\Persistence\ObjectManager;
 use FOS\UserBundle\Model\UserInterface;
 use FOS\UserBundle\Model\UserManager;
@@ -104,12 +106,15 @@ class UserHandler extends GenericHandler
         $formoptions['method'] = $method;
         $form = $this->formFactory->create($form, $entity, $formoptions);
         $form->submit($parameters, 'PUT' !== $method);
-        if ($form->isValid()) {
-            $user = $form->getData();
-            $this->userManager->updatePassword($user);
-            $this->userManager->updateUser($user);
-            return $user;
-        }
+	    if ($form->isValid()) {
+		    $entity = $form->getData();
+		    $refclas = new \ReflectionClass($this->entityClass);
+		    $this->eventDispatcher->dispatch(TimetrackEvents::ENTITY_PRE_PERSIST.'.'.$method.'.'.$refclas->getShortName(), new DimeEntityPersistEvent($entity));
+		    $this->userManager->updatePassword($entity);
+		    $this->userManager->updateUser($entity);
+		    $this->eventDispatcher->dispatch(TimetrackEvents::ENTITY_POST_PERSIST.'.'.$method.'.'.$refclas->getShortName(), new DimeEntityPersistEvent($entity));
+		    return $entity;
+	    }
         throw new InvalidFormException('Invalid submitted data', $form);
     }
 
