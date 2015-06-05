@@ -1942,6 +1942,14 @@ class Service extends Entity{
   newObj(){
     return new Service();
   }
+  init({Map<String,dynamic>params}){
+    this.name = 'New Service';
+    if(params!=null) {
+      if (params.containsKey('name')) {
+        this.name = params['name'];
+      }
+    }
+  }
   dynamic Get(String property){
     var val = super.Get(property);
     if(val == null) {

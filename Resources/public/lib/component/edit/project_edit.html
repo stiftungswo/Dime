@@ -18,7 +18,7 @@
 					<option ng-repeat="rateGroup in rateGroups" ng-value="rateGroup" ng-selected="rateGroup.id == entity.rateGroup.id">{{rateGroup.name}}</option>
 				</select>
 			</div>
-			<div class="row"><label class="col-sm-1 control-label">Deadline</label><input class="form-control" type="date" ng-model="entity.deadline"></div>
+			<div class="row"><label class="col-sm-1 control-label">Deadline</label><dateinput date="entity.deadline" field="'deadline'" callback="addSaveField(name)"></dateinput></div>
 		</div>
 		<div class="form-group DimePanel">
 			<div class="row"><label class="col-sm-1 control-label">Beschreibung</label><textarea class="form-control" ng-model="entity.description" ng-change="addSaveField('description')"></textarea></div>

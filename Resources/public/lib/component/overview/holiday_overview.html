@@ -7,7 +7,7 @@
 	</thead>
 	<tbody>
 		<tr ng-repeat="entity in entities" ng-click="selectEntity(entity.id)" ng-class="isSelected(entity)? 'info': ''">
-			<td><input style="width: 100%;" type="date" class="form-control" ng-model="entity.date" ng-change="addSaveField('date', entity)"/></td>
+			<td><dateinput style="width: 100%;" date="entity.date" field="'date'" callback="entity.addFieldtoUpdate(name)"></dateinput></td>
 			<td><input style="width: 100%;" type="text" class="form-control" ng-model="entity.duration" ng-change="addSaveField('duration', entity)"/></td>
 		</tr>
 	</tbody>

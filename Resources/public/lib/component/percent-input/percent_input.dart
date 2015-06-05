@@ -7,9 +7,10 @@ import 'package:angular/angular.dart';
   templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/percent-input/percent_input.html',
   useShadowDom: false,
   map: const {
-      'value': '<=>model',
       'htmlclass': '=>!htmlclass',
-      'precision': '=>!precision'
+      'precision': '=>!precision',
+      'safecalc': '=>!useSafeCalc',
+      'value': '<=>model'
   }
 )
 class PercentageInputField{
@@ -20,8 +21,14 @@ class PercentageInputField{
 
   set model(double m) {
     _model = m;
-    text = _toPercentage(m);
+    if(useSafeCalc == true) {
+      text = _toPercentage(m);
+    } else{
+      text = (m * 100).truncate().toString()+'%';
+    }
   }
+
+  bool useSafeCalc = true;
 
   get model => _model;
 
@@ -64,9 +71,4 @@ class PercentageInputField{
   onChange(){
     _model = _toNumber(text);
   }
-
-  onBlur(){
-    text = _toPercentage(_model);
-  }
-
 }

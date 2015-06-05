@@ -17,7 +17,7 @@
 				<option ng-repeat="user in users" ng-value="user" ng-selected="user.id == entity.user.id">{{user.fullname}}</option>
 			</select>
 		</div>
-		<div class="row"><label class="col-sm-2 control-label">Gültig bis</label><input class="form-control" type="date" ng-model="entity.validTo"></div>
+		<div class="row"><label class="col-sm-2 control-label">Gültig bis</label><dateinput date="entity.validTo" field="'validTo'" callback="addSaveField(name)"></dateinput></div>
 		<div class="row">
 			<label class="col-sm-2 control-label">Tarif</label>
 			<select class="form-control" model="entity.rateGroup" ng-change="addSaveField('rateGroup')">
