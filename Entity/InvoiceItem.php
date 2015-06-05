@@ -186,7 +186,7 @@ class InvoiceItem extends Entity implements DimeEntityInterface
 	}
 
 	/**
-	 * @return int
+	 * @return Money
 	 */
 	public function getRateValue()
 	{
@@ -194,7 +194,7 @@ class InvoiceItem extends Entity implements DimeEntityInterface
 	}
 
 	/**
-	 * @param int $rateValue
+	 * @param Money $rateValue
 	 *
 	 * @return $this
 	 */
