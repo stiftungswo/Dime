@@ -1,7 +1,3 @@
-DimeFrontendBundle:
-    resource: "@DimeFrontendBundle/Resources/config/routing.yml"
-    prefix:   /
-
 DimeOfferBundle:
     type: rest
     resource: "@DimeOfferBundle/Resources/config/routing.yml"
@@ -32,3 +28,7 @@ json_schema:
 NelmioApiDocBundle:
     resource: "@NelmioApiDocBundle/Resources/config/routing.yml"
     prefix:   /api/doc
+
+DimeFrontendBundle:
+    resource: "@DimeFrontendBundle/Resources/config/routing.yml"
+    prefix:   /
