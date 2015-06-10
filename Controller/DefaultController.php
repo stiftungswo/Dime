@@ -10,7 +10,7 @@ class DefaultController extends Controller
 {
 
 	/**
-	 * @Route("/")
+	 * @Route("/{route}", name="angular_index_all_unmatched_routes", requirements={"route" = ".*"})
 	 */
     public function indexAction()
     {

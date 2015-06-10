@@ -7,6 +7,7 @@ import 'package:DimeClient/service/setting_manager.dart';
 import 'package:DimeClient/service/data_cache.dart';
 import 'package:DimeClient/service/user_context.dart';
 import 'package:DimeClient/service/status.dart';
+import 'package:DimeClient/service/user_auth.dart';
 
 class EntityOverview extends AttachAware implements ScopeAware{
 
@@ -28,7 +29,11 @@ class EntityOverview extends AttachAware implements ScopeAware{
 
   String routename;
 
+  String _origin;
+
   SettingsManager settingsManager;
+
+  UserAuthProvider auth;
 
   get selectedEntity{
     for(Entity ent in this.entities){
@@ -59,6 +64,7 @@ class EntityOverview extends AttachAware implements ScopeAware{
       this.entities.removeWhere((enty) => enty.id == resp.id);
       this.entities.add(resp);
       this.statusservice.setStatusToSuccess();
+      this.rootScope.emit(this.type.toString()+'Changed');
     } catch (e) {
       this.statusservice.setStatusToError();
     }
@@ -83,6 +89,7 @@ class EntityOverview extends AttachAware implements ScopeAware{
     try {
       Entity resp = await this.store.create(newEnt);
       this.statusservice.setStatusToSuccess();
+      this.rootScope.emit(this.type.toString()+'Created');
       if (this.router != null) {
         this.openEditView(resp.id);
       } else {
@@ -115,6 +122,7 @@ class EntityOverview extends AttachAware implements ScopeAware{
           await this.store.create(entity);
         }
         this.statusservice.setStatusToSuccess();
+        this.rootScope.emit(this.type.toString()+'Duplicated');
       } catch (e){
         this.statusservice.setStatusToError();
       }
@@ -134,6 +142,7 @@ class EntityOverview extends AttachAware implements ScopeAware{
         }
         this.entities.removeWhere((enty) => enty.id == entId);
         this.statusservice.setStatusToSuccess();
+        this.rootScope.emit(this.type.toString()+'Deleted');
       } catch (e){
         this.statusservice.setStatusToError();
       }
@@ -152,6 +161,13 @@ class EntityOverview extends AttachAware implements ScopeAware{
   }
   
   attach(){
+    if(this.auth !=null) {
+      if (!auth.isloggedin) {
+        router.go('login', {
+            'origin': this._origin
+        });
+      }
+    }
     reload();
   }
 
@@ -164,6 +180,7 @@ class EntityOverview extends AttachAware implements ScopeAware{
       }
       this.entities = (await this.store.list(this.type, params: params)).toList();
       this.statusservice.setStatusToSuccess();
+      this.rootScope.emit(this.type.toString()+'Loaded');
     } catch(e){
       this.statusservice.setStatusToError();
     }
@@ -173,7 +190,11 @@ class EntityOverview extends AttachAware implements ScopeAware{
     entity.addFieldtoUpdate(name);
   }
 
-  EntityOverview(this.type, this.store, this.routename, this.settingsManager, this.statusservice, {this.router});
+  EntityOverview(this.type, this.store, this.routename, this.settingsManager, this.statusservice, {this.router, this.auth, RouteProvider prov}){
+    if(prov != null) {
+      this._origin = prov.routeName;
+    }
+  }
 }
 
 @Component(
@@ -182,7 +203,7 @@ class EntityOverview extends AttachAware implements ScopeAware{
     useShadowDom: false
 )
 class ProjectOverviewComponent extends EntityOverview{
-  ProjectOverviewComponent(DataCache store, Router router, SettingsManager manager, StatusService status): super(Project, store, 'project_edit', manager, status, router: router);
+  ProjectOverviewComponent(DataCache store, Router router, SettingsManager manager, StatusService status, UserAuthProvider auth, RouteProvider prov): super(Project, store, 'project_edit', manager, status, auth: auth, router: router, prov: prov);
   cEnt({Project entity}){
     if(entity !=null){
       return new Project.clone(entity);
@@ -197,7 +218,7 @@ class ProjectOverviewComponent extends EntityOverview{
     useShadowDom: false
 )
 class CustomerOverviewComponent extends EntityOverview{
-  CustomerOverviewComponent(DataCache store, Router router, SettingsManager manager, StatusService status): super(Customer, store, 'customer_edit', manager, status, router: router);
+  CustomerOverviewComponent(DataCache store, Router router, SettingsManager manager, StatusService status, UserAuthProvider auth, RouteProvider prov): super(Customer, store, 'customer_edit', manager, status, auth: auth, router: router, prov: prov);
   cEnt({Customer entity}){
     if(entity !=null){
       return new Customer.clone(entity);
@@ -212,7 +233,7 @@ class CustomerOverviewComponent extends EntityOverview{
     useShadowDom: false
 )
 class OfferOverviewComponent extends EntityOverview{
-  OfferOverviewComponent(DataCache store, Router router, SettingsManager manager, StatusService status): super(Offer, store, 'offer_edit', manager, status, router: router);
+  OfferOverviewComponent(DataCache store, Router router, SettingsManager manager, StatusService status, UserAuthProvider auth, RouteProvider prov): super(Offer, store, 'offer_edit', manager, status, auth: auth, router: router, prov: prov);
   cEnt({Offer entity}){
     if(entity !=null){
       return new Offer.clone(entity);
@@ -253,7 +274,15 @@ class OfferPositionOverviewComponent extends EntityOverview{
     }, evict: evict);
   }
 
-  attach(){}
+  attach(){
+    if(this.auth !=null) {
+      if (!auth.isloggedin) {
+        router.go('login', {
+            'origin': this._origin
+        });
+      }
+    }
+  }
 
   createEntity({Entity newEnt, Map<String,dynamic> params}){
     super.createEntity(params: {'offer': this._offerId});
@@ -266,7 +295,7 @@ class OfferPositionOverviewComponent extends EntityOverview{
     useShadowDom: false
 )
 class InvoiceOverviewComponent extends EntityOverview{
-  InvoiceOverviewComponent(DataCache store, Router router, SettingsManager manager, StatusService status): super(Invoice, store, 'invoice_edit', manager, status, router: router);
+  InvoiceOverviewComponent(DataCache store, Router router, SettingsManager manager, StatusService status, UserAuthProvider auth, RouteProvider prov): super(Invoice, store, 'invoice_edit', manager, status, router: router, auth: auth, prov: prov);
   cEnt({Invoice entity}){
     if(entity !=null){
       return new Invoice.clone(entity);
@@ -308,7 +337,15 @@ class InvoiceItemOverviewComponent extends EntityOverview{
     }, evict: evict);
   }
 
-  attach() {}
+  attach() {
+    if(this.auth !=null) {
+      if (!auth.isloggedin) {
+        router.go('login', {
+            'origin': this._origin
+        });
+      }
+    }
+  }
 
   createEntity({Entity newEnt, Map<String,dynamic> params}){
     super.createEntity(params: {'invoice': this._invoiceId});
@@ -321,7 +358,7 @@ class InvoiceItemOverviewComponent extends EntityOverview{
     useShadowDom: false
 )
 class ServiceOverviewComponent extends EntityOverview{
-  ServiceOverviewComponent(DataCache store, Router router, SettingsManager manager, StatusService status): super(Service, store, 'service_edit', manager, status, router: router);
+  ServiceOverviewComponent(DataCache store, Router router, SettingsManager manager, StatusService status, UserAuthProvider auth, RouteProvider prov): super(Service, store, 'service_edit', manager, status, router: router, auth: auth, prov: prov);
   cEnt({Service entity}){
     if(entity !=null){
       return new Service.clone(entity);
@@ -521,6 +558,7 @@ class TimesliceOverviewComponent extends EntityOverview{
 
   deleteEntity([int entId]){
     this.lastdate = null;
+    timesliceActionnextDate();
     super.deleteEntity(entId);
   }
 
@@ -580,31 +618,37 @@ class TimesliceOverviewComponent extends EntityOverview{
   previousMonth(){
     this.filterStartDate = this.filterStartDate.subtract(new Duration(days: 30));
     this.filterEndDate = this.filterEndDate.subtract(new Duration(days: 30));
+    this.lastdate = this.lastdate.subtract(new Duration(days: 30));
   }
 
   previousWeek(){
     this.filterStartDate = this.filterStartDate.subtract(new Duration(days: 7));
     this.filterEndDate = this.filterEndDate.subtract(new Duration(days: 7));
+    this.lastdate = this.lastdate.subtract(new Duration(days: 7));
   }
 
   previousDay(){
     this.filterStartDate = this.filterStartDate.subtract(new Duration(days: 1));
     this.filterEndDate = this.filterEndDate.subtract(new Duration(days: 1));
+    this.lastdate = this.lastdate.subtract(new Duration(days: 1));
   }
 
   nextMonth(){
     this.filterStartDate = this.filterStartDate.add(new Duration(days: 30));
     this.filterEndDate = this.filterEndDate.add(new Duration(days: 30));
+    this.lastdate = this.lastdate.add(new Duration(days: 30));
   }
 
   nextWeek(){
     this.filterStartDate = this.filterStartDate.add(new Duration(days: 7));
     this.filterEndDate = this.filterEndDate.add(new Duration(days: 7));
+    this.lastdate = this.lastdate.add(new Duration(days: 7));
   }
 
   nextDay(){
     this.filterStartDate = this.filterStartDate.add(new Duration(days: 1));
     this.filterEndDate = this.filterEndDate.add(new Duration(days: 1));
+    this.lastdate = this.lastdate.add(new Duration(days: 1));
   }
 }
 
@@ -613,7 +657,7 @@ class TimesliceOverviewComponent extends EntityOverview{
     templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/overview/period_overview.html',
     useShadowDom: false
 )
-class PeriodOverviewComponent extends EntityOverview{
+class PeriodOverviewComponent extends EntityOverview implements ScopeAware{
   PeriodOverviewComponent(DataCache store, SettingsManager manager, StatusService status, this.context): super(Period, store, '', manager, status){
     this.context.onSwitch((Employee employee) => this.employee = employee);
   }
@@ -622,6 +666,22 @@ class PeriodOverviewComponent extends EntityOverview{
       return new Period.clone(entity);
     }
     return new Period();
+  }
+
+  Scope _scope;
+
+  set scope(Scope scope){
+    this._scope = scope;
+    this.scope.rootScope.on('TimesliceChanged').listen(onTimesliceChange);
+    this.scope.rootScope.on('TimesliceCreated').listen(onTimesliceChange);
+    this.scope.rootScope.on('TimesliceDeleted').listen(onTimesliceChange);
+    this.scope.rootScope.on('saveChanges').listen(saveAllEntities);
+  }
+
+  get scope => this._scope;
+
+  onTimesliceChange([ScopeEvent e]){
+    this.reload();
   }
 
   Employee _employee;

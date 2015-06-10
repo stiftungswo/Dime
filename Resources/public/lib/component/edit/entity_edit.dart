@@ -5,6 +5,7 @@ import 'package:hammock/hammock.dart';
 import 'package:DimeClient/model/dime_entity.dart';
 import 'package:DimeClient/service/data_cache.dart';
 import 'package:DimeClient/service/status.dart';
+import 'package:DimeClient/service/user_auth.dart';
 import 'dart:html';
 
 class EntityEdit extends AttachAware implements ScopeAware{
@@ -21,17 +22,32 @@ class EntityEdit extends AttachAware implements ScopeAware{
 
   RootScope rootScope;
 
+  UserAuthProvider auth;
+
+  Router router;
+
+  String _origin;
+
+
   set scope(Scope scope){
     this.rootScope = scope.rootScope;
   }
 
   EntityEdit.Child(this.entType);
 
-  EntityEdit(RouteProvider routeProvider, this.store, this.entType, this.statusservice){
+  EntityEdit(RouteProvider routeProvider, this.store, this.entType, this.statusservice, this.auth, this.router){
     _entId = routeProvider.parameters['id'];
+    _origin = routeProvider.routeName;
   }
 
   attach(){
+    if(this.auth !=null) {
+      if (!auth.isloggedin) {
+        router.go('login', {
+          'origin': this._origin
+        });
+      }
+    }
     reload();
   }
 
@@ -78,10 +94,17 @@ class ProjectEditComponent extends EntityEdit{
 
   List<RateGroup> rateGroups;
 
-  Router router;
 
-  ProjectEditComponent(RouteProvider routeProvider, DataCache store, this.router, StatusService status): super(routeProvider, store, Project, status);
+
+  ProjectEditComponent(RouteProvider routeProvider, DataCache store, Router router, StatusService status, UserAuthProvider auth): super(routeProvider, store, Project, status, auth, router);
   attach(){
+    if(this.auth !=null) {
+      if (!auth.isloggedin) {
+        router.go('login', {
+            'origin': this._origin
+        });
+      }
+    }
     loadRateGroups();
     loadCustomers();
     reload();
@@ -118,8 +141,15 @@ class OfferEditComponent extends EntityEdit{
 
   Router router;
 
-  OfferEditComponent(RouteProvider routeProvider, DataCache store, this.router, StatusService status): super(routeProvider, store, Offer, status);
+  OfferEditComponent(RouteProvider routeProvider, DataCache store, Router router, StatusService status, UserAuthProvider auth): super(routeProvider, store, Offer, status, auth, router);
   attach(){
+    if(this.auth !=null) {
+      if (!auth.isloggedin) {
+        router.go('login', {
+            'origin': this._origin
+        });
+      }
+    }
     loadRateGroups();
     loadOfferStates();
     loadUsers();
@@ -160,7 +190,7 @@ class OfferEditComponent extends EntityEdit{
     useShadowDom: false
 )
 class InvoiceEditComponent extends EntityEdit{
-  InvoiceEditComponent(RouteProvider routeProvider, DataCache store, StatusService status): super(routeProvider, store, Invoice, status);
+  InvoiceEditComponent(RouteProvider routeProvider, DataCache store, StatusService status, UserAuthProvider auth, Router router): super(routeProvider, store, Invoice, status, auth, router);
 
   printInvoice(){
     window.open('/api/v1/invoices/${this.entity.id}/print', 'Invoice Print');
@@ -186,8 +216,15 @@ class CustomerEditComponent extends EntityEdit{
 
   List<RateGroup> rateGroups;
 
-  CustomerEditComponent(RouteProvider routeProvider, DataCache store, StatusService status): super(routeProvider, store, Customer, status);
+  CustomerEditComponent(RouteProvider routeProvider, DataCache store, StatusService status, UserAuthProvider auth, Router router): super(routeProvider, store, Customer, status, auth, router);
   attach(){
+    if(this.auth !=null) {
+      if (!auth.isloggedin) {
+        router.go('login', {
+            'origin': this._origin
+        });
+      }
+    }
     loadRateGroups();
     reload();
   }
@@ -220,5 +257,5 @@ class AddressEditComponent extends EntityEdit{
     useShadowDom: false
 )
 class ServiceEditComponent extends EntityEdit{
-  ServiceEditComponent(RouteProvider routeProvider, DataCache store, StatusService status): super(routeProvider, store, Service, status);
+  ServiceEditComponent(RouteProvider routeProvider, DataCache store, StatusService status, UserAuthProvider auth, Router router): super(routeProvider, store, Service, status, auth, router);
 }

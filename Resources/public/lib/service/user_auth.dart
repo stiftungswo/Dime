@@ -19,6 +19,7 @@ class UserAuthProvider{
   ObjectStore store;
   HttpDefaultHeaders headers;
   StatusService statusservice;
+  bool isloggedin = false;
 
   set authHeader(String authToken){
     headers['Common'].addAll({'Authorization': authToken});
@@ -70,6 +71,7 @@ class UserAuthProvider{
         throw new Exception();
       }
     }
+    this.isloggedin = true;
     await manager.loadSystemSettings();
     await loadUserData();
   }

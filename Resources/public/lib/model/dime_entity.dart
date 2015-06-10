@@ -1744,7 +1744,7 @@ class Employee extends User{
   Employee.fromMap(Map<String,dynamic> map): super.fromMap(map){
     if(map==null||map.isEmpty) return;
     if(map['workingPeriods']!=null) {
-      this.workingPeriods = Period.listFromResource(map['workingPeriods']);
+      //this.workingPeriods = map['workingPeriods'] != null ? Period.listFromResource(map['workingPeriods']): null;
       this.realTime = map['realTime'];
       this.targetTime = map['targetTime'];
     }

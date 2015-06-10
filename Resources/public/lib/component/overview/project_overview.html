@@ -8,7 +8,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="entity in entities" ng-click="selectEntity(entity.id)" ng-doubleclick="openEditView(entity.id)" ng-class="isSelected(entity)? 'info': ''">
+    <tr ng-repeat="entity in entities | orderBy:'name'" ng-click="selectEntity(entity.id)" ng-doubleclick="openEditView(entity.id)" ng-class="isSelected(entity)? 'info': ''">
       <td>{{entity.id}}</td>
       <td>{{entity.name}}</td>
       <td>{{entity.alias}}</td>

@@ -1,8 +1,6 @@
 library timetrack;
 
 import 'package:angular/angular.dart';
-import 'package:DimeClient/model/dime_entity.dart';
-import 'package:hammock/hammock.dart';
 import 'package:DimeClient/service/user_auth.dart';
 import 'package:DimeClient/service/user_context.dart';
 
@@ -12,20 +10,26 @@ import 'package:DimeClient/service/user_context.dart';
   useShadowDom: false
 )
 class TimetrackComponent extends AttachAware implements ScopeAware{
-  ObjectStore store;
   UserContext context;
   UserAuthProvider auth;
   Scope scope;
+  Router router;
 
   get employee => this.context.employee;
 
   attach(){
+    if(!auth.isloggedin){
+      router.go('login',{});
+    }
+  }
 
+  void reloadUser([ScopeEvent e]){
+    this.context.reloadUserData();
   }
 
   save(){
     scope.rootScope.emit('saveChanges');
   }
 
-  TimetrackComponent(this.store, this.auth, this.context);
+  TimetrackComponent(this.auth, this.context, this.router);
 }
