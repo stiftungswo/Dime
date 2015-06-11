@@ -48,7 +48,7 @@ class Timeslice extends Entity implements DimeEntityInterface
     /**
      * @var integer $value (in seconds)
      * @JMS\Exclude()
-     * @ORM\Column(type="integer", nullable=false)
+     * @ORM\Column(type="decimal", scale=4, precision=10, nullable=false)
      */
     protected $value = 0;
 

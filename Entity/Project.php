@@ -150,7 +150,7 @@ class Project extends Entity implements DimeEntityInterface
 		$price = Money::CHF(0);
 		foreach($this->activities as $activity)
 		{
-			$price->add($activity->getCharge());
+			$price = $price->add($activity->getCharge());
 		}
 		return $price;
 	}
