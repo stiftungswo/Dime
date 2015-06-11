@@ -11,6 +11,7 @@ namespace Dime\EmployeeBundle\Entity;
 use Carbon\Carbon;
 use Dime\TimetrackerBundle\Entity\Entity;
 use Dime\TimetrackerBundle\Model\DimeEntityInterface;
+use Dime\TimetrackerBundle\Model\RateUnitType;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use JMS\Serializer\Annotation as JMS;
@@ -34,6 +35,7 @@ class Holiday extends Entity implements DimeEntityInterface {
 	/**
 	 * @var int
 	 * Duration in Seconds
+	 * @JMS\Exclude()
 	 * @ORM\Column(type="integer", nullable=true)
 	 */
 	protected $duration;
@@ -66,6 +68,15 @@ class Holiday extends Entity implements DimeEntityInterface {
 	public function getDuration()
 	{
 		return $this->duration;
+	}
+
+	/**
+	 * @JMS\VirtualProperty()
+	 * @JMS\SerializedName("duration")
+	 */
+	public function serializeDuration()
+	{
+		return $this->getDuration() / RateUnitType::$HourInSeconds.'h';
 	}
 
 	/**

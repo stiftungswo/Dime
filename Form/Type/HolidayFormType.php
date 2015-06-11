@@ -8,6 +8,7 @@
 namespace Dime\EmployeeBundle\Form\Type;
 
 
+use Dime\TimetrackerBundle\Form\Transformer\DurationTransformer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -30,7 +31,7 @@ class HolidayFormType extends AbstractType
 	{
 		$builder
 			->add('date', 'datetime', array('required' => true, 'widget' => 'single_text', 'with_seconds' => true))
-			->add('duration')
+			->add($builder->create('duration', 'text')->addViewTransformer(new DurationTransformer()))
 		;
 	}
 
