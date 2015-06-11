@@ -493,7 +493,7 @@ class TimesliceOverviewComponent extends EntityOverview{
 
   Project selectedProject;
 
-  DateTime lastdate;
+  DateTime newEntryDate;
 
   TimesliceOverviewComponent(DataCache store, SettingsManager manager, this.context, StatusService status): super(Timeslice, store, '', manager, status){
     this.context.onSwitch((Employee employee) => this.employee = employee);
@@ -505,11 +505,12 @@ class TimesliceOverviewComponent extends EntityOverview{
     return new Timeslice();
   }
 
-  reload({Map<String,dynamic> params, bool evict: false}){
-    super.reload(params: {'user': _employee.id}, evict: evict);
+  reload({Map<String,dynamic> params, bool evict: false})async {
+    await super.reload(params: {'user': _employee.id}, evict: evict);
+    updateEntryDate();
   }
 
-  createEntity({Entity newEnt, Map<String,dynamic> params}){
+  createEntity({Entity newEnt, Map<String,dynamic> params}) async{
     if(!(this.selectedProject is Project)) return;
     Timeslice slice = new Timeslice();
     List names = ['activity', 'value'];
@@ -520,79 +521,80 @@ class TimesliceOverviewComponent extends EntityOverview{
       } catch(exception, stackTrace) {
         settingForName = this.settingsManager.getOneSetting('/etc/defaults/timeslice', name, system: true);
       }
-      if(settingForName.value.contains('action:')){
-        var actionForSetting = settingForName.value.split(':');
-        actionForSetting.add(name);
-        slice = setInSlice(slice, name, function: 'timesliceAction'+actionForSetting.elementAt(1), args: actionForSetting.sublist(2));
-      } else {
-        slice = setInSlice(slice, name, value: settingForName.value);
+      switch(name){
+        case 'value':
+          slice.value = settingForName.value;
+          break;
+        case 'activity':
+          //TODO Remove once not needed anymore.
+          if(settingForName.value.contains('action:byName:')){
+            settingForName.value.replaceAll('action:byName:', '');
+            settingsManager.updateSetting(settingForName);
+          }
+          slice.activity = this.activitybyName(settingForName.value);
+          break;
+        default:
+          break;
       }
       slice.addFieldtoUpdate(name);
     }
-    slice.Set('startedAt', this.timesliceActionnextDate());
+    slice.Set('startedAt', this.newEntryDate);
     slice.Set('user', this._employee);
     slice.addFieldtoUpdate('user');
     slice.addFieldtoUpdate('startedAt');
-    super.createEntity(newEnt: slice.toSaveObj());
+    await super.createEntity(newEnt: slice.toSaveObj());
+    updateEntryDate();
   }
 
-  Timeslice setInSlice(Timeslice slice, String property, {String function, List args, var value}){
-    if(value != null){
-      slice.Set(property, value);
-      return slice;
+  deleteEntity([int entId]) async{
+    await super.deleteEntity(entId);
+    updateEntryDate();
+  }
+
+  activitybyName(String NamePattern){
+    try {
+      return this.activities.singleWhere((i) => (i.name.contains(new RegExp(NamePattern)) && i.project.id == selectedProject.id) || (i.alias.contains(new RegExp(NamePattern)) && i.project.id == selectedProject.id));
+    } catch (exception) {
+      return this.activities.where((i) => (i.name.contains(new RegExp(NamePattern)) && i.project.id == selectedProject.id) || (i.alias.contains(new RegExp(NamePattern)) && i.project.id == selectedProject.id)).first;
     }
-    if(function != null){
-      switch(function){
-      case 'timesliceActionbyName':
-        slice.Set(property, this.timesliceActionbyName(args.first, property));
+    return null;
+  }
+
+  updateEntryDate(){
+    DateTime date = this.newEntryDate;
+    if(date == null){
+      date = this.filterStartDate;
+    }
+    List<Timeslice> relevantSlices = this.entities.where((i) => i.startedAt.isAfter(this.filterStartDate) && i.startedAt.isBefore(this.filterEndDate));
+    while(date.isBefore(this.filterEndDate)){
+      List<Timeslice> slicesInDay = relevantSlices.where((i) => i.startedAt.isAfter(date) && i.startedAt.isBefore(date.add(new Duration(days: 1))));
+      int duration = 0;
+      for(Timeslice slice in slicesInDay){
+        duration += durationParser(slice.value);
+      }
+      if(duration < 28800){
         break;
-      case 'timesliceActionnextDate':
-        slice.Set(property, this.timesliceActionnextDate());
-        break;
-      default:
-        break;
+      }
+      date = date.add(new Duration(days: 1));
+      if (date.weekday == DateTime.SATURDAY) {
+        date = date.add(new Duration(days: 2));
+      } else if (date.weekday == DateTime.SUNDAY) {
+        date = date.add(new Duration(days: 1));
       }
     }
-    return slice;
+    this.newEntryDate = date;
+    return date;
   }
 
-  deleteEntity([int entId]){
-    this.lastdate = null;
-    timesliceActionnextDate();
-    super.deleteEntity(entId);
-  }
-
-  timesliceActionbyName(String NamePattern, String timesliceFieldName){
-    if(timesliceFieldName == 'activity'){
-      try {
-        return this.activities.singleWhere((i) => (i.name.contains(new RegExp(NamePattern)) && i.project.id == selectedProject.id) || (i.alias.contains(new RegExp(NamePattern)) && i.project.id == selectedProject.id));
-      } catch (exception) {
-        return this.activities.where((i) => (i.name.contains(new RegExp(NamePattern)) && i.project.id == selectedProject.id) || (i.alias.contains(new RegExp(NamePattern)) && i.project.id == selectedProject.id)).first;
-      }
+  int durationParser(String duration){
+    if(duration.contains('h')){
+      return (double.parse(duration.replaceAll('h', ''))*3600).toInt();
+    } else if (duration.contains('m')){
+      return (double.parse(duration.replaceAll('m', ''))*60).toInt();
+    } else if (duration.contains('d')){
+      return (double.parse(duration.replaceAll('d', ''))*30240).toInt();
     }
-    return '';
-  }
-
-  timesliceActionnextDate(){
-    if(lastdate is DateTime) {
-      lastdate = lastdate.add(new Duration(days: 1));
-    } else {
-      if(lastdate == null){
-        lastdate = filterStartDate;
-      }
-      for (Timeslice slice in this.entities.where((i) => i.startedAt.isAfter(this.filterStartDate) && i.startedAt.isBefore(this.filterEndDate))) {
-        if (slice.startedAt.isAfter(lastdate)) {
-          lastdate = slice.startedAt;
-        }
-      }
-      lastdate = lastdate.add(new Duration(days: 1));
-    }
-    if(lastdate.weekday == DateTime.SATURDAY){
-      lastdate = lastdate.add(new Duration(days: 2));
-    } else if(lastdate.weekday == DateTime.SUNDAY){
-      lastdate = lastdate.add(new Duration(days: 1));
-    }
-    return lastdate;
+    return 0;
   }
 
   attach(){
@@ -618,37 +620,37 @@ class TimesliceOverviewComponent extends EntityOverview{
   previousMonth(){
     this.filterStartDate = this.filterStartDate.subtract(new Duration(days: 30));
     this.filterEndDate = this.filterEndDate.subtract(new Duration(days: 30));
-    this.lastdate = this.lastdate.subtract(new Duration(days: 30));
+    updateEntryDate();
   }
 
   previousWeek(){
     this.filterStartDate = this.filterStartDate.subtract(new Duration(days: 7));
     this.filterEndDate = this.filterEndDate.subtract(new Duration(days: 7));
-    this.lastdate = this.lastdate.subtract(new Duration(days: 7));
+    updateEntryDate();
   }
 
   previousDay(){
     this.filterStartDate = this.filterStartDate.subtract(new Duration(days: 1));
     this.filterEndDate = this.filterEndDate.subtract(new Duration(days: 1));
-    this.lastdate = this.lastdate.subtract(new Duration(days: 1));
+    updateEntryDate();
   }
 
   nextMonth(){
     this.filterStartDate = this.filterStartDate.add(new Duration(days: 30));
     this.filterEndDate = this.filterEndDate.add(new Duration(days: 30));
-    this.lastdate = this.lastdate.add(new Duration(days: 30));
+    updateEntryDate();
   }
 
   nextWeek(){
     this.filterStartDate = this.filterStartDate.add(new Duration(days: 7));
     this.filterEndDate = this.filterEndDate.add(new Duration(days: 7));
-    this.lastdate = this.lastdate.add(new Duration(days: 7));
+    updateEntryDate();
   }
 
   nextDay(){
     this.filterStartDate = this.filterStartDate.add(new Duration(days: 1));
     this.filterEndDate = this.filterEndDate.add(new Duration(days: 1));
-    this.lastdate = this.lastdate.add(new Duration(days: 1));
+    updateEntryDate();
   }
 }
 

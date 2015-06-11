@@ -30,7 +30,7 @@
 	<div class="row form-inline">
 		<div class="col-md-2">
 			<label>Datum</label>
-			<dateinput date="lastdate"></dateinput>
+			<dateinput date="newEntryDate"></dateinput>
 		</div>
 		<div class="col-md-2">
 			<label>Benutzer</label>
@@ -42,11 +42,11 @@
 		</div>
 		<div class="col-md-2">
 			<label>Aktivität</label>
-			<setting-edit namespace="'/usr/defaults/timeslice'" name="'activity'" defaultvalue="'action:byName:Zivi*'"></setting-edit>
+			<setting-edit namespace="'/usr/defaults/timeslice'" name="'activity'" defaultvalue="'zivi-tages*'"></setting-edit>
 		</div>
 		<div class="col-md-2">
 			<label>Einzutragender Wert</label>
-			<setting-edit namespace="'/usr/defaults/timeslice'" name="'value'" defaultvalue="'8.5h'"></setting-edit>
+			<setting-edit namespace="'/usr/defaults/timeslice'" name="'value'" defaultvalue="'8.4h'"></setting-edit>
 		</div>
 		<div class="col-md-12" style="margin-top: 5px;">
 			<button type="button" class="btn btn-primary" ng-click="createEntity()">+</button>
