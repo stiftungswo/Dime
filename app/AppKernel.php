@@ -39,6 +39,7 @@ class AppKernel extends Kernel
 	        new Dime\OfferBundle\DimeOfferBundle(),
 	        new Dime\InvoiceBundle\DimeInvoiceBundle(),
 	        new Dime\EmployeeBundle\DimeEmployeeBundle(),
+	        new Dime\ReportBundle\DimeReportBundle(),
 	        new Dime\TimetrackerBundle\DimeTimetrackerBundle(),
         );
         
