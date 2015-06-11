@@ -1928,7 +1928,7 @@ class Holiday extends Entity{
   }
   String type = 'holidays';
   DateTime date;
-  int duration;
+  String duration;
 }
 
 class Service extends Entity{
