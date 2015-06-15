@@ -18,6 +18,7 @@ class EntitySelect extends AttachAware implements ScopeAware{
   List entities = [];
   String selector = '';
   StatusService statusservice;
+  bool clearOnClose = false;
 
   EntitySelect(this.type, this.store, this.element, this.statusservice);
 
@@ -65,10 +66,13 @@ class EntitySelect extends AttachAware implements ScopeAware{
     }
   }
 
-  get EntText => _selectedEntity.name;
+  get EntText => _selectedEntity != null ? _selectedEntity.name: '';
 
   closeSelectionBox(){
     if(this.open){
+      if(clearOnClose){
+        this.selectedEntity = null;
+      }
       this.selector = EntText;
       this.open = false;
     }
@@ -83,7 +87,8 @@ class EntitySelect extends AttachAware implements ScopeAware{
   map: const{
       'project': '<=>selectedEntity',
       'callback': '&callback',
-      'field': '=>!field'
+      'field': '=>!field',
+      'clearOnClose': '=>!clearOnClose'
   }
 )
 class ProjectSelectComponent extends EntitySelect{
@@ -98,7 +103,8 @@ class ProjectSelectComponent extends EntitySelect{
         'activity': '<=>selectedEntity',
         'project': '=>!projectId',
         'callback': '&callback',
-        'field': '=>!field'
+        'field': '=>!field',
+        'clearOnClose': '=>!clearOnClose'
     }
 )
 class ActivitySelectComponent extends EntitySelect{
@@ -114,7 +120,8 @@ class ActivitySelectComponent extends EntitySelect{
     map: const{
         'service': '<=>selectedEntity',
         'callback': '&callback',
-        'field': '=>!field'
+        'field': '=>!field',
+        'clearOnClose': '=>!clearOnClose'
     }
 )
 class ServiceSelectComponent extends EntitySelect{
@@ -128,7 +135,8 @@ class ServiceSelectComponent extends EntitySelect{
     map: const{
         'customer': '<=>selectedEntity',
         'callback': '&callback',
-        'field': '=>!field'
+        'field': '=>!field',
+        'clearOnClose': '=>!clearOnClose'
     }
 )
 class CustomerSelectComponent extends EntitySelect{
@@ -142,7 +150,8 @@ class CustomerSelectComponent extends EntitySelect{
     map: const{
         'status': '<=>selectedEntity',
         'callback': '&callback',
-        'field': '=>!field'
+        'field': '=>!field',
+        'clearOnClose': '=>!clearOnClose'
     }
 )
 class OfferStatusSelectComponent extends EntitySelect{
@@ -153,7 +162,7 @@ class OfferStatusSelectComponent extends EntitySelect{
     }
     _selectedEntity = entity;
   }
-  get EntText => _selectedEntity.text;
+  get EntText => _selectedEntity != null ? _selectedEntity.text: '';
 }
 
 @Component(
@@ -163,7 +172,8 @@ class OfferStatusSelectComponent extends EntitySelect{
     map: const{
         'rategroup': '<=>selectedEntity',
         'callback': '&callback',
-        'field': '=>!field'
+        'field': '=>!field',
+        'clearOnClose': '=>!clearOnClose'
     }
 )
 class RateGroupSelectComponent extends EntitySelect{
@@ -177,7 +187,8 @@ class RateGroupSelectComponent extends EntitySelect{
     map: const{
         'rateunittype': '<=>selectedEntity',
         'callback': '&callback',
-        'field': '=>!field'
+        'field': '=>!field',
+        'clearOnClose': '=>!clearOnClose'
     }
 )
 class RateUnitTypeSelectComponent extends EntitySelect{
@@ -196,7 +207,7 @@ class RateUnitTypeSelectComponent extends EntitySelect{
     }
   }
 
-  get EntText => _selectedEntity;
+  get EntText => _selectedEntity != null ? _selectedEntity: '';
 
   attach() async {
     await super.attach();
@@ -212,7 +223,8 @@ class RateUnitTypeSelectComponent extends EntitySelect{
         'useContext': '=>!useContext',
         'user': '<=>selectedEntity',
         'callback': '&callback',
-        'field': '=>!field'
+        'field': '=>!field',
+        'clearOnClose': '=>!clearOnClose'
     }
 )
 class UserSelectComponent extends EntitySelect{
@@ -230,7 +242,7 @@ class UserSelectComponent extends EntitySelect{
     _selectedEntity = entity;
   }
 
-  get EntText => _selectedEntity.fullname;
+  get EntText => _selectedEntity != null ? _selectedEntity.fullname: '';
 
   attach(){
     super.attach();

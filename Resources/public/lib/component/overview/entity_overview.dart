@@ -437,9 +437,7 @@ class ActivityOverviewComponent extends EntityOverview{
   set projectId(int id){
     if(id != null) {
       this._projectId = id;
-      super.reload(params: {
-          'project': id
-      });
+      reload();
     }
   }
 
@@ -457,6 +455,12 @@ class ActivityOverviewComponent extends EntityOverview{
 
   createEntity({var newEnt, Map<String,dynamic> params}){
     super.createEntity(params: {'project': this._projectId});
+  }
+
+  reload({Map<String,dynamic> params, bool evict: false}){
+    super.reload(params: {
+        'project': this._projectId
+    }, evict: evict);
   }
 }
 
@@ -495,7 +499,7 @@ class TimesliceOverviewComponent extends EntityOverview{
 
   DateTime newEntryDate;
 
-  TimesliceOverviewComponent(DataCache store, SettingsManager manager, this.context, StatusService status): super(Timeslice, store, '', manager, status){
+  TimesliceOverviewComponent(DataCache store, SettingsManager manager, StatusService status, this.context): super(Timeslice, store, '', manager, status){
     this.context.onSwitch((Employee employee) => this.employee = employee);
   }
   cEnt({Timeslice entity}){
@@ -526,11 +530,6 @@ class TimesliceOverviewComponent extends EntityOverview{
           slice.value = settingForName.value;
           break;
         case 'activity':
-          //TODO Remove once not needed anymore.
-          if(settingForName.value.contains('action:byName:')){
-            settingForName.value.replaceAll('action:byName:', '');
-            settingsManager.updateSetting(settingForName);
-          }
           slice.activity = this.activitybyName(settingForName.value);
           break;
         default:
@@ -652,6 +651,54 @@ class TimesliceOverviewComponent extends EntityOverview{
     this.filterEndDate = this.filterEndDate.add(new Duration(days: 1));
     updateEntryDate();
   }
+}
+
+
+@Component(
+    selector: 'timeslice-expensereport',
+    templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/overview/timeslice_expense_report.html',
+    useShadowDom: false
+)
+class TimesliceExpenseReportComponent extends EntityOverview{
+  TimesliceExpenseReportComponent(DataCache store, SettingsManager manager, StatusService status): super(Timeslice, store, '', manager, status);
+
+  Project _project;
+
+  get project => _project;
+
+  set project(Project proj){
+    _project = proj;
+    if(_project != null) {
+      reload();
+    }
+  }
+
+  User _user;
+
+  get user =>_user;
+
+  set user(User user){
+    _user = user;
+    reload();
+  }
+
+  attach(){}
+
+  reload({Map<String,dynamic> params, bool evict: false}) async{
+    this.entities = [];
+    this.statusservice.setStatusToLoading();
+    try {
+      this.entities = (await this.store.customQueryList(this.type, new CustomRequestParams(params: {
+          'project': _project != null ? _project.id: null,
+          'user': _user != null ? _user.id: null
+      }, method: 'GET', url: '/api/v1/reports/expense'))).toList();
+      this.statusservice.setStatusToSuccess();
+      this.rootScope.emit(this.type.toString()+'Loaded');
+    } catch(e){
+      this.statusservice.setStatusToError();
+    }
+  }
+
 }
 
 @Component(
