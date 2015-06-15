@@ -10,12 +10,7 @@ namespace Dime\ReportBundle\Controller;
 use Dime\TimetrackerBundle\Controller\DimeController;
 use FOS\RestBundle\Controller\Annotations;
 use FOS\RestBundle\Request\ParamFetcherInterface;
-use FOS\RestBundle\Util\Codes;
-use FOS\RestBundle\View\View;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
-use Symfony\Component\Form\FormTypeInterface;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ReportController extends DimeController{
 	/**
@@ -29,8 +24,8 @@ class ReportController extends DimeController{
 	 * }
 	 * )
 	 *
+	 * @Annotations\QueryParam(name="project", requirements="\d+", nullable=true, description="Filter By Project")
 	 * @Annotations\QueryParam(name="user", requirements="\d+", nullable=true, description="Filter By User")
-	 * @Annotations\QueryParam(name="search", requirements="\w+", nullable=true, description="Filter By Name or alias")
 	 *
 	 * @Annotations\View(
 	 * serializerEnableMaxDepthChecks=true
@@ -41,12 +36,46 @@ class ReportController extends DimeController{
 	 * )
 	 *
 	 * @param ParamFetcherInterface $paramFetcher
-	 *            param fetcher offer
 	 *
 	 * @return array
 	 */
 	public function getReportsExpenseAction(ParamFetcherInterface $paramFetcher)
 	{
 		return $this->container->get('dime.report.handler')->getExpenseReport($paramFetcher->all());
+	}
+
+	/**
+	 * Print Offer
+	 *
+	 * @ApiDoc(
+	 * resource = true,
+	 * section="report",
+	 * statusCodes = {
+	 * 200 = "Returned when successful",
+	 * 404 = "Returned when entity does not exist"
+	 * }
+	 * )
+	 *
+	 * @Annotations\QueryParam(name="project", requirements="\d+", nullable=true, description="Filter By Project")
+	 * @Annotations\QueryParam(name="user", requirements="\d+", nullable=true, description="Filter By User")
+	 *
+	 * @Annotations\Route(requirements={"_format"="json|xml"})
+	 *
+	 * @Annotations\View(
+	 * serializerEnableMaxDepthChecks=true
+	 * )
+	 * @param ParamFetcherInterface $paramFetcher
+	 *
+	 * @return \Dime\InvoiceBundle\Entity\Invoice
+	 */
+	public function printReportsExpenseAction(ParamFetcherInterface $paramFetcher)
+	{
+		return $this->get('dime.print.pdf')->render('DimeReportBundle:Reports:ExpenseReport.pdf.twig',
+			array(
+				'report' => $this->container->get('dime.report.handler')->getExpenseReport($paramFetcher->all()),
+				'project' => $this->getOr404($paramFetcher->get('project'), 'dime.project.handler')
+			),
+			'DimeReportBundle:Reports:stylesheet.xml.twig'
+		);
 	}
 }

@@ -1,0 +1,23 @@
+<!DOCTYPE pdf SYSTEM "%resources%/dtd/doctype.dtd">
+<pdf>
+	<dynamic-page page-size="a4">
+		<div class="logo"><img src="{{ pdf_image('SwoCommonsBundle:swo_logo_big.png') }}"/></div>
+		<div class="title description">{{ project.description }}</div>
+		<table class="maintable">
+			<tr class="thead">
+				<td class="firstrow">Datum</td>
+				<td class="secondrow">Bezeichnung</td>
+				<td class="thirdrow number">Anzahl</td>
+				<td class="fourthrow">Einheit</td>
+			</tr>
+			{% for slice in report %}
+				<tr class="tbody">
+					<td class="firstrow">{{ slice.startedAt|date('d.m.Y') }}</td>
+					<td class="secondrow">{{ slice.activity.service.name }}</td>
+					<td class="thirdrow number">{{ slice.serializeValue(false) }}</td>
+					<td class="fourthrow">{{ slice.activity.rateUnit }}</td>
+				</tr>
+			{% endfor %}
+		</table>
+	</dynamic-page>
+</pdf>

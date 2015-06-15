@@ -7,18 +7,41 @@
 
 namespace Dime\ReportBundle\Handler;
 
-use PHPPdf\Core\Node\Container;
-use Symfony\Component\DependencyInjection\ContainerAware;
+use Dime\TimetrackerBundle\Entity\Timeslice;
+use Dime\TimetrackerBundle\Handler\AbstractHandler;
 
-class ReportHandler extends ContainerAware{
+class ReportHandler extends AbstractHandler{
 
-	public function __construct(Container $container)
-	{
-		$this->container = $container;
-	}
 
 	public function getExpenseReport(array $params){
-		return '';
+		$this->repository->createCurrentQueryBuilder($this->alias);
+
+
+		// Filter
+		if($this->hasParams($params)) {
+			$this->repository->filter($this->cleanParameterBag($params));
+		}
+
+		$this->repository->getCurrentQueryBuilder()
+			->Select('SUM('.$this->alias.'.value)')
+			->addSelect($this->alias.'.startedAt')
+			->addSelect('IDENTITY('.$this->alias.'.activity)')
+			->groupBy($this->alias.'.startedAt')
+			->addGroupBy($this->alias.'.activity')
+			->orderBy($this->alias.'.startedAt', 'ASC')
+		;
+
+
+		$tmpResults = $this->repository->getCurrentQueryBuilder()->getQuery()->getResult();
+		$result = array();
+		foreach($tmpResults as $tmpResult){
+			$slice= new Timeslice();
+			$slice->setValue($tmpResult[1])
+				->setStartedAt($tmpResult['startedAt'])
+				->setActivity($this->om->getRepository('DimeTimetrackerBundle:Activity')->find($tmpResult[2]));
+			$result[] = $slice;
+		}
+		return $result;
 	}
 
 }
