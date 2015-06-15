@@ -129,15 +129,37 @@ class Timeslice extends Entity implements DimeEntityInterface
 	/**
 	 * @JMS\VirtualProperty()
 	 * @JMS\SerializedName("value")
+	 * @param bool $withUnits
+	 *
+	 * @return float|int|string
 	 */
-	public function serializeValue()
+	public function serializeValue($withUnits = true)
     {
         if(is_callable(array($this->activity, 'getRateUnitType'))) {
-            if($this->getActivity()->getRateUnitType() === RateUnitType::$NoChange) {
-                return $this->getValue();
-            }
-            $transformer = new DurationTransformer();
-            return $transformer->transform($this->getValue());
+	        switch($this->getActivity()->getRateUnitType()) {
+	        case RateUnitType::$Hourly:
+		        $value = round(($this->getValue() / RateUnitType::$HourInSeconds), 2);
+				if($withUnits){
+					$value.='h';
+				}
+		        break;
+	        case RateUnitType::$Minutely:
+		        $value = round(($this->getValue() / RateUnitType::$MinuteInSeconds), 2);
+		        if($withUnits){
+			        $value.='m';
+		        }
+		        break;
+	        case RateUnitType::$Dayly:
+		        $value = round(($this->getValue() / RateUnitType::$DayInSeconds), 2);
+		        if($withUnits){
+			        $value.='d';
+		        }
+		        break;
+	        default:
+		        return $this->getValue();
+		        break;
+	        }
+	        return $value;
         } else {
             return $this->getValue();
         }
