@@ -110,6 +110,9 @@ class UserHandler extends GenericHandler
 		    $entity = $form->getData();
 		    $refclas = new \ReflectionClass($this->entityClass);
 		    $this->eventDispatcher->dispatch(TimetrackEvents::ENTITY_PRE_PERSIST.'.'.$method.'.'.$refclas->getShortName(), new DimeEntityPersistEvent($entity));
+		    if($method === 'POST'){
+			    $entity->setPlainPassword(base_convert(sha1(uniqid(mt_rand(), true)), 16, 36));
+		    }
 		    $this->userManager->updatePassword($entity);
 		    $this->userManager->updateUser($entity);
 		    $this->eventDispatcher->dispatch(TimetrackEvents::ENTITY_POST_PERSIST.'.'.$method.'.'.$refclas->getShortName(), new DimeEntityPersistEvent($entity));

@@ -140,6 +140,12 @@ abstract class AbstractHandler
 			        $value = $value['id'];
 		        }
 	        }
+	        if($value===false){
+		        $result[$key]='0';
+	        }
+	        if($value===true){
+		        $result[$key]='1';
+	        }
 	        if (!empty($value))
 	        {
 		        $result[$key]=$value;
