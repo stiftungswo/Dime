@@ -4,7 +4,7 @@ parameters:
 services:
     dime.employee.handler:
         class: "Dime\TimetrackerBundle\Handler\UserHandler"
-        arguments: [ "@doctrine.orm.entity_manager", "Dime\EmployeeBundle\Entity\Employee", "@service_container", "@fos_user.user_manager", "em", "dime_employeeBundle_employeeformtype" ]
+        arguments: [ "@doctrine.orm.entity_manager", "Dime\EmployeeBundle\Entity\Employee", "@service_container", "@fos_user.user_manager", "em", "dime_employeebundle_employeeformtype" ]
 
     dime.period.handler:
         class: %generic_handler%

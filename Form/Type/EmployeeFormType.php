@@ -1,6 +1,6 @@
 <?php
 
-namespace Dime\TimetrackerBundle\Form\Type;
+namespace Dime\EmployeeBundle\Form\Type;
 
 use Dime\TimetrackerBundle\Form\Transformer\PasswordCryptTransformer;
 use Symfony\Component\Form\AbstractType;
@@ -31,7 +31,6 @@ class EmployeeFormType extends AbstractType
             ->add('enabled', 'choice', array('required' => false, 'choices' => array('0' => false, '1' => true)))
             ->add('locked', 'choice', array('required' => false, 'choices' => array('0' => false, '1' => true)))
 	        ->add('workingPeriods', 'entity', array('class' => 'DimeEmployeeBundle:Period', 'multiple' => true))
-	        ->add('freePeriods', 'entity', array('class' => 'DimeEmployeeBundle:Period', 'multiple' => true))
         ;
     }
 

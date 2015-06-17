@@ -63,6 +63,7 @@ class Employee extends User implements DimeEntityInterface
 	{
 		$this->workingPeriods = new ArrayCollection();
 		$this->freePeriods = new ArrayCollection();
+		parent::__construct();
 	}
 
 	/**
