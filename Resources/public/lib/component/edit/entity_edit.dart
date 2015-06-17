@@ -259,3 +259,12 @@ class AddressEditComponent extends EntityEdit{
 class ServiceEditComponent extends EntityEdit{
   ServiceEditComponent(RouteProvider routeProvider, DataCache store, StatusService status, UserAuthProvider auth, Router router): super(routeProvider, store, Service, status, auth, router);
 }
+
+@Component(
+    selector: 'employee-edit',
+    templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/edit/employee_edit.html',
+    useShadowDom: false
+)
+class EmployeeEditComponent extends EntityEdit{
+  EmployeeEditComponent(RouteProvider routeProvider, DataCache store, StatusService status, UserAuthProvider auth, Router router): super(routeProvider, store, Employee, status, auth, router);
+}

@@ -76,6 +76,8 @@ class AppModule extends Module {
     bind(SecondsToHours);
     bind(HolidayOverviewComponent);
     bind(TimesliceExpenseReportComponent);
+    bind(EmployeeOverviewComponent);
+    bind(EmployeeEditComponent);
     install(new Hammock());
     bind(RouteInitializerFn, toValue: dimeRouteInitializer);
     bind(HammockConfig, toFactory: createHammockConfig, inject: [Injector]);

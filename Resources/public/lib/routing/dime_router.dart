@@ -61,6 +61,14 @@ void dimeRouteInitializer(Router router, RouteViewFactory views) {
         path: '/holidays/overview',
         viewHtml: '<holiday-overview></holiday-overview>'
     ),
+    'employee_overview': ngRoute(
+        path: '/employees/overview',
+        viewHtml: '<employee-overview></employee-overview>'
+    ),
+    'employee_edit': ngRoute(
+        path: '/employees/edit/:id',
+        viewHtml: '<employee-edit></employee-edit>'
+    ),
     'expense_report': ngRoute(
         path: '/reports/expense',
         viewHtml: '<timeslice-expensereport></timeslice-expensereport>'

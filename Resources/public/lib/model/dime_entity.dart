@@ -1614,13 +1614,28 @@ class Timeslice extends Entity with TagFields{
 class User extends Entity{
   User();
   User.clone(User original): super.clone(original){
-    //Todo I should generate a new username
-    this.firstname=original.firstname;
-    this.lastname=original.lastname;
-    this.email = original.email;
+    this.username = 'cloneduser';
+    this.firstname = original.firstname;
+    this.lastname = original.lastname;
+    this.email = 'cloned@example.com';
+    this.enabled = original.enabled;
+    this.locked = original.locked;
   }
   newObj(){
     return new User();
+  }
+  init({Map<String,dynamic> params}){
+    if(params!=null) {
+      if (params.containsKey('username')) {
+        this.username = params['username'];
+      }
+      if (params.containsKey('email')) {
+        this.email = params['email'];
+      }
+      this.enabled = false;
+      this.locked = true;
+      super.init(params: params);
+    }
   }
   dynamic Get(String property){
     var val = super.Get(property);
@@ -1638,6 +1653,8 @@ class User extends Entity{
           return this.enabled;
         case 'locked':
           return this.locked;
+        case 'plainpassword':
+          return this.plainpassword;
         default:
           break;
       }
@@ -1664,6 +1681,9 @@ class User extends Entity{
       case 'locked':
         this.locked = value;
         break;
+      case 'plainpassword':
+        this.plainpassword = value;
+        break;
       default:
         super.Set(property, value);
         break;
@@ -1687,6 +1707,7 @@ class User extends Entity{
         "email": this.email,
         "enabled": this.enabled,
         "locked": this.locked,
+        "plainpassword": this.plainpassword,
     });
     return m;
   }
@@ -1698,6 +1719,7 @@ class User extends Entity{
     return '$firstname $lastname';
   }
   String email;
+  String plainpassword;
   bool enabled;
   bool locked;
   
@@ -1705,7 +1727,7 @@ class User extends Entity{
 
 class Employee extends User{
   Employee();
-
+  Employee.clone(Employee original): super.clone(original);
   newObj(){
     return new Employee();
   }

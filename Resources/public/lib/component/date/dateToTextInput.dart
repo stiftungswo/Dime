@@ -5,7 +5,7 @@ import 'package:intl/intl.dart';
 
 @Component(
   selector: 'dateinput',
-  template: '<input ng-model="text" class="form-control">',
+  template: '<input ng-model="text" class="form-control" ng-blur="updateDate()">',
   useShadowDom: false
 )
 class DateToTextInput{
@@ -22,6 +22,8 @@ class DateToTextInput{
   @NgOneWayOneTime('format')
   String format = 'dd-MM-y';
 
+  String _text;
+
   get text{
     if(date != null) {
       return new DateFormat(format).format(date);
@@ -30,7 +32,12 @@ class DateToTextInput{
   }
 
   set text(String text){
-    this.date = new DateFormat(format).parse(text);
+    this._text = text;
+  }
+
+  updateDate(){
+    print('Date Update Called');
+    this.date = new DateFormat(format).parse(_text);
     if(this.callback != null){
       callback({"name": this.field});
     }

@@ -776,3 +776,24 @@ class HolidayOverviewComponent extends EntityOverview{
     return new Holiday();
   }
 }
+
+@Component(
+    selector: 'employee-overview',
+    templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/overview/employee_overview.html',
+    useShadowDom: false
+)
+class EmployeeOverviewComponent extends EntityOverview{
+  EmployeeOverviewComponent(DataCache store, Router router, SettingsManager manager, StatusService status, RouteProvider prov): super(Employee, store, 'employee_edit', manager, status, router: router, prov: prov);
+  cEnt({Employee entity}){
+    if(entity !=null){
+      return new Employee.clone(entity);
+    }
+    return new Employee();
+  }
+  createEntity({var newEnt, Map<String,dynamic> params}) async{
+    super.createEntity(params: {
+        'username': 'newuser',
+        'email': 'user@example.com',
+    });
+  }
+}
