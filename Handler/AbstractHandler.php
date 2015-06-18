@@ -146,7 +146,7 @@ abstract class AbstractHandler
 	        if($value===true){
 		        $result[$key]='1';
 	        }
-	        if (!empty($value))
+	        if (isset($value))
 	        {
 		        $result[$key]=$value;
 	        }
