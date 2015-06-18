@@ -120,21 +120,31 @@ abstract class AbstractHandler
 	    $this->eventDispatcher->dispatch(TimetrackEvents::ENTITY_POST_DELETE.'.'.$refclas->getShortName(), new DimeEntityPersistEvent($entity));
     }
 
-    /**
-     * Clean up filter array
-     *
-     * @param array $filter
-     *
-     * @return array $result
-     */
-    protected function cleanParameterBag(array $filter)
+	/**
+	 * Clean up filter array
+	 *
+	 * @param array $filter
+	 *
+	 * @param       $keepemptyArrays
+	 *
+	 * @return array $result
+	 */
+    protected function cleanParameterBag(array $filter, $keepemptyArrays = true)
     {
         $result = array();
         foreach($filter as $key=>$value)
         {
 	        if(is_array($value))
 	        {
-		        $value = $this->cleanParameterBag($value);
+		        if(empty($value)) {
+			        if($keepemptyArrays === true) {
+				        $value = $this->cleanParameterBag($value, $keepemptyArrays);
+			        } else {
+				      $value = null;
+			        }
+		        } else {
+			        $value = $this->cleanParameterBag($value, $keepemptyArrays);
+		        }
 		        if(isset($value['id']))
 		        {
 			        $value = $value['id'];

@@ -40,7 +40,7 @@ class GenericHandler extends AbstractHandler implements HandlerInterface {
 
 		// Filter
 		if($this->hasParams($params)) {
-			$this->repository->filter($this->cleanParameterBag($params));
+			$this->repository->filter($this->cleanParameterBag($params, false));
 		}
 
 		//Add Ordering
