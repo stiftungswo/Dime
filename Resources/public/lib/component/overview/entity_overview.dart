@@ -483,8 +483,16 @@ class TimesliceOverviewComponent extends EntityOverview{
       return;
     }
     this._employee = employee;
-    this.reload();
+    if(!this.projectBased) {
+      this.reload();
+      if(contextRegistered == false) {
+        this.context.onSwitch((Employee employee) => this.employee = employee);
+        contextRegistered = true;
+      }
+    }
   }
+
+  bool contextRegistered = false;
 
   get employee => this._employee;
 
@@ -495,13 +503,24 @@ class TimesliceOverviewComponent extends EntityOverview{
   DateTime filterStartDate = new DateTime.now();
   DateTime filterEndDate;
 
+  @NgOneWay('project')
+  set projectFilter(Project project){
+    this.projectBased = true;
+    this.selectedProject = project;
+    this.reload();
+  }
+
   Project selectedProject;
 
   DateTime newEntryDate;
 
-  TimesliceOverviewComponent(DataCache store, SettingsManager manager, StatusService status, this.context): super(Timeslice, store, '', manager, status){
-    this.context.onSwitch((Employee employee) => this.employee = employee);
-  }
+  @NgOneWayOneTime('allowProjectSelect')
+  bool allowProjectSelect = true;
+
+  bool projectBased = false;
+
+  TimesliceOverviewComponent(DataCache store, SettingsManager manager, StatusService status, this.context): super(Timeslice, store, '', manager, status);
+
   cEnt({Timeslice entity}){
     if(entity !=null){
       return new Timeslice.clone(entity);
@@ -510,7 +529,15 @@ class TimesliceOverviewComponent extends EntityOverview{
   }
 
   reload({Map<String,dynamic> params, bool evict: false})async {
-    await super.reload(params: {'user': _employee.id}, evict: evict);
+    if(this.projectBased){
+      await super.reload(params: {
+          'project': selectedProject.id
+      }, evict: evict);
+    } else {
+      await super.reload(params: {
+          'user': _employee.id
+      }, evict: evict);
+    }
     updateEntryDate();
   }
 

@@ -21,6 +21,10 @@ void dimeRouteInitializer(Router router, RouteViewFactory views) {
           path: '/timetrack',
           viewHtml: '<timetrack></timetrack>'
       ),
+    'projecttimetrack': ngRoute(
+          path: '/projects/timetrack',
+          viewHtml: '<projecttimetrack></projecttimetrack>'
+      ),
     'offers_overview': ngRoute(
         path: '/offers/overview',
         viewHtml: '<offer-overview></offer-overview>'
