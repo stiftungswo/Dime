@@ -80,6 +80,8 @@ class AppModule extends Module {
     bind(EmployeeEditComponent);
     bind(OfferDiscountOverviewComponent);
     bind(InvoiceDiscountOverviewComponent);
+    bind(StandardDiscountOverviewComponent);
+    bind(StandardDiscountSelectComponent);
     install(new Hammock());
     bind(RouteInitializerFn, toValue: dimeRouteInitializer);
     bind(HammockConfig, toFactory: createHammockConfig, inject: [Injector]);

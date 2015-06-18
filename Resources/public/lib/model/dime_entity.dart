@@ -924,6 +924,7 @@ class Invoice extends Entity{
         "project": this.project is Entity ? this.project.toMap(): null,
         "offer": this.offer is Entity ? this.offer.toMap(): null,
         "customer": this.customer is Entity ? this.customer.toMap(): null,
+        "standardDiscounts": StandardDiscount.MapFromList(this.standardDiscounts),
     });
     return m;
   }
@@ -1150,6 +1151,13 @@ class StandardDiscount extends Entity{
     }
     return array;
   }
+  static List MapFromList(List<StandardDiscount> discounts){
+    List result = new List();
+    for(var element in discounts){
+      result.add(element.toSaveObj().toMap());
+    }
+    return result;
+  }
   StandardDiscount.fromMap(Map<String,dynamic> map): super.fromMap(map){
     if(map==null||map.isEmpty) return;
     this.value = map['value'];
@@ -1164,6 +1172,12 @@ class StandardDiscount extends Entity{
         "minus": this.minus,
     });
     return m;
+  }
+  ViewValue(){
+    if(this.percentage){
+      return (this.value * 100).truncate().toString()+'%';
+    }
+    return this.value;
   }
   String type = 'standarddiscounts';
   double value;

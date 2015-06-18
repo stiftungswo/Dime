@@ -31,8 +31,8 @@
 			<invoiceitem-overview invoice="entity.id"></invoiceitem-overview>
 		</div>
 		<div class="DimePanel">
-			<standarddiscount-overview invoice="entity.id"></standarddiscount-overview>
-			<invoicediscount-overview invoice="entity.id"></invoicediscount-overview>
+			<div class="col-md-6 left"><standarddiscount-overview discounts="entity.standardDiscounts" callback="addSaveField(name)"></standarddiscount-overview></div>
+			<div class="col-md-6 right"><invoicediscount-overview invoice="entity.id"></invoicediscount-overview></div>
 		</div>
 		<div class="form-group DimePanel">
 			<div class="row"><label class="col-sm-3 control-label">Subtotal</label><div>{{entity.subtotal}}</div></div>
