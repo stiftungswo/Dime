@@ -18,9 +18,11 @@ class InvoiceDiscountFormType extends AbstractType
 	{
 		$builder
 			->add('name')
-			->add('vaue')
-			->add('percentage')
-			->add('minus')
+			->add('minus', 'choice', array('empty_data' => true, 'required' => false, 'choices' => array('0' => false, '1' => true)))
+			->add('percentage', 'choice', array('empty_data' => true, 'required' => false, 'choices' => array('0' => false, '1' => true)))
+			->add('value')
+			->add('user')
+			->add('invoice')
 			;
 	}
 

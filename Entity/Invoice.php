@@ -75,11 +75,8 @@ class Invoice extends Entity implements DimeEntityInterface
 
 	/**
 	 * @var ArrayCollection
-	 * @ORM\ManyToMany(targetEntity="Dime\InvoiceBundle\Entity\InvoiceDiscount", cascade={"all"})
-	 * @ORM\JoinTable(name="invoice_invoicediscounts",
-	 *      joinColumns={@ORM\JoinColumn(name="invoice_id", referencedColumnName="id")},
-	 *      inverseJoinColumns={@ORM\JoinColumn(name="invoicediscount_id", referencedColumnName="id", unique=true)}
-	 *      )
+	 * @JMS\SerializedName("invoiceDiscounts")
+	 * @ORM\OneToMany(targetEntity="InvoiceDiscount", mappedBy="invoice", cascade={"all"})
 	 * @JMS\SerializedName("invoiceDiscounts")
 	 */
 	protected $invoiceDiscounts;

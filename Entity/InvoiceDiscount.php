@@ -12,6 +12,7 @@ use Dime\TimetrackerBundle\Entity\Entity;
 use Dime\TimetrackerBundle\Model\DimeEntityInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\JsonSchemaBundle\Annotations as Json;
+use JMS\Serializer\Annotation as JMS;
 use Money\Money;
 
 /**
@@ -24,6 +25,14 @@ use Money\Money;
 class InvoiceDiscount extends Entity implements DimeEntityInterface
 {
 	/**
+	 * @JMS\SerializedName("invoice")
+	 * @ORM\ManyToOne(targetEntity="Invoice", inversedBy="invoiceDiscounts")
+	 * @ORM\JoinColumn(name="invoice_id", referencedColumnName="id", nullable=true)
+	 * @JMS\MaxDepth(1)
+	 */
+	protected $invoice;
+
+	/**
 	 * @var
 	 * @ORM\Column(type="string")
 	 */
@@ -31,9 +40,9 @@ class InvoiceDiscount extends Entity implements DimeEntityInterface
 
 	/**
 	 * @var
-	 * @ORM\Column(type="decimal", precision=10, scale=2)
+	 * @ORM\Column(type="decimal", precision=10, scale=2, nullable=true)
 	 */
-	protected $value;
+	protected $value = 0;
 
 	/**
 	 * @var
@@ -136,6 +145,27 @@ class InvoiceDiscount extends Entity implements DimeEntityInterface
 		$this->value = $value;
 		return $this;
 	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getInvoice()
+	{
+		return $this->invoice;
+	}
+
+	/**
+	 * @param mixed $invoice
+	 *
+	 * @return $this
+	 */
+	public function setInvoice($invoice)
+	{
+		$this->invoice = $invoice;
+		return $this;
+	}
+
+
 
 	/**
 	 * @param OfferDiscount $offerDiscount
