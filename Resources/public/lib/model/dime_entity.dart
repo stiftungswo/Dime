@@ -1070,6 +1070,16 @@ class InvoiceDiscount extends StandardDiscount{
   InvoiceDiscount.fromMap(Map<String,dynamic> map): super.fromMap(map){
     this.invoice = new Invoice.fromMap(map['invoice']);
   }
+  init({Map<String,dynamic> params}){
+    if(params!=null) {
+      this.invoice = new Invoice()
+        ..id = params['invoice'];
+    }
+    super.init(params: params);
+  }
+  newObj(){
+    return new InvoiceDiscount();
+  }
   Map<String,dynamic> toMap(){
     Map m = super.toMap();
     m.addAll({
