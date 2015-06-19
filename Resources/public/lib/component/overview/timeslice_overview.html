@@ -37,11 +37,11 @@
 			<label>Datum</label>
 			<dateinput date="newEntryDate"></dateinput>
 		</div>
-		<div ng-unless="projectBased" class="col-md-2">
+		<div ng-if="projectBased == true" class="col-md-2">
 			<label>Benutzer</label>
 			<user-select user="employee" useContext="false"></user-select>
 		</div>
-		<div nf-if="projectBased" class="col-md-2">
+		<div ng-if="projectBased == false" class="col-md-2">
 			<label>Benutzer</label>
 			<user-select useContext="true"></user-select>
 		</div>
