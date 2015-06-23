@@ -8,6 +8,7 @@ import 'package:DimeClient/service/data_cache.dart';
 import 'package:DimeClient/service/user_context.dart';
 import 'package:DimeClient/service/status.dart';
 import 'package:DimeClient/service/user_auth.dart';
+import 'dart:html';
 
 class EntityOverview extends AttachAware implements ScopeAware{
 
@@ -724,6 +725,34 @@ class TimesliceExpenseReportComponent extends EntityOverview{
     } catch(e){
       this.statusservice.setStatusToError();
     }
+  }
+
+  _valForParam(String param){
+    switch (param){
+      case 'project':
+        return _project;
+      case 'user':
+        return _user;
+      default:
+        return null;
+    }
+  }
+
+  printReport(){
+    List<String> params = const['project', 'user'];
+    String paramString = '';
+    for(int i=0; i < params.length; i++){
+      String param = params.elementAt(i);
+      var value = _valForParam(param);
+      if(value != null){
+        if(paramString == ''){
+          paramString + '?${param}=${value}';
+        } else {
+          paramString + '&${param}=${value}';
+        }
+      }
+    }
+    window.open('/api/v1/reports/expenses/print${paramString}', 'Expense Report Print');
   }
 
 }
