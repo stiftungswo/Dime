@@ -39,6 +39,7 @@
 			<div class="row"><label class="col-sm-3 control-label">Davon Mwst.</label><div>{{entity.totalVAT}}</div></div>
 			<div class="row"><label class="col-sm-3 control-label">Total Abzüge</label><div>{{entity.totalDiscounts}}</div></div>
 			<div class="row"><label class="col-sm-3 control-label">Total</label><div>{{entity.total}}</div></div>
+			<div class="row"><label class="col-sm-2 control-label">Fixpreis</label><input class="form-control" type="text" ng-model="entity.fixedPrice" ng-change="addSaveField('fixedPrice')"></div>
 		</div>
 	</div>
 	<div class="DimeControllButtons">

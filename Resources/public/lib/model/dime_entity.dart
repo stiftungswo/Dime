@@ -902,6 +902,7 @@ class Invoice extends Entity{
     this.start =map['start']!=null ? DateTime.parse(map['start']):null;
     this.end =map['end']!=null ? DateTime.parse(map['end']):null;
     this.description = map['description'];
+    this.fixedPrice = map['fixedPrice'];
     this.project = new Project.fromMap(map['project']);
     this.offer = new Offer.fromMap(map['offer']);
     this.customer = new Customer.fromMap(map['customer']);
@@ -925,6 +926,7 @@ class Invoice extends Entity{
         "offer": this.offer is Entity ? this.offer.toMap(): null,
         "customer": this.customer is Entity ? this.customer.toMap(): null,
         "standardDiscounts": StandardDiscount.MapFromList(this.standardDiscounts),
+        "fixedPrice": this.fixedPrice,
     });
     return m;
   }
@@ -942,6 +944,7 @@ class Invoice extends Entity{
   }
   String type = 'invoices';
   String totalDiscounts;
+  String fixedPrice;
   String total;
   String subtotal;
   String totalVAT;
