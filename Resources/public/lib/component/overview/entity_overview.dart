@@ -688,7 +688,7 @@ class TimesliceOverviewComponent extends EntityOverview{
     useShadowDom: false
 )
 class TimesliceExpenseReportComponent extends EntityOverview{
-  TimesliceExpenseReportComponent(DataCache store, SettingsManager manager, StatusService status): super(Timeslice, store, '', manager, status);
+  TimesliceExpenseReportComponent(DataCache store, SettingsManager manager, StatusService status): super(ExpenseReport, store, '', manager, status);
 
   Project _project;
 
@@ -710,16 +710,18 @@ class TimesliceExpenseReportComponent extends EntityOverview{
     reload();
   }
 
+  ExpenseReport report;
+
   attach(){}
 
   reload({Map<String,dynamic> params, bool evict: false}) async{
     this.entities = [];
     this.statusservice.setStatusToLoading();
     try {
-      this.entities = (await this.store.customQueryList(this.type, new CustomRequestParams(params: {
+      this.report = (await this.store.customQueryOne(this.type, new CustomRequestParams(params: {
           'project': _project != null ? _project.id: null,
           'user': _user != null ? _user.id: null
-      }, method: 'GET', url: '/api/v1/reports/expense'))).toList();
+      }, method: 'GET', url: '/api/v1/reports/expense')));
       this.statusservice.setStatusToSuccess();
       this.rootScope.emit(this.type.toString()+'Loaded');
     } catch(e){
@@ -728,23 +730,26 @@ class TimesliceExpenseReportComponent extends EntityOverview{
   }
 
   _valForParam(String param){
-    switch (param){
-      case 'project':
-        return _project;
-      case 'user':
-        return _user;
-      default:
-        return null;
+    try {
+      switch (param) {
+        case 'project':
+          return project.id;
+        case 'user':
+          return user.id;
+        default:
+          return null;
+      }
+    } catch(e){
+      return null;
     }
   }
 
   printReport(){
     List<String> params = const['project', 'user'];
     String paramString = '';
-    for(int i=0; i < params.length; i++){
-      String param = params.elementAt(i);
+    for(String param in params){
       var value = _valForParam(param);
-      if(value != null){
+      if(value is int){
         if(paramString == ''){
           paramString + '?${param}=${value}';
         } else {

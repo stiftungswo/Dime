@@ -204,6 +204,16 @@ HammockConfig createHammockConfig(Injector inj) {
                 if(r.content is String)return new Holiday();
                 return new Holiday.fromMap(r.content);
               }
+          },
+          "expensereports" : {
+            "type" : ExpenseReport,
+            "serializer" : (ExpenseReport ent){
+              return ent.toResource();
+            },
+            "deserializer" : (Resource r){
+              if(r.content is String) return new ExpenseReport();
+              return new ExpenseReport.fromMap(r.content);
+            }
           }
       }
     )

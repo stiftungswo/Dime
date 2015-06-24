@@ -2259,3 +2259,59 @@ class RateUnitType{
     return {'id': this.id, 'name': this.name};
   }
 }
+
+class ExpenseReport extends Entity{
+  ExpenseReport();
+  newObj(){
+    return new ExpenseReport();
+  }
+  dynamic Get(String property){
+    var val = super.Get(property);
+    if(val == null) {
+      switch (property) {
+        case 'timeslices':
+          return this.timeslices;
+        case 'totalHours':
+          return this.totalHours;
+        case 'user':
+          return this.user;
+        case 'project':
+          return this.project;
+        default:
+          break;
+      }
+    }
+    return val;
+  }
+  void Set(String property, var value){
+    switch(property){
+      case 'timeslices':
+        this.timeslices = value;
+        break;
+      case 'totalHours':
+        this.totalHours = value;
+        break;
+      case 'user':
+        this.user = value;
+        break;
+      case 'project':
+        this.project = value;
+        break;
+      default:
+        super.Set(property, value);
+        break;
+    }
+  }
+  ExpenseReport.fromMap(Map<String,dynamic> map): super.fromMap(map){
+    if(map==null||map.isEmpty) return;
+    this.timeslices = map.containsKey('timeslices') ? Timeslice.listFromMap(map['timeslices']): null;
+    this.totalHours = map['totalHours'];
+    this.user = map['user'];
+    this.project = map['project'];
+  }
+  String type = 'expensereports';
+  List<Timeslice> timeslices;
+  Project project;
+  User user;
+  String totalHours;
+}
