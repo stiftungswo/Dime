@@ -73,7 +73,6 @@ class ReportController extends DimeController{
 		return $this->get('dime.print.pdf')->render('DimeReportBundle:Reports:ExpenseReport.pdf.twig',
 			array(
 				'report' => $this->container->get('dime.report.handler')->getExpenseReport($paramFetcher->all()),
-				'project' => $this->getOr404($paramFetcher->get('project'), 'dime.project.handler')
 			),
 			'DimeReportBundle:Reports:stylesheet.xml.twig'
 		);

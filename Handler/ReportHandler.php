@@ -7,6 +7,7 @@
 
 namespace Dime\ReportBundle\Handler;
 
+use Dime\ReportBundle\Entity\ExpenseReport;
 use Dime\TimetrackerBundle\Entity\Timeslice;
 use Dime\TimetrackerBundle\Handler\AbstractHandler;
 
@@ -35,13 +36,21 @@ class ReportHandler extends AbstractHandler{
 		$tmpResults = $this->repository->getCurrentQueryBuilder()->getQuery()->getResult();
 		$result = array();
 		foreach($tmpResults as $tmpResult){
-			$slice= new Timeslice();
+			$slice = new Timeslice();
 			$slice->setValue($tmpResult[1])
 				->setStartedAt($tmpResult['startedAt'])
 				->setActivity($this->om->getRepository('DimeTimetrackerBundle:Activity')->find($tmpResult[2]));
 			$result[] = $slice;
 		}
-		return $result;
+		$report = new ExpenseReport();
+		$report->setTimeslices($result);
+		if(isset($params['project'])) {
+			$report->setProject($this->container->get('dime.project.handler')->get($params['project']));
+		}
+		if(isset($params['user'])) {
+			$report->setProject($this->container->get('dime.user.handler')->get($params['user']));
+		}
+		return $report;
 	}
 
 }

@@ -2,7 +2,9 @@
 <pdf>
 	<dynamic-page page-size="a4">
 		<div class="logo"><img src="{{ pdf_image('SwoCommonsBundle:swo_logo_big.png') }}"/></div>
-		<div class="title description">{{ project.description }}</div>
+		<div class="title">Aufwandsreport</div>
+		{% if report.project is defined%}<div class="title description">{{ report.project.description }}</div>{% endif %}
+		{% if report.user is defined %}<div class="title description">Report für {{ report.user.fullname }}</div>{% endif %}
 		<table class="maintable">
 			<tr class="thead">
 				<td class="firstrow">Datum</td>
@@ -10,7 +12,7 @@
 				<td class="thirdrow number">Anzahl</td>
 				<td class="fourthrow">Einheit</td>
 			</tr>
-			{% for slice in report %}
+			{% for slice in report.timeslices %}
 				<tr class="tbody">
 					<td class="firstrow">{{ slice.startedAt|date('d.m.Y') }}</td>
 					<td class="secondrow">{{ slice.activity.service.name }}</td>
@@ -19,5 +21,6 @@
 				</tr>
 			{% endfor %}
 		</table>
+		<div class="title">Gesamt Stunden: {{ report.getSumHours() }}</div>
 	</dynamic-page>
 </pdf>
