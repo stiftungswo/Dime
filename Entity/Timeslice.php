@@ -4,9 +4,7 @@ namespace Dime\TimetrackerBundle\Entity;
 
 use Carbon\Carbon;
 use DateTime;
-use Dime\TimetrackerBundle\Form\Transformer\DurationTransformer;
 use Dime\TimetrackerBundle\Model\DimeEntityInterface;
-use Dime\TimetrackerBundle\Model\RateUnitType;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -111,7 +109,11 @@ class Timeslice extends Entity implements DimeEntityInterface
      */
     public function setValue($value)
     {
-        $this->value = $value;
+	    if(is_callable(array($this->activity, 'getRateUnitType'))) {
+		    $this->value = $this->getActivity()->getRateUnitType()->reverseTransform($value);
+	    } else{
+		    $this->value = $value;
+	    }
 
         return $this;
     }
@@ -136,28 +138,9 @@ class Timeslice extends Entity implements DimeEntityInterface
 	public function serializeValue($withUnits = true)
     {
         if(is_callable(array($this->activity, 'getRateUnitType'))) {
-	        switch($this->getActivity()->getRateUnitType()) {
-	        case RateUnitType::$Hourly:
-		        $value = round(($this->getValue() / RateUnitType::$HourInSeconds), 2);
-				if($withUnits){
-					$value.='h';
-				}
-		        break;
-	        case RateUnitType::$Minutely:
-		        $value = round(($this->getValue() / RateUnitType::$MinuteInSeconds), 2);
-		        if($withUnits){
-			        $value.='m';
-		        }
-		        break;
-	        case RateUnitType::$Dayly:
-		        $value = round(($this->getValue() / RateUnitType::$DayInSeconds), 2);
-		        if($withUnits){
-			        $value.='d';
-		        }
-		        break;
-	        default:
-		        return $this->getValue();
-		        break;
+	        $value = $this->getActivity()->getRateUnitType()->transform($this->getValue());
+	        if($withUnits){
+		        $value = $this->getActivity()->getRateUnitType()->serializedOutput($value);
 	        }
 	        return $value;
         } else {
@@ -326,7 +309,7 @@ class Timeslice extends Entity implements DimeEntityInterface
     public function updateStopOnEmpty()
     {
         if(empty($this->stoppedAt)){
-            if(!empty($this->startedAt) && ($this->activity->getRateUnitType() === RateUnitType::$NoChange || empty($this->value))){
+            if(!empty($this->startedAt) && empty($this->value)){
                 $this->stoppedAt = $this->getStartedAt();
             } else if(!empty($this->startedAt) && ! empty($this->value)){
                 $this->stoppedAt = $this->getStartedAt()->addSeconds($this->getValue());

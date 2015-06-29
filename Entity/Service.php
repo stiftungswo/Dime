@@ -358,7 +358,7 @@ class Service extends Entity implements DimeEntityInterface
      *
      * @return Service
      */
-    public function addRate(\Dime\TimetrackerBundle\Entity\Rate $rate)
+    public function addRate(Rate $rate)
     {
         $this->rates[] = $rate;
 
@@ -370,7 +370,7 @@ class Service extends Entity implements DimeEntityInterface
      *
      * @param \Dime\TimetrackerBundle\Entity\Rate $rate
      */
-    public function removeRate(\Dime\TimetrackerBundle\Entity\Rate $rate)
+    public function removeRate(Rate $rate)
     {
         $this->rates->removeElement($rate);
     }

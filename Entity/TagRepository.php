@@ -53,13 +53,15 @@ class TagRepository extends EntityRepository
     }
 
 
-    /**
-     * get ids for tags and create non-existing ones
-     *
-     * @param array        $tags Array of strings
-     * @param QueryBuilder $qb   Query builder instance
-     * @return array (name => id)
-     */
+	/**
+	 * get ids for tags and create non-existing ones
+	 *
+	 * @param array        $tags Array of strings
+	 * @param User         $user
+	 * @param QueryBuilder $qb   Query builder instance
+	 *
+	 * @return array
+	 */
     public function getIdsForTags(array $tags, User $user, QueryBuilder $qb = null)
     {
         if ($qb == null) {

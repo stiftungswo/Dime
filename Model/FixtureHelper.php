@@ -64,6 +64,5 @@ class FixtureHelper extends AbstractFixture{
 	 */
 	function load(ObjectManager $manager)
 	{
-		// TODO: Implement load() method.
 	}
 }

@@ -3,7 +3,6 @@ namespace Dime\TimetrackerBundle\Entity;
 
 use Dime\TimetrackerBundle\Model\ActivityReference;
 use Dime\TimetrackerBundle\Model\DimeEntityInterface;
-use Dime\TimetrackerBundle\Model\RateUnitType;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as JMS;
@@ -103,9 +102,9 @@ class Activity extends Entity implements DimeEntityInterface
     protected $rateUnit;
 
     /**
-     * @var string $rateUnitType
+     * @var RateUnitType $rateUnitType
      *
-     * @ORM\Column(name="rate_unit_type", type="text", nullable=true)
+     * @ORM\ManyToOne(targetEntity="Dime\TimetrackerBundle\Entity\RateUnitType")
      * @JMS\SerializedName("rateUnitType")
      */
     protected $rateUnitType;
@@ -124,17 +123,7 @@ class Activity extends Entity implements DimeEntityInterface
 			$value += $timeslice->getValue();
 		}
 		if(!$pure) {
-			switch($this->getRateUnitType()) {
-			case RateUnitType::$Hourly:
-				return round(($value / RateUnitType::$HourInSeconds), 2);
-				break;
-			case RateUnitType::$Minutely:
-				return round(($value / RateUnitType::$MinuteInSeconds), 2);
-				break;
-			case RateUnitType::$Dayly:
-				return round(($value / RateUnitType::$DayInSeconds), 2);
-				break;
-			}
+			return $this->rateUnitType->transform($value);
 		}
 		return $value;
 	}
@@ -149,13 +138,13 @@ class Activity extends Entity implements DimeEntityInterface
     public function updateEmptyRateFromDefault()
     {
         $serviceRate = $this->getServiceRate();
-        if($serviceRate === null)
+        if(is_null($serviceRate))
             return $this;
-        if($this->rateValue == null)
+        if(is_null($this->rateValue))
             $this->rateValue = $serviceRate->getRateValue();
-        if($this->rateUnit == null)
+        if(is_null($this->rateUnit))
             $this->rateUnit = $serviceRate->getRateUnit();
-        if($this->rateUnitType == null)
+        if(is_null($this->rateUnitType))
             $this->rateUnitType = $serviceRate->getRateUnitType();
         return $this;
     }
@@ -239,19 +228,7 @@ class Activity extends Entity implements DimeEntityInterface
 	 */
 	public function serializeValue()
 	{
-		$value = $this->getValue();
-		switch ($this->getRateUnitType()){
-		case RateUnitType::$Hourly:
-			return $value.'h';
-			break;
-		case RateUnitType::$Minutely:
-			return $value.'m';
-			break;
-		case RateUnitType::$Dayly:
-			return $value.'d';
-			break;
-		}
-		return $value;
+		return $this->rateUnitType->serializedOutput($this->getValue());
 	}
 
 	/**
@@ -570,7 +547,7 @@ class Activity extends Entity implements DimeEntityInterface
     /**
      * Set rate
      *
-     * @param string $rateUnitType
+     * @param RateUnitType $rateUnitType
      *
      * @return Activity
      */
@@ -584,7 +561,7 @@ class Activity extends Entity implements DimeEntityInterface
     /**
      * Get rateUnitType
      *
-     * @return string
+     * @return RateUnitType
      */
     public function getRateUnitType()
     {

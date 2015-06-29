@@ -2,7 +2,6 @@
 
 namespace Dime\TimetrackerBundle\Form\Type;
 
-use Dime\TimetrackerBundle\Form\Transformer\DurationTransformer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -24,7 +23,7 @@ class TimesliceFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add($builder->create('value', 'text')->addViewTransformer(new DurationTransformer()))
+            ->add('value', 'text')
             ->add('startedAt', 'datetime', array('required' => false, 'widget' => 'single_text', 'with_seconds' => true))
             ->add('stoppedAt', 'datetime', array('required' => false, 'widget' => 'single_text', 'with_seconds' => true))
             ->add('activity', 'entity', array('class' => 'DimeTimetrackerBundle:Activity'))

@@ -2,9 +2,7 @@
 namespace Dime\TimetrackerBundle\Entity;
 
 use DateTime;
-use Dime\TimetrackerBundle\Form\Transformer\DurationTransformer;
 use Dime\TimetrackerBundle\Model\DimeEntityInterface;
-use Dime\TimetrackerBundle\Model\RateUnitType;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -125,7 +123,6 @@ class Project extends Entity implements DimeEntityInterface
 	/**
 	 * @var boolean $chargeable
 	 *
-	 * TODO Check if it works
 	 *
 	 * @ORM\Column(type="boolean", nullable=true)
 	 */
@@ -168,7 +165,7 @@ class Project extends Entity implements DimeEntityInterface
 				$duration += $activity->getValue(true);
 			}
 		}
-		return ($duration / RateUnitType::$HourInSeconds).'h';
+		return RateUnitType::transformToStandardUnit($duration, RateUnitType::$Hourly);
 	}
 
 	/**
@@ -177,8 +174,7 @@ class Project extends Entity implements DimeEntityInterface
 	 */
 	public function serializeBudgetTime()
 	{
-		$transformer = new DurationTransformer();
-		return $transformer->transform($this->getBudgetTime());
+		return RateUnitType::transformToStandardUnit($this->getBudgetTime(), RateUnitType::$Hourly);
 	}
 
 	/**

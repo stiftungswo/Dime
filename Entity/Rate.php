@@ -32,9 +32,9 @@ class Rate extends Entity implements DimeEntityInterface
 	protected $rateUnit;
 
 	/**
-	 * @var string $rateUnitType
+	 * @var rateUnitType $rateUnitType
 	 *
-	 * @ORM\Column(name="rate_unit_type", type="text", nullable=true)
+	 * @ORM\ManyToOne(targetEntity="Dime\TimetrackerBundle\Entity\RateUnitType")
 	 * @JMS\SerializedName("rateUnitType")
 	 */
 	protected $rateUnitType;
@@ -182,7 +182,7 @@ class Rate extends Entity implements DimeEntityInterface
     }
 
 	/**
-	 * @return string
+	 * @return RateUnitType
 	 */
 	public function getRateUnitType()
 	{
@@ -190,7 +190,7 @@ class Rate extends Entity implements DimeEntityInterface
 	}
 
 	/**
-	 * @param string $rateUnitType
+	 * @param RateUnitType $rateUnitType
 	 *
 	 * @return $this
 	 */

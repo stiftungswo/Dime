@@ -14,7 +14,7 @@ class TagTransformer implements DataTransformerInterface
     private $em;
 
     /**
-     * @param ObjectManager $om
+     * @param ObjectManager $em
      */
     public function __construct(ObjectManager $em)
     {

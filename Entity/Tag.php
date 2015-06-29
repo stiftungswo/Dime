@@ -74,6 +74,8 @@ class Tag extends Entity implements DimeEntityInterface
      * Set system flag
      *
      * @param boolean $system
+     *
+     * @return boolean
      */
     public function setSystem($system)
     {

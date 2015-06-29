@@ -2,7 +2,6 @@
 
 namespace Dime\TimetrackerBundle\Form\Type;
 
-use Dime\TimetrackerBundle\Form\Transformer\PasswordCryptTransformer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;

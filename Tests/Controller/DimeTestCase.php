@@ -64,15 +64,14 @@ class DimeTestCase extends WebTestCase
 		return $this->client->getResponse();
 	}
 
-    /**
-     * User with auth.
-     *
-     * @param $firewallName
-     * @param array $options
-     * @param array $server
-     *
-     * @return Client
-     */
+	/**
+	 * User with auth.
+	 *
+	 * @param $user
+	 *
+	 * @return Client
+	 *
+	 */
     protected function loginAs($user)
     {
         $this->client->restart();
