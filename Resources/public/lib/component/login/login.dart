@@ -2,7 +2,6 @@ library dime.login;
 
 import 'package:angular/angular.dart';
 import 'package:DimeClient/service/user_auth.dart';
-import 'dart:async';
 
 @Component(
     selector: 'login',

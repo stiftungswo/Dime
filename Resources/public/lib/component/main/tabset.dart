@@ -1,6 +1,5 @@
 library main_tabset;
 
-import 'dart:html';
 import 'package:angular/angular.dart';
 import 'package:DimeClient/model/viewlink.dart';
 
