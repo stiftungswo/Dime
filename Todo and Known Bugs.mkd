@@ -1,46 +1,38 @@
 # Missing Features
-* Ein EntityOverview Widget mit:
-    * Funktionen zum Filtern der Ergebnismenge
-    * Add & Remove Buttons, die ein neue Leeres Widget öffnen, oder um bestätigung fragen
-    * Clone Button '++'
-    * Edit Button der neuen Tab öffnet
-    * Doppel Click triggert eine edit operation
-    * Tastatur Support
-* Kunde
-    * Telefone (nonIndependant Entities in Listen ermöglichen)
-    * Zusätzliche Addressen Pro Kunde (Kontakte Modul?)
-    * Mehr als ein Kontakt per Kunde
-    * Firmennamensfeld (Kontakte Modul?)
-    * Auswahlfeld Herr und Frau
-* Activities
-    * rate in rateValue umbenennen
-    * value in amount umbenennen
-* Invoice/Rechnung
-    * MwSt von offerte übernehmen
-    * MwSt berechnungen
-    * Anpassen an Offerte und Projekt Standards
-    * Discounts von Offerte übernehmen
-    * Freihandrechnung
-* Benutzer
-    * active Status Variable einführen
-* OffertePosition
-    * Discountable bei Rabattberechnung berücksichtigen
-    * Subtotal ohne MwSt zusätzlich zu Subtotal mit MwSt
-* Tarif
-    * Tarif änderungs ProzessModul
-* Offerte
-    * Sperren von Offerten
-    * Subtotal mit und ohne MwSt
-* Neues Loading Logo einfügen
-* RESTful API Dokumentieren.
+* EntityOverview Widget:
+    * Filers
+    * Keyboard Support
+    * Multi selection
+* Customer
+    * Phones
+    * Multible Adresses per Customer (Contacts Module?)
+* Employee
+    * active Status Property
+* OfferPosition
+    * Make discontable checkbox have an effect
+    * Show subtotal with and without vat
+* Rate
+    * Rate Change ProcessModule to make Changes in Rates take effect on certain activities
+* Offer
+    * Locking of Offers
+    * Subtotal with and without VAT 
+* Invoice
+    * Automatically remove all non numeric characters in InvoiceItem::rateValue in Form Validation or throw an error.
+* Report
+    * Add Weekly Raport for all Zivis. How many Hours they have made per day
+    * ExpeseReport add filter by Time
+    * Expense Report make days more visible.
+    * Yearly Report with Categorys for Projects
+* Timetrack
+    * Add Property to Timeslice Overview to disable automatic next Date Calculation.
+* Document REST API
+
 
 # Known Bugs or Limitations
-* Tarif
-    * Änderung der Tarife hat keine auswirkung auf bereits erstellte Offerten/Projekte/Rechnungen
-* Offerte
-    * Der Teilbetrag der einzelenen OffertPositionen wird nur inkl MwSt berechnet
-    * Addressfelder sind leer. (Kommt noch, bis dahin addressfeld unter Kunde gebrauchen)
-* Lange Ladezeiten (nur beim ersten Laden. kann Reduziertwerden indem javascript dateine Paketiert werden)
-* Tags not editable
-* Addresse
-    * PLZ nicht eintragbar.
+* General
+    * Fix Have ability to remove filled input filed without using space
+    * Fix Form Validation error when typing . instead of , in German Browsers.
+* Rate
+    * Changes on rates in Service have no effect on Offer/Projects/Invoices (Intended Change Module Planned)
+* Offer
+    * OfferPostitions::subtotal is calculated only with VAT
