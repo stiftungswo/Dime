@@ -83,6 +83,7 @@ class RateUnitType extends Entity implements DimeEntityInterface
 	 * @var boolean
 	 *
 	 * @ORM\Column(type="boolean")
+	 * @JMS\SerializedName("doTransform")
 	 */
 	protected $doTransform = true;
 
@@ -106,6 +107,7 @@ class RateUnitType extends Entity implements DimeEntityInterface
 	 * PHP_ROUNDING_MODE
 	 *
 	 * @ORM\Column(type="integer")
+	 * @JMS\SerializedName("roundMode")
 	 */
 	protected $roundMode = PHP_ROUND_HALF_UP;
 

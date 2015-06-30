@@ -56,9 +56,6 @@ class UserHandler extends GenericHandler
     public function post(array $parameters)
     {
         $entity = $this->userManager->createUser();
-        if(isset($parameters['id'])){
-            unset($parameters['id']);
-        }
 	    $parameters = $this->cleanParameterBag($parameters);
         return $this->processForm($entity, $parameters, $this->formType,'POST');
     }

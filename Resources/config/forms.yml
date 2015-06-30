@@ -42,3 +42,7 @@ services:
     dime.standarddiscount.form.type:
         class: Dime\TimetrackerBundle\Form\Type\StandardDiscountFormType
         tags: [{ name: "form.type", alias: "dime_timetrackerbundle_standarddiscountformtype" }]
+
+    dime.rategunittype.form.type:
+        class: Dime\TimetrackerBundle\Form\Type\RateUnitTypeFormType
+        tags: [{ name: "form.type", alias: "dime_timetrackerbundle_rateunittypeformtype" }]

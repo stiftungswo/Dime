@@ -64,9 +64,6 @@ class GenericHandler extends AbstractHandler implements HandlerInterface {
 	public function post(array $parameters)
 	{
 		$entity = $this->newClassInstance();
-		if(isset($parameters['id'])){
-			unset($parameters['id']);
-		}
 		$parameters = $this->cleanParameterBag($parameters);
 		return $this->processForm($entity, $parameters, $this->formType, 'POST');
 	}
