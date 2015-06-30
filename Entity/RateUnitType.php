@@ -85,7 +85,7 @@ class RateUnitType extends Entity implements DimeEntityInterface
 	 * @ORM\Column(type="boolean")
 	 * @JMS\SerializedName("doTransform")
 	 */
-	protected $doTransform = true;
+	protected $doTransform;
 
 	/**
 	 * @var double
@@ -100,7 +100,7 @@ class RateUnitType extends Entity implements DimeEntityInterface
 	 *
 	 * @ORM\Column(type="integer")
 	 */
-	protected $scale = 3;
+	protected $scale;
 
 	/**
 	 * @var integer
@@ -109,7 +109,7 @@ class RateUnitType extends Entity implements DimeEntityInterface
 	 * @ORM\Column(type="integer")
 	 * @JMS\SerializedName("roundMode")
 	 */
-	protected $roundMode = PHP_ROUND_HALF_UP;
+	protected $roundMode;
 
 	/**
 	 * @var string
@@ -128,7 +128,28 @@ class RateUnitType extends Entity implements DimeEntityInterface
 	public function transform($value)
 	{
 		if($this->doTransform){
-			return round(($value / $this->factor), $this->scale, $this->roundMode);
+			switch($this->roundMode){
+			case 1:
+			case 2:
+			case 3:
+			case 4:
+				return round(($value / $this->factor), $this->scale, $this->roundMode);
+				break;
+			case 5:
+				//Math trick for Precision independant Flooring
+				$pow = pow(10, $this->scale);
+				return floor(($value / $this->factor) * $pow) / $pow;
+				break;
+			case 6:
+				//Math trick for Precision indepandant Ceiling
+				$pow = pow ( 10, $this->scale );
+				$value = ($value / $this->factor);
+				return ( ceil ( $pow * $value ) + ceil ( $pow * $value - ceil ( $pow * $value ) ) ) / $pow;
+				break;
+			default:
+				return $value;
+				break;
+			}
 		}
 		return $value;
 	}
@@ -193,7 +214,11 @@ class RateUnitType extends Entity implements DimeEntityInterface
 
 	public function serializedOutput($value)
 	{
-		return $value.$this->getSymbol();
+		if($this->getSymbol() === 'a') {
+			return $value;
+		} else {
+			return $value . $this->getSymbol();
+		}
 	}
 
 	/**

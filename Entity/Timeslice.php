@@ -137,7 +137,7 @@ class Timeslice extends Entity implements DimeEntityInterface
 	 */
 	public function serializeValue($withUnits = true)
     {
-        if(is_callable(array($this->activity, 'getRateUnitType'))) {
+        if(is_callable(array($this->activity, 'getRateUnitType')) && $this->getActivity()->getRateUnitType() instanceof RateUnitType) {
 	        $value = $this->getActivity()->getRateUnitType()->transform($this->getValue());
 	        if($withUnits){
 		        $value = $this->getActivity()->getRateUnitType()->serializedOutput($value);

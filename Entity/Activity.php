@@ -123,7 +123,9 @@ class Activity extends Entity implements DimeEntityInterface
 			$value += $timeslice->getValue();
 		}
 		if(!$pure) {
-			return $this->rateUnitType->transform($value);
+			if($this->rateUnitType instanceof RateUnitType) {
+				return $this->rateUnitType->transform($value);
+			}
 		}
 		return $value;
 	}
@@ -228,7 +230,10 @@ class Activity extends Entity implements DimeEntityInterface
 	 */
 	public function serializeValue()
 	{
-		return $this->rateUnitType->serializedOutput($this->getValue());
+		if($this->rateUnitType instanceof RateUnitType) {
+			return $this->rateUnitType->serializedOutput($this->getValue());
+		}
+		return $this->getValue();
 	}
 
 	/**
