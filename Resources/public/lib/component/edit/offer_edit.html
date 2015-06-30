@@ -13,16 +13,12 @@
 	<div class="form-group DimePanel">
 		<div class="row">
 			<label class="col-sm-2 control-label">Verantwortlicher Mitarbeiter</label>
-			<select class="form-control" ng-model="entity.user" ng-change="addSaveField('user')">
-				<option ng-repeat="user in users" ng-value="user" ng-selected="user.id == entity.user.id">{{user.fullname}}</option>
-			</select>
+			<user-select user="entity.accountant" callback="addSaveField(name)" field="'accountant'"></user-select>
 		</div>
 		<div class="row"><label class="col-sm-2 control-label">Gültig bis</label><dateinput date="entity.validTo" field="'validTo'" callback="addSaveField(name)"></dateinput></div>
 		<div class="row">
 			<label class="col-sm-2 control-label">Tarif</label>
-			<select class="form-control" ng-model="entity.rateGroup" ng-change="addSaveField('rateGroup')">
-				<option ng-repeat="rateGroup in rateGroups" ng-value="rateGroup" ng-selected="rateGroup.id == entity.rateGroup.id">{{rateGroup.name}}</option>
-			</select>
+			<rategroup-select rategroup="entity.rateGroup" callback="addSaveField(name)" field="'rateGroup'"></rategroup-select>
 		</div>
 		<div class="row">
 			<label class="col-sm-2 control-label">Addresse</label>

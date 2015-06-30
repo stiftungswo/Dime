@@ -18,7 +18,7 @@
 	    <td><input type="text" class="form-control" ng-model="entity.scale" ng-change="addSaveField('scale', entity)"/></td>
 	    <td><input class="form-control checkbox" type="checkbox" ng-model="entity.doTransform" ng-change="addSaveField('doTransform', entity)"/></td>
 	    <td>
-		    <select class="form-control" ng-model="entity.roundMode" ng-change="addSaveField('roundMode', entity)">
+		    <select class="form-control" model="entity.roundMode" ng-change="addSaveField('roundMode', entity)">
 			    <option ng-selected="entity.roundMode == 1" value="1">Halbe Aufrunden</option>
 			    <option ng-selected="entity.roundMode == 2" value="2">Halbe Abrunden</option>
 			    <option ng-selected="entity.roundMode == 3" value="3">Halbe auf gerade runden</option>
