@@ -170,6 +170,9 @@ HammockConfig createHammockConfig(Injector inj) {
           },
           "rateunittypes" : {
               "type" : RateUnitType,
+              "serializer" : (RateUnitType ent){
+                return ent.toResource();
+              },
               "deserializer" : (Resource r){
                 if(r.content is String)return new RateUnitType();
                 return new RateUnitType.fromMap(r.content);

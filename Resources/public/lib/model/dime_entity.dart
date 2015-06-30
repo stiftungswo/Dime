@@ -45,7 +45,7 @@ class Entity{
 
   List get descendantsToUpdate => _descendantsToUpdate;
 
-  int id;
+  var id;
   List<String> _toUpdate = [];
   String type = 'entities';
 
@@ -712,7 +712,7 @@ class OfferPosition extends Entity{
     this.amount = map['amount'];
     this.rateValue = map['rateValue'];
     this.rateUnit = map['rateUnit'];
-    this.rateUnitType = map['rateUnitType'] != null ? map['rateUnitType']: 0;
+    this.rateUnitType = new RateUnitType.fromMap(map['rateUnitType']);
     this.vat = map['vat'];
     this.discountable = map['discountable'];
     this.offer = new Offer.fromMap(map['offer']);
@@ -726,7 +726,7 @@ class OfferPosition extends Entity{
         "amount": this.amount,
         "rateValue": this.rateValue,
         "rateUnit": this.rateUnit,
-        "rateUnitType": this.rateUnitType,
+        "rateUnitType": this.rateUnitType is Entity ? this.rateUnitType.toMap(): null,
         "vat": this.vat,
         "discountable": this.discountable,
         "service": this.service is Entity ? this.service.toMap(): null,
@@ -749,7 +749,7 @@ class OfferPosition extends Entity{
   int amount;
   String rateValue;
   String rateUnit;
-  dynamic rateUnitType;
+  RateUnitType rateUnitType;
   double vat;
   bool discountable;
 }
@@ -1547,7 +1547,7 @@ class Activity extends Entity{
     this.customer = new Customer.fromMap(map['customer']);
     this.rateValue = map['rateValue'];
     this.rateUnit = map['rateUnit'];
-    this.rateUnitType = map['rateUnitType'] != null ? map['rateUnitType']: 0;
+    this.rateUnitType = new RateUnitType.fromMap(map['rateUnitType']);
     if(map['timeslices']!=null) {
       this.timeslices = Timeslice.listFromMap(map['timeslices']);
     }
@@ -1562,7 +1562,7 @@ class Activity extends Entity{
         "chargeable": this.chargeable,
         "rateValue": this.rateValue,
         "rateUnit": this.rateUnit,
-        "rateUnitType": this.rateUnitType,
+        "rateUnitType": this.rateUnitType is Entity ? this.rateUnitType.toMap(): null,
         "project": this.project is Entity ? this.project.toMap(): null,
     });
     return m;
@@ -1578,7 +1578,7 @@ class Activity extends Entity{
   String description;
   String rateValue;
   String rateUnit;
-  dynamic rateUnitType;
+  RateUnitType rateUnitType;
   List<Timeslice> timeslices = [];
 }
 
@@ -2173,7 +2173,7 @@ class Rate extends Entity{
     if(map==null||map.isEmpty) return;
     this.rateValue = map['rateValue'];
     this.rateUnit = map['rateUnit'];
-    this.rateUnitType = map['rateUnitType'] != null ? map['rateUnitType']: 0;
+    this.rateUnitType = new RateUnitType.fromMap(map['rateUnitType']);
     this.rateGroup = new RateGroup.fromMap(map['rateGroup']);
     this.service = new Service.fromMap(map['service']);
   }
@@ -2182,7 +2182,7 @@ class Rate extends Entity{
     m.addAll({
         "rateValue": this.rateValue,
         "rateUnit": this.rateUnit,
-        "rateUnitType": this.rateUnitType,
+        "rateUnitType": this.rateUnitType is Entity ? this.rateUnitType.toMap(): null,
         "rateGroup": this.rateGroup is Entity ? this.rateGroup.toMap(): null,
         "service": this.service is Entity ? this.service.toMap(): null,
     });
@@ -2191,7 +2191,7 @@ class Rate extends Entity{
   String type = 'rates';
   String rateValue;
   String rateUnit;
-  dynamic rateUnitType;
+  RateUnitType rateUnitType;
   RateGroup rateGroup;
   Service service;
 }
@@ -2245,18 +2245,85 @@ class RateGroup extends Entity{
   String description;
 }
 
-class RateUnitType{
-  dynamic id;
+class RateUnitType extends Entity{
+  String id;
   String name;
   String type = 'rateunittypes';
+  bool doTransform;
+  double factor;
+  int scale;
+  int roundMode;
+  String symbol;
+
+  dynamic Get(String property){
+      switch (property) {
+        case 'id':
+          return this.id;
+        case 'name':
+          return this.name;
+        case 'doTransform':
+          return this.doTransform;
+        case 'factor':
+          return this.factor;
+        case 'scale':
+          return this.scale;
+        case 'roundMode':
+          return this.roundMode;
+        case 'symbol':
+          return this.symbol;
+        default:
+          return null;
+      }
+  }
+  void Set(String property, var value){
+    switch(property){
+      case 'id':
+        this.id = value;
+        break;
+      case 'name':
+        this.name = value;
+        break;
+      case 'doTransform':
+        this.doTransform = value;
+        break;
+      case 'factor':
+        this.factor = value;
+        break;
+      case 'scale':
+        this.scale = value;
+        break;
+      case 'roundMode':
+        this.roundMode = value;
+        break;
+      case 'symbol':
+        this.symbol = value;
+        break;
+      default:
+        break;
+    }
+  }
+
   RateUnitType();
   RateUnitType.fromMap(Map<String,dynamic> map){
     if(map==null||map.isEmpty) return;
     this.id = map['id'];
     this.name = map['name'];
+    this.doTransform = map['doTransform'];
+    this.factor = map['factor'];
+    this.scale = map['scale'];
+    this.roundMode = map['roundMode'];
+    this.symbol = map['symbol'];
   }
   Map<String,dynamic> toMap(){
-    return {'id': this.id, 'name': this.name};
+    return {
+        'id': this.id,
+        'name': this.name,
+        'doTransform': this.doTransform,
+        'factor': this.factor,
+        'scale': this.scale,
+        'roundMode': this.roundMode,
+        'symbol': this.symbol,
+    };
   }
 }
 

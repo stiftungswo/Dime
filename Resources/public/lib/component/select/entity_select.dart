@@ -193,26 +193,6 @@ class RateGroupSelectComponent extends EntitySelect{
 )
 class RateUnitTypeSelectComponent extends EntitySelect{
   RateUnitTypeSelectComponent(DataCache store, dom.Element element, StatusService status): super(RateUnitType, store, element, status);
-
-  dynamic tmpSelector;
-  set selectedEntity(entity){
-    if(entity == null) {
-      return;
-    }
-    if(entity is String || entity is int){
-      tmpSelector = entity;
-    } else {
-      selector = entity.name;
-      _selectedEntity = entity.id;
-    }
-  }
-
-  get EntText => _selectedEntity != null ? _selectedEntity: '';
-
-  attach() async {
-    await super.attach();
-    selectedEntity = this.entities.singleWhere((i) => i.id == tmpSelector);
-  }
 }
 
 @Component(

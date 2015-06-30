@@ -61,6 +61,10 @@ void dimeRouteInitializer(Router router, RouteViewFactory views) {
         path: '/rateGroups/overview',
         viewHtml: '<rateGroup-overview></rateGroup-overview>'
     ),
+    'rateUnitType_overview': ngRoute(
+        path: '/rateUnitTypes/overview',
+        viewHtml: '<rateUnitType-overview></rateUnitType-overview>'
+    ),
     'holiday_overview': ngRoute(
         path: '/holidays/overview',
         viewHtml: '<holiday-overview></holiday-overview>'

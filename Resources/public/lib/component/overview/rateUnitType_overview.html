@@ -1,0 +1,51 @@
+<table class="table table-bordered table-hover">
+  <thead>
+    <tr>
+		<td>ID</td>
+		<td>Name</td>
+		<td>Faktor</td>
+	    <td>Kommastellen</td>
+	    <td>Umwandeln</td>
+	    <td>Rundungs Modus</td>
+	    <td>Symbol</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="entity in entities" ng-click="selectEntity(entity.id)" ng-class="isSelected(entity)? 'info': ''">
+		<td>{{entity.id}}</td>
+		<td><input type="text" class="form-control" ng-model="entity.name" ng-change="addSaveField('name', entity)"/></td>
+	    <td><input type="text" class="form-control" ng-model="entity.factor" ng-change="addSaveField('factor', entity)"/></td>
+	    <td><input type="text" class="form-control" ng-model="entity.scale" ng-change="addSaveField('scale', entity)"/></td>
+	    <td><input class="form-control checkbox" type="checkbox" ng-model="entity.doTransform" ng-change="addSaveField('doTransform', entity)"/></td>
+	    <td>
+		    <select class="form-control" ng-model="entity.roundMode" ng-change="addSaveField('roundMode', entity)">
+			    <option ng-selected="entity.roundMode == 1" value="1">Halbe Aufrunden</option>
+			    <option ng-selected="entity.roundMode == 2" value="2">Halbe Abrunden</option>
+			    <option ng-selected="entity.roundMode == 3" value="3">Halbe auf gerade runden</option>
+			    <option ng-selected="entity.roundMode == 4" value="4">Halbe auf ungerade runden</option>
+			    <option ng-selected="entity.roundMode == 5" value="5">Forciert Abrunden</option>
+			    <option ng-selected="entity.roundMode == 6" value="6">Forciert Aufrunden</option>
+		    </select>
+	    </td>
+	    <td><input type="text" class="form-control" ng-model="entity.symbol" ng-change="addSaveField('symbol', entity)"/></td>
+    </tr>
+  </tbody>
+</table>
+<div class="controllbuttons container-inline">
+	<div class="row form-inline">
+		<div class="col-md-1">
+			<label>Id</label>
+			<setting-edit namespace="'/usr/defaults/rateunittype'" name="'id'" defaultvalue="'new'"></setting-edit>
+		</div>
+		<div class="col-md-2">
+			<label>Name</label>
+			<setting-edit namespace="'/usr/defaults/rateunittype'" name="'name'" defaultvalue="'Neuer Typ'"></setting-edit>
+		</div>
+		<div class="col-md-12" style="margin-top: 5px;">
+			<button type="button" class="btn btn-primary" ng-click="saveAllEntities()"><error-icon value="saveState" timeout="20"></error-icon></button>
+			<button type="button" class="btn btn-primary" ng-click="createEntity()">+</button>
+			<button type="button" class="btn btn-danger" ng-click="deleteEntity()">-</button>
+			<button type="button" class="btn btn-primary" ng-click="reload(evict: true)"><span class="glyphicon glyphicon-refresh"></span></button>
+		</div>
+	</div>
+</div>
