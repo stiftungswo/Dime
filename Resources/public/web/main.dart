@@ -84,6 +84,7 @@ class AppModule extends Module {
     bind(StandardDiscountSelectComponent);
     bind(ProjectTimetrackComponent);
     bind(RateUnitTypeOverviewComponent);
+    bind(TimesliceWeeklyReportComponent);
     install(new Hammock());
     bind(RouteInitializerFn, toValue: dimeRouteInitializer);
     bind(HammockConfig, toFactory: createHammockConfig, inject: [Injector]);

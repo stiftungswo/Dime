@@ -9,6 +9,7 @@ import 'package:DimeClient/service/user_context.dart';
 import 'package:DimeClient/service/status.dart';
 import 'package:DimeClient/service/user_auth.dart';
 import 'dart:html';
+import 'package:intl/intl.dart';
 
 class EntityOverview extends AttachAware implements ScopeAware{
 
@@ -1057,5 +1058,154 @@ class RateUnitTypeOverviewComponent extends EntityOverview{
         this.statusservice.setStatusToError();
       }
     }
+  }
+}
+
+class WeekReportEntry{
+  String name;
+  List<Timeslice> days = [];
+}
+
+@Component(
+    selector: 'timeslice-weeklyreport',
+    templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/overview/timeslice_weekly_report.html',
+    useShadowDom: false
+)
+class TimesliceWeeklyReportComponent extends EntityOverview{
+  TimesliceWeeklyReportComponent(DataCache store, SettingsManager manager, StatusService status): super(ExpenseReport, store, '', manager, status);
+
+  DateTime filterStartDate = new DateTime.now();
+
+  DateTime filterEndDate;
+
+  DateFormat format = new DateFormat('y-MM-dd');
+
+  List<DateTime> dates;
+
+  List<String> users;
+
+  List<WeekReportEntry> entries;
+
+  ExpenseReport report;
+
+  updateDates(){
+    dates = [];
+    DateTime date = filterStartDate;
+    while(date.isBefore(filterEndDate)){
+      dates.add(date);
+      date = date.add(new Duration(days: 1));
+    }
+  }
+
+  updateUsers(){
+    users = [];
+    for(Timeslice slice in this.report.timeslices){
+      if(!users.contains(slice.user.fullname)){
+        users.add(slice.user.fullname);
+      }
+    }
+  }
+
+  updateEntries(){
+    entries = [];
+    for(String user in users){
+      WeekReportEntry entry = new WeekReportEntry();
+      entry.name = user;
+      for(DateTime date in dates){
+        try {
+          Timeslice slice = report.timeslices.singleWhere((Timeslice s) => s.user.fullname == user && isSameDay(date, s.startedAt));
+          entry.days.add(slice);
+        } catch(e){
+          entry.days.add(new Timeslice()
+              ..value = '-'
+          );
+        }
+      }
+      entries.add(entry);
+    }
+  }
+
+  bool isSameDay(DateTime date1, DateTime date2){
+    String stringDate1 = format.format(date1);
+    String stringDate2 = format.format(date2);
+    if(stringDate1 == stringDate2){
+      return true;
+    }
+    return false;
+  }
+
+  attach(){
+    if(this.auth !=null) {
+      if (!auth.isloggedin) {
+        router.go('login', {
+            'origin': this._origin
+        });
+      }
+    }
+    if(this.filterStartDate.weekday != DateTime.MONDAY);{
+      this.filterStartDate = this.filterStartDate.subtract(new Duration(days: this.filterStartDate.weekday - 1));
+    }
+    this.filterStartDate = this.filterStartDate.subtract(new Duration(
+        hours: filterStartDate.hour,
+        minutes: filterStartDate.minute,
+        seconds: filterStartDate.second -1,
+        milliseconds: filterStartDate.millisecond
+    ));
+    this.filterEndDate = this.filterStartDate;
+    this.filterEndDate = this.filterEndDate.add(new Duration(days: 4, hours: 23, minutes: 59));
+    updateDates();
+  }
+
+  reload({Map<String,dynamic> params, bool evict: false}) async{
+    updateDates();
+    this.entities = [];
+    this.statusservice.setStatusToLoading();
+    try {
+      this.report = (await this.store.customQueryOne(this.type, new CustomRequestParams(params: {
+          'date': '${format.format(filterStartDate)},${format.format(filterEndDate)}',
+      }, method: 'GET', url: '/api/v1/reports/ziviweekly')));
+      this.statusservice.setStatusToSuccess();
+      this.rootScope.emit(this.type.toString()+'Loaded');
+    } catch(e){
+      this.statusservice.setStatusToError();
+    }
+    updateUsers();
+    updateEntries();
+  }
+
+  previousMonth(){
+    this.filterStartDate = this.filterStartDate.subtract(new Duration(days: 30));
+    this.filterEndDate = this.filterEndDate.subtract(new Duration(days: 30));
+    updateDates();
+  }
+
+  previousWeek(){
+    this.filterStartDate = this.filterStartDate.subtract(new Duration(days: 7));
+    this.filterEndDate = this.filterEndDate.subtract(new Duration(days: 7));
+    updateDates();
+  }
+
+  previousDay(){
+    this.filterStartDate = this.filterStartDate.subtract(new Duration(days: 1));
+    this.filterEndDate = this.filterEndDate.subtract(new Duration(days: 1));
+    updateDates();
+  }
+
+  nextMonth(){
+    this.filterStartDate = this.filterStartDate.add(new Duration(days: 30));
+    this.filterEndDate = this.filterEndDate.add(new Duration(days: 30));
+    updateDates();
+  }
+
+  nextWeek(){
+    this.filterStartDate = this.filterStartDate.add(new Duration(days: 7));
+    this.filterEndDate = this.filterEndDate.add(new Duration(days: 7));
+    updateDates();
+  }
+
+  nextDay(){
+    this.filterStartDate = this.filterStartDate.add(new Duration(days: 1));
+    this.filterEndDate = this.filterEndDate.add(new Duration(days: 1));
+    updateDates();
   }
 }

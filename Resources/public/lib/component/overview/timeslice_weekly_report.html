@@ -1,0 +1,31 @@
+<div class="panel panel-default col-md-12">
+	<div class="panel-body">
+		<div class="form-inline" style="display: table;margin: 0 auto;margin-bottom: 5px;">
+			<button type="button" class="btn btn-default" ng-click="previousWeek()"><<-</button>
+			<dateinput date="filterStartDate"></dateinput>
+			<dateinput date="filterEndDate"></dateinput>
+			<button type="button" class="btn btn-default" ng-click="nextWeek()">->></button>
+		</div>
+		<table class="table table-bordered table-hover form">
+			<thead>
+			<tr>
+				<td>Name</td>
+				<td ng-repeat="date in dates">{{date | date:'dd.MM.y'}}</td>
+			</tr>
+			</thead>
+			<tbody>
+			<tr ng-repeat="entry in entries">
+				<td>{{entry.name}}</td>
+				<td>{{entry.days.elementAt(0).value}}</td>
+				<td>{{entry.days.elementAt(1).value}}</td>
+				<td>{{entry.days.elementAt(2).value}}</td>
+				<td>{{entry.days.elementAt(3).value}}</td>
+				<td>{{entry.days.elementAt(4).value}}</td>
+			</tr>
+			</tbody>
+		</table>
+		<div class="col-md-12">
+			<button type="button" class="btn btn-primary" ng-click="reload(evict: true)"><span class="glyphicon glyphicon-refresh"></span></button>
+		</div>
+	</div>
+</div>

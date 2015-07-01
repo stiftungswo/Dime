@@ -15,7 +15,10 @@ class MenuComponent implements ScopeAware {
   bool oneAtATime = false;
 
   List<Menu> menus = [ 
-    new Menu.withItems('Zeiterfassung', [new Menu('Übersicht', '/timetrack')]),
+    new Menu.withItems('Zeiterfassung', [
+        new Menu('Übersicht', '/timetrack'),
+        new Menu('Wochenraport', '/reports/weekly')
+    ]),
     new Menu.withItems('Offerten', [new Menu('Übersicht', '/offers/overview')]),
     new Menu.withItems('Projekte', [
         new Menu('Übersicht', '/projects/overview'),
