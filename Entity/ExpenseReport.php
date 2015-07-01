@@ -8,8 +8,8 @@
 namespace Dime\ReportBundle\Entity;
 
 
+use Dime\TimetrackerBundle\Entity\RateUnitType;
 use Dime\TimetrackerBundle\Entity\Timeslice;
-use Dime\TimetrackerBundle\Model\RateUnitType;
 use Doctrine\Common\Collections\ArrayCollection;
 use JMS\Serializer\Annotation as JMS;
 
@@ -74,12 +74,12 @@ class ExpenseReport extends Report {
 	{
 		$total = 0;
 		foreach($this->timeslices as $timeslice){
-			if($timeslice->getActivity()->getRateUnitType() !== RateUnitType::$NoChange){
+			if(!is_null($timeslice->getActivity()) && !is_null($timeslice->getActivity()->getRateUnitType()) && $timeslice->getActivity()->getRateUnitType()->getId() !== RateUnitType::$NoChange){
 				$total += $timeslice->getValue();
 			}
 		}
 		if($total !== 0){
-			$total = ($total / RateUnitType::$HourInSeconds).'h';
+			$total = ($total / 3600).'h';
 		}
 		return $total;
 	}

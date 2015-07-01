@@ -14,7 +14,7 @@ use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 
 class ReportController extends DimeController{
 	/**
-	 * List all Entities.
+	 *
 	 *
 	 * @ApiDoc(
 	 * resource = true,
@@ -45,7 +45,7 @@ class ReportController extends DimeController{
 	}
 
 	/**
-	 * Print Offer
+	 *
 	 *
 	 * @ApiDoc(
 	 * resource = true,
@@ -76,5 +76,36 @@ class ReportController extends DimeController{
 			),
 			'DimeReportBundle:Reports:stylesheet.xml.twig'
 		);
+	}
+
+	/**
+	 *
+	 *
+	 * @ApiDoc(
+	 * resource = true,
+	 * section="report",
+	 * statusCodes = {
+	 * 200 = "Returned when successful"
+	 * }
+	 * )
+	 *
+	 * @Annotations\QueryParam(name="date", nullable=true, description="Filter by date use Format YYYY-MM-DD or YYYY-MM-DD,YYYY-MM-DD to specify daterange")
+	 *
+	 *
+	 * @Annotations\View(
+	 *  serializerEnableMaxDepthChecks=true
+	 * )
+	 *
+	 * @Annotations\Route(
+	 * requirements={"_format"="json|xml"}
+	 * )
+	 *
+	 * @param ParamFetcherInterface $paramFetcher
+	 *
+	 * @return array
+	 */
+	public function getReportsZiviweeklyAction(ParamFetcherInterface $paramFetcher)
+	{
+		return $this->container->get('dime.report.handler')->getZiviWeekReport($paramFetcher->all());
 	}
 }
