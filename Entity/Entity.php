@@ -64,7 +64,7 @@ abstract class Entity
      * Set user
      *
      * @param  User     $user
-     * @return Activity
+     * @return Entity
      */
     public function setUser(User $user)
     {

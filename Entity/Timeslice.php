@@ -68,6 +68,24 @@ class Timeslice extends Entity implements DimeEntityInterface
      */
     protected $stoppedAt;
 
+	/**
+	 * Set this Property to overwrite the Unit Convrsion.
+	 * @var string
+	 * @JMS\Exclude()
+	 */
+	protected $standardUnit;
+
+	/**
+	 * @param string $standardUnit
+	 *
+	 * @return $this
+	 */
+	public function setStandardUnit($standardUnit)
+	{
+		$this->standardUnit = $standardUnit;
+		return $this;
+	}
+
 
     /**
      * Entity constructor
@@ -137,13 +155,16 @@ class Timeslice extends Entity implements DimeEntityInterface
 	 */
 	public function serializeValue($withUnits = true)
     {
+	    if(!is_null($this->standardUnit)){
+		    return RateUnitType::transformToStandardUnit($this->getValue(), $this->standardUnit);
+	    }
         if(is_callable(array($this->activity, 'getRateUnitType')) && $this->getActivity()->getRateUnitType() instanceof RateUnitType) {
 	        $value = $this->getActivity()->getRateUnitType()->transform($this->getValue());
 	        if($withUnits){
 		        $value = $this->getActivity()->getRateUnitType()->serializedOutput($value);
 	        }
 	        return $value;
-        } else {
+        }else {
             return $this->getValue();
         }
 	}
