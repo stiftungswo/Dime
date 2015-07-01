@@ -17,7 +17,6 @@
     * Locking of Offers
     * Subtotal with and without VAT
 * Report
-    * Add Weekly Raport for all Zivis. How many Hours they have made per day
     * ExpeseReport add filter by Time
     * Expense Report make days more visible.
     * Yearly Report with Categorys for Projects
@@ -31,6 +30,6 @@
     * Fix Have ability to remove filled input filed without using space
     * Fix Form Validation error when typing . instead of , in German Browsers.
 * Rate
-    * Changes on rates in Service have no effect on Offer/Projects/Invoices (Intended Change Module Planned)
+    * Changes on rates in Service have no effect on Offer/Projects/Invoices (Intended, Change Module Planned)
 * Offer
     * OfferPostitions::subtotal is calculated only with VAT
