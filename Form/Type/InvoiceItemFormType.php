@@ -19,7 +19,7 @@ class InvoiceItemFormType extends AbstractType
 		$builder
 			->add('name')
 			->add('rateValue', 'tbbc_simple_money')
-			->add('amount')
+			->add('amount', 'number')
 			->add('rateUnit')
 			->add('vat')
 			->add('invoice','entity', array('class' => 'DimeInvoiceBundle:Invoice'))
