@@ -1,6 +1,6 @@
 # Missing Features
 * EntityOverview Widget:
-    * Filers
+    * Filters
     * Keyboard Support
     * Multi selection
 * Customer
@@ -15,9 +15,7 @@
     * Rate Change ProcessModule to make Changes in Rates take effect on certain activities
 * Offer
     * Locking of Offers
-    * Subtotal with and without VAT 
-* Invoice
-    * Automatically remove all non numeric characters in InvoiceItem::rateValue in Form Validation or throw an error.
+    * Subtotal with and without VAT
 * Report
     * Add Weekly Raport for all Zivis. How many Hours they have made per day
     * ExpeseReport add filter by Time
