@@ -18,8 +18,12 @@ class basic::packages{
   package{"vim-enhanced":  ensure => installed}
   exec{'rpm -Uvh https://mirror.webtatic.com/yum/el7/epel-release.rpm':
     before => Exec['webtatic'],
+    creates => "/etc/yum.repos.d/epel.repo"
   }
-  exec{'rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm': alias => 'webtatic'}
+  exec{'rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm':
+    alias => 'webtatic',
+    creates => "/etc/yum.repos.d/webtatic.repo"
+  }
 }
 
 

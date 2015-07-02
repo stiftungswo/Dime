@@ -1,32 +1,59 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+module OS
+    def OS.windows?
+        (/cygwin|mswin|mingw|bccwin|wince|emx/ =~ RUBY_PLATFORM) != nil
+    end
+
+    def OS.mac?
+        (/darwin/ =~ RUBY_PLATFORM) != nil
+    end
+
+    def OS.unix?
+        !OS.windows?
+    end
+
+    def OS.linux?
+        OS.unix? and not OS.mac?
+    end
+end
+
 Vagrant.configure("2") do |config|
     config.vm.define :dime do |dime|
         WEBROOT = "/vagrant"
         COMPOSERDIR = "/usr/local/bin"
 
-        dime.vm.box = "centos7"
+        dime.vm.box = "puppetlabs/centos-7.0-64-puppet"
         dime.vm.network :private_network, :ip => '192.168.122.10'
         dime.vm.hostname = "dime.test.local"
-        dime.vm.synced_folder "../", "/vagrant", type: 'rsync',
-            rsync__args: ["--verbose", "--archive", "--delete", "-z"],
-            rsync__exclude: [
-              "bin/",
-              ".git/",
-              "app/bootstrap.php.cache",
-              "app/config/parameters.yml",
-              "app/cache/",
-              "vendor/",
-              "build/",
-              "web/bundles/",
-              "web/css/",
-              "web/js/",
-              "web/build.js",
-              "web/fonts/",
-              "app/logs/",
-              ".idea",
-            ]
+
+        if OS.mac?
+            # use NFS on Mac because synced folders with VirtualBox are slow and rsync is one direction only
+            # bindfs plugin needs to be installed: vagrant plugin install vagrant-bindfs
+            dime.vm.synced_folder "../", "/vagrant", type: 'nfs'
+            config.bindfs.bind_folder "/vagrant", "/vagrant"
+        else
+            # use rsync on other plattforms
+            dime.vm.synced_folder "../", "/vagrant", type: 'rsync',
+                 rsync__args: ["--verbose", "--archive", "--delete", "-z"],
+                 rsync__exclude: [
+                   "bin/",
+                   ".git/",
+                   "app/bootstrap.php.cache",
+                   "app/config/parameters.yml",
+                   "app/cache/",
+                   "vendor/",
+                   "build/",
+                   "web/bundles/",
+                   "web/css/",
+                   "web/js/",
+                   "web/build.js",
+                   "web/fonts/",
+                   "app/logs/",
+                   ".idea",
+                 ]
+        end
 
         dime.vm.provider :libvirt do |domain|
             if ENV['REMOTE']

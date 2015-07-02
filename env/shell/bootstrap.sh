@@ -31,5 +31,9 @@ else
 	cd $PUPPET_DIR && librarian-puppet install --path=$MODULE_DIR
 fi
 
+# disable firewall for development (TODO: move to puppet)
+systemctl disable firewalld
+systemctl stop firewalld
+
 # now we run puppet
-puppet apply -v  --modulepath=$MODULE_DIR $PUPPET_DIR/manifests/main.pp
+puppet apply -v  --modulepath=$MODULE_DIR $PUPPET_DIR/manifests/
