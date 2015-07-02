@@ -1,24 +1,40 @@
 <div>
 	<div class="DimePanel form-inline container-fluid">
 		<div class="form-group DimePanel">
-			<div class="row"><label class="col-sm-1 control-label">Name</label><input class="form-control" type="text" ng-model="entity.name" ng-change="addSaveField('name')")></div>
-			<div class="row"><label class="col-sm-1 control-label">Alias</label><input class="form-control" type="text" ng-model="entity.alias" ng-change="addSaveField('alias')"></div>
+			<div class="row">
+				<label class="col-sm-1 control-label">Name</label>
+				<div class="col-sm-4">
+					<input style="width: 100%;" class="form-control" type="text" ng-model="entity.name" ng-change="addSaveField('name')")>
+				</div>
+			</div>
+			<div class="row">
+				<label class="col-sm-1 control-label">Alias</label>
+				<div class="col-sm-4">
+					<input style="width: 100%;" class="form-control" type="text" ng-model="entity.alias" ng-change="addSaveField('alias')">
+				</div>
+			</div>
 		</div>
 		<div class="form-group DimePanel">
 			<div class="row">
 				<label class="col-sm-1 control-label">Kunde</label>
-				<customer-select customer="entity.customer" callback="entity.addFieldtoUpdate(name)" field="'customer'"></customer-select>
+				<customer-select class="col-sm-4" customer="entity.customer" callback="entity.addFieldtoUpdate(name)" field="'customer'"></customer-select>
 			</div>
-			<div class="row"><label class="col-sm-1 control-label">Verechenbar</label><input type="checkbox" ng-model="entity.chargeable"></div>
+			<div class="row">
+				<label class="col-sm-1 control-label">Verechenbar</label>
+				<div class="col-sm-4">
+					<input type="checkbox" ng-model="entity.chargeable">
+				</div>
+			</div>
 		</div>
 		<div class="form-group DimePanel">
 			<div class="row">
 				<label class="col-sm-1 control-label">Tarif Gruppe</label>
-				<select class="form-control" model="entity.rateGroup" ng-change="addSaveField('rateGroup')">
-					<option ng-repeat="rateGroup in rateGroups" ng-value="rateGroup" ng-selected="rateGroup.id == entity.rateGroup.id">{{rateGroup.name}}</option>
-				</select>
+				<rateGroup-select class="col-sm-4" customer="entity.rateGroup" callback="entity.addFieldtoUpdate(name)" field="'rateGroup'"></rateGroup-select>
 			</div>
-			<div class="row"><label class="col-sm-1 control-label">Deadline</label><dateinput date="entity.deadline" field="'deadline'" callback="addSaveField(name)"></dateinput></div>
+			<div class="row">
+				<label class="col-sm-1 control-label">Deadline</label>
+				<dateinput class="col-sm-4" date="entity.deadline" field="'deadline'" callback="addSaveField(name)"></dateinput>
+			</div>
 		</div>
 		<div class="form-group DimePanel">
 			<div class="row"><label class="col-sm-1 control-label">Beschreibung</label><textarea class="form-control" ng-model="entity.description" ng-change="addSaveField('description')"></textarea></div>
@@ -28,7 +44,7 @@
 			<div class="row" ng-if="entity.budgetTime != null"><label class="col-sm-2 control-label">Zeit Budget</label><div>{{entity.budgetTime}}</div></div>
 			<div class="row" ng-if="entity.currentPrice != null"><label class="col-sm-2 control-label">Verbuchte Kosten</label><div>{{entity.currentPrice}}</div></div>
 			<div class="row" ng-if="entity.currentTime != null"><label class="col-sm-2 control-label">Verbuchte Zeit</label><div>{{entity.currentTime}}</div></div>
-			<div class="row"><label class="col-sm-1 control-label">Fixpreis</label><input class="form-control" type="text" ng-model="entity.fixedPrice" ng-change="addSaveField('fixedPrice')"></div>
+			<div class="row"><label class="col-sm-1 control-label">Fixpreis</label><div class="col-sm-4"><input class="form-control" type="text" ng-model="entity.fixedPrice" ng-change="addSaveField('fixedPrice')"></div></div>
 		</div>
 		<div class="DimePanel">
 			<activity-overview project="entity.id"></activity-overview>

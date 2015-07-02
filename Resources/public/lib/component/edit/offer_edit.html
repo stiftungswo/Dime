@@ -1,24 +1,32 @@
 <div class="form-inline container-fluid">
 	<div class="form-group DimePanel">
-		<div class="row"><label class="col-sm-2 control-label">Name</label><input class="form-control" type="text" ng-model="entity.name" ng-change="addSaveField('name')"></div>
+		<div class="row">
+			<label class="col-sm-2 control-label">Name</label>
+			<div class="col-sm-4">
+				<input class="form-control" style="width: 100%;" type="text" ng-model="entity.name" ng-change="addSaveField('name')">
+			</div>
+		</div>
 		<div class="row">
 			<label class="col-sm-2 control-label">Kunde</label>
-			<customer-select customer="entity.customer" callback="entity.addFieldtoUpdate(name)" field="'customer'"></customer-select>
+			<customer-select class="col-sm-4" customer="entity.customer" callback="entity.addFieldtoUpdate(name)" field="'customer'"></customer-select>
 		</div>
 		<div class="row">
 			<label class="col-sm-2 control-label">Status</label>
-			<offerstatus-select status="entity.status" callback="entity.addFieldtoUpdate(name)" field="'status'"></offerstatus-select>
+			<offerstatus-select class="col-sm-4" status="entity.status" callback="entity.addFieldtoUpdate(name)" field="'status'"></offerstatus-select>
 		</div>
 	</div>
 	<div class="form-group DimePanel">
 		<div class="row">
 			<label class="col-sm-2 control-label">Verantwortlicher Mitarbeiter</label>
-			<user-select user="entity.accountant" callback="addSaveField(name)" field="'accountant'"></user-select>
+			<user-select class="col-sm-4" user="entity.accountant" callback="addSaveField(name)" field="'accountant'"></user-select>
 		</div>
-		<div class="row"><label class="col-sm-2 control-label">Gültig bis</label><dateinput date="entity.validTo" field="'validTo'" callback="addSaveField(name)"></dateinput></div>
+		<div class="row">
+			<label class="col-sm-2 control-label">Gültig bis</label>
+			<dateinput class="col-sm-4" date="entity.validTo" field="'validTo'" callback="addSaveField(name)"></dateinput>
+		</div>
 		<div class="row">
 			<label class="col-sm-2 control-label">Tarif</label>
-			<rategroup-select rategroup="entity.rateGroup" callback="addSaveField(name)" field="'rateGroup'"></rategroup-select>
+			<rategroup-select class="col-sm-4" rategroup="entity.rateGroup" callback="addSaveField(name)" field="'rateGroup'"></rategroup-select>
 		</div>
 		<div class="row">
 			<label class="col-sm-2 control-label">Addresse</label>

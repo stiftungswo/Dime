@@ -1,6 +1,6 @@
 <div class="dropdown" ng-class="{'open': open}">
 	<input class="form-control" style="width: 100%;" type="text" ng-model="selector" ng-click="toggleSelectionBox()">
-	<div class="dropdown-menu">
+	<div class="dropdown-menu" style="width: 100%;">
 		<div ng-repeat="entity in entities | projectvaluefilter: projectId | filter:{name: selector}">
 			<div ng-click="select(entity)">{{ entity.name }}</div>
 		</div>

@@ -505,6 +505,8 @@ class TimesliceOverviewComponent extends EntityOverview{
   DateTime filterStartDate = new DateTime.now();
   DateTime filterEndDate;
 
+  bool updateNewEntryDate = true;
+
   @NgOneWay('project')
   set projectFilter(Project project){
     this.projectBased = true;
@@ -589,29 +591,30 @@ class TimesliceOverviewComponent extends EntityOverview{
   }
 
   updateEntryDate(){
-    DateTime date = this.newEntryDate;
-    if(date == null){
-      date = this.filterStartDate;
-    }
-    List<Timeslice> relevantSlices = this.entities.where((i) => i.startedAt.isAfter(this.filterStartDate) && i.startedAt.isBefore(this.filterEndDate));
-    while(date.isBefore(this.filterEndDate)){
-      List<Timeslice> slicesInDay = relevantSlices.where((i) => i.startedAt.isAfter(date) && i.startedAt.isBefore(date.add(new Duration(days: 1))));
-      int duration = 0;
-      for(Timeslice slice in slicesInDay){
-        duration += durationParser(slice.value);
+    if(updateNewEntryDate) {
+      DateTime date = this.newEntryDate;
+      if (date == null) {
+        date = this.filterStartDate;
       }
-      if(duration < 28800){
-        break;
-      }
-      date = date.add(new Duration(days: 1));
-      if (date.weekday == DateTime.SATURDAY) {
-        date = date.add(new Duration(days: 2));
-      } else if (date.weekday == DateTime.SUNDAY) {
+      List<Timeslice> relevantSlices = this.entities.where((i) => i.startedAt.isAfter(this.filterStartDate) && i.startedAt.isBefore(this.filterEndDate));
+      while (date.isBefore(this.filterEndDate)) {
+        List<Timeslice> slicesInDay = relevantSlices.where((i) => i.startedAt.isAfter(date) && i.startedAt.isBefore(date.add(new Duration(days: 1))));
+        int duration = 0;
+        for (Timeslice slice in slicesInDay) {
+          duration += durationParser(slice.value);
+        }
+        if (duration < 28800) {
+          break;
+        }
         date = date.add(new Duration(days: 1));
+        if (date.weekday == DateTime.SATURDAY) {
+          date = date.add(new Duration(days: 2));
+        } else if (date.weekday == DateTime.SUNDAY) {
+          date = date.add(new Duration(days: 1));
+        }
       }
+      this.newEntryDate = date;
     }
-    this.newEntryDate = date;
-    return date;
   }
 
   int durationParser(String duration){

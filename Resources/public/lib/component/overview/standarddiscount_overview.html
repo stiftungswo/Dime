@@ -13,7 +13,9 @@
   </tbody>
 </table>
 <div class="controllbuttons">
-	<button type="button" class="btn btn-primary" ng-click="createEntity()">+</button>
-	<button type="button" class="btn btn-danger" ng-click="deleteEntity()">-</button>
-	<standarddiscount-select discount="newDiscount"></standarddiscount-select>
+	<div class="col-sm-2" style="padding: 0; width: 11%;">
+		<button type="button" class="btn btn-primary" ng-click="createEntity()">+</button>
+		<button type="button" class="btn btn-danger" ng-click="deleteEntity()">-</button>
+	</div>
+	<standarddiscount-select style="padding: 0;" class="col-sm-4" discount="newDiscount"></standarddiscount-select>
 </div>

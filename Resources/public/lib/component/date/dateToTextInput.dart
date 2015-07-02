@@ -5,7 +5,7 @@ import 'package:intl/intl.dart';
 
 @Component(
   selector: 'dateinput',
-  template: '<input ng-model="text" class="form-control" ng-blur="updateDate()">',
+  template: '<input style="width: 100%;" ng-model="text" class="form-control" ng-blur="updateDate()">',
   useShadowDom: false
 )
 class DateToTextInput{
