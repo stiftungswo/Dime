@@ -10,10 +10,9 @@
 /bin/
 /composer.phar
 /env/.vagrant/
-/composer.lock
+/env/.pub_cache
 /components/*
 .settings/
 .buildpath
 .project
 .idea/
-env/.pub_cache
