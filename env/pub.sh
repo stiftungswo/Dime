@@ -4,8 +4,9 @@ SCRIPT=$(realpath ${BASH_SOURCE[0]})
 SCRIPT_PATH=$(dirname ${SCRIPT})
 APP_ROOT=$(realpath ${SCRIPT_PATH}/..)
 
+# store cache in vagrant/env/.pub_cache directory to allow access by apache
+export PUB_CACHE=${SCRIPT_PATH}/.pub_cache
+
 cd $APP_ROOT/src/Dime/FrontendBundle/Resources/public
-sudo chown -R apache:apache ./
-sudo -u apache /usr/local/dart-sdk/bin/pub $@
-sudo chown -R vagrant:vagrant ./
+/usr/local/dart-sdk/bin/pub $@
 cd $SCRIPT_PATH
