@@ -21,6 +21,7 @@ $bundleFixturePath = $bundleRoot.'/TimetrackerBundle'.$alicepath;
 //Base Data
 $set->addFile($bundleFixturePath.'/Users.yaml', 'yaml');
 $set->addFile($bundleFixturePath.'/RateGroups.yaml', 'yaml');
+$set->addFile($bundleFixturePath.'/RateUnitTypes.yaml', 'yaml');
 $set->addFile($bundleFixturePath.'/Tags.yaml', 'yaml');
 $set->addFile($bundleFixturePath.'/StandardDiscounts.yaml', 'yaml');
 $set->addFile($bundleFixturePath.'/Settings.yaml', 'yaml');

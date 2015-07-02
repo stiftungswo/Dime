@@ -1,0 +1,34 @@
+Dime\TimetrackerBundle\Entity\RateUnitType:
+    rateUnitType_h:
+        id: h
+        user: @user*
+        name: Stunden
+        doTransform: true
+        factor: 3600
+        scale: 2
+        roundMode: 1
+    rateUnitType_t:
+        id: t
+        user: @user*
+        name: Tage
+        doTransform: true
+        factor: 30240
+        scale: 2
+        roundMode: 1
+        symbol: d
+    rateUnitType_m:
+        id: m
+        user: @user*
+        name: Minuten
+        doTransform: true
+        factor: 60
+        scale: 2
+        roundMode: 1
+    rateUnitType_a:
+        id: a
+        user: @user*
+        name: Anderes
+        doTransform: false
+        factor: 1
+        scale: 3
+        roundMode: 1
