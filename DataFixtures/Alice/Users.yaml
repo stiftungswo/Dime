@@ -1,4 +1,4 @@
-Dime\TimetrackerBundle\Entity\User:
+Dime\EmployeeBundle\Entity\Employee:
     userAdmin:
         username: admin
         plainpassword: kitten
