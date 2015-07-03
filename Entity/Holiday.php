@@ -10,8 +10,8 @@ namespace Dime\EmployeeBundle\Entity;
 
 use Carbon\Carbon;
 use Dime\TimetrackerBundle\Entity\Entity;
+use Dime\TimetrackerBundle\Entity\RateUnitType;
 use Dime\TimetrackerBundle\Model\DimeEntityInterface;
-use Dime\TimetrackerBundle\Model\RateUnitType;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use JMS\Serializer\Annotation as JMS;
@@ -76,7 +76,7 @@ class Holiday extends Entity implements DimeEntityInterface {
 	 */
 	public function serializeDuration()
 	{
-		return $this->getDuration() / RateUnitType::$HourInSeconds.'h';
+		return RateUnitType::transformToStandardUnit($this->getDuration(), 'h', true, 1);
 	}
 
 	/**
