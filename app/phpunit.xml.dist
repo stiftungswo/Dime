@@ -16,9 +16,7 @@
     <testsuites>
         <testsuite name="Project Test Suite">
             <directory>../src/Dime/*Bundle/Tests</directory>
-            <directory>../src/Dime/Bundle/*Bundle/Tests</directory>
             <directory>../src/Swo/*Bundle/Tests</directory>
-            <directory>../src/Swo/Bundle/*Bundle/Tests</directory>
         </testsuite>
     </testsuites>
 
@@ -34,8 +32,6 @@
             <exclude>
                 <directory>../src/*/*Bundle/Resources</directory>
                 <directory>../src/*/*Bundle/Tests</directory>
-                <directory>../src/*/Bundle/*Bundle/Resources</directory>
-                <directory>../src/*/Bundle/*Bundle/Tests</directory>
             </exclude>
         </whitelist>
     </filter>
