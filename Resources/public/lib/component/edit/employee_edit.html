@@ -2,31 +2,45 @@
 	<div class="form-group DimePanel">
 		<div class="row">
 			<label class="col-sm-2 control-label">Username</label>
-			<input class="form-control" type="text" ng-model="entity.username" ng-change="addSaveField('username')">
+			<div class="col-sm-4">
+				<input style="width: 100%;" class="form-control" type="text" ng-model="entity.username" ng-change="addSaveField('username')">
+			</div>
 		</div>
 		<div class="row">
 			<label class="col-sm-2 control-label">Vorname</label>
-			<input class="form-control" type="text" ng-model="entity.firstname" ng-change="addSaveField('firstname')">
+			<div class="col-sm-4">
+				<input style="width: 100%;" class="form-control" type="text" ng-model="entity.firstname" ng-change="addSaveField('firstname')">
+			</div>
 		</div>
 		<div class="row">
 			<label class="col-sm-2 control-label">Nachname</label>
-			<input class="form-control" type="text" ng-model="entity.lastname" ng-change="addSaveField('lastname')">
+			<div class="col-sm-4">
+				<input style="width: 100%;" class="form-control" type="text" ng-model="entity.lastname" ng-change="addSaveField('lastname')">
+			</div>
 		</div>
 		<div class="row">
 			<label class="col-sm-2 control-label">Email</label>
-			<input class="form-control" type="text" ng-model="entity.email" ng-change="addSaveField('email')">
+			<div class="col-sm-4">
+				<input style="width: 100%;" class="form-control" type="text" ng-model="entity.email" ng-change="addSaveField('email')">
+			</div>
 		</div>
 		<div class="row">
 			<label class="col-sm-2 control-label">Passwort</label>
-			<input class="form-control" type="text" ng-model="entity.plainpassword" ng-change="addSaveField('plainpassword')">
+			<div class="col-sm-4">
+				<input style="width: 100%;" class="form-control" type="text" ng-model="entity.plainpassword" ng-change="addSaveField('plainpassword')">
+			</div>
 		</div>
 		<div class="row">
 			<label class="col-sm-2 control-label">Aktiv</label>
-			<input class="form-control" type="checkbox" ng-model="entity.enabled" ng-change="addSaveField('enabled')">
+			<div class="col-sm-4">
+				<input class="form-control" type="checkbox" ng-model="entity.enabled" ng-change="addSaveField('enabled')">
+			</div>
 		</div>
 		<div class="row">
 			<label class="col-sm-2 control-label">Gesperrt</label>
-			<input class="form-control" type="checkbox" ng-model="entity.locked" ng-change="addSaveField('locked')">
+			<div class="col-sm-4">
+				<input class="form-control" type="checkbox" ng-model="entity.locked" ng-change="addSaveField('locked')">
+			</div>
 		</div>
 	</div>
 </div>

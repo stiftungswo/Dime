@@ -2,7 +2,7 @@
 	<input class="form-control" type="text" ng-model="selector" ng-click="toggleSelectionBox()" style="width: 100%;">
 	<div class="dropdown-menu" style="width: 100%;">
 		<div ng-repeat="entity in entities | filter:{fullname: selector} | orderBy:'fullname'">
-			<div ng-click="select(entity)">{{entity.fullname}}</div>
+			<div ng-click="select(entity)" style="border-bottom:  1px solid #AEAEAE;">{{entity.fullname}}</div>
 		</div>
 	</div>
 </div>

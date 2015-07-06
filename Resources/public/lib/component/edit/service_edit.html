@@ -2,23 +2,31 @@
 	<div class="form-group DimePanel">
 		<div class="row">
 			<label class="col-sm-2 control-label">Name</label>
-			<input class="form-control" type="text" ng-model="entity.name" ng-change="addSaveField('name')">
+			<div class="col-sm-4">
+				<input style="width: 100%;" class="form-control" type="text" ng-model="entity.name" ng-change="addSaveField('name')">
+			</div>
 		</div>
 		<div class="row">
 			<label class="col-sm-2 control-label">Alias</label>
-			<input class="form-control" type="text" ng-model="entity.alias">
+			<div class="col-sm-4">
+				<input style="width: 100%;" class="form-control" type="text" ng-model="entity.alias">
+			</div>
 		</div>
 		<div class="row">
 			<label class="col-sm-2 control-label">Beschreibung</label>
-			<input class="form-control" type="text" ng-model="entity.description" ng-change="addSaveField('description')">
+			<div class="col-sm-4">
+				<input style="width: 100%;" class="form-control" type="text" ng-model="entity.description" ng-change="addSaveField('description')">
+			</div>
 		</div>
 		<div class="row">
 			<label class="col-sm-2 control-label">MwSt</label>
-			<input-percentage htmlclass="'form-control'" value="entity.vat" ng-change="addSaveField('vat')"></input-percentage>
+			<input-percentage class="col-sm-4" htmlclass="'form-control'" value="entity.vat" ng-change="addSaveField('vat')"></input-percentage>
 		</div>
 		<div class="row">
 			<label class="col-sm-2 control-label">Verechenbar</label>
-			<input class="form-control checkbox" type="checkbox" ng-model="entity.chargeable" ng-change="addSaveField('chargeable')"/>
+			<div class="col-sm-4">
+				<input class="form-control checkbox" type="checkbox" ng-model="entity.chargeable" ng-change="addSaveField('chargeable')"/>
+			</div>
 		</div>
 	</div>
 	<div class="DimePanel">

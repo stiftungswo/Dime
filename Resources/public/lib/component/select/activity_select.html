@@ -2,7 +2,7 @@
 	<input class="form-control" style="width: 100%;" type="text" ng-model="selector" ng-click="toggleSelectionBox()">
 	<div class="dropdown-menu" style="width: 100%;">
 		<div ng-repeat="entity in entities | projectvaluefilter: projectId | filter:{name: selector}">
-			<div ng-click="select(entity)">{{ entity.name }}</div>
+			<div ng-click="select(entity)" style="border-bottom:  1px solid #AEAEAE;">{{ entity.name }}</div>
 		</div>
 	</div>
 </div>

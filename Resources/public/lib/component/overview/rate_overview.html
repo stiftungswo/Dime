@@ -10,8 +10,8 @@
   <tbody>
     <tr ng-repeat="entity in entities" ng-click="selectEntity(entity.id)" ng-class="isSelected(entity)? 'info': ''">
 	    <td><rategroup-select rategroup="entity.rateGroup" callback="entity.addFieldtoUpdate(name)" field="'rateGroup'"></rategroup-select></td>
-	    <td><input class="form-control" type="text" ng-model="entity.rateValue" ng-change="addSaveField('rateValue', entity)"/></td>
-	    <td><input class="form-control" type="text" ng-model="entity.rateUnit" ng-change="addSaveField('rateUnit', entity)"/></td>
+	    <td><input style="width: 100%;" class="form-control" type="text" ng-model="entity.rateValue" ng-change="addSaveField('rateValue', entity)"/></td>
+	    <td><input style="width: 100%;" class="form-control" type="text" ng-model="entity.rateUnit" ng-change="addSaveField('rateUnit', entity)"/></td>
 	    <td><rateunittype-select rateunittype="entity.rateUnitType" callback="entity.addFieldtoUpdate(name)" field="'rateUnitType'"></rateunittype-select></td>
     </tr>
   </tbody>

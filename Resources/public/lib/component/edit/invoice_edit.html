@@ -1,7 +1,12 @@
 <div>
 	<div class="DimePanel form-inline container-fluid">
 		<div class="form-group DimePanel">
-			<div class="row"><label class="col-sm-2 control-label">Name</label><input class="form-control" type="text" ng-model="entity.name" ng-change="addSaveField('name')"></div>
+			<div class="row">
+				<label class="col-sm-2 control-label">Name</label>
+				<div class="col-sm-4">
+					<input class="form-control" style="width: 100%;" type="text" ng-model="entity.name" ng-change="addSaveField('name')">
+				</div>
+			</div>
 			<div class="row" ng-if="entity.project">
 				<label class="col-sm-2 control-label">Auftrag</label>
 				{{entity.project.name}}
@@ -12,12 +17,18 @@
 			</div>
 			<div class="row">
 				<label class="col-sm-2 control-label">Kunde</label>
-				<customer-select customer="entity.customer" callback="addSaveField(name)" field="'customer'"></customer-select>
+				<customer-select class="col-sm-4" customer="entity.customer" callback="addSaveField(name)" field="'customer'"></customer-select>
 			</div>
 		</div>
 		<div class="form-group DimePanel">
-			<div class="row"><label class="col-sm-2 control-label">Startdatum</label><dateinput date="entity.start" field="'start'" callback="addSaveField(name)"></dateinput></div>
-			<div class="row"><label class="col-sm-2 control-label">Enddatum</label><dateinput date="entity.end" field="'end'" callback="addSaveField(name)"></dateinput></div>
+			<div class="row">
+				<label class="col-sm-2 control-label">Startdatum</label>
+				<dateinput class="col-sm-4" date="entity.start" field="'start'" callback="addSaveField(name)"></dateinput>
+			</div>
+			<div class="row">
+				<label class="col-sm-2 control-label">Enddatum</label>
+				<dateinput class="col-sm-4" date="entity.end" field="'end'" callback="addSaveField(name)"></dateinput>
+			</div>
 		</div>
 		<div class="form-group DimePanel">
 			<div class="row">
