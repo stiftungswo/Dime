@@ -22,7 +22,11 @@ class UserAuthProvider{
   bool isloggedin = false;
 
   set authHeader(String authToken){
-    headers['Common'].addAll({'Authorization': authToken});
+    if(authToken == null){
+      headers['Common'].remove('Authorization');
+    } else {
+      headers['Common'].addAll({'Authorization': authToken});
+    }
   }
 
   bool get isAuthSaved{
@@ -34,7 +38,11 @@ class UserAuthProvider{
   }
 
   set authToken(String token){
-    window.localStorage[dimelocalStoreAuthKey] = token;
+    if(token == null){
+      window.localStorage.remove(dimelocalStoreAuthKey);
+    } else {
+      window.localStorage[dimelocalStoreAuthKey] = token;
+    }
   }
 
   UserAuthProvider(this.store, this.headers, this.manager, this.context, this.statusservice);
@@ -74,5 +82,15 @@ class UserAuthProvider{
     this.isloggedin = true;
     await manager.loadSystemSettings();
     await loadUserData();
+  }
+
+  logout() async{
+    if(isloggedin){
+      if(isAuthSaved){
+        authToken = null;
+      }
+      authHeader = null;
+      this.isloggedin = false;
+    }
   }
 }

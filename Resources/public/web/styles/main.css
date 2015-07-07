@@ -36,6 +36,25 @@ maintabset{
   background-color: black;
 }
 
+.usermenu {
+    background-color: white;
+    color: black;
+    width: 100px;
+    border-radius: 5px;
+    height: 30px;
+    margin-right: 10px;
+    bottom: 0;
+    position: absolute;
+    right: 0;
+    margin-bottom: 10px;
+}
+
+.usermenu div{
+    width: 100%;
+    text-align: center;
+    margin-top: 3px;
+}
+
 .DimePanel {
     width: 99%;
     margin: 2px;

@@ -1,16 +1,22 @@
 <div class="container-fuid form">
-	<div class="form-group">
+	<div class="form-group" ng-keypress="loginOnEnter($event)">
 		<div class="row">
 			<label class="col-sm-2 control-label">Benutzername</label>
-			<input class="form-control" type="text" ng-model="username">
+			<div class="col-sm-4">
+			<input style="width: 100%;" class="form-control" type="text" ng-model="username">
+			</div>
 		</div>
 		<div class="row">
 			<label class="col-sm-2 control-label">Passwort</label>
-			<input class="form-control" type="password" ng-model="password">
+			<div class="col-sm-4">
+				<input style="width: 100%;" class="form-control" type="password" ng-model="password">
+			</div>
 		</div>
 		<div class="row">
 			<label class="col-sm-2 control-label">Remember me!</label>
-			<input class="checkbox" type="checkbox" ng-model="rememberme">
+			<div class="col-sm-4">
+				<input class="checkbox" type="checkbox" ng-model="rememberme">
+			</div>
 		</div>
 	</div>
 	<button type="button" class="btn btn-primary" ng-click="login()">Login</button>

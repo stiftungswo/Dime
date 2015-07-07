@@ -48,11 +48,11 @@
 		</div>
 		<div ng-if="projectBased == true" class="col-md-2">
 			<label>Benutzer</label>
-			<user-select user="employee" useContext="false"></user-select>
+			<user-select clearOnClose="false" user="employee" useContext="false"></user-select>
 		</div>
 		<div ng-if="projectBased == false" class="col-md-2">
 			<label>Benutzer</label>
-			<user-select useContext="true"></user-select>
+			<user-select clearOnClose="false" useContext="true"></user-select>
 		</div>
 		<div ng-if="allowProjectSelect" class="col-md-4">
 			<label>Projekt</label>

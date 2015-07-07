@@ -56,7 +56,7 @@ class OfferPositionOrderByOrderField {
 class SecondsToHours{
   String call(int seconds){
     if(seconds != null) {
-      return (seconds / 3600).roundToDouble().toString() + 'h';
+      return (seconds / 3600).toStringAsFixed(1).toString() + 'h';
     } else {
       return null;
     }

@@ -2,6 +2,7 @@ library dime.login;
 
 import 'package:angular/angular.dart';
 import 'package:DimeClient/service/user_auth.dart';
+import 'dart:html';
 
 @Component(
     selector: 'login',
@@ -34,5 +35,11 @@ class Login extends AttachAware implements ScopeAware {
   login() async {
     await auth.login(this.username, this.password, this.rememberme);
     router.go(this._origin != null ? this._origin :'timetrack', {});
+  }
+
+  loginOnEnter(KeyboardEvent event){
+    if(event.keyCode == KeyCode.ENTER){
+      login();
+    }
   }
 }
