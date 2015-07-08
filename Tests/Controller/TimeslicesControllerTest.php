@@ -38,7 +38,7 @@ class TimeslicesControllerTest extends DimeTestCase
 
         // assert that data has content
         $this->assertTrue(count($data) > 0, 'expected to find activities');
-        $this->assertEquals($data['value'], '2h', 'expected to find value "7200"');
+        $this->assertEquals($data['value'], '2h', 'expected to find value "2h"');
     }
 
     public function testPostPutDeleteTimeslicesActions()

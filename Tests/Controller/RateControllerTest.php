@@ -25,7 +25,7 @@ class RateControllerTest extends DimeTestCase
 
         // assert that data has content
         $this->assertTrue(count($data) > 0, 'expected to find rates');
-        $this->assertEquals(100, $data['rateValue'], 'expected to get 120');
+        $this->assertEquals(100, $data['rateValue'], 'expected to get 100');
     }
 
     public function testPostPutDeleteServiceActions()

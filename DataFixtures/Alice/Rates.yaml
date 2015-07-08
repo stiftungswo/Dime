@@ -1,4 +1,10 @@
 Dime\TimetrackerBundle\Entity\Rate:
+    rate1:
+        rateUnit: CHF/h
+        rateValue: 100
+        rateGroup: @rateGroupDefault
+        rateUnitType: @rateUnitType_h
+        user: @user1
     rateHour{1..10}:
         rateUnit: CHF/h
         rateValue: <numberBetween(5, 200)>

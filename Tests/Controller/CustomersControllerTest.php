@@ -21,7 +21,7 @@ class CustomersControllerTest extends DimeTestCase
 
         // assert that data has content
         $this->assertTrue(count($data) > 0, 'expected to find customers');
-        $this->assertEquals('StiftungSWO', $data[0]['name'], 'expected to find "Another Customer" first');
+        $this->assertEquals('StiftungSWO', $data[0]['name'], 'expected to find "StiftungSWO" first');
     }
 
     public function testGetCustomerAction()

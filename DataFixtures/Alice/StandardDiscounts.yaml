@@ -1,6 +1,6 @@
 Dime\TimetrackerBundle\Entity\StandardDiscount:
     standardDiscountSkonto:
-        name: Skonto 2\%
+        name: Skonto 2%
         minus: true
         percentage: true
         value: 0.02

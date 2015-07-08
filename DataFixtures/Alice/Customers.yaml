@@ -1,5 +1,12 @@
 Swo\CommonsBundle\Entity\Address:
-    addressCustomer{1..10}:
+    addressCustomer1:
+        streetnumber: 25
+        street: Bahnhhofstrasse
+        city: Zürich
+        plz: 8000
+        state: ZH
+        country: Switzerland
+    addressCustomer{2..10}:
         streetnumber: <buildingNumber()>
         street: <streetName()>
         city: <city()>
@@ -8,7 +15,12 @@ Swo\CommonsBundle\Entity\Address:
         country: <country()>
 
 Dime\TimetrackerBundle\Entity\Customer:
-    customer{1..10}:
+    customer1:
+        name: StiftungSWO
+        address: @addressCustomer1
+        user: @user*
+        chargeable: true
+    customer{2..10}:
         name: <company()>
         address: @addressCustomer<current()>
         user: @user*

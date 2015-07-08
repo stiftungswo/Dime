@@ -1,5 +1,11 @@
 Dime\TimetrackerBundle\Entity\Project:
-    project{1..10}:
+    project1:
+        name: Büro
+        customer: @customer1
+        description: Eine Beschreibung zum Büro Projekt
+        user: @user1
+        chargeable: true
+    project{2..10}:
         name: Test Project <current()>
         customer: @customer*
         description: <text(255)>
