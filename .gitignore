@@ -16,3 +16,4 @@
 .buildpath
 .project
 .idea/
+.remote-sync.json
