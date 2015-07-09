@@ -1,4 +1,4 @@
-<div>
+<div ng-if="auth.isloggedin">
   <accordion close-others="oneAtATime">
     <accordion-group ng-repeat="menu in menus" heading="{{menu.title}}" is-open="menu.isOpen">
       <div ng-repeat="item in menu.items"><a href="{{item.link}}">{{item.title}}</a></div>
