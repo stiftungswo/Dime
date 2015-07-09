@@ -57,6 +57,7 @@ class UserAuthProvider{
       return result;
     } catch(e){
       this.statusservice.setStatusToError();
+      throw new Exception();
     }
   }
 
@@ -79,9 +80,16 @@ class UserAuthProvider{
         throw new Exception();
       }
     }
-    this.isloggedin = true;
-    await manager.loadSystemSettings();
-    await loadUserData();
+    try {
+      await loadUserData();
+      await manager.loadSystemSettings();
+      this.isloggedin = true;
+    } catch (e) {
+      this.isloggedin = false;
+      this.authHeader = null;
+      this.authToken = null;
+      throw new Exception();
+    }
   }
 
   logout() async{

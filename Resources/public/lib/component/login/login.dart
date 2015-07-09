@@ -33,7 +33,11 @@ class Login extends AttachAware implements ScopeAware {
   }
 
   login() async {
-    await auth.login(this.username, this.password, this.rememberme);
+    try {
+      await auth.login(this.username, this.password, this.rememberme);
+    } catch (e) {
+      router.go(this._origin != null ? this._origin : 'login', {});
+    }
     router.go(this._origin != null ? this._origin :'timetrack', {});
   }
 
