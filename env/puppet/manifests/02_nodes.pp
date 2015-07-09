@@ -1,7 +1,7 @@
 node default {
 	# simple apache based web server with php and mysql
 
-	include augeasproviders
+	#include augeasproviders
 
 	# defaults
 	Sshd_config { notify => Service[ 'sshd' ] }
@@ -122,7 +122,7 @@ node default {
              'set Xdebug/xdebug.remote_autostart 0',
              'set Xdebug/xdebug.remote_log /vagrant/xdebug.log',
              'set Xdebug/xdebug.max_nesting_level 250',
-             'set Xdebug/zend_extension="/usr/lib64/php/modules/xdebug.so"',
+             'set Xdebug/zend_extension /usr/lib64/php/modules/xdebug.so',
          ],
          require => Package['php56w'],
          notify  => Service['httpd'],
