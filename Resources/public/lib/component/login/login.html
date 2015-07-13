@@ -6,6 +6,7 @@
 
     <div class="login-box-body" ng-keypress="loginOnEnter($event)">
       <p class="login-box-msg">Login</p>
+      <div class="alert alert-danger" role="alert" ng-if="loginFailed">Login fehlgeschlagen</div>
       <div class="form-group has-feedback">
         <input type="text" class="form-control" placeholder="Benutzername" ng-model="username"/>
         <span class="glyphicon glyphicon-user form-control-feedback"></span>
@@ -24,7 +25,10 @@
           &nbsp;
         </div><!-- /.col -->
         <div class="col-xs-4">
-          <button type="submit" class="btn btn-primary btn-block btn-flat" ng-click="login()">Login</button>
+          <button type="submit" class="btn btn-primary btn-block btn-flat" ng-click="login()" ng-disabled="loginInProgress">
+            Login
+            <span class="glyphicon glyphicon-refresh glyphicon-animate-spin" ng-class="{invisible: !loginInProgress}"></span>
+          </button>
         </div><!-- /.col -->
       </div>
 
