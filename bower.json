@@ -1,0 +1,11 @@
+{
+  "name": "Dime-FrontendBundle",
+  "version": "1.0",
+  "description": "Frontend Bundle for DimeERP",
+  "authors": [
+    "Demian Holderegger <demian.holderegger@gmail.com>"
+  ],
+  "dependencies": {
+    "admin-lte": "~2.2.0"
+  }
+}
