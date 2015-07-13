@@ -18,20 +18,20 @@ class MenuComponent extends AttachAware implements ScopeAware {
   Scope scope;
 
   List<Menu> menus = [ 
-    new Menu.withItems('Zeiterfassung', [
+    new Menu.withItems('Zeiterfassung', 'fa-clock-o', [
         new Menu('Übersicht', '/timetrack'),
         new Menu('Wochenraport', '/reports/weekly')
     ]),
-    new Menu.withItems('Offerten', [new Menu('Übersicht', '/offers/overview')]),
-    new Menu.withItems('Projekte', [
+    new Menu.withItems('Offerten', 'fa-file-text', [new Menu('Übersicht', '/offers/overview')]),
+    new Menu.withItems('Projekte', 'fa-tree', [
         new Menu('Übersicht', '/projects/overview'),
         new Menu('Zeiterfassung', '/projects/timetrack'),
         new Menu('Aufwandsbericht', '/reports/expense')
     ]),
-    new Menu.withItems('Rechnungen', [new Menu('Übersicht', '/invoices/overview')]),
-    new Menu.withItems('Kunden', [new Menu('Übersicht', '/customers/overview')]),
-    new Menu.withItems('Mitarbeiter', [new Menu('Übersicht', '/employees/overview')]),
-    new Menu.withItems('Stammdaten', [
+    new Menu.withItems('Rechnungen', 'fa-calculator', [new Menu('Übersicht', '/invoices/overview')]),
+    new Menu.withItems('Kunden', 'fa-users', [new Menu('Übersicht', '/customers/overview')]),
+    new Menu.withItems('Mitarbeiter', 'fa-user', [new Menu('Übersicht', '/employees/overview')]),
+    new Menu.withItems('Stammdaten', 'fa-cog', [
       new Menu('Services', '/services/overview'),
       new Menu('Tarif Gruppen', '/rateGroups/overview'),
       new Menu('Tarif Typen', '/rateUnitTypes/overview'),
