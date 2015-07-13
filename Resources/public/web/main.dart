@@ -6,6 +6,7 @@ import 'package:logging/logging.dart';
 import 'package:angular/application_factory.dart';
 import 'package:angular_ui/angular_ui.dart';
 import 'package:hammock/hammock.dart';
+import 'package:DimeClient/component/main/app.dart';
 import 'package:DimeClient/component/main/menu.dart';
 import 'package:DimeClient/component/main/tabset.dart';
 import 'package:DimeClient/routing/dime_router.dart';
@@ -30,6 +31,7 @@ import 'package:DimeClient/component/main/usermenu.dart';
 
 class AppModule extends Module {
   AppModule() {
+    bind(AppComponent);
     bind(MenuComponent);
     bind(TabSetComponent);
     bind(ProjectOverviewComponent);
