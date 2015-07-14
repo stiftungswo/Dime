@@ -23,10 +23,11 @@ class TimesliceFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('value', 'text')
             ->add('startedAt', 'datetime', array('required' => false, 'widget' => 'single_text', 'with_seconds' => true))
             ->add('stoppedAt', 'datetime', array('required' => false, 'widget' => 'single_text', 'with_seconds' => true))
             ->add('activity', 'entity', array('class' => 'DimeTimetrackerBundle:Activity'))
+            //Value must be set after activity because it depends on it.
+            ->add('value', 'text')
             ->add('tags', 'entity', array('class' => 'DimeTimetrackerBundle:Tag', 'multiple' => true, 'required'=>false))
             ->add('user', 'entity', array('class' => 'DimeTimetrackerBundle:User'))
         ;

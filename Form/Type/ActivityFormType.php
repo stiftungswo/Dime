@@ -24,12 +24,12 @@ class ActivityFormType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-	    $transformer = new ReferenceTransformer();
+        //$transformer = new ReferenceTransformer();
         $builder
             ->add('description')
             ->add('rateValue', 'tbbc_simple_money')
-	        ->add('chargeable', 'choice', array('empty_data' => '1', 'required' => false, 'choices' => array('0' => false, '1' => true)))
-	        ->add($builder->create('chargeableReference', 'text', array('empty_data' => ActivityReference::$SERVICE))->addViewTransformer($transformer))
+            ->add('chargeable')
+            //->add($builder->create('chargeableReference', 'text', array('empty_data' => ActivityReference::$SERVICE))->addViewTransformer($transformer))
             //Service has to be set after Project due to Dependencies.
             ->add('project', 'entity', array('class' => 'DimeTimetrackerBundle:Project'))
 	        ->add('rateUnitType', 'entity', array('class' => 'DimeTimetrackerBundle:RateUnitType'))

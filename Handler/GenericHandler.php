@@ -64,7 +64,7 @@ class GenericHandler extends AbstractHandler implements HandlerInterface {
 	public function post(array $parameters)
 	{
 		$entity = $this->newClassInstance();
-		$parameters = $this->cleanParameterBag($parameters);
+		$parameters = $this->flattenEtityReference($parameters);
 		return $this->processForm($entity, $parameters, $this->formType, 'POST');
 	}
 
@@ -80,10 +80,7 @@ class GenericHandler extends AbstractHandler implements HandlerInterface {
 	 */
 	public function put(DimeEntityInterface $entity, array $parameters)
 	{
-		if(isset($parameters['id'])){
-			unset($parameters['id']);
-		}
-		$parameters = $this->cleanParameterBag($parameters);
+		$parameters = $this->flattenEtityReference($parameters);
 		return $this->processForm($entity, $parameters, $this->formType, 'PUT');
 	}
 

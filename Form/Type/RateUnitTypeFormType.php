@@ -25,7 +25,7 @@ class RateUnitTypeFormType extends AbstractType
 	        ->add('id')
             ->add('name')
             ->add('factor')
-	        ->add('doTransform', 'choice', array('empty_data' => '1', 'required' => false, 'choices' => array('0' => false, '1' => true)))
+            ->add('doTransform')
 	        ->add('scale', 'integer', array('empty_data' => '3'))
 	        ->add('roundMode', 'integer', array('empty_data' => strval(PHP_ROUND_HALF_UP)))
 	        ->add('symbol')

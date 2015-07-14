@@ -61,6 +61,16 @@ abstract class AbstractHandler
 		return $parameters;
 	}
 
+	protected function flattenEtityReference(array $parameters)
+	{
+		foreach($parameters as $key => $param) {
+			if(is_array($param) && count($param) === 1 && isset($param['id'])) {
+				$parameters[$key] = $param['id'];
+			}
+		}
+		return $parameters;
+	}
+
 	/**
 	 * Processes the form.
 	 *

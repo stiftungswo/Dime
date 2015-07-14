@@ -159,14 +159,4 @@ class User extends BaseUser implements DimeEntityInterface
 	    }
         return $user;
     }
-
-	/**
-	 * @return string
-	 * @JMS\VirtualProperty()
-	 * @JMS\SerializedName("fullname")
-	 */
-	public function getFullName()
-	{
-		return $this->getFirstname().' '.$this->getLastname();
-	}
 }
