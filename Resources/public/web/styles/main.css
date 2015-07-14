@@ -71,3 +71,9 @@ textarea.tiny{
 .treeview > a {
   cursor: pointer;
 }
+
+.statusbar {
+  padding: 15px;
+  line-height: 20px;
+  color: #ffffff;
+}
