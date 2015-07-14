@@ -19,6 +19,7 @@ class UserAuthProvider {
   ObjectStore store;
   HttpDefaultHeaders headers;
   StatusService statusservice;
+  List<Function> loginsuccesscallbacks = [];
   bool isloggedin = false;
 
   set authHeader(String authToken) {
@@ -84,6 +85,10 @@ class UserAuthProvider {
       await loadUserData();
       await manager.loadSystemSettings();
       this.isloggedin = true;
+      for (Function callback in this.loginsuccesscallbacks) {
+        callback();
+      }
+      this.loginsuccesscallbacks = [];
     } catch (e) {
       this.isloggedin = false;
       this.authHeader = null;
@@ -100,5 +105,9 @@ class UserAuthProvider {
       authHeader = null;
       this.isloggedin = false;
     }
+  }
+
+  afterLogin(Function callback) {
+    this.loginsuccesscallbacks.add(callback);
   }
 }

@@ -10,14 +10,12 @@ import 'package:DimeClient/service/user_auth.dart';
 class UserMenu {
 
   UserAuthProvider auth;
-  Router router;
 
   bool get isLoggedIn => auth.isloggedin;
 
-  UserMenu(this.router, this.auth);
+  UserMenu(this.auth);
 
   logout() async{
     await this.auth.logout();
-    this.router.go('login', {});
   }
 }

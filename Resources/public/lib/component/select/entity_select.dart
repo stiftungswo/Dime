@@ -5,6 +5,7 @@ import 'package:DimeClient/model/dime_entity.dart';
 import 'package:DimeClient/service/status.dart';
 import 'package:DimeClient/service/data_cache.dart';
 import 'package:DimeClient/service/user_context.dart';
+import 'package:DimeClient/service/user_auth.dart';
 import 'dart:html' as dom;
 
 class EntitySelect extends AttachAware implements ScopeAware {
@@ -18,9 +19,10 @@ class EntitySelect extends AttachAware implements ScopeAware {
   List entities = [];
   String selector = '';
   StatusService statusservice;
+  UserAuthProvider auth;
   bool clearOnClose = false;
 
-  EntitySelect(this.type, this.store, this.element, this.statusservice);
+  EntitySelect(this.type, this.store, this.element, this.statusservice, this.auth);
 
   dynamic _selectedEntity;
 
@@ -31,7 +33,19 @@ class EntitySelect extends AttachAware implements ScopeAware {
     _selectedEntity = entity;
   }
 
-  attach() async{
+  attach() {
+    if (this.auth != null) {
+      if (!auth.isloggedin) {
+        this.auth.afterLogin(() {
+          this.reload();
+        });
+      }
+    } else {
+      reload();
+    }
+  }
+
+  reload() async{
     this.statusservice.setStatusToLoading();
     try {
       this.entities = (await this.store.list(this.type)).toList();
@@ -92,7 +106,7 @@ class EntitySelect extends AttachAware implements ScopeAware {
     }
 )
 class ProjectSelectComponent extends EntitySelect {
-  ProjectSelectComponent(DataCache store, dom.Element element, StatusService status): super(Project, store, element, status);
+  ProjectSelectComponent(DataCache store, dom.Element element, StatusService status, UserAuthProvider auth): super(Project, store, element, status, auth);
 }
 
 @Component(
@@ -108,7 +122,7 @@ class ProjectSelectComponent extends EntitySelect {
     }
 )
 class ActivitySelectComponent extends EntitySelect {
-  ActivitySelectComponent(DataCache store, dom.Element element, StatusService status): super(Activity, store, element, status);
+  ActivitySelectComponent(DataCache store, dom.Element element, StatusService status, UserAuthProvider auth): super(Activity, store, element, status, auth);
 
   int projectId;
 }
@@ -125,7 +139,7 @@ class ActivitySelectComponent extends EntitySelect {
     }
 )
 class ServiceSelectComponent extends EntitySelect {
-  ServiceSelectComponent(DataCache store, dom.Element element, StatusService status): super(Service, store, element, status);
+  ServiceSelectComponent(DataCache store, dom.Element element, StatusService status, UserAuthProvider auth): super(Service, store, element, status, auth);
 }
 
 @Component(
@@ -140,7 +154,7 @@ class ServiceSelectComponent extends EntitySelect {
     }
 )
 class CustomerSelectComponent extends EntitySelect {
-  CustomerSelectComponent(DataCache store, dom.Element element, StatusService status): super(Customer, store, element, status);
+  CustomerSelectComponent(DataCache store, dom.Element element, StatusService status, UserAuthProvider auth): super(Customer, store, element, status, auth);
 }
 
 @Component(
@@ -155,7 +169,7 @@ class CustomerSelectComponent extends EntitySelect {
     }
 )
 class OfferStatusSelectComponent extends EntitySelect {
-  OfferStatusSelectComponent(DataCache store, dom.Element element, StatusService status): super(OfferStatusUC, store, element, status);
+  OfferStatusSelectComponent(DataCache store, dom.Element element, StatusService status, UserAuthProvider auth): super(OfferStatusUC, store, element, status, auth);
 
   set selectedEntity(entity) {
     if (entity != null) {
@@ -179,7 +193,7 @@ class OfferStatusSelectComponent extends EntitySelect {
     }
 )
 class RateGroupSelectComponent extends EntitySelect {
-  RateGroupSelectComponent(DataCache store, dom.Element element, StatusService status): super(RateGroup, store, element, status);
+  RateGroupSelectComponent(DataCache store, dom.Element element, StatusService status, UserAuthProvider auth): super(RateGroup, store, element, status, auth);
 }
 
 @Component(
@@ -194,7 +208,7 @@ class RateGroupSelectComponent extends EntitySelect {
     }
 )
 class RateUnitTypeSelectComponent extends EntitySelect {
-  RateUnitTypeSelectComponent(DataCache store, dom.Element element, StatusService status): super(RateUnitType, store, element, status);
+  RateUnitTypeSelectComponent(DataCache store, dom.Element element, StatusService status, UserAuthProvider auth): super(RateUnitType, store, element, status, auth);
 }
 
 @Component(
@@ -210,7 +224,7 @@ class RateUnitTypeSelectComponent extends EntitySelect {
     }
 )
 class UserSelectComponent extends EntitySelect {
-  UserSelectComponent(DataCache store, dom.Element element, this.context, StatusService status): super(Employee, store, element, status);
+  UserSelectComponent(DataCache store, dom.Element element, this.context, StatusService status, UserAuthProvider auth): super(Employee, store, element, status, auth);
 
   UserContext context;
   bool useContext = false;
@@ -227,8 +241,8 @@ class UserSelectComponent extends EntitySelect {
 
   get EntText => _selectedEntity != null ? _selectedEntity.fullname : '';
 
-  attach() {
-    super.attach();
+  reload() async{
+    await super.reload();
     if (useContext) {
       this.selector = context.employee.fullname;
     }
@@ -247,5 +261,5 @@ class UserSelectComponent extends EntitySelect {
     }
 )
 class StandardDiscountSelectComponent extends EntitySelect {
-  StandardDiscountSelectComponent(DataCache store, dom.Element element, StatusService status): super(StandardDiscount, store, element, status);
+  StandardDiscountSelectComponent(DataCache store, dom.Element element, StatusService status, UserAuthProvider auth): super(StandardDiscount, store, element, status, auth);
 }

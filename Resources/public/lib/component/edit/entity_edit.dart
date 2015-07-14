@@ -43,12 +43,13 @@ class EntityEdit extends AttachAware implements ScopeAware {
   attach() {
     if (this.auth != null) {
       if (!auth.isloggedin) {
-        router.go('login', {
-          'origin': this._origin
+        this.auth.afterLogin(() {
+          this.reload();
         });
       }
+    } else {
+      reload();
     }
-    reload();
   }
 
   reload({bool evict: false}) async{
@@ -100,14 +101,17 @@ class ProjectEditComponent extends EntityEdit {
   attach() {
     if (this.auth != null) {
       if (!auth.isloggedin) {
-        router.go('login', {
-          'origin': this._origin
+        this.auth.afterLogin(() {
+          loadRateGroups();
+          loadCustomers();
+          reload();
         });
       }
+    } else {
+      loadRateGroups();
+      loadCustomers();
+      reload();
     }
-    loadRateGroups();
-    loadCustomers();
-    reload();
   }
 
   loadCustomers() async{
@@ -220,13 +224,15 @@ class CustomerEditComponent extends EntityEdit {
   attach() {
     if (this.auth != null) {
       if (!auth.isloggedin) {
-        router.go('login', {
-          'origin': this._origin
+        this.auth.afterLogin(() {
+          loadRateGroups();
+          reload();
         });
       }
+    } else {
+      loadRateGroups();
+      reload();
     }
-    loadRateGroups();
-    reload();
   }
 
   loadRateGroups() async{

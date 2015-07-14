@@ -31,8 +31,6 @@ class EntityOverview extends AttachAware implements ScopeAware {
 
   String routename;
 
-  String _origin;
-
   SettingsManager settingsManager;
 
   UserAuthProvider auth;
@@ -169,12 +167,13 @@ class EntityOverview extends AttachAware implements ScopeAware {
   attach() {
     if (this.auth != null) {
       if (!auth.isloggedin) {
-        router.go('login', {
-          'origin': this._origin
+        this.auth.afterLogin(() {
+          this.reload();
         });
       }
+    } else {
+      reload();
     }
-    reload();
   }
 
   reload({Map<String, dynamic> params, bool evict: false}) async{
@@ -197,11 +196,7 @@ class EntityOverview extends AttachAware implements ScopeAware {
     entity.addFieldtoUpdate(name);
   }
 
-  EntityOverview(this.type, this.store, this.routename, this.settingsManager, this.statusservice, {this.router, this.auth, RouteProvider prov}) {
-    if (prov != null) {
-      this._origin = prov.routeName;
-    }
-  }
+  EntityOverview(this.type, this.store, this.routename, this.settingsManager, this.statusservice, {this.router, this.auth});
 }
 
 @Component(
@@ -210,7 +205,8 @@ class EntityOverview extends AttachAware implements ScopeAware {
     useShadowDom: false
 )
 class ProjectOverviewComponent extends EntityOverview {
-  ProjectOverviewComponent(DataCache store, Router router, SettingsManager manager, StatusService status, UserAuthProvider auth, RouteProvider prov): super(Project, store, 'project_edit', manager, status, auth: auth, router: router, prov: prov);
+  ProjectOverviewComponent(DataCache store, Router router, SettingsManager manager, StatusService status, UserAuthProvider auth, RouteProvider prov):
+  super(Project, store, 'project_edit', manager, status, auth: auth, router: router);
 
   cEnt({Project entity}) {
     if (entity != null) {
@@ -226,7 +222,8 @@ class ProjectOverviewComponent extends EntityOverview {
     useShadowDom: false
 )
 class CustomerOverviewComponent extends EntityOverview {
-  CustomerOverviewComponent(DataCache store, Router router, SettingsManager manager, StatusService status, UserAuthProvider auth, RouteProvider prov): super(Customer, store, 'customer_edit', manager, status, auth: auth, router: router, prov: prov);
+  CustomerOverviewComponent(DataCache store, Router router, SettingsManager manager, StatusService status, UserAuthProvider auth, RouteProvider prov):
+  super(Customer, store, 'customer_edit', manager, status, auth: auth, router: router);
 
   cEnt({Customer entity}) {
     if (entity != null) {
@@ -242,7 +239,8 @@ class CustomerOverviewComponent extends EntityOverview {
     useShadowDom: false
 )
 class OfferOverviewComponent extends EntityOverview {
-  OfferOverviewComponent(DataCache store, Router router, SettingsManager manager, StatusService status, UserAuthProvider auth, RouteProvider prov): super(Offer, store, 'offer_edit', manager, status, auth: auth, router: router, prov: prov);
+  OfferOverviewComponent(DataCache store, Router router, SettingsManager manager, StatusService status, UserAuthProvider auth):
+  super(Offer, store, 'offer_edit', manager, status, auth: auth, router: router);
 
   cEnt({Offer entity}) {
     if (entity != null) {
@@ -287,8 +285,7 @@ class OfferPositionOverviewComponent extends EntityOverview {
     }, evict: evict);
   }
 
-  attach() {
-  }
+  attach();
 
   createEntity({Entity newEnt, Map<String, dynamic> params}) {
     super.createEntity(params: {'offer': this._offerId});
@@ -301,7 +298,8 @@ class OfferPositionOverviewComponent extends EntityOverview {
     useShadowDom: false
 )
 class InvoiceOverviewComponent extends EntityOverview {
-  InvoiceOverviewComponent(DataCache store, Router router, SettingsManager manager, StatusService status, UserAuthProvider auth, RouteProvider prov): super(Invoice, store, 'invoice_edit', manager, status, router: router, auth: auth, prov: prov);
+  InvoiceOverviewComponent(DataCache store, Router router, SettingsManager manager, StatusService status, UserAuthProvider auth):
+  super(Invoice, store, 'invoice_edit', manager, status, router: router, auth: auth);
 
   cEnt({Invoice entity}) {
     if (entity != null) {
@@ -349,10 +347,12 @@ class InvoiceItemOverviewComponent extends EntityOverview {
   attach() {
     if (this.auth != null) {
       if (!auth.isloggedin) {
-        router.go('login', {
-          'origin': this._origin
+        this.auth.afterLogin(() {
+          this.reload();
         });
       }
+    } else {
+      reload();
     }
   }
 
@@ -367,7 +367,8 @@ class InvoiceItemOverviewComponent extends EntityOverview {
     useShadowDom: false
 )
 class ServiceOverviewComponent extends EntityOverview {
-  ServiceOverviewComponent(DataCache store, Router router, SettingsManager manager, StatusService status, UserAuthProvider auth, RouteProvider prov): super(Service, store, 'service_edit', manager, status, router: router, auth: auth, prov: prov);
+  ServiceOverviewComponent(DataCache store, Router router, SettingsManager manager, StatusService status, UserAuthProvider auth):
+  super(Service, store, 'service_edit', manager, status, router: router, auth: auth);
 
   cEnt({Service entity}) {
     if (entity != null) {
@@ -412,8 +413,7 @@ class RateOverviewComponent extends EntityOverview {
     }, evict: evict);
   }
 
-  attach() {
-  }
+  attach();
 
   createEntity({Entity newEnt, Map<String, dynamic> params}) {
     super.createEntity(params: {'service': this._serviceId});
@@ -466,8 +466,7 @@ class ActivityOverviewComponent extends EntityOverview {
 
   bool needsmanualAdd = true;
 
-  attach() {
-  }
+  attach();
 
   createEntity({var newEnt, Map<String, dynamic> params}) {
     super.createEntity(params: {'project': this._projectId});
@@ -539,7 +538,8 @@ class TimesliceOverviewComponent extends EntityOverview {
 
   bool projectBased = false;
 
-  TimesliceOverviewComponent(DataCache store, SettingsManager manager, StatusService status, this.context): super(Timeslice, store, '', manager, status);
+  TimesliceOverviewComponent(DataCache store, SettingsManager manager, StatusService status, this.context, UserAuthProvider auth):
+  super(Timeslice, store, '', manager, status, auth: auth);
 
   cEnt({Timeslice entity}) {
     if (entity != null) {
@@ -569,7 +569,7 @@ class TimesliceOverviewComponent extends EntityOverview {
       Setting settingForName;
       try {
         settingForName = this.settingsManager.getOneSetting('/usr/defaults/timeslice', name);
-      } catch (exception, stackTrace) {
+      } catch (exception) {
         settingForName = this.settingsManager.getOneSetting('/etc/defaults/timeslice', name, system: true);
       }
       switch (name) {
@@ -644,6 +644,18 @@ class TimesliceOverviewComponent extends EntityOverview {
   }
 
   attach() {
+    if (this.auth != null) {
+      if (!auth.isloggedin) {
+        this.auth.afterLogin(() {
+          this.load();
+        });
+      }
+    } else {
+      load();
+    }
+  }
+
+  load() {
     if (this.filterStartDate.weekday != DateTime.MONDAY);
     {
       this.filterStartDate = this.filterStartDate.subtract(new Duration(days: this.filterStartDate.weekday - 1));
@@ -732,8 +744,7 @@ class TimesliceExpenseReportComponent extends EntityOverview {
 
   ExpenseReport report;
 
-  attach() {
-  }
+  attach();
 
   reload({Map<String, dynamic> params, bool evict: false}) async{
     this.entities = [];
@@ -868,7 +879,8 @@ class HolidayOverviewComponent extends EntityOverview {
     useShadowDom: false
 )
 class EmployeeOverviewComponent extends EntityOverview {
-  EmployeeOverviewComponent(DataCache store, Router router, SettingsManager manager, StatusService status, RouteProvider prov): super(Employee, store, 'employee_edit', manager, status, router: router, prov: prov);
+  EmployeeOverviewComponent(DataCache store, Router router, SettingsManager manager, StatusService status):
+  super(Employee, store, 'employee_edit', manager, status, router: router);
 
   cEnt({Employee entity}) {
     if (entity != null) {
@@ -923,10 +935,12 @@ class OfferDiscountOverviewComponent extends EntityOverview {
   attach() {
     if (this.auth != null) {
       if (!auth.isloggedin) {
-        router.go('login', {
-          'origin': this._origin
+        this.auth.afterLogin(() {
+          this.reload();
         });
       }
+    } else {
+      reload();
     }
   }
 
@@ -973,10 +987,12 @@ class InvoiceDiscountOverviewComponent extends EntityOverview {
   attach() {
     if (this.auth != null) {
       if (!auth.isloggedin) {
-        router.go('login', {
-          'origin': this._origin
+        this.auth.afterLogin(() {
+          this.reload();
         });
       }
+    } else {
+      reload();
     }
   }
 
@@ -1010,8 +1026,7 @@ class StandardDiscountOverviewComponent extends EntityOverview {
 
   reload({Map<String, dynamic> params, bool evict: false});
 
-  attach() {
-  }
+  attach();
 
   createEntity({var newEnt, Map<String, dynamic> params}) {
     if (this.newDiscount != null && !this.entities.contains(this.newDiscount)) {
@@ -1174,11 +1189,16 @@ class TimesliceWeeklyReportComponent extends EntityOverview {
   attach() {
     if (this.auth != null) {
       if (!auth.isloggedin) {
-        router.go('login', {
-          'origin': this._origin
+        this.auth.afterLogin(() {
+          this.load();
         });
       }
+    } else {
+      this.load();
     }
+  }
+
+  load() {
     if (this.filterStartDate.weekday != DateTime.MONDAY);
     {
       this.filterStartDate = this.filterStartDate.subtract(new Duration(days: this.filterStartDate.weekday - 1));
