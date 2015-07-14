@@ -13,6 +13,8 @@ class Login extends AttachAware implements ScopeAware {
   String username;
   String password;
   bool rememberme = false;
+  bool loginFailed = false;
+  bool loginInProgress = false;
 
   Scope scope;
   UserAuthProvider auth;
@@ -33,12 +35,16 @@ class Login extends AttachAware implements ScopeAware {
   }
 
   login() async {
+    this.loginInProgress = true;
     try {
       await auth.login(this.username, this.password, this.rememberme);
+      router.go(this._origin != null ? this._origin :'timetrack', {});
+      this.loginFailed = false;
     } catch (e) {
       router.go(this._origin != null ? this._origin : 'login', {});
+      this.loginFailed = true;
     }
-    router.go(this._origin != null ? this._origin : 'timetrack', {});
+    this.loginInProgress = false;
   }
 
   loginOnEnter(KeyboardEvent event) {

@@ -1,0 +1,59 @@
+<div class="wrapper" ng-show="auth.isloggedin">
+  <header class="main-header">
+
+    <!-- Logo -->
+    <a href="/" class="logo">
+      <!-- mini logo for sidebar mini 50x50 pixels -->
+      <span class="logo-mini">Dime</span>
+      <!-- logo for regular state and mobile devices -->
+      <span class="logo-lg">DimeERP</span>
+    </a>
+
+    <!-- Header Navbar -->
+    <nav class="navbar navbar-static-top" role="navigation">
+      <!-- Sidebar toggle button-->
+      <a class="sidebar-toggle" data-toggle="offcanvas" role="button">
+        <span class="sr-only">Toggle navigation</span>
+      </a>
+
+      <!-- Navbar Right Menu -->
+      <div class="navbar-custom-menu">
+        <ul class="nav navbar-nav">
+          <li>
+            <statusbar></statusbar>
+          </li>
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown">
+              <i class="fa fa-user"></i> Username
+            </a>
+            <ul class="dropdown-menu">
+              <li>
+                <usermenu></usermenu>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <aside class="main-sidebar">
+    <main-menu></main-menu>
+  </aside>
+
+  <!-- Main Content -->
+  <div class="content-wrapper">
+    <section class="content">
+      <maintabset></maintabset>
+    </section>
+    <div class="clearfix"></div>
+  </div>
+
+  <!-- Main Footer -->
+  <footer class="main-footer">
+    &copy; DimeERP
+  </footer>
+</div>
+<div ng-show="!auth.isloggedin">
+  <ng-view></ng-view>
+</div>
