@@ -37,6 +37,7 @@ class Version20150629153102 extends AbstractMigration
         $this->addSql('ALTER TABLE rates CHANGE rate_unit_type rateUnitType_id VARCHAR(255) DEFAULT NULL');
         $this->addSql('ALTER TABLE rates ADD CONSTRAINT FK_44D4AB3C2BE78CCE FOREIGN KEY (rateUnitType_id) REFERENCES rateunittypes (id)');
         $this->addSql('CREATE INDEX IDX_44D4AB3C2BE78CCE ON rates (rateUnitType_id)');
+        $this->addSql("UPDATE invoice_items SET amount=concat('',amount * 1) WHERE concat('',amount * 1) != amount");
     }
 
     /**
