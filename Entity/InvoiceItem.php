@@ -115,7 +115,7 @@ class InvoiceItem extends Entity implements DimeEntityInterface
 			return null;
 		if($this->getAmount() !== null)
 		{
-			$total = $total->multiply((float)$this->getAmount());
+			$total = $total->multiply(intval($this->getAmount()));
 		}
 		$vat = $this->getCalculatedVAT();
 		if($vat instanceof Money)
