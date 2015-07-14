@@ -3,6 +3,8 @@ library main_menu;
 import 'package:angular/angular.dart';
 import 'package:DimeClient/model/menu.dart';
 import 'package:DimeClient/service/user_auth.dart';
+import 'dart:async';
+import 'dart:js';
 
 
 @Component(

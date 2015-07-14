@@ -4,6 +4,7 @@ import 'package:angular/angular.dart';
 import 'dart:js';
 import 'dart:async';
 import 'package:DimeClient/service/user_auth.dart';
+import 'package:DimeClient/service/user_context.dart';
 
 @Component(
     selector: 'app',
@@ -11,8 +12,9 @@ import 'package:DimeClient/service/user_auth.dart';
     useShadowDom: false)
 class AppComponent extends AttachAware implements ScopeAware {
 
-  AppComponent(this.auth);
+  AppComponent(this.auth, this.userContext);
 
+  UserContext userContext;
   UserAuthProvider auth;
   Scope scope;
 
