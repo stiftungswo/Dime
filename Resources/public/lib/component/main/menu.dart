@@ -17,16 +17,16 @@ class MenuComponent implements ScopeAware {
 
   bool oneAtATime = false;
 
-  List<Menu> menus = [ 
+  List<Menu> menus = [
     new Menu.withItems('Zeiterfassung', [
-        new Menu('Übersicht', '/timetrack'),
-        new Menu('Wochenraport', '/reports/weekly')
+      new Menu('Übersicht', '/timetrack'),
+      new Menu('Wochenraport', '/reports/weekly')
     ]),
     new Menu.withItems('Offerten', [new Menu('Übersicht', '/offers/overview')]),
     new Menu.withItems('Projekte', [
-        new Menu('Übersicht', '/projects/overview'),
-        new Menu('Zeiterfassung', '/projects/timetrack'),
-        new Menu('Aufwandsbericht', '/reports/expense')
+      new Menu('Übersicht', '/projects/overview'),
+      new Menu('Zeiterfassung', '/projects/timetrack'),
+      new Menu('Aufwandsbericht', '/reports/expense')
     ]),
     new Menu.withItems('Rechnungen', [new Menu('Übersicht', '/invoices/overview')]),
     new Menu.withItems('Kunden', [new Menu('Übersicht', '/customers/overview')]),
@@ -36,7 +36,7 @@ class MenuComponent implements ScopeAware {
       new Menu('Tarif Gruppen', '/rateGroups/overview'),
       new Menu('Tarif Typen', '/rateUnitTypes/overview'),
       new Menu('Feiertage', '/holidays/overview'),
-      ]),
-    ];
-  
+    ]),
+  ];
+
 }

@@ -8,16 +8,18 @@ import 'package:DimeClient/model/viewlink.dart';
     templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/main/tabset.html',
     useShadowDom: false)
 class TabSetComponent implements ScopeAware {
-  
+
   Scope scope;
   List<ViewLink> linklist = new List<ViewLink>();
-  
-  addLink(String title, String url){
-    linklist.add(new ViewLink()..url=url..Title=title);
+
+  addLink(String title, String url) {
+    linklist.add(new ViewLink()
+      ..url = url
+      ..Title = title);
   }
-  
-  removeLink(int index){
+
+  removeLink(int index) {
     linklist.removeAt(index);
   }
-  
+
 }

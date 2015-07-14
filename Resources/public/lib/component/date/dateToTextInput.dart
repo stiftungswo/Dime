@@ -4,11 +4,11 @@ import 'package:angular/angular.dart';
 import 'package:intl/intl.dart';
 
 @Component(
-  selector: 'dateinput',
-  template: '<input style="width: 100%;" ng-model="text" class="form-control" ng-blur="updateDate()">',
-  useShadowDom: false
+    selector: 'dateinput',
+    template: '<input style="width: 100%;" ng-model="text" class="form-control" ng-blur="updateDate()">',
+    useShadowDom: false
 )
-class DateToTextInput{
+class DateToTextInput {
 
   @NgCallback('callback')
   Function callback;
@@ -24,21 +24,21 @@ class DateToTextInput{
 
   String _text;
 
-  get text{
-    if(date != null) {
+  get text {
+    if (date != null) {
       return new DateFormat(format).format(date);
     }
     return null;
   }
 
-  set text(String text){
+  set text(String text) {
     this._text = text;
   }
 
-  updateDate(){
+  updateDate() {
     print('Date Update Called');
     this.date = new DateFormat(format).parse(_text);
-    if(this.callback != null){
+    if (this.callback != null) {
       callback({"name": this.field});
     }
   }

@@ -8,7 +8,7 @@ import 'package:DimeClient/service/status.dart';
 import 'package:DimeClient/service/user_auth.dart';
 import 'dart:html';
 
-class EntityEdit extends AttachAware implements ScopeAware{
+class EntityEdit extends AttachAware implements ScopeAware {
 
   Type entType;
 
@@ -29,19 +29,19 @@ class EntityEdit extends AttachAware implements ScopeAware{
   String _origin;
 
 
-  set scope(Scope scope){
+  set scope(Scope scope) {
     this.rootScope = scope.rootScope;
   }
 
   EntityEdit.Child(this.entType);
 
-  EntityEdit(RouteProvider routeProvider, this.store, this.entType, this.statusservice, this.auth, this.router){
+  EntityEdit(RouteProvider routeProvider, this.store, this.entType, this.statusservice, this.auth, this.router) {
     _entId = routeProvider.parameters['id'];
     _origin = routeProvider.routeName;
   }
 
-  attach(){
-    if(this.auth !=null) {
+  attach() {
+    if (this.auth != null) {
       if (!auth.isloggedin) {
         router.go('login', {
           'origin': this._origin
@@ -54,28 +54,28 @@ class EntityEdit extends AttachAware implements ScopeAware{
   reload({bool evict: false}) async{
     this.statusservice.setStatusToLoading();
     try {
-      if(evict){
+      if (evict) {
         this.store.evict(this.entType);
       }
       this.entity = (await this.store.one(this.entType, this._entId));
       this.statusservice.setStatusToSuccess();
-    } catch (e){
+    } catch (e) {
       this.statusservice.setStatusToError();
     }
   }
 
-  addSaveField(String name){
+  addSaveField(String name) {
     this.entity.addFieldtoUpdate(name);
   }
 
   saveEntity() async{
     rootScope.emit('saveChanges');
-    if(this.entity.needsUpdate) {
+    if (this.entity.needsUpdate) {
       this.statusservice.setStatusToLoading();
       try {
-        this.entity = (await store.update(this.entity.toSaveObj()));
+        this.entity = (await store.update(this.entity));
         this.statusservice.setStatusToSuccess();
-      } catch (e){
+      } catch (e) {
         this.statusservice.setStatusToError();
       }
     } else {
@@ -89,19 +89,19 @@ class EntityEdit extends AttachAware implements ScopeAware{
     templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/edit/project_edit.html',
     useShadowDom: false
 )
-class ProjectEditComponent extends EntityEdit{
+class ProjectEditComponent extends EntityEdit {
   List<Customer> customers;
 
   List<RateGroup> rateGroups;
 
 
-
   ProjectEditComponent(RouteProvider routeProvider, DataCache store, Router router, StatusService status, UserAuthProvider auth): super(routeProvider, store, Project, status, auth, router);
-  attach(){
-    if(this.auth !=null) {
+
+  attach() {
+    if (this.auth != null) {
       if (!auth.isloggedin) {
         router.go('login', {
-            'origin': this._origin
+          'origin': this._origin
         });
       }
     }
@@ -130,7 +130,7 @@ class ProjectEditComponent extends EntityEdit{
     templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/edit/offer_edit.html',
     useShadowDom: false
 )
-class OfferEditComponent extends EntityEdit{
+class OfferEditComponent extends EntityEdit {
   List<Customer> customers;
 
   List<RateGroup> rateGroups;
@@ -142,13 +142,12 @@ class OfferEditComponent extends EntityEdit{
   Router router;
 
   OfferEditComponent(RouteProvider routeProvider, DataCache store, Router router, StatusService status, UserAuthProvider auth): super(routeProvider, store, Offer, status, auth, router);
-  attach(){
-    if(this.auth !=null) {
-      if (!auth.isloggedin) {
-        router.go('login', {
-            'origin': this._origin
-        });
-      }
+
+  attach() {
+    if (!auth.isloggedin) {
+      router.go('login', {
+        'origin': this._origin
+      });
     }
     loadRateGroups();
     loadOfferStates();
@@ -179,7 +178,7 @@ class OfferEditComponent extends EntityEdit{
     router.go('project_edit', {'id': project.id});
   }
 
-  printOffer(){
+  printOffer() {
     window.open('/api/v1/offers/${this.entity.id}/print', 'Offer Print');
   }
 }
@@ -189,10 +188,10 @@ class OfferEditComponent extends EntityEdit{
     templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/edit/invoice_edit.html',
     useShadowDom: false
 )
-class InvoiceEditComponent extends EntityEdit{
+class InvoiceEditComponent extends EntityEdit {
   InvoiceEditComponent(RouteProvider routeProvider, DataCache store, StatusService status, UserAuthProvider auth, Router router): super(routeProvider, store, Invoice, status, auth, router);
 
-  printInvoice(){
+  printInvoice() {
     window.open('/api/v1/invoices/${this.entity.id}/print', 'Invoice Print');
   }
 
@@ -201,7 +200,7 @@ class InvoiceEditComponent extends EntityEdit{
     try {
       this.entity = (await this.store.customQueryOne(Invoice, new CustomRequestParams(method: 'GET', url: '/api/v1/invoices/${this.entity.id}/update')));
       this.statusservice.setStatusToSuccess();
-    } catch (e){
+    } catch (e) {
       this.statusservice.setStatusToError();
     }
   }
@@ -212,16 +211,17 @@ class InvoiceEditComponent extends EntityEdit{
     templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/edit/customer_edit.html',
     useShadowDom: false
 )
-class CustomerEditComponent extends EntityEdit{
+class CustomerEditComponent extends EntityEdit {
 
   List<RateGroup> rateGroups;
 
   CustomerEditComponent(RouteProvider routeProvider, DataCache store, StatusService status, UserAuthProvider auth, Router router): super(routeProvider, store, Customer, status, auth, router);
-  attach(){
-    if(this.auth !=null) {
+
+  attach() {
+    if (this.auth != null) {
       if (!auth.isloggedin) {
         router.go('login', {
-            'origin': this._origin
+          'origin': this._origin
         });
       }
     }
@@ -242,9 +242,10 @@ class CustomerEditComponent extends EntityEdit{
       'address': '<=>address'
     }
 )
-class AddressEditComponent extends EntityEdit{
+class AddressEditComponent extends EntityEdit {
   AddressEditComponent(): super.Child(Address);
-  attach(){
+
+  attach() {
     //Dont Reload its not working.
   }
 
@@ -256,7 +257,7 @@ class AddressEditComponent extends EntityEdit{
     templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/edit/service_edit.html',
     useShadowDom: false
 )
-class ServiceEditComponent extends EntityEdit{
+class ServiceEditComponent extends EntityEdit {
   ServiceEditComponent(RouteProvider routeProvider, DataCache store, StatusService status, UserAuthProvider auth, Router router): super(routeProvider, store, Service, status, auth, router);
 }
 
@@ -265,6 +266,6 @@ class ServiceEditComponent extends EntityEdit{
     templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/edit/employee_edit.html',
     useShadowDom: false
 )
-class EmployeeEditComponent extends EntityEdit{
+class EmployeeEditComponent extends EntityEdit {
   EmployeeEditComponent(RouteProvider routeProvider, DataCache store, StatusService status, UserAuthProvider auth, Router router): super(routeProvider, store, Employee, status, auth, router);
 }

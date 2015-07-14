@@ -3,17 +3,17 @@ library percentage_input;
 import 'package:angular/angular.dart';
 
 @Component(
-  selector: 'input-percentage',
-  templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/percent-input/percent_input.html',
-  useShadowDom: false,
-  map: const {
+    selector: 'input-percentage',
+    templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/percent-input/percent_input.html',
+    useShadowDom: false,
+    map: const {
       'htmlclass': '=>!htmlclass',
       'precision': '=>!precision',
       'safecalc': '=>!useSafeCalc',
       'value': '<=>model'
-  }
+    }
 )
-class PercentageInputField{
+class PercentageInputField {
 
   double _model;
 
@@ -21,10 +21,10 @@ class PercentageInputField{
 
   set model(double m) {
     _model = m;
-    if(useSafeCalc == true) {
+    if (useSafeCalc == true) {
       text = _toPercentage(m);
-    } else{
-      text = (m * 100).truncate().toString()+'%';
+    } else {
+      text = (m * 100).truncate().toString() + '%';
     }
   }
 
@@ -34,10 +34,10 @@ class PercentageInputField{
 
   String htmlclass;
 
-  String text;
+  String text = '';
 
-  String _toPercentage(double val){
-    if(val != null) {
+  String _toPercentage(double val) {
+    if (val != null) {
       int position = val.toString().indexOf('.');
       String str = val.toString().replaceAll('.', '');
       for (int i = 0;i < 2;i++) {
@@ -60,15 +60,15 @@ class PercentageInputField{
     return '';
   }
 
-  double _toNumber(String percentage){
-    return (double.parse(percentage.replaceAll('%', ''))/100);
+  double _toNumber(String percentage) {
+    return (double.parse(percentage.replaceAll('%', '')) / 100);
   }
 
-  onFocus(){
+  onFocus() {
     text = text.replaceAll('%', '');
   }
 
-  onChange(){
+  onChange() {
     _model = _toNumber(text);
   }
 }

@@ -1,4 +1,4 @@
-class ViewLink{
+class ViewLink {
   String Title;
   String url;
 }

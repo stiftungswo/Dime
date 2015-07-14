@@ -19,16 +19,16 @@ class Login extends AttachAware implements ScopeAware {
   Router router;
   String _origin;
 
-  Login(this.auth, this.router, RouteProvider prov){
-    if(prov.parameters['origin'] != null){
+  Login(this.auth, this.router, RouteProvider prov) {
+    if (prov.parameters['origin'] != null) {
       this._origin = prov.parameters['origin'];
     }
   }
 
   attach() async{
-    if(auth.isAuthSaved) {
+    if (auth.isAuthSaved) {
       await auth.login();
-      router.go(this._origin != null ? this._origin :'timetrack', {});
+      router.go(this._origin != null ? this._origin : 'timetrack', {});
     }
   }
 
@@ -38,11 +38,11 @@ class Login extends AttachAware implements ScopeAware {
     } catch (e) {
       router.go(this._origin != null ? this._origin : 'login', {});
     }
-    router.go(this._origin != null ? this._origin :'timetrack', {});
+    router.go(this._origin != null ? this._origin : 'timetrack', {});
   }
 
-  loginOnEnter(KeyboardEvent event){
-    if(event.keyCode == KeyCode.ENTER){
+  loginOnEnter(KeyboardEvent event) {
+    if (event.keyCode == KeyCode.ENTER) {
       login();
     }
   }

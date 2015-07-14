@@ -11,7 +11,7 @@ import 'package:DimeClient/service/user_auth.dart';
 import 'dart:html';
 import 'package:intl/intl.dart';
 
-class EntityOverview extends AttachAware implements ScopeAware{
+class EntityOverview extends AttachAware implements ScopeAware {
 
   bool needsmanualAdd = false;
 
@@ -37,23 +37,23 @@ class EntityOverview extends AttachAware implements ScopeAware{
 
   UserAuthProvider auth;
 
-  get selectedEntity{
-    for(Entity ent in this.entities){
-      if(ent.id == this.selectedEntId){
+  get selectedEntity {
+    for (Entity ent in this.entities) {
+      if (ent.id == this.selectedEntId) {
         return ent;
       }
     }
     return null;
   }
 
-  set scope(Scope scope){
+  set scope(Scope scope) {
     this.rootScope = scope.rootScope;
     this.rootScope.on('saveChanges').listen(saveAllEntities);
   }
 
-  void saveAllEntities([ScopeEvent e]){
-    for(Entity entity in entities){
-      if(entity.needsUpdate){
+  void saveAllEntities([ScopeEvent e]) {
+    for (Entity entity in this.entities) {
+      if (entity.needsUpdate) {
         this.saveEntity(entity);
       }
     }
@@ -62,48 +62,50 @@ class EntityOverview extends AttachAware implements ScopeAware{
   saveEntity(Entity entity) async{
     this.statusservice.setStatusToLoading();
     try {
-      Entity resp = await store.update(entity.toSaveObj());
+      Entity resp = await store.update(entity);
       this.entities.removeWhere((enty) => enty.id == resp.id);
       this.entities.add(resp);
       this.statusservice.setStatusToSuccess();
-      this.rootScope.emit(this.type.toString()+'Changed');
+      this.rootScope.emit(this.type.toString() + 'Changed');
     } catch (e) {
+      print("Unable to save entity ${this.type.toString()}::${entity.id} because ${e}");
       this.statusservice.setStatusToError();
     }
   }
-  
-  void selectEntity(int entId){
+
+  void selectEntity(int entId) {
     this.selectedEntId = entId;
   }
-  
-  bool isSelected(Entity entity){
-    if(entity == null || this.selectedEntId == null) return false;
-    if(entity.id == this.selectedEntId) return true;
+
+  bool isSelected(Entity entity) {
+    if (entity == null || this.selectedEntId == null) return false;
+    if (entity.id == this.selectedEntId) return true;
     return false;
   }
 
-  createEntity({var newEnt, Map<String,dynamic> params}) async{
+  createEntity({var newEnt, Map<String, dynamic> params}) async{
     this.statusservice.setStatusToLoading();
-    if(newEnt == null){
+    if (newEnt == null) {
       newEnt = this.cEnt();
       newEnt.init(params: params);
     }
     try {
       Entity resp = await this.store.create(newEnt);
       this.statusservice.setStatusToSuccess();
-      this.rootScope.emit(this.type.toString()+'Created');
+      this.rootScope.emit(this.type.toString() + 'Created');
       if (this.router != null) {
         this.openEditView(resp.id);
       } else {
         this.entities.add(resp);
       }
-    } catch (e){
+    } catch (e) {
+      print("Unable to create entity ${this.type.toString()} because ${e}");
       this.statusservice.setStatusToError();
     }
   }
 
-  cEnt({Entity entity}){
-    if(entity !=null){
+  cEnt({Entity entity}) {
+    if (entity != null) {
       return new Entity.clone(entity);
     }
     return new Entity();
@@ -111,7 +113,7 @@ class EntityOverview extends AttachAware implements ScopeAware{
 
   duplicateEntity() async{
     var ent = this.selectedEntity;
-    if(ent != null){
+    if (ent != null) {
       this.statusservice.setStatusToLoading();
       var newEnt = this.cEnt(entity: ent);
       try {
@@ -124,76 +126,79 @@ class EntityOverview extends AttachAware implements ScopeAware{
           await this.store.create(entity);
         }
         this.statusservice.setStatusToSuccess();
-        this.rootScope.emit(this.type.toString()+'Duplicated');
-      } catch (e){
+        this.rootScope.emit(this.type.toString() + 'Duplicated');
+      } catch (e) {
+        print("Unable to duplicate entity ${this.type.toString()}::${newEnt.id} because ${e}");
         this.statusservice.setStatusToError();
       }
     }
   }
 
   deleteEntity([int entId]) async{
-    if(entId == null){
+    if (entId == null) {
       entId = this.selectedEntId;
     }
-    if(entId != null) {
+    if (entId != null) {
       this.statusservice.setStatusToLoading();
-      try{
-        if(this.store != null) {
+      try {
+        if (this.store != null) {
           var ent = this.entities.singleWhere((enty) => enty.id == entId);
-          CommandResponse resp = await this.store.delete(ent.toSaveObj());
+          CommandResponse resp = await this.store.delete(ent);
         }
         this.entities.removeWhere((enty) => enty.id == entId);
         this.statusservice.setStatusToSuccess();
-        this.rootScope.emit(this.type.toString()+'Deleted');
-      } catch (e){
+        this.rootScope.emit(this.type.toString() + 'Deleted');
+      } catch (e) {
+        print("Unable to Delete entity ${this.type.toString()}::${entId} because ${e}");
         this.statusservice.setStatusToError();
       }
     }
   }
 
-  openEditView([int entId]){
-    if(this.router != null) {
+  openEditView([int entId]) {
+    if (this.router != null) {
       if (entId == null) {
         entId = this.selectedEntId;
       }
       router.go(this.routename, {
-          'id': entId
+        'id': entId
       });
     }
   }
-  
-  attach(){
-    if(this.auth !=null) {
+
+  attach() {
+    if (this.auth != null) {
       if (!auth.isloggedin) {
         router.go('login', {
-            'origin': this._origin
+          'origin': this._origin
         });
       }
     }
     reload();
   }
 
-  reload({Map<String,dynamic> params, bool evict: false}) async{
+  reload({Map<String, dynamic> params, bool evict: false}) async{
     this.entities = [];
     this.statusservice.setStatusToLoading();
     try {
-      if(evict){
+      if (evict) {
         this.store.evict(this.type);
       }
       this.entities = (await this.store.list(this.type, params: params)).toList();
       this.statusservice.setStatusToSuccess();
-      this.rootScope.emit(this.type.toString()+'Loaded');
-    } catch(e){
+      this.rootScope.emit(this.type.toString() + 'Loaded');
+    } catch (e) {
+      print("Unable to load ${this.type.toString()} because ${e}");
       this.statusservice.setStatusToError();
     }
   }
 
-  addSaveField(String name, Entity entity){
+  addSaveField(String name, Entity entity) {
     entity.addFieldtoUpdate(name);
   }
 
-  EntityOverview(this.type, this.store, this.routename, this.settingsManager, this.statusservice, {this.router, this.auth, RouteProvider prov}){
-    if(prov != null) {
+  EntityOverview(this.type, this.store, this.routename, this.settingsManager, this.statusservice, {this.router, this.auth, RouteProvider prov}) {
+    if (prov != null) {
       this._origin = prov.routeName;
     }
   }
@@ -204,10 +209,11 @@ class EntityOverview extends AttachAware implements ScopeAware{
     templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/overview/project_overview.html',
     useShadowDom: false
 )
-class ProjectOverviewComponent extends EntityOverview{
+class ProjectOverviewComponent extends EntityOverview {
   ProjectOverviewComponent(DataCache store, Router router, SettingsManager manager, StatusService status, UserAuthProvider auth, RouteProvider prov): super(Project, store, 'project_edit', manager, status, auth: auth, router: router, prov: prov);
-  cEnt({Project entity}){
-    if(entity !=null){
+
+  cEnt({Project entity}) {
+    if (entity != null) {
       return new Project.clone(entity);
     }
     return new Project();
@@ -219,10 +225,11 @@ class ProjectOverviewComponent extends EntityOverview{
     templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/overview/customer_overview.html',
     useShadowDom: false
 )
-class CustomerOverviewComponent extends EntityOverview{
+class CustomerOverviewComponent extends EntityOverview {
   CustomerOverviewComponent(DataCache store, Router router, SettingsManager manager, StatusService status, UserAuthProvider auth, RouteProvider prov): super(Customer, store, 'customer_edit', manager, status, auth: auth, router: router, prov: prov);
-  cEnt({Customer entity}){
-    if(entity !=null){
+
+  cEnt({Customer entity}) {
+    if (entity != null) {
       return new Customer.clone(entity);
     }
     return new Customer();
@@ -234,10 +241,11 @@ class CustomerOverviewComponent extends EntityOverview{
     templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/overview/offer_overview.html',
     useShadowDom: false
 )
-class OfferOverviewComponent extends EntityOverview{
+class OfferOverviewComponent extends EntityOverview {
   OfferOverviewComponent(DataCache store, Router router, SettingsManager manager, StatusService status, UserAuthProvider auth, RouteProvider prov): super(Offer, store, 'offer_edit', manager, status, auth: auth, router: router, prov: prov);
-  cEnt({Offer entity}){
-    if(entity !=null){
+
+  cEnt({Offer entity}) {
+    if (entity != null) {
       return new Offer.clone(entity);
     }
     return new Offer();
@@ -249,13 +257,14 @@ class OfferOverviewComponent extends EntityOverview{
     templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/overview/offerposition_overview.html',
     useShadowDom: false,
     map: const{
-        'offer': '=>!offerId'
+      'offer': '=>!offerId'
     }
 )
-class OfferPositionOverviewComponent extends EntityOverview{
+class OfferPositionOverviewComponent extends EntityOverview {
   OfferPositionOverviewComponent(DataCache store, SettingsManager manager, StatusService status): super(OfferPosition, store, '', manager, status);
-  cEnt({OfferPosition entity}){
-    if(entity !=null){
+
+  cEnt({OfferPosition entity}) {
+    if (entity != null) {
       return new OfferPosition.clone(entity);
     }
     return new OfferPosition();
@@ -264,29 +273,24 @@ class OfferPositionOverviewComponent extends EntityOverview{
   bool needsmanualAdd = true;
 
   int _offerId;
-  set offerId(int id){
-    if(id!=null) {
+
+  set offerId(int id) {
+    if (id != null) {
       this._offerId = id;
       reload();
     }
   }
-  reload({Map<String,dynamic> params, bool evict: false}){
+
+  reload({Map<String, dynamic> params, bool evict: false}) {
     super.reload(params: {
-        'offer': this._offerId
+      'offer': this._offerId
     }, evict: evict);
   }
 
-  attach(){
-    if(this.auth !=null) {
-      if (!auth.isloggedin) {
-        router.go('login', {
-            'origin': this._origin
-        });
-      }
-    }
+  attach() {
   }
 
-  createEntity({Entity newEnt, Map<String,dynamic> params}){
+  createEntity({Entity newEnt, Map<String, dynamic> params}) {
     super.createEntity(params: {'offer': this._offerId});
   }
 }
@@ -296,10 +300,11 @@ class OfferPositionOverviewComponent extends EntityOverview{
     templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/overview/invoice_overview.html',
     useShadowDom: false
 )
-class InvoiceOverviewComponent extends EntityOverview{
+class InvoiceOverviewComponent extends EntityOverview {
   InvoiceOverviewComponent(DataCache store, Router router, SettingsManager manager, StatusService status, UserAuthProvider auth, RouteProvider prov): super(Invoice, store, 'invoice_edit', manager, status, router: router, auth: auth, prov: prov);
-  cEnt({Invoice entity}){
-    if(entity !=null){
+
+  cEnt({Invoice entity}) {
+    if (entity != null) {
       return new Invoice.clone(entity);
     }
     return new Invoice();
@@ -311,13 +316,14 @@ class InvoiceOverviewComponent extends EntityOverview{
     templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/overview/invoiceitem_overview.html',
     useShadowDom: false,
     map: const{
-        'invoice': '=>!invoiceId'
+      'invoice': '=>!invoiceId'
     }
 )
-class InvoiceItemOverviewComponent extends EntityOverview{
+class InvoiceItemOverviewComponent extends EntityOverview {
   InvoiceItemOverviewComponent(DataCache store, SettingsManager manager, StatusService status): super(InvoiceItem, store, '', manager, status);
-  cEnt({InvoiceItem entity}){
-    if(entity !=null){
+
+  cEnt({InvoiceItem entity}) {
+    if (entity != null) {
       return new InvoiceItem.clone(entity);
     }
     return new InvoiceItem();
@@ -326,30 +332,31 @@ class InvoiceItemOverviewComponent extends EntityOverview{
   bool needsmanualAdd = true;
 
   int _invoiceId;
-  set invoiceId(int id){
-    if(id!=null) {
+
+  set invoiceId(int id) {
+    if (id != null) {
       this._invoiceId = id;
       reload();
     }
   }
 
-  reload({Map<String,dynamic> params, bool evict: false}){
+  reload({Map<String, dynamic> params, bool evict: false}) {
     super.reload(params: {
-        'invoice': this._invoiceId
+      'invoice': this._invoiceId
     }, evict: evict);
   }
 
   attach() {
-    if(this.auth !=null) {
+    if (this.auth != null) {
       if (!auth.isloggedin) {
         router.go('login', {
-            'origin': this._origin
+          'origin': this._origin
         });
       }
     }
   }
 
-  createEntity({Entity newEnt, Map<String,dynamic> params}){
+  createEntity({Entity newEnt, Map<String, dynamic> params}) {
     super.createEntity(params: {'invoice': this._invoiceId});
   }
 }
@@ -359,10 +366,11 @@ class InvoiceItemOverviewComponent extends EntityOverview{
     templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/overview/service_overview.html',
     useShadowDom: false
 )
-class ServiceOverviewComponent extends EntityOverview{
+class ServiceOverviewComponent extends EntityOverview {
   ServiceOverviewComponent(DataCache store, Router router, SettingsManager manager, StatusService status, UserAuthProvider auth, RouteProvider prov): super(Service, store, 'service_edit', manager, status, router: router, auth: auth, prov: prov);
-  cEnt({Service entity}){
-    if(entity !=null){
+
+  cEnt({Service entity}) {
+    if (entity != null) {
       return new Service.clone(entity);
     }
     return new Service();
@@ -374,13 +382,14 @@ class ServiceOverviewComponent extends EntityOverview{
     templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/overview/rate_overview.html',
     useShadowDom: false,
     map: const{
-        'service': '=>!serviceId'
+      'service': '=>!serviceId'
     }
 )
-class RateOverviewComponent extends EntityOverview{
+class RateOverviewComponent extends EntityOverview {
   RateOverviewComponent(DataCache store, SettingsManager manager, StatusService status): super(Rate, store, '', manager, status);
-  cEnt({Rate entity}){
-    if(entity !=null){
+
+  cEnt({Rate entity}) {
+    if (entity != null) {
       return new Rate.clone(entity);
     }
     return new Rate();
@@ -389,22 +398,24 @@ class RateOverviewComponent extends EntityOverview{
   bool needsmanualAdd = true;
 
   int _serviceId;
-  set serviceId(int id){
-    if(id!=null) {
+
+  set serviceId(int id) {
+    if (id != null) {
       this._serviceId = id;
       reload();
     }
   }
 
-  reload({Map<String,dynamic> params, bool evict: false}){
+  reload({Map<String, dynamic> params, bool evict: false}) {
     super.reload(params: {
-        'service': this._serviceId
+      'service': this._serviceId
     }, evict: evict);
   }
 
-  attach(){}
+  attach() {
+  }
 
-  createEntity({Entity newEnt, Map<String,dynamic> params}){
+  createEntity({Entity newEnt, Map<String, dynamic> params}) {
     super.createEntity(params: {'service': this._serviceId});
   }
 }
@@ -414,10 +425,11 @@ class RateOverviewComponent extends EntityOverview{
     templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/overview/rateGroup_overview.html',
     useShadowDom: false
 )
-class RateGroupOverviewComponent extends EntityOverview{
+class RateGroupOverviewComponent extends EntityOverview {
   RateGroupOverviewComponent(DataCache store, SettingsManager manager, StatusService status): super(RateGroup, store, '', manager, status);
-  cEnt({RateGroup entity}){
-    if(entity !=null){
+
+  cEnt({RateGroup entity}) {
+    if (entity != null) {
       return new RateGroup.clone(entity);
     }
     return new RateGroup();
@@ -432,20 +444,21 @@ class RateGroupOverviewComponent extends EntityOverview{
       'project': '=>!projectId'
     }
 )
-class ActivityOverviewComponent extends EntityOverview{
+class ActivityOverviewComponent extends EntityOverview {
 
   int _projectId;
 
-  set projectId(int id){
-    if(id != null) {
+  set projectId(int id) {
+    if (id != null) {
       this._projectId = id;
       reload();
     }
   }
 
   ActivityOverviewComponent(DataCache store, SettingsManager manager, StatusService status): super(Activity, store, '', manager, status);
-  cEnt({Activity entity}){
-    if(entity !=null){
+
+  cEnt({Activity entity}) {
+    if (entity != null) {
       return new Activity.clone(entity);
     }
     return new Activity();
@@ -453,41 +466,42 @@ class ActivityOverviewComponent extends EntityOverview{
 
   bool needsmanualAdd = true;
 
-  attach() {}
+  attach() {
+  }
 
-  createEntity({var newEnt, Map<String,dynamic> params}){
+  createEntity({var newEnt, Map<String, dynamic> params}) {
     super.createEntity(params: {'project': this._projectId});
   }
 
-  reload({Map<String,dynamic> params, bool evict: false}){
+  reload({Map<String, dynamic> params, bool evict: false}) {
     super.reload(params: {
-        'project': this._projectId
+      'project': this._projectId
     }, evict: evict);
   }
 }
 
 @Component(
-  selector: 'timeslice-overview',
-  templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/overview/timeslice_overview.html',
-  useShadowDom: false,
-  map: const {
+    selector: 'timeslice-overview',
+    templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/overview/timeslice_overview.html',
+    useShadowDom: false,
+    map: const {
       'filterByUser': '=>employee'
-  }
+    }
 )
-class TimesliceOverviewComponent extends EntityOverview{
+class TimesliceOverviewComponent extends EntityOverview {
 
   Employee _employee;
 
   UserContext context;
 
-  set employee(Employee employee){
-    if(employee.id == null){
+  set employee(Employee employee) {
+    if (employee.id == null) {
       return;
     }
     this._employee = employee;
-    if(!this.projectBased) {
+    if (!this.projectBased) {
       this.reload();
-      if(contextRegistered == false) {
+      if (contextRegistered == false) {
         this.context.onSwitch((Employee employee) => this.employee = employee);
         contextRegistered = true;
       }
@@ -500,7 +514,7 @@ class TimesliceOverviewComponent extends EntityOverview{
 
   bool needsmanualAdd = true;
 
-  List<Activity> activities= [];
+  List<Activity> activities = [];
 
   DateTime filterStartDate = new DateTime.now();
   DateTime filterEndDate;
@@ -508,13 +522,15 @@ class TimesliceOverviewComponent extends EntityOverview{
   bool updateNewEntryDate = true;
 
   @NgOneWay('project')
-  set projectFilter(Project project){
+  set projectFilter(Project project) {
     this.projectBased = true;
     this.selectedProject = project;
     this.reload();
   }
 
   Project selectedProject;
+
+  Activity selectedActivity;
 
   DateTime newEntryDate;
 
@@ -525,54 +541,53 @@ class TimesliceOverviewComponent extends EntityOverview{
 
   TimesliceOverviewComponent(DataCache store, SettingsManager manager, StatusService status, this.context): super(Timeslice, store, '', manager, status);
 
-  cEnt({Timeslice entity}){
-    if(entity !=null){
+  cEnt({Timeslice entity}) {
+    if (entity != null) {
       return new Timeslice.clone(entity);
     }
     return new Timeslice();
   }
 
-  reload({Map<String,dynamic> params, bool evict: false})async {
-    if(this.projectBased){
+  reload({Map<String, dynamic> params, bool evict: false}) async {
+    if (this.projectBased) {
       await super.reload(params: {
-          'project': selectedProject.id
+        'project': selectedProject.id
       }, evict: evict);
     } else {
       await super.reload(params: {
-          'user': _employee.id
+        'user': _employee.id
       }, evict: evict);
     }
     updateEntryDate();
   }
 
-  createEntity({Entity newEnt, Map<String,dynamic> params}) async{
-    if(!(this.selectedProject is Project)) return;
+  createEntity({Entity newEnt, Map<String, dynamic> params}) async{
+    if (!(this.selectedProject is Project)) return;
     Timeslice slice = new Timeslice();
-    List names = ['activity', 'value'];
-    for(var name in names){
+    List names = [ 'value'];
+    for (var name in names) {
       Setting settingForName;
       try {
         settingForName = this.settingsManager.getOneSetting('/usr/defaults/timeslice', name);
-      } catch(exception, stackTrace) {
+      } catch (exception, stackTrace) {
         settingForName = this.settingsManager.getOneSetting('/etc/defaults/timeslice', name, system: true);
       }
-      switch(name){
+      switch (name) {
         case 'value':
           slice.value = settingForName.value;
-          break;
-        case 'activity':
-          slice.activity = this.activitybyName(settingForName.value);
           break;
         default:
           break;
       }
       slice.addFieldtoUpdate(name);
     }
+    slice.Set('activity', this.selectedActivity);
     slice.Set('startedAt', this.newEntryDate);
     slice.Set('user', this._employee);
+    slice.addFieldtoUpdate('activity');
     slice.addFieldtoUpdate('user');
     slice.addFieldtoUpdate('startedAt');
-    await super.createEntity(newEnt: slice.toSaveObj());
+    await super.createEntity(newEnt: slice);
     updateEntryDate();
   }
 
@@ -581,7 +596,7 @@ class TimesliceOverviewComponent extends EntityOverview{
     updateEntryDate();
   }
 
-  activitybyName(String NamePattern){
+  activitybyName(String NamePattern) {
     try {
       return this.activities.singleWhere((i) => (i.name.contains(new RegExp(NamePattern)) && i.project.id == selectedProject.id) || (i.alias.contains(new RegExp(NamePattern)) && i.project.id == selectedProject.id));
     } catch (exception) {
@@ -590,8 +605,8 @@ class TimesliceOverviewComponent extends EntityOverview{
     return null;
   }
 
-  updateEntryDate(){
-    if(updateNewEntryDate) {
+  updateEntryDate() {
+    if (updateNewEntryDate) {
       DateTime date = this.newEntryDate;
       if (date == null) {
         date = this.filterStartDate;
@@ -617,25 +632,26 @@ class TimesliceOverviewComponent extends EntityOverview{
     }
   }
 
-  int durationParser(String duration){
-    if(duration.contains('h')){
-      return (double.parse(duration.replaceAll('h', ''))*3600).toInt();
-    } else if (duration.contains('m')){
-      return (double.parse(duration.replaceAll('m', ''))*60).toInt();
-    } else if (duration.contains('d')){
-      return (double.parse(duration.replaceAll('d', ''))*30240).toInt();
+  int durationParser(String duration) {
+    if (duration.contains('h')) {
+      return (double.parse(duration.replaceAll('h', '')) * 3600).toInt();
+    } else if (duration.contains('m')) {
+      return (double.parse(duration.replaceAll('m', '')) * 60).toInt();
+    } else if (duration.contains('d')) {
+      return (double.parse(duration.replaceAll('d', '')) * 30240).toInt();
     }
     return 0;
   }
 
-  attach(){
-    if(this.filterStartDate.weekday != DateTime.MONDAY);{
+  attach() {
+    if (this.filterStartDate.weekday != DateTime.MONDAY);
+    {
       this.filterStartDate = this.filterStartDate.subtract(new Duration(days: this.filterStartDate.weekday - 1));
     }
     this.filterStartDate = this.filterStartDate.subtract(new Duration(
         hours: filterStartDate.hour,
         minutes: filterStartDate.minute,
-        seconds: filterStartDate.second -1,
+        seconds: filterStartDate.second - 1,
         milliseconds: filterStartDate.millisecond
     ));
     this.filterEndDate = this.filterStartDate;
@@ -648,37 +664,37 @@ class TimesliceOverviewComponent extends EntityOverview{
     this.activities = (await this.store.list(Activity)).toList();
   }
 
-  previousMonth(){
+  previousMonth() {
     this.filterStartDate = this.filterStartDate.subtract(new Duration(days: 30));
     this.filterEndDate = this.filterEndDate.subtract(new Duration(days: 30));
     updateEntryDate();
   }
 
-  previousWeek(){
+  previousWeek() {
     this.filterStartDate = this.filterStartDate.subtract(new Duration(days: 7));
     this.filterEndDate = this.filterEndDate.subtract(new Duration(days: 7));
     updateEntryDate();
   }
 
-  previousDay(){
+  previousDay() {
     this.filterStartDate = this.filterStartDate.subtract(new Duration(days: 1));
     this.filterEndDate = this.filterEndDate.subtract(new Duration(days: 1));
     updateEntryDate();
   }
 
-  nextMonth(){
+  nextMonth() {
     this.filterStartDate = this.filterStartDate.add(new Duration(days: 30));
     this.filterEndDate = this.filterEndDate.add(new Duration(days: 30));
     updateEntryDate();
   }
 
-  nextWeek(){
+  nextWeek() {
     this.filterStartDate = this.filterStartDate.add(new Duration(days: 7));
     this.filterEndDate = this.filterEndDate.add(new Duration(days: 7));
     updateEntryDate();
   }
 
-  nextDay(){
+  nextDay() {
     this.filterStartDate = this.filterStartDate.add(new Duration(days: 1));
     this.filterEndDate = this.filterEndDate.add(new Duration(days: 1));
     updateEntryDate();
@@ -691,49 +707,50 @@ class TimesliceOverviewComponent extends EntityOverview{
     templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/overview/timeslice_expense_report.html',
     useShadowDom: false
 )
-class TimesliceExpenseReportComponent extends EntityOverview{
+class TimesliceExpenseReportComponent extends EntityOverview {
   TimesliceExpenseReportComponent(DataCache store, SettingsManager manager, StatusService status): super(ExpenseReport, store, '', manager, status);
 
   Project _project;
 
   get project => _project;
 
-  set project(Project proj){
+  set project(Project proj) {
     _project = proj;
-    if(_project != null) {
+    if (_project != null) {
       reload();
     }
   }
 
   User _user;
 
-  get user =>_user;
+  get user => _user;
 
-  set user(User user){
+  set user(User user) {
     _user = user;
     reload();
   }
 
   ExpenseReport report;
 
-  attach(){}
+  attach() {
+  }
 
-  reload({Map<String,dynamic> params, bool evict: false}) async{
+  reload({Map<String, dynamic> params, bool evict: false}) async{
     this.entities = [];
     this.statusservice.setStatusToLoading();
     try {
       this.report = (await this.store.customQueryOne(this.type, new CustomRequestParams(params: {
-          'project': _project != null ? _project.id: null,
-          'user': _user != null ? _user.id: null
+        'project': _project != null ? _project.id : null,
+        'user': _user != null ? _user.id : null
       }, method: 'GET', url: '/api/v1/reports/expense')));
       this.statusservice.setStatusToSuccess();
-      this.rootScope.emit(this.type.toString()+'Loaded');
-    } catch(e){
+      this.rootScope.emit(this.type.toString() + 'Loaded');
+    } catch (e) {
       this.statusservice.setStatusToError();
     }
   }
 
-  _valForParam(String param){
+  _valForParam(String param) {
     try {
       switch (param) {
         case 'project':
@@ -743,18 +760,18 @@ class TimesliceExpenseReportComponent extends EntityOverview{
         default:
           return null;
       }
-    } catch(e){
+    } catch (e) {
       return null;
     }
   }
 
-  printReport(){
+  printReport() {
     List<String> params = const['project', 'user'];
     String paramString = '';
-    for(String param in params){
+    for (String param in params) {
       var value = _valForParam(param);
-      if(value is int){
-        if(paramString == ''){
+      if (value is int) {
+        if (paramString == '') {
           paramString + '?${param}=${value}';
         } else {
           paramString + '&${param}=${value}';
@@ -771,12 +788,13 @@ class TimesliceExpenseReportComponent extends EntityOverview{
     templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/overview/period_overview.html',
     useShadowDom: false
 )
-class PeriodOverviewComponent extends EntityOverview implements ScopeAware{
-  PeriodOverviewComponent(DataCache store, SettingsManager manager, StatusService status, this.context): super(Period, store, '', manager, status){
+class PeriodOverviewComponent extends EntityOverview implements ScopeAware {
+  PeriodOverviewComponent(DataCache store, SettingsManager manager, StatusService status, this.context): super(Period, store, '', manager, status) {
     this.context.onSwitch((Employee employee) => this.employee = employee);
   }
-  cEnt({Period entity}){
-    if(entity !=null){
+
+  cEnt({Period entity}) {
+    if (entity != null) {
       return new Period.clone(entity);
     }
     return new Period();
@@ -784,7 +802,8 @@ class PeriodOverviewComponent extends EntityOverview implements ScopeAware{
 
   Scope _scope;
 
-  set scope(Scope scope){
+  set scope(Scope scope) {
+    this.rootScope = scope.rootScope;
     this._scope = scope;
     this.scope.rootScope.on('TimesliceChanged').listen(onTimesliceChange);
     this.scope.rootScope.on('TimesliceCreated').listen(onTimesliceChange);
@@ -794,7 +813,7 @@ class PeriodOverviewComponent extends EntityOverview implements ScopeAware{
 
   get scope => this._scope;
 
-  onTimesliceChange([ScopeEvent e]){
+  onTimesliceChange([ScopeEvent e]) {
     this.reload();
   }
 
@@ -802,8 +821,8 @@ class PeriodOverviewComponent extends EntityOverview implements ScopeAware{
 
   UserContext context;
 
-  set employee(Employee employee){
-    if(employee.id == null){
+  set employee(Employee employee) {
+    if (employee.id == null) {
       return;
     }
     this._employee = employee;
@@ -814,15 +833,15 @@ class PeriodOverviewComponent extends EntityOverview implements ScopeAware{
 
   bool needsmanualAdd = true;
 
-  reload({Map<String,dynamic> params, bool evict: false}){
+  reload({Map<String, dynamic> params, bool evict: false}) {
     super.reload(params: {'employee': _employee.id}, evict: evict);
   }
 
-  attach(){
+  attach() {
     this.employee = this.context.employee;
   }
 
-  createEntity({var newEnt, Map<String,dynamic> params}){
+  createEntity({var newEnt, Map<String, dynamic> params}) {
     super.createEntity(params: {'employee': this._employee.id});
   }
 }
@@ -832,10 +851,11 @@ class PeriodOverviewComponent extends EntityOverview implements ScopeAware{
     templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/overview/holiday_overview.html',
     useShadowDom: false
 )
-class HolidayOverviewComponent extends EntityOverview{
+class HolidayOverviewComponent extends EntityOverview {
   HolidayOverviewComponent(DataCache store, SettingsManager manager, StatusService status): super(Holiday, store, '', manager, status);
-  cEnt({Holiday entity}){
-    if(entity !=null){
+
+  cEnt({Holiday entity}) {
+    if (entity != null) {
       return new Holiday.clone(entity);
     }
     return new Holiday();
@@ -847,18 +867,20 @@ class HolidayOverviewComponent extends EntityOverview{
     templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/overview/employee_overview.html',
     useShadowDom: false
 )
-class EmployeeOverviewComponent extends EntityOverview{
+class EmployeeOverviewComponent extends EntityOverview {
   EmployeeOverviewComponent(DataCache store, Router router, SettingsManager manager, StatusService status, RouteProvider prov): super(Employee, store, 'employee_edit', manager, status, router: router, prov: prov);
-  cEnt({Employee entity}){
-    if(entity !=null){
+
+  cEnt({Employee entity}) {
+    if (entity != null) {
       return new Employee.clone(entity);
     }
     return new Employee();
   }
-  createEntity({var newEnt, Map<String,dynamic> params}) async{
+
+  createEntity({var newEnt, Map<String, dynamic> params}) async{
     super.createEntity(params: {
-        'username': 'newuser',
-        'email': 'user@example.com',
+      'username': 'newuser',
+      'email': 'user@example.com',
     });
   }
 }
@@ -868,13 +890,14 @@ class EmployeeOverviewComponent extends EntityOverview{
     templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/overview/offerdiscount_overview.html',
     useShadowDom: false,
     map: const{
-        'offer': '=>!offerId'
+      'offer': '=>!offerId'
     }
 )
-class OfferDiscountOverviewComponent extends EntityOverview{
+class OfferDiscountOverviewComponent extends EntityOverview {
   OfferDiscountOverviewComponent(DataCache store, SettingsManager manager, StatusService status): super(OfferDiscount, store, '', manager, status);
-  cEnt({OfferDiscount entity}){
-    if(entity !=null){
+
+  cEnt({OfferDiscount entity}) {
+    if (entity != null) {
       return new OfferDiscount.clone(entity);
     }
     return new OfferDiscount();
@@ -883,29 +906,31 @@ class OfferDiscountOverviewComponent extends EntityOverview{
   bool needsmanualAdd = true;
 
   int _offerId;
-  set offerId(int id){
-    if(id!=null) {
+
+  set offerId(int id) {
+    if (id != null) {
       this._offerId = id;
       reload();
     }
   }
-  reload({Map<String,dynamic> params, bool evict: false}){
+
+  reload({Map<String, dynamic> params, bool evict: false}) {
     super.reload(params: {
-        'offer': this._offerId
+      'offer': this._offerId
     }, evict: evict);
   }
 
-  attach(){
-    if(this.auth !=null) {
+  attach() {
+    if (this.auth != null) {
       if (!auth.isloggedin) {
         router.go('login', {
-            'origin': this._origin
+          'origin': this._origin
         });
       }
     }
   }
 
-  createEntity({Entity newEnt, Map<String,dynamic> params}){
+  createEntity({Entity newEnt, Map<String, dynamic> params}) {
     super.createEntity(params: {'offer': this._offerId});
   }
 }
@@ -915,13 +940,14 @@ class OfferDiscountOverviewComponent extends EntityOverview{
     templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/overview/invoicediscount_overview.html',
     useShadowDom: false,
     map: const{
-        'invoice': '=>!invoiceId'
+      'invoice': '=>!invoiceId'
     }
 )
-class InvoiceDiscountOverviewComponent extends EntityOverview{
+class InvoiceDiscountOverviewComponent extends EntityOverview {
   InvoiceDiscountOverviewComponent(DataCache store, SettingsManager manager, StatusService status): super(InvoiceDiscount, store, '', manager, status);
-  cEnt({InvoiceDiscount entity}){
-    if(entity !=null){
+
+  cEnt({InvoiceDiscount entity}) {
+    if (entity != null) {
       return new InvoiceDiscount.clone(entity);
     }
     return new InvoiceDiscount();
@@ -930,29 +956,31 @@ class InvoiceDiscountOverviewComponent extends EntityOverview{
   bool needsmanualAdd = true;
 
   int _invoiceId;
-  set invoiceId(int id){
-    if(id!=null) {
+
+  set invoiceId(int id) {
+    if (id != null) {
       this._invoiceId = id;
       reload();
     }
   }
-  reload({Map<String,dynamic> params, bool evict: false}){
+
+  reload({Map<String, dynamic> params, bool evict: false}) {
     super.reload(params: {
-        'invoice': this._invoiceId
+      'invoice': this._invoiceId
     }, evict: evict);
   }
 
-  attach(){
-    if(this.auth !=null) {
+  attach() {
+    if (this.auth != null) {
       if (!auth.isloggedin) {
         router.go('login', {
-            'origin': this._origin
+          'origin': this._origin
         });
       }
     }
   }
 
-  createEntity({Entity newEnt, Map<String,dynamic> params}){
+  createEntity({Entity newEnt, Map<String, dynamic> params}) {
     super.createEntity(params: {'invoice': this._invoiceId});
   }
 }
@@ -965,10 +993,11 @@ class InvoiceDiscountOverviewComponent extends EntityOverview{
       'discounts': '<=>entities'
     }
 )
-class StandardDiscountOverviewComponent extends EntityOverview{
+class StandardDiscountOverviewComponent extends EntityOverview {
   StandardDiscountOverviewComponent(SettingsManager manager, StatusService status): super(StandardDiscount, null, '', manager, status);
-  cEnt({StandardDiscount entity}){
-    if(entity !=null){
+
+  cEnt({StandardDiscount entity}) {
+    if (entity != null) {
       return new StandardDiscount.clone(entity);
     }
     return new StandardDiscount();
@@ -979,26 +1008,30 @@ class StandardDiscountOverviewComponent extends EntityOverview{
   @NgCallback('callback')
   Function callback;
 
-  reload({Map<String,dynamic> params, bool evict: false});
+  reload({Map<String, dynamic> params, bool evict: false});
 
-  attach();
+  attach() {
+  }
 
-  createEntity({var newEnt, Map<String,dynamic> params}){
-    if(this.newDiscount != null && !this.entities.contains(this.newDiscount)){
+  createEntity({var newEnt, Map<String, dynamic> params}) {
+    if (this.newDiscount != null && !this.entities.contains(this.newDiscount)) {
       this.entities.add(this.newDiscount);
-      if(this.callback != null){
+      if (this.callback != null) {
         callback({"name": 'standardDiscounts'});
       }
     }
   }
 
-  deleteEntity([int entId]){
+  deleteEntity([int entId]) {
     entId = this.selectedEntId;
     this.entities.removeWhere((enty) => enty.id == entId);
     this.newDiscount = null;
-    if(this.callback != null){
+    if (this.callback != null) {
       callback({"name": 'standardDiscounts'});
     }
+  }
+
+  void saveAllEntities([ScopeEvent e]) {
   }
 }
 
@@ -1007,20 +1040,21 @@ class StandardDiscountOverviewComponent extends EntityOverview{
     templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/overview/rateUnitType_overview.html',
     useShadowDom: false
 )
-class RateUnitTypeOverviewComponent extends EntityOverview{
+class RateUnitTypeOverviewComponent extends EntityOverview {
   RateUnitTypeOverviewComponent(DataCache store, SettingsManager manager, StatusService status): super(RateUnitType, store, '', manager, status);
-  cEnt({RateUnitType entity}){
+
+  cEnt({RateUnitType entity}) {
     return new RateUnitType();
   }
 
-  createEntity({Entity newEnt, Map<String,dynamic> params}) async{
+  createEntity({Entity newEnt, Map<String, dynamic> params}) async{
     RateUnitType rateType = cEnt();
     List names = ['id', 'name'];
-    for(var name in names){
+    for (var name in names) {
       Setting settingForName;
       try {
         settingForName = this.settingsManager.getOneSetting('/usr/defaults/rateunittype', name);
-      } catch(exception, stackTrace) {
+      } catch (exception, stackTrace) {
         settingForName = this.settingsManager.getOneSetting('/etc/defaults/rateunittype', name, system: true);
       }
       rateType.Set(name, settingForName.value);
@@ -1037,34 +1071,34 @@ class RateUnitTypeOverviewComponent extends EntityOverview{
       this.entities.removeWhere((enty) => enty.id == resp.id);
       this.entities.add(resp);
       this.statusservice.setStatusToSuccess();
-      this.rootScope.emit(this.type.toString()+'Changed');
+      this.rootScope.emit(this.type.toString() + 'Changed');
     } catch (e) {
       this.statusservice.setStatusToError();
     }
   }
 
   deleteEntity([int entId]) async{
-    if(entId == null){
+    if (entId == null) {
       entId = this.selectedEntId;
     }
-    if(entId != null) {
+    if (entId != null) {
       this.statusservice.setStatusToLoading();
-      try{
-        if(this.store != null) {
+      try {
+        if (this.store != null) {
           var ent = this.entities.singleWhere((enty) => enty.id == entId);
           CommandResponse resp = await this.store.delete(ent);
         }
         this.entities.removeWhere((enty) => enty.id == entId);
         this.statusservice.setStatusToSuccess();
-        this.rootScope.emit(this.type.toString()+'Deleted');
-      } catch (e){
+        this.rootScope.emit(this.type.toString() + 'Deleted');
+      } catch (e) {
         this.statusservice.setStatusToError();
       }
     }
   }
 }
 
-class WeekReportEntry{
+class WeekReportEntry {
   String name;
   List<Timeslice> days = [];
 }
@@ -1074,7 +1108,7 @@ class WeekReportEntry{
     templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/overview/timeslice_weekly_report.html',
     useShadowDom: false
 )
-class TimesliceWeeklyReportComponent extends EntityOverview{
+class TimesliceWeeklyReportComponent extends EntityOverview {
   TimesliceWeeklyReportComponent(DataCache store, SettingsManager manager, StatusService status): super(ExpenseReport, store, '', manager, status);
 
   DateTime filterStartDate = new DateTime.now();
@@ -1091,36 +1125,36 @@ class TimesliceWeeklyReportComponent extends EntityOverview{
 
   ExpenseReport report;
 
-  updateDates(){
+  updateDates() {
     dates = [];
     DateTime date = filterStartDate;
-    while(date.isBefore(filterEndDate)){
+    while (date.isBefore(filterEndDate)) {
       dates.add(date);
       date = date.add(new Duration(days: 1));
     }
   }
 
-  updateUsers(){
+  updateUsers() {
     users = [];
-    for(Timeslice slice in this.report.timeslices){
-      if(!users.contains(slice.user.fullname)){
+    for (Timeslice slice in this.report.timeslices) {
+      if (!users.contains(slice.user.fullname)) {
         users.add(slice.user.fullname);
       }
     }
   }
 
-  updateEntries(){
+  updateEntries() {
     entries = [];
-    for(String user in users){
+    for (String user in users) {
       WeekReportEntry entry = new WeekReportEntry();
       entry.name = user;
-      for(DateTime date in dates){
+      for (DateTime date in dates) {
         try {
           Timeslice slice = report.timeslices.singleWhere((Timeslice s) => s.user.fullname == user && isSameDay(date, s.startedAt));
           entry.days.add(slice);
-        } catch(e){
+        } catch (e) {
           entry.days.add(new Timeslice()
-              ..value = '-'
+            ..value = '-'
           );
         }
       }
@@ -1128,30 +1162,31 @@ class TimesliceWeeklyReportComponent extends EntityOverview{
     }
   }
 
-  bool isSameDay(DateTime date1, DateTime date2){
+  bool isSameDay(DateTime date1, DateTime date2) {
     String stringDate1 = format.format(date1);
     String stringDate2 = format.format(date2);
-    if(stringDate1 == stringDate2){
+    if (stringDate1 == stringDate2) {
       return true;
     }
     return false;
   }
 
-  attach(){
-    if(this.auth !=null) {
+  attach() {
+    if (this.auth != null) {
       if (!auth.isloggedin) {
         router.go('login', {
-            'origin': this._origin
+          'origin': this._origin
         });
       }
     }
-    if(this.filterStartDate.weekday != DateTime.MONDAY);{
+    if (this.filterStartDate.weekday != DateTime.MONDAY);
+    {
       this.filterStartDate = this.filterStartDate.subtract(new Duration(days: this.filterStartDate.weekday - 1));
     }
     this.filterStartDate = this.filterStartDate.subtract(new Duration(
         hours: filterStartDate.hour,
         minutes: filterStartDate.minute,
-        seconds: filterStartDate.second -1,
+        seconds: filterStartDate.second - 1,
         milliseconds: filterStartDate.millisecond
     ));
     this.filterEndDate = this.filterStartDate;
@@ -1159,54 +1194,54 @@ class TimesliceWeeklyReportComponent extends EntityOverview{
     updateDates();
   }
 
-  reload({Map<String,dynamic> params, bool evict: false}) async{
+  reload({Map<String, dynamic> params, bool evict: false}) async{
     updateDates();
     this.entities = [];
     this.statusservice.setStatusToLoading();
     try {
       this.report = (await this.store.customQueryOne(this.type, new CustomRequestParams(params: {
-          'date': '${format.format(filterStartDate)},${format.format(filterEndDate)}',
+        'date': '${format.format(filterStartDate)},${format.format(filterEndDate)}',
       }, method: 'GET', url: '/api/v1/reports/ziviweekly')));
       this.statusservice.setStatusToSuccess();
-      this.rootScope.emit(this.type.toString()+'Loaded');
-    } catch(e){
+      this.rootScope.emit(this.type.toString() + 'Loaded');
+    } catch (e) {
       this.statusservice.setStatusToError();
     }
     updateUsers();
     updateEntries();
   }
 
-  previousMonth(){
+  previousMonth() {
     this.filterStartDate = this.filterStartDate.subtract(new Duration(days: 30));
     this.filterEndDate = this.filterEndDate.subtract(new Duration(days: 30));
     updateDates();
   }
 
-  previousWeek(){
+  previousWeek() {
     this.filterStartDate = this.filterStartDate.subtract(new Duration(days: 7));
     this.filterEndDate = this.filterEndDate.subtract(new Duration(days: 7));
     updateDates();
   }
 
-  previousDay(){
+  previousDay() {
     this.filterStartDate = this.filterStartDate.subtract(new Duration(days: 1));
     this.filterEndDate = this.filterEndDate.subtract(new Duration(days: 1));
     updateDates();
   }
 
-  nextMonth(){
+  nextMonth() {
     this.filterStartDate = this.filterStartDate.add(new Duration(days: 30));
     this.filterEndDate = this.filterEndDate.add(new Duration(days: 30));
     updateDates();
   }
 
-  nextWeek(){
+  nextWeek() {
     this.filterStartDate = this.filterStartDate.add(new Duration(days: 7));
     this.filterEndDate = this.filterEndDate.add(new Duration(days: 7));
     updateDates();
   }
 
-  nextDay(){
+  nextDay() {
     this.filterStartDate = this.filterStartDate.add(new Duration(days: 1));
     this.filterEndDate = this.filterEndDate.add(new Duration(days: 1));
     updateDates();

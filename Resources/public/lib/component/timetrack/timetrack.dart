@@ -8,11 +8,11 @@ import 'package:DimeClient/service/status.dart';
 import 'package:DimeClient/service/data_cache.dart';
 
 @Component(
-  selector: 'timetrack',
-  templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/timetrack/timetrack.html',
-  useShadowDom: false
+    selector: 'timetrack',
+    templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/timetrack/timetrack.html',
+    useShadowDom: false
 )
-class TimetrackComponent extends AttachAware implements ScopeAware{
+class TimetrackComponent extends AttachAware implements ScopeAware {
   UserContext context;
   UserAuthProvider auth;
   Scope scope;
@@ -20,17 +20,17 @@ class TimetrackComponent extends AttachAware implements ScopeAware{
 
   get employee => this.context.employee;
 
-  attach(){
-    if(!auth.isloggedin){
-      router.go('login',{});
+  attach() {
+    if (!auth.isloggedin) {
+      router.go('login', {});
     }
   }
 
-  void reloadUser([ScopeEvent e]){
+  void reloadUser([ScopeEvent e]) {
     this.context.reloadUserData();
   }
 
-  save(){
+  save() {
     scope.rootScope.emit('saveChanges');
   }
 
@@ -42,22 +42,22 @@ class TimetrackComponent extends AttachAware implements ScopeAware{
     templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/timetrack/project_timetrack.html',
     useShadowDom: false
 )
-class ProjectTimetrackComponent extends AttachAware implements ScopeAware{
+class ProjectTimetrackComponent extends AttachAware implements ScopeAware {
   UserAuthProvider auth;
   Scope scope;
   Router router;
   StatusService statusservice;
   DataCache store;
 
-  attach(){
-    if(!auth.isloggedin){
-      router.go('login',{});
+  attach() {
+    if (!auth.isloggedin) {
+      router.go('login', {});
     }
   }
 
   Project project;
 
-  save(){
+  save() {
     scope.rootScope.emit('saveChanges');
   }
 

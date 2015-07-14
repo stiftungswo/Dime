@@ -7,7 +7,7 @@ import 'package:DimeClient/service/data_cache.dart';
 import 'package:DimeClient/service/user_context.dart';
 import 'dart:html' as dom;
 
-class EntitySelect extends AttachAware implements ScopeAware{
+class EntitySelect extends AttachAware implements ScopeAware {
   DataCache store;
   Scope scope;
   dom.Element element;
@@ -24,8 +24,8 @@ class EntitySelect extends AttachAware implements ScopeAware{
 
   dynamic _selectedEntity;
 
-  set selectedEntity(entity){
-    if(entity != null) {
+  set selectedEntity(entity) {
+    if (entity != null) {
       selector = entity.name;
     }
     _selectedEntity = entity;
@@ -36,41 +36,41 @@ class EntitySelect extends AttachAware implements ScopeAware{
     try {
       this.entities = (await this.store.list(this.type)).toList();
       this.statusservice.setStatusToSuccess();
-    } catch (e){
+    } catch (e) {
       this.statusservice.setStatusToError();
     }
   }
 
   get selectedEntity => _selectedEntity;
 
-  select(entity){
+  select(entity) {
     this.selectedEntity = entity;
     this.open = false;
-    if(this.callback != null){
+    if (this.callback != null) {
       callback({"name": this.field});
     }
   }
 
-  toggleSelectionBox(){
-    if(this.open){
+  toggleSelectionBox() {
+    if (this.open) {
       this.closeSelectionBox();
     } else {
       this.openSelectionBox();
     }
   }
 
-  openSelectionBox(){
-    if(!this.open){
+  openSelectionBox() {
+    if (!this.open) {
       this.selector = '';
       this.open = true;
     }
   }
 
-  get EntText => _selectedEntity != null ? _selectedEntity.name: '';
+  get EntText => _selectedEntity != null ? _selectedEntity.name : '';
 
-  closeSelectionBox(){
-    if(this.open){
-      if(clearOnClose){
+  closeSelectionBox() {
+    if (this.open) {
+      if (clearOnClose) {
         this.selectedEntity = null;
       }
       this.selector = EntText;
@@ -81,17 +81,17 @@ class EntitySelect extends AttachAware implements ScopeAware{
 }
 
 @Component(
-  selector: 'project-select',
-  templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/select/project_select.html',
-  useShadowDom: false,
-  map: const{
+    selector: 'project-select',
+    templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/select/project_select.html',
+    useShadowDom: false,
+    map: const{
       'project': '<=>selectedEntity',
       'callback': '&callback',
       'field': '=>!field',
       'clearOnClose': '=>!clearOnClose'
-  }
+    }
 )
-class ProjectSelectComponent extends EntitySelect{
+class ProjectSelectComponent extends EntitySelect {
   ProjectSelectComponent(DataCache store, dom.Element element, StatusService status): super(Project, store, element, status);
 }
 
@@ -100,14 +100,14 @@ class ProjectSelectComponent extends EntitySelect{
     templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/select/activity_select.html',
     useShadowDom: false,
     map: const{
-        'activity': '<=>selectedEntity',
-        'project': '=>!projectId',
-        'callback': '&callback',
-        'field': '=>!field',
-        'clearOnClose': '=>!clearOnClose'
+      'activity': '<=>selectedEntity',
+      'project': '=>projectId',
+      'callback': '&callback',
+      'field': '=>!field',
+      'clearOnClose': '=>!clearOnClose'
     }
 )
-class ActivitySelectComponent extends EntitySelect{
+class ActivitySelectComponent extends EntitySelect {
   ActivitySelectComponent(DataCache store, dom.Element element, StatusService status): super(Activity, store, element, status);
 
   int projectId;
@@ -118,13 +118,13 @@ class ActivitySelectComponent extends EntitySelect{
     templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/select/service_select.html',
     useShadowDom: false,
     map: const{
-        'service': '<=>selectedEntity',
-        'callback': '&callback',
-        'field': '=>!field',
-        'clearOnClose': '=>!clearOnClose'
+      'service': '<=>selectedEntity',
+      'callback': '&callback',
+      'field': '=>!field',
+      'clearOnClose': '=>!clearOnClose'
     }
 )
-class ServiceSelectComponent extends EntitySelect{
+class ServiceSelectComponent extends EntitySelect {
   ServiceSelectComponent(DataCache store, dom.Element element, StatusService status): super(Service, store, element, status);
 }
 
@@ -133,13 +133,13 @@ class ServiceSelectComponent extends EntitySelect{
     templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/select/customer_select.html',
     useShadowDom: false,
     map: const{
-        'customer': '<=>selectedEntity',
-        'callback': '&callback',
-        'field': '=>!field',
-        'clearOnClose': '=>!clearOnClose'
+      'customer': '<=>selectedEntity',
+      'callback': '&callback',
+      'field': '=>!field',
+      'clearOnClose': '=>!clearOnClose'
     }
 )
-class CustomerSelectComponent extends EntitySelect{
+class CustomerSelectComponent extends EntitySelect {
   CustomerSelectComponent(DataCache store, dom.Element element, StatusService status): super(Customer, store, element, status);
 }
 
@@ -148,21 +148,23 @@ class CustomerSelectComponent extends EntitySelect{
     templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/select/offerstatus_select.html',
     useShadowDom: false,
     map: const{
-        'status': '<=>selectedEntity',
-        'callback': '&callback',
-        'field': '=>!field',
-        'clearOnClose': '=>!clearOnClose'
+      'status': '<=>selectedEntity',
+      'callback': '&callback',
+      'field': '=>!field',
+      'clearOnClose': '=>!clearOnClose'
     }
 )
-class OfferStatusSelectComponent extends EntitySelect{
+class OfferStatusSelectComponent extends EntitySelect {
   OfferStatusSelectComponent(DataCache store, dom.Element element, StatusService status): super(OfferStatusUC, store, element, status);
-  set selectedEntity(entity){
-    if(entity != null) {
+
+  set selectedEntity(entity) {
+    if (entity != null) {
       selector = entity.text;
     }
     _selectedEntity = entity;
   }
-  get EntText => _selectedEntity != null ? _selectedEntity.text: '';
+
+  get EntText => _selectedEntity != null ? _selectedEntity.text : '';
 }
 
 @Component(
@@ -170,13 +172,13 @@ class OfferStatusSelectComponent extends EntitySelect{
     templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/select/rategroup_select.html',
     useShadowDom: false,
     map: const{
-        'rategroup': '<=>selectedEntity',
-        'callback': '&callback',
-        'field': '=>!field',
-        'clearOnClose': '=>!clearOnClose'
+      'rategroup': '<=>selectedEntity',
+      'callback': '&callback',
+      'field': '=>!field',
+      'clearOnClose': '=>!clearOnClose'
     }
 )
-class RateGroupSelectComponent extends EntitySelect{
+class RateGroupSelectComponent extends EntitySelect {
   RateGroupSelectComponent(DataCache store, dom.Element element, StatusService status): super(RateGroup, store, element, status);
 }
 
@@ -185,13 +187,13 @@ class RateGroupSelectComponent extends EntitySelect{
     templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/select/rateunittype_select.html',
     useShadowDom: false,
     map: const{
-        'rateunittype': '<=>selectedEntity',
-        'callback': '&callback',
-        'field': '=>!field',
-        'clearOnClose': '=>!clearOnClose'
+      'rateunittype': '<=>selectedEntity',
+      'callback': '&callback',
+      'field': '=>!field',
+      'clearOnClose': '=>!clearOnClose'
     }
 )
-class RateUnitTypeSelectComponent extends EntitySelect{
+class RateUnitTypeSelectComponent extends EntitySelect {
   RateUnitTypeSelectComponent(DataCache store, dom.Element element, StatusService status): super(RateUnitType, store, element, status);
 }
 
@@ -200,33 +202,34 @@ class RateUnitTypeSelectComponent extends EntitySelect{
     templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/select/user_select.html',
     useShadowDom: false,
     map: const{
-        'useContext': '=>!useContext',
-        'user': '<=>selectedEntity',
-        'callback': '&callback',
-        'field': '=>!field',
-        'clearOnClose': '=>!clearOnClose'
+      'useContext': '=>!useContext',
+      'user': '<=>selectedEntity',
+      'callback': '&callback',
+      'field': '=>!field',
+      'clearOnClose': '=>!clearOnClose'
     }
 )
-class UserSelectComponent extends EntitySelect{
+class UserSelectComponent extends EntitySelect {
   UserSelectComponent(DataCache store, dom.Element element, this.context, StatusService status): super(Employee, store, element, status);
+
   UserContext context;
   bool useContext = false;
 
-  set selectedEntity(entity){
-    if(entity != null) {
+  set selectedEntity(entity) {
+    if (entity != null) {
       selector = entity.fullname;
     }
-    if(useContext) {
+    if (useContext) {
       this.context.switchContext(entity);
     }
     _selectedEntity = entity;
   }
 
-  get EntText => _selectedEntity != null ? _selectedEntity.fullname: '';
+  get EntText => _selectedEntity != null ? _selectedEntity.fullname : '';
 
-  attach(){
+  attach() {
     super.attach();
-    if(useContext){
+    if (useContext) {
       this.selector = context.employee.fullname;
     }
   }
@@ -237,12 +240,12 @@ class UserSelectComponent extends EntitySelect{
     templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/select/standarddiscount_select.html',
     useShadowDom: false,
     map: const{
-        'discount': '<=>selectedEntity',
-        'callback': '&callback',
-        'field': '=>!field',
-        'clearOnClose': '=>!clearOnClose'
+      'discount': '<=>selectedEntity',
+      'callback': '&callback',
+      'field': '=>!field',
+      'clearOnClose': '=>!clearOnClose'
     }
 )
-class StandardDiscountSelectComponent extends EntitySelect{
+class StandardDiscountSelectComponent extends EntitySelect {
   StandardDiscountSelectComponent(DataCache store, dom.Element element, StatusService status): super(StandardDiscount, store, element, status);
 }

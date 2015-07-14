@@ -3,7 +3,7 @@ library dime.ui.statusservice;
 import 'package:angular/angular.dart';
 
 @Injectable()
-class StatusService{
+class StatusService {
   String status;
 
   final String success = 'success';
@@ -13,24 +13,24 @@ class StatusService{
 
   int numLoading = 0;
 
-  setStatusToLoading(){
+  setStatusToLoading() {
     this.status = loading;
     numLoading += 1;
   }
 
-  setStatusToError(){
+  setStatusToError() {
     this.status = error;
     numLoading -= 1;
   }
 
-  setStatusToSuccess(){
-    if(status == loading && numLoading <= 1) {
+  setStatusToSuccess() {
+    if (status == loading && numLoading <= 1) {
       this.status = success;
     }
     numLoading -= 1;
   }
 
-  resetStatus(){
+  resetStatus() {
     this.status = defaultVal;
     numLoading = 0;
   }

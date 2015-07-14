@@ -12,7 +12,7 @@ import 'package:DimeClient/service/user_context.dart';
 import 'package:DimeClient/service/status.dart';
 
 @Injectable()
-class UserAuthProvider{
+class UserAuthProvider {
   final String dimelocalStoreAuthKey = 'dimeAuthToken';
   UserContext context;
   SettingsManager manager;
@@ -21,24 +21,24 @@ class UserAuthProvider{
   StatusService statusservice;
   bool isloggedin = false;
 
-  set authHeader(String authToken){
-    if(authToken == null){
+  set authHeader(String authToken) {
+    if (authToken == null) {
       headers['Common'].remove('Authorization');
     } else {
       headers['Common'].addAll({'Authorization': authToken});
     }
   }
 
-  bool get isAuthSaved{
+  bool get isAuthSaved {
     return window.localStorage.containsKey(dimelocalStoreAuthKey);
   }
 
-  String get authToken{
+  String get authToken {
     return window.localStorage[dimelocalStoreAuthKey];
   }
 
-  set authToken(String token){
-    if(token == null){
+  set authToken(String token) {
+    if (token == null) {
       window.localStorage.remove(dimelocalStoreAuthKey);
     } else {
       window.localStorage[dimelocalStoreAuthKey] = token;
@@ -55,7 +55,7 @@ class UserAuthProvider{
       await manager.loadUserSettings(result.id);
       this.statusservice.setStatusToSuccess();
       return result;
-    } catch(e){
+    } catch (e) {
       this.statusservice.setStatusToError();
       throw new Exception();
     }
@@ -67,12 +67,12 @@ class UserAuthProvider{
   }
 
   login([String username, String password, bool save = false]) async {
-    if(isAuthSaved){
+    if (isAuthSaved) {
       authHeader = authToken;
     } else {
-      if(username != null && password != null){
+      if (username != null && password != null) {
         var token = createAuthToken(username, password);
-        if(save){
+        if (save) {
           authToken = token;
         }
         authHeader = token;
@@ -93,8 +93,8 @@ class UserAuthProvider{
   }
 
   logout() async{
-    if(isloggedin){
-      if(isAuthSaved){
+    if (isloggedin) {
+      if (isAuthSaved) {
         authToken = null;
       }
       authHeader = null;

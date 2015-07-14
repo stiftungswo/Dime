@@ -7,10 +7,11 @@ import 'package:DimeClient/service/user_auth.dart';
     selector: 'usermenu',
     templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/main/usermenu.html',
     useShadowDom: false)
-class UserMenu{
+class UserMenu {
 
   UserAuthProvider auth;
   Router router;
+
   bool get isLoggedIn => auth.isloggedin;
 
   UserMenu(this.router, this.auth);

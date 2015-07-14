@@ -8,7 +8,7 @@ import 'dart:async';
 import 'package:DimeClient/service/status.dart';
 
 @Injectable()
-class SettingsManager{
+class SettingsManager {
   UserContext context;
   ObjectStore store;
   List<Setting> userSettings;
@@ -17,6 +17,7 @@ class SettingsManager{
   List<Setting> toCreate;
   bool allowCreate = false;
   StatusService statusservice;
+
   SettingsManager(this.store, this.context, this.statusservice);
 
   loadUserSettings([int userId]) async{
@@ -26,11 +27,11 @@ class SettingsManager{
         userId = this.context.employee.id;
       }
       this.userSettings = (await this.store.list(Setting, params: {
-          'namespace': '/usr*', 'user': userId
+        'namespace': '/usr*', 'user': userId
       })).toList();
       this._currentUserId = userId;
       this.statusservice.setStatusToSuccess();
-    } catch (e){
+    } catch (e) {
       this.statusservice.setStatusToError();
     }
   }
@@ -39,23 +40,23 @@ class SettingsManager{
     this.statusservice.setStatusToLoading();
     try {
       this.systemSettings = (await this.store.list(Setting, params: {
-          'namespace': '/etc*'
+        'namespace': '/etc*'
       })).toList();
       this.statusservice.setStatusToSuccess();
-    } catch (e){
+    } catch (e) {
       this.statusservice.setStatusToError();
     }
   }
 
-  getSettings(String namespace, {bool system: false}){
-    if(system){
+  getSettings(String namespace, {bool system: false}) {
+    if (system) {
       return this.systemSettings.where((setting) => setting.namespace == namespace);
     }
     return this.userSettings.where((setting) => setting.namespace == namespace);
   }
 
-  getOneSetting(String namespace, String name, {bool system: false}){
-    if(system){
+  getOneSetting(String namespace, String name, {bool system: false}) {
+    if (system) {
       return this.systemSettings.singleWhere((setting) => setting.namespace == namespace && setting.name == name);
     }
     return this.userSettings.singleWhere((setting) => setting.namespace == namespace && setting.name == name);
@@ -66,16 +67,18 @@ class SettingsManager{
     try {
       User usr = new User()
         ..id = this._currentUserId;
-      Setting setting = new Setting()
-        ..user = usr
-        ..namespace = namespace
-        ..name = name
-        ..value = value;
-      setting = (await this.store.create(setting));
+      Setting templateSetting = new Setting();
+      templateSetting.init(params: {
+        'user': usr,
+        'namespace': namespace,
+        'name': name,
+        'value': value
+      });
+      Setting setting = await this.store.create(templateSetting);
       this.userSettings.add(setting);
       this.statusservice.setStatusToSuccess();
       return setting;
-    } catch (e){
+    } catch (e) {
       this.statusservice.setStatusToError();
     }
   }
@@ -83,12 +86,13 @@ class SettingsManager{
   Future<Setting> updateSetting(Setting toUpdate) async{
     this.statusservice.setStatusToLoading();
     try {
+      toUpdate.addFieldtoUpdate('value');
       Setting updatedSetting = (await this.store.update(toUpdate));
       this.userSettings.removeWhere((setting) => setting.id == toUpdate.id);
       this.userSettings.add(updatedSetting);
       this.statusservice.setStatusToSuccess();
       return updatedSetting;
-    } catch(e){
+    } catch (e) {
       this.statusservice.setStatusToError();
     }
   }

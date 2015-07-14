@@ -2,42 +2,57 @@ library dime_entity;
 
 import 'package:hammock/hammock.dart';
 
-class Entity{
+class Entity {
 
   Entity();
 
   Entity.clone(Entity original){
     this.name = original.name;
-    this.user=original.user;
+    this.user = original.user;
   }
 
-  init({Map<String,dynamic> params}){
-    if(params!=null) {
-      if (params.containsKey('id')) {
-        this.id = params['id'];
+  init({Map<String, dynamic> params: const {}}) {
+    if (params != null) {
+      for (var key in params.keys) {
+        var value = params[key];
+        this.Set(key, value);
+        this.addFieldtoUpdate(key);
       }
     }
   }
-  Entity.fromMap(Map<String,dynamic> map){
-    if(map==null||map.isEmpty) return;
-    this.id=map['id'];
-    this.createdAt= map['createdAt']!=null ? DateTime.parse(map['createdAt']):null;
-    this.updatedAt= map['updatedAt']!=null ? DateTime.parse(map['updatedAt']): null;
-    this.name=map['name'];
-    this.alias=map['alias'];
-    this.user=new User.fromMap(map['user']);
-  }
-  Resource toResource(){
-    return new Resource(type, this.id, this.toMap());
-  }
-  Map<String,dynamic> toMap(){
-    return {
-        "id" : this.id,
-        "name" : this.name,
-    };
+
+  Entity.fromMap(Map<String, dynamic> map){
+    if (map == null || map.isEmpty) return;
+    for (String key in map.keys) {
+      var value = map[key];
+      this.Set(key, value);
+    }
   }
 
-  cloneDescendants(Entity original){
+  Resource toResource() {
+    return new Resource(type, this.id, this.toMap());
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    for (String item in this._toUpdate) {
+      var value = this.Get(item);
+      if (value == null) {
+        print('Trying to get ${item} from ${this.type} but it does not exist or has no getter');
+      } else if (value is Entity) {
+        //TODO Fix Handling of Subentities in Backend. I Probably neeed a form transformer
+        value.addFieldtoUpdate('id');
+        value = value.toMap();
+      } else if (value is DateTime) {
+        value = value.toString();
+      }
+      map[item] = value;
+    }
+    this._toUpdate = [];
+    return map;
+  }
+
+  cloneDescendants(Entity original) {
 
   }
 
@@ -55,112 +70,114 @@ class Entity{
   String name;
   String alias;
   User user;
+  List<Tag> tags = [];
 
-  void addFieldtoUpdate(String name){
-    if(!this._toUpdate.contains(name)){
+  void addFieldtoUpdate(String name) {
+    if (!this._toUpdate.contains(name)) {
       this._toUpdate.add(name);
     }
   }
 
-  bool get needsUpdate{
-    if(this._toUpdate.length >=1){
+  DateTime _addDateValue(value) {
+    if (value == null) {
+      return null;
+    }
+    if (value is DateTime) {
+      return value;
+    } else if (value is String) {
+      return DateTime.parse(value);
+    } else {
+      return null;
+    }
+  }
+
+  bool get needsUpdate {
+    if (this._toUpdate.length >= 1) {
       return true;
     }
     return false;
   }
 
-  dynamic toSaveObj(){
-    var ent = this.newObj();
-    ent.id = this.id;
-    for(String field in this._toUpdate){
-      var val = this.Get(field);
-      if(val is Entity){
-        var newval = val.newObj();
-        newval.id = val.id;
-        ent.Set(field, newval);
-      } else if (val is RateUnitType){
-        // In the case of RateUnitType the Response needs to only contain the id
-        ent.Set(field, val.id);
-      } else {
-        //Entities not inheriting from Entity (Subentities) have to have id removed otherwise the backend throws an error
-        try {
-          val.id = null;
-        } catch(e){
-
-        } finally {
-          ent.Set(field, val);
-        }
-      }
-    }
-    this._toUpdate = new List();
-    return ent;
-  }
-
-  dynamic newObj(){
+  dynamic newObj() {
     return new Entity();
   }
 
-  dynamic Get(String property){
-    switch(property){
+  dynamic Get(String property) {
+    switch (property) {
       case 'id':
         return this.id;
       case 'name':
         return this.name;
+      case 'alias':
+        return this.alias;
       case 'createdAt':
         return this.createdAt;
       case 'updatedAt':
         return this.updatedAt;
       case 'user':
         return this.user;
+      case 'tags':
+        return this.tags;
       default:
         break;
     }
     return null;
   }
 
-  void Set(String property, var value){
-    switch(property){
+  void Set(String property, var value) {
+    switch (property) {
       case 'id':
         this.id = value;
         break;
+      case 'createdAt':
+        this.createdAt = _addDateValue(value);
+        break;
+      case 'updatedAt':
+        this.updatedAt = _addDateValue(value);
+        break;
       case 'name':
-        this.name=value;
+        this.name = value;
+        break;
+      case 'alias':
+        this.alias = value;
         break;
       case 'user':
-        this.user=value;
+        this.user = value is Entity ? value : new Employee.fromMap(value);
+        break;
+      case 'tags':
+        this.tags = Tag.listFromMap(value);
         break;
       default:
+        print('Trying to set ${property} with ${value} in ${this.type} but it does not exist or has no setter');
         break;
     }
   }
 }
 
-class TagFields{
-  //List<Tag> tags;
-}
-
-class Tag extends Entity{
+class Tag extends Entity {
   Tag();
+
   Tag.clone(Tag original): super.clone(original){
     this.system = original.system;
   }
-  Tag.fromMap(Map<String,dynamic> map): super.fromMap(map){
-    if(map==null||map.isEmpty) return;
-    this.system = map['system'];
+
+  Tag.fromMap(Map<String, dynamic> map): super.fromMap(map);
+
+  static List<Tag> listFromMap(List content) {
+    List<Tag> array = new List<Tag>();
+    for (var element in content) {
+      array.add(new Tag.fromMap(element));
+    }
+    return array;
   }
-  Map<String,dynamic> toMap(){
-    Map m = super.toMap();
-    m.addAll({
-        "system": this.system
-    });
-    return m;
-  }
-  newObj(){
+
+  newObj() {
     return new Tag();
   }
-  dynamic Get(String property){
+
+  dynamic Get(String property) {
     var val = super.Get(property);
-    if(val == null) {
+    if (val == null) {
       switch (property) {
         case 'system':
           return this.system;
@@ -170,8 +187,9 @@ class Tag extends Entity{
     }
     return val;
   }
-  void Set(String property, var value){
-    switch(property){
+
+  void Set(String property, var value) {
+    switch (property) {
       case 'system':
         this.system = value;
         break;
@@ -180,36 +198,28 @@ class Tag extends Entity{
         break;
     }
   }
+
   String type = 'tags';
   bool system;
 }
 
-class Setting extends Entity{
+class Setting extends Entity {
   Setting();
+
   Setting.clone(Setting original): super.clone(original){
     this.namespace = original.namespace;
     this.value = original.value;
   }
-  Setting.fromMap(Map<String,dynamic> map): super.fromMap(map){
-    if(map==null||map.isEmpty) return;
-    this.namespace = map['namespace'];
-    this.value = map['value'];
-  }
-  Map<String,dynamic> toMap(){
-    Map m = super.toMap();
-    m.addAll({
-        "namespace": this.namespace,
-        "value": this.value,
-        "user": this.user.id,
-    });
-    return m;
-  }
-  newObj(){
+
+  Setting.fromMap(Map<String, dynamic> map): super.fromMap(map);
+
+  newObj() {
     return new Setting();
   }
-  dynamic Get(String property){
+
+  dynamic Get(String property) {
     var val = super.Get(property);
-    if(val == null) {
+    if (val == null) {
       switch (property) {
         case 'namespace':
           return this.namespace;
@@ -221,8 +231,9 @@ class Setting extends Entity{
     }
     return val;
   }
-  void Set(String property, var value){
-    switch(property){
+
+  void Set(String property, var value) {
+    switch (property) {
       case 'namespace':
         this.namespace = value;
         break;
@@ -234,34 +245,45 @@ class Setting extends Entity{
         break;
     }
   }
+
   String type = 'settings';
   String namespace;
   String value;
 }
 
-class Project extends Entity{
-  init({Map<String,dynamic> params}){
-    this.name = 'New Project';
+class Project extends Entity {
+
+  init({Map<String, dynamic> params: const {}}) {
+    if (!params.containsKey('name')) {
+      params['name'] = 'New Project';
+    }
+    super.init(params: params);
   }
+
   Project();
+
   Project.clone(Project original): super.clone(original){
-    this.currentPrice=original.currentPrice;
-    this.budgetPrice=original.budgetPrice;
-    this.currentTime=original.currentTime;
-    this.budgetTime=original.budgetTime;
-    this.description=original.description;
-    this.fixedPrice=original.fixedPrice;
-    this.customer=original.customer;
-    this.rateGroup=original.rateGroup;
-    this.chargeable=original.chargeable;
-    this.deadline=original.deadline;
+    this.currentPrice = original.currentPrice;
+    this.budgetPrice = original.budgetPrice;
+    this.currentTime = original.currentTime;
+    this.budgetTime = original.budgetTime;
+    this.description = original.description;
+    this.fixedPrice = original.fixedPrice;
+    this.customer = original.customer;
+    this.rateGroup = original.rateGroup;
+    this.chargeable = original.chargeable;
+    this.deadline = original.deadline;
   }
-  newObj(){
+
+  Project.fromMap(Map<String, dynamic> map): super.fromMap(map);
+
+  newObj() {
     return new Project();
   }
-  dynamic Get(String property){
+
+  dynamic Get(String property) {
     var val = super.Get(property);
-    if(val == null) {
+    if (val == null) {
       switch (property) {
         case 'currentPrice':
           return this.currentPrice;
@@ -291,8 +313,9 @@ class Project extends Entity{
     }
     return val;
   }
-  void Set(String property, var value){
-    switch(property){
+
+  void Set(String property, var value) {
+    switch (property) {
       case 'currentPrice':
         this.currentPrice = value;
         break;
@@ -312,64 +335,34 @@ class Project extends Entity{
         this.fixedPrice = value;
         break;
       case 'customer':
-        this.customer = value;
+        this.customer = value is Entity ? value : new Customer.fromMap(value);
         break;
       case 'rateGroup':
-        this.rateGroup = value;
+        this.rateGroup = value is Entity ? value : new RateGroup.fromMap(value);
         break;
       case 'chargeable':
         this.chargeable = value;
         break;
       case 'deadline':
-        this.deadline = value;
+        this.deadline = _addDateValue(value);
         break;
       case 'activities':
-        this.activities = value;
+        this.activities = Activity.listFromMap(value);
         break;
       default:
         super.Set(property, value);
         break;
     }
   }
-  Project.fromMap(Map<String,dynamic> map): super.fromMap(map){
-    if(map==null||map.isEmpty) return;
-    this.currentPrice = map['currentPrice'];
-    this.budgetPrice = map['budgetPrice'];
-    this.currentTime = map['currentTime'];
-    this.budgetTime = map['budgetTime'];
-    this.description = map['description'];
-    this.fixedPrice = map['fixedPrice'];
-    this.chargeable = map['chargeable'];
-    this.deadline =map['deadline']!=null ? DateTime.parse(map['deadline']):null;
-    this.customer = new Customer.fromMap(map['customer']);
-    this.rateGroup = new RateGroup.fromMap(map['rateGroup']);
-    if(map['activities']!=null) {
-      this.activities = Activity.listFromMap(map['activities']);
-    }
-  }
-  Map<String,dynamic> toMap(){
-    Map m = super.toMap();
-    m.addAll({
-        "currentPrice": this.currentPrice,
-        "budgetPrice": this.budgetPrice,
-        "currentTime": this.currentTime,
-        "budgetTime": this.budgetTime,
-        "description": this.description,
-        "fixedPrice": this.fixedPrice,
-        "chargeable": this.chargeable,
-        "deadline": this.deadline is DateTime ? this.deadline.toString():null,
-        "customer": this.customer is Entity ? this.customer.toMap(): null,
-        "rateGroup": this.rateGroup is Entity ? this.rateGroup.toMap(): null,
-    });
-    return m;
-  }
-  cloneDescendants(Project original){
-    for(Activity activity in original.activities){
+
+  cloneDescendants(Project original) {
+    for (Activity activity in original.activities) {
       Activity clone = new Activity.clone(activity);
       clone.project = this;
       this._descendantsToUpdate.add(clone);
     }
   }
+
   String type = 'projects';
   String currentPrice;
   String budgetPrice;
@@ -384,30 +377,39 @@ class Project extends Entity{
   List<Activity> activities = [];
 }
 
-class Offer extends Entity{
-  init({Map<String,dynamic> params}){
-    this.name = 'New Offer';
+class Offer extends Entity {
+  init({Map<String, dynamic> params: const {}}) {
+    if (!params.containsKey('name')) {
+      params['name'] = 'New Offer';
+    }
+    super.init(params: params);
   }
+
   Offer();
+
   Offer.clone(Offer original): super.clone(original){
-    this.validTo=original.validTo;
-    this.rateGroup=original.rateGroup;
-    this.customer=original.customer;
-    this.accountant=original.accountant;
-    this.shortDescription=original.shortDescription;
-    this.description=original.description;
-    this.status=original.status;
-    this.address=original.address;
-    for(StandardDiscount discount in original.standardDiscounts){
+    this.validTo = original.validTo;
+    this.rateGroup = original.rateGroup;
+    this.customer = original.customer;
+    this.accountant = original.accountant;
+    this.shortDescription = original.shortDescription;
+    this.description = original.description;
+    this.status = original.status;
+    this.address = original.address;
+    for (StandardDiscount discount in original.standardDiscounts) {
       this.standardDiscounts.add(discount);
     }
   }
-  newObj(){
+
+  Offer.fromMap(Map<String, dynamic> map): super.fromMap(map);
+
+  newObj() {
     return new Offer();
   }
-  dynamic Get(String property){
+
+  dynamic Get(String property) {
     var val = super.Get(property);
-    if(val == null) {
+    if (val == null) {
       switch (property) {
         case 'validTo':
           return this.validTo;
@@ -433,25 +435,36 @@ class Offer extends Entity{
           return this.address;
         case 'fixedPrice':
           return this.fixedPrice;
+        case 'subtotal':
+          return this.subtotal;
+        case 'totalVAT':
+          return this.totalVAT;
+        case 'totalDiscounts':
+          return this.totalDiscounts;
+        case 'total':
+          return this.total;
+        case 'project':
+          return this.project;
         default:
           break;
       }
     }
     return val;
   }
-  void Set(String property, var value){
-    switch(property){
+
+  void Set(String property, var value) {
+    switch (property) {
       case 'validTo':
-        this.validTo = value;
+        this.validTo = _addDateValue(value);
         break;
       case 'rateGroup':
-        this.rateGroup = value;
+        this.rateGroup = value is Entity ? value : new RateGroup.fromMap(value);
         break;
       case 'customer':
-        this.customer = value;
+        this.customer = value is Entity ? value : new Customer.fromMap(value);
         break;
       case 'accountant':
-        this.accountant = value;
+        this.accountant = value is Entity ? value : new Employee.fromMap(value);
         break;
       case 'shortDescription':
         this.shortDescription = value;
@@ -460,80 +473,58 @@ class Offer extends Entity{
         this.description = value;
         break;
       case 'offerPositions':
-        this.offerPositions = value;
+        this.offerPositions = OfferPosition.listFromMap(value);
         break;
       case 'standardDiscounts':
-        this.standardDiscounts = value;
+        this.standardDiscounts = StandardDiscount.listFromMap(value);
         break;
       case 'offerDiscounts':
-        this.offerDiscounts = value;
+        this.offerDiscounts = OfferDiscount.listFromMap(value);
         break;
       case 'status':
-        this.status = value;
+        this.status = value is Entity ? value : new OfferStatusUC.fromMap(value);
         break;
       case 'address':
-        this.address = value;
+        this.address = value is Entity ? value : new Address.fromMap(value);
         break;
       case 'fixedPrice':
         this.fixedPrice = value;
+        break;
+      case 'subtotal':
+        this.subtotal = value;
+        break;
+      case 'totalVAT':
+        this.totalVAT = value;
+        break;
+      case 'totalDiscounts':
+        this.totalDiscounts = value;
+        break;
+      case 'total':
+        this.total = value;
+        break;
+      case 'project':
+        this.project = value is Entity ? value : new Project.fromMap(value);
         break;
       default:
         super.Set(property, value);
         break;
     }
   }
-  Offer.fromMap(Map<String,dynamic> map): super.fromMap(map){
-    if(map==null||map.isEmpty) return;
-    this.subtotal = map['subtotal'];
-    this.totalVAT = map['totalVAT'];
-    this.totalDiscounts = map['totalDiscounts'];
-    this.total = map['total'];
-    this.validTo =map['validTo']!=null ? DateTime.parse(map['validTo']):null;
-    this.shortDescription = map['shortDescription'];
-    this.description = map['description'];
-    this.fixedPrice = map['fixedPrice'];
-    this.customer = new Customer.fromMap(map['customer']);
-    this.accountant = new User.fromMap(map['accountant']);
-    this.status = new OfferStatusUC.fromMap(map['status']);
-    this.address = new Address.fromMap(map['address']);
-    this.rateGroup = new RateGroup.fromMap(map['rateGroup']);
-    if(map['offerPositions']!=null) {
-      this.offerPositions = OfferPosition.listFromMap(map['offerPositions']);
-    }
-    if(map['standardDiscounts']!=null) {
-      this.standardDiscounts = StandardDiscount.listFromMap(map['standardDiscounts']);
-    }
-    if(map['offerDiscounts']!=null) {
-      this.offerDiscounts = OfferDiscount.listFromMap(map['offerDiscounts']);
-    }
-  }
-  Map<String,dynamic> toMap(){
-    Map m = super.toMap();
-    m.addAll({
-        "validTo": this.validTo is DateTime ? this.validTo.toString():null,
-        "shortDescription": this.shortDescription,
-        "description": this.description,
-        "fixedPrice": this.fixedPrice,
-        "customer": this.customer is Entity ? this.customer.toMap(): null,
-        "rateGroup": this.rateGroup is Entity ? this.rateGroup.toMap(): null,
-        "accountant": this.accountant is Entity ? this.accountant.toMap(): null,
-        "status": this.status is Entity ? this.status.toMap(): null,
-        "address": this.address is Entity ? this.address.toMap(): null,
-    });
-    return m;
-  }
-  cloneDescendants(Offer original){
-    for(OfferPosition entity in original.offerPositions){
+
+  cloneDescendants(Offer original) {
+    for (OfferPosition entity in original.offerPositions) {
       OfferPosition clone = new OfferPosition.clone(entity);
       clone.offer = this;
       this._descendantsToUpdate.add(clone);
     }
-    for(OfferDiscount entity in original.offerDiscounts){
+    for (OfferDiscount entity in original.offerDiscounts) {
       OfferDiscount clone = new OfferDiscount.clone(entity);
       clone.offer = this;
       this._descendantsToUpdate.add(clone);
     }
   }
+
+  Project project;
   String type = 'offers';
   String subtotal;
   String totalVAT;
@@ -553,22 +544,33 @@ class Offer extends Entity{
   String fixedPrice;
 }
 
-class OfferStatusUC extends Entity{
-  init({Map<String,dynamic> params}){
-    this.text = 'New OfferUserCode';
-    this.active = true;
+class OfferStatusUC extends Entity {
+  init({Map<String, dynamic> params: const {}}) {
+    if (!params.containsKey('text')) {
+      params['text'] = 'New OfferUserCode';
+    }
+    if (!params.containsKey('active')) {
+      params['active'] = true;
+    }
+    super.init(params: params);
   }
+
   OfferStatusUC();
+
   OfferStatusUC.clone(OfferStatusUC original): super.clone(original){
-    this.text=original.text;
-    this.active=original.active;
+    this.text = original.text;
+    this.active = original.active;
   }
-  newObj(){
+
+  OfferStatusUC.fromMap(Map<String, dynamic> map): super.fromMap(map);
+
+  newObj() {
     return new OfferStatusUC();
   }
-  dynamic Get(String property){
+
+  dynamic Get(String property) {
     var val = super.Get(property);
-    if(val == null) {
+    if (val == null) {
       switch (property) {
         case 'text':
           return this.text;
@@ -580,8 +582,9 @@ class OfferStatusUC extends Entity{
     }
     return val;
   }
-  void Set(String property, var value){
-    switch(property){
+
+  void Set(String property, var value) {
+    switch (property) {
       case 'text':
         this.text = value;
         break;
@@ -593,50 +596,47 @@ class OfferStatusUC extends Entity{
         break;
     }
   }
-  OfferStatusUC.fromMap(Map<String,dynamic> map): super.fromMap(map){
-    if(map==null||map.isEmpty) return;
-    this.text = map['text'];
-    this.active = map['active'];
-  }
-  Map<String,dynamic> toMap(){
-    Map m = super.toMap();
-    m.addAll({
-        "text": this.text,
-        "active": this.active,
-    });
-    return m;
-  }
+
   String text;
   bool active;
 
 }
 
-class OfferPosition extends Entity{
-  init({Map<String,dynamic> params}){
-    if(params!=null) {
-      this.offer = new Offer()
+class OfferPosition extends Entity {
+  init({Map<String, dynamic> params: const {}}) {
+    if (params.containsKey('offer')) {
+      params['offer'] = new Offer()
         ..id = params['offer'];
     }
-    this.order = 999;
+    if (!params.containsKey('order')) {
+      params['order'] = 999;
+    }
+    super.init(params: params);
   }
+
   OfferPosition();
+
   OfferPosition.clone(OfferPosition original): super.clone(original){
-    this.service=original.service;
-    this.order=original.order+1;
-    this.amount=original.amount;
-    this.rateValue=original.rateValue;
-    this.rateUnit=original.rateUnit;
-    this.rateUnitType=original.rateUnitType;
-    this.vat=original.vat;
-    this.discountable=original.discountable;
+    this.service = original.service;
+    this.order = original.order + 1;
+    this.amount = original.amount;
+    this.rateValue = original.rateValue;
+    this.rateUnit = original.rateUnit;
+    this.rateUnitType = original.rateUnitType;
+    this.vat = original.vat;
+    this.discountable = original.discountable;
     this.offer = original.offer;
   }
-  newObj(){
+
+  OfferPosition.fromMap(Map<String, dynamic> map): super.fromMap(map);
+
+  newObj() {
     return new OfferPosition();
   }
-  dynamic Get(String property){
+
+  dynamic Get(String property) {
     var val = super.Get(property);
-    if(val == null) {
+    if (val == null) {
       switch (property) {
         case 'offer':
           return this.offer;
@@ -656,19 +656,26 @@ class OfferPosition extends Entity{
           return this.vat;
         case 'discountable':
           return this.discountable;
+        case 'calculatedVAT':
+          return this.calculatedVAT;
+        case 'calculatedRateValue':
+          return this.calculatedRateValue;
+        case 'total':
+          return this.total;
         default:
           break;
       }
     }
     return val;
   }
-  void Set(String property, var value){
-    switch(property){
+
+  void Set(String property, var value) {
+    switch (property) {
       case 'offer':
-        this.offer = value;
+        this.offer = value is Entity ? value : new Offer.fromMap(value);
         break;
       case 'service':
-        this.service = value;
+        this.service = value is Entity ? value : new Service.fromMap(value);
         break;
       case 'order':
         this.order = value;
@@ -683,7 +690,7 @@ class OfferPosition extends Entity{
         this.rateUnit = value;
         break;
       case 'rateUnitType':
-        this.rateUnitType = value;
+        this.rateUnitType = value is Entity ? value : new RateUnitType.fromMap(value);
         break;
       case 'vat':
         this.vat = value;
@@ -691,61 +698,49 @@ class OfferPosition extends Entity{
       case 'discountable':
         this.discountable = value;
         break;
+      case 'serviceRate':
+        this.serviceRate = value is Entity ? value : new Rate.fromMap(value);
+        break;
+      case 'calculatedVAT':
+        this.calculatedVAT = value;
+        break;
+      case 'calculatedRateValue':
+        this.calculatedRateValue = value;
+        break;
+      case 'total':
+        this.total = value;
+        break;
       default:
         super.Set(property, value);
         break;
     }
   }
-  static List<OfferPosition> listFromMap(List content){
+
+  static List<OfferPosition> listFromMap(List content) {
     List<OfferPosition> array = new List<OfferPosition>();
-    for(var element in content){
+    for (var element in content) {
       array.add(new OfferPosition.fromMap(element));
     }
     return array;
   }
-  OfferPosition.fromMap(Map<String,dynamic> map): super.fromMap(map){
-    if(map==null||map.isEmpty) return;
-    this.total = map['total'];
-    this.calculatedRateValue = map['calculatedRateValue'];
-    this.calculatedVAT = map['calculatedVAT'];
-    this.order = map['order'] != null ? map['order']: 0;
-    this.amount = map['amount'];
-    this.rateValue = map['rateValue'];
-    this.rateUnit = map['rateUnit'];
-    this.rateUnitType = new RateUnitType.fromMap(map['rateUnitType']);
-    this.vat = map['vat'];
-    this.discountable = map['discountable'];
-    this.offer = new Offer.fromMap(map['offer']);
-    this.service = new Service.fromMap(map['service']);
-    this.serviceRate = new Rate.fromMap(map['serviceRate']);
-  }
-  Map<String,dynamic> toMap(){
-    Map m = super.toMap();
-    m.addAll({
-        "order": this.order,
-        "amount": this.amount,
-        "rateValue": this.rateValue,
-        "rateUnit": this.rateUnit,
-        "rateUnitType": this.rateUnitType is Entity ? this.rateUnitType.toMap(): null,
-        "vat": this.vat,
-        "discountable": this.discountable,
-        "service": this.service is Entity ? this.service.toMap(): null,
-        "offer": this.offer is Entity ? this.offer.toMap(): null,
-    });
-    return m;
-  }
+
   String type = 'offerpositions';
+
   bool get isManualRateValueSet => serviceRate.rateValue == rateValue;
+
   bool get isManualRateUnitSet => serviceRate.rateUnit == rateUnit;
+
   bool get isManualRateUnitTypeSet => serviceRate.rateUnitType == rateUnitType;
+
   bool get isManualVATSet => service.vat == vat;
+
   Offer offer;
   Rate serviceRate;
   String calculatedRateValue;
   String total;
   String calculatedVAT;
   Service service;
-  int order;
+  int order = 0;
   int amount;
   String rateValue;
   String rateUnit;
@@ -754,41 +749,38 @@ class OfferPosition extends Entity{
   bool discountable;
 }
 
-class OfferDiscount extends StandardDiscount{
+class OfferDiscount extends StandardDiscount {
   OfferDiscount();
+
   OfferDiscount.clone(OfferDiscount original): super.clone(original){
     this.offer = original.offer;
   }
-  OfferDiscount.fromMap(Map<String,dynamic> map): super.fromMap(map){
-    this.offer = new Offer.fromMap(map['offer']);
-  }
-  init({Map<String,dynamic> params}){
-    if(params!=null) {
-      this.offer = new Offer()
+
+  OfferDiscount.fromMap(Map<String, dynamic> map): super.fromMap(map);
+
+  init({Map<String, dynamic> params: const {}}) {
+    if (params.containsKey('offer')) {
+      params['offer'] = new Offer()
         ..id = params['offer'];
     }
     super.init(params: params);
   }
-  newObj(){
+
+  newObj() {
     return new OfferDiscount();
   }
-  Map<String,dynamic> toMap(){
-    Map m = super.toMap();
-    m.addAll({
-        "offer": this.offer is Entity ? this.offer.toMap(): null,
-    });
-    return m;
-  }
-  static List<OfferDiscount> listFromMap(List content){
+
+  static List<OfferDiscount> listFromMap(List content) {
     List<OfferDiscount> array = new List<OfferDiscount>();
-    for(var element in content){
+    for (var element in content) {
       array.add(new OfferDiscount.fromMap(element));
     }
     return array;
   }
-  dynamic Get(String property){
+
+  dynamic Get(String property) {
     var val = super.Get(property);
-    if(val == null) {
+    if (val == null) {
       switch (property) {
         case 'offer':
           return this.offer;
@@ -798,42 +790,53 @@ class OfferDiscount extends StandardDiscount{
     }
     return val;
   }
-  void Set(String property, var value){
-    switch(property){
+
+  void Set(String property, var value) {
+    switch (property) {
       case 'offer':
-        this.offer = value;
+        this.offer = value is Entity ? value : new Offer.fromMap(value);
         break;
       default:
         super.Set(property, value);
         break;
     }
   }
+
   String type = 'offerdiscounts';
   Offer offer;
 }
 
-class Invoice extends Entity{
-  init({Map<String,dynamic> params}){
-    this.name = 'New Invoice';
+class Invoice extends Entity {
+  init({Map<String, dynamic> params: const {}}) {
+    if (!params.containsKey('name')) {
+      params['name'] = 'New Invoice';
+    }
+    super.init(params: params);
   }
+
   Invoice();
+
   Invoice.clone(Invoice original): super.clone(original){
     this.description = original.description;
     this.customer = original.customer;
-    this.project=original.project;
-    this.offer=original.offer;
+    this.project = original.project;
+    this.offer = original.offer;
     this.start = original.start;
     this.end = original.end;
-    for(StandardDiscount discount in original.standardDiscounts){
+    for (StandardDiscount discount in original.standardDiscounts) {
       this.standardDiscounts.add(discount);
     }
   }
-  newObj(){
+
+  Invoice.fromMap(Map<String, dynamic> map): super.fromMap(map);
+
+  newObj() {
     return new Invoice();
   }
-  dynamic Get(String property){
+
+  dynamic Get(String property) {
     var val = super.Get(property);
-    if(val == null) {
+    if (val == null) {
       switch (property) {
         case 'offer':
           return this.offer;
@@ -853,95 +856,81 @@ class Invoice extends Entity{
           return this.end;
         case 'customer':
           return this.customer;
+        case 'totalDiscounts':
+          return this.totalDiscounts;
+        case 'total':
+          return this.total;
+        case 'subtotal':
+          return this.subtotal;
+        case 'totalVAT':
+          return this.totalVAT;
         default:
           break;
       }
     }
     return val;
   }
-  void Set(String property, var value){
-    switch(property){
+
+  void Set(String property, var value) {
+    switch (property) {
       case 'offer':
-        this.offer = value;
+        this.offer = value is Entity ? value : new Offer.fromMap(value);
         break;
       case 'description':
         this.description = value;
         break;
       case 'project':
-        this.project = value;
+        this.project = value is Entity ? value : new Project.fromMap(value);
         break;
       case 'items':
-        this.items = value;
+        this.items = InvoiceItem.listFromMap(value);
         break;
       case 'invoiceDiscounts':
-        this.invoiceDiscounts = value;
+        this.invoiceDiscounts = InvoiceDiscount.listFromMap(value);
         break;
       case 'standardDiscounts':
-        this.standardDiscounts = value;
+        this.standardDiscounts = StandardDiscount.listFromMap(value);
         break;
       case 'start':
-        this.start = value;
+        this.start = this._addDateValue(value);
         break;
       case 'end':
-        this.end = value;
+        this.end = this._addDateValue(value);
         break;
       case 'customer':
-        this.customer = value;
+        this.customer = value is Entity ? value : new Customer.fromMap(value);
+        break;
+      case 'totalDiscounts':
+        this.totalDiscounts = value;
+        break;
+      case 'total':
+        this.total = value;
+        break;
+      case 'subtotal':
+        this.subtotal = value;
+        break;
+      case 'totalVAT':
+        this.totalVAT = value;
         break;
       default:
         super.Set(property, value);
         break;
     }
   }
-  Invoice.fromMap(Map<String,dynamic> map): super.fromMap(map){
-    if(map==null||map.isEmpty) return;
-    this.subtotal = map['subtotal'];
-    this.totalVAT = map['totalVAT'];
-    this.totalDiscounts = map['totalDiscounts'];
-    this.total = map['total'];
-    this.start =map['start']!=null ? DateTime.parse(map['start']):null;
-    this.end =map['end']!=null ? DateTime.parse(map['end']):null;
-    this.description = map['description'];
-    this.fixedPrice = map['fixedPrice'];
-    this.project = new Project.fromMap(map['project']);
-    this.offer = new Offer.fromMap(map['offer']);
-    this.customer = new Customer.fromMap(map['customer']);
-    if(map['items']!=null) {
-      this.items = InvoiceItem.listFromMap(map['items']);
-    }
-    if(map['standardDiscounts']!=null) {
-      this.standardDiscounts = StandardDiscount.listFromMap(map['standardDiscounts']);
-    }
-    if(map['invoiceDiscounts']!=null) {
-      this.invoiceDiscounts = InvoiceDiscount.listFromMap(map['invoiceDiscounts']);
-    }
-  }
-  Map<String,dynamic> toMap(){
-    Map m = super.toMap();
-    m.addAll({
-        "start": this.start is DateTime ? this.start.toString():null,
-        "end": this.end is DateTime ? this.end.toString():null,
-        "description": this.description,
-        "project": this.project is Entity ? this.project.toMap(): null,
-        "offer": this.offer is Entity ? this.offer.toMap(): null,
-        "customer": this.customer is Entity ? this.customer.toMap(): null,
-        "standardDiscounts": StandardDiscount.MapFromList(this.standardDiscounts),
-        "fixedPrice": this.fixedPrice,
-    });
-    return m;
-  }
-  cloneDescendants(Invoice original){
-    for(InvoiceItem entity in original.items){
+
+  cloneDescendants(Invoice original) {
+    for (InvoiceItem entity in original.items) {
       InvoiceItem clone = new InvoiceItem.clone(entity);
       clone.invoice = this;
       this._descendantsToUpdate.add(clone);
     }
-    for(InvoiceDiscount entity in original.invoiceDiscounts){
+    for (InvoiceDiscount entity in original.invoiceDiscounts) {
       InvoiceDiscount clone = new InvoiceDiscount.clone(entity);
       clone.invoice = this;
       this._descendantsToUpdate.add(clone);
     }
   }
+
   String type = 'invoices';
   String totalDiscounts;
   String fixedPrice;
@@ -959,30 +948,39 @@ class Invoice extends Entity{
   DateTime end;
 }
 
-class InvoiceItem extends Entity{
-  init({Map<String,dynamic> params}){
-    this.name = 'New Item';
-    if(params!=null) {
-      this.invoice = new Invoice()
+class InvoiceItem extends Entity {
+  init({Map<String, dynamic> params: const {}}) {
+    if (!params.containsKey('name')) {
+      params['name'] = 'New Item';
+    }
+    if (params.containsKey('invoice')) {
+      params['invoice'] = new Invoice()
         ..id = params['invoice'];
     }
+    super.init(params: params);
   }
+
   InvoiceItem();
+
   InvoiceItem.clone(InvoiceItem original): super.clone(original){
-    this.name=original.name;
+    this.name = original.name;
     this.amount = original.amount;
-    this.rateValue=original.rateValue;
-    this.rateUnit=original.rateUnit;
-    this.activity=original.activity;
-    this.vat=original.vat;
+    this.rateValue = original.rateValue;
+    this.rateUnit = original.rateUnit;
+    this.activity = original.activity;
+    this.vat = original.vat;
     this.invoice = original.invoice;
   }
-  newObj(){
+
+  InvoiceItem.fromMap(Map<String, dynamic> map): super.fromMap(map);
+
+  newObj() {
     return new InvoiceItem();
   }
-  dynamic Get(String property){
+
+  dynamic Get(String property) {
     var val = super.Get(property);
-    if(val == null) {
+    if (val == null) {
       switch (property) {
         case 'rateValue':
           return this.rateValue;
@@ -996,14 +994,19 @@ class InvoiceItem extends Entity{
           return this.vat;
         case 'invoice':
           return this.invoice;
+        case 'calculatedVAT':
+          return this.calculatedVAT;
+        case 'total':
+          return this.total;
         default:
           break;
       }
     }
     return val;
   }
-  void Set(String property, var value){
-    switch(property){
+
+  void Set(String property, var value) {
+    switch (property) {
       case 'rateValue':
         this.rateValue = value;
         break;
@@ -1014,110 +1017,128 @@ class InvoiceItem extends Entity{
         this.amount = value;
         break;
       case 'activity':
-        this.activity = value;
+        this.activity = value is Entity ? value : new Activity.fromMap(value);
         break;
       case 'vat':
         this.vat = value;
         break;
       case 'invoice':
-        this.invoice = value;
+        this.invoice = value is Entity ? value : new Invoice.fromMap(value);
+        break;
+      case 'calculatedVAT':
+        this.calculatedVAT = value;
+        break;
+      case 'total':
+        this.total = value;
         break;
       default:
         super.Set(property, value);
         break;
     }
   }
-  static List<InvoiceItem> listFromMap(List content){
+
+  static List<InvoiceItem> listFromMap(List content) {
     List<InvoiceItem> array = new List<InvoiceItem>();
-    for(var element in content){
+    for (var element in content) {
       array.add(new InvoiceItem.fromMap(element));
     }
     return array;
   }
-  InvoiceItem.fromMap(Map<String,dynamic> map): super.fromMap(map){
-    if(map==null||map.isEmpty) return;
-    this.total = map['total'];
-    this.amount = map['amount'];
-    this.rateValue = map['rateValue'];
-    this.rateUnit = map['rateUnit'];
-    this.vat = map['vat'];
-    this.activity = new Activity.fromMap(map['activity']);
-    this.invoice = new Invoice.fromMap(map['invoice']);
-  }
-  Map<String,dynamic> toMap(){
-    Map m = super.toMap();
-    m.addAll({
-        "amount": this.amount,
-        "rateValue": this.rateValue,
-        "rateUnit": this.rateUnit,
-        "vat": this.vat,
-        "activity": this.activity is Entity ? this.activity.toMap(): null,
-        "invoice": this.invoice is Entity ? this.invoice.toMap(): null,
-    });
-    return m;
-  }
+
   String type = 'invoiceitems';
   Invoice invoice;
   String rateValue;
   String rateUnit;
+  String calculatedVAT;
   dynamic amount;
   String total;
   Activity activity;
   double vat;
 }
 
-class InvoiceDiscount extends StandardDiscount{
+class InvoiceDiscount extends StandardDiscount {
   InvoiceDiscount();
+
   InvoiceDiscount.clone(InvoiceDiscount original): super.clone(original){
     this.invoice = original.invoice;
   }
-  InvoiceDiscount.fromMap(Map<String,dynamic> map): super.fromMap(map){
-    this.invoice = new Invoice.fromMap(map['invoice']);
-  }
-  init({Map<String,dynamic> params}){
-    if(params!=null) {
-      this.invoice = new Invoice()
+
+  InvoiceDiscount.fromMap(Map<String, dynamic> map): super.fromMap(map);
+
+  init({Map<String, dynamic> params: const {}}) {
+    if (params.containsKey('invoice')) {
+      params['invoice'] = new Invoice()
         ..id = params['invoice'];
     }
     super.init(params: params);
   }
-  newObj(){
+
+  newObj() {
     return new InvoiceDiscount();
   }
-  Map<String,dynamic> toMap(){
-    Map m = super.toMap();
-    m.addAll({
-        "invoice": this.invoice is Entity ? this.invoice.toMap(): null,
-    });
-    return m;
+
+  dynamic Get(String property) {
+    var val = super.Get(property);
+    if (val == null) {
+      switch (property) {
+        case 'invoice':
+          return this.invoice;
+        default:
+          break;
+      }
+    }
+    return val;
   }
-  static List<InvoiceDiscount> listFromMap(List content){
+
+  void Set(String property, var value) {
+    switch (property) {
+      case 'invoice':
+        this.invoice = value is Entity ? value : new Invoice.fromMap(value);
+        break;
+      default:
+        super.Set(property, value);
+        break;
+    }
+  }
+
+  static List<InvoiceDiscount> listFromMap(List content) {
     List<InvoiceDiscount> array = new List<InvoiceDiscount>();
-    for(var element in content){
+    for (var element in content) {
       array.add(new InvoiceDiscount.fromMap(element));
     }
     return array;
   }
+
+
   String type = 'invoicediscounts';
   Invoice invoice;
 }
 
-class StandardDiscount extends Entity{
-  init({Map<String,dynamic> params}){
-    this.name = 'New Discount';
+class StandardDiscount extends Entity {
+  init({Map<String, dynamic> params: const {}}) {
+    if (!params.containsKey('name')) {
+      params['name'] = 'New Discount';
+    }
+    super.init(params: params);
   }
+
   StandardDiscount();
+
   StandardDiscount.clone(StandardDiscount original): super.clone(original){
-    this.value=original.value;
-    this.percentage=original.percentage;
-    this.minus=original.minus;
+    this.value = original.value;
+    this.percentage = original.percentage;
+    this.minus = original.minus;
   }
-  newObj(){
+
+  StandardDiscount.fromMap(Map<String, dynamic> map): super.fromMap(map);
+
+  newObj() {
     return new StandardDiscount();
   }
-  dynamic Get(String property){
+
+  dynamic Get(String property) {
     var val = super.Get(property);
-    if(val == null) {
+    if (val == null) {
       switch (property) {
         case 'value':
           return this.value;
@@ -1131,8 +1152,9 @@ class StandardDiscount extends Entity{
     }
     return val;
   }
-  void Set(String property, var value){
-    switch(property){
+
+  void Set(String property, var value) {
+    switch (property) {
       case 'value':
         this.value = value;
         break;
@@ -1147,49 +1169,39 @@ class StandardDiscount extends Entity{
         break;
     }
   }
-  static List<StandardDiscount> listFromMap(List content){
+
+  static List<StandardDiscount> listFromMap(List content) {
     List<StandardDiscount> array = new List<StandardDiscount>();
-    for(var element in content){
+    for (var element in content) {
       array.add(new StandardDiscount.fromMap(element));
     }
     return array;
   }
-  static List MapFromList(List<StandardDiscount> discounts){
+
+  static List MapFromList(List<StandardDiscount> discounts) {
     List result = new List();
-    for(var element in discounts){
-      result.add(element.toSaveObj().toMap());
+    for (var element in discounts) {
+      result.add(element.toMap());
     }
     return result;
   }
-  StandardDiscount.fromMap(Map<String,dynamic> map): super.fromMap(map){
-    if(map==null||map.isEmpty) return;
-    this.value = map['value'];
-    this.percentage = map['percentage'];
-    this.minus = map['minus'];
-  }
-  Map<String,dynamic> toMap(){
-    Map m = super.toMap();
-    m.addAll({
-        "value": this.value,
-        "percentage": this.percentage,
-        "minus": this.minus,
-    });
-    return m;
-  }
-  ViewValue(){
-    if(this.percentage){
-      return (this.value * 100).truncate().toString()+'%';
+
+  ViewValue() {
+    if (this.percentage) {
+      return (this.value * 100).truncate().toString() + '%';
     }
     return this.value;
   }
+
   String type = 'standarddiscounts';
   double value;
   bool percentage;
   bool minus;
 }
 
-class Customer extends Entity{
+class Customer extends Entity {
   Customer();
+
   Customer.clone(Customer original): super.clone(original){
     this.name = original.name;
     this.user = original.user;
@@ -1202,23 +1214,23 @@ class Customer extends Entity{
     this.rateGroup = original.rateGroup;
     this.address = new Address.clone(original.address);
   }
-  newObj(){
+
+  Customer.fromMap(Map<String, dynamic> map): super.fromMap(map);
+
+  newObj() {
     return new Customer();
   }
-  init({Map<String,dynamic> params}){
-    if(params!=null) {
-      if (params.containsKey('name')) {
-        this.name = params['name'];
-      } else{
-        this.name = 'New Customer';
-      }
-    } else {
-      this.name = 'New Customer';
+
+  init({Map<String, dynamic> params: const {}}) {
+    if (!params.containsKey('name')) {
+      params['name'] = 'New Customer';
     }
+    super.init(params: params);
   }
-  dynamic Get(String property){
+
+  dynamic Get(String property) {
     var val = super.Get(property);
-    if(val == null) {
+    if (val == null) {
       switch (property) {
         case 'chargeable':
           return this.chargeable;
@@ -1234,19 +1246,22 @@ class Customer extends Entity{
           return this.salutation;
         case 'rateGroup':
           return this.rateGroup;
+        case 'phones':
+          return this.phones;
         default:
           break;
       }
     }
     return val;
   }
-  void Set(String property, var value){
-    switch(property){
+
+  void Set(String property, var value) {
+    switch (property) {
       case 'chargeable':
         this.chargeable = value;
         break;
       case 'address':
-        this.address = value;
+        this.address = value is Entity ? value : new Address.fromMap(value);
         break;
       case 'company':
         this.company = value;
@@ -1261,36 +1276,17 @@ class Customer extends Entity{
         this.salutation = value;
         break;
       case 'rateGroup':
-        this.rateGroup = value;
+        this.rateGroup = value is Entity ? value : new RateGroup.fromMap(value);
+        break;
+      case 'phones':
+        this.phones = value;
         break;
       default:
         super.Set(property, value);
         break;
     }
   }
-  Customer.fromMap(Map<String,dynamic> map): super.fromMap(map){
-    if(map==null||map.isEmpty) return;
-    this.address = new Address.fromMap(map['address']);
-    this.chargeable = map['chargeable'];
-    this.company = map['company'];
-    this.department = map['department'];
-    this.fullname = map['fullname'];
-    this.salutation = map['salutation'];
-    this.rateGroup = new RateGroup.fromMap(map['rateGroup']);
-  }
-  Map<String,dynamic> toMap(){
-    Map m = super.toMap();
-    m.addAll({
-        "chargeable": this.chargeable,
-        "address": this.address is Address ? this.address.toMap(): null,
-        "company": this.company,
-        "department": this.department,
-        "fullname": this.fullname,
-        "salutation": this.salutation,
-        "rateGroup": this.rateGroup is Entity ? this.rateGroup.toMap(): null,
-    });
-    return m;
-  }
+
   String type = 'customers';
   bool chargeable;
   Address address;
@@ -1299,20 +1295,23 @@ class Customer extends Entity{
   String fullname;
   String salutation;
   RateGroup rateGroup;
-  //List<Phone> phones;
+  List<Phone> phones;
 }
 
-class Phone{
+class Phone {
   Phone();
+
   Phone.clone(Phone original){
-    this.id=original.id;
-    this.number=original.number;
-    this.type=original.type;
+    this.id = original.id;
+    this.number = original.number;
+    this.type = original.type;
   }
-  newObj(){
+
+  newObj() {
     return new Phone();
   }
-  dynamic Get(String property){
+
+  dynamic Get(String property) {
     switch (property) {
       case 'id':
         return this.id;
@@ -1325,8 +1324,9 @@ class Phone{
     }
     return null;
   }
-  void Set(String property, var value){
-    switch(property){
+
+  void Set(String property, var value) {
+    switch (property) {
       case 'id':
         this.id = value;
         break;
@@ -1340,14 +1340,16 @@ class Phone{
         break;
     }
   }
+
   int id;
   int number;
   String type;
 
 }
 
-class Address{
+class Address extends Entity {
   Address();
+
   Address.clone(Address original){
     this.street = original.street;
     this.streetnumber = original.streetnumber;
@@ -1357,35 +1359,38 @@ class Address{
     this.state = original.state;
     this.country = original.country;
   }
-  newObj(){
+
+  Address.fromMap(Map<String, dynamic> map): super.fromMap(map);
+
+  newObj() {
     return new Address();
   }
-  dynamic Get(String property){
-    switch (property) {
-      case 'id':
-        return this.id;
-      case 'street':
-        return this.street;
-      case 'streetnumber':
-        return this.streetnumber;
-      case 'city':
-        return this.city;
-      case 'plz':
-        return this.plz;
-      case 'state':
-        return this.state;
-      case 'country':
-        return this.country;
-      default:
-        break;
+
+  dynamic Get(String property) {
+    var value = super.Get(property);
+    if (value == null) {
+      switch (property) {
+        case 'street':
+          return this.street;
+        case 'streetnumber':
+          return this.streetnumber;
+        case 'city':
+          return this.city;
+        case 'plz':
+          return this.plz;
+        case 'state':
+          return this.state;
+        case 'country':
+          return this.country;
+        default:
+          break;
+      }
     }
-    return null;
+    return value;
   }
-  void Set(String property, var value){
-    switch(property){
-      case 'id':
-        this.id = value;
-        break;
+
+  void Set(String property, var value) {
+    switch (property) {
       case 'street':
         this.street = value;
         break;
@@ -1405,56 +1410,39 @@ class Address{
         this.country = value;
         break;
       default:
+        super.Set(property, value);
         break;
     }
   }
-  Address.fromMap(Map<String,dynamic> map){
-    if(map==null||map.isEmpty) return;
-    this.id = map['id'];
-    this.street = map['street'];
-    this.streetnumber = map['streetnumber'];
-    this.city = map['city'];
-    this.plz = map['plz'];
-    this.state = map['state'];
-    this.country = map['country'];
-  }
-  Map<String,dynamic> toMap(){
-    return{
-        "id": this.id,
-        "street": this.street,
-        "streetnumber": this.streetnumber,
-        "city": this.city,
-        "plz": this.plz,
-        "state": this.state,
-        "country": this.country,
-    };
-  }
+
   String type = 'address';
-  int id;
   String street;
   String streetnumber;
   String city;
   int plz;
   String state;
   String country;
-  
-  String _toString(){
+
+  String _toString() {
     return '$streetnumber $street - $plz $city';
   }
 }
 
-class Activity extends Entity{
-  init({Map<String,dynamic> params}) {
-    if(params!=null) {
-      this.project = new Project()
+class Activity extends Entity {
+  init({Map<String, dynamic> params: const {}}) {
+    if (params.containsKey('project')) {
+      params['project'] = new Project()
         ..id = params['project'];
-      if (params.containsKey('service')) {
-        this.service = new Service()
-          ..id = params['service'];
-      }
     }
+    if (params.containsKey('service')) {
+      params['service'] = new Service()
+        ..id = params['service'];
+    }
+    super.init(params: params);
   }
+
   Activity();
+
   Activity.clone(Activity original): super.clone(original){
     this.project = original.project;
     this.value = original.value;
@@ -1462,12 +1450,16 @@ class Activity extends Entity{
     this.service = original.service;
     this.description = original.description;
   }
-  newObj(){
+
+  Activity.fromMap(Map<String, dynamic> map): super.fromMap(map);
+
+  newObj() {
     return new Activity();
   }
-  dynamic Get(String property){
+
+  dynamic Get(String property) {
     var val = super.Get(property);
-    if(val == null) {
+    if (val == null) {
       switch (property) {
         case 'project':
           return this.project;
@@ -1487,16 +1479,27 @@ class Activity extends Entity{
           return this.rateUnit;
         case 'rateUnitType':
           return this.rateUnitType;
+        case 'customer':
+          return this.customer;
+        case 'serviceRate':
+          return this.serviceRate;
+        case 'charge':
+          return this.charge;
+        case 'vat':
+          return this.vat;
+        case 'calculatedVAT':
+          return this.calculatedVAT;
         default:
           break;
       }
     }
     return val;
   }
-  void Set(String property, var value){
-    switch(property){
+
+  void Set(String property, var value) {
+    switch (property) {
       case 'project':
-        this.project = value;
+        this.project = value is Entity ? value : new Project.fromMap(value);
         break;
       case 'value':
         this.value = value;
@@ -1505,13 +1508,13 @@ class Activity extends Entity{
         this.chargeable = value;
         break;
       case 'service':
-        this.service = value;
+        this.service = value is Entity ? value : new Service.fromMap(value);
         break;
       case 'description':
         this.description = value;
         break;
       case 'timeslices':
-        this.timeslices = value;
+        this.timeslices = Timeslice.listFromMap(value);
         break;
       case 'rateValue':
         this.rateValue = value;
@@ -1520,53 +1523,38 @@ class Activity extends Entity{
         this.rateUnit = value;
         break;
       case 'rateUnitType':
-        this.rateUnitType = value;
+        this.rateUnitType = value is Entity ? value : new RateUnitType.fromMap(value);
+        break;
+      case 'serviceRate':
+        this.serviceRate = value is Entity ? value : new Rate.fromMap(value);
+        break;
+      case 'customer':
+        this.customer = value is Entity ? value : new Customer.fromMap(value);
+        break;
+      case 'charge':
+        this.charge = value;
+        break;
+      case 'vat':
+        this.vat = value;
+        break;
+      case 'calculatedVAT':
+        this.calculatedVAT = value;
         break;
       default:
         super.Set(property, value);
         break;
     }
   }
-  static List<Activity> listFromMap(List content){
+
+  static List<Activity> listFromMap(List content) {
     List<Activity> activities = new List<Activity>();
-    for(var element in content){
+    for (var element in content) {
       Activity a = new Activity.fromMap(element);
       activities.add(a);
     }
     return activities;
   }
-  Activity.fromMap(Map<String,dynamic> map): super.fromMap(map){
-    if(map==null||map.isEmpty) return;
-    this.project = new Project.fromMap(map['project']);
-    this.serviceRate = new Rate.fromMap(map['serviceRate']);
-    this.charge = map['charge'];
-    this.value = map['value'];
-    this.description = map['description'];
-    this.service = new Service.fromMap(map['service']);
-    this.chargeable = map['chargeable'];
-    this.customer = new Customer.fromMap(map['customer']);
-    this.rateValue = map['rateValue'];
-    this.rateUnit = map['rateUnit'];
-    this.rateUnitType = new RateUnitType.fromMap(map['rateUnitType']);
-    if(map['timeslices']!=null) {
-      this.timeslices = Timeslice.listFromMap(map['timeslices']);
-    }
-  }
-  Map<String,dynamic> toMap(){
-    Map m = super.toMap();
-    m.addAll({
-        "charge": this.charge,
-        "value": this.value,
-        "description": this.description,
-        "service": this.service is Entity ? this.service.toMap(): null,
-        "chargeable": this.chargeable,
-        "rateValue": this.rateValue,
-        "rateUnit": this.rateUnit,
-        "rateUnitType": this.rateUnitType is Entity ? this.rateUnitType.toMap(): null,
-        "project": this.project is Entity ? this.project.toMap(): null,
-    });
-    return m;
-  }
+
   String type = 'activities';
   Project project;
   Rate serviceRate;
@@ -1578,12 +1566,15 @@ class Activity extends Entity{
   String description;
   String rateValue;
   String rateUnit;
+  String calculatedVAT;
+  double vat;
   RateUnitType rateUnitType;
   List<Timeslice> timeslices = [];
 }
 
-class Timeslice extends Entity with TagFields{
+class Timeslice extends Entity {
   Timeslice();
+
   Timeslice.clone(Timeslice original): super.clone(original){
     this.user = original.user;
     this.value = original.value;
@@ -1591,12 +1582,16 @@ class Timeslice extends Entity with TagFields{
     this.stoppedAt = original.stoppedAt;
     this.activity = original.activity;
   }
-  newObj(){
+
+  Timeslice.fromMap(Map<String, dynamic> map): super.fromMap(map);
+
+  newObj() {
     return new Timeslice();
   }
-  dynamic Get(String property){
+
+  dynamic Get(String property) {
     var val = super.Get(property);
-    if(val == null) {
+    if (val == null) {
       switch (property) {
         case 'value':
           return this.value;
@@ -1606,62 +1601,47 @@ class Timeslice extends Entity with TagFields{
           return this.stoppedAt;
         case 'activity':
           return this.activity;
+        case 'project':
+          return this.project;
         default:
           break;
       }
     }
     return val;
   }
-  void Set(String property, var value){
-    switch(property){
+
+  void Set(String property, var value) {
+    switch (property) {
       case 'value':
         this.value = value;
         break;
       case 'startedAt':
-        this.startedAt = value;
+        this.startedAt = _addDateValue(value);
         break;
       case 'stoppedAt':
-        this.stoppedAt = value;
+        this.stoppedAt = _addDateValue(value);
         break;
       case 'activity':
-        if(!value is Activity){
-          this.activity = new Activity()..id=value;
-        } else {
-          this.activity = value;
-        }
+        this.activity = value is Entity ? value : new Activity.fromMap(value);
+        break;
+      case 'project':
+        this.project = value is Entity ? value : new Project.fromMap(value);
         break;
       default:
         super.Set(property, value);
         break;
     }
   }
-  static List<Timeslice> listFromMap(List content){
+
+  static List<Timeslice> listFromMap(List content) {
     List<Timeslice> timeslices = new List<Timeslice>();
-    for(var element in content){
+    for (var element in content) {
       Timeslice t = new Timeslice.fromMap(element);
       timeslices.add(t);
     }
     return timeslices;
   }
-  Timeslice.fromMap(Map<String,dynamic> map): super.fromMap(map){
-    if(map==null||map.isEmpty) return;
-    this.project = new Project.fromMap(map['project']);
-    this.value = map['value'];
-    this.startedAt = map['startedAt'] !=null ? DateTime.parse(map['startedAt']):null;
-    this.stoppedAt = map['stoppedAt'] !=null ? DateTime.parse(map['stoppedAt']):null;
-    this.activity = new Activity.fromMap(map['activity']);
-  }
-  Map<String,dynamic> toMap(){
-    Map m = super.toMap();
-    m.addAll({
-        "value": this.value,
-        "startedAt": this.startedAt is DateTime ? this.startedAt.toString():null,
-        "stoppedAt": this.stoppedAt is DateTime ? this.stoppedAt.toString():null,
-        "activity": this.activity is Entity ? this.activity.toMap(): null,
-        "user": this.user is Entity ? this.user.toMap(): null,
-    });
-    return m;
-  }
+
   String type = 'timeslices';
   String value;
   DateTime startedAt;
@@ -1670,8 +1650,9 @@ class Timeslice extends Entity with TagFields{
   Project project;
 }
 
-class User extends Entity{
+class User extends Entity {
   User();
+
   User.clone(User original): super.clone(original){
     this.username = 'cloneduser';
     this.firstname = original.firstname;
@@ -1680,25 +1661,26 @@ class User extends Entity{
     this.enabled = original.enabled;
     this.locked = original.locked;
   }
-  newObj(){
+
+  User.fromMap(Map<String, dynamic> map): super.fromMap(map);
+
+  newObj() {
     return new User();
   }
-  init({Map<String,dynamic> params}){
-    if(params!=null) {
-      if (params.containsKey('username')) {
-        this.username = params['username'];
-      }
-      if (params.containsKey('email')) {
-        this.email = params['email'];
-      }
-      this.enabled = false;
-      this.locked = true;
-      super.init(params: params);
+
+  init({Map<String, dynamic> params: const {}}) {
+    if (!params.containsKey('enabled')) {
+      params['enabled'] = false;
     }
+    if (!params.containsKey('locked')) {
+      params['locked'] = true;
+    }
+    super.init(params: params);
   }
-  dynamic Get(String property){
+
+  dynamic Get(String property) {
     var val = super.Get(property);
-    if(val == null) {
+    if (val == null) {
       switch (property) {
         case 'username':
           return this.username;
@@ -1720,8 +1702,9 @@ class User extends Entity{
     }
     return val;
   }
-  void Set(String property, var value){
-    switch(property){
+
+  void Set(String property, var value) {
+    switch (property) {
       case 'username':
         this.username = value;
         break;
@@ -1748,51 +1731,36 @@ class User extends Entity{
         break;
     }
   }
-  User.fromMap(Map<String,dynamic> map): super.fromMap(map){
-    if(map==null||map.isEmpty) return;
-    this.username = map['username'];
-    this.firstname = map['firstname'];
-    this.lastname = map['lastname'];
-    this.email = map['email'];
-    this.enabled = map['enabled'];
-    this.locked = map['locked'];
-  }
-  Map<String,dynamic> toMap(){
-    Map m = super.toMap();
-    m.addAll({
-        "username": this.username,
-        "firstname": this.firstname,
-        "lastname": this.lastname,
-        "email": this.email,
-        "enabled": this.enabled,
-        "locked": this.locked,
-        "plainpassword": this.plainpassword,
-    });
-    return m;
-  }
+
   String type = 'users';
   String username;
   String firstname;
   String lastname;
-  String get fullname{
-    return '$firstname $lastname';
-  }
   String email;
   String plainpassword;
   bool enabled;
   bool locked;
-  
+
+  String get fullname {
+    return '$firstname $lastname';
+  }
+
 }
 
-class Employee extends User{
+class Employee extends User {
   Employee();
+
   Employee.clone(Employee original): super.clone(original);
-  newObj(){
+
+  Employee.fromMap(Map<String, dynamic> map): super.fromMap(map);
+
+  newObj() {
     return new Employee();
   }
-  dynamic Get(String property){
+
+  dynamic Get(String property) {
     var val = super.Get(property);
-    if(val == null) {
+    if (val == null) {
       switch (property) {
         case 'workingPeriods':
           return this.workingPeriods;
@@ -1806,10 +1774,11 @@ class Employee extends User{
     }
     return val;
   }
-  void Set(String property, var value){
-    switch(property){
+
+  void Set(String property, var value) {
+    switch (property) {
       case 'workingPeriods':
-        this.workingPeriods = value;
+        this.workingPeriods = Period.listFromResource(value);
         break;
       case 'realTime':
         this.realTime = value;
@@ -1822,31 +1791,27 @@ class Employee extends User{
         break;
     }
   }
-  Employee.fromMap(Map<String,dynamic> map): super.fromMap(map){
-    if(map==null||map.isEmpty) return;
-    if(map['workingPeriods']!=null) {
-      //this.workingPeriods = map['workingPeriods'] != null ? Period.listFromResource(map['workingPeriods']): null;
-      this.realTime = map['realTime'];
-      this.targetTime = map['targetTime'];
-    }
-  }
+
   String type = 'employees';
   List<Period> workingPeriods;
   int realTime;
   int targetTime;
 }
 
-class Period extends Entity{
+class Period extends Entity {
   Period();
+
   Period.clone(Period original): super.clone(original){
-    this.start=original.start;
-    this.end=original.end;
-    this.pensum=original.pensum;
-    this.employee=original.employee;
+    this.start = original.start;
+    this.end = original.end;
+    this.pensum = original.pensum;
+    this.employee = original.employee;
   }
 
-  init({Map<String,dynamic>params}){
-    if(params!=null) {
+  Period.fromMap(Map<String, dynamic> map): super.fromMap(map);
+
+  init({Map<String, dynamic>params}) {
+    if (params != null) {
       if (params.containsKey('employee')) {
         this.employee = new Employee()
           ..id = params['employee'];
@@ -1854,12 +1819,13 @@ class Period extends Entity{
     }
   }
 
-  newObj(){
+  newObj() {
     return new Period();
   }
-  dynamic Get(String property){
+
+  dynamic Get(String property) {
     var val = super.Get(property);
-    if(val == null) {
+    if (val == null) {
       switch (property) {
         case 'start':
           return this.start;
@@ -1881,19 +1847,20 @@ class Period extends Entity{
     }
     return val;
   }
-  void Set(String property, var value){
-    switch(property){
+
+  void Set(String property, var value) {
+    switch (property) {
       case 'start':
-        this.start = value;
+        this.start = _addDateValue(value);
         break;
       case 'end':
-        this.end = value;
+        this.end = _addDateValue(value);
         break;
       case 'pensum':
         this.pensum = value;
         break;
       case 'employee':
-        this.employee = value;
+        this.employee = value is Entity ? value : new Employee.fromMap(value);
         break;
       case 'holidays':
         this.holidays = value;
@@ -1909,37 +1876,16 @@ class Period extends Entity{
         break;
     }
   }
-  static List<Period> listFromResource(List content){
+
+  static List<Period> listFromResource(List content) {
     List<Period> array = new List<Period>();
-    for(var element in content){
+    for (var element in content) {
       Period t = new Period.fromMap(element);
       array.add(t);
     }
     return array;
   }
-  Period.fromMap(Map<String,dynamic> map): super.fromMap(map){
-    if(map==null||map.isEmpty) return;
-    this.start = map['start']!=null ? DateTime.parse(map['start']):null;
-    this.end = map['end']!=null ? DateTime.parse(map['end']):null;
-    this.pensum = map['pensum'];
-    this.employee = new Employee.fromMap(map['employee']);
-    this.holidays = map['holidays'];
-    this.realTime = map['realTime'];
-    this.targetTime = map['targetTime'];
-  }
-  Map<String,dynamic> toMap(){
-    Map m = super.toMap();
-    m.addAll({
-        "start": this.start is DateTime ? this.start.toString(): null,
-        "end": this.end is DateTime ? this.end.toString():null,
-        "pensum": this.pensum,
-        "employee": this.employee is Entity ? this.employee.toMap(): null,
-        "holidays": this.holidays,
-        "realTime": this.realTime,
-        "targetTime": this.targetTime
-    });
-    return m;
-  }
+
   String type = 'periods';
   DateTime start;
   DateTime end;
@@ -1950,18 +1896,23 @@ class Period extends Entity{
   int targetTime;
 }
 
-class Holiday extends Entity{
+class Holiday extends Entity {
   Holiday();
+
   Holiday.clone(Holiday original): super.clone(original){
     this.date = original.date;
     this.duration = original.duration;
   }
-  newObj(){
+
+  Holiday.fromMap(Map<String, dynamic> map): super.fromMap(map);
+
+  newObj() {
     return new Holiday();
   }
-  dynamic Get(String property){
+
+  dynamic Get(String property) {
     var val = super.Get(property);
-    if(val == null) {
+    if (val == null) {
       switch (property) {
         case 'date':
           return this.date;
@@ -1973,10 +1924,11 @@ class Holiday extends Entity{
     }
     return val;
   }
-  void Set(String property, var value){
-    switch(property){
+
+  void Set(String property, var value) {
+    switch (property) {
       case 'date':
-        this.date = value;
+        this.date = _addDateValue(value);
         break;
       case 'duration':
         this.duration = value;
@@ -1986,54 +1938,49 @@ class Holiday extends Entity{
         break;
     }
   }
-  static List<Holiday> listFromResource(List content){
+
+  static List<Holiday> listFromResource(List content) {
     List<Holiday> array = new List<Holiday>();
-    for(var element in content){
+    for (var element in content) {
       Holiday t = new Holiday.fromMap(element);
       array.add(t);
     }
     return array;
   }
-  Holiday.fromMap(Map<String,dynamic> map): super.fromMap(map){
-    if (map == null || map.isEmpty) return;
-    this.date = map['date'] != null ? DateTime.parse(map['date']) : null;
-    this.duration = map['duration'];
-  }
-  Map<String,dynamic> toMap(){
-    Map m = super.toMap();
-    m.addAll({
-        "date": this.date is DateTime ? this.date.toString(): null,
-        "duration": this.duration,
-    });
-    return m;
-  }
+
   String type = 'holidays';
   DateTime date;
   String duration;
 }
 
-class Service extends Entity{
+class Service extends Entity {
   Service();
+
   Service.clone(Service original): super.clone(original){
-    this.name=original.name;
-    this.description=original.description;
-    this.chargeable=original.chargeable;
-    this.vat=original.vat;
+    this.name = original.name;
+    this.description = original.description;
+    this.chargeable = original.chargeable;
+    this.vat = original.vat;
   }
-  newObj(){
+
+  Service.fromMap(Map<String, dynamic> map): super.fromMap(map);
+
+  newObj() {
     return new Service();
   }
-  init({Map<String,dynamic>params}){
+
+  init({Map<String, dynamic>params}) {
     this.name = 'New Service';
-    if(params!=null) {
+    if (params != null) {
       if (params.containsKey('name')) {
         this.name = params['name'];
       }
     }
   }
-  dynamic Get(String property){
+
+  dynamic Get(String property) {
     var val = super.Get(property);
-    if(val == null) {
+    if (val == null) {
       switch (property) {
         case 'rates':
           return this.rates;
@@ -2049,10 +1996,11 @@ class Service extends Entity{
     }
     return val;
   }
-  void Set(String property, var value){
-    switch(property){
+
+  void Set(String property, var value) {
+    switch (property) {
       case 'rates':
-        this.rates = value;
+        this.rates = Rate.listFromResource(value);
         break;
       case 'description':
         this.description = value;
@@ -2068,29 +2016,15 @@ class Service extends Entity{
         break;
     }
   }
-  Service.fromMap(Map<String,dynamic> map): super.fromMap(map){
-    if(map==null||map.isEmpty) return;
-    this.description = map['description'];
-    this.chargeable = map['chargeable'];
-    this.vat = map['vat'];
-    this.rates = Rate.listFromResource(map['rates']);
-  }
-  Map<String,dynamic> toMap(){
-    Map m = super.toMap();
-    m.addAll({
-        "description": this.description,
-        "chargeable": this.chargeable,
-        "vat": this.vat,
-    });
-    return m;
-  }
-  cloneDescendants(Service original){
-    for(Rate entity in original.rates){
+
+  cloneDescendants(Service original) {
+    for (Rate entity in original.rates) {
       Rate clone = new Rate.clone(entity);
       clone.service = this;
       this._descendantsToUpdate.add(clone);
     }
   }
+
   String type = 'services';
   List<Rate> rates = [];
   String description;
@@ -2098,8 +2032,9 @@ class Service extends Entity{
   double vat;
 }
 
-class Rate extends Entity{
+class Rate extends Entity {
   Rate();
+
   Rate.clone(Rate original): super.clone(original){
     this.rateValue = original.rateValue;
     this.rateUnit = original.rateUnit;
@@ -2108,20 +2043,23 @@ class Rate extends Entity{
     this.service = original.service;
   }
 
-  init({Map<String,dynamic> params}){
-    if(params!=null) {
-      if (params.containsKey('service')) {
-        this.service = new Service()
-          ..id = params['service'];
-      }
+  Rate.fromMap(Map<String, dynamic> map): super.fromMap(map);
+
+  init({Map<String, dynamic> params: const {}}) {
+    if (params.containsKey('service')) {
+      params['service'] = new Service()
+        ..id = params['service'];
     }
+    super.init(params: params);
   }
-  newObj(){
+
+  newObj() {
     return new Rate();
   }
-  dynamic Get(String property){
+
+  dynamic Get(String property) {
     var val = super.Get(property);
-    if(val == null) {
+    if (val == null) {
       switch (property) {
         case 'rateValue':
           return this.rateValue;
@@ -2139,8 +2077,9 @@ class Rate extends Entity{
     }
     return val;
   }
-  void Set(String property, var value){
-    switch(property){
+
+  void Set(String property, var value) {
+    switch (property) {
       case 'rateValue':
         this.rateValue = value;
         break;
@@ -2148,46 +2087,29 @@ class Rate extends Entity{
         this.rateUnit = value;
         break;
       case 'rateUnitType':
-        this.rateUnitType = value;
+        this.rateUnitType = value is Entity ? value : new RateUnitType.fromMap(value);
         break;
       case 'rateGroup':
-        this.rateGroup = value;
+        this.rateGroup = value is Entity ? value : new RateGroup.fromMap(value);
         break;
       case 'service':
-        this.service = value;
+        this.service = value is Entity ? value : new Service.fromMap(value);
         break;
       default:
         super.Set(property, value);
         break;
     }
   }
-  static List<Rate> listFromResource(List content){
+
+  static List<Rate> listFromResource(List content) {
     List<Rate> array = new List<Rate>();
-    for(var element in content){
+    for (var element in content) {
       Rate t = new Rate.fromMap(element);
       array.add(t);
     }
     return array;
   }
-  Rate.fromMap(Map<String,dynamic> map): super.fromMap(map){
-    if(map==null||map.isEmpty) return;
-    this.rateValue = map['rateValue'];
-    this.rateUnit = map['rateUnit'];
-    this.rateUnitType = new RateUnitType.fromMap(map['rateUnitType']);
-    this.rateGroup = new RateGroup.fromMap(map['rateGroup']);
-    this.service = new Service.fromMap(map['service']);
-  }
-  Map<String,dynamic> toMap(){
-    Map m = super.toMap();
-    m.addAll({
-        "rateValue": this.rateValue,
-        "rateUnit": this.rateUnit,
-        "rateUnitType": this.rateUnitType is Entity ? this.rateUnitType.toMap(): null,
-        "rateGroup": this.rateGroup is Entity ? this.rateGroup.toMap(): null,
-        "service": this.service is Entity ? this.service.toMap(): null,
-    });
-    return m;
-  }
+
   String type = 'rates';
   String rateValue;
   String rateUnit;
@@ -2196,21 +2118,30 @@ class Rate extends Entity{
   Service service;
 }
 
-class RateGroup extends Entity{
+class RateGroup extends Entity {
   RateGroup();
+
   RateGroup.clone(RateGroup original): super.clone(original){
     this.name = original.name;
     this.description = original.description;
   }
-  init({Map<String,dynamic> params}){
-    this.name = 'New RateGroup';
+
+  RateGroup.fromMap(Map<String, dynamic> map): super.fromMap(map);
+
+  init({Map<String, dynamic> params: const {}}) {
+    if (!params.containsKey('name')) {
+      params['name'] = 'New RateGroup';
+    }
+    super.init(params: params);
   }
-  newObj(){
+
+  newObj() {
     return new Rate();
   }
-  dynamic Get(String property){
+
+  dynamic Get(String property) {
     var val = super.Get(property);
-    if(val == null) {
+    if (val == null) {
       switch (property) {
         case 'description':
           return this.description;
@@ -2220,8 +2151,9 @@ class RateGroup extends Entity{
     }
     return val;
   }
-  void Set(String property, var value){
-    switch(property){
+
+  void Set(String property, var value) {
+    switch (property) {
       case 'description':
         this.description = value;
         break;
@@ -2230,53 +2162,41 @@ class RateGroup extends Entity{
         break;
     }
   }
-  RateGroup.fromMap(Map<String,dynamic> map): super.fromMap(map){
-    if(map==null||map.isEmpty) return;
-    this.description = map['description'];
-  }
-  Map<String,dynamic> toMap(){
-    Map m = super.toMap();
-    m.addAll({
-        "description": this.description,
-    });
-    return m;
-  }
+
   String type = 'rategroups';
   String description;
 }
 
-class RateUnitType extends Entity{
-  String id;
-  String name;
-  String type = 'rateunittypes';
-  bool doTransform;
-  double factor;
-  int scale;
-  int roundMode;
-  String symbol;
+class RateUnitType extends Entity {
 
-  dynamic Get(String property){
-      switch (property) {
-        case 'id':
-          return this.id;
-        case 'name':
-          return this.name;
-        case 'doTransform':
-          return this.doTransform;
-        case 'factor':
-          return this.factor;
-        case 'scale':
-          return this.scale;
-        case 'roundMode':
-          return this.roundMode;
-        case 'symbol':
-          return this.symbol;
-        default:
-          return null;
-      }
+
+  RateUnitType();
+
+  RateUnitType.fromMap(Map<String, dynamic> map): super.fromMap(map);
+
+  dynamic Get(String property) {
+    switch (property) {
+      case 'id':
+        return this.id;
+      case 'name':
+        return this.name;
+      case 'doTransform':
+        return this.doTransform;
+      case 'factor':
+        return this.factor;
+      case 'scale':
+        return this.scale;
+      case 'roundMode':
+        return this.roundMode;
+      case 'symbol':
+        return this.symbol;
+      default:
+        return null;
+    }
   }
-  void Set(String property, var value){
-    switch(property){
+
+  void Set(String property, var value) {
+    switch (property) {
       case 'id':
         this.id = value;
         break;
@@ -2303,38 +2223,28 @@ class RateUnitType extends Entity{
     }
   }
 
-  RateUnitType();
-  RateUnitType.fromMap(Map<String,dynamic> map){
-    if(map==null||map.isEmpty) return;
-    this.id = map['id'];
-    this.name = map['name'];
-    this.doTransform = map['doTransform'];
-    this.factor = map['factor'];
-    this.scale = map['scale'];
-    this.roundMode = map['roundMode'];
-    this.symbol = map['symbol'];
-  }
-  Map<String,dynamic> toMap(){
-    return {
-        'id': this.id,
-        'name': this.name,
-        'doTransform': this.doTransform,
-        'factor': this.factor,
-        'scale': this.scale,
-        'roundMode': this.roundMode,
-        'symbol': this.symbol,
-    };
-  }
+  String id;
+  String name;
+  String type = 'rateunittypes';
+  bool doTransform;
+  double factor;
+  int scale;
+  int roundMode;
+  String symbol;
 }
 
-class ExpenseReport extends Entity{
+class ExpenseReport extends Entity {
   ExpenseReport();
-  newObj(){
+
+  ExpenseReport.fromMap(Map<String, dynamic> map): super.fromMap(map);
+
+  newObj() {
     return new ExpenseReport();
   }
-  dynamic Get(String property){
+
+  dynamic Get(String property) {
     var val = super.Get(property);
-    if(val == null) {
+    if (val == null) {
       switch (property) {
         case 'timeslices':
           return this.timeslices;
@@ -2350,10 +2260,11 @@ class ExpenseReport extends Entity{
     }
     return val;
   }
-  void Set(String property, var value){
-    switch(property){
+
+  void Set(String property, var value) {
+    switch (property) {
       case 'timeslices':
-        this.timeslices = value;
+        this.timeslices = Timeslice.listFromMap(value);
         break;
       case 'totalHours':
         this.totalHours = value;
@@ -2369,13 +2280,7 @@ class ExpenseReport extends Entity{
         break;
     }
   }
-  ExpenseReport.fromMap(Map<String,dynamic> map): super.fromMap(map){
-    if(map==null||map.isEmpty) return;
-    this.timeslices = map.containsKey('timeslices') ? Timeslice.listFromMap(map['timeslices']): null;
-    this.totalHours = map['totalHours'];
-    this.user = map['user'];
-    this.project = map['project'];
-  }
+
   String type = 'expensereports';
   List<Timeslice> timeslices;
   Project project;
