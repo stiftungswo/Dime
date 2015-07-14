@@ -28,8 +28,8 @@ class EmployeeFormType extends AbstractType
             ->add('firstname')
             ->add('lastname')
             ->add('email', 'email')
-            ->add('enabled', 'choice', array('required' => false, 'choices' => array('0' => false, '1' => true)))
-            ->add('locked', 'choice', array('required' => false, 'choices' => array('0' => false, '1' => true)))
+            ->add('enabled')
+            ->add('locked')
 	        ->add('workingPeriods', 'entity', array('class' => 'DimeEmployeeBundle:Period', 'multiple' => true))
         ;
     }

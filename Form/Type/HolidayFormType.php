@@ -31,7 +31,7 @@ class HolidayFormType extends AbstractType
 	{
 		$builder
 			->add('date', 'datetime', array('required' => true, 'widget' => 'single_text', 'with_seconds' => true))
-			->add($builder->create('duration', 'text')->addViewTransformer(new DurationTransformer()))
+			->add('duration', 'text')
 		;
 	}
 
