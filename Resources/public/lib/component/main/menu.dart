@@ -3,15 +3,14 @@ library main_menu;
 import 'package:angular/angular.dart';
 import 'package:DimeClient/model/menu.dart';
 import 'package:DimeClient/service/user_auth.dart';
-import 'dart:async';
-import 'dart:js';
+import 'dart:html';
 
 
 @Component(
     selector: 'main-menu',
     templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/main/menu.html',
     useShadowDom: false)
-class MenuComponent extends AttachAware implements ScopeAware {
+class MenuComponent implements ScopeAware {
   MenuComponent(this.auth);
 
   UserAuthProvider auth;
@@ -39,11 +38,10 @@ class MenuComponent extends AttachAware implements ScopeAware {
       ]),
     ];
 
-  attach(){
-    // apply AdminLTE menu handlers
-    // we need to wait until angular is done compiling the html
-    var timer = new Timer(new Duration(milliseconds: 100), () {
-      context['jQuery']['AdminLTE'].callMethod('tree', [".sidebar"]);
-    });
+  toggleMenu(Event event){
+    // TODO: add slideDown/Up Animation
+    Node node = event.currentTarget;
+    node.parent.parent.classes.toggle('menu-open'); // ul element
+    node.parent.classes.toggle('active'); // li element
   }
 }

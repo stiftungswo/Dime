@@ -1,7 +1,7 @@
 <section class="sidebar">
   <ul class="sidebar-menu" ng-repeat="menu in menus">
     <li class="treeview">
-      <a>
+      <a ng-click="toggleMenu($event)">
         <i ng-class="menu.icon" class="fa"></i>
         <span>{{menu.title}}</span>
       </a>
