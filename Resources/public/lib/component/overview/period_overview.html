@@ -1,13 +1,13 @@
 <div class="col-md-12">
   <table class="table table-bordered table-hover form">
     <thead>
-    <tr>
-      <td>Start</td>
-      <td>Ende</td>
-      <td>Pensum</td>
-      <td>Istzeit</td>
-      <td>Sollzeit</td>
-    </tr>
+      <tr>
+        <th>Start</th>
+        <th>Ende</th>
+        <th>Pensum</th>
+        <th>Istzeit</th>
+        <th>Sollzeit</th>
+      </tr>
     </thead>
     <tbody>
       <tr ng-repeat="entity in entities" ng-click="selectEntity(entity.id)" ng-class="isSelected(entity)? 'info': ''">

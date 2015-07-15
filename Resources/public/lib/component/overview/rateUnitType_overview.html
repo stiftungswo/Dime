@@ -2,22 +2,22 @@
   <table class="table table-bordered table-hover">
     <thead>
       <tr>
-      <td>ID</td>
-      <td>Name</td>
-      <td>Faktor</td>
-        <td>Kommastellen</td>
-        <td>Umwandeln</td>
-        <td>Rundungs Modus</td>
-        <td>Symbol</td>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Faktor</th>
+        <th>Kommastellen</th>
+        <th>Umwandeln</th>
+        <th>Rundungs Modus</th>
+        <th>Symbol</th>
       </tr>
     </thead>
     <tbody>
       <tr ng-repeat="entity in entities" ng-click="selectEntity(entity.id)" ng-class="isSelected(entity)? 'info': ''">
-      <td>{{entity.id}}</td>
-      <td><input type="text" class="form-control" ng-model="entity.name" ng-change="addSaveField('name', entity)"/></td>
+        <td>{{entity.id}}</td>
+        <td><input type="text" class="form-control" ng-model="entity.name" ng-change="addSaveField('name', entity)"/></td>
         <td><input type="text" class="form-control" ng-model="entity.factor" ng-change="addSaveField('factor', entity)"/></td>
         <td><input type="text" class="form-control" ng-model="entity.scale" ng-change="addSaveField('scale', entity)"/></td>
-        <td><input class="form-control checkbox" type="checkbox" ng-model="entity.doTransform" ng-change="addSaveField('doTransform', entity)"/></td>
+        <td><input class="checkbox" type="checkbox" ng-model="entity.doTransform" ng-change="addSaveField('doTransform', entity)"/></td>
         <td>
           <select class="form-control" model="entity.roundMode" ng-change="addSaveField('roundMode', entity)">
             <option ng-selected="entity.roundMode == 1" value="1">Halbe Aufrunden</option>

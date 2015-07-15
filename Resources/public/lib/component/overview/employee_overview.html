@@ -2,22 +2,22 @@
   <table class="table table-bordered table-hover">
     <thead>
       <tr>
-      <td>ID</td>
-        <td>Username</td>
-      <td>Name</td>
-      <td>Email</td>
-        <td>Aktiv</td>
-        <td>Gesperrt</td>
+        <th>ID</th>
+        <th>Username</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Aktiv</th>
+        <th>Gesperrt</th>
       </tr>
     </thead>
     <tbody>
-    <tr ng-repeat="entity in entities" ng-click="selectEntity(entity.id)" ng-doubleclick="openEditView(entity.id)" ng-class="isSelected(entity)? 'info': ''">
+      <tr ng-repeat="entity in entities" ng-click="selectEntity(entity.id)" ng-doubleclick="openEditView(entity.id)" ng-class="isSelected(entity)? 'info': ''">
         <td>{{entity.id}}</td>
-      <td>{{entity.username}}</td>
+        <td>{{entity.username}}</td>
         <td>{{entity.fullname}}</td>
         <td>{{entity.email}}</td>
-      <td>{{entity.enabled}}</td>
-      <td>{{entity.locked}}</td>
+        <td>{{entity.enabled}}</td>
+        <td>{{entity.locked}}</td>
       </tr>
     </tbody>
   </table>

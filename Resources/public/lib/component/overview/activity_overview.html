@@ -2,19 +2,19 @@
   <table class="table table-bordered table-hover">
     <thead>
       <tr>
-      <td>ID</td>
-      <td>Service</td>
-      <td>Beschreibung</td>
-        <td>Preis</td>
-        <td>Einheit</td>
-        <td>Anzahl</td>
+        <th>ID</th>
+        <th>Service</th>
+        <th>Beschreibung</th>
+        <th>Preis</th>
+        <th>Einheit</th>
+        <th>Anzahl</th>
       </tr>
     </thead>
     <tbody>
       <tr ng-repeat="entity in entities" ng-click="selectEntity(entity.id)" ng-class="isSelected(entity)? 'info': ''">
-      <td>{{entity.id}}</td>
+        <td>{{entity.id}}</td>
         <td><service-select service="entity.service" callback="entity.addFieldtoUpdate(name)" field="'service'"></service-select></td>
-      <td><textarea class="form-control tiny" ng-model="entity.description" ng-change="addSaveField('description', entity)"></textarea></td>
+        <td><textarea class="form-control tiny" ng-model="entity.description" ng-change="addSaveField('description', entity)"></textarea></td>
         <td>{{entity.rateValue}}</td>
         <td>{{entity.rateUnit}}</td>
         <td>{{entity.value}}</td>

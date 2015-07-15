@@ -1,32 +1,40 @@
-<div class="form-inline">
-  <div class="col-md-4">
-    <div class="box">
+<div class="col-md-12">
+  <div class="col-md-4 form-horizontal">
+    <div class="box box-primary">
       <div class="box-header with-border">
         <h3 class="box-title">Zeiterfassung für {{employee.fullname}}</h3>
       </div>
       <div class="box-body">
-        <div class="row">
-          <label class="control-label col-md-4">e-Mail:</label>
-          <input class="form-control" type="text" ng-model="employee.email"/>
+        <div class="form-group">
+          <label class="control-label col-md-4">E-Mail</label>
+          <div class="col-md-8">
+            <div class="form-control">{{employee.email}}</div>
+          </div>
         </div>
-        <div class="row">
-          <label class="control-label col-md-4">Vorname:</label>
-          <input class="form-control" type="text" ng-model="employee.firstname"/>
+        <div class="form-group">
+          <label class="control-label col-md-4">Vorname</label>
+          <div class="col-md-8">
+            <div class="form-control">{{employee.firstname}}</div>
+          </div>
         </div>
-        <div class="row">
-          <label class="control-label col-md-4">Nachname:</label>
-          <input class="form-control" type="text" ng-model="employee.lastname"/>
+        <div class="form-group">
+          <label class="control-label col-md-4">Nachname</label>
+          <div class="col-md-8">
+            <div class="form-control">{{employee.lastname}}</div>
+          </div>
         </div>
-        <div class="row">
-          <label class="control-label col-md-4">Ist/Sollzeit</label>
-          <div class="form-control">{{employee.realTime | secondsToHours}} / {{employee.targetTime | secondsToHours}}</div>
+        <div class="form-group">
+          <label class="control-label col-md-4">Ist / Sollzeit</label>
+          <div class="col-md-8">
+            <div class="form-control">{{employee.realTime | secondsToHours}} / {{employee.targetTime | secondsToHours}}</div>
+          </div>
         </div>
         <button type="button" class="btn btn-primary" ng-click="reloadUser()"><span class="glyphicon glyphicon-refresh"></span></button>
       </div>
     </div>
   </div>
-  <div class="col-md-8">
-    <div class="box">
+  <div class="col-md-8 form-inline">
+    <div class="box box-primary">
       <div class="box-header with-border">
         <h3 class="box-title">Ist-Sollstunden {{employee.fullname}}</h3>
       </div>
@@ -37,8 +45,8 @@
       </div>
     </div>
   </div>
-  <div class="col-md-12">
-    <div class="box">
+  <div class="col-md-12 form-inline">
+    <div class="box box-primary">
       <div class="box-header with-border">
         <h3 class="box-title">Einträge</h3>
       </div>

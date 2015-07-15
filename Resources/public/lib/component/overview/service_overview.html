@@ -1,20 +1,20 @@
 <div class="col-md-12">
   <table class="table table-bordered table-hover">
     <thead>
-    <tr>
-      <td>ID</td>
-      <td>Name</td>
-      <td>Alias</td>
-      <td>Beschreibung</td>
-    </tr>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Alias</th>
+        <th>Beschreibung</th>
+      </tr>
     </thead>
     <tbody>
-    <tr ng-repeat="entity in entities| orderBy:'name'" ng-click="selectEntity(entity.id)" ng-doubleclick="openEditView(entity.id)" ng-class="isSelected(entity)? 'info': ''">
-      <td>{{entity.id}}</td>
-      <td>{{entity.name}}</td>
-      <td>{{entity.alias}}</td>
-      <td>{{entity.description}}</td>
-    </tr>
+      <tr ng-repeat="entity in entities| orderBy:'name'" ng-click="selectEntity(entity.id)" ng-doubleclick="openEditView(entity.id)" ng-class="isSelected(entity)? 'info': ''">
+        <td>{{entity.id}}</td>
+        <td>{{entity.name}}</td>
+        <td>{{entity.alias}}</td>
+        <td>{{entity.description}}</td>
+      </tr>
     </tbody>
   </table>
   <div class="DimeControlButtons">

@@ -2,9 +2,9 @@
   <table class="table table-bordered table-hover">
     <thead>
       <tr>
-        <td>Name</td>
-        <td>Abzug</td>
-      <td>Prozent</td>
+        <th>Name</th>
+        <th>Abzug</th>
+        <th>Prozent</th>
       </tr>
     </thead>
     <tbody>
@@ -12,7 +12,7 @@
         <td><input class="form-control" type="text" ng-model="entity.name" ng-change="addSaveField('name', entity)"/></td>
         <td ng-unless="entity.percentage"><input class="form-control" type="text" ng-model="entity.value" ng-change="addSaveField('value', entity)"/></td>
         <td ng-if="entity.percentage"><input-percentage safecalc="false" htmlclass="'form-control'" value="entity.value" ng-change="addSaveField('value', entity)"></input-percentage></td>
-        <td><input class="form-control checkbox" type="checkbox" ng-model="entity.percentage" ng-change="addSaveField('percentage', entity)"/></td>
+        <td><input class="checkbox" type="checkbox" ng-model="entity.percentage" ng-change="addSaveField('percentage', entity)"/></td>
       </tr>
     </tbody>
   </table>
