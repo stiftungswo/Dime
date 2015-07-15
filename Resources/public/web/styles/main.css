@@ -26,6 +26,7 @@ ul {
 .DimeControllButtons{
     margin-top: 10px;
     float: left;
+    padding: 0 0 15px 15px;
 }
 
 textarea.form-control{
@@ -35,6 +36,22 @@ textarea.form-control{
 
 textarea.tiny{
     height: auto;
+}
+
+.dropdown-menu {
+  border: 1px solid #AEAEAE;
+  border-bottom: 0;
+  padding: 0;
+}
+
+.dropdown-menu > div > div {
+  padding: 5px 10px;
+}
+
+.dropdown-menu > div > div:hover {
+  background: #337ab7;
+  color: white;
+  cursor: pointer;
 }
 
 .table{
