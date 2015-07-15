@@ -35,9 +35,7 @@ class TimesliceDateFilter {
 @Formatter(name: 'projectvaluefilter')
 class ProjectValueFilter {
   List call(List items, filterProjectId) {
-    if (filterProjectId == null) {
-      return items;
-    } else if (filterProjectId is !int) {
+    if (items == null || filterProjectId == null || filterProjectId is !int) {
       return const [];
     }
     return items.where((i) => i.project.id == filterProjectId);

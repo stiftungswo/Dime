@@ -26,8 +26,6 @@ class EntityEdit extends AttachAware implements ScopeAware {
 
   Router router;
 
-  String _origin;
-
 
   set scope(Scope scope) {
     this.rootScope = scope.rootScope;
@@ -37,7 +35,6 @@ class EntityEdit extends AttachAware implements ScopeAware {
 
   EntityEdit(RouteProvider routeProvider, this.store, this.entType, this.statusservice, this.auth, this.router) {
     _entId = routeProvider.parameters['id'];
-    _origin = routeProvider.routeName;
   }
 
   attach() {
@@ -46,9 +43,9 @@ class EntityEdit extends AttachAware implements ScopeAware {
         this.auth.afterLogin(() {
           this.reload();
         });
+      } else {
+        reload();
       }
-    } else {
-      reload();
     }
   }
 
@@ -106,11 +103,11 @@ class ProjectEditComponent extends EntityEdit {
           loadCustomers();
           reload();
         });
+      } else {
+        loadRateGroups();
+        loadCustomers();
+        reload();
       }
-    } else {
-      loadRateGroups();
-      loadCustomers();
-      reload();
     }
   }
 
@@ -148,16 +145,24 @@ class OfferEditComponent extends EntityEdit {
   OfferEditComponent(RouteProvider routeProvider, DataCache store, Router router, StatusService status, UserAuthProvider auth): super(routeProvider, store, Offer, status, auth, router);
 
   attach() {
-    if (!auth.isloggedin) {
-      router.go('login', {
-        'origin': this._origin
-      });
+    if (this.auth != null) {
+      if (!auth.isloggedin) {
+        this.auth.afterLogin(() {
+          loadRateGroups();
+          loadOfferStates();
+          loadUsers();
+          loadCustomers();
+          reload();
+        });
+      } else {
+        loadRateGroups();
+        loadOfferStates();
+        loadUsers();
+        loadCustomers();
+        reload();
+      }
     }
-    loadRateGroups();
-    loadOfferStates();
-    loadUsers();
-    loadCustomers();
-    reload();
+
   }
 
   loadCustomers() async{
@@ -228,10 +233,10 @@ class CustomerEditComponent extends EntityEdit {
           loadRateGroups();
           reload();
         });
+      } else {
+        loadRateGroups();
+        reload();
       }
-    } else {
-      loadRateGroups();
-      reload();
     }
   }
 

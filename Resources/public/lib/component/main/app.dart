@@ -29,7 +29,7 @@ class AppComponent extends AttachAware implements ScopeAware {
   attach() {
     // Add Admin LTE Handlers
     // we need to wait until angular is done compiling the html
-    var timer = new Timer(new Duration(milliseconds: 100), () {
+    var timer = new Timer(new Duration(milliseconds: 1000), () {
       context['jQuery']['AdminLTE']['pushMenu'].callMethod('activate', ["[data-toggle='offcanvas']"]);
       context['jQuery']['AdminLTE']['layout'].callMethod('activate');
     });

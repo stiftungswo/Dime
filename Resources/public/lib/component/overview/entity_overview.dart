@@ -170,9 +170,9 @@ class EntityOverview extends AttachAware implements ScopeAware {
         this.auth.afterLogin(() {
           this.reload();
         });
+      } else {
+        this.reload();
       }
-    } else {
-      reload();
     }
   }
 
@@ -350,9 +350,9 @@ class InvoiceItemOverviewComponent extends EntityOverview {
         this.auth.afterLogin(() {
           this.reload();
         });
+      } else {
+        this.reload();
       }
-    } else {
-      reload();
     }
   }
 
@@ -523,13 +523,15 @@ class TimesliceOverviewComponent extends EntityOverview {
   @NgOneWay('project')
   set projectFilter(Project project) {
     this.projectBased = true;
-    this.selectedProject = project;
-    this.reload();
+    if (project != null) {
+      this.selectedProject = project;
+      this.reload();
+    }
   }
 
   Project selectedProject;
 
-  Activity selectedActivity;
+  Service selectedService;
 
   DateTime newEntryDate;
 
@@ -581,7 +583,7 @@ class TimesliceOverviewComponent extends EntityOverview {
       }
       slice.addFieldtoUpdate(name);
     }
-    slice.Set('activity', this.selectedActivity);
+    slice.Set('activity', this.activitybyName(this.selectedService.alias));
     slice.Set('startedAt', this.newEntryDate);
     slice.Set('user', this._employee);
     slice.addFieldtoUpdate('activity');
@@ -649,9 +651,9 @@ class TimesliceOverviewComponent extends EntityOverview {
         this.auth.afterLogin(() {
           this.load();
         });
+      } else {
+        this.load();
       }
-    } else {
-      load();
     }
   }
 
@@ -938,9 +940,9 @@ class OfferDiscountOverviewComponent extends EntityOverview {
         this.auth.afterLogin(() {
           this.reload();
         });
+      } else {
+        reload();
       }
-    } else {
-      reload();
     }
   }
 
@@ -990,9 +992,9 @@ class InvoiceDiscountOverviewComponent extends EntityOverview {
         this.auth.afterLogin(() {
           this.reload();
         });
+      } else {
+        reload();
       }
-    } else {
-      reload();
     }
   }
 
@@ -1192,9 +1194,9 @@ class TimesliceWeeklyReportComponent extends EntityOverview {
         this.auth.afterLogin(() {
           this.load();
         });
+      } else {
+        this.load();
       }
-    } else {
-      this.load();
     }
   }
 
