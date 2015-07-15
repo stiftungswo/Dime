@@ -6,19 +6,19 @@
       </div>
       <div class="box-body">
         <div class="row">
-          <label class="control-label col-md-3">e-Mail:</label>
+          <label class="control-label col-md-4">e-Mail:</label>
           <input class="form-control" type="text" ng-model="employee.email"/>
         </div>
         <div class="row">
-          <label class="control-label col-md-3">Vorname:</label>
+          <label class="control-label col-md-4">Vorname:</label>
           <input class="form-control" type="text" ng-model="employee.firstname"/>
         </div>
         <div class="row">
-          <label class="control-label col-md-3">Nachname:</label>
+          <label class="control-label col-md-4">Nachname:</label>
           <input class="form-control" type="text" ng-model="employee.lastname"/>
         </div>
         <div class="row">
-          <label class="control-label col-md-3">Ist/Sollzeit</label>
+          <label class="control-label col-md-4">Ist/Sollzeit</label>
           <div class="form-control">{{employee.realTime | secondsToHours}} / {{employee.targetTime | secondsToHours}}</div>
         </div>
         <button type="button" class="btn btn-primary" ng-click="reloadUser()"><span class="glyphicon glyphicon-refresh"></span></button>
@@ -28,10 +28,9 @@
   <div class="col-md-8">
     <div class="box">
       <div class="box-header with-border">
-        <h3 class="box-title">Zeiterfassung für {{employee.fullname}}</h3>
+        <h3 class="box-title">Ist-Sollstunden {{employee.fullname}}</h3>
       </div>
       <div class="box-body">
-        <h4>Ist-Sollstunden</h4>
         <div>
           <period-overview></period-overview>
         </div>
@@ -40,12 +39,15 @@
   </div>
   <div class="col-md-12">
     <div class="box">
+      <div class="box-header with-border">
+        <h3 class="box-title">Einträge</h3>
+      </div>
       <div class="box-body">
         <timeslice-overview></timeslice-overview>
       </div>
     </div>
   </div>
-</div>
-<div class="DimeControllButtons">
-  <button type="button" class="btn btn-primary" ng-click="save()"><error-icon></error-icon></button>
+  <div class="DimeControllButtons">
+    <button type="button" class="btn btn-primary" ng-click="save()"><error-icon></error-icon></button>
+  </div>
 </div>

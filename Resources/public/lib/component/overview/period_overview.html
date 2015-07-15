@@ -1,28 +1,30 @@
-<table class="table table-bordered table-hover form">
-	<thead>
-	<tr>
-		<td>Start</td>
-		<td>Ende</td>
-		<td>Pensum</td>
-		<td>Istzeit</td>
-		<td>Sollzeit</td>
-	</tr>
-	</thead>
-	<tbody>
-		<tr ng-repeat="entity in entities" ng-click="selectEntity(entity.id)" ng-class="isSelected(entity)? 'info': ''">
-			<td><dateinput style="width: 100%;" date="entity.start" field="'start'" callback="entity.addFieldtoUpdate(name)"></dateinput></td>
-			<td><dateinput style="width: 100%;" date="entity.end" field="'end'" callback="entity.addFieldtoUpdate(name)"></dateinput></td>
-			<td><input-percentage htmlclass="'form-control'" safecalc="false" value="entity.pensum" ng-change="addSaveField('pensum', entity)"></input-percentage></td>
-			<td>{{entity.realTime | secondsToHours}}</td>
-			<td>{{entity.targetTime | secondsToHours}}</td>
-		</tr>
-	</tbody>
-</table>
-<div class="controllbuttons container-inline">
-	<div class="col-md-12">
-		<button type="button" class="btn btn-primary" ng-click="createEntity()">+</button>
-		<button type="button" class="btn btn-primary" ng-click="duplicateEntity()">++</button>
-		<button type="button" class="btn btn-danger" ng-click="deleteEntity()">-</button>
-		<button type="button" class="btn btn-primary" ng-click="reload(evict: true)"><span class="glyphicon glyphicon-refresh"></span></button>
-	</div>
+<div class="col-md-12">
+  <table class="table table-bordered table-hover form">
+    <thead>
+    <tr>
+      <td>Start</td>
+      <td>Ende</td>
+      <td>Pensum</td>
+      <td>Istzeit</td>
+      <td>Sollzeit</td>
+    </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="entity in entities" ng-click="selectEntity(entity.id)" ng-class="isSelected(entity)? 'info': ''">
+        <td><dateinput style="width: 100%;" date="entity.start" field="'start'" callback="entity.addFieldtoUpdate(name)"></dateinput></td>
+        <td><dateinput style="width: 100%;" date="entity.end" field="'end'" callback="entity.addFieldtoUpdate(name)"></dateinput></td>
+        <td><input-percentage htmlclass="'form-control'" safecalc="false" value="entity.pensum" ng-change="addSaveField('pensum', entity)"></input-percentage></td>
+        <td>{{entity.realTime | secondsToHours}}</td>
+        <td>{{entity.targetTime | secondsToHours}}</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="DimeControllButtons container-inline">
+    <div class="col-md-12">
+      <button type="button" class="btn btn-primary" ng-click="createEntity()">+</button>
+      <button type="button" class="btn btn-primary" ng-click="duplicateEntity()">++</button>
+      <button type="button" class="btn btn-danger" ng-click="deleteEntity()">-</button>
+      <button type="button" class="btn btn-primary" ng-click="reload(evict: true)"><span class="glyphicon glyphicon-refresh"></span></button>
+    </div>
+  </div>
 </div>

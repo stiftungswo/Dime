@@ -1,23 +1,25 @@
-<table class="table table-bordered table-hover">
-  <thead>
-    <tr>
-      <td>ID</td>
-      <td>Name</td>
-      <td>Addresse</td>
-    </tr>
-  </thead>
-  <tbody>
-  <tr ng-repeat="entity in entities" ng-click="selectEntity(entity.id)" ng-doubleclick="openEditView(entity.id)" ng-class="isSelected(entity)? 'info': ''">
-      <td>{{entity.id}}</td>
-      <td>{{entity.name}}</td>
-      <td>{{entity.address.street}} {{entity.address.streetnumber}} - {{entity.address.plz}} {{entity.address.city}}</td>
-    </tr>
-  </tbody>
-</table>
-<div class="controllbuttons">
-	<button type="button" class="btn btn-primary" ng-click="createEntity()">+</button>
-	<button type="button" class="btn btn-primary" ng-click="duplicateEntity()">++</button>
-	<button type="button" class="btn btn-primary" ng-click="openEditView()">Edit</button>
-	<button type="button" class="btn btn-danger" ng-click="deleteEntity()">-</button>
-	<button type="button" class="btn btn-primary" ng-click="reload(evict: true)"><span class="glyphicon glyphicon-refresh"></span></button>
+<div class="col-md-12">
+  <table class="table table-bordered table-hover">
+    <thead>
+      <tr>
+        <td>ID</td>
+        <td>Name</td>
+        <td>Addresse</td>
+      </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="entity in entities" ng-click="selectEntity(entity.id)" ng-doubleclick="openEditView(entity.id)" ng-class="isSelected(entity)? 'info': ''">
+        <td>{{entity.id}}</td>
+        <td>{{entity.name}}</td>
+        <td>{{entity.address.street}} {{entity.address.streetnumber}} - {{entity.address.plz}} {{entity.address.city}}</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="DimeControllButtons">
+    <button type="button" class="btn btn-primary" ng-click="createEntity()">+</button>
+    <button type="button" class="btn btn-primary" ng-click="duplicateEntity()">++</button>
+    <button type="button" class="btn btn-primary" ng-click="openEditView()">Edit</button>
+    <button type="button" class="btn btn-danger" ng-click="deleteEntity()">-</button>
+    <button type="button" class="btn btn-primary" ng-click="reload(evict: true)"><span class="glyphicon glyphicon-refresh"></span></button>
+  </div>
 </div>

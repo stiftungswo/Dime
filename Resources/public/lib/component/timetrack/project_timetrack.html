@@ -1,16 +1,18 @@
-<div class="container-fluid form-inline">
-	<div class="panel panel-default col-md-12">
-		<div class="panel-body">
-			<div class="row"><h4>Projekt {{project.name}}</h4></div>
-			<div class="row"><project-select project="project"></project-select></div>
-		</div>
-	</div>
-	<div class="panel panel-default col-md-12">
-		<div class="panel-body">
-			<timeslice-overview allowProjectSelect="false" project="project"></timeslice-overview>
-		</div>
-	</div>
-</div>
-<div class="DimeControllButtons">
-	<button type="button" class="btn btn-primary" ng-click="save()"><error-icon></error-icon></button>
+<div class="col-md-12">
+  <div class="form-inline">
+    <div class="box">
+      <div class="box-body">
+        <h4>Projekt {{project.name}}</h4>
+        <project-select project="project"></project-select>
+      </div>
+    </div>
+    <div class="box">
+      <div class="box-body">
+        <timeslice-overview allowProjectSelect="false" project="project"></timeslice-overview>
+      </div>
+    </div>
+  </div>
+  <div class="DimeControllButtons">
+    <button type="button" class="btn btn-primary" ng-click="save()"><error-icon></error-icon></button>
+  </div>
 </div>

@@ -4,6 +4,7 @@ import 'package:angular/angular.dart';
 import 'package:DimeClient/model/menu.dart';
 import 'package:DimeClient/service/user_auth.dart';
 import 'dart:html';
+import 'dart:js';
 
 
 @Component(
@@ -43,5 +44,6 @@ class MenuComponent implements ScopeAware {
     Node node = event.currentTarget;
     node.parent.parent.classes.toggle('menu-open'); // ul element
     node.parent.classes.toggle('active'); // li element
+    context['jQuery']['AdminLTE']['layout'].callMethod('fix');
   }
 }
