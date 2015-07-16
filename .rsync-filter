@@ -1,0 +1,14 @@
+- /bin/
+- .git/
+- /app/bootstrap.php.cache
+- /app/config/parameters.yml
+- /app/cache/
+- /vendor/
+- build/
+- /web/bundles/
+- /web/css/
+- /web/js/
+- /web/build.js
+- /web/fonts/
+- /app/logs/
+- /.idea

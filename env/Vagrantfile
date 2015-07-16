@@ -35,24 +35,7 @@ Vagrant.configure("2") do |config|
             config.bindfs.bind_folder "/vagrant", "/vagrant"
         else
             # use rsync on other plattforms
-            dime.vm.synced_folder "../", "/vagrant", type: 'rsync',
-                 rsync__args: ["--verbose", "--archive", "--delete", "-z"],
-                 rsync__exclude: [
-                   "bin/",
-                   ".git/",
-                   "app/bootstrap.php.cache",
-                   "app/config/parameters.yml",
-                   "app/cache/",
-                   "vendor/",
-                   "build/",
-                   "web/bundles/",
-                   "web/css/",
-                   "web/js/",
-                   "web/build.js",
-                   "web/fonts/",
-                   "app/logs/",
-                   ".idea",
-                 ]
+            dime.vm.synced_folder "../", "/vagrant", type: 'rsync', rsync__args: ["--verbose", "--archive", "--delete", "-z", "-FF"]
         end
 
         dime.vm.provider :libvirt do |domain|
