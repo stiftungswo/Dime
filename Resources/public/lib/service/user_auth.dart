@@ -57,7 +57,7 @@ class UserAuthProvider {
       this.statusservice.setStatusToSuccess();
       return result;
     } catch (e) {
-      this.statusservice.setStatusToError();
+      this.statusservice.setStatusToError(e);
       throw new Exception();
     }
   }

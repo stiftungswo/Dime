@@ -67,7 +67,7 @@ class EntityOverview extends AttachAware implements ScopeAware {
       this.rootScope.emit(this.type.toString() + 'Changed');
     } catch (e) {
       print("Unable to save entity ${this.type.toString()}::${entity.id} because ${e}");
-      this.statusservice.setStatusToError();
+      this.statusservice.setStatusToError(e);
     }
   }
 
@@ -98,7 +98,7 @@ class EntityOverview extends AttachAware implements ScopeAware {
       }
     } catch (e) {
       print("Unable to create entity ${this.type.toString()} because ${e}");
-      this.statusservice.setStatusToError();
+      this.statusservice.setStatusToError(e);
     }
   }
 
@@ -127,7 +127,7 @@ class EntityOverview extends AttachAware implements ScopeAware {
         this.rootScope.emit(this.type.toString() + 'Duplicated');
       } catch (e) {
         print("Unable to duplicate entity ${this.type.toString()}::${newEnt.id} because ${e}");
-        this.statusservice.setStatusToError();
+        this.statusservice.setStatusToError(e);
       }
     }
   }
@@ -148,7 +148,7 @@ class EntityOverview extends AttachAware implements ScopeAware {
         this.rootScope.emit(this.type.toString() + 'Deleted');
       } catch (e) {
         print("Unable to Delete entity ${this.type.toString()}::${entId} because ${e}");
-        this.statusservice.setStatusToError();
+        this.statusservice.setStatusToError(e);
       }
     }
   }
@@ -188,7 +188,7 @@ class EntityOverview extends AttachAware implements ScopeAware {
       this.rootScope.emit(this.type.toString() + 'Loaded');
     } catch (e) {
       print("Unable to load ${this.type.toString()} because ${e}");
-      this.statusservice.setStatusToError();
+      this.statusservice.setStatusToError(e);
     }
   }
 
@@ -529,9 +529,27 @@ class TimesliceOverviewComponent extends EntityOverview {
     }
   }
 
-  Project selectedProject;
+  Project _selectedProject;
 
-  Service selectedService;
+  get selectedProject => _selectedProject;
+
+  set selectedProject(Project proj) {
+    this._selectedProject = proj;
+    this.updateChosenSetting('project');
+  }
+
+  Setting settingselectedProject;
+
+  Service _selectedService;
+
+  get selectedService => _selectedService;
+
+  set selectedService(Service ser) {
+    this._selectedService = ser;
+    this.updateChosenSetting('service');
+  }
+
+  Setting settingselectedService;
 
   DateTime newEntryDate;
 
@@ -657,7 +675,20 @@ class TimesliceOverviewComponent extends EntityOverview {
     }
   }
 
-  load() {
+  updateChosenSetting(String name) {
+    switch (name) {
+      case 'project':
+        this.settingselectedProject.value = this.selectedProject.alias;
+        this.settingsManager.updateSetting(this.settingselectedProject);
+        break;
+      case 'service':
+        this.settingselectedService.value = this.selectedService.alias;
+        this.settingsManager.updateSetting(this.settingselectedService);
+        break;
+    }
+  }
+
+  load() async{
     if (this.filterStartDate.weekday != DateTime.MONDAY);
     {
       this.filterStartDate = this.filterStartDate.subtract(new Duration(days: this.filterStartDate.weekday - 1));
@@ -672,6 +703,29 @@ class TimesliceOverviewComponent extends EntityOverview {
     this.filterEndDate = this.filterEndDate.add(new Duration(days: 4, hours: 23, minutes: 59));
     loadActivtyData();
     this.employee = this.context.employee;
+    List services = await this.store.list(Service);
+    try {
+      this.settingselectedService = settingsManager.getOneSetting('/usr/timeslice', 'chosenService');
+    } catch (e) {
+      this.settingselectedService = await settingsManager.createSetting('/usr/timeslice', 'chosenService', '');
+    }
+    try {
+      this.selectedService = services.singleWhere((Service s) => s.alias == this.settingselectedService.value);
+    } catch (e) {
+      this.selectedService = null;
+    }
+
+    List projects = await this.store.list(Project);
+    try {
+      this.settingselectedProject = settingsManager.getOneSetting('/usr/timeslice', 'chosenProject');
+    } catch (e) {
+      this.settingselectedProject = await settingsManager.createSetting('/usr/timeslice', 'chosenProject', '');
+    }
+    try {
+      this.selectedProject = projects.singleWhere((Project p) => p.alias == this.settingselectedProject.value);
+    } catch (e) {
+      this.selectedProject = null;
+    }
   }
 
   loadActivtyData() async{
@@ -759,7 +813,7 @@ class TimesliceExpenseReportComponent extends EntityOverview {
       this.statusservice.setStatusToSuccess();
       this.rootScope.emit(this.type.toString() + 'Loaded');
     } catch (e) {
-      this.statusservice.setStatusToError();
+      this.statusservice.setStatusToError(e);
     }
   }
 
@@ -1090,7 +1144,7 @@ class RateUnitTypeOverviewComponent extends EntityOverview {
       this.statusservice.setStatusToSuccess();
       this.rootScope.emit(this.type.toString() + 'Changed');
     } catch (e) {
-      this.statusservice.setStatusToError();
+      this.statusservice.setStatusToError(e);
     }
   }
 
@@ -1109,7 +1163,7 @@ class RateUnitTypeOverviewComponent extends EntityOverview {
         this.statusservice.setStatusToSuccess();
         this.rootScope.emit(this.type.toString() + 'Deleted');
       } catch (e) {
-        this.statusservice.setStatusToError();
+        this.statusservice.setStatusToError(e);
       }
     }
   }
@@ -1227,7 +1281,7 @@ class TimesliceWeeklyReportComponent extends EntityOverview {
       this.statusservice.setStatusToSuccess();
       this.rootScope.emit(this.type.toString() + 'Loaded');
     } catch (e) {
-      this.statusservice.setStatusToError();
+      this.statusservice.setStatusToError(e);
     }
     updateUsers();
     updateEntries();

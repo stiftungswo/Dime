@@ -18,8 +18,12 @@ class StatusService {
     numLoading += 1;
   }
 
-  setStatusToError() {
+  setStatusToError(e, [stack]) {
     this.status = error;
+    print(e);
+    if (stack != null) {
+      print(stack);
+    }
     numLoading -= 1;
   }
 

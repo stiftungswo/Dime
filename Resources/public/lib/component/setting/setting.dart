@@ -49,12 +49,17 @@ class SettingEditComponent {
   SettingEditComponent(this.settingsManager, this.auth);
 
   loadSetting() {
-    if (_namespace != null && _name != null && this._value != null && auth.isloggedin) {
-      try {
-        this.setting = settingsManager.getOneSetting(this._namespace, this._name);
-      } catch (e) {
-        print('There does not seem to be a setting for ${_namespace} ${_name} creating one');
-        settingsManager.createSetting(this._namespace, this._name, this._value).then((Setting setting) => this.setting = setting);
+    if (_namespace != null && _name != null && this._value != null) {
+      if(auth.isloggedin){
+        try {
+          this.setting = settingsManager.getOneSetting(this._namespace, this._name);
+        } catch (e) {
+          print('There does not seem to be a setting for ${_namespace} ${_name} creating one');
+          settingsManager.createSetting(this._namespace, this._name, this._value).then((Setting setting) => this.setting = setting);
+        }
+      } else {
+        this.setting = new Setting();
+        auth.afterLogin(this.loadSetting());
       }
     }
   }

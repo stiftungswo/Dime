@@ -39,9 +39,9 @@ class EntitySelect extends AttachAware implements ScopeAware {
         this.auth.afterLogin(() {
           this.reload();
         });
+      } else {
+        reload();
       }
-    } else {
-      reload();
     }
   }
 
@@ -51,7 +51,7 @@ class EntitySelect extends AttachAware implements ScopeAware {
       this.entities = (await this.store.list(this.type)).toList();
       this.statusservice.setStatusToSuccess();
     } catch (e) {
-      this.statusservice.setStatusToError();
+      this.statusservice.setStatusToError(e);
     }
   }
 

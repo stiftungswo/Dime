@@ -4,6 +4,11 @@ import 'package:angular/angular.dart';
 
 void dimeRouteInitializer(Router router, RouteViewFactory views) {
   views.configure({
+    'welcome': ngRoute(
+        path: '/welcome',
+        viewHtml: '<div style="height: 100%;"><h1>Wilkomen</h1></div>',
+        defaultRoute: true
+    ),
     'projects_overview': ngRoute(
         path: '/projects/overview',
         viewHtml: '<project-overview></project-overview>'
@@ -14,8 +19,7 @@ void dimeRouteInitializer(Router router, RouteViewFactory views) {
     ),
     'timetrack': ngRoute(
         path: '/timetrack',
-        viewHtml: '<timetrack></timetrack>',
-        defaultRoute: true
+        viewHtml: '<timetrack></timetrack>'
     ),
     'projecttimetrack': ngRoute(
         path: '/projects/timetrack',

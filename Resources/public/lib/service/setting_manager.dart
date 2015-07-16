@@ -32,7 +32,7 @@ class SettingsManager {
       this._currentUserId = userId;
       this.statusservice.setStatusToSuccess();
     } catch (e) {
-      this.statusservice.setStatusToError();
+      this.statusservice.setStatusToError(e);
     }
   }
 
@@ -44,7 +44,7 @@ class SettingsManager {
       })).toList();
       this.statusservice.setStatusToSuccess();
     } catch (e) {
-      this.statusservice.setStatusToError();
+      this.statusservice.setStatusToError(e);
     }
   }
 
@@ -79,7 +79,7 @@ class SettingsManager {
       this.statusservice.setStatusToSuccess();
       return setting;
     } catch (e) {
-      this.statusservice.setStatusToError();
+      this.statusservice.setStatusToError(e);
     }
   }
 
@@ -92,8 +92,9 @@ class SettingsManager {
       this.userSettings.add(updatedSetting);
       this.statusservice.setStatusToSuccess();
       return updatedSetting;
-    } catch (e) {
-      this.statusservice.setStatusToError();
+    } catch (e, stack) {
+      print(toUpdate);
+      this.statusservice.setStatusToError(e, stack);
     }
   }
 }

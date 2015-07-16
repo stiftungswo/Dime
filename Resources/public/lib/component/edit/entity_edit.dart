@@ -58,7 +58,7 @@ class EntityEdit extends AttachAware implements ScopeAware {
       this.entity = (await this.store.one(this.entType, this._entId));
       this.statusservice.setStatusToSuccess();
     } catch (e) {
-      this.statusservice.setStatusToError();
+      this.statusservice.setStatusToError(e);
     }
   }
 
@@ -74,7 +74,7 @@ class EntityEdit extends AttachAware implements ScopeAware {
         this.entity = (await store.update(this.entity));
         this.statusservice.setStatusToSuccess();
       } catch (e) {
-        this.statusservice.setStatusToError();
+        this.statusservice.setStatusToError(e);
       }
     } else {
       this.reload();
@@ -210,7 +210,7 @@ class InvoiceEditComponent extends EntityEdit {
       this.entity = (await this.store.customQueryOne(Invoice, new CustomRequestParams(method: 'GET', url: '/api/v1/invoices/${this.entity.id}/update')));
       this.statusservice.setStatusToSuccess();
     } catch (e) {
-      this.statusservice.setStatusToError();
+      this.statusservice.setStatusToError(e);
     }
   }
 }
