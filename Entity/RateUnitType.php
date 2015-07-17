@@ -146,6 +146,22 @@ class RateUnitType extends Entity implements DimeEntityInterface
 				$value = ($value / $this->factor);
 				return ( ceil ( $pow * $value ) + ceil ( $pow * $value - ceil ( $pow * $value ) ) ) / $pow;
 				break;
+			case 7:
+				//Math trick to round numbers to 5 or 0
+				$pow   = pow(10, $this->scale);
+				$value = ($value / $this->factor);
+				$value = $value * $pow;
+				$value = (int)round($value / 5) * 5;
+				return $value / $pow;
+				break;
+			case 8:
+				//Math trick to floor numbers to 5 or 0
+				$pow   = pow(10, $this->scale);
+				$value = ($value / $this->factor);
+				$value = $value * $pow;
+				$value = (int)floor($value / 5) * 5;
+				return $value / $pow;
+				break;
 			default:
 				return $value;
 				break;
