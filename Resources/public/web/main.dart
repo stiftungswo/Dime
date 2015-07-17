@@ -86,6 +86,7 @@ class AppModule extends Module {
     bind(ProjectTimetrackComponent);
     bind(RateUnitTypeOverviewComponent);
     bind(TimesliceWeeklyReportComponent);
+    bind(RoundModeSelect);
     bind(UserMenu);
     install(new Hammock());
     bind(RouteInitializerFn, toValue: dimeRouteInitializer);

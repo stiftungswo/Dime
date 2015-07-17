@@ -259,7 +259,8 @@ class OfferOverviewComponent extends EntityOverview {
     }
 )
 class OfferPositionOverviewComponent extends EntityOverview {
-  OfferPositionOverviewComponent(DataCache store, SettingsManager manager, StatusService status): super(OfferPosition, store, '', manager, status);
+  OfferPositionOverviewComponent(DataCache store, SettingsManager manager, StatusService status):
+  super(OfferPosition, store, '', manager, status);
 
   cEnt({OfferPosition entity}) {
     if (entity != null) {
@@ -318,7 +319,8 @@ class InvoiceOverviewComponent extends EntityOverview {
     }
 )
 class InvoiceItemOverviewComponent extends EntityOverview {
-  InvoiceItemOverviewComponent(DataCache store, SettingsManager manager, StatusService status): super(InvoiceItem, store, '', manager, status);
+  InvoiceItemOverviewComponent(DataCache store, SettingsManager manager, StatusService status):
+  super(InvoiceItem, store, '', manager, status);
 
   cEnt({InvoiceItem entity}) {
     if (entity != null) {
@@ -387,7 +389,8 @@ class ServiceOverviewComponent extends EntityOverview {
     }
 )
 class RateOverviewComponent extends EntityOverview {
-  RateOverviewComponent(DataCache store, SettingsManager manager, StatusService status): super(Rate, store, '', manager, status);
+  RateOverviewComponent(DataCache store, SettingsManager manager, StatusService status):
+  super(Rate, store, '', manager, status);
 
   cEnt({Rate entity}) {
     if (entity != null) {
@@ -426,7 +429,8 @@ class RateOverviewComponent extends EntityOverview {
     useShadowDom: false
 )
 class RateGroupOverviewComponent extends EntityOverview {
-  RateGroupOverviewComponent(DataCache store, SettingsManager manager, StatusService status): super(RateGroup, store, '', manager, status);
+  RateGroupOverviewComponent(DataCache store, SettingsManager manager, StatusService status, UserAuthProvider auth):
+  super(RateGroup, store, '', manager, status, auth: auth);
 
   cEnt({RateGroup entity}) {
     if (entity != null) {
@@ -455,7 +459,8 @@ class ActivityOverviewComponent extends EntityOverview {
     }
   }
 
-  ActivityOverviewComponent(DataCache store, SettingsManager manager, StatusService status): super(Activity, store, '', manager, status);
+  ActivityOverviewComponent(DataCache store, SettingsManager manager, StatusService status):
+  super(Activity, store, '', manager, status);
 
   cEnt({Activity entity}) {
     if (entity != null) {
@@ -528,6 +533,8 @@ class TimesliceOverviewComponent extends EntityOverview {
       this.reload();
     }
   }
+
+  get projectFilter => this.selectedProject;
 
   Project _selectedProject;
 
@@ -776,7 +783,8 @@ class TimesliceOverviewComponent extends EntityOverview {
     useShadowDom: false
 )
 class TimesliceExpenseReportComponent extends EntityOverview {
-  TimesliceExpenseReportComponent(DataCache store, SettingsManager manager, StatusService status): super(ExpenseReport, store, '', manager, status);
+  TimesliceExpenseReportComponent(DataCache store, SettingsManager manager, StatusService status, UserAuthProvider auth):
+  super(ExpenseReport, store, '', manager, status, auth: auth);
 
   Project _project;
 
@@ -856,7 +864,8 @@ class TimesliceExpenseReportComponent extends EntityOverview {
     useShadowDom: false
 )
 class PeriodOverviewComponent extends EntityOverview implements ScopeAware {
-  PeriodOverviewComponent(DataCache store, SettingsManager manager, StatusService status, this.context): super(Period, store, '', manager, status) {
+  PeriodOverviewComponent(DataCache store, SettingsManager manager, StatusService status, this.context):
+  super(Period, store, '', manager, status) {
     this.context.onSwitch((Employee employee) => this.employee = employee);
   }
 
@@ -919,7 +928,8 @@ class PeriodOverviewComponent extends EntityOverview implements ScopeAware {
     useShadowDom: false
 )
 class HolidayOverviewComponent extends EntityOverview {
-  HolidayOverviewComponent(DataCache store, SettingsManager manager, StatusService status): super(Holiday, store, '', manager, status);
+  HolidayOverviewComponent(DataCache store, SettingsManager manager, StatusService status, UserAuthProvider auth):
+  super(Holiday, store, '', manager, status, auth: auth);
 
   cEnt({Holiday entity}) {
     if (entity != null) {
@@ -935,8 +945,8 @@ class HolidayOverviewComponent extends EntityOverview {
     useShadowDom: false
 )
 class EmployeeOverviewComponent extends EntityOverview {
-  EmployeeOverviewComponent(DataCache store, Router router, SettingsManager manager, StatusService status):
-  super(Employee, store, 'employee_edit', manager, status, router: router);
+  EmployeeOverviewComponent(DataCache store, Router router, SettingsManager manager, StatusService status, UserAuthProvider auth):
+  super(Employee, store, 'employee_edit', manager, status, router: router, auth: auth);
 
   cEnt({Employee entity}) {
     if (entity != null) {
@@ -1112,7 +1122,7 @@ class StandardDiscountOverviewComponent extends EntityOverview {
     useShadowDom: false
 )
 class RateUnitTypeOverviewComponent extends EntityOverview {
-  RateUnitTypeOverviewComponent(DataCache store, SettingsManager manager, StatusService status): super(RateUnitType, store, '', manager, status);
+  RateUnitTypeOverviewComponent(DataCache store, SettingsManager manager, StatusService status, UserAuthProvider auth): super(RateUnitType, store, '', manager, status, auth: auth);
 
   cEnt({RateUnitType entity}) {
     return new RateUnitType();
@@ -1180,7 +1190,7 @@ class WeekReportEntry {
     useShadowDom: false
 )
 class TimesliceWeeklyReportComponent extends EntityOverview {
-  TimesliceWeeklyReportComponent(DataCache store, SettingsManager manager, StatusService status): super(ExpenseReport, store, '', manager, status);
+  TimesliceWeeklyReportComponent(DataCache store, SettingsManager manager, StatusService status, UserAuthProvider auth): super(ExpenseReport, store, '', manager, status, auth: auth);
 
   DateTime filterStartDate = new DateTime.now();
 
