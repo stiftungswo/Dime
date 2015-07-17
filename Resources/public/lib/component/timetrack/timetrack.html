@@ -5,25 +5,25 @@
         <h3 class="box-title">Zeiterfassung für {{employee.fullname}}</h3>
       </div>
       <div class="box-body">
-        <div class="form-group">
+        <div class="form-group col-md-12">
           <label class="control-label col-md-4">E-Mail</label>
           <div class="col-md-8">
             <div class="form-control">{{employee.email}}</div>
           </div>
         </div>
-        <div class="form-group">
+        <div class="form-group col-md-12">
           <label class="control-label col-md-4">Vorname</label>
           <div class="col-md-8">
             <div class="form-control">{{employee.firstname}}</div>
           </div>
         </div>
-        <div class="form-group">
+        <div class="form-group col-md-12">
           <label class="control-label col-md-4">Nachname</label>
           <div class="col-md-8">
             <div class="form-control">{{employee.lastname}}</div>
           </div>
         </div>
-        <div class="form-group">
+        <div class="form-group col-md-12">
           <label class="control-label col-md-4">Ist / Sollzeit</label>
           <div class="col-md-8">
             <div class="form-control">{{employee.realTime | secondsToHours}} / {{employee.targetTime | secondsToHours}}</div>

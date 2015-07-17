@@ -26,6 +26,8 @@
             <option ng-selected="entity.roundMode == 4" value="4">Halbe auf ungerade runden</option>
             <option ng-selected="entity.roundMode == 5" value="5">Forciert Abrunden</option>
             <option ng-selected="entity.roundMode == 6" value="6">Forciert Aufrunden</option>
+            <option ng-selected="entity.roundMode == 7" value="7">Halbe Schritte</option>
+            <option ng-selected="entity.roundMode == 8" value="8">Halbe Schritte abgerundet</option>
           </select>
         </td>
         <td><input type="text" class="form-control" ng-model="entity.symbol" ng-change="addSaveField('symbol', entity)"/></td>

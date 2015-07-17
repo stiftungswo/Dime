@@ -520,7 +520,7 @@ class TimesliceOverviewComponent extends EntityOverview {
 
   bool updateNewEntryDate = true;
 
-  @NgOneWay('project')
+  @NgTwoWay('project')
   set projectFilter(Project project) {
     this.projectBased = true;
     if (project != null) {
@@ -673,6 +673,18 @@ class TimesliceOverviewComponent extends EntityOverview {
         this.load();
       }
     }
+    if (this.filterStartDate.weekday != DateTime.MONDAY);
+    {
+      this.filterStartDate = this.filterStartDate.subtract(new Duration(days: this.filterStartDate.weekday - 1));
+    }
+    this.filterStartDate = this.filterStartDate.subtract(new Duration(
+        hours: filterStartDate.hour,
+        minutes: filterStartDate.minute,
+        seconds: filterStartDate.second - 1,
+        milliseconds: filterStartDate.millisecond
+    ));
+    this.filterEndDate = this.filterStartDate;
+    this.filterEndDate = this.filterEndDate.add(new Duration(days: 4, hours: 23, minutes: 59));
   }
 
   updateChosenSetting(String name) {
@@ -689,18 +701,6 @@ class TimesliceOverviewComponent extends EntityOverview {
   }
 
   load() async{
-    if (this.filterStartDate.weekday != DateTime.MONDAY);
-    {
-      this.filterStartDate = this.filterStartDate.subtract(new Duration(days: this.filterStartDate.weekday - 1));
-    }
-    this.filterStartDate = this.filterStartDate.subtract(new Duration(
-        hours: filterStartDate.hour,
-        minutes: filterStartDate.minute,
-        seconds: filterStartDate.second - 1,
-        milliseconds: filterStartDate.millisecond
-    ));
-    this.filterEndDate = this.filterStartDate;
-    this.filterEndDate = this.filterEndDate.add(new Duration(days: 4, hours: 23, minutes: 59));
     loadActivtyData();
     this.employee = this.context.employee;
     List services = await this.store.list(Service);
@@ -1243,18 +1243,6 @@ class TimesliceWeeklyReportComponent extends EntityOverview {
   }
 
   attach() {
-    if (this.auth != null) {
-      if (!auth.isloggedin) {
-        this.auth.afterLogin(() {
-          this.load();
-        });
-      } else {
-        this.load();
-      }
-    }
-  }
-
-  load() {
     if (this.filterStartDate.weekday != DateTime.MONDAY);
     {
       this.filterStartDate = this.filterStartDate.subtract(new Duration(days: this.filterStartDate.weekday - 1));
