@@ -26,6 +26,9 @@ class ReportController extends DimeController{
 	 *
 	 * @Annotations\QueryParam(name="project", requirements="\d+", nullable=true, description="Filter By Project")
 	 * @Annotations\QueryParam(name="user", requirements="\d+", nullable=true, description="Filter By User")
+	 * @Annotations\QueryParam(name="date", nullable=true, description="Filter by date use Format YYYY-MM-DD or YYYY-MM-DD,YYYY-MM-DD to specify daterange")
+	 * @Annotations\QueryParam(name="customer", requirements="\d+", nullable=true, description="Filter By Timeslice")
+	 * @Annotations\QueryParam(name="service", requirements="\d+", nullable=true, description="Filter By Service")
 	 *
 	 * @Annotations\View(
 	 * serializerEnableMaxDepthChecks=true
@@ -58,6 +61,9 @@ class ReportController extends DimeController{
 	 *
 	 * @Annotations\QueryParam(name="project", requirements="\d+", nullable=true, description="Filter By Project")
 	 * @Annotations\QueryParam(name="user", requirements="\d+", nullable=true, description="Filter By User")
+	 * @Annotations\QueryParam(name="date", nullable=true, description="Filter by date use Format YYYY-MM-DD or YYYY-MM-DD,YYYY-MM-DD to specify daterange")
+	 * @Annotations\QueryParam(name="customer", requirements="\d+", nullable=true, description="Filter By Timeslice")
+	 * @Annotations\QueryParam(name="service", requirements="\d+", nullable=true, description="Filter By Service")
 	 *
 	 * @Annotations\Route(requirements={"_format"="json|xml"})
 	 *

@@ -7,6 +7,7 @@
 
 namespace Dime\ReportBundle\Handler;
 
+use Carbon\Carbon;
 use Dime\ReportBundle\Entity\ExpenseReport;
 use Dime\TimetrackerBundle\Entity\Timeslice;
 use Dime\TimetrackerBundle\Handler\AbstractHandler;
@@ -49,7 +50,16 @@ class ReportHandler extends AbstractHandler{
 			$report->setProject($this->container->get('dime.project.handler')->get($params['project']));
 		}
 		if(isset($params['user'])) {
-			$report->setProject($this->container->get('dime.user.handler')->get($params['user']));
+			$report->setUser($this->container->get('dime.user.handler')->get($params['user']));
+		}
+		if(isset($params['date'])) {
+			$date = explode(',', $params['date']);
+			if(is_array($date)) {
+				$report->setStart(Carbon::createFromFormat('Y-m-d', $date[0]));
+				$report->setEnd(Carbon::createFromFormat('Y-m-d', $date[1]));
+			} else {
+				$report->setStart($date);
+			}
 		}
 		return $report;
 	}

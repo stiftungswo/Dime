@@ -18,6 +18,10 @@ class Report {
 
 	protected $project;
 
+	protected $start;
+
+	protected $end;
+
 	/**
 	 * @JMS\VirtualProperty()
 	 * @JMS\SerializedName("id")
@@ -100,6 +104,44 @@ class Report {
 	public function setProject($project)
 	{
 		$this->project = $project;
+		return $this;
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getStart()
+	{
+		return $this->start;
+	}
+
+	/**
+	 * @param mixed $start
+	 *
+	 * @return $this
+	 */
+	public function setStart($start)
+	{
+		$this->start = $start;
+		return $this;
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getEnd()
+	{
+		return $this->end;
+	}
+
+	/**
+	 * @param mixed $end
+	 *
+	 * @return $this
+	 */
+	public function setEnd($end)
+	{
+		$this->end = $end;
 		return $this;
 	}
 

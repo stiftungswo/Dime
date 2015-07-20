@@ -3,7 +3,13 @@
 	<dynamic-page page-size="a4">
 		<div class="logo"><img src="{{ pdf_image('SwoCommonsBundle:swo_logo_big.png') }}"/></div>
 		<div class="title">Aufwandsreport</div>
-		{% if report.project is defined%}<div class="title description">{{ report.project.description }}</div>{% endif %}
+		{% if report.project != null %}
+			<div class="title description">{{ report.project.description }}</div>{% endif %}
+		{% if report.start and report.end %}
+			<div class="title description">Von: {{ report.start|date("d.m.Y") }}
+		                                   bis: {{ report.end|date("d.m.Y") }}</div>{% endif %}
+		{% if report.start and not report.end %}
+			<div class="title description">Von: {{ report.start|date("d.m.Y") }}</div>{% endif %}
 		{% if report.user is defined %}<div class="title description">Report für {{ report.user.fullname }}</div>{% endif %}
 		<table class="maintable">
 			<tr class="thead">
