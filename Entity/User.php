@@ -67,6 +67,14 @@ class User extends BaseUser implements DimeEntityInterface
     protected $updatedAt;
 
     /**
+     * @return string
+     */
+    public function getFullname()
+    {
+        return $this->firstname . ' ' . $this->lastname;
+    }
+
+    /**
      * Get id
      *
      * @return integer
