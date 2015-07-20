@@ -28,6 +28,7 @@ class ActivityFormType extends AbstractType
         $builder
             ->add('description')
             ->add('rateValue', 'tbbc_simple_money')
+            ->add('rateUnit')
             ->add('chargeable')
             //->add($builder->create('chargeableReference', 'text', array('empty_data' => ActivityReference::$SERVICE))->addViewTransformer($transformer))
             //Service has to be set after Project due to Dependencies.
