@@ -847,12 +847,12 @@ class TimesliceExpenseReportComponent extends EntityOverview {
       var value = _valForParam(param);
       if (value is int) {
         if (paramString == '') {
-          paramString + '?${param}=${value}';
+          paramString += '?${param}=${value}';
         } else {
-          paramString + '&${param}=${value}';
+          paramString += '&${param}=${value}';
+        }
         }
       }
-    }
     window.open('/api/v1/reports/expenses/print${paramString}', 'Expense Report Print');
   }
 
