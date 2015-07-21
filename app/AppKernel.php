@@ -23,24 +23,24 @@ class AppKernel extends Kernel
             new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
             new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
-	        new Ps\PdfBundle\PsPdfBundle(),
+            new Ps\PdfBundle\PsPdfBundle(),
             new FOS\UserBundle\FOSUserBundle(),
             new FOS\RestBundle\FOSRestBundle(),
             new JMS\SerializerBundle\JMSSerializerBundle($this),
             new Nelmio\ApiDocBundle\NelmioApiDocBundle(),
-	        new \Knp\JsonSchemaBundle\KnpJsonSchemaBundle(),
-	        new \Swo\CommonsBundle\SwoCommonsBundle(),
-	        new \Misd\PhoneNumberBundle\MisdPhoneNumberBundle(),
-	        new \Tbbc\MoneyBundle\TbbcMoneyBundle(),
+            new \Knp\JsonSchemaBundle\KnpJsonSchemaBundle(),
+            new \Swo\CommonsBundle\SwoCommonsBundle(),
+            new \Misd\PhoneNumberBundle\MisdPhoneNumberBundle(),
+            new \Tbbc\MoneyBundle\TbbcMoneyBundle(),
 
-	        //Own Bundles
-	        new Dime\PrintingBundle\DimePrintingBundle(),
-	        new Dime\FrontendBundle\DimeFrontendBundle(),
-	        new Dime\OfferBundle\DimeOfferBundle(),
-	        new Dime\InvoiceBundle\DimeInvoiceBundle(),
-	        new Dime\EmployeeBundle\DimeEmployeeBundle(),
-	        new Dime\ReportBundle\DimeReportBundle(),
-	        new Dime\TimetrackerBundle\DimeTimetrackerBundle(),
+            //Own Bundles
+            new Dime\PrintingBundle\DimePrintingBundle(),
+            new Dime\FrontendBundle\DimeFrontendBundle(),
+            new Dime\OfferBundle\DimeOfferBundle(),
+            new Dime\InvoiceBundle\DimeInvoiceBundle(),
+            new Dime\EmployeeBundle\DimeEmployeeBundle(),
+            new Dime\ReportBundle\DimeReportBundle(),
+            new Dime\TimetrackerBundle\DimeTimetrackerBundle(),
         );
         
         if (in_array($this->getEnvironment(), array(
@@ -50,7 +50,7 @@ class AppKernel extends Kernel
             $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
             $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
             $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
-	        $bundles[] = new h4cc\AliceFixturesBundle\h4ccAliceFixturesBundle();
+            $bundles[] = new h4cc\AliceFixturesBundle\h4ccAliceFixturesBundle();
         }
         
         return $bundles;
@@ -67,7 +67,7 @@ class AppKernel extends Kernel
             'dev',
             'test'
         ))) {
-            return '/tmp/app/cache/' . $this->environment;
+            return '/dev/shm/appname/cache/' .  $this->environment;
         } else {
             return $this->rootDir . '/cache/' . $this->environment;
         }
@@ -79,7 +79,7 @@ class AppKernel extends Kernel
             'dev',
             'test'
         ))) {
-            return '/tmp/app/log/' . $this->environment;
+            return '/dev/shm/appname/log/' .  $this->environment;
         } else {
             return $this->rootDir . '/logs/' . $this->environment;
         }
