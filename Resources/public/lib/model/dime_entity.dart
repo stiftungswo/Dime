@@ -39,6 +39,14 @@ class Entity {
       var value = this.Get(item);
       if (value == null) {
         print('Trying to get ${item} from ${this.type} but it does not exist or has no getter');
+      } else if (value is Address) {
+        value.addFieldtoUpdate('street');
+        value.addFieldtoUpdate('streetnumber');
+        value.addFieldtoUpdate('city');
+        value.addFieldtoUpdate('plz');
+        value.addFieldtoUpdate('state');
+        value.addFieldtoUpdate('country');
+        value = value.toMap();
       } else if (value is Entity) {
         //TODO Fix Handling of Subentities in Backend. I Probably neeed a form transformer
         value.addFieldtoUpdate('id');
@@ -1810,13 +1818,12 @@ class Period extends Entity {
 
   Period.fromMap(Map<String, dynamic> map): super.fromMap(map);
 
-  init({Map<String, dynamic>params}) {
-    if (params != null) {
-      if (params.containsKey('employee')) {
-        this.employee = new Employee()
-          ..id = params['employee'];
-      }
+  init({Map<String, dynamic> params: const {}}) {
+    if (params.containsKey('employee')) {
+      params['employee'] = new Employee()
+        ..id = params['employee'];
     }
+    super.init(params: params);
   }
 
   newObj() {
@@ -1969,13 +1976,11 @@ class Service extends Entity {
     return new Service();
   }
 
-  init({Map<String, dynamic>params}) {
-    this.name = 'New Service';
-    if (params != null) {
-      if (params.containsKey('name')) {
-        this.name = params['name'];
-      }
+  init({Map<String, dynamic> params: const {}}) {
+    if (!params.containsKey('name')) {
+      params['name'] = 'New Service';
     }
+    super.init(params: params);
   }
 
   dynamic Get(String property) {
