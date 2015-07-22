@@ -1,5 +1,4 @@
-{% set buildtype = 'debug' %}
-{% if buildtype == 'release' %}
+{% if dime_release_mode == "true" %}
 	{% set template = 'DimeFrontendBundle::base-release.html.twig' %}
 {% else %}
 	{% set template = 'DimeFrontendBundle::base.html.twig' %}
