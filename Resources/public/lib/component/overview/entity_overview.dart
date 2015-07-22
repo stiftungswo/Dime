@@ -81,7 +81,10 @@ class EntityOverview extends AttachAware implements ScopeAware {
     return false;
   }
 
-  createEntity({var newEnt, Map<String, dynamic> params}) async{
+  createEntity({var newEnt, Map<String, dynamic> params: const{}}) async{
+    if (params.isEmpty) {
+      params = {};
+    }
     this.statusservice.setStatusToLoading();
     if (newEnt == null) {
       newEnt = this.cEnt();
@@ -288,7 +291,7 @@ class OfferPositionOverviewComponent extends EntityOverview {
 
   attach();
 
-  createEntity({Entity newEnt, Map<String, dynamic> params}) {
+  createEntity({Entity newEnt, Map<String, dynamic> params: const{}}) {
     super.createEntity(params: {'offer': this._offerId});
   }
 }
@@ -358,7 +361,7 @@ class InvoiceItemOverviewComponent extends EntityOverview {
     }
   }
 
-  createEntity({Entity newEnt, Map<String, dynamic> params}) {
+  createEntity({Entity newEnt, Map<String, dynamic> params: const{}}) {
     super.createEntity(params: {'invoice': this._invoiceId});
   }
 }
@@ -418,7 +421,7 @@ class RateOverviewComponent extends EntityOverview {
 
   attach();
 
-  createEntity({Entity newEnt, Map<String, dynamic> params}) {
+  createEntity({Entity newEnt, Map<String, dynamic> params: const{}}) {
     super.createEntity(params: {'service': this._serviceId});
   }
 }
@@ -473,7 +476,7 @@ class ActivityOverviewComponent extends EntityOverview {
 
   attach();
 
-  createEntity({var newEnt, Map<String, dynamic> params}) {
+  createEntity({var newEnt, Map<String, dynamic> params: const{}}) {
     super.createEntity(params: {'project': this._projectId});
   }
 
@@ -588,7 +591,7 @@ class TimesliceOverviewComponent extends EntityOverview {
     updateEntryDate();
   }
 
-  createEntity({Entity newEnt, Map<String, dynamic> params}) async{
+  createEntity({Entity newEnt, Map<String, dynamic> params: const{}}) async{
     if (!(this.selectedProject is Project)) return;
     Timeslice slice = new Timeslice();
     List names = [ 'value'];
@@ -917,7 +920,7 @@ class PeriodOverviewComponent extends EntityOverview implements ScopeAware {
     this.employee = this.context.employee;
   }
 
-  createEntity({var newEnt, Map<String, dynamic> params}) {
+  createEntity({var newEnt, Map<String, dynamic> params: const{}}) {
     super.createEntity(params: {'employee': this._employee.id});
   }
 }
@@ -955,7 +958,7 @@ class EmployeeOverviewComponent extends EntityOverview {
     return new Employee();
   }
 
-  createEntity({var newEnt, Map<String, dynamic> params}) async{
+  createEntity({var newEnt, Map<String, dynamic> params: const{}}) async{
     super.createEntity(params: {
       'username': 'newuser',
       'email': 'user@example.com',
@@ -1010,7 +1013,7 @@ class OfferDiscountOverviewComponent extends EntityOverview {
     }
   }
 
-  createEntity({Entity newEnt, Map<String, dynamic> params}) {
+  createEntity({Entity newEnt, Map<String, dynamic> params: const{}}) {
     super.createEntity(params: {'offer': this._offerId});
   }
 }
@@ -1062,7 +1065,7 @@ class InvoiceDiscountOverviewComponent extends EntityOverview {
     }
   }
 
-  createEntity({Entity newEnt, Map<String, dynamic> params}) {
+  createEntity({Entity newEnt, Map<String, dynamic> params: const{}}) {
     super.createEntity(params: {'invoice': this._invoiceId});
   }
 }
@@ -1094,7 +1097,7 @@ class StandardDiscountOverviewComponent extends EntityOverview {
 
   attach();
 
-  createEntity({var newEnt, Map<String, dynamic> params}) {
+  createEntity({var newEnt, Map<String, dynamic> params: const{}}) {
     if (this.newDiscount != null && !this.entities.contains(this.newDiscount)) {
       this.entities.add(this.newDiscount);
       if (this.callback != null) {
@@ -1128,7 +1131,7 @@ class RateUnitTypeOverviewComponent extends EntityOverview {
     return new RateUnitType();
   }
 
-  createEntity({Entity newEnt, Map<String, dynamic> params}) async{
+  createEntity({Entity newEnt, Map<String, dynamic> params: const{}}) async{
     RateUnitType rateType = cEnt();
     List names = ['id', 'name'];
     for (var name in names) {
