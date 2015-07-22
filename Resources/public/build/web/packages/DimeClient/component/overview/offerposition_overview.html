@@ -1,0 +1,36 @@
+<html><head></head><body><div class="col-md-12">
+  <table class="table table-bordered table-hover">
+    <thead>
+      <tr>
+        <th>Reihenfolge</th>
+        <th class="col-sm-5">Service</th>
+        <th>Tarif</th>
+        <th>Tarif Einheit</th>
+        <th>Einheits-Typ</th>
+        <th>Menge</th>
+        <th>MwSt.</th>
+        <th>Rabatierbar</th>
+        <th>Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="entity in entities | offerpostionOrder" ng-click="selectEntity(entity.id)" ng-class="isSelected(entity)? 'info': ''">
+        <td><input class="form-control" type="text" ng-model="entity.order" ng-change="addSaveField('order', entity)"></td>
+        <td><service-select service="entity.service" callback="entity.addFieldtoUpdate(name)" field="'service'"></service-select></td>
+        <td><input class="form-control" type="text" ng-model="entity.rateValue" ng-change="addSaveField('rateValue', entity)"></td>
+        <td><input class="form-control" type="text" ng-model="entity.rateUnit" ng-change="addSaveField('rateUnit', entity)"></td>
+        <td><rateunittype-select rateunittype="entity.rateUnitType" callback="entity.addFieldtoUpdate(name)" field="'rateUnitType'"></rateunittype-select></td>
+        <td><input class="form-control" type="text" ng-model="entity.amount" ng-change="addSaveField('amount', entity)"></td>
+        <td><input-percentage htmlclass="'form-control'" value="entity.vat" ng-change="addSaveField('vat', entity)"></input-percentage></td>
+        <td><input class="checkbox" type="checkbox" ng-model="entity.discountable" ng-change="addSaveField('discountable', entity)"></td>
+        <td>{{entity.total}}</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="DimeControlButtons">
+    <button type="button" class="btn btn-primary" ng-click="createEntity()">+</button>
+    <button type="button" class="btn btn-primary" ng-click="duplicateEntity()">++</button>
+    <button type="button" class="btn btn-danger" ng-click="deleteEntity()">-</button>
+    <button type="button" class="btn btn-primary" ng-click="reload(evict: true)"><span class="glyphicon glyphicon-refresh"></span></button>
+  </div>
+</div></body></html>

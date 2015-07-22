@@ -1,0 +1,70 @@
+<html><head></head><body><div class="form-inline container-fluid">
+	<div class="form-group DimePanel">
+		<div class="row">
+			<label class="col-sm-2 control-label">Name</label>
+			<div class="col-sm-4">
+				<input class="form-control" style="width: 100%;" type="text" ng-model="entity.name" ng-change="addSaveField('name')">
+			</div>
+		</div>
+		<div class="row">
+			<label class="col-sm-2 control-label">Kunde</label>
+			<customer-select class="col-sm-4" customer="entity.customer" callback="entity.addFieldtoUpdate(name)" field="'customer'"></customer-select>
+		</div>
+		<div class="row">
+			<label class="col-sm-2 control-label">Status</label>
+			<offerstatus-select class="col-sm-4" status="entity.status" callback="entity.addFieldtoUpdate(name)" field="'status'"></offerstatus-select>
+		</div>
+	</div>
+	<div class="form-group DimePanel">
+		<div class="row">
+			<label class="col-sm-2 control-label">Verantwortlicher Mitarbeiter</label>
+			<user-select class="col-sm-4" user="entity.accountant" callback="addSaveField(name)" field="'accountant'"></user-select>
+		</div>
+		<div class="row">
+			<label class="col-sm-2 control-label">Gültig bis</label>
+			<dateinput class="col-sm-4" date="entity.validTo" field="'validTo'" callback="addSaveField(name)"></dateinput>
+		</div>
+		<div class="row">
+			<label class="col-sm-2 control-label">Tarif</label>
+			<rategroup-select class="col-sm-4" rategroup="entity.rateGroup" callback="addSaveField(name)" field="'rateGroup'"></rategroup-select>
+		</div>
+		<div class="row">
+			<label class="col-sm-2 control-label">Addresse</label>
+			<address-edit address="entity.address" ng-change="addSaveField('address')"></address-edit>
+		</div>
+	</div>
+	<div class="form-group DimePanel">
+		<div class="row">
+			<label class="col-sm-2 control-label">Kurzbeschreibung</label>
+		</div>
+		<div class="row">
+			<textarea class="form-control col-sm-12" ng-model="entity.shortDescription" ng-change="addSaveField('shortDescription')" style="margin-left: 20px;"></textarea>
+		</div>
+		<div class="row">
+			<label class="col-sm-2 control-label">Beschreibung</label>
+		</div>
+		<div class="row">
+			<textarea class="form-control col-sm-12" ng-model="entity.description" ng-change="addSaveField('description')" style="margin-left: 20px;"></textarea>
+		</div>
+	</div>
+	<div class="DimePanel">
+		<offerposition-overview offer="entity.id"></offerposition-overview>
+	</div>
+	<div class="DimePanel">
+		<div class="col-md-6 left"><standarddiscount-overview discounts="entity.standardDiscounts" callback="addSaveField(name)"></standarddiscount-overview></div>
+		<div class="col-md-6 right"><offerdiscount-overview offer="entity.id"></offerdiscount-overview></div>
+	</div>
+	<div class="form-group DimePanel">
+		<div class="row"><label class="col-sm-3 control-label">Subtotal</label><div>{{entity.subtotal}}</div></div>
+		<div class="row"><label class="col-sm-3 control-label">Davon Mwst.</label><div>{{entity.totalVAT}}</div></div>
+		<div class="row"><label class="col-sm-3 control-label">Total Abzüge</label><div>{{entity.totalDiscounts}}</div></div>
+		<div class="row"><label class="col-sm-3 control-label">Total</label><div>{{entity.total}}</div></div>
+		<div class="row"><label class="col-sm-2 control-label">Fixpreis</label><input class="form-control" type="text" ng-model="entity.fixedPrice" ng-change="addSaveField('fixedPrice')"></div>
+	</div>
+</div>
+<div class="DimeControlButtons">
+	<button type="button" class="btn btn-primary" ng-click="saveEntity()"><error-icon></error-icon></button>
+	<button type="button" class="btn btn-primary" ng-click="openProject()">Projekt erstellen</button>
+	<button type="button" class="btn btn-primary" ng-click="printOffer()"><span class="glyphicon glyphicon-print"></span></button>
+	<button type="button" class="btn btn-primary" ng-click="reload(evict: true)"><span class="glyphicon glyphicon-refresh"></span></button>
+</div></body></html>

@@ -1,0 +1,28 @@
+<html><head></head><body><div class="col-md-12">
+  <div class="box box-primary">
+    <div class="box-body">
+      <table class="table table-bordered table-hover">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Abzug</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="entity in entities" ng-click="selectEntity(entity.id)" ng-class="isSelected(entity)? 'info': ''">
+            <td>{{entity.name}}</td>
+            <td>{{entity.ViewValue()}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="DimeControlButtons">
+    <div class="col-sm-2" style="padding: 0;">
+      <button type="button" class="btn btn-primary" ng-click="createEntity()">+</button>
+      <button type="button" class="btn btn-danger" ng-click="deleteEntity()">-</button>
+    </div>
+    <standarddiscount-select style="padding: 0;" class="col-sm-4" discount="newDiscount"></standarddiscount-select>
+  </div>
+</div>
+</body></html>

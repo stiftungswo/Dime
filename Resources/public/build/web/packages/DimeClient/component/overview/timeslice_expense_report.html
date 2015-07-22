@@ -1,0 +1,32 @@
+<html><head></head><body><div class="row" style="margin: 0 auto;margin-bottom: 5px;">
+  <div class="col-md-6">
+    <label>Projekt:</label>
+    <project-select clearonclose="true" project="project"></project-select>
+  </div>
+  <div class="col-md-6">
+    <label>Benutzer:</label>
+    <user-select clearonclose="true" user="user"></user-select>
+  </div>
+</div>
+<table class="table table-bordered table-hover form">
+  <thead>
+    <tr>
+      <th>Datum</th>
+      <th>Bezeichnung</th>
+      <th>Anzahl</th>
+      <th>Einheit</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="entity in report.timeslices" ng-click="selectEntity(entity.id)" ng-class="isSelected(entity)? 'info': ''">
+      <td>{{entity.startedAt | date:'dd-MM-y'}}</td>
+      <td>{{entity.activity.name}}</td>
+      <td>{{entity.value}}</td>
+      <td>{{entity.activity.rateUnit}}</td>
+    </tr>
+  </tbody>
+</table>
+<div class="col-md-12">
+  <button type="button" class="btn btn-primary" ng-click="reload(evict: true)"><span class="glyphicon glyphicon-refresh"></span></button>
+  <button type="button" class="btn btn-primary" ng-click="printReport()"><span class="glyphicon glyphicon-print"></span></button>
+</div></body></html>

@@ -40,4 +40,6 @@ Resources/public/.pub
 Resources/public/packages
 Resources/public/web/packages
 Resources/public/web/styles/packages
-Resources/public/build
+Resources/public/build/web/vendor
+Resources/public/build/web/styles
+Resources/public/build/web/images

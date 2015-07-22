@@ -1,0 +1,76 @@
+<html><head></head><body><div class="row" style="display: table;margin: 0 auto;margin-bottom: 5px;">
+  <div class="col-xs-3" style="margin: 0; padding: 0;">
+    <button type="button" class="btn btn-default" ng-click="previousMonth()">&lt;&lt;&lt;-</button>
+    <button type="button" class="btn btn-default" ng-click="previousWeek()">&lt;&lt;-</button>
+    <button type="button" class="btn btn-default" ng-click="previousDay()">&lt;-</button>
+  </div>
+  <div class="col-xs-2" style="margin: 0; padding: 0;">
+    <dateinput date="filterStartDate"></dateinput>
+  </div>
+  <div class="col-xs-2" style="margin: 0; padding: 0; margin-right: 4px;">
+    <dateinput date="filterEndDate"></dateinput>
+  </div>
+  <div class="col-xs-3" style="margin: 0; padding: 0;">
+    <button type="button" class="btn btn-default" ng-click="nextDay()">-&gt;</button>
+    <button type="button" class="btn btn-default" ng-click="nextWeek()">-&gt;&gt;</button>
+    <button type="button" class="btn btn-default" ng-click="nextMonth()">-&gt;&gt;&gt;</button>
+  </div>
+</div>
+<table class="table table-bordered table-hover form">
+  <thead>
+    <tr>
+      <th ng-if="projectBased">Benutzer</th>
+      <th class="col-sm-6">Service</th>
+      <th>Start</th>
+      <th>Ende</th>
+      <th>Dauer/Anzahl</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="entity in entities | timeslicedatefilter: filterStartDate:filterEndDate | orderBy:'startedAt'" ng-click="selectEntity(entity.id)" ng-class="isSelected(entity)? 'info': ''">
+      <td ng-if="projectBased"><user-select user="entity.user" callback="entity.addFieldtoUpdate(name)" field="'user'"></user-select></td>
+      <td><activity-select activity="entity.activity" project="entity.project.id" callback="entity.addFieldtoUpdate(name)" field="'activity'"></activity-select></td>
+      <td><dateinput style="width: 100%;" format="'dd-MM-y HH:mm'" date="entity.startedAt" field="'startedAt'" callback="entity.addFieldtoUpdate(name)"></dateinput></td>
+      <td><dateinput style="width: 100%;" format="'dd-MM-y HH:mm'" date="entity.stoppedAt" field="'stoppedAt'" callback="entity.addFieldtoUpdate(name)"></dateinput></td>
+      <td><input style="width: 100%;" class="form-control" ng-model="entity.value" ng-change="addSaveField('value', entity)"></td>
+    </tr>
+  </tbody>
+</table>
+<div class="DimeControlButtons container-inline">
+  <div class="row form-inline">
+    <div class="col-md-2">
+      <label>Datum</label>
+      <dateinput date="newEntryDate"></dateinput>
+    </div>
+    <div class="col-md-1">
+      <label>Berechnen</label>
+      <input class="checkbox" type="checkbox" ng-model="updateNewEntryDate">
+    </div>
+    <div ng-if="projectBased == true" class="col-md-2">
+      <label>Benutzer</label>
+      <user-select clearonclose="false" user="employee" usecontext="false"></user-select>
+    </div>
+    <div ng-if="projectBased == false" class="col-md-2">
+      <label>Benutzer</label>
+      <user-select clearonclose="false" usecontext="true"></user-select>
+    </div>
+    <div ng-if="allowProjectSelect" class="col-md-4">
+      <label>Projekt</label>
+      <project-select project="selectedProject"></project-select>
+    </div>
+    <div class="col-md-2">
+      <label>Aktivität</label>
+      <service-select service="selectedService"></service-select>
+    </div>
+    <div class="col-md-1">
+      <label>Wert</label>
+      <setting-edit namespace="'/usr/defaults/timeslice'" name="'value'" defaultvalue="'8.4h'"></setting-edit>
+    </div>
+    <div class="col-md-12" style="margin-top: 5px;">
+      <button type="button" class="btn btn-primary" ng-click="createEntity()">+</button>
+      <button type="button" class="btn btn-primary" ng-click="duplicateEntity()">++</button>
+      <button type="button" class="btn btn-danger" ng-click="deleteEntity()">-</button>
+      <button type="button" class="btn btn-primary" ng-click="reload(evict: true)"><span class="glyphicon glyphicon-refresh"></span></button>
+    </div>
+  </div>
+</div></body></html>

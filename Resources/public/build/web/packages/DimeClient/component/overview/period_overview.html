@@ -1,0 +1,30 @@
+<html><head></head><body><div class="col-md-12">
+  <table class="table table-bordered table-hover form">
+    <thead>
+      <tr>
+        <th>Start</th>
+        <th>Ende</th>
+        <th>Pensum</th>
+        <th>Istzeit</th>
+        <th>Sollzeit</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="entity in entities" ng-click="selectEntity(entity.id)" ng-class="isSelected(entity)? 'info': ''">
+        <td><dateinput style="width: 100%;" date="entity.start" field="'start'" callback="entity.addFieldtoUpdate(name)"></dateinput></td>
+        <td><dateinput style="width: 100%;" date="entity.end" field="'end'" callback="entity.addFieldtoUpdate(name)"></dateinput></td>
+        <td><input-percentage htmlclass="'form-control'" safecalc="false" value="entity.pensum" ng-change="addSaveField('pensum', entity)"></input-percentage></td>
+        <td>{{entity.realTime | secondsToHours}}</td>
+        <td>{{entity.targetTime | secondsToHours}}</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="DimeControlButtons container-inline">
+    <div class="col-md-12">
+      <button type="button" class="btn btn-primary" ng-click="createEntity()">+</button>
+      <button type="button" class="btn btn-primary" ng-click="duplicateEntity()">++</button>
+      <button type="button" class="btn btn-danger" ng-click="deleteEntity()">-</button>
+      <button type="button" class="btn btn-primary" ng-click="reload(evict: true)"><span class="glyphicon glyphicon-refresh"></span></button>
+    </div>
+  </div>
+</div></body></html>
