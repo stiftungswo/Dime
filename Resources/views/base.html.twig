@@ -40,13 +40,17 @@
 <body ng-cloak class="skin-blue sidebar-mini">
     <app></app>
 
-    <!-- Required Scripts for AdminLTE -->
+    <!-- required scripts for AdminLTE -->
     <script src="{{ asset('bundles/dimefrontend/web/vendor/admin-lte/plugins/jQuery/jQuery-2.1.4.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('bundles/dimefrontend/web/vendor/admin-lte/bootstrap/js/bootstrap.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('bundles/dimefrontend/web/vendor/admin-lte/dist/js/app.js') }}" type="text/javascript"></script>
 
-    <!-- Required Scripts for AdminLTE -->
-    <script type="application/dart" src="{{ asset('bundles/dimefrontend/web/main.dart') }}"></script>
+    <!-- required scripts for DimeERP (Dart or JS files) -->
+    {% if dime_release_mode == "true" %}
+        <script type="text/javascript" src="{{ asset('bundles/dimefrontend/build/web/main.dart.js') }}"></script>
+    {% else %}
+        <script type="application/dart" src="{{ asset('bundles/dimefrontend/web/main.dart') }}"></script>
+    {% endif %}
     <script type="text/javascript" src="{{ asset('bundles/dimefrontend/web/packages/browser/dart.js') }}"></script>
 </body>
 </html>

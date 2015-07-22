@@ -1,6 +1,1 @@
-{% if dime_release_mode == "true" %}
-	{% set template = 'DimeFrontendBundle::base-release.html.twig' %}
-{% else %}
-	{% set template = 'DimeFrontendBundle::base.html.twig' %}
-{% endif %}
-{% extends template %}
+{% extends 'DimeFrontendBundle::base.html.twig' %}
