@@ -6,7 +6,7 @@ void dimeRouteInitializer(Router router, RouteViewFactory views) {
   views.configure({
     'welcome': ngRoute(
         path: '/welcome',
-        viewHtml: '<div style="height: 100%;"><h1>Wilkommen</h1></div>',
+        viewHtml: '<div style="height: 100%;"><h1>Willkommen</h1></div>',
         defaultRoute: true
     ),
     'projects_overview': ngRoute(
