@@ -35,6 +35,8 @@ twig:
     form:
         resources:
             - 'TbbcMoneyBundle:Form:fields.html.twig'
+    globals:
+        dime_release_mode: "%dime_release_mode%"
 
 # Assetic Configuration
 assetic:
