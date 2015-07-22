@@ -109,6 +109,9 @@ class InvoiceHandler extends GenericHandler
 				$invoice->addInvoiceDiscounts($discount);
 			}
 		}
+		if(!is_null($project->getCustomer())) {
+			$invoice->setCustomer($project->getCustomer());
+		}
 		$this->om->persist($invoice);
 		$this->om->flush();
 		return $invoice;
