@@ -27,7 +27,11 @@
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
 
     <!-- angular ui CSS -->
-    <link rel="stylesheet" href="{{ asset('bundles/dimefrontend/web/packages/angular_ui/css/angular.css')}}">
+    {% if dime_release_mode == "true" %}
+        <link rel="stylesheet" href="{{ asset('bundles/dimefrontend/build/web/packages/angular_ui/css/angular.css')}}">
+    {% else %}
+        <link rel="stylesheet" href="{{ asset('bundles/dimefrontend/web/packages/angular_ui/css/angular.css')}}">
+    {% endif %}
 
     <!-- AdminLTE Styles -->
     <link href="{{ asset('bundles/dimefrontend/web/vendor/admin-lte/dist/css/AdminLTE.min.css')}}" rel="stylesheet" type="text/css" />
@@ -48,9 +52,10 @@
     <!-- required scripts for DimeERP (Dart or JS files) -->
     {% if dime_release_mode == "true" %}
         <script type="text/javascript" src="{{ asset('bundles/dimefrontend/build/web/main.dart.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/dimefrontend/build/web/packages/browser/dart.js') }}"></script>
     {% else %}
         <script type="application/dart" src="{{ asset('bundles/dimefrontend/web/main.dart') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/dimefrontend/web/packages/browser/dart.js') }}"></script>
     {% endif %}
-    <script type="text/javascript" src="{{ asset('bundles/dimefrontend/web/packages/browser/dart.js') }}"></script>
 </body>
 </html>
