@@ -67,7 +67,7 @@ class AppKernel extends Kernel
             'dev',
             'test'
         ))) {
-            return '/dev/shm/appname/cache/' .  $this->environment;
+            return '/dev/shm/appname/cache/' . $this->rootDir . '/' . $this->environment;
         } else {
             return $this->rootDir . '/cache/' . $this->environment;
         }
@@ -79,7 +79,7 @@ class AppKernel extends Kernel
             'dev',
             'test'
         ))) {
-            return '/dev/shm/appname/log/' .  $this->environment;
+            return '/dev/shm/appname/log/' . $this->rootDir . '/' . $this->environment;
         } else {
             return $this->rootDir . '/logs/' . $this->environment;
         }
