@@ -39,17 +39,18 @@ class Entity {
       var value = this.Get(item);
       if (value == null) {
         print('Trying to get ${item} from ${this.type} but it does not exist or has no getter');
-      } else if (value is Address) {
-        value.addFieldtoUpdate('street');
-        value.addFieldtoUpdate('streetnumber');
-        value.addFieldtoUpdate('city');
-        value.addFieldtoUpdate('plz');
-        value.addFieldtoUpdate('state');
-        value.addFieldtoUpdate('country');
-        value = value.toMap();
       } else if (value is Entity) {
         //TODO Fix Handling of Subentities in Backend. I Probably neeed a form transformer
-        value.addFieldtoUpdate('id');
+        if (value.type == 'address') {
+          value.addFieldtoUpdate('street');
+          value.addFieldtoUpdate('streetnumber');
+          value.addFieldtoUpdate('city');
+          value.addFieldtoUpdate('plz');
+          value.addFieldtoUpdate('state');
+          value.addFieldtoUpdate('country');
+        } else {
+          value.addFieldtoUpdate('id');
+        }
         value = value.toMap();
       } else if (value is DateTime) {
         value = value.toString();
