@@ -93,8 +93,14 @@ class ReportHandler extends AbstractHandler{
 			$slice->setValue($tmpResult[1])
 				->setStartedAt($tmpResult['startedAt'])
 				->setStandardUnit('h')
-				->setActivity($this->om->getRepository('DimeTimetrackerBundle:Activity')->find($tmpResult[3]))
-				->setUser($this->om->getRepository('DimeEmployeeBundle:Employee')->find($tmpResult[2]));
+				->setActivity($this->om->getRepository('DimeTimetrackerBundle:Activity')->find($tmpResult[3]));
+			//Works around an Issue Where User Id Of a Timeslice is NULL in DB.
+			//TODO Fix user_id NULL in Database. For now assume that NULL means Default User.
+			if(isset($tmpResult[2])) {
+				$slice->setUser($this->om->getRepository('DimeEmployeeBundle:Employee')->find($tmpResult[2]));
+			} else {
+				$slice->setUser($this->om->getRepository('DimeEmployeeBundle:Employee')->find(1));
+			}
 			$result[] = $slice;
 		}
 		$report = new ExpenseReport();
