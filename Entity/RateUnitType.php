@@ -163,7 +163,7 @@ class RateUnitType extends Entity implements DimeEntityInterface
 				return $value / $pow;
 				break;
 			case 9:
-				//Math trick to floor numbers to 5 or 0
+				//Math trick to ceil numbers to 5 or 0
 				$pow   = pow(10, $this->scale);
 				$value = ($value / $this->factor);
 				$value = $value * $pow;
@@ -205,35 +205,51 @@ class RateUnitType extends Entity implements DimeEntityInterface
 	 * @param $value
 	 *
 	 * Returns the non Human readable value of $value
+	 * If there is any suffix (e.g d, h, m, zt, etc.) the value is transformed to seconds,
+	 * otherwise it is returned as a float
 	 *
 	 * @return int
 	 */
 	public function reverseTransform($value)
 	{
-		if(is_string($value)){
-			$format = substr($value, -1);
-			$time = substr($value, 0, -1);
-			$time = floatval(str_replace(',', '.', $time));
-			switch($format){
-			case 'h':
-				$time = $time * RateUnitType::$HourInSeconds;
-				break;
-			case 'm':
-				$time = $time * RateUnitType::$MinuteInSeconds;
-				break;
-			case 'd':
-				$time = $time * RateUnitType::$DayInSeconds;
-				break;
-			case $this->getSymbol():
-				$time = $time * $this->factor;
-				break;
-			default:
+		if(!is_numeric($value)){
+			$value = trim($value);
+
+			// get suffix
+			preg_match('/([a-zA-Z]*)$/',$value,$format);
+			$format = strtolower(reset($format));
+
+			// get time without suffix
+			if (strlen($format) > 0){
+				$time = substr($value, 0, -strlen($format));
+			} else {
 				$time = $value;
-				break;
+			}
+			$time = str_replace(',', '.', $time);
+			$time = floatval($time);
+
+			// transform to seconds
+			switch($format){
+				case 'h':
+					$time = $time * RateUnitType::$HourInSeconds;
+					break;
+				case 'm':
+					$time = $time * RateUnitType::$MinuteInSeconds;
+					break;
+				case 'd':
+					$time = $time * RateUnitType::$DayInSeconds;
+					break;
+				case strtolower($this->getSymbol()):
+					$time = $time * $this->factor;
+					break;
+				default:
+					// do not transform
+					return $time;
+					break;
 			}
 			return intval($time);
 		}
-		return $value;
+		return floatval($value);
 	}
 
 	public function serializedOutput($value)
