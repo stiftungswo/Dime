@@ -2,6 +2,7 @@
 WEBROOT=$1
 COMPOSERDIR=$2
 cd $WEBROOT
+cp /vagrant/web/.htaccess_dev /vagrant/web/.htaccess
 php $COMPOSERDIR/composer.phar install
 mysql -u dime -pdime -e "DROP DATABASE dime; CREATE DATABASE dime;"
 php app/console doctrine:schema:create
