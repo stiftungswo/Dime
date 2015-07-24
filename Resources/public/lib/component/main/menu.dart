@@ -20,7 +20,7 @@ class MenuComponent implements ScopeAware {
   List<Menu> menus = [ 
     new Menu.withItems('Zeiterfassung', 'fa-clock-o', [
         new Menu('Übersicht', '/timetrack'),
-        new Menu('Wochenraport', '/reports/weekly')
+        new Menu('Wochenrapport', '/reports/weekly')
     ]),
     new Menu.withItems('Offerten', 'fa-file-text', [new Menu('Übersicht', '/offers/overview')]),
     new Menu.withItems('Projekte', 'fa-tree', [
