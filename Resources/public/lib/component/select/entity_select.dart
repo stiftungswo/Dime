@@ -271,8 +271,8 @@ class StandardDiscountSelectComponent extends EntitySelect {
 )
 class RoundModeSelect implements ScopeAware {
   @NgTwoWay('model')
-  int set model(int roundMode) {
-    if (roundMode = !null) {
+  set model(int roundMode) {
+    if (roundMode != null) {
       this.selector = getModeName(roundMode);
       this._model = roundMode;
     }

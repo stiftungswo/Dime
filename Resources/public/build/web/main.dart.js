@@ -53982,8 +53982,10 @@
     RoundModeSelect: {
       "^": "Object;_entity_select$_model,callback@,field@,selector@,scope@,element<,open*,modes@",
       set$model: function(roundMode) {
-        this.selector = this.getModeName$1(true);
-        this._entity_select$_model = true;
+        if (roundMode != null) {
+          this.selector = this.getModeName$1(roundMode);
+          this._entity_select$_model = roundMode;
+        }
       },
       get$model: function() {
         return this._entity_select$_model;
