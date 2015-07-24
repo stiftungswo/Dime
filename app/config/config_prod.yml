@@ -11,6 +11,10 @@ imports:
 #        result_cache_driver: apc
 #        query_cache_driver: apc
 
+web_profiler:
+    toolbar: false
+    intercept_redirects: false
+
 monolog:
     handlers:
         main:

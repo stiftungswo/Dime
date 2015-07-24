@@ -6,7 +6,7 @@ framework:
     session:
         storage_id: session.storage.mock_file
     profiler:
-        collect: false
+        collect: true
 
 web_profiler:
     toolbar: false
@@ -14,3 +14,16 @@ web_profiler:
 
 swiftmailer:
     disable_delivery: true
+
+monolog:
+    handlers:
+        main:
+            type:         fingers_crossed
+            action_level: error
+            handler:      nested
+        nested:
+            type:  stream
+            path:  "%kernel.logs_dir%/%kernel.environment%.log"
+            level: debug
+        console:
+            type:  console
