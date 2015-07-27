@@ -1,25 +1,32 @@
 <html><head></head><body><div class="col-md-12">
-  <table class="table table-bordered table-hover">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Abzug</th>
-        <th>Prozent</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr ng-repeat="entity in entities" ng-click="selectEntity(entity.id)" ng-class="isSelected(entity)? 'info': ''">
-        <td><input class="form-control" type="text" ng-model="entity.name" ng-change="addSaveField('name', entity)"></td>
-        <td ng-unless="entity.percentage"><input class="form-control" type="text" ng-model="entity.value" ng-change="addSaveField('value', entity)"></td>
-        <td ng-if="entity.percentage"><input-percentage safecalc="false" htmlclass="'form-control'" value="entity.value" ng-change="addSaveField('value', entity)"></input-percentage></td>
-        <td><input class="checkbox" type="checkbox" ng-model="entity.percentage" ng-change="addSaveField('percentage', entity)"></td>
-      </tr>
-    </tbody>
-  </table>
-  <div class="DimeControlButtons">
-    <button type="button" class="btn btn-primary" ng-click="createEntity()">Hinzufügen</button>
-    <button type="button" class="btn btn-primary" ng-click="duplicateEntity()">Duplizieren</button>
-    <button type="button" class="btn btn-danger" ng-click="deleteEntity()">Löschen</button>
-    <button type="button" class="btn btn-primary" ng-click="reload(evict: true)"><span class="glyphicon glyphicon-refresh"></span></button>
+  <div class="box box-primary">
+    <div class="box-header with-border">
+      <h3 class="box-title">Weitere Abzüge</h3>
+    </div>
+    <div class="box-body">
+      <table class="table table-bordered table-hover">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Abzug</th>
+            <th>Prozent</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="entity in entities" ng-click="selectEntity(entity.id)" ng-class="isSelected(entity)? 'info': ''">
+            <td><input class="form-control" type="text" ng-model="entity.name" ng-change="addSaveField('name', entity)"></td>
+            <td ng-unless="entity.percentage"><input class="form-control" type="text" ng-model="entity.value" ng-change="addSaveField('value', entity)"></td>
+            <td ng-if="entity.percentage"><input-percentage safecalc="false" htmlclass="'form-control'" value="entity.value" ng-change="addSaveField('value', entity)"></input-percentage></td>
+            <td><input class="checkbox" type="checkbox" ng-model="entity.percentage" ng-change="addSaveField('percentage', entity)"></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="DimeControlButtons">
+        <button type="button" class="btn btn-primary" ng-click="createEntity()">Hinzufügen</button>
+        <button type="button" class="btn btn-primary" ng-click="duplicateEntity()">Duplizieren</button>
+        <button type="button" class="btn btn-danger" ng-click="deleteEntity()">Löschen</button>
+        <button type="button" class="btn btn-default" ng-click="reload(evict: true)"><span class="glyphicon glyphicon-refresh"></span></button>
+      </div>
+    </div>
   </div>
 </div></body></html>

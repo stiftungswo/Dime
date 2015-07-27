@@ -1,62 +1,73 @@
-<html><head></head><body><div>
-	<div class="DimePanel form-inline container-fluid">
-		<div class="form-group DimePanel">
-			<div class="row">
-				<label class="col-sm-2 control-label">Name</label>
-				<div class="col-sm-4">
-					<input class="form-control" style="width: 100%;" type="text" ng-model="entity.name" ng-change="addSaveField('name')">
-				</div>
-			</div>
-			<div class="row" ng-if="entity.project">
-				<label class="col-sm-2 control-label">Auftrag</label>
-				{{entity.project.name}}
-			</div>
-			<div class="row" ng-if="entity.offer">
-				<label class="col-sm-2 control-label">Offerte</label>
-				{{entity.offer.name}}
-			</div>
-			<div class="row">
-				<label class="col-sm-2 control-label">Kunde</label>
-				<customer-select class="col-sm-4" customer="entity.customer" callback="addSaveField(name)" field="'customer'"></customer-select>
-			</div>
-		</div>
-		<div class="form-group DimePanel">
-			<div class="row">
-				<label class="col-sm-2 control-label">Startdatum</label>
-				<dateinput class="col-sm-4" date="entity.start" field="'start'" callback="addSaveField(name)"></dateinput>
-			</div>
-			<div class="row">
-				<label class="col-sm-2 control-label">Enddatum</label>
-				<dateinput class="col-sm-4" date="entity.end" field="'end'" callback="addSaveField(name)"></dateinput>
-			</div>
-		</div>
-		<div class="form-group DimePanel">
-			<div class="row">
-				<label class="col-sm-2 control-label">Beschreibung</label>
-			</div>
-			<div class="row">
-				<textarea class="form-control col-sm-12" ng-model="entity.description" ng-change="addSaveField('description')" style="margin-left: 20px;"></textarea>
-			</div>
-		</div>
-		<div class="DimePanel">
-			<invoiceitem-overview invoice="entity.id"></invoiceitem-overview>
-		</div>
-		<div class="DimePanel">
-			<div class="col-md-6 left"><standarddiscount-overview discounts="entity.standardDiscounts" callback="addSaveField(name)"></standarddiscount-overview></div>
-			<div class="col-md-6 right"><invoicediscount-overview invoice="entity.id"></invoicediscount-overview></div>
-		</div>
-		<div class="form-group DimePanel">
-			<div class="row"><label class="col-sm-3 control-label">Subtotal</label><div>{{entity.subtotal}}</div></div>
-			<div class="row"><label class="col-sm-3 control-label">Davon Mwst.</label><div>{{entity.totalVAT}}</div></div>
-			<div class="row"><label class="col-sm-3 control-label">Total Abzüge</label><div>{{entity.totalDiscounts}}</div></div>
-			<div class="row"><label class="col-sm-3 control-label">Total</label><div>{{entity.total}}</div></div>
-			<div class="row"><label class="col-sm-2 control-label">Fixpreis</label><input class="form-control" type="text" ng-model="entity.fixedPrice" ng-change="addSaveField('fixedPrice')"></div>
-		</div>
-	</div>
-	<div class="DimeControlButtons">
-		<button type="button" class="btn btn-primary" ng-click="saveEntity()"><error-icon value="saveState" timeout="20"></error-icon></button>
-		<button type="button" class="btn btn-primary" ng-click="updateInvoicefromProject()">Rechnung Updaten</button>
-		<button type="button" class="btn btn-primary" ng-click="printInvoice()"><span class="glyphicon glyphicon-print"></span></button>
-		<button type="button" class="btn btn-primary" ng-click="reload(evict: true)"><span class="glyphicon glyphicon-refresh"></span></button>
-	</div>
+<html><head></head><body><div class="col-md-12">
+  <div class="box box-primary">
+    <div class="box-header with-border">
+      <h3 class="box-title">Rechnung bearbeiten</h3>
+    </div>
+    <div class="box-body">
+      <div class="form-horizontal">
+        <div class="form-group">
+          <label class="col-md-2 control-label">Name</label>
+          <div class="col-md-4">
+            <input class="form-control" style="width: 100%;" type="text" ng-model="entity.name" ng-change="addSaveField('name')">
+          </div>
+        </div>
+        <div class="form-group" ng-if="entity.project">
+          <label class="col-md-2 control-label">Auftrag</label>
+          {{entity.project.name}}
+        </div>
+        <div class="form-group" ng-if="entity.offer">
+          <label class="col-md-2 control-label">Offerte</label>
+          {{entity.offer.name}}
+        </div>
+        <div class="form-group">
+          <label class="col-md-2 control-label">Kunde</label>
+          <customer-select class="col-md-4" customer="entity.customer" callback="addSaveField(name)" field="'customer'"></customer-select>
+        </div>
+        <div class="form-group">
+          <label class="col-md-2 control-label">Startdatum</label>
+          <dateinput class="col-md-4" date="entity.start" field="'start'" callback="addSaveField(name)"></dateinput>
+        </div>
+        <div class="form-group">
+          <label class="col-md-2 control-label">Enddatum</label>
+          <dateinput class="col-md-4" date="entity.end" field="'end'" callback="addSaveField(name)"></dateinput>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="control-label">Beschreibung</label>
+        <textarea class="form-control" ng-model="entity.description" ng-change="addSaveField('description')"></textarea>
+      </div>
+    </div>
+  </div>
+</div>
+<invoiceitem-overview invoice="entity.id"></invoiceitem-overview>
+<div class="row">
+  <div class="col-md-6"><standarddiscount-overview discounts="entity.standardDiscounts" callback="addSaveField(name)"></standarddiscount-overview></div>
+  <div class="col-md-6"><invoicediscount-overview invoice="entity.id"></invoicediscount-overview></div>
+</div>
+<div class="col-md-6">
+  <div class="box box-primary">
+    <div class="box-header with-border">
+      <h3 class="box-title">Berechnung</h3>
+    </div>
+    <div class="box-body">
+      <div class="row"><label class="col-xs-6 control-label">Subtotal</label><div class="col-xs-6">{{entity.subtotal}}</div></div>
+      <div class="row"><label class="col-xs-6 control-label">Davon Mwst.</label><div class="col-xs-6">{{entity.totalVAT}}</div></div>
+      <div class="row"><label class="col-xs-6 control-label">Total Abzüge</label><div class="col-xs-6">{{entity.totalDiscounts}}</div></div>
+      <div class="row"><label class="col-xs-6 control-label">Total</label><div class="col-xs-6">{{entity.total}}</div></div>
+      <div class="row">
+        <label class="col-sm-6 control-label">Fixpreis</label>
+        <div class="col-sm-6">
+          <input class="form-control" type="text" ng-model="entity.fixedPrice" ng-change="addSaveField('fixedPrice')">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="col-md-12">
+  <div class="DimeControlButtons">
+    <button type="button" class="btn btn-primary" ng-click="saveEntity()"><error-icon value="saveState" timeout="20"></error-icon></button>
+    <button type="button" class="btn btn-primary" ng-click="updateInvoicefromProject()">Rechnung Updaten</button>
+    <button type="button" class="btn btn-primary" ng-click="printInvoice()"><span class="glyphicon glyphicon-print"></span></button>
+    <button type="button" class="btn btn-default" ng-click="reload(evict: true)"><span class="glyphicon glyphicon-refresh"></span></button>
+  </div>
 </div></body></html>
