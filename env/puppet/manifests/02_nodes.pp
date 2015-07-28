@@ -3,6 +3,12 @@ node default {
 
 	#include augeasproviders
 
+  # setting password of user "vagrant" to "vagrant"
+  user { 'vagrant':
+    ensure   => present,
+    password => '$1$u31UiJ/z$UPgnkBRVGw1ZwJ.m2yN8V.',
+  }
+
 	# defaults
 	Sshd_config { notify => Service[ 'sshd' ] }
 
