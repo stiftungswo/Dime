@@ -73,7 +73,7 @@ class Period extends Entity implements DimeEntityInterface
 	public function getTargetTime()
 	{
 		if($this->pensum && $this->getStart() instanceof Carbon && $this->getEnd() instanceof Carbon) {
-			$weekdays = $this->getStart()->diffInWeekdays($this->getEnd());
+			$weekdays = $this->getStart()->diffInWeekdays($this->getEnd()->addDay());
 			$seconds = $weekdays * 30240;
 			$seconds -= $this->holidays;
 			return $seconds * $this->getPensum();
