@@ -46,6 +46,7 @@ class Period extends Entity implements DimeEntityInterface
 
 	/**
 	 * @var Employee
+	 * @JMS\Exclude()
 	 * @ORM\ManyToOne(targetEntity="Dime\EmployeeBundle\Entity\Employee", inversedBy="workingPeriods")
 	 */
 	protected $employee;
