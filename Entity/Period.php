@@ -181,6 +181,17 @@ class Period extends Entity implements DimeEntityInterface
 	}
 
 	/**
+	 * @JMS\VirtualProperty
+	 * @JMS\SerializedName("employee")
+	 *
+	 * @return array
+	 */
+	public function getEmployeeId()
+	{
+		return array('id' => $this->getEmployee()->getId());
+	}
+
+	/**
 	 * @return Employee
 	 */
 	public function getEmployee()
