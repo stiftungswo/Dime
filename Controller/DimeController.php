@@ -4,6 +4,9 @@ namespace Dime\TimetrackerBundle\Controller;
 
 use FOS\RestBundle\Controller\FOSRestController;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Tests\Fixtures\EntityInterface;
 
 class DimeController extends FOSRestController
 {
@@ -17,8 +20,8 @@ class DimeController extends FOSRestController
     protected function getCurrentUser()
     {
         $user = $this->container->get('security.context')->getToken()->getUser();
-        if (!is_object($user) || !$user instanceof \Symfony\Component\Security\Core\User\UserInterface) {
-            throw new \Symfony\Component\Security\Core\Exception\AccessDeniedException(
+        if (!is_object($user) || !$user instanceof UserInterface) {
+            throw new AccessDeniedException(
                 'This user does not have access to this section.');
         }
 
@@ -32,15 +35,15 @@ class DimeController extends FOSRestController
 	 *
 	 * @param       $service
 	 *
-	 * @return UserInterface
+	 * @return EntityInterface
 	 *
 	 */
     protected function getOr404($id, $service)
     {
-        if (! ($user = $this->container->get($service)->get($id))) {
+        if (! ($entity = $this->container->get($service)->get($id))) {
             throw new NotFoundHttpException(sprintf('The resource \'%s\' was not found.', $id));
         }
-        return $user;
+        return $entity;
     }
 
 }
