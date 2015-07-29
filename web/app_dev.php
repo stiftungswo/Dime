@@ -7,13 +7,22 @@ use Symfony\Component\Debug\Debug;
 // read http://symfony.com/doc/current/book/installation.html#configuration-and-setup for more information
 umask(0000);
 
-$loader = require_once __DIR__.'/../app/bootstrap.php.cache';
+// set this to true while debugging with xdebug
+$xdebug = false;
+
+if ($xdebug){
+	$loader = require_once __DIR__.'/../app/autoload.php';
+} else {
+	$loader = require_once __DIR__.'/../app/bootstrap.php.cache';
+}
 Debug::enable();
 
 require_once __DIR__.'/../app/AppKernel.php';
 
 $kernel = new AppKernel('dev', true);
-$kernel->loadClassCache();
+if (!$xdebug) {
+	$kernel->loadClassCache();
+}
 $request = Request::createFromGlobals();
 $response = $kernel->handle($request);
 $response->send();
