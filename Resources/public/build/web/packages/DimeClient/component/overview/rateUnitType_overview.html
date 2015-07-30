@@ -1,45 +1,52 @@
 <html><head></head><body><div class="col-md-12">
-  <table class="table table-bordered table-hover">
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Faktor</th>
-        <th>Kommastellen</th>
-        <th>Umwandeln</th>
-        <th>Rundungs Modus</th>
-        <th>Symbol</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr ng-repeat="entity in entities" ng-click="selectEntity(entity.id)" ng-class="isSelected(entity)? 'info': ''">
-        <td>{{entity.id}}</td>
-        <td><input type="text" class="form-control" ng-model="entity.name" ng-change="addSaveField('name', entity)"></td>
-        <td><input type="text" class="form-control" ng-model="entity.factor" ng-change="addSaveField('factor', entity)"></td>
-        <td><input type="text" class="form-control" ng-model="entity.scale" ng-change="addSaveField('scale', entity)"></td>
-        <td><input class="checkbox" type="checkbox" ng-model="entity.doTransform" ng-change="addSaveField('doTransform', entity)"></td>
-        <td><input type="text" class="form-control" ng-model="entity.roundMode" ng-change="addSaveField('roundMode', entity)"></td>
-        <td><input type="text" class="form-control" ng-model="entity.symbol" ng-change="addSaveField('symbol', entity)"></td>
-      </tr>
-    </tbody>
-  </table>
-  <div class="DimeControlButtons container-inline">
-    <div class="row form-inline">
-      <div class="col-md-2">
-        <label>Id</label>
-        <setting-edit namespace="'/usr/defaults/rateunittype'" name="'id'" defaultvalue="'new'"></setting-edit>
-      </div>
-      <div class="col-md-4">
-        <label>Name</label>
-        <setting-edit namespace="'/usr/defaults/rateunittype'" name="'name'" defaultvalue="'Neuer Typ'"></setting-edit>
-      </div>
-      <div class="col-md-12" style="margin-top: 5px;">
-        <button type="button" class="btn btn-primary" ng-click="saveAllEntities()"><error-icon value="saveState" timeout="20"></error-icon></button>
-        <button type="button" class="btn btn-primary" ng-click="createEntity()">Hinzufügen</button>
-        <button type="button" class="btn btn-danger" ng-click="deleteEntity()">Löschen</button>
-        <button type="button" class="btn btn-default" ng-click="reload(evict: true)"><span class="glyphicon glyphicon-refresh"></span></button>
+  <div class="box box-primary">
+    <div class="box-header with-border">
+      <h3 class="box-title">Tarif Typen</h3>
+    </div>
+    <div class="box-body">
+
+      <table class="table table-bordered table-hover">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Faktor</th>
+            <th>Kommastellen</th>
+            <th>Umwandeln</th>
+            <th>Rundungs Modus</th>
+            <th>Symbol</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="entity in entities" ng-click="selectEntity(entity.id)" ng-class="isSelected(entity)? 'info': ''">
+            <td>{{entity.id}}</td>
+            <td><input type="text" class="form-control" ng-model="entity.name" ng-change="addSaveField('name', entity)"></td>
+            <td><input type="text" class="form-control" ng-model="entity.factor" ng-change="addSaveField('factor', entity)"></td>
+            <td><input type="text" class="form-control" ng-model="entity.scale" ng-change="addSaveField('scale', entity)"></td>
+            <td><input class="checkbox" type="checkbox" ng-model="entity.doTransform" ng-change="addSaveField('doTransform', entity)"></td>
+            <td><input type="text" class="form-control" ng-model="entity.roundMode" ng-change="addSaveField('roundMode', entity)"></td>
+            <td><input type="text" class="form-control" ng-model="entity.symbol" ng-change="addSaveField('symbol', entity)"></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="DimeControlButtons container-inline">
+        <div class="row form-inline">
+          <div class="col-md-2">
+            <label>Id</label>
+            <setting-edit namespace="'/usr/defaults/rateunittype'" name="'id'" defaultvalue="'new'"></setting-edit>
+          </div>
+          <div class="col-md-4">
+            <label>Name</label>
+            <setting-edit namespace="'/usr/defaults/rateunittype'" name="'name'" defaultvalue="'Neuer Typ'"></setting-edit>
+          </div>
+          <div class="col-md-12" style="margin-top: 5px;">
+            <button type="button" class="btn btn-primary" ng-click="saveAllEntities()"><error-icon value="saveState" timeout="20"></error-icon></button>
+            <button type="button" class="btn btn-primary" ng-click="createEntity()">Hinzufügen</button>
+            <button type="button" class="btn btn-danger" ng-click="deleteEntity()">Löschen</button>
+            <button type="button" class="btn btn-default" ng-click="reload(evict: true)"><span class="glyphicon glyphicon-refresh"></span></button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-</div>
-</body></html>
+</div></body></html>
