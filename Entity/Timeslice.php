@@ -54,7 +54,6 @@ class Timeslice extends Entity implements DimeEntityInterface
      * @var datetime $startedAt
      *
      * @Assert\DateTime()
-     * @JMS\SerializedName("startedAt")
      * @ORM\Column(name="started_at", type="datetime", nullable=true)
      */
     protected $startedAt;
@@ -63,7 +62,6 @@ class Timeslice extends Entity implements DimeEntityInterface
      * @var datetime $stoppedAt
      *
      * @Assert\DateTime()
-     * @JMS\SerializedName("stoppedAt")
      * @ORM\Column(name="stopped_at", type="datetime", nullable=true)
      */
     protected $stoppedAt;
@@ -222,6 +220,21 @@ class Timeslice extends Entity implements DimeEntityInterface
         return Carbon::instance($this->startedAt);
     }
 
+	/**
+	 *
+	 * @JMS\VirtualProperty()
+	 * @JMS\SerializedName("startedAt")
+	 *
+	 * @return null|string
+	 */
+	public function getStartedAtSerialized()
+	{
+		if(is_null($this->startedAt)){
+			return null;
+		}
+		return Carbon::instance($this->startedAt)->toDateTimeString();
+	}
+
     /**
      * Set stopped_at
      *
@@ -250,6 +263,21 @@ class Timeslice extends Entity implements DimeEntityInterface
         }
         return Carbon::instance($this->stoppedAt);
     }
+
+	/**
+	 *
+	 * @JMS\VirtualProperty()
+	 * @JMS\SerializedName("stoppedAt")
+	 *
+	 * @return null|string
+	 */
+	public function getStoppedAtSerialized()
+	{
+		if(is_null($this->stoppedAt)){
+			return null;
+		}
+		return Carbon::instance($this->stoppedAt)->toDateTimeString();
+	}
 
     /**
      * Add tag
