@@ -59,7 +59,7 @@ class SettingEditComponent {
         }
       } else {
         this.setting = new Setting();
-        auth.afterLogin(this.loadSetting());
+        auth.afterLogin(() => this.loadSetting());
       }
     }
   }

@@ -47244,7 +47244,7 @@
             }
           else {
             this.setting = new D.Setting("settings", null, null, [], null, [], "entities", null, null, null, null, null, []);
-            this.auth.afterLogin$1(this.loadSetting$0());
+            this.auth.afterLogin$1(new O.SettingEditComponent_loadSetting_closure0(this));
           }
       },
       hasChanged$0: [function() {
@@ -47262,6 +47262,12 @@
         this._setting$_captured_this_0.setting = t1;
         return t1;
       }, null, null, 2, 0, null, 245, "call"]
+    },
+    SettingEditComponent_loadSetting_closure0: {
+      "^": "Closure:4;_setting$_captured_this_1",
+      call$0: [function() {
+        return this._setting$_captured_this_1.loadSetting$0();
+      }, null, null, 0, 0, null, "call"]
     },
     SettingEditComponent_update_closure: {
       "^": "Closure:251;_setting$_captured_this_0",
