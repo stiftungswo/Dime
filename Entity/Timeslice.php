@@ -22,49 +22,50 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Timeslice extends Entity implements DimeEntityInterface
 {
-    /**
-     * @var Activity $activity
-     *
-     * @Assert\NotNull()
-     * @JMS\MaxDepth(1)
-     * @ORM\ManyToOne(targetEntity="Activity", inversedBy="timeslices", cascade="persist")
-     * @ORM\JoinColumn(name="activity_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
-     */
-    protected $activity;
+	/**
+	 * @var Activity $activity
+	 *
+	 * @Assert\NotNull()
+	 * @JMS\MaxDepth(1)
+	 * @ORM\ManyToOne(targetEntity="Activity", inversedBy="timeslices", cascade="persist")
+	 * @ORM\JoinColumn(name="activity_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
+	 */
+	protected $activity;
 
-    /**
-     * @var ArrayCollection $tags
-     *
-     * @JMS\Type("array")
-     * @JMS\MaxDepth(1)
-     * @JMS\SerializedName("tags")
-     * @ORM\ManyToMany(targetEntity="Tag", cascade="persist")
-     * @ORM\JoinTable(name="timeslice_tags")
-     */
-    protected $tags;
+	/**
+	 * @var ArrayCollection $tags
+	 *
+	 * @JMS\Type("array")
+	 * @JMS\MaxDepth(1)
+	 * @JMS\SerializedName("tags")
+	 * @ORM\ManyToMany(targetEntity="Tag", cascade="persist")
+	 * @ORM\JoinTable(name="timeslice_tags")
+	 */
+	protected $tags;
 
-    /**
-     * @var integer $value (in seconds)
-     * @JMS\Exclude()
-     * @ORM\Column(type="decimal", scale=4, precision=10, nullable=false)
-     */
-    protected $value = 0;
+	/**
+	 * @var integer $value (in seconds)
+	 * @JMS\Exclude()
+	 * @ORM\Column(type="decimal", scale=4, precision=10, nullable=false)
+	 */
+	protected $value = 0;
 
-    /**
-     * @var datetime $startedAt
-     *
-     * @Assert\DateTime()
-     * @ORM\Column(name="started_at", type="datetime", nullable=true)
-     */
-    protected $startedAt;
+	/**
+	 * @var datetime $startedAt
+	 * @JMS\Exclude()
+	 * @Assert\DateTime()
+	 * @ORM\Column(name="started_at", type="datetime", nullable=true)
+	 */
+	protected $startedAt;
 
-    /**
-     * @var datetime $stoppedAt
-     *
-     * @Assert\DateTime()
-     * @ORM\Column(name="stopped_at", type="datetime", nullable=true)
-     */
-    protected $stoppedAt;
+	/**
+	 * @var datetime $stoppedAt
+	 *
+	 * @JMS\Exclude()
+	 * @Assert\DateTime()
+	 * @ORM\Column(name="stopped_at", type="datetime", nullable=true)
+	 */
+	protected $stoppedAt;
 
 	/**
 	 * Set this Property to overwrite the Unit Convrsion.
