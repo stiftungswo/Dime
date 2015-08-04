@@ -85,5 +85,9 @@ void dimeRouteInitializer(Router router, RouteViewFactory views) {
         path: '/reports/weekly',
         viewHtml: '<timeslice-weeklyreport></timeslice-weeklyreport>'
     ),
+    'servicehours_report': ngRoute(
+        path: '/reports/servicehours',
+        viewHtml: '<servicehours-report></servicehours-report>'
+    ),
   });
 }

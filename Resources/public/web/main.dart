@@ -27,6 +27,7 @@ import 'package:DimeClient/component/date/dateToTextInput.dart';
 import 'package:DimeClient/service/status.dart';
 import 'package:DimeClient/component/statusbar/statusbar.dart';
 import 'package:DimeClient/component/main/usermenu.dart';
+import 'package:DimeClient/component/report/servicehours_report.dart';
 
 class AppModule extends Module {
   AppModule() {
@@ -86,6 +87,7 @@ class AppModule extends Module {
     bind(ProjectTimetrackComponent);
     bind(RateUnitTypeOverviewComponent);
     bind(TimesliceWeeklyReportComponent);
+    bind(ServicehoursReportComponent);
     bind(RoundModeSelect);
     bind(UserMenu);
     install(new Hammock());

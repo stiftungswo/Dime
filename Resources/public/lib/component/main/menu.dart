@@ -26,7 +26,8 @@ class MenuComponent implements ScopeAware {
     new Menu.withItems('Projekte', 'fa-tree', [
         new Menu('Übersicht', '/projects/overview'),
         new Menu('Zeiterfassung', '/projects/timetrack'),
-        new Menu('Aufwandsbericht', '/reports/expense')
+        new Menu('Aufwandsbericht', '/reports/expense'),
+        new Menu('Stundenrapport', '/reports/servicehours')
     ]),
     new Menu.withItems('Rechnungen', 'fa-calculator', [new Menu('Übersicht', '/invoices/overview')]),
     new Menu.withItems('Kunden', 'fa-users', [new Menu('Übersicht', '/customers/overview')]),

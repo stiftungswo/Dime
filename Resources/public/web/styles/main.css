@@ -115,3 +115,8 @@ textarea.tiny{
   border: 0;
   border-bottom: 1px solid #ddd;
 }
+
+.table-bordered .text-overflow-ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
