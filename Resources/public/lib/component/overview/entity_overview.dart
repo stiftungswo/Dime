@@ -641,8 +641,9 @@ class TimesliceOverviewComponent extends EntityOverview {
       if (date == null) {
         date = this.filterStartDate;
       }
-      List<Timeslice> relevantSlices = this.entities.where((i) => i.startedAt.isAfter(this.filterStartDate) && i.startedAt.isBefore(this.filterEndDate));
-      while (date.isBefore(this.filterEndDate)) {
+      DateTime endDateEndOfDay = this.filterEndDate.add(new Duration(hours: 23, minutes: 59));
+      List<Timeslice> relevantSlices = this.entities.where((i) => i.startedAt.isAfter(this.filterStartDate) && i.startedAt.isBefore(endDateEndOfDay));
+      while (date.isBefore(endDateEndOfDay)) {
         List<Timeslice> slicesInDay = relevantSlices.where((i) => i.startedAt.isAfter(date) && i.startedAt.isBefore(date.add(new Duration(days: 1))));
         int duration = 0;
         for (Timeslice slice in slicesInDay) {
@@ -693,8 +694,7 @@ class TimesliceOverviewComponent extends EntityOverview {
         seconds: filterStartDate.second - 1,
         milliseconds: filterStartDate.millisecond
     ));
-    this.filterEndDate = this.filterStartDate;
-    this.filterEndDate = this.filterEndDate.add(new Duration(days: 4, hours: 23, minutes: 59));
+    this.filterEndDate = this.filterStartDate.add(new Duration(days: 4));
   }
 
   updateChosenSetting(String name) {

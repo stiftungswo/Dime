@@ -2,6 +2,7 @@ library dime.filters;
 
 import 'package:angular/angular.dart';
 import 'package:DimeClient/model/dime_entity.dart';
+import 'dart:html';
 
 @Formatter(name: 'userfilter')
 class UserFilter {
@@ -17,6 +18,10 @@ class UserFilter {
 class TimesliceDateFilter {
   call(List entityList, start, end) {
     if ((start is DateTime || end is DateTime) && entityList != null) {
+      if (end != null){
+        // set end date to end of day to include entries of the last day
+        end = end.add(new Duration(hours: 23, minutes: 59));
+      }
       if (start is DateTime && end == null) {
         //Only Show Timeslices that begin after start
         return entityList.where((i) => i.startedAt.isAfter(start));
