@@ -17,22 +17,19 @@
         <div class="col-xs-1" style="margin: 0; padding: 0; width: 11%;">
           <button type="button" class="btn btn-default" ng-click="nextWeek()">-&gt;&gt;</button>
         </div>
+        <button type="button" class="btn btn-default" ng-click="reload(evict: true)"><span class="glyphicon glyphicon-refresh"></span></button>
       </div>
       <table class="table table-bordered table-hover form">
         <thead>
           <tr>
             <th>Name</th>
-            <th ng-repeat="date in dates">{{date | date:'dd.MM.y'}}</th>
+            <th ng-repeat="date in dates">{{date | date:'EEE dd.MM.y'}}</th>
           </tr>
         </thead>
         <tbody>
           <tr ng-repeat="entry in entries">
             <td>{{entry.name}}</td>
-            <td>{{entry.days.elementAt(0).value}}</td>
-            <td>{{entry.days.elementAt(1).value}}</td>
-            <td>{{entry.days.elementAt(2).value}}</td>
-            <td>{{entry.days.elementAt(3).value}}</td>
-            <td>{{entry.days.elementAt(4).value}}</td>
+            <td ng-repeat="day in entry.days">{{day.value}}</td>
           </tr>
         </tbody>
       </table>
