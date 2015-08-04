@@ -11,6 +11,7 @@ use Carbon\Carbon;
 use Dime\ReportBundle\Entity\ExpenseReport;
 use Dime\TimetrackerBundle\Entity\Timeslice;
 use Dime\TimetrackerBundle\Handler\AbstractHandler;
+use Symfony\Component\Config\Definition\Exception\Exception;
 
 class ReportHandler extends AbstractHandler{
 
@@ -108,4 +109,77 @@ class ReportHandler extends AbstractHandler{
 		return $report;
 	}
 
+	/**
+	 * generate report with hours per service for each project in a give timeframe
+	 *
+	 * @param int $year
+	 * @return array
+	 * @throws \HttpInvalidParamException
+	 */
+	public function getServicehoursReport($year) {
+
+		if (!$year || $year < 1900){
+			throw new Exception('Invalid year: '.$year);
+		}
+
+		$projects = $this->om->getRepository('DimeTimetrackerBundle:Project')->findAll();
+
+		$report = array();
+		$listofactivities = [];
+		$activitytotal = [];
+
+		foreach($projects as $project){
+			$projectdata = [];
+			$projectdata['name'] = $project->getName();
+
+			// alle timeslices im zeitraum ausser solche mit rateUnitType "a" (Anderes)
+			$timeslices = $this->om->getRepository('DimeTimetrackerBundle:Timeslice')
+				->createQueryBuilder('timeslice')
+				->join('timeslice.activity', 'activity')
+				->where('activity.project = :projectId')
+				->andWhere('activity.rateUnitType != :other')
+				->andWhere('timeslice.startedAt <= :yearEnd')
+				->andWhere('timeslice.stoppedAt >= :yearBegin')
+				->setParameter('projectId', $project->getId())
+				->setParameter('other', 'a')
+				->setParameter('yearBegin', new \DateTime($year."-01-01"))
+				->setParameter('yearEnd', new \DateTime($year."-12-31"))
+				->getQuery()
+				->getResult();
+
+			$activities = array();
+			$projecttotal = 0;
+			foreach($timeslices as $slice){
+				$activityalias = $slice->getActivity()->getAlias();
+
+				$listofactivities[] = $slice->getActivity()->getAlias();
+
+				// Summe der activities pro Projekt
+				if (isset($activities[$activityalias])){
+					$activities[$activityalias] += (int) $slice->getValue();
+				} else {
+					$activities[$activityalias] = (int) $slice->getValue();
+				}
+
+				// Total pro Activity über alle Projekte
+				if (isset($activitytotal[$activityalias])){
+					$activitytotal[$activityalias] += (int) $slice->getValue();
+				} else {
+					$activitytotal[$activityalias] = (int) $slice->getValue();
+				}
+
+				// Total pro Projekt
+				$projecttotal += (int) $slice->getValue();
+			}
+			$projectdata['activities'] = $activities;
+			$projectdata['total'] = $projecttotal;
+			$report['projects'][] = $projectdata;
+		}
+
+		// activitylist is only needed because AngularDart's ng-repeat does not support iterating over maps :/
+		$report['total']['activitylist'] = array_values(array_unique($listofactivities));
+		$report['total']['activities'] = $activitytotal;
+
+		return $report;
+	}
 }

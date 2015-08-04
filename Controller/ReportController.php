@@ -114,4 +114,65 @@ class ReportController extends DimeController{
 	{
 		return $this->container->get('dime.report.handler')->getZiviWeekReport($paramFetcher->all());
 	}
+
+	/**
+	 *
+	 *
+	 * @ApiDoc(
+	 * resource = true,
+	 * section="report",
+	 * statusCodes = {
+	 * 200 = "Returned when successful"
+	 * }
+	 * )
+	 *
+	 * @Annotations\QueryParam(name="year", nullable=false, description="Specify year in YYYY format")
+	 *
+	 *
+	 * @Annotations\View(
+	 *  serializerEnableMaxDepthChecks=true
+	 * )
+	 *
+	 * @Annotations\Route(
+	 * requirements={"_format"="json|xml"}
+	 * )
+	 *
+	 * @param ParamFetcherInterface $paramFetcher
+	 *
+	 * @return array
+	 */
+	public function getReportsServicehoursAction(ParamFetcherInterface $paramFetcher)
+	{
+		return $this->container->get('dime.report.handler')->getServicehoursReport($paramFetcher->get('year'));
+	}
+
+	/**
+	 *
+	 *
+	 * @ApiDoc(
+	 * resource = true,
+	 * section="report",
+	 * statusCodes = {
+	 * 200 = "Returned when successful"
+	 * }
+	 * )
+	 *
+	 * @Annotations\QueryParam(name="year", nullable=false, description="Specify year in YYYY format")
+	 *
+	 *
+	 * @Annotations\View(
+	 *  serializerEnableMaxDepthChecks=true
+	 * )
+	 *
+	 * @param ParamFetcherInterface $paramFetcher
+	 *
+	 * @return array
+	 */
+	public function getReportsServicehoursCSVAction(ParamFetcherInterface $paramFetcher)
+	{
+		$response->headers->set('Content-Type', 'text/csv');
+		$response->headers->set('Content-Disposition', 'attachment; filename="teams.csv"');
+
+		return $this->container->get('dime.report.handler')->getServicehoursReport($paramFetcher->get('year'));
+	}
 }
