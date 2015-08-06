@@ -13,6 +13,7 @@ import 'package:DimeClient/routing/dime_router.dart';
 import 'package:DimeClient/hammock/dime_hammock.dart';
 import 'package:DimeClient/component/overview/entity_overview.dart';
 import 'package:DimeClient/component/overview/timeslice_weekly_report.dart';
+import 'package:DimeClient/component/overview/timeslice_overview.dart';
 import 'package:DimeClient/component/errorIcon/error_icon.dart';
 import 'package:DimeClient/component/edit/entity_edit.dart';
 import 'package:DimeClient/service/user_auth.dart';
@@ -88,6 +89,7 @@ class AppModule extends Module {
     bind(ProjectTimetrackComponent);
     bind(RateUnitTypeOverviewComponent);
     bind(TimesliceWeeklyReportComponent);
+    bind(TimesliceOverviewComponent);
     bind(ServicehoursReportComponent);
     bind(RoundModeSelect);
     bind(UserMenu);

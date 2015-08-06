@@ -5,7 +5,7 @@ import 'package:intl/intl.dart';
 
 @Component(
     selector: 'dateinput',
-    template: '<input style="width: 100%;" ng-model="text" class="form-control" ng-blur="updateDate()">',
+    templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/date/dateToTextInput.html',
     useShadowDom: false
 )
 class DateToTextInput {
@@ -22,6 +22,9 @@ class DateToTextInput {
   @NgOneWayOneTime('format')
   String format = 'dd-MM-y';
 
+  @NgOneWayOneTime('has-buttons')
+  bool hasButtons = false;
+
   String _text;
 
   get text {
@@ -33,6 +36,19 @@ class DateToTextInput {
 
   set text(String text) {
     this._text = text;
+  }
+
+  today(){
+    DateTime now = new DateTime.now();
+    this.date = new DateTime(now.year, now.month, now.day);
+  }
+
+  nextDay(){
+    this.date = this.date.add(new Duration(days: 1));
+  }
+
+  previousDay(){
+    this.date = this.date.subtract(new Duration(days: 1));
   }
 
   updateDate() {

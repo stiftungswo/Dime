@@ -1,4 +1,4 @@
-library entity_overview_component;
+library timeslice_weekly_report_overview_component;
 
 import 'package:angular/angular.dart';
 import 'package:hammock/hammock.dart';
