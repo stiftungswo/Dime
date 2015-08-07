@@ -9,7 +9,7 @@
         <thead>
           <tr>
             <th style="width: 150px;">Projekt</th>
-            <th ng-repeat="activity in total.activitylist" style="width: 60px;" class="text-overflow-ellipsis" title="{{activity}}">
+            <th ng-repeat="activity in total.activitylist" style="width: 80px;" class="text-overflow-ellipsis" title="{{activity}}">
               {{activity}}
             </th>
             <th style="width: 60px;">Total</th>
@@ -21,7 +21,7 @@
             <td ng-repeat="activity in total.activitylist" title="{{activity}}">
               {{(entry.activities[activity]/(60*60)) | number:1}}
             </td>
-            <td>{{(entry.total/(60*60)) | number:1}}</td>
+            <td title="{{entry.name}}">{{(entry.total/(60*60)) | number:1}}</td>
           </tr>
         </tbody>
         <tfoot>

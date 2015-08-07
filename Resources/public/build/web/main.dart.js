@@ -529,2275 +529,2281 @@
   };
   var dart = [["DimeClient.web.main.generated_expressions", "main_static_expressions.dart",, G, {
     "^": "",
-    closure322: {
+    closure323: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$employee();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure323: {
+    closure324: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$projectFilter();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure324: {
+    closure325: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$allowProjectSelect();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure325: {
+    closure326: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$offerId();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure326: {
+    closure327: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$invoiceId();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure327: {
+    closure328: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$serviceId();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure328: {
+    closure329: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$projectId();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure329: {
+    closure330: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$entities();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure330: {
+    closure331: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$callback();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure331: {
+    closure332: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$select$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure332: {
+    closure333: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$urls();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure333: {
+    closure334: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$value$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure334: {
+    closure335: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$bind();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure335: {
+    closure336: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$valueExpression();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure336: {
+    closure337: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$onAbort$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure337: {
+    closure338: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$onBeforeCopy$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure338: {
+    closure339: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$onBeforeCut$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure339: {
+    closure340: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$onBeforePaste$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure340: {
+    closure341: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$onBlur$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure341: {
+    closure342: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$onChange$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure342: {
+    closure343: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$onClick$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure343: {
+    closure344: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$onContextMenu$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure344: {
+    closure345: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$onCopy$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure345: {
+    closure346: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$onCut$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure346: {
+    closure347: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$onDoubleClick$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure347: {
+    closure348: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$onDrag$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure348: {
+    closure349: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$onDragEnd$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure349: {
+    closure350: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$onDragEnter$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure350: {
+    closure351: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$onDragLeave$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure351: {
+    closure352: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$onDragOver$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure352: {
+    closure353: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$onDragStart$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure353: {
+    closure354: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$onDrop$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure354: {
+    closure355: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$onError$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure355: {
+    closure356: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$onFocus$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure356: {
+    closure357: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$onFullscreenChange$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure357: {
+    closure358: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$onFullscreenError$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure358: {
+    closure359: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$onInput$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure359: {
+    closure360: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$onInvalid$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure360: {
+    closure361: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$onKeyDown$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure361: {
+    closure362: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$onKeyPress$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure362: {
+    closure363: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$onKeyUp$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure363: {
+    closure364: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$onLoad$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure364: {
+    closure365: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$onMouseDown$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure365: {
+    closure366: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$onMouseEnter$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure366: {
+    closure367: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$onMouseLeave$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure367: {
+    closure368: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$onMouseMove$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure368: {
+    closure369: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$onMouseOut$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure369: {
+    closure370: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$onMouseOver$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure370: {
+    closure371: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$onMouseUp$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure371: {
+    closure372: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$onMouseWheel$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure372: {
+    closure373: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$onPaste$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure373: {
+    closure374: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$onReset$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure374: {
+    closure375: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$onScroll$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure375: {
+    closure376: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$onSearch$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure376: {
+    closure377: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$onSelect$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure377: {
+    closure378: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$onSelectStart$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure378: {
+    closure379: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$onSubmit$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure379: {
+    closure380: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$onTouchCancel$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure380: {
+    closure381: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$onTouchEnd$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure381: {
+    closure382: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$onTouchEnter$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure382: {
+    closure383: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$onTouchLeave$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure383: {
+    closure384: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$onTouchMove$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure384: {
+    closure385: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$onTouchStart$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure385: {
+    closure386: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$onTransitionEnd$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure386: {
+    closure387: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$condition();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure387: {
+    closure388: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$url$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure388: {
+    closure389: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$name$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure389: {
+    closure390: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$model();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure390: {
+    closure391: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$idlAttrKind();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure391: {
+    closure392: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$count();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure392: {
+    closure393: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$expression();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure393: {
+    closure394: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$templateUrl();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure394: {
+    closure395: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$hide();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure395: {
+    closure396: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$show$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure396: {
+    closure397: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$checked$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure397: {
+    closure398: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$disabled$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure398: {
+    closure399: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$multiple$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure399: {
+    closure400: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$open$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure400: {
+    closure401: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$readonly();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure401: {
+    closure402: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$required$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure402: {
+    closure403: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$selected$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure403: {
+    closure404: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$href$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure404: {
+    closure405: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$src$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure405: {
+    closure406: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$srcset$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure406: {
+    closure407: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$styleExpression();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure407: {
+    closure408: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$max$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure408: {
+    closure409: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$min$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure409: {
+    closure410: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$pattern$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure410: {
+    closure411: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$minlength();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure411: {
+    closure412: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$maxlength();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure412: {
+    closure413: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$options$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure413: {
+    closure414: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$option$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure414: {
+    closure415: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$routeName();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure415: {
+    closure416: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$selectedEntity();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure416: {
+    closure417: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$field();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure417: {
+    closure418: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$clearOnClose();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure418: {
+    closure419: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$useContext();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure419: {
+    closure420: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$htmlclass();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure420: {
+    closure421: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$precision();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure421: {
+    closure422: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$useSafeCalc();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure422: {
+    closure423: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$date();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure423: {
+    closure424: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$format$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure424: {
+    closure425: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$hasButtons();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure425: {
+    closure426: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$namespace();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure426: {
+    closure427: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$setting();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure427: {
+    closure428: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$isCloseOthers();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure428: {
+    closure429: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$heading();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure429: {
+    closure430: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$isOpen();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure430: {
+    closure431: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$isDisabled();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure431: {
+    closure432: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$collapse$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure432: {
+    closure433: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$btnRadioAttr();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure433: {
+    closure434: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$btnCheckboxTrue();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure434: {
+    closure435: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$btnCheckboxFalse();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure435: {
+    closure436: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$type$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure436: {
+    closure437: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$close$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure437: {
+    closure438: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$alertTypeAsString();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure438: {
+    closure439: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$closeable();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure439: {
+    closure440: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$justified();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure440: {
+    closure441: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$vertical();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure441: {
+    closure442: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$tabs();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure442: {
+    closure443: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$tab();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure443: {
+    closure444: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$active();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure444: {
+    closure445: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$onSelectCallback();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure445: {
+    closure446: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$onDeselectCallback();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure446: {
+    closure447: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$append$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure447: {
+    closure448: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$windowClass();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure448: {
+    closure449: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$visible();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure449: {
+    closure450: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$keyboard();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure450: {
+    closure451: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$index$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure451: {
+    closure452: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$backdropAsString();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure452: {
+    closure453: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$size$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure453: {
+    closure454: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$$$event();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure454: {
+    closure455: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$sizeClass();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure455: {
+    closure456: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$draggable$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure456: {
+    closure457: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$draggableData();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure457: {
+    closure458: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$dragdropConfig();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure458: {
+    closure459: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$onDragSuccessCallback();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure459: {
+    closure460: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$dropZones();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure460: {
+    closure461: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$onDropSuccessCallback();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure461: {
+    closure462: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$sortableData();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure462: {
+    closure463: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$sortableConfig();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure463: {
+    closure464: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$sortableZones();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure464: {
+    closure465: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$currentPage();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure465: {
+    closure466: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$totalItems();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure466: {
+    closure467: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$itemsPerPage();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure467: {
+    closure468: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$setNumPagesListener();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure468: {
+    closure469: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$onSelectChangeExtEventHandler();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure469: {
+    closure470: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$align();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure470: {
+    closure471: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$previousText();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure471: {
+    closure472: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$nextText();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure472: {
+    closure473: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$noPrevious();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure473: {
+    closure474: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$noNext();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure474: {
+    closure475: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$maxSize();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure475: {
+    closure476: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$rotate$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure476: {
+    closure477: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$boundaryLinks();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure477: {
+    closure478: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$directionLinks();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure478: {
+    closure479: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$firstText();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure479: {
+    closure480: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$lastText();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure480: {
+    closure481: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$pages();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure481: {
+    closure482: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$page$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure482: {
+    closure483: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$isActive();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure483: {
+    closure484: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$number();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure484: {
+    closure485: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$text$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure485: {
+    closure486: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$totalPages();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure486: {
+    closure487: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$matches$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure487: {
+    closure488: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$selectEventHandler();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure488: {
+    closure489: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$position$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure489: {
+    closure490: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$query$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure490: {
+    closure491: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$top$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure491: {
+    closure492: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$left$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure492: {
+    closure493: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$match();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure493: {
+    closure494: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$id$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure494: {
+    closure495: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$$$index();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure495: {
+    closure496: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$minLength();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure496: {
+    closure497: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$appendToBody();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure497: {
+    closure498: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$inputFormatter();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure498: {
+    closure499: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$waitInMs();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure499: {
+    closure500: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$isLoading();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure500: {
+    closure501: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$isEditable();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure501: {
+    closure502: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$showMeridian();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure502: {
+    closure503: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$invalidHours();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure503: {
+    closure504: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$readonlyInput();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure504: {
+    closure505: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$invalidMinutes();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure505: {
+    closure506: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$meridian();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure506: {
+    closure507: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$isCollapsed();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure507: {
+    closure508: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$noTransition();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure508: {
+    closure509: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$interval$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure509: {
+    closure510: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$noPause();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure510: {
+    closure511: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$slides();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure511: {
+    closure512: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$length$asx(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure512: {
+    closure513: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$item$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure513: {
+    closure514: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$direction$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure514: {
+    closure515: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$entering();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure515: {
+    closure516: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$leaving();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure516: {
+    closure517: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$next();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure517: {
+    closure518: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$animate$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure518: {
+    closure519: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$classes$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure519: {
-      "^": "Closure:0;",
-      call$1: [function(o) {
-        return o.get$address();
-      }, null, null, 2, 0, null, 0, "call"]
-    },
     closure520: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$onHover();
+        return o.get$editform();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure521: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$onLeave();
+        return o.get$address();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure522: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$range();
+        return o.get$onHover();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure523: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return J.get$r$x(o);
+        return o.get$onLeave();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure524: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$dayFormat();
+        return o.get$range();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure525: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$monthFormat();
+        return J.get$r$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure526: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$yearFormat();
+        return o.get$dayFormat();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure527: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$dayHeaderFormat();
+        return o.get$monthFormat();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure528: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$dayTitleFormat();
+        return o.get$yearFormat();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure529: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$monthTitleFormat();
+        return o.get$dayHeaderFormat();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure530: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$startingDay();
+        return o.get$dayTitleFormat();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure531: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$yearRange();
+        return o.get$monthTitleFormat();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure532: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$dateDisabled();
+        return o.get$startingDay();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure533: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$showWeeks();
+        return o.get$yearRange();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure534: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$d();
+        return o.get$dateDisabled();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure535: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return J.get$display$x(o);
+        return o.get$showWeeks();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure536: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$showButtonBar();
+        return o.get$d();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure537: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$currentText();
+        return J.get$display$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure538: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$toggleWeeksText();
+        return o.get$showButtonBar();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure539: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$clearText();
+        return o.get$currentText();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure540: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$closeText();
+        return o.get$toggleWeeksText();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure541: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$filterStartDate();
+        return o.get$clearText();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure542: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$filterEndDate();
+        return o.get$closeText();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure543: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$projectBased();
+        return o.get$filterStartDate();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure544: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$entity();
+        return o.get$filterEndDate();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure545: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$user();
+        return o.get$projectBased();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure546: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$activity();
+        return o.get$entity();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure547: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$project();
+        return o.get$user();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure548: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$startedAt();
+        return o.get$activity();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure549: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$stoppedAt();
+        return o.get$project();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure550: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$newEntryDate();
+        return o.get$startedAt();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure551: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$updateNewEntryDate();
+        return o.get$stoppedAt();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure552: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$selectedProject();
+        return o.get$newEntryDate();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure553: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$selectedService();
+        return o.get$updateNewEntryDate();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure554: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$alias();
+        return o.get$selectedProject();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure555: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$description();
+        return o.get$selectedService();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure556: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$street();
+        return o.get$alias();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure557: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$streetnumber();
+        return o.get$description();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure558: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$plz();
+        return o.get$street();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure559: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$city();
+        return o.get$streetnumber();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure560: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$shortDescription();
+        return o.get$plz();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure561: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return J.get$order$x(o);
+        return o.get$city();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure562: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$service();
+        return o.get$shortDescription();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure563: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$rateValue();
+        return J.get$order$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure564: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$rateUnit();
+        return o.get$service();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure565: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$rateUnitType();
+        return o.get$rateValue();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure566: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$amount();
+        return o.get$rateUnit();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure567: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$vat();
+        return o.get$rateUnitType();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure568: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$discountable();
+        return o.get$amount();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure569: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return J.get$total$x(o);
+        return o.get$vat();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure570: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return J.get$start$x(o);
+        return o.get$discountable();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure571: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$end();
+        return J.get$total$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure572: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$rateGroup();
+        return J.get$start$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure573: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$report();
+        return o.get$end();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure574: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$timeslices();
+        return o.get$rateGroup();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure575: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$pensum();
+        return o.get$report();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure576: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$realTime();
+        return o.get$timeslices();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure577: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$targetTime();
+        return o.get$pensum();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure578: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return J.get$duration$x(o);
+        return o.get$realTime();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure579: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return J.get$username$x(o);
+        return o.get$targetTime();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure580: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$fullname();
+        return J.get$duration$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure581: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$email();
+        return J.get$username$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure582: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return J.get$enabled$x(o);
+        return o.get$fullname();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure583: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$locked();
+        return o.get$email();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure584: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$percentage();
+        return J.get$enabled$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure585: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$newDiscount();
+        return o.get$locked();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure586: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$factor();
+        return o.get$percentage();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure587: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return J.get$scale$x(o);
+        return o.get$newDiscount();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure588: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$doTransform();
+        return o.get$factor();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure589: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$roundMode();
+        return J.get$scale$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure590: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$symbol();
+        return o.get$doTransform();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure591: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$selector();
+        return o.get$roundMode();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure592: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$modes();
+        return o.get$symbol();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure593: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return J.get$mode$x(o);
+        return o.get$selector();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure594: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$link();
+        return o.get$modes();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure595: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$linklist();
+        return J.get$mode$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure596: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$Title();
+        return o.get$link();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure597: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$auth();
+        return o.get$linklist();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure598: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$isloggedin();
+        return o.get$Title();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure599: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$userContext();
+        return o.get$auth();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure600: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$loginFailed();
+        return o.get$isloggedin();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure601: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return J.get$password$x(o);
+        return o.get$userContext();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure602: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$rememberme();
+        return o.get$loginFailed();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure603: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$loginInProgress();
+        return J.get$password$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure604: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$statusservice();
+        return o.get$rememberme();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure605: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return J.get$status$x(o);
+        return o.get$loginInProgress();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure606: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$activitylist();
+        return o.get$statusservice();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure607: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return J.get$entries$x(o);
+        return J.get$status$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure608: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$entry();
+        return o.get$activitylist();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure609: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$activities();
+        return J.get$entries$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure610: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$menus();
+        return o.get$entry();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure611: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$menu();
+        return o.get$activities();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure612: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$icon();
+        return o.get$menus();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure613: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return J.get$title$x(o);
+        return o.get$menu();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure614: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return J.get$items$x(o);
+        return o.get$icon();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure615: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return J.get$error$x(o);
+        return J.get$title$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure616: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$loading();
+        return J.get$items$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure617: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$defaultVal();
+        return J.get$error$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure618: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$success();
+        return o.get$loading();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure619: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$firstname();
+        return o.get$defaultVal();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure620: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$lastname();
+        return o.get$success();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure621: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$customer();
+        return o.get$firstname();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure622: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$chargeable();
+        return o.get$lastname();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure623: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$deadline();
+        return o.get$customer();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure624: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$budgetPrice();
+        return o.get$chargeable();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure625: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$budgetTime();
+        return o.get$deadline();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure626: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$currentPrice();
+        return o.get$budgetPrice();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure627: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return J.get$currentTime$x(o);
+        return o.get$budgetTime();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure628: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$fixedPrice();
+        return o.get$currentPrice();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure629: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$accountant();
+        return J.get$currentTime$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure630: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$validTo();
+        return o.get$fixedPrice();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure631: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$standardDiscounts();
+        return o.get$accountant();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure632: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$subtotal();
+        return o.get$validTo();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure633: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$totalVAT();
+        return o.get$standardDiscounts();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure634: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$totalDiscounts();
+        return o.get$subtotal();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure635: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$offer();
+        return o.get$totalVAT();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure636: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$company();
+        return o.get$totalDiscounts();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure637: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$department();
+        return o.get$offer();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure638: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$salutation();
+        return o.get$company();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure639: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return J.get$state$x(o);
+        return o.get$department();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure640: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$country();
+        return o.get$salutation();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure641: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$plainpassword();
+        return J.get$state$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure642: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$dates();
+        return o.get$country();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure643: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$days();
+        return o.get$plainpassword();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure644: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$day();
+        return o.get$dates();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure645: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$toggleOpen();
+        return o.get$days();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure646: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$selectPage();
+        return o.get$day();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure647: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$selectMatch();
+        return o.get$toggleOpen();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure648: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$selectActive();
+        return o.get$selectPage();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure649: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$incrementHours();
+        return o.get$selectMatch();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure650: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$incrementMinutes();
+        return o.get$selectActive();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure651: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$updateHours();
+        return o.get$incrementHours();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure652: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$updateMinutes();
+        return o.get$incrementMinutes();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure653: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$toggleMeridian();
+        return o.get$updateHours();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure654: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$decrementHours();
+        return o.get$updateMinutes();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure655: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$decrementMinutes();
+        return o.get$toggleMeridian();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure656: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return J.get$pause$x(o);
+        return o.get$decrementHours();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure657: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return J.get$play$x(o);
+        return o.get$decrementMinutes();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure658: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$prev();
+        return J.get$pause$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure659: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return J.get$reset$x(o);
+        return J.get$play$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure660: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$stateClass();
+        return o.get$prev();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure661: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$rate();
+        return J.get$reset$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure662: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$enter();
+        return o.get$stateClass();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure663: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$move();
+        return o.get$rate();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure664: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$toggleMode();
+        return o.get$enter();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure665: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$today();
+        return o.get$move();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure666: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return J.get$clear$ax(o);
+        return o.get$toggleMode();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure667: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$previousMonth();
+        return o.get$today();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure668: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$previousWeek();
+        return J.get$clear$ax(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure669: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$previousDay();
+        return o.get$previousMonth();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure670: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$nextDay();
+        return o.get$previousWeek();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure671: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$nextWeek();
+        return o.get$previousDay();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure672: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$nextMonth();
+        return o.get$nextDay();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure673: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$isSelected();
+        return o.get$nextWeek();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure674: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$selectEntity();
+        return o.get$nextMonth();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure675: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$addFieldtoUpdate();
+        return o.get$isSelected();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure676: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$addSaveField();
+        return o.get$selectEntity();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure677: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$createEntity();
+        return o.get$addFieldtoUpdate();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure678: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$duplicateEntity();
+        return o.get$addSaveField();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure679: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$deleteEntity();
+        return o.get$createEntity();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure680: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return J.get$reload$x(o);
+        return o.get$duplicateEntity();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure681: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$openEditView();
+        return o.get$deleteEntity();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure682: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$saveAllEntities();
+        return J.get$reload$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure683: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$printReport();
+        return o.get$openEditView();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure684: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$ViewValue();
+        return o.get$saveAllEntities();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure685: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$toggleSelectionBox();
+        return o.get$printReport();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure686: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$loginOnEnter();
+        return o.get$ViewValue();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure687: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$login();
+        return o.get$toggleSelectionBox();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure688: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$updateDate();
+        return o.get$loginOnEnter();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure689: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$toggleMenu();
+        return o.get$login();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure690: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$reloadUser();
+        return o.get$updateDate();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure691: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$save();
+        return o.get$toggleMenu();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure692: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$update();
+        return o.get$reloadUser();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure693: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$hasChanged();
+        return o.get$save();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure694: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$saveEntity();
+        return o.get$update();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure695: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$openInvoice();
+        return o.get$hasChanged();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure696: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$printOffer();
+        return o.get$saveEntity();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure697: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$openProject();
+        return o.get$openInvoice();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure698: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$updateInvoicefromProject();
+        return o.get$printOffer();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure699: {
       "^": "Closure:0;",
       call$1: [function(o) {
-        return o.get$printInvoice();
+        return o.get$openProject();
       }, null, null, 2, 0, null, 0, "call"]
     },
     closure700: {
+      "^": "Closure:0;",
+      call$1: [function(o) {
+        return o.get$updateInvoicefromProject();
+      }, null, null, 2, 0, null, 0, "call"]
+    },
+    closure701: {
+      "^": "Closure:0;",
+      call$1: [function(o) {
+        return o.get$printInvoice();
+      }, null, null, 2, 0, null, 0, "call"]
+    },
+    closure702: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$logout();
@@ -4185,879 +4191,886 @@
     closure196: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$address(v);
+        o.set$editform(v);
         return v;
       }
     },
     closure197: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$onHover(v);
+        o.set$address(v);
         return v;
       }
     },
     closure198: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$onLeave(v);
+        o.set$onHover(v);
         return v;
       }
     },
     closure199: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$range(v);
+        o.set$onLeave(v);
         return v;
       }
     },
     closure200: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        J.set$r$x(o, v);
+        o.set$range(v);
         return v;
       }
     },
     closure201: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$dayFormat(v);
+        J.set$r$x(o, v);
         return v;
       }
     },
     closure202: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$monthFormat(v);
+        o.set$dayFormat(v);
         return v;
       }
     },
     closure203: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$yearFormat(v);
+        o.set$monthFormat(v);
         return v;
       }
     },
     closure204: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$dayHeaderFormat(v);
+        o.set$yearFormat(v);
         return v;
       }
     },
     closure205: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$dayTitleFormat(v);
+        o.set$dayHeaderFormat(v);
         return v;
       }
     },
     closure206: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$monthTitleFormat(v);
+        o.set$dayTitleFormat(v);
         return v;
       }
     },
     closure207: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$startingDay(v);
+        o.set$monthTitleFormat(v);
         return v;
       }
     },
     closure208: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$yearRange(v);
+        o.set$startingDay(v);
         return v;
       }
     },
     closure209: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$dateDisabled(v);
+        o.set$yearRange(v);
         return v;
       }
     },
     closure210: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$showWeeks(v);
+        o.set$dateDisabled(v);
         return v;
       }
     },
     closure211: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$d(v);
+        o.set$showWeeks(v);
         return v;
       }
     },
     closure212: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        J.set$display$x(o, v);
+        o.set$d(v);
         return v;
       }
     },
     closure213: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$showButtonBar(v);
+        J.set$display$x(o, v);
         return v;
       }
     },
     closure214: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$currentText(v);
+        o.set$showButtonBar(v);
         return v;
       }
     },
     closure215: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$toggleWeeksText(v);
+        o.set$currentText(v);
         return v;
       }
     },
     closure216: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$clearText(v);
+        o.set$toggleWeeksText(v);
         return v;
       }
     },
     closure217: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$closeText(v);
+        o.set$clearText(v);
         return v;
       }
     },
     closure218: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$filterStartDate(v);
+        o.set$closeText(v);
         return v;
       }
     },
     closure219: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$filterEndDate(v);
+        o.set$filterStartDate(v);
         return v;
       }
     },
     closure220: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$projectBased(v);
+        o.set$filterEndDate(v);
         return v;
       }
     },
     closure221: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$entity(v);
+        o.set$projectBased(v);
         return v;
       }
     },
     closure222: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$user(v);
+        o.set$entity(v);
         return v;
       }
     },
     closure223: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$activity(v);
+        o.set$user(v);
         return v;
       }
     },
     closure224: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$project(v);
+        o.set$activity(v);
         return v;
       }
     },
     closure225: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$startedAt(v);
+        o.set$project(v);
         return v;
       }
     },
     closure226: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$stoppedAt(v);
+        o.set$startedAt(v);
         return v;
       }
     },
     closure227: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$newEntryDate(v);
+        o.set$stoppedAt(v);
         return v;
       }
     },
     closure228: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$updateNewEntryDate(v);
+        o.set$newEntryDate(v);
         return v;
       }
     },
     closure229: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$selectedProject(v);
+        o.set$updateNewEntryDate(v);
         return v;
       }
     },
     closure230: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$selectedService(v);
+        o.set$selectedProject(v);
         return v;
       }
     },
     closure231: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$alias(v);
+        o.set$selectedService(v);
         return v;
       }
     },
     closure232: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$description(v);
+        o.set$alias(v);
         return v;
       }
     },
     closure233: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$street(v);
+        o.set$description(v);
         return v;
       }
     },
     closure234: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$streetnumber(v);
+        o.set$street(v);
         return v;
       }
     },
     closure235: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$plz(v);
+        o.set$streetnumber(v);
         return v;
       }
     },
     closure236: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$city(v);
+        o.set$plz(v);
         return v;
       }
     },
     closure237: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$shortDescription(v);
+        o.set$city(v);
         return v;
       }
     },
     closure238: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        J.set$order$x(o, v);
+        o.set$shortDescription(v);
         return v;
       }
     },
     closure239: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$service(v);
+        J.set$order$x(o, v);
         return v;
       }
     },
     closure240: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$rateValue(v);
+        o.set$service(v);
         return v;
       }
     },
     closure241: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$rateUnit(v);
+        o.set$rateValue(v);
         return v;
       }
     },
     closure242: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$rateUnitType(v);
+        o.set$rateUnit(v);
         return v;
       }
     },
     closure243: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$amount(v);
+        o.set$rateUnitType(v);
         return v;
       }
     },
     closure244: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$vat(v);
+        o.set$amount(v);
         return v;
       }
     },
     closure245: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$discountable(v);
+        o.set$vat(v);
         return v;
       }
     },
     closure246: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        J.set$total$x(o, v);
+        o.set$discountable(v);
         return v;
       }
     },
     closure247: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        J.set$start$x(o, v);
+        J.set$total$x(o, v);
         return v;
       }
     },
     closure248: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$end(v);
+        J.set$start$x(o, v);
         return v;
       }
     },
     closure249: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$rateGroup(v);
+        o.set$end(v);
         return v;
       }
     },
     closure250: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$report(v);
+        o.set$rateGroup(v);
         return v;
       }
     },
     closure251: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$timeslices(v);
+        o.set$report(v);
         return v;
       }
     },
     closure252: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$pensum(v);
+        o.set$timeslices(v);
         return v;
       }
     },
     closure253: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$realTime(v);
+        o.set$pensum(v);
         return v;
       }
     },
     closure254: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$targetTime(v);
+        o.set$realTime(v);
         return v;
       }
     },
     closure255: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        J.set$duration$x(o, v);
+        o.set$targetTime(v);
         return v;
       }
     },
     closure256: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        J.set$username$x(o, v);
+        J.set$duration$x(o, v);
         return v;
       }
     },
     closure257: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$fullname(v);
+        J.set$username$x(o, v);
         return v;
       }
     },
     closure258: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$email(v);
+        o.set$fullname(v);
         return v;
       }
     },
     closure259: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        J.set$enabled$x(o, v);
+        o.set$email(v);
         return v;
       }
     },
     closure260: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$locked(v);
+        J.set$enabled$x(o, v);
         return v;
       }
     },
     closure261: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$percentage(v);
+        o.set$locked(v);
         return v;
       }
     },
     closure262: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$newDiscount(v);
+        o.set$percentage(v);
         return v;
       }
     },
     closure263: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$factor(v);
+        o.set$newDiscount(v);
         return v;
       }
     },
     closure264: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        J.set$scale$x(o, v);
+        o.set$factor(v);
         return v;
       }
     },
     closure265: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$doTransform(v);
+        J.set$scale$x(o, v);
         return v;
       }
     },
     closure266: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$roundMode(v);
+        o.set$doTransform(v);
         return v;
       }
     },
     closure267: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$symbol(v);
+        o.set$roundMode(v);
         return v;
       }
     },
     closure268: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$selector(v);
+        o.set$symbol(v);
         return v;
       }
     },
     closure269: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$modes(v);
+        o.set$selector(v);
         return v;
       }
     },
     closure270: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        J.set$mode$x(o, v);
+        o.set$modes(v);
         return v;
       }
     },
     closure271: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$link(v);
+        J.set$mode$x(o, v);
         return v;
       }
     },
     closure272: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$linklist(v);
+        o.set$link(v);
         return v;
       }
     },
     closure273: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$Title(v);
+        o.set$linklist(v);
         return v;
       }
     },
     closure274: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$auth(v);
+        o.set$Title(v);
         return v;
       }
     },
     closure275: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$isloggedin(v);
+        o.set$auth(v);
         return v;
       }
     },
     closure276: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$userContext(v);
+        o.set$isloggedin(v);
         return v;
       }
     },
     closure277: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$loginFailed(v);
+        o.set$userContext(v);
         return v;
       }
     },
     closure278: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        J.set$password$x(o, v);
+        o.set$loginFailed(v);
         return v;
       }
     },
     closure279: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$rememberme(v);
+        J.set$password$x(o, v);
         return v;
       }
     },
     closure280: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$loginInProgress(v);
+        o.set$rememberme(v);
         return v;
       }
     },
     closure281: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$statusservice(v);
+        o.set$loginInProgress(v);
         return v;
       }
     },
     closure282: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        J.set$status$x(o, v);
+        o.set$statusservice(v);
         return v;
       }
     },
     closure283: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$activitylist(v);
+        J.set$status$x(o, v);
         return v;
       }
     },
     closure284: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        J.set$entries$x(o, v);
+        o.set$activitylist(v);
         return v;
       }
     },
     closure285: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$entry(v);
+        J.set$entries$x(o, v);
         return v;
       }
     },
     closure286: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$activities(v);
+        o.set$entry(v);
         return v;
       }
     },
     closure287: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$menus(v);
+        o.set$activities(v);
         return v;
       }
     },
     closure288: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$menu(v);
+        o.set$menus(v);
         return v;
       }
     },
     closure289: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$icon(v);
+        o.set$menu(v);
         return v;
       }
     },
     closure290: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        J.set$title$x(o, v);
+        o.set$icon(v);
         return v;
       }
     },
     closure291: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        J.set$items$x(o, v);
+        J.set$title$x(o, v);
         return v;
       }
     },
     closure292: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        J.set$error$x(o, v);
+        J.set$items$x(o, v);
         return v;
       }
     },
     closure293: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$loading(v);
+        J.set$error$x(o, v);
         return v;
       }
     },
     closure294: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$defaultVal(v);
+        o.set$loading(v);
         return v;
       }
     },
     closure295: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$success(v);
+        o.set$defaultVal(v);
         return v;
       }
     },
     closure296: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$firstname(v);
+        o.set$success(v);
         return v;
       }
     },
     closure297: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$lastname(v);
+        o.set$firstname(v);
         return v;
       }
     },
     closure298: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$customer(v);
+        o.set$lastname(v);
         return v;
       }
     },
     closure299: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$chargeable(v);
+        o.set$customer(v);
         return v;
       }
     },
     closure300: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$deadline(v);
+        o.set$chargeable(v);
         return v;
       }
     },
     closure301: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$budgetPrice(v);
+        o.set$deadline(v);
         return v;
       }
     },
     closure302: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$budgetTime(v);
+        o.set$budgetPrice(v);
         return v;
       }
     },
     closure303: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$currentPrice(v);
+        o.set$budgetTime(v);
         return v;
       }
     },
     closure304: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        J.set$currentTime$x(o, v);
+        o.set$currentPrice(v);
         return v;
       }
     },
     closure305: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$fixedPrice(v);
+        J.set$currentTime$x(o, v);
         return v;
       }
     },
     closure306: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$accountant(v);
+        o.set$fixedPrice(v);
         return v;
       }
     },
     closure307: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$validTo(v);
+        o.set$accountant(v);
         return v;
       }
     },
     closure308: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$standardDiscounts(v);
+        o.set$validTo(v);
         return v;
       }
     },
     closure309: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$subtotal(v);
+        o.set$standardDiscounts(v);
         return v;
       }
     },
     closure310: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$totalVAT(v);
+        o.set$subtotal(v);
         return v;
       }
     },
     closure311: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$totalDiscounts(v);
+        o.set$totalVAT(v);
         return v;
       }
     },
     closure312: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$offer(v);
+        o.set$totalDiscounts(v);
         return v;
       }
     },
     closure313: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$company(v);
+        o.set$offer(v);
         return v;
       }
     },
     closure314: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$department(v);
+        o.set$company(v);
         return v;
       }
     },
     closure315: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$salutation(v);
+        o.set$department(v);
         return v;
       }
     },
     closure316: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        J.set$state$x(o, v);
+        o.set$salutation(v);
         return v;
       }
     },
     closure317: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$country(v);
+        J.set$state$x(o, v);
         return v;
       }
     },
     closure318: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$plainpassword(v);
+        o.set$country(v);
         return v;
       }
     },
     closure319: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$dates(v);
+        o.set$plainpassword(v);
         return v;
       }
     },
     closure320: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$days(v);
+        o.set$dates(v);
         return v;
       }
     },
     closure321: {
+      "^": "Closure:1;",
+      call$2: function(o, v) {
+        o.set$days(v);
+        return v;
+      }
+    },
+    closure322: {
       "^": "Closure:1;",
       call$2: function(o, v) {
         o.set$day(v);
@@ -5066,237 +5079,237 @@
     }
   }], ["DimeClient.web.main.generated_metadata", "main_static_metadata.dart",, K, {}], ["DimeClient.web.main.generated_type_factory_maps", "main_generated_type_factory_maps.dart",, Q, {
     "^": "",
-    closure701: {
+    closure703: {
       "^": "Closure:2;",
       call$5: [function(a1, a2, a3, a4, a5) {
         return new V.TimesliceOverviewComponent(null, a4, false, true, [], new P.DateTime(Date.now(), false), null, true, null, null, null, null, null, true, false, false, null, [], C.Type_Z63, a1, null, a3, null, "", a2, a5);
       }, null, null, 10, 0, null, 1, 2, 3, 4, 5, "call"]
     },
-    closure702: {
+    closure704: {
       "^": "Closure:3;",
       call$6: [function(a1, a2, a3, a4, a5, a6) {
         return new Y.ProjectOverviewComponent(false, null, [], C.Type_urz, a1, a2, a4, null, "project_edit", a3, a5);
       }, null, null, 12, 0, null, 1, 2, 3, 4, 5, 6, "call"]
     },
-    closure703: {
+    closure705: {
       "^": "Closure:3;",
       call$6: [function(a1, a2, a3, a4, a5, a6) {
         return new Y.CustomerOverviewComponent(false, null, [], C.Type_2z6, a1, a2, a4, null, "customer_edit", a3, a5);
       }, null, null, 12, 0, null, 1, 2, 3, 4, 5, 6, "call"]
     },
-    closure704: {
+    closure706: {
       "^": "Closure:2;",
       call$5: [function(a1, a2, a3, a4, a5) {
         return new Y.OfferOverviewComponent(false, null, [], C.Type_ebz, a1, a2, a4, null, "offer_edit", a3, a5);
       }, null, null, 10, 0, null, 1, 2, 3, 4, 5, "call"]
     },
-    closure705: {
+    closure707: {
       "^": "Closure:4;",
       call$3: [function(a1, a2, a3) {
         return new Y.OfferPositionOverviewComponent(true, null, false, null, [], C.Type_W3x, a1, null, a3, null, "", a2, null);
       }, null, null, 6, 0, null, 1, 2, 3, "call"]
     },
-    closure706: {
+    closure708: {
       "^": "Closure:2;",
       call$5: [function(a1, a2, a3, a4, a5) {
         return new Y.InvoiceOverviewComponent(false, null, [], C.Type_MyW, a1, a2, a4, null, "invoice_edit", a3, a5);
       }, null, null, 10, 0, null, 1, 2, 3, 4, 5, "call"]
     },
-    closure707: {
+    closure709: {
       "^": "Closure:4;",
       call$3: [function(a1, a2, a3) {
         return new Y.InvoiceItemOverviewComponent(true, null, false, null, [], C.Type_3kI, a1, null, a3, null, "", a2, null);
       }, null, null, 6, 0, null, 1, 2, 3, "call"]
     },
-    closure708: {
+    closure710: {
       "^": "Closure:2;",
       call$5: [function(a1, a2, a3, a4, a5) {
         return new Y.ServiceOverviewComponent(false, null, [], C.Type_smC, a1, a2, a4, null, "service_edit", a3, a5);
       }, null, null, 10, 0, null, 1, 2, 3, 4, 5, "call"]
     },
-    closure709: {
+    closure711: {
       "^": "Closure:4;",
       call$3: [function(a1, a2, a3) {
         return new Y.RateOverviewComponent(true, null, false, null, [], C.Type_USU, a1, null, a3, null, "", a2, null);
       }, null, null, 6, 0, null, 1, 2, 3, "call"]
     },
-    closure710: {
+    closure712: {
       "^": "Closure:5;",
       call$4: [function(a1, a2, a3, a4) {
         return new Y.RateGroupOverviewComponent(false, null, [], C.Type_rtf, a1, null, a3, null, "", a2, a4);
       }, null, null, 8, 0, null, 1, 2, 3, 4, "call"]
     },
-    closure711: {
+    closure713: {
       "^": "Closure:4;",
       call$3: [function(a1, a2, a3) {
         return new Y.ActivityOverviewComponent(null, true, false, null, [], C.Type_Lkt, a1, null, a3, null, "", a2, null);
       }, null, null, 6, 0, null, 1, 2, 3, "call"]
     },
-    closure712: {
+    closure714: {
       "^": "Closure:5;",
       call$4: [function(a1, a2, a3, a4) {
         return new Y.TimesliceExpenseReportComponent(null, null, null, false, null, [], C.Type_pRH, a1, null, a3, null, "", a2, a4);
       }, null, null, 8, 0, null, 1, 2, 3, 4, "call"]
     },
-    closure713: {
+    closure715: {
       "^": "Closure:5;",
       call$4: [function(a1, a2, a3, a4) {
         return Y.PeriodOverviewComponent$(a1, a2, a3, a4);
       }, null, null, 8, 0, null, 1, 2, 3, 4, "call"]
     },
-    closure714: {
+    closure716: {
       "^": "Closure:5;",
       call$4: [function(a1, a2, a3, a4) {
         return new Y.HolidayOverviewComponent(false, null, [], C.Type_SSr, a1, null, a3, null, "", a2, a4);
       }, null, null, 8, 0, null, 1, 2, 3, 4, "call"]
     },
-    closure715: {
+    closure717: {
       "^": "Closure:2;",
       call$5: [function(a1, a2, a3, a4, a5) {
         return new Y.EmployeeOverviewComponent(false, null, [], C.Type_oSr, a1, a2, a4, null, "employee_edit", a3, a5);
       }, null, null, 10, 0, null, 1, 2, 3, 4, 5, "call"]
     },
-    closure716: {
+    closure718: {
       "^": "Closure:4;",
       call$3: [function(a1, a2, a3) {
         return new Y.OfferDiscountOverviewComponent(true, null, false, null, [], C.Type_IoN, a1, null, a3, null, "", a2, null);
       }, null, null, 6, 0, null, 1, 2, 3, "call"]
     },
-    closure717: {
+    closure719: {
       "^": "Closure:4;",
       call$3: [function(a1, a2, a3) {
         return new Y.InvoiceDiscountOverviewComponent(true, null, false, null, [], C.Type_r7X, a1, null, a3, null, "", a2, null);
       }, null, null, 6, 0, null, 1, 2, 3, "call"]
     },
-    closure718: {
+    closure720: {
       "^": "Closure:1;",
       call$2: [function(a1, a2) {
         return new Y.StandardDiscountOverviewComponent(null, null, false, null, [], C.Type_ZJf, null, null, a2, null, "", a1, null);
       }, null, null, 4, 0, null, 1, 2, "call"]
     },
-    closure719: {
+    closure721: {
       "^": "Closure:5;",
       call$4: [function(a1, a2, a3, a4) {
         return new Y.RateUnitTypeOverviewComponent(false, null, [], C.Type_6m4, a1, null, a3, null, "", a2, a4);
       }, null, null, 8, 0, null, 1, 2, 3, 4, "call"]
     },
-    closure720: {
+    closure722: {
       "^": "Closure:6;",
       call$0: [function() {
         return new Y.Animate(true);
       }, null, null, 0, 0, null, "call"]
     },
-    closure721: {
+    closure723: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return Y.BrowserCookies$(a1);
       }, null, null, 2, 0, null, 1, "call"]
     },
-    closure722: {
+    closure724: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return new Y.Cookies(a1);
       }, null, null, 2, 0, null, 1, "call"]
     },
-    closure723: {
+    closure725: {
       "^": "Closure:1;",
       call$2: [function(a1, a2) {
         return new Y.Compiler(a1, a2);
       }, null, null, 4, 0, null, 1, 2, "call"]
     },
-    closure724: {
+    closure726: {
       "^": "Closure:6;",
       call$0: [function() {
         return new Y.CompilerConfig(true);
       }, null, null, 0, 0, null, "call"]
     },
-    closure725: {
+    closure727: {
       "^": "Closure:5;",
       call$4: [function(a1, a2, a3, a4) {
         return Y.DirectiveMap$(a1, a2, a3, a4);
       }, null, null, 8, 0, null, 1, 2, 3, 4, "call"]
     },
-    closure726: {
+    closure728: {
       "^": "Closure:7;",
       call$8: [function(a1, a2, a3, a4, a5, a6, a7, a8) {
         return new Y.ElementBinderFactory(a1, a2, a3, a4, a5, a6, a7, a8);
       }, null, null, 16, 0, null, 1, 2, 3, 4, 5, 6, 7, 8, "call"]
     },
-    closure727: {
+    closure729: {
       "^": "Closure:4;",
       call$3: [function(a1, a2, a3) {
         return new Y.EventHandler(a1, a2, a3, P.HashMap_HashMap(null, null, null, P.String, P.Function));
       }, null, null, 6, 0, null, 1, 2, 3, "call"]
     },
-    closure728: {
+    closure730: {
       "^": "Closure:4;",
       call$3: [function(a1, a2, a3) {
         return new Y.ShadowRootEventHandler(a1, a2, a3, P.HashMap_HashMap(null, null, null, P.String, P.Function));
       }, null, null, 6, 0, null, 1, 2, 3, "call"]
     },
-    closure729: {
+    closure731: {
       "^": "Closure:6;",
       call$0: [function() {
         return new Y.DefaultShadowBoundary(null, document.head, null);
       }, null, null, 0, 0, null, "call"]
     },
-    closure730: {
+    closure732: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return new Y.ShadowRootBoundary(null, a1, null);
       }, null, null, 2, 0, null, 1, "call"]
     },
-    closure731: {
+    closure733: {
       "^": "Closure:6;",
       call$0: [function() {
         return new Y.UrlRewriter();
       }, null, null, 0, 0, null, "call"]
     },
-    closure732: {
+    closure734: {
       "^": "Closure:6;",
       call$0: [function() {
         return new Y.HttpBackend();
       }, null, null, 0, 0, null, "call"]
     },
-    closure733: {
+    closure735: {
       "^": "Closure:6;",
       call$0: [function() {
         return new Y.LocationWrapper();
       }, null, null, 0, 0, null, "call"]
     },
-    closure734: {
+    closure736: {
       "^": "Closure:6;",
       call$0: [function() {
-        var t1 = new Y.HttpInterceptors([new Y.DefaultTransformDataHttpInterceptor(new Y.closure953(), new Y.closure954(), null, null)]);
-        t1._interceptors = [new Y.DefaultTransformDataHttpInterceptor(new Y.closure953(), new Y.closure954(), null, null)];
+        var t1 = new Y.HttpInterceptors([new Y.DefaultTransformDataHttpInterceptor(new Y.closure955(), new Y.closure956(), null, null)]);
+        t1._interceptors = [new Y.DefaultTransformDataHttpInterceptor(new Y.closure955(), new Y.closure956(), null, null)];
         return t1;
       }, null, null, 0, 0, null, "call"]
     },
-    closure735: {
+    closure737: {
       "^": "Closure:6;",
       call$0: [function() {
         return new Y.HttpDefaultHeaders(P.LinkedHashMap__makeLiteral(["COMMON", P.LinkedHashMap__makeLiteral(["Accept", "application/json, text/plain, */*"]), "POST", P.LinkedHashMap__makeLiteral(["Content-Type", $.HttpDefaultHeaders__defaultContentType]), "PUT", P.LinkedHashMap__makeLiteral(["Content-Type", $.HttpDefaultHeaders__defaultContentType]), "PATCH", P.LinkedHashMap__makeLiteral(["Content-Type", $.HttpDefaultHeaders__defaultContentType])]));
       }, null, null, 0, 0, null, "call"]
     },
-    closure736: {
+    closure738: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return new Y.HttpDefaults(a1, null, "XSRF-TOKEN", "X-XSRF-TOKEN");
       }, null, null, 2, 0, null, 1, "call"]
     },
-    closure737: {
+    closure739: {
       "^": "Closure:8;",
       call$10: [function(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10) {
         return new Y.Http(P.HashMap_HashMap(null, null, null, P.String, [P.Future, Y.HttpResponse]), a1, a2, a3, a4, a6, a7, a8, a9, a10, H.setRuntimeTypeInfo([], [P.Function]), null, a5);
       }, null, null, 20, 0, null, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, "call"]
     },
-    closure738: {
+    closure740: {
       "^": "Closure:6;",
       call$0: [function() {
         return new Y.HttpConfig(null);
       }, null, null, 0, 0, null, "call"]
     },
-    closure739: {
+    closure741: {
       "^": "Closure:4;",
       call$3: [function(a1, a2, a3) {
         var t1 = new Y.TextMustache(a1);
@@ -5304,25 +5317,25 @@
         return t1;
       }, null, null, 6, 0, null, 1, 2, 3, "call"]
     },
-    closure740: {
+    closure742: {
       "^": "Closure:5;",
       call$4: [function(a1, a2, a3, a4) {
         return Y.AttrMustache$(a1, a2, a3, a4);
       }, null, null, 8, 0, null, 1, 2, 3, 4, "call"]
     },
-    closure741: {
+    closure743: {
       "^": "Closure:5;",
       call$4: [function(a1, a2, a3, a4) {
         return new Y.NgElement(a1, a2, a3, a4, P.HashMap_HashMap(null, null, null, P.String, P.bool), P.HashMap_HashMap(null, null, null, P.String, null), false);
       }, null, null, 8, 0, null, 1, 2, 3, 4, "call"]
     },
-    closure742: {
+    closure744: {
       "^": "Closure:2;",
       call$5: [function(a1, a2, a3, a4, a5) {
         return new Y.DirectiveSelectorFactory(a1, a2, a3, a4, a5);
       }, null, null, 10, 0, null, 1, 2, 3, 4, 5, "call"]
     },
-    closure743: {
+    closure745: {
       "^": "Closure:9;",
       call$11: [function(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11) {
         var t1, styleElementCache;
@@ -5333,13 +5346,13 @@
         return t1;
       }, null, null, 22, 0, null, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, "call"]
     },
-    closure744: {
+    closure746: {
       "^": "Closure:6;",
       call$0: [function() {
         return new Y.ComponentCssRewriter();
       }, null, null, 0, 0, null, "call"]
     },
-    closure745: {
+    closure747: {
       "^": "Closure:9;",
       call$11: [function(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11) {
         var t1, styleElementCache;
@@ -5350,7 +5363,7 @@
         return t1;
       }, null, null, 22, 0, null, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, "call"]
     },
-    closure746: {
+    closure748: {
       "^": "Closure:5;",
       call$4: [function(a1, a2, a3, a4) {
         var t1 = new Y.Content(a1, null, a2, a3, null);
@@ -5358,13 +5371,13 @@
         return t1;
       }, null, null, 8, 0, null, 1, 2, 3, 4, "call"]
     },
-    closure747: {
+    closure749: {
       "^": "Closure:6;",
       call$0: [function() {
         return new Y.NullTreeSanitizer();
       }, null, null, 0, 0, null, "call"]
     },
-    closure748: {
+    closure750: {
       "^": "Closure:3;",
       call$6: [function(a1, a2, a3, a4, a5, a6) {
         var t1, t2;
@@ -5375,7 +5388,7 @@
         return new Y.ViewFactoryCache(t1, a1, a2, a3, a4, t2, a5);
       }, null, null, 12, 0, null, 1, 2, 3, 4, 5, 6, "call"]
     },
-    closure749: {
+    closure751: {
       "^": "Closure:6;",
       call$0: [function() {
         var t1, _platformJs, t2;
@@ -5390,25 +5403,25 @@
         return t1;
       }, null, null, 0, 0, null, "call"]
     },
-    closure750: {
+    closure752: {
       "^": "Closure:6;",
       call$0: [function() {
         return new Y.DefaultPlatformShim();
       }, null, null, 0, 0, null, "call"]
     },
-    closure751: {
+    closure753: {
       "^": "Closure:1;",
       call$2: [function(a1, a2) {
         return R.AHref$(a1, a2);
       }, null, null, 4, 0, null, 1, 2, "call"]
     },
-    closure752: {
+    closure754: {
       "^": "Closure:6;",
       call$0: [function() {
         return new R.NgBaseCss(null, C.List_empty);
       }, null, null, 0, 0, null, "call"]
     },
-    closure753: {
+    closure755: {
       "^": "Closure:1;",
       call$2: [function(a1, a2) {
         if (a2 != null)
@@ -5416,19 +5429,19 @@
         return new R.NgBind(a1);
       }, null, null, 4, 0, null, 1, 2, "call"]
     },
-    closure754: {
+    closure756: {
       "^": "Closure:1;",
       call$2: [function(a1, a2) {
         return new R.NgBindHtml(a1, a2);
       }, null, null, 4, 0, null, 1, 2, "call"]
     },
-    closure755: {
+    closure757: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return new R.NgBindTemplate(a1);
       }, null, null, 2, 0, null, 1, "call"]
     },
-    closure756: {
+    closure758: {
       "^": "Closure:4;",
       call$3: [function(a1, a2, a3) {
         var t1 = new R.NgClass(a1, a2, null, null, null, P.LinkedHashSet_LinkedHashSet(null, null, null, P.String), P.LinkedHashSet_LinkedHashSet(null, null, null, P.String), true);
@@ -5436,7 +5449,7 @@
         return t1;
       }, null, null, 6, 0, null, 1, 2, 3, "call"]
     },
-    closure757: {
+    closure759: {
       "^": "Closure:4;",
       call$3: [function(a1, a2, a3) {
         var t1 = new R.NgClassOdd(a1, a2, 0, null, null, P.LinkedHashSet_LinkedHashSet(null, null, null, P.String), P.LinkedHashSet_LinkedHashSet(null, null, null, P.String), true);
@@ -5444,7 +5457,7 @@
         return t1;
       }, null, null, 6, 0, null, 1, 2, 3, "call"]
     },
-    closure758: {
+    closure760: {
       "^": "Closure:4;",
       call$3: [function(a1, a2, a3) {
         var t1 = new R.NgClassEven(a1, a2, 1, null, null, P.LinkedHashSet_LinkedHashSet(null, null, null, P.String), P.LinkedHashSet_LinkedHashSet(null, null, null, P.String), true);
@@ -5452,13 +5465,13 @@
         return t1;
       }, null, null, 6, 0, null, 1, 2, 3, "call"]
     },
-    closure759: {
+    closure761: {
       "^": "Closure:1;",
       call$2: [function(a1, a2) {
         return new R.NgEvent(P.HashMap_HashMap(null, null, null, P.$int, F.BoundExpression), a1, a2);
       }, null, null, 4, 0, null, 1, 2, "call"]
     },
-    closure760: {
+    closure762: {
       "^": "Closure:1;",
       call$2: [function(a1, a2) {
         J.get$attributes$x(a1).remove$1(0, "ng-cloak");
@@ -5466,25 +5479,25 @@
         return new R.NgCloak();
       }, null, null, 4, 0, null, 1, 2, "call"]
     },
-    closure761: {
+    closure763: {
       "^": "Closure:4;",
       call$3: [function(a1, a2, a3) {
         return new R.NgIf(a1, a2, a3, null);
       }, null, null, 6, 0, null, 1, 2, 3, "call"]
     },
-    closure762: {
+    closure764: {
       "^": "Closure:4;",
       call$3: [function(a1, a2, a3) {
         return new R.NgUnless(a1, a2, a3, null);
       }, null, null, 6, 0, null, 1, 2, 3, "call"]
     },
-    closure763: {
+    closure765: {
       "^": "Closure:2;",
       call$5: [function(a1, a2, a3, a4, a5) {
         return new R.NgInclude(a1, a2, a3, a4, a5, null, null);
       }, null, null, 10, 0, null, 1, 2, 3, 4, 5, "call"]
     },
-    closure764: {
+    closure766: {
       "^": "Closure:3;",
       call$6: [function(a1, a2, a3, a4, a5, a6) {
         var t1, t2, t3, t4, t5;
@@ -5493,7 +5506,7 @@
         t3 = P.LinkedHashMap_LinkedHashMap(null, null, null, P.String, [P.List, R.NgControl]);
         t4 = P.LinkedHashMap_LinkedHashMap(null, null, null, P.String, [P.Set, R.NgControl]);
         t5 = P.LinkedHashMap_LinkedHashMap(null, null, null, P.String, [P.Set, R.NgControl]);
-        t5 = new R.NgModel(a1, new R.closure951(), null, null, null, null, null, false, new R.closure952(), t1, null, null, null, null, null, a3.getFromParentByKey$1($.get$NG_CONTROL_KEY()), a5, a2, t2, t3, t4, t5);
+        t5 = new R.NgModel(a1, new R.closure953(), null, null, null, null, null, false, new R.closure954(), t1, null, null, null, null, null, a3.getFromParentByKey$1($.get$NG_CONTROL_KEY()), a5, a2, t2, t3, t4, t5);
         t4 = J.$index$asx(a4, "ng-model");
         t5._directive$_expression = t4;
         if (a6 != null)
@@ -5507,61 +5520,61 @@
         return t5;
       }, null, null, 12, 0, null, 1, 2, 3, 4, 5, 6, "call"]
     },
-    closure765: {
+    closure767: {
       "^": "Closure:3;",
       call$6: [function(a1, a2, a3, a4, a5, a6) {
         return R.InputCheckbox$(a1, a2, a3, a4, a5, a6);
       }, null, null, 12, 0, null, 1, 2, 3, 4, 5, 6, "call"]
     },
-    closure766: {
+    closure768: {
       "^": "Closure:5;",
       call$4: [function(a1, a2, a3, a4) {
         return R.InputTextLike$(a1, a2, a3, a4);
       }, null, null, 8, 0, null, 1, 2, 3, 4, "call"]
     },
-    closure767: {
+    closure769: {
       "^": "Closure:5;",
       call$4: [function(a1, a2, a3, a4) {
         return R.InputNumberLike$(a1, a2, a3, a4);
       }, null, null, 8, 0, null, 1, 2, 3, 4, "call"]
     },
-    closure768: {
+    closure770: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return new R.NgBindTypeForDateLike(a1, "date");
       }, null, null, 2, 0, null, 1, "call"]
     },
-    closure769: {
+    closure771: {
       "^": "Closure:2;",
       call$5: [function(a1, a2, a3, a4, a5) {
         return R.InputDateLike$(a1, a2, a3, a4, a5);
       }, null, null, 10, 0, null, 1, 2, 3, 4, 5, "call"]
     },
-    closure770: {
+    closure772: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return new R.NgValue(a1, null);
       }, null, null, 2, 0, null, 1, "call"]
     },
-    closure771: {
+    closure773: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return new R.NgTrueValue(a1, true);
       }, null, null, 2, 0, null, 1, "call"]
     },
-    closure772: {
+    closure774: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return new R.NgFalseValue(a1, false);
       }, null, null, 2, 0, null, 1, "call"]
     },
-    closure773: {
+    closure775: {
       "^": "Closure:2;",
       call$5: [function(a1, a2, a3, a4, a5) {
         return R.InputRadio$(a1, a2, a3, a4, a5);
       }, null, null, 10, 0, null, 1, 2, 3, 4, 5, "call"]
     },
-    closure774: {
+    closure776: {
       "^": "Closure:5;",
       call$4: [function(a1, a2, a3, a4) {
         var t1 = new R.ContentEditable(a1, a2, a4, a3, null);
@@ -5569,92 +5582,92 @@
         return t1;
       }, null, null, 8, 0, null, 1, 2, 3, 4, "call"]
     },
-    closure775: {
+    closure777: {
       "^": "Closure:5;",
       call$4: [function(a1, a2, a3, a4) {
         return R.NgPluralize$(a1, a2, a3, a4);
       }, null, null, 8, 0, null, 1, 2, 3, 4, "call"]
     },
-    closure776: {
+    closure778: {
       "^": "Closure:2;",
       call$5: [function(a1, a2, a3, a4, a5) {
-        return new R.NgRepeat(a1, a2, a3, a4, a5, null, null, null, null, null, new R.closure950(), null);
+        return new R.NgRepeat(a1, a2, a3, a4, a5, null, null, null, null, null, new R.closure952(), null);
       }, null, null, 10, 0, null, 1, 2, 3, 4, 5, "call"]
     },
-    closure777: {
+    closure779: {
       "^": "Closure:1;",
       call$2: [function(a1, a2) {
         return new R.NgTemplate(a1, a2);
       }, null, null, 4, 0, null, 1, 2, "call"]
     },
-    closure778: {
+    closure780: {
       "^": "Closure:1;",
       call$2: [function(a1, a2) {
         return new R.NgHide(a1, a2);
       }, null, null, 4, 0, null, 1, 2, "call"]
     },
-    closure779: {
+    closure781: {
       "^": "Closure:1;",
       call$2: [function(a1, a2) {
         return new R.NgShow(a1, a2);
       }, null, null, 4, 0, null, 1, 2, "call"]
     },
-    closure780: {
+    closure782: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return new R.NgBooleanAttribute(a1);
       }, null, null, 2, 0, null, 1, "call"]
     },
-    closure781: {
+    closure783: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return new R.NgSource(a1);
       }, null, null, 2, 0, null, 1, "call"]
     },
-    closure782: {
+    closure784: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return new R.NgAttribute(a1);
       }, null, null, 2, 0, null, 1, "call"]
     },
-    closure783: {
+    closure785: {
       "^": "Closure:1;",
       call$2: [function(a1, a2) {
         return new R.NgStyle(a1, a2, null, null);
       }, null, null, 4, 0, null, 1, 2, "call"]
     },
-    closure784: {
+    closure786: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return new R.NgSwitch(P.LinkedHashMap_LinkedHashMap$_literal(["?", H.setRuntimeTypeInfo([], [R._Case])], P.String, [P.List, R._Case]), H.setRuntimeTypeInfo([], [R._ViewScopePair]), null, a1);
       }, null, null, 2, 0, null, 1, "call"]
     },
-    closure785: {
+    closure787: {
       "^": "Closure:4;",
       call$3: [function(a1, a2, a3) {
         return new R.NgSwitchWhen(a1, a2, a3);
       }, null, null, 6, 0, null, 1, 2, 3, "call"]
     },
-    closure786: {
+    closure788: {
       "^": "Closure:4;",
       call$3: [function(a1, a2, a3) {
         a1.addCase$3("?", a2, a3);
         return new R.NgSwitchDefault();
       }, null, null, 6, 0, null, 1, 2, 3, "call"]
     },
-    closure787: {
+    closure789: {
       "^": "Closure:6;",
       call$0: [function() {
         return new R.NgNonBindable();
       }, null, null, 0, 0, null, "call"]
     },
-    closure788: {
+    closure790: {
       "^": "Closure:5;",
       call$4: [function(a1, a2, a3, a4) {
         return R.InputSelect$(a1, a2, a3, a4);
       }, null, null, 8, 0, null, 1, 2, 3, 4, "call"]
     },
-    closure789: {
+    closure791: {
       "^": "Closure:4;",
       call$3: [function(a1, a2, a3) {
         var t1 = new R.OptionValue(a2, a1, a3);
@@ -5663,13 +5676,13 @@
         return t1;
       }, null, null, 6, 0, null, 1, 2, 3, "call"]
     },
-    closure790: {
+    closure792: {
       "^": "Closure:5;",
       call$4: [function(a1, a2, a3, a4) {
         return R.NgForm$(a1, a2, a3, a4);
       }, null, null, 8, 0, null, 1, 2, 3, 4, "call"]
     },
-    closure791: {
+    closure793: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         var t1 = new R.NgModelRequiredValidator("ng-required", true, a1);
@@ -5677,7 +5690,7 @@
         return t1;
       }, null, null, 2, 0, null, 1, "call"]
     },
-    closure792: {
+    closure794: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         var t1 = new R.NgModelUrlValidator("ng-url");
@@ -5685,7 +5698,7 @@
         return t1;
       }, null, null, 2, 0, null, 1, "call"]
     },
-    closure793: {
+    closure795: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         var t1 = new R.NgModelColorValidator("ng-color");
@@ -5693,7 +5706,7 @@
         return t1;
       }, null, null, 2, 0, null, 1, "call"]
     },
-    closure794: {
+    closure796: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         var t1 = new R.NgModelEmailValidator("ng-email");
@@ -5701,7 +5714,7 @@
         return t1;
       }, null, null, 2, 0, null, 1, "call"]
     },
-    closure795: {
+    closure797: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         var t1 = new R.NgModelNumberValidator("ng-number");
@@ -5709,7 +5722,7 @@
         return t1;
       }, null, null, 2, 0, null, 1, "call"]
     },
-    closure796: {
+    closure798: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         var t1 = new R.NgModelMaxNumberValidator("ng-max", null, a1);
@@ -5717,7 +5730,7 @@
         return t1;
       }, null, null, 2, 0, null, 1, "call"]
     },
-    closure797: {
+    closure799: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         var t1 = new R.NgModelMinNumberValidator("ng-min", null, a1);
@@ -5725,7 +5738,7 @@
         return t1;
       }, null, null, 2, 0, null, 1, "call"]
     },
-    closure798: {
+    closure800: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         var t1 = new R.NgModelPatternValidator("ng-pattern", null, a1);
@@ -5733,7 +5746,7 @@
         return t1;
       }, null, null, 2, 0, null, 1, "call"]
     },
-    closure799: {
+    closure801: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         var t1 = new R.NgModelMinLengthValidator("ng-minlength", null, a1);
@@ -5741,7 +5754,7 @@
         return t1;
       }, null, null, 2, 0, null, 1, "call"]
     },
-    closure800: {
+    closure802: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         var t1 = new R.NgModelMaxLengthValidator("ng-maxlength", 0, a1);
@@ -5749,13 +5762,13 @@
         return t1;
       }, null, null, 2, 0, null, 1, "call"]
     },
-    closure801: {
+    closure803: {
       "^": "Closure:6;",
       call$0: [function() {
         return new R.NgModelOptions(0, null, null, null, null, null, null);
       }, null, null, 0, 0, null, "call"]
     },
-    closure802: {
+    closure804: {
       "^": "Closure:4;",
       call$3: [function(a1, a2, a3) {
         var t1 = P.LinkedHashMap__makeEmpty();
@@ -5763,25 +5776,25 @@
         return new G.Parser(a1, a2, t1);
       }, null, null, 6, 0, null, 1, 2, 3, "call"]
     },
-    closure803: {
+    closure805: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return new G.RuntimeParserBackend(new G.ClosureMapLocalsAware(a1));
       }, null, null, 2, 0, null, 1, "call"]
     },
-    closure804: {
+    closure806: {
       "^": "Closure:1;",
       call$2: [function(a1, a2) {
         return T.FormatterMap$(a1, a2);
       }, null, null, 4, 0, null, 1, 2, "call"]
     },
-    closure805: {
+    closure807: {
       "^": "Closure:6;",
       call$0: [function() {
         return new L.ExceptionHandler();
       }, null, null, 0, 0, null, "call"]
     },
-    closure806: {
+    closure808: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         var t1 = P.HashMap_HashMap(null, null, null, null, null);
@@ -5789,13 +5802,13 @@
         return new L.Interpolate(t1);
       }, null, null, 2, 0, null, 1, "call"]
     },
-    closure807: {
+    closure809: {
       "^": "Closure:6;",
       call$0: [function() {
         return new L.ScopeDigestTTL(10);
       }, null, null, 0, 0, null, "call"]
     },
-    closure808: {
+    closure810: {
       "^": "Closure:1;",
       call$2: [function(a1, a2) {
         H.Primitives_initTicker();
@@ -5807,49 +5820,49 @@
         return new L.ScopeStats(new V.AvgStopwatch(0, null, null), new V.AvgStopwatch(0, null, null), new V.AvgStopwatch(0, null, null), [], 0, 0, 0, a1, a2);
       }, null, null, 4, 0, null, 1, 2, "call"]
     },
-    closure809: {
+    closure811: {
       "^": "Closure:6;",
       call$0: [function() {
         return new L.ScopeStatsEmitter(T.NumberFormat_NumberFormat("0.00", "en_US"), T.NumberFormat_NumberFormat("0", "en_US"));
       }, null, null, 0, 0, null, "call"]
     },
-    closure810: {
+    closure812: {
       "^": "Closure:6;",
       call$0: [function() {
         return new L.ScopeStatsConfig(false);
       }, null, null, 0, 0, null, "call"]
     },
-    closure811: {
+    closure813: {
       "^": "Closure:9;",
       call$11: [function(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11) {
         return L.RootScope$(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11);
       }, null, null, 22, 0, null, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, "call"]
     },
-    closure812: {
+    closure814: {
       "^": "Closure:6;",
       call$0: [function() {
         return new B.PendingAsync(0, null);
       }, null, null, 0, 0, null, "call"]
     },
-    closure813: {
+    closure815: {
       "^": "Closure:6;",
       call$0: [function() {
         return new Z.Lexer();
       }, null, null, 0, 0, null, "call"]
     },
-    closure814: {
+    closure816: {
       "^": "Closure:1;",
       call$2: [function(a1, a2) {
         return new B.ASTParser(a1, a2);
       }, null, null, 4, 0, null, 1, 2, "call"]
     },
-    closure815: {
+    closure817: {
       "^": "Closure:6;",
       call$0: [function() {
         return new Y.CacheRegister(P.LinkedHashMap__makeEmpty(), null);
       }, null, null, 0, 0, null, "call"]
     },
-    closure816: {
+    closure818: {
       "^": "Closure:1;",
       call$2: [function(a1, a2) {
         var result;
@@ -5861,133 +5874,133 @@
         return new K.ResourceUrlResolver(result, a1, a2);
       }, null, null, 4, 0, null, 1, 2, "call"]
     },
-    closure817: {
+    closure819: {
       "^": "Closure:6;",
       call$0: [function() {
         return new K.ResourceResolverConfig(true, "/packages/");
       }, null, null, 0, 0, null, "call"]
     },
-    closure818: {
+    closure820: {
       "^": "Closure:6;",
       call$0: [function() {
         return new L.Currency(P.LinkedHashMap_LinkedHashMap(null, null, null, P.String, T.NumberFormat));
       }, null, null, 0, 0, null, "call"]
     },
-    closure819: {
+    closure821: {
       "^": "Closure:6;",
       call$0: [function() {
         return new L.Date(P.LinkedHashMap_LinkedHashMap(null, null, null, P.String, [P.Map, P.String, T.DateFormat]));
       }, null, null, 0, 0, null, "call"]
     },
-    closure820: {
+    closure822: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return new L.Filter(a1, null, null);
       }, null, null, 2, 0, null, 1, "call"]
     },
-    closure821: {
+    closure823: {
       "^": "Closure:6;",
       call$0: [function() {
         return new L.Json();
       }, null, null, 0, 0, null, "call"]
     },
-    closure822: {
+    closure824: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return new L.LimitTo(a1);
       }, null, null, 2, 0, null, 1, "call"]
     },
-    closure823: {
+    closure825: {
       "^": "Closure:6;",
       call$0: [function() {
         return new L.Lowercase();
       }, null, null, 0, 0, null, "call"]
     },
-    closure824: {
+    closure826: {
       "^": "Closure:6;",
       call$0: [function() {
         return new L.Arrayify();
       }, null, null, 0, 0, null, "call"]
     },
-    closure825: {
+    closure827: {
       "^": "Closure:6;",
       call$0: [function() {
         return new L.Number(P.LinkedHashMap_LinkedHashMap(null, null, null, P.String, [P.Map, P.num, T.NumberFormat]));
       }, null, null, 0, 0, null, "call"]
     },
-    closure826: {
+    closure828: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return new L.OrderBy(a1);
       }, null, null, 2, 0, null, 1, "call"]
     },
-    closure827: {
+    closure829: {
       "^": "Closure:6;",
       call$0: [function() {
         return new L.Uppercase();
       }, null, null, 0, 0, null, "call"]
     },
-    closure828: {
+    closure830: {
       "^": "Closure:6;",
       call$0: [function() {
         return new L.Stringify();
       }, null, null, 0, 0, null, "call"]
     },
-    closure829: {
+    closure831: {
       "^": "Closure:4;",
       call$3: [function(a1, a2, a3) {
         return new K.AnimationLoop(a1, a2, [], a3, false);
       }, null, null, 6, 0, null, 1, 2, 3, "call"]
     },
-    closure830: {
+    closure832: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return new K.AnimationFrame(a1);
       }, null, null, 2, 0, null, 1, "call"]
     },
-    closure831: {
+    closure833: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return new K.AnimationOptimizer(P.LinkedHashMap_LinkedHashMap(null, null, null, W.Element, [P.Set, Y.Animation]), P.LinkedHashMap_LinkedHashMap(null, null, null, Y.Animation, W.Element), true, P.LinkedHashMap_LinkedHashMap(null, null, null, W.Node, P.bool), P.LinkedHashMap_LinkedHashMap(null, null, null, W.Node, P.bool), a1);
       }, null, null, 2, 0, null, 1, "call"]
     },
-    closure832: {
+    closure834: {
       "^": "Closure:4;",
       call$3: [function(a1, a2, a3) {
         return new K.CssAnimate(new Y.NoOpAnimation(null), a1, a3, a2);
       }, null, null, 6, 0, null, 1, 2, 3, "call"]
     },
-    closure833: {
+    closure835: {
       "^": "Closure:6;",
       call$0: [function() {
         return new K.CssAnimationMap(P.HashMap_HashMap(null, null, null, W.Element, [P.Map, P.String, K.CssAnimation]));
       }, null, null, 0, 0, null, "call"]
     },
-    closure834: {
+    closure836: {
       "^": "Closure:1;",
       call$2: [function(a1, a2) {
         return new K.NgAnimate(a2, a1, "auto");
       }, null, null, 4, 0, null, 1, 2, "call"]
     },
-    closure835: {
+    closure837: {
       "^": "Closure:1;",
       call$2: [function(a1, a2) {
         return new K.NgAnimateChildren(a2, a1, "auto");
       }, null, null, 4, 0, null, 1, 2, "call"]
     },
-    closure836: {
+    closure838: {
       "^": "Closure:6;",
       call$0: [function() {
         return new T.NgRoutingUsePushState(true);
       }, null, null, 0, 0, null, "call"]
     },
-    closure837: {
+    closure839: {
       "^": "Closure:5;",
       call$4: [function(a1, a2, a3, a4) {
         return T.NgRoutingHelper$(a1, a2, a3, a4);
       }, null, null, 8, 0, null, 1, 2, 3, 4, "call"]
     },
-    closure838: {
+    closure840: {
       "^": "Closure:3;",
       call$6: [function(a1, a2, a3, a4, a5, a6) {
         var t1, t2, routeProvider;
@@ -6001,243 +6014,243 @@
         return t2;
       }, null, null, 12, 0, null, 1, 2, 3, 4, 5, 6, "call"]
     },
-    closure839: {
+    closure841: {
       "^": "Closure:4;",
       call$3: [function(a1, a2, a3) {
         return new T.NgBindRoute(null, a1, a2);
       }, null, null, 6, 0, null, 1, 2, 3, "call"]
     },
-    closure840: {
+    closure842: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return U.JsCacheRegister$(a1);
       }, null, null, 2, 0, null, 1, "call"]
     },
-    closure841: {
+    closure843: {
       "^": "Closure:1;",
       call$2: [function(a1, a2) {
         return new E.ResourceStore(a1, a2, []);
       }, null, null, 4, 0, null, 1, 2, "call"]
     },
-    closure842: {
+    closure844: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return new E.HammockConfig(P.LinkedHashMap__makeEmpty(), new R.SimpleDocumentFormat(new P.JsonEncoder(null, null), new P.JsonDecoder(null)), new E.RequestDefaults(null, null, false, null, null, null, null, null), new E.HammockUrlRewriter("", ""), a1);
       }, null, null, 2, 0, null, 1, "call"]
     },
-    closure843: {
+    closure845: {
       "^": "Closure:1;",
       call$2: [function(a1, a2) {
         return new E.ObjectStore(a1, a2);
       }, null, null, 4, 0, null, 1, 2, "call"]
     },
-    closure844: {
+    closure846: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return new B.DataCache(a1, P.LinkedHashMap_LinkedHashMap(null, null, null, P.$int, P.Future));
       }, null, null, 2, 0, null, 1, "call"]
     },
-    closure845: {
+    closure847: {
       "^": "Closure:4;",
       call$3: [function(a1, a2, a3) {
         return new M.SettingsManager(a2, a1, null, null, null, null, false, a3);
       }, null, null, 6, 0, null, 1, 2, 3, "call"]
     },
-    closure846: {
+    closure848: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return new L.UserContext(a1, [], new D.Employee("employees", null, null, null, "users", null, null, null, null, null, null, null, [], null, [], "entities", null, null, null, null, null, []));
       }, null, null, 2, 0, null, 1, "call"]
     },
-    closure847: {
+    closure849: {
       "^": "Closure:6;",
       call$0: [function() {
         return new K.StatusService(null, "success", "loading", "error", "default", 0);
       }, null, null, 0, 0, null, "call"]
     },
-    closure848: {
+    closure850: {
       "^": "Closure:2;",
       call$5: [function(a1, a2, a3, a4, a5) {
         return new Z.UserAuthProvider("dimeAuthToken", a4, a3, a1, a2, a5, [], false);
       }, null, null, 10, 0, null, 1, 2, 3, 4, 5, "call"]
     },
-    closure849: {
-      "^": "Closure:5;",
-      call$4: [function(a1, a2, a3, a4) {
-        return new V.ProjectSelectComponent(a1, null, a2, false, null, null, C.Type_urz, [], "", a3, a4, false, null);
-      }, null, null, 8, 0, null, 1, 2, 3, 4, "call"]
-    },
-    closure850: {
-      "^": "Closure:5;",
-      call$4: [function(a1, a2, a3, a4) {
-        return new V.ActivitySelectComponent(null, a1, null, a2, false, null, null, C.Type_Lkt, [], "", a3, a4, false, null);
-      }, null, null, 8, 0, null, 1, 2, 3, 4, "call"]
-    },
     closure851: {
       "^": "Closure:5;",
       call$4: [function(a1, a2, a3, a4) {
-        return new V.ServiceSelectComponent(a1, null, a2, false, null, null, C.Type_smC, [], "", a3, a4, false, null);
+        return new V.ProjectSelectComponent(a1, null, a2, false, null, null, C.Type_urz, [], "", a3, a4, false, false, null);
       }, null, null, 8, 0, null, 1, 2, 3, 4, "call"]
     },
     closure852: {
       "^": "Closure:5;",
       call$4: [function(a1, a2, a3, a4) {
-        return new V.CustomerSelectComponent(a1, null, a2, false, null, null, C.Type_2z6, [], "", a3, a4, false, null);
+        return new V.ActivitySelectComponent(null, a1, null, a2, false, null, null, C.Type_Lkt, [], "", a3, a4, false, false, null);
       }, null, null, 8, 0, null, 1, 2, 3, 4, "call"]
     },
     closure853: {
       "^": "Closure:5;",
       call$4: [function(a1, a2, a3, a4) {
-        return new V.OfferStatusSelectComponent(a1, null, a2, false, null, null, C.Type_iqh, [], "", a3, a4, false, null);
+        return new V.ServiceSelectComponent(a1, null, a2, false, null, null, C.Type_smC, [], "", a3, a4, false, false, null);
       }, null, null, 8, 0, null, 1, 2, 3, 4, "call"]
     },
     closure854: {
       "^": "Closure:5;",
       call$4: [function(a1, a2, a3, a4) {
-        return new V.RateGroupSelectComponent(a1, null, a2, false, null, null, C.Type_rtf, [], "", a3, a4, false, null);
+        return new V.CustomerSelectComponent(a1, null, a2, false, null, null, C.Type_2z6, [], "", a3, a4, false, false, null);
       }, null, null, 8, 0, null, 1, 2, 3, 4, "call"]
     },
     closure855: {
       "^": "Closure:5;",
       call$4: [function(a1, a2, a3, a4) {
-        return new V.RateUnitTypeSelectComponent(a1, null, a2, false, null, null, C.Type_6m4, [], "", a3, a4, false, null);
+        return new V.OfferStatusSelectComponent(a1, null, a2, false, null, null, C.Type_iqh, [], "", a3, a4, false, false, null);
       }, null, null, 8, 0, null, 1, 2, 3, 4, "call"]
     },
     closure856: {
-      "^": "Closure:2;",
-      call$5: [function(a1, a2, a3, a4, a5) {
-        return new V.UserSelectComponent(a3, false, a1, null, a2, false, null, null, C.Type_oSr, [], "", a4, a5, false, null);
-      }, null, null, 10, 0, null, 1, 2, 3, 4, 5, "call"]
+      "^": "Closure:5;",
+      call$4: [function(a1, a2, a3, a4) {
+        return new V.RateGroupSelectComponent(a1, null, a2, false, null, null, C.Type_rtf, [], "", a3, a4, false, false, null);
+      }, null, null, 8, 0, null, 1, 2, 3, 4, "call"]
     },
     closure857: {
       "^": "Closure:5;",
       call$4: [function(a1, a2, a3, a4) {
-        return new V.StandardDiscountSelectComponent(a1, null, a2, false, null, null, C.Type_ZJf, [], "", a3, a4, false, null);
+        return new V.RateUnitTypeSelectComponent(a1, null, a2, false, null, null, C.Type_6m4, [], "", a3, a4, false, false, null);
       }, null, null, 8, 0, null, 1, 2, 3, 4, "call"]
     },
     closure858: {
+      "^": "Closure:2;",
+      call$5: [function(a1, a2, a3, a4, a5) {
+        return new V.UserSelectComponent(a3, false, a1, null, a2, false, null, null, C.Type_oSr, [], "", a4, a5, false, false, null);
+      }, null, null, 10, 0, null, 1, 2, 3, 4, 5, "call"]
+    },
+    closure859: {
+      "^": "Closure:5;",
+      call$4: [function(a1, a2, a3, a4) {
+        return new V.StandardDiscountSelectComponent(a1, null, a2, false, null, null, C.Type_ZJf, [], "", a3, a4, false, false, null);
+      }, null, null, 8, 0, null, 1, 2, 3, 4, "call"]
+    },
+    closure860: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return new V.RoundModeSelect(null, null, null, null, null, a1, false, [P.LinkedHashMap__makeLiteral(["name", "Halbe Aufrunden", "value", 1]), P.LinkedHashMap__makeLiteral(["name", "Halbe Abrunden", "value", 2]), P.LinkedHashMap__makeLiteral(["name", "Halbe auf gerade runden", "value", 3]), P.LinkedHashMap__makeLiteral(["name", "Halbe auf ungerade runden", "value", 4]), P.LinkedHashMap__makeLiteral(["name", "Forciertes Abrunden", "value", 5]), P.LinkedHashMap__makeLiteral(["name", "Forciertes Aufrunden", "value", 6]), P.LinkedHashMap__makeLiteral(["name", "Halbe Schritte", "value", 7]), P.LinkedHashMap__makeLiteral(["name", "Halbe Schritte abgerundet", "value", 8]), P.LinkedHashMap__makeLiteral(["name", "Halbe Schritte aufgerundet", "value", 9])]);
       }, null, null, 2, 0, null, 1, "call"]
     },
-    closure859: {
+    closure861: {
       "^": "Closure:6;",
       call$0: [function() {
         return new S.PercentageInputField(null, 2, true, null, "");
       }, null, null, 0, 0, null, "call"]
     },
-    closure860: {
+    closure862: {
       "^": "Closure:6;",
       call$0: [function() {
         return new Y.TabSetComponent(null, H.setRuntimeTypeInfo([], [V.ViewLink]));
       }, null, null, 0, 0, null, "call"]
     },
-    closure861: {
+    closure863: {
       "^": "Closure:1;",
       call$2: [function(a1, a2) {
         return new O.AppComponent(null, null, false, false, false, null, a1, a2);
       }, null, null, 4, 0, null, 1, 2, "call"]
     },
-    closure862: {
+    closure864: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return new Y.ErrorIconComponent(a1);
       }, null, null, 2, 0, null, 1, "call"]
     },
-    closure863: {
+    closure865: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return new X.ServicehoursReportComponent(null, null, null, null, a1, null);
       }, null, null, 2, 0, null, 1, "call"]
     },
-    closure864: {
+    closure866: {
       "^": "Closure:6;",
       call$0: [function() {
         return new N.DateToTextInput(null, null, null, "dd-MM-y", false, null);
       }, null, null, 0, 0, null, "call"]
     },
-    closure865: {
+    closure867: {
       "^": "Closure:6;",
       call$0: [function() {
         return new R.UserFilter();
       }, null, null, 0, 0, null, "call"]
     },
-    closure866: {
+    closure868: {
       "^": "Closure:6;",
       call$0: [function() {
         return new R.TimesliceDateFilter();
       }, null, null, 0, 0, null, "call"]
     },
-    closure867: {
+    closure869: {
       "^": "Closure:6;",
       call$0: [function() {
         return new R.ProjectValueFilter();
       }, null, null, 0, 0, null, "call"]
     },
-    closure868: {
+    closure870: {
       "^": "Closure:6;",
       call$0: [function() {
         return new R.OfferPositionOrderByOrderField();
       }, null, null, 0, 0, null, "call"]
     },
-    closure869: {
+    closure871: {
       "^": "Closure:6;",
       call$0: [function() {
         return new R.SecondsToHours();
       }, null, null, 0, 0, null, "call"]
     },
-    closure870: {
+    closure872: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return new R.MenuComponent(a1, null, [new A.Menu("Zeiterfassung", "fa-clock-o", [new A.Menu("\u00dcbersicht", null, null, true, "/timetrack"), new A.Menu("Wochenrapport", null, null, true, "/reports/weekly")], true, null), new A.Menu("Offerten", "fa-file-text", [new A.Menu("\u00dcbersicht", null, null, true, "/offers/overview")], true, null), new A.Menu("Projekte", "fa-tree", [new A.Menu("\u00dcbersicht", null, null, true, "/projects/overview"), new A.Menu("Zeiterfassung", null, null, true, "/projects/timetrack"), new A.Menu("Aufwandsbericht", null, null, true, "/reports/expense"), new A.Menu("Stundenrapport", null, null, true, "/reports/servicehours")], true, null), new A.Menu("Rechnungen", "fa-calculator", [new A.Menu("\u00dcbersicht", null, null, true, "/invoices/overview")], true, null), new A.Menu("Kunden", "fa-users", [new A.Menu("\u00dcbersicht", null, null, true, "/customers/overview")], true, null), new A.Menu("Mitarbeiter", "fa-user", [new A.Menu("\u00dcbersicht", null, null, true, "/employees/overview")], true, null), new A.Menu("Stammdaten", "fa-cog", [new A.Menu("Services", null, null, true, "/services/overview"), new A.Menu("Tarif Gruppen", null, null, true, "/rateGroups/overview"), new A.Menu("Tarif Typen", null, null, true, "/rateUnitTypes/overview"), new A.Menu("Feiertage", null, null, true, "/holidays/overview")], true, null)]);
       }, null, null, 2, 0, null, 1, "call"]
     },
-    closure871: {
+    closure873: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return new L.StatusBarComponent(a1);
       }, null, null, 2, 0, null, 1, "call"]
     },
-    closure872: {
+    closure874: {
       "^": "Closure:1;",
       call$2: [function(a1, a2) {
         return new D.TimetrackComponent(a2, a1, null);
       }, null, null, 4, 0, null, 1, 2, "call"]
     },
-    closure873: {
+    closure875: {
       "^": "Closure:1;",
       call$2: [function(a1, a2) {
         return new D.ProjectTimetrackComponent(a1, null, a2, null, null);
       }, null, null, 4, 0, null, 1, 2, "call"]
     },
-    closure874: {
+    closure876: {
       "^": "Closure:1;",
       call$2: [function(a1, a2) {
         return new O.SettingEditComponent(a1, a2, false, null, null, null, null);
       }, null, null, 4, 0, null, 1, 2, "call"]
     },
-    closure875: {
+    closure877: {
       "^": "Closure:1;",
       call$2: [function(a1, a2) {
         $.get$_log2().fine$1("CarouselComponent");
         return new V.Carousel(false, null, false, [], -1, null, false, null, false, a1, null, a2, null);
       }, null, null, 4, 0, null, 1, 2, "call"]
     },
-    closure876: {
+    closure878: {
       "^": "Closure:1;",
       call$2: [function(a1, a2) {
         $.get$_log2().fine$1("SlideComponent");
         return new V.Slide(null, false, "", false, false, false, a1, a2);
       }, null, null, 4, 0, null, 1, 2, "call"]
     },
-    closure877: {
+    closure879: {
       "^": "Closure:1;",
       call$2: [function(a1, a2) {
         return new O.TimeItem(a1, a2);
       }, null, null, 4, 0, null, 1, 2, "call"]
     },
-    closure878: {
+    closure880: {
       "^": "Closure:1;",
       call$2: [function(a1, a2) {
         var t1 = new O.Timeout(P.LinkedHashMap_LinkedHashMap(null, null, null, P.Completer, O.TimeItem), null, a2, null);
@@ -6245,49 +6258,49 @@
         return t1;
       }, null, null, 4, 0, null, 1, 2, "call"]
     },
-    closure879: {
+    closure881: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return L.Transition$(a1);
       }, null, null, 2, 0, null, 1, "call"]
     },
-    closure880: {
+    closure882: {
       "^": "Closure:4;",
       call$3: [function(a1, a2, a3) {
         return new Q.ProgressBar(a1, null, null, null, a3, a2, 0, 0, null, null);
       }, null, null, 6, 0, null, 1, 2, 3, "call"]
     },
-    closure881: {
+    closure883: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return new Q.Progress(null, a1, null);
       }, null, null, 2, 0, null, 1, "call"]
     },
-    closure882: {
+    closure884: {
       "^": "Closure:4;",
       call$3: [function(a1, a2, a3) {
         return new Q.Bar(a1, null, null, null, null, a3, a2, 0, 0, null, null);
       }, null, null, 6, 0, null, 1, 2, 3, "call"]
     },
-    closure883: {
+    closure885: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return new M.NgPseudo(a1);
       }, null, null, 2, 0, null, 1, "call"]
     },
-    closure884: {
+    closure886: {
       "^": "Closure:6;",
       call$0: [function() {
         return new K.AccordionConfig(true);
       }, null, null, 0, 0, null, "call"]
     },
-    closure885: {
+    closure887: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return new K.AccordionComponent(null, null, a1, []);
       }, null, null, 2, 0, null, 1, "call"]
     },
-    closure886: {
+    closure888: {
       "^": "Closure:4;",
       call$3: [function(a1, a2, a3) {
         var t1 = new K.AccordionGroupComponent(null, a1, a2, a3, false, false, false);
@@ -6295,7 +6308,7 @@
         return t1;
       }, null, null, 6, 0, null, 1, 2, 3, "call"]
     },
-    closure887: {
+    closure889: {
       "^": "Closure:1;",
       call$2: [function(a1, a2) {
         J.remove$0$ax(a1);
@@ -6303,49 +6316,49 @@
         return new K.AccordionHeadingComponent();
       }, null, null, 4, 0, null, 1, 2, "call"]
     },
-    closure888: {
+    closure890: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return new K.AccordionTransclude(a1);
       }, null, null, 2, 0, null, 1, "call"]
     },
-    closure889: {
+    closure891: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return new E.DblClickPreventer(true, a1);
       }, null, null, 2, 0, null, 1, "call"]
     },
-    closure890: {
+    closure892: {
       "^": "Closure:5;",
       call$4: [function(a1, a2, a3, a4) {
         return A.BtnRadio$(a1, a2, a3, a4);
       }, null, null, 8, 0, null, 1, 2, 3, 4, "call"]
     },
-    closure891: {
+    closure893: {
       "^": "Closure:5;",
       call$4: [function(a1, a2, a3, a4) {
         return A.BtnCheckbox$(a1, a2, a3, a4);
       }, null, null, 8, 0, null, 1, 2, 3, 4, "call"]
     },
-    closure892: {
+    closure894: {
       "^": "Closure:6;",
       call$0: [function() {
         return new G.DragDropZonesService([]);
       }, null, null, 0, 0, null, "call"]
     },
-    closure893: {
+    closure895: {
       "^": "Closure:6;",
       call$0: [function() {
         return new G.DragDropDataService(null, null);
       }, null, null, 0, 0, null, "call"]
     },
-    closure894: {
+    closure896: {
       "^": "Closure:6;",
       call$0: [function() {
         return new G.DragDropConfigService(new G.DragDropConfig("ui-drag-start", "ui-drag-enter", "ui-drag-over", null, C.DataTransferEffect_move, C.DataTransferEffect_move, "move"), new G.SortableConfig("ui-sortable-drag", null, C.DataTransferEffect_move, C.DataTransferEffect_move, "move"));
       }, null, null, 0, 0, null, "call"]
     },
-    closure895: {
+    closure897: {
       "^": "Closure:5;",
       call$4: [function(a1, a2, a3, a4) {
         var t1, t2;
@@ -6358,7 +6371,7 @@
         return t2;
       }, null, null, 8, 0, null, 1, 2, 3, 4, "call"]
     },
-    closure896: {
+    closure898: {
       "^": "Closure:5;",
       call$4: [function(a1, a2, a3, a4) {
         var t1, t2;
@@ -6370,19 +6383,19 @@
         return t2;
       }, null, null, 8, 0, null, 1, 2, 3, 4, "call"]
     },
-    closure897: {
+    closure899: {
       "^": "Closure:6;",
       call$0: [function() {
         return new G.DragDropSortableDataService(null, null, null, null);
       }, null, null, 0, 0, null, "call"]
     },
-    closure898: {
+    closure900: {
       "^": "Closure:2;",
       call$5: [function(a1, a2, a3, a4, a5) {
         return G.SortableComponent$(a1, a2, a3, a4, a5);
       }, null, null, 10, 0, null, 1, 2, 3, 4, 5, "call"]
     },
-    closure899: {
+    closure901: {
       "^": "Closure:2;",
       call$5: [function(a1, a2, a3, a4, a5) {
         var t1, t2;
@@ -6396,25 +6409,25 @@
         return t2;
       }, null, null, 10, 0, null, 1, 2, 3, 4, 5, "call"]
     },
-    closure900: {
+    closure902: {
       "^": "Closure:5;",
       call$4: [function(a1, a2, a3, a4) {
         return new V.PagerConfig(a1, a2, a3, a4);
       }, null, null, 8, 0, null, 1, 2, 3, 4, "call"]
     },
-    closure901: {
+    closure903: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return V.PagerComponent$(a1);
       }, null, null, 2, 0, null, 1, "call"]
     },
-    closure902: {
+    closure904: {
       "^": "Closure:7;",
       call$8: [function(a1, a2, a3, a4, a5, a6, a7, a8) {
         return new V.PaginationConfig(a2, a3, a4, a7, null, a1, a5, a6, a8);
       }, null, null, 16, 0, null, 1, 2, 3, 4, 5, 6, 7, 8, "call"]
     },
-    closure903: {
+    closure905: {
       "^": "Closure:1;",
       call$2: [function(a1, a2) {
         var t1 = new V.PaginationComponent(null, a2, null, null, null, null, null, null, null, null, a1, null, null, null, null, null, null, null, null, null);
@@ -6429,55 +6442,55 @@
         return t1;
       }, null, null, 4, 0, null, 1, 2, "call"]
     },
-    closure904: {
+    closure906: {
       "^": "Closure:4;",
       call$3: [function(a1, a2, a3) {
         return new V.PageInfo(a1, a2, a3);
       }, null, null, 6, 0, null, 1, 2, 3, "call"]
     },
-    closure905: {
+    closure907: {
       "^": "Closure:6;",
       call$0: [function() {
         return new V.BasicPaginationGenerator();
       }, null, null, 0, 0, null, "call"]
     },
-    closure906: {
+    closure908: {
       "^": "Closure:5;",
       call$4: [function(a1, a2, a3, a4) {
         return G.RatingComponent$(a1, a2, a3, a4);
       }, null, null, 8, 0, null, 1, 2, 3, 4, "call"]
     },
-    closure907: {
+    closure909: {
       "^": "Closure:6;",
       call$0: [function() {
         return new S.TooltipConfig(P.LinkedHashMap__makeLiteral(["placement", "top", "animation", true, "popupDelay", 0]), P.LinkedHashMap__makeLiteral(["mouseenter", "mouseleave", "click", "click", "focus", "blur"]), P.LinkedHashMap__makeEmpty());
       }, null, null, 0, 0, null, "call"]
     },
-    closure908: {
+    closure910: {
       "^": "Closure:7;",
       call$8: [function(a1, a2, a3, a4, a5, a6, a7, a8) {
         return new S.Tooltip("<div><div class=\"tooltip-arrow\"></div><div class=\"tooltip-inner\"></div></div>", null, null, null, null, null, null, false, null, false, null, a1, a2, a3, a4, "mouseenter", "tooltip", a5, "tooltip", a6, a7, a8, null, null, null, null, null, null);
       }, null, null, 16, 0, null, 1, 2, 3, 4, 5, 6, 7, 8, "call"]
     },
-    closure909: {
+    closure911: {
       "^": "Closure:6;",
       call$0: [function() {
         return new Z.Position();
       }, null, null, 0, 0, null, "call"]
     },
-    closure910: {
+    closure912: {
       "^": "Closure:5;",
       call$4: [function(a1, a2, a3, a4) {
         return H.throwNoSuchMethod("", "", [a1, a2, a3, a4], ["left", "top", "width", "height"]);
       }, null, null, 8, 0, null, 1, 2, 3, 4, "call"]
     },
-    closure911: {
+    closure913: {
       "^": "Closure:6;",
       call$0: [function() {
         return new Q.TabsetComponent(null, false, false, "tabs", []);
       }, null, null, 0, 0, null, "call"]
     },
-    closure912: {
+    closure914: {
       "^": "Closure:1;",
       call$2: [function(a1, a2) {
         var t1 = new Q.TabComponent(null, a2, a1, null, null, false, null, false);
@@ -6486,7 +6499,7 @@
         return t1;
       }, null, null, 4, 0, null, 1, 2, "call"]
     },
-    closure913: {
+    closure915: {
       "^": "Closure:1;",
       call$2: [function(a1, a2) {
         J.remove$0$ax(a1);
@@ -6494,79 +6507,79 @@
         return new Q.TabHeading();
       }, null, null, 4, 0, null, 1, 2, "call"]
     },
-    closure914: {
+    closure916: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return new A.ContentAppendComponent(a1);
       }, null, null, 2, 0, null, 1, "call"]
     },
-    closure915: {
+    closure917: {
       "^": "Closure:6;",
       call$0: [function() {
         return new E.DatepickerConfig("dd", "MMMM", "yyyy", "EEE", "MMMM yyyy", "yyyy", true, 0, 20, null, null);
       }, null, null, 0, 0, null, "call"]
     },
-    closure916: {
+    closure918: {
       "^": "Closure:6;",
       call$0: [function() {
         return new E.VisibleDates([], "", []);
       }, null, null, 0, 0, null, "call"]
     },
-    closure917: {
+    closure919: {
       "^": "Closure:6;",
       call$0: [function() {
         return new E.Format(null, null, null, null, null, null);
       }, null, null, 0, 0, null, "call"]
     },
-    closure918: {
+    closure920: {
       "^": "Closure:6;",
       call$0: [function() {
         return new E.DateVO(null, "", false, false, false);
       }, null, null, 0, 0, null, "call"]
     },
-    closure919: {
+    closure921: {
       "^": "Closure:6;",
       call$0: [function() {
         return new E.Mode(null, null, null, null, null);
       }, null, null, 0, 0, null, "call"]
     },
-    closure920: {
+    closure922: {
       "^": "Closure:2;",
       call$5: [function(a1, a2, a3, a4, a5) {
         return new E.Datepicker(0, new P.DateTime(Date.now(), false), false, null, false, null, null, null, null, null, false, null, null, a1, a2, a3, a4, null, a5, null, null);
       }, null, null, 10, 0, null, 1, 2, 3, 4, 5, "call"]
     },
-    closure921: {
+    closure923: {
       "^": "Closure:6;",
       call$0: [function() {
         return new E.WeekNumberFilter();
       }, null, null, 0, 0, null, "call"]
     },
-    closure922: {
+    closure924: {
       "^": "Closure:10;",
       call$12: [function(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12) {
         return new E.DatepickerPopup(null, false, false, null, null, null, null, null, null, a2, a3, a4, a5, a7, a8, a9, a10, a11, a12, a6);
       }, null, null, 24, 0, null, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, "call"]
     },
-    closure923: {
+    closure925: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return E.DatepickerPopupWrap$(a1);
       }, null, null, 2, 0, null, 1, "call"]
     },
-    closure924: {
+    closure926: {
       "^": "Closure:4;",
       call$3: [function(a1, a2, a3) {
         return new R.ModalWindow("", true, 0, true, false, "", a1, a2, a3);
       }, null, null, 6, 0, null, 1, 2, 3, "call"]
     },
-    closure925: {
+    closure927: {
       "^": "Closure:3;",
       call$6: [function(a1, a2, a3, a4, a5, a6) {
         return new R.Modal(a2, a3, a4, a1, a5, a6);
       }, null, null, 12, 0, null, 1, 2, 3, 4, 5, 6, "call"]
     },
-    closure926: {
+    closure928: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         var t1 = new V.Alert(null, null, null, false);
@@ -6574,37 +6587,37 @@
         return t1;
       }, null, null, 2, 0, null, 1, "call"]
     },
-    closure927: {
+    closure929: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return new Z.TypeaheadParser(a1);
       }, null, null, 2, 0, null, 1, "call"]
     },
-    closure928: {
+    closure930: {
       "^": "Closure:6;",
       call$0: [function() {
         return new Z.TypeaheadHighlightFilter();
       }, null, null, 0, 0, null, "call"]
     },
-    closure929: {
+    closure931: {
       "^": "Closure:6;",
       call$0: [function() {
         return new Z.TypeaheadPopup(null, null, null, null, null, null);
       }, null, null, 0, 0, null, "call"]
     },
-    closure930: {
+    closure932: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return new Z.TemplateBasedComponent(a1, null, null);
       }, null, null, 2, 0, null, 1, "call"]
     },
-    closure931: {
+    closure933: {
       "^": "Closure:4;",
       call$3: [function(a1, a2, a3) {
         return new Z.TypeaheadMatch(a2, a1, null, null, null, null, "packages/angular_ui/typeahead/typeahead-match.html", a3, null, null);
       }, null, null, 6, 0, null, 1, 2, 3, "call"]
     },
-    closure932: {
+    closure934: {
       "^": "Closure:11;",
       call$7: [function(a1, a2, a3, a4, a5, a6, a7) {
         var t1 = new Z.TypeaheadDecorator(a4, a1, null, null, a5, a2, a7, null, null, null, null, null, null, null, false, null, null, null, null, null, null, null, [], -1, null, null, a6, null, null);
@@ -6615,19 +6628,19 @@
         return t1;
       }, null, null, 14, 0, null, 1, 2, 3, 4, 5, 6, 7, "call"]
     },
-    closure933: {
+    closure935: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return new Z.TypeaheadConverter("typeahead", a1);
       }, null, null, 2, 0, null, 1, "call"]
     },
-    closure934: {
+    closure936: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return N.DropdownToggle$(a1);
       }, null, null, 2, 0, null, 1, "call"]
     },
-    closure935: {
+    closure937: {
       "^": "Closure:5;",
       call$4: [function(a1, a2, a3, a4) {
         var t1 = new M.Timepicker(null, null, a1, a2, a3, a4, null, 0, 0, false, false, false, null, null, null, null, null, null, null, null);
@@ -6635,38 +6648,22 @@
         return t1;
       }, null, null, 8, 0, null, 1, 2, 3, 4, "call"]
     },
-    closure936: {
+    closure938: {
       "^": "Closure:7;",
       call$8: [function(a1, a2, a3, a4, a5, a6, a7, a8) {
         return new O.Popover("<div><div class=\"arrow\"></div><div class=\"popover-inner\"><h3 class=\"popover-title\"></h3><div class=\"popover-content\"></div></div></div>", null, null, null, null, null, null, null, null, false, null, false, null, a1, a2, a3, a4, "click", "popover", a5, "popover", a6, a7, a8, null, null, null, null, null, null);
       }, null, null, 16, 0, null, 1, 2, 3, 4, 5, 6, 7, 8, "call"]
     },
-    closure937: {
+    closure939: {
       "^": "Closure:1;",
       call$2: [function(a1, a2) {
         return new R.Collapse(a1, a2, null, true, null);
       }, null, null, 4, 0, null, 1, 2, "call"]
     },
-    closure938: {
-      "^": "Closure:2;",
-      call$5: [function(a1, a2, a3, a4, a5) {
-        var t1 = new T.ProjectEditComponent(null, null, C.Type_urz, null, a2, a4, null, null, a5, a3);
-        t1._entId = a1.get$parameters().$index(0, "id");
-        return t1;
-      }, null, null, 10, 0, null, 1, 2, 3, 4, 5, "call"]
-    },
-    closure939: {
-      "^": "Closure:2;",
-      call$5: [function(a1, a2, a3, a4, a5) {
-        var t1 = new T.OfferEditComponent(null, null, null, null, null, C.Type_ebz, null, a2, a4, null, null, a5, a3);
-        t1._entId = a1.get$parameters().$index(0, "id");
-        return t1;
-      }, null, null, 10, 0, null, 1, 2, 3, 4, 5, "call"]
-    },
     closure940: {
       "^": "Closure:2;",
       call$5: [function(a1, a2, a3, a4, a5) {
-        var t1 = new T.InvoiceEditComponent(C.Type_MyW, null, a2, a3, null, null, a4, a5);
+        var t1 = new T.ProjectEditComponent(null, null, C.Type_urz, null, a2, a4, null, null, a5, a3, null);
         t1._entId = a1.get$parameters().$index(0, "id");
         return t1;
       }, null, null, 10, 0, null, 1, 2, 3, 4, 5, "call"]
@@ -6674,34 +6671,50 @@
     closure941: {
       "^": "Closure:2;",
       call$5: [function(a1, a2, a3, a4, a5) {
-        var t1 = new T.CustomerEditComponent(null, C.Type_2z6, null, a2, a3, null, null, a4, a5);
+        var t1 = new T.OfferEditComponent(null, null, null, null, null, C.Type_ebz, null, a2, a4, null, null, a5, a3, null);
         t1._entId = a1.get$parameters().$index(0, "id");
         return t1;
       }, null, null, 10, 0, null, 1, 2, 3, 4, 5, "call"]
     },
     closure942: {
-      "^": "Closure:6;",
-      call$0: [function() {
-        return new T.AddressEditComponent(null, C.Type_adS, null, null, null, null, null, null, null);
-      }, null, null, 0, 0, null, "call"]
+      "^": "Closure:2;",
+      call$5: [function(a1, a2, a3, a4, a5) {
+        var t1 = new T.InvoiceEditComponent(C.Type_MyW, null, a2, a3, null, null, a4, a5, null);
+        t1._entId = a1.get$parameters().$index(0, "id");
+        return t1;
+      }, null, null, 10, 0, null, 1, 2, 3, 4, 5, "call"]
     },
     closure943: {
       "^": "Closure:2;",
       call$5: [function(a1, a2, a3, a4, a5) {
-        var t1 = new T.ServiceEditComponent(C.Type_smC, null, a2, a3, null, null, a4, a5);
+        var t1 = new T.CustomerEditComponent(null, C.Type_2z6, null, a2, a3, null, null, a4, a5, null);
         t1._entId = a1.get$parameters().$index(0, "id");
         return t1;
       }, null, null, 10, 0, null, 1, 2, 3, 4, 5, "call"]
     },
     closure944: {
+      "^": "Closure:6;",
+      call$0: [function() {
+        return new T.AddressEditComponent(null, C.Type_adS, null, null, null, null, null, null, null, null);
+      }, null, null, 0, 0, null, "call"]
+    },
+    closure945: {
       "^": "Closure:2;",
       call$5: [function(a1, a2, a3, a4, a5) {
-        var t1 = new T.EmployeeEditComponent(C.Type_oSr, null, a2, a3, null, null, a4, a5);
+        var t1 = new T.ServiceEditComponent(C.Type_smC, null, a2, a3, null, null, a4, a5, null);
         t1._entId = a1.get$parameters().$index(0, "id");
         return t1;
       }, null, null, 10, 0, null, 1, 2, 3, 4, 5, "call"]
     },
-    closure945: {
+    closure946: {
+      "^": "Closure:2;",
+      call$5: [function(a1, a2, a3, a4, a5) {
+        var t1 = new T.EmployeeEditComponent(C.Type_oSr, null, a2, a3, null, null, a4, a5, null);
+        t1._entId = a1.get$parameters().$index(0, "id");
+        return t1;
+      }, null, null, 10, 0, null, 1, 2, 3, 4, 5, "call"]
+    },
+    closure947: {
       "^": "Closure:5;",
       call$4: [function(a1, a2, a3, a4) {
         var t1, t2, t3;
@@ -6715,13 +6728,13 @@
         return new Q.TimesliceWeeklyReportComponent(new P.DateTime(t1, false), null, t2, null, null, null, null, false, null, [], C.Type_pRH, a1, null, a3, null, "", a2, a4);
       }, null, null, 8, 0, null, 1, 2, 3, 4, "call"]
     },
-    closure946: {
+    closure948: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return new S.UserMenu(a1);
       }, null, null, 2, 0, null, 1, "call"]
     },
-    closure947: {
+    closure949: {
       "^": "Closure:6;",
       call$0: [function() {
         return new E.Profiler(new E.Counters(P.LinkedHashMap_LinkedHashMap$_empty(P.String, P.$int)));
@@ -14262,7 +14275,7 @@
       },
       $isHttpInterceptor: 1
     },
-    closure953: {
+    closure955: {
       "^": "Closure:51;",
       call$1: [function(config) {
         var t1, t2;
@@ -14277,7 +14290,7 @@
         return config;
       }, null, null, 2, 0, null, 80, "call"]
     },
-    closure954: {
+    closure956: {
       "^": "Closure:52;",
       call$1: [function(r) {
         var t1, t2, d;
@@ -14438,7 +14451,7 @@
         this._interceptors.constructChain$1(chain);
         if (interceptors != null) {
           if (!!J.getInterceptor(interceptors).$isHttpInterceptor) {
-            interceptors0 = new Y.HttpInterceptors([new Y.DefaultTransformDataHttpInterceptor(new Y.closure953(), new Y.closure954(), null, null)]);
+            interceptors0 = new Y.HttpInterceptors([new Y.DefaultTransformDataHttpInterceptor(new Y.closure955(), new Y.closure956(), null, null)]);
             interceptors0._interceptors = [interceptors];
             interceptors = interceptors0;
           }
@@ -19953,6 +19966,9 @@
       get$element: function() {
         return this._element;
       },
+      get$invalid: function() {
+        return this.errorStates.__js_helper$_length !== 0;
+      },
       get$dirty: function() {
         return this.infoStates.containsKey$1(0, "ng-dirty");
       },
@@ -20150,6 +20166,9 @@
       set$name: function(_, $name) {
       },
       get$dirty: function() {
+        return false;
+      },
+      get$invalid: function() {
         return false;
       },
       get$parentControl: function() {
@@ -20371,6 +20390,9 @@
           }
         }
       },
+      get$controls: function(_) {
+        return this._controlByName;
+      },
       $index: function(_, $name) {
         var t1 = this._controlByName;
         return t1.containsKey$1(0, $name) ? J.$index$asx(t1.$index(0, $name), 0) : null;
@@ -20409,6 +20431,9 @@
       $indexSet: function(_, key, value) {
       },
       $index: function(_, $name) {
+      },
+      get$controls: function(_) {
+        return;
       },
       $isDetachAware: 1,
       $isAttachAware: 1
@@ -20615,7 +20640,7 @@
       },
       $isAttachAware: 1
     },
-    closure951: {
+    closure953: {
       "^": "Closure:34;",
       call$2: function(_, __) {
         return;
@@ -20624,7 +20649,7 @@
         return this.call$2(_, null);
       }
     },
-    closure952: {
+    closure954: {
       "^": "Closure:0;",
       call$1: [function(value) {
         return;
@@ -21935,7 +21960,7 @@
         return this._directive$_parser.call$1(arg0);
       }
     },
-    closure950: {
+    closure952: {
       "^": "Closure:4;",
       call$3: function(key, value, index) {
         return value;
@@ -26563,7 +26588,7 @@
           return t1;
         }}
     },
-    closure948: {
+    closure950: {
       "^": "Closure:154;",
       call$1: function(evt) {
         return P.LinkedHashMap__makeEmpty();
@@ -30281,7 +30306,7 @@
         t1[t2] = object;
       }
     },
-    closure949: {
+    closure951: {
       "^": "Closure:0;",
       call$1: function(index) {
         return "arg[" + index + "]";
@@ -42807,7 +42832,7 @@
       "%": "HTMLMapElement"
     },
     MediaElement: {
-      "^": "HtmlElement;currentTime%,duration=,error=,src%",
+      "^": "HtmlElement;controls=,currentTime%,duration=,error=,src%",
       pause$0: [function(receiver) {
         return receiver.pause();
       }, "call$0", "get$pause", 0, 0, 13],
@@ -47130,10 +47155,14 @@
         this.date = new P.DateTime(H.checkInt(H.Primitives_valueFromDecomposedDate(t1, t2, t3, 0, 0, 0, 0, false)), false);
       }, "call$0", "get$today", 0, 0, 6],
       nextDay$0: [function() {
-        this.date = J.add$1$ax(this.date, P.Duration$(1, 0, 0, 0, 0, 0));
+        var t1 = this.date;
+        if (t1 != null)
+          this.date = J.add$1$ax(t1, P.Duration$(1, 0, 0, 0, 0, 0));
       }, "call$0", "get$nextDay", 0, 0, 6],
       previousDay$0: [function() {
-        this.date = this.date.subtract$1(P.Duration$(1, 0, 0, 0, 0, 0));
+        var t1 = this.date;
+        if (t1 != null)
+          this.date = t1.subtract$1(P.Duration$(1, 0, 0, 0, 0, 0));
       }, "call$0", "get$previousDay", 0, 0, 6],
       updateDate$0: [function() {
         var t1, t2;
@@ -51331,7 +51360,7 @@
   }], ["entity_edit", "package:DimeClient/component/edit/entity_edit.dart",, T, {
     "^": "",
     EntityEdit: {
-      "^": "AttachAware;statusservice@,entity@,rootScope<,auth@",
+      "^": "AttachAware;statusservice@,entity@,rootScope<,auth@,editform@",
       set$scope: function(scope) {
         this.rootScope = scope.get$rootScope();
       },
@@ -51403,7 +51432,7 @@
         this.entity.addFieldtoUpdate$1($name);
       }, "call$1", "get$addSaveField", 2, 0, 17, 50],
       saveEntity$0: [function() {
-        var $goto = 0, completer = new P.Completer_Completer(), handler = 1, currentError, next = [], $self = this, e, exception, t1, exception1, temp1;
+        var $goto = 0, completer = new P.Completer_Completer(), handler = 1, currentError, next = [], $self = this, t1, e, t2, exception, exception1, temp1;
         function saveEntity$0(errorCode, result) {
           if (errorCode === 1) {
             currentError = result;
@@ -51413,47 +51442,57 @@
             switch ($goto) {
               case 0:
                 // Function start
-                $self.rootScope.emit$1("saveChanges");
-                $goto = $self.entity.get$needsUpdate() ? 2 : 4;
+                t1 = {};
+                t2 = $self.editform;
+                $goto = t2 != null && t2.get$invalid() ? 2 : 4;
                 break;
               case 2:
                 // then
-                $self.statusservice.setStatusToLoading$0();
-                handler = 6;
-                temp1 = $self;
-                $goto = 9;
-                return H.asyncHelper($self.store.update$1($self.entity), saveEntity$0, completer);
-              case 9:
-                // returning from await.
-                temp1.entity = result;
-                $self.statusservice.setStatusToSuccess$0();
-                handler = 1;
-                // goto after finally
-                $goto = 8;
-                break;
-              case 6:
-                // catch
-                handler = 5;
-                exception1 = currentError;
-                t1 = H.unwrapException(exception1);
-                e = t1;
-                $self.statusservice.setStatusToError$1(e);
-                // goto after finally
-                $goto = 8;
-                break;
-              case 5:
-                // uncaught
-                // goto rethrow
-                $goto = 1;
-                break;
-              case 8:
-                // after finally
+                t1._captured_focusSet_0 = false;
+                J.forEach$1$ax(J.get$controls$x($self.editform), new T.EntityEdit_saveEntity_closure(t1, $self));
                 // goto join
                 $goto = 3;
                 break;
               case 4:
                 // else
+                $self.rootScope.emit$1("saveChanges");
+                $goto = $self.entity.get$needsUpdate() ? 5 : 6;
+                break;
+              case 5:
+                // then
+                $self.statusservice.setStatusToLoading$0();
+                handler = 8;
+                temp1 = $self;
+                $goto = 11;
+                return H.asyncHelper($self.store.update$1($self.entity), saveEntity$0, completer);
+              case 11:
+                // returning from await.
+                temp1.entity = result;
+                $self.statusservice.setStatusToSuccess$0();
+                handler = 1;
+                // goto after finally
+                $goto = 10;
+                break;
+              case 8:
+                // catch
+                handler = 7;
+                exception1 = currentError;
+                t1 = H.unwrapException(exception1);
+                e = t1;
+                $self.statusservice.setStatusToError$1(e);
+                // goto after finally
+                $goto = 10;
+                break;
+              case 7:
+                // uncaught
+                // goto rethrow
+                $goto = 1;
+                break;
+              case 10:
+                // after finally
                 $self.reload$0(0);
+              case 6:
+                // join
               case 3:
                 // join
                 // implicit return
@@ -51473,8 +51512,23 @@
         this._entity_edit$_captured_this_0.reload$0(0);
       }, null, null, 0, 0, null, "call"]
     },
+    EntityEdit_saveEntity_closure: {
+      "^": "Closure:1;_entity_edit$_box_0,_entity_edit$_captured_this_1",
+      call$2: function($name, field) {
+        var t1, t2;
+        t1 = this._entity_edit$_captured_this_1;
+        if (J.$index$asx(t1.editform, $name).get$invalid()) {
+          t2 = this._entity_edit$_box_0;
+          if (!t2._captured_focusSet_0) {
+            J.focus$0$x(J.$index$asx(t1.editform, $name).get$element().get$node());
+            t2._captured_focusSet_0 = true;
+          }
+          J.$index$asx(t1.editform, $name).get$element().addClass$1("ng-touched");
+        }
+      }
+    },
     ProjectEditComponent: {
-      "^": "EntityEdit;customers,rateGroups,entType,_entId,store,statusservice,entity,rootScope,auth,router",
+      "^": "EntityEdit;customers,rateGroups,entType,_entId,store,statusservice,entity,rootScope,auth,router,editform",
       attach$0: function() {
         var t1 = this.auth;
         if (t1 != null)
@@ -51579,7 +51633,7 @@
       }, null, null, 0, 0, null, "call"]
     },
     OfferEditComponent: {
-      "^": "EntityEdit;customers,rateGroups,states,users,OfferEditComponent_router,entType,_entId,store,statusservice,entity,rootScope,auth,router",
+      "^": "EntityEdit;customers,rateGroups,states,users,OfferEditComponent_router,entType,_entId,store,statusservice,entity,rootScope,auth,router,editform",
       attach$0: function() {
         var t1 = this.auth;
         if (t1 != null)
@@ -51745,7 +51799,7 @@
       }, null, null, 0, 0, null, "call"]
     },
     InvoiceEditComponent: {
-      "^": "EntityEdit;entType,_entId,store,statusservice,entity,rootScope,auth,router",
+      "^": "EntityEdit;entType,_entId,store,statusservice,entity,rootScope,auth,router,editform",
       printInvoice$0: [function() {
         C.Window_methods.open$2(window, "/api/v1/invoices/" + H.S(J.get$id$x(this.entity)) + "/print", "Invoice Print");
       }, "call$0", "get$printInvoice", 0, 0, 6],
@@ -51801,7 +51855,7 @@
       }, "call$0", "get$updateInvoicefromProject", 0, 0, 6]
     },
     CustomerEditComponent: {
-      "^": "EntityEdit;rateGroups,entType,_entId,store,statusservice,entity,rootScope,auth,router",
+      "^": "EntityEdit;rateGroups,entType,_entId,store,statusservice,entity,rootScope,auth,router,editform",
       attach$0: function() {
         var t1 = this.auth;
         if (t1 != null)
@@ -51849,15 +51903,15 @@
       }, null, null, 0, 0, null, "call"]
     },
     AddressEditComponent: {
-      "^": "EntityEdit;address@,entType,_entId,store,statusservice,entity,rootScope,auth,router",
+      "^": "EntityEdit;address@,entType,_entId,store,statusservice,entity,rootScope,auth,router,editform",
       attach$0: function() {
       }
     },
     ServiceEditComponent: {
-      "^": "EntityEdit;entType,_entId,store,statusservice,entity,rootScope,auth,router"
+      "^": "EntityEdit;entType,_entId,store,statusservice,entity,rootScope,auth,router,editform"
     },
     EmployeeEditComponent: {
-      "^": "EntityEdit;entType,_entId,store,statusservice,entity,rootScope,auth,router"
+      "^": "EntityEdit;entType,_entId,store,statusservice,entity,rootScope,auth,router,editform"
     }
   }], ["entity_overview_component", "package:DimeClient/component/overview/entity_overview.dart",, Y, {
     "^": "",
@@ -53174,7 +53228,7 @@
   }], ["entity_select", "package:DimeClient/component/select/entity_select.dart",, V, {
     "^": "",
     EntitySelect: {
-      "^": "AttachAware;scope@,element<,open*,callback@,field@,type*,entities@,selector@,statusservice@,auth@,clearOnClose@",
+      "^": "AttachAware;scope@,element<,open*,callback@,field@,type*,entities@,selector@,statusservice@,auth@,clearOnClose@,required*",
       set$selectedEntity: function(entity) {
         if (entity != null)
           this.selector = J.get$name$x(entity);
@@ -53287,19 +53341,19 @@
       }, null, null, 0, 0, null, "call"]
     },
     ProjectSelectComponent: {
-      "^": "EntitySelect;store,scope,element,open,callback,field,type,entities,selector,statusservice,auth,clearOnClose,_selectedEntity"
+      "^": "EntitySelect;store,scope,element,open,callback,field,type,entities,selector,statusservice,auth,clearOnClose,required,_selectedEntity"
     },
     ActivitySelectComponent: {
-      "^": "EntitySelect;projectId@,store,scope,element,open,callback,field,type,entities,selector,statusservice,auth,clearOnClose,_selectedEntity"
+      "^": "EntitySelect;projectId@,store,scope,element,open,callback,field,type,entities,selector,statusservice,auth,clearOnClose,required,_selectedEntity"
     },
     ServiceSelectComponent: {
-      "^": "EntitySelect;store,scope,element,open,callback,field,type,entities,selector,statusservice,auth,clearOnClose,_selectedEntity"
+      "^": "EntitySelect;store,scope,element,open,callback,field,type,entities,selector,statusservice,auth,clearOnClose,required,_selectedEntity"
     },
     CustomerSelectComponent: {
-      "^": "EntitySelect;store,scope,element,open,callback,field,type,entities,selector,statusservice,auth,clearOnClose,_selectedEntity"
+      "^": "EntitySelect;store,scope,element,open,callback,field,type,entities,selector,statusservice,auth,clearOnClose,required,_selectedEntity"
     },
     OfferStatusSelectComponent: {
-      "^": "EntitySelect;store,scope,element,open,callback,field,type,entities,selector,statusservice,auth,clearOnClose,_selectedEntity",
+      "^": "EntitySelect;store,scope,element,open,callback,field,type,entities,selector,statusservice,auth,clearOnClose,required,_selectedEntity",
       set$selectedEntity: function(entity) {
         if (entity != null)
           this.selector = J.get$text$x(entity);
@@ -53311,13 +53365,13 @@
       }
     },
     RateGroupSelectComponent: {
-      "^": "EntitySelect;store,scope,element,open,callback,field,type,entities,selector,statusservice,auth,clearOnClose,_selectedEntity"
+      "^": "EntitySelect;store,scope,element,open,callback,field,type,entities,selector,statusservice,auth,clearOnClose,required,_selectedEntity"
     },
     RateUnitTypeSelectComponent: {
-      "^": "EntitySelect;store,scope,element,open,callback,field,type,entities,selector,statusservice,auth,clearOnClose,_selectedEntity"
+      "^": "EntitySelect;store,scope,element,open,callback,field,type,entities,selector,statusservice,auth,clearOnClose,required,_selectedEntity"
     },
     UserSelectComponent: {
-      "^": "EntitySelect;context<,useContext@,store,scope,element,open,callback,field,type,entities,selector,statusservice,auth,clearOnClose,_selectedEntity",
+      "^": "EntitySelect;context<,useContext@,store,scope,element,open,callback,field,type,entities,selector,statusservice,auth,clearOnClose,required,_selectedEntity",
       set$selectedEntity: function(entity) {
         if (entity != null)
           this.selector = entity.get$fullname();
@@ -53359,7 +53413,7 @@
       }, "call$0", "get$reload", 0, 0, 6]
     },
     StandardDiscountSelectComponent: {
-      "^": "EntitySelect;store,scope,element,open,callback,field,type,entities,selector,statusservice,auth,clearOnClose,_selectedEntity"
+      "^": "EntitySelect;store,scope,element,open,callback,field,type,entities,selector,statusservice,auth,clearOnClose,required,_selectedEntity"
     },
     RoundModeSelect: {
       "^": "Object;_entity_select$_model,callback@,field@,selector@,scope@,element<,open*,modes@",
@@ -58377,6 +58431,9 @@
   J.get$content$x = function(receiver) {
     return J.getInterceptor$x(receiver).get$content(receiver);
   };
+  J.get$controls$x = function(receiver) {
+    return J.getInterceptor$x(receiver).get$controls(receiver);
+  };
   J.get$currentTarget$x = function(receiver) {
     return J.getInterceptor$x(receiver).get$currentTarget(receiver);
   };
@@ -59743,6 +59800,10 @@
   C.Decorator_0 = new F.Decorator("input[type=checkbox][ng-model][ng-true-value]", "compile", null, null, C.Map_gQ7eO, null, null, null);
   C.List_09 = Isolate.makeConstantList([C.Decorator_0]);
   C.List_02h = Isolate.makeConstantList(["D", "H", "M", "M", "E", "P", "S"]);
+  C.List_UvO = Isolate.makeConstantList(["customer", "callback", "field", "clearOnClose", "required"]);
+  C.Map_Uv4QF = new H.ConstantStringMap(5, {customer: "<=>selectedEntity", callback: "&callback", field: "=>!field", clearOnClose: "=>!clearOnClose", required: "=>!required"}, C.List_UvO);
+  C.Component_q4m = new F.Component(null, null, "/bundles/dimefrontend/packages/DimeClient/component/select/customer_select.html", null, false, true, "customer-select", "compile", null, null, C.Map_Uv4QF, null, null, null);
+  C.List_03i = Isolate.makeConstantList([C.Component_q4m]);
   C.List_06g = Isolate.makeConstantList(["EEEE, d MMMM y\u00a0'\u0433'.", "d MMMM y\u00a0'\u0433'.", "dd.MM.yyyy", "dd.MM.yy"]);
   C.List_0DX = Isolate.makeConstantList(["\u0627\u0644\u0623\u062d\u062f", "\u0627\u0644\u0627\u062b\u0646\u064a\u0646", "\u0627\u0644\u062b\u0644\u0627\u062b\u0627\u0621", "\u0627\u0644\u0623\u0631\u0628\u0639\u0627\u0621", "\u0627\u0644\u062e\u0645\u064a\u0633", "\u0627\u0644\u062c\u0645\u0639\u0629", "\u0627\u0644\u0633\u0628\u062a"]);
   C.List_0I7 = Isolate.makeConstantList(["n", "p", "t", "s", "\u010d", "p", "s"]);
@@ -59751,6 +59812,10 @@
   C.List_0Nf = Isolate.makeConstantList(["\u043d\u0435\u0434\u0435\u043b\u044f", "\u043f\u043e\u043d\u0435\u0434\u0435\u043b\u043d\u0438\u043a", "\u0432\u0442\u043e\u0440\u043d\u0438\u043a", "\u0441\u0440\u044f\u0434\u0430", "\u0447\u0435\u0442\u0432\u044a\u0440\u0442\u044a\u043a", "\u043f\u0435\u0442\u044a\u043a", "\u0441\u044a\u0431\u043e\u0442\u0430"]);
   C.List_0yI = Isolate.makeConstantList(["1kv", "2kv", "3kv", "4kv"]);
   C.List_127_2047_65535_1114111 = H.setRuntimeTypeInfo(Isolate.makeConstantList([127, 2047, 65535, 1114111]), [P.$int]);
+  C.List_23I = Isolate.makeConstantList(["activity", "project", "callback", "field", "clearOnClose", "required"]);
+  C.Map_23qbf = new H.ConstantStringMap(6, {activity: "<=>selectedEntity", project: "=>projectId", callback: "&callback", field: "=>!field", clearOnClose: "=>!clearOnClose", required: "=>!required"}, C.List_23I);
+  C.Component_btK = new F.Component(null, null, "/bundles/dimefrontend/packages/DimeClient/component/select/activity_select.html", null, false, true, "activity-select", "compile", null, null, C.Map_23qbf, null, null, null);
+  C.List_13Y = Isolate.makeConstantList([C.Component_btK]);
   C.List_14C = Isolate.makeConstantList(["de gen.", "de febr.", "de mar\u00e7", "d\u2019abr.", "de maig", "de juny", "de jul.", "d\u2019ag.", "de set.", "d\u2019oct.", "de nov.", "de des."]);
   C.List_16h = Isolate.makeConstantList(["\u042f", "\u0424", "\u041c", "\u0410", "\u041c", "\u0418", "\u0418", "\u0410", "\u0421", "\u041e", "\u041d", "\u0414"]);
   C.Decorator_oBB = new F.Decorator("input[type=checkbox][ng-model]", "compile", null, null, null, null, null, null);
@@ -59777,8 +59842,6 @@
   C.Map_Qyebz = new H.ConstantStringMap(1, {"ng-bind-template": "@bind"}, C.List_Qy4);
   C.Decorator_EOZ = new F.Decorator("[ng-bind-template]", "compile", null, null, C.Map_Qyebz, null, null, null);
   C.List_2bL = Isolate.makeConstantList([C.Decorator_EOZ]);
-  C.Component_TD4 = new F.Component(null, null, "/bundles/dimefrontend/packages/DimeClient/component/edit/offer_edit.html", null, false, true, "offer-edit", "compile", null, null, null, null, null, null);
-  C.List_2bx = Isolate.makeConstantList([C.Component_TD4]);
   C.List_2fJ = Isolate.makeConstantList(["a.m.", "p.m."]);
   C.List_2fK = Isolate.makeConstantList(["EEEE d MMMM y", "d MMMM y", "d MMM y", "dd/MM/yy"]);
   C.List_2fz = Isolate.makeConstantList(["tammikuuta", "helmikuuta", "maaliskuuta", "huhtikuuta", "toukokuuta", "kes\u00e4kuuta", "hein\u00e4kuuta", "elokuuta", "syyskuuta", "lokakuuta", "marraskuuta", "joulukuuta"]);
@@ -59833,15 +59896,15 @@
   C.List_43h1 = Isolate.makeConstantList(["Januwari", "Februwari", "Mashi", "Apreli", "Meyi", "Juni", "Julayi", "Agasti", "Septhemba", "Okthoba", "Novemba", "Disemba"]);
   C.Decorator_D72 = new F.Decorator("[accordion-transclude]", "compile", null, null, null, null, null, null);
   C.List_43h2 = Isolate.makeConstantList([C.Decorator_D72]);
-  C.List_ECQ = Isolate.makeConstantList(["customer", "callback", "field", "clearOnClose"]);
-  C.Map_ECgOG = new H.ConstantStringMap(4, {customer: "<=>selectedEntity", callback: "&callback", field: "=>!field", clearOnClose: "=>!clearOnClose"}, C.List_ECQ);
-  C.Component_Fb0 = new F.Component(null, null, "/bundles/dimefrontend/packages/DimeClient/component/select/customer_select.html", null, false, true, "customer-select", "compile", null, null, C.Map_ECgOG, null, null, null);
-  C.List_46y = Isolate.makeConstantList([C.Component_Fb0]);
   C.List_47R = Isolate.makeConstantList(["\u0434\u043e \u043d.\u044d.", "\u043d.\u044d."]);
   C.List_497 = Isolate.makeConstantList(["\u05e8\u05d1\u05e2\u05d5\u05df 1", "\u05e8\u05d1\u05e2\u05d5\u05df 2", "\u05e8\u05d1\u05e2\u05d5\u05df 3", "\u05e8\u05d1\u05e2\u05d5\u05df 4"]);
   C.List_4AN = Isolate.makeConstantList(["sunnudagur", "m\u00e1nudagur", "\u00feri\u00f0judagur", "mi\u00f0vikudagur", "fimmtudagur", "f\u00f6studagur", "laugardagur"]);
   C.List_4AN0 = Isolate.makeConstantList(["\u0d1c\u0d28\u0d41\u0d35\u0d30\u0d3f", "\u0d2b\u0d46\u0d2c\u0d4d\u0d30\u0d41\u0d35\u0d30\u0d3f", "\u0d2e\u0d3e\u0d30\u0d4d\u200d\u0d1a\u0d4d\u0d1a\u0d4d", "\u0d0f\u0d2a\u0d4d\u0d30\u0d3f\u0d32\u0d4d\u200d", "\u0d2e\u0d47\u0d2f\u0d4d", "\u0d1c\u0d42\u0d23\u0d4d\u200d", "\u0d1c\u0d42\u0d32\u0d48", "\u0d06\u0d17\u0d38\u0d4d\u0d31\u0d4d\u0d31\u0d4d", "\u0d38\u0d46\u0d2a\u0d4d\u0d31\u0d4d\u0d31\u0d02\u0d2c\u0d30\u0d4d\u200d", "\u0d12\u0d15\u0d4d\u0d1f\u0d4b\u0d2c\u0d30\u0d4d\u200d", "\u0d28\u0d35\u0d02\u0d2c\u0d30\u0d4d\u200d", "\u0d21\u0d3f\u0d38\u0d02\u0d2c\u0d30\u0d4d\u200d"]);
   C.List_4AN1 = Isolate.makeConstantList(["Suku pertama", "Suku Ke-2", "Suku Ke-3", "Suku Ke-4"]);
+  C.List_Au4 = Isolate.makeConstantList(["discount", "callback", "field", "clearOnClose", "required"]);
+  C.Map_Au38v = new H.ConstantStringMap(5, {discount: "<=>selectedEntity", callback: "&callback", field: "=>!field", clearOnClose: "=>!clearOnClose", required: "=>!required"}, C.List_Au4);
+  C.Component_OPN = new F.Component(null, null, "/bundles/dimefrontend/packages/DimeClient/component/select/standarddiscount_select.html", null, false, true, "standarddiscount-select", "compile", null, null, C.Map_Au38v, null, null, null);
+  C.List_4AN2 = Isolate.makeConstantList([C.Component_OPN]);
   C.List_4C6 = Isolate.makeConstantList(["d MMMM y EEEE", "d MMMM y", "d MMM y", "dd MM yyyy"]);
   C.List_4CA = Isolate.makeConstantList(["T", "H", "M", "H", "T", "K", "H", "E", "S", "L", "M", "J"]);
   C.List_4CA0 = Isolate.makeConstantList(["Saus.", "Vas.", "Kov.", "Bal.", "Geg.", "Bir.", "Liep.", "Rugp.", "Rugs.", "Spal.", "Lapkr.", "Gruod."]);
@@ -59859,16 +59922,10 @@
   C.List_4IJ0 = Isolate.makeConstantList([C.Decorator_eJC, C.Decorator_U05, C.Decorator_TPP, C.Decorator_qFu]);
   C.List_4KK = Isolate.makeConstantList(["Paz", "Pzt", "Sal", "\u00c7ar", "Per", "Cum", "Cmt"]);
   C.List_4MR = Isolate.makeConstantList(["januari", "februari", "mars", "april", "maj", "juni", "juli", "augusti", "september", "oktober", "november", "december"]);
-  C.Component_yrK = new F.Component(null, null, "/bundles/dimefrontend/packages/DimeClient/component/edit/employee_edit.html", null, false, true, "employee-edit", "compile", null, null, null, null, null, null);
-  C.List_4QF = Isolate.makeConstantList([C.Component_yrK]);
   C.List_collapse = Isolate.makeConstantList(["collapse"]);
   C.Map_suuwd = new H.ConstantStringMap(1, {collapse: "=>isCollapsed"}, C.List_collapse);
   C.Component_Usk = new F.Component(null, null, null, null, false, true, "[collapse]", "compile", null, null, C.Map_suuwd, null, null, null);
   C.List_4UV = Isolate.makeConstantList([C.Component_Usk]);
-  C.List_oyU = Isolate.makeConstantList(["activity", "project", "callback", "field", "clearOnClose"]);
-  C.Map_oyEmx = new H.ConstantStringMap(5, {activity: "<=>selectedEntity", project: "=>projectId", callback: "&callback", field: "=>!field", clearOnClose: "=>!clearOnClose"}, C.List_oyU);
-  C.Component_cYG = new F.Component(null, null, "/bundles/dimefrontend/packages/DimeClient/component/select/activity_select.html", null, false, true, "activity-select", "compile", null, null, C.Map_oyEmx, null, null, null);
-  C.List_4VO = Isolate.makeConstantList([C.Component_cYG]);
   C.List_4_5 = Isolate.makeConstantList([4, 5]);
   C.List_4e2 = Isolate.makeConstantList(["\u0c1c\u0c28\u0c35\u0c30\u0c3f", "\u0c2b\u0c3f\u0c2c\u0c4d\u0c30\u0c35\u0c30\u0c3f", "\u0c2e\u0c3e\u0c30\u0c4d\u0c1a\u0c3f", "\u0c0e\u0c2a\u0c4d\u0c30\u0c3f\u0c32\u0c4d", "\u0c2e\u0c47", "\u0c1c\u0c42\u0c28\u0c4d", "\u0c1c\u0c42\u0c32\u0c48", "\u0c06\u0c17\u0c38\u0c4d\u0c1f\u0c41", "\u0c38\u0c46\u0c2a\u0c4d\u0c1f\u0c46\u0c02\u0c2c\u0c30\u0c4d", "\u0c05\u0c15\u0c4d\u0c1f\u0c4b\u0c2c\u0c30\u0c4d", "\u0c28\u0c35\u0c02\u0c2c\u0c30\u0c4d", "\u0c21\u0c3f\u0c38\u0c46\u0c02\u0c2c\u0c30\u0c4d"]);
   C.List_4e8 = Isolate.makeConstantList(["J", "F", "M", "A", "M", "J", "J", "\u00c1", "L", "O", "N", "D"]);
@@ -59911,17 +59968,11 @@
   C.List_6pP = Isolate.makeConstantList(["V", "H", "K", "Sz", "Cs", "P", "Sz"]);
   C.List_6pl = Isolate.makeConstantList(["1r trimestre", "2n trimestre", "3r trimestre", "4t trimestre"]);
   C.List_6pl0 = Isolate.makeConstantList(["Oca", "\u015eub", "Mar", "Nis", "May", "Haz", "Tem", "A\u011fu", "Eyl", "Eki", "Kas", "Ara"]);
-  C.List_status_callback_field_clearOnClose = Isolate.makeConstantList(["status", "callback", "field", "clearOnClose"]);
-  C.Map_w12fF = new H.ConstantStringMap(4, {status: "<=>selectedEntity", callback: "&callback", field: "=>!field", clearOnClose: "=>!clearOnClose"}, C.List_status_callback_field_clearOnClose);
-  C.Component_tcl = new F.Component(null, null, "/bundles/dimefrontend/packages/DimeClient/component/select/offerstatus_select.html", null, false, true, "offerstatus-select", "compile", null, null, C.Map_w12fF, null, null, null);
-  C.List_6qA = Isolate.makeConstantList([C.Component_tcl]);
   C.List_6ue = Isolate.makeConstantList(["ika-1 sangkapat", "ika-2 sangkapat", "ika-3 quarter", "ika-4 na quarter"]);
   C.List_6v8 = Isolate.makeConstantList(["S", "M", "D", "M", "D", "F", "S"]);
   C.List_6x6 = Isolate.makeConstantList(["sije\u010dnja", "velja\u010de", "o\u017eujka", "travnja", "svibnja", "lipnja", "srpnja", "kolovoza", "rujna", "listopada", "studenoga", "prosinca"]);
   C.List_6xs = Isolate.makeConstantList(["Before Christ", "Anno Domini"]);
   C.List_6yO = Isolate.makeConstantList(["\u043f\u0440. \u043d. \u0435.", "\u043e\u0442 \u043d. \u0435."]);
-  C.Component_46c = new F.Component(null, null, "/bundles/dimefrontend/packages/DimeClient/component/edit/project_edit.html", null, false, true, "project-edit", "compile", null, null, null, null, null, null);
-  C.List_7BT = Isolate.makeConstantList([C.Component_46c]);
   C.List_7Fi = Isolate.makeConstantList(["dopoludnia", "popoludn\u00ed"]);
   C.List_7TW = Isolate.makeConstantList(["\uc81c 1/4\ubd84\uae30", "\uc81c 2/4\ubd84\uae30", "\uc81c 3/4\ubd84\uae30", "\uc81c 4/4\ubd84\uae30"]);
   C.List_7d2 = Isolate.makeConstantList(["urt", "ots", "mar", "api", "mai", "eka", "uzt", "abu", "ira", "urr", "aza", "abe"]);
@@ -59943,6 +59994,10 @@
   C.List_8Cn = Isolate.makeConstantList(["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"]);
   C.List_8Gl = Isolate.makeConstantList(["kuartal pertama", "kuartal kedua", "kuartal ketiga", "kuartal keempat"]);
   C.List_8Gl0 = Isolate.makeConstantList(["\uae30\uc6d0\uc804", "\uc11c\uae30"]);
+  C.List_EKW0 = Isolate.makeConstantList(["useContext", "user", "callback", "field", "clearOnClose", "required"]);
+  C.Map_EKOT4 = new H.ConstantStringMap(6, {useContext: "=>!useContext", user: "<=>selectedEntity", callback: "&callback", field: "=>!field", clearOnClose: "=>!clearOnClose", required: "=>!required"}, C.List_EKW0);
+  C.Component_jn0 = new F.Component(null, null, "/bundles/dimefrontend/packages/DimeClient/component/select/user_select.html", null, false, true, "user-select", "compile", null, null, C.Map_EKOT4, null, null, null);
+  C.List_8Gl1 = Isolate.makeConstantList([C.Component_jn0]);
   C.List_8R1 = Isolate.makeConstantList(["Jan", "Feb", "Mac", "Apr", "Mei", "Jun", "Jul", "Ago", "Sep", "Okt", "Nov", "Des"]);
   C.List_8YE = Isolate.makeConstantList(["sty", "lut", "mar", "kwi", "maj", "cze", "lip", "sie", "wrz", "pa\u017a", "lis", "gru"]);
   C.List_8aB = Isolate.makeConstantList(["J", "S", "M", "P", "M", "Q", "K", "G", "S", "T", "N", "D"]);
@@ -59965,6 +60020,10 @@
   C.List_9sg = Isolate.makeConstantList(["\u067e\u06c1\u0644\u06cc \u0633\u06c1 \u0645\u0627\u06c1\u06cc", "\u062f\u0648\u0633\u0631\u06cc \u0633\u06c1 \u0645\u0627\u06c1\u06cc", "\u062a\u064a\u0633\u0631\u06cc \u0633\u06c1 \u0645\u0627\u06c1\u06cc", "\u0686\u0648\u062a\u0647\u06cc \u0633\u06c1 \u0645\u0627\u06c1\u06cc"]);
   C.List_9x3 = Isolate.makeConstantList(["\u05d0", "\u05d1", "\u05d2", "\u05d3", "\u05d4", "\u05d5", "\u05e9"]);
   C.List_A0N = Isolate.makeConstantList(["\u043d\u0435\u0434", "\u043f\u043e\u043d", "\u0443\u0442\u043e", "\u0441\u0440\u0435", "\u0447\u0435\u0442", "\u043f\u0435\u0442", "\u0441\u0443\u0431"]);
+  C.List_cwZ = Isolate.makeConstantList(["service", "callback", "field", "clearOnClose", "required"]);
+  C.Map_cwwUg = new H.ConstantStringMap(5, {service: "<=>selectedEntity", callback: "&callback", field: "=>!field", clearOnClose: "=>!clearOnClose", required: "=>!required"}, C.List_cwZ);
+  C.Component_tDH = new F.Component(null, null, "/bundles/dimefrontend/packages/DimeClient/component/select/service_select.html", null, false, true, "service-select", "compile", null, null, C.Map_cwwUg, null, null, null);
+  C.List_A2L = Isolate.makeConstantList([C.Component_tDH]);
   C.List_A2Y = Isolate.makeConstantList(["diumenge", "dilluns", "dimarts", "dimecres", "dijous", "divendres", "dissabte"]);
   C.List_A4L = Isolate.makeConstantList(["\u0930\u0935\u093f\u0935\u093e\u0930", "\u0938\u094b\u092e\u0935\u093e\u0930", "\u092e\u0902\u0917\u0933\u0935\u093e\u0930", "\u092c\u0941\u0927\u0935\u093e\u0930", "\u0917\u0941\u0930\u0941\u0935\u093e\u0930", "\u0936\u0941\u0915\u094d\u0930\u0935\u093e\u0930", "\u0936\u0928\u093f\u0935\u093e\u0930"]);
   C.List_A6W = Isolate.makeConstantList(["y\u5e74M\u6708d\u65e5EEEE", "y\u5e74M\u6708d\u65e5", "y\u5e74M\u6708d\u65e5", "yy\u5e74M\u6708d\u65e5"]);
@@ -59989,6 +60048,10 @@
   C.List_AgZ = Isolate.makeConstantList(["Jan", "Feb", "M\u00e4r", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dez"]);
   C.List_AgZ0 = Isolate.makeConstantList(["e", "y", "m", "m", "m", "m", "p"]);
   C.List_AiQ = Isolate.makeConstantList(["gener", "febrer", "mar\u00e7", "abril", "maig", "juny", "juliol", "agost", "setembre", "octubre", "novembre", "desembre"]);
+  C.List_editform = Isolate.makeConstantList(["editform"]);
+  C.Map_Rskjl = new H.ConstantStringMap(1, {editform: "<=>editform"}, C.List_editform);
+  C.Component_Qyo = new F.Component(null, null, "/bundles/dimefrontend/packages/DimeClient/component/edit/invoice_edit.html", null, false, true, "invoice-edit", "compile", null, null, C.Map_Rskjl, null, null, null);
+  C.List_AiQ0 = Isolate.makeConstantList([C.Component_Qyo]);
   C.List_Am8 = Isolate.makeConstantList(["1T", "2T", "3T", "4T"]);
   C.List_AmA = Isolate.makeConstantList(["prie\u0161piet", "popiet"]);
   C.List_Avr = Isolate.makeConstantList(["P", "E", "T", "K", "N", "R", "L"]);
@@ -60011,10 +60074,6 @@
   C.List_BKW = Isolate.makeConstantList(["\u0421\u0456\u0447\u0435\u043d\u044c", "\u041b\u044e\u0442\u0438\u0439", "\u0411\u0435\u0440\u0435\u0437\u0435\u043d\u044c", "\u041a\u0432\u0456\u0442\u0435\u043d\u044c", "\u0422\u0440\u0430\u0432\u0435\u043d\u044c", "\u0427\u0435\u0440\u0432\u0435\u043d\u044c", "\u041b\u0438\u043f\u0435\u043d\u044c", "\u0421\u0435\u0440\u043f\u0435\u043d\u044c", "\u0412\u0435\u0440\u0435\u0441\u0435\u043d\u044c", "\u0416\u043e\u0432\u0442\u0435\u043d\u044c", "\u041b\u0438\u0441\u0442\u043e\u043f\u0430\u0434", "\u0413\u0440\u0443\u0434\u0435\u043d\u044c"]);
   C.List_BKg = Isolate.makeConstantList(["antes de Cristo", "despois de Cristo"]);
   C.List_BSc = Isolate.makeConstantList(["I. negyed\u00e9v", "II. negyed\u00e9v", "III. negyed\u00e9v", "IV. negyed\u00e9v"]);
-  C.List_MAi = Isolate.makeConstantList(["project", "callback", "field", "clearOnClose"]);
-  C.Map_MA4YG = new H.ConstantStringMap(4, {project: "<=>selectedEntity", callback: "&callback", field: "=>!field", clearOnClose: "=>!clearOnClose"}, C.List_MAi);
-  C.Component_2yR = new F.Component(null, null, "/bundles/dimefrontend/packages/DimeClient/component/select/project_select.html", null, false, true, "project-select", "compile", null, null, C.Map_MA4YG, null, null, null);
-  C.List_BcQ = Isolate.makeConstantList([C.Component_2yR]);
   C.List_BzQ = Isolate.makeConstantList(["\u09b0\u09ac\u09bf", "\u09b8\u09cb\u09ae", "\u09ae\u0999\u09cd\u0997\u09b2", "\u09ac\u09c1\u09a7", "\u09ac\u09c3\u09b9\u09b8\u09cd\u09aa\u09a4\u09bf", "\u09b6\u09c1\u0995\u09cd\u09b0", "\u09b6\u09a8\u09bf"]);
   C.List_C0t = Isolate.makeConstantList(["Jannar", "Frar", "Marzu", "April", "Mejju", "\u0120unju", "Lulju", "Awwissu", "Settembru", "Ottubru", "Novembru", "Di\u010bembru"]);
   C.List_C1_C2_C3_C4 = Isolate.makeConstantList(["C1", "C2", "C3", "C4"]);
@@ -60084,8 +60143,6 @@
   C.Component_R9B = new F.Component(null, "<div class=\"panel panel-default\">\r\n  <div class=\"panel-heading\">\r\n    <h4 class=\"panel-title\">\r\n      <a class=\"accordion-toggle\" ng-click=\"toggleOpen()\" accordion-transclude=\"heading\"><span ng-class=\"{'text-muted': isDisabled}\">{{heading}}</span></a>\r\n    </h4>\r\n  </div>\r\n  <div class=\"panel-collapse\" collapse=\"collapse\">\r\n    <div class=\"panel-body\"><content></content></div>\r\n  </div>\r\n</div>\r\n", null, null, false, true, "accordion-group", "compile", null, null, C.Map_iewuM, null, null, null);
   C.List_ERv = Isolate.makeConstantList([C.Component_R9B]);
   C.List_EUq = Isolate.makeConstantList(["2", "3", "4", "5", "A", "I", "1"]);
-  C.Component_Mpb = new F.Component(null, null, "/bundles/dimefrontend/packages/DimeClient/component/edit/customer_edit.html", null, false, true, "customer-edit", "compile", null, null, null, null, null, null);
-  C.List_EV1 = Isolate.makeConstantList([C.Component_Mpb]);
   C.List_EVN = Isolate.makeConstantList(["sekmadienis", "pirmadienis", "antradienis", "tre\u010diadienis", "ketvirtadienis", "penktadienis", "\u0161e\u0161tadienis"]);
   C.List_EbH = Isolate.makeConstantList(["i. e.", "i. sz."]);
   C.List_Ejg = Isolate.makeConstantList(["yan", "fbl", "msi", "apl", "mai", "yun", "yul", "agt", "stb", "\u0254tb", "nvb", "dsb"]);
@@ -60149,10 +60206,6 @@
   C.List_Formatter_weekNumber = Isolate.makeConstantList([C.Formatter_weekNumber]);
   C.Decorator_gnE = new F.Decorator("a[href]", "compile", null, null, null, null, null, null);
   C.List_Fxv = Isolate.makeConstantList([C.Decorator_gnE]);
-  C.List_VkZ = Isolate.makeConstantList(["useContext", "user", "callback", "field", "clearOnClose"]);
-  C.Map_VksoA = new H.ConstantStringMap(5, {useContext: "=>!useContext", user: "<=>selectedEntity", callback: "&callback", field: "=>!field", clearOnClose: "=>!clearOnClose"}, C.List_VkZ);
-  C.Component_8To = new F.Component(null, null, "/bundles/dimefrontend/packages/DimeClient/component/select/user_select.html", null, false, true, "user-select", "compile", null, null, C.Map_VksoA, null, null, null);
-  C.List_G6F = Isolate.makeConstantList([C.Component_8To]);
   C.List_GNu = Isolate.makeConstantList(["\u0b95\u0bbe\u0bb2\u0bbe\u0ba3\u0bcd\u0b9f\u0bc11", "\u0b95\u0bbe\u0bb2\u0bbe\u0ba3\u0bcd\u0b9f\u0bc12", "\u0b95\u0bbe\u0bb2\u0bbe\u0ba3\u0bcd\u0b9f\u0bc13", "\u0b95\u0bbe\u0bb2\u0bbe\u0ba3\u0bcd\u0b9f\u0bc14"]);
   C.List_GPh = Isolate.makeConstantList(["Son", "Mso", "Bil", "Tha", "Sin", "Hla", "Mgq"]);
   C.List_GQ8 = Isolate.makeConstantList(["1er trimestre", "2e trimestre", "3e trimestre", "4e trimestre"]);
@@ -60163,6 +60216,10 @@
   C.List_GfX = Isolate.makeConstantList(["1.\u00ba trimestre", "2.\u00ba trimestre", "3.\u00ba trimestre", "4.\u00ba trimestre"]);
   C.List_GvT = Isolate.makeConstantList(["p. n. e.", "A. D."]);
   C.List_GxC = Isolate.makeConstantList(["H:mm:ss (zzzz)", "H:mm:ss (z)", "H:mm:ss", "H:mm"]);
+  C.List_qky = Isolate.makeConstantList(["rateunittype", "callback", "field", "clearOnClose", "required"]);
+  C.Map_qkMQy = new H.ConstantStringMap(5, {rateunittype: "<=>selectedEntity", callback: "&callback", field: "=>!field", clearOnClose: "=>!clearOnClose", required: "=>!required"}, C.List_qky);
+  C.Component_ahf = new F.Component(null, null, "/bundles/dimefrontend/packages/DimeClient/component/select/rateunittype_select.html", null, false, true, "rateunittype-select", "compile", null, null, C.Map_qkMQy, null, null, null);
+  C.List_H3b = Isolate.makeConstantList([C.Component_ahf]);
   C.List_H7P = Isolate.makeConstantList(["\u043d", "\u043f", "\u0432", "\u0441", "\u0447", "\u043f", "\u0441"]);
   C.List_HFl = Isolate.makeConstantList(["s\u00f6ndag", "m\u00e5ndag", "tisdag", "onsdag", "torsdag", "fredag", "l\u00f6rdag"]);
   C.List_HQz = Isolate.makeConstantList(["\u661f\u671f\u65e5", "\u661f\u671f\u4e00", "\u661f\u671f\u4e8c", "\u661f\u671f\u4e09", "\u661f\u671f\u56db", "\u661f\u671f\u4e94", "\u661f\u671f\u516d"]);
@@ -60258,10 +60315,6 @@
   C.List_MUw = Isolate.makeConstantList(["\u099c\u09be\u09a8\u09c1\u09af\u09bc\u09be\u09b0\u09c0", "\u09ab\u09c7\u09ac\u09cd\u09b0\u09c1\u09af\u09bc\u09be\u09b0\u09c0", "\u09ae\u09be\u09b0\u09cd\u099a", "\u098f\u09aa\u09cd\u09b0\u09bf\u09b2", "\u09ae\u09c7", "\u099c\u09c1\u09a8", "\u099c\u09c1\u09b2\u09be\u0987", "\u0986\u0997\u09b8\u09cd\u099f", "\u09b8\u09c7\u09aa\u09cd\u099f\u09c7\u09ae\u09cd\u09ac\u09b0", "\u0985\u0995\u09cd\u099f\u09cb\u09ac\u09b0", "\u09a8\u09ad\u09c7\u09ae\u09cd\u09ac\u09b0", "\u09a1\u09bf\u09b8\u09c7\u09ae\u09cd\u09ac\u09b0"]);
   C.List_MYz = Isolate.makeConstantList(["cccc, d. MMMM y", "d. MMMM y", "d.M.yyyy", "d.M.yyyy"]);
   C.List_Mi2 = Isolate.makeConstantList(["\u516c\u5143\u524d", "\u516c\u5143"]);
-  C.List_ME0 = Isolate.makeConstantList(["rategroup", "callback", "field", "clearOnClose"]);
-  C.Map_MEpeO = new H.ConstantStringMap(4, {rategroup: "<=>selectedEntity", callback: "&callback", field: "=>!field", clearOnClose: "=>!clearOnClose"}, C.List_ME0);
-  C.Component_af1 = new F.Component(null, null, "/bundles/dimefrontend/packages/DimeClient/component/select/rategroup_select.html", null, false, true, "rategroup-select", "compile", null, null, C.Map_MEpeO, null, null, null);
-  C.List_Mkc = Isolate.makeConstantList([C.Component_af1]);
   C.List_Mm5 = Isolate.makeConstantList(["pirms m\u016bsu \u0113ras", "m\u016bsu \u0113r\u0101"]);
   C.List_atK = Isolate.makeConstantList(["filterByUser", "project", "allowProjectSelect"]);
   C.Map_ate4R = new H.ConstantStringMap(3, {filterByUser: "=>employee", project: "<=>projectFilter", allowProjectSelect: "=>!allowProjectSelect"}, C.List_atK);
@@ -60274,10 +60327,6 @@
   C.Map_oSwMy = new H.ConstantStringMap(3, {"no-transition": "=>noTransition", interval: "=>interval", "no-pause": "=>noPause"}, C.List_oS5);
   C.Component_ImB = new F.Component(null, "<div ng-mouseenter='pause()' ng-mouseleave='play()' class='carousel'>\r\n  <ol class='carousel-indicators' ng-show='slides.length > 1'>\r\n    <li ng-repeat='item in slides' ng-class='{active: isActive(item)}' ng-click='select(item)'></li>\r\n  </ol>\r\n  <div class='carousel-inner'><content></content></div>\r\n  <a class='left carousel-control' ng-click='prev()' ng-show='slides.length > 1'><span class='icon-prev'></span></a>\r\n  <a class='right carousel-control' ng-click='next()' ng-show='slides.length > 1'><span class='icon-next'></span></a>\r\n</div>", null, null, false, true, "carousel", "compile", C.Visibility_CHILDREN, null, C.Map_oSwMy, null, null, null);
   C.List_Mys = Isolate.makeConstantList([C.Component_ImB]);
-  C.List_address = Isolate.makeConstantList(["address"]);
-  C.Map_Fma1T = new H.ConstantStringMap(1, {address: "<=>address"}, C.List_address);
-  C.Component_GRv = new F.Component(null, null, "/bundles/dimefrontend/packages/DimeClient/component/edit/address_edit.html", null, false, true, "address-edit", "compile", null, null, C.Map_Fma1T, null, null, null);
-  C.List_Mys0 = Isolate.makeConstantList([C.Component_GRv]);
   C.List_N1_N2_N3_N4 = Isolate.makeConstantList(["N1", "N2", "N3", "N4"]);
   C.Component_U8c = new F.Component(null, null, "/bundles/dimefrontend/packages/DimeClient/component/report/servicehours_report.html", null, false, true, "servicehours-report", "compile", null, null, null, null, null, null);
   C.List_NLv = Isolate.makeConstantList([C.Component_U8c]);
@@ -60353,10 +60402,6 @@
   C.List_S4K = Isolate.makeConstantList(["\u0aaa\u0ac7\u0ab9\u0ab2\u0abe \u0ab9\u0a82\u0aa4 1", "Q2", "Q3", "\u0a9a\u0acc\u0aa4\u0abe \u0ab9\u0a82\u0aa4 4"]);
   C.List_S7q = Isolate.makeConstantList(["zzzz h:mm:ss a", "z h:mm:ss a", "h:mm:ss a", "h:mm a"]);
   C.List_SA_CH = Isolate.makeConstantList(["SA", "CH"]);
-  C.List_0r7 = Isolate.makeConstantList(["rateunittype", "callback", "field", "clearOnClose"]);
-  C.Map_0ryzp = new H.ConstantStringMap(4, {rateunittype: "<=>selectedEntity", callback: "&callback", field: "=>!field", clearOnClose: "=>!clearOnClose"}, C.List_0r7);
-  C.Component_iDw = new F.Component(null, null, "/bundles/dimefrontend/packages/DimeClient/component/select/rateunittype_select.html", null, false, true, "rateunittype-select", "compile", null, null, C.Map_0ryzp, null, null, null);
-  C.List_SBU = Isolate.makeConstantList([C.Component_iDw]);
   C.List_SCE = Isolate.makeConstantList(["HH.mm.ss zzzz", "HH.mm.ss z", "HH.mm.ss", "HH.mm"]);
   C.List_SHA = Isolate.makeConstantList(["\u0c12\u0c15\u0c1f\u0c3f 1", "\u0c30\u0c46\u0c02\u0c21\u0c41 2", "\u0c2e\u0c42\u0c21\u0c41 3", "\u0c28\u0c3e\u0c32\u0c41\u0c17\u0c41 4"]);
   C.List_SLW = Isolate.makeConstantList(["th\u00e1ng m\u1ed9t", "th\u00e1ng hai", "th\u00e1ng ba", "th\u00e1ng t\u01b0", "th\u00e1ng n\u0103m", "th\u00e1ng s\u00e1u", "th\u00e1ng b\u1ea3y", "th\u00e1ng t\u00e1m", "th\u00e1ng ch\u00edn", "th\u00e1ng m\u01b0\u1eddi", "th\u00e1ng m\u01b0\u1eddi m\u1ed9t", "th\u00e1ng m\u01b0\u1eddi hai"]);
@@ -60445,8 +60490,8 @@
   C.List_e9z = Isolate.makeConstantList(["ng-keyup"]);
   C.Map_e9AFG = new H.ConstantStringMap(1, {"ng-keyup": "&onKeyUp"}, C.List_e9z);
   C.Decorator_GF2 = new F.Decorator("[ng-keyup]", "compile", null, null, C.Map_e9AFG, null, null, null);
-  C.List_Au4 = Isolate.makeConstantList(["ng-load"]);
-  C.Map_Auknt = new H.ConstantStringMap(1, {"ng-load": "&onLoad"}, C.List_Au4);
+  C.List_Au40 = Isolate.makeConstantList(["ng-load"]);
+  C.Map_Auknt = new H.ConstantStringMap(1, {"ng-load": "&onLoad"}, C.List_Au40);
   C.Decorator_Jwp = new F.Decorator("[ng-load]", "compile", null, null, C.Map_Auknt, null, null, null);
   C.List_gg41 = Isolate.makeConstantList(["ng-mousedown"]);
   C.Map_ggnQF = new H.ConstantStringMap(1, {"ng-mousedown": "&onMouseDown"}, C.List_gg41);
@@ -60523,6 +60568,8 @@
   C.List_Sj8 = Isolate.makeConstantList([C.Decorator_Db0]);
   C.List_Slt = Isolate.makeConstantList(["jan.", "feb.", "mrt.", "apr.", "mei", "jun.", "jul.", "aug.", "sep.", "okt.", "nov.", "dec."]);
   C.List_Ssz = Isolate.makeConstantList(["So.", "Mo.", "Di.", "Mi.", "Do.", "Fr.", "Sa."]);
+  C.Component_jOn = new F.Component(null, null, "/bundles/dimefrontend/packages/DimeClient/component/edit/employee_edit.html", null, false, true, "employee-edit", "compile", null, null, C.Map_Rskjl, null, null, null);
+  C.List_SxR = Isolate.makeConstantList([C.Component_jOn]);
   C.List_T1_T2_T3_T4 = Isolate.makeConstantList(["T1", "T2", "T3", "T4"]);
   C.List_TKA = Isolate.makeConstantList(["uJanuwari", "uFebruwari", "uMashi", "u-Apreli", "uMeyi", "uJuni", "uJulayi", "uAgasti", "uSepthemba", "u-Okthoba", "uNovemba", "uDisemba"]);
   C.List_TLI = Isolate.makeConstantList(["Jan", "Shk", "Mar", "Pri", "Maj", "Qer", "Kor", "Gsh", "Sht", "Tet", "N\u00ebn", "Dhj"]);
@@ -60531,6 +60578,10 @@
   C.Component_Am8 = new F.Component(null, null, "/bundles/dimefrontend/packages/DimeClient/component/overview/rateGroup_overview.html", null, false, true, "rateGroup-overview", "compile", null, null, null, null, null, null);
   C.List_TbG = Isolate.makeConstantList([C.Component_Am8]);
   C.List_Tbc = Isolate.makeConstantList(["\u0a9c\u0abe\u0aa8\u0acd\u0aaf\u0ac1\u0a86\u0ab0\u0ac0", "\u0aab\u0ac7\u0aac\u0acd\u0ab0\u0ac1\u0a86\u0ab0\u0ac0", "\u0aae\u0abe\u0ab0\u0acd\u0a9a", "\u0a8f\u0aaa\u0acd\u0ab0\u0abf\u0ab2", "\u0aae\u0ac7", "\u0a9c\u0ac2\u0aa8", "\u0a9c\u0ac1\u0ab2\u0abe\u0a88", "\u0a91\u0a97\u0ab8\u0acd\u0a9f", "\u0ab8\u0aaa\u0acd\u0a9f\u0ac7\u0aae\u0acd\u0aac\u0ab0", "\u0a91\u0a95\u0acd\u0a9f\u0acb\u0aac\u0ab0", "\u0aa8\u0ab5\u0ac7\u0aae\u0acd\u0aac\u0ab0", "\u0aa1\u0abf\u0ab8\u0ac7\u0aae\u0acd\u0aac\u0ab0"]);
+  C.List_2bB = Isolate.makeConstantList(["status", "callback", "field", "clearOnClose", "required"]);
+  C.Map_2bo7L = new H.ConstantStringMap(5, {status: "<=>selectedEntity", callback: "&callback", field: "=>!field", clearOnClose: "=>!clearOnClose", required: "=>!required"}, C.List_2bB);
+  C.Component_qU9 = new F.Component(null, null, "/bundles/dimefrontend/packages/DimeClient/component/select/offerstatus_select.html", null, false, true, "offerstatus-select", "compile", null, null, C.Map_2bo7L, null, null, null);
+  C.List_Tr4 = Isolate.makeConstantList([C.Component_qU9]);
   C.List_U05 = Isolate.makeConstantList(["\u0b1c\u0b3e\u0b28\u0b41\u0b06\u0b30\u0b40", "\u0b2b\u0b47\u0b2c\u0b4d\u0b30\u0b41\u0b5f\u0b3e\u0b30\u0b40", "\u0b2e\u0b3e\u0b30\u0b4d\u0b1a\u0b4d\u0b1a", "\u0b05\u0b2a\u0b4d\u0b30\u0b47\u0b32", "\u0b2e\u0b47", "\u0b1c\u0b41\u0b28", "\u0b1c\u0b41\u0b32\u0b3e\u0b07", "\u0b05\u0b17\u0b37\u0b4d\u0b1f", "\u0b38\u0b47\u0b2a\u0b4d\u0b1f\u0b47\u0b2e\u0b4d\u0b2c\u0b30", "\u0b05\u0b15\u0b4d\u0b1f\u0b4b\u0b2c\u0b30", "\u0b28\u0b2d\u0b47\u0b2e\u0b4d\u0b2c\u0b30", "\u0b21\u0b3f\u0b38\u0b47\u0b2e\u0b4d\u0b2c\u0b30"]);
   C.List_UE0 = Isolate.makeConstantList(["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"]);
   C.List_UEQ = Isolate.makeConstantList(["1. nelj.", "2. nelj.", "3. nelj.", "4. nelj."]);
@@ -60617,6 +60668,12 @@
   C.List_YbV = Isolate.makeConstantList(["eKr.", "jKr."]);
   C.List_YeU = Isolate.makeConstantList(["sunnuntaina", "maanantaina", "tiistaina", "keskiviikkona", "torstaina", "perjantaina", "lauantaina"]);
   C.List_YkH = Isolate.makeConstantList(["\u091c\u093e", "\u092b\u0947", "\u092e\u093e", "\u090f", "\u092e\u0947", "\u091c\u0942", "\u091c\u0941", "\u0911", "\u0938", "\u0911", "\u0928\u094b", "\u0921\u093f"]);
+  C.Component_N80 = new F.Component(null, null, "/bundles/dimefrontend/packages/DimeClient/component/edit/customer_edit.html", null, false, true, "customer-edit", "compile", null, null, C.Map_Rskjl, null, null, null);
+  C.List_Ymm = Isolate.makeConstantList([C.Component_N80]);
+  C.List_address_editform = Isolate.makeConstantList(["address", "editform"]);
+  C.Map_qlMIo = new H.ConstantStringMap(2, {address: "<=>address", editform: "<=>editform"}, C.List_address_editform);
+  C.Component_N800 = new F.Component(null, null, "/bundles/dimefrontend/packages/DimeClient/component/edit/address_edit.html", null, false, true, "address-edit", "compile", null, null, C.Map_qlMIo, null, null, null);
+  C.List_Ymm0 = Isolate.makeConstantList([C.Component_N800]);
   C.List_YoH = Isolate.makeConstantList(["\u043d\u0435\u0434\u0435\u0459\u0430", "\u043f\u043e\u043d\u0435\u0434\u0435\u0459\u0430\u043a", "\u0443\u0442\u043e\u0440\u0430\u043a", "\u0441\u0440\u0435\u0434\u0430", "\u0447\u0435\u0442\u0432\u0440\u0442\u0430\u043a", "\u043f\u0435\u0442\u0430\u043a", "\u0441\u0443\u0431\u043e\u0442\u0430"]);
   C.List_Yoe = Isolate.makeConstantList(["EEEE d MMMM y", "d MMMM y", "d MMM y", "d-M-yy"]);
   C.List_Yzz = Isolate.makeConstantList(["\u0e27\u0e31\u0e19\u0e2d\u0e32\u0e17\u0e34\u0e15\u0e22\u0e4c", "\u0e27\u0e31\u0e19\u0e08\u0e31\u0e19\u0e17\u0e23\u0e4c", "\u0e27\u0e31\u0e19\u0e2d\u0e31\u0e07\u0e04\u0e32\u0e23", "\u0e27\u0e31\u0e19\u0e1e\u0e38\u0e18", "\u0e27\u0e31\u0e19\u0e1e\u0e24\u0e2b\u0e31\u0e2a\u0e1a\u0e14\u0e35", "\u0e27\u0e31\u0e19\u0e28\u0e38\u0e01\u0e23\u0e4c", "\u0e27\u0e31\u0e19\u0e40\u0e2a\u0e32\u0e23\u0e4c"]);
@@ -60691,6 +60748,10 @@
   C.List_bpf = Isolate.makeConstantList(["\u0642\u0628\u0644\u200c\u0627\u0632\u0638\u0647\u0631", "\u0628\u0639\u062f\u0627\u0632\u0638\u0647\u0631"]);
   C.List_bxS = Isolate.makeConstantList(["Sunntig", "M\u00e4\u00e4ntig", "Ziischtig", "Mittwuch", "Dunschtig", "Friitig", "Samschtig"]);
   C.List_c3X = Isolate.makeConstantList(["1-\u0439 \u043a\u0432\u0430\u0440\u0442\u0430\u043b", "2-\u0439 \u043a\u0432\u0430\u0440\u0442\u0430\u043b", "3-\u0439 \u043a\u0432\u0430\u0440\u0442\u0430\u043b", "4-\u0439 \u043a\u0432\u0430\u0440\u0442\u0430\u043b"]);
+  C.List_enX = Isolate.makeConstantList(["project", "callback", "field", "clearOnClose", "required"]);
+  C.Map_enKFf = new H.ConstantStringMap(5, {project: "<=>selectedEntity", callback: "&callback", field: "=>!field", clearOnClose: "=>!clearOnClose", required: "=>!required"}, C.List_enX);
+  C.Component_yHZ = new F.Component(null, null, "/bundles/dimefrontend/packages/DimeClient/component/select/project_select.html", null, false, true, "project-select", "compile", null, null, C.Map_enKFf, null, null, null);
+  C.List_c89 = Isolate.makeConstantList([C.Component_yHZ]);
   C.List_E4y = Isolate.makeConstantList(["ng-bind"]);
   C.Map_E4cvx = new H.ConstantStringMap(1, {"ng-bind": "=>value"}, C.List_E4y);
   C.Decorator_l58 = new F.Decorator("[ng-bind]", "compile", null, null, C.Map_E4cvx, null, null, null);
@@ -60702,8 +60763,6 @@
   C.List_cKo = Isolate.makeConstantList(["\u05dc\u05e4\u05e0\u05d4\u05f4\u05e1", "\u05dc\u05e1\u05d4\u05f4\u05e0"]);
   C.List_cKo0 = Isolate.makeConstantList(["\u7d00\u5143\u524d", "\u897f\u66a6"]);
   C.List_cKo1 = Isolate.makeConstantList(["I \u043a\u0432.", "II \u043a\u0432.", "III \u043a\u0432.", "IV \u043a\u0432."]);
-  C.Component_7ai = new F.Component(null, null, "/bundles/dimefrontend/packages/DimeClient/component/edit/invoice_edit.html", null, false, true, "invoice-edit", "compile", null, null, null, null, null, null);
-  C.List_cLl = Isolate.makeConstantList([C.Component_7ai]);
   C.List_cMb = Isolate.makeConstantList(["\u12d3\u1218\u1270 \u12d3\u1208\u121d", "\u12d3\u1218\u1270 \u121d\u1215\u1228\u1275"]);
   C.List_cMb0 = Isolate.makeConstantList(["\u0924\u093f\u092e\u093e\u0939\u0940", "\u0926\u0942\u0938\u0930\u0940 \u0924\u093f\u092e\u093e\u0939\u0940", "\u0924\u0940\u0938\u0930\u0940 \u0924\u093f\u092e\u093e\u0939\u0940", "\u091a\u094c\u0925\u0940 \u0924\u093f\u092e\u093e\u0939\u0940"]);
   C.List_cMd = Isolate.makeConstantList(["\u00ee.Hr.", "d.Hr."]);
@@ -60711,10 +60770,6 @@
   C.Component_eBL = new F.Component(null, null, "/bundles/dimefrontend/packages/DimeClient/component/overview/employee_overview.html", null, false, true, "employee-overview", "compile", null, null, null, null, null, null);
   C.List_cSi = Isolate.makeConstantList([C.Component_eBL]);
   C.List_caA = Isolate.makeConstantList(["ene", "feb", "mar", "abr", "mayo", "jun", "jul", "ago", "sep", "oct", "nov", "dic"]);
-  C.List_Aa4 = Isolate.makeConstantList(["service", "callback", "field", "clearOnClose"]);
-  C.Map_Aag8C = new H.ConstantStringMap(4, {service: "<=>selectedEntity", callback: "&callback", field: "=>!field", clearOnClose: "=>!clearOnClose"}, C.List_Aa4);
-  C.Component_LdR = new F.Component(null, null, "/bundles/dimefrontend/packages/DimeClient/component/select/service_select.html", null, false, true, "service-select", "compile", null, null, C.Map_Aag8C, null, null, null);
-  C.List_cdS = Isolate.makeConstantList([C.Component_LdR]);
   C.List_chs = Isolate.makeConstantList(["\u0cb0", "\u0cb8\u0ccb", "\u0cae\u0c82", "\u0cac\u0cc1", "\u0c97\u0cc1", "\u0cb6\u0cc1", "\u0cb6"]);
   C.List_id = Isolate.makeConstantList(["id"]);
   C.Map_dWYya = new H.ConstantStringMap(1, {id: "@templateUrl"}, C.List_id);
@@ -60829,6 +60884,8 @@
   C.List_ido = Isolate.makeConstantList(["1\u03bf \u03c4\u03c1\u03af\u03bc\u03b7\u03bd\u03bf", "2\u03bf \u03c4\u03c1\u03af\u03bc\u03b7\u03bd\u03bf", "3\u03bf \u03c4\u03c1\u03af\u03bc\u03b7\u03bd\u03bf", "4\u03bf \u03c4\u03c1\u03af\u03bc\u03b7\u03bd\u03bf"]);
   C.List_ifL = Isolate.makeConstantList(["ap.", "ip."]);
   C.List_ink = Isolate.makeConstantList(["G", "F", "M", "A", "M", "G", "L", "A", "S", "O", "N", "D"]);
+  C.Component_HP5 = new F.Component(null, null, "/bundles/dimefrontend/packages/DimeClient/component/edit/service_edit.html", null, false, true, "service-edit", "compile", null, null, C.Map_Rskjl, null, null, null);
+  C.List_iqF = Isolate.makeConstantList([C.Component_HP5]);
   C.List_irQ = Isolate.makeConstantList(["avant J\u00e9sus-Christ", "apr\u00e8s J\u00e9sus-Christ"]);
   C.Map_atjr8 = new H.ConstantStringMap(1, {".": "@expression"}, C.List_ato);
   C.Decorator_1L6 = new F.Decorator("[ng-repeat]", "transclude", null, null, C.Map_atjr8, null, null, null);
@@ -60901,12 +60958,12 @@
   C.List_nNZ = Isolate.makeConstantList(["EEEE, d. MMMM y", "d. MMMM y", "d.M.yyyy", "d.M.yyyy"]);
   C.List_nRX = Isolate.makeConstantList(["Domenica", "Luned\u00ec", "Marted\u00ec", "Mercoled\u00ec", "Gioved\u00ec", "Venerd\u00ec", "Sabato"]);
   C.List_nha = Isolate.makeConstantList(["1e kwartaal", "2e kwartaal", "3e kwartaal", "4e kwartaal"]);
-  C.List_sEs = Isolate.makeConstantList(["discount", "callback", "field", "clearOnClose"]);
-  C.Map_sEO1S = new H.ConstantStringMap(4, {discount: "<=>selectedEntity", callback: "&callback", field: "=>!field", clearOnClose: "=>!clearOnClose"}, C.List_sEs);
-  C.Component_OHH = new F.Component(null, null, "/bundles/dimefrontend/packages/DimeClient/component/select/standarddiscount_select.html", null, false, true, "standarddiscount-select", "compile", null, null, C.Map_sEO1S, null, null, null);
-  C.List_nvT = Isolate.makeConstantList([C.Component_OHH]);
   C.List_nxB = Isolate.makeConstantList([0, 0, 24576, 1023, 65534, 34815, 65534, 18431]);
   C.List_o05 = Isolate.makeConstantList(["\u0d15\u0d4d\u0d30\u0d3f\u0d38\u0d4d\u0d24\u0d41\u0d35\u0d3f\u0d28\u0d41\u0d4d \u0d2e\u0d41\u0d2e\u0d4d\u0d2a\u0d4d\u200c", "\u0d15\u0d4d\u0d30\u0d3f\u0d38\u0d4d\u0d24\u0d41\u0d35\u0d3f\u0d28\u0d4d \u0d2a\u0d3f\u0d28\u0d4d\u200d\u0d2a\u0d4d"]);
+  C.List_nNZ0 = Isolate.makeConstantList(["rategroup", "callback", "field", "clearOnClose", "required"]);
+  C.Map_nNuQo = new H.ConstantStringMap(5, {rategroup: "<=>selectedEntity", callback: "&callback", field: "=>!field", clearOnClose: "=>!clearOnClose", required: "=>!required"}, C.List_nNZ0);
+  C.Component_e96 = new F.Component(null, null, "/bundles/dimefrontend/packages/DimeClient/component/select/rategroup_select.html", null, false, true, "rategroup-select", "compile", null, null, C.Map_nNuQo, null, null, null);
+  C.List_o0y = Isolate.makeConstantList([C.Component_e96]);
   C.List_o2T = Isolate.makeConstantList(["M", "S", "S", "R", "K", "J", "S"]);
   C.List_o40 = Isolate.makeConstantList(["EEEE, d 'de' MMMM 'de' y", "d 'de' MMMM 'de' y", "dd/MM/yyyy", "dd/MM/yy"]);
   C.List_oCX = Isolate.makeConstantList(["\u0b9c\u0ba9\u0bb5\u0bb0\u0bbf", "\u0baa\u0bbf\u0baa\u0bcd\u0bb0\u0bb5\u0bb0\u0bbf", "\u0bae\u0bbe\u0bb0\u0bcd\u0b9a\u0bcd", "\u0b8f\u0baa\u0bcd\u0bb0\u0bb2\u0bcd", "\u0bae\u0bc7", "\u0b9c\u0bc2\u0ba9\u0bcd", "\u0b9c\u0bc2\u0bb2\u0bc8", "\u0b86\u0b95\u0bb8\u0bcd\u0b9f\u0bcd", "\u0b9a\u0bc6\u0baa\u0bcd\u0b9f\u0bae\u0bcd\u0baa\u0bb0\u0bcd", "\u0b85\u0b95\u0bcd\u0b9f\u0bcb\u0baa\u0bb0\u0bcd", "\u0ba8\u0bb5\u0bae\u0bcd\u0baa\u0bb0\u0bcd", "\u0b9f\u0bbf\u0b9a\u0bae\u0bcd\u0baa\u0bb0\u0bcd"]);
@@ -60951,6 +61008,8 @@
   C.Map_yrZg5 = new H.ConstantStringMap(3, {"on-drop-success": "&onDropSuccessCallback", "ui-droppable": "=>dragdropConfig", "drop-zones": "=>dropZones"}, C.List_yrD);
   C.Decorator_1p4 = new F.Decorator("[ui-droppable]", "compile", null, null, C.Map_yrZg5, null, null, null);
   C.List_qJs = Isolate.makeConstantList([C.Decorator_1p4]);
+  C.Component_1GW = new F.Component(null, null, "/bundles/dimefrontend/packages/DimeClient/component/edit/offer_edit.html", null, false, true, "offer-edit", "compile", null, null, C.Map_Rskjl, null, null, null);
+  C.List_qKc = Isolate.makeConstantList([C.Component_1GW]);
   C.List_qMN = Isolate.makeConstantList(["gen", "feb", "mar", "apr", "mag", "giu", "lug", "ago", "set", "ott", "nov", "dic"]);
   C.List_qN6 = Isolate.makeConstantList(["EEEE d MMMM y", "d MMMM y", "dd-MMM-y", "dd/MM/yy"]);
   C.List_qNA = Isolate.makeConstantList(["vas\u00e1rnap", "h\u00e9tf\u0151", "kedd", "szerda", "cs\u00fct\u00f6rt\u00f6k", "p\u00e9ntek", "szombat"]);
@@ -60980,8 +61039,6 @@
   C.List_s2f = Isolate.makeConstantList(["sije\u010danj", "velja\u010da", "o\u017eujak", "travanj", "svibanj", "lipanj", "srpanj", "kolovoz", "rujan", "listopad", "studeni", "prosinac"]);
   C.List_s2f0 = Isolate.makeConstantList(["J", "F", "M", "A", "M", "\u0120", "L", "A", "S", "O", "N", "D"]);
   C.List_s2k = Isolate.makeConstantList(["\u0399\u03b1\u03bd", "\u03a6\u03b5\u03b2", "\u039c\u03b1\u03c1", "\u0391\u03c0\u03c1", "\u039c\u03b1\u03ca", "\u0399\u03bf\u03c5\u03bd", "\u0399\u03bf\u03c5\u03bb", "\u0391\u03c5\u03b3", "\u03a3\u03b5\u03c0", "\u039f\u03ba\u03c4", "\u039d\u03bf\u03b5", "\u0394\u03b5\u03ba"]);
-  C.Component_Aa4 = new F.Component(null, null, "/bundles/dimefrontend/packages/DimeClient/component/edit/service_edit.html", null, false, true, "service-edit", "compile", null, null, null, null, null, null);
-  C.List_s43 = Isolate.makeConstantList([C.Component_Aa4]);
   C.List_s6o = Isolate.makeConstantList(["EEEE, d 'ta'\u2019 MMMM y", "d 'ta'\u2019 MMMM y", "dd MMM y", "dd/MM/yyyy"]);
   C.List_s8I = Isolate.makeConstantList(["Die", "H\u00ebn", "Mar", "M\u00ebr", "Enj", "Pre", "Sht"]);
   C.List_sBb = Isolate.makeConstantList(["\u0ab0\u0ab5\u0abf\u0ab5\u0abe\u0ab0", "\u0ab8\u0acb\u0aae\u0ab5\u0abe\u0ab0", "\u0aae\u0a82\u0a97\u0ab3\u0ab5\u0abe\u0ab0", "\u0aac\u0ac1\u0aa7\u0ab5\u0abe\u0ab0", "\u0a97\u0ac1\u0ab0\u0ac1\u0ab5\u0abe\u0ab0", "\u0ab6\u0ac1\u0a95\u0acd\u0ab0\u0ab5\u0abe\u0ab0", "\u0ab6\u0aa8\u0abf\u0ab5\u0abe\u0ab0"]);
@@ -61106,6 +61163,8 @@
   C.List_zPV = Isolate.makeConstantList(["\u0a88\u0ab2\u0ac1\u0aa8\u0abe \u0a9c\u0aa8\u0acd\u0aae \u0aaa\u0ab9\u0ac7\u0ab8\u0abe\u0a82", "\u0a87\u0ab8\u0ab5\u0ac0\u0ab8\u0aa8"]);
   C.List_zPV0 = Isolate.makeConstantList(["jan", "feb", "mrt", "apr", "mei", "jun", "jul", "aug", "sep", "okt", "nov", "dec"]);
   C.List_zVD = Isolate.makeConstantList(["1. \u010dtvrtlet\u00ed", "2. \u010dtvrtlet\u00ed", "3. \u010dtvrtlet\u00ed", "4. \u010dtvrtlet\u00ed"]);
+  C.Component_9yp = new F.Component(null, null, "/bundles/dimefrontend/packages/DimeClient/component/edit/project_edit.html", null, false, true, "project-edit", "compile", null, null, C.Map_Rskjl, null, null, null);
+  C.List_zkI = Isolate.makeConstantList([C.Component_9yp]);
   C.List_znv = Isolate.makeConstantList(["v. Chr.", "n. Chr."]);
   C.List_zvr = Isolate.makeConstantList(["lib\u00f3so ya", "nsima ya Y"]);
   C.List_zzp = Isolate.makeConstantList(["gen.", "febr.", "mar\u00e7", "abr.", "maig", "juny", "jul.", "ag.", "set.", "oct.", "nov.", "des."]);
@@ -61717,13 +61776,13 @@
       Isolate.$lazy(fieldName, getterName, lazyValue, staticName);
     }
   })(["getters", "get$getters", function() {
-    return P.LinkedHashMap__makeLiteral(["employee", new G.closure322(), "projectFilter", new G.closure323(), "allowProjectSelect", new G.closure324(), "offerId", new G.closure325(), "invoiceId", new G.closure326(), "serviceId", new G.closure327(), "projectId", new G.closure328(), "entities", new G.closure329(), "callback", new G.closure330(), "select", new G.closure331(), "urls", new G.closure332(), "value", new G.closure333(), "bind", new G.closure334(), "valueExpression", new G.closure335(), "onAbort", new G.closure336(), "onBeforeCopy", new G.closure337(), "onBeforeCut", new G.closure338(), "onBeforePaste", new G.closure339(), "onBlur", new G.closure340(), "onChange", new G.closure341(), "onClick", new G.closure342(), "onContextMenu", new G.closure343(), "onCopy", new G.closure344(), "onCut", new G.closure345(), "onDoubleClick", new G.closure346(), "onDrag", new G.closure347(), "onDragEnd", new G.closure348(), "onDragEnter", new G.closure349(), "onDragLeave", new G.closure350(), "onDragOver", new G.closure351(), "onDragStart", new G.closure352(), "onDrop", new G.closure353(), "onError", new G.closure354(), "onFocus", new G.closure355(), "onFullscreenChange", new G.closure356(), "onFullscreenError", new G.closure357(), "onInput", new G.closure358(), "onInvalid", new G.closure359(), "onKeyDown", new G.closure360(), "onKeyPress", new G.closure361(), "onKeyUp", new G.closure362(), "onLoad", new G.closure363(), "onMouseDown", new G.closure364(), "onMouseEnter", new G.closure365(), "onMouseLeave", new G.closure366(), "onMouseMove", new G.closure367(), "onMouseOut", new G.closure368(), "onMouseOver", new G.closure369(), "onMouseUp", new G.closure370(), "onMouseWheel", new G.closure371(), "onPaste", new G.closure372(), "onReset", new G.closure373(), "onScroll", new G.closure374(), "onSearch", new G.closure375(), "onSelect", new G.closure376(), "onSelectStart", new G.closure377(), "onSubmit", new G.closure378(), "onTouchCancel", new G.closure379(), "onTouchEnd", new G.closure380(), "onTouchEnter", new G.closure381(), "onTouchLeave", new G.closure382(), "onTouchMove", new G.closure383(), "onTouchStart", new G.closure384(), "onTransitionEnd", new G.closure385(), "condition", new G.closure386(), "url", new G.closure387(), "name", new G.closure388(), "model", new G.closure389(), "idlAttrKind", new G.closure390(), "count", new G.closure391(), "expression", new G.closure392(), "templateUrl", new G.closure393(), "hide", new G.closure394(), "show", new G.closure395(), "checked", new G.closure396(), "disabled", new G.closure397(), "multiple", new G.closure398(), "open", new G.closure399(), "readonly", new G.closure400(), "required", new G.closure401(), "selected", new G.closure402(), "href", new G.closure403(), "src", new G.closure404(), "srcset", new G.closure405(), "styleExpression", new G.closure406(), "max", new G.closure407(), "min", new G.closure408(), "pattern", new G.closure409(), "minlength", new G.closure410(), "maxlength", new G.closure411(), "options", new G.closure412(), "option", new G.closure413(), "routeName", new G.closure414(), "selectedEntity", new G.closure415(), "field", new G.closure416(), "clearOnClose", new G.closure417(), "useContext", new G.closure418(), "htmlclass", new G.closure419(), "precision", new G.closure420(), "useSafeCalc", new G.closure421(), "date", new G.closure422(), "format", new G.closure423(), "hasButtons", new G.closure424(), "namespace", new G.closure425(), "setting", new G.closure426(), "isCloseOthers", new G.closure427(), "heading", new G.closure428(), "isOpen", new G.closure429(), "isDisabled", new G.closure430(), "collapse", new G.closure431(), "btnRadioAttr", new G.closure432(), "btnCheckboxTrue", new G.closure433(), "btnCheckboxFalse", new G.closure434(), "type", new G.closure435(), "close", new G.closure436(), "alertTypeAsString", new G.closure437(), "closeable", new G.closure438(), "justified", new G.closure439(), "vertical", new G.closure440(), "tabs", new G.closure441(), "tab", new G.closure442(), "active", new G.closure443(), "onSelectCallback", new G.closure444(), "onDeselectCallback", new G.closure445(), "append", new G.closure446(), "windowClass", new G.closure447(), "visible", new G.closure448(), "keyboard", new G.closure449(), "index", new G.closure450(), "backdropAsString", new G.closure451(), "size", new G.closure452(), "$event", new G.closure453(), "sizeClass", new G.closure454(), "draggable", new G.closure455(), "draggableData", new G.closure456(), "dragdropConfig", new G.closure457(), "onDragSuccessCallback", new G.closure458(), "dropZones", new G.closure459(), "onDropSuccessCallback", new G.closure460(), "sortableData", new G.closure461(), "sortableConfig", new G.closure462(), "sortableZones", new G.closure463(), "currentPage", new G.closure464(), "totalItems", new G.closure465(), "itemsPerPage", new G.closure466(), "setNumPagesListener", new G.closure467(), "onSelectChangeExtEventHandler", new G.closure468(), "align", new G.closure469(), "previousText", new G.closure470(), "nextText", new G.closure471(), "noPrevious", new G.closure472(), "noNext", new G.closure473(), "maxSize", new G.closure474(), "rotate", new G.closure475(), "boundaryLinks", new G.closure476(), "directionLinks", new G.closure477(), "firstText", new G.closure478(), "lastText", new G.closure479(), "pages", new G.closure480(), "page", new G.closure481(), "isActive", new G.closure482(), "number", new G.closure483(), "text", new G.closure484(), "totalPages", new G.closure485(), "matches", new G.closure486(), "selectEventHandler", new G.closure487(), "position", new G.closure488(), "query", new G.closure489(), "top", new G.closure490(), "left", new G.closure491(), "match", new G.closure492(), "id", new G.closure493(), "$index", new G.closure494(), "minLength", new G.closure495(), "appendToBody", new G.closure496(), "inputFormatter", new G.closure497(), "waitInMs", new G.closure498(), "isLoading", new G.closure499(), "isEditable", new G.closure500(), "showMeridian", new G.closure501(), "invalidHours", new G.closure502(), "readonlyInput", new G.closure503(), "invalidMinutes", new G.closure504(), "meridian", new G.closure505(), "isCollapsed", new G.closure506(), "noTransition", new G.closure507(), "interval", new G.closure508(), "noPause", new G.closure509(), "slides", new G.closure510(), "length", new G.closure511(), "item", new G.closure512(), "direction", new G.closure513(), "entering", new G.closure514(), "leaving", new G.closure515(), "next", new G.closure516(), "animate", new G.closure517(), "classes", new G.closure518(), "address", new G.closure519(), "onHover", new G.closure520(), "onLeave", new G.closure521(), "range", new G.closure522(), "r", new G.closure523(), "dayFormat", new G.closure524(), "monthFormat", new G.closure525(), "yearFormat", new G.closure526(), "dayHeaderFormat", new G.closure527(), "dayTitleFormat", new G.closure528(), "monthTitleFormat", new G.closure529(), "startingDay", new G.closure530(), "yearRange", new G.closure531(), "dateDisabled", new G.closure532(), "showWeeks", new G.closure533(), "d", new G.closure534(), "display", new G.closure535(), "showButtonBar", new G.closure536(), "currentText", new G.closure537(), "toggleWeeksText", new G.closure538(), "clearText", new G.closure539(), "closeText", new G.closure540(), "filterStartDate", new G.closure541(), "filterEndDate", new G.closure542(), "projectBased", new G.closure543(), "entity", new G.closure544(), "user", new G.closure545(), "activity", new G.closure546(), "project", new G.closure547(), "startedAt", new G.closure548(), "stoppedAt", new G.closure549(), "newEntryDate", new G.closure550(), "updateNewEntryDate", new G.closure551(), "selectedProject", new G.closure552(), "selectedService", new G.closure553(), "alias", new G.closure554(), "description", new G.closure555(), "street", new G.closure556(), "streetnumber", new G.closure557(), "plz", new G.closure558(), "city", new G.closure559(), "shortDescription", new G.closure560(), "order", new G.closure561(), "service", new G.closure562(), "rateValue", new G.closure563(), "rateUnit", new G.closure564(), "rateUnitType", new G.closure565(), "amount", new G.closure566(), "vat", new G.closure567(), "discountable", new G.closure568(), "total", new G.closure569(), "start", new G.closure570(), "end", new G.closure571(), "rateGroup", new G.closure572(), "report", new G.closure573(), "timeslices", new G.closure574(), "pensum", new G.closure575(), "realTime", new G.closure576(), "targetTime", new G.closure577(), "duration", new G.closure578(), "username", new G.closure579(), "fullname", new G.closure580(), "email", new G.closure581(), "enabled", new G.closure582(), "locked", new G.closure583(), "percentage", new G.closure584(), "newDiscount", new G.closure585(), "factor", new G.closure586(), "scale", new G.closure587(), "doTransform", new G.closure588(), "roundMode", new G.closure589(), "symbol", new G.closure590(), "selector", new G.closure591(), "modes", new G.closure592(), "mode", new G.closure593(), "link", new G.closure594(), "linklist", new G.closure595(), "Title", new G.closure596(), "auth", new G.closure597(), "isloggedin", new G.closure598(), "userContext", new G.closure599(), "loginFailed", new G.closure600(), "password", new G.closure601(), "rememberme", new G.closure602(), "loginInProgress", new G.closure603(), "statusservice", new G.closure604(), "status", new G.closure605(), "activitylist", new G.closure606(), "entries", new G.closure607(), "entry", new G.closure608(), "activities", new G.closure609(), "menus", new G.closure610(), "menu", new G.closure611(), "icon", new G.closure612(), "title", new G.closure613(), "items", new G.closure614(), "error", new G.closure615(), "loading", new G.closure616(), "defaultVal", new G.closure617(), "success", new G.closure618(), "firstname", new G.closure619(), "lastname", new G.closure620(), "customer", new G.closure621(), "chargeable", new G.closure622(), "deadline", new G.closure623(), "budgetPrice", new G.closure624(), "budgetTime", new G.closure625(), "currentPrice", new G.closure626(), "currentTime", new G.closure627(), "fixedPrice", new G.closure628(), "accountant", new G.closure629(), "validTo", new G.closure630(), "standardDiscounts", new G.closure631(), "subtotal", new G.closure632(), "totalVAT", new G.closure633(), "totalDiscounts", new G.closure634(), "offer", new G.closure635(), "company", new G.closure636(), "department", new G.closure637(), "salutation", new G.closure638(), "state", new G.closure639(), "country", new G.closure640(), "plainpassword", new G.closure641(), "dates", new G.closure642(), "days", new G.closure643(), "day", new G.closure644(), "toggleOpen", new G.closure645(), "selectPage", new G.closure646(), "selectMatch", new G.closure647(), "selectActive", new G.closure648(), "incrementHours", new G.closure649(), "incrementMinutes", new G.closure650(), "updateHours", new G.closure651(), "updateMinutes", new G.closure652(), "toggleMeridian", new G.closure653(), "decrementHours", new G.closure654(), "decrementMinutes", new G.closure655(), "pause", new G.closure656(), "play", new G.closure657(), "prev", new G.closure658(), "reset", new G.closure659(), "stateClass", new G.closure660(), "rate", new G.closure661(), "enter", new G.closure662(), "move", new G.closure663(), "toggleMode", new G.closure664(), "today", new G.closure665(), "clear", new G.closure666(), "previousMonth", new G.closure667(), "previousWeek", new G.closure668(), "previousDay", new G.closure669(), "nextDay", new G.closure670(), "nextWeek", new G.closure671(), "nextMonth", new G.closure672(), "isSelected", new G.closure673(), "selectEntity", new G.closure674(), "addFieldtoUpdate", new G.closure675(), "addSaveField", new G.closure676(), "createEntity", new G.closure677(), "duplicateEntity", new G.closure678(), "deleteEntity", new G.closure679(), "reload", new G.closure680(), "openEditView", new G.closure681(), "saveAllEntities", new G.closure682(), "printReport", new G.closure683(), "ViewValue", new G.closure684(), "toggleSelectionBox", new G.closure685(), "loginOnEnter", new G.closure686(), "login", new G.closure687(), "updateDate", new G.closure688(), "toggleMenu", new G.closure689(), "reloadUser", new G.closure690(), "save", new G.closure691(), "update", new G.closure692(), "hasChanged", new G.closure693(), "saveEntity", new G.closure694(), "openInvoice", new G.closure695(), "printOffer", new G.closure696(), "openProject", new G.closure697(), "updateInvoicefromProject", new G.closure698(), "printInvoice", new G.closure699(), "logout", new G.closure700()]);
+    return P.LinkedHashMap__makeLiteral(["employee", new G.closure323(), "projectFilter", new G.closure324(), "allowProjectSelect", new G.closure325(), "offerId", new G.closure326(), "invoiceId", new G.closure327(), "serviceId", new G.closure328(), "projectId", new G.closure329(), "entities", new G.closure330(), "callback", new G.closure331(), "select", new G.closure332(), "urls", new G.closure333(), "value", new G.closure334(), "bind", new G.closure335(), "valueExpression", new G.closure336(), "onAbort", new G.closure337(), "onBeforeCopy", new G.closure338(), "onBeforeCut", new G.closure339(), "onBeforePaste", new G.closure340(), "onBlur", new G.closure341(), "onChange", new G.closure342(), "onClick", new G.closure343(), "onContextMenu", new G.closure344(), "onCopy", new G.closure345(), "onCut", new G.closure346(), "onDoubleClick", new G.closure347(), "onDrag", new G.closure348(), "onDragEnd", new G.closure349(), "onDragEnter", new G.closure350(), "onDragLeave", new G.closure351(), "onDragOver", new G.closure352(), "onDragStart", new G.closure353(), "onDrop", new G.closure354(), "onError", new G.closure355(), "onFocus", new G.closure356(), "onFullscreenChange", new G.closure357(), "onFullscreenError", new G.closure358(), "onInput", new G.closure359(), "onInvalid", new G.closure360(), "onKeyDown", new G.closure361(), "onKeyPress", new G.closure362(), "onKeyUp", new G.closure363(), "onLoad", new G.closure364(), "onMouseDown", new G.closure365(), "onMouseEnter", new G.closure366(), "onMouseLeave", new G.closure367(), "onMouseMove", new G.closure368(), "onMouseOut", new G.closure369(), "onMouseOver", new G.closure370(), "onMouseUp", new G.closure371(), "onMouseWheel", new G.closure372(), "onPaste", new G.closure373(), "onReset", new G.closure374(), "onScroll", new G.closure375(), "onSearch", new G.closure376(), "onSelect", new G.closure377(), "onSelectStart", new G.closure378(), "onSubmit", new G.closure379(), "onTouchCancel", new G.closure380(), "onTouchEnd", new G.closure381(), "onTouchEnter", new G.closure382(), "onTouchLeave", new G.closure383(), "onTouchMove", new G.closure384(), "onTouchStart", new G.closure385(), "onTransitionEnd", new G.closure386(), "condition", new G.closure387(), "url", new G.closure388(), "name", new G.closure389(), "model", new G.closure390(), "idlAttrKind", new G.closure391(), "count", new G.closure392(), "expression", new G.closure393(), "templateUrl", new G.closure394(), "hide", new G.closure395(), "show", new G.closure396(), "checked", new G.closure397(), "disabled", new G.closure398(), "multiple", new G.closure399(), "open", new G.closure400(), "readonly", new G.closure401(), "required", new G.closure402(), "selected", new G.closure403(), "href", new G.closure404(), "src", new G.closure405(), "srcset", new G.closure406(), "styleExpression", new G.closure407(), "max", new G.closure408(), "min", new G.closure409(), "pattern", new G.closure410(), "minlength", new G.closure411(), "maxlength", new G.closure412(), "options", new G.closure413(), "option", new G.closure414(), "routeName", new G.closure415(), "selectedEntity", new G.closure416(), "field", new G.closure417(), "clearOnClose", new G.closure418(), "useContext", new G.closure419(), "htmlclass", new G.closure420(), "precision", new G.closure421(), "useSafeCalc", new G.closure422(), "date", new G.closure423(), "format", new G.closure424(), "hasButtons", new G.closure425(), "namespace", new G.closure426(), "setting", new G.closure427(), "isCloseOthers", new G.closure428(), "heading", new G.closure429(), "isOpen", new G.closure430(), "isDisabled", new G.closure431(), "collapse", new G.closure432(), "btnRadioAttr", new G.closure433(), "btnCheckboxTrue", new G.closure434(), "btnCheckboxFalse", new G.closure435(), "type", new G.closure436(), "close", new G.closure437(), "alertTypeAsString", new G.closure438(), "closeable", new G.closure439(), "justified", new G.closure440(), "vertical", new G.closure441(), "tabs", new G.closure442(), "tab", new G.closure443(), "active", new G.closure444(), "onSelectCallback", new G.closure445(), "onDeselectCallback", new G.closure446(), "append", new G.closure447(), "windowClass", new G.closure448(), "visible", new G.closure449(), "keyboard", new G.closure450(), "index", new G.closure451(), "backdropAsString", new G.closure452(), "size", new G.closure453(), "$event", new G.closure454(), "sizeClass", new G.closure455(), "draggable", new G.closure456(), "draggableData", new G.closure457(), "dragdropConfig", new G.closure458(), "onDragSuccessCallback", new G.closure459(), "dropZones", new G.closure460(), "onDropSuccessCallback", new G.closure461(), "sortableData", new G.closure462(), "sortableConfig", new G.closure463(), "sortableZones", new G.closure464(), "currentPage", new G.closure465(), "totalItems", new G.closure466(), "itemsPerPage", new G.closure467(), "setNumPagesListener", new G.closure468(), "onSelectChangeExtEventHandler", new G.closure469(), "align", new G.closure470(), "previousText", new G.closure471(), "nextText", new G.closure472(), "noPrevious", new G.closure473(), "noNext", new G.closure474(), "maxSize", new G.closure475(), "rotate", new G.closure476(), "boundaryLinks", new G.closure477(), "directionLinks", new G.closure478(), "firstText", new G.closure479(), "lastText", new G.closure480(), "pages", new G.closure481(), "page", new G.closure482(), "isActive", new G.closure483(), "number", new G.closure484(), "text", new G.closure485(), "totalPages", new G.closure486(), "matches", new G.closure487(), "selectEventHandler", new G.closure488(), "position", new G.closure489(), "query", new G.closure490(), "top", new G.closure491(), "left", new G.closure492(), "match", new G.closure493(), "id", new G.closure494(), "$index", new G.closure495(), "minLength", new G.closure496(), "appendToBody", new G.closure497(), "inputFormatter", new G.closure498(), "waitInMs", new G.closure499(), "isLoading", new G.closure500(), "isEditable", new G.closure501(), "showMeridian", new G.closure502(), "invalidHours", new G.closure503(), "readonlyInput", new G.closure504(), "invalidMinutes", new G.closure505(), "meridian", new G.closure506(), "isCollapsed", new G.closure507(), "noTransition", new G.closure508(), "interval", new G.closure509(), "noPause", new G.closure510(), "slides", new G.closure511(), "length", new G.closure512(), "item", new G.closure513(), "direction", new G.closure514(), "entering", new G.closure515(), "leaving", new G.closure516(), "next", new G.closure517(), "animate", new G.closure518(), "classes", new G.closure519(), "editform", new G.closure520(), "address", new G.closure521(), "onHover", new G.closure522(), "onLeave", new G.closure523(), "range", new G.closure524(), "r", new G.closure525(), "dayFormat", new G.closure526(), "monthFormat", new G.closure527(), "yearFormat", new G.closure528(), "dayHeaderFormat", new G.closure529(), "dayTitleFormat", new G.closure530(), "monthTitleFormat", new G.closure531(), "startingDay", new G.closure532(), "yearRange", new G.closure533(), "dateDisabled", new G.closure534(), "showWeeks", new G.closure535(), "d", new G.closure536(), "display", new G.closure537(), "showButtonBar", new G.closure538(), "currentText", new G.closure539(), "toggleWeeksText", new G.closure540(), "clearText", new G.closure541(), "closeText", new G.closure542(), "filterStartDate", new G.closure543(), "filterEndDate", new G.closure544(), "projectBased", new G.closure545(), "entity", new G.closure546(), "user", new G.closure547(), "activity", new G.closure548(), "project", new G.closure549(), "startedAt", new G.closure550(), "stoppedAt", new G.closure551(), "newEntryDate", new G.closure552(), "updateNewEntryDate", new G.closure553(), "selectedProject", new G.closure554(), "selectedService", new G.closure555(), "alias", new G.closure556(), "description", new G.closure557(), "street", new G.closure558(), "streetnumber", new G.closure559(), "plz", new G.closure560(), "city", new G.closure561(), "shortDescription", new G.closure562(), "order", new G.closure563(), "service", new G.closure564(), "rateValue", new G.closure565(), "rateUnit", new G.closure566(), "rateUnitType", new G.closure567(), "amount", new G.closure568(), "vat", new G.closure569(), "discountable", new G.closure570(), "total", new G.closure571(), "start", new G.closure572(), "end", new G.closure573(), "rateGroup", new G.closure574(), "report", new G.closure575(), "timeslices", new G.closure576(), "pensum", new G.closure577(), "realTime", new G.closure578(), "targetTime", new G.closure579(), "duration", new G.closure580(), "username", new G.closure581(), "fullname", new G.closure582(), "email", new G.closure583(), "enabled", new G.closure584(), "locked", new G.closure585(), "percentage", new G.closure586(), "newDiscount", new G.closure587(), "factor", new G.closure588(), "scale", new G.closure589(), "doTransform", new G.closure590(), "roundMode", new G.closure591(), "symbol", new G.closure592(), "selector", new G.closure593(), "modes", new G.closure594(), "mode", new G.closure595(), "link", new G.closure596(), "linklist", new G.closure597(), "Title", new G.closure598(), "auth", new G.closure599(), "isloggedin", new G.closure600(), "userContext", new G.closure601(), "loginFailed", new G.closure602(), "password", new G.closure603(), "rememberme", new G.closure604(), "loginInProgress", new G.closure605(), "statusservice", new G.closure606(), "status", new G.closure607(), "activitylist", new G.closure608(), "entries", new G.closure609(), "entry", new G.closure610(), "activities", new G.closure611(), "menus", new G.closure612(), "menu", new G.closure613(), "icon", new G.closure614(), "title", new G.closure615(), "items", new G.closure616(), "error", new G.closure617(), "loading", new G.closure618(), "defaultVal", new G.closure619(), "success", new G.closure620(), "firstname", new G.closure621(), "lastname", new G.closure622(), "customer", new G.closure623(), "chargeable", new G.closure624(), "deadline", new G.closure625(), "budgetPrice", new G.closure626(), "budgetTime", new G.closure627(), "currentPrice", new G.closure628(), "currentTime", new G.closure629(), "fixedPrice", new G.closure630(), "accountant", new G.closure631(), "validTo", new G.closure632(), "standardDiscounts", new G.closure633(), "subtotal", new G.closure634(), "totalVAT", new G.closure635(), "totalDiscounts", new G.closure636(), "offer", new G.closure637(), "company", new G.closure638(), "department", new G.closure639(), "salutation", new G.closure640(), "state", new G.closure641(), "country", new G.closure642(), "plainpassword", new G.closure643(), "dates", new G.closure644(), "days", new G.closure645(), "day", new G.closure646(), "toggleOpen", new G.closure647(), "selectPage", new G.closure648(), "selectMatch", new G.closure649(), "selectActive", new G.closure650(), "incrementHours", new G.closure651(), "incrementMinutes", new G.closure652(), "updateHours", new G.closure653(), "updateMinutes", new G.closure654(), "toggleMeridian", new G.closure655(), "decrementHours", new G.closure656(), "decrementMinutes", new G.closure657(), "pause", new G.closure658(), "play", new G.closure659(), "prev", new G.closure660(), "reset", new G.closure661(), "stateClass", new G.closure662(), "rate", new G.closure663(), "enter", new G.closure664(), "move", new G.closure665(), "toggleMode", new G.closure666(), "today", new G.closure667(), "clear", new G.closure668(), "previousMonth", new G.closure669(), "previousWeek", new G.closure670(), "previousDay", new G.closure671(), "nextDay", new G.closure672(), "nextWeek", new G.closure673(), "nextMonth", new G.closure674(), "isSelected", new G.closure675(), "selectEntity", new G.closure676(), "addFieldtoUpdate", new G.closure677(), "addSaveField", new G.closure678(), "createEntity", new G.closure679(), "duplicateEntity", new G.closure680(), "deleteEntity", new G.closure681(), "reload", new G.closure682(), "openEditView", new G.closure683(), "saveAllEntities", new G.closure684(), "printReport", new G.closure685(), "ViewValue", new G.closure686(), "toggleSelectionBox", new G.closure687(), "loginOnEnter", new G.closure688(), "login", new G.closure689(), "updateDate", new G.closure690(), "toggleMenu", new G.closure691(), "reloadUser", new G.closure692(), "save", new G.closure693(), "update", new G.closure694(), "hasChanged", new G.closure695(), "saveEntity", new G.closure696(), "openInvoice", new G.closure697(), "printOffer", new G.closure698(), "openProject", new G.closure699(), "updateInvoicefromProject", new G.closure700(), "printInvoice", new G.closure701(), "logout", new G.closure702()]);
   }, "getters", "setters", "get$setters", function() {
-    return P.LinkedHashMap__makeLiteral(["employee", new G.closure(), "projectFilter", new G.closure0(), "allowProjectSelect", new G.closure1(), "offerId", new G.closure2(), "invoiceId", new G.closure3(), "serviceId", new G.closure4(), "projectId", new G.closure5(), "entities", new G.closure6(), "callback", new G.closure7(), "select", new G.closure8(), "urls", new G.closure9(), "value", new G.closure10(), "bind", new G.closure11(), "valueExpression", new G.closure12(), "onAbort", new G.closure13(), "onBeforeCopy", new G.closure14(), "onBeforeCut", new G.closure15(), "onBeforePaste", new G.closure16(), "onBlur", new G.closure17(), "onChange", new G.closure18(), "onClick", new G.closure19(), "onContextMenu", new G.closure20(), "onCopy", new G.closure21(), "onCut", new G.closure22(), "onDoubleClick", new G.closure23(), "onDrag", new G.closure24(), "onDragEnd", new G.closure25(), "onDragEnter", new G.closure26(), "onDragLeave", new G.closure27(), "onDragOver", new G.closure28(), "onDragStart", new G.closure29(), "onDrop", new G.closure30(), "onError", new G.closure31(), "onFocus", new G.closure32(), "onFullscreenChange", new G.closure33(), "onFullscreenError", new G.closure34(), "onInput", new G.closure35(), "onInvalid", new G.closure36(), "onKeyDown", new G.closure37(), "onKeyPress", new G.closure38(), "onKeyUp", new G.closure39(), "onLoad", new G.closure40(), "onMouseDown", new G.closure41(), "onMouseEnter", new G.closure42(), "onMouseLeave", new G.closure43(), "onMouseMove", new G.closure44(), "onMouseOut", new G.closure45(), "onMouseOver", new G.closure46(), "onMouseUp", new G.closure47(), "onMouseWheel", new G.closure48(), "onPaste", new G.closure49(), "onReset", new G.closure50(), "onScroll", new G.closure51(), "onSearch", new G.closure52(), "onSelect", new G.closure53(), "onSelectStart", new G.closure54(), "onSubmit", new G.closure55(), "onTouchCancel", new G.closure56(), "onTouchEnd", new G.closure57(), "onTouchEnter", new G.closure58(), "onTouchLeave", new G.closure59(), "onTouchMove", new G.closure60(), "onTouchStart", new G.closure61(), "onTransitionEnd", new G.closure62(), "condition", new G.closure63(), "url", new G.closure64(), "name", new G.closure65(), "model", new G.closure66(), "idlAttrKind", new G.closure67(), "count", new G.closure68(), "expression", new G.closure69(), "templateUrl", new G.closure70(), "hide", new G.closure71(), "show", new G.closure72(), "checked", new G.closure73(), "disabled", new G.closure74(), "multiple", new G.closure75(), "open", new G.closure76(), "readonly", new G.closure77(), "required", new G.closure78(), "selected", new G.closure79(), "href", new G.closure80(), "src", new G.closure81(), "srcset", new G.closure82(), "styleExpression", new G.closure83(), "max", new G.closure84(), "min", new G.closure85(), "pattern", new G.closure86(), "minlength", new G.closure87(), "maxlength", new G.closure88(), "options", new G.closure89(), "option", new G.closure90(), "routeName", new G.closure91(), "selectedEntity", new G.closure92(), "field", new G.closure93(), "clearOnClose", new G.closure94(), "useContext", new G.closure95(), "htmlclass", new G.closure96(), "precision", new G.closure97(), "useSafeCalc", new G.closure98(), "date", new G.closure99(), "format", new G.closure100(), "hasButtons", new G.closure101(), "namespace", new G.closure102(), "setting", new G.closure103(), "isCloseOthers", new G.closure104(), "heading", new G.closure105(), "isOpen", new G.closure106(), "isDisabled", new G.closure107(), "collapse", new G.closure108(), "btnRadioAttr", new G.closure109(), "btnCheckboxTrue", new G.closure110(), "btnCheckboxFalse", new G.closure111(), "type", new G.closure112(), "close", new G.closure113(), "alertTypeAsString", new G.closure114(), "closeable", new G.closure115(), "justified", new G.closure116(), "vertical", new G.closure117(), "tabs", new G.closure118(), "tab", new G.closure119(), "active", new G.closure120(), "onSelectCallback", new G.closure121(), "onDeselectCallback", new G.closure122(), "append", new G.closure123(), "windowClass", new G.closure124(), "visible", new G.closure125(), "keyboard", new G.closure126(), "index", new G.closure127(), "backdropAsString", new G.closure128(), "size", new G.closure129(), "$event", new G.closure130(), "sizeClass", new G.closure131(), "draggable", new G.closure132(), "draggableData", new G.closure133(), "dragdropConfig", new G.closure134(), "onDragSuccessCallback", new G.closure135(), "dropZones", new G.closure136(), "onDropSuccessCallback", new G.closure137(), "sortableData", new G.closure138(), "sortableConfig", new G.closure139(), "sortableZones", new G.closure140(), "currentPage", new G.closure141(), "totalItems", new G.closure142(), "itemsPerPage", new G.closure143(), "setNumPagesListener", new G.closure144(), "onSelectChangeExtEventHandler", new G.closure145(), "align", new G.closure146(), "previousText", new G.closure147(), "nextText", new G.closure148(), "noPrevious", new G.closure149(), "noNext", new G.closure150(), "maxSize", new G.closure151(), "rotate", new G.closure152(), "boundaryLinks", new G.closure153(), "directionLinks", new G.closure154(), "firstText", new G.closure155(), "lastText", new G.closure156(), "pages", new G.closure157(), "page", new G.closure158(), "isActive", new G.closure159(), "number", new G.closure160(), "text", new G.closure161(), "totalPages", new G.closure162(), "matches", new G.closure163(), "selectEventHandler", new G.closure164(), "position", new G.closure165(), "query", new G.closure166(), "top", new G.closure167(), "left", new G.closure168(), "match", new G.closure169(), "id", new G.closure170(), "$index", new G.closure171(), "minLength", new G.closure172(), "appendToBody", new G.closure173(), "inputFormatter", new G.closure174(), "waitInMs", new G.closure175(), "isLoading", new G.closure176(), "isEditable", new G.closure177(), "showMeridian", new G.closure178(), "invalidHours", new G.closure179(), "readonlyInput", new G.closure180(), "invalidMinutes", new G.closure181(), "meridian", new G.closure182(), "isCollapsed", new G.closure183(), "noTransition", new G.closure184(), "interval", new G.closure185(), "noPause", new G.closure186(), "slides", new G.closure187(), "length", new G.closure188(), "item", new G.closure189(), "direction", new G.closure190(), "entering", new G.closure191(), "leaving", new G.closure192(), "next", new G.closure193(), "animate", new G.closure194(), "classes", new G.closure195(), "address", new G.closure196(), "onHover", new G.closure197(), "onLeave", new G.closure198(), "range", new G.closure199(), "r", new G.closure200(), "dayFormat", new G.closure201(), "monthFormat", new G.closure202(), "yearFormat", new G.closure203(), "dayHeaderFormat", new G.closure204(), "dayTitleFormat", new G.closure205(), "monthTitleFormat", new G.closure206(), "startingDay", new G.closure207(), "yearRange", new G.closure208(), "dateDisabled", new G.closure209(), "showWeeks", new G.closure210(), "d", new G.closure211(), "display", new G.closure212(), "showButtonBar", new G.closure213(), "currentText", new G.closure214(), "toggleWeeksText", new G.closure215(), "clearText", new G.closure216(), "closeText", new G.closure217(), "filterStartDate", new G.closure218(), "filterEndDate", new G.closure219(), "projectBased", new G.closure220(), "entity", new G.closure221(), "user", new G.closure222(), "activity", new G.closure223(), "project", new G.closure224(), "startedAt", new G.closure225(), "stoppedAt", new G.closure226(), "newEntryDate", new G.closure227(), "updateNewEntryDate", new G.closure228(), "selectedProject", new G.closure229(), "selectedService", new G.closure230(), "alias", new G.closure231(), "description", new G.closure232(), "street", new G.closure233(), "streetnumber", new G.closure234(), "plz", new G.closure235(), "city", new G.closure236(), "shortDescription", new G.closure237(), "order", new G.closure238(), "service", new G.closure239(), "rateValue", new G.closure240(), "rateUnit", new G.closure241(), "rateUnitType", new G.closure242(), "amount", new G.closure243(), "vat", new G.closure244(), "discountable", new G.closure245(), "total", new G.closure246(), "start", new G.closure247(), "end", new G.closure248(), "rateGroup", new G.closure249(), "report", new G.closure250(), "timeslices", new G.closure251(), "pensum", new G.closure252(), "realTime", new G.closure253(), "targetTime", new G.closure254(), "duration", new G.closure255(), "username", new G.closure256(), "fullname", new G.closure257(), "email", new G.closure258(), "enabled", new G.closure259(), "locked", new G.closure260(), "percentage", new G.closure261(), "newDiscount", new G.closure262(), "factor", new G.closure263(), "scale", new G.closure264(), "doTransform", new G.closure265(), "roundMode", new G.closure266(), "symbol", new G.closure267(), "selector", new G.closure268(), "modes", new G.closure269(), "mode", new G.closure270(), "link", new G.closure271(), "linklist", new G.closure272(), "Title", new G.closure273(), "auth", new G.closure274(), "isloggedin", new G.closure275(), "userContext", new G.closure276(), "loginFailed", new G.closure277(), "password", new G.closure278(), "rememberme", new G.closure279(), "loginInProgress", new G.closure280(), "statusservice", new G.closure281(), "status", new G.closure282(), "activitylist", new G.closure283(), "entries", new G.closure284(), "entry", new G.closure285(), "activities", new G.closure286(), "menus", new G.closure287(), "menu", new G.closure288(), "icon", new G.closure289(), "title", new G.closure290(), "items", new G.closure291(), "error", new G.closure292(), "loading", new G.closure293(), "defaultVal", new G.closure294(), "success", new G.closure295(), "firstname", new G.closure296(), "lastname", new G.closure297(), "customer", new G.closure298(), "chargeable", new G.closure299(), "deadline", new G.closure300(), "budgetPrice", new G.closure301(), "budgetTime", new G.closure302(), "currentPrice", new G.closure303(), "currentTime", new G.closure304(), "fixedPrice", new G.closure305(), "accountant", new G.closure306(), "validTo", new G.closure307(), "standardDiscounts", new G.closure308(), "subtotal", new G.closure309(), "totalVAT", new G.closure310(), "totalDiscounts", new G.closure311(), "offer", new G.closure312(), "company", new G.closure313(), "department", new G.closure314(), "salutation", new G.closure315(), "state", new G.closure316(), "country", new G.closure317(), "plainpassword", new G.closure318(), "dates", new G.closure319(), "days", new G.closure320(), "day", new G.closure321()]);
+    return P.LinkedHashMap__makeLiteral(["employee", new G.closure(), "projectFilter", new G.closure0(), "allowProjectSelect", new G.closure1(), "offerId", new G.closure2(), "invoiceId", new G.closure3(), "serviceId", new G.closure4(), "projectId", new G.closure5(), "entities", new G.closure6(), "callback", new G.closure7(), "select", new G.closure8(), "urls", new G.closure9(), "value", new G.closure10(), "bind", new G.closure11(), "valueExpression", new G.closure12(), "onAbort", new G.closure13(), "onBeforeCopy", new G.closure14(), "onBeforeCut", new G.closure15(), "onBeforePaste", new G.closure16(), "onBlur", new G.closure17(), "onChange", new G.closure18(), "onClick", new G.closure19(), "onContextMenu", new G.closure20(), "onCopy", new G.closure21(), "onCut", new G.closure22(), "onDoubleClick", new G.closure23(), "onDrag", new G.closure24(), "onDragEnd", new G.closure25(), "onDragEnter", new G.closure26(), "onDragLeave", new G.closure27(), "onDragOver", new G.closure28(), "onDragStart", new G.closure29(), "onDrop", new G.closure30(), "onError", new G.closure31(), "onFocus", new G.closure32(), "onFullscreenChange", new G.closure33(), "onFullscreenError", new G.closure34(), "onInput", new G.closure35(), "onInvalid", new G.closure36(), "onKeyDown", new G.closure37(), "onKeyPress", new G.closure38(), "onKeyUp", new G.closure39(), "onLoad", new G.closure40(), "onMouseDown", new G.closure41(), "onMouseEnter", new G.closure42(), "onMouseLeave", new G.closure43(), "onMouseMove", new G.closure44(), "onMouseOut", new G.closure45(), "onMouseOver", new G.closure46(), "onMouseUp", new G.closure47(), "onMouseWheel", new G.closure48(), "onPaste", new G.closure49(), "onReset", new G.closure50(), "onScroll", new G.closure51(), "onSearch", new G.closure52(), "onSelect", new G.closure53(), "onSelectStart", new G.closure54(), "onSubmit", new G.closure55(), "onTouchCancel", new G.closure56(), "onTouchEnd", new G.closure57(), "onTouchEnter", new G.closure58(), "onTouchLeave", new G.closure59(), "onTouchMove", new G.closure60(), "onTouchStart", new G.closure61(), "onTransitionEnd", new G.closure62(), "condition", new G.closure63(), "url", new G.closure64(), "name", new G.closure65(), "model", new G.closure66(), "idlAttrKind", new G.closure67(), "count", new G.closure68(), "expression", new G.closure69(), "templateUrl", new G.closure70(), "hide", new G.closure71(), "show", new G.closure72(), "checked", new G.closure73(), "disabled", new G.closure74(), "multiple", new G.closure75(), "open", new G.closure76(), "readonly", new G.closure77(), "required", new G.closure78(), "selected", new G.closure79(), "href", new G.closure80(), "src", new G.closure81(), "srcset", new G.closure82(), "styleExpression", new G.closure83(), "max", new G.closure84(), "min", new G.closure85(), "pattern", new G.closure86(), "minlength", new G.closure87(), "maxlength", new G.closure88(), "options", new G.closure89(), "option", new G.closure90(), "routeName", new G.closure91(), "selectedEntity", new G.closure92(), "field", new G.closure93(), "clearOnClose", new G.closure94(), "useContext", new G.closure95(), "htmlclass", new G.closure96(), "precision", new G.closure97(), "useSafeCalc", new G.closure98(), "date", new G.closure99(), "format", new G.closure100(), "hasButtons", new G.closure101(), "namespace", new G.closure102(), "setting", new G.closure103(), "isCloseOthers", new G.closure104(), "heading", new G.closure105(), "isOpen", new G.closure106(), "isDisabled", new G.closure107(), "collapse", new G.closure108(), "btnRadioAttr", new G.closure109(), "btnCheckboxTrue", new G.closure110(), "btnCheckboxFalse", new G.closure111(), "type", new G.closure112(), "close", new G.closure113(), "alertTypeAsString", new G.closure114(), "closeable", new G.closure115(), "justified", new G.closure116(), "vertical", new G.closure117(), "tabs", new G.closure118(), "tab", new G.closure119(), "active", new G.closure120(), "onSelectCallback", new G.closure121(), "onDeselectCallback", new G.closure122(), "append", new G.closure123(), "windowClass", new G.closure124(), "visible", new G.closure125(), "keyboard", new G.closure126(), "index", new G.closure127(), "backdropAsString", new G.closure128(), "size", new G.closure129(), "$event", new G.closure130(), "sizeClass", new G.closure131(), "draggable", new G.closure132(), "draggableData", new G.closure133(), "dragdropConfig", new G.closure134(), "onDragSuccessCallback", new G.closure135(), "dropZones", new G.closure136(), "onDropSuccessCallback", new G.closure137(), "sortableData", new G.closure138(), "sortableConfig", new G.closure139(), "sortableZones", new G.closure140(), "currentPage", new G.closure141(), "totalItems", new G.closure142(), "itemsPerPage", new G.closure143(), "setNumPagesListener", new G.closure144(), "onSelectChangeExtEventHandler", new G.closure145(), "align", new G.closure146(), "previousText", new G.closure147(), "nextText", new G.closure148(), "noPrevious", new G.closure149(), "noNext", new G.closure150(), "maxSize", new G.closure151(), "rotate", new G.closure152(), "boundaryLinks", new G.closure153(), "directionLinks", new G.closure154(), "firstText", new G.closure155(), "lastText", new G.closure156(), "pages", new G.closure157(), "page", new G.closure158(), "isActive", new G.closure159(), "number", new G.closure160(), "text", new G.closure161(), "totalPages", new G.closure162(), "matches", new G.closure163(), "selectEventHandler", new G.closure164(), "position", new G.closure165(), "query", new G.closure166(), "top", new G.closure167(), "left", new G.closure168(), "match", new G.closure169(), "id", new G.closure170(), "$index", new G.closure171(), "minLength", new G.closure172(), "appendToBody", new G.closure173(), "inputFormatter", new G.closure174(), "waitInMs", new G.closure175(), "isLoading", new G.closure176(), "isEditable", new G.closure177(), "showMeridian", new G.closure178(), "invalidHours", new G.closure179(), "readonlyInput", new G.closure180(), "invalidMinutes", new G.closure181(), "meridian", new G.closure182(), "isCollapsed", new G.closure183(), "noTransition", new G.closure184(), "interval", new G.closure185(), "noPause", new G.closure186(), "slides", new G.closure187(), "length", new G.closure188(), "item", new G.closure189(), "direction", new G.closure190(), "entering", new G.closure191(), "leaving", new G.closure192(), "next", new G.closure193(), "animate", new G.closure194(), "classes", new G.closure195(), "editform", new G.closure196(), "address", new G.closure197(), "onHover", new G.closure198(), "onLeave", new G.closure199(), "range", new G.closure200(), "r", new G.closure201(), "dayFormat", new G.closure202(), "monthFormat", new G.closure203(), "yearFormat", new G.closure204(), "dayHeaderFormat", new G.closure205(), "dayTitleFormat", new G.closure206(), "monthTitleFormat", new G.closure207(), "startingDay", new G.closure208(), "yearRange", new G.closure209(), "dateDisabled", new G.closure210(), "showWeeks", new G.closure211(), "d", new G.closure212(), "display", new G.closure213(), "showButtonBar", new G.closure214(), "currentText", new G.closure215(), "toggleWeeksText", new G.closure216(), "clearText", new G.closure217(), "closeText", new G.closure218(), "filterStartDate", new G.closure219(), "filterEndDate", new G.closure220(), "projectBased", new G.closure221(), "entity", new G.closure222(), "user", new G.closure223(), "activity", new G.closure224(), "project", new G.closure225(), "startedAt", new G.closure226(), "stoppedAt", new G.closure227(), "newEntryDate", new G.closure228(), "updateNewEntryDate", new G.closure229(), "selectedProject", new G.closure230(), "selectedService", new G.closure231(), "alias", new G.closure232(), "description", new G.closure233(), "street", new G.closure234(), "streetnumber", new G.closure235(), "plz", new G.closure236(), "city", new G.closure237(), "shortDescription", new G.closure238(), "order", new G.closure239(), "service", new G.closure240(), "rateValue", new G.closure241(), "rateUnit", new G.closure242(), "rateUnitType", new G.closure243(), "amount", new G.closure244(), "vat", new G.closure245(), "discountable", new G.closure246(), "total", new G.closure247(), "start", new G.closure248(), "end", new G.closure249(), "rateGroup", new G.closure250(), "report", new G.closure251(), "timeslices", new G.closure252(), "pensum", new G.closure253(), "realTime", new G.closure254(), "targetTime", new G.closure255(), "duration", new G.closure256(), "username", new G.closure257(), "fullname", new G.closure258(), "email", new G.closure259(), "enabled", new G.closure260(), "locked", new G.closure261(), "percentage", new G.closure262(), "newDiscount", new G.closure263(), "factor", new G.closure264(), "scale", new G.closure265(), "doTransform", new G.closure266(), "roundMode", new G.closure267(), "symbol", new G.closure268(), "selector", new G.closure269(), "modes", new G.closure270(), "mode", new G.closure271(), "link", new G.closure272(), "linklist", new G.closure273(), "Title", new G.closure274(), "auth", new G.closure275(), "isloggedin", new G.closure276(), "userContext", new G.closure277(), "loginFailed", new G.closure278(), "password", new G.closure279(), "rememberme", new G.closure280(), "loginInProgress", new G.closure281(), "statusservice", new G.closure282(), "status", new G.closure283(), "activitylist", new G.closure284(), "entries", new G.closure285(), "entry", new G.closure286(), "activities", new G.closure287(), "menus", new G.closure288(), "menu", new G.closure289(), "icon", new G.closure290(), "title", new G.closure291(), "items", new G.closure292(), "error", new G.closure293(), "loading", new G.closure294(), "defaultVal", new G.closure295(), "success", new G.closure296(), "firstname", new G.closure297(), "lastname", new G.closure298(), "customer", new G.closure299(), "chargeable", new G.closure300(), "deadline", new G.closure301(), "budgetPrice", new G.closure302(), "budgetTime", new G.closure303(), "currentPrice", new G.closure304(), "currentTime", new G.closure305(), "fixedPrice", new G.closure306(), "accountant", new G.closure307(), "validTo", new G.closure308(), "standardDiscounts", new G.closure309(), "subtotal", new G.closure310(), "totalVAT", new G.closure311(), "totalDiscounts", new G.closure312(), "offer", new G.closure313(), "company", new G.closure314(), "department", new G.closure315(), "salutation", new G.closure316(), "state", new G.closure317(), "country", new G.closure318(), "plainpassword", new G.closure319(), "dates", new G.closure320(), "days", new G.closure321(), "day", new G.closure322()]);
   }, "setters", "symbols", "get$symbols", function() {
     return P.LinkedHashMap__makeLiteral(["evict", C.Symbol_evict]);
   }, "symbols", "typeAnnotations", "get$typeAnnotations", function() {
-    return P.LinkedHashMap__makeLiteral([C.Type_scn, C.List_Mr4, C.Type_u5V, C.List_07, C.Type_x4G, C.List_7h5, C.Type_Wv9, C.List_apk, C.Type_sav, C.List_dEZ, C.Type_86y, C.List_Wvz, C.Type_00, C.List_yVc, C.Type_eZ8, C.List_3Vk, C.Type_QyU, C.List_08, C.Type_iQg, C.List_TbG, C.Type_2bH, C.List_ykb, C.Type_2Qn, C.List_EQO, C.Type_42U, C.List_3FW, C.Type_ly0, C.List_AKW, C.Type_GQu, C.List_cSi, C.Type_iL9, C.List_Fcu, C.Type_4Z2, C.List_O5Z, C.Type_eJC, C.List_IUd, C.Type_o0y, C.List_x6V, C.Type_Nlt, C.List_Injectable, C.Type_d0f, C.List_Injectable, C.Type_s6k, C.List_Injectable, C.Type_UAS, C.List_Injectable, C.Type_OHx, C.List_Injectable, C.Type_8I8, C.List_Injectable, C.Type_wdB, C.List_Injectable, C.Type_Cxl, C.List_Injectable, C.Type_ON8, C.List_Injectable, C.Type_YKM, C.List_Injectable, C.Type_EMZ, C.List_Injectable, C.Type_YeZ, C.List_Injectable, C.Type_ijl, C.List_Injectable, C.Type_zTx, C.List_Injectable, C.Type_KeE, C.List_Injectable, C.Type_0af, C.List_Injectable, C.Type_Yy0, C.List_Injectable, C.Type_wTU, C.List_Injectable, C.Type_82H, C.List_Injectable, C.Type_cg9, C.List_NoS, C.Type_hWd, C.List_qJO, C.Type_EOY, C.List_Injectable, C.Type_xhX, C.List_Injectable, C.Type_EgC, C.List_Injectable, C.Type_qFt, C.List_Injectable, C.Type_blz, C.List_Injectable, C.Type_Npb, C.List_rCi, C.Type_gMT, C.List_Injectable, C.Type_IeY, C.List_Injectable, C.Type_QOg0, C.List_Injectable, C.Type_WfL, C.List_Injectable, C.Type_Q0t, C.List_Fxv, C.Type_C9d, C.List_knt1, C.Type_Jk7, C.List_cA4, C.Type_ga7, C.List_D72, C.Type_m9K, C.List_2bL, C.Type_omH, C.List_36D, C.Type_uId, C.List_86y, C.Type_IGM, C.List_CtB, C.Type_EkK, C.List_SWM, C.Type_jZY, C.List_qFe, C.Type_NsM, C.List_RWm, C.Type_U5x, C.List_Vyt0, C.Type_ADx, C.List_QI9, C.Type_yT8, C.List_6TW, C.Type_ifx, C.List_176, C.Type_aHv, C.List_Azz, C.Type_MMT, C.List_px4, C.Type_wlp, C.List_b9P, C.Type_GNx, C.List_AGA, C.Type_P0q, C.List_I3h, C.Type_cWU, C.List_09, C.Type_wnK, C.List_33r0, C.Type_02, C.List_qZs, C.Type_qFM, C.List_wEo0, C.Type_wu2, C.List_6TW0, C.Type_E3Y, C.List_ivT, C.Type_izR, C.List_chs0, C.Type_5i6, C.List_weg, C.Type_AgZ0, C.List_ZeB, C.Type_gG6, C.List_XnQ, C.Type_ifn0, C.List_ww83, C.Type_89o, C.List_gWj, C.Type_CrX, C.List_B0x, C.Type_nHe, C.List_Esk, C.Type_U44, C.List_2jN1, C.Type_sVp, C.List_UJr, C.Type_ZiE, C.List_Qsb, C.Type_w4e, C.List_86y0, C.Type_KpI, C.List_Wvz0, C.Type_k2a, C.List_4IJ0, C.Type_OhV, C.List_C6q, C.Type_2Vk0, C.List_dqy, C.Type_woc0, C.List_VEs, C.Type_6YB, C.List_010, C.Type_xw8, C.List_px4, C.Type_tOS, C.List_Hn6, C.Type_4m4, C.List_eAf, C.Type_sr6, C.List_ZVa, C.Type_wEo, C.List_mu7, C.Type_IJC, C.List_RZh, C.Type_gWg, C.List_Sj8, C.Type_pQX, C.List_Injectable, C.Type_Epp, C.List_Injectable, C.Type_qfd, C.List_Injectable, C.Type_Dbk, C.List_Injectable, C.Type_4Dj, C.List_Injectable, C.Type_Xzb, C.List_Injectable, C.Type_KSA, C.List_Injectable, C.Type_X3P, C.List_Injectable, C.Type_Cf3, C.List_Injectable, C.Type_kGa, C.List_Injectable, C.Type_c4R, C.List_Injectable, C.Type_iYS, C.List_Injectable, C.Type_oYU, C.List_Injectable, C.Type_i5K, C.List_Injectable, C.Type_9yu, C.List_Injectable, C.Type_C9x, C.List_Injectable, C.Type_5MZ, C.List_Formatter_currency, C.Type_Aec, C.List_Formatter_date, C.Type_2GN, C.List_Formatter_filter, C.Type_s6i, C.List_Formatter_json, C.Type_rzW, C.List_Formatter_limitTo, C.Type_O9i, C.List_Formatter_lowercase, C.Type_fw1, C.List_Formatter_arrayify, C.Type_ihV, C.List_Formatter_number, C.Type_01, C.List_Formatter_orderBy, C.Type_mJQ, C.List_Formatter_uppercase, C.Type_c4R0, C.List_Formatter_stringify, C.Type_j3h, C.List_Injectable, C.Type_8eb0, C.List_Injectable, C.Type_6FR, C.List_Injectable, C.Type_uZX, C.List_Injectable, C.Type_vlL, C.List_Injectable, C.Type_rXF, C.List_gn0, C.Type_sQd, C.List_UWz, C.Type_kXN, C.List_Injectable, C.Type_skV, C.List_Injectable, C.Type_IFE, C.List_kGu, C.Type_RkP, C.List_3DL, C.Type_aWx, C.List_Injectable, C.Type_sxw, C.List_Injectable, C.Type_WZ4, C.List_Injectable, C.Type_sEs, C.List_Injectable, C.Type_XCi, C.List_Injectable, C.Type_YRK, C.List_Injectable, C.Type_3je, C.List_Injectable, C.Type_2jN, C.List_Injectable, C.Type_8wJ, C.List_Injectable, C.Type_AS6, C.List_BcQ, C.Type_ACG, C.List_4VO, C.Type_IIj, C.List_cdS, C.Type_vz6, C.List_46y, C.Type_ozo, C.List_6qA, C.Type_CKa, C.List_Mkc, C.Type_k6K, C.List_SBU, C.Type_Ecu, C.List_G6F, C.Type_GFm, C.List_nvT, C.Type_L5J, C.List_2jN2, C.Type_iDw, C.List_sq4, C.Type_oyU, C.List_ctK, C.Type_jqh, C.List_IVn, C.Type_6TW, C.List_apk0, C.Type_HDx, C.List_NLv, C.Type_4AN, C.List_a5W0, C.Type_GNd, C.List_Formatter_userfilter, C.Type_yDQ, C.List_Formatter_timeslicedatefilter, C.Type_F61, C.List_Formatter_projectvaluefilter, C.Type_3Dv, C.List_Formatter_offerpostionOrder, C.Type_cvH, C.List_Formatter_secondsToHours, C.Type_MYu, C.List_1CY, C.Type_kyU, C.List_mOS, C.Type_cKo, C.List_p6t, C.Type_gg9, C.List_wIq, C.Type_AgZ, C.List_mBr, C.Type_RBJ, C.List_Injectable, C.Type_1rA, C.List_Injectable, C.Type_mC8, C.List_Injectable, C.Type_Yww, C.List_Q8b, C.Type_6PY0, C.List_ERv, C.Type_8eb, C.List_tUr, C.Type_TWN, C.List_43h2, C.Type_4ec, C.List_Injectable, C.Type_2jN0, C.List_wry, C.Type_kyk, C.List_8eb1, C.Type_KYr, C.List_Injectable, C.Type_46c, C.List_Injectable, C.Type_XJ0, C.List_iDZ1, C.Type_BVY, C.List_Injectable, C.Type_n3c, C.List_Injectable, C.Type_UkC, C.List_011, C.Type_EJH, C.List_Xr1, C.Type_G4S, C.List_Vyt1, C.Type_Z2m, C.List_E34, C.Type_9sg, C.List_AeS, C.Type_woc, C.List_kMT, C.Type_qFe, C.List_E4S, C.Type_KTV, C.List_Injectable, C.Type_SPQ, C.List_7eO0, C.Type_SsP, C.List_Injectable, C.Type_cBg, C.List_Injectable, C.Type_ckG, C.List_Injectable, C.Type_8sa, C.List_i3t, C.Type_AO3, C.List_qJs, C.Type_z4s, C.List_Injectable, C.Type_2Vk, C.List_EmB, C.Type_A5C, C.List_Wiu, C.Type_ors, C.List_Injectable, C.Type_EKj, C.List_kJI, C.Type_Ues, C.List_Injectable, C.Type_ifn, C.List_gQg, C.Type_37u, C.List_Injectable, C.Type_etK, C.List_Injectable, C.Type_Xfd, C.List_pyh, C.Type_FKj, C.List_Injectable, C.Type_6K0, C.List_Formatter_highlight, C.Type_k2W, C.List_bh50, C.Type_e3S, C.List_Injectable, C.Type_ibb, C.List_ugX, C.Type_AqR, C.List_h8l, C.Type_G1Q, C.List_Injectable, C.Type_mPa, C.List_2jN3, C.Type_o2l, C.List_4UV, C.Type_7N7, C.List_Mys, C.Type_43h, C.List_gLw, C.Type_0jR, C.List_weg0, C.Type_QCS, C.List_Ik7, C.Type_8UK, C.List_wSf, C.Type_A66, C.List_7BT, C.Type_6PY, C.List_2bx, C.Type_0, C.List_cLl, C.Type_qp8, C.List_EV1, C.Type_ki2, C.List_Mys0, C.Type_hk6, C.List_s43, C.Type_9pl, C.List_4QF, C.Type_swn, C.List_aXZ0, C.Type_M98, C.List_I8B, C.Type_O50, C.List_Injectable, C.Type_yHF, C.List_Injectable, C.Type_c4x, C.List_Injectable, C.Type_jhf, C.List_Injectable, C.Type_GL7, C.List_Injectable, C.Type_QOW, C.List_OS9, C.Type_Cu4, C.List_Formatter_weekNumber, C.Type_tUY, C.List_WfA, C.Type_YaB, C.List_JpY, C.Type_GpM, C.List_Y3i]);
+    return P.LinkedHashMap__makeLiteral([C.Type_scn, C.List_Mr4, C.Type_u5V, C.List_07, C.Type_x4G, C.List_7h5, C.Type_Wv9, C.List_apk, C.Type_sav, C.List_dEZ, C.Type_86y, C.List_Wvz, C.Type_00, C.List_yVc, C.Type_eZ8, C.List_3Vk, C.Type_QyU, C.List_08, C.Type_iQg, C.List_TbG, C.Type_2bH, C.List_ykb, C.Type_2Qn, C.List_EQO, C.Type_42U, C.List_3FW, C.Type_ly0, C.List_AKW, C.Type_GQu, C.List_cSi, C.Type_iL9, C.List_Fcu, C.Type_4Z2, C.List_O5Z, C.Type_eJC, C.List_IUd, C.Type_o0y, C.List_x6V, C.Type_Nlt, C.List_Injectable, C.Type_d0f, C.List_Injectable, C.Type_s6k, C.List_Injectable, C.Type_UAS, C.List_Injectable, C.Type_OHx, C.List_Injectable, C.Type_8I8, C.List_Injectable, C.Type_wdB, C.List_Injectable, C.Type_Cxl, C.List_Injectable, C.Type_ON8, C.List_Injectable, C.Type_YKM, C.List_Injectable, C.Type_EMZ, C.List_Injectable, C.Type_YeZ, C.List_Injectable, C.Type_ijl, C.List_Injectable, C.Type_zTx, C.List_Injectable, C.Type_KeE, C.List_Injectable, C.Type_0af, C.List_Injectable, C.Type_Yy0, C.List_Injectable, C.Type_wTU, C.List_Injectable, C.Type_82H, C.List_Injectable, C.Type_cg9, C.List_NoS, C.Type_hWd, C.List_qJO, C.Type_EOY, C.List_Injectable, C.Type_xhX, C.List_Injectable, C.Type_EgC, C.List_Injectable, C.Type_qFt, C.List_Injectable, C.Type_blz, C.List_Injectable, C.Type_Npb, C.List_rCi, C.Type_gMT, C.List_Injectable, C.Type_IeY, C.List_Injectable, C.Type_QOg0, C.List_Injectable, C.Type_WfL, C.List_Injectable, C.Type_Q0t, C.List_Fxv, C.Type_C9d, C.List_knt1, C.Type_Jk7, C.List_cA4, C.Type_ga7, C.List_D72, C.Type_m9K, C.List_2bL, C.Type_omH, C.List_36D, C.Type_uId, C.List_86y, C.Type_IGM, C.List_CtB, C.Type_EkK, C.List_SWM, C.Type_jZY, C.List_qFe, C.Type_NsM, C.List_RWm, C.Type_U5x, C.List_Vyt0, C.Type_ADx, C.List_QI9, C.Type_yT8, C.List_6TW, C.Type_ifx, C.List_176, C.Type_aHv, C.List_Azz, C.Type_MMT, C.List_px4, C.Type_wlp, C.List_b9P, C.Type_GNx, C.List_AGA, C.Type_P0q, C.List_I3h, C.Type_cWU, C.List_09, C.Type_wnK, C.List_33r0, C.Type_02, C.List_qZs, C.Type_qFM, C.List_wEo0, C.Type_wu2, C.List_6TW0, C.Type_E3Y, C.List_ivT, C.Type_izR, C.List_chs0, C.Type_5i6, C.List_weg, C.Type_AgZ0, C.List_ZeB, C.Type_gG6, C.List_XnQ, C.Type_ifn0, C.List_ww83, C.Type_89o, C.List_gWj, C.Type_CrX, C.List_B0x, C.Type_nHe, C.List_Esk, C.Type_U44, C.List_2jN1, C.Type_sVp, C.List_UJr, C.Type_ZiE, C.List_Qsb, C.Type_w4e, C.List_86y0, C.Type_KpI, C.List_Wvz0, C.Type_k2a, C.List_4IJ0, C.Type_OhV, C.List_C6q, C.Type_2Vk0, C.List_dqy, C.Type_woc0, C.List_VEs, C.Type_6YB, C.List_010, C.Type_xw8, C.List_px4, C.Type_tOS, C.List_Hn6, C.Type_4m4, C.List_eAf, C.Type_sr6, C.List_ZVa, C.Type_wEo, C.List_mu7, C.Type_IJC, C.List_RZh, C.Type_gWg, C.List_Sj8, C.Type_pQX, C.List_Injectable, C.Type_Epp, C.List_Injectable, C.Type_qfd, C.List_Injectable, C.Type_Dbk, C.List_Injectable, C.Type_4Dj, C.List_Injectable, C.Type_Xzb, C.List_Injectable, C.Type_KSA, C.List_Injectable, C.Type_X3P, C.List_Injectable, C.Type_Cf3, C.List_Injectable, C.Type_kGa, C.List_Injectable, C.Type_c4R, C.List_Injectable, C.Type_iYS, C.List_Injectable, C.Type_oYU, C.List_Injectable, C.Type_i5K, C.List_Injectable, C.Type_9yu, C.List_Injectable, C.Type_C9x, C.List_Injectable, C.Type_5MZ, C.List_Formatter_currency, C.Type_Aec, C.List_Formatter_date, C.Type_2GN, C.List_Formatter_filter, C.Type_s6i, C.List_Formatter_json, C.Type_rzW, C.List_Formatter_limitTo, C.Type_O9i, C.List_Formatter_lowercase, C.Type_fw1, C.List_Formatter_arrayify, C.Type_ihV, C.List_Formatter_number, C.Type_01, C.List_Formatter_orderBy, C.Type_mJQ, C.List_Formatter_uppercase, C.Type_c4R0, C.List_Formatter_stringify, C.Type_j3h, C.List_Injectable, C.Type_8eb0, C.List_Injectable, C.Type_6FR, C.List_Injectable, C.Type_uZX, C.List_Injectable, C.Type_vlL, C.List_Injectable, C.Type_rXF, C.List_gn0, C.Type_sQd, C.List_UWz, C.Type_kXN, C.List_Injectable, C.Type_skV, C.List_Injectable, C.Type_IFE, C.List_kGu, C.Type_RkP, C.List_3DL, C.Type_aWx, C.List_Injectable, C.Type_sxw, C.List_Injectable, C.Type_WZ4, C.List_Injectable, C.Type_sEs, C.List_Injectable, C.Type_XCi, C.List_Injectable, C.Type_YRK, C.List_Injectable, C.Type_3je, C.List_Injectable, C.Type_2jN, C.List_Injectable, C.Type_8wJ, C.List_Injectable, C.Type_AS6, C.List_c89, C.Type_ACG, C.List_13Y, C.Type_IIj, C.List_A2L, C.Type_vz6, C.List_03i, C.Type_ozo, C.List_Tr4, C.Type_CKa, C.List_o0y, C.Type_k6K, C.List_H3b, C.Type_Ecu, C.List_8Gl1, C.Type_GFm, C.List_4AN2, C.Type_L5J, C.List_2jN2, C.Type_iDw, C.List_sq4, C.Type_oyU, C.List_ctK, C.Type_jqh, C.List_IVn, C.Type_6TW, C.List_apk0, C.Type_HDx, C.List_NLv, C.Type_4AN, C.List_a5W0, C.Type_GNd, C.List_Formatter_userfilter, C.Type_yDQ, C.List_Formatter_timeslicedatefilter, C.Type_F61, C.List_Formatter_projectvaluefilter, C.Type_3Dv, C.List_Formatter_offerpostionOrder, C.Type_cvH, C.List_Formatter_secondsToHours, C.Type_MYu, C.List_1CY, C.Type_kyU, C.List_mOS, C.Type_cKo, C.List_p6t, C.Type_gg9, C.List_wIq, C.Type_AgZ, C.List_mBr, C.Type_RBJ, C.List_Injectable, C.Type_1rA, C.List_Injectable, C.Type_mC8, C.List_Injectable, C.Type_Yww, C.List_Q8b, C.Type_6PY0, C.List_ERv, C.Type_8eb, C.List_tUr, C.Type_TWN, C.List_43h2, C.Type_4ec, C.List_Injectable, C.Type_2jN0, C.List_wry, C.Type_kyk, C.List_8eb1, C.Type_KYr, C.List_Injectable, C.Type_46c, C.List_Injectable, C.Type_XJ0, C.List_iDZ1, C.Type_BVY, C.List_Injectable, C.Type_n3c, C.List_Injectable, C.Type_UkC, C.List_011, C.Type_EJH, C.List_Xr1, C.Type_G4S, C.List_Vyt1, C.Type_Z2m, C.List_E34, C.Type_9sg, C.List_AeS, C.Type_woc, C.List_kMT, C.Type_qFe, C.List_E4S, C.Type_KTV, C.List_Injectable, C.Type_SPQ, C.List_7eO0, C.Type_SsP, C.List_Injectable, C.Type_cBg, C.List_Injectable, C.Type_ckG, C.List_Injectable, C.Type_8sa, C.List_i3t, C.Type_AO3, C.List_qJs, C.Type_z4s, C.List_Injectable, C.Type_2Vk, C.List_EmB, C.Type_A5C, C.List_Wiu, C.Type_ors, C.List_Injectable, C.Type_EKj, C.List_kJI, C.Type_Ues, C.List_Injectable, C.Type_ifn, C.List_gQg, C.Type_37u, C.List_Injectable, C.Type_etK, C.List_Injectable, C.Type_Xfd, C.List_pyh, C.Type_FKj, C.List_Injectable, C.Type_6K0, C.List_Formatter_highlight, C.Type_k2W, C.List_bh50, C.Type_e3S, C.List_Injectable, C.Type_ibb, C.List_ugX, C.Type_AqR, C.List_h8l, C.Type_G1Q, C.List_Injectable, C.Type_mPa, C.List_2jN3, C.Type_o2l, C.List_4UV, C.Type_7N7, C.List_Mys, C.Type_43h, C.List_gLw, C.Type_0jR, C.List_weg0, C.Type_QCS, C.List_Ik7, C.Type_8UK, C.List_wSf, C.Type_A66, C.List_zkI, C.Type_6PY, C.List_qKc, C.Type_0, C.List_AiQ0, C.Type_qp8, C.List_Ymm, C.Type_ki2, C.List_Ymm0, C.Type_hk6, C.List_iqF, C.Type_9pl, C.List_SxR, C.Type_swn, C.List_aXZ0, C.Type_M98, C.List_I8B, C.Type_O50, C.List_Injectable, C.Type_yHF, C.List_Injectable, C.Type_c4x, C.List_Injectable, C.Type_jhf, C.List_Injectable, C.Type_GL7, C.List_Injectable, C.Type_QOW, C.List_OS9, C.Type_Cu4, C.List_Formatter_weekNumber, C.Type_tUY, C.List_WfA, C.Type_YaB, C.List_JpY, C.Type_GpM, C.List_Y3i]);
   }, "typeAnnotations", "_KEY_DataCache", "get$_KEY_DataCache", function() {
     return Z.Key_Key(C.Type_XCi, null);
   }, "_KEY_DataCache", "_KEY_SettingsManager", "get$_KEY_SettingsManager", function() {
@@ -61977,7 +62036,7 @@
   }, "_KEY_FormatterFunc", "_KEY_TimepickerConfig", "get$_KEY_TimepickerConfig", function() {
     return Z.Key_Key(C.Type_uzd, null);
   }, "_KEY_TimepickerConfig", "typeFactories", "get$typeFactories", function() {
-    return P.LinkedHashMap_LinkedHashMap$_literal([C.Type_scn, new Q.closure701(), C.Type_u5V, new Q.closure702(), C.Type_x4G, new Q.closure703(), C.Type_Wv9, new Q.closure704(), C.Type_sav, new Q.closure705(), C.Type_86y, new Q.closure706(), C.Type_00, new Q.closure707(), C.Type_eZ8, new Q.closure708(), C.Type_QyU, new Q.closure709(), C.Type_iQg, new Q.closure710(), C.Type_2bH, new Q.closure711(), C.Type_2Qn, new Q.closure712(), C.Type_42U, new Q.closure713(), C.Type_ly0, new Q.closure714(), C.Type_GQu, new Q.closure715(), C.Type_iL9, new Q.closure716(), C.Type_4Z2, new Q.closure717(), C.Type_eJC, new Q.closure718(), C.Type_o0y, new Q.closure719(), C.Type_Nlt, new Q.closure720(), C.Type_d0f, new Q.closure721(), C.Type_s6k, new Q.closure722(), C.Type_UAS, new Q.closure723(), C.Type_OHx, new Q.closure724(), C.Type_8I8, new Q.closure725(), C.Type_wdB, new Q.closure726(), C.Type_Cxl, new Q.closure727(), C.Type_ON8, new Q.closure728(), C.Type_YKM, new Q.closure729(), C.Type_EMZ, new Q.closure730(), C.Type_YeZ, new Q.closure731(), C.Type_ijl, new Q.closure732(), C.Type_zTx, new Q.closure733(), C.Type_KeE, new Q.closure734(), C.Type_0af, new Q.closure735(), C.Type_Yy0, new Q.closure736(), C.Type_wTU, new Q.closure737(), C.Type_82H, new Q.closure738(), C.Type_cg9, new Q.closure739(), C.Type_hWd, new Q.closure740(), C.Type_EOY, new Q.closure741(), C.Type_xhX, new Q.closure742(), C.Type_EgC, new Q.closure743(), C.Type_qFt, new Q.closure744(), C.Type_blz, new Q.closure745(), C.Type_Npb, new Q.closure746(), C.Type_gMT, new Q.closure747(), C.Type_IeY, new Q.closure748(), C.Type_QOg0, new Q.closure749(), C.Type_WfL, new Q.closure750(), C.Type_Q0t, new Q.closure751(), C.Type_C9d, new Q.closure752(), C.Type_Jk7, new Q.closure753(), C.Type_ga7, new Q.closure754(), C.Type_m9K, new Q.closure755(), C.Type_omH, new Q.closure756(), C.Type_uId, new Q.closure757(), C.Type_IGM, new Q.closure758(), C.Type_EkK, new Q.closure759(), C.Type_jZY, new Q.closure760(), C.Type_NsM, new Q.closure761(), C.Type_U5x, new Q.closure762(), C.Type_ADx, new Q.closure763(), C.Type_yT8, new Q.closure764(), C.Type_ifx, new Q.closure765(), C.Type_aHv, new Q.closure766(), C.Type_MMT, new Q.closure767(), C.Type_wlp, new Q.closure768(), C.Type_GNx, new Q.closure769(), C.Type_P0q, new Q.closure770(), C.Type_cWU, new Q.closure771(), C.Type_wnK, new Q.closure772(), C.Type_02, new Q.closure773(), C.Type_qFM, new Q.closure774(), C.Type_wu2, new Q.closure775(), C.Type_E3Y, new Q.closure776(), C.Type_izR, new Q.closure777(), C.Type_5i6, new Q.closure778(), C.Type_AgZ0, new Q.closure779(), C.Type_gG6, new Q.closure780(), C.Type_ifn0, new Q.closure781(), C.Type_89o, new Q.closure782(), C.Type_CrX, new Q.closure783(), C.Type_nHe, new Q.closure784(), C.Type_U44, new Q.closure785(), C.Type_sVp, new Q.closure786(), C.Type_ZiE, new Q.closure787(), C.Type_w4e, new Q.closure788(), C.Type_KpI, new Q.closure789(), C.Type_k2a, new Q.closure790(), C.Type_OhV, new Q.closure791(), C.Type_2Vk0, new Q.closure792(), C.Type_woc0, new Q.closure793(), C.Type_6YB, new Q.closure794(), C.Type_xw8, new Q.closure795(), C.Type_tOS, new Q.closure796(), C.Type_4m4, new Q.closure797(), C.Type_sr6, new Q.closure798(), C.Type_wEo, new Q.closure799(), C.Type_IJC, new Q.closure800(), C.Type_gWg, new Q.closure801(), C.Type_pQX, new Q.closure802(), C.Type_Epp, new Q.closure803(), C.Type_qfd, new Q.closure804(), C.Type_Dbk, new Q.closure805(), C.Type_4Dj, new Q.closure806(), C.Type_Xzb, new Q.closure807(), C.Type_KSA, new Q.closure808(), C.Type_X3P, new Q.closure809(), C.Type_Cf3, new Q.closure810(), C.Type_kGa, new Q.closure811(), C.Type_c4R, new Q.closure812(), C.Type_iYS, new Q.closure813(), C.Type_oYU, new Q.closure814(), C.Type_i5K, new Q.closure815(), C.Type_9yu, new Q.closure816(), C.Type_C9x, new Q.closure817(), C.Type_5MZ, new Q.closure818(), C.Type_Aec, new Q.closure819(), C.Type_2GN, new Q.closure820(), C.Type_s6i, new Q.closure821(), C.Type_rzW, new Q.closure822(), C.Type_O9i, new Q.closure823(), C.Type_fw1, new Q.closure824(), C.Type_ihV, new Q.closure825(), C.Type_01, new Q.closure826(), C.Type_mJQ, new Q.closure827(), C.Type_c4R0, new Q.closure828(), C.Type_j3h, new Q.closure829(), C.Type_8eb0, new Q.closure830(), C.Type_6FR, new Q.closure831(), C.Type_uZX, new Q.closure832(), C.Type_vlL, new Q.closure833(), C.Type_rXF, new Q.closure834(), C.Type_sQd, new Q.closure835(), C.Type_kXN, new Q.closure836(), C.Type_skV, new Q.closure837(), C.Type_IFE, new Q.closure838(), C.Type_RkP, new Q.closure839(), C.Type_aWx, new Q.closure840(), C.Type_sxw, new Q.closure841(), C.Type_WZ4, new Q.closure842(), C.Type_sEs, new Q.closure843(), C.Type_XCi, new Q.closure844(), C.Type_YRK, new Q.closure845(), C.Type_3je, new Q.closure846(), C.Type_2jN, new Q.closure847(), C.Type_8wJ, new Q.closure848(), C.Type_AS6, new Q.closure849(), C.Type_ACG, new Q.closure850(), C.Type_IIj, new Q.closure851(), C.Type_vz6, new Q.closure852(), C.Type_ozo, new Q.closure853(), C.Type_CKa, new Q.closure854(), C.Type_k6K, new Q.closure855(), C.Type_Ecu, new Q.closure856(), C.Type_GFm, new Q.closure857(), C.Type_L5J, new Q.closure858(), C.Type_iDw, new Q.closure859(), C.Type_oyU, new Q.closure860(), C.Type_jqh, new Q.closure861(), C.Type_6TW, new Q.closure862(), C.Type_HDx, new Q.closure863(), C.Type_4AN, new Q.closure864(), C.Type_GNd, new Q.closure865(), C.Type_yDQ, new Q.closure866(), C.Type_F61, new Q.closure867(), C.Type_3Dv, new Q.closure868(), C.Type_cvH, new Q.closure869(), C.Type_MYu, new Q.closure870(), C.Type_kyU, new Q.closure871(), C.Type_cKo, new Q.closure872(), C.Type_gg9, new Q.closure873(), C.Type_AgZ, new Q.closure874(), C.Type_7N7, new Q.closure875(), C.Type_43h, new Q.closure876(), C.Type_RBJ, new Q.closure877(), C.Type_1rA, new Q.closure878(), C.Type_KYr, new Q.closure879(), C.Type_0jR, new Q.closure880(), C.Type_QCS, new Q.closure881(), C.Type_8UK, new Q.closure882(), C.Type_UkC, new Q.closure883(), C.Type_mC8, new Q.closure884(), C.Type_Yww, new Q.closure885(), C.Type_6PY0, new Q.closure886(), C.Type_8eb, new Q.closure887(), C.Type_TWN, new Q.closure888(), C.Type_4ec, new Q.closure889(), C.Type_2jN0, new Q.closure890(), C.Type_kyk, new Q.closure891(), C.Type_SsP, new Q.closure892(), C.Type_cBg, new Q.closure893(), C.Type_ckG, new Q.closure894(), C.Type_8sa, new Q.closure895(), C.Type_AO3, new Q.closure896(), C.Type_z4s, new Q.closure897(), C.Type_2Vk, new Q.closure898(), C.Type_A5C, new Q.closure899(), C.Type_ors, new Q.closure900(), C.Type_EKj, new Q.closure901(), C.Type_Ues, new Q.closure902(), C.Type_ifn, new Q.closure903(), C.Type_37u, new Q.closure904(), C.Type_etK, new Q.closure905(), C.Type_swn, new Q.closure906(), C.Type_46c, new Q.closure907(), C.Type_XJ0, new Q.closure908(), C.Type_BVY, new Q.closure909(), C.Type_n3c, new Q.closure910(), C.Type_G4S, new Q.closure911(), C.Type_Z2m, new Q.closure912(), C.Type_9sg, new Q.closure913(), C.Type_woc, new Q.closure914(), C.Type_O50, new Q.closure915(), C.Type_yHF, new Q.closure916(), C.Type_c4x, new Q.closure917(), C.Type_jhf, new Q.closure918(), C.Type_GL7, new Q.closure919(), C.Type_QOW, new Q.closure920(), C.Type_Cu4, new Q.closure921(), C.Type_tUY, new Q.closure922(), C.Type_YaB, new Q.closure923(), C.Type_qFe, new Q.closure924(), C.Type_KTV, new Q.closure925(), C.Type_EJH, new Q.closure926(), C.Type_FKj, new Q.closure927(), C.Type_6K0, new Q.closure928(), C.Type_k2W, new Q.closure929(), C.Type_e3S, new Q.closure930(), C.Type_ibb, new Q.closure931(), C.Type_AqR, new Q.closure932(), C.Type_G1Q, new Q.closure933(), C.Type_Xfd, new Q.closure934(), C.Type_mPa, new Q.closure935(), C.Type_SPQ, new Q.closure936(), C.Type_o2l, new Q.closure937(), C.Type_A66, new Q.closure938(), C.Type_6PY, new Q.closure939(), C.Type_0, new Q.closure940(), C.Type_qp8, new Q.closure941(), C.Type_ki2, new Q.closure942(), C.Type_hk6, new Q.closure943(), C.Type_9pl, new Q.closure944(), C.Type_M98, new Q.closure945(), C.Type_GpM, new Q.closure946(), C.Type_Db0, new Q.closure947()], P.Type, P.Function);
+    return P.LinkedHashMap_LinkedHashMap$_literal([C.Type_scn, new Q.closure703(), C.Type_u5V, new Q.closure704(), C.Type_x4G, new Q.closure705(), C.Type_Wv9, new Q.closure706(), C.Type_sav, new Q.closure707(), C.Type_86y, new Q.closure708(), C.Type_00, new Q.closure709(), C.Type_eZ8, new Q.closure710(), C.Type_QyU, new Q.closure711(), C.Type_iQg, new Q.closure712(), C.Type_2bH, new Q.closure713(), C.Type_2Qn, new Q.closure714(), C.Type_42U, new Q.closure715(), C.Type_ly0, new Q.closure716(), C.Type_GQu, new Q.closure717(), C.Type_iL9, new Q.closure718(), C.Type_4Z2, new Q.closure719(), C.Type_eJC, new Q.closure720(), C.Type_o0y, new Q.closure721(), C.Type_Nlt, new Q.closure722(), C.Type_d0f, new Q.closure723(), C.Type_s6k, new Q.closure724(), C.Type_UAS, new Q.closure725(), C.Type_OHx, new Q.closure726(), C.Type_8I8, new Q.closure727(), C.Type_wdB, new Q.closure728(), C.Type_Cxl, new Q.closure729(), C.Type_ON8, new Q.closure730(), C.Type_YKM, new Q.closure731(), C.Type_EMZ, new Q.closure732(), C.Type_YeZ, new Q.closure733(), C.Type_ijl, new Q.closure734(), C.Type_zTx, new Q.closure735(), C.Type_KeE, new Q.closure736(), C.Type_0af, new Q.closure737(), C.Type_Yy0, new Q.closure738(), C.Type_wTU, new Q.closure739(), C.Type_82H, new Q.closure740(), C.Type_cg9, new Q.closure741(), C.Type_hWd, new Q.closure742(), C.Type_EOY, new Q.closure743(), C.Type_xhX, new Q.closure744(), C.Type_EgC, new Q.closure745(), C.Type_qFt, new Q.closure746(), C.Type_blz, new Q.closure747(), C.Type_Npb, new Q.closure748(), C.Type_gMT, new Q.closure749(), C.Type_IeY, new Q.closure750(), C.Type_QOg0, new Q.closure751(), C.Type_WfL, new Q.closure752(), C.Type_Q0t, new Q.closure753(), C.Type_C9d, new Q.closure754(), C.Type_Jk7, new Q.closure755(), C.Type_ga7, new Q.closure756(), C.Type_m9K, new Q.closure757(), C.Type_omH, new Q.closure758(), C.Type_uId, new Q.closure759(), C.Type_IGM, new Q.closure760(), C.Type_EkK, new Q.closure761(), C.Type_jZY, new Q.closure762(), C.Type_NsM, new Q.closure763(), C.Type_U5x, new Q.closure764(), C.Type_ADx, new Q.closure765(), C.Type_yT8, new Q.closure766(), C.Type_ifx, new Q.closure767(), C.Type_aHv, new Q.closure768(), C.Type_MMT, new Q.closure769(), C.Type_wlp, new Q.closure770(), C.Type_GNx, new Q.closure771(), C.Type_P0q, new Q.closure772(), C.Type_cWU, new Q.closure773(), C.Type_wnK, new Q.closure774(), C.Type_02, new Q.closure775(), C.Type_qFM, new Q.closure776(), C.Type_wu2, new Q.closure777(), C.Type_E3Y, new Q.closure778(), C.Type_izR, new Q.closure779(), C.Type_5i6, new Q.closure780(), C.Type_AgZ0, new Q.closure781(), C.Type_gG6, new Q.closure782(), C.Type_ifn0, new Q.closure783(), C.Type_89o, new Q.closure784(), C.Type_CrX, new Q.closure785(), C.Type_nHe, new Q.closure786(), C.Type_U44, new Q.closure787(), C.Type_sVp, new Q.closure788(), C.Type_ZiE, new Q.closure789(), C.Type_w4e, new Q.closure790(), C.Type_KpI, new Q.closure791(), C.Type_k2a, new Q.closure792(), C.Type_OhV, new Q.closure793(), C.Type_2Vk0, new Q.closure794(), C.Type_woc0, new Q.closure795(), C.Type_6YB, new Q.closure796(), C.Type_xw8, new Q.closure797(), C.Type_tOS, new Q.closure798(), C.Type_4m4, new Q.closure799(), C.Type_sr6, new Q.closure800(), C.Type_wEo, new Q.closure801(), C.Type_IJC, new Q.closure802(), C.Type_gWg, new Q.closure803(), C.Type_pQX, new Q.closure804(), C.Type_Epp, new Q.closure805(), C.Type_qfd, new Q.closure806(), C.Type_Dbk, new Q.closure807(), C.Type_4Dj, new Q.closure808(), C.Type_Xzb, new Q.closure809(), C.Type_KSA, new Q.closure810(), C.Type_X3P, new Q.closure811(), C.Type_Cf3, new Q.closure812(), C.Type_kGa, new Q.closure813(), C.Type_c4R, new Q.closure814(), C.Type_iYS, new Q.closure815(), C.Type_oYU, new Q.closure816(), C.Type_i5K, new Q.closure817(), C.Type_9yu, new Q.closure818(), C.Type_C9x, new Q.closure819(), C.Type_5MZ, new Q.closure820(), C.Type_Aec, new Q.closure821(), C.Type_2GN, new Q.closure822(), C.Type_s6i, new Q.closure823(), C.Type_rzW, new Q.closure824(), C.Type_O9i, new Q.closure825(), C.Type_fw1, new Q.closure826(), C.Type_ihV, new Q.closure827(), C.Type_01, new Q.closure828(), C.Type_mJQ, new Q.closure829(), C.Type_c4R0, new Q.closure830(), C.Type_j3h, new Q.closure831(), C.Type_8eb0, new Q.closure832(), C.Type_6FR, new Q.closure833(), C.Type_uZX, new Q.closure834(), C.Type_vlL, new Q.closure835(), C.Type_rXF, new Q.closure836(), C.Type_sQd, new Q.closure837(), C.Type_kXN, new Q.closure838(), C.Type_skV, new Q.closure839(), C.Type_IFE, new Q.closure840(), C.Type_RkP, new Q.closure841(), C.Type_aWx, new Q.closure842(), C.Type_sxw, new Q.closure843(), C.Type_WZ4, new Q.closure844(), C.Type_sEs, new Q.closure845(), C.Type_XCi, new Q.closure846(), C.Type_YRK, new Q.closure847(), C.Type_3je, new Q.closure848(), C.Type_2jN, new Q.closure849(), C.Type_8wJ, new Q.closure850(), C.Type_AS6, new Q.closure851(), C.Type_ACG, new Q.closure852(), C.Type_IIj, new Q.closure853(), C.Type_vz6, new Q.closure854(), C.Type_ozo, new Q.closure855(), C.Type_CKa, new Q.closure856(), C.Type_k6K, new Q.closure857(), C.Type_Ecu, new Q.closure858(), C.Type_GFm, new Q.closure859(), C.Type_L5J, new Q.closure860(), C.Type_iDw, new Q.closure861(), C.Type_oyU, new Q.closure862(), C.Type_jqh, new Q.closure863(), C.Type_6TW, new Q.closure864(), C.Type_HDx, new Q.closure865(), C.Type_4AN, new Q.closure866(), C.Type_GNd, new Q.closure867(), C.Type_yDQ, new Q.closure868(), C.Type_F61, new Q.closure869(), C.Type_3Dv, new Q.closure870(), C.Type_cvH, new Q.closure871(), C.Type_MYu, new Q.closure872(), C.Type_kyU, new Q.closure873(), C.Type_cKo, new Q.closure874(), C.Type_gg9, new Q.closure875(), C.Type_AgZ, new Q.closure876(), C.Type_7N7, new Q.closure877(), C.Type_43h, new Q.closure878(), C.Type_RBJ, new Q.closure879(), C.Type_1rA, new Q.closure880(), C.Type_KYr, new Q.closure881(), C.Type_0jR, new Q.closure882(), C.Type_QCS, new Q.closure883(), C.Type_8UK, new Q.closure884(), C.Type_UkC, new Q.closure885(), C.Type_mC8, new Q.closure886(), C.Type_Yww, new Q.closure887(), C.Type_6PY0, new Q.closure888(), C.Type_8eb, new Q.closure889(), C.Type_TWN, new Q.closure890(), C.Type_4ec, new Q.closure891(), C.Type_2jN0, new Q.closure892(), C.Type_kyk, new Q.closure893(), C.Type_SsP, new Q.closure894(), C.Type_cBg, new Q.closure895(), C.Type_ckG, new Q.closure896(), C.Type_8sa, new Q.closure897(), C.Type_AO3, new Q.closure898(), C.Type_z4s, new Q.closure899(), C.Type_2Vk, new Q.closure900(), C.Type_A5C, new Q.closure901(), C.Type_ors, new Q.closure902(), C.Type_EKj, new Q.closure903(), C.Type_Ues, new Q.closure904(), C.Type_ifn, new Q.closure905(), C.Type_37u, new Q.closure906(), C.Type_etK, new Q.closure907(), C.Type_swn, new Q.closure908(), C.Type_46c, new Q.closure909(), C.Type_XJ0, new Q.closure910(), C.Type_BVY, new Q.closure911(), C.Type_n3c, new Q.closure912(), C.Type_G4S, new Q.closure913(), C.Type_Z2m, new Q.closure914(), C.Type_9sg, new Q.closure915(), C.Type_woc, new Q.closure916(), C.Type_O50, new Q.closure917(), C.Type_yHF, new Q.closure918(), C.Type_c4x, new Q.closure919(), C.Type_jhf, new Q.closure920(), C.Type_GL7, new Q.closure921(), C.Type_QOW, new Q.closure922(), C.Type_Cu4, new Q.closure923(), C.Type_tUY, new Q.closure924(), C.Type_YaB, new Q.closure925(), C.Type_qFe, new Q.closure926(), C.Type_KTV, new Q.closure927(), C.Type_EJH, new Q.closure928(), C.Type_FKj, new Q.closure929(), C.Type_6K0, new Q.closure930(), C.Type_k2W, new Q.closure931(), C.Type_e3S, new Q.closure932(), C.Type_ibb, new Q.closure933(), C.Type_AqR, new Q.closure934(), C.Type_G1Q, new Q.closure935(), C.Type_Xfd, new Q.closure936(), C.Type_mPa, new Q.closure937(), C.Type_SPQ, new Q.closure938(), C.Type_o2l, new Q.closure939(), C.Type_A66, new Q.closure940(), C.Type_6PY, new Q.closure941(), C.Type_0, new Q.closure942(), C.Type_qp8, new Q.closure943(), C.Type_ki2, new Q.closure944(), C.Type_hk6, new Q.closure945(), C.Type_9pl, new Q.closure946(), C.Type_M98, new Q.closure947(), C.Type_GpM, new Q.closure948(), C.Type_Db0, new Q.closure949()], P.Type, P.Function);
   }, "typeFactories", "parameterKeys", "get$parameterKeys", function() {
     var t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25, t26, t27, t28, t29, t30, t31, t32, t33, t34, t35, t36, t37, t38, t39, t40, t41, t42, t43, t44, t45, t46, t47, t48, t49, t50, t51, t52, t53, t54, t55, t56, t57, t58, t59, t60, t61, t62, t63, t64, t65, t66, t67, t68, t69, t70, t71, t72, t73, t74, t75, t76, t77, t78, t79, t80, t81, t82, t83, t84, t85, t86, t87, t88, t89, t90, t91, t92, t93, t94, t95, t96, t97, t98, t99, t100, t101, t102, t103, t104, t105, t106, t107, t108, t109, t110, t111, t112, t113, t114, t115, t116, t117, t118, t119, t120, t121;
     t1 = $.get$_KEY_DataCache();
@@ -62388,7 +62447,7 @@
   }, "_log", "_log0", "get$_log0", function() {
     return N.Logger_Logger("angular.ui.dragdrop");
   }, "_log", "DropdownToggle__closeMenu", "get$DropdownToggle__closeMenu", function() {
-    return new N.closure948();
+    return new N.closure950();
   }, "_closeMenu", "Modal_openedWindows", "get$Modal_openedWindows", function() {
     return [];
   }, "openedWindows", "_log", "get$_log", function() {
@@ -62400,7 +62459,7 @@
   }, "_SYNTAX", "RESERVED_WORDS", "get$RESERVED_WORDS", function() {
     return P.LinkedHashSet_LinkedHashSet$from(C.List_MGa, P.String);
   }, "RESERVED_WORDS", "_PositionalArgHandler__ARGS", "get$_PositionalArgHandler__ARGS", function() {
-    return P.List_List$generate(20, new S.closure949(), true, null);
+    return P.List_List$generate(20, new S.closure951(), true, null);
   }, "_ARGS", "_NamedArgHandler__NAMED_ARG", "get$_NamedArgHandler__NAMED_ARG", function() {
     return P.HashMap_HashMap(null, null, null, P.Symbol, P.String);
   }, "_NAMED_ARG", "_CssShim_CONTENT", "get$_CssShim_CONTENT", function() {

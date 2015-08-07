@@ -26,6 +26,9 @@ class EntityEdit extends AttachAware implements ScopeAware {
 
   Router router;
 
+  @NgTwoWay('editform')
+  NgForm editform;
+
 
   set scope(Scope scope) {
     this.rootScope = scope.rootScope;
@@ -67,17 +70,33 @@ class EntityEdit extends AttachAware implements ScopeAware {
   }
 
   saveEntity() async{
-    rootScope.emit('saveChanges');
-    if (this.entity.needsUpdate) {
-      this.statusservice.setStatusToLoading();
-      try {
-        this.entity = (await store.update(this.entity));
-        this.statusservice.setStatusToSuccess();
-      } catch (e) {
-        this.statusservice.setStatusToError(e);
-      }
+
+    if (this.editform != null && this.editform.invalid){
+      // form invalid
+      bool focusSet = false;
+      this.editform.controls.forEach((name, field) {
+        if (this.editform[name].invalid){
+          if(!focusSet){
+            // focus first invalid form
+            this.editform[name].element.node.focus();
+            focusSet = true;
+          }
+          this.editform[name].element.addClass('ng-touched');
+        }
+      });
     } else {
-      this.reload();
+      // form valid, save data
+      rootScope.emit('saveChanges');
+      if (this.entity.needsUpdate) {
+        this.statusservice.setStatusToLoading();
+        try {
+          this.entity = (await store.update(this.entity));
+          this.statusservice.setStatusToSuccess();
+        } catch (e) {
+          this.statusservice.setStatusToError(e);
+        }
+        this.reload();
+      }
     }
   }
 }
@@ -91,7 +110,6 @@ class ProjectEditComponent extends EntityEdit {
   List<Customer> customers;
 
   List<RateGroup> rateGroups;
-
 
   ProjectEditComponent(RouteProvider routeProvider, DataCache store, Router router, StatusService status, UserAuthProvider auth): super(routeProvider, store, Project, status, auth, router);
 

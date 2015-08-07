@@ -44,11 +44,15 @@ class DateToTextInput {
   }
 
   nextDay(){
-    this.date = this.date.add(new Duration(days: 1));
+    if (this.date != null) {
+      this.date = this.date.add(new Duration(days: 1));
+    }
   }
 
   previousDay(){
-    this.date = this.date.subtract(new Duration(days: 1));
+    if (this.date != null) {
+      this.date = this.date.subtract(new Duration(days: 1));
+    }
   }
 
   updateDate() {
