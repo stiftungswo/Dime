@@ -115,7 +115,7 @@ class InvoiceItem extends Entity implements DimeEntityInterface
 			return null;
 		if($this->getAmount() !== null)
 		{
-			$total = $total->multiply(intval($this->getAmount()));
+			$total = $total->multiply($this->getAmount());
 		}
 		$vat = $this->getCalculatedVAT();
 		if($vat instanceof Money)
@@ -182,6 +182,7 @@ class InvoiceItem extends Entity implements DimeEntityInterface
 	public function setRateUnit($rateUnit)
 	{
 		$this->rateUnit = $rateUnit;
+		$this->total = $this->getcalculatedTotal();
 		return $this;
 	}
 
@@ -201,6 +202,7 @@ class InvoiceItem extends Entity implements DimeEntityInterface
 	public function setRateValue($rateValue)
 	{
 		$this->rateValue = $rateValue;
+		$this->total = $this->getcalculatedTotal();
 		return $this;
 	}
 
@@ -228,7 +230,7 @@ class InvoiceItem extends Entity implements DimeEntityInterface
 	 */
 	public function getAmount()
 	{
-		return $this->amount;
+		return floatval($this->amount);
 	}
 
 	/**
@@ -239,6 +241,7 @@ class InvoiceItem extends Entity implements DimeEntityInterface
 	public function setAmount($amount)
 	{
 		$this->amount = $amount;
+		$this->total = $this->getcalculatedTotal();
 		return $this;
 	}
 
@@ -258,6 +261,7 @@ class InvoiceItem extends Entity implements DimeEntityInterface
 	public function setVat($vat)
 	{
 		$this->vat = $vat;
+		$this->total = $this->getcalculatedTotal();
 		return $this;
 	}
 
