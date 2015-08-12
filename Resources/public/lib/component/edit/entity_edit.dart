@@ -111,7 +111,7 @@ class ProjectEditComponent extends EntityEdit {
 
   List<RateGroup> rateGroups;
 
-  ProjectEditComponent(RouteProvider routeProvider, DataCache store, Router router, StatusService status, UserAuthProvider auth): super(routeProvider, store, Project, status, auth, router);
+  ProjectEditComponent(RouteProvider routeProvider, DataCache store, StatusService status, UserAuthProvider auth, Router router): super(routeProvider, store, Project, status, auth, router);
 
   attach() {
     if (this.auth != null) {
@@ -160,7 +160,7 @@ class OfferEditComponent extends EntityEdit {
 
   Router router;
 
-  OfferEditComponent(RouteProvider routeProvider, DataCache store, Router router, StatusService status, UserAuthProvider auth): super(routeProvider, store, Offer, status, auth, router);
+  OfferEditComponent(RouteProvider routeProvider, DataCache store, StatusService status, UserAuthProvider auth, Router router): super(routeProvider, store, Offer, status, auth, router);
 
   attach() {
     if (this.auth != null) {
@@ -202,7 +202,9 @@ class OfferEditComponent extends EntityEdit {
   openProject() async{
     var project = (await this.store.customQueryOne(Project, new CustomRequestParams(method: 'GET', url: '/api/v1/projects/offer/${this.entity.id}')));
     this.store.evict(Project, true);
-    router.go('project_edit', {'id': project.id});
+    if (router != null){
+      router.go('project_edit', {'id': project.id});
+    }
   }
 
   printOffer() {
