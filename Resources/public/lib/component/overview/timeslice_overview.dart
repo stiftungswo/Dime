@@ -69,20 +69,29 @@ class TimesliceOverviewComponent extends EntityOverview {
   set selectedProject(Project proj) {
     this._selectedProject = proj;
     this.updateChosenSetting('project');
+
+    // select the same activity if also it exists in new project
+    try {
+      this.selectedActivity = activities.singleWhere((Activity a) =>
+        a.alias == this.settingselectedActivity.value && a.project.id == this.selectedProject.id
+      );
+    } catch (e) {
+      this.selectedActivity = null;
+    }
   }
 
   Setting settingselectedProject;
 
-  Service _selectedService;
+  Activity _selectedActivity;
 
-  get selectedService => _selectedService;
+  get selectedActivity => _selectedActivity;
 
-  set selectedService(Service ser) {
-    this._selectedService = ser;
-    this.updateChosenSetting('service');
+  set selectedActivity(Activity act) {
+    this._selectedActivity = act;
+    this.updateChosenSetting('activity');
   }
 
-  Setting settingselectedService;
+  Setting settingselectedActivity;
 
   DateTime newEntryDate;
 
@@ -134,7 +143,7 @@ class TimesliceOverviewComponent extends EntityOverview {
       }
       slice.addFieldtoUpdate(name);
     }
-    slice.Set('activity', this.activitybyName(this.selectedService.alias));
+    slice.Set('activity', this.selectedActivity);
     slice.Set('startedAt', this.newEntryDate);
     slice.Set('user', this._employee);
     slice.addFieldtoUpdate('activity');
@@ -149,17 +158,8 @@ class TimesliceOverviewComponent extends EntityOverview {
     updateEntryDate();
   }
 
-  activitybyName(String NamePattern) {
-    try {
-      return this.activities.singleWhere((i) => (i.name.contains(new RegExp(NamePattern)) && i.project.id == selectedProject.id) || (i.alias.contains(new RegExp(NamePattern)) && i.project.id == selectedProject.id));
-    } catch (exception) {
-      return this.activities.where((i) => (i.name.contains(new RegExp(NamePattern)) && i.project.id == selectedProject.id) || (i.alias.contains(new RegExp(NamePattern)) && i.project.id == selectedProject.id)).first;
-    }
-    return null;
-  }
-
   updateEntryDate() {
-    if (updateNewEntryDate) {
+    if (updateNewEntryDate && this.entities != null) {
       DateTime date = this.newEntryDate;
       if (date == null) {
         date = this.filterStartDate;
@@ -226,9 +226,11 @@ class TimesliceOverviewComponent extends EntityOverview {
         this.settingselectedProject.value = this.selectedProject.alias;
         this.settingsManager.updateSetting(this.settingselectedProject);
         break;
-      case 'service':
-        this.settingselectedService.value = this.selectedService.alias;
-        this.settingsManager.updateSetting(this.settingselectedService);
+      case 'activity':
+        if(this.selectedActivity != null) {
+          this.settingselectedActivity.value = this.selectedActivity.alias;
+          this.settingsManager.updateSetting(this.settingselectedActivity);
+        }
         break;
     }
   }
@@ -236,17 +238,6 @@ class TimesliceOverviewComponent extends EntityOverview {
   load() async{
     loadActivtyData();
     this.employee = this.context.employee;
-    List services = await this.store.list(Service);
-    try {
-      this.settingselectedService = settingsManager.getOneSetting('/usr/timeslice', 'chosenService');
-    } catch (e) {
-      this.settingselectedService = await settingsManager.createSetting('/usr/timeslice', 'chosenService', '');
-    }
-    try {
-      this.selectedService = services.singleWhere((Service s) => s.alias == this.settingselectedService.value);
-    } catch (e) {
-      this.selectedService = null;
-    }
 
     List projects = await this.store.list(Project);
     try {
@@ -258,6 +249,20 @@ class TimesliceOverviewComponent extends EntityOverview {
       this.selectedProject = projects.singleWhere((Project p) => p.alias == this.settingselectedProject.value);
     } catch (e) {
       this.selectedProject = null;
+    }
+
+    List activities = await this.store.list(Activity);
+    try {
+      this.settingselectedActivity = settingsManager.getOneSetting('/usr/timeslice', 'chosenActivity');
+    } catch (e) {
+      this.settingselectedActivity = await settingsManager.createSetting('/usr/timeslice', 'chosenActivity', '');
+    }
+    try {
+      this.selectedActivity = activities.singleWhere((Activity a) =>
+        a.alias == this.settingselectedActivity.value && a.project.id == this.selectedProject.id
+      );
+    } catch (e) {
+      this.selectedActivity = null;
     }
   }
 

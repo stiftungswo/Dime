@@ -16,12 +16,16 @@ ul {
 
 .select-dropdown {
     width: 100%;
-    max-height: 427px;
+    max-height: 400px;
     overflow: auto;
 }
 
 .select-dropdown > div > div {
     border-bottom: 1px solid #AEAEAE;
+}
+
+.select-dropdown > div:last-child > div {
+  border-bottom: 0;
 }
 
 .DimePanel {
@@ -49,7 +53,6 @@ textarea.tiny{
 
 .dropdown-menu {
   border: 1px solid #AEAEAE;
-  border-bottom: 0;
   padding: 0;
 }
 
@@ -61,6 +64,11 @@ textarea.tiny{
   background: #337ab7;
   color: white;
   cursor: pointer;
+}
+
+.dropdown-menu > div > div.selected {
+  background: #222d32;
+  color: white;
 }
 
 .table{

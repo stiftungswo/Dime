@@ -7,6 +7,8 @@ import 'package:DimeClient/service/data_cache.dart';
 import 'package:DimeClient/service/user_context.dart';
 import 'package:DimeClient/service/user_auth.dart';
 import 'dart:html' as dom;
+import 'dart:html';
+import 'dart:math' as math;
 
 class EntitySelect extends AttachAware implements ScopeAware {
   DataCache store;
@@ -30,11 +32,11 @@ class EntitySelect extends AttachAware implements ScopeAware {
   dynamic _selectedEntity;
 
   set selectedEntity(entity) {
-    if (entity != null) {
-      selector = entity.name;
-    }
-    _selectedEntity = entity;
+    this._selectedEntity = entity;
+    this.selector = EntText;
   }
+
+  get EntText => this._selectedEntity != null ? this._selectedEntity.name : '';
 
   attach() {
     if (this.auth != null) {
@@ -58,6 +60,7 @@ class EntitySelect extends AttachAware implements ScopeAware {
     }
   }
 
+  @NgTwoWay('selectedEntity')
   get selectedEntity => _selectedEntity;
 
   select(entity) {
@@ -78,12 +81,16 @@ class EntitySelect extends AttachAware implements ScopeAware {
 
   openSelectionBox() {
     if (!this.open) {
+      // adjust size of dropdown to available size
+      DivElement dropdown = this.element.querySelector(".dropdown");
+      BodyElement body = querySelector("body");
+      int distanceToBottom = body.getBoundingClientRect().height - (window.scrollY + dropdown.getBoundingClientRect().top + 40);
+      int maxDropdownHeight = math.min(distanceToBottom, 400);
+      this.element.querySelector(".dropdown .dropdown-menu").style.maxHeight = maxDropdownHeight.toString() + 'px';
       this.selector = '';
       this.open = true;
     }
   }
-
-  get EntText => _selectedEntity != null ? _selectedEntity.name : '';
 
   closeSelectionBox() {
     if (this.open) {
@@ -119,6 +126,7 @@ class ProjectSelectComponent extends EntitySelect {
     map: const{
       'activity': '<=>selectedEntity',
       'project': '=>projectId',
+      'shortname': '=>shortname',
       'callback': '&callback',
       'field': '=>!field',
       'clearOnClose': '=>!clearOnClose'
@@ -128,6 +136,9 @@ class ActivitySelectComponent extends EntitySelect {
   ActivitySelectComponent(DataCache store, dom.Element element, StatusService status, UserAuthProvider auth): super(Activity, store, element, status, auth);
 
   int projectId;
+  bool shortname;
+
+  get EntText => _selectedEntity != null ? ( shortname == true ? _selectedEntity.service.name : _selectedEntity.name ) : '';
 }
 
 @Component(
@@ -173,13 +184,6 @@ class CustomerSelectComponent extends EntitySelect {
 )
 class OfferStatusSelectComponent extends EntitySelect {
   OfferStatusSelectComponent(DataCache store, dom.Element element, StatusService status, UserAuthProvider auth): super(OfferStatusUC, store, element, status, auth);
-
-  set selectedEntity(entity) {
-    if (entity != null) {
-      selector = entity.text;
-    }
-    _selectedEntity = entity;
-  }
 
   get EntText => _selectedEntity != null ? _selectedEntity.text : '';
 }
@@ -233,13 +237,11 @@ class UserSelectComponent extends EntitySelect {
   bool useContext = false;
 
   set selectedEntity(entity) {
-    if (entity != null) {
-      selector = entity.fullname;
-    }
     if (useContext) {
       this.context.switchContext(entity);
     }
     _selectedEntity = entity;
+    selector = EntText;
   }
 
   get EntText => _selectedEntity != null ? _selectedEntity.fullname : '';

@@ -49,10 +49,13 @@ class SettingsManager {
   }
 
   getSettings(String namespace, {bool system: false}) {
-    if (system) {
-      return this.systemSettings.where((setting) => setting.namespace == namespace);
+    if (this.systemSettings != null){
+      if (system) {
+        return this.systemSettings.where((setting) => setting.namespace == namespace);
+      }
+      return this.userSettings.where((setting) => setting.namespace == namespace);
     }
-    return this.userSettings.where((setting) => setting.namespace == namespace);
+    return null;
   }
 
   getOneSetting(String namespace, String name, {bool system: false}) {
