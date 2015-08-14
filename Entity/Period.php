@@ -74,7 +74,7 @@ class Period extends Entity implements DimeEntityInterface
 	{
 		if($this->pensum && $this->getStart() instanceof Carbon && $this->getEnd() instanceof Carbon) {
 			$weekdays = $this->getStart()->diffInWeekdays($this->getEnd()->addDay());
-			$seconds = $weekdays * 30240;
+			$seconds = $weekdays * 60 * 60 * 8.4;
 			$seconds -= $this->holidays;
 			return $seconds * $this->getPensum();
 		}
