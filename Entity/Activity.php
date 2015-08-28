@@ -21,58 +21,58 @@ use Money\Money;
  */
 class Activity extends Entity implements DimeEntityInterface
 {
-    /**
-     * @var Project $project
-     *
-     * @JMS\MaxDepth(1)
-     * @ORM\ManyToOne(targetEntity="Project", inversedBy="activities")
-     * @ORM\JoinColumn(name="project_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
-     */
-    protected $project;
+	/**
+	 * @var Project $project
+	 *
+	 * @JMS\MaxDepth(1)
+	 * @ORM\ManyToOne(targetEntity="Project", inversedBy="activities")
+	 * @ORM\JoinColumn(name="project_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
+	 */
+	protected $project;
 
-    /**
-     * @var Service $service
-     *
-     * @JMS\MaxDepth(2)
-     * @ORM\ManyToOne(targetEntity="Service")
-     * @ORM\JoinColumn(name="service_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
-     */
-    protected $service;
+	/**
+	 * @var Service $service
+	 *
+	 * @JMS\MaxDepth(2)
+	 * @ORM\ManyToOne(targetEntity="Service")
+	 * @ORM\JoinColumn(name="service_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
+	 */
+	protected $service;
 
-    /**
-     * @var ArrayCollection $timeslicesø
-     *
-     * @JMS\Type("array")
-     * @JMS\Exclude()
-     * @JMS\SerializedName("timeslices")
-     * @ORM\OneToMany(targetEntity="Timeslice", mappedBy="activity", cascade="persist")
-     */
-    protected $timeslices;
+	/**
+	 * @var ArrayCollection $timeslicesø
+	 *
+	 * @JMS\Type("array")
+	 * @JMS\Exclude()
+	 * @JMS\SerializedName("timeslices")
+	 * @ORM\OneToMany(targetEntity="Timeslice", mappedBy="activity", cascade="persist")
+	 */
+	protected $timeslices;
 
-    /**
-     * @var ArrayCollection $tags
-     *
-     * @JMS\Type("array")
-     * @JMS\SerializedName("tags")
-     * @ORM\ManyToMany(targetEntity="Tag", cascade="all")
-     * @ORM\JoinTable(name="activity_tags")
-     */
-    protected $tags;
+	/**
+	 * @var ArrayCollection $tags
+	 *
+	 * @JMS\Type("array")
+	 * @JMS\SerializedName("tags")
+	 * @ORM\ManyToMany(targetEntity="Tag", cascade="all")
+	 * @ORM\JoinTable(name="activity_tags")
+	 */
+	protected $tags;
 
-    /**
-     * @var string $description
-     *
-     * @ORM\Column(type="text", nullable=true)
-     */
-    protected $description;
+	/**
+	 * @var string $description
+	 *
+	 * @ORM\Column(type="text", nullable=true)
+	 */
+	protected $description;
 
-    /**
-     * @ORM\Column(name="rate_value", type="money", nullable=true)
-     * @JMS\SerializedName("rateValue")
-     * @JMS\Type(name="Money")
-     */
-    protected $rateValue;
-     
+	/**
+	 * @ORM\Column(name="rate_value", type="money", nullable=true)
+	 * @JMS\SerializedName("rateValue")
+	 * @JMS\Type(name="Money")
+	 */
+	protected $rateValue;
+
 	/**
 	 * @var boolean $chargeable
 	 *
@@ -96,18 +96,18 @@ class Activity extends Entity implements DimeEntityInterface
 	protected $vat;
 
 	/**
-     * @ORM\Column(name="rate_unit", type="text", nullable=true)
-     * @JMS\SerializedName("rateUnit")
-     */
-    protected $rateUnit;
+	 * @ORM\Column(name="rate_unit", type="text", nullable=true)
+	 * @JMS\SerializedName("rateUnit")
+	 */
+	protected $rateUnit;
 
-    /**
-     * @var RateUnitType $rateUnitType
-     *
-     * @ORM\ManyToOne(targetEntity="Dime\TimetrackerBundle\Entity\RateUnitType")
-     * @JMS\SerializedName("rateUnitType")
-     */
-    protected $rateUnitType;
+	/**
+	 * @var RateUnitType $rateUnitType
+	 *
+	 * @ORM\ManyToOne(targetEntity="Dime\TimetrackerBundle\Entity\RateUnitType")
+	 * @JMS\SerializedName("rateUnitType")
+	 */
+	protected $rateUnitType;
 
 	/**
 	 * @param bool $pure
@@ -118,54 +118,52 @@ class Activity extends Entity implements DimeEntityInterface
 	{
 		$value = 0;
 
-		foreach($this->getTimeslices() as $timeslice)
-		{
+		foreach ($this->getTimeslices() as $timeslice) {
 			$value += $timeslice->getValue();
 		}
-		if(!$pure) {
-			if($this->rateUnitType instanceof RateUnitType) {
+		if (!$pure) {
+			if ($this->rateUnitType instanceof RateUnitType) {
 				return $this->rateUnitType->transform($value);
 			}
 		}
 		return $value;
 	}
 
-    /**
-     * Auto generate duration if empty
-     *
-     * @ORM\PrePersist
-     * @ORM\PreUpdate
-     * @return Activity
-     */
-    public function updateEmptyRateFromDefault()
-    {
-        $serviceRate = $this->getServiceRate();
-        if(is_null($serviceRate))
-            return $this;
-        if(is_null($this->rateValue))
-            $this->rateValue = $serviceRate->getRateValue();
-        if(is_null($this->rateUnit))
-            $this->rateUnit = $serviceRate->getRateUnit();
-        if(is_null($this->rateUnitType))
-            $this->rateUnitType = $serviceRate->getRateUnitType();
-        return $this;
-    }
+	/**
+	 * Auto generate duration if empty
+	 *
+	 * @ORM\PrePersist
+	 * @ORM\PreUpdate
+	 * @return Activity
+	 */
+	public function updateEmptyRateFromDefault()
+	{
+		$serviceRate = $this->getServiceRate();
+		if (is_null($serviceRate))
+			return $this;
+		if (is_null($this->rateValue))
+			$this->rateValue = $serviceRate->getRateValue();
+		if (is_null($this->rateUnit))
+			$this->rateUnit = $serviceRate->getRateUnit();
+		if (is_null($this->rateUnitType))
+			$this->rateUnitType = $serviceRate->getRateUnitType();
+		return $this;
+	}
 
-    /**
-     * return the Rate from the service according the offers rate group
-     * @JMS\VirtualProperty
-     * @JMS\SerializedName("serviceRate")
-     *
-     * @return Rate
-     */
-    public function getServiceRate()
-    {
-        if(empty($this->service)) {
-	        return null;
-        }
-        return $this->service->getRateByRateGroup($this->project->getRateGroup());
-    }
-
+	/**
+	 * return the Rate from the service according the offers rate group
+	 * @JMS\VirtualProperty
+	 * @JMS\SerializedName("serviceRate")
+	 *
+	 * @return Rate
+	 */
+	public function getServiceRate()
+	{
+		if (empty($this->service)) {
+			return null;
+		}
+		return $this->service->getRateByRateGroup($this->project->getRateGroup());
+	}
 
 
 	/**
@@ -179,15 +177,13 @@ class Activity extends Entity implements DimeEntityInterface
 	{
 
 		$total = $this->getRateValue();
-		if($total === null)
+		if ($total === null)
 			return null;
-		if($this->getValue() !== null)
-		{
+		if ($this->getValue() !== null) {
 			$total = $total->multiply($this->getValue());
 		}
 		$vat = $this->getCalculatedVAT();
-		if($vat instanceof Money)
-		{
+		if ($vat instanceof Money) {
 			$total = $total->add($vat);
 		}
 		return $total;
@@ -201,11 +197,11 @@ class Activity extends Entity implements DimeEntityInterface
 	 */
 	public function getName()
 	{
-        if($this->getService()&&$this->getProject()) {
-            return $this->getId().' '.$this->getProject()->getName().' - '.$this->getService()->getName();
-        } else {
-            return '';
-        }
+		if ($this->getService() && $this->getProject()) {
+			return $this->getId() . ' ' . $this->getProject()->getName() . ' - ' . $this->getService()->getName();
+		} else {
+			return '';
+		}
 	}
 
 	/**
@@ -216,7 +212,7 @@ class Activity extends Entity implements DimeEntityInterface
 	 */
 	public function getAlias()
 	{
-		if($this->getService()) {
+		if ($this->getService()) {
 			return $this->getService()->getAlias();
 		} else {
 			return '';
@@ -230,7 +226,7 @@ class Activity extends Entity implements DimeEntityInterface
 	 */
 	public function serializeValue()
 	{
-		if($this->rateUnitType instanceof RateUnitType) {
+		if ($this->rateUnitType instanceof RateUnitType) {
 			return $this->rateUnitType->serializedOutput($this->getValue());
 		}
 		return $this->getValue();
@@ -244,75 +240,74 @@ class Activity extends Entity implements DimeEntityInterface
 	 */
 	public function getCalculatedVAT()
 	{
-		if($this->rateValue instanceof Money && is_numeric($this->getValue()) && is_numeric($this->vat))
+		if ($this->rateValue instanceof Money && is_numeric($this->getValue()) && is_numeric($this->vat))
 			return $this->rateValue->multiply((float)$this->getValue())->multiply((float)$this->vat);
 		else
 			return null;
 	}
 
-    /**
-     * Entity constructor
-     */
-    public function __construct()
-    {
-        $this->timeslices = new ArrayCollection();
-        $this->tags = new ArrayCollection();
-    }
+	/**
+	 * Entity constructor
+	 */
+	public function __construct()
+	{
+		$this->timeslices = new ArrayCollection();
+		$this->tags = new ArrayCollection();
+	}
 
-    /**
-     * Set description
-     *
-     * @param  string   $description
-     * @return Activity
-     */
-    public function setDescription($description)
-    {
-        $this->description = $description;
+	/**
+	 * Set description
+	 *
+	 * @param  string $description
+	 * @return Activity
+	 */
+	public function setDescription($description)
+	{
+		$this->description = $description;
 
-        return $this;
-    }
+		return $this;
+	}
 
-    /**
-     * Get description
-     *
-     * @return string
-     */
-    public function getDescription()
-    {
-        return $this->description;
-    }
+	/**
+	 * Get description
+	 *
+	 * @return string
+	 */
+	public function getDescription()
+	{
+		return $this->description;
+	}
 
-    /**
-     * Set rate
-     *
-     * @param  float    $rateValue
-     * @return Activity
-     */
-    public function setRateValue($rateValue)
-    {
-        $this->rateValue = $rateValue;
-        return $this;
-    }
+	/**
+	 * Set rate
+	 *
+	 * @param  float $rateValue
+	 * @return Activity
+	 */
+	public function setRateValue($rateValue)
+	{
+		$this->rateValue = $rateValue;
+		return $this;
+	}
 
-    /**
-     * Get rate
-     *
-     * @return Money
-     */
-    public function getRateValue()
-    {
-	    if( empty($this->rateValue) ){
-		    if($this->getService() instanceof Service){
-			    $rate =  $this->getServiceRate();
-			    return $rate->getRateValue();
-		    } else {
-			    return null;
-		    }
-	    }
-	    else {
-		    return $this->rateValue;
-	    }
-    }
+	/**
+	 * Get rate
+	 *
+	 * @return Money
+	 */
+	public function getRateValue()
+	{
+		if (empty($this->rateValue)) {
+			if ($this->getService() instanceof Service) {
+				$rate = $this->getServiceRate();
+				return $rate->getRateValue();
+			} else {
+				return null;
+			}
+		} else {
+			return $this->rateValue;
+		}
+	}
 
 	/**
 	 * Customer for Simplicity
@@ -324,92 +319,92 @@ class Activity extends Entity implements DimeEntityInterface
 		return $this->getProject()->getCustomer();
 	}
 
-    /**
-     * Set project
-     *
-     * @param  Project  $project
-     * @return Activity
-     */
-    public function setProject($project)
-    {
-        $this->project = $project;
-        return $this;
-    }
+	/**
+	 * Set project
+	 *
+	 * @param  Project $project
+	 * @return Activity
+	 */
+	public function setProject($project)
+	{
+		$this->project = $project;
+		return $this;
+	}
 
-    /**
-     * Get project
-     *
-     * @return Project
-     */
-    public function getProject()
-    {
-        return $this->project;
-    }
+	/**
+	 * Get project
+	 *
+	 * @return Project
+	 */
+	public function getProject()
+	{
+		return $this->project;
+	}
 
-    /**
-     * Set service
-     *
-     * @param  Service  $service
-     * @return Activity
-     */
-    public function setService($service)
-    {
-        $this->service = $service;
-	    $rate = $this->getServiceRate();
-	    if(!is_null($rate)) {
-		    $this->setRateUnitType($rate->getRateUnitType());
-		    $this->setRateUnit($rate->getRateUnit());
-		    $this->setRateValue($rate->getRateValue());
-		    $this->setVat($service->getVat());
-	    }
-        return $this;
-    }
+	/**
+	 * Set service
+	 *
+	 * @param  Service $service
+	 * @return Activity
+	 */
+	public function setService($service)
+	{
+		$this->service = $service;
+		$rate = $this->getServiceRate();
+		if (!is_null($rate)) {
+			$this->setRateUnitType($rate->getRateUnitType());
+			$this->setRateUnit($rate->getRateUnit());
+			$this->setRateValue($rate->getRateValue());
+			$this->setVat($service->getVat());
+		}
+		return $this;
+	}
 
-    /**
-     * Get service
-     *
-     * @return Service
-     */
-    public function getService()
-    {
-        return $this->service;
-    }
+	/**
+	 * Get service
+	 *
+	 * @return Service
+	 */
+	public function getService()
+	{
+		return $this->service;
+	}
 
-    /**
-     * Add time slice
-     *
-     * @param  Timeslice $timeslice
-     * @return Activity
-     */
-    public function addTimeslice(Timeslice $timeslice)
-    {
-        $this->timeslices[] = $timeslice;
+	/**
+	 * Add time slice
+	 *
+	 * @param  Timeslice $timeslice
+	 * @return Activity
+	 */
+	public function addTimeslice(Timeslice $timeslice)
+	{
+		$this->timeslices[] = $timeslice;
 
-        return $this;
-    }
+		return $this;
+	}
 
-    /**
-     * Get time slices
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getTimeslices()
-    {
-        return $this->timeslices;
-    }
+	/**
+	 * Get time slices
+	 *
+	 * @return \Doctrine\Common\Collections\Collection
+	 */
+	public function getTimeslices()
+	{
+		return $this->timeslices;
+	}
 
-    /**
-     * Add tag
-     *
-     * @param  Tag      $tag
-     * @return Activity
-     */
-    public function addTag(Tag $tag)
-    {
-        $this->tags[] = $tag;
+	/**
+	 * Add tag
+	 *
+	 * @param  Tag $tag
+	 * @return Activity
+	 */
+	public function addTag(Tag $tag)
+	{
+		$this->tags[] = $tag;
 
-        return $this;
-    }
+		return $this;
+	}
 
 	/**
 	 * Remove tags
@@ -418,35 +413,35 @@ class Activity extends Entity implements DimeEntityInterface
 	 *
 	 * @return Activity
 	 */
-    public function removeTag(Tag $tag)
-    {
-        $this->tags->removeElement($tag);
+	public function removeTag(Tag $tag)
+	{
+		$this->tags->removeElement($tag);
 
-        return $this;
-    }
+		return $this;
+	}
 
-    /**
-     * Get tags
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getTags()
-    {
-        return $this->tags;
-    }
+	/**
+	 * Get tags
+	 *
+	 * @return \Doctrine\Common\Collections\Collection
+	 */
+	public function getTags()
+	{
+		return $this->tags;
+	}
 
-    /**
-     * Set tags
-     *
-     * @param \Doctrine\Common\Collections\ArrayCollection $tags
-     * @return Activity
-     */
-    public function setTags(ArrayCollection $tags)
-    {
-        $this->tags = $tags;
+	/**
+	 * Set tags
+	 *
+	 * @param \Doctrine\Common\Collections\ArrayCollection $tags
+	 * @return Activity
+	 */
+	public function setTags(ArrayCollection $tags)
+	{
+		$this->tags = $tags;
 
-        return $this;
-    }
+		return $this;
+	}
 
 	/**
 	 * @return boolean
@@ -463,48 +458,46 @@ class Activity extends Entity implements DimeEntityInterface
 	 */
 	public function serializeChargeable()
 	{
-		switch($this->getChargeableReference())
-		{
-		case ActivityReference::$ACTIVITY:
-			return $this->chargeable;
-			break;
-		case ActivityReference::$PROJECT:
-			if($this->getProject())
-				return $this->getProject()->isChargeable();
-			else
+		switch ($this->getChargeableReference()) {
+			case ActivityReference::$ACTIVITY:
 				return $this->chargeable;
-			break;
-		case ActivityReference::$CUSTOMER:
-			if($this->getCustomer())
-				return $this->getCustomer()->isChargeable();
-			else
+				break;
+			case ActivityReference::$PROJECT:
+				if ($this->getProject())
+					return $this->getProject()->isChargeable();
+				else
+					return $this->chargeable;
+				break;
+			case ActivityReference::$CUSTOMER:
+				if ($this->getCustomer())
+					return $this->getCustomer()->isChargeable();
+				else
+					return $this->chargeable;
+				break;
+			case ActivityReference::$SERVICE:
+				if ($this->getService())
+					return $this->getService()->isChargeable();
+				else
+					return $this->chargeable;
+				break;
+			default:
 				return $this->chargeable;
-			break;
-		case ActivityReference::$SERVICE:
-			if($this->getService())
-				return $this->getService()->isChargeable();
-			else
-				return $this->chargeable;
-			break;
-		default:
-			return $this->chargeable;
-			break;
+				break;
 		}
 	}
 
 	/**
- * @param boolean $chargeable
- *
- * @return $this
- */
-    public function setChargeable($chargeable)
-    {
-        if($chargeable !== 'empty')
-        {
-            $this->chargeable = $chargeable;
-        }
-        return $this;
-    }
+	 * @param boolean $chargeable
+	 *
+	 * @return $this
+	 */
+	public function setChargeable($chargeable)
+	{
+		if ($chargeable !== 'empty') {
+			$this->chargeable = $chargeable;
+		}
+		return $this;
+	}
 
 	/**
 	 * @return int
@@ -525,53 +518,53 @@ class Activity extends Entity implements DimeEntityInterface
 		return $this;
 	}
 
-    /**
-     * Set rateUnit
-     *
-     * @param string $rateUnit
-     *
-     * @return Activity
-     */
-    public function setRateUnit($rateUnit)
-    {
-        $this->rateUnit = $rateUnit;
+	/**
+	 * Set rateUnit
+	 *
+	 * @param string $rateUnit
+	 *
+	 * @return Activity
+	 */
+	public function setRateUnit($rateUnit)
+	{
+		$this->rateUnit = $rateUnit;
 
-        return $this;
-    }
+		return $this;
+	}
 
-    /**
-     * Get rateUnit
-     *
-     * @return string
-     */
-    public function getRateUnit()
-    {
-        return $this->rateUnit;
-    }
+	/**
+	 * Get rateUnit
+	 *
+	 * @return string
+	 */
+	public function getRateUnit()
+	{
+		return $this->rateUnit;
+	}
 
-    /**
-     * Set rate
-     *
-     * @param RateUnitType $rateUnitType
-     *
-     * @return Activity
-     */
-    public function setRateUnitType($rateUnitType)
-    {
-        $this->rateUnitType = $rateUnitType;
+	/**
+	 * Set rate
+	 *
+	 * @param RateUnitType $rateUnitType
+	 *
+	 * @return Activity
+	 */
+	public function setRateUnitType($rateUnitType)
+	{
+		$this->rateUnitType = $rateUnitType;
 
-        return $this;
-    }
+		return $this;
+	}
 
-    /**
-     * Get rateUnitType
-     *
-     * @return RateUnitType
-     */
-    public function getRateUnitType()
-    {
-        return $this->rateUnitType;
-    }
+	/**
+	 * Get rateUnitType
+	 *
+	 * @return RateUnitType
+	 */
+	public function getRateUnitType()
+	{
+		return $this->rateUnitType;
+	}
 
 	/**
 	 * @return mixed
@@ -591,7 +584,6 @@ class Activity extends Entity implements DimeEntityInterface
 		$this->vat = $vat;
 		return $this;
 	}
-
 
 
 }

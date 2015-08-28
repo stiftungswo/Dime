@@ -21,88 +21,88 @@ class RateGroup extends Entity implements DimeEntityInterface
 	 * @ORM\Column(type="text", nullable=true)
 	 */
 	protected $description;
-	
+
 	/**
 	 * @var string $description
 	 *
 	 * @ORM\Column(type="string", length=255, nullable=false)
 	 */
 	protected $name;
-	
 
-    /**
-     * Set description
-     *
-     * @param string $description
-     *
-     * @return RateGroup
-     */
-    public function setDescription($description)
-    {
-        $this->description = $description;
 
-        return $this;
-    }
+	/**
+	 * Set description
+	 *
+	 * @param string $description
+	 *
+	 * @return RateGroup
+	 */
+	public function setDescription($description)
+	{
+		$this->description = $description;
 
-    /**
-     * Get description
-     *
-     * @return string
-     */
-    public function getDescription()
-    {
-        return $this->description;
-    }
+		return $this;
+	}
 
-    /**
-     * Set name
-     *
-     * @param string $name
-     *
-     * @return RateGroup
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
+	/**
+	 * Get description
+	 *
+	 * @return string
+	 */
+	public function getDescription()
+	{
+		return $this->description;
+	}
 
-        return $this;
-    }
+	/**
+	 * Set name
+	 *
+	 * @param string $name
+	 *
+	 * @return RateGroup
+	 */
+	public function setName($name)
+	{
+		$this->name = $name;
 
-    /**
-     * Get name
-     *
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
+		return $this;
+	}
 
-    /**
-     * Set createdAt
-     *
-     * @param \DateTime $createdAt
-     *
-     * @return RateGroup
-     */
-    public function setCreatedAt($createdAt)
-    {
-        $this->createdAt = $createdAt;
+	/**
+	 * Get name
+	 *
+	 * @return string
+	 */
+	public function getName()
+	{
+		return $this->name;
+	}
 
-        return $this;
-    }
+	/**
+	 * Set createdAt
+	 *
+	 * @param \DateTime $createdAt
+	 *
+	 * @return RateGroup
+	 */
+	public function setCreatedAt($createdAt)
+	{
+		$this->createdAt = $createdAt;
 
-    /**
-     * Set updatedAt
-     *
-     * @param \DateTime $updatedAt
-     *
-     * @return RateGroup
-     */
-    public function setUpdatedAt($updatedAt)
-    {
-        $this->updatedAt = $updatedAt;
+		return $this;
+	}
 
-        return $this;
-    }
+	/**
+	 * Set updatedAt
+	 *
+	 * @param \DateTime $updatedAt
+	 *
+	 * @return RateGroup
+	 */
+	public function setUpdatedAt($updatedAt)
+	{
+		$this->updatedAt = $updatedAt;
+
+		return $this;
+	}
 }

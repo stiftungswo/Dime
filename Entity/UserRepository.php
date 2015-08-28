@@ -12,29 +12,29 @@ use Doctrine\ORM\QueryBuilder;
  */
 class UserRepository extends EntityRepository
 {
-    /**
-     *
-     * @param string            $text
-     * @param QueryBuilder      $qb
-     *
-     * @return UserRepository
-     */
-    public function search($text, QueryBuilder $qb = null)
-    {
-        return $this;
-    }
+	/**
+	 *
+	 * @param string $text
+	 * @param QueryBuilder $qb
+	 *
+	 * @return UserRepository
+	 */
+	public function search($text, QueryBuilder $qb = null)
+	{
+		return $this;
+	}
 
-    /**
-     *
-     * @param                   $date
-     * @param QueryBuilder      $qb
-     *
-     * @return UserRepository
-     */
-    public function scopeByDate($date, QueryBuilder $qb = null)
-    {
-        return $this;
-    }
+	/**
+	 *
+	 * @param                   $date
+	 * @param QueryBuilder $qb
+	 *
+	 * @return UserRepository
+	 */
+	public function scopeByDate($date, QueryBuilder $qb = null)
+	{
+		return $this;
+	}
 
 	/**
 	 * @param $value
@@ -51,9 +51,9 @@ class UserRepository extends EntityRepository
 		$aliases = $qb->getRootAliases();
 		$alias = array_shift($aliases);
 		$value = str_replace('*', '%', $value);
-		if(strpos($value, ' ') !== false){
+		if (strpos($value, ' ') !== false) {
 			$fullname = str_split($value, strpos($value, ' '));
-			if(is_array($fullname)) {
+			if (is_array($fullname)) {
 				$firstname = trim($fullname[0]);
 				$lastname = trim($fullname[1]);
 			} else {
@@ -65,7 +65,7 @@ class UserRepository extends EntityRepository
 			$lastname = null;
 		}
 
-		if(!$lastname){
+		if (!$lastname) {
 			$qb->Where(
 				$qb->expr()->like($alias . '.firstname', ':param')
 			);
@@ -90,7 +90,7 @@ class UserRepository extends EntityRepository
 	/**
 	 * Add different filter option to query
 	 *
-	 * @param array        $filter
+	 * @param array $filter
 	 * @param QueryBuilder $qb
 	 *
 	 * @return EntityRepository
@@ -104,19 +104,19 @@ class UserRepository extends EntityRepository
 		if ($filter != null) {
 			foreach ($filter as $key => $value) {
 				$value = $this->interpretComplexQuery($key, $value);
-				switch($key) {
-				case 'date':
-					$this->scopeByDate($value, $qb);
-					break;
-				case 'search':
-					$this->search($value, $qb);
-					break;
-				case 'fullname':
-					$this->scopeByFullname($value, $qb);
-					break;
-				default:
-					$this->scopeByField($key, $value, $qb);
-					break;
+				switch ($key) {
+					case 'date':
+						$this->scopeByDate($value, $qb);
+						break;
+					case 'search':
+						$this->search($value, $qb);
+						break;
+					case 'fullname':
+						$this->scopeByFullname($value, $qb);
+						break;
+					default:
+						$this->scopeByField($key, $value, $qb);
+						break;
 				}
 			}
 		}

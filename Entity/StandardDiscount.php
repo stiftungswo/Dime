@@ -45,13 +45,13 @@ class StandardDiscount extends Entity implements DimeEntityInterface
 	 *
 	 * @return Money
 	 */
-    public function getCalculatedDiscount(Money $subtotal)
-    {
-        if($this->percentage)
-            return $subtotal->multiply(floatval($this->value));
-        else
-            return Money::CHF($this->value);
-    }
+	public function getCalculatedDiscount(Money $subtotal)
+	{
+		if ($this->percentage)
+			return $subtotal->multiply(floatval($this->value));
+		else
+			return Money::CHF($this->value);
+	}
 
 	/**
 	 * @return mixed

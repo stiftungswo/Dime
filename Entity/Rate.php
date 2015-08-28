@@ -15,14 +15,14 @@ use Money\Money;
  */
 class Rate extends Entity implements DimeEntityInterface
 {
-	
+
 	/**
 	 * @ORM\ManyToOne(targetEntity="Dime\TimetrackerBundle\Entity\RateGroup")
 	 * @ORM\JoinColumn(name="rate_group_id", referencedColumnName="id", onDelete="SET NULL")
 	 * @JMS\SerializedName("rateGroup")
 	 */
 	protected $rateGroup;
-	
+
 	/**
 	 * @var string $rateUnit
 	 *
@@ -38,148 +38,148 @@ class Rate extends Entity implements DimeEntityInterface
 	 * @JMS\SerializedName("rateUnitType")
 	 */
 	protected $rateUnitType;
-	
-    /**
-     * @ORM\ManyToOne(targetEntity="Service", inversedBy="rates")
-     * @ORM\JoinColumn(name="service_id", referencedColumnName="id")
-     * @JMS\SerializedName("service")
-     * @JMS\MaxDepth(1)
-     **/
-    protected $service;
-    
-    /**
-     * @var Money $rateValue
-     *
-     * @ORM\Column(name="rate_value", type="money", nullable=true)
-     * @JMS\SerializedName("rateValue")
-     * @JMS\Type(name="Money")
-     */
-    protected $rateValue;
-	
 
-    /**
-     * Set rateGroup
-     *
-     * @param string $rateGroup
-     *
-     * @return Rate
-     */
-    public function setRateGroup($rateGroup)
-    {
-        $this->rateGroup = $rateGroup;
+	/**
+	 * @ORM\ManyToOne(targetEntity="Service", inversedBy="rates")
+	 * @ORM\JoinColumn(name="service_id", referencedColumnName="id")
+	 * @JMS\SerializedName("service")
+	 * @JMS\MaxDepth(1)
+	 **/
+	protected $service;
 
-        return $this;
-    }
+	/**
+	 * @var Money $rateValue
+	 *
+	 * @ORM\Column(name="rate_value", type="money", nullable=true)
+	 * @JMS\SerializedName("rateValue")
+	 * @JMS\Type(name="Money")
+	 */
+	protected $rateValue;
 
-    /**
-     * Get rateGroup
-     *
-     * @return string
-     */
-    public function getRateGroup()
-    {
-        return $this->rateGroup;
-    }
 
-    /**
-     * Set rateUnit
-     *
-     * @param string $rateUnit
-     *
-     * @return Rate
-     */
-    public function setRateUnit($rateUnit)
-    {
-        $this->rateUnit = $rateUnit;
+	/**
+	 * Set rateGroup
+	 *
+	 * @param string $rateGroup
+	 *
+	 * @return Rate
+	 */
+	public function setRateGroup($rateGroup)
+	{
+		$this->rateGroup = $rateGroup;
 
-        return $this;
-    }
+		return $this;
+	}
 
-    /**
-     * Get rateUnit
-     *
-     * @return string
-     */
-    public function getRateUnit()
-    {
-        return $this->rateUnit;
-    }
+	/**
+	 * Get rateGroup
+	 *
+	 * @return string
+	 */
+	public function getRateGroup()
+	{
+		return $this->rateGroup;
+	}
 
-    /**
-     * Set service
-     *
-     * @param string $service
-     *
-     * @return Rate
-     */
-    public function setService($service)
-    {
-        $this->service = $service;
+	/**
+	 * Set rateUnit
+	 *
+	 * @param string $rateUnit
+	 *
+	 * @return Rate
+	 */
+	public function setRateUnit($rateUnit)
+	{
+		$this->rateUnit = $rateUnit;
 
-        return $this;
-    }
+		return $this;
+	}
 
-    /**
-     * Get service
-     *
-     * @return string
-     */
-    public function getService()
-    {
-        return $this->service;
-    }
+	/**
+	 * Get rateUnit
+	 *
+	 * @return string
+	 */
+	public function getRateUnit()
+	{
+		return $this->rateUnit;
+	}
 
-    /**
-     * Set value
-     *
-     * @param string $rateValue
-     *
-     * @return Rate
-     */
-    public function setRateValue($rateValue)
-    {
-        $this->rateValue = $rateValue;
+	/**
+	 * Set service
+	 *
+	 * @param string $service
+	 *
+	 * @return Rate
+	 */
+	public function setService($service)
+	{
+		$this->service = $service;
 
-        return $this;
-    }
+		return $this;
+	}
 
-    /**
-     * Get value
-     *
-     * @return string
-     */
-    public function getRateValue()
-    {
-        return $this->rateValue;
-    }
+	/**
+	 * Get service
+	 *
+	 * @return string
+	 */
+	public function getService()
+	{
+		return $this->service;
+	}
 
-    /**
-     * Set createdAt
-     *
-     * @param \DateTime $createdAt
-     *
-     * @return Rate
-     */
-    public function setCreatedAt($createdAt)
-    {
-        $this->createdAt = $createdAt;
+	/**
+	 * Set value
+	 *
+	 * @param string $rateValue
+	 *
+	 * @return Rate
+	 */
+	public function setRateValue($rateValue)
+	{
+		$this->rateValue = $rateValue;
 
-        return $this;
-    }
+		return $this;
+	}
 
-    /**
-     * Set updatedAt
-     *
-     * @param \DateTime $updatedAt
-     *
-     * @return Rate
-     */
-    public function setUpdatedAt($updatedAt)
-    {
-        $this->updatedAt = $updatedAt;
+	/**
+	 * Get value
+	 *
+	 * @return string
+	 */
+	public function getRateValue()
+	{
+		return $this->rateValue;
+	}
 
-        return $this;
-    }
+	/**
+	 * Set createdAt
+	 *
+	 * @param \DateTime $createdAt
+	 *
+	 * @return Rate
+	 */
+	public function setCreatedAt($createdAt)
+	{
+		$this->createdAt = $createdAt;
+
+		return $this;
+	}
+
+	/**
+	 * Set updatedAt
+	 *
+	 * @param \DateTime $updatedAt
+	 *
+	 * @return Rate
+	 */
+	public function setUpdatedAt($updatedAt)
+	{
+		$this->updatedAt = $updatedAt;
+
+		return $this;
+	}
 
 	/**
 	 * @return RateUnitType

@@ -12,41 +12,41 @@ use Doctrine\ORM\QueryBuilder;
  */
 class ServiceRepository extends EntityRepository
 {
-    /**
-     * Search for name or alias
-     *
-     * @param string            $text
-     * @param QueryBuilder      $qb
-     * @return ServiceRepository
-     */
-    public function search($text, QueryBuilder $qb = null)
-    {
-        if ($qb == null) {
-            $qb = $this->builder;
-        }
+	/**
+	 * Search for name or alias
+	 *
+	 * @param string $text
+	 * @param QueryBuilder $qb
+	 * @return ServiceRepository
+	 */
+	public function search($text, QueryBuilder $qb = null)
+	{
+		if ($qb == null) {
+			$qb = $this->builder;
+		}
 
-        $aliases = $qb->getRootAliases();
-        $alias = array_shift($aliases);
+		$aliases = $qb->getRootAliases();
+		$alias = array_shift($aliases);
 
-        $qb->andWhere($qb->expr()->orX(
-                $qb->expr()->like($alias . '.description', ':text_like'),
-                $qb->expr()->like($alias . '.name', ':text_like'),
-                $qb->expr()->like($alias . '.alias', ':text_like')
-            ));
-        $qb->setParameter('text_like', '%' . $text . '%');
+		$qb->andWhere($qb->expr()->orX(
+			$qb->expr()->like($alias . '.description', ':text_like'),
+			$qb->expr()->like($alias . '.name', ':text_like'),
+			$qb->expr()->like($alias . '.alias', ':text_like')
+		));
+		$qb->setParameter('text_like', '%' . $text . '%');
 
-        return $this;
-    }
+		return $this;
+	}
 
-    /**
-     *
-     * @param                   $date
-     * @param QueryBuilder      $qb
-     *
-     * @return ServiceRepository
-     */
-    public function scopeByDate($date, QueryBuilder $qb = null)
-    {
-        return $this;
-    }
+	/**
+	 *
+	 * @param                   $date
+	 * @param QueryBuilder $qb
+	 *
+	 * @return ServiceRepository
+	 */
+	public function scopeByDate($date, QueryBuilder $qb = null)
+	{
+		return $this;
+	}
 }

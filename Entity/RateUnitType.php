@@ -127,52 +127,52 @@ class RateUnitType extends Entity implements DimeEntityInterface
 	 */
 	public function transform($value)
 	{
-		if($this->doTransform){
-			switch($this->roundMode){
-			case 1:
-			case 2:
-			case 3:
-			case 4:
-				return round(($value / $this->factor), $this->scale, $this->roundMode);
-				break;
-			case 5:
-				//Math trick for Precision independant Flooring
-				$pow = pow(10, $this->scale);
-				return floor(($value / $this->factor) * $pow) / $pow;
-				break;
-			case 6:
-				//Math trick for Precision indepandant Ceiling
-				$pow = pow ( 10, $this->scale );
-				$value = ($value / $this->factor);
-				return ( ceil ( $pow * $value ) + ceil ( $pow * $value - ceil ( $pow * $value ) ) ) / $pow;
-				break;
-			case 7:
-				//Math trick to round numbers to 5 or 0
-				$pow   = pow(10, $this->scale);
-				$value = ($value / $this->factor);
-				$value = $value * $pow;
-				$value = (int)round($value / 5) * 5;
-				return $value / $pow;
-				break;
-			case 8:
-				//Math trick to floor numbers to 5 or 0
-				$pow   = pow(10, $this->scale);
-				$value = ($value / $this->factor);
-				$value = $value * $pow;
-				$value = (int)floor($value / 5) * 5;
-				return $value / $pow;
-				break;
-			case 9:
-				//Math trick to ceil numbers to 5 or 0
-				$pow   = pow(10, $this->scale);
-				$value = ($value / $this->factor);
-				$value = $value * $pow;
-				$value = (int)ceil($value / 5) * 5;
-				return $value / $pow;
-				break;
-			default:
-				return $value;
-				break;
+		if ($this->doTransform) {
+			switch ($this->roundMode) {
+				case 1:
+				case 2:
+				case 3:
+				case 4:
+					return round(($value / $this->factor), $this->scale, $this->roundMode);
+					break;
+				case 5:
+					//Math trick for Precision independant Flooring
+					$pow = pow(10, $this->scale);
+					return floor(($value / $this->factor) * $pow) / $pow;
+					break;
+				case 6:
+					//Math trick for Precision indepandant Ceiling
+					$pow = pow(10, $this->scale);
+					$value = ($value / $this->factor);
+					return (ceil($pow * $value) + ceil($pow * $value - ceil($pow * $value))) / $pow;
+					break;
+				case 7:
+					//Math trick to round numbers to 5 or 0
+					$pow = pow(10, $this->scale);
+					$value = ($value / $this->factor);
+					$value = $value * $pow;
+					$value = (int)round($value / 5) * 5;
+					return $value / $pow;
+					break;
+				case 8:
+					//Math trick to floor numbers to 5 or 0
+					$pow = pow(10, $this->scale);
+					$value = ($value / $this->factor);
+					$value = $value * $pow;
+					$value = (int)floor($value / 5) * 5;
+					return $value / $pow;
+					break;
+				case 9:
+					//Math trick to ceil numbers to 5 or 0
+					$pow = pow(10, $this->scale);
+					$value = ($value / $this->factor);
+					$value = $value * $pow;
+					$value = (int)ceil($value / 5) * 5;
+					return $value / $pow;
+					break;
+				default:
+					return $value;
+					break;
 			}
 		}
 		return $value;
@@ -180,22 +180,22 @@ class RateUnitType extends Entity implements DimeEntityInterface
 
 	public static function transformToStandardUnit($value, $unit, $includeUnit = true, $scale = 3, $roundMode = PHP_ROUND_HALF_UP)
 	{
-		switch($unit) {
-		case RateUnitType::$Hourly :
-			$factor = RateUnitType::$HourInSeconds;
-			break;
-		case RateUnitType::$Minutely :
-			$factor = RateUnitType::$MinuteInSeconds;
-			break;
-		case RateUnitType::$Dayly :
-			$factor = RateUnitType::$DayInSeconds;
-			break;
-		default:
-			$factor = 1;
-			break;
+		switch ($unit) {
+			case RateUnitType::$Hourly :
+				$factor = RateUnitType::$HourInSeconds;
+				break;
+			case RateUnitType::$Minutely :
+				$factor = RateUnitType::$MinuteInSeconds;
+				break;
+			case RateUnitType::$Dayly :
+				$factor = RateUnitType::$DayInSeconds;
+				break;
+			default:
+				$factor = 1;
+				break;
 		}
 		$value = round(($value / $factor), $scale, $roundMode);
-		if($includeUnit === true){
+		if ($includeUnit === true) {
 			$value .= $unit;
 		}
 		return $value;
@@ -212,15 +212,15 @@ class RateUnitType extends Entity implements DimeEntityInterface
 	 */
 	public function reverseTransform($value)
 	{
-		if(!is_numeric($value)){
+		if (!is_numeric($value)) {
 			$value = trim($value);
 
 			// get suffix
-			preg_match('/([a-zA-Z]*)$/',$value,$format);
+			preg_match('/([a-zA-Z]*)$/', $value, $format);
 			$format = strtolower(reset($format));
 
 			// get time without suffix
-			if (strlen($format) > 0){
+			if (strlen($format) > 0) {
 				$time = substr($value, 0, -strlen($format));
 			} else {
 				$time = $value;
@@ -229,7 +229,7 @@ class RateUnitType extends Entity implements DimeEntityInterface
 			$time = floatval($time);
 
 			// transform to seconds
-			switch($format){
+			switch ($format) {
 				case 'h':
 					$time = $time * RateUnitType::$HourInSeconds;
 					break;
@@ -254,7 +254,7 @@ class RateUnitType extends Entity implements DimeEntityInterface
 
 	public function serializedOutput($value)
 	{
-		if($this->getSymbol() === 'a') {
+		if ($this->getSymbol() === 'a') {
 			return $value;
 		} else {
 			return $value . $this->getSymbol();
@@ -380,7 +380,7 @@ class RateUnitType extends Entity implements DimeEntityInterface
 	 */
 	public function getSymbol()
 	{
-		if(is_null($this->symbol)) {
+		if (is_null($this->symbol)) {
 			return $this->id;
 		}
 		return $this->symbol;

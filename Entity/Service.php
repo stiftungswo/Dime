@@ -22,46 +22,46 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Service extends Entity implements DimeEntityInterface
 {
-    /**
-     * @var string $name
-     *
-     * @Assert\NotBlank()
-     * @ORM\Column(type="string", nullable=true)
-     */
-    protected $name;
+	/**
+	 * @var string $name
+	 *
+	 * @Assert\NotBlank()
+	 * @ORM\Column(type="string", nullable=true)
+	 */
+	protected $name;
 
-    /**
-     * @var string $alias
-     *
-     * @Gedmo\Slug(fields={"name"})
-     * @ORM\Column(type="string", length=30)
-     */
-    protected $alias;
+	/**
+	 * @var string $alias
+	 *
+	 * @Gedmo\Slug(fields={"name"})
+	 * @ORM\Column(type="string", length=30)
+	 */
+	protected $alias;
 
-    /**
-     * @var string $description
-     *
-     * @ORM\Column(type="text", nullable=true)
-     */
-    protected $description;
+	/**
+	 * @var string $description
+	 *
+	 * @ORM\Column(type="text", nullable=true)
+	 */
+	protected $description;
 
-    /**
-     * JMS\Type("array")
-     * @JMS\MaxDepth(2)
-     * @JMS\SerializedName("rates")
-     * @ORM\OneToMany(targetEntity="Dime\TimetrackerBundle\Entity\Rate", mappedBy="service", orphanRemoval=true, cascade={"all"})
-     **/
-     protected $rates;
+	/**
+	 * JMS\Type("array")
+	 * @JMS\MaxDepth(2)
+	 * @JMS\SerializedName("rates")
+	 * @ORM\OneToMany(targetEntity="Dime\TimetrackerBundle\Entity\Rate", mappedBy="service", orphanRemoval=true, cascade={"all"})
+	 **/
+	protected $rates;
 
-    /**
-     * @var ArrayCollection $tags
-     *
-     * @JMS\Type("array")
-     * @JMS\SerializedName("tags")
-     * @ORM\ManyToMany(targetEntity="Tag", cascade="all")
-     * @ORM\JoinTable(name="service_tags")
-     */
-    protected $tags;
+	/**
+	 * @var ArrayCollection $tags
+	 *
+	 * @JMS\Type("array")
+	 * @JMS\SerializedName("tags")
+	 * @ORM\ManyToMany(targetEntity="Tag", cascade="all")
+	 * @ORM\JoinTable(name="service_tags")
+	 */
+	protected $tags;
 
 	/**
 	 * @var boolean $chargeable
@@ -69,14 +69,14 @@ class Service extends Entity implements DimeEntityInterface
 	 * @ORM\Column(type="boolean")
 	 */
 	protected $chargeable = true;
-	
+
 	/**
 	 * @var integer $vat
 	 *
 	 * @ORM\Column(type="decimal", scale=4, precision=10, nullable=true)
 	 */
 	protected $vat;
-	
+
 	/**
 	 * Entity constructor
 	 */
@@ -85,7 +85,7 @@ class Service extends Entity implements DimeEntityInterface
 		$this->tags = new ArrayCollection();
 		$this->rates = new ArrayCollection();
 	}
-	
+
 	/**
 	 * @return boolean
 	 */
@@ -101,94 +101,91 @@ class Service extends Entity implements DimeEntityInterface
 	 */
 	public function setChargeable($chargeable)
 	{
-		if($chargeable !== 'empty')
-		{
+		if ($chargeable !== 'empty') {
 			$this->chargeable = $chargeable;
 		}
 		return $this;
 	}
 
 
+	/**
+	 * Get id
+	 *
+	 * @return integer
+	 */
+	public function getId()
+	{
+		return $this->id;
+	}
 
+	/**
+	 * Set name
+	 *
+	 * @param  string $name
+	 * @return Service
+	 */
+	public function setName($name)
+	{
+		$this->name = $name;
 
-    /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
+		return $this;
+	}
 
-    /**
-     * Set name
-     *
-     * @param  string  $name
-     * @return Service
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
+	/**
+	 * Get name
+	 *
+	 * @return string
+	 */
+	public function getName()
+	{
+		return $this->name;
+	}
 
-        return $this;
-    }
+	/**
+	 * Set alias
+	 *
+	 * @param  string $alias
+	 * @return Service
+	 */
+	public function setAlias($alias)
+	{
+		$this->alias = $alias;
 
-    /**
-     * Get name
-     *
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
+		return $this;
+	}
 
-    /**
-     * Set alias
-     *
-     * @param  string  $alias
-     * @return Service
-     */
-    public function setAlias($alias)
-    {
-        $this->alias = $alias;
+	/**
+	 * Get alias
+	 *
+	 * @return string
+	 */
+	public function getAlias()
+	{
+		return $this->alias;
+	}
 
-        return $this;
-    }
+	/**
+	 * Set description
+	 *
+	 * @param  string $description
+	 * @return Service
+	 */
+	public function setDescription($description)
+	{
+		$this->description = $description;
 
-    /**
-     * Get alias
-     *
-     * @return string
-     */
-    public function getAlias()
-    {
-        return $this->alias;
-    }
+		return $this;
+	}
 
-    /**
-     * Set description
-     *
-     * @param  string  $description
-     * @return Service
-     */
-    public function setDescription($description)
-    {
-        $this->description = $description;
-
-        return $this;
-    }
-
-    /**
-     * Get description
-     *
-     * @return string
-     */
-    public function getDescription()
-    {
-        return $this->description;
-    }
+	/**
+	 * Get description
+	 *
+	 * @return string
+	 */
+	public function getDescription()
+	{
+		return $this->description;
+	}
 
 	/**
 	 * Get rate
@@ -197,191 +194,189 @@ class Service extends Entity implements DimeEntityInterface
 	 *
 	 * @return Rate
 	 */
-    public function getRateByRateGroup($rateGroup = null)
-    {
-    	if($rateGroup instanceof RateGroup){
-		    return $this->getRateByRateGroupId($rateGroup->getId());
-    	}
-	    elseif (is_numeric($rateGroup)){
-		    return $this->getRateByRateGroupId($rateGroup);
-	    }
-        else {
-	        return $this->getRateByRateGroupId(DefaultRateGroup::$ID);
-        }
-    }
+	public function getRateByRateGroup($rateGroup = null)
+	{
+		if ($rateGroup instanceof RateGroup) {
+			return $this->getRateByRateGroupId($rateGroup->getId());
+		} elseif (is_numeric($rateGroup)) {
+			return $this->getRateByRateGroupId($rateGroup);
+		} else {
+			return $this->getRateByRateGroupId(DefaultRateGroup::$ID);
+		}
+	}
 
 	/**
 	 * @param $id
 	 *
 	 * @return Rate
 	 */
-    private function getRateByRateGroupId($id)
-    {
-        $default = null;
-        foreach($this->getRates()->toArray() as $rate){
-            if($rate->getRateGroup()->getId() == $id)
-                return $rate;
-            if($rate->getRateGroup()->getId() == DefaultRateGroup::$ID)
-                $default = $rate;
-        }
-        return $default;
+	private function getRateByRateGroupId($id)
+	{
+		$default = null;
+		foreach ($this->getRates()->toArray() as $rate) {
+			if ($rate->getRateGroup()->getId() == $id)
+				return $rate;
+			if ($rate->getRateGroup()->getId() == DefaultRateGroup::$ID)
+				$default = $rate;
+		}
+		return $default;
 
 
-    }
+	}
 
-    /**
-     * get service as string
-     *
-     * @return string
-     */
-    public function __toString()
-    {
-        $service = $this->getName();
-        if (empty($service)) {
-            $service = $this->getId();
-        }
+	/**
+	 * get service as string
+	 *
+	 * @return string
+	 */
+	public function __toString()
+	{
+		$service = $this->getName();
+		if (empty($service)) {
+			$service = $this->getId();
+		}
 
-        return $service;
-    }
+		return $service;
+	}
 
-    /**
-     * Add tag
-     *
-     * @param  Tag $tag
-     * @return Service
-     */
-    public function addTag(Tag $tag)
-    {
-        $this->tags[] = $tag;
+	/**
+	 * Add tag
+	 *
+	 * @param  Tag $tag
+	 * @return Service
+	 */
+	public function addTag(Tag $tag)
+	{
+		$this->tags[] = $tag;
 
-        return $this;
-    }
+		return $this;
+	}
 
-    /**
-     * Remove tags
-     *
-     * @param Tag $tag
-     */
-    public function removeTag(Tag $tag)
-    {
-        $this->tags->removeElement($tag);
-    }
+	/**
+	 * Remove tags
+	 *
+	 * @param Tag $tag
+	 */
+	public function removeTag(Tag $tag)
+	{
+		$this->tags->removeElement($tag);
+	}
 
-    /**
-     * Get tags
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getTags()
-    {
-        return $this->tags;
-    }
+	/**
+	 * Get tags
+	 *
+	 * @return \Doctrine\Common\Collections\Collection
+	 */
+	public function getTags()
+	{
+		return $this->tags;
+	}
 
-    /**
-     * Set tags
-     *
-     * @param \Doctrine\Common\Collections\ArrayCollection $tags
-     * @return Service
-     */
-    public function setTags(ArrayCollection $tags)
-    {
-        $this->tags = $tags;
-        return $this;
-    }
+	/**
+	 * Set tags
+	 *
+	 * @param \Doctrine\Common\Collections\ArrayCollection $tags
+	 * @return Service
+	 */
+	public function setTags(ArrayCollection $tags)
+	{
+		$this->tags = $tags;
+		return $this;
+	}
 
-    /**
-     * Get chargeable
-     *
-     * @return boolean
-     */
-    public function getChargeable()
-    {
-        return $this->chargeable;
-    }
+	/**
+	 * Get chargeable
+	 *
+	 * @return boolean
+	 */
+	public function getChargeable()
+	{
+		return $this->chargeable;
+	}
 
-    /**
-     * Set vat
-     *
-     * @param string $vat
-     *
-     * @return Service
-     */
-    public function setVat($vat)
-    {
-        $this->vat = $vat;
+	/**
+	 * Set vat
+	 *
+	 * @param string $vat
+	 *
+	 * @return Service
+	 */
+	public function setVat($vat)
+	{
+		$this->vat = $vat;
 
-        return $this;
-    }
+		return $this;
+	}
 
-    /**
-     * Get vat
-     *
-     * @return string
-     */
-    public function getVat()
-    {
-        return $this->vat;
-    }
+	/**
+	 * Get vat
+	 *
+	 * @return string
+	 */
+	public function getVat()
+	{
+		return $this->vat;
+	}
 
-    /**
-     * Set createdAt
-     *
-     * @param \DateTime $createdAt
-     *
-     * @return Service
-     */
-    public function setCreatedAt($createdAt)
-    {
-        $this->createdAt = $createdAt;
+	/**
+	 * Set createdAt
+	 *
+	 * @param \DateTime $createdAt
+	 *
+	 * @return Service
+	 */
+	public function setCreatedAt($createdAt)
+	{
+		$this->createdAt = $createdAt;
 
-        return $this;
-    }
+		return $this;
+	}
 
-    /**
-     * Set updatedAt
-     *
-     * @param \DateTime $updatedAt
-     *
-     * @return Service
-     */
-    public function setUpdatedAt($updatedAt)
-    {
-        $this->updatedAt = $updatedAt;
+	/**
+	 * Set updatedAt
+	 *
+	 * @param \DateTime $updatedAt
+	 *
+	 * @return Service
+	 */
+	public function setUpdatedAt($updatedAt)
+	{
+		$this->updatedAt = $updatedAt;
 
-        return $this;
-    }
+		return $this;
+	}
 
-    /**
-     * Add rate
-     *
-     * @param \Dime\TimetrackerBundle\Entity\Rate $rate
-     *
-     * @return Service
-     */
-    public function addRate(Rate $rate)
-    {
-        $this->rates[] = $rate;
+	/**
+	 * Add rate
+	 *
+	 * @param \Dime\TimetrackerBundle\Entity\Rate $rate
+	 *
+	 * @return Service
+	 */
+	public function addRate(Rate $rate)
+	{
+		$this->rates[] = $rate;
 
-        return $this;
-    }
+		return $this;
+	}
 
-    /**
-     * Remove rate
-     *
-     * @param \Dime\TimetrackerBundle\Entity\Rate $rate
-     */
-    public function removeRate(Rate $rate)
-    {
-        $this->rates->removeElement($rate);
-    }
+	/**
+	 * Remove rate
+	 *
+	 * @param \Dime\TimetrackerBundle\Entity\Rate $rate
+	 */
+	public function removeRate(Rate $rate)
+	{
+		$this->rates->removeElement($rate);
+	}
 
-    /**
-     * Get rates
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getRates()
-    {
-        return $this->rates;
-    }
+	/**
+	 * Get rates
+	 *
+	 * @return \Doctrine\Common\Collections\Collection
+	 */
+	public function getRates()
+	{
+		return $this->rates;
+	}
 }
