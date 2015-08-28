@@ -58,7 +58,7 @@
 			</tr>
 			{% for item in invoice.items %}
 			<tr class="tbody">
-				<td>{{ item.name }}</td>
+				<td>{{ item.activity.service.name }}</td>
 				<td class="number">{{ item.rateValue }}</td>
 				<td>{{ item.rateUnit }}</td>
 				<td class="number">{{ item.amount }}</td>
@@ -73,6 +73,14 @@
 				<td></td>
 				<td class="number">Subtotal</td>
 				<td class="number">{{ invoice.subtotal }}</td>
+			</tr>
+			<tr class="tbody">
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td class="number">davon MwSt.</td>
+				<td class="number">{{ invoice.getTotalVAT() }}</td>
 			</tr>
 		</table>
 		<table class="discounttable" breakable="false">
@@ -98,11 +106,6 @@
 			</tr>
 		</table>
 		<table class="sumtable" breakable="false">
-			<tr class="tbody">
-				<td class="firstrow number"></td>
-				<td class="secondrow number">davon MwSt.</td>
-				<td class="thirdrow number">{{ invoice.getTotalVAT() }}</td>
-			</tr>
 			<tr class="tfoot">
 				<td>Zahlbar 30 Tage netto</td>
 				<td class="number">Rechnungstotal</td>
