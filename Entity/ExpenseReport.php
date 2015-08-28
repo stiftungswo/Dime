@@ -79,7 +79,7 @@ class ExpenseReport extends Report {
 			}
 		}
 		if($total !== 0){
-			$total = ($total / 3600).'h';
+			$total = round(($total / 3600), 2).'h';
 		}
 		return $total;
 	}

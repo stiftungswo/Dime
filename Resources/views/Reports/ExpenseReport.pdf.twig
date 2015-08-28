@@ -24,7 +24,7 @@
 					<td class="firstrow">{{ slice.startedAt|date('d.m.Y') }}</td>
 					<td class="secondrow">{{ slice.activity.service.name }}</td>
 					<td class="thirdrow number">{{ slice.serializeValue(false) }}</td>
-					<td class="fourthrow">{{ slice.activity.rateUnit }}</td>
+					<td class="fourthrow">{{ slice.activity.rateUnitType.name }}</td>
 				</tr>
 			{% endfor %}
 		</table>
