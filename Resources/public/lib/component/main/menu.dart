@@ -19,19 +19,29 @@ class MenuComponent implements ScopeAware {
 
   List<Menu> menus = [ 
     new Menu.withItems('Zeiterfassung', 'fa-clock-o', [
-        new Menu('Übersicht', '/timetrack'),
-        new Menu('Wochenrapport', '/reports/weekly')
+        new Menu('Übersicht', '/timetrack')
     ]),
-    new Menu.withItems('Offerten', 'fa-file-text', [new Menu('Übersicht', '/offers/overview')]),
+    new Menu.withItems('Offerten', 'fa-file-text', [
+      new Menu('Übersicht', '/offers/overview')
+    ]),
     new Menu.withItems('Projekte', 'fa-tree', [
         new Menu('Übersicht', '/projects/overview'),
         new Menu('Zeiterfassung', '/projects/timetrack'),
-        new Menu('Aufwandsbericht', '/reports/expense'),
-        new Menu('Stundenrapport', '/reports/servicehours')
     ]),
-    new Menu.withItems('Rechnungen', 'fa-calculator', [new Menu('Übersicht', '/invoices/overview')]),
-    new Menu.withItems('Kunden', 'fa-users', [new Menu('Übersicht', '/customers/overview')]),
-    new Menu.withItems('Mitarbeiter', 'fa-user', [new Menu('Übersicht', '/employees/overview')]),
+    new Menu.withItems('Rechnungen', 'fa-calculator', [
+      new Menu('Übersicht', '/invoices/overview')]
+    ),
+    new Menu.withItems('Kunden', 'fa-users', [
+      new Menu('Übersicht', '/customers/overview')
+    ]),
+    new Menu.withItems('Mitarbeiter', 'fa-user', [
+      new Menu('Übersicht', '/employees/overview')
+    ]),
+    new Menu.withItems('Reports', 'fa-bar-chart', [
+      new Menu('Wochenrapport', '/reports/weekly'),
+      new Menu('Aufwandsbericht', '/reports/expense'),
+      new Menu('Stundenrapport', '/reports/servicehours')
+    ]),
     new Menu.withItems('Stammdaten', 'fa-cog', [
       new Menu('Services', '/services/overview'),
       new Menu('Tarif Gruppen', '/rateGroups/overview'),
