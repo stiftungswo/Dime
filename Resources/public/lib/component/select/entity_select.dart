@@ -117,6 +117,16 @@ class EntitySelect extends AttachAware implements ScopeAware {
 )
 class ProjectSelectComponent extends EntitySelect {
   ProjectSelectComponent(DataCache store, dom.Element element, StatusService status, UserAuthProvider auth): super(Project, store, element, status, auth);
+
+  projectFilter(Project item, String search){
+    if (item.id.toString() == search){
+      return true;
+    }
+    if (item.name.toLowerCase().contains(search.toLowerCase())){
+      return true;
+    }
+    return false;
+  }
 }
 
 @Component(
