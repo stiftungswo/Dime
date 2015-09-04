@@ -503,6 +503,8 @@ class Project extends Entity implements DimeEntityInterface
 	{
 		$this->rateGroup = $rateGroup;
 
+		// TODO: update rate value on activities
+
 		return $this;
 	}
 
