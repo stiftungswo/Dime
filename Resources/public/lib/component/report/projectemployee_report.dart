@@ -30,28 +30,6 @@ class ProjectemployeeReportComponent extends AttachAware implements ScopeAware {
 
   DateTime filterEndDate;
 
-
-
-
-  DateTime date1;
-  DateTime date2;
-  DateTime date3 = new DateTime(2015, 5, 12);
-  DateTime date4;
-
-  setdates(){
-    date1 = new DateTime(2015, 5, 12);
-    date2 = new DateTime(2015, 5, 12);
-    date3 = new DateTime(2015, 5, 12);
-    date4 = new DateTime(2015, 5, 12);
-  }
-
-  setdatesNull(){
-    date1 = null;
-    date2 = null;
-    date3 = null;
-    date4 = null;
-  }
-
   Map data;
 
   Map entries;
