@@ -25,11 +25,13 @@ import 'package:DimeClient/component/setting/setting.dart';
 import 'package:DimeClient/service/setting_manager.dart';
 import 'package:DimeClient/service/data_cache.dart';
 import 'package:DimeClient/service/user_context.dart';
+import 'package:DimeClient/component/date/dateRange.dart';
 import 'package:DimeClient/component/date/dateToTextInput.dart';
 import 'package:DimeClient/service/status.dart';
 import 'package:DimeClient/component/statusbar/statusbar.dart';
 import 'package:DimeClient/component/main/usermenu.dart';
 import 'package:DimeClient/component/report/servicehours_report.dart';
+import 'package:DimeClient/component/report/projectemployee_report.dart';
 
 class AppModule extends Module {
   AppModule() {
@@ -73,6 +75,7 @@ class AppModule extends Module {
     bind(RateUnitTypeSelectComponent);
     bind(UserSelectComponent);
     bind(UserContext);
+    bind(DateRange);
     bind(DateToTextInput);
     bind(StatusService);
     bind(StatusBarComponent);
@@ -91,6 +94,7 @@ class AppModule extends Module {
     bind(TimesliceWeeklyReportComponent);
     bind(TimesliceOverviewComponent);
     bind(ServicehoursReportComponent);
+    bind(ProjectemployeeReportComponent);
     bind(RoundModeSelect);
     bind(UserMenu);
     install(new Hammock());

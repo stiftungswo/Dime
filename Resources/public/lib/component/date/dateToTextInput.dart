@@ -8,7 +8,7 @@ import 'package:intl/intl.dart';
     templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/date/dateToTextInput.html',
     useShadowDom: false
 )
-class DateToTextInput {
+class DateToTextInput implements ScopeAware {
 
   @NgCallback('callback')
   Function callback;
@@ -25,18 +25,12 @@ class DateToTextInput {
   @NgOneWayOneTime('has-buttons')
   bool hasButtons = false;
 
-  String _text;
+  @NgOneWayOneTime('null-allowed')
+  bool nullAllowed = false;
 
-  get text {
-    if (date != null) {
-      return new DateFormat(format).format(date);
-    }
-    return null;
-  }
+  String text = "";
 
-  set text(String text) {
-    this._text = text;
-  }
+  bool isValid = true;
 
   today(){
     DateTime now = new DateTime.now();
@@ -55,11 +49,62 @@ class DateToTextInput {
     }
   }
 
+  onInputBlur(){
+    if (text == ''){
+      this.date = null;
+    } else {
+      try {
+        // convert dots do hypens to allow more convenient input
+        text = text.replaceAll(new RegExp('[.]'), '-');
+        this.date = new DateFormat(format).parse(text);
+        if(this.date.year < 100){
+          this.date = new DateTime(this.date.year + 2000, this.date.month, this.date.day);
+        }
+      } catch(exception){
+        print('invalid date: '+text);
+      }
+    }
+    validate();
+    updateDate();
+  }
+
+  onDateChanged(newval, oldval){
+    if (date != null) {
+      this.text = new DateFormat(format).format(date);
+    } else {
+      this.text = '';
+    }
+    validate();
+  }
+
   updateDate() {
-    print('Date Update Called');
-    this.date = new DateFormat(format).parse(_text);
     if (this.callback != null) {
       callback({"name": this.field});
     }
+  }
+
+  validate() {
+    // check for null values
+    if (text == ""){
+      if (nullAllowed){
+        this.isValid = true;
+      } else {
+        this.isValid = false;
+      }
+      return;
+    }
+
+    // check for non parseable values
+    try {
+      DateTime test = new DateFormat(format).parse(text);
+      this.isValid = true;
+    } catch(exception){
+      this.isValid = false;
+    }
+  }
+
+  @override
+  void set scope(Scope scope) {
+    scope.watch('date', (newval, oldval) => onDateChanged(newval, oldval));
   }
 }

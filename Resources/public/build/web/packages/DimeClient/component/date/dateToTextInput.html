@@ -1,4 +1,4 @@
-<html><head></head><body><input style="width: 100%;" ng-model="text" class="form-control" ng-blur="updateDate()">
+<html><head></head><body><input style="width: 100%;" ng-model="text" ng-class="{'ng-invalid': !isValid}" class="form-control" ng-blur="onInputBlur()" placeholder="DD-MM-YYYY">
 <div ng-if="hasButtons" class="btn-group" style="padding-top: 2px;">
   <button type="button" class="btn btn-default" ng-click="previousDay()" title="einen Tag zurück">«</button>
   <button type="button" class="btn btn-default" ng-click="today()">Heute</button>

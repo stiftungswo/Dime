@@ -1,3 +1,5 @@
+library servicehours_report_component;
+
 import 'package:angular/angular.dart';
 import 'package:DimeClient/service/status.dart';
 import 'dart:html';
