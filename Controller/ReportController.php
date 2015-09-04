@@ -176,7 +176,7 @@ class ReportController extends DimeController{
 		$response = new Response($data);
 		//$response->headers->set('Content-Type', 'text/html');
 		$response->headers->set('Content-Type', 'text/csv');
-		$response->headers->set('Content-Disposition', 'attachment; filename="stundenrapport.csv"');
+		$response->headers->set('Content-Disposition', 'attachment; filename="servicerapport.csv"');
 
 		return $response;
 	}
