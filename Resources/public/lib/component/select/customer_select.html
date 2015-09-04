@@ -4,7 +4,7 @@
   <div class="dropdown-menu select-dropdown">
     <div ng-repeat="entity in entities | filter:{name: selector} | orderBy:'name'">
       <div ng-click="select(entity)" ng-class="{selected: entity.id == selectedEntity.id}">
-        {{entity.name}}
+        {{entity.name}} <span class="text-muted">{{entity.fullname}}</span>
         <i ng-if="entity.id == selectedEntity.id" class="fa fa-fw fa-check"></i>
       </div>
     </div>

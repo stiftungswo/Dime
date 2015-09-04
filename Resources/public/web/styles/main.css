@@ -66,6 +66,10 @@ textarea.tiny{
   cursor: pointer;
 }
 
+.dropdown-menu > div > div:hover .text-muted {
+  color: #DDD;
+}
+
 .dropdown-menu > div > div.selected {
   background: #222d32;
   color: white;
