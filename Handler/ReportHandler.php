@@ -11,6 +11,8 @@ use Carbon\Carbon;
 use Dime\ReportBundle\Entity\ExpenseReport;
 use Dime\TimetrackerBundle\Entity\Timeslice;
 use Dime\TimetrackerBundle\Handler\AbstractHandler;
+use Doctrine\Common\Collections\Criteria;
+use HttpInvalidParamException;
 use Symfony\Component\Config\Definition\Exception\Exception;
 
 class ReportHandler extends AbstractHandler{
@@ -124,7 +126,7 @@ class ReportHandler extends AbstractHandler{
 
 		$projects = $this->om->getRepository('DimeTimetrackerBundle:Project')->findAll();
 
-		$report = array();
+		$report = [];
 		$listofactivities = [];
 		$activitytotal = [];
 
@@ -182,4 +184,78 @@ class ReportHandler extends AbstractHandler{
 
 		return $report;
 	}
+
+	/**
+	 * generate report with time per employee for a project in a give timeframe
+	 *
+	 * @param int $projectId
+	 * @param string $date
+	 * @return array
+	 * @throws HttpInvalidParamException
+	 */
+	public function getProjectemployeeReport($projectId, $date = null) {
+		// check project
+		$project = $this->om->getRepository('DimeTimetrackerBundle:Project')->find($projectId);
+		if (!$project){
+			throw new Exception("Project not found!");
+		}
+
+		$report = [];
+		$criteria = new Criteria();
+
+		// collect activity Id's
+		$activities = $project->getActivities();
+		$activityIds = array();
+		foreach ($activities as $activity){
+			$activityIds[] = $activity->getId();
+		}
+		$criteria->where($criteria->expr()->in('activity', $activityIds));
+
+		// date filter
+		if(isset($date)) {
+			$dates = explode(',', $date);
+			if(count($dates) > 1) {
+				$startDate = Carbon::createFromFormat('Y-m-d', $dates[0])->setTime(0,0,0);
+				$endDate = Carbon::createFromFormat('Y-m-d', $dates[1])->setTime(0,0,0)->addDay();
+			} else {
+				// when only one date is set, we only show result from this day
+				$startDate = Carbon::createFromFormat('Y-m-d', $date)->setTime(0,0,0);
+				$endDate = Carbon::createFromFormat('Y-m-d', $date)->setTime(0,0,0)->addDay();
+			}
+			$criteria->andWhere($criteria->expr()->gte('startedAt', $startDate));
+			$criteria->andWhere($criteria->expr()->lt('startedAt', $endDate));
+		}
+
+		// calculate sum by employee
+		$timeslices = $this->om->getRepository('DimeTimetrackerBundle:Timeslice')->matching($criteria);
+		$users = [];
+		$total = 0;
+		if ($timeslices){
+			/** @var $slice Timeslice */
+			foreach($timeslices as $slice){
+				if($slice->getUser()){
+					if (!isset($users[$slice->getUser()->getId()])){
+						$users[$slice->getUser()->getId()] = 0;
+					}
+					$users[$slice->getUser()->getId()] += (int) $slice->getValue();
+					$total += (int) $slice->getValue();
+				}
+			}
+		}
+
+		// workaround because AngularDart's ng-repeat does not support iterating over maps :/
+		$employees = [];
+		foreach($users as $id => $seconds){
+			$employees[] = [
+				'name' => $id,
+				'user' => $this->om->getRepository('DimeEmployeeBundle:Employee')->find($id),
+				'seconds' => $seconds
+			];
+		}
+
+		$report['employees'] = $employees;
+		$report['total'] = $total;
+		return $report;
+	}
+
 }

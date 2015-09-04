@@ -157,6 +157,38 @@ class ReportController extends DimeController{
 	 * }
 	 * )
 	 *
+	 * @Annotations\QueryParam(name="project", requirements="\d+", nullable=false, description="Project")
+	 * @Annotations\QueryParam(name="date", nullable=true, description="Filter by date use Format YYYY-MM-DD or YYYY-MM-DD,YYYY-MM-DD to specify daterange")
+	 *
+	 *
+	 * @Annotations\View(
+	 *  serializerEnableMaxDepthChecks=true
+	 * )
+	 *
+	 * @Annotations\Route(
+	 * requirements={"_format"="json|xml"}
+	 * )
+	 *
+	 * @param ParamFetcherInterface $paramFetcher
+	 *
+	 * @return array
+	 */
+	public function getReportsProjectemployeeAction(ParamFetcherInterface $paramFetcher)
+	{
+		return $this->container->get('dime.report.handler')->getProjectemployeeReport($paramFetcher->get('project'), $paramFetcher->get('date'));
+	}
+
+	/**
+	 *
+	 *
+	 * @ApiDoc(
+	 * resource = true,
+	 * section="report",
+	 * statusCodes = {
+	 * 200 = "Returned when successful"
+	 * }
+	 * )
+	 *
 	 * @Annotations\QueryParam(name="year", nullable=false, description="Specify year in YYYY format")
 	 *
 	 *
