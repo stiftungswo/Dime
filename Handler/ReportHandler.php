@@ -114,14 +114,23 @@ class ReportHandler extends AbstractHandler{
 	/**
 	 * generate report with hours per service for each project in a give timeframe
 	 *
-	 * @param int $year
+	 * @param string $date
 	 * @return array
-	 * @throws \HttpInvalidParamException
+	 * @throws HttpInvalidParamException
 	 */
-	public function getServicehoursReport($year) {
+	public function getServicehoursReport($date) {
 
-		if (!$year || $year < 1900){
-			throw new Exception('Invalid year: '.$year);
+		// date filter
+		if(isset($date)) {
+			$dates = explode(',', $date);
+			if(count($dates) == 2) {
+				$startDate = Carbon::createFromFormat('Y-m-d', $dates[0])->setTime(0,0,0);
+				$endDate = Carbon::createFromFormat('Y-m-d', $dates[1])->setTime(0,0,0)->addDay();
+			} else {
+				throw new HttpInvalidParamException('invalid date passed');
+			}
+		} else {
+			throw new HttpInvalidParamException('no date passed');
 		}
 
 		$projects = $this->om->getRepository('DimeTimetrackerBundle:Project')->findAll();
@@ -140,12 +149,12 @@ class ReportHandler extends AbstractHandler{
 				->join('timeslice.activity', 'activity')
 				->where('activity.project = :projectId')
 				->andWhere('activity.rateUnitType != :other')
-				->andWhere('timeslice.startedAt <= :yearEnd')
-				->andWhere('timeslice.stoppedAt >= :yearBegin')
+				->andWhere('timeslice.startedAt <= :endDate')
+				->andWhere('timeslice.stoppedAt >= :startDate')
 				->setParameter('projectId', $project->getId())
 				->setParameter('other', 'a')
-				->setParameter('yearBegin', new \DateTime($year."-01-01"))
-				->setParameter('yearEnd', new \DateTime($year."-12-31"))
+				->setParameter('startDate', new \DateTime($startDate))
+				->setParameter('endDate', new \DateTime($endDate))
 				->getQuery()
 				->getResult();
 
@@ -183,6 +192,74 @@ class ReportHandler extends AbstractHandler{
 		$report['total']['activities'] = $activitytotal;
 
 		return $report;
+	}
+
+	/**
+	 * generate report with hours per service for each project in a give timeframe
+	 *
+	 * @param string $date
+	 * @return array
+	 * @throws HttpInvalidParamException
+	 */
+	public function getServicehoursReportAsCSV($date) {
+		$data =  $this->getServicehoursReport($date);
+
+		function escapeCSV($string){
+			$string = utf8_decode($string);
+			$string = str_replace('"','""',$string);
+			return '"'.$string.'"';
+		}
+
+		$rows = [];
+
+		// title row
+		if(isset($date)) {
+			$dates = explode(',', $date);
+			if(count($dates) == 2) {
+				$startDate = Carbon::createFromFormat('Y-m-d', $dates[0])->setTime(0,0,0);
+				$endDate = Carbon::createFromFormat('Y-m-d', $dates[1])->setTime(0,0,0);
+				$rows[] = escapeCSV('Servicestunden Rapport ' . $startDate->format('d.m.Y') . ' - ' . $endDate->format('d.m.Y'));
+			}
+		}
+
+		// header rows
+		$row = [];
+		$row[] = escapeCSV('Projekt');
+		foreach($data['total']['activitylist'] as $activity){
+			$row[] = escapeCSV($activity);
+		}
+		$row[] = escapeCSV('Total');
+		$rows[] = implode(';',$row);
+
+		// data rows
+		foreach($data['projects'] as $project){
+			$row = [];
+			$row[] = escapeCSV($project['name']);
+			foreach($data['total']['activitylist'] as $activity){
+				if(isset($project['activities'][$activity])){
+					$row[] = round($project['activities'][$activity] / (60*60), 1);
+				} else {
+					$row[] = '0';
+				}
+			}
+			$row[] = round($project['total'] / (60*60), 1);
+			$rows[] = implode(';',$row);
+		}
+
+		// footer rows
+		$row = [];
+		$row[] = escapeCSV('Total');
+		foreach($data['total']['activitylist'] as $activity){
+			if(isset($data['total']['activities'][$activity])){
+				$row[] = round($data['total']['activities'][$activity] / (60*60), 1);
+			} else {
+				$row[] = '0';
+			}
+		}
+		$row[] = escapeCSV('');
+		$rows[] = implode(';',$row);
+
+		return implode("\n", $rows);
 	}
 
 	/**

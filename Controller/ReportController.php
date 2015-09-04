@@ -11,6 +11,7 @@ use Dime\TimetrackerBundle\Controller\DimeController;
 use FOS\RestBundle\Controller\Annotations;
 use FOS\RestBundle\Request\ParamFetcherInterface;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use Symfony\Component\HttpFoundation\Response;
 
 class ReportController extends DimeController{
 	/**
@@ -126,7 +127,7 @@ class ReportController extends DimeController{
 	 * }
 	 * )
 	 *
-	 * @Annotations\QueryParam(name="year", nullable=false, description="Specify year in YYYY format")
+	 * @Annotations\QueryParam(name="date", nullable=false, description="Filter by date use Format YYYY-MM-DD,YYYY-MM-DD to specify daterange")
 	 *
 	 *
 	 * @Annotations\View(
@@ -143,7 +144,41 @@ class ReportController extends DimeController{
 	 */
 	public function getReportsServicehoursAction(ParamFetcherInterface $paramFetcher)
 	{
-		return $this->container->get('dime.report.handler')->getServicehoursReport($paramFetcher->get('year'));
+		return $this->container->get('dime.report.handler')->getServicehoursReport($paramFetcher->get('date'));
+	}
+
+	/**
+	 *
+	 *
+	 * @ApiDoc(
+	 * resource = true,
+	 * section="report",
+	 * statusCodes = {
+	 * 200 = "Returned when successful"
+	 * }
+	 * )
+	 *
+	 * @Annotations\QueryParam(name="date", nullable=false, description="Filter by date use Format YYYY-MM-DD,YYYY-MM-DD to specify daterange")
+	 *
+	 *
+	 * @Annotations\View(
+	 *  serializerEnableMaxDepthChecks=true
+	 * )
+	 *
+	 * @param ParamFetcherInterface $paramFetcher
+	 *
+	 * @return array
+	 */
+	public function getReportsServicehoursCsvAction(ParamFetcherInterface $paramFetcher)
+	{
+		$data = $this->container->get('dime.report.handler')->getServicehoursReportAsCSV($paramFetcher->get('date'));
+
+		$response = new Response($data);
+		//$response->headers->set('Content-Type', 'text/html');
+		$response->headers->set('Content-Type', 'text/csv');
+		$response->headers->set('Content-Disposition', 'attachment; filename="stundenrapport.csv"');
+
+		return $response;
 	}
 
 	/**
@@ -176,35 +211,5 @@ class ReportController extends DimeController{
 	public function getReportsProjectemployeeAction(ParamFetcherInterface $paramFetcher)
 	{
 		return $this->container->get('dime.report.handler')->getProjectemployeeReport($paramFetcher->get('project'), $paramFetcher->get('date'));
-	}
-
-	/**
-	 *
-	 *
-	 * @ApiDoc(
-	 * resource = true,
-	 * section="report",
-	 * statusCodes = {
-	 * 200 = "Returned when successful"
-	 * }
-	 * )
-	 *
-	 * @Annotations\QueryParam(name="year", nullable=false, description="Specify year in YYYY format")
-	 *
-	 *
-	 * @Annotations\View(
-	 *  serializerEnableMaxDepthChecks=true
-	 * )
-	 *
-	 * @param ParamFetcherInterface $paramFetcher
-	 *
-	 * @return array
-	 */
-	public function getReportsServicehoursCSVAction(ParamFetcherInterface $paramFetcher)
-	{
-		$response->headers->set('Content-Type', 'text/csv');
-		$response->headers->set('Content-Disposition', 'attachment; filename="teams.csv"');
-
-		return $this->container->get('dime.report.handler')->getServicehoursReport($paramFetcher->get('year'));
 	}
 }
