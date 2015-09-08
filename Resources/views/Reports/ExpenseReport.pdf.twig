@@ -1,7 +1,7 @@
 <!DOCTYPE pdf SYSTEM "%resources%/dtd/doctype.dtd">
 <pdf>
 	<dynamic-page page-size="a4">
-		<div class="logo"><img src="{{ pdf_image('SwoCommonsBundle:swo_logo_big.png') }}"/></div>
+		<div class="logo"><img src="{{ pdf_image('SwoCommonsBundle:swo_logo_big.png') }}" width="200"/></div>
 		<div class="title">Aufwandsreport</div>
 		{% if report.project != null %}
 			<div class="title description">Projekt: {{ report.project.description }}</div>{% endif %}
