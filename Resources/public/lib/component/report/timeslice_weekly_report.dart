@@ -19,7 +19,7 @@ class WeekReportEntry {
 
 @Component(
     selector: 'timeslice-weeklyreport',
-    templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/overview/timeslice_weekly_report.html',
+    templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/report/timeslice_weekly_report.html',
     useShadowDom: false
 )
 class TimesliceWeeklyReportComponent extends EntityOverview {
