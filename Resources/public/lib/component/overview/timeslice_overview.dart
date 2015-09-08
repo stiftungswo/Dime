@@ -217,7 +217,7 @@ class TimesliceOverviewComponent extends EntityOverview {
         seconds: filterStartDate.second - 1,
         milliseconds: filterStartDate.millisecond
     ));
-    this.filterEndDate = this.filterStartDate.add(new Duration(days: 4));
+    this.filterEndDate = this.filterStartDate.add(new Duration(days: 6));
   }
 
   updateChosenSetting(String name) {
