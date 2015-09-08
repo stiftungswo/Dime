@@ -42,17 +42,19 @@ class TimesliceExpenseReportComponent extends EntityOverview {
   attach();
 
   reload({Map<String, dynamic> params, bool evict: false}) async{
-    this.entities = [];
-    this.statusservice.setStatusToLoading();
-    try {
-      this.report = (await this.store.customQueryOne(this.type, new CustomRequestParams(params: {
-        'project': _project != null ? _project.id : null,
-        'user': _user != null ? _user.id : null
-      }, method: 'GET', url: '/api/v1/reports/expense')));
-      this.statusservice.setStatusToSuccess();
-      this.rootScope.emit(this.type.toString() + 'Loaded');
-    } catch (e) {
-      this.statusservice.setStatusToError(e);
+    if (_project != null || _user != null){
+      this.entities = [];
+      this.statusservice.setStatusToLoading();
+      try {
+        this.report = (await this.store.customQueryOne(this.type, new CustomRequestParams(params: {
+          'project': _project != null ? _project.id : null,
+          'user': _user != null ? _user.id : null
+        }, method: 'GET', url: '/api/v1/reports/expense')));
+        this.statusservice.setStatusToSuccess();
+        this.rootScope.emit(this.type.toString() + 'Loaded');
+      } catch (e) {
+        this.statusservice.setStatusToError(e);
+      }
     }
   }
 
