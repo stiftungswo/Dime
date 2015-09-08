@@ -73,22 +73,19 @@
 			</tr>
 			{% endfor %}
 			<tr class="tfoot">
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td class="number">Subtotal</td>
-				<td class="number">{{ invoice.subtotal }}</td>
+				<td colspan="5" class="number">Subtotal ohne MwSt.</td>
+				<td class="number">{{ invoice.getTotalWithoutVAT() }}</td>
 			</tr>
 			<tr class="tbody">
-				<td></td>
-				<td></td>
-				<td></td>
-				<td></td>
-				<td class="number">davon MwSt.</td>
+				<td colspan="5" class="number">MwSt.</td>
 				<td class="number">{{ invoice.getTotalVAT() }}</td>
 			</tr>
+			<tr class="tfoot">
+				<td colspan="5" class="number">Subtotal</td>
+				<td class="number">{{ invoice.subtotal }}</td>
+			</tr>
 		</table>
+        {% if invoice.standardDiscounts|length > 0 or invoice.invoiceDiscounts|length > 0 %}
 		<table class="discounttable" breakable="false">
 			<tr class="thead">
 				<td class="firstrow number">Abzug</td>
@@ -111,6 +108,7 @@
 				<td class="number">{{ invoice.getTotalDiscounts() }}</td>
 			</tr>
 		</table>
+        {% endif %}
 		<table class="sumtable" breakable="false">
 			<tr class="tfoot">
 				<td>Zahlbar 30 Tage netto</td>
