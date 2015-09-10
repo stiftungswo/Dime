@@ -56507,7 +56507,7 @@
                     } else
                       ;
                 $goto = 8;
-                return H.asyncHelper(W.HttpRequest_getString(C.JSString_methods.$add(C.JSString_methods.$add("/api/v1/reports/projectemployee?project=", J.toString$0(J.get$id$x($self._projectemployee_report_component$_project))), dateparams), null, null).then$1(new S.ProjectemployeeReportComponent_reload_closure($self)), reload$2$evict$params, completer);
+                return H.asyncHelper(W.HttpRequest_getString(C.JSString_methods.$add(C.JSString_methods.$add("/api/v1/reports/projectemployee?_format=json&project=", J.toString$0(J.get$id$x($self._projectemployee_report_component$_project))), dateparams), null, null).then$1(new S.ProjectemployeeReportComponent_reload_closure($self)), reload$2$evict$params, completer);
               case 8:
                 // returning from await.
                 $self.statusservice.setStatusToSuccess$0();
@@ -57443,7 +57443,7 @@
                 t1 = new T.DateFormat(null, null, null);
                 t1._locale = T.Intl_verifiedLocale(null, T.DateFormat_localeExists$closure(), T.Intl__throwLocaleError$closure());
                 t1.addPattern$1("y-MM-dd");
-                t1 = "?date=" + t1.format$1(0, $self.filterStartDate) + ",";
+                t1 = "&date=" + t1.format$1(0, $self.filterStartDate) + ",";
                 t2 = new T.DateFormat(null, null, null);
                 t2._locale = T.Intl_verifiedLocale(null, T.DateFormat_localeExists$closure(), T.Intl__throwLocaleError$closure());
                 t2.addPattern$1("y-MM-dd");
@@ -57452,7 +57452,7 @@
                 $self.statusservice.setStatusToLoading$0();
                 handler = 5;
                 $goto = 8;
-                return H.asyncHelper(W.HttpRequest_getString(C.JSString_methods.$add("/api/v1/reports/servicehours", dateparams), null, null).then$1(new T.ServicehoursReportComponent_reload_closure($self)), reload$2$evict$params, completer);
+                return H.asyncHelper(W.HttpRequest_getString(C.JSString_methods.$add("/api/v1/reports/servicehours?_format=json", dateparams), null, null).then$1(new T.ServicehoursReportComponent_reload_closure($self)), reload$2$evict$params, completer);
               case 8:
                 // returning from await.
                 $self.statusservice.setStatusToSuccess$0();
@@ -57899,7 +57899,7 @@
         t4 = J.$sub$n(this.filterStartDate.get$second(), 1);
         t4 = t1.subtract$1(P.Duration$(0, t2, 0, this.filterStartDate.get$millisecond(), t3, t4));
         this.filterStartDate = t4;
-        this.filterEndDate = t4.add$1(0, P.Duration$(4, 0, 0, 0, 0, 0));
+        this.filterEndDate = t4.add$1(0, P.Duration$(6, 0, 0, 0, 0, 0));
       },
       updateChosenSetting$1: function($name) {
         var t1;

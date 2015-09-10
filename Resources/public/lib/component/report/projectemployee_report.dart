@@ -60,7 +60,7 @@ class ProjectemployeeReportComponent extends AttachAware implements ScopeAware {
         } else if(filterEndDate != null){
           dateparams = '&date=' + new DateFormat('y-MM-dd').format(filterEndDate);
         }
-        await HttpRequest.getString('/api/v1/reports/projectemployee?project=' + project.id.toString() + dateparams).then(
+        await HttpRequest.getString('/api/v1/reports/projectemployee?_format=json&project=' + project.id.toString() + dateparams).then(
           (result) {
             this.data = JSON.decode(result);
             this.entries = data['employees'];

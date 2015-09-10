@@ -39,11 +39,11 @@ class ServicehoursReportComponent extends AttachAware implements ScopeAware {
 
   reload({Map<String, dynamic> params, bool evict: false}) async{
     if (filterStartDate != null && filterEndDate != null){
-      String dateparams = '?date=' + new DateFormat('y-MM-dd').format(filterStartDate) + ',' + new DateFormat('y-MM-dd').format(filterEndDate);
+      String dateparams = '&date=' + new DateFormat('y-MM-dd').format(filterStartDate) + ',' + new DateFormat('y-MM-dd').format(filterEndDate);
       this.entries = {};
       this.statusservice.setStatusToLoading();
       try {
-        await HttpRequest.getString('/api/v1/reports/servicehours' + dateparams).then(
+        await HttpRequest.getString('/api/v1/reports/servicehours?_format=json' + dateparams).then(
           (result) {
             this.data = JSON.decode(result);
             this.entries = data['projects'];
