@@ -140,3 +140,8 @@ input.ng-invalid.ng-touched {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+.content {
+  /* bugfix for firefox */
+  display: block;
+}
