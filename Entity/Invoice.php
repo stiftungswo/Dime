@@ -216,9 +216,6 @@ class Invoice extends Entity implements DimeEntityInterface
 
 	/**
 	 * /**
-	 * @JMS\VirtualProperty
-	 * @JMS\SerializedName("totalWithoutVAT")
-	 * @JMS\Type(name="Money")
 	 * @return Money
 	 */
 	public function getTotalWithoutVAT()
