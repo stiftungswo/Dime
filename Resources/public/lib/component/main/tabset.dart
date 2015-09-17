@@ -1,7 +1,7 @@
 library main_tabset;
 
 import 'package:angular/angular.dart';
-import 'package:DimeClient/model/viewlink.dart';
+import 'package:DimeClient/model/ViewLink.dart';
 
 @Component(
     selector: 'maintabset',

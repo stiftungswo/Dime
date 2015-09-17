@@ -2,7 +2,7 @@ library dime_hammock;
 
 import 'package:angular/angular.dart';
 import 'package:hammock/hammock.dart';
-import 'package:DimeClient/model/dime_entity.dart';
+import 'package:DimeClient/model/Entity.dart';
 
 HammockConfig createHammockConfig(Injector inj) {
   return new HammockConfig(inj)

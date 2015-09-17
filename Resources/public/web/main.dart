@@ -2,37 +2,37 @@
 // is governed by a BSD-style license that can be found in the LICENSE file.
 
 import 'package:angular/angular.dart';
-import 'package:logging/logging.dart';
 import 'package:angular/application_factory.dart';
 import 'package:angular_ui/angular_ui.dart';
+import 'package:logging/logging.dart';
 import 'package:hammock/hammock.dart';
+import 'package:DimeClient/component/date/dateRange.dart';
+import 'package:DimeClient/component/date/dateToTextInput.dart';
+import 'package:DimeClient/component/edit/entity_edit.dart';
+import 'package:DimeClient/component/errorIcon/error_icon.dart';
 import 'package:DimeClient/component/main/app.dart';
 import 'package:DimeClient/component/main/menu.dart';
 import 'package:DimeClient/component/main/tabset.dart';
-import 'package:DimeClient/routing/dime_router.dart';
-import 'package:DimeClient/hammock/dime_hammock.dart';
+import 'package:DimeClient/component/main/usermenu.dart';
 import 'package:DimeClient/component/overview/entity_overview.dart';
 import 'package:DimeClient/component/overview/timeslice_overview.dart';
-import 'package:DimeClient/component/errorIcon/error_icon.dart';
-import 'package:DimeClient/component/edit/entity_edit.dart';
-import 'package:DimeClient/service/user_auth.dart';
-import 'package:DimeClient/component/timetrack/timetrack.dart';
-import 'package:DimeClient/service/filters.dart';
-import 'package:DimeClient/component/select/entity_select.dart';
 import 'package:DimeClient/component/percent-input/percent_input.dart';
-import 'package:DimeClient/component/setting/setting.dart';
-import 'package:DimeClient/service/setting_manager.dart';
-import 'package:DimeClient/service/data_cache.dart';
-import 'package:DimeClient/service/user_context.dart';
-import 'package:DimeClient/component/date/dateRange.dart';
-import 'package:DimeClient/component/date/dateToTextInput.dart';
-import 'package:DimeClient/service/status.dart';
-import 'package:DimeClient/component/statusbar/statusbar.dart';
-import 'package:DimeClient/component/main/usermenu.dart';
-import 'package:DimeClient/component/report/servicehours_report.dart';
 import 'package:DimeClient/component/report/projectemployee_report.dart';
+import 'package:DimeClient/component/report/servicehours_report.dart';
 import 'package:DimeClient/component/report/timeslice_weekly_report.dart';
 import 'package:DimeClient/component/report/timeslice_expense_report.dart';
+import 'package:DimeClient/component/select/entity_select.dart';
+import 'package:DimeClient/component/setting/setting.dart';
+import 'package:DimeClient/component/statusbar/statusbar.dart';
+import 'package:DimeClient/component/timetrack/timetrack.dart';
+import 'package:DimeClient/hammock/dime_hammock.dart';
+import 'package:DimeClient/routing/dime_router.dart';
+import 'package:DimeClient/service/data_cache.dart';
+import 'package:DimeClient/service/filters.dart';
+import 'package:DimeClient/service/setting_manager.dart';
+import 'package:DimeClient/service/status.dart';
+import 'package:DimeClient/service/user_auth.dart';
+import 'package:DimeClient/service/user_context.dart';
 
 class AppModule extends Module {
   AppModule() {

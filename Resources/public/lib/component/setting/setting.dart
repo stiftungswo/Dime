@@ -1,7 +1,7 @@
 library dime.setting;
 
 import 'package:angular/angular.dart';
-import 'package:DimeClient/model/dime_entity.dart';
+import 'package:DimeClient/model/Entity.dart';
 import 'package:DimeClient/service/setting_manager.dart';
 import 'package:DimeClient/service/user_auth.dart';
 

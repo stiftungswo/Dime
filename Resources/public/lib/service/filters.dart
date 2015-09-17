@@ -1,7 +1,7 @@
 library dime.filters;
 
 import 'package:angular/angular.dart';
-import 'package:DimeClient/model/dime_entity.dart';
+import 'package:DimeClient/model/Entity.dart';
 import 'dart:html';
 
 @Formatter(name: 'userfilter')

@@ -1,7 +1,7 @@
 library entity_select;
 
 import 'package:angular/angular.dart';
-import 'package:DimeClient/model/dime_entity.dart';
+import 'package:DimeClient/model/Entity.dart';
 import 'package:DimeClient/service/status.dart';
 import 'package:DimeClient/service/data_cache.dart';
 import 'package:DimeClient/service/user_context.dart';

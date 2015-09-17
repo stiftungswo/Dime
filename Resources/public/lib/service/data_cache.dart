@@ -3,7 +3,7 @@ library dime.datacache;
 import 'package:hammock/hammock.dart';
 import 'package:angular/angular.dart';
 import 'dart:async';
-import 'package:DimeClient/model/dime_entity.dart';
+import 'package:DimeClient/model/Entity.dart';
 
 @Injectable()
 class DataCache {

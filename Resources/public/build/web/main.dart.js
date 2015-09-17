@@ -6105,28 +6105,28 @@
       }, null, null, 2, 0, null, 1, "call"]
     },
     closure855: {
+      "^": "Closure:0;",
+      call$1: [function(a1) {
+        return new B.DataCache(a1, P.LinkedHashMap_LinkedHashMap(null, null, null, P.$int, P.Future));
+      }, null, null, 2, 0, null, 1, "call"]
+    },
+    closure856: {
       "^": "Closure:1;",
       call$2: [function(a1, a2) {
         return new E.ResourceStore(a1, a2, []);
       }, null, null, 4, 0, null, 1, 2, "call"]
     },
-    closure856: {
+    closure857: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return new E.HammockConfig(P.LinkedHashMap__makeEmpty(), new R.SimpleDocumentFormat(new P.JsonEncoder(null, null), new P.JsonDecoder(null)), new E.RequestDefaults(null, null, false, null, null, null, null, null), new E.HammockUrlRewriter("", ""), a1);
       }, null, null, 2, 0, null, 1, "call"]
     },
-    closure857: {
+    closure858: {
       "^": "Closure:1;",
       call$2: [function(a1, a2) {
         return new E.ObjectStore(a1, a2);
       }, null, null, 4, 0, null, 1, 2, "call"]
-    },
-    closure858: {
-      "^": "Closure:0;",
-      call$1: [function(a1) {
-        return new B.DataCache(a1, P.LinkedHashMap_LinkedHashMap(null, null, null, P.$int, P.Future));
-      }, null, null, 2, 0, null, 1, "call"]
     },
     closure859: {
       "^": "Closure:4;",
@@ -6241,7 +6241,7 @@
     closure876: {
       "^": "Closure:6;",
       call$0: [function() {
-        return new Y.TabSetComponent(null, H.setRuntimeTypeInfo([], [V.ViewLink]));
+        return new Y.TabSetComponent(null, H.setRuntimeTypeInfo([], [Y.ViewLink]));
       }, null, null, 0, 0, null, "call"]
     },
     closure877: {
@@ -6846,6 +6846,11 @@
           throw H.wrapException(new P.StateError("Unable to find URI mapping for " + H.S(type)));
         return uri;
       }
+    }
+  }], ["", "package:DimeClient/model/ViewLink.dart",, Y, {
+    "^": "",
+    ViewLink: {
+      "^": "Object;"
     }
   }], ["_foreign_helper", "dart:_foreign_helper",, H, {
     "^": "",
@@ -47169,9 +47174,9 @@
       }, null, null, 2, 0, null, 30, "call"]
     },
     DataCache_delete__closure: {
-      "^": "Closure:245;_captured_object_2",
+      "^": "Closure:245;_datacache$_captured_object_2",
       call$1: [function(cachedObjects) {
-        J.removeWhere$1$ax(cachedObjects, new B.DataCache_delete___closure(this._captured_object_2));
+        J.removeWhere$1$ax(cachedObjects, new B.DataCache_delete___closure(this._datacache$_captured_object_2));
       }, null, null, 2, 0, null, 244, "call"]
     },
     DataCache_delete___closure: {
@@ -48110,7 +48115,7 @@
         return H.asyncHelper(null, logout$0, completer, null);
       }, "call$0", "get$logout", 0, 0, 6]
     }
-  }], ["dime_entity", "package:DimeClient/model/dime_entity.dart",, D, {
+  }], ["dime_entity", "package:DimeClient/model/Entity.dart",, D, {
     "^": "",
     Entity: {
       "^": "Object;_descendantsToUpdate,id*,_toUpdate,type*,createdAt,updatedAt,name*,alias@,user@,tags",
@@ -48262,103 +48267,55 @@
         }
       }
     },
-    Tag: {
-      "^": "Entity;type:Tag_type*,system,_descendantsToUpdate,id,_toUpdate,type,createdAt,updatedAt,name,alias,user,tags",
-      Get$1: function(property) {
-        var val = this.super$Entity$Get$1(property);
-        if (val == null)
-          switch (property) {
-            case "system":
-              return this.system;
-            default:
-              break;
-          }
-        return val;
-      },
-      Set$2: function(property, value) {
-        switch (property) {
-          case "system":
-            this.system = value;
-            break;
-          default:
-            this.super$Entity$Set$2(property, value);
-            break;
-        }
-      },
-      static: {Tag_listFromMap: function($content) {
-          var array, t1, t2;
-          array = H.setRuntimeTypeInfo([], [D.Tag]);
-          for (t1 = J.get$iterator$ax($content); t1.moveNext$0();) {
-            t2 = new D.Tag("tags", null, [], null, [], "entities", null, null, null, null, null, []);
-            t2.Entity$fromMap$1(t1.get$current());
-            array.push(t2);
-          }
-          return array;
-        }}
-    },
-    Setting: {
-      "^": "Entity;type:Setting_type*,namespace@,value*,_descendantsToUpdate,id,_toUpdate,type,createdAt,updatedAt,name,alias,user,tags",
-      Get$1: function(property) {
-        var val = this.super$Entity$Get$1(property);
-        if (val == null)
-          switch (property) {
-            case "namespace":
-              return this.namespace;
-            case "value":
-              return this.value;
-            default:
-              break;
-          }
-        return val;
-      },
-      Set$2: function(property, value) {
-        switch (property) {
-          case "namespace":
-            this.namespace = value;
-            break;
-          case "value":
-            this.value = value;
-            break;
-          default:
-            this.super$Entity$Set$2(property, value);
-            break;
-        }
-      }
-    },
-    Project: {
-      "^": "Entity;type:Project_type*,currentPrice@,budgetPrice@,currentTime*,budgetTime@,description@,fixedPrice@,customer@,rateGroup@,chargeable@,deadline@,activities@,_descendantsToUpdate,id,_toUpdate,type,createdAt,updatedAt,name,alias,user,tags",
+    Activity: {
+      "^": "Entity;type:Activity_type*,project@,serviceRate,charge,value*,customer@,chargeable@,service@,description@,rateValue@,rateUnit@,calculatedVAT,vat@,rateUnitType@,timeslices@,_descendantsToUpdate,id,_toUpdate,type,createdAt,updatedAt,name,alias,user,tags",
       init$1$params: function(params) {
-        var t1 = J.getInterceptor$x(params);
-        if (t1.containsKey$1(params, "name") !== true)
-          t1.$indexSet(params, "name", "New Project");
+        var t1, t2;
+        t1 = J.getInterceptor$x(params);
+        if (t1.containsKey$1(params, "project") === true) {
+          t2 = new D.Project("projects", null, null, null, null, null, null, null, null, null, null, [], [], null, [], "entities", null, null, null, null, null, []);
+          t2.id = t1.$index(params, "project");
+          t1.$indexSet(params, "project", t2);
+        }
+        if (t1.containsKey$1(params, "service") === true) {
+          t2 = new D.Service("services", [], null, null, null, [], null, [], "entities", null, null, null, null, null, []);
+          t2.id = t1.$index(params, "service");
+          t1.$indexSet(params, "service", t2);
+        }
         this.super$Entity$init$1$params(params);
       },
       Get$1: function(property) {
         var val = this.super$Entity$Get$1(property);
         if (val == null)
           switch (property) {
-            case "currentPrice":
-              return this.currentPrice;
-            case "budgetPrice":
-              return this.budgetPrice;
-            case "currentTime":
-              return this.currentTime;
-            case "budgetTime":
-              return this.budgetTime;
-            case "description":
-              return this.description;
-            case "fixedPrice":
-              return this.fixedPrice;
-            case "customer":
-              return this.customer;
-            case "rateGroup":
-              return this.rateGroup;
+            case "project":
+              return this.project;
+            case "value":
+              return this.value;
             case "chargeable":
               return this.chargeable;
-            case "deadline":
-              return this.deadline;
-            case "activities":
-              return this.activities;
+            case "service":
+              return this.service;
+            case "description":
+              return this.description;
+            case "timeslices":
+              return this.timeslices;
+            case "rateValue":
+              return this.rateValue;
+            case "rateUnit":
+              return this.rateUnit;
+            case "rateUnitType":
+              return this.rateUnitType;
+            case "customer":
+              return this.customer;
+            case "serviceRate":
+              return this.serviceRate;
+            case "charge":
+              return this.charge;
+            case "vat":
+              return this.vat;
+            case "calculatedVAT":
+              return this.calculatedVAT;
             default:
               break;
           }
@@ -48367,23 +48324,59 @@
       Set$2: function(property, value) {
         var t1;
         switch (property) {
-          case "currentPrice":
-            this.currentPrice = value;
+          case "project":
+            if (value instanceof D.Entity)
+              t1 = value;
+            else {
+              t1 = new D.Project("projects", null, null, null, null, null, null, null, null, null, null, [], [], null, [], "entities", null, null, null, null, null, []);
+              t1.Entity$fromMap$1(value);
+            }
+            this.project = t1;
             break;
-          case "budgetPrice":
-            this.budgetPrice = value;
+          case "value":
+            this.value = value;
             break;
-          case "currentTime":
-            this.currentTime = value;
+          case "chargeable":
+            this.chargeable = value;
             break;
-          case "budgetTime":
-            this.budgetTime = value;
+          case "service":
+            if (value instanceof D.Entity)
+              t1 = value;
+            else {
+              t1 = new D.Service("services", [], null, null, null, [], null, [], "entities", null, null, null, null, null, []);
+              t1.Entity$fromMap$1(value);
+            }
+            this.service = t1;
             break;
           case "description":
             this.description = value;
             break;
-          case "fixedPrice":
-            this.fixedPrice = value;
+          case "timeslices":
+            this.timeslices = D.Timeslice_listFromMap(value);
+            break;
+          case "rateValue":
+            this.rateValue = value;
+            break;
+          case "rateUnit":
+            this.rateUnit = value;
+            break;
+          case "rateUnitType":
+            if (value instanceof D.Entity)
+              t1 = value;
+            else {
+              t1 = new D.RateUnitType(null, null, "rateunittypes", null, null, null, null, null, [], null, [], "entities", null, null, null, null, null, []);
+              t1.Entity$fromMap$1(value);
+            }
+            this.rateUnitType = t1;
+            break;
+          case "serviceRate":
+            if (value instanceof D.Entity)
+              t1 = value;
+            else {
+              t1 = new D.Rate("rates", null, null, null, null, null, [], null, [], "entities", null, null, null, null, null, []);
+              t1.Entity$fromMap$1(value);
+            }
+            this.serviceRate = t1;
             break;
           case "customer":
             if (value instanceof D.Entity)
@@ -48394,6 +48387,167 @@
             }
             this.customer = t1;
             break;
+          case "charge":
+            this.charge = value;
+            break;
+          case "vat":
+            this.vat = value;
+            break;
+          case "calculatedVAT":
+            this.calculatedVAT = value;
+            break;
+          default:
+            this.super$Entity$Set$2(property, value);
+            break;
+        }
+      },
+      Activity$clone$1: function(original) {
+        this.project = original.get$project();
+        this.value = J.get$value$x(original);
+        this.chargeable = original.get$chargeable();
+        this.service = original.get$service();
+        this.description = original.get$description();
+      },
+      static: {Activity$clone: function(original) {
+          var t1 = new D.Activity("activities", null, null, null, null, null, null, null, null, null, null, null, null, null, [], [], null, [], "entities", null, null, null, null, null, []);
+          t1.name = J.get$name$x(original);
+          t1.user = original.get$user();
+          t1.Activity$clone$1(original);
+          return t1;
+        }, Activity_listFromMap: function($content) {
+          var activities, t1, a;
+          activities = H.setRuntimeTypeInfo([], [D.Activity]);
+          for (t1 = J.get$iterator$ax($content); t1.moveNext$0();) {
+            a = new D.Activity("activities", null, null, null, null, null, null, null, null, null, null, null, null, null, [], [], null, [], "entities", null, null, null, null, null, []);
+            a.Entity$fromMap$1(t1.get$current());
+            activities.push(a);
+          }
+          return activities;
+        }}
+    },
+    Address: {
+      "^": "Entity;type:Address_type*,street@,streetnumber@,city@,plz@,state*,country@,_descendantsToUpdate,id,_toUpdate,type,createdAt,updatedAt,name,alias,user,tags",
+      Get$1: function(property) {
+        var value = this.super$Entity$Get$1(property);
+        if (value == null)
+          switch (property) {
+            case "street":
+              return this.street;
+            case "streetnumber":
+              return this.streetnumber;
+            case "city":
+              return this.city;
+            case "plz":
+              return this.plz;
+            case "state":
+              return this.state;
+            case "country":
+              return this.country;
+            default:
+              break;
+          }
+        return value;
+      },
+      Set$2: function(property, value) {
+        switch (property) {
+          case "street":
+            this.street = value;
+            break;
+          case "streetnumber":
+            this.streetnumber = value;
+            break;
+          case "city":
+            this.city = value;
+            break;
+          case "plz":
+            this.plz = value;
+            break;
+          case "state":
+            this.state = value;
+            break;
+          case "country":
+            this.country = value;
+            break;
+          default:
+            this.super$Entity$Set$2(property, value);
+            break;
+        }
+      },
+      Address$clone$1: function(original) {
+        this.street = original.get$street();
+        this.streetnumber = original.get$streetnumber();
+        this.city = original.get$city();
+        this.city = original.get$city();
+        this.plz = original.get$plz();
+        this.state = J.get$state$x(original);
+        this.country = original.get$country();
+      },
+      static: {Address$clone: function(original) {
+          var t1 = new D.Address("address", null, null, null, null, null, null, [], null, [], "entities", null, null, null, null, null, []);
+          t1.Address$clone$1(original);
+          return t1;
+        }}
+    },
+    Customer: {
+      "^": "Entity;type:Customer_type*,chargeable@,address@,company@,department@,fullname@,salutation@,rateGroup@,phones,_descendantsToUpdate,id,_toUpdate,type,createdAt,updatedAt,name,alias,user,tags",
+      init$1$params: function(params) {
+        var t1 = J.getInterceptor$x(params);
+        if (t1.containsKey$1(params, "name") !== true)
+          t1.$indexSet(params, "name", "New Customer");
+        this.super$Entity$init$1$params(params);
+      },
+      Get$1: function(property) {
+        var val = this.super$Entity$Get$1(property);
+        if (val == null)
+          switch (property) {
+            case "chargeable":
+              return this.chargeable;
+            case "address":
+              return this.address;
+            case "company":
+              return this.company;
+            case "department":
+              return this.department;
+            case "fullname":
+              return this.fullname;
+            case "salutation":
+              return this.salutation;
+            case "rateGroup":
+              return this.rateGroup;
+            case "phones":
+              return this.phones;
+            default:
+              break;
+          }
+        return val;
+      },
+      Set$2: function(property, value) {
+        var t1;
+        switch (property) {
+          case "chargeable":
+            this.chargeable = value;
+            break;
+          case "address":
+            if (value instanceof D.Entity)
+              t1 = value;
+            else {
+              t1 = new D.Address("address", null, null, null, null, null, null, [], null, [], "entities", null, null, null, null, null, []);
+              t1.Entity$fromMap$1(value);
+            }
+            this.address = t1;
+            break;
+          case "company":
+            this.company = value;
+            break;
+          case "department":
+            this.department = value;
+            break;
+          case "fullname":
+            this.fullname = value;
+            break;
+          case "salutation":
+            this.salutation = value;
+            break;
           case "rateGroup":
             if (value instanceof D.Entity)
               t1 = value;
@@ -48403,14 +48557,219 @@
             }
             this.rateGroup = t1;
             break;
-          case "chargeable":
-            this.chargeable = value;
+          case "phones":
+            this.phones = value;
             break;
-          case "deadline":
-            this.deadline = this._addDateValue$1(value);
+          default:
+            this.super$Entity$Set$2(property, value);
             break;
-          case "activities":
-            this.activities = D.Activity_listFromMap(value);
+        }
+      }
+    },
+    Employee: {
+      "^": "User;type:Employee_type*,workingPeriods,realTime@,targetTime@,User_type,username,firstname,lastname,email,plainpassword,enabled,locked,_descendantsToUpdate,id,_toUpdate,type,createdAt,updatedAt,name,alias,user,tags",
+      Get$1: function(property) {
+        var val = this.super$User$Get$1(property);
+        if (val == null)
+          switch (property) {
+            case "workingPeriods":
+              return this.workingPeriods;
+            case "realTime":
+              return this.realTime;
+            case "targetTime":
+              return this.targetTime;
+            default:
+              break;
+          }
+        return val;
+      },
+      Set$2: function(property, value) {
+        switch (property) {
+          case "workingPeriods":
+            this.workingPeriods = D.Period_listFromResource(value);
+            break;
+          case "realTime":
+            this.realTime = value;
+            break;
+          case "targetTime":
+            this.targetTime = value;
+            break;
+          default:
+            this.super$User$Set$2(property, value);
+            break;
+        }
+      }
+    },
+    ExpenseReport: {
+      "^": "Entity;type:ExpenseReport_type*,timeslices@,project@,user:ExpenseReport_user@,totalHours,_descendantsToUpdate,id,_toUpdate,type,createdAt,updatedAt,name,alias,user,tags",
+      Get$1: function(property) {
+        var val = this.super$Entity$Get$1(property);
+        if (val == null)
+          switch (property) {
+            case "timeslices":
+              return this.timeslices;
+            case "totalHours":
+              return this.totalHours;
+            case "user":
+              return this.ExpenseReport_user;
+            case "project":
+              return this.project;
+            default:
+              break;
+          }
+        return val;
+      },
+      Set$2: function(property, value) {
+        switch (property) {
+          case "timeslices":
+            this.timeslices = D.Timeslice_listFromMap(value);
+            break;
+          case "totalHours":
+            this.totalHours = value;
+            break;
+          case "user":
+            this.ExpenseReport_user = value;
+            break;
+          case "project":
+            this.project = value;
+            break;
+          default:
+            this.super$Entity$Set$2(property, value);
+            break;
+        }
+      }
+    },
+    Holiday: {
+      "^": "Entity;type:Holiday_type*,date@,duration*,_descendantsToUpdate,id,_toUpdate,type,createdAt,updatedAt,name,alias,user,tags",
+      Get$1: function(property) {
+        var val = this.super$Entity$Get$1(property);
+        if (val == null)
+          switch (property) {
+            case "date":
+              return this.date;
+            case "duration":
+              return this.duration;
+            default:
+              break;
+          }
+        return val;
+      },
+      Set$2: function(property, value) {
+        switch (property) {
+          case "date":
+            this.date = this._addDateValue$1(value);
+            break;
+          case "duration":
+            this.duration = value;
+            break;
+          default:
+            this.super$Entity$Set$2(property, value);
+            break;
+        }
+      }
+    },
+    Invoice: {
+      "^": "Entity;type:Invoice_type*,totalDiscounts@,fixedPrice@,total*,subtotal@,totalVAT@,description@,customer@,project@,offer@,items*,invoiceDiscounts<,standardDiscounts@,start*,end@,_descendantsToUpdate,id,_toUpdate,type,createdAt,updatedAt,name,alias,user,tags",
+      init$1$params: function(params) {
+        var t1 = J.getInterceptor$x(params);
+        if (t1.containsKey$1(params, "name") !== true)
+          t1.$indexSet(params, "name", "New Invoice");
+        this.super$Entity$init$1$params(params);
+      },
+      Get$1: function(property) {
+        var val = this.super$Entity$Get$1(property);
+        if (val == null)
+          switch (property) {
+            case "offer":
+              return this.offer;
+            case "description":
+              return this.description;
+            case "project":
+              return this.project;
+            case "items":
+              return this.items;
+            case "invoiceDiscounts":
+              return this.invoiceDiscounts;
+            case "standardDiscounts":
+              return this.standardDiscounts;
+            case "start":
+              return this.start;
+            case "end":
+              return this.end;
+            case "customer":
+              return this.customer;
+            case "totalDiscounts":
+              return this.totalDiscounts;
+            case "total":
+              return this.total;
+            case "subtotal":
+              return this.subtotal;
+            case "totalVAT":
+              return this.totalVAT;
+            default:
+              break;
+          }
+        return val;
+      },
+      Set$2: function(property, value) {
+        var t1;
+        switch (property) {
+          case "offer":
+            if (value instanceof D.Entity)
+              t1 = value;
+            else {
+              t1 = new D.Offer(null, "offers", null, null, null, null, null, null, null, null, null, null, [], [], [], null, null, null, [], null, [], "entities", null, null, null, null, null, []);
+              t1.Entity$fromMap$1(value);
+            }
+            this.offer = t1;
+            break;
+          case "description":
+            this.description = value;
+            break;
+          case "project":
+            if (value instanceof D.Entity)
+              t1 = value;
+            else {
+              t1 = new D.Project("projects", null, null, null, null, null, null, null, null, null, null, [], [], null, [], "entities", null, null, null, null, null, []);
+              t1.Entity$fromMap$1(value);
+            }
+            this.project = t1;
+            break;
+          case "items":
+            this.items = D.InvoiceItem_listFromMap(value);
+            break;
+          case "invoiceDiscounts":
+            this.invoiceDiscounts = D.InvoiceDiscount_listFromMap(value);
+            break;
+          case "standardDiscounts":
+            this.standardDiscounts = D.StandardDiscount_listFromMap(value);
+            break;
+          case "start":
+            this.start = this._addDateValue$1(value);
+            break;
+          case "end":
+            this.end = this._addDateValue$1(value);
+            break;
+          case "customer":
+            if (value instanceof D.Entity)
+              t1 = value;
+            else {
+              t1 = new D.Customer("customers", null, null, null, null, null, null, null, null, [], null, [], "entities", null, null, null, null, null, []);
+              t1.Entity$fromMap$1(value);
+            }
+            this.customer = t1;
+            break;
+          case "totalDiscounts":
+            this.totalDiscounts = value;
+            break;
+          case "total":
+            this.total = value;
+            break;
+          case "subtotal":
+            this.subtotal = value;
+            break;
+          case "totalVAT":
+            this.totalVAT = value;
             break;
           default:
             this.super$Entity$Set$2(property, value);
@@ -48418,13 +48777,209 @@
         }
       },
       cloneDescendants$1: function(original) {
-        var t1, t2, clone;
-        for (t1 = J.get$iterator$ax(original.get$activities()), t2 = this._descendantsToUpdate; t1.moveNext$0();) {
-          clone = D.Activity$clone(t1.get$current());
-          clone.project = this;
+        var t1, t2, clone, t3, _i, entity, t4;
+        for (t1 = J.get$iterator$ax(J.get$items$x(original)), t2 = this._descendantsToUpdate; t1.moveNext$0();) {
+          clone = D.InvoiceItem$clone(t1.get$current());
+          clone.invoice = this;
           t2.push(clone);
         }
-      }
+        for (t1 = original.get$invoiceDiscounts(), t3 = t1.length, _i = 0; _i < t1.length; t1.length === t3 || (0, H.throwConcurrentModificationError)(t1), ++_i) {
+          entity = t1[_i];
+          clone = new D.InvoiceDiscount("invoicediscounts", null, "standarddiscounts", null, null, null, [], null, [], "entities", null, null, null, null, null, []);
+          t4 = J.getInterceptor$x(entity);
+          clone.name = t4.get$name(entity);
+          clone.user = entity.get$user();
+          clone.value = t4.get$value(entity);
+          clone.percentage = entity.get$percentage();
+          clone.minus = entity.get$minus();
+          clone.invoice = entity.get$invoice();
+          clone.invoice = this;
+          t2.push(clone);
+        }
+      },
+      Invoice$clone$1: function(original) {
+        var t1, discount;
+        this.description = original.get$description();
+        this.customer = original.get$customer();
+        this.project = original.get$project();
+        this.offer = original.get$offer();
+        this.start = J.get$start$x(original);
+        this.end = original.get$end();
+        for (t1 = J.get$iterator$ax(original.get$standardDiscounts()); t1.moveNext$0();) {
+          discount = t1.get$current();
+          J.add$1$ax(this.standardDiscounts, discount);
+        }
+      },
+      start$0: function($receiver) {
+        return this.start.call$0();
+      },
+      static: {Invoice$clone: function(original) {
+          var t1 = new D.Invoice("invoices", null, null, null, null, null, null, null, null, null, [], [], [], null, null, [], null, [], "entities", null, null, null, null, null, []);
+          t1.name = J.get$name$x(original);
+          t1.user = original.get$user();
+          t1.Invoice$clone$1(original);
+          return t1;
+        }}
+    },
+    InvoiceDiscount: {
+      "^": "StandardDiscount;type:InvoiceDiscount_type*,invoice<,StandardDiscount_type,value,percentage,minus,_descendantsToUpdate,id,_toUpdate,type,createdAt,updatedAt,name,alias,user,tags",
+      init$1$params: function(params) {
+        var t1, t2;
+        t1 = J.getInterceptor$x(params);
+        if (t1.containsKey$1(params, "invoice") === true) {
+          t2 = new D.Invoice("invoices", null, null, null, null, null, null, null, null, null, [], [], [], null, null, [], null, [], "entities", null, null, null, null, null, []);
+          t2.id = t1.$index(params, "invoice");
+          t1.$indexSet(params, "invoice", t2);
+        }
+        this.super$StandardDiscount$init$1$params(params);
+      },
+      Get$1: function(property) {
+        var val = this.super$StandardDiscount$Get$1(property);
+        if (val == null)
+          switch (property) {
+            case "invoice":
+              return this.invoice;
+            default:
+              break;
+          }
+        return val;
+      },
+      Set$2: function(property, value) {
+        var t1;
+        switch (property) {
+          case "invoice":
+            if (value instanceof D.Entity)
+              t1 = value;
+            else {
+              t1 = new D.Invoice("invoices", null, null, null, null, null, null, null, null, null, [], [], [], null, null, [], null, [], "entities", null, null, null, null, null, []);
+              t1.Entity$fromMap$1(value);
+            }
+            this.invoice = t1;
+            break;
+          default:
+            this.super$StandardDiscount$Set$2(property, value);
+            break;
+        }
+      },
+      static: {InvoiceDiscount_listFromMap: function($content) {
+          var array, t1, t2;
+          array = H.setRuntimeTypeInfo([], [D.InvoiceDiscount]);
+          for (t1 = J.get$iterator$ax($content); t1.moveNext$0();) {
+            t2 = new D.InvoiceDiscount("invoicediscounts", null, "standarddiscounts", null, null, null, [], null, [], "entities", null, null, null, null, null, []);
+            t2.Entity$fromMap$1(t1.get$current());
+            array.push(t2);
+          }
+          return array;
+        }}
+    },
+    InvoiceItem: {
+      "^": "Entity;type:InvoiceItem_type*,invoice<,rateValue@,rateUnit@,calculatedVAT,amount@,total*,activity@,vat@,_descendantsToUpdate,id,_toUpdate,type,createdAt,updatedAt,name,alias,user,tags",
+      init$1$params: function(params) {
+        var t1, t2;
+        t1 = J.getInterceptor$x(params);
+        if (t1.containsKey$1(params, "name") !== true)
+          t1.$indexSet(params, "name", "New Item");
+        if (t1.containsKey$1(params, "invoice") === true) {
+          t2 = new D.Invoice("invoices", null, null, null, null, null, null, null, null, null, [], [], [], null, null, [], null, [], "entities", null, null, null, null, null, []);
+          t2.id = t1.$index(params, "invoice");
+          t1.$indexSet(params, "invoice", t2);
+        }
+        this.super$Entity$init$1$params(params);
+      },
+      Get$1: function(property) {
+        var val = this.super$Entity$Get$1(property);
+        if (val == null)
+          switch (property) {
+            case "rateValue":
+              return this.rateValue;
+            case "rateUnit":
+              return this.rateUnit;
+            case "amount":
+              return this.amount;
+            case "activity":
+              return this.activity;
+            case "vat":
+              return this.vat;
+            case "invoice":
+              return this.invoice;
+            case "calculatedVAT":
+              return this.calculatedVAT;
+            case "total":
+              return this.total;
+            default:
+              break;
+          }
+        return val;
+      },
+      Set$2: function(property, value) {
+        var t1;
+        switch (property) {
+          case "rateValue":
+            this.rateValue = value;
+            break;
+          case "rateUnit":
+            this.rateUnit = value;
+            break;
+          case "amount":
+            this.amount = value;
+            break;
+          case "activity":
+            if (value instanceof D.Entity)
+              t1 = value;
+            else {
+              t1 = new D.Activity("activities", null, null, null, null, null, null, null, null, null, null, null, null, null, [], [], null, [], "entities", null, null, null, null, null, []);
+              t1.Entity$fromMap$1(value);
+            }
+            this.activity = t1;
+            break;
+          case "vat":
+            this.vat = value;
+            break;
+          case "invoice":
+            if (value instanceof D.Entity)
+              t1 = value;
+            else {
+              t1 = new D.Invoice("invoices", null, null, null, null, null, null, null, null, null, [], [], [], null, null, [], null, [], "entities", null, null, null, null, null, []);
+              t1.Entity$fromMap$1(value);
+            }
+            this.invoice = t1;
+            break;
+          case "calculatedVAT":
+            this.calculatedVAT = value;
+            break;
+          case "total":
+            this.total = value;
+            break;
+          default:
+            this.super$Entity$Set$2(property, value);
+            break;
+        }
+      },
+      InvoiceItem$clone$1: function(original) {
+        this.name = J.get$name$x(original);
+        this.amount = original.get$amount();
+        this.rateValue = original.get$rateValue();
+        this.rateUnit = original.get$rateUnit();
+        this.activity = original.get$activity();
+        this.vat = original.get$vat();
+        this.invoice = original.get$invoice();
+      },
+      static: {InvoiceItem$clone: function(original) {
+          var t1 = new D.InvoiceItem("invoiceitems", null, null, null, null, null, null, null, null, [], null, [], "entities", null, null, null, null, null, []);
+          t1.name = J.get$name$x(original);
+          t1.user = original.get$user();
+          t1.InvoiceItem$clone$1(original);
+          return t1;
+        }, InvoiceItem_listFromMap: function($content) {
+          var array, t1, t2;
+          array = H.setRuntimeTypeInfo([], [D.InvoiceItem]);
+          for (t1 = J.get$iterator$ax($content); t1.moveNext$0();) {
+            t2 = new D.InvoiceItem("invoiceitems", null, null, null, null, null, null, null, null, [], null, [], "entities", null, null, null, null, null, []);
+            t2.Entity$fromMap$1(t1.get$current());
+            array.push(t2);
+          }
+          return array;
+        }}
     },
     Offer: {
       "^": "Entity;project@,type:Offer_type*,subtotal@,totalVAT@,totalDiscounts@,total*,validTo@,rateGroup@,customer@,accountant@,shortDescription@,description@,offerPositions<,standardDiscounts@,offerDiscounts<,status*,address@,fixedPrice@,_descendantsToUpdate,id,_toUpdate,type,createdAt,updatedAt,name,alias,user,tags",
@@ -48616,42 +49171,56 @@
           return t1;
         }}
     },
-    OfferStatusUC: {
-      "^": "Entity;text*,active@,_descendantsToUpdate,id,_toUpdate,type,createdAt,updatedAt,name,alias,user,tags",
+    OfferDiscount: {
+      "^": "StandardDiscount;type:OfferDiscount_type*,offer@,StandardDiscount_type,value,percentage,minus,_descendantsToUpdate,id,_toUpdate,type,createdAt,updatedAt,name,alias,user,tags",
       init$1$params: function(params) {
-        var t1 = J.getInterceptor$x(params);
-        if (t1.containsKey$1(params, "text") !== true)
-          t1.$indexSet(params, "text", "New OfferUserCode");
-        if (t1.containsKey$1(params, "active") !== true)
-          t1.$indexSet(params, "active", true);
-        this.super$Entity$init$1$params(params);
+        var t1, t2;
+        t1 = J.getInterceptor$x(params);
+        if (t1.containsKey$1(params, "offer") === true) {
+          t2 = new D.Offer(null, "offers", null, null, null, null, null, null, null, null, null, null, [], [], [], null, null, null, [], null, [], "entities", null, null, null, null, null, []);
+          t2.id = t1.$index(params, "offer");
+          t1.$indexSet(params, "offer", t2);
+        }
+        this.super$StandardDiscount$init$1$params(params);
       },
       Get$1: function(property) {
-        var val = this.super$Entity$Get$1(property);
+        var val = this.super$StandardDiscount$Get$1(property);
         if (val == null)
           switch (property) {
-            case "text":
-              return this.text;
-            case "active":
-              return this.active;
+            case "offer":
+              return this.offer;
             default:
               break;
           }
         return val;
       },
       Set$2: function(property, value) {
+        var t1;
         switch (property) {
-          case "text":
-            this.text = value;
-            break;
-          case "active":
-            this.active = value;
+          case "offer":
+            if (value instanceof D.Entity)
+              t1 = value;
+            else {
+              t1 = new D.Offer(null, "offers", null, null, null, null, null, null, null, null, null, null, [], [], [], null, null, null, [], null, [], "entities", null, null, null, null, null, []);
+              t1.Entity$fromMap$1(value);
+            }
+            this.offer = t1;
             break;
           default:
-            this.super$Entity$Set$2(property, value);
+            this.super$StandardDiscount$Set$2(property, value);
             break;
         }
-      }
+      },
+      static: {OfferDiscount_listFromMap: function($content) {
+          var array, t1, t2;
+          array = H.setRuntimeTypeInfo([], [D.OfferDiscount]);
+          for (t1 = J.get$iterator$ax($content); t1.moveNext$0();) {
+            t2 = new D.OfferDiscount("offerdiscounts", null, "standarddiscounts", null, null, null, [], null, [], "entities", null, null, null, null, null, []);
+            t2.Entity$fromMap$1(t1.get$current());
+            array.push(t2);
+          }
+          return array;
+        }}
     },
     OfferPosition: {
       "^": "Entity;type:OfferPosition_type*,offer@,serviceRate,calculatedRateValue,total*,calculatedVAT,service@,order*,amount@,rateValue@,rateUnit@,rateUnitType@,vat@,discountable@,_descendantsToUpdate,id,_toUpdate,type,createdAt,updatedAt,name,alias,user,tags",
@@ -48799,887 +49368,24 @@
           return array;
         }}
     },
-    OfferDiscount: {
-      "^": "StandardDiscount;type:OfferDiscount_type*,offer@,StandardDiscount_type,value,percentage,minus,_descendantsToUpdate,id,_toUpdate,type,createdAt,updatedAt,name,alias,user,tags",
-      init$1$params: function(params) {
-        var t1, t2;
-        t1 = J.getInterceptor$x(params);
-        if (t1.containsKey$1(params, "offer") === true) {
-          t2 = new D.Offer(null, "offers", null, null, null, null, null, null, null, null, null, null, [], [], [], null, null, null, [], null, [], "entities", null, null, null, null, null, []);
-          t2.id = t1.$index(params, "offer");
-          t1.$indexSet(params, "offer", t2);
-        }
-        this.super$StandardDiscount$init$1$params(params);
-      },
-      Get$1: function(property) {
-        var val = this.super$StandardDiscount$Get$1(property);
-        if (val == null)
-          switch (property) {
-            case "offer":
-              return this.offer;
-            default:
-              break;
-          }
-        return val;
-      },
-      Set$2: function(property, value) {
-        var t1;
-        switch (property) {
-          case "offer":
-            if (value instanceof D.Entity)
-              t1 = value;
-            else {
-              t1 = new D.Offer(null, "offers", null, null, null, null, null, null, null, null, null, null, [], [], [], null, null, null, [], null, [], "entities", null, null, null, null, null, []);
-              t1.Entity$fromMap$1(value);
-            }
-            this.offer = t1;
-            break;
-          default:
-            this.super$StandardDiscount$Set$2(property, value);
-            break;
-        }
-      },
-      static: {OfferDiscount_listFromMap: function($content) {
-          var array, t1, t2;
-          array = H.setRuntimeTypeInfo([], [D.OfferDiscount]);
-          for (t1 = J.get$iterator$ax($content); t1.moveNext$0();) {
-            t2 = new D.OfferDiscount("offerdiscounts", null, "standarddiscounts", null, null, null, [], null, [], "entities", null, null, null, null, null, []);
-            t2.Entity$fromMap$1(t1.get$current());
-            array.push(t2);
-          }
-          return array;
-        }}
-    },
-    Invoice: {
-      "^": "Entity;type:Invoice_type*,totalDiscounts@,fixedPrice@,total*,subtotal@,totalVAT@,description@,customer@,project@,offer@,items*,invoiceDiscounts<,standardDiscounts@,start*,end@,_descendantsToUpdate,id,_toUpdate,type,createdAt,updatedAt,name,alias,user,tags",
+    OfferStatusUC: {
+      "^": "Entity;text*,active@,_descendantsToUpdate,id,_toUpdate,type,createdAt,updatedAt,name,alias,user,tags",
       init$1$params: function(params) {
         var t1 = J.getInterceptor$x(params);
-        if (t1.containsKey$1(params, "name") !== true)
-          t1.$indexSet(params, "name", "New Invoice");
+        if (t1.containsKey$1(params, "text") !== true)
+          t1.$indexSet(params, "text", "New OfferUserCode");
+        if (t1.containsKey$1(params, "active") !== true)
+          t1.$indexSet(params, "active", true);
         this.super$Entity$init$1$params(params);
       },
       Get$1: function(property) {
         var val = this.super$Entity$Get$1(property);
         if (val == null)
           switch (property) {
-            case "offer":
-              return this.offer;
-            case "description":
-              return this.description;
-            case "project":
-              return this.project;
-            case "items":
-              return this.items;
-            case "invoiceDiscounts":
-              return this.invoiceDiscounts;
-            case "standardDiscounts":
-              return this.standardDiscounts;
-            case "start":
-              return this.start;
-            case "end":
-              return this.end;
-            case "customer":
-              return this.customer;
-            case "totalDiscounts":
-              return this.totalDiscounts;
-            case "total":
-              return this.total;
-            case "subtotal":
-              return this.subtotal;
-            case "totalVAT":
-              return this.totalVAT;
-            default:
-              break;
-          }
-        return val;
-      },
-      Set$2: function(property, value) {
-        var t1;
-        switch (property) {
-          case "offer":
-            if (value instanceof D.Entity)
-              t1 = value;
-            else {
-              t1 = new D.Offer(null, "offers", null, null, null, null, null, null, null, null, null, null, [], [], [], null, null, null, [], null, [], "entities", null, null, null, null, null, []);
-              t1.Entity$fromMap$1(value);
-            }
-            this.offer = t1;
-            break;
-          case "description":
-            this.description = value;
-            break;
-          case "project":
-            if (value instanceof D.Entity)
-              t1 = value;
-            else {
-              t1 = new D.Project("projects", null, null, null, null, null, null, null, null, null, null, [], [], null, [], "entities", null, null, null, null, null, []);
-              t1.Entity$fromMap$1(value);
-            }
-            this.project = t1;
-            break;
-          case "items":
-            this.items = D.InvoiceItem_listFromMap(value);
-            break;
-          case "invoiceDiscounts":
-            this.invoiceDiscounts = D.InvoiceDiscount_listFromMap(value);
-            break;
-          case "standardDiscounts":
-            this.standardDiscounts = D.StandardDiscount_listFromMap(value);
-            break;
-          case "start":
-            this.start = this._addDateValue$1(value);
-            break;
-          case "end":
-            this.end = this._addDateValue$1(value);
-            break;
-          case "customer":
-            if (value instanceof D.Entity)
-              t1 = value;
-            else {
-              t1 = new D.Customer("customers", null, null, null, null, null, null, null, null, [], null, [], "entities", null, null, null, null, null, []);
-              t1.Entity$fromMap$1(value);
-            }
-            this.customer = t1;
-            break;
-          case "totalDiscounts":
-            this.totalDiscounts = value;
-            break;
-          case "total":
-            this.total = value;
-            break;
-          case "subtotal":
-            this.subtotal = value;
-            break;
-          case "totalVAT":
-            this.totalVAT = value;
-            break;
-          default:
-            this.super$Entity$Set$2(property, value);
-            break;
-        }
-      },
-      cloneDescendants$1: function(original) {
-        var t1, t2, clone, t3, _i, entity, t4;
-        for (t1 = J.get$iterator$ax(J.get$items$x(original)), t2 = this._descendantsToUpdate; t1.moveNext$0();) {
-          clone = D.InvoiceItem$clone(t1.get$current());
-          clone.invoice = this;
-          t2.push(clone);
-        }
-        for (t1 = original.get$invoiceDiscounts(), t3 = t1.length, _i = 0; _i < t1.length; t1.length === t3 || (0, H.throwConcurrentModificationError)(t1), ++_i) {
-          entity = t1[_i];
-          clone = new D.InvoiceDiscount("invoicediscounts", null, "standarddiscounts", null, null, null, [], null, [], "entities", null, null, null, null, null, []);
-          t4 = J.getInterceptor$x(entity);
-          clone.name = t4.get$name(entity);
-          clone.user = entity.get$user();
-          clone.value = t4.get$value(entity);
-          clone.percentage = entity.get$percentage();
-          clone.minus = entity.get$minus();
-          clone.invoice = entity.get$invoice();
-          clone.invoice = this;
-          t2.push(clone);
-        }
-      },
-      Invoice$clone$1: function(original) {
-        var t1, discount;
-        this.description = original.get$description();
-        this.customer = original.get$customer();
-        this.project = original.get$project();
-        this.offer = original.get$offer();
-        this.start = J.get$start$x(original);
-        this.end = original.get$end();
-        for (t1 = J.get$iterator$ax(original.get$standardDiscounts()); t1.moveNext$0();) {
-          discount = t1.get$current();
-          J.add$1$ax(this.standardDiscounts, discount);
-        }
-      },
-      start$0: function($receiver) {
-        return this.start.call$0();
-      },
-      static: {Invoice$clone: function(original) {
-          var t1 = new D.Invoice("invoices", null, null, null, null, null, null, null, null, null, [], [], [], null, null, [], null, [], "entities", null, null, null, null, null, []);
-          t1.name = J.get$name$x(original);
-          t1.user = original.get$user();
-          t1.Invoice$clone$1(original);
-          return t1;
-        }}
-    },
-    InvoiceItem: {
-      "^": "Entity;type:InvoiceItem_type*,invoice<,rateValue@,rateUnit@,calculatedVAT,amount@,total*,activity@,vat@,_descendantsToUpdate,id,_toUpdate,type,createdAt,updatedAt,name,alias,user,tags",
-      init$1$params: function(params) {
-        var t1, t2;
-        t1 = J.getInterceptor$x(params);
-        if (t1.containsKey$1(params, "name") !== true)
-          t1.$indexSet(params, "name", "New Item");
-        if (t1.containsKey$1(params, "invoice") === true) {
-          t2 = new D.Invoice("invoices", null, null, null, null, null, null, null, null, null, [], [], [], null, null, [], null, [], "entities", null, null, null, null, null, []);
-          t2.id = t1.$index(params, "invoice");
-          t1.$indexSet(params, "invoice", t2);
-        }
-        this.super$Entity$init$1$params(params);
-      },
-      Get$1: function(property) {
-        var val = this.super$Entity$Get$1(property);
-        if (val == null)
-          switch (property) {
-            case "rateValue":
-              return this.rateValue;
-            case "rateUnit":
-              return this.rateUnit;
-            case "amount":
-              return this.amount;
-            case "activity":
-              return this.activity;
-            case "vat":
-              return this.vat;
-            case "invoice":
-              return this.invoice;
-            case "calculatedVAT":
-              return this.calculatedVAT;
-            case "total":
-              return this.total;
-            default:
-              break;
-          }
-        return val;
-      },
-      Set$2: function(property, value) {
-        var t1;
-        switch (property) {
-          case "rateValue":
-            this.rateValue = value;
-            break;
-          case "rateUnit":
-            this.rateUnit = value;
-            break;
-          case "amount":
-            this.amount = value;
-            break;
-          case "activity":
-            if (value instanceof D.Entity)
-              t1 = value;
-            else {
-              t1 = new D.Activity("activities", null, null, null, null, null, null, null, null, null, null, null, null, null, [], [], null, [], "entities", null, null, null, null, null, []);
-              t1.Entity$fromMap$1(value);
-            }
-            this.activity = t1;
-            break;
-          case "vat":
-            this.vat = value;
-            break;
-          case "invoice":
-            if (value instanceof D.Entity)
-              t1 = value;
-            else {
-              t1 = new D.Invoice("invoices", null, null, null, null, null, null, null, null, null, [], [], [], null, null, [], null, [], "entities", null, null, null, null, null, []);
-              t1.Entity$fromMap$1(value);
-            }
-            this.invoice = t1;
-            break;
-          case "calculatedVAT":
-            this.calculatedVAT = value;
-            break;
-          case "total":
-            this.total = value;
-            break;
-          default:
-            this.super$Entity$Set$2(property, value);
-            break;
-        }
-      },
-      InvoiceItem$clone$1: function(original) {
-        this.name = J.get$name$x(original);
-        this.amount = original.get$amount();
-        this.rateValue = original.get$rateValue();
-        this.rateUnit = original.get$rateUnit();
-        this.activity = original.get$activity();
-        this.vat = original.get$vat();
-        this.invoice = original.get$invoice();
-      },
-      static: {InvoiceItem$clone: function(original) {
-          var t1 = new D.InvoiceItem("invoiceitems", null, null, null, null, null, null, null, null, [], null, [], "entities", null, null, null, null, null, []);
-          t1.name = J.get$name$x(original);
-          t1.user = original.get$user();
-          t1.InvoiceItem$clone$1(original);
-          return t1;
-        }, InvoiceItem_listFromMap: function($content) {
-          var array, t1, t2;
-          array = H.setRuntimeTypeInfo([], [D.InvoiceItem]);
-          for (t1 = J.get$iterator$ax($content); t1.moveNext$0();) {
-            t2 = new D.InvoiceItem("invoiceitems", null, null, null, null, null, null, null, null, [], null, [], "entities", null, null, null, null, null, []);
-            t2.Entity$fromMap$1(t1.get$current());
-            array.push(t2);
-          }
-          return array;
-        }}
-    },
-    InvoiceDiscount: {
-      "^": "StandardDiscount;type:InvoiceDiscount_type*,invoice<,StandardDiscount_type,value,percentage,minus,_descendantsToUpdate,id,_toUpdate,type,createdAt,updatedAt,name,alias,user,tags",
-      init$1$params: function(params) {
-        var t1, t2;
-        t1 = J.getInterceptor$x(params);
-        if (t1.containsKey$1(params, "invoice") === true) {
-          t2 = new D.Invoice("invoices", null, null, null, null, null, null, null, null, null, [], [], [], null, null, [], null, [], "entities", null, null, null, null, null, []);
-          t2.id = t1.$index(params, "invoice");
-          t1.$indexSet(params, "invoice", t2);
-        }
-        this.super$StandardDiscount$init$1$params(params);
-      },
-      Get$1: function(property) {
-        var val = this.super$StandardDiscount$Get$1(property);
-        if (val == null)
-          switch (property) {
-            case "invoice":
-              return this.invoice;
-            default:
-              break;
-          }
-        return val;
-      },
-      Set$2: function(property, value) {
-        var t1;
-        switch (property) {
-          case "invoice":
-            if (value instanceof D.Entity)
-              t1 = value;
-            else {
-              t1 = new D.Invoice("invoices", null, null, null, null, null, null, null, null, null, [], [], [], null, null, [], null, [], "entities", null, null, null, null, null, []);
-              t1.Entity$fromMap$1(value);
-            }
-            this.invoice = t1;
-            break;
-          default:
-            this.super$StandardDiscount$Set$2(property, value);
-            break;
-        }
-      },
-      static: {InvoiceDiscount_listFromMap: function($content) {
-          var array, t1, t2;
-          array = H.setRuntimeTypeInfo([], [D.InvoiceDiscount]);
-          for (t1 = J.get$iterator$ax($content); t1.moveNext$0();) {
-            t2 = new D.InvoiceDiscount("invoicediscounts", null, "standarddiscounts", null, null, null, [], null, [], "entities", null, null, null, null, null, []);
-            t2.Entity$fromMap$1(t1.get$current());
-            array.push(t2);
-          }
-          return array;
-        }}
-    },
-    StandardDiscount: {
-      "^": "Entity;type:StandardDiscount_type*,value*,percentage@,minus<,_descendantsToUpdate,id,_toUpdate,type,createdAt,updatedAt,name,alias,user,tags",
-      init$1$params: ["super$StandardDiscount$init$1$params", function(params) {
-        var t1 = J.getInterceptor$x(params);
-        if (t1.containsKey$1(params, "name") !== true)
-          t1.$indexSet(params, "name", "New Discount");
-        this.super$Entity$init$1$params(params);
-      }],
-      Get$1: ["super$StandardDiscount$Get$1", function(property) {
-        var val = this.super$Entity$Get$1(property);
-        if (val == null)
-          switch (property) {
-            case "value":
-              return this.value;
-            case "percentage":
-              return this.percentage;
-            case "minus":
-              return this.minus;
-            default:
-              break;
-          }
-        return val;
-      }],
-      Set$2: ["super$StandardDiscount$Set$2", function(property, value) {
-        switch (property) {
-          case "value":
-            this.value = value;
-            break;
-          case "percentage":
-            this.percentage = value;
-            break;
-          case "minus":
-            this.minus = value;
-            break;
-          default:
-            this.super$Entity$Set$2(property, value);
-            break;
-        }
-      }],
-      ViewValue$0: [function() {
-        if (this.percentage === true)
-          return C.JSInt_methods.toString$0(J.truncate$0$n(J.$mul$ns(this.value, 100))) + "%";
-        return this.value;
-      }, "call$0", "get$ViewValue", 0, 0, 6],
-      StandardDiscount$clone$1: function(original) {
-        this.value = J.get$value$x(original);
-        this.percentage = original.get$percentage();
-        this.minus = original.get$minus();
-      },
-      static: {StandardDiscount$clone: function(original) {
-          var t1 = new D.StandardDiscount("standarddiscounts", null, null, null, [], null, [], "entities", null, null, null, null, null, []);
-          t1.name = J.get$name$x(original);
-          t1.user = original.get$user();
-          t1.StandardDiscount$clone$1(original);
-          return t1;
-        }, StandardDiscount_listFromMap: function($content) {
-          var array, t1, t2;
-          array = H.setRuntimeTypeInfo([], [D.StandardDiscount]);
-          for (t1 = J.get$iterator$ax($content); t1.moveNext$0();) {
-            t2 = new D.StandardDiscount("standarddiscounts", null, null, null, [], null, [], "entities", null, null, null, null, null, []);
-            t2.Entity$fromMap$1(t1.get$current());
-            array.push(t2);
-          }
-          return array;
-        }}
-    },
-    Customer: {
-      "^": "Entity;type:Customer_type*,chargeable@,address@,company@,department@,fullname@,salutation@,rateGroup@,phones,_descendantsToUpdate,id,_toUpdate,type,createdAt,updatedAt,name,alias,user,tags",
-      init$1$params: function(params) {
-        var t1 = J.getInterceptor$x(params);
-        if (t1.containsKey$1(params, "name") !== true)
-          t1.$indexSet(params, "name", "New Customer");
-        this.super$Entity$init$1$params(params);
-      },
-      Get$1: function(property) {
-        var val = this.super$Entity$Get$1(property);
-        if (val == null)
-          switch (property) {
-            case "chargeable":
-              return this.chargeable;
-            case "address":
-              return this.address;
-            case "company":
-              return this.company;
-            case "department":
-              return this.department;
-            case "fullname":
-              return this.fullname;
-            case "salutation":
-              return this.salutation;
-            case "rateGroup":
-              return this.rateGroup;
-            case "phones":
-              return this.phones;
-            default:
-              break;
-          }
-        return val;
-      },
-      Set$2: function(property, value) {
-        var t1;
-        switch (property) {
-          case "chargeable":
-            this.chargeable = value;
-            break;
-          case "address":
-            if (value instanceof D.Entity)
-              t1 = value;
-            else {
-              t1 = new D.Address("address", null, null, null, null, null, null, [], null, [], "entities", null, null, null, null, null, []);
-              t1.Entity$fromMap$1(value);
-            }
-            this.address = t1;
-            break;
-          case "company":
-            this.company = value;
-            break;
-          case "department":
-            this.department = value;
-            break;
-          case "fullname":
-            this.fullname = value;
-            break;
-          case "salutation":
-            this.salutation = value;
-            break;
-          case "rateGroup":
-            if (value instanceof D.Entity)
-              t1 = value;
-            else {
-              t1 = new D.RateGroup("rategroups", null, [], null, [], "entities", null, null, null, null, null, []);
-              t1.Entity$fromMap$1(value);
-            }
-            this.rateGroup = t1;
-            break;
-          case "phones":
-            this.phones = value;
-            break;
-          default:
-            this.super$Entity$Set$2(property, value);
-            break;
-        }
-      }
-    },
-    Address: {
-      "^": "Entity;type:Address_type*,street@,streetnumber@,city@,plz@,state*,country@,_descendantsToUpdate,id,_toUpdate,type,createdAt,updatedAt,name,alias,user,tags",
-      Get$1: function(property) {
-        var value = this.super$Entity$Get$1(property);
-        if (value == null)
-          switch (property) {
-            case "street":
-              return this.street;
-            case "streetnumber":
-              return this.streetnumber;
-            case "city":
-              return this.city;
-            case "plz":
-              return this.plz;
-            case "state":
-              return this.state;
-            case "country":
-              return this.country;
-            default:
-              break;
-          }
-        return value;
-      },
-      Set$2: function(property, value) {
-        switch (property) {
-          case "street":
-            this.street = value;
-            break;
-          case "streetnumber":
-            this.streetnumber = value;
-            break;
-          case "city":
-            this.city = value;
-            break;
-          case "plz":
-            this.plz = value;
-            break;
-          case "state":
-            this.state = value;
-            break;
-          case "country":
-            this.country = value;
-            break;
-          default:
-            this.super$Entity$Set$2(property, value);
-            break;
-        }
-      },
-      Address$clone$1: function(original) {
-        this.street = original.get$street();
-        this.streetnumber = original.get$streetnumber();
-        this.city = original.get$city();
-        this.city = original.get$city();
-        this.plz = original.get$plz();
-        this.state = J.get$state$x(original);
-        this.country = original.get$country();
-      },
-      static: {Address$clone: function(original) {
-          var t1 = new D.Address("address", null, null, null, null, null, null, [], null, [], "entities", null, null, null, null, null, []);
-          t1.Address$clone$1(original);
-          return t1;
-        }}
-    },
-    Activity: {
-      "^": "Entity;type:Activity_type*,project@,serviceRate,charge,value*,customer@,chargeable@,service@,description@,rateValue@,rateUnit@,calculatedVAT,vat@,rateUnitType@,timeslices@,_descendantsToUpdate,id,_toUpdate,type,createdAt,updatedAt,name,alias,user,tags",
-      init$1$params: function(params) {
-        var t1, t2;
-        t1 = J.getInterceptor$x(params);
-        if (t1.containsKey$1(params, "project") === true) {
-          t2 = new D.Project("projects", null, null, null, null, null, null, null, null, null, null, [], [], null, [], "entities", null, null, null, null, null, []);
-          t2.id = t1.$index(params, "project");
-          t1.$indexSet(params, "project", t2);
-        }
-        if (t1.containsKey$1(params, "service") === true) {
-          t2 = new D.Service("services", [], null, null, null, [], null, [], "entities", null, null, null, null, null, []);
-          t2.id = t1.$index(params, "service");
-          t1.$indexSet(params, "service", t2);
-        }
-        this.super$Entity$init$1$params(params);
-      },
-      Get$1: function(property) {
-        var val = this.super$Entity$Get$1(property);
-        if (val == null)
-          switch (property) {
-            case "project":
-              return this.project;
-            case "value":
-              return this.value;
-            case "chargeable":
-              return this.chargeable;
-            case "service":
-              return this.service;
-            case "description":
-              return this.description;
-            case "timeslices":
-              return this.timeslices;
-            case "rateValue":
-              return this.rateValue;
-            case "rateUnit":
-              return this.rateUnit;
-            case "rateUnitType":
-              return this.rateUnitType;
-            case "customer":
-              return this.customer;
-            case "serviceRate":
-              return this.serviceRate;
-            case "charge":
-              return this.charge;
-            case "vat":
-              return this.vat;
-            case "calculatedVAT":
-              return this.calculatedVAT;
-            default:
-              break;
-          }
-        return val;
-      },
-      Set$2: function(property, value) {
-        var t1;
-        switch (property) {
-          case "project":
-            if (value instanceof D.Entity)
-              t1 = value;
-            else {
-              t1 = new D.Project("projects", null, null, null, null, null, null, null, null, null, null, [], [], null, [], "entities", null, null, null, null, null, []);
-              t1.Entity$fromMap$1(value);
-            }
-            this.project = t1;
-            break;
-          case "value":
-            this.value = value;
-            break;
-          case "chargeable":
-            this.chargeable = value;
-            break;
-          case "service":
-            if (value instanceof D.Entity)
-              t1 = value;
-            else {
-              t1 = new D.Service("services", [], null, null, null, [], null, [], "entities", null, null, null, null, null, []);
-              t1.Entity$fromMap$1(value);
-            }
-            this.service = t1;
-            break;
-          case "description":
-            this.description = value;
-            break;
-          case "timeslices":
-            this.timeslices = D.Timeslice_listFromMap(value);
-            break;
-          case "rateValue":
-            this.rateValue = value;
-            break;
-          case "rateUnit":
-            this.rateUnit = value;
-            break;
-          case "rateUnitType":
-            if (value instanceof D.Entity)
-              t1 = value;
-            else {
-              t1 = new D.RateUnitType(null, null, "rateunittypes", null, null, null, null, null, [], null, [], "entities", null, null, null, null, null, []);
-              t1.Entity$fromMap$1(value);
-            }
-            this.rateUnitType = t1;
-            break;
-          case "serviceRate":
-            if (value instanceof D.Entity)
-              t1 = value;
-            else {
-              t1 = new D.Rate("rates", null, null, null, null, null, [], null, [], "entities", null, null, null, null, null, []);
-              t1.Entity$fromMap$1(value);
-            }
-            this.serviceRate = t1;
-            break;
-          case "customer":
-            if (value instanceof D.Entity)
-              t1 = value;
-            else {
-              t1 = new D.Customer("customers", null, null, null, null, null, null, null, null, [], null, [], "entities", null, null, null, null, null, []);
-              t1.Entity$fromMap$1(value);
-            }
-            this.customer = t1;
-            break;
-          case "charge":
-            this.charge = value;
-            break;
-          case "vat":
-            this.vat = value;
-            break;
-          case "calculatedVAT":
-            this.calculatedVAT = value;
-            break;
-          default:
-            this.super$Entity$Set$2(property, value);
-            break;
-        }
-      },
-      Activity$clone$1: function(original) {
-        this.project = original.get$project();
-        this.value = J.get$value$x(original);
-        this.chargeable = original.get$chargeable();
-        this.service = original.get$service();
-        this.description = original.get$description();
-      },
-      static: {Activity$clone: function(original) {
-          var t1 = new D.Activity("activities", null, null, null, null, null, null, null, null, null, null, null, null, null, [], [], null, [], "entities", null, null, null, null, null, []);
-          t1.name = J.get$name$x(original);
-          t1.user = original.get$user();
-          t1.Activity$clone$1(original);
-          return t1;
-        }, Activity_listFromMap: function($content) {
-          var activities, t1, a;
-          activities = H.setRuntimeTypeInfo([], [D.Activity]);
-          for (t1 = J.get$iterator$ax($content); t1.moveNext$0();) {
-            a = new D.Activity("activities", null, null, null, null, null, null, null, null, null, null, null, null, null, [], [], null, [], "entities", null, null, null, null, null, []);
-            a.Entity$fromMap$1(t1.get$current());
-            activities.push(a);
-          }
-          return activities;
-        }}
-    },
-    Timeslice: {
-      "^": "Entity;type:Timeslice_type*,value*,startedAt@,stoppedAt@,activity@,project@,_descendantsToUpdate,id,_toUpdate,type,createdAt,updatedAt,name,alias,user,tags",
-      Get$1: function(property) {
-        var val = this.super$Entity$Get$1(property);
-        if (val == null)
-          switch (property) {
-            case "value":
-              return this.value;
-            case "startedAt":
-              return this.startedAt;
-            case "stoppedAt":
-              return this.stoppedAt;
-            case "activity":
-              return this.activity;
-            case "project":
-              return this.project;
-            default:
-              break;
-          }
-        return val;
-      },
-      Set$2: function(property, value) {
-        var t1;
-        switch (property) {
-          case "value":
-            this.value = value;
-            break;
-          case "startedAt":
-            this.startedAt = this._addDateValue$1(value);
-            break;
-          case "stoppedAt":
-            this.stoppedAt = this._addDateValue$1(value);
-            break;
-          case "activity":
-            if (value instanceof D.Entity)
-              t1 = value;
-            else {
-              t1 = new D.Activity("activities", null, null, null, null, null, null, null, null, null, null, null, null, null, [], [], null, [], "entities", null, null, null, null, null, []);
-              t1.Entity$fromMap$1(value);
-            }
-            this.activity = t1;
-            break;
-          case "project":
-            if (value instanceof D.Entity)
-              t1 = value;
-            else {
-              t1 = new D.Project("projects", null, null, null, null, null, null, null, null, null, null, [], [], null, [], "entities", null, null, null, null, null, []);
-              t1.Entity$fromMap$1(value);
-            }
-            this.project = t1;
-            break;
-          default:
-            this.super$Entity$Set$2(property, value);
-            break;
-        }
-      },
-      static: {Timeslice_listFromMap: function($content) {
-          var timeslices, t1, t;
-          timeslices = H.setRuntimeTypeInfo([], [D.Timeslice]);
-          for (t1 = J.get$iterator$ax($content); t1.moveNext$0();) {
-            t = new D.Timeslice("timeslices", null, null, null, null, null, [], null, [], "entities", null, null, null, null, null, []);
-            t.Entity$fromMap$1(t1.get$current());
-            timeslices.push(t);
-          }
-          return timeslices;
-        }}
-    },
-    User: {
-      "^": "Entity;type:User_type*,username*,firstname@,lastname@,email@,plainpassword@,enabled*,locked@,_descendantsToUpdate,id,_toUpdate,type,createdAt,updatedAt,name,alias,user,tags",
-      init$1$params: function(params) {
-        var t1 = J.getInterceptor$x(params);
-        if (t1.containsKey$1(params, "enabled") !== true)
-          t1.$indexSet(params, "enabled", false);
-        if (t1.containsKey$1(params, "locked") !== true)
-          t1.$indexSet(params, "locked", true);
-        this.super$Entity$init$1$params(params);
-      },
-      Get$1: ["super$User$Get$1", function(property) {
-        var val = this.super$Entity$Get$1(property);
-        if (val == null)
-          switch (property) {
-            case "username":
-              return this.username;
-            case "firstname":
-              return this.firstname;
-            case "lastname":
-              return this.lastname;
-            case "email":
-              return this.email;
-            case "enabled":
-              return this.enabled;
-            case "locked":
-              return this.locked;
-            case "plainpassword":
-              return this.plainpassword;
-            default:
-              break;
-          }
-        return val;
-      }],
-      Set$2: ["super$User$Set$2", function(property, value) {
-        switch (property) {
-          case "username":
-            this.username = value;
-            break;
-          case "firstname":
-            this.firstname = value;
-            break;
-          case "lastname":
-            this.lastname = value;
-            break;
-          case "email":
-            this.email = value;
-            break;
-          case "enabled":
-            this.enabled = value;
-            break;
-          case "locked":
-            this.locked = value;
-            break;
-          case "plainpassword":
-            this.plainpassword = value;
-            break;
-          default:
-            this.super$Entity$Set$2(property, value);
-            break;
-        }
-      }],
-      get$fullname: function() {
-        return H.S(this.firstname) + " " + H.S(this.lastname);
-      },
-      User$clone$1: function(original) {
-        this.username = "cloneduser";
-        this.firstname = original.get$firstname();
-        this.lastname = original.get$lastname();
-        this.email = "cloned@example.com";
-        this.enabled = J.get$enabled$x(original);
-        this.locked = original.get$locked();
-      }
-    },
-    Employee: {
-      "^": "User;type:Employee_type*,workingPeriods,realTime@,targetTime@,User_type,username,firstname,lastname,email,plainpassword,enabled,locked,_descendantsToUpdate,id,_toUpdate,type,createdAt,updatedAt,name,alias,user,tags",
-      Get$1: function(property) {
-        var val = this.super$User$Get$1(property);
-        if (val == null)
-          switch (property) {
-            case "workingPeriods":
-              return this.workingPeriods;
-            case "realTime":
-              return this.realTime;
-            case "targetTime":
-              return this.targetTime;
+            case "text":
+              return this.text;
+            case "active":
+              return this.active;
             default:
               break;
           }
@@ -49687,17 +49393,14 @@
       },
       Set$2: function(property, value) {
         switch (property) {
-          case "workingPeriods":
-            this.workingPeriods = D.Period_listFromResource(value);
+          case "text":
+            this.text = value;
             break;
-          case "realTime":
-            this.realTime = value;
-            break;
-          case "targetTime":
-            this.targetTime = value;
+          case "active":
+            this.active = value;
             break;
           default:
-            this.super$User$Set$2(property, value);
+            this.super$Entity$Set$2(property, value);
             break;
         }
       }
@@ -49786,73 +49489,92 @@
           return array;
         }}
     },
-    Holiday: {
-      "^": "Entity;type:Holiday_type*,date@,duration*,_descendantsToUpdate,id,_toUpdate,type,createdAt,updatedAt,name,alias,user,tags",
-      Get$1: function(property) {
-        var val = this.super$Entity$Get$1(property);
-        if (val == null)
-          switch (property) {
-            case "date":
-              return this.date;
-            case "duration":
-              return this.duration;
-            default:
-              break;
-          }
-        return val;
-      },
-      Set$2: function(property, value) {
-        switch (property) {
-          case "date":
-            this.date = this._addDateValue$1(value);
-            break;
-          case "duration":
-            this.duration = value;
-            break;
-          default:
-            this.super$Entity$Set$2(property, value);
-            break;
-        }
-      }
-    },
-    Service: {
-      "^": "Entity;type:Service_type*,rates<,description@,chargeable@,vat@,_descendantsToUpdate,id,_toUpdate,type,createdAt,updatedAt,name,alias,user,tags",
+    Project: {
+      "^": "Entity;type:Project_type*,currentPrice@,budgetPrice@,currentTime*,budgetTime@,description@,fixedPrice@,customer@,rateGroup@,chargeable@,deadline@,activities@,_descendantsToUpdate,id,_toUpdate,type,createdAt,updatedAt,name,alias,user,tags",
       init$1$params: function(params) {
         var t1 = J.getInterceptor$x(params);
         if (t1.containsKey$1(params, "name") !== true)
-          t1.$indexSet(params, "name", "New Service");
+          t1.$indexSet(params, "name", "New Project");
         this.super$Entity$init$1$params(params);
       },
       Get$1: function(property) {
         var val = this.super$Entity$Get$1(property);
         if (val == null)
           switch (property) {
-            case "rates":
-              return this.rates;
+            case "currentPrice":
+              return this.currentPrice;
+            case "budgetPrice":
+              return this.budgetPrice;
+            case "currentTime":
+              return this.currentTime;
+            case "budgetTime":
+              return this.budgetTime;
             case "description":
               return this.description;
+            case "fixedPrice":
+              return this.fixedPrice;
+            case "customer":
+              return this.customer;
+            case "rateGroup":
+              return this.rateGroup;
             case "chargeable":
               return this.chargeable;
-            case "vat":
-              return this.vat;
+            case "deadline":
+              return this.deadline;
+            case "activities":
+              return this.activities;
             default:
               break;
           }
         return val;
       },
       Set$2: function(property, value) {
+        var t1;
         switch (property) {
-          case "rates":
-            this.rates = D.Rate_listFromResource(value);
+          case "currentPrice":
+            this.currentPrice = value;
+            break;
+          case "budgetPrice":
+            this.budgetPrice = value;
+            break;
+          case "currentTime":
+            this.currentTime = value;
+            break;
+          case "budgetTime":
+            this.budgetTime = value;
             break;
           case "description":
             this.description = value;
             break;
+          case "fixedPrice":
+            this.fixedPrice = value;
+            break;
+          case "customer":
+            if (value instanceof D.Entity)
+              t1 = value;
+            else {
+              t1 = new D.Customer("customers", null, null, null, null, null, null, null, null, [], null, [], "entities", null, null, null, null, null, []);
+              t1.Entity$fromMap$1(value);
+            }
+            this.customer = t1;
+            break;
+          case "rateGroup":
+            if (value instanceof D.Entity)
+              t1 = value;
+            else {
+              t1 = new D.RateGroup("rategroups", null, [], null, [], "entities", null, null, null, null, null, []);
+              t1.Entity$fromMap$1(value);
+            }
+            this.rateGroup = t1;
+            break;
           case "chargeable":
             this.chargeable = value;
             break;
-          case "vat":
-            this.vat = value;
+          case "deadline":
+            this.deadline = this._addDateValue$1(value);
+            break;
+          case "activities":
+            this.activities = D.Activity_listFromMap(value);
             break;
           default:
             this.super$Entity$Set$2(property, value);
@@ -49860,11 +49582,11 @@
         }
       },
       cloneDescendants$1: function(original) {
-        var t1, t2, t3, _i, clone;
-        for (t1 = original.get$rates(), t2 = t1.length, t3 = this._descendantsToUpdate, _i = 0; _i < t1.length; t1.length === t2 || (0, H.throwConcurrentModificationError)(t1), ++_i) {
-          clone = D.Rate$clone(t1[_i]);
-          clone.service = this;
-          t3.push(clone);
+        var t1, t2, clone;
+        for (t1 = J.get$iterator$ax(original.get$activities()), t2 = this._descendantsToUpdate; t1.moveNext$0();) {
+          clone = D.Activity$clone(t1.get$current());
+          clone.project = this;
+          t2.push(clone);
         }
       }
     },
@@ -50044,18 +49766,202 @@
         }
       }
     },
-    ExpenseReport: {
-      "^": "Entity;type:ExpenseReport_type*,timeslices@,project@,user:ExpenseReport_user@,totalHours,_descendantsToUpdate,id,_toUpdate,type,createdAt,updatedAt,name,alias,user,tags",
+    Service: {
+      "^": "Entity;type:Service_type*,rates<,description@,chargeable@,vat@,_descendantsToUpdate,id,_toUpdate,type,createdAt,updatedAt,name,alias,user,tags",
+      init$1$params: function(params) {
+        var t1 = J.getInterceptor$x(params);
+        if (t1.containsKey$1(params, "name") !== true)
+          t1.$indexSet(params, "name", "New Service");
+        this.super$Entity$init$1$params(params);
+      },
       Get$1: function(property) {
         var val = this.super$Entity$Get$1(property);
         if (val == null)
           switch (property) {
-            case "timeslices":
-              return this.timeslices;
-            case "totalHours":
-              return this.totalHours;
-            case "user":
-              return this.ExpenseReport_user;
+            case "rates":
+              return this.rates;
+            case "description":
+              return this.description;
+            case "chargeable":
+              return this.chargeable;
+            case "vat":
+              return this.vat;
+            default:
+              break;
+          }
+        return val;
+      },
+      Set$2: function(property, value) {
+        switch (property) {
+          case "rates":
+            this.rates = D.Rate_listFromResource(value);
+            break;
+          case "description":
+            this.description = value;
+            break;
+          case "chargeable":
+            this.chargeable = value;
+            break;
+          case "vat":
+            this.vat = value;
+            break;
+          default:
+            this.super$Entity$Set$2(property, value);
+            break;
+        }
+      },
+      cloneDescendants$1: function(original) {
+        var t1, t2, t3, _i, clone;
+        for (t1 = original.get$rates(), t2 = t1.length, t3 = this._descendantsToUpdate, _i = 0; _i < t1.length; t1.length === t2 || (0, H.throwConcurrentModificationError)(t1), ++_i) {
+          clone = D.Rate$clone(t1[_i]);
+          clone.service = this;
+          t3.push(clone);
+        }
+      }
+    },
+    Setting: {
+      "^": "Entity;type:Setting_type*,namespace@,value*,_descendantsToUpdate,id,_toUpdate,type,createdAt,updatedAt,name,alias,user,tags",
+      Get$1: function(property) {
+        var val = this.super$Entity$Get$1(property);
+        if (val == null)
+          switch (property) {
+            case "namespace":
+              return this.namespace;
+            case "value":
+              return this.value;
+            default:
+              break;
+          }
+        return val;
+      },
+      Set$2: function(property, value) {
+        switch (property) {
+          case "namespace":
+            this.namespace = value;
+            break;
+          case "value":
+            this.value = value;
+            break;
+          default:
+            this.super$Entity$Set$2(property, value);
+            break;
+        }
+      }
+    },
+    StandardDiscount: {
+      "^": "Entity;type:StandardDiscount_type*,value*,percentage@,minus<,_descendantsToUpdate,id,_toUpdate,type,createdAt,updatedAt,name,alias,user,tags",
+      init$1$params: ["super$StandardDiscount$init$1$params", function(params) {
+        var t1 = J.getInterceptor$x(params);
+        if (t1.containsKey$1(params, "name") !== true)
+          t1.$indexSet(params, "name", "New Discount");
+        this.super$Entity$init$1$params(params);
+      }],
+      Get$1: ["super$StandardDiscount$Get$1", function(property) {
+        var val = this.super$Entity$Get$1(property);
+        if (val == null)
+          switch (property) {
+            case "value":
+              return this.value;
+            case "percentage":
+              return this.percentage;
+            case "minus":
+              return this.minus;
+            default:
+              break;
+          }
+        return val;
+      }],
+      Set$2: ["super$StandardDiscount$Set$2", function(property, value) {
+        switch (property) {
+          case "value":
+            this.value = value;
+            break;
+          case "percentage":
+            this.percentage = value;
+            break;
+          case "minus":
+            this.minus = value;
+            break;
+          default:
+            this.super$Entity$Set$2(property, value);
+            break;
+        }
+      }],
+      ViewValue$0: [function() {
+        if (this.percentage === true)
+          return C.JSInt_methods.toString$0(J.truncate$0$n(J.$mul$ns(this.value, 100))) + "%";
+        return this.value;
+      }, "call$0", "get$ViewValue", 0, 0, 6],
+      StandardDiscount$clone$1: function(original) {
+        this.value = J.get$value$x(original);
+        this.percentage = original.get$percentage();
+        this.minus = original.get$minus();
+      },
+      static: {StandardDiscount$clone: function(original) {
+          var t1 = new D.StandardDiscount("standarddiscounts", null, null, null, [], null, [], "entities", null, null, null, null, null, []);
+          t1.name = J.get$name$x(original);
+          t1.user = original.get$user();
+          t1.StandardDiscount$clone$1(original);
+          return t1;
+        }, StandardDiscount_listFromMap: function($content) {
+          var array, t1, t2;
+          array = H.setRuntimeTypeInfo([], [D.StandardDiscount]);
+          for (t1 = J.get$iterator$ax($content); t1.moveNext$0();) {
+            t2 = new D.StandardDiscount("standarddiscounts", null, null, null, [], null, [], "entities", null, null, null, null, null, []);
+            t2.Entity$fromMap$1(t1.get$current());
+            array.push(t2);
+          }
+          return array;
+        }}
+    },
+    Tag: {
+      "^": "Entity;type:Tag_type*,system,_descendantsToUpdate,id,_toUpdate,type,createdAt,updatedAt,name,alias,user,tags",
+      Get$1: function(property) {
+        var val = this.super$Entity$Get$1(property);
+        if (val == null)
+          switch (property) {
+            case "system":
+              return this.system;
+            default:
+              break;
+          }
+        return val;
+      },
+      Set$2: function(property, value) {
+        switch (property) {
+          case "system":
+            this.system = value;
+            break;
+          default:
+            this.super$Entity$Set$2(property, value);
+            break;
+        }
+      },
+      static: {Tag_listFromMap: function($content) {
+          var array, t1, t2;
+          array = H.setRuntimeTypeInfo([], [D.Tag]);
+          for (t1 = J.get$iterator$ax($content); t1.moveNext$0();) {
+            t2 = new D.Tag("tags", null, [], null, [], "entities", null, null, null, null, null, []);
+            t2.Entity$fromMap$1(t1.get$current());
+            array.push(t2);
+          }
+          return array;
+        }}
+    },
+    Timeslice: {
+      "^": "Entity;type:Timeslice_type*,value*,startedAt@,stoppedAt@,activity@,project@,_descendantsToUpdate,id,_toUpdate,type,createdAt,updatedAt,name,alias,user,tags",
+      Get$1: function(property) {
+        var val = this.super$Entity$Get$1(property);
+        if (val == null)
+          switch (property) {
+            case "value":
+              return this.value;
+            case "startedAt":
+              return this.startedAt;
+            case "stoppedAt":
+              return this.stoppedAt;
+            case "activity":
+              return this.activity;
             case "project":
               return this.project;
             default:
@@ -50064,23 +49970,122 @@
         return val;
       },
       Set$2: function(property, value) {
+        var t1;
         switch (property) {
-          case "timeslices":
-            this.timeslices = D.Timeslice_listFromMap(value);
+          case "value":
+            this.value = value;
             break;
-          case "totalHours":
-            this.totalHours = value;
+          case "startedAt":
+            this.startedAt = this._addDateValue$1(value);
             break;
-          case "user":
-            this.ExpenseReport_user = value;
+          case "stoppedAt":
+            this.stoppedAt = this._addDateValue$1(value);
+            break;
+          case "activity":
+            if (value instanceof D.Entity)
+              t1 = value;
+            else {
+              t1 = new D.Activity("activities", null, null, null, null, null, null, null, null, null, null, null, null, null, [], [], null, [], "entities", null, null, null, null, null, []);
+              t1.Entity$fromMap$1(value);
+            }
+            this.activity = t1;
             break;
           case "project":
-            this.project = value;
+            if (value instanceof D.Entity)
+              t1 = value;
+            else {
+              t1 = new D.Project("projects", null, null, null, null, null, null, null, null, null, null, [], [], null, [], "entities", null, null, null, null, null, []);
+              t1.Entity$fromMap$1(value);
+            }
+            this.project = t1;
             break;
           default:
             this.super$Entity$Set$2(property, value);
             break;
         }
+      },
+      static: {Timeslice_listFromMap: function($content) {
+          var timeslices, t1, t;
+          timeslices = H.setRuntimeTypeInfo([], [D.Timeslice]);
+          for (t1 = J.get$iterator$ax($content); t1.moveNext$0();) {
+            t = new D.Timeslice("timeslices", null, null, null, null, null, [], null, [], "entities", null, null, null, null, null, []);
+            t.Entity$fromMap$1(t1.get$current());
+            timeslices.push(t);
+          }
+          return timeslices;
+        }}
+    },
+    User: {
+      "^": "Entity;type:User_type*,username*,firstname@,lastname@,email@,plainpassword@,enabled*,locked@,_descendantsToUpdate,id,_toUpdate,type,createdAt,updatedAt,name,alias,user,tags",
+      init$1$params: function(params) {
+        var t1 = J.getInterceptor$x(params);
+        if (t1.containsKey$1(params, "enabled") !== true)
+          t1.$indexSet(params, "enabled", false);
+        if (t1.containsKey$1(params, "locked") !== true)
+          t1.$indexSet(params, "locked", true);
+        this.super$Entity$init$1$params(params);
+      },
+      Get$1: ["super$User$Get$1", function(property) {
+        var val = this.super$Entity$Get$1(property);
+        if (val == null)
+          switch (property) {
+            case "username":
+              return this.username;
+            case "firstname":
+              return this.firstname;
+            case "lastname":
+              return this.lastname;
+            case "email":
+              return this.email;
+            case "enabled":
+              return this.enabled;
+            case "locked":
+              return this.locked;
+            case "plainpassword":
+              return this.plainpassword;
+            default:
+              break;
+          }
+        return val;
+      }],
+      Set$2: ["super$User$Set$2", function(property, value) {
+        switch (property) {
+          case "username":
+            this.username = value;
+            break;
+          case "firstname":
+            this.firstname = value;
+            break;
+          case "lastname":
+            this.lastname = value;
+            break;
+          case "email":
+            this.email = value;
+            break;
+          case "enabled":
+            this.enabled = value;
+            break;
+          case "locked":
+            this.locked = value;
+            break;
+          case "plainpassword":
+            this.plainpassword = value;
+            break;
+          default:
+            this.super$Entity$Set$2(property, value);
+            break;
+        }
+      }],
+      get$fullname: function() {
+        return H.S(this.firstname) + " " + H.S(this.lastname);
+      },
+      User$clone$1: function(original) {
+        this.username = "cloneduser";
+        this.firstname = original.get$firstname();
+        this.lastname = original.get$lastname();
+        this.email = "cloned@example.com";
+        this.enabled = J.get$enabled$x(original);
+        this.locked = original.get$locked();
       }
     }
   }], ["dime_hammock", "package:DimeClient/hammock/dime_hammock.dart",, O, {
@@ -53807,9 +53812,9 @@
       }, null, null, 2, 0, null, 261, "call"]
     },
     ObjectStore__parseErrorCommandResponse_closure: {
-      "^": "Closure:0;_hammock$_captured_this_0,_captured_res_1,_hammock$_captured_object_2",
+      "^": "Closure:0;_hammock$_captured_this_0,_captured_res_1,_captured_object_2",
       call$1: [function(resp) {
-        return E._wrappedIntoErrorFuture(this._hammock$_captured_this_0._commandResponse$3(this._captured_res_1, this._hammock$_captured_object_2, ["command", "error"]).call$1(resp));
+        return E._wrappedIntoErrorFuture(this._hammock$_captured_this_0._commandResponse$3(this._captured_res_1, this._captured_object_2, ["command", "error"]).call$1(resp));
       }, null, null, 2, 0, null, 63, "call"]
     },
     ObjectStore__commandResponse_closure: {
@@ -56369,7 +56374,7 @@
       },
       $isScopeAware: 1
     }
-  }], ["menu", "package:DimeClient/model/menu.dart",, A, {
+  }], ["menu", "package:DimeClient/model/Menu.dart",, A, {
     "^": "",
     Menu: {
       "^": "Object;title*,icon@,items*,isOpen@,link@"
@@ -58457,11 +58462,6 @@
       call$1: [function(c) {
         return !!J.getInterceptor(c).$isFunction ? c.call$1(this._url_template$_box_0._captured_parameters_0) : c;
       }, null, null, 2, 0, null, 285, "call"]
-    }
-  }], ["", "package:DimeClient/model/viewlink.dart",, V, {
-    "^": "",
-    ViewLink: {
-      "^": "Object;"
     }
   }], ["number_symbol_data", "package:intl/number_symbols_data.dart",, F, {
     "^": ""
@@ -62174,7 +62174,7 @@
   }, "setters", "symbols", "get$symbols", function() {
     return P.LinkedHashMap__makeLiteral(["evict", C.Symbol_evict]);
   }, "symbols", "typeAnnotations", "get$typeAnnotations", function() {
-    return P.LinkedHashMap__makeLiteral([C.Type_scn, C.List_Mr4, C.Type_u5V, C.List_07, C.Type_x4G, C.List_7h5, C.Type_Wv9, C.List_apk, C.Type_sav, C.List_dEZ, C.Type_86y, C.List_Wvz, C.Type_00, C.List_yVc, C.Type_eZ8, C.List_3Vk, C.Type_QyU, C.List_08, C.Type_iQg, C.List_TbG, C.Type_2bH, C.List_ykb, C.Type_42U, C.List_3FW, C.Type_ly0, C.List_AKW, C.Type_GQu, C.List_cSi, C.Type_iL9, C.List_Fcu, C.Type_4Z2, C.List_O5Z, C.Type_eJC, C.List_IUd, C.Type_o0y, C.List_x6V, C.Type_Nlt, C.List_Injectable, C.Type_d0f, C.List_Injectable, C.Type_s6k, C.List_Injectable, C.Type_UAS, C.List_Injectable, C.Type_OHx, C.List_Injectable, C.Type_8I8, C.List_Injectable, C.Type_wdB, C.List_Injectable, C.Type_Cxl, C.List_Injectable, C.Type_ON8, C.List_Injectable, C.Type_YKM, C.List_Injectable, C.Type_EMZ, C.List_Injectable, C.Type_YeZ, C.List_Injectable, C.Type_ijl, C.List_Injectable, C.Type_zTx, C.List_Injectable, C.Type_KeE, C.List_Injectable, C.Type_0af, C.List_Injectable, C.Type_Yy0, C.List_Injectable, C.Type_wTU, C.List_Injectable, C.Type_82H, C.List_Injectable, C.Type_cg9, C.List_NoS, C.Type_hWd, C.List_qJO, C.Type_EOY, C.List_Injectable, C.Type_xhX, C.List_Injectable, C.Type_EgC, C.List_Injectable, C.Type_qFt, C.List_Injectable, C.Type_blz, C.List_Injectable, C.Type_Npb, C.List_rCi, C.Type_gMT, C.List_Injectable, C.Type_IeY, C.List_Injectable, C.Type_QOg0, C.List_Injectable, C.Type_WfL, C.List_Injectable, C.Type_Q0t, C.List_Fxv, C.Type_C9d, C.List_knt1, C.Type_Jk7, C.List_cA4, C.Type_ga7, C.List_D72, C.Type_m9K, C.List_2bL, C.Type_omH, C.List_36D, C.Type_uId, C.List_86y, C.Type_IGM, C.List_CtB, C.Type_EkK, C.List_SWM, C.Type_jZY, C.List_qFe, C.Type_NsM, C.List_RWm, C.Type_U5x, C.List_Vyt0, C.Type_ADx, C.List_QI9, C.Type_yT8, C.List_6TW, C.Type_ifx, C.List_176, C.Type_aHv, C.List_Azz, C.Type_MMT, C.List_px4, C.Type_wlp, C.List_b9P, C.Type_GNx, C.List_AGA, C.Type_P0q, C.List_I3h, C.Type_cWU, C.List_09, C.Type_wnK, C.List_33r0, C.Type_02, C.List_qZs, C.Type_qFM, C.List_wEo0, C.Type_wu2, C.List_6TW0, C.Type_E3Y, C.List_ivT, C.Type_izR, C.List_chs0, C.Type_5i6, C.List_weg, C.Type_AgZ0, C.List_ZeB, C.Type_gG6, C.List_XnQ, C.Type_ifn0, C.List_ww83, C.Type_89o, C.List_gWj, C.Type_CrX, C.List_B0x, C.Type_nHe, C.List_Esk, C.Type_U44, C.List_2jN1, C.Type_sVp, C.List_UJr, C.Type_ZiE, C.List_Qsb, C.Type_w4e, C.List_86y0, C.Type_KpI, C.List_Wvz0, C.Type_k2a, C.List_4IJ0, C.Type_OhV, C.List_C6q, C.Type_2Vk0, C.List_dqy, C.Type_woc0, C.List_VEs, C.Type_6YB, C.List_010, C.Type_xw8, C.List_px4, C.Type_tOS, C.List_Hn6, C.Type_4m4, C.List_eAf, C.Type_sr6, C.List_ZVa, C.Type_wEo, C.List_mu7, C.Type_IJC, C.List_RZh, C.Type_gWg, C.List_Sj8, C.Type_pQX, C.List_Injectable, C.Type_Epp, C.List_Injectable, C.Type_qfd, C.List_Injectable, C.Type_Dbk, C.List_Injectable, C.Type_4Dj, C.List_Injectable, C.Type_Xzb, C.List_Injectable, C.Type_KSA, C.List_Injectable, C.Type_X3P, C.List_Injectable, C.Type_Cf3, C.List_Injectable, C.Type_kGa, C.List_Injectable, C.Type_c4R, C.List_Injectable, C.Type_iYS, C.List_Injectable, C.Type_oYU, C.List_Injectable, C.Type_i5K, C.List_Injectable, C.Type_9yu, C.List_Injectable, C.Type_C9x, C.List_Injectable, C.Type_5MZ, C.List_Formatter_currency, C.Type_Aec, C.List_Formatter_date, C.Type_2GN, C.List_Formatter_filter, C.Type_s6i, C.List_Formatter_json, C.Type_rzW, C.List_Formatter_limitTo, C.Type_O9i, C.List_Formatter_lowercase, C.Type_fw1, C.List_Formatter_arrayify, C.Type_ihV, C.List_Formatter_number, C.Type_01, C.List_Formatter_orderBy, C.Type_mJQ, C.List_Formatter_uppercase, C.Type_c4R0, C.List_Formatter_stringify, C.Type_j3h, C.List_Injectable, C.Type_8eb0, C.List_Injectable, C.Type_6FR, C.List_Injectable, C.Type_uZX, C.List_Injectable, C.Type_vlL, C.List_Injectable, C.Type_rXF, C.List_gn0, C.Type_sQd, C.List_UWz, C.Type_kXN, C.List_Injectable, C.Type_skV, C.List_Injectable, C.Type_IFE, C.List_kGu, C.Type_RkP, C.List_3DL, C.Type_aWx, C.List_Injectable, C.Type_sxw, C.List_Injectable, C.Type_WZ4, C.List_Injectable, C.Type_sEs, C.List_Injectable, C.Type_XCi, C.List_Injectable, C.Type_YRK, C.List_Injectable, C.Type_3je, C.List_Injectable, C.Type_2jN, C.List_Injectable, C.Type_8wJ, C.List_Injectable, C.Type_AS6, C.List_nd9, C.Type_ACG, C.List_vWO, C.Type_IIj, C.List_Dfi, C.Type_vz6, C.List_4e80, C.Type_ozo, C.List_ESz, C.Type_CKa, C.List_OcQ, C.Type_k6K, C.List_wMy0, C.Type_Ecu, C.List_rcn, C.Type_GFm, C.List_arf, C.Type_L5J, C.List_2jN2, C.Type_iDw, C.List_sq4, C.Type_M98, C.List_EyN, C.Type_4Uv, C.List_gg40, C.Type_oyU, C.List_ctK, C.Type_jqh, C.List_IVn, C.Type_6TW, C.List_apk0, C.Type_qRx, C.List_NLv, C.Type_4AN, C.List_Ecu, C.Type_8BN, C.List_7fP, C.Type_GNd, C.List_Formatter_userfilter, C.Type_yDQ, C.List_Formatter_timeslicedatefilter, C.Type_F61, C.List_Formatter_projectvaluefilter, C.Type_3Dv, C.List_Formatter_offerpostionOrder, C.Type_cvH, C.List_Formatter_secondsToHours, C.Type_MYu, C.List_1CY, C.Type_kyU, C.List_mOS, C.Type_OLZ, C.List_gNF, C.Type_cKo, C.List_p6t, C.Type_gg9, C.List_wIq, C.Type_AgZ, C.List_mBr, C.Type_RBJ, C.List_Injectable, C.Type_1rA, C.List_Injectable, C.Type_mC8, C.List_Injectable, C.Type_Yww, C.List_Q8b, C.Type_6PY0, C.List_ERv, C.Type_8eb, C.List_tUr, C.Type_TWN, C.List_43h2, C.Type_4ec, C.List_Injectable, C.Type_2jN0, C.List_wry, C.Type_kyk, C.List_8eb1, C.Type_KYr, C.List_Injectable, C.Type_46c, C.List_Injectable, C.Type_XJ0, C.List_iDZ1, C.Type_BVY, C.List_Injectable, C.Type_n3c, C.List_Injectable, C.Type_UkC, C.List_011, C.Type_EJH, C.List_Xr1, C.Type_G4S, C.List_Vyt1, C.Type_Z2m, C.List_E34, C.Type_9sg, C.List_AeS, C.Type_woc, C.List_kMT, C.Type_qFe, C.List_E4S, C.Type_KTV, C.List_Injectable, C.Type_SPQ, C.List_7eO0, C.Type_SsP, C.List_Injectable, C.Type_cBg, C.List_Injectable, C.Type_ckG, C.List_Injectable, C.Type_8sa, C.List_i3t, C.Type_AO3, C.List_qJs, C.Type_z4s, C.List_Injectable, C.Type_2Vk, C.List_EmB, C.Type_A5C, C.List_Wiu, C.Type_ors, C.List_Injectable, C.Type_EKj, C.List_kJI, C.Type_Ues, C.List_Injectable, C.Type_ifn, C.List_gQg, C.Type_37u, C.List_Injectable, C.Type_etK, C.List_Injectable, C.Type_Xfd, C.List_pyh, C.Type_FKj, C.List_Injectable, C.Type_6K0, C.List_Formatter_highlight, C.Type_k2W, C.List_bh50, C.Type_e3S, C.List_Injectable, C.Type_ibb, C.List_ugX, C.Type_AqR, C.List_h8l, C.Type_G1Q, C.List_Injectable, C.Type_mPa, C.List_2jN3, C.Type_o2l, C.List_4UV, C.Type_7N7, C.List_Mys, C.Type_43h, C.List_gLw, C.Type_0jR, C.List_weg0, C.Type_QCS, C.List_Ik7, C.Type_8UK, C.List_wSf, C.Type_A66, C.List_zkI, C.Type_6PY, C.List_qKc, C.Type_0, C.List_AiQ0, C.Type_qp8, C.List_Ymm, C.Type_ki2, C.List_Ymm0, C.Type_hk6, C.List_iqF, C.Type_9pl, C.List_SxR, C.Type_swn, C.List_aXZ0, C.Type_O50, C.List_Injectable, C.Type_yHF, C.List_Injectable, C.Type_c4x, C.List_Injectable, C.Type_jhf, C.List_Injectable, C.Type_GL7, C.List_Injectable, C.Type_QOW, C.List_OS9, C.Type_Cu4, C.List_Formatter_weekNumber, C.Type_tUY, C.List_WfA, C.Type_YaB, C.List_JpY, C.Type_GpM, C.List_Y3i]);
+    return P.LinkedHashMap__makeLiteral([C.Type_scn, C.List_Mr4, C.Type_u5V, C.List_07, C.Type_x4G, C.List_7h5, C.Type_Wv9, C.List_apk, C.Type_sav, C.List_dEZ, C.Type_86y, C.List_Wvz, C.Type_00, C.List_yVc, C.Type_eZ8, C.List_3Vk, C.Type_QyU, C.List_08, C.Type_iQg, C.List_TbG, C.Type_2bH, C.List_ykb, C.Type_42U, C.List_3FW, C.Type_ly0, C.List_AKW, C.Type_GQu, C.List_cSi, C.Type_iL9, C.List_Fcu, C.Type_4Z2, C.List_O5Z, C.Type_eJC, C.List_IUd, C.Type_o0y, C.List_x6V, C.Type_Nlt, C.List_Injectable, C.Type_d0f, C.List_Injectable, C.Type_s6k, C.List_Injectable, C.Type_UAS, C.List_Injectable, C.Type_OHx, C.List_Injectable, C.Type_8I8, C.List_Injectable, C.Type_wdB, C.List_Injectable, C.Type_Cxl, C.List_Injectable, C.Type_ON8, C.List_Injectable, C.Type_YKM, C.List_Injectable, C.Type_EMZ, C.List_Injectable, C.Type_YeZ, C.List_Injectable, C.Type_ijl, C.List_Injectable, C.Type_zTx, C.List_Injectable, C.Type_KeE, C.List_Injectable, C.Type_0af, C.List_Injectable, C.Type_Yy0, C.List_Injectable, C.Type_wTU, C.List_Injectable, C.Type_82H, C.List_Injectable, C.Type_cg9, C.List_NoS, C.Type_hWd, C.List_qJO, C.Type_EOY, C.List_Injectable, C.Type_xhX, C.List_Injectable, C.Type_EgC, C.List_Injectable, C.Type_qFt, C.List_Injectable, C.Type_blz, C.List_Injectable, C.Type_Npb, C.List_rCi, C.Type_gMT, C.List_Injectable, C.Type_IeY, C.List_Injectable, C.Type_QOg0, C.List_Injectable, C.Type_WfL, C.List_Injectable, C.Type_Q0t, C.List_Fxv, C.Type_C9d, C.List_knt1, C.Type_Jk7, C.List_cA4, C.Type_ga7, C.List_D72, C.Type_m9K, C.List_2bL, C.Type_omH, C.List_36D, C.Type_uId, C.List_86y, C.Type_IGM, C.List_CtB, C.Type_EkK, C.List_SWM, C.Type_jZY, C.List_qFe, C.Type_NsM, C.List_RWm, C.Type_U5x, C.List_Vyt0, C.Type_ADx, C.List_QI9, C.Type_yT8, C.List_6TW, C.Type_ifx, C.List_176, C.Type_aHv, C.List_Azz, C.Type_MMT, C.List_px4, C.Type_wlp, C.List_b9P, C.Type_GNx, C.List_AGA, C.Type_P0q, C.List_I3h, C.Type_cWU, C.List_09, C.Type_wnK, C.List_33r0, C.Type_02, C.List_qZs, C.Type_qFM, C.List_wEo0, C.Type_wu2, C.List_6TW0, C.Type_E3Y, C.List_ivT, C.Type_izR, C.List_chs0, C.Type_5i6, C.List_weg, C.Type_AgZ0, C.List_ZeB, C.Type_gG6, C.List_XnQ, C.Type_ifn0, C.List_ww83, C.Type_89o, C.List_gWj, C.Type_CrX, C.List_B0x, C.Type_nHe, C.List_Esk, C.Type_U44, C.List_2jN1, C.Type_sVp, C.List_UJr, C.Type_ZiE, C.List_Qsb, C.Type_w4e, C.List_86y0, C.Type_KpI, C.List_Wvz0, C.Type_k2a, C.List_4IJ0, C.Type_OhV, C.List_C6q, C.Type_2Vk0, C.List_dqy, C.Type_woc0, C.List_VEs, C.Type_6YB, C.List_010, C.Type_xw8, C.List_px4, C.Type_tOS, C.List_Hn6, C.Type_4m4, C.List_eAf, C.Type_sr6, C.List_ZVa, C.Type_wEo, C.List_mu7, C.Type_IJC, C.List_RZh, C.Type_gWg, C.List_Sj8, C.Type_pQX, C.List_Injectable, C.Type_Epp, C.List_Injectable, C.Type_qfd, C.List_Injectable, C.Type_Dbk, C.List_Injectable, C.Type_4Dj, C.List_Injectable, C.Type_Xzb, C.List_Injectable, C.Type_KSA, C.List_Injectable, C.Type_X3P, C.List_Injectable, C.Type_Cf3, C.List_Injectable, C.Type_kGa, C.List_Injectable, C.Type_c4R, C.List_Injectable, C.Type_iYS, C.List_Injectable, C.Type_oYU, C.List_Injectable, C.Type_i5K, C.List_Injectable, C.Type_9yu, C.List_Injectable, C.Type_C9x, C.List_Injectable, C.Type_5MZ, C.List_Formatter_currency, C.Type_Aec, C.List_Formatter_date, C.Type_2GN, C.List_Formatter_filter, C.Type_s6i, C.List_Formatter_json, C.Type_rzW, C.List_Formatter_limitTo, C.Type_O9i, C.List_Formatter_lowercase, C.Type_fw1, C.List_Formatter_arrayify, C.Type_ihV, C.List_Formatter_number, C.Type_01, C.List_Formatter_orderBy, C.Type_mJQ, C.List_Formatter_uppercase, C.Type_c4R0, C.List_Formatter_stringify, C.Type_j3h, C.List_Injectable, C.Type_8eb0, C.List_Injectable, C.Type_6FR, C.List_Injectable, C.Type_uZX, C.List_Injectable, C.Type_vlL, C.List_Injectable, C.Type_rXF, C.List_gn0, C.Type_sQd, C.List_UWz, C.Type_kXN, C.List_Injectable, C.Type_skV, C.List_Injectable, C.Type_IFE, C.List_kGu, C.Type_RkP, C.List_3DL, C.Type_aWx, C.List_Injectable, C.Type_XCi, C.List_Injectable, C.Type_sxw, C.List_Injectable, C.Type_WZ4, C.List_Injectable, C.Type_sEs, C.List_Injectable, C.Type_YRK, C.List_Injectable, C.Type_3je, C.List_Injectable, C.Type_2jN, C.List_Injectable, C.Type_8wJ, C.List_Injectable, C.Type_AS6, C.List_nd9, C.Type_ACG, C.List_vWO, C.Type_IIj, C.List_Dfi, C.Type_vz6, C.List_4e80, C.Type_ozo, C.List_ESz, C.Type_CKa, C.List_OcQ, C.Type_k6K, C.List_wMy0, C.Type_Ecu, C.List_rcn, C.Type_GFm, C.List_arf, C.Type_L5J, C.List_2jN2, C.Type_iDw, C.List_sq4, C.Type_M98, C.List_EyN, C.Type_4Uv, C.List_gg40, C.Type_oyU, C.List_ctK, C.Type_jqh, C.List_IVn, C.Type_6TW, C.List_apk0, C.Type_qRx, C.List_NLv, C.Type_4AN, C.List_Ecu, C.Type_8BN, C.List_7fP, C.Type_GNd, C.List_Formatter_userfilter, C.Type_yDQ, C.List_Formatter_timeslicedatefilter, C.Type_F61, C.List_Formatter_projectvaluefilter, C.Type_3Dv, C.List_Formatter_offerpostionOrder, C.Type_cvH, C.List_Formatter_secondsToHours, C.Type_MYu, C.List_1CY, C.Type_kyU, C.List_mOS, C.Type_OLZ, C.List_gNF, C.Type_cKo, C.List_p6t, C.Type_gg9, C.List_wIq, C.Type_AgZ, C.List_mBr, C.Type_RBJ, C.List_Injectable, C.Type_1rA, C.List_Injectable, C.Type_mC8, C.List_Injectable, C.Type_Yww, C.List_Q8b, C.Type_6PY0, C.List_ERv, C.Type_8eb, C.List_tUr, C.Type_TWN, C.List_43h2, C.Type_4ec, C.List_Injectable, C.Type_2jN0, C.List_wry, C.Type_kyk, C.List_8eb1, C.Type_KYr, C.List_Injectable, C.Type_46c, C.List_Injectable, C.Type_XJ0, C.List_iDZ1, C.Type_BVY, C.List_Injectable, C.Type_n3c, C.List_Injectable, C.Type_UkC, C.List_011, C.Type_EJH, C.List_Xr1, C.Type_G4S, C.List_Vyt1, C.Type_Z2m, C.List_E34, C.Type_9sg, C.List_AeS, C.Type_woc, C.List_kMT, C.Type_qFe, C.List_E4S, C.Type_KTV, C.List_Injectable, C.Type_SPQ, C.List_7eO0, C.Type_SsP, C.List_Injectable, C.Type_cBg, C.List_Injectable, C.Type_ckG, C.List_Injectable, C.Type_8sa, C.List_i3t, C.Type_AO3, C.List_qJs, C.Type_z4s, C.List_Injectable, C.Type_2Vk, C.List_EmB, C.Type_A5C, C.List_Wiu, C.Type_ors, C.List_Injectable, C.Type_EKj, C.List_kJI, C.Type_Ues, C.List_Injectable, C.Type_ifn, C.List_gQg, C.Type_37u, C.List_Injectable, C.Type_etK, C.List_Injectable, C.Type_Xfd, C.List_pyh, C.Type_FKj, C.List_Injectable, C.Type_6K0, C.List_Formatter_highlight, C.Type_k2W, C.List_bh50, C.Type_e3S, C.List_Injectable, C.Type_ibb, C.List_ugX, C.Type_AqR, C.List_h8l, C.Type_G1Q, C.List_Injectable, C.Type_mPa, C.List_2jN3, C.Type_o2l, C.List_4UV, C.Type_7N7, C.List_Mys, C.Type_43h, C.List_gLw, C.Type_0jR, C.List_weg0, C.Type_QCS, C.List_Ik7, C.Type_8UK, C.List_wSf, C.Type_A66, C.List_zkI, C.Type_6PY, C.List_qKc, C.Type_0, C.List_AiQ0, C.Type_qp8, C.List_Ymm, C.Type_ki2, C.List_Ymm0, C.Type_hk6, C.List_iqF, C.Type_9pl, C.List_SxR, C.Type_swn, C.List_aXZ0, C.Type_O50, C.List_Injectable, C.Type_yHF, C.List_Injectable, C.Type_c4x, C.List_Injectable, C.Type_jhf, C.List_Injectable, C.Type_GL7, C.List_Injectable, C.Type_QOW, C.List_OS9, C.Type_Cu4, C.List_Formatter_weekNumber, C.Type_tUY, C.List_WfA, C.Type_YaB, C.List_JpY, C.Type_GpM, C.List_Y3i]);
   }, "typeAnnotations", "_KEY_DataCache", "get$_KEY_DataCache", function() {
     return Z.Key_Key(C.Type_XCi, null);
   }, "_KEY_DataCache", "_KEY_SettingsManager", "get$_KEY_SettingsManager", function() {
@@ -62353,13 +62353,13 @@
     return Z.Key_Key(C.Type_Gpc, null);
   }, "_KEY_Application", "_KEY_NgRoutingHelper", "get$_KEY_NgRoutingHelper", function() {
     return Z.Key_Key(C.Type_skV, null);
-  }, "_KEY_NgRoutingHelper", "_KEY_HammockConfig", "get$_KEY_HammockConfig", function() {
+  }, "_KEY_NgRoutingHelper", "_KEY_ObjectStore", "get$_KEY_ObjectStore", function() {
+    return Z.Key_Key(C.Type_sEs, null);
+  }, "_KEY_ObjectStore", "_KEY_HammockConfig", "get$_KEY_HammockConfig", function() {
     return Z.Key_Key(C.Type_WZ4, null);
   }, "_KEY_HammockConfig", "_KEY_ResourceStore", "get$_KEY_ResourceStore", function() {
     return Z.Key_Key(C.Type_sxw, null);
-  }, "_KEY_ResourceStore", "_KEY_ObjectStore", "get$_KEY_ObjectStore", function() {
-    return Z.Key_Key(C.Type_sEs, null);
-  }, "_KEY_ObjectStore", "_KEY_Transition", "get$_KEY_Transition", function() {
+  }, "_KEY_ResourceStore", "_KEY_Transition", "get$_KEY_Transition", function() {
     return Z.Key_Key(C.Type_KYr, null);
   }, "_KEY_Transition", "_KEY_Timeout", "get$_KEY_Timeout", function() {
     return Z.Key_Key(C.Type_1rA, null);
@@ -62428,7 +62428,7 @@
   }, "_KEY_FormatterFunc", "_KEY_TimepickerConfig", "get$_KEY_TimepickerConfig", function() {
     return Z.Key_Key(C.Type_uzd, null);
   }, "_KEY_TimepickerConfig", "typeFactories", "get$typeFactories", function() {
-    return P.LinkedHashMap_LinkedHashMap$_literal([C.Type_scn, new Q.closure716(), C.Type_u5V, new Q.closure717(), C.Type_x4G, new Q.closure718(), C.Type_Wv9, new Q.closure719(), C.Type_sav, new Q.closure720(), C.Type_86y, new Q.closure721(), C.Type_00, new Q.closure722(), C.Type_eZ8, new Q.closure723(), C.Type_QyU, new Q.closure724(), C.Type_iQg, new Q.closure725(), C.Type_2bH, new Q.closure726(), C.Type_42U, new Q.closure727(), C.Type_ly0, new Q.closure728(), C.Type_GQu, new Q.closure729(), C.Type_iL9, new Q.closure730(), C.Type_4Z2, new Q.closure731(), C.Type_eJC, new Q.closure732(), C.Type_o0y, new Q.closure733(), C.Type_Nlt, new Q.closure734(), C.Type_d0f, new Q.closure735(), C.Type_s6k, new Q.closure736(), C.Type_UAS, new Q.closure737(), C.Type_OHx, new Q.closure738(), C.Type_8I8, new Q.closure739(), C.Type_wdB, new Q.closure740(), C.Type_Cxl, new Q.closure741(), C.Type_ON8, new Q.closure742(), C.Type_YKM, new Q.closure743(), C.Type_EMZ, new Q.closure744(), C.Type_YeZ, new Q.closure745(), C.Type_ijl, new Q.closure746(), C.Type_zTx, new Q.closure747(), C.Type_KeE, new Q.closure748(), C.Type_0af, new Q.closure749(), C.Type_Yy0, new Q.closure750(), C.Type_wTU, new Q.closure751(), C.Type_82H, new Q.closure752(), C.Type_cg9, new Q.closure753(), C.Type_hWd, new Q.closure754(), C.Type_EOY, new Q.closure755(), C.Type_xhX, new Q.closure756(), C.Type_EgC, new Q.closure757(), C.Type_qFt, new Q.closure758(), C.Type_blz, new Q.closure759(), C.Type_Npb, new Q.closure760(), C.Type_gMT, new Q.closure761(), C.Type_IeY, new Q.closure762(), C.Type_QOg0, new Q.closure763(), C.Type_WfL, new Q.closure764(), C.Type_Q0t, new Q.closure765(), C.Type_C9d, new Q.closure766(), C.Type_Jk7, new Q.closure767(), C.Type_ga7, new Q.closure768(), C.Type_m9K, new Q.closure769(), C.Type_omH, new Q.closure770(), C.Type_uId, new Q.closure771(), C.Type_IGM, new Q.closure772(), C.Type_EkK, new Q.closure773(), C.Type_jZY, new Q.closure774(), C.Type_NsM, new Q.closure775(), C.Type_U5x, new Q.closure776(), C.Type_ADx, new Q.closure777(), C.Type_yT8, new Q.closure778(), C.Type_ifx, new Q.closure779(), C.Type_aHv, new Q.closure780(), C.Type_MMT, new Q.closure781(), C.Type_wlp, new Q.closure782(), C.Type_GNx, new Q.closure783(), C.Type_P0q, new Q.closure784(), C.Type_cWU, new Q.closure785(), C.Type_wnK, new Q.closure786(), C.Type_02, new Q.closure787(), C.Type_qFM, new Q.closure788(), C.Type_wu2, new Q.closure789(), C.Type_E3Y, new Q.closure790(), C.Type_izR, new Q.closure791(), C.Type_5i6, new Q.closure792(), C.Type_AgZ0, new Q.closure793(), C.Type_gG6, new Q.closure794(), C.Type_ifn0, new Q.closure795(), C.Type_89o, new Q.closure796(), C.Type_CrX, new Q.closure797(), C.Type_nHe, new Q.closure798(), C.Type_U44, new Q.closure799(), C.Type_sVp, new Q.closure800(), C.Type_ZiE, new Q.closure801(), C.Type_w4e, new Q.closure802(), C.Type_KpI, new Q.closure803(), C.Type_k2a, new Q.closure804(), C.Type_OhV, new Q.closure805(), C.Type_2Vk0, new Q.closure806(), C.Type_woc0, new Q.closure807(), C.Type_6YB, new Q.closure808(), C.Type_xw8, new Q.closure809(), C.Type_tOS, new Q.closure810(), C.Type_4m4, new Q.closure811(), C.Type_sr6, new Q.closure812(), C.Type_wEo, new Q.closure813(), C.Type_IJC, new Q.closure814(), C.Type_gWg, new Q.closure815(), C.Type_pQX, new Q.closure816(), C.Type_Epp, new Q.closure817(), C.Type_qfd, new Q.closure818(), C.Type_Dbk, new Q.closure819(), C.Type_4Dj, new Q.closure820(), C.Type_Xzb, new Q.closure821(), C.Type_KSA, new Q.closure822(), C.Type_X3P, new Q.closure823(), C.Type_Cf3, new Q.closure824(), C.Type_kGa, new Q.closure825(), C.Type_c4R, new Q.closure826(), C.Type_iYS, new Q.closure827(), C.Type_oYU, new Q.closure828(), C.Type_i5K, new Q.closure829(), C.Type_9yu, new Q.closure830(), C.Type_C9x, new Q.closure831(), C.Type_5MZ, new Q.closure832(), C.Type_Aec, new Q.closure833(), C.Type_2GN, new Q.closure834(), C.Type_s6i, new Q.closure835(), C.Type_rzW, new Q.closure836(), C.Type_O9i, new Q.closure837(), C.Type_fw1, new Q.closure838(), C.Type_ihV, new Q.closure839(), C.Type_01, new Q.closure840(), C.Type_mJQ, new Q.closure841(), C.Type_c4R0, new Q.closure842(), C.Type_j3h, new Q.closure843(), C.Type_8eb0, new Q.closure844(), C.Type_6FR, new Q.closure845(), C.Type_uZX, new Q.closure846(), C.Type_vlL, new Q.closure847(), C.Type_rXF, new Q.closure848(), C.Type_sQd, new Q.closure849(), C.Type_kXN, new Q.closure850(), C.Type_skV, new Q.closure851(), C.Type_IFE, new Q.closure852(), C.Type_RkP, new Q.closure853(), C.Type_aWx, new Q.closure854(), C.Type_sxw, new Q.closure855(), C.Type_WZ4, new Q.closure856(), C.Type_sEs, new Q.closure857(), C.Type_XCi, new Q.closure858(), C.Type_YRK, new Q.closure859(), C.Type_3je, new Q.closure860(), C.Type_2jN, new Q.closure861(), C.Type_8wJ, new Q.closure862(), C.Type_AS6, new Q.closure863(), C.Type_ACG, new Q.closure864(), C.Type_IIj, new Q.closure865(), C.Type_vz6, new Q.closure866(), C.Type_ozo, new Q.closure867(), C.Type_CKa, new Q.closure868(), C.Type_k6K, new Q.closure869(), C.Type_Ecu, new Q.closure870(), C.Type_GFm, new Q.closure871(), C.Type_L5J, new Q.closure872(), C.Type_iDw, new Q.closure873(), C.Type_M98, new Q.closure874(), C.Type_4Uv, new Q.closure875(), C.Type_oyU, new Q.closure876(), C.Type_jqh, new Q.closure877(), C.Type_6TW, new Q.closure878(), C.Type_qRx, new Q.closure879(), C.Type_4AN, new Q.closure880(), C.Type_8BN, new Q.closure881(), C.Type_GNd, new Q.closure882(), C.Type_yDQ, new Q.closure883(), C.Type_F61, new Q.closure884(), C.Type_3Dv, new Q.closure885(), C.Type_cvH, new Q.closure886(), C.Type_MYu, new Q.closure887(), C.Type_kyU, new Q.closure888(), C.Type_OLZ, new Q.closure889(), C.Type_cKo, new Q.closure890(), C.Type_gg9, new Q.closure891(), C.Type_AgZ, new Q.closure892(), C.Type_7N7, new Q.closure893(), C.Type_43h, new Q.closure894(), C.Type_RBJ, new Q.closure895(), C.Type_1rA, new Q.closure896(), C.Type_KYr, new Q.closure897(), C.Type_0jR, new Q.closure898(), C.Type_QCS, new Q.closure899(), C.Type_8UK, new Q.closure900(), C.Type_UkC, new Q.closure901(), C.Type_mC8, new Q.closure902(), C.Type_Yww, new Q.closure903(), C.Type_6PY0, new Q.closure904(), C.Type_8eb, new Q.closure905(), C.Type_TWN, new Q.closure906(), C.Type_4ec, new Q.closure907(), C.Type_2jN0, new Q.closure908(), C.Type_kyk, new Q.closure909(), C.Type_SsP, new Q.closure910(), C.Type_cBg, new Q.closure911(), C.Type_ckG, new Q.closure912(), C.Type_8sa, new Q.closure913(), C.Type_AO3, new Q.closure914(), C.Type_z4s, new Q.closure915(), C.Type_2Vk, new Q.closure916(), C.Type_A5C, new Q.closure917(), C.Type_ors, new Q.closure918(), C.Type_EKj, new Q.closure919(), C.Type_Ues, new Q.closure920(), C.Type_ifn, new Q.closure921(), C.Type_37u, new Q.closure922(), C.Type_etK, new Q.closure923(), C.Type_swn, new Q.closure924(), C.Type_46c, new Q.closure925(), C.Type_XJ0, new Q.closure926(), C.Type_BVY, new Q.closure927(), C.Type_n3c, new Q.closure928(), C.Type_G4S, new Q.closure929(), C.Type_Z2m, new Q.closure930(), C.Type_9sg, new Q.closure931(), C.Type_woc, new Q.closure932(), C.Type_O50, new Q.closure933(), C.Type_yHF, new Q.closure934(), C.Type_c4x, new Q.closure935(), C.Type_jhf, new Q.closure936(), C.Type_GL7, new Q.closure937(), C.Type_QOW, new Q.closure938(), C.Type_Cu4, new Q.closure939(), C.Type_tUY, new Q.closure940(), C.Type_YaB, new Q.closure941(), C.Type_qFe, new Q.closure942(), C.Type_KTV, new Q.closure943(), C.Type_EJH, new Q.closure944(), C.Type_FKj, new Q.closure945(), C.Type_6K0, new Q.closure946(), C.Type_k2W, new Q.closure947(), C.Type_e3S, new Q.closure948(), C.Type_ibb, new Q.closure949(), C.Type_AqR, new Q.closure950(), C.Type_G1Q, new Q.closure951(), C.Type_Xfd, new Q.closure952(), C.Type_mPa, new Q.closure953(), C.Type_SPQ, new Q.closure954(), C.Type_o2l, new Q.closure955(), C.Type_A66, new Q.closure956(), C.Type_6PY, new Q.closure957(), C.Type_0, new Q.closure958(), C.Type_qp8, new Q.closure959(), C.Type_ki2, new Q.closure960(), C.Type_hk6, new Q.closure961(), C.Type_9pl, new Q.closure962(), C.Type_GpM, new Q.closure963(), C.Type_Db0, new Q.closure964()], P.Type, P.Function);
+    return P.LinkedHashMap_LinkedHashMap$_literal([C.Type_scn, new Q.closure716(), C.Type_u5V, new Q.closure717(), C.Type_x4G, new Q.closure718(), C.Type_Wv9, new Q.closure719(), C.Type_sav, new Q.closure720(), C.Type_86y, new Q.closure721(), C.Type_00, new Q.closure722(), C.Type_eZ8, new Q.closure723(), C.Type_QyU, new Q.closure724(), C.Type_iQg, new Q.closure725(), C.Type_2bH, new Q.closure726(), C.Type_42U, new Q.closure727(), C.Type_ly0, new Q.closure728(), C.Type_GQu, new Q.closure729(), C.Type_iL9, new Q.closure730(), C.Type_4Z2, new Q.closure731(), C.Type_eJC, new Q.closure732(), C.Type_o0y, new Q.closure733(), C.Type_Nlt, new Q.closure734(), C.Type_d0f, new Q.closure735(), C.Type_s6k, new Q.closure736(), C.Type_UAS, new Q.closure737(), C.Type_OHx, new Q.closure738(), C.Type_8I8, new Q.closure739(), C.Type_wdB, new Q.closure740(), C.Type_Cxl, new Q.closure741(), C.Type_ON8, new Q.closure742(), C.Type_YKM, new Q.closure743(), C.Type_EMZ, new Q.closure744(), C.Type_YeZ, new Q.closure745(), C.Type_ijl, new Q.closure746(), C.Type_zTx, new Q.closure747(), C.Type_KeE, new Q.closure748(), C.Type_0af, new Q.closure749(), C.Type_Yy0, new Q.closure750(), C.Type_wTU, new Q.closure751(), C.Type_82H, new Q.closure752(), C.Type_cg9, new Q.closure753(), C.Type_hWd, new Q.closure754(), C.Type_EOY, new Q.closure755(), C.Type_xhX, new Q.closure756(), C.Type_EgC, new Q.closure757(), C.Type_qFt, new Q.closure758(), C.Type_blz, new Q.closure759(), C.Type_Npb, new Q.closure760(), C.Type_gMT, new Q.closure761(), C.Type_IeY, new Q.closure762(), C.Type_QOg0, new Q.closure763(), C.Type_WfL, new Q.closure764(), C.Type_Q0t, new Q.closure765(), C.Type_C9d, new Q.closure766(), C.Type_Jk7, new Q.closure767(), C.Type_ga7, new Q.closure768(), C.Type_m9K, new Q.closure769(), C.Type_omH, new Q.closure770(), C.Type_uId, new Q.closure771(), C.Type_IGM, new Q.closure772(), C.Type_EkK, new Q.closure773(), C.Type_jZY, new Q.closure774(), C.Type_NsM, new Q.closure775(), C.Type_U5x, new Q.closure776(), C.Type_ADx, new Q.closure777(), C.Type_yT8, new Q.closure778(), C.Type_ifx, new Q.closure779(), C.Type_aHv, new Q.closure780(), C.Type_MMT, new Q.closure781(), C.Type_wlp, new Q.closure782(), C.Type_GNx, new Q.closure783(), C.Type_P0q, new Q.closure784(), C.Type_cWU, new Q.closure785(), C.Type_wnK, new Q.closure786(), C.Type_02, new Q.closure787(), C.Type_qFM, new Q.closure788(), C.Type_wu2, new Q.closure789(), C.Type_E3Y, new Q.closure790(), C.Type_izR, new Q.closure791(), C.Type_5i6, new Q.closure792(), C.Type_AgZ0, new Q.closure793(), C.Type_gG6, new Q.closure794(), C.Type_ifn0, new Q.closure795(), C.Type_89o, new Q.closure796(), C.Type_CrX, new Q.closure797(), C.Type_nHe, new Q.closure798(), C.Type_U44, new Q.closure799(), C.Type_sVp, new Q.closure800(), C.Type_ZiE, new Q.closure801(), C.Type_w4e, new Q.closure802(), C.Type_KpI, new Q.closure803(), C.Type_k2a, new Q.closure804(), C.Type_OhV, new Q.closure805(), C.Type_2Vk0, new Q.closure806(), C.Type_woc0, new Q.closure807(), C.Type_6YB, new Q.closure808(), C.Type_xw8, new Q.closure809(), C.Type_tOS, new Q.closure810(), C.Type_4m4, new Q.closure811(), C.Type_sr6, new Q.closure812(), C.Type_wEo, new Q.closure813(), C.Type_IJC, new Q.closure814(), C.Type_gWg, new Q.closure815(), C.Type_pQX, new Q.closure816(), C.Type_Epp, new Q.closure817(), C.Type_qfd, new Q.closure818(), C.Type_Dbk, new Q.closure819(), C.Type_4Dj, new Q.closure820(), C.Type_Xzb, new Q.closure821(), C.Type_KSA, new Q.closure822(), C.Type_X3P, new Q.closure823(), C.Type_Cf3, new Q.closure824(), C.Type_kGa, new Q.closure825(), C.Type_c4R, new Q.closure826(), C.Type_iYS, new Q.closure827(), C.Type_oYU, new Q.closure828(), C.Type_i5K, new Q.closure829(), C.Type_9yu, new Q.closure830(), C.Type_C9x, new Q.closure831(), C.Type_5MZ, new Q.closure832(), C.Type_Aec, new Q.closure833(), C.Type_2GN, new Q.closure834(), C.Type_s6i, new Q.closure835(), C.Type_rzW, new Q.closure836(), C.Type_O9i, new Q.closure837(), C.Type_fw1, new Q.closure838(), C.Type_ihV, new Q.closure839(), C.Type_01, new Q.closure840(), C.Type_mJQ, new Q.closure841(), C.Type_c4R0, new Q.closure842(), C.Type_j3h, new Q.closure843(), C.Type_8eb0, new Q.closure844(), C.Type_6FR, new Q.closure845(), C.Type_uZX, new Q.closure846(), C.Type_vlL, new Q.closure847(), C.Type_rXF, new Q.closure848(), C.Type_sQd, new Q.closure849(), C.Type_kXN, new Q.closure850(), C.Type_skV, new Q.closure851(), C.Type_IFE, new Q.closure852(), C.Type_RkP, new Q.closure853(), C.Type_aWx, new Q.closure854(), C.Type_XCi, new Q.closure855(), C.Type_sxw, new Q.closure856(), C.Type_WZ4, new Q.closure857(), C.Type_sEs, new Q.closure858(), C.Type_YRK, new Q.closure859(), C.Type_3je, new Q.closure860(), C.Type_2jN, new Q.closure861(), C.Type_8wJ, new Q.closure862(), C.Type_AS6, new Q.closure863(), C.Type_ACG, new Q.closure864(), C.Type_IIj, new Q.closure865(), C.Type_vz6, new Q.closure866(), C.Type_ozo, new Q.closure867(), C.Type_CKa, new Q.closure868(), C.Type_k6K, new Q.closure869(), C.Type_Ecu, new Q.closure870(), C.Type_GFm, new Q.closure871(), C.Type_L5J, new Q.closure872(), C.Type_iDw, new Q.closure873(), C.Type_M98, new Q.closure874(), C.Type_4Uv, new Q.closure875(), C.Type_oyU, new Q.closure876(), C.Type_jqh, new Q.closure877(), C.Type_6TW, new Q.closure878(), C.Type_qRx, new Q.closure879(), C.Type_4AN, new Q.closure880(), C.Type_8BN, new Q.closure881(), C.Type_GNd, new Q.closure882(), C.Type_yDQ, new Q.closure883(), C.Type_F61, new Q.closure884(), C.Type_3Dv, new Q.closure885(), C.Type_cvH, new Q.closure886(), C.Type_MYu, new Q.closure887(), C.Type_kyU, new Q.closure888(), C.Type_OLZ, new Q.closure889(), C.Type_cKo, new Q.closure890(), C.Type_gg9, new Q.closure891(), C.Type_AgZ, new Q.closure892(), C.Type_7N7, new Q.closure893(), C.Type_43h, new Q.closure894(), C.Type_RBJ, new Q.closure895(), C.Type_1rA, new Q.closure896(), C.Type_KYr, new Q.closure897(), C.Type_0jR, new Q.closure898(), C.Type_QCS, new Q.closure899(), C.Type_8UK, new Q.closure900(), C.Type_UkC, new Q.closure901(), C.Type_mC8, new Q.closure902(), C.Type_Yww, new Q.closure903(), C.Type_6PY0, new Q.closure904(), C.Type_8eb, new Q.closure905(), C.Type_TWN, new Q.closure906(), C.Type_4ec, new Q.closure907(), C.Type_2jN0, new Q.closure908(), C.Type_kyk, new Q.closure909(), C.Type_SsP, new Q.closure910(), C.Type_cBg, new Q.closure911(), C.Type_ckG, new Q.closure912(), C.Type_8sa, new Q.closure913(), C.Type_AO3, new Q.closure914(), C.Type_z4s, new Q.closure915(), C.Type_2Vk, new Q.closure916(), C.Type_A5C, new Q.closure917(), C.Type_ors, new Q.closure918(), C.Type_EKj, new Q.closure919(), C.Type_Ues, new Q.closure920(), C.Type_ifn, new Q.closure921(), C.Type_37u, new Q.closure922(), C.Type_etK, new Q.closure923(), C.Type_swn, new Q.closure924(), C.Type_46c, new Q.closure925(), C.Type_XJ0, new Q.closure926(), C.Type_BVY, new Q.closure927(), C.Type_n3c, new Q.closure928(), C.Type_G4S, new Q.closure929(), C.Type_Z2m, new Q.closure930(), C.Type_9sg, new Q.closure931(), C.Type_woc, new Q.closure932(), C.Type_O50, new Q.closure933(), C.Type_yHF, new Q.closure934(), C.Type_c4x, new Q.closure935(), C.Type_jhf, new Q.closure936(), C.Type_GL7, new Q.closure937(), C.Type_QOW, new Q.closure938(), C.Type_Cu4, new Q.closure939(), C.Type_tUY, new Q.closure940(), C.Type_YaB, new Q.closure941(), C.Type_qFe, new Q.closure942(), C.Type_KTV, new Q.closure943(), C.Type_EJH, new Q.closure944(), C.Type_FKj, new Q.closure945(), C.Type_6K0, new Q.closure946(), C.Type_k2W, new Q.closure947(), C.Type_e3S, new Q.closure948(), C.Type_ibb, new Q.closure949(), C.Type_AqR, new Q.closure950(), C.Type_G1Q, new Q.closure951(), C.Type_Xfd, new Q.closure952(), C.Type_mPa, new Q.closure953(), C.Type_SPQ, new Q.closure954(), C.Type_o2l, new Q.closure955(), C.Type_A66, new Q.closure956(), C.Type_6PY, new Q.closure957(), C.Type_0, new Q.closure958(), C.Type_qp8, new Q.closure959(), C.Type_ki2, new Q.closure960(), C.Type_hk6, new Q.closure961(), C.Type_9pl, new Q.closure962(), C.Type_GpM, new Q.closure963(), C.Type_Db0, new Q.closure964()], P.Type, P.Function);
   }, "typeFactories", "parameterKeys", "get$parameterKeys", function() {
     var t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25, t26, t27, t28, t29, t30, t31, t32, t33, t34, t35, t36, t37, t38, t39, t40, t41, t42, t43, t44, t45, t46, t47, t48, t49, t50, t51, t52, t53, t54, t55, t56, t57, t58, t59, t60, t61, t62, t63, t64, t65, t66, t67, t68, t69, t70, t71, t72, t73, t74, t75, t76, t77, t78, t79, t80, t81, t82, t83, t84, t85, t86, t87, t88, t89, t90, t91, t92, t93, t94, t95, t96, t97, t98, t99, t100, t101, t102, t103, t104, t105, t106, t107, t108, t109, t110, t111, t112, t113, t114, t115, t116, t117, t118, t119, t120, t121;
     t1 = $.get$_KEY_DataCache();
@@ -62520,9 +62520,9 @@
     t87 = $.get$_KEY_RouteInitializer();
     t88 = $.get$_KEY_Application();
     t89 = $.get$_KEY_NgRoutingHelper();
-    t90 = $.get$_KEY_HammockConfig();
-    t91 = $.get$_KEY_ResourceStore();
-    t92 = $.get$_KEY_ObjectStore();
+    t90 = $.get$_KEY_ObjectStore();
+    t91 = $.get$_KEY_HammockConfig();
+    t92 = $.get$_KEY_ResourceStore();
     t93 = $.get$_KEY_Transition();
     t94 = $.get$_KEY_Timeout();
     t95 = $.get$_KEY_Carousel();
@@ -62552,7 +62552,7 @@
     t119 = $.get$_KEY_TabComponent();
     t120 = $.get$_KEY_DatepickerConfig();
     t121 = $.get$_KEY_Date();
-    return P.LinkedHashMap__makeLiteral([C.Type_scn, [t1, t2, t3, t4, t5], C.Type_u5V, [t1, t6, t2, t3, t5, t7], C.Type_x4G, [t1, t6, t2, t3, t5, t7], C.Type_Wv9, [t1, t6, t2, t3, t5], C.Type_sav, [t1, t2, t3], C.Type_86y, [t1, t6, t2, t3, t5], C.Type_00, [t1, t2, t3], C.Type_eZ8, [t1, t6, t2, t3, t5], C.Type_QyU, [t1, t2, t3], C.Type_iQg, [t1, t2, t3, t5], C.Type_2bH, [t1, t2, t3], C.Type_42U, [t1, t2, t3, t4], C.Type_ly0, [t1, t2, t3, t5], C.Type_GQu, [t1, t6, t2, t3, t5], C.Type_iL9, [t1, t2, t3], C.Type_4Z2, [t1, t2, t3], C.Type_eJC, [t2, t3], C.Type_o0y, [t1, t2, t3, t5], C.Type_Nlt, C.List_empty, C.Type_d0f, [t8], C.Type_s6k, [t9], C.Type_UAS, [t10, t11], C.Type_OHx, C.List_empty, C.Type_8I8, [t12, t13, t14, t15], C.Type_wdB, [t16, t10, t17, t11, t18, t19, t20, t21], C.Type_Cxl, [t22, t11, t8], C.Type_ON8, [t23, t11, t8], C.Type_YKM, C.List_empty, C.Type_EMZ, [t23], C.Type_YeZ, C.List_empty, C.Type_ijl, C.List_empty, C.Type_zTx, C.List_empty, C.Type_KeE, C.List_empty, C.Type_0af, C.List_empty, C.Type_Yy0, [t24], C.Type_wTU, [t9, t25, t26, t27, t28, t29, t30, t31, t32, t33], C.Type_82H, C.List_empty, C.Type_cg9, [t22, t34, t35], C.Type_hWd, [t36, t37, t34, t35], C.Type_EOY, [t38, t30, t39, t40], C.Type_xhX, [t41, t42, t18, t13, t12], C.Type_EgC, [t43, t44, t11, t17, t45, t46, t47, t48, t49, t50, t51], C.Type_qFt, C.List_empty, C.Type_blz, [t11, t43, t17, t52, t45, t46, t47, t48, t49, t50, t51], C.Type_Npb, [t38, t53, t40, t54], C.Type_gMT, C.List_empty, C.Type_IeY, [t47, t48, t55, t50, t46, t51], C.Type_QOg0, C.List_empty, C.Type_WfL, C.List_empty, C.Type_Q0t, [t38, t32], C.Type_C9d, C.List_empty, C.Type_Jk7, [t38, t56], C.Type_ga7, [t38, t57], C.Type_m9K, [t38], C.Type_omH, [t58, t35, t36], C.Type_uId, [t58, t35, t36], C.Type_IGM, [t58, t35, t36], C.Type_EkK, [t38, t35], C.Type_jZY, [t38, t39], C.Type_NsM, [t59, t60, t35], C.Type_U5x, [t59, t60, t35], C.Type_ADx, [t38, t35, t43, t61, t62], C.Type_yT8, [t35, t58, t61, t36, t39, t56], C.Type_ifx, [t38, t63, t35, t64, t65, t66], C.Type_aHv, [t38, t63, t35, t66], C.Type_MMT, [t38, t63, t35, t66], C.Type_wlp, [t38], C.Type_GNx, [t38, t63, t35, t67, t66], C.Type_P0q, [t38], C.Type_cWU, [t38], C.Type_wnK, [t38], C.Type_02, [t38, t63, t35, t68, t36], C.Type_qFM, [t38, t63, t35, t66], C.Type_wu2, [t35, t38, t42, t13], C.Type_E3Y, [t60, t69, t35, t16, t13], C.Type_izR, [t38, t48], C.Type_5i6, [t38, t39], C.Type_AgZ0, [t38, t39], C.Type_gG6, [t58], C.Type_ifn0, [t58], C.Type_89o, [t36], C.Type_CrX, [t38, t35], C.Type_nHe, [t35], C.Type_U44, [t70, t60, t69], C.Type_sVp, [t70, t60, t69], C.Type_ZiE, C.List_empty, C.Type_w4e, [t38, t36, t63, t35], C.Type_KpI, [t38, t71, t68], C.Type_k2a, [t35, t58, t61, t39], C.Type_OhV, [t63], C.Type_2Vk0, [t63], C.Type_woc0, [t63], C.Type_6YB, [t63], C.Type_xw8, [t63], C.Type_tOS, [t63], C.Type_4m4, [t63], C.Type_sr6, [t63], C.Type_wEo, [t63], C.Type_IJC, [t63], C.Type_gWg, C.List_empty, C.Type_pQX, [t72, t73, t51], C.Type_Epp, [t74], C.Type_qfd, [t12, t14], C.Type_Dbk, C.List_empty, C.Type_4Dj, [t51], C.Type_Xzb, C.List_empty, C.Type_KSA, [t75, t76], C.Type_X3P, C.List_empty, C.Type_Cf3, C.List_empty, C.Type_kGa, [t77, t16, t18, t78, t13, t8, t79, t32, t80, t51, t33], C.Type_c4R, C.List_empty, C.Type_iYS, C.List_empty, C.Type_oYU, [t16, t74], C.Type_i5K, C.List_empty, C.Type_9yu, [t45, t81], C.Type_C9x, C.List_empty, C.Type_5MZ, C.List_empty, C.Type_Aec, C.List_empty, C.Type_2GN, [t16], C.Type_s6i, C.List_empty, C.Type_rzW, [t12], C.Type_O9i, C.List_empty, C.Type_fw1, C.List_empty, C.Type_ihV, C.List_empty, C.Type_01, [t16], C.Type_mJQ, C.List_empty, C.Type_c4R0, C.List_empty, C.Type_j3h, [t82, t10, t32], C.Type_8eb0, [t83], C.Type_6FR, [t11], C.Type_uZX, [t84, t85, t86], C.Type_vlL, C.List_empty, C.Type_rXF, [t38, t86], C.Type_sQd, [t38, t86], C.Type_kXN, C.List_empty, C.Type_skV, [t87, t12, t6, t88], C.Type_IFE, [t38, t43, t61, t12, t6, t35], C.Type_RkP, [t6, t61, t89], C.Type_aWx, [t51], C.Type_sxw, [t47, t90], C.Type_WZ4, [t12], C.Type_sEs, [t91, t90], C.Type_XCi, [t92], C.Type_YRK, [t92, t4, t3], C.Type_3je, [t1], C.Type_2jN, C.List_empty, C.Type_8wJ, [t92, t24, t2, t4, t3], C.Type_AS6, [t1, t38, t3, t5], C.Type_ACG, [t1, t38, t3, t5], C.Type_IIj, [t1, t38, t3, t5], C.Type_vz6, [t1, t38, t3, t5], C.Type_ozo, [t1, t38, t3, t5], C.Type_CKa, [t1, t38, t3, t5], C.Type_k6K, [t1, t38, t3, t5], C.Type_Ecu, [t1, t38, t4, t3, t5], C.Type_GFm, [t1, t38, t3, t5], C.Type_L5J, [t38], C.Type_iDw, C.List_empty, C.Type_M98, [t1, t2, t3, t5], C.Type_4Uv, [t3], C.Type_oyU, C.List_empty, C.Type_jqh, [t5, t4], C.Type_6TW, [t3], C.Type_qRx, [t3], C.Type_4AN, C.List_empty, C.Type_8BN, [t1, t2, t3, t5], C.Type_GNd, C.List_empty, C.Type_yDQ, C.List_empty, C.Type_F61, C.List_empty, C.Type_3Dv, C.List_empty, C.Type_cvH, C.List_empty, C.Type_MYu, [t5], C.Type_kyU, [t3], C.Type_OLZ, C.List_empty, C.Type_cKo, [t5, t4], C.Type_gg9, [t5, t3], C.Type_AgZ, [t2, t5], C.Type_7N7, [t93, t94], C.Type_43h, [t38, t95], C.Type_RBJ, [t96, t97], C.Type_1rA, [t12, t8], C.Type_KYr, [t94], C.Type_0jR, [t98, t93, t38], C.Type_QCS, [t38], C.Type_8UK, [t98, t93, t38], C.Type_UkC, [t38], C.Type_mC8, C.List_empty, C.Type_Yww, [t99], C.Type_6PY0, [t100, t101, t94], C.Type_8eb, [t38, t102], C.Type_TWN, [t38], C.Type_4ec, [t94], C.Type_2jN0, [t38, t63, t103, t35], C.Type_kyk, [t38, t63, t103, t35], C.Type_SsP, C.List_empty, C.Type_cBg, C.List_empty, C.Type_ckG, C.List_empty, C.Type_8sa, [t38, t104, t105, t106], C.Type_AO3, [t38, t104, t105, t106], C.Type_z4s, C.List_empty, C.Type_2Vk, [t38, t104, t106, t107, t35], C.Type_A5C, [t108, t107, t38, t104, t106], C.Type_ors, [t109, t37, t37, t110], C.Type_EKj, [t111], C.Type_Ues, [t109, t110, t110, t37, t37, t37, t37, t110], C.Type_ifn, [t112, t113], C.Type_37u, [t109, t37, t110], C.Type_etK, C.List_empty, C.Type_swn, [t38, t36, t63, t114], C.Type_46c, C.List_empty, C.Type_XJ0, [t38, t36, t94, t115, t42, t116, t12, t55], C.Type_BVY, C.List_empty, C.Type_n3c, [t117, t117, t117, t117], C.Type_G4S, C.List_empty, C.Type_Z2m, [t38, t118], C.Type_9sg, [t38, t119], C.Type_woc, [t38], C.Type_O50, C.List_empty, C.Type_yHF, C.List_empty, C.Type_c4x, C.List_empty, C.Type_jhf, C.List_empty, C.Type_GL7, C.List_empty, C.Type_QOW, [t38, t120, t36, t63, t121], C.Type_Cu4, C.List_empty, C.Type_tUY, [t35, t38, t121, t36, t63, t116, t16, t55, t62, t12, t120, $.get$_KEY_DatepickerPopupConfig()], C.Type_YaB, [t38], C.Type_qFe, [t38, $.get$_KEY_Modal(), t94], C.Type_KTV, [t55, t94, t48, t47, t61, t62], C.Type_EJH, [t36], C.Type_FKj, [t16], C.Type_6K0, C.List_empty, C.Type_k2W, C.List_empty, C.Type_e3S, [t43], C.Type_ibb, [t38, t12, t43], C.Type_AqR, [t63, t12, t38, $.get$_KEY_TypeaheadParser(), t13, t43, t116], C.Type_G1Q, [$.get$_KEY_FormatterFunc()], C.Type_Xfd, [t38], C.Type_mPa, [t38, $.get$_KEY_TimepickerConfig(), t36, t63], C.Type_SPQ, [t38, t36, t94, t115, t42, t116, t12, t55], C.Type_o2l, [t38, t93], C.Type_A66, [t7, t1, t3, t5, t6], C.Type_6PY, [t7, t1, t3, t5, t6], C.Type_0, [t7, t1, t3, t5, t6], C.Type_qp8, [t7, t1, t3, t5, t6], C.Type_ki2, C.List_empty, C.Type_hk6, [t7, t1, t3, t5, t6], C.Type_9pl, [t7, t1, t3, t5, t6], C.Type_GpM, [t5], C.Type_Db0, C.List_empty]);
+    return P.LinkedHashMap__makeLiteral([C.Type_scn, [t1, t2, t3, t4, t5], C.Type_u5V, [t1, t6, t2, t3, t5, t7], C.Type_x4G, [t1, t6, t2, t3, t5, t7], C.Type_Wv9, [t1, t6, t2, t3, t5], C.Type_sav, [t1, t2, t3], C.Type_86y, [t1, t6, t2, t3, t5], C.Type_00, [t1, t2, t3], C.Type_eZ8, [t1, t6, t2, t3, t5], C.Type_QyU, [t1, t2, t3], C.Type_iQg, [t1, t2, t3, t5], C.Type_2bH, [t1, t2, t3], C.Type_42U, [t1, t2, t3, t4], C.Type_ly0, [t1, t2, t3, t5], C.Type_GQu, [t1, t6, t2, t3, t5], C.Type_iL9, [t1, t2, t3], C.Type_4Z2, [t1, t2, t3], C.Type_eJC, [t2, t3], C.Type_o0y, [t1, t2, t3, t5], C.Type_Nlt, C.List_empty, C.Type_d0f, [t8], C.Type_s6k, [t9], C.Type_UAS, [t10, t11], C.Type_OHx, C.List_empty, C.Type_8I8, [t12, t13, t14, t15], C.Type_wdB, [t16, t10, t17, t11, t18, t19, t20, t21], C.Type_Cxl, [t22, t11, t8], C.Type_ON8, [t23, t11, t8], C.Type_YKM, C.List_empty, C.Type_EMZ, [t23], C.Type_YeZ, C.List_empty, C.Type_ijl, C.List_empty, C.Type_zTx, C.List_empty, C.Type_KeE, C.List_empty, C.Type_0af, C.List_empty, C.Type_Yy0, [t24], C.Type_wTU, [t9, t25, t26, t27, t28, t29, t30, t31, t32, t33], C.Type_82H, C.List_empty, C.Type_cg9, [t22, t34, t35], C.Type_hWd, [t36, t37, t34, t35], C.Type_EOY, [t38, t30, t39, t40], C.Type_xhX, [t41, t42, t18, t13, t12], C.Type_EgC, [t43, t44, t11, t17, t45, t46, t47, t48, t49, t50, t51], C.Type_qFt, C.List_empty, C.Type_blz, [t11, t43, t17, t52, t45, t46, t47, t48, t49, t50, t51], C.Type_Npb, [t38, t53, t40, t54], C.Type_gMT, C.List_empty, C.Type_IeY, [t47, t48, t55, t50, t46, t51], C.Type_QOg0, C.List_empty, C.Type_WfL, C.List_empty, C.Type_Q0t, [t38, t32], C.Type_C9d, C.List_empty, C.Type_Jk7, [t38, t56], C.Type_ga7, [t38, t57], C.Type_m9K, [t38], C.Type_omH, [t58, t35, t36], C.Type_uId, [t58, t35, t36], C.Type_IGM, [t58, t35, t36], C.Type_EkK, [t38, t35], C.Type_jZY, [t38, t39], C.Type_NsM, [t59, t60, t35], C.Type_U5x, [t59, t60, t35], C.Type_ADx, [t38, t35, t43, t61, t62], C.Type_yT8, [t35, t58, t61, t36, t39, t56], C.Type_ifx, [t38, t63, t35, t64, t65, t66], C.Type_aHv, [t38, t63, t35, t66], C.Type_MMT, [t38, t63, t35, t66], C.Type_wlp, [t38], C.Type_GNx, [t38, t63, t35, t67, t66], C.Type_P0q, [t38], C.Type_cWU, [t38], C.Type_wnK, [t38], C.Type_02, [t38, t63, t35, t68, t36], C.Type_qFM, [t38, t63, t35, t66], C.Type_wu2, [t35, t38, t42, t13], C.Type_E3Y, [t60, t69, t35, t16, t13], C.Type_izR, [t38, t48], C.Type_5i6, [t38, t39], C.Type_AgZ0, [t38, t39], C.Type_gG6, [t58], C.Type_ifn0, [t58], C.Type_89o, [t36], C.Type_CrX, [t38, t35], C.Type_nHe, [t35], C.Type_U44, [t70, t60, t69], C.Type_sVp, [t70, t60, t69], C.Type_ZiE, C.List_empty, C.Type_w4e, [t38, t36, t63, t35], C.Type_KpI, [t38, t71, t68], C.Type_k2a, [t35, t58, t61, t39], C.Type_OhV, [t63], C.Type_2Vk0, [t63], C.Type_woc0, [t63], C.Type_6YB, [t63], C.Type_xw8, [t63], C.Type_tOS, [t63], C.Type_4m4, [t63], C.Type_sr6, [t63], C.Type_wEo, [t63], C.Type_IJC, [t63], C.Type_gWg, C.List_empty, C.Type_pQX, [t72, t73, t51], C.Type_Epp, [t74], C.Type_qfd, [t12, t14], C.Type_Dbk, C.List_empty, C.Type_4Dj, [t51], C.Type_Xzb, C.List_empty, C.Type_KSA, [t75, t76], C.Type_X3P, C.List_empty, C.Type_Cf3, C.List_empty, C.Type_kGa, [t77, t16, t18, t78, t13, t8, t79, t32, t80, t51, t33], C.Type_c4R, C.List_empty, C.Type_iYS, C.List_empty, C.Type_oYU, [t16, t74], C.Type_i5K, C.List_empty, C.Type_9yu, [t45, t81], C.Type_C9x, C.List_empty, C.Type_5MZ, C.List_empty, C.Type_Aec, C.List_empty, C.Type_2GN, [t16], C.Type_s6i, C.List_empty, C.Type_rzW, [t12], C.Type_O9i, C.List_empty, C.Type_fw1, C.List_empty, C.Type_ihV, C.List_empty, C.Type_01, [t16], C.Type_mJQ, C.List_empty, C.Type_c4R0, C.List_empty, C.Type_j3h, [t82, t10, t32], C.Type_8eb0, [t83], C.Type_6FR, [t11], C.Type_uZX, [t84, t85, t86], C.Type_vlL, C.List_empty, C.Type_rXF, [t38, t86], C.Type_sQd, [t38, t86], C.Type_kXN, C.List_empty, C.Type_skV, [t87, t12, t6, t88], C.Type_IFE, [t38, t43, t61, t12, t6, t35], C.Type_RkP, [t6, t61, t89], C.Type_aWx, [t51], C.Type_XCi, [t90], C.Type_sxw, [t47, t91], C.Type_WZ4, [t12], C.Type_sEs, [t92, t91], C.Type_YRK, [t90, t4, t3], C.Type_3je, [t1], C.Type_2jN, C.List_empty, C.Type_8wJ, [t90, t24, t2, t4, t3], C.Type_AS6, [t1, t38, t3, t5], C.Type_ACG, [t1, t38, t3, t5], C.Type_IIj, [t1, t38, t3, t5], C.Type_vz6, [t1, t38, t3, t5], C.Type_ozo, [t1, t38, t3, t5], C.Type_CKa, [t1, t38, t3, t5], C.Type_k6K, [t1, t38, t3, t5], C.Type_Ecu, [t1, t38, t4, t3, t5], C.Type_GFm, [t1, t38, t3, t5], C.Type_L5J, [t38], C.Type_iDw, C.List_empty, C.Type_M98, [t1, t2, t3, t5], C.Type_4Uv, [t3], C.Type_oyU, C.List_empty, C.Type_jqh, [t5, t4], C.Type_6TW, [t3], C.Type_qRx, [t3], C.Type_4AN, C.List_empty, C.Type_8BN, [t1, t2, t3, t5], C.Type_GNd, C.List_empty, C.Type_yDQ, C.List_empty, C.Type_F61, C.List_empty, C.Type_3Dv, C.List_empty, C.Type_cvH, C.List_empty, C.Type_MYu, [t5], C.Type_kyU, [t3], C.Type_OLZ, C.List_empty, C.Type_cKo, [t5, t4], C.Type_gg9, [t5, t3], C.Type_AgZ, [t2, t5], C.Type_7N7, [t93, t94], C.Type_43h, [t38, t95], C.Type_RBJ, [t96, t97], C.Type_1rA, [t12, t8], C.Type_KYr, [t94], C.Type_0jR, [t98, t93, t38], C.Type_QCS, [t38], C.Type_8UK, [t98, t93, t38], C.Type_UkC, [t38], C.Type_mC8, C.List_empty, C.Type_Yww, [t99], C.Type_6PY0, [t100, t101, t94], C.Type_8eb, [t38, t102], C.Type_TWN, [t38], C.Type_4ec, [t94], C.Type_2jN0, [t38, t63, t103, t35], C.Type_kyk, [t38, t63, t103, t35], C.Type_SsP, C.List_empty, C.Type_cBg, C.List_empty, C.Type_ckG, C.List_empty, C.Type_8sa, [t38, t104, t105, t106], C.Type_AO3, [t38, t104, t105, t106], C.Type_z4s, C.List_empty, C.Type_2Vk, [t38, t104, t106, t107, t35], C.Type_A5C, [t108, t107, t38, t104, t106], C.Type_ors, [t109, t37, t37, t110], C.Type_EKj, [t111], C.Type_Ues, [t109, t110, t110, t37, t37, t37, t37, t110], C.Type_ifn, [t112, t113], C.Type_37u, [t109, t37, t110], C.Type_etK, C.List_empty, C.Type_swn, [t38, t36, t63, t114], C.Type_46c, C.List_empty, C.Type_XJ0, [t38, t36, t94, t115, t42, t116, t12, t55], C.Type_BVY, C.List_empty, C.Type_n3c, [t117, t117, t117, t117], C.Type_G4S, C.List_empty, C.Type_Z2m, [t38, t118], C.Type_9sg, [t38, t119], C.Type_woc, [t38], C.Type_O50, C.List_empty, C.Type_yHF, C.List_empty, C.Type_c4x, C.List_empty, C.Type_jhf, C.List_empty, C.Type_GL7, C.List_empty, C.Type_QOW, [t38, t120, t36, t63, t121], C.Type_Cu4, C.List_empty, C.Type_tUY, [t35, t38, t121, t36, t63, t116, t16, t55, t62, t12, t120, $.get$_KEY_DatepickerPopupConfig()], C.Type_YaB, [t38], C.Type_qFe, [t38, $.get$_KEY_Modal(), t94], C.Type_KTV, [t55, t94, t48, t47, t61, t62], C.Type_EJH, [t36], C.Type_FKj, [t16], C.Type_6K0, C.List_empty, C.Type_k2W, C.List_empty, C.Type_e3S, [t43], C.Type_ibb, [t38, t12, t43], C.Type_AqR, [t63, t12, t38, $.get$_KEY_TypeaheadParser(), t13, t43, t116], C.Type_G1Q, [$.get$_KEY_FormatterFunc()], C.Type_Xfd, [t38], C.Type_mPa, [t38, $.get$_KEY_TimepickerConfig(), t36, t63], C.Type_SPQ, [t38, t36, t94, t115, t42, t116, t12, t55], C.Type_o2l, [t38, t93], C.Type_A66, [t7, t1, t3, t5, t6], C.Type_6PY, [t7, t1, t3, t5, t6], C.Type_0, [t7, t1, t3, t5, t6], C.Type_qp8, [t7, t1, t3, t5, t6], C.Type_ki2, C.List_empty, C.Type_hk6, [t7, t1, t3, t5, t6], C.Type_9pl, [t7, t1, t3, t5, t6], C.Type_GpM, [t5], C.Type_Db0, C.List_empty]);
   }, "parameterKeys", "typeToUriMapper", "get$typeToUriMapper", function() {
     return new D._StaticTypeToUriMapper();
   }, "typeToUriMapper", "_uriMapping", "get$_uriMapping", function() {
