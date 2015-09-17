@@ -266,7 +266,7 @@ class Invoice extends Entity implements DimeEntityInterface
 
 
 	/**
-	 * @return mixed
+	 * @return ArrayCollection|InvoiceDiscount[]
 	 */
 	public function getInvoiceDiscounts()
 	{
@@ -334,7 +334,7 @@ class Invoice extends Entity implements DimeEntityInterface
 	}
 
 	/**
-	 * @return mixed
+	 * @return ArrayCollection|StandardDiscount[]
 	 */
 	public function getStandardDiscounts()
 	{
