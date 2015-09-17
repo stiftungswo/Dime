@@ -2,6 +2,8 @@
 namespace Dime\TimetrackerBundle\Decoder;
 
 use Dime\TimetrackerBundle\Entity\Activity;
+use Dime\TimetrackerBundle\Entity\Tag;
+use Dime\TimetrackerBundle\Entity\Timeslice;
 
 class ActivityDecoder
 {

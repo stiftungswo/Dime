@@ -9,8 +9,8 @@ abstract class AbstractParser
     /**
      * Set result to prefill the results array.
      *
-     * @param string $input
-     * @return Parser
+     * @param array $result
+     * @return AbstractParser
      */
     public function setResult(array $result)
     {
