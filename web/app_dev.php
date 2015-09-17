@@ -7,6 +7,8 @@ use Symfony\Component\Debug\Debug;
 // read http://symfony.com/doc/current/book/installation.html#configuration-and-setup for more information
 umask(0000);
 
+set_time_limit(60);
+
 // set this to true while debugging with xdebug
 $xdebug = false;
 
