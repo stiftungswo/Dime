@@ -47,7 +47,7 @@ class Service extends Entity implements DimeEntityInterface
 
 	/**
 	 * JMS\Type("array")
-	 * @JMS\MaxDepth(2)
+	 * @JMS\MaxDepth(3)
 	 * @JMS\SerializedName("rates")
 	 * @ORM\OneToMany(targetEntity="Dime\TimetrackerBundle\Entity\Rate", mappedBy="service", orphanRemoval=true, cascade={"all"})
 	 **/

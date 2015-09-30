@@ -31,10 +31,10 @@ class ProjectFormType extends AbstractType
             ->add('description')
             ->add('budgetPrice', 'tbbc_simple_money')
             ->add('fixedPrice', 'tbbc_simple_money')
-            ->add('budgetTime')
-	        ->add('activities', 'entity', array('class' => 'DimeTimetrackerBundle:Activity', 'multiple' => true))
+            ->add('budgetTime', 'text')
+            ->add('activities', 'entity', array('class' => 'DimeTimetrackerBundle:Activity', 'multiple' => true))
             ->add('chargeable')
-	        ->add('tags', 'entity', array('class' => 'DimeTimetrackerBundle:Tag', 'multiple' => true))
+            ->add('tags', 'entity', array('class' => 'DimeTimetrackerBundle:Tag', 'multiple' => true))
             ->add('user', 'entity', array('class' => 'DimeTimetrackerBundle:User'))
             ->add('rateGroup', 'entity', array('class' => 'DimeTimetrackerBundle:RateGroup'))
         ;

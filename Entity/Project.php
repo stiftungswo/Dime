@@ -418,7 +418,8 @@ class Project extends Entity implements DimeEntityInterface
 	 */
 	public function setBudgetTime($budgetTime)
 	{
-		$this->budgetTime = $budgetTime;
+		$rateunit = new RateUnitType();
+		$this->budgetTime = $rateunit->reverseTransform($budgetTime);
 
 		return $this;
 	}
