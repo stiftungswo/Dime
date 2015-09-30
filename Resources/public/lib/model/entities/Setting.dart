@@ -6,6 +6,7 @@ class Setting extends Entity {
   Setting.clone(Setting original): super.clone(original){
     this.namespace = original.namespace;
     this.value = original.value;
+    addFieldstoUpdate(['namespace','value']);
   }
 
   Setting.fromMap(Map<String, dynamic> map): super.fromMap(map);

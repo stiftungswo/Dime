@@ -6,6 +6,7 @@ class Holiday extends Entity {
   Holiday.clone(Holiday original): super.clone(original){
     this.date = original.date;
     this.duration = original.duration;
+    addFieldstoUpdate(['date','duration']);
   }
 
   Holiday.fromMap(Map<String, dynamic> map): super.fromMap(map);

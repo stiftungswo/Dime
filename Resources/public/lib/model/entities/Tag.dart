@@ -5,6 +5,7 @@ class Tag extends Entity {
 
   Tag.clone(Tag original): super.clone(original){
     this.system = original.system;
+    addFieldstoUpdate(['system']);
   }
 
   Tag.fromMap(Map<String, dynamic> map): super.fromMap(map);

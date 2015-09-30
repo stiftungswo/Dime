@@ -20,6 +20,7 @@ class Invoice extends Entity {
     for (StandardDiscount discount in original.standardDiscounts) {
       this.standardDiscounts.add(discount);
     }
+    addFieldstoUpdate(['description','customer','project','offer','start','end','standardDiscounts']);
   }
 
   Invoice.fromMap(Map<String, dynamic> map): super.fromMap(map);

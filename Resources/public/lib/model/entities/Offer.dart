@@ -22,6 +22,7 @@ class Offer extends Entity {
     for (StandardDiscount discount in original.standardDiscounts) {
       this.standardDiscounts.add(discount);
     }
+    addFieldstoUpdate(['validTo','rateGroup','customer','accountant','shortDescription','description','status','address','standardDiscounts']);
   }
 
   Offer.fromMap(Map<String, dynamic> map): super.fromMap(map);

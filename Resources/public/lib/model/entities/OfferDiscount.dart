@@ -5,6 +5,7 @@ class OfferDiscount extends StandardDiscount {
 
   OfferDiscount.clone(OfferDiscount original): super.clone(original){
     this.offer = original.offer;
+    addFieldstoUpdate(['offer']);
   }
 
   OfferDiscount.fromMap(Map<String, dynamic> map): super.fromMap(map);

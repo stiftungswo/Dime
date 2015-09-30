@@ -1,6 +1,8 @@
 library dime_entity;
 
 import 'package:hammock/hammock.dart';
+import 'dart:html';
+import 'dart:math';
 
 part 'entities/Activity.dart';
 part 'entities/Address.dart';
@@ -35,6 +37,7 @@ class Entity {
   Entity.clone(Entity original){
     this.name = original.name;
     this.user = original.user;
+    addFieldstoUpdate(['name','user']);
   }
 
   init({Map<String, dynamic> params: const {}}) {
@@ -75,9 +78,17 @@ class Entity {
           value.addFieldtoUpdate('state');
           value.addFieldtoUpdate('country');
         } else {
-          value.addFieldtoUpdate('id');
+          // FIXME: this is kind of a hack to fix cloning, could possibly set fields to null in some cases
+          if(value.id != null){
+            value.addFieldtoUpdate('id');
+          } else {
+            // set to null if id is null or not present (empty object / not loaded)
+            value = null;
+          }
         }
-        value = value.toMap();
+        if (value != null){
+          value = value.toMap();
+        }
       } else if (value is DateTime) {
         value = value.toString();
       }
@@ -110,6 +121,12 @@ class Entity {
   void addFieldtoUpdate(String name) {
     if (!this._toUpdate.contains(name)) {
       this._toUpdate.add(name);
+    }
+  }
+
+  void addFieldstoUpdate(List<String> names) {
+    for (String name in names) {
+      this.addFieldtoUpdate(name);
     }
   }
 

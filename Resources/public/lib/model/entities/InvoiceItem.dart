@@ -22,6 +22,7 @@ class InvoiceItem extends Entity {
     this.activity = original.activity;
     this.vat = original.vat;
     this.invoice = original.invoice;
+    addFieldstoUpdate(['name','amount','rateValue','rateUnit','activity','vat','invoice']);
   }
 
   InvoiceItem.fromMap(Map<String, dynamic> map): super.fromMap(map);

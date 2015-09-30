@@ -8,6 +8,7 @@ class Service extends Entity {
     this.description = original.description;
     this.chargeable = original.chargeable;
     this.vat = original.vat;
+    addFieldstoUpdate(['name','description','chargeable','vat']);
   }
 
   Service.fromMap(Map<String, dynamic> map): super.fromMap(map);
@@ -64,6 +65,7 @@ class Service extends Entity {
 
   cloneDescendants(Service original) {
     for (Rate entity in original.rates) {
+      window.console.log(entity);
       Rate clone = new Rate.clone(entity);
       clone.service = this;
       this._descendantsToUpdate.add(clone);

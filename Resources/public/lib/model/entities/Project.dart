@@ -22,6 +22,7 @@ class Project extends Entity {
     this.rateGroup = original.rateGroup;
     this.chargeable = original.chargeable;
     this.deadline = original.deadline;
+    addFieldstoUpdate(['currentPrice','budgetPrice','currentTime','budgetTime','description','fixedPrice','customer','rateGroup','chargeable','deadline']);
   }
 
   Project.fromMap(Map<String, dynamic> map): super.fromMap(map);

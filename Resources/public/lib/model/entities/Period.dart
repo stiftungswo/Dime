@@ -8,6 +8,7 @@ class Period extends Entity {
     this.end = original.end;
     this.pensum = original.pensum;
     this.employee = original.employee;
+    addFieldstoUpdate(['start','end','pensum','employee']);
   }
 
   Period.fromMap(Map<String, dynamic> map): super.fromMap(map);

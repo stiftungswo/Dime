@@ -10,6 +10,7 @@ import 'package:DimeClient/service/status.dart';
 import 'package:DimeClient/service/user_auth.dart';
 import 'dart:html';
 import 'package:intl/intl.dart';
+import 'dart:math';
 
 class EntityOverview extends AttachAware implements ScopeAware {
 
@@ -587,9 +588,10 @@ class EmployeeOverviewComponent extends EntityOverview {
   }
 
   createEntity({var newEnt, Map<String, dynamic> params: const{}}) async{
+    String random = new Random().nextInt(1000).toString();
     super.createEntity(params: {
-      'username': 'newuser',
-      'email': 'user@example.com',
+      'username': 'newuser' + random,
+      'email': 'user' + random + '@example.com',
     });
   }
 }

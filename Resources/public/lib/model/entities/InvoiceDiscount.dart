@@ -5,6 +5,7 @@ class InvoiceDiscount extends StandardDiscount {
 
   InvoiceDiscount.clone(InvoiceDiscount original): super.clone(original){
     this.invoice = original.invoice;
+    addFieldstoUpdate(['invoice']);
   }
 
   InvoiceDiscount.fromMap(Map<String, dynamic> map): super.fromMap(map);

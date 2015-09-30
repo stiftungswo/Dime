@@ -4,12 +4,14 @@ class User extends Entity {
   User();
 
   User.clone(User original): super.clone(original){
-    this.username = 'cloneduser';
+    String random = new Random().nextInt(1000).toString();
+    this.username = original.username + '_cloned' + random;
     this.firstname = original.firstname;
     this.lastname = original.lastname;
-    this.email = 'cloned@example.com';
+    this.email = 'cloned' + random + '_' + original.email;
     this.enabled = original.enabled;
     this.locked = original.locked;
+    addFieldstoUpdate(['username','firstname','lastname','email','enabled','locked']);
   }
 
   User.fromMap(Map<String, dynamic> map): super.fromMap(map);

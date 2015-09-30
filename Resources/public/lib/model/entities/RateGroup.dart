@@ -6,6 +6,7 @@ class RateGroup extends Entity {
   RateGroup.clone(RateGroup original): super.clone(original){
     this.name = original.name;
     this.description = original.description;
+    addFieldstoUpdate(['name','description']);
   }
 
   RateGroup.fromMap(Map<String, dynamic> map): super.fromMap(map);

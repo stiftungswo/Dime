@@ -16,6 +16,7 @@ class OfferStatusUC extends Entity {
   OfferStatusUC.clone(OfferStatusUC original): super.clone(original){
     this.text = original.text;
     this.active = original.active;
+    addFieldstoUpdate(['text','active']);
   }
 
   OfferStatusUC.fromMap(Map<String, dynamic> map): super.fromMap(map);

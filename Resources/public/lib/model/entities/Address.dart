@@ -7,10 +7,10 @@ class Address extends Entity {
     this.street = original.street;
     this.streetnumber = original.streetnumber;
     this.city = original.city;
-    this.city = original.city;
     this.plz = original.plz;
     this.state = original.state;
     this.country = original.country;
+    addFieldstoUpdate(['street','streetnumber','city','plz','state','country']);
   }
 
   Address.fromMap(Map<String, dynamic> map): super.fromMap(map);

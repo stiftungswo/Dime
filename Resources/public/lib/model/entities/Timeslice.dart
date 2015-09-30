@@ -9,6 +9,7 @@ class Timeslice extends Entity {
     this.startedAt = original.startedAt;
     this.stoppedAt = original.stoppedAt;
     this.activity = original.activity;
+    addFieldstoUpdate(['user','value','startedAt','stoppedAt','activity']);
   }
 
   Timeslice.fromMap(Map<String, dynamic> map): super.fromMap(map);

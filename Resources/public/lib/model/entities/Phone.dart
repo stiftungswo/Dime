@@ -1,12 +1,13 @@
 part of dime_entity;
 
-class Phone {
+class Phone extends Entity {
   Phone();
 
   Phone.clone(Phone original){
     this.id = original.id;
     this.number = original.number;
     this.type = original.type;
+    addFieldstoUpdate(['id','number','type']);
   }
 
   newObj() {

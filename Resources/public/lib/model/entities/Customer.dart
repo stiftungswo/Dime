@@ -14,6 +14,7 @@ class Customer extends Entity {
     this.salutation = original.salutation;
     this.rateGroup = original.rateGroup;
     this.address = new Address.clone(original.address);
+    addFieldstoUpdate(['name','user','company','chargeable','address','department','fullname','salutation','rateGroup','address']);
   }
 
   Customer.fromMap(Map<String, dynamic> map): super.fromMap(map);

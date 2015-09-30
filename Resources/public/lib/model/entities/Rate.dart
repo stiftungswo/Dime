@@ -9,6 +9,7 @@ class Rate extends Entity {
     this.rateUnitType = original.rateUnitType;
     this.rateGroup = original.rateGroup;
     this.service = original.service;
+    addFieldstoUpdate(['rateValue','rateUnit','rateUnitType','rateGroup','service']);
   }
 
   Rate.fromMap(Map<String, dynamic> map): super.fromMap(map);

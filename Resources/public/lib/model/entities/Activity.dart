@@ -21,6 +21,7 @@ class Activity extends Entity {
     this.chargeable = original.chargeable;
     this.service = original.service;
     this.description = original.description;
+    addFieldstoUpdate(['project','value','chargeable','service','description']);
   }
 
   Activity.fromMap(Map<String, dynamic> map): super.fromMap(map);

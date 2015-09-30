@@ -14,6 +14,7 @@ class StandardDiscount extends Entity {
     this.value = original.value;
     this.percentage = original.percentage;
     this.minus = original.minus;
+    addFieldstoUpdate(['value','percentage','minus']);
   }
 
   StandardDiscount.fromMap(Map<String, dynamic> map): super.fromMap(map);

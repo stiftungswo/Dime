@@ -24,6 +24,7 @@ class OfferPosition extends Entity {
     this.vat = original.vat;
     this.discountable = original.discountable;
     this.offer = original.offer;
+    addFieldstoUpdate(['service','order','amount','rateValue','rateUnit','rateUnitType','vat','discountable','offer']);
   }
 
   OfferPosition.fromMap(Map<String, dynamic> map): super.fromMap(map);
