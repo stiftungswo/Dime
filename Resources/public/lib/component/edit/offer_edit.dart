@@ -16,6 +16,8 @@ class OfferEditComponent extends EntityEdit {
 
   Router router;
 
+  Offer entity;
+
   OfferEditComponent(RouteProvider routeProvider, DataCache store, StatusService status, UserAuthProvider auth, Router router): super(routeProvider, store, Offer, status, auth, router);
 
   attach() {
@@ -60,6 +62,18 @@ class OfferEditComponent extends EntityEdit {
     this.store.evict(Project, true);
     if (router != null){
       router.go('project_edit', {'id': project.id});
+    }
+  }
+
+  copyAddressFromCustomer(){
+    if (entity.customer != null && entity.customer.address != null){
+      addSaveField('address');
+      entity.address.street = entity.customer.address.street;
+      entity.address.streetnumber = entity.customer.address.streetnumber;
+      entity.address.plz = entity.customer.address.plz;
+      entity.address.city = entity.customer.address.city;
+      entity.address.state = entity.customer.address.state;
+      entity.address.country = entity.customer.address.country;
     }
   }
 

@@ -33,7 +33,15 @@
             <rategroup-select class="col-sm-4" rategroup="entity.rateGroup" callback="addSaveField(name)" field="'rateGroup'"></rategroup-select>
           </div>
           <h4>Addresse</h4>
-          <address-edit address="entity.address"  ng-change="addSaveField('address')"></address-edit>
+          <address-edit address="entity.address" ng-change="addSaveField('address')"></address-edit>
+          <div class="form-horizontal">
+            <div class="form-group">
+              <label class="col-sm-2"></label>
+              <div class="col-sm-4">
+                <a ng-click="copyAddressFromCustomer()" ng-show="entity.customer != null">Adresse aus Kunde übernehmen</a>
+              </div>
+            </div>
+          </div>
         </div>
         <div class="form-group">
           <label class="control-label">Kurzbeschreibung</label>
