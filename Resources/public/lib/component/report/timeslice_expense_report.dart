@@ -7,6 +7,7 @@ import 'package:DimeClient/service/user_auth.dart';
 import 'package:DimeClient/model/Entity.dart';
 import 'package:hammock/hammock.dart';
 import 'dart:html';
+import 'package:intl/intl.dart';
 
 @Component(
     selector: 'timeslice-expensereport',
@@ -37,6 +38,10 @@ class TimesliceExpenseReportComponent extends EntityOverview {
     reload();
   }
 
+  DateTime filterStartDate;
+
+  DateTime filterEndDate;
+
   ExpenseReport report;
 
   attach();
@@ -46,9 +51,11 @@ class TimesliceExpenseReportComponent extends EntityOverview {
       this.entities = [];
       this.statusservice.setStatusToLoading();
       try {
+        String dateparam = this.getDateParam();
         this.report = (await this.store.customQueryOne(this.type, new CustomRequestParams(params: {
           'project': _project != null ? _project.id : null,
-          'user': _user != null ? _user.id : null
+          'user': _user != null ? _user.id : null,
+          'date': dateparam != null ? dateparam : null
         }, method: 'GET', url: '/api/v1/reports/expense')));
         this.statusservice.setStatusToSuccess();
         this.rootScope.emit(this.type.toString() + 'Loaded');
@@ -58,6 +65,14 @@ class TimesliceExpenseReportComponent extends EntityOverview {
     }
   }
 
+  getDateParam(){
+    String dateparam = null;
+    if (filterStartDate != null && filterEndDate != null){
+      dateparam = new DateFormat('y-MM-dd').format(filterStartDate) + ',' + new DateFormat('y-MM-dd').format(filterEndDate);
+    }
+    return dateparam;
+  }
+
   _valForParam(String param) {
     try {
       switch (param) {
@@ -65,6 +80,8 @@ class TimesliceExpenseReportComponent extends EntityOverview {
           return project.id;
         case 'user':
           return user.id;
+        case 'date':
+          return this.getDateParam();
         default:
           return null;
       }
@@ -74,11 +91,11 @@ class TimesliceExpenseReportComponent extends EntityOverview {
   }
 
   printReport() {
-    List<String> params = const['project', 'user'];
+    List<String> params = const['project', 'user','date'];
     String paramString = '';
     for (String param in params) {
       var value = _valForParam(param);
-      if (value is int) {
+      if (value != null && value != '') {
         if (paramString == '') {
           paramString += '?${param}=${value}';
         } else {

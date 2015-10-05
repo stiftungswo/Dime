@@ -4,7 +4,7 @@
       <h3 class="box-title">Aufwandsbericht</h3>
     </div>
     <div class="box-body">
-      <div class="row" style="margin: 0 auto;margin-bottom: 5px;">
+      <div class="row">
         <div class="col-md-6">
           <label>Projekt:</label>
           <project-select clearOnClose="true" project="project"></project-select>
@@ -12,6 +12,12 @@
         <div class="col-md-6">
           <label>Benutzer:</label>
           <user-select clearOnClose="true" user="user"></user-select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <label>Nach Datum filtern:</label>
+          <daterange startdate="filterStartDate" enddate="filterEndDate" null-allowed="true" callback="reload()"></daterange>
         </div>
       </div>
       <table class="table table-bordered table-hover form">

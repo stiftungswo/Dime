@@ -6301,7 +6301,7 @@
     closure886: {
       "^": "Closure:5;",
       call$4: [function(a1, a2, a3, a4) {
-        return new M.TimesliceExpenseReportComponent(null, null, null, false, null, [], C.Type_pRH, a1, null, a3, null, "", a2, a4);
+        return new M.TimesliceExpenseReportComponent(null, null, null, null, null, false, null, [], C.Type_pRH, a1, null, a3, null, "", a2, a4);
       }, null, null, 8, 0, null, 1, 2, 3, 4, "call"]
     },
     closure887: {
@@ -22227,13 +22227,13 @@
       set$hide: function(value) {
         var t1, t2, t3, t4;
         t1 = O.toBool(value);
-        t2 = this.animate;
-        t3 = $.NgHide_NG_HIDE_CLASS;
+        t2 = $.NgHide_NG_HIDE_CLASS;
+        t3 = this.animate;
         t4 = this.element;
         if (t1)
-          t2.addClass$2(t4, t3);
+          t3.addClass$2(t4, t2);
         else
-          t2.removeClass$2(t4, t3);
+          t3.removeClass$2(t4, t2);
       },
       element$2: function(arg0, arg1) {
         return this.element.call$2(arg0, arg1);
@@ -22244,13 +22244,13 @@
       set$show: function(_, value) {
         var t1, t2, t3, t4;
         t1 = O.toBool(value);
-        t2 = this.animate;
-        t3 = $.NgHide_NG_HIDE_CLASS;
+        t2 = $.NgHide_NG_HIDE_CLASS;
+        t3 = this.animate;
         t4 = this.element;
         if (t1)
-          t2.removeClass$2(t4, t3);
+          t3.removeClass$2(t4, t2);
         else
-          t2.addClass$2(t4, t3);
+          t3.addClass$2(t4, t2);
       },
       element$2: function(arg0, arg1) {
         return this.element.call$2(arg0, arg1);
@@ -57554,7 +57554,7 @@
   }], ["", "package:DimeClient/component/report/timeslice_expense_report.dart",, M, {
     "^": "",
     TimesliceExpenseReportComponent: {
-      "^": "EntityOverview;_project,_user,report@,needsmanualAdd,selectedEntId,entities,type,store,router,statusservice,rootScope,routename,settingsManager,auth",
+      "^": "EntityOverview;_project,_user,filterStartDate@,filterEndDate@,report@,needsmanualAdd,selectedEntId,entities,type,store,router,statusservice,rootScope,routename,settingsManager,auth",
       get$project: function() {
         return this._project;
       },
@@ -57571,7 +57571,7 @@
         this.reload$0(0);
       },
       reload$2$evict$params: [function(_, evict, params) {
-        var $goto = 0, completer = new P.Completer_Completer(), handler = 1, currentError, next = [], $self = this, e, t1, t2, t3, exception, exception1, temp1;
+        var $goto = 0, completer = new P.Completer_Completer(), handler = 1, currentError, next = [], $self = this, dateparam, e, t1, t2, t3, exception, exception1, temp1;
         function reload$2$evict$params(errorCode, result) {
           if (errorCode === 1) {
             currentError = result;
@@ -57588,13 +57588,15 @@
                 $self.entities = [];
                 $self.statusservice.setStatusToLoading$0();
                 handler = 5;
+                dateparam = $self.getDateParam$0();
                 t1 = $self.type;
                 t2 = $self._project;
                 t2 = t2 != null ? J.get$id$x(t2) : null;
                 t3 = $self._user;
+                t3 = t3 != null ? J.get$id$x(t3) : null;
                 temp1 = $self;
                 $goto = 8;
-                return H.asyncHelper($self.store.customQueryOne$2(t1, new E.CustomRequestParams("/api/v1/reports/expense", "GET", null, P.LinkedHashMap__makeLiteral(["project", t2, "user", t3 != null ? J.get$id$x(t3) : null]), null, false, null, null, null, null, null)), reload$2$evict$params, completer);
+                return H.asyncHelper($self.store.customQueryOne$2(t1, new E.CustomRequestParams("/api/v1/reports/expense", "GET", null, P.LinkedHashMap__makeLiteral(["project", t2, "user", t3, "date", dateparam != null ? dateparam : null]), null, false, null, null, null, null, null)), reload$2$evict$params, completer);
               case 8:
                 // returning from await.
                 temp1.report = result;
@@ -57636,6 +57638,21 @@
       }, "reload$0", function($receiver, params) {
         return this.reload$2$evict$params($receiver, false, params);
       }, "reload$1$params", "call$2$evict$params", "call$0", "call$1$params", "get$reload", 0, 5, 283, 37, 84, 85, 252],
+      getDateParam$0: function() {
+        var t1, t2, dateparam;
+        if (this.filterStartDate != null && this.filterEndDate != null) {
+          t1 = new T.DateFormat(null, null, null);
+          t1._locale = T.Intl_verifiedLocale(null, T.DateFormat_localeExists$closure(), T.Intl__throwLocaleError$closure());
+          t1.addPattern$1("y-MM-dd");
+          t1 = t1.format$1(0, this.filterStartDate) + ",";
+          t2 = new T.DateFormat(null, null, null);
+          t2._locale = T.Intl_verifiedLocale(null, T.DateFormat_localeExists$closure(), T.Intl__throwLocaleError$closure());
+          t2.addPattern$1("y-MM-dd");
+          dateparam = t1 + t2.format$1(0, this.filterEndDate);
+        } else
+          dateparam = null;
+        return dateparam;
+      },
       _valForParam$1: function(param) {
         var t1, exception;
         try {
@@ -57645,6 +57662,9 @@
               return t1;
             case "user":
               t1 = J.get$id$x(this._user);
+              return t1;
+            case "date":
+              t1 = this.getDateParam$0();
               return t1;
             default:
               return;
@@ -57656,10 +57676,10 @@
       },
       printReport$0: [function() {
         var paramString, _i, param, value;
-        for (paramString = "", _i = 0; _i < 2; ++_i) {
-          param = C.List_project_user[_i];
+        for (paramString = "", _i = 0; _i < 3; ++_i) {
+          param = C.List_project_user_date[_i];
           value = this._valForParam$1(param);
-          if (typeof value === "number" && Math.floor(value) === value)
+          if (value != null && !J.$eq(value, ""))
             paramString = paramString === "" ? paramString + ("?" + param + "=" + H.S(value)) : paramString + ("&" + param + "=" + H.S(value));
         }
         C.Window_methods.open$2(window, "/api/v1/reports/expenses/print" + paramString, "Expense Report Print");
@@ -61388,7 +61408,7 @@
   C.List_p2z = Isolate.makeConstantList(["\u0930\u0935\u093f\u0935\u093e\u0930", "\u0938\u094b\u092e\u0935\u093e\u0930", "\u092e\u0902\u0917\u0932\u0935\u093e\u0930", "\u092c\u0941\u0927\u0935\u093e\u0930", "\u092c\u0943\u0939\u0938\u094d\u092a\u0924\u093f\u0935\u093e\u0930", "\u0936\u0941\u0915\u094d\u0930\u0935\u093e\u0930", "\u0936\u0928\u093f\u0935\u093e\u0930"]);
   C.Component_eoy = new F.Component(null, null, "/bundles/dimefrontend/packages/DimeClient/component/timetrack/timetrack.html", null, false, true, "timetrack", "compile", null, null, null, null, null, null);
   C.List_p6t = Isolate.makeConstantList([C.Component_eoy]);
-  C.List_project_user = Isolate.makeConstantList(["project", "user"]);
+  C.List_project_user_date = Isolate.makeConstantList(["project", "user", "date"]);
   C.List_puD = Isolate.makeConstantList(["e.m.a.", "m.a.j."]);
   C.Decorator_6RV0 = new F.Decorator("input[type=number][ng-model]", "compile", null, null, null, null, null, null);
   C.Decorator_e5R = new F.Decorator("input[type=range][ng-model]", "compile", null, null, null, null, null, null);
