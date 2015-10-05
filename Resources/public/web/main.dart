@@ -8,7 +8,7 @@ import 'package:logging/logging.dart';
 import 'package:hammock/hammock.dart';
 import 'package:DimeClient/component/date/dateRange.dart';
 import 'package:DimeClient/component/date/dateToTextInput.dart';
-import 'package:DimeClient/component/edit/entity_edit.dart';
+import 'package:DimeClient/component/edit/EntityEdit.dart';
 import 'package:DimeClient/component/errorIcon/error_icon.dart';
 import 'package:DimeClient/component/main/app.dart';
 import 'package:DimeClient/component/main/menu.dart';
