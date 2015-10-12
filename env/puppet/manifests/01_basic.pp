@@ -34,13 +34,13 @@ class basic::helpers{
   file{"/usr/local/bin/runpuppet":
     content => " \
     sudo puppet apply -vv  --modulepath=$module_dir $puppet_dir/manifests/main.pp\n",
-    mode    => 0755
+    mode    => '0755'
   }
 
   # script to run librarian-puppet
   file{"/usr/local/bin/runlibrarian":
     content => "cd $puppet_dir &&  sudo librarian-puppet install --path=$module_dir \n",
-    mode    => 0755
+    mode    => '0755'
   }
 }
 
