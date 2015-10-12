@@ -33,6 +33,10 @@ Vagrant.configure("2") do |config|
             # bindfs plugin needs to be installed: vagrant plugin install vagrant-bindfs
             dime.vm.synced_folder "../", "/vagrant", type: 'nfs'
             config.bindfs.bind_folder "/vagrant", "/vagrant"
+        elsif OS.windows?
+            # could not use chmod on smb
+            # default sync form vagrant also didn't work, because path was too long
+            dime.vm.synced_folder '.', '/vagrant', disabled: true
         else
             # use rsync on other plattforms
             dime.vm.synced_folder "../", "/vagrant", type: 'rsync', rsync__args: ["--verbose", "--archive", "--delete", "-z", "-FF"]
