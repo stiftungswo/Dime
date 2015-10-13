@@ -18,38 +18,7 @@ See the Vagrant VM in env Folder
 
 ## Installation
 
-Submodules:
 
-    git submodule update --init
-
-Permissions:
-
-    chmod -R u+w app/cache app/logs
-
-Copy parameter.yml.template to parameters.yml and edit the database section:
-
-    cp app/config/parameters.yml.template app/config/parameters.yml
-
-Download composer:
-
-    curl -s http://getcomposer.org/installer | php
-
-Download vendors:
-
-    php composer.phar install -v
-
-Check application config in browser:
-
-    http://path/to/web/config.php
-
-Create database with fixtures:
-
-    app/console dime:create-db
-
-Publish all needed assets for Dev and Production:
-
-    app/console assetic:dump
-    app/console assets:install --symlink
 
 ## Update
 
