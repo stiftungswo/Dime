@@ -18,8 +18,40 @@ See the Vagrant VM in env Folder
 
 ## Installation
 
+### Windows
 
+Download and install VirtualBox:
 
+	https://www.virtualbox.org/
+	
+Download and install Cygwin:
+
+	https://cygwin.com/
+	In the package selection of the setup, search rsync and add it
+	
+Modify the hosts file:
+
+	In C:\Windows\System32\drivers\etc\hosts add the line
+	192.168.122.10 dime.test.local
+	
+Download and install a Git client:
+
+	e.g. https://www.sourcetreeapp.com/
+	Check out the current version
+	
+Start the virtual machine via the cygwin terminal:
+
+	Change the cygdrive-prefix and start vagrant
+	mount --change-cygdrive-prefix /
+	cd /c/Users/YourName/Dime/env
+	/c/HashiCorp/Vagrant/bin/vagrant.exe up
+
+Download e.g. Dartium which is a Google Chrome for developpers:
+	
+	https://www.dartlang.org/tools/dartium/
+	Start it by unzipping and executing the file chrome.exe
+	Go to the page http://dime.test.local
+	
 ## Update
 
 Update to last version
