@@ -1,39 +1,49 @@
 #!/bin/sh
 
-# Directory in which librarian-puppet should manage its modules directory
-PUPPET_DIR='/vagrant/env/puppet'
-MODULE_DIR='/var/tmp/puppet/modules'
+# print commands (-x)
+set -x
 
-# NB: librarian-puppet might need git installed. If it is not already installed
-# in your basebox, this will manually install it at this point using apt or yum
-GIT=/usr/bin/git
-APT_GET=/usr/bin/apt-get
-YUM=/usr/bin/yum
-if [ ! -x $GIT ]; then
-    if [ -x $YUM ]; then
-        yum -q -y install git-core
-    elif [ -x $APT_GET ]; then
-        apt-get -q -y install git-core
-    else
-        echo "No package installer available. You may need to install git manually."
-    fi
-fi
+# install useful helper packages
+yum -y install vim vim-enhanced curl unzip wget git openssh-server
 
-echo "export PATH=$PATH:/usr/local/bin" > /etc/profile.d/localbin.sh
-source /etc/profile.d/localbin.sh
+# install apache/mysql server
+yum -y install httpd mariadb mariadb-server
 
-test -d $MODULE_DIR || mkdir -p $MODULE_DIR
+# install php
+rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm
+yum -y install php56w php56w-pear php56w-mbstring php56w-intl php56w-xml php56w-pecl-xdebug php56w-pecl-apcu php56w-process php56w-gd php56w-mcrypt php-phpunit-PHPUnit php56w-phpdbg php56w-pdo php56w-mysql
 
-if [ `gem query --local | grep librarian-puppet | wc -l` -eq 0 ]; then
-	gem install librarian-puppet -v 1.0.3
-	cd $PUPPET_DIR && librarian-puppet install --clean --path=$MODULE_DIR
-else
-	cd $PUPPET_DIR && librarian-puppet install --path=$MODULE_DIR
-fi
-
-# disable firewall for development (TODO: move to puppet)
+# disable firewall for development
 systemctl disable firewalld
 systemctl stop firewalld
 
-# now we run puppet
-puppet apply -v  --modulepath=$MODULE_DIR $PUPPET_DIR/manifests/
+# disable SELinux for development
+setenforce 0
+sed -i 's/^SELINUX=.*/SELINUX=disabled/g' /etc/sysconfig/selinux
+
+# TODO: sshd config
+
+# configure mysql/maria
+service mariadb start
+mysql -u root -e "CREATE DATABASE IF NOT EXISTS dime;"
+mysql -u root -e "GRANT all privileges on dime.* to dime@'localhost' IDENTIFIED BY 'dime';"
+mysql -u root -e "FLUSH PRIVILEGES;"
+service mariadb restart
+
+# configure httpd
+/bin/cp /vagrant/env/config/dime.conf /etc/httpd/conf.d/dime.conf
+/bin/cp /vagrant/env/config/dime.ini /etc/php.d/dime.ini
+service httpd start
+
+
+# install composer
+if [ -f /usr/local/bin/composer.phar ]; then
+    php /usr/local/bin/composer.phar selfupdate
+else
+    curl -s https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin/
+fi
+
+# Install DIME (we need to run this as vagrant user)
+/bin/su - vagrant -c "/vagrant/env/shell/install_dime.sh"
+

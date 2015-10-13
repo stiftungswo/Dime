@@ -21,22 +21,28 @@ end
 
 Vagrant.configure("2") do |config|
     config.vm.define :dime do |dime|
-        WEBROOT = "/vagrant"
-        COMPOSERDIR = "/usr/local/bin"
 
-        dime.vm.box = "puppetlabs/centos-7.0-64-puppet"
+        dime.vm.box = "centos/7"
         dime.vm.network :private_network, :ip => '192.168.122.10'
         dime.vm.hostname = "dime.test.local"
 
         if OS.mac?
             # use NFS on Mac because synced folders with VirtualBox are slow and rsync is one direction only
             # bindfs plugin needs to be installed: vagrant plugin install vagrant-bindfs
-            dime.vm.synced_folder "../", "/vagrant", type: 'nfs'
-            config.bindfs.bind_folder "/vagrant", "/vagrant"
+            dime.vm.synced_folder "../", "/vagrant", type: "nfs"
+            #config.bindfs.bind_folder "/vagrant", "/vagrant"
+
+            #dime.vm.synced_folder "../", "/vagrant", type: "rsync",
+            #    rsync__exclude: ["env/.pub_cache/*", "app/bootstrap.php.cache", "web/bundles/dimefrontend/packages/*","src/Dime/FrontendBundle/Resources/public/packages/*"],
+            #    rsync__args: ["--verbose", "--archive", "--delete", "-z", "-FF"]
+
         elsif OS.windows?
             # could not use chmod on smb
             # default sync form vagrant also didn't work, because path was too long
-            dime.vm.synced_folder '.', '/vagrant', disabled: true
+            #dime.vm.synced_folder '.', '/vagrant', disabled: true
+            dime.vm.synced_folder "../", "/vagrant", type: "rsync",
+                            rsync__exclude: ["env/.pub_cache/*", "app/bootstrap.php.cache", "web/bundles/dimefrontend/packages/*","src/Dime/FrontendBundle/Resources/public/packages/*"],
+                            rsync__args: ["--verbose", "--archive", "--delete", "-z", "-FF"]
         else
             # use rsync on other plattforms
             dime.vm.synced_folder "../", "/vagrant", type: 'rsync', rsync__args: ["--verbose", "--archive", "--delete", "-z", "-FF"]
@@ -63,9 +69,5 @@ Vagrant.configure("2") do |config|
         # This shell provisioner installs librarian-puppet and runs it to install
         # puppet modules. After that it just runs puppet
         dime.vm.provision :shell, :path => "shell/bootstrap.sh"
-
-        dime.vm.provision :shell, :path => "shell/root.sh", :privileged => true, :args => [ WEBROOT, COMPOSERDIR ]
-
-        dime.vm.provision :shell, :path => "shell/user.sh", :privileged => false, :args => [ WEBROOT, COMPOSERDIR ]
 	end
 end
