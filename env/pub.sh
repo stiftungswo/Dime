@@ -9,4 +9,5 @@ export PUB_CACHE=${SCRIPT_PATH}/.pub_cache
 
 cd $APP_ROOT/src/Dime/FrontendBundle/Resources/public
 /usr/local/dart-sdk/bin/pub $@
+chmod -R +rx /vagrant/env/.pub_cache/
 cd $SCRIPT_PATH
