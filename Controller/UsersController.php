@@ -35,6 +35,7 @@ class UsersController extends DimeController
      * @Annotations\QueryParam(name="fullname", nullable=true, description="Filer By Fullname")
      * @Annotations\QueryParam(name="username", nullable=true, description="Filer By Username")
      * @Annotations\QueryParam(name="email", nullable=true, description="Filer By email")
+     * @Annotations\QueryParam(name="employeeholiday", nullable=true, description="Filer By Employeeholiday")
      * @Annotations\QueryParam(name="enabled", requirements="/^true|false$/i", nullable=true, description="Filter By enabled")
      *
      * @Annotations\View(

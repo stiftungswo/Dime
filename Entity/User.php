@@ -67,6 +67,13 @@ class User extends BaseUser implements DimeEntityInterface
 	protected $updatedAt;
 
 	/**
+	 * @var integer $employeeholiday
+	 *
+	 * @ORM\Column(type="integer", nullable=true)
+	 */
+	protected $employeeholiday;
+	
+	/**
 	 * @return string
 	 */
 	public function getFullname()
@@ -148,6 +155,29 @@ class User extends BaseUser implements DimeEntityInterface
 	public function getUpdatedAt()
 	{
 		return $this->updatedAt;
+	}
+
+	/**
+	* Get $employeeholiday
+	*
+	* @return integer
+	*/
+	public function getEmployeeholiday()
+	{
+		return $this->employeeholiday;
+	}
+
+	/**
+	 * Set $employeeholiday
+	 *
+	 * @param  integer $employeeholiday
+	 * @return User
+	 */
+	public function setEmployeeholiday($employeeholiday)
+	{
+		$this->employeeholiday = $employeeholiday;
+
+		return $this;
 	}
 
 	/**
