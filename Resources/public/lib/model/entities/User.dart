@@ -11,7 +11,8 @@ class User extends Entity {
     this.email = 'cloned' + random + '_' + original.email;
     this.enabled = original.enabled;
     this.locked = original.locked;
-    addFieldstoUpdate(['username','firstname','lastname','email','enabled','locked']);
+    this.employeeholiday = original.employeeholiday;
+    addFieldstoUpdate(['username','firstname','lastname','email','enabled','locked','employeeholiday']);
   }
 
   User.fromMap(Map<String, dynamic> map): super.fromMap(map);
@@ -48,6 +49,8 @@ class User extends Entity {
           return this.locked;
         case 'plainpassword':
           return this.plainpassword;
+        case 'employeeholiday':
+          return this.employeeholiday;
         default:
           break;
       }
@@ -78,6 +81,9 @@ class User extends Entity {
       case 'plainpassword':
         this.plainpassword = value;
         break;
+      case 'employeeholiday':
+        this.employeeholiday = value;
+        break;
       default:
         super.Set(property, value);
         break;
@@ -92,6 +98,7 @@ class User extends Entity {
   String plainpassword;
   bool enabled;
   bool locked;
+  int employeeholiday;
 
   String get fullname {
     return '$firstname $lastname';

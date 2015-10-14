@@ -7,6 +7,8 @@
         <th>Pensum</th>
         <th>Istzeit</th>
         <th>Sollzeit</th>
+        <th>Heute</th>
+        <th>Ferien</th>
       </tr>
     </thead>
     <tbody>
@@ -16,6 +18,8 @@
         <td><input-percentage htmlclass="'form-control'" safecalc="false" value="entity.pensum" ng-change="addSaveField('pensum', entity)"></input-percentage></td>
         <td>{{entity.realTime | secondsToHours}}</td>
         <td>{{entity.targetTime | secondsToHours}}</td>
+        <td>{{entity.timeTillToday | secondsToHours}}</td>
+        <td>{{entity.employeeholiday}}</td>
       </tr>
     </tbody>
   </table>

@@ -36,6 +36,12 @@
           </div>
         </div>
         <div class="form-group">
+          <label class="col-sm-2 control-label">Feriensaldo</label>
+          <div class="col-sm-4">
+            <input style="width: 100%;" class="form-control" type="number" ng-model="entity.employeeholiday" ng-change="addSaveField('employeeholiday')">
+          </div>
+        </div>
+        <div class="form-group">
           <label class="col-sm-2 control-label">Aktiv</label>
           <div class="col-sm-4">
             <input type="checkbox" ng-model="entity.enabled" ng-change="addSaveField('enabled')">
