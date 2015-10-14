@@ -43,6 +43,10 @@ class Period extends Entity {
           return this.realTime;
         case 'targetTime':
           return this.targetTime;
+        case 'timeTillToday':
+          return this.timeTillToday;
+        case 'employeeholiday':
+          return this.employeeholiday;
         default:
           break;
       }
@@ -73,6 +77,12 @@ class Period extends Entity {
       case 'targetTime':
         this.targetTime = value;
         break;
+      case 'timeTillToday':
+        this.timeTillToday = value;
+        break;
+      case 'employeeholiday':
+        this.employeeholiday = value;
+        break;
       default:
         super.Set(property, value);
         break;
@@ -96,4 +106,6 @@ class Period extends Entity {
   int holidays;
   int realTime;
   int targetTime;
+  int timeTillToday;
+  int employeeholiday;
 }
