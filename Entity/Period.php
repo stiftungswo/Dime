@@ -81,6 +81,48 @@ class Period extends Entity implements DimeEntityInterface
 		return null;
 	}
 
+	/**
+	 * @JMS\VirtualProperty()
+	 * @JMS\SerializedName("timeTillToday")
+	 */
+	public function getTimeTillToday()
+	{
+		if($this->pensum && $this->getStart() instanceof Carbon ) {
+			$weekdays = ($this->getStart()->diffInWeekdays(Carbon::today()->addDay()));
+			$realTime = $this->getRealTime();
+			$seconds = $weekdays * 60 * 60 * 8.4;
+			$seconds -= $this->holidays;
+			return $realTime - ($seconds * $this->getPensum());
+		}
+		return null;
+	}
+
+	/**
+	 * @JMS\VirtualProperty()
+	 * @JMS\SerializedName("employeeholiday")
+	 */
+	public function getEmployeeholiday()
+	{
+		if($this->pensum && $this->getStart() instanceof Carbon && $this->getEmployee()->getEmployeeholiday() != null) {
+			$pensum = ($this->getPensum());
+
+			$holidayEntitlement = $this->getEmployee()->getEmployeeholiday();
+			$pensumInDay = $pensum * 5; // transform percentage into days
+			$weekdays = ($this->getStart()->diffInDays($this->getEnd()->addDay()));
+			$weekdaysInMonth = $weekdays * (1/30);
+
+			//	(holiday entitlement / 360 * weekdays (in month) * 30 / pensum * normal workdays(5 days normally) )*100)/100
+			$employeeholiday = (round(($holidayEntitlement/360*$weekdaysInMonth*30/5*$pensumInDay)*100)/100);
+
+			if($employeeholiday < 1){
+				return ($employeeholiday * 24) . "h";
+			}else{
+				return $employeeholiday . " Tage";
+			}
+		}
+		return null;
+	}
+
 	public function insertHolidays(array $holidays)
 	{
 		return $this->handleHolidaysChange($holidays, 'ADD');
