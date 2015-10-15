@@ -11,6 +11,7 @@
             <th>Tarif</th>
             <th>Tarif Einheit</th>
             <th>Einheits-Typ</th>
+            <th width="60">Aktion</th>
           </tr>
         </thead>
         <tbody>
@@ -19,13 +20,13 @@
             <td><input style="width: 100%;" class="form-control" type="text" ng-model="entity.rateValue" ng-change="addSaveField('rateValue', entity)"></td>
             <td><input style="width: 100%;" class="form-control" type="text" ng-model="entity.rateUnit" ng-change="addSaveField('rateUnit', entity)"></td>
             <td><rateunittype-select rateunittype="entity.rateUnitType" callback="entity.addFieldtoUpdate(name)" field="'rateUnitType'"></rateunittype-select></td>
+            <td><button type="button" class="btn btn-default" ng-click="deleteEntity(entity.id)"><i class="fa fa-fw fa-trash-o" style="color:red"></i></button></td>
           </tr>
         </tbody>
       </table>
       <div class="DimeControlButtons">
         <button type="button" class="btn btn-primary" ng-click="createEntity()">Hinzufügen</button>
         <button type="button" class="btn btn-primary" ng-click="duplicateEntity()">Duplizieren</button>
-        <button type="button" class="btn btn-danger" ng-click="deleteEntity()">Löschen</button>
         <button type="button" class="btn btn-default" ng-click="reload(evict: true)"><span class="glyphicon glyphicon-refresh"></span></button>
       </div>
     </div>
