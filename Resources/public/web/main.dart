@@ -46,6 +46,8 @@ class AppModule extends Module {
     bind(ErrorIconComponent);
     bind(UserAuthProvider);
     bind(TimetrackComponent);
+    bind(TimetrackMultiComponent);
+    bind(ProjectTimetrackComponent);
     bind(UserFilter);
     bind(TimesliceDateFilter);
     bind(ProjectValueFilter);
@@ -90,7 +92,6 @@ class AppModule extends Module {
     bind(InvoiceDiscountOverviewComponent);
     bind(StandardDiscountOverviewComponent);
     bind(StandardDiscountSelectComponent);
-    bind(ProjectTimetrackComponent);
     bind(RateUnitTypeOverviewComponent);
     bind(TimesliceWeeklyReportComponent);
     bind(TimesliceOverviewComponent);
