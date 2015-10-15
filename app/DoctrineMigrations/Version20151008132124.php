@@ -18,7 +18,7 @@ class Version20151008132124 extends AbstractMigration
         $this->abortIf($this->connection->getDatabasePlatform()->getName() != 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
 
-        $this->addSql('ALTER TABLE users ADD COLUMN employeeholiday INT');
+        $this->addSql('ALTER TABLE users ADD COLUMN employeeholiday INT DEFAULT 20');
     }
 
     /**
