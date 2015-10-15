@@ -7,10 +7,11 @@
       <table class="table table-bordered table-hover">
         <thead>
           <tr>
-            <th>ID</th>
+            <th width="40">ID</th>
             <th>Name</th>
             <th>Alias</th>
             <th>Beschreibung</th>
+            <th width="110">Aktion</th>
           </tr>
         </thead>
         <tbody>
@@ -19,6 +20,12 @@
             <td>{{entity.name}}</td>
             <td>{{entity.alias}}</td>
             <td>{{entity.description}}</td>
+            <td>
+              <div class="btn-group">
+                <button type="button" class="btn btn-default" ng-click="openEditView(entity.id)"><i class="fa fa-fw fa-pencil"></i></button>
+                <button type="button" class="btn btn-default" ng-click="deleteEntity(entity.id)"><i class="fa fa-fw fa-trash-o" style="color:red"></i></button>
+              </div>
+            </td>
           </tr>
         </tbody>
       </table>
@@ -27,8 +34,6 @@
   <div class="DimeControlButtons">
     <button type="button" class="btn btn-primary" ng-click="createEntity()">Hinzufügen</button>
     <button type="button" class="btn btn-primary" ng-click="duplicateEntity()">Duplizieren</button>
-    <button type="button" class="btn btn-primary" ng-click="openEditView()">Bearbeiten</button>
-    <button type="button" class="btn btn-danger" ng-click="deleteEntity()">Löschen</button>
     <button type="button" class="btn btn-default" ng-click="reload(evict: true)"><span class="glyphicon glyphicon-refresh"></span></button>
   </div>
 </div></body></html>
