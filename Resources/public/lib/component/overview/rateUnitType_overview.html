@@ -8,13 +8,14 @@
       <table class="table table-bordered table-hover">
         <thead>
           <tr>
-            <th>ID</th>
+            <th width="40">ID</th>
             <th>Name</th>
             <th>Faktor</th>
             <th>Kommastellen</th>
             <th>Umwandeln</th>
             <th>Rundungs Modus</th>
             <th>Symbol</th>
+            <th width="60">Aktion</th>
           </tr>
         </thead>
         <tbody>
@@ -27,6 +28,7 @@
             <td><input type="text" class="form-control" ng-model="entity.roundMode"
                        ng-change="addSaveField('roundMode', entity)"/></td>
             <td><input type="text" class="form-control" ng-model="entity.symbol" ng-change="addSaveField('symbol', entity)"/></td>
+            <td><button type="button" class="btn btn-default" ng-click="deleteEntity(entity.id)"><i class="fa fa-fw fa-trash-o" style="color:red"></i></button></td>
           </tr>
         </tbody>
       </table>
@@ -43,7 +45,6 @@
           <div class="col-md-12" style="margin-top: 5px;">
             <button type="button" class="btn btn-primary" ng-click="saveAllEntities()"><error-icon value="saveState" timeout="20"></error-icon></button>
             <button type="button" class="btn btn-primary" ng-click="createEntity()">Hinzufügen</button>
-            <button type="button" class="btn btn-danger" ng-click="deleteEntity()">Löschen</button>
             <button type="button" class="btn btn-default" ng-click="reload(evict: true)"><span class="glyphicon glyphicon-refresh"></span></button>
           </div>
         </div>
