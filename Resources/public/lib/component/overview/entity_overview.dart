@@ -141,18 +141,20 @@ class EntityOverview extends AttachAware implements ScopeAware {
       entId = this.selectedEntId;
     }
     if (entId != null) {
-      this.statusservice.setStatusToLoading();
-      try {
-        if (this.store != null) {
-          var ent = this.entities.singleWhere((enty) => enty.id == entId);
-          CommandResponse resp = await this.store.delete(ent);
+      if (window.confirm("Wirklich löschen?")) {
+        this.statusservice.setStatusToLoading();
+        try {
+          if (this.store != null) {
+            var ent = this.entities.singleWhere((enty) => enty.id == entId);
+            CommandResponse resp = await this.store.delete(ent);
+          }
+          this.entities.removeWhere((enty) => enty.id == entId);
+          this.statusservice.setStatusToSuccess();
+          this.rootScope.emit(this.type.toString() + 'Deleted');
+        } catch (e) {
+          print("Unable to Delete entity ${this.type.toString()}::${entId} because ${e}");
+          this.statusservice.setStatusToError(e);
         }
-        this.entities.removeWhere((enty) => enty.id == entId);
-        this.statusservice.setStatusToSuccess();
-        this.rootScope.emit(this.type.toString() + 'Deleted');
-      } catch (e) {
-        print("Unable to Delete entity ${this.type.toString()}::${entId} because ${e}");
-        this.statusservice.setStatusToError(e);
       }
     }
   }
@@ -737,11 +739,13 @@ class StandardDiscountOverviewComponent extends EntityOverview {
   }
 
   deleteEntity([int entId]) {
-    entId = this.selectedEntId;
-    this.entities.removeWhere((enty) => enty.id == entId);
-    this.newDiscount = null;
-    if (this.callback != null) {
-      callback({"name": 'standardDiscounts'});
+    if (window.confirm("Wirklich löschen?")) {
+      entId = this.selectedEntId;
+      this.entities.removeWhere((enty) => enty.id == entId);
+      this.newDiscount = null;
+      if (this.callback != null) {
+        callback({"name": 'standardDiscounts'});
+      }
     }
   }
 
@@ -796,17 +800,19 @@ class RateUnitTypeOverviewComponent extends EntityOverview {
       entId = this.selectedEntId;
     }
     if (entId != null) {
-      this.statusservice.setStatusToLoading();
-      try {
-        if (this.store != null) {
-          var ent = this.entities.singleWhere((enty) => enty.id == entId);
-          CommandResponse resp = await this.store.delete(ent);
+      if (window.confirm("Wirklich löschen?")) {
+        this.statusservice.setStatusToLoading();
+        try {
+          if (this.store != null) {
+            var ent = this.entities.singleWhere((enty) => enty.id == entId);
+            CommandResponse resp = await this.store.delete(ent);
+          }
+          this.entities.removeWhere((enty) => enty.id == entId);
+          this.statusservice.setStatusToSuccess();
+          this.rootScope.emit(this.type.toString() + 'Deleted');
+        } catch (e) {
+          this.statusservice.setStatusToError(e);
         }
-        this.entities.removeWhere((enty) => enty.id == entId);
-        this.statusservice.setStatusToSuccess();
-        this.rootScope.emit(this.type.toString() + 'Deleted');
-      } catch (e) {
-        this.statusservice.setStatusToError(e);
       }
     }
   }

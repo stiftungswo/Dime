@@ -9,6 +9,7 @@
       <th>Start</th>
       <th>Ende</th>
       <th>Dauer/Anzahl</th>
+      <th width="60">Aktion</th>
     </tr>
   </thead>
   <tbody>
@@ -18,6 +19,7 @@
       <td><dateinput style="width: 100%;" format="'dd-MM-y HH:mm'" date="entity.startedAt" field="'startedAt'" callback="entity.addFieldtoUpdate(name)"></dateinput></td>
       <td><dateinput style="width: 100%;" format="'dd-MM-y HH:mm'" date="entity.stoppedAt" field="'stoppedAt'" callback="entity.addFieldtoUpdate(name)"></dateinput></td>
       <td><input style="width: 100%;" class="form-control" ng-model="entity.value" ng-change="addSaveField('value', entity)"/></td>
+      <td><button type="button" class="btn btn-default" ng-click="deleteEntity(entity.id)"><i class="fa fa-fw fa-trash-o" style="color:red"></i></button></td>
     </tr>
   </tbody>
 </table>
@@ -54,7 +56,6 @@
     <div class="col-md-12" style="margin-top: 5px;">
       <button type="button" class="btn btn-primary" ng-click="createEntity()">Eintrag hinzufügen</button>
       <button type="button" class="btn btn-default" ng-click="duplicateEntity()">Duplizieren</button>
-      <button type="button" class="btn btn-danger" ng-click="deleteEntity()">Löschen</button>
       <button type="button" class="btn btn-default" ng-click="reload(evict: true)"><span class="glyphicon glyphicon-refresh"></span></button>
     </div>
   </div>
