@@ -64,12 +64,17 @@ class TimesliceWeeklyReportComponent extends EntityOverview {
       WeekReportEntry entry = new WeekReportEntry();
       entry.name = user;
       for (DateTime date in dates) {
-        try {
-          Timeslice slice = report.timeslices.singleWhere((Timeslice s) => s.user.fullname == user && isSameDay(date, s.startedAt));
-          entry.days.add(slice);
-        } catch (e) {
+        List<Timeslice> slices = report.timeslices.where((Timeslice s) => s.user.fullname == user && isSameDay(date, s.startedAt));
+        if(slices.length == 0){
           entry.days.add(new Timeslice()
             ..value = '-'
+          );
+        } else {
+          // combine multiple slices
+          var totalThisDay = 0;
+          slices.forEach((Timeslice slice) => totalThisDay += double.parse(slice.value.replaceAll('h','')));
+          entry.days.add(new Timeslice()
+            ..value = totalThisDay.toString() + 'h'
           );
         }
       }
