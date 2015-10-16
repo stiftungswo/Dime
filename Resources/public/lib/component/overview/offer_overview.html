@@ -4,6 +4,9 @@
       <h3 class="box-title">Offerten</h3>
     </div>
     <div class="box-body">
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="Suche" ng-model="filterString">
+      </div>
       <table class="table table-bordered table-hover">
         <thead>
           <tr>
@@ -14,7 +17,7 @@
           </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="entity in entities | orderBy:'name'" ng-click="selectEntity(entity.id)" ng-doubleclick="openEditView(entity.id)" ng-class="isSelected(entity)? 'info': ''">
+        <tr ng-repeat="entity in entities | orderBy:'name' | filter:searchFilter(['id', 'name', 'shortDescription'], filterString)" ng-click="selectEntity(entity.id)" ng-doubleclick="openEditView(entity.id)" ng-class="isSelected(entity)? 'info': ''">
           <td>{{entity.id}}</td>
           <td>{{entity.name}}</td>
           <td>{{entity.shortDescription}}</td>
