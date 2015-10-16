@@ -11,11 +11,44 @@
         </div>
         <div class="form-group">
           <label class="control-label col-xs-4">Projekt</label>
-          <project-select project="project" class="col-xs-8"></project-select>
+          <project-select project="selectedProject" class="col-xs-8"></project-select>
         </div>
       </div>
       <div class="col-12">
-
+        <table class="table table-bordered table-hover form">
+          <thead>
+          <tr>
+            <th>Name</th>
+            <th>
+              <activity-select activity="selectedActivity" project="selectedProject.id" field="'activity'" shortname="true"></activity-select>
+            </th>
+            <td>&nbsp;</td>
+          </tr>
+          </thead>
+          <tbody>
+          <tr ng-repeat="entry in entries">
+            <td>{{entry.user.fullname}}</td>
+            <td><input style="width: 100%;" class="form-control" ng-model="entry.activities[0]" value="8.5h"/></td>
+            <td><a ng-click="removeUser(entry.user.id)">Entfernen</a></td>
+          </tr>
+          <tr ng-repeat="service in services">
+            <td>{{service.name}}</td>
+          </tr>
+          </tbody>
+        </table>
+        <div ng-if="entries.length == 0" class="text-muted">
+          Keine Mitarbeiter ausgewählt.<br>
+        </div>
+        <br>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <label>Mitarbeiter hinzufügen:</label>
+        </div>
+        <user-select class="col-sm-4 col-xs-8" user="selectedUserToAdd"></user-select>
+        <div class="col-sm-4 col-xs-4">
+          <button type="button" class="btn btn-default" ng-click="addUser()">Hinzufügen</button>
+        </div>
       </div>
       <div class="DimeControlButtons">
         <button type="button" class="btn btn-primary" ng-click="save()"><error-icon></error-icon></button>
