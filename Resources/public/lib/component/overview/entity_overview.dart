@@ -36,6 +36,8 @@ class EntityOverview extends AttachAware implements ScopeAware {
 
   UserAuthProvider auth;
 
+  String filterString = "";
+
   get selectedEntity {
     for (Entity ent in this.entities) {
       if (ent.id == this.selectedEntId) {
@@ -200,6 +202,18 @@ class EntityOverview extends AttachAware implements ScopeAware {
 
   addSaveField(String name, Entity entity) {
     entity.addFieldtoUpdate(name);
+  }
+
+  searchFilter(var fields, filterString){
+    return (Entity entity)
+    {
+      for(var field in fields){
+        if (entity.Get(field).toString().toLowerCase().contains(filterString.toLowerCase())) {
+          return true;
+        }
+      }
+      return false;
+    };
   }
 
   EntityOverview(this.type, this.store, this.routename, this.settingsManager, this.statusservice, {this.router, this.auth});
