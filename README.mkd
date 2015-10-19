@@ -1,6 +1,6 @@
 # DimeErp
 
-A Erp based on Symfony and DojoToolkit
+An ERP based on Symfony and AngularDart
 
 ## General Purpose
 
@@ -138,3 +138,30 @@ Install PHPUnit: http://symfony.com/doc/current/contributing/code/tests.html
 Run tests:
 
     phpunit -c app/
+    
+## Building the Frontend
+
+To build the JS & HTML files for deployment, run these commands inside the VM:
+
+    cd /vagrant/env && ./pub.sh build
+
+## Database Schema Management
+
+Migrate Database Schema to the latest version:
+
+    php app/console doctrine:migrations:migrate
+
+Migrate Database Schema to a specific version:
+
+    php app/console doctrine:migrations:migrate <version>
+
+Generate new Empty Migration Class:
+
+    php app/console doctrine:migrations:generate
+
+## Fixtures & Tests
+
+When the database schema changed, you need to regenerate the fixtures. You can do this with the following command:
+
+    cd /vagrant/env/fixtures/ && ./regenerate_fixtures.sh
+
