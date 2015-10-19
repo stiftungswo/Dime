@@ -80,6 +80,11 @@ textarea.tiny{
     table-layout: fixed;
 }
 
+th a {
+    display:block;
+    color:inherit;
+}
+
 .glyphicon-animate-spin {
     animation: spin 1s infinite linear;
     -webkit-animation: spin-webkit 1s infinite linear;

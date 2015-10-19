@@ -10,17 +10,33 @@
       <table class="table table-bordered table-hover">
         <thead>
           <tr>
-            <th width="40">ID</th>
-            <th>Username</th>
-            <th>Name</th>
-            <th>Email</th>
+            <th width="50">
+            <a ng-click="changeSortOrder('id')">
+              ID<span ng-show="sortType == 'id' && sortReverse" class="fa fa-fw fa-angle-up"></span><span ng-show="sortType == 'id' && !sortReverse" class="fa fa-fw fa-angle-down"></span>
+            </a>
+          </th>
+            <th>
+              <a ng-click="changeSortOrder('username')">
+                Username<span ng-show="sortType == 'username' && sortReverse" class="fa fa-fw fa-angle-up"></span><span ng-show="sortType == 'username' && !sortReverse" class="fa fa-fw fa-angle-down"></span>
+              </a>
+            </th>
+            <th>
+              <a ng-click="changeSortOrder('fullname')">
+                Name<span ng-show="sortType == 'fullname' && sortReverse" class="fa fa-fw fa-angle-up"></span><span ng-show="sortType == 'fullname' && !sortReverse" class="fa fa-fw fa-angle-down"></span>
+              </a>
+            </th>
+            <th>
+              <a ng-click="changeSortOrder('email')">
+                Email<span ng-show="sortType == 'email' && sortReverse" class="fa fa-fw fa-angle-up"></span><span ng-show="sortType == 'email' && !sortReverse" class="fa fa-fw fa-angle-down"></span>
+              </a>
+            </th>
             <th>Aktiv</th>
             <th>Gesperrt</th>
             <th width="110">Aktion</th>
           </tr>
         </thead>
         <tbody>
-          <tr ng-repeat="entity in entities | filter:searchFilter(['id', 'username', 'fullname', 'email'], filterString)" ng-click="selectEntity(entity.id)" ng-doubleclick="openEditView(entity.id)" ng-class="isSelected(entity)? 'info': ''">
+          <tr ng-repeat="entity in entities | orderBy:sortType:sortReverse | filter:searchFilter(['id', 'username', 'fullname', 'email'], filterString)" ng-click="selectEntity(entity.id)" ng-doubleclick="openEditView(entity.id)" ng-class="isSelected(entity)? 'info': ''">
             <td>{{entity.id}}</td>
             <td>{{entity.username}}</td>
             <td>{{entity.fullname}}</td>

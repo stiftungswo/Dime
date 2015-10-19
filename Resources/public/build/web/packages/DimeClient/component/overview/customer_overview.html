@@ -4,20 +4,47 @@
       <h3 class="box-title">Kunden</h3>
     </div>
     <div class="box-body">
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="Suche" ng-model="filterString">
+      </div>
       <table class="table table-bordered table-hover">
         <thead>
           <tr>
-            <th width="40">ID</th>
-            <th>Name</th>
-            <th>Addresse</th>
+            <th width="50">
+              <a ng-click="changeSortOrder('id')">
+                ID<span ng-show="sortType == 'id' &amp;&amp; sortReverse" class="fa fa-fw fa-angle-up"></span><span ng-show="sortType == 'id' &amp;&amp; !sortReverse" class="fa fa-fw fa-angle-down"></span>
+              </a>
+            </th>
+            <th>
+              <a ng-click="changeSortOrder('name')">
+                Name<span ng-show="sortType == 'name' &amp;&amp; sortReverse" class="fa fa-fw fa-angle-up"></span><span ng-show="sortType == 'name' &amp;&amp; !sortReverse" class="fa fa-fw fa-angle-down"></span>
+              </a>
+            </th>
+            <th>
+              <a ng-click="changeSortOrder('address.street')">
+                Strasse<span ng-show="sortType == 'address.street' &amp;&amp; sortReverse" class="fa fa-fw fa-angle-up"></span><span ng-show="sortType == 'address.street' &amp;&amp; !sortReverse" class="fa fa-fw fa-angle-down"></span>
+              </a>
+            </th>
+            <th>
+              <a ng-click="changeSortOrder('address.plz')">
+                PLZ<span ng-show="sortType == 'address.plz' &amp;&amp; sortReverse" class="fa fa-fw fa-angle-up"></span><span ng-show="sortType == 'address.plz' &amp;&amp; !sortReverse" class="fa fa-fw fa-angle-down"></span>
+              </a>
+            </th>
+            <th>
+              <a ng-click="changeSortOrder('address.city')">
+                Strasse<span ng-show="sortType == 'address.city' &amp;&amp; sortReverse" class="fa fa-fw fa-angle-up"></span><span ng-show="sortType == 'address.city' &amp;&amp; !sortReverse" class="fa fa-fw fa-angle-down"></span>
+              </a>
+            </th>
             <th width="110">Aktion</th>
           </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="entity in entities" ng-click="selectEntity(entity.id)" ng-doubleclick="openEditView(entity.id)" ng-class="isSelected(entity)? 'info': ''">
+        <tr ng-repeat="entity in entities | orderBy:sortType:sortReverse | filter:searchFilter(['id', 'name', 'address'], filterString)" ng-click="selectEntity(entity.id)" ng-doubleclick="openEditView(entity.id)" ng-class="isSelected(entity)? 'info': ''">
           <td>{{entity.id}}</td>
           <td>{{entity.name}}</td>
-          <td>{{entity.address.street}} {{entity.address.streetnumber}} - {{entity.address.plz}} {{entity.address.city}}</td>
+          <td>{{entity.address.street}} {{entity.address.streetnumber}}</td>
+          <td>{{entity.address.plz}}</td>
+          <td>{{entity.address.city}}</td>
           <td>
             <div class="btn-group">
               <button type="button" class="btn btn-default" ng-click="openEditView(entity.id)"><i class="fa fa-fw fa-pencil"></i></button>

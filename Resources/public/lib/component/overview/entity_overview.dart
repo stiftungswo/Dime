@@ -38,6 +38,10 @@ class EntityOverview extends AttachAware implements ScopeAware {
 
   String filterString = "";
 
+  String sortType = "";
+
+  bool sortReverse = false;
+
   get selectedEntity {
     for (Entity ent in this.entities) {
       if (ent.id == this.selectedEntId) {
@@ -216,6 +220,15 @@ class EntityOverview extends AttachAware implements ScopeAware {
     };
   }
 
+  changeSortOrder(String field){
+    if(sortType == field){
+      sortReverse = !sortReverse;
+    } else {
+      sortReverse = false;
+      sortType = field;
+    }
+  }
+
   EntityOverview(this.type, this.store, this.routename, this.settingsManager, this.statusservice, {this.router, this.auth});
 }
 
@@ -227,6 +240,8 @@ class EntityOverview extends AttachAware implements ScopeAware {
 class ProjectOverviewComponent extends EntityOverview {
   ProjectOverviewComponent(DataCache store, Router router, SettingsManager manager, StatusService status, UserAuthProvider auth, RouteProvider prov):
   super(Project, store, 'project_edit', manager, status, auth: auth, router: router);
+
+  String sortType = "name";
 
   cEnt({Project entity}) {
     if (entity != null) {
@@ -245,6 +260,8 @@ class CustomerOverviewComponent extends EntityOverview {
   CustomerOverviewComponent(DataCache store, Router router, SettingsManager manager, StatusService status, UserAuthProvider auth, RouteProvider prov):
   super(Customer, store, 'customer_edit', manager, status, auth: auth, router: router);
 
+  String sortType = "name";
+
   cEnt({Customer entity}) {
     if (entity != null) {
       return new Customer.clone(entity);
@@ -261,6 +278,8 @@ class CustomerOverviewComponent extends EntityOverview {
 class OfferOverviewComponent extends EntityOverview {
   OfferOverviewComponent(DataCache store, Router router, SettingsManager manager, StatusService status, UserAuthProvider auth):
   super(Offer, store, 'offer_edit', manager, status, auth: auth, router: router);
+
+  String sortType = "name";
 
   cEnt({Offer entity}) {
     if (entity != null) {
@@ -321,6 +340,8 @@ class OfferPositionOverviewComponent extends EntityOverview {
 class InvoiceOverviewComponent extends EntityOverview {
   InvoiceOverviewComponent(DataCache store, Router router, SettingsManager manager, StatusService status, UserAuthProvider auth):
   super(Invoice, store, 'invoice_edit', manager, status, router: router, auth: auth);
+
+  String sortType = "name";
 
   cEnt({Invoice entity}) {
     if (entity != null) {
@@ -391,6 +412,8 @@ class InvoiceItemOverviewComponent extends EntityOverview {
 class ServiceOverviewComponent extends EntityOverview {
   ServiceOverviewComponent(DataCache store, Router router, SettingsManager manager, StatusService status, UserAuthProvider auth):
   super(Service, store, 'service_edit', manager, status, router: router, auth: auth);
+
+  String sortType = "name";
 
   cEnt({Service entity}) {
     if (entity != null) {
@@ -595,6 +618,8 @@ class HolidayOverviewComponent extends EntityOverview {
 class EmployeeOverviewComponent extends EntityOverview {
   EmployeeOverviewComponent(DataCache store, Router router, SettingsManager manager, StatusService status, UserAuthProvider auth):
   super(Employee, store, 'employee_edit', manager, status, router: router, auth: auth);
+
+  String sortType = "username";
 
   cEnt({Employee entity}) {
     if (entity != null) {
