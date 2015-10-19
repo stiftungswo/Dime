@@ -36,6 +36,9 @@ service mariadb restart
 /bin/cp /vagrant/env/config/dime.ini /etc/php.d/dime.ini
 service httpd start
 
+# configure autostart on boot
+sudo systemctl enable httpd.service
+sudo systemctl enable mariadb.service
 
 # install composer
 if [ -f /usr/local/bin/composer.phar ]; then
