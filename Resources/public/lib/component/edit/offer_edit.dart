@@ -14,8 +14,6 @@ class OfferEditComponent extends EntityEdit {
 
   List<Employee> users;
 
-  Router router;
-
   Offer entity;
 
   OfferEditComponent(RouteProvider routeProvider, DataCache store, StatusService status, UserAuthProvider auth, Router router): super(routeProvider, store, Offer, status, auth, router);
@@ -60,9 +58,7 @@ class OfferEditComponent extends EntityEdit {
   openProject() async{
     var project = (await this.store.customQueryOne(Project, new CustomRequestParams(method: 'GET', url: '/api/v1/projects/offer/${this.entity.id}')));
     this.store.evict(Project, true);
-    if (router != null){
-      router.go('project_edit', {'id': project.id});
-    }
+    router.go('project_edit', {'id': project.id});
   }
 
   copyAddressFromCustomer(){
