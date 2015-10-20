@@ -7,7 +7,6 @@ import 'package:DimeClient/service/data_cache.dart';
 import 'package:DimeClient/service/user_context.dart';
 import 'package:DimeClient/service/status.dart';
 import 'package:DimeClient/service/user_auth.dart';
-import 'dart:html';
 import 'package:DimeClient/component/overview/entity_overview.dart';
 
 @Component(
