@@ -9,12 +9,12 @@
           <div class="form-group">
             <label class="col-sm-2 control-label">Name</label>
             <div class="col-sm-4">
-              <input class="form-control" style="width: 100%;" type="text" ng-model="entity.name" ng-change="addSaveField('name')">
+              <input required="true" class="form-control" style="width: 100%;" type="text" ng-model="entity.name" ng-change="addSaveField('name')">
             </div>
           </div>
           <div class="form-group">
             <label class="col-sm-2 control-label">Kunde</label>
-            <customer-select class="col-sm-4" customer="entity.customer" callback="entity.addFieldtoUpdate(name)" field="'customer'"></customer-select>
+            <customer-select required="true" class="col-sm-4" customer="entity.customer" callback="entity.addFieldtoUpdate(name)" field="'customer'"></customer-select>
           </div>
           <div class="form-group">
             <label class="col-sm-2 control-label">Status</label>
