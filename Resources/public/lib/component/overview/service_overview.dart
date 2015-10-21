@@ -1,12 +1,4 @@
-library service_overview_component;
-
-import 'package:angular/angular.dart';
-import 'package:DimeClient/model/Entity.dart';
-import 'package:DimeClient/service/setting_manager.dart';
-import 'package:DimeClient/service/data_cache.dart';
-import 'package:DimeClient/service/status.dart';
-import 'package:DimeClient/service/user_auth.dart';
-import 'package:DimeClient/component/overview/entity_overview.dart';
+part of entity_overview;
 
 @Component(
     selector: 'service-overview',
@@ -15,9 +7,9 @@ import 'package:DimeClient/component/overview/entity_overview.dart';
 )
 class ServiceOverviewComponent extends EntityOverview {
   ServiceOverviewComponent(DataCache store, Router router, SettingsManager manager, StatusService status, UserAuthProvider auth):
-  super(Service, store, 'service_edit', manager, status, router: router, auth: auth);
-
-  String sortType = "name";
+  super(Service, store, 'service_edit', manager, status, router: router, auth: auth){
+    sortType = "name";
+  }
 
   cEnt({Service entity}) {
     if (entity != null) {

@@ -1,12 +1,4 @@
-library employee_overview_component;
-
-import 'package:angular/angular.dart';
-import 'package:DimeClient/model/Entity.dart';
-import 'package:DimeClient/service/setting_manager.dart';
-import 'package:DimeClient/service/data_cache.dart';
-import 'package:DimeClient/service/status.dart';
-import 'package:DimeClient/service/user_auth.dart';
-import 'package:DimeClient/component/overview/entity_overview.dart';
+part of entity_overview;
 
 @Component(
     selector: 'employee-overview',
@@ -15,9 +7,9 @@ import 'package:DimeClient/component/overview/entity_overview.dart';
 )
 class EmployeeOverviewComponent extends EntityOverview {
   EmployeeOverviewComponent(DataCache store, Router router, SettingsManager manager, StatusService status, UserAuthProvider auth):
-  super(Employee, store, 'employee_edit', manager, status, router: router, auth: auth);
-
-  String sortType = "username";
+  super(Employee, store, 'employee_edit', manager, status, router: router, auth: auth){
+    sortType = "username";
+  }
 
   cEnt({Employee entity}) {
     if (entity != null) {
