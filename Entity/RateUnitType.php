@@ -44,6 +44,19 @@ class RateUnitType extends Entity implements DimeEntityInterface
 	 * @var string
 	 * @JMS\Exclude()
 	 */
+	public static $ZiviDayly = 'zt';
+
+	/**
+	 * @var string
+	 * @JMS\Exclude()
+	 */
+	public static $Secondly = 's';
+
+
+	/**
+	 * @var string
+	 * @JMS\Exclude()
+	 */
 	public static $NoChange = 'a';
 
 	/**
@@ -178,9 +191,9 @@ class RateUnitType extends Entity implements DimeEntityInterface
 		return $value;
 	}
 
-	public static function transformToStandardUnit($value, $unit, $includeUnit = true, $scale = 3, $roundMode = PHP_ROUND_HALF_UP)
+	public static function transformBetweenTimeUnits($value, $old_unit, $new_unit, $includeUnit = true, $scale = 3, $roundMode = PHP_ROUND_HALF_UP)
 	{
-		switch ($unit) {
+		switch ($old_unit) {
 			case RateUnitType::$Hourly :
 				$factor = RateUnitType::$HourInSeconds;
 				break;
@@ -188,15 +201,30 @@ class RateUnitType extends Entity implements DimeEntityInterface
 				$factor = RateUnitType::$MinuteInSeconds;
 				break;
 			case RateUnitType::$Dayly :
+			case RateUnitType::$ZiviDayly:
 				$factor = RateUnitType::$DayInSeconds;
 				break;
 			default:
 				$factor = 1;
 				break;
 		}
-		$value = round(($value / $factor), $scale, $roundMode);
+		switch ($new_unit) {
+			case RateUnitType::$Hourly :
+				$factor /= RateUnitType::$HourInSeconds;
+				break;
+			case RateUnitType::$Minutely :
+				$factor /= RateUnitType::$MinuteInSeconds;
+				break;
+			case RateUnitType::$Dayly :
+			case RateUnitType::$ZiviDayly:
+				$factor /= RateUnitType::$DayInSeconds;
+				break;
+			default:
+				break;
+		}
+		$value = round(($value * $factor), $scale, $roundMode);
 		if ($includeUnit === true) {
-			$value .= $unit;
+			$value .= $new_unit;
 		}
 		return $value;
 	}
@@ -230,13 +258,14 @@ class RateUnitType extends Entity implements DimeEntityInterface
 
 			// transform to seconds
 			switch ($format) {
-				case 'h':
+				case RateUnitType::$Hourly:
 					$time = $time * RateUnitType::$HourInSeconds;
 					break;
-				case 'm':
+				case RateUnitType::$Minutely:
 					$time = $time * RateUnitType::$MinuteInSeconds;
 					break;
-				case 'd':
+				case RateUnitType::$Dayly:
+				case RateUnitType::$ZiviDayly:
 					$time = $time * RateUnitType::$DayInSeconds;
 					break;
 				case strtolower($this->getSymbol()):

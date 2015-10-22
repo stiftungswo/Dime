@@ -78,16 +78,15 @@ class Project extends Entity implements DimeEntityInterface
 	protected $description;
 
 	/**
-	 * @var integer $budgetPrice
+	 * @var Money $budgetPrice
 	 *
-	 * @JMS\SerializedName("budgetPrice")
-	 * @JMS\Type(name="Money")
+	 * @JMS\Exclude()
 	 * @ORM\Column(name="budget_price", type="money", nullable=true)
 	 */
 	protected $budgetPrice;
 
 	/**
-	 * @var integer $fixedPrice
+	 * @var Money $fixedPrice
 	 *
 	 * @JMS\SerializedName("fixedPrice")
 	 * @JMS\Type(name="Money")
@@ -138,11 +137,9 @@ class Project extends Entity implements DimeEntityInterface
 	protected $activities;
 
 	/**
-	 * @JMS\VirtualProperty()
-	 * @JMS\Type(name="Money")
-	 * @JMS\SerializedName("currentPrice")
+	 * @return Money current Price
 	 */
-	public function getCurrentPrice()
+	public function calculateCurrentPrice()
 	{
 		$price = Money::CHF(0);
 		foreach ($this->activities as $activity) {
@@ -153,17 +150,55 @@ class Project extends Entity implements DimeEntityInterface
 
 	/**
 	 * @JMS\VirtualProperty()
+	 * @JMS\SerializedName("currentPrice")
+	 */
+	public function getCurrentPrice()
+	{
+		return $this->calculateCurrentPrice()->format(true);
+	}
+
+	/**
+	 * @JMS\VirtualProperty()
+	 * @JMS\SerializedName("remainingBudgetPrice")
+	 *
+	 */
+	public function getRemainingBudgetPrice()
+	{
+		if($this->budgetPrice != null) {
+			return $this->budgetPrice->subtract($this->calculateCurrentPrice())->format(true);
+		} else {
+			return null;
+		}
+	}
+
+	/**
+	 * @JMS\VirtualProperty()
 	 * @JMS\SerializedName("currentTime")
 	 */
 	public function getCurrentTime()
 	{
 		$duration = 0;
 		foreach ($this->activities as $activity) {
-			if ($activity->getRateUnitType() !== RateUnitType::$NoChange) {
-				$duration += $activity->getValue(true);
+			if ($activity->getRateUnitType() != null && $activity->getRateUnitType()->getSymbol() !== RateUnitType::$NoChange) {
+				$duration += RateUnitType::transformBetweenTimeUnits($activity->getValue(true), RateUnitType::$Secondly, RateUnitType::$Hourly, false);
 			}
 		}
-		return RateUnitType::transformToStandardUnit($duration, RateUnitType::$Hourly);
+		return number_format($duration, 2). ' ' . RateUnitType::$Hourly;
+	}
+
+	/**
+	 * @JMS\VirtualProperty()
+	 * @JMS\SerializedName("remainingBudgetTime")
+	 *
+	 */
+	public function getRemainingBudgetTime()
+	{
+		if($this->budgetTime != null) {
+			$currentBudget = $this->budgetTime - $this->getCurrentTime();
+			return number_format($currentBudget, 2) . ' ' . RateUnitType::$Hourly;
+		} else {
+			return null;
+		}
 	}
 
 	/**
@@ -172,7 +207,24 @@ class Project extends Entity implements DimeEntityInterface
 	 */
 	public function serializeBudgetTime()
 	{
-		return RateUnitType::transformToStandardUnit($this->getBudgetTime(), RateUnitType::$Hourly);
+		if($this->budgetTime != null) {
+			return number_format($this->budgetTime, 2) . ' ' . RateUnitType::$Hourly;
+		} else {
+			return null;
+		}
+	}
+
+	/**
+	 * @JMS\VirtualProperty()
+	 * @JMS\SerializedName("budgetPrice")
+	 */
+	public function serializeBudgetPrice()
+	{
+		if($this->budgetPrice != null) {
+			return $this->budgetPrice->format(true);
+		} else {
+			return null;
+		}
 	}
 
 	/**
