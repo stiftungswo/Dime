@@ -23,6 +23,7 @@ class TimetrackMultiComponent extends AttachAware implements ScopeAware {
   User selectedUserToAdd = null;
   StatusService statusservice;
   List<Service> services = [];
+  List<String> inputAll = [];
 
   attach() {
   }
@@ -54,6 +55,10 @@ class TimetrackMultiComponent extends AttachAware implements ScopeAware {
     } catch (e) {
       this.statusservice.setStatusToError(e);
     }
+  }
+
+  inputAllUpdated() {
+
   }
 
   TimetrackMultiComponent(DataCache store, SettingsManager manager, this.statusservice, this.context);
