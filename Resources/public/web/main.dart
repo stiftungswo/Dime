@@ -15,7 +15,6 @@ import 'package:DimeClient/component/main/menu.dart';
 import 'package:DimeClient/component/main/tabset.dart';
 import 'package:DimeClient/component/main/usermenu.dart';
 import 'package:DimeClient/component/overview/entity_overview.dart';
-import 'package:DimeClient/component/overview/timeslice_overview.dart';
 import 'package:DimeClient/component/percent-input/percent_input.dart';
 import 'package:DimeClient/component/report/projectemployee_report.dart';
 import 'package:DimeClient/component/report/servicehours_report.dart';

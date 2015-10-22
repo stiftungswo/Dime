@@ -76,7 +76,7 @@ class Address extends Entity {
   String state;
   String country;
 
-  String _toString() {
+  String toString() {
     return '$streetnumber $street - $plz $city';
   }
 }

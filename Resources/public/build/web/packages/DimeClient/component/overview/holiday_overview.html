@@ -9,12 +9,14 @@
           <tr>
             <th>Datum</th>
             <th>Dauer</th>
+            <th width="60">Aktion</th>
           </tr>
         </thead>
         <tbody>
           <tr ng-repeat="entity in entities" ng-click="selectEntity(entity.id)" ng-class="isSelected(entity)? 'info': ''">
             <td><dateinput style="width: 100%;" date="entity.date" field="'date'" callback="entity.addFieldtoUpdate(name)"></dateinput></td>
             <td><input style="width: 100%;" type="text" class="form-control" ng-model="entity.duration" ng-change="addSaveField('duration', entity)"></td>
+            <td><button type="button" class="btn btn-default" ng-click="deleteEntity(entity.id)"><i class="fa fa-fw fa-trash-o" style="color:red"></i></button></td>
           </tr>
         </tbody>
       </table>
@@ -25,7 +27,6 @@
       <button type="button" class="btn btn-primary" ng-click="saveAllEntities()"><error-icon value="saveState" timeout="20"></error-icon></button>
       <button type="button" class="btn btn-primary" ng-click="createEntity()">Hinzufügen</button>
       <button type="button" class="btn btn-primary" ng-click="duplicateEntity()">Duplizieren</button>
-      <button type="button" class="btn btn-danger" ng-click="deleteEntity()">Löschen</button>
       <button type="button" class="btn btn-default" ng-click="reload(evict: true)"><span class="glyphicon glyphicon-refresh"></span></button>
     </div>
   </div>
