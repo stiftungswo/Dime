@@ -28,6 +28,7 @@ class User extends BaseUser implements DimeEntityInterface
 	/**
 	 * @var integer $id
 	 *
+	 * @JMS\Groups({"List"})
 	 * @ORM\Id
 	 * @ORM\Column(name="id", type="integer")
 	 * @ORM\GeneratedValue(strategy="AUTO")
@@ -37,6 +38,7 @@ class User extends BaseUser implements DimeEntityInterface
 	/**
 	 * @var string $firstname
 	 *
+	 * @JMS\Groups({"List"})
 	 * @ORM\Column(type="string", length=255, nullable=true)
 	 */
 	protected $firstname;
@@ -44,6 +46,7 @@ class User extends BaseUser implements DimeEntityInterface
 	/**
 	 * @var string $lastname
 	 *
+	 * @JMS\Groups({"List"})
 	 * @ORM\Column(type="string", length=255, nullable=true)
 	 */
 	protected $lastname;

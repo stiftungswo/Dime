@@ -16,6 +16,7 @@ abstract class Entity
 	/**
 	 * @var integer $id
 	 *
+	 * @JMS\Groups({"List"})
 	 * @ORM\Id
 	 * @ORM\Column(name="id", type="integer")
 	 * @ORM\GeneratedValue(strategy="AUTO")

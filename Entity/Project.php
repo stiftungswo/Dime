@@ -23,6 +23,7 @@ class Project extends Entity implements DimeEntityInterface
 	/**
 	 * @var Customer $customer
 	 *
+	 * @JMS\MaxDepth(1)
 	 * @ORM\ManyToOne(targetEntity="Customer")
 	 * @ORM\JoinColumn(name="customer_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
 	 */
@@ -31,6 +32,7 @@ class Project extends Entity implements DimeEntityInterface
 	/**
 	 * @var string $name
 	 *
+	 * @JMS\Groups({"List"})
 	 * @Assert\NotBlank()
 	 * @ORM\Column(type="string", length=255)
 	 */
@@ -39,6 +41,7 @@ class Project extends Entity implements DimeEntityInterface
 	/**
 	 * @var string $alias
 	 *
+	 * @JMS\Groups({"List"})
 	 * @Gedmo\Slug(fields={"name"})
 	 * @ORM\Column(type="string", length=30)
 	 */
@@ -73,6 +76,7 @@ class Project extends Entity implements DimeEntityInterface
 	/**
 	 * @var string $description
 	 *
+	 * @JMS\Groups({"List"})
 	 * @ORM\Column(type="text", nullable=true)
 	 */
 	protected $description;
@@ -105,7 +109,7 @@ class Project extends Entity implements DimeEntityInterface
 	/**
 	 * @ORM\ManyToOne(targetEntity="Dime\TimetrackerBundle\Entity\RateGroup")
 	 * @ORM\JoinColumn(name="rate_group_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
-	 * @JMS\SerializedName("rateGroup")
+	 * @JMS\MaxDepth(1)
 	 */
 	protected $rateGroup;
 
@@ -129,9 +133,8 @@ class Project extends Entity implements DimeEntityInterface
 
 	/**
 	 * @var ArrayCollection $activities
-	 * @JMS\MaxDepth(2)
+	 * @JMS\MaxDepth(1)
 	 * @JMS\Type("array")
-	 * @JMS\SerializedName("activities")
 	 * @ORM\OneToMany(targetEntity="Dime\TimetrackerBundle\Entity\Activity", mappedBy="project", cascade={"all"})
 	 */
 	protected $activities;

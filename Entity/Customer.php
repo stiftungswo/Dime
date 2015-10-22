@@ -26,6 +26,7 @@ class Customer extends Entity implements DimeEntityInterface
 	/**
 	 * @var string $name
 	 *
+	 * @JMS\Groups({"List"})
 	 * @Assert\NotBlank()
 	 * @ORM\Column(type="string", length=255)
 	 */
@@ -94,6 +95,7 @@ class Customer extends Entity implements DimeEntityInterface
 	/**
 	 * @var \Swo\CommonsBundle\Entity\Address $address
 	 *
+	 * @JMS\Groups({"List"})
 	 * @ORM\ManyToOne(targetEntity="\Swo\CommonsBundle\Entity\Address", cascade={"all"})
 	 */
 	protected $address;

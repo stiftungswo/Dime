@@ -25,6 +25,7 @@ class Activity extends Entity implements DimeEntityInterface
 	 * @var Project $project
 	 *
 	 * @JMS\MaxDepth(1)
+	 * @JMS\Groups({"List"})
 	 * @ORM\ManyToOne(targetEntity="Project", inversedBy="activities")
 	 * @ORM\JoinColumn(name="project_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
 	 */
@@ -33,8 +34,9 @@ class Activity extends Entity implements DimeEntityInterface
 	/**
 	 * @var Service $service
 	 *
-	 * @JMS\MaxDepth(2)
+	 * @JMS\MaxDepth(1)
 	 * @ORM\ManyToOne(targetEntity="Service")
+	 * @JMS\Groups({"List"})
 	 * @ORM\JoinColumn(name="service_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
 	 */
 	protected $service;
@@ -153,6 +155,7 @@ class Activity extends Entity implements DimeEntityInterface
 	/**
 	 * return the Rate from the service according the offers rate group
 	 * @JMS\VirtualProperty
+	 * @JMS\MaxDepth(1)
 	 * @JMS\SerializedName("serviceRate")
 	 *
 	 * @return Rate
@@ -193,6 +196,7 @@ class Activity extends Entity implements DimeEntityInterface
 	 * Returns the Name the Activty has.
 	 * @return string
 	 * @JMS\VirtualProperty()
+	 * @JMS\Groups({"List"})
 	 * @JMS\SerializedName("name")
 	 */
 	public function getName()

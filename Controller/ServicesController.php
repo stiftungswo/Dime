@@ -34,7 +34,8 @@ class ServicesController extends DimeController
      * @Annotations\QueryParam(name="search", nullable=true, description="Filter By Name or alias")
      *
      * @Annotations\View(
-     * serializerEnableMaxDepthChecks=true
+     * serializerEnableMaxDepthChecks=true,
+     * serializerGroups={"List"}
      * )
      *
      * @Annotations\Route(requirements={"_format"="json|xml"})
@@ -64,7 +65,8 @@ class ServicesController extends DimeController
      * )
      *
      * @Annotations\View(
-     * serializerEnableMaxDepthChecks=true
+     * serializerEnableMaxDepthChecks=true,
+     * serializerGroups={"List", "Default"}
      * )
      *
      * @Annotations\Route(requirements={"_format"="json|xml"})

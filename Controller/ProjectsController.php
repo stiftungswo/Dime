@@ -38,7 +38,8 @@ class ProjectsController extends DimeController
      * @Annotations\QueryParam(array=true, name="withouttags", requirements="\d+", nullable=true, description="Show Entities without this Tags")
      *
      * @Annotations\View(
-     * serializerEnableMaxDepthChecks=true
+     * serializerEnableMaxDepthChecks=true,
+     * serializerGroups={"List"}
      * )
      *
      * @Annotations\Route(requirements={"_format"="json|xml"})
@@ -68,7 +69,8 @@ class ProjectsController extends DimeController
      * )
      *
      * @Annotations\View(
-     * serializerEnableMaxDepthChecks=true
+     * serializerEnableMaxDepthChecks=true,
+     * serializerGroups={"List", "Default"}
      * )
      *
      * @Annotations\Route(requirements={"_format"="json|xml"})

@@ -44,7 +44,8 @@ class ActivitiesController extends DimeController
      * @Annotations\QueryParam(name="name", nullable=true, description="Filter on Name Property")
      *
      * @Annotations\View(
-     * serializerEnableMaxDepthChecks=true
+     * serializerEnableMaxDepthChecks=true,
+     * serializerGroups={"List"}
      * )
      *
      * @Annotations\Route(requirements={"_format"="json|xml"})
@@ -76,7 +77,8 @@ class ActivitiesController extends DimeController
      * )
      *
      * @Annotations\View(
-     * serializerEnableMaxDepthChecks=true
+     * serializerEnableMaxDepthChecks=true,
+     * serializerGroups={"List", "Default"}
      * )
      *
      * @Annotations\Route(requirements={"_format"="json|xml"})

@@ -27,6 +27,7 @@ class Timeslice extends Entity implements DimeEntityInterface
 	 *
 	 * @Assert\NotNull()
 	 * @JMS\MaxDepth(1)
+	 * @JMS\Groups({"List"})
 	 * @ORM\ManyToOne(targetEntity="Activity", inversedBy="timeslices", cascade="persist")
 	 * @ORM\JoinColumn(name="activity_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
 	 */
@@ -148,6 +149,7 @@ class Timeslice extends Entity implements DimeEntityInterface
 	/**
 	 * @JMS\VirtualProperty()
 	 * @JMS\SerializedName("value")
+	 * @JMS\Groups({"List"})
 	 * @param bool $withUnits
 	 *
 	 * @return float|int|string
@@ -224,6 +226,7 @@ class Timeslice extends Entity implements DimeEntityInterface
 	 *
 	 * @JMS\VirtualProperty()
 	 * @JMS\SerializedName("startedAt")
+	 * @JMS\Groups({"List"})
 	 *
 	 * @return null|string
 	 */

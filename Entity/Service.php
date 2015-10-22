@@ -25,6 +25,7 @@ class Service extends Entity implements DimeEntityInterface
 	/**
 	 * @var string $name
 	 *
+	 * @JMS\Groups({"List"})
 	 * @Assert\NotBlank()
 	 * @ORM\Column(type="string", nullable=true)
 	 */
@@ -33,6 +34,7 @@ class Service extends Entity implements DimeEntityInterface
 	/**
 	 * @var string $alias
 	 *
+	 * @JMS\Groups({"List"})
 	 * @Gedmo\Slug(fields={"name"})
 	 * @ORM\Column(type="string", length=30)
 	 */
@@ -41,6 +43,7 @@ class Service extends Entity implements DimeEntityInterface
 	/**
 	 * @var string $description
 	 *
+	 * @JMS\Groups({"List"})
 	 * @ORM\Column(type="text", nullable=true)
 	 */
 	protected $description;
