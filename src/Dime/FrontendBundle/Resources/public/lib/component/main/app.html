@@ -1,0 +1,100 @@
+<div class="wrapper" ng-show="auth.isloggedin">
+  <header class="main-header">
+
+    <!-- Logo -->
+    <a href="/" class="logo">
+      <!-- mini logo for sidebar mini 50x50 pixels -->
+      <span class="logo-mini">Dime</span>
+      <!-- logo for regular state and mobile devices -->
+      <span class="logo-lg">DimeERP</span>
+    </a>
+
+    <!-- Header Navbar -->
+    <nav class="navbar navbar-static-top" role="navigation">
+      <!-- Sidebar toggle button-->
+      <a class="sidebar-toggle" data-toggle="offcanvas" role="button">
+        <span class="sr-only">Toggle navigation</span>
+      </a>
+
+      <!-- Navbar Right Menu -->
+      <div class="navbar-custom-menu">
+        <ul class="nav navbar-nav">
+          <li>
+            <statusbar></statusbar>
+          </li>
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown">
+              <i class="fa fa-user"></i> {{userContext.employee.fullname}}
+            </a>
+            <ul class="dropdown-menu">
+              <li>
+                <usermenu></usermenu>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <aside class="main-sidebar">
+    <main-menu></main-menu>
+  </aside>
+
+  <!-- Main Content -->
+  <div class="content-wrapper">
+    <maintabset></maintabset>
+    <div class="clearfix"></div>
+  </div>
+
+  <!-- Main Footer -->
+  <footer class="main-footer">
+    &copy; DimeERP
+  </footer>
+</div>
+<div ng-show="!auth.isloggedin">
+  <div class="login-page">
+    <div class="login-box">
+      <div class="login-logo">
+        DimeERP
+      </div>
+
+      <div class="login-box-body" ng-keypress="loginOnEnter($event)">
+        <p class="login-box-msg">Login</p>
+
+        <div class="alert alert-danger" role="alert" ng-if="loginFailed">Login fehlgeschlagen</div>
+        <div class="form-group has-feedback">
+          <input type="text" class="form-control" placeholder="Benutzername" ng-model="username"/>
+          <span class="glyphicon glyphicon-user form-control-feedback"></span>
+        </div>
+        <div class="form-group has-feedback">
+          <input type="password" class="form-control" placeholder="Passwort" ng-model="password"/>
+          <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+        </div>
+        <div class="checkbox">
+          <label>
+            <input class="checkbox" type="checkbox" ng-model="rememberme"> Angemeldet bleiben
+          </label>
+        </div>
+        <div class="row">
+          <div class="col-xs-8">
+            &nbsp;
+          </div>
+          <!-- /.col -->
+          <div class="col-xs-4">
+            <button type="submit" class="btn btn-primary btn-block btn-flat" ng-click="login()"
+                    ng-disabled="loginInProgress">
+              Login
+              <span class="glyphicon glyphicon-refresh glyphicon-animate-spin"
+                    ng-class="{invisible: !loginInProgress}"></span>
+            </button>
+          </div>
+          <!-- /.col -->
+        </div>
+
+      </div>
+      <!-- /.login-box-body -->
+    </div>
+    <!-- /.login-box -->
+  </div>
+</div>

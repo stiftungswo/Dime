@@ -1,0 +1,153 @@
+a {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.extra-space {
+  padding-left: 10px;
+}
+
+[ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+   display: none !important;
+}
+
+ul {
+  list-style-type: none;
+}
+
+.select-dropdown {
+    width: 100%;
+    max-height: 400px;
+    overflow: auto;
+}
+
+.select-dropdown > div > div {
+    border-bottom: 1px solid #AEAEAE;
+}
+
+.select-dropdown > div:last-child > div {
+  border-bottom: 0;
+}
+
+.DimePanel {
+    width: 99%;
+    margin: 2px;
+    padding: 5px;
+    border: 1px solid #AEAEAE;
+    border-radius: 3px;
+    float: left;
+}
+
+.DimeControlButtons{
+    margin-top: 10px;
+    float: left;
+    padding-bottom: 15px;
+}
+
+textarea.form-control{
+    height: 200px;
+}
+
+textarea.tiny{
+    height: auto;
+}
+
+.dropdown-menu {
+  border: 1px solid #AEAEAE;
+  padding: 0;
+}
+
+.dropdown-menu > div > div {
+  padding: 5px 10px;
+}
+
+.dropdown-menu > div > div:hover {
+  background: #337ab7;
+  color: white;
+  cursor: pointer;
+}
+
+.dropdown-menu > div > div:hover .text-muted {
+  color: #DDD;
+}
+
+.dropdown-menu > div > div.selected {
+  background: #222d32;
+  color: white;
+}
+
+.table{
+    table-layout: fixed;
+}
+
+th a {
+    display:block;
+    color:inherit;
+}
+
+.glyphicon-animate-spin {
+    animation: spin 1s infinite linear;
+    -webkit-animation: spin-webkit 1s infinite linear;
+}
+
+@keyframes spin {
+    from { transform: scale(1) rotate(0deg);}
+    to { transform: scale(1) rotate(360deg);}
+}
+
+@-webkit-keyframes spin-webkit {
+    from { -webkit-transform: rotate(0deg);}
+    to { -webkit-transform: rotate(360deg);}
+}
+
+/* Forms */
+
+input.ng-invalid.ng-touched {
+  border: 1px solid #dd4b39 !important;
+  background: #FAE3E0;
+}
+
+
+/* Login Page */
+
+.login-page {
+  background: #ffffff;
+}
+
+.login-box-body {
+  background: #d2d6de;
+}
+
+/* Menue */
+
+.treeview > a {
+  cursor: pointer;
+}
+
+.statusbar {
+  padding: 15px;
+  line-height: 20px;
+  color: #ffffff;
+}
+
+/* Overwrite Table Styles */
+
+.table-bordered>thead>tr>th,
+.table-bordered>tbody>tr>th,
+.table-bordered>tfoot>tr>th,
+.table-bordered>thead>tr>td,
+.table-bordered>tbody>tr>td,
+.table-bordered>tfoot>tr>td {
+  border: 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.table-bordered .text-overflow-ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.content {
+  /* bugfix for firefox */
+  display: block;
+}
