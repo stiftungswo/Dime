@@ -17,6 +17,7 @@
         <thead>
           <tr>
             <th style="width: 150px;">Projekt</th>
+            <th style="width: 150px;">Tätigkeitsbereich</th>
             <th ng-repeat="activity in total.activitylist" style="width: 80px;" class="text-overflow-ellipsis" title="{{activity}}">
               {{activity}}
             </th>
@@ -26,6 +27,7 @@
         <tbody>
           <tr ng-repeat="entry in entries">
             <td class="text-overflow-ellipsis" title="{{entry.name}}">{{entry.name}}</td>
+            <td class="text-overflow-ellipsis" title="{{entry.projectCategory.name}}">{{entry.projectCategory.name}}</td>
             <td ng-repeat="activity in total.activitylist" title="{{activity}}">
               {{(entry.activities[activity]/(60*60)) | number:1}}
             </td>
@@ -35,6 +37,7 @@
         <tfoot>
           <tr>
             <td>Total</td>
+            <td>&nbsp;</td>
             <td ng-repeat="activity in total.activitylist" title="{{activity}}">
               {{(total.activities[activity]/(60*60)) | number:1}}
             </td>

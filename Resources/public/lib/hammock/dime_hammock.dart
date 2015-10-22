@@ -217,7 +217,18 @@ HammockConfig createHammockConfig(Injector inj) {
             if (r.content is String) return new ExpenseReport();
             return new ExpenseReport.fromMap(r.content);
           }
+        },
+        "projectcategories" : {
+          "type" : ProjectCategory,
+          "serializer" : (ProjectCategory ent) {
+            return ent.toResource();
+          },
+          "deserializer" : (Resource r) {
+            if (r.content is String)return new ProjectCategory();
+            return new ProjectCategory.fromMap(r.content);
+          }
         }
+
       }
   )
     ..urlRewriter.baseUrl = '/api/v1';

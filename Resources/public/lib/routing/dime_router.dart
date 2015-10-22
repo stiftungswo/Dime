@@ -86,12 +86,20 @@ void dimeRouteInitializer(Router router, RouteViewFactory views) {
         viewHtml: '<timeslice-weeklyreport></timeslice-weeklyreport>'
     ),
     'servicehours_report': ngRoute(
-        path: '/reports/servicehours',
+        path: '/reports/servicehours' ,
         viewHtml: '<servicehours-report></servicehours-report>'
     ),
     'projectemployee_report': ngRoute(
         path: '/reports/projectemployee',
         viewHtml: '<projectemployee-report></projectemployee-report>'
+    ),
+    'projectCategory_overview': ngRoute(
+        path: '/projectCategories/overview',
+        viewHtml: '<projectCategory-overview></projectCategory-overview>'
+    ),
+    'projectCategory_edit': ngRoute(
+        path: '/projectCategories/edit/:id',
+        viewHtml: '<projectCategory-edit></projectCategory-edit>'
     ),
   });
 }

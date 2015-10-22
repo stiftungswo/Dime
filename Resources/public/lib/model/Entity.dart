@@ -29,6 +29,7 @@ part 'entities/StandardDiscount.dart';
 part 'entities/Tag.dart';
 part 'entities/Timeslice.dart';
 part 'entities/User.dart';
+part 'entities/ProjectCategory.dart';
 
 class Entity {
 

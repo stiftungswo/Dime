@@ -22,7 +22,8 @@ class Project extends Entity {
     this.rateGroup = original.rateGroup;
     this.chargeable = original.chargeable;
     this.deadline = original.deadline;
-    addFieldstoUpdate(['currentPrice','budgetPrice','currentTime','budgetTime','description','fixedPrice','customer','rateGroup','chargeable','deadline']);
+    this.projectCategory = original.projectCategory;
+    addFieldstoUpdate(['currentPrice','budgetPrice','currentTime','budgetTime','description','fixedPrice','customer','rateGroup','chargeable','deadline', 'projectCategory']);
   }
 
   Project.fromMap(Map<String, dynamic> map): super.fromMap(map);
@@ -57,6 +58,8 @@ class Project extends Entity {
           return this.deadline;
         case 'activities':
           return this.activities;
+        case 'projectCategory':
+          return this.projectCategory;
         default:
           break;
       }
@@ -99,6 +102,9 @@ class Project extends Entity {
       case 'activities':
         this.activities = Activity.listFromMap(value);
         break;
+      case 'projectCategory':
+        this.projectCategory = value is Entity ? value : new ProjectCategory.fromMap(value);;
+        break;
       default:
         super.Set(property, value);
         break;
@@ -125,4 +131,5 @@ class Project extends Entity {
   bool chargeable;
   DateTime deadline;
   List<Activity> activities = [];
+  ProjectCategory projectCategory;
 }

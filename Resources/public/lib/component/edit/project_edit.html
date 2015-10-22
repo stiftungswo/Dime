@@ -36,6 +36,10 @@
           <rateGroup-select class="col-sm-4" rategroup="entity.rateGroup" callback="entity.addFieldtoUpdate(name)" field="'rateGroup'"></rateGroup-select>
         </div>
         <div class="form-group">
+        <label class="col-sm-2 control-label">Tätigkeitsbereich</label>
+          <projectCategory-select required="true" class="col-sm-4" projectcategory="entity.projectCategory" callback="entity.addFieldtoUpdate(name)" field="'projectCategory'"></projectCategory-select>
+        </div>
+        <div class="form-group">
           <label class="col-sm-2 control-label">Deadline</label>
           <dateinput class="col-sm-4" date="entity.deadline" field="'deadline'" callback="addSaveField(name)"></dateinput>
         </div>

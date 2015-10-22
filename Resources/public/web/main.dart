@@ -96,6 +96,9 @@ class AppModule extends Module {
     bind(TimesliceOverviewComponent);
     bind(ServicehoursReportComponent);
     bind(ProjectemployeeReportComponent);
+    bind(ProjectCategoryOverviewComponent);
+    bind(ProjectCategoryEditComponent);
+    bind(ProjectCategorySelectComponent);
     bind(RoundModeSelect);
     bind(UserMenu);
     install(new Hammock());
