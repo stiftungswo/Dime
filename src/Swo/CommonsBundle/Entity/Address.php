@@ -20,6 +20,7 @@ Class Address
 	/**
 	 * The Streetname
 	 *
+	 * @JMS\Groups({"List"})
 	 * @ORM\Column(type="string", nullable=true)
 	 */
 	protected $street;
@@ -28,6 +29,7 @@ Class Address
 	 * The Streetnumber
 	 * @var String
 	 *
+	 * @JMS\Groups({"List"})
 	 * @ORM\Column(type="string", nullable=true)
 	 */
 	protected $streetnumber;
@@ -35,6 +37,7 @@ Class Address
 	/**
 	 * The City or Town
 	 *
+	 * @JMS\Groups({"List"})
 	 * @ORM\Column(type="string", nullable=true)
 	 */
 	protected $city;
@@ -42,6 +45,7 @@ Class Address
 	/**
 	 * @var String
 	 *
+	 * @JMS\Groups({"List"})
 	 * @ORM\Column(type="integer", nullable=true)
 	 */
 	protected $plz;
