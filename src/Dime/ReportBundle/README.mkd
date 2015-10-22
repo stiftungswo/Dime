@@ -1,0 +1,44 @@
+# Dime - ReportBundle
+
+This report bundel generates reports in REST readable JSON files of the following:
+- Percentage of time spent on project per user
+- Percentage of time spent on service per user
+- Percentage of time spent on service per project
+- TimeSpent per Project grouped by Project Category
+- TimeSpent per Project grouped by Project Category per Timeframe
+- Time that a user would have to work vs. time user has already worked. (May be in Employee Bundle)
+
+## General Proposal
+
+DimeErp is a small ERP Solution for small businesses based on Dime Timetracker. This Bundle provides the REST API for making nice charts and Tables.
+
+## Requirements
+
+- DimeTimetrackerBundle
+- DimeOfferBUndle
+- DimeEmployeeBundle
+
+## Configuration
+
+Import configuration in your `app/config/config.yml` after importing the ones of DimeTimetracker and DimeTimetrackerFrontend:
+
+    imports:
+        - ...
+        - { resource: "@DimeTimetrackerBundle/Resources/config/config.yml" }
+        - { resource: "@DimeTimetrackerFrontendBundle/Resources/config/config.yml" }
+        - { resource: "@DimeReportBundle/Resources/config/config.yml" }
+
+Add to `AppKernel.php`:
+
+    <?php
+
+    // in AppKernel::registerBundles()
+    $bundles = array(
+        // ...
+        new Dime\ReportBundle\DimeReportBundle(),
+        // ...
+    );
+
+
+## Initialization
+

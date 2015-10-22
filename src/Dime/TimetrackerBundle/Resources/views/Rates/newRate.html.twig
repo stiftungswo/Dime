@@ -1,0 +1,8 @@
+{# Twig Template #}
+{% form_theme form 'DimeFrontendBundle:Form:dojo-fields.html.twig' %}
+
+{{ form_start(form, {'attr': {'data-dojo-props': 'storetype: "rates"'}}) }}
+{{ form_row(form) }}
+<button data-dojo-type="dijit/form/Button" type="submit">Senden</button>
+<button data-dojo-type="dijit/form/Button" type="reset">Abbrechen</button>
+{{ form_end(form) }}

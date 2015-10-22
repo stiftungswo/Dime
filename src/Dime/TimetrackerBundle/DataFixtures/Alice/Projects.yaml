@@ -1,0 +1,13 @@
+Dime\TimetrackerBundle\Entity\Project:
+    project1:
+        name: Büro
+        customer: @customer1
+        description: Eine Beschreibung zum Büro Projekt
+        user: @user1
+        chargeable: true
+    project{2..10}:
+        name: Test Project <current()>
+        customer: @customer*
+        description: <text(255)>
+        user: @user*
+        chargeable: true

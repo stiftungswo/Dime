@@ -1,0 +1,27 @@
+offers:
+    type:     rest
+    resource: Dime\OfferBundle\Controller\OfferController
+    prefix:   /v1
+    name_prefix:  api_1_
+    defaults: { _format: json }
+    
+offerpositions:
+    type:     rest
+    resource: Dime\OfferBundle\Controller\OfferPositionController
+    prefix:   /v1
+    name_prefix:  api_1_
+    defaults: { _format: json }
+
+offerstatusucs:
+    type:     rest
+    resource: Dime\OfferBundle\Controller\OfferStatusUCController
+    prefix:   /v1
+    name_prefix:  api_1_
+    defaults: { _format: json }
+
+offerdiscounts:
+    type:     rest
+    resource: Dime\OfferBundle\Controller\OfferDiscountController
+    prefix:   /v1
+    name_prefix:  api_1_
+    defaults: { _format: json }

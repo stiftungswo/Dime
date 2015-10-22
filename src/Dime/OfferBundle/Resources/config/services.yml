@@ -1,0 +1,19 @@
+parameters:
+    generic_handler: "Dime\TimetrackerBundle\Handler\GenericHandler"
+
+services:
+    dime.offer.handler:
+        class: "Dime\OfferBundle\Handler\OfferHandler"
+        arguments: [ "@doctrine.orm.entity_manager", "Dime\OfferBundle\Entity\Offer", "@service_container", "o", "dime_offerbundle_offerformtype"]
+        
+    dime.offerposition.handler:
+        class: %generic_handler%
+        arguments: [ "@doctrine.orm.entity_manager", "Dime\OfferBundle\Entity\OfferPosition", "@service_container", "op", "dime_offerbundle_offerpositionformtype"]
+
+    dime.offerstatusuc.handler:
+        class: %generic_handler%
+        arguments: [ "@doctrine.orm.entity_manager", "Dime\OfferBundle\Entity\OfferStatusUC", "@service_container", "os", "dime_offerbundle_offerstatusucformtype"]
+
+    dime.offerdiscount.handler:
+        class: %generic_handler%
+        arguments: [ "@doctrine.orm.entity_manager", "Dime\OfferBundle\Entity\OfferDiscount", "@service_container", "od", "dime_offerbundle_offerdiscountformtype"]

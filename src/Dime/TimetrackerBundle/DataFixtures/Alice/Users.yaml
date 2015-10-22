@@ -1,0 +1,17 @@
+Dime\EmployeeBundle\Entity\Employee:
+    userAdmin:
+        username: admin
+        plainpassword: kitten
+        firstname: Default
+        lastname: User
+        email: admin@<safeEmailDomain()>
+        role: ['ROLE_SUPER_ADMIN']
+        enabled: true
+    user{1..5}:
+        username (unique): <username()>
+        plainpassword: <password()>
+        firstname (unique): <firstName()>
+        lastname (unique): <lastName()>
+        email (unique): <email()>
+        roles: ['ROLE_USER']
+        enabled: <boolean(70)>
