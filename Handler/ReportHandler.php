@@ -9,6 +9,7 @@ namespace Dime\ReportBundle\Handler;
 
 use Carbon\Carbon;
 use Dime\ReportBundle\Entity\ExpenseReport;
+use Dime\TimetrackerBundle\Entity\RateUnitType;
 use Dime\TimetrackerBundle\Entity\Timeslice;
 use Dime\TimetrackerBundle\Handler\AbstractHandler;
 use Doctrine\Common\Collections\Criteria;
@@ -95,7 +96,7 @@ class ReportHandler extends AbstractHandler{
 			$slice = new Timeslice();
 			$slice->setValue($tmpResult[1])
 				->setStartedAt($tmpResult['startedAt'])
-				->setStandardUnit('h')
+				->setStandardUnit(RateUnitType::$Hourly)
 				->setActivity($this->om->getRepository('DimeTimetrackerBundle:Activity')->find($tmpResult[3]));
 			//Works around an Issue Where User Id Of a Timeslice is NULL in DB.
 			//TODO Fix user_id NULL in Database. For now assume that NULL means Default User.
