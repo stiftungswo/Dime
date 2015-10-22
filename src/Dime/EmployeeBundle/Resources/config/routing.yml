@@ -1,0 +1,20 @@
+employees:
+    type:     rest
+    resource: Dime\EmployeeBundle\Controller\EmployeeController
+    prefix:   /v1
+    name_prefix:  api_1_
+    defaults: { _format: json }
+
+periods:
+    type:     rest
+    resource: Dime\EmployeeBundle\Controller\PeriodController
+    prefix:   /v1
+    name_prefix:  api_1_
+    defaults: { _format: json }
+
+holidays:
+    type:     rest
+    resource: Dime\EmployeeBundle\Controller\HolidayController
+    prefix:   /v1
+    name_prefix:  api_1_
+    defaults: { _format: json }
