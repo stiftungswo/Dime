@@ -1,24 +1,6 @@
-[submodule "src/Dime/FrontendBundle"]
-	path = src/Dime/FrontendBundle
-	url = https://github.com/stiftungswo/DimeFrontendBundle.git
-[submodule "src/Dime/TimetrackerBundle"]
-	path = src/Dime/TimetrackerBundle
-	url = https://github.com/stiftungswo/DimeTimetrackerBundle.git
-[submodule "src/Dime/InvoiceBundle"]
-	path = src/Dime/InvoiceBundle
-	url = https://github.com/stiftungswo/DimeInvoiceBundle.git
-[submodule "src/Dime/OfferBundle"]
-	path = src/Dime/OfferBundle
-	url = https://github.com/stiftungswo/DimeOfferBundle.git
-[submodule "src/Dime/PrintingBundle"]
-	path = src/Dime/PrintingBundle
-	url = https://github.com/stiftungswo/DimePrintingBundle.git
-[submodule "src/Dime/ReportBundle"]
-	path = src/Dime/ReportBundle
-	url = https://github.com/stiftungswo/DimeReportBundle.git
 [submodule "src/Tbbc/MoneyBundle"]
-    path = src/Tbbc/MoneyBundle
-    url = https://github.com/stiftungswo/TbbcMoneyBundle.git
+  path = src/Tbbc/MoneyBundle
+  url = https://github.com/stiftungswo/TbbcMoneyBundle.git
 [submodule "src/Money"]
-	path = src/Money
-	url = https://github.com/stiftungswo/money.git
+  path = src/Money
+  url = https://github.com/stiftungswo/money.git
