@@ -76,7 +76,7 @@ class Holiday extends Entity implements DimeEntityInterface {
 	 */
 	public function serializeDuration()
 	{
-		return RateUnitType::transformToStandardUnit($this->getDuration(), 'h', true, 1);
+		return RateUnitType::transformBetweenTimeUnits($this->getDuration(), RateUnitType::$Secondly, RateUnitType::$Hourly, true, 1);
 	}
 
 	/**
