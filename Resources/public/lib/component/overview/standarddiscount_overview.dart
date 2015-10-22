@@ -1,4 +1,10 @@
-part of entity_overview;
+library standarddiscount_overview_component;
+
+import 'package:angular/angular.dart';
+import 'package:DimeClient/model/Entity.dart';
+import 'package:DimeClient/service/setting_manager.dart';
+import 'package:DimeClient/service/status.dart';
+import 'package:DimeClient/component/overview/entity_overview.dart';
 
 @Component(
     selector: 'standarddiscount-overview',

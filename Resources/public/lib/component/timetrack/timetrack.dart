@@ -6,6 +6,10 @@ import 'package:DimeClient/service/user_context.dart';
 import 'package:DimeClient/model/Entity.dart';
 import 'package:DimeClient/service/status.dart';
 import 'package:DimeClient/service/data_cache.dart';
+import 'package:DimeClient/service/setting_manager.dart';
+
+part 'timetrack_multi.dart';
+part 'project_timetrack.dart';
 
 @Component(
     selector: 'timetrack',
@@ -31,27 +35,4 @@ class TimetrackComponent extends AttachAware implements ScopeAware {
   }
 
   TimetrackComponent(this.auth, this.context);
-}
-
-@Component(
-    selector: 'projecttimetrack',
-    templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/timetrack/project_timetrack.html',
-    useShadowDom: false
-)
-class ProjectTimetrackComponent extends AttachAware implements ScopeAware {
-  UserAuthProvider auth;
-  Scope scope;
-  StatusService statusservice;
-  DataCache store;
-
-  attach() {
-  }
-
-  Project project;
-
-  save() {
-    scope.rootScope.emit('saveChanges');
-  }
-
-  ProjectTimetrackComponent(this.auth, this.statusservice);
 }

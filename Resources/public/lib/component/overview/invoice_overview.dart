@@ -1,4 +1,12 @@
-part of entity_overview;
+library invoice_overview_component;
+
+import 'package:angular/angular.dart';
+import 'package:DimeClient/model/Entity.dart';
+import 'package:DimeClient/service/setting_manager.dart';
+import 'package:DimeClient/service/data_cache.dart';
+import 'package:DimeClient/service/status.dart';
+import 'package:DimeClient/service/user_auth.dart';
+import 'package:DimeClient/component/overview/entity_overview.dart';
 
 @Component(
     selector: 'invoice-overview',
@@ -7,9 +15,9 @@ part of entity_overview;
 )
 class InvoiceOverviewComponent extends EntityOverview {
   InvoiceOverviewComponent(DataCache store, Router router, SettingsManager manager, StatusService status, UserAuthProvider auth):
-  super(Invoice, store, 'invoice_edit', manager, status, router: router, auth: auth){
-    sortType = "name";
-  }
+  super(Invoice, store, 'invoice_edit', manager, status, router: router, auth: auth);
+
+  String sortType = "name";
 
   cEnt({Invoice entity}) {
     if (entity != null) {
