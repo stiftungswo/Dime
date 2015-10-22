@@ -50,6 +50,10 @@ services:
          class: %generic_handler%
          arguments: [ "@doctrine.orm.entity_manager", "Dime\TimetrackerBundle\Entity\RateUnitType",  "@service_container", "rt", "dime_timetrackerbundle_rateunittypeformtype"]
 
+    dime.projectcategory.handler:
+        class: %generic_handler%
+        arguments: [ "@doctrine.orm.entity_manager", "Dime\TimetrackerBundle\Entity\\ProjectCategory",  "@service_container", "pc", "dime_timetrackerbundle_projectcategoryformtype"]
+
     rate.alice.processor:
         class: Dime\TimetrackerBundle\DataFixtures\Alice\RateProcessor
         tags:

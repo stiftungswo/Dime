@@ -82,3 +82,10 @@ rateunittypes:
     name_prefix:  api_1_
     defaults: { _format: json }
 
+projectcategories:
+    type:     rest
+    resource: Dime\TimetrackerBundle\Controller\ProjectCategoryController
+    prefix:   /v1
+    name_prefix:  api_1_
+    defaults: { _format: json }
+

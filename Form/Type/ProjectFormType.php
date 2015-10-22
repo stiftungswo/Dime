@@ -37,6 +37,7 @@ class ProjectFormType extends AbstractType
             ->add('tags', 'entity', array('class' => 'DimeTimetrackerBundle:Tag', 'multiple' => true))
             ->add('user', 'entity', array('class' => 'DimeTimetrackerBundle:User'))
             ->add('rateGroup', 'entity', array('class' => 'DimeTimetrackerBundle:RateGroup'))
+            ->add('projectCategory', 'entity', array('class' => 'DimeTimetrackerBundle:ProjectCategory'))
         ;
     }
 

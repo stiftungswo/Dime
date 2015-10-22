@@ -138,6 +138,15 @@ class Project extends Entity implements DimeEntityInterface
 	protected $activities;
 
 	/**
+	 * @var ProjectCategory $projectCategory
+	 *
+	 * @ORM\ManyToOne(targetEntity="ProjectCategory")
+	 * @ORM\JoinColumn(name="project_category_id", referencedColumnName="id", nullable=false, onDelete="SET 13")
+	 * @JMS\SerializedName("projectCategory")
+	 */
+	protected $projectCategory;
+
+	/**
 	 * @JMS\VirtualProperty()
 	 * @JMS\Type(name="Money")
 	 * @JMS\SerializedName("currentPrice")
@@ -588,5 +597,28 @@ class Project extends Entity implements DimeEntityInterface
 	{
 		$this->activities->removeElement($activity);
 		return $this;
+	}
+
+	/**
+	 * Set $projectCategory
+	 *
+	 * @param  ProjectCategory $projectCategory
+	 * @return ProjectCategory
+	 */
+	public function setProjectCategory(ProjectCategory $projectCategory)
+	{
+		$this->projectCategory = $projectCategory;
+
+		return $this;
+	}
+
+	/**
+	 * Get $projectCategory
+	 *
+	 * @return ProjectCategory
+	 */
+	public function getProjectCategory()
+	{
+		return $this->projectCategory;
 	}
 }
