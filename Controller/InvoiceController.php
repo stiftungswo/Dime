@@ -34,7 +34,8 @@ class InvoiceController extends DimeController
 	 * @Annotations\QueryParam(name="offer", requirements="\d+", nullable=true, description="Filter By Offer")
 	 *
 	 * @Annotations\View(
-	 * serializerEnableMaxDepthChecks=true
+	 * serializerEnableMaxDepthChecks=true,
+	 * serializerGroups={"List"}
 	 * )
 	 *
 	 * @Annotations\Route(requirements={"_format"="json|xml"})
@@ -64,7 +65,8 @@ class InvoiceController extends DimeController
 	 * )
 	 *
 	 * @Annotations\View(
-	 * serializerEnableMaxDepthChecks=true
+	 * serializerEnableMaxDepthChecks=true,
+	 * serializerGroups={"List", "Default"}
 	 * )
 	 *
 	 * @Annotations\Route(requirements={"_format"="json|xml"})

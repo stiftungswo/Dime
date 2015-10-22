@@ -34,6 +34,7 @@ class Invoice extends Entity implements DimeEntityInterface
 	/**
 	 * @var string $name
 	 *
+	 * @JMS\Groups({"List"})
 	 * @Assert\NotBlank()
 	 * @ORM\Column(type="string", length=255)
 	 */
@@ -48,6 +49,7 @@ class Invoice extends Entity implements DimeEntityInterface
 	protected $alias;
 
 	/**
+	 * @JMS\Groups({"List"})
 	 * @var string
 	 * @ORM\Column(type="text", nullable=true)
 	 */
@@ -103,12 +105,14 @@ class Invoice extends Entity implements DimeEntityInterface
 	protected $tags;
 
 	/**
+	 * @JMS\Groups({"List"})
 	 * @var DateTime
 	 * @ORM\Column(name="start", type="date", nullable=true)
 	 */
 	protected $start;
 
 	/**
+	 * @JMS\Groups({"List"})
 	 * @var DateTime
 	 * @ORM\Column(name="end", type="date", nullable=true)
 	 */
