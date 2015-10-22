@@ -1,0 +1,13 @@
+Dime\OfferBundle\Entity\OfferDiscount:
+    offerDiscount1:
+        name: 10% Off
+        minus: true
+        percentage: true
+        value: 0.1
+        user: @user1
+    offerDiscount{2..10}:
+        name: 10% Off
+        minus: true
+        percentage: true
+        value: 0.1
+        user: @user*

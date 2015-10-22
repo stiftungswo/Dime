@@ -1,0 +1,23 @@
+Dime\OfferBundle\Entity\Offer:
+    offer1:
+        name: Default Offer
+        validTo: <dateTimeBetween('-200 days','now')>
+        status: @offerStatus*
+        customer: @customer*
+        accountant: @user*
+        rateGroup: @rateGroupDefault
+        shortDescription:  This is a default offer
+        description: This is a longer description with more details
+        user: @user*
+        offerDiscounts: <numberBetween(1, 2)>x @offerDiscount*
+    offer{2..10}:
+        name: <sentence(2)>
+        validTo: <dateTimeBetween('-200 days','now')>
+        status: @offerStatus*
+        customer: @customer*
+        accountant: @user*
+        rateGroup: @rateGroupDefault
+        shortDescription:  <text(255)>
+        description: <text(700)>
+        user: @user*
+        offerDiscounts: <numberBetween(1, 2)>x @offerDiscount*

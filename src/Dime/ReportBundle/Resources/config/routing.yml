@@ -1,0 +1,6 @@
+report:
+    type:     rest
+    resource: Dime\ReportBundle\Controller\ReportController
+    prefix:   /v1
+    name_prefix:  api_1_
+    defaults: { _format: json }

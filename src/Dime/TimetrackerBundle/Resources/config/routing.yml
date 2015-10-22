@@ -1,0 +1,91 @@
+activities:
+    type:     rest
+    resource: Dime\TimetrackerBundle\Controller\ActivitiesController
+    prefix:   /v1
+    name_prefix:  api_1_
+    defaults: { _format: json }
+
+customers:
+    type:     rest
+    resource: Dime\TimetrackerBundle\Controller\CustomersController
+    prefix:   /v1
+    name_prefix:  api_1_
+    defaults: { _format: json }
+
+projects:
+    type:     rest
+    resource: Dime\TimetrackerBundle\Controller\ProjectsController
+    prefix:   /v1
+    name_prefix:  api_1_
+    defaults: { _format: json }
+
+services:
+    type:     rest
+    resource: Dime\TimetrackerBundle\Controller\ServicesController
+    prefix:   /v1
+    name_prefix:  api_1_
+    defaults: { _format: json }
+
+settings:
+    type:     rest
+    resource: Dime\TimetrackerBundle\Controller\SettingsController
+    prefix:   /v1
+    name_prefix:  api_1_
+    defaults: { _format: json }
+
+timeslices:
+    type:     rest
+    resource: Dime\TimetrackerBundle\Controller\TimeslicesController
+    prefix:   /v1
+    name_prefix:  api_1_
+    defaults: { _format: json }
+
+tags:
+    type:     rest
+    resource: Dime\TimetrackerBundle\Controller\TagsController
+    prefix:   /v1
+    name_prefix:  api_1_
+    defaults: { _format: json }
+
+users:
+    type:     rest
+    resource: Dime\TimetrackerBundle\Controller\UsersController
+    prefix:   /v1
+    name_prefix:  api_1_
+    defaults: { _format: json }
+    
+rategroups:
+    type:     rest
+    resource: Dime\TimetrackerBundle\Controller\RateGroupController
+    prefix:   /v1
+    name_prefix:  api_1_
+    defaults: { _format: json }
+    
+rates:
+    type:     rest
+    resource: Dime\TimetrackerBundle\Controller\RateController
+    prefix:   /v1
+    name_prefix:  api_1_
+    defaults: { _format: json }
+
+standarddiscounts:
+    type:     rest
+    resource: Dime\TimetrackerBundle\Controller\StandardDiscountController
+    prefix:   /v1
+    name_prefix:  api_1_
+    defaults: { _format: json }
+
+rateunittypes:
+    type:     rest
+    resource: Dime\TimetrackerBundle\Controller\RateUnitTypeController
+    prefix:   /v1
+    name_prefix:  api_1_
+    defaults: { _format: json }
+
+projectcategories:
+    type:     rest
+    resource: Dime\TimetrackerBundle\Controller\ProjectCategoryController
+    prefix:   /v1
+    name_prefix:  api_1_
+    defaults: { _format: json }
+

@@ -1,0 +1,30 @@
+{# Twig Template #}
+{% form_theme form 'DimeFrontendBundle:Form:dojo-fields.html.twig' %}
+
+{{ form_start(form, {'attr': {'data-dojo-props': 'store: window.userStore'}}) }}
+<fieldset>
+	<legend>Neuer Benutzer</legend>
+	<table>
+		<tbody>
+		<tr>
+			<td>{{ form_label(form.username) }}</td><td>{{ form_widget(form.username) }}</td>
+		</tr>
+		<tr>
+			<td>{{ form_label(form.email) }}</td><td>{{ form_widget(form.email) }}</td>
+		</tr>
+		<tr>
+			<td>{{ form_label(form.firstname) }}</td><td>{{ form_widget(form.firstname) }}</td>
+		</tr>
+		<tr>
+			<td>{{ form_label(form.lastname) }}</td><td>{{ form_widget(form.lastname) }}</td>
+		</tr>
+		<tr>
+			<td>{{ form_label(form.plainpassword) }}</td><td>{{ form_widget(form.plainpassword) }}</td>
+		</tr>
+		{{ form_rest(form) }}
+		</tbody>
+	</table>
+	<button data-dojo-type="dijit/form/Button" type="submit">Neuer Benutzer</button>
+	<button data-dojo-type="dijit/form/Button" type="reset">Abbrechen</button>
+</fieldset>
+{{ form_end(form) }}

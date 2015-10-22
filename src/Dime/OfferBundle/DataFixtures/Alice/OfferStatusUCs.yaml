@@ -1,0 +1,13 @@
+Dime\OfferBundle\Entity\OfferStatusUC:
+    offerStatusPotential:
+        text: Potential
+        active: true
+    offerStatusOffered:
+        text: Offered
+        active: true
+    offerStatusOrdered:
+        text: Ordered
+        active: true
+    offerStatusLost:
+        text: Lost
+        active: true

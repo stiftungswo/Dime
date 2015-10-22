@@ -1,0 +1,27 @@
+Swo\CommonsBundle\Entity\Address:
+    addressCustomer1:
+        streetnumber: 25
+        street: Bahnhhofstrasse
+        city: Zürich
+        plz: 8000
+        state: ZH
+        country: Switzerland
+    addressCustomer{2..10}:
+        streetnumber: <buildingNumber()>
+        street: <streetName()>
+        city: <city()>
+        plz: <postcode()>
+        state: <state()>
+        country: <country()>
+
+Dime\TimetrackerBundle\Entity\Customer:
+    customer1:
+        name: StiftungSWO
+        address: @addressCustomer1
+        user: @user*
+        chargeable: true
+    customer{2..10}:
+        name: <company()>
+        address: @addressCustomer<current()>
+        user: @user*
+        chargeable: true

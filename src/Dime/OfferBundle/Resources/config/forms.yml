@@ -1,0 +1,16 @@
+services:
+    dime.offer.form.type:
+        class: Dime\OfferBundle\Form\Type\OfferFormType
+        tags: [{ name: form.type, alias: dime_offerbundle_offerformtype }]
+
+    dime.offerposition.form.type:
+        class: Dime\OfferBundle\Form\Type\OfferPositionFormType
+        tags: [{ name: form.type, alias: dime_offerbundle_offerpositionformtype }]
+
+    dime.offerstatusuc.form.type:
+        class: Dime\OfferBundle\Form\Type\OfferStatusUCFormType
+        tags: [{ name: form.type, alias: dime_offerbundle_offerstatusucformtype }]
+
+    dime.offerdiscount.form.type:
+        class: Dime\OfferBundle\Form\Type\OfferDiscountFormType
+        tags: [{ name: form.type, alias: dime_offerbundle_offerdiscountformtype }]

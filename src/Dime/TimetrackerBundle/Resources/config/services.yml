@@ -1,0 +1,60 @@
+parameters:
+    generic_handler: "Dime\TimetrackerBundle\Handler\GenericHandler"
+
+services:
+    dime.user.handler:
+        class: "Dime\TimetrackerBundle\Handler\UserHandler"
+        arguments: [ "@doctrine.orm.entity_manager", "Dime\TimetrackerBundle\Entity\User", "@service_container", "@fos_user.user_manager", "us", "dime_timetrackerbundle_userformtype" ]
+        
+    dime.timeslice.handler:
+        class: %generic_handler%
+        arguments: [ "@doctrine.orm.entity_manager", "Dime\TimetrackerBundle\Entity\Timeslice",  "@service_container", "ti", "dime_timetrackerbundle_timesliceformtype"]
+        
+    dime.tag.handler:
+        class: %generic_handler%
+        arguments: [ "@doctrine.orm.entity_manager", "Dime\TimetrackerBundle\Entity\Tag",  "@service_container", "t", "dime_timetrackerbundle_tagformtype"]
+        
+    dime.setting.handler:
+        class: %generic_handler%
+        arguments: [ "@doctrine.orm.entity_manager", "Dime\TimetrackerBundle\Entity\Setting",  "@service_container", "se", "dime_timetrackerbundle_settingformtype"]
+        
+    dime.service.handler:
+        class: %generic_handler%
+        arguments: [ "@doctrine.orm.entity_manager", "Dime\TimetrackerBundle\Entity\Service",  "@service_container", "s", "dime_timetrackerbundle_serviceformtype"]
+        
+    dime.project.handler:
+        class: %generic_handler%
+        arguments: [ "@doctrine.orm.entity_manager", "Dime\TimetrackerBundle\Entity\\Project",  "@service_container", "p", "dime_timetrackerbundle_projectformtype"]
+        
+    dime.customer.handler:
+        class: %generic_handler%
+        arguments: [ "@doctrine.orm.entity_manager", "Dime\TimetrackerBundle\Entity\Customer",  "@service_container", "c", "dime_timetrackerbundle_customerformtype"]
+        
+    dime.activity.handler:
+        class: %generic_handler%
+        arguments: [ "@doctrine.orm.entity_manager", "Dime\TimetrackerBundle\Entity\Activity",  "@service_container", "a", "dime_timetrackerbundle_activityformtype"]
+        
+    dime.rategroup.handler:
+        class: %generic_handler%
+        arguments: [ "@doctrine.orm.entity_manager", "Dime\TimetrackerBundle\Entity\RateGroup",  "@service_container", "rg", "dime_timetrackerbundle_rategroupformtype"]
+        
+    dime.rate.handler:
+        class: %generic_handler%
+        arguments: [ "@doctrine.orm.entity_manager", "Dime\TimetrackerBundle\Entity\Rate",  "@service_container", "r", "dime_timetrackerbundle_rateformtype"]
+        
+    dime.standarddiscount.handler:
+         class: %generic_handler%
+         arguments: [ "@doctrine.orm.entity_manager", "Dime\TimetrackerBundle\Entity\StandardDiscount",  "@service_container", "sd", "dime_timetrackerbundle_standarddiscountformtype"]
+
+    dime.rateunittype.handler:
+         class: %generic_handler%
+         arguments: [ "@doctrine.orm.entity_manager", "Dime\TimetrackerBundle\Entity\RateUnitType",  "@service_container", "rt", "dime_timetrackerbundle_rateunittypeformtype"]
+
+    dime.projectcategory.handler:
+        class: %generic_handler%
+        arguments: [ "@doctrine.orm.entity_manager", "Dime\TimetrackerBundle\Entity\\ProjectCategory",  "@service_container", "pc", "dime_timetrackerbundle_projectcategoryformtype"]
+
+    rate.alice.processor:
+        class: Dime\TimetrackerBundle\DataFixtures\Alice\RateProcessor
+        tags:
+            -  { name: h4cc_alice_fixtures.processor }
