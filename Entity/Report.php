@@ -18,6 +18,8 @@ class Report {
 
 	protected $project;
 
+	protected $projectCategory;
+
 	protected $start;
 
 	protected $end;
@@ -104,6 +106,25 @@ class Report {
 	public function setProject($project)
 	{
 		$this->project = $project;
+		return $this;
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getProjectCategory()
+	{
+		return $this->project->getProjectCae;
+	}
+
+	/**
+	 * @param mixed projectCategory
+	 *
+	 * @return $this
+	 */
+	public function setProjectCategory($projectCategory)
+	{
+		$this->projectCategory = $projectCategory;
 		return $this;
 	}
 
