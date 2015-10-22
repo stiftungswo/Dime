@@ -14,15 +14,17 @@ class Project extends Entity {
   Project.clone(Project original): super.clone(original){
     this.currentPrice = original.currentPrice;
     this.budgetPrice = original.budgetPrice;
+    this.remainingBudgetPrice = original.remainingBudgetPrice;
     this.currentTime = original.currentTime;
     this.budgetTime = original.budgetTime;
+    this.remainingBudgetTime = original.remainingBudgetTime;
     this.description = original.description;
     this.fixedPrice = original.fixedPrice;
     this.customer = original.customer;
     this.rateGroup = original.rateGroup;
     this.chargeable = original.chargeable;
     this.deadline = original.deadline;
-    addFieldstoUpdate(['currentPrice','budgetPrice','currentTime','budgetTime','description','fixedPrice','customer','rateGroup','chargeable','deadline']);
+    addFieldstoUpdate(['currentPrice','budgetPrice','remainingBudgetPrice', 'currentTime','budgetTime', 'remainingBudgetTime','description','fixedPrice','customer','rateGroup','chargeable','deadline']);
   }
 
   Project.fromMap(Map<String, dynamic> map): super.fromMap(map);
@@ -39,10 +41,14 @@ class Project extends Entity {
           return this.currentPrice;
         case 'budgetPrice':
           return this.budgetPrice;
+        case 'remainingBudgetPrice':
+          return this.remainingBudgetPrice;
         case 'currentTime':
           return this.currentTime;
         case 'budgetTime':
           return this.budgetTime;
+        case 'remainingBudgetTime':
+          return this.remainingBudgetTime;
         case 'description':
           return this.description;
         case 'fixedPrice':
@@ -72,11 +78,17 @@ class Project extends Entity {
       case 'budgetPrice':
         this.budgetPrice = value;
         break;
+      case 'remainingBudgetPrice':
+      this.remainingBudgetPrice = value;
+      break;
       case 'currentTime':
         this.currentTime = value;
         break;
       case 'budgetTime':
         this.budgetTime = value;
+        break;
+      case 'remainingBudgetTime':
+        this.remainingBudgetTime = value;
         break;
       case 'description':
         this.description = value;
@@ -116,8 +128,10 @@ class Project extends Entity {
   String type = 'projects';
   String currentPrice;
   String budgetPrice;
+  String remainingBudgetPrice;
   String currentTime;
   String budgetTime;
+  String remainingBudgetTime;
   String description;
   String fixedPrice;
   Customer customer;
