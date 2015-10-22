@@ -155,7 +155,7 @@ class Timeslice extends Entity implements DimeEntityInterface
 	public function serializeValue($withUnits = true)
 	{
 		if (!is_null($this->standardUnit)) {
-			return RateUnitType::transformToStandardUnit($this->getValue(), $this->standardUnit);
+			return RateUnitType::transformBetweenTimeUnits($this->getValue(), RateUnitType::$Secondly, $this->standardUnit);
 		}
 		if (is_callable(array($this->activity, 'getRateUnitType')) && $this->getActivity()->getRateUnitType() instanceof RateUnitType) {
 			$value = $this->getActivity()->getRateUnitType()->transform($this->getValue());
