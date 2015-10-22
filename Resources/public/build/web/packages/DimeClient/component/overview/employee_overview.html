@@ -41,8 +41,8 @@
             <td>{{entity.username}}</td>
             <td>{{entity.fullname}}</td>
             <td>{{entity.email}}</td>
-            <td>{{entity.enabled}}</td>
-            <td>{{entity.locked}}</td>
+            <td><i ng-if="entity.enabled" class="fa fa-fw fa-check"></i></td>
+            <td><i ng-if="entity.locked" class="fa fa-fw fa-check"></i></td>
             <td>
               <div class="btn-group">
                 <button type="button" class="btn btn-default" ng-click="openEditView(entity.id)"><i class="fa fa-fw fa-pencil"></i></button>

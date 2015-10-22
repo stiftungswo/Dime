@@ -9,13 +9,13 @@
         <div class="form-group">
           <label class="col-sm-2 control-label">Name</label>
           <div class="col-sm-4">
-            <input name="name" ng-required="true" style="width: 100%;" class="form-control" type="text" ng-model="entity.name" ng-change="addSaveField('name')" )="">
+            <input name="name" required="true" style="width: 100%;" class="form-control" type="text" ng-model="entity.name" ng-change="addSaveField('name')" )="">
           </div>
         </div>
         <div class="form-group">
           <label class="col-sm-2 control-label">Alias</label>
           <div class="col-sm-4">
-            <input name="alias" ng-required="true" style="width: 100%;" class="form-control" type="text" ng-model="entity.alias" ng-change="addSaveField('alias')">
+            <input name="alias" required="true" style="width: 100%;" class="form-control" type="text" ng-model="entity.alias" ng-change="addSaveField('alias')">
           </div>
         </div>
         <div class="form-group">
@@ -36,6 +36,10 @@
           <rategroup-select class="col-sm-4" rategroup="entity.rateGroup" callback="entity.addFieldtoUpdate(name)" field="'rateGroup'"></rategroup-select>
         </div>
         <div class="form-group">
+        <label class="col-sm-2 control-label">Tätigkeitsbereich</label>
+          <projectcategory-select required="true" class="col-sm-4" projectcategory="entity.projectCategory" callback="entity.addFieldtoUpdate(name)" field="'projectCategory'"></projectcategory-select>
+        </div>
+        <div class="form-group">
           <label class="col-sm-2 control-label">Deadline</label>
           <dateinput class="col-sm-4" date="entity.deadline" field="'deadline'" callback="addSaveField(name)"></dateinput>
         </div>
@@ -47,10 +51,10 @@
         </div>
       </div>
       <div class="form-group">
-        <div class="row" ng-if="entity.budgetPrice != null"><label class="col-sm-2 col-xs-6 control-label">Kosten Budget</label><div class="col-sm-4 col-xs-6">{{entity.budgetPrice}}</div></div>
-        <div class="row" ng-if="entity.budgetTime != null"><label class="col-sm-2 col-xs-6 control-label">Zeit Budget</label><div class="col-sm-4 col-xs-6">{{entity.budgetTime}}</div></div>
-        <div class="row" ng-if="entity.currentPrice != null"><label class="col-sm-2 col-xs-6 control-label">Verbuchte Kosten</label><div class="col-sm-4 col-xs-6">{{entity.currentPrice}}</div></div>
-        <div class="row" ng-if="entity.currentTime != null"><label class="col-sm-2 col-xs-6 control-label">Verbuchte Zeit</label><div class="col-sm-4 col-xs-6">{{entity.currentTime}}</div></div>
+        <div class="row" ng-if="entity.currentPrice != null &amp;&amp; entity.budgetPrice == null"><label class="col-sm-2 col-xs-6 control-label">Verbuchte Kosten</label><div class="col-sm-4 col-xs-6">{{entity.currentPrice}}</div></div>
+        <div class="row" ng-if="entity.currentPrice != null &amp;&amp; entity.budgetPrice != null"><label class="col-sm-2 col-xs-6 control-label">Verbleibende Kosten</label><div class="col-sm-4 col-xs-6">{{entity.remainingBudgetPrice}} / {{entity.budgetPrice}}</div></div>
+        <div class="row" ng-if="entity.currentTime != null &amp;&amp; entity.budgetTime == null"><label class="col-sm-2 col-xs-6 control-label">Verbuchte Zeit</label><div class="col-sm-4 col-xs-6">{{entity.currentTime}}</div></div>
+        <div class="row" ng-if="entity.currentTime != null &amp;&amp; entity.budgetTime != null"><label class="col-sm-2 col-xs-6 control-label">Verbleibende Zeit</label><div class="col-sm-4 col-xs-6">{{entity.remainingBudgetTime}} / {{entity.budgetTime}}</div></div>
         <div class="row">
           <label class="col-sm-2 control-label">Fixpreis</label>
           <div class="col-sm-4"><input class="form-control" type="text" ng-model="entity.fixedPrice" ng-change="addSaveField('fixedPrice')"></div>
