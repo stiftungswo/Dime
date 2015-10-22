@@ -1,0 +1,8 @@
+<html><head></head><body><div class="statusbar">
+  <div ng-if="statusservice.error == statusservice.status" class="text-danger"><span class="glyphicon glyphicon-remove"></span> Error</div>
+  <div ng-if="statusservice.loading == statusservice.status"><span class="glyphicon glyphicon-refresh glyphicon-animate-spin"></span></div>
+  <div class="hidden">
+    <div ng-if="statusservice.defaultVal == statusservice.status"><span class="glyphicon glyphicon-grain"></span> Inactive</div>
+    <div ng-if="statusservice.success == statusservice.status" class="text-success"><span class="glyphicon glyphicon-ok"></span> Successful</div>
+  </div>
+</div></body></html>

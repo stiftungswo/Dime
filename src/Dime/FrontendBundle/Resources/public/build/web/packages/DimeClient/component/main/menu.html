@@ -1,0 +1,17 @@
+<html><head></head><body><section class="sidebar">
+  <ul class="sidebar-menu" ng-repeat="menu in menus">
+    <li class="treeview">
+      <a ng-click="toggleMenu($event)">
+        <i ng-class="menu.icon" class="fa"></i>
+        <span>{{menu.title}}</span>
+      </a>
+      <ul class="treeview-menu">
+        <li ng-repeat="item in menu.items">
+          <a href="{{item.link}}">{{item.title}}</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</section>
+
+</body></html>

@@ -1,0 +1,3 @@
+dime_frontend:
+    resource: "@DimeFrontendBundle/Controller"
+    type: annotation
