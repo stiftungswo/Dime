@@ -39,7 +39,9 @@ class EmployeeController extends DimeController
 	 * @Annotations\QueryParam(name="enabled", requirements="/^true|false$/i", nullable=true, description="Filter By enabled")
 	 *
 	 * @Annotations\View(
-	 * templateVar="employees"
+	 * templateVar="employees",
+	 * serializerEnableMaxDepthChecks=true,
+	 * serializerGroups={"List"}
 	 * )
 	 *
 	 * @Annotations\Route(requirements={"_format"="json|xml"})
@@ -68,7 +70,10 @@ class EmployeeController extends DimeController
 	 * }
 	 * )
 	 *
-	 * @Annotations\View(templateVar="employee")
+	 * @Annotations\View(
+	 * templateVar="employee",
+	 * serializerEnableMaxDepthChecks=true,
+	 * serializerGroups={"List", "Default"})
 	 *
 	 * @Annotations\Route(requirements={"_format"="json|xml"})
 	 *
