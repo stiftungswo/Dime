@@ -6,8 +6,8 @@ part of entity_overview;
 		useShadowDom: false
 )
 class ProjectCategoryOverviewComponent extends EntityOverview {
-	ProjectCategoryOverviewComponent(DataCache store, Router router, SettingsManager manager, StatusService status, UserAuthProvider auth):
-	super(ProjectCategory, store, 'projectCategory_edit', manager, status, router: router, auth: auth);
+	ProjectCategoryOverviewComponent(DataCache store, SettingsManager manager, StatusService status, UserAuthProvider auth):
+	super(ProjectCategory, store, '', manager, status, auth: auth);
 
 	cEnt({ProjectCategory entity}) {
 		if (entity != null) {
