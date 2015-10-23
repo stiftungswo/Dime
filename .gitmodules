@@ -4,3 +4,6 @@
 [submodule "src/Money"]
   path = src/Money
   url = https://github.com/stiftungswo/money.git
+[submodule "src/Dime/InvoiceBundle"]
+	path = src/Dime/InvoiceBundle
+	url = https://github.com/stiftungswo/DimeInvoiceBundle.git

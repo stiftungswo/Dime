@@ -1,0 +1,12 @@
+#Dime Invoice Bundle
+
+An invoice plugin for Dime
+
+##Installation
+
+
+ *  get Dime
+ *  checkout the invoice branch
+ *  follow the README of Dime
+ *  go to http://localhost/Dime/web/app_dev.php/invoice in your browser
+

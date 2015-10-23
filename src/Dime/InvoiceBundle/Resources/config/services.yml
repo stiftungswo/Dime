@@ -1,0 +1,26 @@
+parameters:
+    generic_handler: "Dime\TimetrackerBundle\Handler\GenericHandler"
+
+services:
+    dime.invoice.handler:
+        class: "Dime\InvoiceBundle\Handler\InvoiceHandler"
+        arguments: [ "@doctrine.orm.entity_manager", "Dime\InvoiceBundle\Entity\Invoice", "@service_container", "inv", "dime_invoicebundle_invoiceformtype" ]
+
+    dime.invoicediscount.handler:
+        class: %generic_handler%
+        arguments: [ "@doctrine.orm.entity_manager", "Dime\InvoiceBundle\Entity\InvoiceDiscount", "@service_container", "invd", "dime_invoicebundle_invoicediscountformtype" ]
+
+    dime.invoiceitem.handler:
+        class: %generic_handler%
+        arguments: [ "@doctrine.orm.entity_manager", "Dime\InvoiceBundle\Entity\InvoiceItem", "@service_container", "invt", "dime_invoicebundle_invoiceitemformtype" ]
+
+    dime.invoice.configreader:
+        class: Dime\InvoiceBundle\Service\InvoiceConfigurationValueReader
+        calls:
+            - [ setContainer,  [@service_container] ]
+
+    twig.extension.invoiceconfig:
+        class: Dime\InvoiceBundle\Extensions\InvoiceConfigurationExtension
+        arguments: [@dime.invoice.configreader]
+        tags:
+            - { name: twig.extension }
