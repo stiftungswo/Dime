@@ -1,4 +1,4 @@
-library entity_overview_component;
+library entity_overview;
 
 import 'package:angular/angular.dart';
 import 'package:hammock/hammock.dart';
@@ -7,8 +7,29 @@ import 'package:DimeClient/service/setting_manager.dart';
 import 'package:DimeClient/service/data_cache.dart';
 import 'package:DimeClient/service/status.dart';
 import 'package:DimeClient/service/user_auth.dart';
+import 'package:DimeClient/service/user_context.dart';
 import 'dart:html';
 import 'package:intl/intl.dart';
+
+part 'activity_overview.dart';
+part 'customer_overview.dart';
+part 'employee_overview.dart';
+part 'holiday_overview.dart';
+part 'invoice_overview.dart';
+part 'invoicediscount_overview.dart';
+part 'invoiceitem_overview.dart';
+part 'offer_overview.dart';
+part 'offerdiscount_overview.dart';
+part 'offerposition_overview.dart';
+part 'period_overview.dart';
+part 'project_overview.dart';
+part 'projectCategory_overview.dart';
+part 'rate_overview.dart';
+part 'rateGroup_overview.dart';
+part 'rateUnitType_overview.dart';
+part 'service_overview.dart';
+part 'standarddiscount_overview.dart';
+part 'timeslice_overview.dart';
 
 class EntityOverview extends AttachAware implements ScopeAware {
 
