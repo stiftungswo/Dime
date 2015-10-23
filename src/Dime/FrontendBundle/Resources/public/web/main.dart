@@ -58,7 +58,6 @@ class AppModule extends Module {
     bind(OfferPositionOverviewComponent);
     bind(OfferEditComponent);
     bind(OfferPositionOrderByOrderField);
-    bind(UserOrderByOrderField);
     bind(PercentageInputField);
     bind(InvoiceOverviewComponent);
     bind(InvoiceEditComponent);
