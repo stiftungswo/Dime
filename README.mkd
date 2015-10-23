@@ -128,16 +128,13 @@ and the local branch too:
 
 ## Run Test
 
-Install PHPUnit: http://symfony.com/doc/current/contributing/code/tests.html
-
-    $ pear channel-discover pear.phpunit.de
-    $ pear channel-discover components.ez.no
-    $ pear channel-discover pear.symfony-project.com
-    $ pear install phpunit/PHPUnit
-
 Run tests:
 
     phpunit -c app/
+
+Run a single test:
+
+    phpunit -c app/ --filter ActivitiesControllerTest::testGetActivitiesAction
     
 ## Building the Frontend
 
@@ -145,9 +142,11 @@ To build the JS & HTML files for deployment, run these commands inside the VM:
 
     cd /vagrant/env && ./pub.sh build
 
+Always build the frontend before merging into master!
+
 ## Database Schema Management
 
-Migrate Database Schema to the latest version:
+Update Database Schema to the latest version:
 
     php app/console doctrine:migrations:migrate
 
@@ -159,7 +158,7 @@ Generate new Empty Migration Class:
 
     php app/console doctrine:migrations:generate
 
-## Fixtures & Tests
+## Fixtures
 
 When the database schema changed, you need to regenerate the fixtures. You can do this with the following command:
 

@@ -42,7 +42,7 @@ class Activity extends Entity implements DimeEntityInterface
 	protected $service;
 
 	/**
-	 * @var ArrayCollection $timeslicesø
+	 * @var ArrayCollection $timeslices
 	 *
 	 * @JMS\Type("array")
 	 * @JMS\Exclude()
@@ -64,6 +64,7 @@ class Activity extends Entity implements DimeEntityInterface
 	/**
 	 * @var string $description
 	 *
+	 * @JMS\Groups({"List"})
 	 * @ORM\Column(type="text", nullable=true)
 	 */
 	protected $description;
