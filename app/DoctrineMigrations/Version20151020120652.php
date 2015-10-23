@@ -17,7 +17,7 @@ class Version20151020120652 extends AbstractMigration
     {
         $this->abortIf($this->connection->getDatabasePlatform()->getName() != 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE projects ADD COLUMN project_category_id INT DEFAULT 13');
+        $this->addSql('ALTER TABLE projects ADD COLUMN project_category_id INT');
         $this->addSql('ALTER TABLE projects ADD CONSTRAINT FK_projects_project_categories FOREIGN KEY (project_category_id) REFERENCES project_categories (id)');
     }
 

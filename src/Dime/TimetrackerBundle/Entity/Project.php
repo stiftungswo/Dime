@@ -143,7 +143,7 @@ class Project extends Entity implements DimeEntityInterface
 	 * @var ProjectCategory $projectCategory
 	 *
 	 * @ORM\ManyToOne(targetEntity="ProjectCategory")
-	 * @ORM\JoinColumn(name="project_category_id", referencedColumnName="id", nullable=false, onDelete="SET 13")
+	 * @ORM\JoinColumn(name="project_category_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
 	 * @JMS\SerializedName("projectCategory")
 	 */
 	protected $projectCategory;
