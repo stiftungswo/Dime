@@ -1,0 +1,189 @@
+{# Twig Template #}
+{% if invoice.customer %}
+{% set customer = invoice.customer %}
+{% else %}
+{% set customer = invoice.project.customer %}
+{% endif %}
+<!DOCTYPE pdf SYSTEM "%resources%/dtd/doctype.dtd">
+<pdf>
+	<dynamic-page page-size="a4">
+		<div class="logo"><img src="{{ pdf_image('SwoCommonsBundle:swo_logo_big.png') }}" width="200"/></div>
+		<div class="absenderHeader">
+			{{ invoiceconfig.senderStreet }} {{ invoiceconfig.senderStreetnumber }}<br/>
+			{{ invoiceconfig.senderPlz }} {{ invoiceconfig.senderCity }}<br/>
+			Telefon: {{ invoiceconfig.senderPhone }}<br/>
+			Telefax: {{ invoiceconfig.senderFax }}<br/>
+			Mail: {{ invoiceconfig.senderMail }}<br/>
+			{{ invoiceconfig.senderWeb }}<br/>
+		</div>
+		{% if customer.address %}
+			{% set address = customer.address %}
+			<div class="recipientAddress">
+				{%  if customer.company %}{{ customer.company }}{% endif %}<br/>
+				{% if customer.department %}{{ customer.department }}{% endif %}<br/>
+				{% if customer.salutation %}{{ customer.salutation }} {% endif %}{% if customer.fullname %}{{ customer.fullname }}{% else %}{{ customer.name }}{% endif %}<br/>
+				{{ address.street }} {{ address.streetnumber }}<br/>
+				{{ address.plz }} {{ address.city }}<br/>
+				{% if address.state %}{{ address.state }} {% endif %}{% if address.country %}{{ address.country }}{% endif %}<br/>
+			</div>
+		{% endif %}
+		<div class="header">
+			<div class="ortdatum">{{ invoiceconfig.senderCity }},   {{ invoice.updatedAt|date("d.m.Y") }}</div><br/>
+			{% if invoice.user %}
+			<div class="accountant">Sachbearbeiter: {{ invoice.user }}</div><br/>
+			{% endif %}
+			<div class="invoiceIDKey">Rechnung Nr. {{ invoice.id }}</div><br/>
+			{% if invoice.offer %}
+			<div class="offerID">Offerte Nr. {{ invoice.offer.id }}</div><br/>
+			{% endif %}
+			{% if invoice.project %}
+			<div class="projectID">Auftrag Nr. {{ invoice.project.id }}</div><br/>
+			{% endif %}
+			<div class="mwstNR">MwSt-ID {{ invoiceconfig.senderMwstId }}</div><br/>
+			{% if invoice.start and invoice.end %}
+			<div class="dateRange">Aufwandzeitraum {{ invoice.start|date('d.m.Y') }} - {{ invoice.end|date('d.m.Y') }}</div>
+			{% endif %}
+			{% if invoice.description %}
+			<div class="offerShortDescription">{{ invoice.description }}</div><br/>
+			{% endif %}
+		</div>
+		<table class="maintable" breakable="false">
+			<tr class="thead">
+				<td class="firstrow">Bezeichnung</td>
+				<td class="secondrow number">Ansatz Fr.</td>
+				<td class="thirdrow">Einheit</td>
+				<td class="fourthrow number">Anzahl</td>
+				<td class="fifthrow number">MwSt Satz</td>
+				<td class="sixthrow number">Teilbetrag Fr. inkl MwSt.</td>
+			</tr>
+			{% for item in invoice.items %}
+			<tr class="tbody">
+				<td>
+					{% if item.activity %}
+						{{ item.activity.service.name }}
+					{% else %}
+						{{ item.name }}
+					{% endif %}
+				</td>
+				<td class="number">{{ item.rateValue }}</td>
+				<td>{{ item.rateUnit }}</td>
+				<td class="number">{{ item.amount }}</td>
+				<td class="number">{% if item.vat %}{{ item.vat * 100 }}%{% else %}0%{% endif %}</td>
+				<td class="number">{{ item.total }}</td>
+			</tr>
+			{% endfor %}
+			<tr class="tfoot">
+				<td colspan="5" class="number">Subtotal ohne MwSt.</td>
+				<td class="number">{{ invoice.getTotalWithoutVAT() }}</td>
+			</tr>
+			<tr class="tbody">
+				<td colspan="5" class="number">MwSt.</td>
+				<td class="number">{{ invoice.getTotalVAT() }}</td>
+			</tr>
+			<tr class="tfoot">
+				<td colspan="5" class="number">Subtotal</td>
+				<td class="number">{{ invoice.subtotal }}</td>
+			</tr>
+		</table>
+        {% if invoice.standardDiscounts|length > 0 or invoice.invoiceDiscounts|length > 0 %}
+		<table class="discounttable" breakable="false">
+			<tr class="thead">
+				<td class="firstrow number">Abzug</td>
+				<td class="secondrow number">Betrag</td>
+			</tr>
+			{% for discount in invoice.invoiceDiscounts %}
+				<tr class="tbody">
+					<td class="number">{{ discount.name }}</td>
+					<td class="number">{% if discount.percentage %}{{ discount.value*100 }}%{% else %}{{ discount.value }} CHF{% endif %}</td>
+				</tr>
+			{% endfor %}
+			{% for discount in invoice.standardDiscounts %}
+				<tr class="tbody">
+					<td class="number">{{ discount.name }}</td>
+					<td class="number">{% if discount.percentage %}{{ discount.value*100 }}%{% else %}{{ discount.value }} CHF{% endif %}</td>
+				</tr>
+			{% endfor %}
+			<tr class="tfoot">
+				<td class="number">Abzüge Total</td>
+				<td class="number">{{ invoice.getTotalDiscounts() }}</td>
+			</tr>
+		</table>
+        {% endif %}
+		<table class="sumtable" breakable="false">
+			<tr class="tfoot">
+				<td>Zahlbar 30 Tage netto</td>
+				<td class="number">Rechnungstotal</td>
+				<td class="number">{{ invoice.total }}</td>
+			</tr>
+		</table>
+	</dynamic-page>
+	<page margin="192mm 5mm 5mm 5mm">
+		<table height="100mm" width="200mm" border.type="none">
+			<tr border.type="none">
+				<td height="100mm" width="55mm" border.type="none">
+					<div margin="18mm 0 0 0" font-size="14">
+						<div font-style="bold">{{ invoiceconfig.senderName }}</div><br/>
+						{{ invoiceconfig.senderPlz }} {{ invoiceconfig.senderCity }}
+					</div>
+					<div margin="9mm 4mm 0 20mm" text-align="right">
+						{{ invoiceconfig.senderKontoNr }}
+					</div>
+					<div margin="6mm 3mm 0 0">
+						<div margin="0" padding="0" font-size="14" text-align="center">
+							  {{ invoice.total|money_get_decimals|charbox(2) }}<div margin="0" padding="0" float="right" width="6mm"></div>{{ invoice.total|money_get_digits|charbox(8) }}
+						</div>
+					</div>
+					<div margin="7mm 0 0 0" font-size="14">
+						{% if customer.company %}
+						{{ customer.company }}<br/>
+						{% else %}
+						{% if customer.salutation %}{{ customer.salutation }} {% endif %}{% if customer.fullname %}{{ customer.fullname }}{% else %}{{ customer.name }}{% endif %}<br/>
+						{% endif %}
+						{{ address.street }} {{ address.streetnumber }}<br/>
+						{{ address.plz }} {{ address.city }}<br/>
+					</div>
+				</td>
+				<td border.type="none">
+					<table border.type="none">
+						<tr border.type="none">
+							<td height="80mm" width="62mm" border.type="none">
+								<div margin="18mm 0 0 3mm" font-size="14">
+									<div font-style="bold">{{ invoiceconfig.senderName }}</div><br/>
+									{{ invoiceconfig.senderPlz }} {{ invoiceconfig.senderCity }}
+								</div>
+								<div margin="9mm 4mm 0 20mm" text-align="right">
+									{{ invoiceconfig.senderKontoNr }}
+								</div>
+								<div margin="6mm 2mm 0 0">
+									<div margin="0" padding="0" font-size="14" text-align="center">
+										{{ invoice.total|money_get_decimals|charbox(2) }}<div margin="0" padding="0" float="right" width="6mm"></div>{{ invoice.total|money_get_digits|charbox(8) }}
+									</div>
+								</div>
+							</td>
+							<td height="80mm" border.type="none">
+								<div height="26mm" width="100%">
+									<div height="100%" width="58mm">
+										<div margin="10mm 0 0 3mm" font-size="14">
+											Rechnungs- Nr. {{ invoice.id }}
+										</div>
+									</div>
+								</div>
+								<div height="54mm" width="100%">
+									<div margin="26mm 0 0 3mm" font-size="14">
+										{% if customer.company %}
+											{{ customer.company }}<br/>
+										{% else %}
+											{% if customer.salutation %}{{ customer.salutation }} {% endif %}{% if customer.fullname %}{{ customer.fullname }}{% else %}{{ customer.name }}{% endif %}<br/>
+										{% endif %}
+										{{ address.street }} {{ address.streetnumber }}<br/>
+										{{ address.plz }} {{ address.city }}<br/>
+									</div>
+								</div>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</table>
+	</page>
+</pdf>
