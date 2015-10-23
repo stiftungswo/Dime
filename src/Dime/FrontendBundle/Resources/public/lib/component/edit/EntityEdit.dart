@@ -15,7 +15,6 @@ part 'invoice_edit.dart';
 part 'offer_edit.dart';
 part 'project_edit.dart';
 part 'service_edit.dart';
-part 'projectCategory_edit.dart';
 
 class EntityEdit extends AttachAware implements ScopeAware {
   Type entType;
