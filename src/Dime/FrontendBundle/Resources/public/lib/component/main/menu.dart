@@ -14,10 +14,8 @@ class MenuComponent implements ScopeAware {
   Scope scope;
 
   List<Menu> menus = [
-    new Menu.withItems('Zeiterfassung', 'fa-clock-o', [
-      new Menu('Erfassen', '/timetrack'),
-      //new Menu('Mehrfach Erfassen', '/timetrack/multi')
-    ]),
+    new Menu.withItems(
+        'Zeiterfassung', 'fa-clock-o', [new Menu('Erfassen', '/timetrack'), new Menu('Mehrfach Erfassen', '/timetrack/multi')]),
     new Menu.withItems('Offerten', 'fa-file-text', [new Menu('Übersicht', '/offers/overview')]),
     new Menu.withItems('Projekte', 'fa-tree', [
       new Menu('Übersicht', '/projects/overview'),

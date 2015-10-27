@@ -24,7 +24,10 @@ class TimetrackMultiComponent extends AttachAware implements ScopeAware {
   List<Service> services = [];
   List<String> inputAll = [];
 
-  attach() {}
+  attach() {
+    DateTime now = new DateTime.now();
+    this.date = new DateTime(now.year, now.month, now.day);
+  }
 
   save() {}
 
