@@ -69,6 +69,7 @@ class Activity extends Entity implements DimeEntityInterface
     protected $description;
 
     /**
+     * @JMS\Groups({"List"})
      * @ORM\Column(name="rate_value", type="money", nullable=true)
      * @JMS\SerializedName("rateValue")
      * @JMS\Type(name="Money")
@@ -98,6 +99,7 @@ class Activity extends Entity implements DimeEntityInterface
     protected $vat;
 
     /**
+     * @JMS\Groups({"List"})
      * @ORM\Column(name="rate_unit", type="text", nullable=true)
      * @JMS\SerializedName("rateUnit")
      */
@@ -231,6 +233,7 @@ class Activity extends Entity implements DimeEntityInterface
     /**
      * @JMS\VirtualProperty()
      * @JMS\SerializedName("value")
+     * @JMS\Groups({"List"})
      * @return string
      */
     public function serializeValue()
