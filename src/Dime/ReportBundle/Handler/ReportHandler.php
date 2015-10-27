@@ -9,6 +9,7 @@ namespace Dime\ReportBundle\Handler;
 
 use Carbon\Carbon;
 use Dime\ReportBundle\Entity\ExpenseReport;
+use Dime\TimetrackerBundle\Entity\Project;
 use Dime\TimetrackerBundle\Entity\RateUnitType;
 use Dime\TimetrackerBundle\Entity\Timeslice;
 use Dime\TimetrackerBundle\Handler\AbstractHandler;
@@ -114,7 +115,7 @@ class ReportHandler extends AbstractHandler
     }
 
     /**
-     * generate report with hours per service for each project in a give timeframe
+     * generate report with hours per service for each project in a given timeframe
      *
      * @param string $date
      * @return array
@@ -198,7 +199,7 @@ class ReportHandler extends AbstractHandler
     }
 
     /**
-     * generate report with hours per service for each project in a give timeframe
+     * generate report with hours per service for each project in a given timeframe
      *
      * @param string $date
      * @return array
@@ -268,7 +269,126 @@ class ReportHandler extends AbstractHandler
     }
 
     /**
-     * generate report with time per employee for a project in a give timeframe
+     * generate report with revenue infos for each project in a given timeframe
+     *
+     * @param string $date
+     * @return array
+     * @throws HttpInvalidParamException
+     */
+    public function getRevenueReport($date)
+    {
+
+        /*
+         * -> nur Projekte auswerten die verrechenbar sind
+         *
+         * name             Projektname
+         * category         Kategorie (Tätigkeitsbereiche)
+         * section          Kategorie (Geschäftsbereiche)
+         * customer         Auftraggeber (Kunde)
+         * date             Erstelldatum
+         * year             Jahr (Aus Erstelldatum)
+         * user             Verantwortung (User)
+         * aufwand          Aufwand (Erfasste Stunden die verrechnet werden können in CHF)
+         * umsatz           Umsatz (Total bereits erstellte Rechnungen)
+         * umsatz_erwartet  Erwarteter Umsatz (Total bereits erstellte Offerten)
+         *
+         */
+
+        // date filter
+        if (isset($date)) {
+            $dates = explode(',', $date);
+            if (count($dates) == 2) {
+                $startDate = Carbon::createFromFormat('Y-m-d', $dates[0])->setTime(0, 0, 0);
+                $endDate = Carbon::createFromFormat('Y-m-d', $dates[1])->setTime(0, 0, 0)->addDay();
+            } else {
+                throw new HttpInvalidParamException('invalid date passed');
+            }
+        } else {
+            throw new HttpInvalidParamException('no date passed');
+        }
+
+        /** @var Project[] $projects */
+        $projects = $this->om->getRepository('DimeTimetrackerBundle:Project')->findBy(array('chargeable' => 1));
+
+        $report = [];
+        $listofactivities = [];
+        $activitytotal = [];
+
+        foreach ($projects as $project) {
+            $data = [];
+            $data['name'] = $project->getName();
+            $data['category'] = ($project->getProjectCategory() != null ? $project->getProjectCategory()->getName() : '');
+            $data['section'] = ($project->getProjectCategory() != null ? $project->getProjectCategory()->getName() : '');
+            $data['customer'] = ($project->getCustomer() != null ? $project->getCustomer()->getName() : '');
+            $data['date'] = $project->getCreatedAt()->format('d.m.Y');
+            $data['year'] = $project->getCreatedAt()->format('Y');
+            // TODO: verantwortlicher anstatt user
+            $data['user'] = ($project->getUser() != null ? $project->getUser()->getFullname() : '');
+            $data['aufwand'] = '-';
+            $data['umsatz'] = '-';
+            $data['umsatz_erwartet'] = '-';
+
+            $report[] = $data;
+        }
+
+        return $report;
+    }
+
+    /**
+     * generate report with revenue infos for each project in a given timeframe
+     *
+     * @param string $date
+     * @return array
+     * @throws HttpInvalidParamException
+     */
+    public function getRevenueReportAsCSV($date)
+    {
+        $data = $this->getRevenueReport($date);
+
+        function escapeCSV($string)
+        {
+            $string = utf8_decode($string);
+            $string = str_replace('"', '""', $string);
+            return '"'.$string.'"';
+        }
+
+        $rows = [];
+
+        // header rows
+        $row = [];
+        $row[] = escapeCSV('Projekt');
+        $row[] = escapeCSV('Kategorie');
+        $row[] = escapeCSV('Geschäftsbereich');
+        $row[] = escapeCSV('Auftraggeber');
+        $row[] = escapeCSV('Start');
+        $row[] = escapeCSV('Jahr');
+        $row[] = escapeCSV('Verantwortlich');
+        $row[] = escapeCSV('Aufwand');
+        $row[] = escapeCSV('Umsatz');
+        $row[] = escapeCSV('Umsatz erwartet');
+        $rows[] = implode(',', $row);
+
+        // data rows
+        foreach ($data as $project) {
+            $row = [];
+            $row[] = escapeCSV($project['name']);
+            $row[] = escapeCSV($project['category']);
+            $row[] = escapeCSV($project['section']);
+            $row[] = escapeCSV($project['customer']);
+            $row[] = escapeCSV($project['date']);
+            $row[] = escapeCSV($project['year']);
+            $row[] = escapeCSV($project['user']);
+            $row[] = escapeCSV($project['aufwand']);
+            $row[] = escapeCSV($project['umsatz']);
+            $row[] = escapeCSV($project['umsatz_erwartet']);
+            $rows[] = implode(',', $row);
+        }
+
+        return implode("\n", $rows);
+    }
+
+    /**
+     * generate report with time per employee for a project in a given timeframe
      *
      * @param int $projectId
      * @param string $date
