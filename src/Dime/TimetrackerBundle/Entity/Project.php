@@ -149,20 +149,9 @@ class Project extends Entity implements DimeEntityInterface
     protected $projectCategory;
 
     /**
-     * @return Money current Price
-     */
-    public function calculateCurrentPrice()
-    {
-        $price = Money::CHF(0);
-        foreach ($this->activities as $activity) {
-            $price = $price->add($activity->getCharge());
-        }
-        return $price;
-    }
-
-    /**
      * @JMS\VirtualProperty()
      * @JMS\SerializedName("currentPrice")
+     * @return string
      */
     public function getCurrentPrice()
     {
@@ -172,7 +161,7 @@ class Project extends Entity implements DimeEntityInterface
     /**
      * @JMS\VirtualProperty()
      * @JMS\SerializedName("remainingBudgetPrice")
-     *
+     * @return string
      */
     public function getRemainingBudgetPrice()
     {
@@ -186,6 +175,7 @@ class Project extends Entity implements DimeEntityInterface
     /**
      * @JMS\VirtualProperty()
      * @JMS\SerializedName("currentTime")
+     * @return string
      */
     public function getCurrentTime()
     {
@@ -201,7 +191,7 @@ class Project extends Entity implements DimeEntityInterface
     /**
      * @JMS\VirtualProperty()
      * @JMS\SerializedName("remainingBudgetTime")
-     *
+     * @return string
      */
     public function getRemainingBudgetTime()
     {
@@ -216,6 +206,7 @@ class Project extends Entity implements DimeEntityInterface
     /**
      * @JMS\VirtualProperty()
      * @JMS\SerializedName("budgetTime")
+     * @return string
      */
     public function serializeBudgetTime()
     {
@@ -229,6 +220,7 @@ class Project extends Entity implements DimeEntityInterface
     /**
      * @JMS\VirtualProperty()
      * @JMS\SerializedName("budgetPrice")
+     * @return string
      */
     public function serializeBudgetPrice()
     {
@@ -450,6 +442,18 @@ class Project extends Entity implements DimeEntityInterface
     public function getBudgetPrice()
     {
         return $this->budgetPrice;
+    }
+
+    /**
+     * @return Money current Price
+     */
+    public function calculateCurrentPrice()
+    {
+        $price = Money::CHF(0);
+        foreach ($this->activities as $activity) {
+            $price = $price->add($activity->getCharge());
+        }
+        return $price;
     }
 
     /**
