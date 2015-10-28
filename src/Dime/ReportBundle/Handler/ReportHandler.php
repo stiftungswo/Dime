@@ -324,9 +324,15 @@ class ReportHandler extends AbstractHandler
             $data['year'] = $project->getCreatedAt()->format('Y');
             // TODO: verantwortlicher anstatt user
             $data['user'] = ($project->getUser() != null ? $project->getUser()->getFullname() : '');
-            $data['aufwand'] = '-';
+
+            // Total der erfassten Stunden
+            $data['aufwand'] = ($project->calculateCurrentPrice() != null ? $project->calculateCurrentPrice()->getAmount()/10 : 0);
+
+            // Total der Rechnungen zusammenzählen
             $data['umsatz'] = '-';
-            $data['umsatz_erwartet'] = '-';
+
+            // Total der Offerten zusammenzählen (= budget_price)
+            $data['umsatz_erwartet'] = ($project->getBudgetPrice() != null ? $project->getBudgetPrice()->getAmount()/10 : 0);
 
             $report[] = $data;
         }
@@ -352,7 +358,8 @@ class ReportHandler extends AbstractHandler
             return '"'.$string.'"';
         }
 
-        $rows = [];
+        // add separator info for excel
+        $rows = ["sep=,"];
 
         // header rows
         $row = [];
