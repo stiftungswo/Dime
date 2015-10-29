@@ -1,40 +1,44 @@
 <div class="col-md-12">
-  <div class="box box-primary">
-    <div class="box-header with-border">
-      <h3 class="box-title">Rechnung bearbeiten</h3>
-    </div>
-    <div class="box-body" ng-form name="editform">
-      <div class="form-horizontal">
-        <div class="form-group">
-          <label class="col-md-2 control-label">Name</label>
-          <div class="col-md-4">
-            <input class="form-control" style="width: 100%;" type="text" ng-model="entity.name" ng-change="addSaveField('name')">
+  <h2 class="page-header">{{entity.name}}&nbsp;</h2>
+  <div class ="nav-tabs-custom">
+    <ul class="nav nav-tabs">
+      <li ng-if="!project.offers.isEmpty" ng-repeat="offer in project.offers"><a data-toggle="tab" ng-click="openOffer(offer.id)">Offerte {{offer.id}}</a></li>
+      <li ng-if="project != null"><a data-toggle="tab" ng-click="openProject()">Projekt {{project.id}}</a></li>
+      <li ng-repeat="invoice in project.invoices" ng-class="invoice.id == entity.id ? 'active' : ''"><a ng-if="invoice.id == entity.id" data-toggle="tab">Rechnung {{invoice.id}}</a><a ng-if="invoice.id != entity.id" data-toggle="tab" ng-click="openInvoice(invoice.id)">Rechnung {{invoice.id}}</a></li>
+      <li ng-if="project == null" class="active"><a data-toggle="tab">Rechnung {{entity.id}}</a></li>
+      <li><a ng-if="project != null" data-toggle="tab" ng-click="createInvoice()"><i class="fa fa-fw fa-plus"></i> Rechnung erstellen</a></li>
+    </ul>
+
+    <div class="tab-content" ng-form name="editform">
+      <div class="tab-pane active">
+        <div class="form-horizontal">
+          <div class="form-group">
+            <label class="col-md-2 control-label">Name</label>
+            <div class="col-md-4">
+              <input class="form-control" style="width: 100%;" type="text" ng-model="entity.name" ng-change="addSaveField('name')">
+            </div>
+          </div>
+          <div class="form-group" ng-if="entity.project">
+            <label class="col-md-2 control-label">Auftrag</label>
+            {{entity.project.name}}
+          </div>
+          <div class="form-group">
+            <label class="col-md-2 control-label">Kunde</label>
+            <customer-select class="col-md-4" customer="entity.customer" callback="addSaveField(name)" field="'customer'"></customer-select>
+          </div>
+          <div class="form-group">
+            <label class="col-md-2 control-label">Startdatum</label>
+            <dateinput class="col-md-4" date="entity.start" field="'start'" callback="addSaveField(name)"></dateinput>
+          </div>
+          <div class="form-group">
+            <label class="col-md-2 control-label">Enddatum</label>
+            <dateinput class="col-md-4" date="entity.end" field="'end'" callback="addSaveField(name)"></dateinput>
           </div>
         </div>
-        <div class="form-group" ng-if="entity.project">
-          <label class="col-md-2 control-label">Auftrag</label>
-          {{entity.project.name}}
-        </div>
-        <div class="form-group" ng-if="entity.offer">
-          <label class="col-md-2 control-label">Offerte</label>
-          {{entity.offer.name}}
-        </div>
         <div class="form-group">
-          <label class="col-md-2 control-label">Kunde</label>
-          <customer-select class="col-md-4" customer="entity.customer" callback="addSaveField(name)" field="'customer'"></customer-select>
+          <label class="control-label">Beschreibung</label>
+          <textarea class="form-control" ng-model="entity.description" ng-change="addSaveField('description')"></textarea>
         </div>
-        <div class="form-group">
-          <label class="col-md-2 control-label">Startdatum</label>
-          <dateinput class="col-md-4" date="entity.start" field="'start'" callback="addSaveField(name)"></dateinput>
-        </div>
-        <div class="form-group">
-          <label class="col-md-2 control-label">Enddatum</label>
-          <dateinput class="col-md-4" date="entity.end" field="'end'" callback="addSaveField(name)"></dateinput>
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="control-label">Beschreibung</label>
-        <textarea class="form-control" ng-model="entity.description" ng-change="addSaveField('description')"></textarea>
       </div>
     </div>
   </div>
