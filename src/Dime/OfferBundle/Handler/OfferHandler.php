@@ -51,6 +51,7 @@ class OfferHandler extends GenericHandler
         $this->om->persist($project);
 
         $offer->setProject($project);
+        $project->setUser($this->getCurrentUser());
 
         $this->om->persist($offer);
         $this->om->flush();
