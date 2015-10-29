@@ -48,6 +48,7 @@ class OfferHandler extends GenericHandler
         }
         $project->setBudgetTime($budgetTime);
         $project->setFixedPrice($offer->getFixedPrice());
+        $project->setAccountant($offer->getAccountant());
         $this->om->persist($project);
 
         $offer->setProject($project);

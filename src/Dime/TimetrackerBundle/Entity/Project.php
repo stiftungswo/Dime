@@ -2,6 +2,7 @@
 namespace Dime\TimetrackerBundle\Entity;
 
 use DateTime;
+use Dime\EmployeeBundle\Entity\Employee;
 use Dime\TimetrackerBundle\Model\DimeEntityInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
@@ -172,6 +173,12 @@ class Project extends Entity implements DimeEntityInterface
      * @JMS\MaxDepth(1)
      */
     protected $offers;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Dime\TimetrackerBundle\Entity\User")
+     * @ORM\JoinColumn(name="accountant_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
+     */
+    protected $accountant;
 
     /**
      * @return Money current Price
@@ -777,6 +784,26 @@ class Project extends Entity implements DimeEntityInterface
     public function removeOffer(Offer $offer)
     {
         $this->offers->removeElement($offer);
+        return $this;
+    }
+
+    /**
+     * @return Employee
+     */
+    public function getAccountant()
+    {
+        return $this->accountant;
+    }
+
+    /**
+     * @param Employee $accountant
+     *
+     * @return Project
+     */
+    public function setAccountant($accountant)
+    {
+        $this->accountant = $accountant;
+
         return $this;
     }
 }

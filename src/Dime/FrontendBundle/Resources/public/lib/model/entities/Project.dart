@@ -27,6 +27,7 @@ class Project extends Entity {
     this.projectCategory = original.projectCategory;
     this.invoices = original.invoices;
     this.offers = original.offers;
+    this.accountant = original.accountant;
     addFieldstoUpdate([
       'currentPrice',
       'budgetPrice',
@@ -43,7 +44,8 @@ class Project extends Entity {
       'activities',
       'projectCategory',
       'invoices',
-      'offers'
+      'offers',
+      'accountant'
     ]);
   }
 
@@ -89,6 +91,8 @@ class Project extends Entity {
           return this.invoices;
         case 'offers':
           return this.offers;
+        case 'accountant':
+          return this.accountant;
         default:
           break;
       }
@@ -146,6 +150,9 @@ class Project extends Entity {
       case 'offers':
         this.offers = value is Entity ? value : Offer.listFromMap(value);
         break;
+      case 'accountant':
+        this.accountant = value is Entity ? value : new Employee.fromMap(value);
+        break;
       default:
         super.Set(property, value);
         break;
@@ -177,4 +184,5 @@ class Project extends Entity {
   ProjectCategory projectCategory;
   List<Invoice> invoices = [];
   List<Offer> offers = [];
+  Employee accountant;
 }
