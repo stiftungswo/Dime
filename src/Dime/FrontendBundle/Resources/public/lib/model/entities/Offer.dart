@@ -174,7 +174,7 @@ class Offer extends Entity {
   DateTime validTo;
   RateGroup rateGroup;
   Customer customer;
-  User accountant;
+  Employee accountant;
   String shortDescription;
   String description;
   List<OfferPosition> offerPositions = [];

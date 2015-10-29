@@ -1,6 +1,7 @@
 <?php
 namespace Dime\OfferBundle\Entity;
 
+use Dime\EmployeeBundle\Entity\Employee;
 use Dime\TimetrackerBundle\Entity\Customer;
 use Dime\TimetrackerBundle\Entity\Entity;
 use Dime\TimetrackerBundle\Entity\StandardDiscount;
@@ -356,7 +357,7 @@ class Offer extends Entity implements DimeEntityInterface
 	/**
 	 * Get accountant
 	 *
-	 * @return string
+	 * @return Employee
 	 */
 	public function getAccountant()
 	{

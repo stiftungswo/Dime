@@ -36,6 +36,11 @@
                              callback="entity.addFieldtoUpdate(name)" field="'customer'"></customer-select>
           </div>
           <div class="form-group">
+            <label class="col-sm-2 control-label">Verantwortlicher Mitarbeiter</label>
+            <user-select class="col-sm-4" user="entity.accountant" callback="addSaveField(name)"
+                       field="'accountant'"></user-select>
+          </div>
+          <div class="form-group">
             <div class="col-sm-offset-2 col-sm-4">
               <div class="checkbox">
                 <label>
@@ -107,6 +112,11 @@
 </div>
 <div class="col-md-12">
   <footer ng-if="entity.updatedAt != null">
+    <div>
     Letzte Änderung: {{(entity.user != null ? entity.user.firstname + ' ' + entity.user.lastname + ', ' : '' )+ entity.updatedAt}}
+    </div>
+    <div>
+      Erstellt am: {{entity.createdAt}}
+    </div>
   </footer>
 </div>
