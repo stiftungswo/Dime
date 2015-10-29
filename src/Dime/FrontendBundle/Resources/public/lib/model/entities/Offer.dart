@@ -17,15 +17,32 @@ class Offer extends Entity {
     this.accountant = original.accountant;
     this.shortDescription = original.shortDescription;
     this.description = original.description;
+    this.offerPositions = original.offerPositions;
+    this.standardDiscounts = original.standardDiscounts;
+    this.offerDiscounts = original.offerDiscounts;
     this.status = original.status;
     this.address = original.address;
-    for (StandardDiscount discount in original.standardDiscounts) {
-      this.standardDiscounts.add(discount);
-    }
-    addFieldstoUpdate(['validTo','rateGroup','customer','accountant','shortDescription','description','status','address','standardDiscounts']);
+    this.fixedPrice = original.fixedPrice;
+    this.subtotal = original.subtotal;
+    this.totalVAT = original.totalVAT;
+    this.totalDiscounts = original.totalDiscounts;
+    this.total = original.total;
+    this.project = original.project;
+    addFieldstoUpdate(['validTo','rateGroup','customer','accountant','shortDescription',
+      'description','offerPositions', 'standardDiscounts', 'offerDiscounts', 'status','address',
+      'fixedPrice', 'subtotal', 'totalVAT', 'totalDiscounts', 'total', 'project']);
   }
 
   Offer.fromMap(Map<String, dynamic> map): super.fromMap(map);
+
+  static List<Offer> listFromMap(List content) {
+    List<Offer> offers = new List<Offer>();
+    for (var element in content) {
+      Offer offer = new Offer.fromMap(element);
+      offers.add(offer);
+    }
+    return offers;
+  }
 
   newObj() {
     return new Offer();

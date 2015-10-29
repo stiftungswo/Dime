@@ -16,6 +16,8 @@ class OfferEditComponent extends EntityEdit {
 
   Offer entity;
 
+  Project project;
+
   OfferEditComponent(RouteProvider routeProvider, DataCache store, StatusService status, UserAuthProvider auth, Router router): super(routeProvider, store, Offer, status, auth, router);
 
   attach() {
@@ -26,17 +28,32 @@ class OfferEditComponent extends EntityEdit {
           loadOfferStates();
           loadUsers();
           loadCustomers();
-          reload();
+          load();
         });
       } else {
         loadRateGroups();
         loadOfferStates();
         loadUsers();
         loadCustomers();
-        reload();
+        load();
       }
     }
+  }
 
+  load({bool evict: false}) async {
+    this.statusservice.setStatusToLoading();
+    try {
+      if (evict) {
+        this.store.evict(this.entType);
+      }
+      this.entity = (await this.store.one(this.entType, this._entId));
+      if(this.entity.project != null) {
+        this.project = (await this.store.one(Project, this.entity.project.id));
+      }
+      this.statusservice.setStatusToSuccess();
+    } catch (e) {
+      this.statusservice.setStatusToError(e);
+    }
   }
 
   loadCustomers() async{
@@ -56,13 +73,33 @@ class OfferEditComponent extends EntityEdit {
   }
 
   openProject() async{
-    var project = (await this.store.customQueryOne(Project, new CustomRequestParams(method: 'GET', url: '/api/v1/projects/offer/${this.entity.id}')));
-    this.store.evict(Project, true);
-    router.go('project_edit', {'id': project.id});
+    router.go('project_edit', {'id': entity.project.id});
   }
 
-  copyAddressFromCustomer(){
-    if (entity.customer != null && entity.customer.address != null){
+  createProject() async{
+    if (await saveEntity()) {
+      entity.project = (await this.store.customQueryOne(Project, new CustomRequestParams(method: 'GET', url: '/api/v1/projects/offer/${this.entity.id}')));
+      this.store.evict(Project, true);
+      this.statusservice.setStatusToSuccess();
+      router.go('project_edit', {'id': entity.project.id});
+    }
+  }
+
+  openInvoice(int id) async{
+    router.go('invoice_edit', {'id': id});
+  }
+
+  createInvoice() async{
+    if (await saveEntity()) {
+      var newInvoice = await this.store.customQueryOne(Invoice, new CustomRequestParams(method: 'GET', url: '/api/v1/invoices/project/${this.entity.project.id}'));
+      entity.project.invoices.add(newInvoice);
+      this.store.evict(Invoice, true);
+      router.go('invoice_edit', {'id': newInvoice.id});
+    }
+  }
+
+  copyAddressFromCustomer() {
+    if (entity.customer != null && entity.customer.address != null) {
       addSaveField('address');
       entity.address.street = entity.customer.address.street;
       entity.address.streetnumber = entity.customer.address.streetnumber;

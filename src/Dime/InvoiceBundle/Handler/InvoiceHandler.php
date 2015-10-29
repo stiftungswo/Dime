@@ -101,7 +101,6 @@ class InvoiceHandler extends GenericHandler
 		}
 		$invoice->setProject($project);
 		if(!null === $offer){
-			$invoice->setOffer($offer);
 			$invoice->setStandardDiscounts($offer->getStandardDiscounts());
 			foreach($offer->getOfferDiscounts() as $offerDiscount){
 				$discount = new InvoiceDiscount();

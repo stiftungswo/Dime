@@ -36,9 +36,20 @@ class ProjectEditComponent extends EntityEdit {
     this.rateGroups = (await this.store.list(RateGroup)).toList();
   }
 
-  openInvoice() async{
-    var invoice = (await this.store.customQueryOne(Invoice, new CustomRequestParams(method: 'GET', url: '/api/v1/invoices/project/${this.entity.id}')));
-    this.store.evict(Invoice, true);
-    router.go('invoice_edit', {'id': invoice.id});
+  openOffer(int id) async{
+    router.go('offer_edit', {'id': id});
+  }
+
+  openInvoice(int id) async{
+    router.go('invoice_edit', {'id': id});
+  }
+
+  createInvoice() async{
+    if (await saveEntity()) {
+      var newInvoice = await this.store.customQueryOne(Invoice, new CustomRequestParams(method: 'GET', url: '/api/v1/invoices/project/${this.entity.id}'));
+      entity.invoices.add(newInvoice);
+      this.store.evict(Invoice, true);
+      router.go('invoice_edit', {'id': newInvoice.id});
+    }
   }
 }

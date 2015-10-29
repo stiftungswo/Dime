@@ -24,8 +24,13 @@ class Project extends Entity {
     this.rateGroup = original.rateGroup;
     this.chargeable = original.chargeable;
     this.deadline = original.deadline;
+    this.activities = original.activities;
     this.projectCategory = original.projectCategory;
-    addFieldstoUpdate(['currentPrice','budgetPrice','remainingBudgetPrice', 'currentTime','budgetTime', 'remainingBudgetTime','description','fixedPrice','customer','rateGroup','chargeable','deadline', 'projectCategory']);
+    this.invoices = original.invoices;
+    this.offers = original.offers;
+    addFieldstoUpdate(['currentPrice','budgetPrice','remainingBudgetPrice', 'currentTime',
+      'budgetTime', 'remainingBudgetTime','description','fixedPrice','customer','rateGroup',
+    'chargeable','deadline', 'activities', 'projectCategory', 'invoices', 'offers']);
   }
 
   Project.fromMap(Map<String, dynamic> map): super.fromMap(map);
@@ -66,6 +71,10 @@ class Project extends Entity {
           return this.activities;
         case 'projectCategory':
           return this.projectCategory;
+        case 'invoices':
+          return this.invoices;
+        case 'offers':
+          return this.offers;
         default:
           break;
       }
@@ -115,7 +124,13 @@ class Project extends Entity {
         this.activities = Activity.listFromMap(value);
         break;
       case 'projectCategory':
-        this.projectCategory = value is Entity ? value : new ProjectCategory.fromMap(value);;
+        this.projectCategory = value is Entity ? value : new ProjectCategory.fromMap(value);
+        break;
+      case 'invoices':
+        this.invoices = value is Entity ? value : Invoice.listFromMap(value);
+        break;
+      case 'offers':
+        this. offers = value is Entity ? value : Offer.listFromMap(value);
         break;
       default:
         super.Set(property, value);
@@ -146,4 +161,6 @@ class Project extends Entity {
   DateTime deadline;
   List<Activity> activities = [];
   ProjectCategory projectCategory;
+  List<Invoice> invoices = [];
+  List<Offer> offers = [];
 }
