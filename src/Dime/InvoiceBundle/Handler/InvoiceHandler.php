@@ -111,6 +111,7 @@ class InvoiceHandler extends GenericHandler
 		if(!is_null($project->getCustomer())) {
 			$invoice->setCustomer($project->getCustomer());
 		}
+		$invoice->setUser($this->getCurrentUser());
 		$this->om->persist($invoice);
 		$this->om->flush();
 		return $invoice;
@@ -139,6 +140,7 @@ class InvoiceHandler extends GenericHandler
 				}
 			}
 		}
+		$invoice->setUser($this->getCurrentUser());
 		$this->om->persist($invoice);
 		$this->om->flush();
 		return $invoice;

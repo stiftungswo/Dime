@@ -105,3 +105,8 @@
             class="glyphicon glyphicon-refresh"></span></button>
   </div>
 </div>
+<div class="col-md-12">
+  <footer ng-if="entity.updatedAt != null">
+    Letzte Änderung: {{(entity.user != null ? entity.user.firstname + ' ' + entity.user.lastname + ', ' : '' )+ entity.updatedAt}}
+  </footer>
+</div>

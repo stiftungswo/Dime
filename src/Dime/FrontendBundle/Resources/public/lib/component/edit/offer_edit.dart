@@ -78,10 +78,11 @@ class OfferEditComponent extends EntityEdit {
 
   createProject() async{
     if (await saveEntity()) {
-      entity.project = (await this.store.customQueryOne(Project, new CustomRequestParams(method: 'GET', url: '/api/v1/projects/offer/${this.entity.id}')));
+      var newProject = (await this.store.customQueryOne(Project, new CustomRequestParams(method: 'GET', url: '/api/v1/projects/offer/${this.entity.id}')));
       this.store.evict(Project, true);
       this.statusservice.setStatusToSuccess();
-      router.go('project_edit', {'id': entity.project.id});
+      entity.project = newProject;
+      router.go('project_edit', {'id': newProject.id});
     }
   }
 
