@@ -54,14 +54,16 @@ class TimesliceOverviewComponent extends EntityOverview {
 
   set selectedProject(Project proj) {
     this._selectedProject = proj;
-    this.updateChosenSetting('project');
+    if (proj != null) {
+      this.updateChosenSetting('project');
 
-    // select the same activity if also it exists in new project
-    try {
-      this.selectedActivity =
-          activities.singleWhere((Activity a) => a.alias == this.settingselectedActivity.value && a.project.id == this.selectedProject.id);
-    } catch (e) {
-      this.selectedActivity = null;
+      // select the same activity if also it exists in new project
+      try {
+        this.selectedActivity = activities
+            .singleWhere((Activity a) => a.alias == this.settingselectedActivity.value && a.project.id == this.selectedProject.id);
+      } catch (e) {
+        this.selectedActivity = null;
+      }
     }
   }
 
@@ -143,7 +145,7 @@ class TimesliceOverviewComponent extends EntityOverview {
     if (updateNewEntryDate && this.entities != null) {
       DateTime date = this.newEntryDate;
       if (date == null) {
-        date = this.filterStartDate;
+        date = new DateTime.now();
       }
       DateTime endDateEndOfDay = this.filterEndDate.add(new Duration(hours: 23, minutes: 59));
       List<Timeslice> relevantSlices =
