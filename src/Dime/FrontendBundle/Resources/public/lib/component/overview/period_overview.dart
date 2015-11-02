@@ -26,6 +26,7 @@ class PeriodOverviewComponent extends EntityOverview implements ScopeAware {
     this.scope.rootScope.on('TimesliceChanged').listen(onTimesliceChange);
     this.scope.rootScope.on('TimesliceCreated').listen(onTimesliceChange);
     this.scope.rootScope.on('TimesliceDeleted').listen(onTimesliceChange);
+    this.scope.rootScope.on('saveChanges').listen(saveAllEntities);
   }
 
   get scope => this._scope;

@@ -41,10 +41,10 @@ class TimeslicePersistSubscriber extends ContainerAware implements EventSubscrib
 	public static function getSubscribedEvents()
 	{
 		return array(
-			TimetrackEvents::ENTITY_PRE_PERSIST.'.PUT.Timeslice' => array(
+			TimetrackEvents::ENTITY_POST_PERSIST.'.PUT.Timeslice' => array(
 				array('updatePeriods')
 			),
-			TimetrackEvents::ENTITY_PRE_PERSIST.'.POST.Timeslice' => array(
+			TimetrackEvents::ENTITY_POST_PERSIST.'.POST.Timeslice' => array(
 				array('updatePeriodsOnPost')
 			),
 			TimetrackEvents::ENTITY_POST_DELETE.'.Timeslice' => array(

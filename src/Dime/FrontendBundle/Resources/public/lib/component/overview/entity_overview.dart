@@ -73,6 +73,29 @@ class EntityOverview extends AttachAware implements ScopeAware {
 
   set scope(Scope scope) {
     this.rootScope = scope.rootScope;
+    this.rootScope.on('saveChanges').listen(saveAllEntities);
+  }
+
+  void saveAllEntities([ScopeEvent e]) {
+    for (Entity entity in this.entities) {
+      if (entity.needsUpdate) {
+        this.saveEntity(entity);
+      }
+    }
+  }
+
+  saveEntity(Entity entity) async{
+    this.statusservice.setStatusToLoading();
+    try {
+      Entity resp = await store.update(entity);
+      this.entities.removeWhere((enty) => enty.id == resp.id);
+      this.entities.add(resp);
+      this.statusservice.setStatusToSuccess();
+      this.rootScope.emit(this.type.toString() + 'Changed');
+    } catch (e) {
+      print("Unable to save entity ${this.type.toString()}::${entity.id} because ${e}");
+      this.statusservice.setStatusToError(e);
+    }
   }
 
   void selectEntity(int entId) {
