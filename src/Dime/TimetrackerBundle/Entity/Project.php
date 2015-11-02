@@ -2,6 +2,7 @@
 namespace Dime\TimetrackerBundle\Entity;
 
 use DateTime;
+use Dime\EmployeeBundle\Entity\Employee;
 use Dime\TimetrackerBundle\Model\DimeEntityInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
@@ -9,6 +10,8 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use JMS\Serializer\Annotation as JMS;
 use Knp\JsonSchemaBundle\Annotations as Json;
 use Money\Money;
+use Dime\InvoiceBundle\Entity\Invoice;
+use Dime\OfferBundle\Entity\Offer;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -110,6 +113,7 @@ class Project extends Entity implements DimeEntityInterface
      * @ORM\ManyToOne(targetEntity="Dime\TimetrackerBundle\Entity\RateGroup")
      * @ORM\JoinColumn(name="rate_group_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
      * @JMS\MaxDepth(1)
+     * @JMS\SerializedName("rateGroup")
      */
     protected $rateGroup;
 
@@ -147,6 +151,34 @@ class Project extends Entity implements DimeEntityInterface
      * @JMS\SerializedName("projectCategory")
      */
     protected $projectCategory;
+
+    /**
+     * @var ArrayCollection $invoices
+     *
+     * @ORM\OneToMany(targetEntity="Dime\InvoiceBundle\Entity\Invoice", mappedBy="project")
+     * @ORM\JoinColumn(name="id", referencedColumnName="project_id", nullable=true, onDelete="SET NULL")
+     * @JMS\SerializedName("invoices")
+     * @JMS\Type("array")
+     * @JMS\MaxDepth(1)
+     */
+    protected $invoices;
+
+    /**
+     * @var ArrayCollection $offers
+     *
+     * @ORM\OneToMany(targetEntity="Dime\OfferBundle\Entity\Offer", mappedBy="project")
+     * @ORM\JoinColumn(name="id", referencedColumnName="project_id", nullable=true, onDelete="SET NULL")
+     * @JMS\SerializedName("offers")
+     * @JMS\Type("array")
+     * @JMS\MaxDepth(1)
+     */
+    protected $offers;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Dime\TimetrackerBundle\Entity\User")
+     * @ORM\JoinColumn(name="accountant_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
+     */
+    protected $accountant;
 
     /**
      * @JMS\VirtualProperty()
@@ -644,7 +676,7 @@ class Project extends Entity implements DimeEntityInterface
     /**
      * @param Activity $activity
      *
-     * @return $this
+     * @return Project
      */
     public function addActivity(Activity $activity)
     {
@@ -679,5 +711,103 @@ class Project extends Entity implements DimeEntityInterface
     public function getProjectCategory()
     {
         return $this->projectCategory;
+    }
+
+    /**
+     * @return string
+     */
+    public function getInvoices()
+    {
+        return $this->invoices;
+    }
+
+    /**
+     * @param string $invoices
+     *
+     * @return Project
+     */
+    public function setInvoices($invoices)
+    {
+        $this->invoices = $invoices;
+
+        return $this;
+    }
+
+    /**
+     * @param Invoice $invoice
+     *
+     * @return Project
+     */
+    public function addInvoice(Invoice $invoice)
+    {
+        $this->invoices[] = $invoice;
+        return $this;
+    }
+
+    public function removeInvoice(Invoice $invoice)
+    {
+        $this->invoices->removeElement($invoice);
+        return $this;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getOffers()
+    {
+        return $this->offers;
+    }
+
+    /**
+     * @param ArrayCollection $offers
+     *
+     * @return Project
+     */
+    public function setOffers($offers)
+    {
+        $this->offers = $offers;
+
+        return $this;
+    }
+
+    /**
+     * @param Offer $offer
+     *
+     * @return Project
+     */
+    public function addOffer(Offer $offer)
+    {
+        $this->offers[] = $offer;
+        return $this;
+    }
+
+    /**
+     * @param Offer $offer
+     * @return Project
+     */
+    public function removeOffer(Offer $offer)
+    {
+        $this->offers->removeElement($offer);
+        return $this;
+    }
+
+    /**
+     * @return Employee
+     */
+    public function getAccountant()
+    {
+        return $this->accountant;
+    }
+
+    /**
+     * @param Employee $accountant
+     *
+     * @return Project
+     */
+    public function setAccountant($accountant)
+    {
+        $this->accountant = $accountant;
+
+        return $this;
     }
 }

@@ -39,12 +39,20 @@ Download and install a Git client:
 	e.g. https://www.sourcetreeapp.com/
 	Check out the current version
 	
+Fix vagrant rsync bug:
+    
+    Find file: C:\HashiCorp\Vagrant\embedded\gems\gems\vagrant-1.7.4\plugins\synced_folders\rsync\helper.rb
+    Find code snippet and change third line to:  
+    
+    if Vagrant::Util::Platform.windows?
+        # rsync for Windows expects cygwin style paths, always.
+        hostpath = "/cygdrive" + Vagrant::Util::Platform.cygwin_path(hostpath)
+    end
+	
 Start the virtual machine via the cygwin terminal:
 
-	Change the cygdrive-prefix and start vagrant
-	mount --change-cygdrive-prefix /
-	cd /c/Users/YourName/Dime/env
-	/c/HashiCorp/Vagrant/bin/vagrant.exe up
+	cd /cygdrive/c/Users/YourName/Dime/env
+	vagrant up
 
 Download e.g. Dartium which is a Google Chrome for developpers:
 	
