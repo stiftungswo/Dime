@@ -24,6 +24,7 @@ class ProjectFormType extends AbstractType
         $builder
             ->add('name')
             ->add('alias', null, array('required' => false))
+            ->add('accountant')
             ->add('customer', 'entity', array('class' => 'DimeTimetrackerBundle:Customer'))
             ->add('startedAt', 'datetime', array('required' => false, 'widget' => 'single_text', 'with_seconds' => true))
             ->add('stoppedAt', 'datetime', array('required' => false, 'widget' => 'single_text', 'with_seconds' => true))

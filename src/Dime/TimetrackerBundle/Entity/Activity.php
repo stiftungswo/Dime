@@ -196,7 +196,7 @@ class Activity extends Entity implements DimeEntityInterface
 	}
 
 	/**
-	 * Returns the Name the Activty has.
+	 * Returns the Name the Activity has.
 	 * @return string
 	 * @JMS\VirtualProperty()
 	 * @JMS\Groups({"List"})
@@ -212,10 +212,11 @@ class Activity extends Entity implements DimeEntityInterface
 	}
 
 	/**
-	 * Returns the Alias the Activty has.
+	 * Returns the Alias the Activity has.
 	 * @return string
 	 * @JMS\VirtualProperty()
 	 * @JMS\SerializedName("alias")
+	 * @JMS\Groups("List")
 	 */
 	public function getAlias()
 	{

@@ -92,6 +92,7 @@ class EntityEdit extends AttachAware implements ScopeAware {
           this.editform[name].element.addClass('ng-touched');
         }
       });
+      return false;
     } else {
       // form valid, save data
       rootScope.emit('saveChanges');
@@ -105,6 +106,7 @@ class EntityEdit extends AttachAware implements ScopeAware {
         }
         this.reload();
       }
+      return true;
     }
   }
 }
