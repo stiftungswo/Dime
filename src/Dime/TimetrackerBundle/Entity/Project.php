@@ -714,7 +714,7 @@ class Project extends Entity implements DimeEntityInterface
     }
 
     /**
-     * @return string
+     * @return ArrayCollection
      */
     public function getInvoices()
     {

@@ -27,6 +27,7 @@ void dimeRouteInitializer(Router router, RouteViewFactory views) {
     'weekly_report': ngRoute(path: '/reports/weekly', viewHtml: '<timeslice-weeklyreport></timeslice-weeklyreport>'),
     'servicehours_report': ngRoute(path: '/reports/servicehours', viewHtml: '<servicehours-report></servicehours-report>'),
     'projectemployee_report': ngRoute(path: '/reports/projectemployee', viewHtml: '<projectemployee-report></projectemployee-report>'),
+    'projectemployee_report': ngRoute(path: '/reports/revenue', viewHtml: '<revenue-report></revenue-report>'),
     'projectCategory_overview':
         ngRoute(path: '/projectCategories/overview', viewHtml: '<projectCategory-overview></projectCategory-overview>'),
     'projectCategory_edit': ngRoute(path: '/projectCategories/edit/:id', viewHtml: '<projectCategory-edit></projectCategory-edit>'),
