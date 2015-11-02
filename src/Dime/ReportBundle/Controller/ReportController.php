@@ -192,9 +192,6 @@ class ReportController extends DimeController{
 	 * }
 	 * )
 	 *
-	 * @Annotations\QueryParam(name="date", nullable=false, description="Filter by date use Format YYYY-MM-DD,YYYY-MM-DD to specify daterange")
-	 *
-	 *
 	 * @Annotations\View(
 	 *  serializerEnableMaxDepthChecks=true
 	 * )
@@ -205,10 +202,9 @@ class ReportController extends DimeController{
 	 */
 	public function getReportsRevenueCsvAction(ParamFetcherInterface $paramFetcher)
 	{
-		$data = $this->container->get('dime.report.handler')->getRevenueReportAsCSV($paramFetcher->get('date'));
+		$data = $this->container->get('dime.report.handler')->getRevenueReportAsCSV();
 
 		$response = new Response($data);
-		//$response->headers->set('Content-Type', 'text/html');
 		$response->headers->set('Content-Type', 'text/csv');
 		$response->headers->set('Content-Disposition', 'attachment; filename="umsatzrapport.csv"');
 

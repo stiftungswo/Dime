@@ -8,6 +8,7 @@
 namespace Dime\ReportBundle\Handler;
 
 use Carbon\Carbon;
+use Dime\InvoiceBundle\Entity\Invoice;
 use Dime\ReportBundle\Entity\ExpenseReport;
 use Dime\TimetrackerBundle\Entity\Project;
 use Dime\TimetrackerBundle\Entity\RateUnitType;
@@ -265,13 +266,12 @@ class ReportHandler extends AbstractHandler{
 	}
 
 	/**
-	 * generate report with revenue infos for each project in a given timeframe
+	 * generate report with revenue infos for each project
 	 *
-	 * @param string $date
 	 * @return array
 	 * @throws HttpInvalidParamException
 	 */
-	public function getRevenueReport($date) {
+	public function getRevenueReport() {
 
 		/*
 		 * -> nur Projekte auswerten die verrechenbar sind
@@ -288,19 +288,6 @@ class ReportHandler extends AbstractHandler{
 		 * umsatz_erwartet	Erwarteter Umsatz (Total bereits erstellte Offerten)
 		 *
 		 */
-
-		// date filter
-		if(isset($date)) {
-			$dates = explode(',', $date);
-			if(count($dates) == 2) {
-				$startDate = Carbon::createFromFormat('Y-m-d', $dates[0])->setTime(0,0,0);
-				$endDate = Carbon::createFromFormat('Y-m-d', $dates[1])->setTime(0,0,0)->addDay();
-			} else {
-				throw new HttpInvalidParamException('invalid date passed');
-			}
-		} else {
-			throw new HttpInvalidParamException('no date passed');
-		}
 
 		/** @var Project[] $projects */
 		$projects = $this->om->getRepository('DimeTimetrackerBundle:Project')->findBy(array('chargeable' => 1));
@@ -324,7 +311,15 @@ class ReportHandler extends AbstractHandler{
 			$data['aufwand'] = ($project->calculateCurrentPrice() != null ? $project->calculateCurrentPrice()->getAmount()/10 : 0);
 
 			// Total der Rechnungen zusammenzählen
-			$data['umsatz'] = '-';
+			$invoices = $project->getInvoices();
+			$invoice_total = 0;
+			if(count($invoices)){
+				/** @var $invoice Invoice */
+				foreach($invoices as $invoice){
+					$invoice_total += $invoice->getTotal()->getAmount()/10;
+				}
+			}
+			$data['umsatz'] = $invoice_total;
 
 			// Total der Offerten zusammenzählen (= budget_price)
 			$data['umsatz_erwartet'] = ($project->getBudgetPrice() != null ? $project->getBudgetPrice()->getAmount()/10 : 0);
@@ -338,12 +333,11 @@ class ReportHandler extends AbstractHandler{
 	/**
 	 * generate report with revenue infos for each project in a given timeframe
 	 *
-	 * @param string $date
 	 * @return array
 	 * @throws HttpInvalidParamException
 	 */
-	public function getRevenueReportAsCSV($date) {
-		$data = $this->getRevenueReport($date);
+	public function getRevenueReportAsCSV() {
+		$data = $this->getRevenueReport();
 
 		function escapeCSV($string){
 			$string = utf8_decode($string);
@@ -357,15 +351,15 @@ class ReportHandler extends AbstractHandler{
 		// header rows
 		$row = [];
 		$row[] = escapeCSV('Projekt');
-		$row[] = escapeCSV('Kategorie');
-		$row[] = escapeCSV('Geschäftsbereich');
+		$row[] = escapeCSV('Kategorie (Tätigkeitsbereich)');
+		$row[] = escapeCSV('Geschäftsbereich (Tätigkeitsbereich)');
 		$row[] = escapeCSV('Auftraggeber');
-		$row[] = escapeCSV('Start');
+		$row[] = escapeCSV('Start (Erstelldatum)');
 		$row[] = escapeCSV('Jahr');
 		$row[] = escapeCSV('Verantwortlich');
-		$row[] = escapeCSV('Aufwand');
-		$row[] = escapeCSV('Umsatz');
-		$row[] = escapeCSV('Umsatz erwartet');
+		$row[] = escapeCSV('Aufwand CHF (Total bereits verbuchter Stunden)');
+		$row[] = escapeCSV('Umsatz CHF (Total gestellte Rechnungen)');
+		$row[] = escapeCSV('Umsatz erwartet CHF (Total gestellte Offerten)');
 		$rows[] = implode(',',$row);
 
 		// data rows
