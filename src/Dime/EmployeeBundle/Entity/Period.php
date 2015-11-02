@@ -9,6 +9,7 @@ namespace Dime\EmployeeBundle\Entity;
 
 use Carbon\Carbon;
 use Dime\TimetrackerBundle\Entity\Entity;
+use Dime\TimetrackerBundle\Entity\RateUnitType;
 use Dime\TimetrackerBundle\Entity\Timeslice;
 use Dime\TimetrackerBundle\Model\DimeEntityInterface;
 use Doctrine\ORM\Mapping as ORM;
@@ -93,8 +94,7 @@ class Period extends Entity implements DimeEntityInterface
             }
             $weekdays = ($this->getStart()->diffInWeekdays($today->addDay()));
             $realTime = $this->getRealTime();
-            $seconds = $weekdays * 60 * 60 * 8.4;
-            $seconds -= $this->holidays;
+            $seconds = $weekdays * RateUnitType::$DayInSeconds;
             return $realTime - ($seconds * $this->getPensum());
         }
         return null;
@@ -113,7 +113,7 @@ class Period extends Entity implements DimeEntityInterface
 
             $employeeholiday = number_format((float)((($holidayEntitlement/365)*($weekdays/365)*365*$pensum)*8.4), 2, '.', '');
 
-            return $employeeholiday . "h";
+            return $employeeholiday . RateUnitType::$Hourly;
         }
 
         return null;
