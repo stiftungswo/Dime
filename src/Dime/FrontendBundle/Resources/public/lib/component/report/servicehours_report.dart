@@ -1,10 +1,4 @@
-library servicehours_report_component;
-
-import 'package:angular/angular.dart';
-import 'package:DimeClient/service/status.dart';
-import 'dart:html';
-import 'dart:convert';
-import 'package:intl/intl.dart';
+part of dime_report;
 
 @Component(
     selector: 'servicehours-report',

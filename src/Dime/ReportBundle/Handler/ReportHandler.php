@@ -8,7 +8,9 @@
 namespace Dime\ReportBundle\Handler;
 
 use Carbon\Carbon;
+use Dime\InvoiceBundle\Entity\Invoice;
 use Dime\ReportBundle\Entity\ExpenseReport;
+use Dime\TimetrackerBundle\Entity\Project;
 use Dime\TimetrackerBundle\Entity\RateUnitType;
 use Dime\TimetrackerBundle\Entity\Timeslice;
 use Dime\TimetrackerBundle\Handler\AbstractHandler;
@@ -113,7 +115,7 @@ class ReportHandler extends AbstractHandler{
 	}
 
 	/**
-	 * generate report with hours per service for each project in a give timeframe
+	 * generate report with hours per service for each project in a given timeframe
 	 *
 	 * @param string $date
 	 * @return array
@@ -196,7 +198,7 @@ class ReportHandler extends AbstractHandler{
 	}
 
 	/**
-	 * generate report with hours per service for each project in a give timeframe
+	 * generate report with hours per service for each project in a given timeframe
 	 *
 	 * @param string $date
 	 * @return array
@@ -264,7 +266,123 @@ class ReportHandler extends AbstractHandler{
 	}
 
 	/**
-	 * generate report with time per employee for a project in a give timeframe
+	 * generate report with revenue infos for each project
+	 *
+	 * @return array
+	 * @throws HttpInvalidParamException
+	 */
+	public function getRevenueReport() {
+
+		/*
+		 * -> nur Projekte auswerten die verrechenbar sind
+		 *
+		 * name				Projektname
+		 * category			Kategorie (Tätigkeitsbereiche)
+		 * section			Kategorie (Geschäftsbereiche)
+		 * customer			Auftraggeber (Kunde)
+		 * date				Erstelldatum
+		 * year				Jahr (Aus Erstelldatum)
+		 * user				Verantwortung (User)
+		 * aufwand			Aufwand (Erfasste Stunden die verrechnet werden können in CHF)
+		 * umsatz			Umsatz (Total bereits erstellte Rechnungen)
+		 * umsatz_erwartet	Erwarteter Umsatz (Total bereits erstellte Offerten)
+		 *
+		 */
+
+		/** @var Project[] $projects */
+		$projects = $this->om->getRepository('DimeTimetrackerBundle:Project')->findBy(array('chargeable' => 1));
+
+		$report = [];
+		$listofactivities = [];
+		$activitytotal = [];
+
+		foreach($projects as $project){
+			$data = [];
+			$data['name'] = $project->getName();
+			$data['category'] = ($project->getProjectCategory() != null ? $project->getProjectCategory()->getName() : '');
+			$data['section'] = ($project->getProjectCategory() != null ? $project->getProjectCategory()->getName() : '');
+			$data['customer'] = ($project->getCustomer() != null ? $project->getCustomer()->getName() : '');
+			$data['date'] = $project->getCreatedAt()->format('d.m.Y');
+			$data['year'] = $project->getCreatedAt()->format('Y');
+			// TODO: verantwortlicher anstatt user
+			$data['user'] = ($project->getUser() != null ? $project->getUser()->getFullname() : '');
+
+			// Total der erfassten Stunden
+			$data['aufwand'] = ($project->calculateCurrentPrice() != null ? $project->calculateCurrentPrice()->getAmount()/10 : 0);
+
+			// Total der Rechnungen zusammenzählen
+			$invoices = $project->getInvoices();
+			$invoice_total = 0;
+			if(count($invoices)){
+				/** @var $invoice Invoice */
+				foreach($invoices as $invoice){
+					$invoice_total += $invoice->getTotal()->getAmount()/10;
+				}
+			}
+			$data['umsatz'] = $invoice_total;
+
+			// Total der Offerten zusammenzählen (= budget_price)
+			$data['umsatz_erwartet'] = ($project->getBudgetPrice() != null ? $project->getBudgetPrice()->getAmount()/10 : 0);
+
+			$report[] = $data;
+		}
+
+		return $report;
+	}
+
+	/**
+	 * generate report with revenue infos for each project in a given timeframe
+	 *
+	 * @return array
+	 * @throws HttpInvalidParamException
+	 */
+	public function getRevenueReportAsCSV() {
+		$data = $this->getRevenueReport();
+
+		function escapeCSV($string){
+			$string = utf8_decode($string);
+			$string = str_replace('"','""',$string);
+			return '"'.$string.'"';
+		}
+
+		// add separator info for excel
+		$rows = ["sep=,"];
+
+		// header rows
+		$row = [];
+		$row[] = escapeCSV('Projekt');
+		$row[] = escapeCSV('Kategorie (Tätigkeitsbereich)');
+		$row[] = escapeCSV('Geschäftsbereich (Tätigkeitsbereich)');
+		$row[] = escapeCSV('Auftraggeber');
+		$row[] = escapeCSV('Start (Erstelldatum)');
+		$row[] = escapeCSV('Jahr');
+		$row[] = escapeCSV('Verantwortlich');
+		$row[] = escapeCSV('Aufwand CHF (Total bereits verbuchter Stunden)');
+		$row[] = escapeCSV('Umsatz CHF (Total gestellte Rechnungen)');
+		$row[] = escapeCSV('Umsatz erwartet CHF (Total gestellte Offerten)');
+		$rows[] = implode(',',$row);
+
+		// data rows
+		foreach($data as $project){
+			$row = [];
+			$row[] = escapeCSV($project['name']);
+			$row[] = escapeCSV($project['category']);
+			$row[] = escapeCSV($project['section']);
+			$row[] = escapeCSV($project['customer']);
+			$row[] = escapeCSV($project['date']);
+			$row[] = escapeCSV($project['year']);
+			$row[] = escapeCSV($project['user']);
+			$row[] = escapeCSV($project['aufwand']);
+			$row[] = escapeCSV($project['umsatz']);
+			$row[] = escapeCSV($project['umsatz_erwartet']);
+			$rows[] = implode(',',$row);
+		}
+
+		return implode("\n", $rows);
+	}
+
+	/**
+	 * generate report with time per employee for a project in a given timeframe
 	 *
 	 * @param int $projectId
 	 * @param string $date
