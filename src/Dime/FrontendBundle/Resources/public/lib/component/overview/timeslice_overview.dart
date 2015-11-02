@@ -145,7 +145,7 @@ class TimesliceOverviewComponent extends EntityOverview {
     if (updateNewEntryDate && this.entities != null) {
       DateTime date = this.newEntryDate;
       if (date == null) {
-        date = new DateTime.now();
+        date = this.filterStartDate;
       }
       DateTime endDateEndOfDay = this.filterEndDate.add(new Duration(hours: 23, minutes: 59));
       List<Timeslice> relevantSlices =
