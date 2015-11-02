@@ -58,15 +58,17 @@ class TimesliceOverviewComponent extends EntityOverview {
 
   set selectedProject(Project proj) {
     this._selectedProject = proj;
-    this.updateChosenSetting('project');
+    if(proj != null) {
+      this.updateChosenSetting('project');
 
-    // select the same activity if also it exists in new project
-    try {
-      this.selectedActivity = activities.singleWhere((Activity a) =>
+      // select the same activity if also it exists in new project
+      try {
+        this.selectedActivity = activities.singleWhere((Activity a) =>
         a.alias == this.settingselectedActivity.value && a.project.id == this.selectedProject.id
-      );
-    } catch (e) {
-      this.selectedActivity = null;
+        );
+      } catch (e) {
+        this.selectedActivity = null;
+      }
     }
   }
 
@@ -116,7 +118,7 @@ class TimesliceOverviewComponent extends EntityOverview {
   createEntity({Entity newEnt, Map<String, dynamic> params: const{}}) async{
     if (!(this.selectedProject is Project)) return;
     Timeslice slice = new Timeslice();
-    List names = [ 'value'];
+    List names = ['value'];
     for (var name in names) {
       Setting settingForName;
       try {
