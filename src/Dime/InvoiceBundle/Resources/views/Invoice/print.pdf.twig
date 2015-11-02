@@ -33,9 +33,6 @@
 			<div class="accountant">Sachbearbeiter: {{ invoice.user }}</div><br/>
 			{% endif %}
 			<div class="invoiceIDKey">Rechnung Nr. {{ invoice.id }}</div><br/>
-			{% if invoice.offer %}
-			<div class="offerID">Offerte Nr. {{ invoice.offer.id }}</div><br/>
-			{% endif %}
 			{% if invoice.project %}
 			<div class="projectID">Auftrag Nr. {{ invoice.project.id }}</div><br/>
 			{% endif %}

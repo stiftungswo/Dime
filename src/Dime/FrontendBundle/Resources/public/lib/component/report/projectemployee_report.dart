@@ -1,11 +1,4 @@
-library projectemployee_report_component;
-
-import 'package:angular/angular.dart';
-import 'package:DimeClient/service/status.dart';
-import 'dart:html';
-import 'dart:convert';
-import 'package:DimeClient/model/Entity.dart';
-import 'package:intl/intl.dart';
+part of dime_report;
 
 @Component(
     selector: 'projectemployee-report',

@@ -26,7 +26,7 @@ class Timeslice extends Entity implements DimeEntityInterface
      * @var Activity $activity
      *
      * @Assert\NotNull()
-     * @JMS\MaxDepth(1)
+     * @JMS\MaxDepth(2)
      * @JMS\Groups({"List"})
      * @ORM\ManyToOne(targetEntity="Activity", inversedBy="timeslices", cascade="persist")
      * @ORM\JoinColumn(name="activity_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")

@@ -31,7 +31,6 @@ class InvoiceController extends DimeController
      *
      *
      * @Annotations\QueryParam(name="project", requirements="\d+", nullable=true, description="Filter By Project")
-     * @Annotations\QueryParam(name="offer", requirements="\d+", nullable=true, description="Filter By Offer")
      *
      * @Annotations\View(
      * serializerEnableMaxDepthChecks=true,
@@ -89,9 +88,9 @@ class InvoiceController extends DimeController
      * @ApiDoc(
      * resource = true,
      * description = "Creates a new Invoice from the submitted data.",
-     * input = "Dime\OfferBundle\Form\Type\InvoiceFormType",
+     * input = "Dime\InvoiceBundle\Form\Type\InvoiceFormType",
      * section="invoices",
-     * output = "Dime\OfferBundle\Entity\Invoice",
+     * output = "Dime\InvoiceBundle\Entity\Invoice",
      * statusCodes = {
      * 201 = "Returned when successful",
      * 400 = "Returned when the form has errors"
