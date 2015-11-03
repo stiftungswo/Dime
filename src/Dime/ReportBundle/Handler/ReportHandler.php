@@ -309,8 +309,7 @@ class ReportHandler extends AbstractHandler
             $data['customer'] = ($project->getCustomer() != null ? $project->getCustomer()->getName() : '');
             $data['date'] = $project->getCreatedAt()->format('d.m.Y');
             $data['year'] = $project->getCreatedAt()->format('Y');
-            // TODO: verantwortlicher anstatt user
-            $data['user'] = ($project->getUser() != null ? $project->getUser()->getFullname() : '');
+            $data['user'] = ($project->getAccountant() != null ? $project->getAccountant()->getFullname() : '');
 
             // Total der erfassten Stunden
             $data['aufwand'] = ($project->calculateCurrentPrice() != null ? $project->calculateCurrentPrice()->getAmount()/10 : 0);
