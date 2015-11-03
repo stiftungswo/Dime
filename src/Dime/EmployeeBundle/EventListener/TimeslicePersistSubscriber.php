@@ -73,7 +73,7 @@ class TimeslicePersistSubscriber extends ContainerAware implements EventSubscrib
             if ($period instanceof Period) {
                 if ($period->getStart() instanceof Carbon && $period->getEnd() instanceof Carbon) {
                     $realTime = $period->getRealTime();
-                    if ($method == 'PUT') {
+                    if (strpos($method, 'PUT') !== false) {
                         $timesliceHandler = $this->container->get('dime.timeslice.handler');
                         $timeslice = $timesliceHandler->get($event->getEntity()->getId());
                         $realTime -= $timeslice->getValue();

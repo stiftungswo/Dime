@@ -61,4 +61,8 @@ class PeriodOverviewComponent extends EntityOverview implements ScopeAware {
   createEntity({var newEnt, Map<String, dynamic> params: const {}}) {
     super.createEntity(params: {'employee': this._employee.id});
   }
+
+  save() {
+    scope.rootScope.emit('saveChanges');
+  }
 }
