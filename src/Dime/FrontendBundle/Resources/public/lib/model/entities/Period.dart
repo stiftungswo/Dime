@@ -17,6 +17,16 @@ class Period extends Entity {
     if (params.containsKey('employee')) {
       params['employee'] = new Employee()..id = params['employee'];
     }
+    var now = new DateTime.now();
+    if (!params.containsKey('start')) {
+      params['start'] = new DateTime(now.year, DateTime.JANUARY, 1);
+    }
+    if (!params.containsKey('end')) {
+      params['end'] = new DateTime(now.year, DateTime.DECEMBER, 31);
+    }
+    if (!params.containsKey('pensum')) {
+      params['pensum'] = 1;
+    }
     super.init(params: params);
   }
 
