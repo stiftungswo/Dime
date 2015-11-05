@@ -93,9 +93,9 @@ class InvoiceItemController extends DimeController
 	 * @ApiDoc(
 	 * resource = true,
 	 * description = "Creates a new InvoiceItem from the submitted data.",
-	 * input = "Dime\OfferBundle\Form\Type\InvoiceItemFormType",
+	 * input = "Dime\InvoiceBundle\Form\Type\InvoiceItemFormType",
 	 * section="invoices",
-	 * output = "Dime\OfferBundle\Entity\InvoiceItem",
+	 * output = "Dime\InvoiceBundle\Entity\InvoiceItem",
 	 * statusCodes = {
 	 * 201 = "Returned when successful",
 	 * 400 = "Returned when the form has errors"

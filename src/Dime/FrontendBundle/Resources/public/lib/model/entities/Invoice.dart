@@ -12,18 +12,32 @@ class Invoice extends Entity {
 
   Invoice.clone(Invoice original): super.clone(original){
     this.description = original.description;
-    this.customer = original.customer;
     this.project = original.project;
-    this.offer = original.offer;
+    this.items = original.items;
+    this.invoiceDiscounts = original.invoiceDiscounts;
+    this.standardDiscounts = original.standardDiscounts;
     this.start = original.start;
     this.end = original.end;
-    for (StandardDiscount discount in original.standardDiscounts) {
-      this.standardDiscounts.add(discount);
-    }
-    addFieldstoUpdate(['description','customer','project','offer','start','end','standardDiscounts']);
+    this.customer = original.customer;
+    this.totalDiscounts = original.totalDiscounts;
+    this.total = original.total;
+    this.subtotal = original.subtotal;
+    this.totalVAT = original.totalVAT;
+    this.fixedPrice = original.fixedPrice;
+    addFieldstoUpdate(['description','project', 'items', 'invoiceDiscounts', 'standardDiscounts', 'start',
+      'end', 'customer', 'totalDiscounts', 'total', 'subtotal', 'totalVAT', 'fixedPrice']);
   }
 
   Invoice.fromMap(Map<String, dynamic> map): super.fromMap(map);
+
+  static List<Invoice> listFromMap(List content) {
+    List<Invoice> invoices = new List<Invoice>();
+    for (var element in content) {
+      Invoice invoice = new Invoice.fromMap(element);
+      invoices.add(invoice);
+    }
+    return invoices;
+  }
 
   newObj() {
     return new Invoice();
@@ -33,8 +47,6 @@ class Invoice extends Entity {
     var val = super.Get(property);
     if (val == null) {
       switch (property) {
-        case 'offer':
-          return this.offer;
         case 'description':
           return this.description;
         case 'project':
@@ -59,6 +71,8 @@ class Invoice extends Entity {
           return this.subtotal;
         case 'totalVAT':
           return this.totalVAT;
+        case 'fixedPrice':
+          return this.fixedPrice;
         default:
           break;
       }
@@ -68,9 +82,6 @@ class Invoice extends Entity {
 
   void Set(String property, var value) {
     switch (property) {
-      case 'offer':
-        this.offer = value is Entity ? value : new Offer.fromMap(value);
-        break;
       case 'description':
         this.description = value;
         break;
@@ -107,6 +118,9 @@ class Invoice extends Entity {
       case 'totalVAT':
         this.totalVAT = value;
         break;
+      case 'fixedPrice':
+        this.fixedPrice = value;
+        break;
       default:
         super.Set(property, value);
         break;
@@ -135,7 +149,6 @@ class Invoice extends Entity {
   String description;
   Customer customer;
   Project project;
-  Offer offer;
   List<InvoiceItem> items = [];
   List<InvoiceDiscount> invoiceDiscounts = [];
   List<StandardDiscount> standardDiscounts = [];

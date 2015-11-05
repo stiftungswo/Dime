@@ -63,19 +63,19 @@ class RateUnitType extends Entity implements DimeEntityInterface
 	 * @var int
 	 * @JMS\Exclude()
 	 */
-	private static $DayInSeconds = 30240;
+	public static $DayInSeconds = 30240;
 
 	/**
 	 * @var int
 	 * @JMS\Exclude()
 	 */
-	private static $HourInSeconds = 3600;
+	public static $HourInSeconds = 3600;
 
 	/**
 	 * @var int
 	 * @JMS\Exclude()
 	 */
-	private static $MinuteInSeconds = 60;
+	public static $MinuteInSeconds = 60;
 
 	/**
 	 * @var string $id

@@ -41,10 +41,10 @@ class TimeslicePersistSubscriber extends ContainerAware implements EventSubscrib
 	public static function getSubscribedEvents()
 	{
 		return array(
-			TimetrackEvents::ENTITY_PRE_PERSIST.'.PUT.Timeslice' => array(
+			TimetrackEvents::ENTITY_POST_PERSIST.'.PUT.Timeslice' => array(
 				array('updatePeriods')
 			),
-			TimetrackEvents::ENTITY_PRE_PERSIST.'.POST.Timeslice' => array(
+			TimetrackEvents::ENTITY_POST_PERSIST.'.POST.Timeslice' => array(
 				array('updatePeriodsOnPost')
 			),
 			TimetrackEvents::ENTITY_POST_DELETE.'.Timeslice' => array(
@@ -74,7 +74,7 @@ class TimeslicePersistSubscriber extends ContainerAware implements EventSubscrib
 			if($period instanceof Period) {
 				if($period->getStart() instanceof Carbon && $period->getEnd() instanceof Carbon) {
 					$realTime = $period->getRealTime();
-					if($method == 'PUT') {
+					if(strpos($method, 'PUT') !== false) {
 						$timesliceHandler = $this->container->get('dime.timeslice.handler');
 						$timeslice = $timesliceHandler->get($event->getEntity()->getId());
 						$realTime -= $timeslice->getValue();
