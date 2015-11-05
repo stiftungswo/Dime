@@ -57,17 +57,10 @@ class Invoice extends Entity implements DimeEntityInterface
 
     /**
      * @var \Dime\TimetrackerBundle\Entity\Project
-     * @ORM\ManyToOne(targetEntity="Dime\TimetrackerBundle\Entity\Project")
+     * @ORM\ManyToOne(targetEntity="Dime\TimetrackerBundle\Entity\Project", inversedBy="invoices")
      * @JMS\MaxDepth(1)
      */
     protected $project;
-
-    /**
-     * @var \Dime\OfferBundle\Entity\Offer
-     * @ORM\ManyToOne(targetEntity="Dime\OfferBundle\Entity\Offer")
-     * @JMS\MaxDepth(1)
-     */
-    protected $offer;
 
     /**
      * @var ArrayCollection
@@ -297,25 +290,6 @@ class Invoice extends Entity implements DimeEntityInterface
     public function addInvoiceDiscounts(InvoiceDiscount $invoiceDiscount)
     {
         $this->invoiceDiscounts[] = $invoiceDiscount;
-        return $this;
-    }
-
-    /**
-     * @return \Dime\OfferBundle\Entity\Offer
-     */
-    public function getOffer()
-    {
-        return $this->offer;
-    }
-
-    /**
-     * @param \Dime\OfferBundle\Entity\Offer $offer
-     *
-     * @return $this
-     */
-    public function setOffer($offer)
-    {
-        $this->offer = $offer;
         return $this;
     }
 

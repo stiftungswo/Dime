@@ -28,7 +28,8 @@ class MenuComponent implements ScopeAware {
       new Menu('Wochenrapport', '/reports/weekly'),
       new Menu('Aufwandsbericht', '/reports/expense'),
       new Menu('Projektaufwände', '/reports/projectemployee'),
-      new Menu('Servicerapport', '/reports/servicehours')
+      new Menu('Servicerapport', '/reports/servicehours'),
+      new Menu('Umsatzstatistik', '/reports/revenue')
     ]),
     new Menu.withItems('Stammdaten', 'fa-cog', [
       new Menu('Services', '/services/overview'),

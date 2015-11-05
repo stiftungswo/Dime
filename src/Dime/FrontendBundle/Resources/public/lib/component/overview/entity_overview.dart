@@ -10,6 +10,7 @@ import 'package:DimeClient/service/user_auth.dart';
 import 'package:DimeClient/service/user_context.dart';
 import 'dart:html';
 import 'package:intl/intl.dart';
+import 'dart:math';
 
 part 'activity_overview.dart';
 part 'customer_overview.dart';
@@ -121,6 +122,8 @@ class EntityOverview extends AttachAware implements ScopeAware {
       this.rootScope.emit(this.type.toString() + 'Created');
       if (this.router != null) {
         this.openEditView(resp.id);
+      } else {
+        this.entities.add(resp);
       }
     } catch (e) {
       print("Unable to create entity ${this.type.toString()} because ${e}");

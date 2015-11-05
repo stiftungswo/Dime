@@ -69,6 +69,7 @@ class Activity extends Entity implements DimeEntityInterface
     protected $description;
 
     /**
+     * @JMS\Groups({"List"})
      * @ORM\Column(name="rate_value", type="money", nullable=true)
      * @JMS\SerializedName("rateValue")
      * @JMS\Type(name="Money")
@@ -98,6 +99,7 @@ class Activity extends Entity implements DimeEntityInterface
     protected $vat;
 
     /**
+     * @JMS\Groups({"List"})
      * @ORM\Column(name="rate_unit", type="text", nullable=true)
      * @JMS\SerializedName("rateUnit")
      */
@@ -198,7 +200,7 @@ class Activity extends Entity implements DimeEntityInterface
     }
 
     /**
-     * Returns the Name the Activty has.
+     * Returns the Name the Activity has.
      * @return string
      * @JMS\VirtualProperty()
      * @JMS\Groups({"List"})
@@ -214,10 +216,11 @@ class Activity extends Entity implements DimeEntityInterface
     }
 
     /**
-     * Returns the Alias the Activty has.
+     * Returns the Alias the Activity has.
      * @return string
      * @JMS\VirtualProperty()
      * @JMS\SerializedName("alias")
+     * @JMS\Groups("List")
      */
     public function getAlias()
     {
@@ -231,6 +234,7 @@ class Activity extends Entity implements DimeEntityInterface
     /**
      * @JMS\VirtualProperty()
      * @JMS\SerializedName("value")
+     * @JMS\Groups({"List"})
      * @return string
      */
     public function serializeValue()
