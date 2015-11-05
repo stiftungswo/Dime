@@ -17,16 +17,16 @@ class TimetrackMultiComponent extends AttachAware implements ScopeAware {
   Scope scope;
   Date date;
   Project selectedProject;
-  Activity selectedActivity;
   List<TimetrackMultiEntry> entries = [];
   User selectedUserToAdd = null;
   StatusService statusservice;
-  List<Service> services = [];
+  List<Activity> activities = [];
   List<String> inputAll = [];
 
   attach() {
     DateTime now = new DateTime.now();
     this.date = new DateTime(now.year, now.month, now.day);
+    this.loadActivities();
   }
 
   save() {}
@@ -47,10 +47,15 @@ class TimetrackMultiComponent extends AttachAware implements ScopeAware {
     entries.removeWhere((TimetrackMultiEntry e) => e.user.id == userId);
   }
 
-  loadServices() async {
+  updateActivities() {
+    window.console.log('update activities -------');
+    // update TimetrackMultiEntry
+  }
+
+  loadActivities() async {
     this.statusservice.setStatusToLoading();
     try {
-      this.services = (await this.store.list(Service)).toList();
+      this.activities = (await this.store.list(Activity)).toList();
       this.statusservice.setStatusToSuccess();
     } catch (e) {
       this.statusservice.setStatusToError(e);
@@ -59,5 +64,5 @@ class TimetrackMultiComponent extends AttachAware implements ScopeAware {
 
   inputAllUpdated() {}
 
-  TimetrackMultiComponent(DataCache store, SettingsManager manager, this.statusservice, this.context);
+  TimetrackMultiComponent(this.store, SettingsManager manager, this.statusservice, this.context);
 }
