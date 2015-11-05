@@ -200,9 +200,7 @@ class Timeslice extends Entity implements DimeEntityInterface
         } elseif (!$startedAt instanceof Carbon && $startedAt instanceof DateTime) {
             $startedAt = Carbon::instance($startedAt);
         }
-        if ($startedAt->hour === 0) {
-            $startedAt->hour = 8;
-        }
+        $startedAt->hour = 8;
         $this->startedAt = $startedAt;
         $this->stoppedAt = null;
 
