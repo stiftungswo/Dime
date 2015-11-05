@@ -7,6 +7,7 @@ import 'package:DimeClient/model/Entity.dart';
 import 'package:DimeClient/service/status.dart';
 import 'package:DimeClient/service/data_cache.dart';
 import 'package:DimeClient/service/setting_manager.dart';
+import 'dart:html';
 
 part 'timetrack_multi.dart';
 part 'project_timetrack.dart';
