@@ -177,6 +177,7 @@ class Project extends Entity implements DimeEntityInterface
     /**
      * @ORM\ManyToOne(targetEntity="Dime\TimetrackerBundle\Entity\User")
      * @ORM\JoinColumn(name="accountant_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
+     * @JMS\MaxDepth(1)
      */
     protected $accountant;
 
