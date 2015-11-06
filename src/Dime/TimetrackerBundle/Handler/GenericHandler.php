@@ -66,9 +66,7 @@ class GenericHandler extends AbstractHandler implements HandlerInterface
     {
         $entity = $this->newClassInstance();
         $parameters = $this->flattenEtityReference($parameters);
-        if (!array_key_exists('user', $parameters)) {
-            $parameters['user'] = $this->getCurrentUser()->getId();
-        }
+        $parameters['user'] = $this->getCurrentUser()->getId();
         return $this->processForm($entity, $parameters, $this->formType, 'POST');
     }
 

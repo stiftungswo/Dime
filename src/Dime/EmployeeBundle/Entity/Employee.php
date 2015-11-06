@@ -16,7 +16,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Table(name="Employees")
  * @ORM\Entity(repositoryClass="Dime\EmployeeBundle\Entity\EmployeeRepository")
- * @Json\Schema("Employees")
+ * @Json\Schema("employees")
  * @DiscriminatorEntry(value="employee")
  */
 class Employee extends User implements DimeEntityInterface

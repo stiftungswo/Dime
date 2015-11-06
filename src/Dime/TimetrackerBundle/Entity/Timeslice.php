@@ -4,6 +4,7 @@ namespace Dime\TimetrackerBundle\Entity;
 
 use Carbon\Carbon;
 use DateTime;
+use Dime\EmployeeBundle\Entity\Employee;
 use Dime\TimetrackerBundle\Model\DimeEntityInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
@@ -74,6 +75,15 @@ class Timeslice extends Entity implements DimeEntityInterface
      * @JMS\Exclude()
      */
     protected $standardUnit;
+
+    /**
+     * @var Employee $employee
+     *
+     * @JMS\MaxDepth(1)
+     * @ORM\ManyToOne(targetEntity="Dime\EmployeeBundle\Entity\Employee")
+     * @ORM\JoinColumn(name="employee_id", referencedColumnName="id", onDelete="SET NULL")
+     */
+    protected $employee;
 
     /**
      * @param string $standardUnit
@@ -269,6 +279,7 @@ class Timeslice extends Entity implements DimeEntityInterface
      *
      * @JMS\VirtualProperty()
      * @JMS\SerializedName("stoppedAt")
+     * @JMS\Groups({"List"})
      *
      * @return null|string
      */
@@ -400,5 +411,24 @@ class Timeslice extends Entity implements DimeEntityInterface
         }
 
         return $this->getStartedAt()->diffInSeconds($end);
+    }
+
+    /**
+     * @return Employee
+     */
+    public function getEmployee()
+    {
+        return $this->employee;
+    }
+
+    /**
+     * @param Employee $employee
+     * @return Timeslice $this
+     */
+    public function setEmployee($employee)
+    {
+        $this->employee = $employee;
+
+        return $this;
     }
 }
