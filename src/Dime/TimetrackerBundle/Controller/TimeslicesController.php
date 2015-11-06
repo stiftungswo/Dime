@@ -37,12 +37,14 @@ class TimeslicesController extends DimeController
      * @Annotations\QueryParam(name="project", requirements="\d+", nullable=true, description="Filter By Project")
      * @Annotations\QueryParam(name="service", requirements="\d+", nullable=true, description="Filter By Service")
      * @Annotations\QueryParam(name="user", requirements="\d+", nullable=true, description="Filter By User")
+     * @Annotations\QueryParam(name="employee", requirements="\d+", nullable=true, description="Filter By Employee")
      * @Annotations\QueryParam(name="latest", nullable=true, description="Get Latest Timeslice")
      * @Annotations\QueryParam(array=true, name="withtags", requirements="\d+", nullable=true, description="Show Entities with these Tags")
      * @Annotations\QueryParam(array=true, name="withouttags", requirements="\d+", nullable=true, description="Show Entities without this Tags")
      *
      * @Annotations\View(
-     * serializerEnableMaxDepthChecks=true
+     * serializerEnableMaxDepthChecks=true,
+     * serializerGroups={"List"}
      * )
      *
      * @Annotations\Route(requirements={"_format"="json|xml"})

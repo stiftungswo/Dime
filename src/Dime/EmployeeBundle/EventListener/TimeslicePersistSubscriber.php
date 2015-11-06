@@ -67,7 +67,7 @@ class TimeslicePersistSubscriber extends ContainerAware implements EventSubscrib
 	{
 		$periodHandler = $this->container->get('dime.period.handler');
 		$periods = $periodHandler->all(array(
-			'employee' => $event->getEntity()->getUser()->getId(),
+			'employee' => $event->getEntity()->getEmployee()->getId(),
 			'timeslice' => $event->getEntity()
 		));
 		foreach($periods as $period) {
