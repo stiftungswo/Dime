@@ -1,6 +1,7 @@
 <?php
 namespace Dime\OfferBundle\Entity;
 
+use Dime\EmployeeBundle\Entity\Employee;
 use Dime\TimetrackerBundle\Entity\Customer;
 use Dime\TimetrackerBundle\Entity\Entity;
 use Dime\TimetrackerBundle\Entity\StandardDiscount;
@@ -40,7 +41,7 @@ class Offer extends Entity implements DimeEntityInterface
     protected $validTo;
     
     /**
-     * @ORM\ManyToOne(targetEntity="Dime\TimetrackerBundle\Entity\Project")
+     * @ORM\ManyToOne(targetEntity="Dime\TimetrackerBundle\Entity\Project", inversedBy="offers")
      * @ORM\JoinColumn(name="project_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
      * @JMS\MaxDepth(1)
      */
@@ -358,7 +359,7 @@ class Offer extends Entity implements DimeEntityInterface
     /**
      * Get accountant
      *
-     * @return string
+     * @return Employee
      */
     public function getAccountant()
     {

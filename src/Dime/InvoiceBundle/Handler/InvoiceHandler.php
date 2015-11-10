@@ -92,7 +92,6 @@ class InvoiceHandler extends GenericHandler
         }
         $invoice->setProject($project);
         if (!null === $offer) {
-            $invoice->setOffer($offer);
             $invoice->setStandardDiscounts($offer->getStandardDiscounts());
             foreach ($offer->getOfferDiscounts() as $offerDiscount) {
                 $discount = new InvoiceDiscount();
@@ -103,6 +102,7 @@ class InvoiceHandler extends GenericHandler
         if (!is_null($project->getCustomer())) {
             $invoice->setCustomer($project->getCustomer());
         }
+        $invoice->setUser($this->getCurrentUser());
         $this->om->persist($invoice);
         $this->om->flush();
         return $invoice;
@@ -130,6 +130,7 @@ class InvoiceHandler extends GenericHandler
                 }
             }
         }
+        $invoice->setUser($this->getCurrentUser());
         $this->om->persist($invoice);
         $this->om->flush();
         return $invoice;

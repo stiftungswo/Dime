@@ -33,9 +33,6 @@
 			<div class="accountant">Sachbearbeiter: {{ invoice.user }}</div><br/>
 			{% endif %}
 			<div class="invoiceIDKey">Rechnung Nr. {{ invoice.id }}</div><br/>
-			{% if invoice.offer %}
-			<div class="offerID">Offerte Nr. {{ invoice.offer.id }}</div><br/>
-			{% endif %}
 			{% if invoice.project %}
 			<div class="projectID">Auftrag Nr. {{ invoice.project.id }}</div><br/>
 			{% endif %}
@@ -44,7 +41,7 @@
 			<div class="dateRange">Aufwandzeitraum {{ invoice.start|date('d.m.Y') }} - {{ invoice.end|date('d.m.Y') }}</div>
 			{% endif %}
 			{% if invoice.description %}
-			<div class="offerShortDescription">{{ invoice.description }}</div><br/>
+			<div class="offerShortDescription">{{ invoice.description|nl2br }}</div><br/>
 			{% endif %}
 		</div>
 		<table class="maintable" breakable="false">

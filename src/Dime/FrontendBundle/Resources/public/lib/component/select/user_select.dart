@@ -19,9 +19,6 @@ class UserSelectComponent extends EntitySelect {
   bool useContext = false;
 
   set selectedEntity(entity) {
-    if (useContext) {
-      this.context.switchContext(entity);
-    }
     _selectedEntity = entity;
     selector = EntText;
   }
@@ -31,7 +28,7 @@ class UserSelectComponent extends EntitySelect {
   reload() async {
     await super.reload();
     if (useContext) {
-      this.selector = context.employee.fullname;
+      selectedEntity = context.employee;
     }
   }
 }

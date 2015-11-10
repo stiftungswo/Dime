@@ -15,7 +15,6 @@ part 'invoice_edit.dart';
 part 'offer_edit.dart';
 part 'project_edit.dart';
 part 'service_edit.dart';
-part 'projectCategory_edit.dart';
 
 class EntityEdit extends AttachAware implements ScopeAware {
   Type entType;
@@ -90,6 +89,7 @@ class EntityEdit extends AttachAware implements ScopeAware {
           this.editform[name].element.addClass('ng-touched');
         }
       });
+      return false;
     } else {
       // form valid, save data
       rootScope.emit('saveChanges');
@@ -103,6 +103,7 @@ class EntityEdit extends AttachAware implements ScopeAware {
         }
         this.reload();
       }
+      return true;
     }
   }
 }
