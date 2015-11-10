@@ -16,10 +16,7 @@ import 'package:DimeClient/component/main/tabset.dart';
 import 'package:DimeClient/component/main/usermenu.dart';
 import 'package:DimeClient/component/overview/entity_overview.dart';
 import 'package:DimeClient/component/percent-input/percent_input.dart';
-import 'package:DimeClient/component/report/projectemployee_report.dart';
-import 'package:DimeClient/component/report/servicehours_report.dart';
-import 'package:DimeClient/component/report/timeslice_weekly_report.dart';
-import 'package:DimeClient/component/report/timeslice_expense_report.dart';
+import 'package:DimeClient/component/report/dime_report.dart';
 import 'package:DimeClient/component/select/entity_select.dart';
 import 'package:DimeClient/component/setting/setting.dart';
 import 'package:DimeClient/component/statusbar/statusbar.dart';
@@ -39,7 +36,6 @@ class AppModule extends Module {
     bind(MenuComponent);
     bind(TabSetComponent);
     bind(ProjectCategoryOverviewComponent);
-    bind(ProjectCategoryEditComponent);
     bind(ProjectCategorySelectComponent);
     bind(ProjectOverviewComponent);
     bind(ProjectEditComponent);
@@ -58,7 +54,6 @@ class AppModule extends Module {
     bind(OfferPositionOverviewComponent);
     bind(OfferEditComponent);
     bind(OfferPositionOrderByOrderField);
-    bind(UserOrderByOrderField);
     bind(PercentageInputField);
     bind(InvoiceOverviewComponent);
     bind(InvoiceEditComponent);
@@ -100,6 +95,7 @@ class AppModule extends Module {
     bind(TimesliceOverviewComponent);
     bind(ServicehoursReportComponent);
     bind(ProjectemployeeReportComponent);
+    bind(RevenueReportComponent);
     bind(RoundModeSelect);
     bind(UserMenu);
     install(new Hammock());

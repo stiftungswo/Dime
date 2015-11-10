@@ -1,16 +1,4 @@
-library timeslice_weekly_report_overview_component;
-
-import 'package:angular/angular.dart';
-import 'package:hammock/hammock.dart';
-import 'package:DimeClient/model/Entity.dart';
-import 'package:DimeClient/service/setting_manager.dart';
-import 'package:DimeClient/service/data_cache.dart';
-import 'package:DimeClient/service/user_context.dart';
-import 'package:DimeClient/service/status.dart';
-import 'package:DimeClient/service/user_auth.dart';
-import 'dart:html';
-import 'package:intl/intl.dart';
-import 'package:DimeClient/component/overview/entity_overview.dart';
+part of dime_report;
 
 class WeekReportEntry {
   String name;
@@ -33,7 +21,7 @@ class TimesliceWeeklyReportComponent extends EntityOverview {
 
   List<DateTime> dates;
 
-  List<String> users;
+  List<String> employees;
 
   List<WeekReportEntry> entries;
 
@@ -49,22 +37,22 @@ class TimesliceWeeklyReportComponent extends EntityOverview {
     }
   }
 
-  updateUsers() {
-    users = [];
+  updateEmployees() {
+    employees = [];
     for (Timeslice slice in this.report.timeslices) {
-      if (!users.contains(slice.user.fullname)) {
-        users.add(slice.user.fullname);
+      if (!employees.contains(slice.employee.fullname)) {
+        employees.add(slice.employee.fullname);
       }
     }
   }
 
   updateEntries() {
     this.entries = [];
-    for (String user in users) {
+    for (String employee in employees) {
       WeekReportEntry entry = new WeekReportEntry();
-      entry.name = user;
+      entry.name = employee;
       for (DateTime date in dates) {
-        List<Timeslice> slices = report.timeslices.where((Timeslice s) => s.user.fullname == user && isSameDay(date, s.startedAt));
+        List<Timeslice> slices = report.timeslices.where((Timeslice s) => s.employee.fullname == employee && isSameDay(date, s.startedAt));
         if(slices.length == 0){
           entry.days.add(new Timeslice()
             ..value = '-'
@@ -112,7 +100,7 @@ class TimesliceWeeklyReportComponent extends EntityOverview {
       this.statusservice.setStatusToError(e);
     }
     updateDates();
-    updateUsers();
+    updateEmployees();
     updateEntries();
   }
 

@@ -192,6 +192,36 @@ class ReportController extends DimeController{
 	 * }
 	 * )
 	 *
+	 * @Annotations\View(
+	 *  serializerEnableMaxDepthChecks=true
+	 * )
+	 *
+	 * @param ParamFetcherInterface $paramFetcher
+	 *
+	 * @return array
+	 */
+	public function getReportsRevenueCsvAction(ParamFetcherInterface $paramFetcher)
+	{
+		$data = $this->container->get('dime.report.handler')->getRevenueReportAsCSV();
+
+		$response = new Response($data);
+		$response->headers->set('Content-Type', 'text/csv');
+		$response->headers->set('Content-Disposition', 'attachment; filename="umsatzrapport.csv"');
+
+		return $response;
+	}
+
+	/**
+	 *
+	 *
+	 * @ApiDoc(
+	 * resource = true,
+	 * section="report",
+	 * statusCodes = {
+	 * 200 = "Returned when successful"
+	 * }
+	 * )
+	 *
 	 * @Annotations\QueryParam(name="project", requirements="\d+", nullable=false, description="Project")
 	 * @Annotations\QueryParam(name="date", nullable=true, description="Filter by date use Format YYYY-MM-DD or YYYY-MM-DD,YYYY-MM-DD to specify daterange")
 	 *

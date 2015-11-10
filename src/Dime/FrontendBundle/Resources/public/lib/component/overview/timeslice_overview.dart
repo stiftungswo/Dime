@@ -58,15 +58,17 @@ class TimesliceOverviewComponent extends EntityOverview {
 
   set selectedProject(Project proj) {
     this._selectedProject = proj;
-    this.updateChosenSetting('project');
+    if(proj != null) {
+      this.updateChosenSetting('project');
 
-    // select the same activity if also it exists in new project
-    try {
-      this.selectedActivity = activities.singleWhere((Activity a) =>
+      // select the same activity if also it exists in new project
+      try {
+        this.selectedActivity = activities.singleWhere((Activity a) =>
         a.alias == this.settingselectedActivity.value && a.project.id == this.selectedProject.id
-      );
-    } catch (e) {
-      this.selectedActivity = null;
+        );
+      } catch (e) {
+        this.selectedActivity = null;
+      }
     }
   }
 
@@ -107,7 +109,7 @@ class TimesliceOverviewComponent extends EntityOverview {
       }, evict: evict);
     } else {
       await super.reload(params: {
-        'user': _employee.id
+        'employee': _employee.id
       }, evict: evict);
     }
     updateEntryDate();
@@ -116,7 +118,7 @@ class TimesliceOverviewComponent extends EntityOverview {
   createEntity({Entity newEnt, Map<String, dynamic> params: const{}}) async{
     if (!(this.selectedProject is Project)) return;
     Timeslice slice = new Timeslice();
-    List names = [ 'value'];
+    List names = ['value'];
     for (var name in names) {
       Setting settingForName;
       try {
@@ -135,9 +137,9 @@ class TimesliceOverviewComponent extends EntityOverview {
     }
     slice.Set('activity', this.selectedActivity);
     slice.Set('startedAt', this.newEntryDate);
-    slice.Set('user', this._employee);
+    slice.Set('employee', this._employee);
     slice.addFieldtoUpdate('activity');
-    slice.addFieldtoUpdate('user');
+    slice.addFieldtoUpdate('employee');
     slice.addFieldtoUpdate('startedAt');
     await super.createEntity(newEnt: slice);
     updateEntryDate();

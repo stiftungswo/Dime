@@ -10,6 +10,7 @@ namespace Dime\EmployeeBundle\Entity;
 
 use Carbon\Carbon;
 use Dime\TimetrackerBundle\Entity\Entity;
+use Dime\TimetrackerBundle\Entity\RateUnitType;
 use Dime\TimetrackerBundle\Entity\Timeslice;
 use Dime\TimetrackerBundle\Model\DimeEntityInterface;
 use Dime\EmployeeBundle\DependencyInjection\DimeEmployeeExtension;
@@ -76,7 +77,7 @@ class Period extends Entity implements DimeEntityInterface
 	{
 		if($this->pensum && $this->getStart() instanceof Carbon && $this->getEnd() instanceof Carbon) {
 			$weekdays = $this->getStart()->diffInWeekdays($this->getEnd()->addDay());
-			$seconds = $weekdays * 60 * 60 * 8.4;
+			$seconds = $weekdays * RateUnitType::$DayInSeconds;
 			$seconds -= $this->holidays;
 			return $seconds * $this->getPensum();
 		}
@@ -96,8 +97,7 @@ class Period extends Entity implements DimeEntityInterface
 			}
 			$weekdays = ($this->getStart()->diffInWeekdays($today->addDay()));
 			$realTime = $this->getRealTime();
-			$seconds = $weekdays * 60 * 60 * 8.4;
-			$seconds -= $this->holidays;
+			$seconds = $weekdays * RateUnitType::$DayInSeconds;
 			return $realTime - ($seconds * $this->getPensum());
 		}
 		return null;
@@ -115,9 +115,9 @@ class Period extends Entity implements DimeEntityInterface
 			$holidayEntitlement = $this->getEmployee()->getEmployeeholiday();
 			$weekdays = ($this->getStart()->diffInDays($this->getEnd()->addDay()));
 
-			$employeeholiday = number_format((float)((($holidayEntitlement/365)*($weekdays/365)*365*$pensum)*8.4), 2, '.', '');
+			$employeeholiday = number_format((float)((($holidayEntitlement / 365) * $weekdays * $pensum) * 8.4), 2, '.', '');
 
-			return $employeeholiday . "h";
+			return $employeeholiday . RateUnitType::$Hourly;
 		}
 
 		return null;
