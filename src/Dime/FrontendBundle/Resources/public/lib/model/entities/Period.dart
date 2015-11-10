@@ -47,6 +47,8 @@ class Period extends Entity {
           return this.timeTillToday;
         case 'employeeholiday':
           return this.employeeholiday;
+        case 'holidayBalance':
+          return this.holidayBalance;
         default:
           break;
       }
@@ -83,6 +85,9 @@ class Period extends Entity {
       case 'employeeholiday':
         this.employeeholiday = value;
         break;
+      case 'holidayBalance':
+        this.holidayBalance = value;
+        break;
       default:
         super.Set(property, value);
         break;
@@ -108,4 +113,6 @@ class Period extends Entity {
   int targetTime;
   int timeTillToday;
   int employeeholiday;
+  int holidayBalance;
+
 }

@@ -9,6 +9,7 @@ import 'package:DimeClient/service/status.dart';
 import 'package:DimeClient/service/user_auth.dart';
 import 'package:DimeClient/service/user_context.dart';
 import 'dart:html';
+import 'dart:convert';
 import 'package:intl/intl.dart';
 
 part 'activity_overview.dart';
