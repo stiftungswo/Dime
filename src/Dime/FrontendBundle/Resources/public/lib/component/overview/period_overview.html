@@ -7,8 +7,9 @@
         <th>Pensum</th>
         <th>Istzeit</th>
         <th>Sollzeit</th>
-        <th>Heute</th>
-        <th>Ferien</th>
+        <th>Saldo Heute</th>
+        <th>Ferien Saldo Total</th>
+        <th>Ferien Saldo</th>
         <th width="60">Aktion</th>
       </tr>
     </thead>
@@ -21,6 +22,7 @@
         <td>{{entity.targetTime | secondsToHours}}</td>
         <td>{{entity.timeTillToday | secondsToHours}}</td>
         <td>{{entity.employeeholiday}}</td>
+        <td>{{entity.holidayBalance | secondsToHours }}</td>
         <td><button type="button" class="btn btn-default" ng-click="deleteEntity(entity.id)"><i class="fa fa-fw fa-trash-o" style="color:red"></i></button></td>
       </tr>
     </tbody>

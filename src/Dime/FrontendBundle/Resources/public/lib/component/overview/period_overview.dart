@@ -38,6 +38,12 @@ class PeriodOverviewComponent extends EntityOverview implements ScopeAware {
 
   UserContext context;
 
+  List entities = [];
+
+  Map data;
+
+  List holidayBalances = [];
+
   set employee(Employee employee) {
     if (employee.id == null) {
       return;
@@ -50,8 +56,49 @@ class PeriodOverviewComponent extends EntityOverview implements ScopeAware {
 
   bool needsmanualAdd = true;
 
-  reload({Map<String, dynamic> params, bool evict: false}) {
-    super.reload(params: {'employee': _employee.id}, evict: evict);
+  reload({Map<String, dynamic> params, bool evict: false}) async {
+    this.entities = [];
+    this.holidayBalances = [];
+    List takenHolidays = [];
+    this.statusservice.setStatusToLoading();
+    try {
+      if (evict) {
+        this.store.evict(this.type);
+      }
+
+      this.entities = (await this.store.list(this.type, params: {'employee': _employee.id})).toList();
+
+      for (int i = 0; i < this.entities.length; i++) {
+        Period entity = this.entities.elementAt(i);
+        String dateparams = '&date=' +
+            new DateFormat('y-MM-dd').format(entity.start) +
+            ',' +
+            new DateFormat('y-MM-dd').format(entity.end) +
+            '&employee=' +
+            _employee.id.toString();
+
+        await HttpRequest.getString('/api/v1/periods/holidaybalance?_format=json' + dateparams).then((result) {
+          this.data = JSON.decode(result);
+          takenHolidays = data['takenHolidays'];
+
+          this.entities.elementAt(i).holidayBalance = (getHolidayBalance(takenHolidays));
+        });
+      }
+      this.statusservice.setStatusToSuccess();
+      this.rootScope.emit(this.type.toString() + 'Loaded');
+    } catch (e) {
+      print("Unable to load ${this.type.toString()} because ${e}");
+      this.statusservice.setStatusToError(e);
+    }
+  }
+
+  getHolidayBalance(List takenHolidays) {
+    double holidayBalance = 0;
+    for (final i in takenHolidays) {
+      holidayBalance += double.parse(i.values.elementAt(0));
+    }
+
+    return holidayBalance;
   }
 
   attach() {

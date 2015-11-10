@@ -7,6 +7,7 @@
 
 namespace Dime\EmployeeBundle\Entity;
 
+use Carbon\Carbon;
 use Dime\TimetrackerBundle\Entity\EntityRepository;
 use Dime\TimetrackerBundle\Entity\Timeslice;
 use Doctrine\ORM\QueryBuilder;
@@ -94,5 +95,28 @@ class PeriodRepository extends EntityRepository
     public function search($text, QueryBuilder $qb = null)
     {
         return $this;
+    }
+
+    public function findAllTakenHolidays($date, $employeeId)
+    {
+        if (isset($date)) {
+            $dates = explode(',', $date);
+            if (count($dates) == 2) {
+                $startDate = Carbon::createFromFormat('Y-m-d', $dates[0])->setTime(0, 0, 0);
+                $endDate = Carbon::createFromFormat('Y-m-d', $dates[1])->setTime(0, 0, 0)->addDay();
+            } else {
+                throw new HttpInvalidParamException('invalid date passed');
+            }
+        } else {
+            throw new HttpInvalidParamException('no date passed');
+        }
+
+        return $this->getEntityManager()
+            ->createQuery('select ts.value from DimeTimetrackerBundle:Timeslice ts
+							LEFT JOIN DimeTimetrackerBundle:Activity av WITH ts.activity = av.id
+							where (ts.user = :employeeid AND av.project=27) AND
+							(ts.startedAt >= :startdate AND ts.stoppedAt <= :enddate)')
+            ->setParameters(['employeeid' => $employeeId, 'startdate' => $startDate, 'enddate' => $endDate])
+            ->getResult();
     }
 }
