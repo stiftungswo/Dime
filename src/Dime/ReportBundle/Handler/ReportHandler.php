@@ -84,11 +84,11 @@ class ReportHandler extends AbstractHandler
         $this->repository->getCurrentQueryBuilder()
             ->Select('SUM('.$this->alias.'.value)')
             ->addSelect($this->alias.'.startedAt')
-            ->addSelect('IDENTITY('.$this->alias.'.user)')
+            ->addSelect('IDENTITY('.$this->alias.'.employee)')
             ->addSelect('IDENTITY('.$this->alias.'.activity)')
             ->leftJoin($this->alias.'.activity', 'act')
             ->andWhere('act.rateUnitType != :noChange')
-            ->groupBy($this->alias.'.user')
+            ->groupBy($this->alias.'.employee')
             ->addGroupBy($this->alias.'.startedAt')
             ->setParameter('noChange', 'a')
         ;
@@ -101,12 +101,12 @@ class ReportHandler extends AbstractHandler
                 ->setStartedAt($tmpResult['startedAt'])
                 ->setStandardUnit(RateUnitType::$Hourly)
                 ->setActivity($this->om->getRepository('DimeTimetrackerBundle:Activity')->find($tmpResult[3]));
-            //Works around an Issue Where User Id Of a Timeslice is NULL in DB.
-            //TODO Fix user_id NULL in Database. For now assume that NULL means Default User.
+            //Works around an Issue Where Employee Id Of a Timeslice is NULL in DB.
+            //TODO Fix employee_id NULL in Database. For now assume that NULL means Default Employee.
             if (isset($tmpResult[2])) {
-                $slice->setUser($this->om->getRepository('DimeEmployeeBundle:Employee')->find($tmpResult[2]));
+                $slice->setEmployee($this->om->getRepository('DimeEmployeeBundle:Employee')->find($tmpResult[2]));
             } else {
-                $slice->setUser($this->om->getRepository('DimeEmployeeBundle:Employee')->find(1));
+                $slice->setEmployee($this->om->getRepository('DimeEmployeeBundle:Employee')->find(1));
             }
             $result[] = $slice;
         }
@@ -287,7 +287,7 @@ class ReportHandler extends AbstractHandler
          * customer         Auftraggeber (Kunde)
          * date             Erstelldatum
          * year             Jahr (Aus Erstelldatum)
-         * user             Verantwortung (User)
+         * accountant       Verantwortung (Verantwortlicher Mitarbeiter)
          * aufwand          Aufwand (Erfasste Stunden die verrechnet werden können in CHF)
          * umsatz           Umsatz (Total bereits erstellte Rechnungen)
          * umsatz_erwartet  Erwarteter Umsatz (Total bereits erstellte Offerten)
@@ -309,7 +309,7 @@ class ReportHandler extends AbstractHandler
             $data['customer'] = ($project->getCustomer() != null ? $project->getCustomer()->getName() : '');
             $data['date'] = $project->getCreatedAt()->format('d.m.Y');
             $data['year'] = $project->getCreatedAt()->format('Y');
-            $data['user'] = ($project->getAccountant() != null ? $project->getAccountant()->getFullname() : '');
+            $data['accountant'] = ($project->getAccountant() != null ? $project->getAccountant()->getFullname() : '');
 
             // Total der erfassten Stunden
             $data['aufwand'] = ($project->calculateCurrentPrice() != null ? $project->calculateCurrentPrice()->getAmount()/10 : 0);
@@ -377,6 +377,7 @@ class ReportHandler extends AbstractHandler
             $row[] = escapeCSV($project['customer']);
             $row[] = escapeCSV($project['date']);
             $row[] = escapeCSV($project['year']);
+            $row[] = escapeCSV($project['accountant']);
             $row[] = escapeCSV($project['user']);
             $row[] = escapeCSV($project['aufwand']);
             $row[] = escapeCSV($project['umsatz']);
@@ -436,11 +437,11 @@ class ReportHandler extends AbstractHandler
         if ($timeslices) {
             /** @var $slice Timeslice */
             foreach ($timeslices as $slice) {
-                if ($slice->getUser()) {
-                    if (!isset($users[$slice->getUser()->getId()])) {
-                        $users[$slice->getUser()->getId()] = 0;
+                if ($slice->getEmployee()) {
+                    if (!isset($users[$slice->getEmployee()->getId()])) {
+                        $users[$slice->getEmployee()->getId()] = 0;
                     }
-                    $users[$slice->getUser()->getId()] += (int) $slice->getValue();
+                    $users[$slice->getEmployee()->getId()] += (int) $slice->getValue();
                     $total += (int) $slice->getValue();
                 }
             }

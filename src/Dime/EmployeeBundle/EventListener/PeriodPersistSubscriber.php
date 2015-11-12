@@ -57,7 +57,7 @@ class PeriodPersistSubscriber extends ContainerAware implements EventSubscriberI
             $entity
                 ->insertHolidays($holidaysHandler->all())
                 ->insertRealTime($timesliceHandler->all(array(
-                    'user' => $entity->getEmployee()->getId(),
+                    'employee' => $entity->getEmployee()->getId(),
                     'date' => array(
                         $entity->getStart()->toDateString(),
                         $entity->getEnd()->toDateString()
