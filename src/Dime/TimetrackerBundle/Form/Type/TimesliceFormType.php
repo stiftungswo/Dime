@@ -27,6 +27,7 @@ class TimesliceFormType extends AbstractType
             ->add('stoppedAt', 'datetime', array('required' => false, 'widget' => 'single_text', 'with_seconds' => true))
             ->add('activity', 'entity', array('class' => 'DimeTimetrackerBundle:Activity'))
             //Value must be set after activity because it depends on it.
+            ->add('employee', 'entity', array('class' => 'DimeEmployeeBundle:Employee'))
             ->add('value', 'text')
             ->add('tags', 'entity', array('class' => 'DimeTimetrackerBundle:Tag', 'multiple' => true, 'required'=>false))
             ->add('user', 'entity', array('class' => 'DimeTimetrackerBundle:User'))
