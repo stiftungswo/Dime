@@ -114,8 +114,7 @@ class Offer extends Entity implements DimeEntityInterface
 	/**
 	 * @var Money $fixedPrice
 	 *
-	 * @JMS\SerializedName("fixedPrice")
-	 * @JMS\Type(name="Money")
+	 * @JMS\Exclude()
 	 * @ORM\Column(name="fixed_price", type="money", nullable=true)
 	 */
 	protected $fixedPrice;
@@ -625,6 +624,19 @@ class Offer extends Entity implements DimeEntityInterface
 	public function getFixedPrice()
 	{
 		return $this->fixedPrice;
+	}
+
+	/**
+	 * @JMS\VirtualProperty()
+	 * @JMS\SerializedName("fixedPrice")
+	 * @return string
+	 */
+	public function serializeFixedPrice() {
+		if($this->fixedPrice != null && !$this->fixedPrice->isZero()) {
+			return $this->fixedPrice->format();
+		} else {
+			return null;
+		}
 	}
 
 	/**

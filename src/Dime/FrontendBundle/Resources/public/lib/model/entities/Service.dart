@@ -65,7 +65,6 @@ class Service extends Entity {
 
   cloneDescendants(Service original) {
     for (Rate entity in original.rates) {
-      window.console.log(entity);
       Rate clone = new Rate.clone(entity);
       clone.service = this;
       this._descendantsToUpdate.add(clone);

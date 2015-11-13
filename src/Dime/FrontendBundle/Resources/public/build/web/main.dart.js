@@ -50724,13 +50724,9 @@
         }
       },
       cloneDescendants$1: function(original) {
-        var t1, t2, t3, _i, entity, clone;
+        var t1, t2, t3, _i, clone;
         for (t1 = original.get$rates(), t2 = t1.length, t3 = this._descendantsToUpdate, _i = 0; _i < t1.length; t1.length === t2 || (0, H.throwConcurrentModificationError)(t1), ++_i) {
-          entity = t1[_i];
-          window;
-          if (typeof console != "undefined")
-            console.log(entity);
-          clone = D.Rate$clone(entity);
+          clone = D.Rate$clone(t1[_i]);
           clone.service = this;
           t3.push(clone);
         }
