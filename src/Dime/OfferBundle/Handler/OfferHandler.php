@@ -28,8 +28,13 @@ class OfferHandler extends GenericHandler
         $project->setName($offer->getName());
         $project->setChargeable(true);
         $project->setRateGroup($offer->getRateGroup());
-        $project->setBudgetPrice($offer->getSubtotal());
         $project->setDescription($offer->getShortDescription());
+        if ($offer->getFixedPrice()->isZero()) {
+            $project->setBudgetPrice($offer->getSubtotal());
+        } else {
+            $project->setBudgetPrice($offer->getFixedPrice());
+            $project->setFixedPrice($offer->getFixedPrice());
+        }
         $budgetTime = 0;
         foreach ($offer->getOfferPositions() as $offerPosition) {
             //calculate budget
@@ -47,7 +52,6 @@ class OfferHandler extends GenericHandler
             $project->addActivity($activity);
         }
         $project->setBudgetTime($budgetTime);
-        $project->setFixedPrice($offer->getFixedPrice());
         $project->setAccountant($offer->getAccountant());
         $this->om->persist($project);
 
