@@ -19,6 +19,7 @@ class InvoiceFormType extends AbstractType
             ->add('name')
             ->add('description')
             ->add('alias')
+            ->add('fixedPrice', 'tbbc_simple_money')
             ->add('customer', 'entity', array('class' => 'Dime\TimetrackerBundle\Entity\Customer'))
             ->add('start', 'datetime', array('required' => false, 'widget' => 'single_text', 'with_seconds' => true))
             ->add('end', 'datetime', array('required' => false, 'widget' => 'single_text', 'with_seconds' => true))
