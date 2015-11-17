@@ -95,8 +95,7 @@ class Project extends Entity implements DimeEntityInterface
 	/**
 	 * @var Money $fixedPrice
 	 *
-	 * @JMS\SerializedName("fixedPrice")
-	 * @JMS\Type(name="Money")
+	 * @JMS\Exclude
 	 * @ORM\Column(name="fixed_price", type="money", length=255, nullable=true)
 	 */
 	protected $fixedPrice;
@@ -257,7 +256,7 @@ class Project extends Entity implements DimeEntityInterface
 	 */
 	public function serializeBudgetPrice()
 	{
-		if($this->budgetPrice != null) {
+		if($this->budgetPrice != null && !$this->budgetPrice->isZero()) {
 			return $this->budgetPrice->format(true);
 		} else {
 			return null;
@@ -498,6 +497,7 @@ class Project extends Entity implements DimeEntityInterface
 	public function setFixedPrice($fixedPrice)
 	{
 		$this->fixedPrice = $fixedPrice;
+		$this->budgetPrice = $fixedPrice;
 		return $this;
 	}
 
@@ -509,6 +509,19 @@ class Project extends Entity implements DimeEntityInterface
 	public function getFixedPrice()
 	{
 		return $this->fixedPrice;
+	}
+
+	/**
+	 * @JMS\VirtualProperty()
+	 * @JMS\SerializedName("fixedPrice")
+	 * @return string
+	 */
+	public function serializeFixedPrice() {
+		if($this->fixedPrice != null && !$this->fixedPrice->isZero()) {
+			return $this->fixedPrice->format();
+		} else {
+			return null;
+		}
 	}
 
 	/**
