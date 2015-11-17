@@ -35,6 +35,7 @@ class AppModule extends Module {
     bind(AppComponent);
     bind(MenuComponent);
     bind(TabSetComponent);
+    bind(SettingAssignProjectOverviewComponent);
     bind(ProjectCategoryOverviewComponent);
     bind(ProjectCategorySelectComponent);
     bind(ProjectOverviewComponent);

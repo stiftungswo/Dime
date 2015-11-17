@@ -54,6 +54,11 @@ services:
         class: %generic_handler%
         arguments: [ "@doctrine.orm.entity_manager", "Dime\TimetrackerBundle\Entity\\ProjectCategory",  "@service_container", "pc", "dime_timetrackerbundle_projectcategoryformtype"]
 
+    dime.settingassignproject.handler:
+        class: %generic_handler%
+        arguments: [ "@doctrine.orm.entity_manager", "Dime\TimetrackerBundle\Entity\SettingAssignProject",  "@service_container", "pc", "dime_timetrackerbundle_settingassignprojectformtype"]
+
+
     rate.alice.processor:
         class: Dime\TimetrackerBundle\DataFixtures\Alice\RateProcessor
         tags:

@@ -226,6 +226,16 @@ HammockConfig createHammockConfig(Injector inj) {
           if (r.content is String) return new ProjectCategory();
           return new ProjectCategory.fromMap(r.content);
         }
+      },
+      "settingassignprojects": {
+        "type": SettingAssignProject,
+        "serializer": (SettingAssignProject ent) {
+          return ent.toResource();
+        },
+        "deserializer": (Resource r) {
+          if (r.content is String) return new SettingAssignProject();
+          return new SettingAssignProject.fromMap(r.content);
+        }
       }
     })
     ..urlRewriter.baseUrl = '/api/v1';

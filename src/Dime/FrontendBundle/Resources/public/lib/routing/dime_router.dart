@@ -31,5 +31,7 @@ void dimeRouteInitializer(Router router, RouteViewFactory views) {
     'projectCategory_overview':
         ngRoute(path: '/projectCategories/overview', viewHtml: '<projectCategory-overview></projectCategory-overview>'),
     'projectCategory_edit': ngRoute(path: '/projectCategories/edit/:id', viewHtml: '<projectCategory-edit></projectCategory-edit>'),
+    'settingAssignProject_overview':
+        ngRoute(path: '/settingAssignProjects/overview', viewHtml: '<settingAssignProject-overview></settingAssignProject-overview>'),
   });
 }

@@ -15,6 +15,7 @@ import 'dart:math';
 
 part 'activity_overview.dart';
 part 'customer_overview.dart';
+part 'settingAssignProject_overview.dart';
 part 'employee_overview.dart';
 part 'holiday_overview.dart';
 part 'invoice_overview.dart';

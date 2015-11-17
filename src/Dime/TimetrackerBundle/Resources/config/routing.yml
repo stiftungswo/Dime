@@ -89,3 +89,9 @@ projectcategories:
     name_prefix:  api_1_
     defaults: { _format: json }
 
+settingassignprojects:
+    type:     rest
+    resource: Dime\TimetrackerBundle\Controller\SettingAssignProjectController
+    prefix:   /v1
+    name_prefix:  api_1_
+    defaults: { _format: json }

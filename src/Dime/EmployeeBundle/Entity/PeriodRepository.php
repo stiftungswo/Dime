@@ -97,6 +97,14 @@ class PeriodRepository extends EntityRepository
         return $this;
     }
 
+    /**
+     * Find all taken holiday from an employee.
+     *
+     * @param $date
+     * @param $employeeId
+     * @return mixed
+     * @throws HttpInvalidParamException
+     */
     public function findAllTakenHolidays($date, $employeeId)
     {
         if (isset($date)) {
@@ -111,12 +119,16 @@ class PeriodRepository extends EntityRepository
             throw new HttpInvalidParamException('no date passed');
         }
 
+        $vacationProjectId = $this->getEntityManager()
+            ->createQuery('SELECT sap FROM DimeTimetrackerBundle:SettingAssignProject sap where sap.id = 1')
+            ->getResult();
+
         return $this->getEntityManager()
             ->createQuery('select ts.value from DimeTimetrackerBundle:Timeslice ts
 							LEFT JOIN DimeTimetrackerBundle:Activity av WITH ts.activity = av.id
-							where (ts.user = :employeeid AND av.project=27) AND
+							where (ts.employee = :employeeid AND av.project = :projectid) AND
 							(ts.startedAt >= :startdate AND ts.stoppedAt <= :enddate)')
-            ->setParameters(['employeeid' => $employeeId, 'startdate' => $startDate, 'enddate' => $endDate])
+            ->setParameters(['employeeid' => $employeeId, 'startdate' => $startDate, 'enddate' => $endDate, 'projectid' => (string)$vacationProjectId[0]->getProject()->getId()])
             ->getResult();
     }
 }
