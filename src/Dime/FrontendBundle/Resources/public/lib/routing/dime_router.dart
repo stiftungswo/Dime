@@ -109,5 +109,9 @@ void dimeRouteInitializer(Router router, RouteViewFactory views) {
         path: '/projectCategories/edit/:id',
         viewHtml: '<projectCategory-edit></projectCategory-edit>'
     ),
+    'settingAssignProject_overview': ngRoute(
+        path: '/settingAssignProjects/overview',
+        viewHtml: '<settingAssignProject-overview></settingAssignProject-overview>'
+    ),
   });
 }

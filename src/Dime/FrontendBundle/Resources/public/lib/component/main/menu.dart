@@ -50,7 +50,10 @@ class MenuComponent implements ScopeAware {
       new Menu('Tarif Gruppen', '/rateGroups/overview'),
       new Menu('Tarif Typen', '/rateUnitTypes/overview'),
       new Menu('Feiertage', '/holidays/overview'),
-      new Menu('Tätigkeitsbereiche', '/projectCategories/overview'),
+      new Menu('Tätigkeitsbereiche', '/projectCategories/overview')
+    ]),
+    new Menu.withItems('Einstellungen', 'fa-cog', [
+      new Menu('Projekte Zuweisen', '/settingAssignProjects/overview'),
       ]),
     ];
 
