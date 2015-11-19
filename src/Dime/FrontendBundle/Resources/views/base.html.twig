@@ -38,7 +38,7 @@
     <link href="{{ asset('bundles/dimefrontend/web/vendor/admin-lte/dist/css/skins/skin-blue.min.css')}}" rel="stylesheet" type="text/css" />
 
     <!-- App CSS -->
-    <link rel="stylesheet" href="{{ asset('bundles/dimefrontend/web/styles/main.css') }}">
+    <link rel="stylesheet" href="{{ asset('bundles/dimefrontend/web/styles/main.css?nocache=' ~ date().timestamp) }}">
 </head>
 
 <body ng-cloak class="skin-blue sidebar-mini">
@@ -51,11 +51,11 @@
 
     <!-- required scripts for DimeERP (Dart or JS files) -->
     {% if dime_release_mode == "true" %}
-        <script type="text/javascript" src="{{ asset('bundles/dimefrontend/build/web/main.dart.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('bundles/dimefrontend/build/web/packages/browser/dart.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/dimefrontend/build/web/main.dart.js?nocache=' ~ date().timestamp) }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/dimefrontend/build/web/packages/browser/dart.js?nocache=' ~ date().timestamp) }}"></script>
     {% else %}
-        <script type="application/dart" src="{{ asset('bundles/dimefrontend/web/main.dart') }}"></script>
-        <script type="text/javascript" src="{{ asset('bundles/dimefrontend/web/packages/browser/dart.js') }}"></script>
+        <script type="application/dart" src="{{ asset('bundles/dimefrontend/web/main.dart?nocache=' ~ date().timestamp) }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/dimefrontend/web/packages/browser/dart.js?nocache=' ~ date().timestamp) }}"></script>
     {% endif %}
 </body>
 </html>
