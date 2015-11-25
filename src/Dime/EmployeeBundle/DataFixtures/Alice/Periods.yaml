@@ -1,0 +1,15 @@
+Dime\EmployeeBundle\Entity\Period:
+    period1:
+        user: @user*
+        employee: @employee1
+        start: <dateTimeBetween('-200 days', 'now')>
+        end: <dateTimeBetween('now', '+ 200 days')>
+        realTime: <randomNumber()>
+        pensum: 1
+    period{2..300}:
+        user: @user*
+        employee: @employee*
+        start: <dateTimeBetween('-1 years', '+ 10 days')>
+        end: <dateTimeBetween('+ 11 days', '+ 1 years')>
+        realTime: <randomNumber()>
+        pensum: <randomFloat(1, 0, 1)>

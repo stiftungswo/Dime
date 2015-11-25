@@ -1,13 +1,42 @@
 Dime\TimetrackerBundle\Entity\Project:
     project1:
-        name: Büro
         customer: @customer1
-        description: Eine Beschreibung zum Büro Projekt
+        rateGroup: @rateGroup1
+        projectCategory: @categoryProject1
+        accountant: @employee1
         user: @user1
+        name: Büro
+        alias: project-1
+        startedAt: <dateTimeBetween('-2 years', '-200 days')>
+        stoppedAt: <dateTimeBetween('-199 days', 'now')>
+        description: Eine Beschreibung zum Büro Projekt
         chargeable: true
-    project{2..10}:
-        name: Test Project <current()>
+    project{2..25}:
         customer: @customer*
-        description: <text(255)>
+        rateGroup: @rateGroup*
+        projectCategory: @categoryProject*
+        accountant: @employee*
         user: @user*
-        chargeable: true
+        name: Test Project <current()>
+        alias: test-project-<current()>
+        startedAt: <dateTimeBetween('-2 years', '-200 days')>
+        stoppedAt: <dateTimeBetween('-199 days', 'now')>
+        deadline: 25%? <dateTimeBetween('-50 days', 'now')>
+        description: <text(255)>
+        fixedPrice: <randomNumber(5)>
+        chargeable: <boolean(90)>
+    project{26..100}:
+        customer: @customer*
+        rateGroup: @rateGroup*
+        projectCategory: @categoryProject*
+        accountant: @employee*
+        user: @user*
+        name: Test Project <current()>
+        alias: test-project-<current()>
+        startedAt: <dateTimeBetween('-2 years', '-200 days')>
+        stoppedAt: <dateTimeBetween('-199 days', 'now')>
+        deadline: 25%? <dateTimeBetween('-50 days', 'now')>
+        description: <text(255)>
+        budgetTime: <randomNumber(3)>
+        budgetPrice: <randomNumber(6)>
+        chargeable: <boolean(90)>

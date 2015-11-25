@@ -1,6 +1,9 @@
 Dime\TimetrackerBundle\Entity\RateGroup:
-    rateGroupDefault:
-        id: 1
+    rateGroup1:
         user: @userAdmin
-        name: Default
-        description: Each service has a rate of the default rate group i.e. this one.
+        name: Kanton
+        description: Tarifgruppe für kantonale Einsätze
+    rateGroup2:
+        user: @user*
+        name: Gemeinde und Private
+        description: Tarifgruppe für die restlichen Einsätze
