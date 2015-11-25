@@ -1,0 +1,46 @@
+Dime\InvoiceBundle\Entity\InvoiceItem:
+    itemInvoice1:
+        invoice: @invoice1
+        user: @user1
+        name: Zivi (Tagespauschale)
+        amount: <randomNumber(2)>
+        rateValue: <randomNumber(3)>
+        rateUnit: CHF/h
+        vat: 0.08
+        activity: @activity1
+    itemInvoiceHour{1..100}:
+        invoice: @invoice*
+        user: @user*
+        name: <word()>
+        amount: <randomNumber(2)>
+        rateValue: <randomNumber(3)>
+        rateUnit: CHF/h
+        vat: <randomElement(array (0.025, 0.08))>
+        activity: @activityHour*
+    itemInvoiceDay{1..100}:
+        invoice: @invoice*
+        user: @user*
+        name: <word()>
+        amount: <randomNumber(2)>
+        rateValue: <randomNumber(3)>
+        rateUnit: CHF/h
+        vat: <randomElement(array (0.025, 0.08))>
+        activity: @activityDay*
+    itemInvoiceNone{1..100}:
+        invoice: @invoice*
+        user: @user*
+        name: <word()>
+        amount: <randomNumber(2)>
+        rateValue: <randomNumber(3)>
+        rateUnit: CHF/h
+        vat: <randomElement(array (0.025, 0.08))>
+        activity: @activityNone*
+    itemInvoicePauschal{1..100}:
+        invoice: @invoice*
+        user: @user*
+        name: <word()>
+        amount: <randomNumber(2)>
+        rateValue: <randomNumber(3)>
+        rateUnit: CHF/h
+        vat: <randomElement(array (0.025, 0.08))>
+        activity: @activityPauschal*
