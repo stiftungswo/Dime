@@ -4,27 +4,35 @@ packages:
   analyzer:
     description: analyzer
     source: hosted
-    version: "0.24.6"
+    version: "0.26.2+1"
   angular:
     description: angular
     source: hosted
-    version: "1.1.2"
+    version: "1.1.2+2"
   angular_ui:
     description: angular_ui
     source: hosted
-    version: "0.6.8"
+    version: "0.6.11"
   args:
     description: args
     source: hosted
     version: "0.12.2+6"
+  async:
+    description: async
+    source: hosted
+    version: "1.4.0"
   barback:
     description: barback
     source: hosted
-    version: "0.15.2+6"
+    version: "0.15.2+7"
   browser:
     description: browser
     source: hosted
     version: "0.10.0+2"
+  charcode:
+    description: charcode
+    source: hosted
+    version: "1.1.0"
   cli_util:
     description: cli_util
     source: hosted
@@ -32,23 +40,27 @@ packages:
   code_transformers:
     description: code_transformers
     source: hosted
-    version: "0.2.9"
+    version: "0.2.9+4"
   collection:
     description: collection
     source: hosted
-    version: "1.1.1"
+    version: "1.1.3"
   crypto:
     description: crypto
     source: hosted
-    version: "0.9.0"
+    version: "0.9.1"
   csslib:
     description: csslib
     source: hosted
-    version: "0.12.1"
+    version: "0.12.2"
   di:
     description: di
     source: hosted
-    version: "3.3.4"
+    version: "3.3.5+1"
+  glob:
+    description: glob
+    source: hosted
+    version: "1.0.5"
   hammock:
     description:
       ref: master
@@ -66,7 +78,7 @@ packages:
   html:
     description: html
     source: hosted
-    version: "0.12.1+2"
+    version: "0.12.2"
   html5lib:
     description: html5lib
     source: hosted
@@ -78,7 +90,7 @@ packages:
   logging:
     description: logging
     source: hosted
-    version: "0.11.1"
+    version: "0.11.2"
   meta:
     description: meta
     source: hosted
@@ -86,7 +98,11 @@ packages:
   observe:
     description: observe
     source: hosted
-    version: "0.13.1+1"
+    version: "0.13.1+2"
+  package_config:
+    description: package_config
+    source: hosted
+    version: "0.1.3"
   path:
     description: path
     source: hosted
@@ -95,10 +111,14 @@ packages:
     description: perf_api
     source: hosted
     version: "0.0.9"
+  plugin:
+    description: plugin
+    source: hosted
+    version: "0.1.0"
   pool:
     description: pool
     source: hosted
-    version: "1.1.0"
+    version: "1.2.1"
   route_hierarchical:
     description: route_hierarchical
     source: hosted
@@ -114,7 +134,7 @@ packages:
   smoke:
     description: smoke
     source: hosted
-    version: "0.3.4"
+    version: "0.3.5"
   source_maps:
     description: source_maps
     source: hosted
@@ -122,11 +142,15 @@ packages:
   source_span:
     description: source_span
     source: hosted
-    version: "1.1.2"
+    version: "1.2.1"
   stack_trace:
     description: stack_trace
     source: hosted
-    version: "1.3.4"
+    version: "1.5.0"
+  string_scanner:
+    description: string_scanner
+    source: hosted
+    version: "0.1.4"
   utf:
     description: utf
     source: hosted
@@ -143,3 +167,7 @@ packages:
     description: which
     source: hosted
     version: "0.1.3"
+  yaml:
+    description: yaml
+    source: hosted
+    version: "2.1.7"
