@@ -7,6 +7,7 @@ Dime\TimetrackerBundle\Entity\RateUnitType:
         factor: 3600
         scale: 2
         roundMode: 1
+        symbol: h
     rateUnitType_t:
         id: t
         user: @user*
@@ -16,6 +17,15 @@ Dime\TimetrackerBundle\Entity\RateUnitType:
         scale: 2
         roundMode: 1
         symbol: d
+    rateUnitType_zt:
+        id: zt
+        user: @user*
+        name: Zivitage
+        doTransform: true
+        factor: 30240
+        scale: 2
+        roundMode: 1
+        symbol: zt
     rateUnitType_m:
         id: m
         user: @user*
@@ -24,6 +34,7 @@ Dime\TimetrackerBundle\Entity\RateUnitType:
         factor: 60
         scale: 2
         roundMode: 1
+        symbol: m
     rateUnitType_a:
         id: a
         user: @user*
@@ -32,3 +43,4 @@ Dime\TimetrackerBundle\Entity\RateUnitType:
         factor: 1
         scale: 3
         roundMode: 1
+        symbol: a

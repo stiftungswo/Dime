@@ -99,16 +99,16 @@ class TimesliceRepository extends EntityRepository
     }
 
     /**
-     * Scope by user.
+     * Scope by employee.
      *
      * @param
-     *            $user
+     *            $employee
      * @param \Doctrine\ORM\QueryBuilder $qb
      *
      * @return TimesliceRepository
      *
      */
-    public function scopeByUser($user, QueryBuilder $qb = null)
+    public function scopeByEmployee($employee, QueryBuilder $qb = null)
     {
         if ($qb == null) {
             $qb = $this->builder;
@@ -119,8 +119,8 @@ class TimesliceRepository extends EntityRepository
             $qb->leftJoin($alias . '.activity', 'a');
         }
         $qb->andWhere($qb->expr()
-            ->eq("a.user", ":user"));
-        $qb->setParameter(":user", $user);
+            ->eq("a.employee", ":employee"));
+        $qb->setParameter(":employee", $employee);
         return $this;
     }
 

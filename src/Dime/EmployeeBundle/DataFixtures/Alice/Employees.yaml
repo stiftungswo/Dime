@@ -1,14 +1,14 @@
 Dime\EmployeeBundle\Entity\Employee:
-    userAdmin:
-        username: admin
-        plainpassword: admin
+    employee1:
+        username: <username()>
+        plainpassword: <password()>
         firstname: Default
         lastname: User
-        email: admin@<safeEmailDomain()>
+        email: employee1@<safeEmailDomain()>
         role: ['ROLE_SUPER_ADMIN']
         enabled: true
         employeeHoliday: 20
-    user{1..5}:
+    employee{2..50}:
         username (unique): <username()>
         plainpassword: <password()>
         firstname (unique): <firstName()>

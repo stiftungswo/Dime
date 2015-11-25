@@ -4,12 +4,12 @@ class Timeslice extends Entity {
   Timeslice();
 
   Timeslice.clone(Timeslice original) : super.clone(original) {
-    this.user = original.user;
+    this.employee = original.employee;
     this.value = original.value;
     this.startedAt = original.startedAt;
     this.stoppedAt = original.stoppedAt;
     this.activity = original.activity;
-    addFieldstoUpdate(['user', 'value', 'startedAt', 'stoppedAt', 'activity']);
+    addFieldstoUpdate(['employee', 'value', 'startedAt', 'stoppedAt', 'activity']);
   }
 
   Timeslice.fromMap(Map<String, dynamic> map) : super.fromMap(map);
@@ -32,6 +32,8 @@ class Timeslice extends Entity {
           return this.activity;
         case 'project':
           return this.project;
+        case 'employee':
+          return this.employee;
         default:
           break;
       }
@@ -56,6 +58,9 @@ class Timeslice extends Entity {
       case 'project':
         this.project = value is Entity ? value : new Project.fromMap(value);
         break;
+      case 'employee':
+        this.employee = value is Entity ? value : new Employee.fromMap(value);
+        break;
       default:
         super.Set(property, value);
         break;
@@ -77,4 +82,5 @@ class Timeslice extends Entity {
   DateTime stoppedAt;
   Activity activity;
   Project project;
+  Employee employee;
 }

@@ -114,8 +114,7 @@ class Offer extends Entity implements DimeEntityInterface
     /**
      * @var Money $fixedPrice
      *
-     * @JMS\SerializedName("fixedPrice")
-     * @JMS\Type(name="Money")
+     * @JMS\Exclude()
      * @ORM\Column(name="fixed_price", type="money", nullable=true)
      */
     protected $fixedPrice;
@@ -489,6 +488,7 @@ class Offer extends Entity implements DimeEntityInterface
     public function addOfferDiscount(OfferDiscount $offerDiscount)
     {
         $this->offerDiscounts[] = $offerDiscount;
+        $offerDiscount->setOffer($this);
 
         return $this;
     }
@@ -502,6 +502,7 @@ class Offer extends Entity implements DimeEntityInterface
     public function removeOfferDiscount(OfferDiscount $offerDiscounts)
     {
         $this->offerDiscounts->removeElement($offerDiscounts);
+        $offerDiscounts->setOffer(null);
     }
 
     /**
@@ -607,26 +608,36 @@ class Offer extends Entity implements DimeEntityInterface
     }
 
     /**
-     * Set fixedPrice
-     *
-     * @param  Money $fixedPrice
-     * @return Offer
-     */
-    public function setFixedPrice(Money $fixedPrice)
-    {
-        $this->fixedPrice = $fixedPrice;
-
-        return $this;
-    }
-
-    /**
-     * Get fixedPrice
-     *
      * @return Money
      */
     public function getFixedPrice()
     {
         return $this->fixedPrice;
+    }
+
+    /**
+     * @param Money $fixedPrice
+     *
+     * @return $this
+     */
+    public function setFixedPrice($fixedPrice)
+    {
+        $this->fixedPrice = $fixedPrice;
+        return $this;
+    }
+
+    /**
+     * @JMS\VirtualProperty()
+     * @JMS\SerializedName("fixedPrice")
+     * @return string
+     */
+    public function serializeFixedPrice()
+    {
+        if ($this->fixedPrice != null && !$this->fixedPrice->isZero()) {
+            return $this->fixedPrice->format();
+        } else {
+            return null;
+        }
     }
 
     /**

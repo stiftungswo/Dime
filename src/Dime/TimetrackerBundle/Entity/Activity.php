@@ -46,6 +46,7 @@ class Activity extends Entity implements DimeEntityInterface
      * @JMS\Type("array")
      * @JMS\Exclude()
      * @JMS\SerializedName("timeslices")
+     * @JMS\MaxDepth(1)
      * @ORM\OneToMany(targetEntity="Timeslice", mappedBy="activity", cascade="persist")
      */
     protected $timeslices;
