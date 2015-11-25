@@ -35,7 +35,7 @@ class UsersControllerTest extends DimeTestCase
 
         // assert that data has content
         $this->assertTrue(count($data) > 0, 'expected to find users found '.$response->getContent().' with Responce Code: '.$response->getStatusCode());
-        $this->assertEquals($data[0]['firstname'], 'Default', 'expected to find "Default" first');
+        $this->assertEquals('Default', $data[0]['firstname'], 'expected to find "Default" first');
     }
 
     public function testGetUserAction()
@@ -52,7 +52,7 @@ class UsersControllerTest extends DimeTestCase
 
         // assert that data has content
         $this->assertTrue(count($data) > 0, 'expected to find users found '.$response->getContent().' with Responce Code: '.$response->getStatusCode());
-        $this->assertEquals($data['firstname'], 'Default', 'expected to find "Default"');
+        $this->assertEquals('Default', $data['firstname'], 'expected to find "Default"');
     }
 
     public function testPostPutDeleteUserActions()
@@ -91,8 +91,8 @@ class UsersControllerTest extends DimeTestCase
         $data = json_decode($response->getContent(), true);
 
         // assert that data has content
-        $this->assertEquals($data['firstname'], $this->postarray['firstname'], 'expected to find '.$this->postarray['firstname']);
-        $this->assertEquals($data['email'], $this->postarray['email'], 'expected to find '.$this->postarray['email']);
+        $this->assertEquals($this->postarray['firstname'], $data['firstname'], 'expected to find '.$this->postarray['firstname']);
+        $this->assertEquals($this->postarray['email'], $data['email'], 'expected to find '.$this->postarray['email']);
 
         /* modify service */
         $response = $this->jsonRequest('PUT', $this->api_prefix.'/users/' . $id, json_encode($this->putarray));
@@ -109,8 +109,8 @@ class UsersControllerTest extends DimeTestCase
         $data = json_decode($response->getContent(), true);
 
         // assert that data has content
-        $this->assertEquals($data['firstname'], $this->putarray['firstname'], 'expected to find '.$this->putarray['firstname']);
-        $this->assertEquals($data['email'], $this->putarray['email'], 'expected to find '.$this->putarray['email']);
+        $this->assertEquals($this->putarray['firstname'], $data['firstname'], 'expected to find '.$this->putarray['firstname']);
+        $this->assertEquals($this->putarray['email'], $data['email'], 'expected to find '.$this->putarray['email']);
 
         /* delete service */
         $response = $this->jsonRequest('DELETE', $this->api_prefix.'/users/' . $id);

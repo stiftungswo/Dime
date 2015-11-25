@@ -65,14 +65,6 @@ class InvoiceItem extends Entity implements DimeEntityInterface
 	protected $amount;
 
 	/**
-	 * @var Money
-	 * @JMS\Type(name="Money")
-	 * @JMS\AccessType(type="public_method")
-	 * @ORM\Column(name="total", type="money", nullable=true)
-	 */
-	protected $total;
-
-	/**
 	 * @var Activity
 	 * @ORM\ManyToOne(targetEntity="Dime\TimetrackerBundle\Entity\Activity", )
 	 */
@@ -90,7 +82,6 @@ class InvoiceItem extends Entity implements DimeEntityInterface
 		$this->amount = $activity->getValue();
 		$this->rateUnit     = $activity->getRateUnit();
 		$this->vat          = $activity->getVat();
-		$this->total        = $activity->getCharge();
 		$this->activity     = $activity;
 		return $this;
 	}
@@ -109,7 +100,14 @@ class InvoiceItem extends Entity implements DimeEntityInterface
 			return null;
 	}
 
-	public function getcalculatedTotal(){
+	/**
+	 * @JMS\VirtualProperty()
+	 * @JMS\SerializedName("total")
+	 * @JMS\Type(name="Money")
+	 * @return Money
+	 */
+	public function getTotal()
+	{
 		$total = $this->getRateValue();
 		if($total === null)
 			return null;
@@ -123,28 +121,6 @@ class InvoiceItem extends Entity implements DimeEntityInterface
 			$total = $total->add($vat);
 		}
 		return $total;
-	}
-
-	/**
-	 * @return Money
-	 */
-	public function getTotal()
-	{
-		if($this->total) {
-			return $this->total;
-		}
-		return $this->getcalculatedTotal();
-	}
-
-	/**
-	 * @param Money $total
-	 *
-	 * @return $this
-	 */
-	public function setTotal($total)
-	{
-		$this->total = $total;
-		return $this;
 	}
 
 	/**
@@ -182,7 +158,6 @@ class InvoiceItem extends Entity implements DimeEntityInterface
 	public function setRateUnit($rateUnit)
 	{
 		$this->rateUnit = $rateUnit;
-		$this->total = $this->getcalculatedTotal();
 		return $this;
 	}
 
@@ -202,7 +177,6 @@ class InvoiceItem extends Entity implements DimeEntityInterface
 	public function setRateValue($rateValue)
 	{
 		$this->rateValue = $rateValue;
-		$this->total = $this->getcalculatedTotal();
 		return $this;
 	}
 
@@ -241,7 +215,6 @@ class InvoiceItem extends Entity implements DimeEntityInterface
 	public function setAmount($amount)
 	{
 		$this->amount = $amount;
-		$this->total = $this->getcalculatedTotal();
 		return $this;
 	}
 
@@ -261,7 +234,6 @@ class InvoiceItem extends Entity implements DimeEntityInterface
 	public function setVat($vat)
 	{
 		$this->vat = $vat;
-		$this->total = $this->getcalculatedTotal();
 		return $this;
 	}
 

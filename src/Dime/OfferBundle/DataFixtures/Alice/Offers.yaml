@@ -5,19 +5,21 @@ Dime\OfferBundle\Entity\Offer:
         status: @offerStatus*
         customer: @customer*
         accountant: @user*
-        rateGroup: @rateGroupDefault
+        rateGroup: @rateGroup1
         shortDescription:  This is a default offer
         description: This is a longer description with more details
         user: @user*
         offerDiscounts: <numberBetween(1, 2)>x @offerDiscount*
-    offer{2..10}:
+    offer{2..100}:
+        project: 75%? @project*
         name: <sentence(2)>
         validTo: <dateTimeBetween('-200 days','now')>
         status: @offerStatus*
         customer: @customer*
         accountant: @user*
-        rateGroup: @rateGroupDefault
+        rateGroup: @rateGroup*
         shortDescription:  <text(255)>
         description: <text(700)>
         user: @user*
+        fixedPrice: 25%? <randomNumber(5)>
         offerDiscounts: <numberBetween(1, 2)>x @offerDiscount*
