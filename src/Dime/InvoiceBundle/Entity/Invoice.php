@@ -113,8 +113,7 @@ class Invoice extends Entity implements DimeEntityInterface
 
 	/**
 	 * @var Money
-	 * @JMS\SerializedName("fixedPrice")
-	 * @JMS\Type(name="Money")
+	 * @JMS\Exclude()
 	 * @ORM\Column(name="fixed_price", type="money", nullable=true)
 	 */
 	protected $fixedPrice;
@@ -286,10 +285,20 @@ class Invoice extends Entity implements DimeEntityInterface
 	 *
 	 * @return $this
 	 */
-	public function addInvoiceDiscounts(InvoiceDiscount $invoiceDiscount)
+	public function addInvoiceDiscount(InvoiceDiscount $invoiceDiscount)
 	{
 		$this->invoiceDiscounts[] = $invoiceDiscount;
+		$invoiceDiscount->setInvoice($this);
 		return $this;
+	}
+
+	/**
+	 * @param InvoiceDiscount $invoiceDiscount
+	 */
+	public function removeInvoiceDiscount(InvoiceDiscount $invoiceDiscount)
+	{
+		$this->invoiceDiscounts->removeElement($invoiceDiscount);
+		$invoiceDiscount->setInvoice(null);
 	}
 
 	/**
@@ -467,6 +476,19 @@ class Invoice extends Entity implements DimeEntityInterface
 	{
 		$this->fixedPrice = $fixedPrice;
 		return $this;
+	}
+
+	/**
+	 * @JMS\VirtualProperty()
+	 * @JMS\SerializedName("fixedPrice")
+	 * @return string
+	 */
+	public function serializeFixedPrice() {
+		if($this->fixedPrice != null && !$this->fixedPrice->isZero()) {
+			return $this->fixedPrice->format();
+		} else {
+			return null;
+		}
 	}
 
 	/**

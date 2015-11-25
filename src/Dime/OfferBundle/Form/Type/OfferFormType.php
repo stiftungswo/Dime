@@ -33,7 +33,7 @@ class OfferFormType extends AbstractType
             ->add('shortDescription')
             ->add('description')
             ->add('tags')
-            ->add('fixedPrice')
+            ->add('fixedPrice', 'tbbc_simple_money')
             ->add('user')
             ->add('address', 'swo_commons_addressformtype')
             ->add('validTo', 'datetime', array('required' => false, 'widget' => 'single_text', 'with_seconds' => false))

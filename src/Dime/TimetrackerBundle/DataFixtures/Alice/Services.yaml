@@ -3,30 +3,39 @@ Dime\TimetrackerBundle\Entity\Service:
         name: consulting
         alias: consulting
         vat: 0.08
+        description: This is a detailed description
         chargeable: true
-        rates: 2x @rateHour*
+        rates: <randomElements(array(@rate1))>
         user: @user1
-    serviceHour{1..3}:
+    serviceHour{1..20}:
         name: <word()>
         alias: <slug()>
         vat: <randomElement(array (0.025, 0.08))>
-        chargeable: true
+        description: <text(255)>
+        chargeable: <boolean(90)>
         rates: 2x @rateHour*
-    serviceDay{1..3}:
+        user: @user*
+    serviceDay{1..20}:
         name: <word()>
         alias: <slug()>
         vat: <randomElement(array (0.025, 0.08))>
-        chargeable: true
+        description: <text(255)>
+        chargeable: <boolean(90)>
         rates: 2x @rateDay*
-    serviceNone{1..3}:
+        user: @user*
+    serviceNone{1..20}:
         name: <word()>
         alias: <slug()>
         vat: <randomElement(array (0.025, 0.08))>
-        chargeable: true
+        description: <text(255)>
+        chargeable: <boolean(90)>
         rates: 2x @rateNone*
-    servicePauschal{1..3}:
+        user: @user*
+    servicePauschal{1..20}:
         name: <word()>
         alias: <slug()>
         vat: <randomElement(array (0.025, 0.08))>
-        chargeable: true
+        description: <text(255)>
+        chargeable: <boolean(90)>
         rates: 2x @ratePauschal*
+        user: @user*

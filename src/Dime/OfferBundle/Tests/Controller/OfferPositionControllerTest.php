@@ -3,6 +3,7 @@
 namespace Dime\OfferBundle\Tests\Controller;
 
 use Dime\TimetrackerBundle\Tests\Controller\DimeTestCase;
+use Money\Money;
 
 class OfferPositionControllerTest extends DimeTestCase
 {
@@ -32,18 +33,15 @@ class OfferPositionControllerTest extends DimeTestCase
 
     public function testPostPutDeleteOfferActions()
     {
-        $this->markTestSkipped('skipping test: produces fatal error');
-
-
         $this->loginAs('admin');
         /* create new service */
         $response = $this->jsonRequest('POST', $this->api_prefix.'/offerpositions',
 		    json_encode(array(
 			    'offer' => 1, //default offer
-			    'service' => 1, //consulting
-		    	'order' => 10,
-		    	'amount' => 33,
-		    	'vat' => 8,
+                'service' => 1, //consulting
+                'order' => 10,
+                'amount' => 33,
+                'vat' => 8,
 		    	'discountable' => true,
 		    ))
         );

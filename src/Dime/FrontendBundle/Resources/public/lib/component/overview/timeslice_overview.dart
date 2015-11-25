@@ -109,7 +109,7 @@ class TimesliceOverviewComponent extends EntityOverview {
       }, evict: evict);
     } else {
       await super.reload(params: {
-        'user': _employee.id
+        'employee': _employee.id
       }, evict: evict);
     }
     updateEntryDate();
@@ -137,9 +137,9 @@ class TimesliceOverviewComponent extends EntityOverview {
     }
     slice.Set('activity', this.selectedActivity);
     slice.Set('startedAt', this.newEntryDate);
-    slice.Set('user', this._employee);
+    slice.Set('employee', this._employee);
     slice.addFieldtoUpdate('activity');
-    slice.addFieldtoUpdate('user');
+    slice.addFieldtoUpdate('employee');
     slice.addFieldtoUpdate('startedAt');
     await super.createEntity(newEnt: slice);
     updateEntryDate();

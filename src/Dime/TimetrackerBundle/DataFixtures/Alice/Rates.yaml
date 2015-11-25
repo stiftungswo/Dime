@@ -2,30 +2,30 @@ Dime\TimetrackerBundle\Entity\Rate:
     rate1:
         rateUnit: CHF/h
         rateValue: 100
-        rateGroup: @rateGroupDefault
+        rateGroup: @rateGroup1
         rateUnitType: @rateUnitType_h
         user: @user1
-    rateHour{1..10}:
+    rateHour{1..5}:
         rateUnit: CHF/h
         rateValue: <numberBetween(5, 200)>
-        rateGroup: @rateGroupDefault
+        rateGroup: @rateGroup*
         rateUnitType: @rateUnitType_h
         user: @user*
-    rateDay{1..10}:
+    rateDay{1..5}:
         rateUnit: CHF/d
         rateValue: <numberBetween(5, 200)>
-        rateGroup: @rateGroupDefault
+        rateGroup: @rateGroup*
         rateUnitType: @rateUnitType_t
         user: @user*
-    rateNone{1..10}:
+    rateNone{1..5}:
         rateUnit: <randomElement(array ('Km','Pauschal','Einheit'))>
         rateValue: <numberBetween(5, 200)>
-        rateGroup: @rateGroupDefault
+        rateGroup: @rateGroup*
         rateUnitType: @rateUnitType_a
         user: @user*
-    ratePauschal{1..10}:
+    ratePauschal{1..5}:
         rateUnit: Pauschal
         rateValue: <numberBetween(5, 200)>
-        rateGroup: @rateGroupDefault
+        rateGroup: @rateGroup*
         rateUnitType: @rateUnitType_a
         user: @user*
