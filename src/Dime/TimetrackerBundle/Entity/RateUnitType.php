@@ -189,7 +189,7 @@ class RateUnitType extends Entity implements DimeEntityInterface
             }
         }
 
-        return round($value, 2) ;
+        return round($value, 4);
     }
 
     public static function transformBetweenTimeUnits($value, $old_unit, $new_unit, $includeUnit = true, $scale = 3, $roundMode = PHP_ROUND_HALF_UP)
