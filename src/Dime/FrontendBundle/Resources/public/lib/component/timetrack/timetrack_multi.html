@@ -11,7 +11,7 @@
         </div>
         <div class="form-group">
           <label class="control-label col-xs-4 col-md-2">Projekt</label>
-          <project-select callback="updateActivities()" project="selectedProject" class="col-xs-8 col-md-4"></project-select>
+          <project-select project="selectedProject" class="col-xs-8 col-md-4"></project-select>
         </div>
       </div>
       <div class="col-12">
@@ -20,7 +20,7 @@
           <tr>
             <th>Mitarbeiter</th>
             <th ng-repeat="activity in activities | projectvaluefilter: selectedProject.id" style="overflow: hidden;">
-              {{activity.service.name}}
+              {{activity.id}} {{activity.service.name}}
             </th>
             <td>&nbsp;</td>
           </tr>
@@ -36,7 +36,7 @@
           <tr ng-repeat="entry in entries">
             <td>{{entry.user.fullname}}</td>
             <td ng-repeat="activity in activities | projectvaluefilter: selectedProject.id" style="overflow: hidden;">
-              <input style="width: 100%;" class="form-control" ng-model="entry.activities[{{$index}}]"/>
+              <input style="width: 100%;" class="form-control" ng-model="entry.activities[$index]"/>
             </td>
             <td>
               <button type="button" class="btn btn-default pull-right" ng-click="removeUser(entry.user.id)"><i class="fa fa-fw fa-trash-o" style="color:red"></i></button>

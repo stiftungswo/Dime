@@ -2,7 +2,7 @@ part of timetrack;
 
 class TimetrackMultiEntry {
   User user;
-  Map<Activity, String> activities = {};
+  List<String> activities = [];
 }
 
 @Component(
@@ -16,7 +16,7 @@ class TimetrackMultiComponent extends AttachAware implements ScopeAware {
   StatusService status;
   Scope scope;
   Date date;
-  Project selectedProject;
+
   List<TimetrackMultiEntry> entries = [];
   User selectedUserToAdd = null;
   StatusService statusservice;
@@ -31,11 +31,25 @@ class TimetrackMultiComponent extends AttachAware implements ScopeAware {
 
   save() {}
 
+  Project _selectedProject;
+
+  set selectedProject(Project selectedProject) {
+    this._selectedProject = selectedProject;
+    updateActivities();
+  }
+
+  get selectedProject => this._selectedProject;
+
   addUser() {
     if (selectedUserToAdd != null) {
       List<TimetrackMultiEntry> existingEntries = entries.where((TimetrackMultiEntry e) => e.user.id == selectedUserToAdd.id);
       if (existingEntries.length == 0) {
         TimetrackMultiEntry entry = new TimetrackMultiEntry();
+
+        List<Activity> projectActivities = activities.where((Activity a) => a.project.id == selectedProject.id);
+        projectActivities.forEach((Activity act) {
+          entry.activities.add("*" + act.id.toString());
+        });
         entry.user = selectedUserToAdd;
         entries.add(entry);
       }
@@ -49,7 +63,13 @@ class TimetrackMultiComponent extends AttachAware implements ScopeAware {
 
   updateActivities() {
     window.console.log('update activities -------');
-    // update TimetrackMultiEntry
+    entries.forEach((TimetrackMultiEntry entry) {
+      entry.activities = [];
+      List<Activity> projectActivities = activities.where((Activity a) => a.project.id == selectedProject.id);
+      projectActivities.forEach((Activity act) {
+        entry.activities.add(act.id.toString());
+      });
+    });
   }
 
   loadActivities() async {
