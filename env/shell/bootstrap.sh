@@ -21,6 +21,7 @@ systemctl stop firewalld
 # disable SELinux for development
 setenforce 0
 sed -i 's/^SELINUX=.*/SELINUX=disabled/g' /etc/sysconfig/selinux
+sed -i 's/^SELINUX=.*/SELINUX=disabled/g' /etc/selinux/config
 
 # TODO: sshd config
 
