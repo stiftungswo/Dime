@@ -37,6 +37,12 @@ service mariadb restart
 /bin/cp /vagrant/env/config/dime.ini /etc/php.d/dime.ini
 service httpd start
 
+# install xdebug
+yum install php56w-devel php56w-pear
+yum install gcc gcc-c++ autoconf automake
+pecl install Xdebug
+service httpd restart
+
 # configure autostart on boot
 sudo systemctl enable httpd.service
 sudo systemctl enable mariadb.service
