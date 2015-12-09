@@ -290,10 +290,4 @@ class Period extends Entity implements DimeEntityInterface
 		return $this;
 	}
 
-	/*public function getUsedEmployeeHoliday(){
-		$container = new ContainerBuilder();
-		//$newsletterManager = $container->get('dime.timeslice.handler');
-		$newsletterManager = $container->get('dime.period.handler')->allUsedHolidays();
-		var_dump($newsletterManager);
-	}*/
 }
