@@ -120,15 +120,20 @@ class PeriodRepository extends EntityRepository
         }
 
         $vacationProjectId = $this->getEntityManager()
-            ->createQuery('SELECT sap FROM DimeTimetrackerBundle:SettingAssignProject sap where sap.id = 1')
+            ->createQuery('SELECT project.id FROM DimeTimetrackerBundle:Setting setting INNER JOIN DimeTimetrackerBundle:Project project WITH setting.value = project.alias where setting.name = :settingname')
+            ->setParameters(['settingname' => 'Ferien'])
             ->getResult();
 
-        return $this->getEntityManager()
-            ->createQuery('select ts.value from DimeTimetrackerBundle:Timeslice ts
-							LEFT JOIN DimeTimetrackerBundle:Activity av WITH ts.activity = av.id
-							where (ts.employee = :employeeid AND av.project = :projectid) AND
-							(ts.startedAt >= :startdate AND ts.stoppedAt <= :enddate)')
-            ->setParameters(['employeeid' => $employeeId, 'startdate' => $startDate, 'enddate' => $endDate, 'projectid' => (string)$vacationProjectId[0]->getProject()->getId()])
-            ->getResult();
+        if (sizeof($vacationProjectId) > 0 && $vacationProjectId[0]['id'] != null) {
+            return $this->getEntityManager()
+                ->createQuery('SELECT ts.value FROM DimeTimetrackerBundle:Timeslice ts
+								LEFT JOIN DimeTimetrackerBundle:Activity av WITH ts.activity = av.id
+								WHERE (ts.employee = :employeeid AND av.project = :projectid) AND
+								(ts.startedAt >= :startdate AND ts.stoppedAt <= :enddate)')
+                ->setParameters(['employeeid' => $employeeId, 'startdate' => $startDate, 'enddate' => $endDate, 'projectid' => (string)$vacationProjectId[0]['id']])
+                ->getResult();
+        } else {
+            return null;
+        }
     }
 }

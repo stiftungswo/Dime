@@ -50,7 +50,3 @@ services:
     dime.projectcategory.form.type:
         class: Dime\TimetrackerBundle\Form\Type\ProjectCategoryFormType
         tags: [{ name: "form.type", alias: "dime_timetrackerbundle_projectcategoryformtype" }]
-
-    dime.settingassignproject.form.type:
-        class: Dime\TimetrackerBundle\Form\Type\SettingAssignProjectFormType
-        tags: [{ name: "form.type", alias: "dime_timetrackerbundle_settingassignprojectformtype" }]
