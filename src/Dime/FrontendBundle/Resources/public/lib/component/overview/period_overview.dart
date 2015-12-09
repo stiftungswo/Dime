@@ -76,9 +76,13 @@ class PeriodOverviewComponent extends EntityOverview implements ScopeAware {
 
         await HttpRequest.getString('/api/v1/periods/holidaybalance?_format=json' + dateparams).then((result) {
           this.data = JSON.decode(result);
-          takenHolidays = data['takenHolidays'];
 
-          this.entities.elementAt(i).holidayBalance = (getHolidayBalance(takenHolidays));
+          if(this.data.length > 0){
+            this.entities.elementAt(i).holidayBalance = (getHolidayBalance(takenHolidays));
+            takenHolidays = data['takenHolidays'];
+          }else {
+            this.entities.elementAt(i).holidayBalance = 0.00;
+          }
         });
       }
       this.statusservice.setStatusToSuccess();
