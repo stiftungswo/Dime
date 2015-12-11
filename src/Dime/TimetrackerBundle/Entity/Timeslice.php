@@ -79,7 +79,9 @@ class Timeslice extends Entity implements DimeEntityInterface
     /**
      * @var Employee $employee
      *
+     * @JMS\Groups({"List"})
      * @JMS\MaxDepth(1)
+     * @JMS\Groups({"List"})
      * @ORM\ManyToOne(targetEntity="Dime\EmployeeBundle\Entity\Employee")
      * @ORM\JoinColumn(name="employee_id", referencedColumnName="id", onDelete="SET NULL")
      */
@@ -210,7 +212,9 @@ class Timeslice extends Entity implements DimeEntityInterface
         } elseif (!$startedAt instanceof Carbon && $startedAt instanceof DateTime) {
             $startedAt = Carbon::instance($startedAt);
         }
-        $startedAt->hour = 8;
+        if ($startedAt->hour === 0) {
+            $startedAt->hour = 8;
+        }
         $this->startedAt = $startedAt;
         $this->stoppedAt = null;
 

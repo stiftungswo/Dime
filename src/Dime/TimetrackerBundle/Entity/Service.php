@@ -359,6 +359,7 @@ class Service extends Entity implements DimeEntityInterface
     public function addRate(Rate $rate)
     {
         $this->rates[] = $rate;
+        $rate->setService($this);
 
         return $this;
     }
@@ -371,6 +372,7 @@ class Service extends Entity implements DimeEntityInterface
     public function removeRate(Rate $rate)
     {
         $this->rates->removeElement($rate);
+        $rate->setService(null);
     }
 
     /**
