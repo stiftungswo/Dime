@@ -11,6 +11,8 @@ class SettingAssignProjectOverviewComponent extends EntityOverview {
 
   List<SettingAssignProject> projectAssignments = [];
 
+  List projects = [];
+
   void saveAllEntities([ScopeEvent e]) {
     for (Entity entity in this.projectAssignments) {
       if (entity.needsUpdate) {
@@ -42,7 +44,7 @@ class SettingAssignProjectOverviewComponent extends EntityOverview {
   }
 
   reload({Map<String, dynamic> params, bool evict: false}) async {
-    settingsManager.loadSystemSettings();
+    this.settingsManager.loadSystemSettings();
   }
 
   load() async{
@@ -53,7 +55,7 @@ class SettingAssignProjectOverviewComponent extends EntityOverview {
     }catch (e){
       projectAssignmentSettings = await settingsManager.getSettings('/etc/projectassignments', system:true);
     }
-    List projects = await this.store.list(Project);
+    this.projects = await this.store.list(Project);
 
     for(Setting projectAssignmentSetting in projectAssignmentSettings){
 
@@ -107,7 +109,7 @@ class SettingAssignProjectOverviewComponent extends EntityOverview {
     projectAssignmentSetting.namespace = '/etc/projectassignments';
 
     this.statusservice.setStatusToLoading();
-    List projects = await this.store.list(Project);
+    this.projects = await this.store.list(Project);
     try {
       Entity resp = await store.update(projectAssignmentSetting);
       this.projectAssignments.removeWhere((enty) => enty.id == resp.id);
