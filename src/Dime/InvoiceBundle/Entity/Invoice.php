@@ -285,10 +285,20 @@ class Invoice extends Entity implements DimeEntityInterface
 	 *
 	 * @return $this
 	 */
-	public function addInvoiceDiscounts(InvoiceDiscount $invoiceDiscount)
+	public function addInvoiceDiscount(InvoiceDiscount $invoiceDiscount)
 	{
 		$this->invoiceDiscounts[] = $invoiceDiscount;
+		$invoiceDiscount->setInvoice($this);
 		return $this;
+	}
+
+	/**
+	 * @param InvoiceDiscount $invoiceDiscount
+	 */
+	public function removeInvoiceDiscount(InvoiceDiscount $invoiceDiscount)
+	{
+		$this->invoiceDiscounts->removeElement($invoiceDiscount);
+		$invoiceDiscount->setInvoice(null);
 	}
 
 	/**

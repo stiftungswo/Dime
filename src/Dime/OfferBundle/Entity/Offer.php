@@ -486,6 +486,7 @@ class Offer extends Entity implements DimeEntityInterface
 	public function addOfferDiscount(OfferDiscount $offerDiscount)
 	{
 		$this->offerDiscounts[] = $offerDiscount;
+		$offerDiscount->setOffer($this);
 
 		return $this;
 	}
@@ -499,6 +500,7 @@ class Offer extends Entity implements DimeEntityInterface
 	public function removeOfferDiscount(OfferDiscount $offerDiscounts)
 	{
 		$this->offerDiscounts->removeElement($offerDiscounts);
+		$offerDiscounts->setOffer(null);
 	}
 
 	/**
@@ -604,26 +606,22 @@ class Offer extends Entity implements DimeEntityInterface
 	}
 
 	/**
-	 * Set fixedPrice
-	 *
-	 * @param  Money $fixedPrice
-	 * @return Offer
-	 */
-	public function setFixedPrice(Money $fixedPrice)
-	{
-		$this->fixedPrice = $fixedPrice;
-
-		return $this;
-	}
-
-	/**
-	 * Get fixedPrice
-	 *
 	 * @return Money
 	 */
 	public function getFixedPrice()
 	{
 		return $this->fixedPrice;
+	}
+
+	/**
+	 * @param Money $fixedPrice
+	 *
+	 * @return $this
+	 */
+	public function setFixedPrice($fixedPrice)
+	{
+		$this->fixedPrice = $fixedPrice;
+		return $this;
 	}
 
 	/**

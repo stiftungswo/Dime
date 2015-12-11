@@ -25,7 +25,7 @@ class RateGroupControllerTest extends DimeTestCase
 
         // assert that data has content
         $this->assertTrue(count($data) > 0, 'expected to find rategroups');
-        $this->assertEquals('Default', $data['name'], 'expected to find "Default"');
+        $this->assertEquals('Kanton', $data['name'], 'expected to find "Kanton"');
     }
 
     public function testPostPutDeleteServiceActions()

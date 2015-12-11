@@ -54,7 +54,7 @@ services:
         class: %generic_handler%
         arguments: [ "@doctrine.orm.entity_manager", "Dime\TimetrackerBundle\Entity\\ProjectCategory",  "@service_container", "pc", "dime_timetrackerbundle_projectcategoryformtype"]
 
-    rate.alice.processor:
-        class: Dime\TimetrackerBundle\DataFixtures\Alice\RateProcessor
+    dime.alice.processor:
+        class: Dime\TimetrackerBundle\DataFixtures\Alice\Processor
         tags:
             -  { name: h4cc_alice_fixtures.processor }
