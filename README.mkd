@@ -168,6 +168,12 @@ Generate new Empty Migration Class:
 
 ## Fixtures
 
+The fixtures are an example dataset that can be used while developing. But more important: the tests run against this database.
+
+Load fixtures into the database:
+
+    /vagrant/env/fixtures/load_fixtures.sh
+
 When the database schema changed, you need to regenerate the fixtures. You can do this with the following command:
 
     cd /vagrant/env/fixtures/ && ./regenerate_fixtures.sh
