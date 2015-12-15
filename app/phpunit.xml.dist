@@ -33,6 +33,7 @@
             <exclude>
                 <directory>../src/*/*Bundle/Resources</directory>
                 <directory>../src/*/*Bundle/Tests</directory>
+                <directory>../vendor</directory>
             </exclude>
         </whitelist>
     </filter>
