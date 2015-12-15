@@ -19,12 +19,12 @@ class TimesliceExpenseReportComponent extends EntityOverview {
     }
   }
 
-  User _user;
+  Employee _employee;
 
-  get user => _user;
+  get employee => _employee;
 
-  set user(User user) {
-    _user = user;
+  set employee(Employee employee) {
+    _employee = employee;
     reload();
   }
 
@@ -37,7 +37,7 @@ class TimesliceExpenseReportComponent extends EntityOverview {
   attach();
 
   reload({Map<String, dynamic> params, bool evict: false}) async {
-    if (_project != null || _user != null) {
+    if (_project != null || _employee != null) {
       this.entities = [];
       this.statusservice.setStatusToLoading();
       try {
@@ -46,7 +46,7 @@ class TimesliceExpenseReportComponent extends EntityOverview {
             this.type,
             new CustomRequestParams(params: {
               'project': _project != null ? _project.id : null,
-              'user': _user != null ? _user.id : null,
+              'employee': _employee != null ? _employee.id : null,
               'date': dateparam != null ? dateparam : null
             }, method: 'GET', url: '/api/v1/reports/expense')));
         this.statusservice.setStatusToSuccess();
@@ -70,8 +70,8 @@ class TimesliceExpenseReportComponent extends EntityOverview {
       switch (param) {
         case 'project':
           return project.id;
-        case 'user':
-          return user.id;
+        case 'employee':
+          return employee.id;
         case 'date':
           return this.getDateParam();
         default:
@@ -83,7 +83,7 @@ class TimesliceExpenseReportComponent extends EntityOverview {
   }
 
   printReport() {
-    List<String> params = const ['project', 'user', 'date'];
+    List<String> params = const ['project', 'employee', 'date'];
     String paramString = '';
     for (String param in params) {
       var value = _valForParam(param);
