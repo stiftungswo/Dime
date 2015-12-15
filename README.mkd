@@ -2,6 +2,8 @@
 
 An ERP based on Symfony and AngularDart
 
+[![Build Status](https://travis-ci.org/stiftungswo/Dime.svg?branch=master)](https://travis-ci.org/stiftungswo/Dime)
+
 ## General Purpose
 
 The project's purpose is tracking working Expenses Writing Offers and Sending Invoices
