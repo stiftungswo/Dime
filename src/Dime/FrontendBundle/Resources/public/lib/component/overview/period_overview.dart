@@ -121,5 +121,6 @@ class PeriodOverviewComponent extends EntityOverview implements ScopeAware {
 
   save() {
     scope.rootScope.emit('saveChanges');
+    reload();
   }
 }

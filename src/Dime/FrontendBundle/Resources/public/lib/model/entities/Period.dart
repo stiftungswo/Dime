@@ -8,7 +8,8 @@ class Period extends Entity {
     this.end = original.end;
     this.pensum = original.pensum;
     this.employee = original.employee;
-    addFieldstoUpdate(['start', 'end', 'pensum', 'employee']);
+    this.lastYearHolidayBalance = original.lastYearHolidayBalance;
+    addFieldstoUpdate(['start', 'end', 'pensum', 'employee', 'lastYearHolidayBalance']);
   }
 
   Period.fromMap(Map<String, dynamic> map) : super.fromMap(map);
@@ -48,6 +49,8 @@ class Period extends Entity {
           return this.employeeholiday;
         case 'holidayBalance':
           return this.holidayBalance;
+        case 'lastYearHolidayBalance':
+          return this.lastYearHolidayBalance;
         default:
           break;
       }
@@ -87,6 +90,9 @@ class Period extends Entity {
       case 'holidayBalance':
         this.holidayBalance = value;
         break;
+      case 'lastYearHolidayBalance':
+        this.lastYearHolidayBalance = value;
+        break;
       default:
         super.Set(property, value);
         break;
@@ -113,4 +119,5 @@ class Period extends Entity {
   int timeTillToday;
   int employeeholiday;
   int holidayBalance;
+  String lastYearHolidayBalance;
 }
