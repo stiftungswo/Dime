@@ -62,6 +62,14 @@ class Period extends Entity implements DimeEntityInterface
 	protected $holidays;
 
 	/**
+	 * @var float
+	 * Holidaybalance from last year
+	 * @JMS\SerializedName("lastYearHolidayBalance")
+	 * @ORM\Column(name="last_year_holiday_balance", type="string", nullable=true)
+	 */
+	protected $lastYearHolidayBalance;
+
+	/**
 	 * @var int
 	 * RealTime in Seconds
 	 * @ORM\Column(type="integer", nullable=true)
@@ -116,6 +124,9 @@ class Period extends Entity implements DimeEntityInterface
 			$weekdays = ($this->getStart()->diffInDays($this->getEnd()->addDay()));
 
 			$employeeholiday = number_format((float)((($holidayEntitlement / 365) * $weekdays * $pensum) * 8.4), 2, '.', '');
+
+			//add holiday balance from last year
+			$employeeholiday = $employeeholiday + floatval($this->getLastYearHolidayBalance());
 
 			return $employeeholiday . RateUnitType::$Hourly;
 		}
@@ -290,4 +301,22 @@ class Period extends Entity implements DimeEntityInterface
 		return $this;
 	}
 
+	/**
+	 * @return string
+	 */
+	public function getLastYearHolidayBalance()
+	{
+		return $this->lastYearHolidayBalance;
+	}
+
+	/**
+	 * @param string $lastYearHolidayBalance
+	 *
+	 * @return $this
+	 */
+	public function setLastYearHolidayBalance($lastYearHolidayBalance)
+	{
+		$this->lastYearHolidayBalance = $lastYearHolidayBalance;
+		return $this;
+	}
 }
