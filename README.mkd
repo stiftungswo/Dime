@@ -2,6 +2,8 @@
 
 An ERP based on Symfony and AngularDart
 
+[![Build Status](https://travis-ci.org/stiftungswo/Dime.svg?branch=master)](https://travis-ci.org/stiftungswo/Dime)
+
 ## General Purpose
 
 The project's purpose is tracking working Expenses Writing Offers and Sending Invoices
@@ -167,6 +169,12 @@ Generate new Empty Migration Class:
     php app/console doctrine:migrations:generate
 
 ## Fixtures
+
+The fixtures are an example dataset that can be used while developing. But more important: the tests run against this database.
+
+Load fixtures into the database:
+
+    /vagrant/env/fixtures/load_fixtures.sh
 
 When the database schema changed, you need to regenerate the fixtures. You can do this with the following command:
 
