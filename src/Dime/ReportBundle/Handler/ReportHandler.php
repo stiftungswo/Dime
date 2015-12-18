@@ -58,6 +58,9 @@ class ReportHandler extends AbstractHandler{
 		if(isset($params['user'])) {
 			$report->setUser($this->container->get('dime.user.handler')->get($params['user']));
 		}
+		if(isset($params['employee'])) {
+			$report->setEmployee($this->container->get('dime.user.handler')->get($params['employee']));
+		}
 		if(isset($params['date'])) {
 			$date = explode(',', $params['date']);
 			if(is_array($date)) {
