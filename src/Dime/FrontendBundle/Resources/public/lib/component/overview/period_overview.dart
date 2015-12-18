@@ -82,7 +82,8 @@ class PeriodOverviewComponent extends EntityOverview implements ScopeAware {
 
           if (this.data.length > 0) {
             takenHolidays = data['takenHolidays'];
-            this.entities.elementAt(i).holidayBalance = (getHolidayBalance(takenHolidays));
+            double employeeholiday = double.parse(this.entities.elementAt(i).employeeholiday.replaceAll('h', ''));
+            this.entities.elementAt(i).holidayBalance = (getHolidayBalance(takenHolidays, employeeholiday));
           } else {
             this.entities.elementAt(i).holidayBalance = 0.00;
           }
@@ -96,11 +97,12 @@ class PeriodOverviewComponent extends EntityOverview implements ScopeAware {
     }
   }
 
-  getHolidayBalance(List takenHolidays) {
+  getHolidayBalance(List takenHolidays, double employeeholiday) {
     double holidayBalance = 0;
     for (final i in takenHolidays) {
       holidayBalance += double.parse(i.values.elementAt(0));
     }
+    holidayBalance = (employeeholiday * 3600) - holidayBalance;
 
     return holidayBalance;
   }
