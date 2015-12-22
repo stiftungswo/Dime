@@ -15,7 +15,6 @@ class AppComponent extends AttachAware implements ScopeAware {
   String password;
   bool rememberme = false;
   bool loginFailed = false;
-  bool loginInProgress = false;
 
   Scope scope;
   UserAuthProvider auth;
@@ -31,18 +30,20 @@ class AppComponent extends AttachAware implements ScopeAware {
     });
     if (auth.isAuthSaved) {
       auth.login();
+    } else {
+      auth.showlogin = true;
     }
   }
 
   login() async {
-    this.loginInProgress = true;
+    auth.showlogin = false;
     try {
       await auth.login(this.username, this.password, this.rememberme);
       this.loginFailed = false;
     } catch (e) {
       this.loginFailed = true;
+      auth.showlogin = true;
     }
-    this.loginInProgress = false;
   }
 
   loginOnEnter(KeyboardEvent event) {

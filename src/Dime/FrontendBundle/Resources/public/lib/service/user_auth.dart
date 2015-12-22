@@ -21,6 +21,7 @@ class UserAuthProvider {
   StatusService statusservice;
   List<Function> loginsuccesscallbacks = [];
   bool isloggedin = false;
+  bool showlogin = false;
 
   set authHeader(String authToken) {
     if (authToken == null) {
@@ -92,6 +93,7 @@ class UserAuthProvider {
       this.loginsuccesscallbacks = [];
     } catch (e) {
       this.isloggedin = false;
+      this.showlogin = true;
       this.authHeader = null;
       this.authToken = null;
       throw new Exception();
@@ -105,6 +107,7 @@ class UserAuthProvider {
       }
       authHeader = null;
       this.isloggedin = false;
+      this.showlogin = true;
     }
   }
 
