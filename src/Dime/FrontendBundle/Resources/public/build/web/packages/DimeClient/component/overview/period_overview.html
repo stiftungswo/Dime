@@ -7,8 +7,10 @@
         <th>Pensum</th>
         <th>Istzeit</th>
         <th>Sollzeit</th>
-        <th>Heute</th>
-        <th>Ferien</th>
+        <th>Heute <i class="fa fa-info-circle" data-toggle="tooltip" title="Stundensaldo bis heute"></i></th>
+        <th>Ferien Total <i class="fa fa-info-circle" data-toggle="tooltip" title="Anzahl Ferien in dieser Periode"></i></th>
+        <th>Verfügbare Ferien <i class="fa fa-info-circle" data-toggle="tooltip" title="Noch verfügbare Ferien"></i></th>
+        <th>Ferienübertrag <i class="fa fa-info-circle" data-toggle="tooltip" title="Ferienguthaben vom letzten Jahr"></i></th>
         <th width="60">Aktion</th>
       </tr>
     </thead>
@@ -21,6 +23,11 @@
         <td>{{entity.targetTime | secondsToHours}}</td>
         <td>{{entity.timeTillToday | secondsToHours}}</td>
         <td>{{entity.employeeholiday}}</td>
+        <td>{{entity.holidayBalance | secondsToHours }}</td>
+        <td>
+          <input style="width: 50%;" class="form-control" type="text" ng-model="entity.lastYearHolidayBalance" ng-change="addSaveField('lastYearHolidayBalance', entity)">
+          <label>&nbsp;h</label>
+        </td>
         <td><button type="button" class="btn btn-default" ng-click="deleteEntity(entity.id)"><i class="fa fa-fw fa-trash-o" style="color:red"></i></button></td>
       </tr>
     </tbody>
