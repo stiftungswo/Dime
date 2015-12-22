@@ -52,7 +52,17 @@
     © DimeERP
   </footer>
 </div>
-<div ng-show="!auth.isloggedin">
+<div ng-show="!auth.isloggedin &amp;&amp; !auth.showlogin">
+  <div class="login-page">
+    <div class="login-box">
+      <div class="login-logo">
+        Loading DimeERP<br><br>
+        <span class="glyphicon glyphicon-refresh glyphicon-animate-spin"></span>
+      </div>
+    </div>
+  </div>
+</div>
+<div ng-show="auth.showlogin">
   <div class="login-page">
     <div class="login-box">
       <div class="login-logo">
@@ -82,9 +92,8 @@
           </div>
           <!-- /.col -->
           <div class="col-xs-4">
-            <button type="submit" class="btn btn-primary btn-block btn-flat" ng-click="login()" ng-disabled="loginInProgress">
+            <button type="submit" class="btn btn-primary btn-block btn-flat" ng-click="login()">
               Login
-              <span class="glyphicon glyphicon-refresh glyphicon-animate-spin" ng-class="{invisible: !loginInProgress}"></span>
             </button>
           </div>
           <!-- /.col -->
