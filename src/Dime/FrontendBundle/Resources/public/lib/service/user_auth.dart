@@ -35,6 +35,10 @@ class UserAuthProvider {
     return window.localStorage.containsKey(dimelocalStoreAuthKey);
   }
 
+  bool get isSessionAlive {
+    return window.sessionStorage.containsKey(dimelocalStoreAuthKey);
+  }
+
   String get authToken {
     return window.localStorage[dimelocalStoreAuthKey];
   }
@@ -47,6 +51,17 @@ class UserAuthProvider {
     }
   }
 
+  String get authSessionToken {
+    return window.sessionStorage[dimelocalStoreAuthKey];
+  }
+
+  set authSessionToken(String token) {
+    if (token == null) {
+      window.sessionStorage.remove(dimelocalStoreAuthKey);
+    } else {
+      window.sessionStorage[dimelocalStoreAuthKey] = token;
+    }
+  }
   UserAuthProvider(this.store, this.headers, this.manager, this.context, this.statusservice);
 
   Future<Employee> loadUserData() async{
@@ -69,7 +84,7 @@ class UserAuthProvider {
   }
 
   login([String username, String password, bool save = false]) async {
-    if (isAuthSaved) {
+    if (isSessionAliveOrAuthSaved()) {
       authHeader = authToken;
     } else {
       if (username != null && password != null) {
@@ -77,6 +92,7 @@ class UserAuthProvider {
         if (save) {
           authToken = token;
         }
+        authSessionToken = token;
         authHeader = token;
       } else {
         throw new Exception();
@@ -95,15 +111,17 @@ class UserAuthProvider {
       this.showlogin = true;
       this.authHeader = null;
       this.authToken = null;
+      this.authSessionToken = null;
       throw new Exception();
     }
   }
 
   logout() async{
     if (isloggedin) {
-      if (isAuthSaved) {
+      if (isSessionAliveOrAuthSaved()) {
         authToken = null;
       }
+      authSessionToken = null;
       authHeader = null;
       this.isloggedin = false;
       this.showlogin = true;
@@ -112,5 +130,9 @@ class UserAuthProvider {
 
   afterLogin(Function callback) {
     this.loginsuccesscallbacks.add(callback);
+  }
+
+  bool isSessionAliveOrAuthSaved(){
+    return isSessionAlive || isAuthSaved;
   }
 }

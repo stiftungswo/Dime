@@ -32,7 +32,7 @@ class AppComponent extends AttachAware implements ScopeAware {
       context['jQuery']['AdminLTE']['pushMenu'].callMethod('activate', ["[data-toggle='offcanvas']"]);
       context['jQuery']['AdminLTE']['layout'].callMethod('activate');
     });
-    if (auth.isAuthSaved) {
+    if (auth.isSessionAliveOrAuthSaved()) {
       auth.login();
     } else {
       auth.showlogin = true;
