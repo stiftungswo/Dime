@@ -29,6 +29,22 @@ ul {
   border-bottom: 0;
 }
 
+div.dropdown:after {
+    content: "\f0d7";
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
+    position: absolute;
+    font-size: 14px;
+    color: rgba(0,0,0,0.3);
+    top: 7px;
+    margin: 0;
+    z-index: 1;
+    right: 6px;
+    pointer-events: none;
+}
+
 .DimePanel {
     width: 99%;
     margin: 2px;
@@ -105,6 +121,15 @@ th a {
 input.ng-invalid.ng-touched {
   border: 1px solid #dd4b39 !important;
   background: #FAE3E0;
+}
+
+input.form-control {
+  padding: 6px;
+  padding-right: 0px;
+}
+
+div.dropdown input.form-control {
+  padding-right: 14px;
 }
 
 
