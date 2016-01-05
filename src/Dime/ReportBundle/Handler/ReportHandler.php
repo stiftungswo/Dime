@@ -84,14 +84,12 @@ class ReportHandler extends AbstractHandler{
 		}
 
 		$this->repository->getCurrentQueryBuilder()
-			->Select('SUM('.$this->alias.'.value)')
+			->Select(''.$this->alias.'.value')
 			->addSelect($this->alias.'.startedAt')
 			->addSelect('IDENTITY('.$this->alias.'.employee)')
 			->addSelect('IDENTITY('.$this->alias.'.activity)')
 			->leftJoin($this->alias.'.activity', 'act')
 			->andWhere('act.rateUnitType != :noChange')
-			->groupBy($this->alias.'.employee')
-			->addGroupBy($this->alias.'.startedAt')
 			->setParameter('noChange', 'a')
 		;
 
@@ -99,14 +97,14 @@ class ReportHandler extends AbstractHandler{
 		$result = array();
 		foreach($tmpResults as $tmpResult){
 			$slice = new Timeslice();
-			$slice->setValue($tmpResult[1])
+			$slice->setValue($tmpResult['value'])
 				->setStartedAt($tmpResult['startedAt'])
 				->setStandardUnit(RateUnitType::$Hourly)
-				->setActivity($this->om->getRepository('DimeTimetrackerBundle:Activity')->find($tmpResult[3]));
+				->setActivity($this->om->getRepository('DimeTimetrackerBundle:Activity')->find($tmpResult[2]));
 			//Works around an Issue Where Employee Id Of a Timeslice is NULL in DB.
 			//TODO Fix employee_id NULL in Database. For now assume that NULL means Default Employee.
-			if(isset($tmpResult[2])) {
-				$slice->setEmployee($this->om->getRepository('DimeEmployeeBundle:Employee')->find($tmpResult[2]));
+			if(isset($tmpResult[1])) {
+				$slice->setEmployee($this->om->getRepository('DimeEmployeeBundle:Employee')->find($tmpResult[1]));
 			} else {
 				$slice->setEmployee($this->om->getRepository('DimeEmployeeBundle:Employee')->find(1));
 			}
