@@ -4,8 +4,8 @@
   </div>
   <div class="box-body">
     <div class="row" style="display: table;margin: 0 auto;margin-bottom: 5px;">
-      <div class="col-xs-1" style="margin: 0; padding: 0; width: 11%;">
-        <button type="button" class="btn btn-default" ng-click="previousWeek()">&lt;&lt;-</button>
+      <div class="col-xs-1" style="margin: 0; padding: 0; width: 11%; text-align: right;">
+        <button type="button" class="btn btn-default" ng-click="previousWeek()"><span class="fa fa-caret-left"></span><span class="fa fa-caret-left"></span></button>
       </div>
       <div class="col-xs-3" style="margin: 0; padding: 0;">
         <dateinput date="filterStartDate"></dateinput>
@@ -14,7 +14,7 @@
         <dateinput date="filterEndDate"></dateinput>
       </div>
       <div class="col-xs-1" style="margin: 0; padding: 0; width: 11%;">
-        <button type="button" class="btn btn-default" ng-click="nextWeek()">-&gt;&gt;</button>
+        <button type="button" class="btn btn-default" ng-click="nextWeek()"><span class="fa fa-caret-right"></span><span class="fa fa-caret-right"></span></button>
       </div>
       <button type="button" class="btn btn-default" ng-click="reload(evict: true)"><span class="glyphicon glyphicon-refresh"></span></button>
     </div>
@@ -28,7 +28,7 @@
       <tbody>
         <tr ng-repeat="entry in entries">
           <td>{{entry.name}}</td>
-          <td ng-repeat="day in entry.days">{{day.value}}</td>
+          <td ng-repeat="day in entry.days" ng-class="{'bg-red': day.value >= 12}"><span ng-if="day.value > 0" data-toggle="tooltip" title="{{day.description}}">{{day.value | number}}h</span></td>
         </tr>
       </tbody>
     </table>
