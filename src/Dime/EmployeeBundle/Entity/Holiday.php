@@ -86,7 +86,8 @@ class Holiday extends Entity implements DimeEntityInterface
      */
     public function setDuration($duration)
     {
-        $this->duration = $duration;
+        $rateunit = new RateUnitType();
+        $this->duration = $rateunit->reverseTransform($duration);
         return $this;
     }
 }
