@@ -44,7 +44,7 @@ abstract class AbstractHandler
 
 	/**
 	 * Get repository from another entity.
-	 * Values for the parameters can be found in service.yml file.
+	 * Values for the parameters can be found in services.yml file.
 	 *
 	 * @param $entityClass entity class
 	 * @param $alias	   alias
