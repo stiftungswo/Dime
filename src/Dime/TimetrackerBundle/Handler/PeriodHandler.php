@@ -28,7 +28,7 @@ class PeriodHandler extends GenericHandler
     }
 
     /**
-     * Get a list of Holiday entities.
+     * Get a list of Period entities.
      *
      * @param array $params The Parameters from the ParamFetcherInterface
      *
@@ -36,24 +36,59 @@ class PeriodHandler extends GenericHandler
      */
     public function all($params = array())
     {
-        $this->repository->createCurrentQueryBuilder($this->alias);
+        $periods = parent::all($params);
+        $periods = $this->setTimeTillToday($periods);
 
-        // Filter
-        if ($this->hasParams($params)) {
-            $this->repository->filter($this->cleanParameterBag($params, false));
-        }
+        return $periods;
+    }
 
-        //Add Ordering
-        $this->orderBy('id', 'ASC');
-        $this->orderBy('updatedAt', 'ASC');
+    /**
+     * Post Period entity, creates a new Period entity.
+     *
+     * @param array $parameters
+     *
+     * @return DimeEntityInterface
+     *
+     */
+    public function post(array $parameters)
+    {
+        $period = parent::post($parameters);
+        $periods = $this->setTimeTillToday(array($period));
 
-        $periods = $this->repository->getCurrentQueryBuilder()->getQuery()->getResult();
+        return $periods[0];
+    }
 
+
+    /**
+     * Replace data of a Period entity.
+     *
+     * @param DimeEntityInterface $entity
+     * @param array               $parameters
+     *
+     * @return DimeEntityInterface
+     */
+    public function put(DimeEntityInterface $entity, array $parameters)
+    {
+        $period = parent::put($entity, $parameters);
+        $periods = $this->setTimeTillToday(array($period));
+
+        return $periods[0];
+    }
+
+    /**
+     * Add time till today Period entities.
+     *
+     * @param array $periods
+     * @return array
+     */
+    private function setTimeTillToday(array $periods)
+    {
         //get holiday repository
         $holidayEntityClass = 'Dime\EmployeeBundle\Entity\Holiday';
         $holidayAlias = 'h';
         $holidayRepository = $this->getRepositoryFromEntity($holidayEntityClass, $holidayAlias);
 
+        //get holidays
         $holidays = $holidayRepository->getCurrentQueryBuilder()->getQuery()->getResult();
 
         //set time till today
@@ -87,7 +122,6 @@ class PeriodHandler extends GenericHandler
             $periods[$i] = $period;
         }
 
-        // Pagination
         return $periods;
     }
 }
