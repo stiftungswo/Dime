@@ -42,6 +42,21 @@ abstract class AbstractHandler
 	    $this->formType = $formType;
     }
 
+	/**
+	 * Get repository from another entity.
+	 * Values for the parameters can be found in service.yml file.
+	 *
+	 * @param $entityClass entity class
+	 * @param $alias	   alias
+	 * @return mixed
+	 */
+	public function getRepositoryFromEntity($entityClass, $alias){
+		$repository = $this->om->getRepository($entityClass);
+		$repository->createCurrentQueryBuilder($alias);
+
+		return $repository;
+	}
+
     protected function newClassInstance()
     {
         return new $this->entityClass();

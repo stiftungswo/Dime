@@ -78,6 +78,12 @@ class Period extends Entity implements DimeEntityInterface
 	protected $realTime;
 
 	/**
+	 * @var int
+	 * @JMS\SerializedName("timeTillToday")
+	 */
+	protected $timeTillToday = 0;
+
+	/**
 	 * @JMS\VirtualProperty()
 	 * @JMS\SerializedName("targetTime")
 	 */
@@ -88,25 +94,6 @@ class Period extends Entity implements DimeEntityInterface
 			$seconds = $weekdays * RateUnitType::$DayInSeconds;
 			$seconds -= $this->holidays;
 			return $seconds * $this->getPensum();
-		}
-		return null;
-	}
-
-	/**
-	 * @JMS\VirtualProperty()
-	 * @JMS\SerializedName("timeTillToday")
-	 */
-	public function getTimeTillToday()
-	{
-		if($this->pensum && $this->getStart() instanceof Carbon ) {
-			$today = Carbon::today();
-			if($today > $this->getEnd()){
-				$today = $this->getEnd();
-			}
-			$weekdays = ($this->getStart()->diffInWeekdays($today->addDay()));
-			$realTime = $this->getRealTime();
-			$seconds = $weekdays * RateUnitType::$DayInSeconds;
-			return $realTime - ($seconds * $this->getPensum());
 		}
 		return null;
 	}
@@ -283,6 +270,25 @@ class Period extends Entity implements DimeEntityInterface
 	}
 
 	/**
+	 * @return string
+	 */
+	public function getLastYearHolidayBalance()
+	{
+		return $this->lastYearHolidayBalance;
+	}
+
+	/**
+	 * @param string $lastYearHolidayBalance
+	 *
+	 * @return $this
+	 */
+	public function setLastYearHolidayBalance($lastYearHolidayBalance)
+	{
+		$this->lastYearHolidayBalance = $lastYearHolidayBalance;
+		return $this;
+	}
+
+	/**
 	 * @return mixed
 	 */
 	public function getRealTime()
@@ -302,21 +308,20 @@ class Period extends Entity implements DimeEntityInterface
 	}
 
 	/**
-	 * @return string
+	 * @return int
 	 */
-	public function getLastYearHolidayBalance()
+	public function getTimeTillToday()
 	{
-		return $this->lastYearHolidayBalance;
+		return $this->timeTillToday;
 	}
 
 	/**
-	 * @param string $lastYearHolidayBalance
+	 * @param int $timeTillToday
 	 *
 	 * @return $this
 	 */
-	public function setLastYearHolidayBalance($lastYearHolidayBalance)
-	{
-		$this->lastYearHolidayBalance = $lastYearHolidayBalance;
+	public function setTimeTillToday($timeTillToday){
+		$this->timeTillToday = $timeTillToday;
 		return $this;
 	}
 }
