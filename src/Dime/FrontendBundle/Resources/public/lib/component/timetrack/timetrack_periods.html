@@ -1,0 +1,20 @@
+<div class="row">
+  <div class="col-md-12 form-inline">
+    <div class="box box-primary">
+      <div class="box-header with-border">
+        <h3 class="box-title">Ist-Sollstunden Übersicht</h3>
+      </div>
+      <div class="box-body">
+        <label><input type="checkbox" ng-model="showEnabledUsersOnly"> Nur aktivierte Benutzer auflisten</label>
+        <div ng-repeat="empl in employees">
+          <div ng-if="(showEnabledUsersOnly && empl.enabled) || !showEnabledUsersOnly">
+            <h4>{{empl.fullname}}</h4>
+            <div>
+              <period-overview employee="empl"></period-overview>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

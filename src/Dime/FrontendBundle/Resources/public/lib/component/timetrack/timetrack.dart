@@ -10,6 +10,7 @@ import 'package:DimeClient/service/setting_manager.dart';
 
 part 'timetrack_multi.dart';
 part 'project_timetrack.dart';
+part 'timetrack_periods.dart';
 
 @Component(
     selector: 'timetrack',
