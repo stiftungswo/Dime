@@ -58,7 +58,11 @@ class TimesliceWeeklyReportComponent extends EntityOverview {
         } else {
           // combine multiple slices
           var totalThisDay = 0;
-          slices.forEach((Timeslice slice) => totalThisDay += double.parse(slice.value.replaceAll('h', '')));
+          slices.forEach((Timeslice slice) {
+            if (slice.value != null) {
+              totalThisDay += double.parse(slice.value.replaceAll('h', ''));
+            }
+          });
           entry.days.add(new Timeslice()..value = totalThisDay.toString() + 'h');
         }
       }

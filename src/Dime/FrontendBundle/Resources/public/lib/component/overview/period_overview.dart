@@ -75,7 +75,10 @@ class PeriodOverviewComponent extends EntityOverview implements ScopeAware {
 
           if (this.data.length > 0) {
             takenHolidays = data['takenHolidays'];
-            double employeeholiday = double.parse(this.entities.elementAt(i).employeeholiday.replaceAll('h', ''));
+            double employeeholiday = 0.0;
+            if (this.entities.elementAt(i).employeeholiday != null) {
+              employeeholiday = double.parse(this.entities.elementAt(i).employeeholiday.replaceAll('h', ''));
+            }
             this.entities.elementAt(i).holidayBalance = (getHolidayBalance(takenHolidays, employeeholiday));
           } else {
             this.entities.elementAt(i).holidayBalance = 0.0;

@@ -10,6 +10,7 @@ class TimetrackPeriodsComponent extends AttachAware implements ScopeAware {
   Scope scope;
   StatusService statusservice;
   DataCache store;
+  bool showEnabledUsersOnly = true;
 
   get employee => this.context.employee;
 
