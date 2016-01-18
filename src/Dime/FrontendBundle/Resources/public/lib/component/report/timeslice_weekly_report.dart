@@ -2,12 +2,7 @@ part of dime_report;
 
 class WeekReportEntry {
   String name;
-  List<WeekReportDayEntry> days = [];
-}
-
-class WeekReportDayEntry {
-  String description = "";
-  double value = 0.0;
+  List<Timeslice> days = [];
 }
 
 @Component(
@@ -59,17 +54,19 @@ class TimesliceWeeklyReportComponent extends EntityOverview {
       for (DateTime date in dates) {
         List<Timeslice> slices = report.timeslices.where((Timeslice s) => s.employee.fullname == employee && isSameDay(date, s.startedAt));
         if(slices.length == 0){
-          entry.days.add(new WeekReportDayEntry());
+          entry.days.add(new Timeslice()
+            ..value = '-'
+          );
         } else {
-          double totalThisDay = 0.0;
-          String descriptionThisDay = "";
+          // combine multiple slices
+          var totalThisDay = 0;
           slices.forEach((Timeslice slice) {
-            totalThisDay += slice.getNumericValue();
-            descriptionThisDay = descriptionThisDay + slice.value + ": "+ slice.activity.name + " / ";
+            if(slice.value != null){
+              totalThisDay += double.parse(slice.value.replaceAll('h',''));
+            }
           });
-          entry.days.add(new WeekReportDayEntry()
-            ..value = totalThisDay
-            ..description = descriptionThisDay
+          entry.days.add(new Timeslice()
+            ..value = totalThisDay.toString() + 'h'
           );
         }
       }

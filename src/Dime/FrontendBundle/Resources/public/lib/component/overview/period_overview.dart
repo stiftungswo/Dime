@@ -3,12 +3,15 @@ part of entity_overview;
 @Component(
     selector: 'period-overview',
     templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/overview/period_overview.html',
-    useShadowDom: false
+    useShadowDom: false,
+    map: const{
+        'employee': '=>employee',
+    }
 )
 class PeriodOverviewComponent extends EntityOverview implements ScopeAware {
   PeriodOverviewComponent(DataCache store, SettingsManager manager, StatusService status, this.context):
   super(Period, store, '', manager, status) {
-    this.context.onSwitch((Employee employee) => this.employee = employee);
+    //this.context.onSwitch((Employee employee) => this.employee = employee);
   }
 
   cEnt({Period entity}) {
@@ -35,8 +38,6 @@ class PeriodOverviewComponent extends EntityOverview implements ScopeAware {
     this.reload();
   }
 
-  Employee _employee;
-
   UserContext context;
 
   List entities = [];
@@ -45,20 +46,11 @@ class PeriodOverviewComponent extends EntityOverview implements ScopeAware {
 
   List holidayBalances = [];
 
-  set employee(Employee employee) {
-    if (employee.id == null) {
-      return;
-    }
-    this._employee = employee;
-    this.reload();
-  }
-
-  get employee => this._employee;
+  Employee employee;
 
   bool needsmanualAdd = true;
 
   reload({Map<String, dynamic> params, bool evict: false}) async{
-
     this.entities = [];
     this.holidayBalances = [];
     List takenHolidays = [];
@@ -68,21 +60,24 @@ class PeriodOverviewComponent extends EntityOverview implements ScopeAware {
         this.store.evict(this.type);
       }
 
-      this.entities = (await this.store.list(this.type, params: {'employee': _employee.id})).toList();
+      this.entities = (await this.store.list(this.type, params: {'employee': employee.id})).toList();
 
       for(int i = 0; i < this.entities.length; i++){
         Period entity = this.entities.elementAt(i);
-        String dateparams = '&date=' + new DateFormat('y-MM-dd').format(entity.start) + ',' + new DateFormat('y-MM-dd').format(entity.end) + '&employee=' + _employee.id.toString();
+        String dateparams = '&date=' + new DateFormat('y-MM-dd').format(entity.start) + ',' + new DateFormat('y-MM-dd').format(entity.end) + '&employee=' + employee.id.toString();
 
         await HttpRequest.getString('/api/v1/periods/holidaybalance?_format=json' + dateparams).then((result) {
           this.data = JSON.decode(result);
 
           if(this.data.length > 0){
             takenHolidays = data['takenHolidays'];
-            double employeeholiday = double.parse(this.entities.elementAt(i).employeeholiday.replaceAll('h',''));
+            double employeeholiday = 0.0;
+            if(this.entities.elementAt(i).employeeholiday != null){
+              employeeholiday = double.parse(this.entities.elementAt(i).employeeholiday.replaceAll('h',''));
+            }
             this.entities.elementAt(i).holidayBalance = (getHolidayBalance(takenHolidays, employeeholiday));
           }else {
-            this.entities.elementAt(i).holidayBalance = 0.00;
+            this.entities.elementAt(i).holidayBalance = 0.0;
           }
         });
       }
@@ -95,7 +90,7 @@ class PeriodOverviewComponent extends EntityOverview implements ScopeAware {
   }
 
   getHolidayBalance(List takenHolidays, double employeeholiday){
-    double holidayBalance = 0;
+    double holidayBalance = 0.0;
     for(final i in takenHolidays){
       holidayBalance += double.parse(i.values.elementAt(0));
     }
@@ -105,12 +100,12 @@ class PeriodOverviewComponent extends EntityOverview implements ScopeAware {
   }
 
   attach() {
-    this.employee = this.context.employee;
+    this.reload();
   }
 
   createEntity({var newEnt, Map<String, dynamic> params: const{}}) {
     var now = new DateTime.now();
-    super.createEntity(params: {'employee': this._employee.id, 'start': new DateTime(now.year, DateTime.JANUARY, 1),
+    super.createEntity(params: {'employee': this.employee.id, 'start': new DateTime(now.year, DateTime.JANUARY, 1),
       'end': new DateTime(now.year, DateTime.DECEMBER, 31), 'pensum': 1});
   }
 

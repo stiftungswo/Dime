@@ -91,5 +91,14 @@ class Holiday extends Entity implements DimeEntityInterface {
 		return $this;
 	}
 
+	/**
+	 * @JMS\VirtualProperty()
+	 * @JMS\SerializedName("weekday")
+	 */
+	public function getWeekday()
+	{
+		setlocale(LC_TIME, "de_DE");
+		return strftime("%A", $this->date->getTimestamp());
+	}
 
 }
