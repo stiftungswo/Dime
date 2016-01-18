@@ -46,6 +46,7 @@ class AppModule extends Module {
     bind(UserAuthProvider);
     bind(TimetrackComponent);
     bind(TimetrackMultiComponent);
+    bind(TimetrackPeriodsComponent);
     bind(ProjectTimetrackComponent);
     bind(UserFilter);
     bind(TimesliceDateFilter);
