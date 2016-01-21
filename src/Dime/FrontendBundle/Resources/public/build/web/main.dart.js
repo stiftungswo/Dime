@@ -51193,6 +51193,13 @@
             break;
         }
       },
+      getNumericValue$0: function() {
+        window;
+        var t1 = this.value;
+        if (typeof console != "undefined")
+          console.log(t1);
+        return H.Primitives_parseDouble(J.replaceAll$2$s(this.value, "h", ""), null);
+      },
       static: {Timeslice_listFromMap: function($content) {
           var timeslices, t1, t;
           timeslices = H.setRuntimeTypeInfo([], [D.Timeslice]);
@@ -52340,6 +52347,9 @@
     WeekReportEntry: {
       "^": "Object;name*,days@"
     },
+    WeekReportDayEntry: {
+      "^": "Object;description@,value*"
+    },
     TimesliceWeeklyReportComponent: {
       "^": "EntityOverview;filterStartDate@,filterEndDate@,format*,dates@,employees@,entries*,report@,needsmanualAdd,selectedEntId,entities,type,store,router,statusservice,rootScope,routename,settingsManager,auth,filterString,sortType,sortReverse",
       updateDates$0: function() {
@@ -52372,17 +52382,16 @@
             t3 = {};
             date = t2.get$current();
             slices = J.where$1$ax(this.report.get$timeslices(), new G.TimesliceWeeklyReportComponent_updateEntries_closure(this, employee, date));
-            if (slices.get$length(slices) === 0) {
-              t3 = entry.days;
-              t4 = new D.Timeslice("timeslices", null, null, null, null, null, null, [], null, [], "entities", null, null, null, null, null, []);
-              t4.value = "-";
-              J.add$1$ax(t3, t4);
-            } else {
+            if (slices.get$length(slices) === 0)
+              J.add$1$ax(entry.days, new G.WeekReportDayEntry("", 0));
+            else {
               t3._captured_totalThisDay_0 = 0;
+              t3._captured_descriptionThisDay_1 = "";
               slices.forEach$1(0, new G.TimesliceWeeklyReportComponent_updateEntries_closure0(t3));
               t4 = entry.days;
-              t5 = new D.Timeslice("timeslices", null, null, null, null, null, null, [], null, [], "entities", null, null, null, null, null, []);
-              t5.value = C.JSNumber_methods.toString$0(t3._captured_totalThisDay_0) + "h";
+              t5 = new G.WeekReportDayEntry("", 0);
+              t5.value = t3._captured_totalThisDay_0;
+              t5.description = t3._captured_descriptionThisDay_1;
               J.add$1$ax(t4, t5);
             }
           }
@@ -52529,15 +52538,13 @@
       "^": "Closure:54;_dime_report$_box_0",
       call$1: function(slice) {
         var t1, t2, t3;
-        t1 = J.getInterceptor$x(slice);
-        if (t1.get$value(slice) != null) {
-          t2 = this._dime_report$_box_0;
-          t3 = t2._captured_totalThisDay_0;
-          t1 = H.Primitives_parseDouble(J.replaceAll$2$s(t1.get$value(slice), "h", ""), null);
-          if (typeof t1 !== "number")
-            return H.iae(t1);
-          t2._captured_totalThisDay_0 = t3 + t1;
-        }
+        t1 = this._dime_report$_box_0;
+        t2 = t1._captured_totalThisDay_0;
+        t3 = slice.getNumericValue$0();
+        if (typeof t3 !== "number")
+          return H.iae(t3);
+        t1._captured_totalThisDay_0 = t2 + t3;
+        t1._captured_descriptionThisDay_1 = C.JSString_methods.$add(C.JSString_methods.$add(t1._captured_descriptionThisDay_1, J.get$value$x(slice)) + ": ", J.get$name$x(slice.get$activity())) + " / ";
       }
     }
   }], ["dime_router", "package:DimeClient/routing/dime_router.dart",, D, {
