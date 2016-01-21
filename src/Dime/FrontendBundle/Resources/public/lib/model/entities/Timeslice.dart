@@ -68,8 +68,7 @@ class Timeslice extends Entity {
   }
 
   double getNumericValue(){
-    window.console.log(this.value);
-      return double.parse(this.value.replaceAll('h',''));
+    return double.parse(this.value.replaceAll('h',''));
   }
 
   static List<Timeslice> listFromMap(List content) {
