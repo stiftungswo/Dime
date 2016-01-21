@@ -113,10 +113,12 @@ class PeriodHandler extends GenericHandler
                 }
 
                 $weekdays = ($period->getStart()->diffInWeekdays($dateToday->addDay()));
-                $realTime = $period->getRealTime();
                 $seconds = $weekdays * RateUnitType::$DayInSeconds;
 
-                $period->setTimeTillToday(($realTime - ($seconds * $period->getPensum()) + $holidaysTillToday));
+                $realTime = $period->getRealTime();
+                $targetTime = ($seconds - $holidaysTillToday) * $period->getPensum();
+
+                $period->setTimeTillToday($realTime - $targetTime);
             }
 
             $periods[$i] = $period;
