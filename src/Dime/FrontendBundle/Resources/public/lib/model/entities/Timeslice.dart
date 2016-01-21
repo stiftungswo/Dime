@@ -68,7 +68,6 @@ class Timeslice extends Entity {
   }
 
   double getNumericValue() {
-    window.console.log(this.value);
     return double.parse(this.value.replaceAll('h', ''));
   }
 
