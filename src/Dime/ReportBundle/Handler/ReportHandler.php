@@ -137,6 +137,7 @@ class ReportHandler extends AbstractHandler{
 			throw new HttpInvalidParamException('no date passed');
 		}
 
+		/** @var Project[] $projects */
 		$projects = $this->om->getRepository('DimeTimetrackerBundle:Project')->findAll();
 
 		$report = [];
@@ -146,6 +147,13 @@ class ReportHandler extends AbstractHandler{
 		foreach($projects as $project){
 			$projectdata = [];
 			$projectdata['name'] = $project->getName();
+			if($project->getProjectCategory()){
+				$projectdata['projectCategory'] = $project->getProjectCategory()->getName();
+				$projectdata['projectCategoryId'] = $project->getProjectCategory()->getId();
+			} else {
+				$projectdata['projectCategory'] = '';
+				$projectdata['projectCategoryId'] = '';
+			}
 
 			// alle timeslices im zeitraum ausser solche mit rateUnitType "a" (Anderes)
 			$timeslices = $this->om->getRepository('DimeTimetrackerBundle:Timeslice')
@@ -229,6 +237,8 @@ class ReportHandler extends AbstractHandler{
 		// header rows
 		$row = [];
 		$row[] = escapeCSV('Projekt');
+		$row[] = escapeCSV('Tätigkeitsbereich ID');
+		$row[] = escapeCSV('Tätigkeitsbereich');
 		foreach($data['total']['activitylist'] as $activity){
 			$row[] = escapeCSV($activity);
 		}
@@ -239,6 +249,8 @@ class ReportHandler extends AbstractHandler{
 		foreach($data['projects'] as $project){
 			$row = [];
 			$row[] = escapeCSV($project['name']);
+			$row[] = escapeCSV($project['projectCategoryId']);
+			$row[] = escapeCSV($project['projectCategory']);
 			foreach($data['total']['activitylist'] as $activity){
 				if(isset($project['activities'][$activity])){
 					$row[] = round($project['activities'][$activity] / (60*60), 1);
@@ -253,6 +265,8 @@ class ReportHandler extends AbstractHandler{
 		// footer rows
 		$row = [];
 		$row[] = escapeCSV('Total');
+		$row[] = escapeCSV('');
+		$row[] = escapeCSV('');
 		foreach($data['total']['activitylist'] as $activity){
 			if(isset($data['total']['activities'][$activity])){
 				$row[] = round($data['total']['activities'][$activity] / (60*60), 1);
