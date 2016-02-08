@@ -26,7 +26,7 @@ class Project extends Entity implements DimeEntityInterface
 	/**
 	 * @var Customer $customer
 	 *
-	 * @JMS\MaxDepth(1)
+	 * @JMS\MaxDepth(2)
 	 * @ORM\ManyToOne(targetEntity="Customer")
 	 * @ORM\JoinColumn(name="customer_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
 	 */
@@ -111,7 +111,7 @@ class Project extends Entity implements DimeEntityInterface
 	/**
 	 * @ORM\ManyToOne(targetEntity="Dime\TimetrackerBundle\Entity\RateGroup")
 	 * @ORM\JoinColumn(name="rate_group_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
-	 * @JMS\MaxDepth(2)
+	 * @JMS\MaxDepth(1)
 	 * @JMS\SerializedName("rateGroup")
 	 */
 	protected $rateGroup;

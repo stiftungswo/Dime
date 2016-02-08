@@ -39,6 +39,9 @@ class EntitySelect extends AttachAware implements ScopeAware {
   @NgOneWayOneTime('required')
   bool required = false;
 
+  @NgOneWayOneTime('placeholder')
+  String placeholder = '';
+
   EntitySelect(this.type, this.store, this.element, this.statusservice, this.auth);
 
   dynamic _selectedEntity;
