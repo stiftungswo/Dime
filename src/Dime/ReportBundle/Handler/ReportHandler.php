@@ -201,6 +201,10 @@ class ReportHandler extends AbstractHandler
             $report['projects'][] = $projectdata;
         }
 
+        usort($report['projects'], function ($a, $b) {
+            return ($a['name'] < $b['name']) ? -1 : 1;
+        });
+
         // activitylist is only needed because AngularDart's ng-repeat does not support iterating over maps :/
         $report['total']['activitylist'] = array_values(array_unique($listofactivities));
         $report['total']['activities'] = $activitytotal;
