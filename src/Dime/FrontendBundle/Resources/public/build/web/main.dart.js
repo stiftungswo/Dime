@@ -7220,7 +7220,7 @@
     closure1025: {
       "^": "Closure:0;",
       call$1: [function(a1) {
-        return new G.ServicehoursReportComponent(null, null, null, null, null, null, a1, null);
+        return new G.ServicehoursReportComponent(null, null, null, null, null, a1, null);
       }, null, null, 2, 0, null, 1, "call"]
     },
     closure1026: {
@@ -51989,7 +51989,7 @@
       $isScopeAware: 1
     },
     ServicehoursReportComponent: {
-      "^": "AttachAware;filterStartDate@,filterEndDate@,data*,entries*,total*,type*,statusservice@,rootScope<",
+      "^": "AttachAware;filterStartDate@,filterEndDate@,entries*,total*,type*,statusservice@,rootScope<",
       attach$0: function() {
         var now, t1;
         now = new P.DateTime(Date.now(), false);
@@ -52063,8 +52063,9 @@
                 $async$temp3 = $async$self;
                 dateparams = $async$temp1 + $async$temp2.format$1(0, $async$temp3.filterEndDate);
                 $async$temp1 = $async$self;
-                $async$temp2 = P;
-                $async$temp1.entries = $async$temp2.LinkedHashMap__makeEmpty();
+                $async$temp1.entries = null;
+                $async$temp1 = $async$self;
+                $async$temp1.total = null;
                 $async$temp1 = $async$self;
                 $async$temp1 = $async$temp1.statusservice;
                 $async$temp1.setStatusToLoading$0();
@@ -52153,12 +52154,14 @@
     ServicehoursReportComponent_reload_closure: {
       "^": "Closure:0;_dime_report$_captured_this_0",
       call$1: [function(result) {
-        var t1, t2;
+        var data, t1;
+        data = C.JsonCodec_null_null.decode$1(result);
+        window;
+        if (typeof console != "undefined")
+          console.log(data);
         t1 = this._dime_report$_captured_this_0;
-        t2 = C.JsonCodec_null_null.decode$1(result);
-        t1.data = t2;
-        t1.entries = J.$index$asx(t2, "projects");
-        t1.total = J.$index$asx(t1.data, "total");
+        t1.entries = J.$index$asx(data, "projects");
+        t1.total = J.$index$asx(data, "total");
       }, null, null, 2, 0, null, 26, "call"]
     },
     TimesliceExpenseReportComponent: {
