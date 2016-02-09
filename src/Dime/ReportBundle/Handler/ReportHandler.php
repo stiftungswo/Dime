@@ -244,7 +244,11 @@ class ReportHandler extends AbstractHandler{
 		$row[] = escapeCSV('Tätigkeitsbereich ID');
 		$row[] = escapeCSV('Tätigkeitsbereich');
 		foreach($data['total']['activitylist'] as $activity){
-			$row[] = escapeCSV($activity);
+			if($activity == ''){
+				$row[] = 'DELETED_SERVICE';
+			} else {
+				$row[] = escapeCSV($activity);
+			}
 		}
 		$row[] = escapeCSV('Total');
 		$rows[] = implode(';',$row);
