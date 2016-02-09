@@ -289,6 +289,40 @@ class ReportHandler extends AbstractHandler
         $row[] = escapeCSV('');
         $rows[] = implode(';', $row);
 
+        // summary rows
+        $rows[] = '';
+        $rows[] = escapeCSV('Zusammenfassung Tätigkeitsbereiche');
+
+        $categories = [];
+        foreach ($data['projects'] as $project) {
+            $id = $project['projectCategoryId'];
+            $categories[$id][0] = '';
+            $categories[$id][1] = escapeCSV($project['projectCategoryId']);
+            if ($project['projectCategory']) {
+                $categories[$id][2] = escapeCSV($project['projectCategory']);
+            } else {
+                $categories[$id][2] = escapeCSV('Andere');
+            }
+            $idx = 3;
+            foreach ($data['total']['activitylist'] as $activity) {
+                if (!isset($categories[$id][$idx])) {
+                    $categories[$id][$idx] = 0;
+                }
+                if (isset($project['activities'][$activity])) {
+                    $categories[$id][$idx] += round($project['activities'][$activity] / (60*60), 1);
+                }
+                $idx++;
+            }
+            if (!isset($categories[$id][$idx])) {
+                $categories[$id][$idx] = 0;
+            }
+            $categories[$id][$idx] = round($project['total'] / (60*60), 1);
+        }
+
+        foreach ($categories as $category) {
+            $rows[] = implode(';', $category);
+        }
+
         return implode("\n", $rows);
     }
 
