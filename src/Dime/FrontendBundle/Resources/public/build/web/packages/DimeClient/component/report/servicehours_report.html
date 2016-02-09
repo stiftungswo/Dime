@@ -19,6 +19,7 @@
           <th style="width: 150px;">Tätigkeitsbereich</th>
           <th ng-repeat="activity in total.activitylist" style="width: 80px;" class="text-overflow-ellipsis" title="{{activity}}">
             {{activity}}
+            <span ng-if="activity == ''"><i>DELETED SERVICE</i></span>
           </th>
           <th style="width: 60px;">Total</th>
         </tr>
