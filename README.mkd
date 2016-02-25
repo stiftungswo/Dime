@@ -60,7 +60,17 @@ Download e.g. Dartium which is a Google Chrome for developpers:
 	
 	https://www.dartlang.org/tools/dartium/
 	Start it by unzipping and executing the file chrome.exe
-	Go to the page http://dime.test.local
+	Go to the page http://dime.test.local (-> this page does not work in a normal browser!)
+	
+### OSX
+
+Generally the same steps as for Windows:
+
+  * Install VirtualBox, Vagrant and Dartium
+  * run "vagrant up" in the env/ folder
+  * Open in Dartium: http://dime.test.local
+  
+Default Vagrant File Sync on OSX is very slow, you may want to use rsync or nfs to speed things up
 	
 ## Update
 
