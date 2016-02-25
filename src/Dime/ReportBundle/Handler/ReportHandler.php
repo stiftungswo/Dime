@@ -26,10 +26,14 @@ class ReportHandler extends AbstractHandler
     {
         $this->repository->createCurrentQueryBuilder($this->alias);
 
-
         // Filter
         if ($this->hasParams($params)) {
             $this->repository->filter($this->cleanParameterBag($params));
+        }
+
+        // check required params
+        if (!isset($params['project']) && !isset($params['employee'])) {
+            die('Projekt oder Mitarbeiter muss angegeben werden um einen Report zu erstellen.');
         }
 
         $this->repository->getCurrentQueryBuilder()
@@ -40,7 +44,6 @@ class ReportHandler extends AbstractHandler
             ->addGroupBy($this->alias.'.activity')
             ->orderBy($this->alias.'.startedAt', 'ASC')
         ;
-
 
         $tmpResults = $this->repository->getCurrentQueryBuilder()->getQuery()->getResult();
         $result = array();
