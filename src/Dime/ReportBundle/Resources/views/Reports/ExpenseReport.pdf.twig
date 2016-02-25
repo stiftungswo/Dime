@@ -4,8 +4,8 @@
 		<div class="logo"><img src="{{ pdf_image('SwoCommonsBundle:swo_logo_big.png') }}" width="200"/></div>
 		<div class="title">Aufwandsreport</div>
 		{% if report.project != null %}
-			<div class="title description">Projekt: {{ report.project.name }}</div>
-			<!--<div>{{ report.project.description|nl2br }}<br/><br/></div>-->
+			<!--<div class="title description">Projekt: {{ report.project.name }}</div>-->
+			<div class="title description">Projekt: {{ report.project.description|nl2br }}</div>
 		{% endif %}
 		{% if report.start and report.end %}
 			<div class="title description">Von: {{ report.start|date("d.m.Y") }}
@@ -30,6 +30,8 @@
 				</tr>
 			{% endfor %}
 		</table>
-		<div class="title">Gesamt Stunden: {{ report.getSumHours() }}</div>
+		{% if report.employee != null %}
+			<div class="title">Gesamt Stunden: {{ report.getSumHours() }}</div>
+		{% endif %}
 	</dynamic-page>
 </pdf>
