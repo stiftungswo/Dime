@@ -9,9 +9,12 @@ part of entity_select;
       'service': '<=>selectedEntity',
       'callback': '&callback',
       'field': '=>!field',
-      'clearOnClose': '=>!clearOnClose'
+      'clearOnClose': '=>!clearOnClose',
+      'hideArchived': '=>!hideArchived'
     }
 )
 class ServiceSelectComponent extends EntitySelect {
   ServiceSelectComponent(DataCache store, dom.Element element, StatusService status, UserAuthProvider auth): super(Service, store, element, status, auth);
+
+  bool hideArchived = false;
 }

@@ -18,7 +18,7 @@
       <tbody>
         <tr ng-repeat="entity in entities" ng-click="selectEntity(entity.id)" ng-class="isSelected(entity)? 'info': ''">
           <td>{{entity.id}}</td>
-          <td><service-select service="entity.service" callback="entity.addFieldtoUpdate(name)" field="'service'"></service-select></td>
+          <td><service-select hideArchived="true" service="entity.service" callback="entity.addFieldtoUpdate(name)" field="'service'"></service-select></td>
           <td><textarea class="form-control tiny" ng-model="entity.description" ng-change="addSaveField('description', entity)"></textarea></td>
           <td>{{entity.rateValue}}</td>
           <td>{{entity.rateUnit}}</td>

@@ -23,7 +23,7 @@
           <tbody>
             <tr ng-repeat="entity in entities | offerpostionOrder" ng-click="selectEntity(entity.id)" ng-class="isSelected(entity)? 'info': ''">
               <td><input class="form-control" type="text" ng-model="entity.order" ng-change="addSaveField('order', entity)"></td>
-              <td><service-select service="entity.service" callback="entity.addFieldtoUpdate(name)" field="'service'"></service-select></td>
+              <td><service-select hidearchived="true" service="entity.service" callback="entity.addFieldtoUpdate(name)" field="'service'"></service-select></td>
               <td><input class="form-control" type="text" ng-model="entity.rateValue" ng-change="addSaveField('rateValue', entity)"></td>
               <td><input class="form-control" type="text" ng-model="entity.rateUnit" ng-change="addSaveField('rateUnit', entity)"></td>
               <td><rateunittype-select rateunittype="entity.rateUnitType" callback="entity.addFieldtoUpdate(name)" field="'rateUnitType'"></rateunittype-select></td>
