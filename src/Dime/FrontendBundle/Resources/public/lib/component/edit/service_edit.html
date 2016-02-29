@@ -36,6 +36,16 @@
             </div>
           </div>
         </div>
+        <div class="form-group">
+          <div class="col-sm-offset-2 col-sm-4">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" ng-model="entity.archived" ng-change="addSaveField('archived')"> Archiviert
+                <div class="text-muted">Wenn ein Service archiviert ist, kann er nicht mehr zu Projekten hinzugefügt werden.</div>
+              </label>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
