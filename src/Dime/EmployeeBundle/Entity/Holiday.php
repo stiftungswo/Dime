@@ -98,6 +98,10 @@ class Holiday extends Entity implements DimeEntityInterface
     public function getWeekday()
     {
         setlocale(LC_TIME, "de_DE");
-        return strftime("%A", $this->date->getTimestamp());
+        if ($this->date != null) {
+            return strftime("%A", $this->date->getTimestamp());
+        } else {
+            return "";
+        }
     }
 }
