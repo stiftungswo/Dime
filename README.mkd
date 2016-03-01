@@ -190,3 +190,6 @@ When the database schema changed, you need to regenerate the fixtures. You can d
 
     cd /vagrant/env/fixtures/ && ./regenerate_fixtures.sh
 
+Then export the changes again and check in the new dime.sql into git
+
+    cd /vagrant/env/fixtures/ && ./export_fixtures.sh 
