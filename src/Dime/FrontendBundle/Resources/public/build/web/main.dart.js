@@ -56580,7 +56580,200 @@
       },
       cEnt$0: function() {
         return this.cEnt$1$entity(null);
-      }
+      },
+      cEntActivity$1: function(entity) {
+        if (entity != null)
+          return D.Activity$clone(entity);
+        return new D.Activity("activities", null, null, null, null, null, null, null, null, null, null, null, null, null, [], [], null, [], "entities", null, null, null, null, null, []);
+      },
+      duplicateEntity$0: [function() {
+        var $async$goto = 0, $async$completer = new P.Completer_Completer(), $async$handler = 1, $async$currentError, $async$next = [], $async$self = this, ent, newProject, resultProject, activity, oldActivity, newActivity, entity, e, t1, duplicateProject, t2, exception, $async$exception, $async$temp1, $async$temp2, $async$temp3, $async$temp4;
+        function $async$duplicateEntity$0($async$errorCode, $async$result) {
+          if ($async$errorCode === 1) {
+            $async$currentError = $async$result;
+            $async$goto = $async$handler;
+          }
+          while (true)
+            switch ($async$goto) {
+              case 0:
+                // Function start
+                $async$temp1 = $async$self;
+                ent = $async$temp1.get$selectedEntity();
+                $async$goto = ent != null ? 2 : 3;
+                break;
+              case 2:
+                // then
+                $async$temp1 = $async$self;
+                $async$temp1 = $async$temp1.statusservice;
+                $async$temp1.setStatusToLoading$0();
+                $async$temp1 = $async$self;
+                t1 = $async$temp1.store;
+                $async$temp1 = t1;
+                $async$temp1 = $async$temp1;
+                $async$temp2 = C;
+                $async$temp2 = $async$temp2.Type_fT2;
+                $async$temp3 = J;
+                $async$goto = 4;
+                return H.asyncHelper($async$temp1.one$2($async$temp2, $async$temp3.get$id$x(ent)), $async$duplicateEntity$0, $async$completer);
+              case 4:
+                // returning from await.
+                duplicateProject = $async$result;
+                $async$temp1 = $async$self;
+                newProject = $async$temp1.cEnt$0();
+                newProject = duplicateProject;
+                $async$temp1 = J;
+                $async$temp1.set$id$x(newProject, null);
+                $async$temp1 = newProject;
+                $async$temp1.addFieldstoUpdate$1(["name", "description", "chargeable", "customer", "address", "accountant", "rateGroup", "projectCategory", "deadline"]);
+                $async$handler = 6;
+                $async$temp1 = t1;
+                $async$goto = 9;
+                return H.asyncHelper($async$temp1.create$1(newProject), $async$duplicateEntity$0, $async$completer);
+              case 9:
+                // returning from await.
+                resultProject = $async$result;
+                $async$temp1 = J;
+                $async$temp1 = $async$temp1;
+                $async$temp2 = newProject;
+                t2 = $async$temp1.get$iterator$ax($async$temp2.get$activities());
+              case 10:
+                // for condition
+                $async$temp1 = t2;
+                if (!$async$temp1.moveNext$0()) {
+                  // goto after for
+                  $async$goto = 11;
+                  break;
+                }
+                $async$temp1 = t2;
+                activity = $async$temp1.get$current();
+                $async$temp1 = t1;
+                $async$temp1 = $async$temp1;
+                $async$temp2 = C;
+                $async$temp2 = $async$temp2.Type_O1c;
+                $async$temp3 = J;
+                $async$goto = 12;
+                return H.asyncHelper($async$temp1.one$2($async$temp2, $async$temp3.get$id$x(activity)), $async$duplicateEntity$0, $async$completer);
+              case 12:
+                // returning from await.
+                oldActivity = $async$result;
+                $async$temp1 = $async$self;
+                newActivity = $async$temp1.cEntActivity$1(activity);
+                $async$temp1 = J;
+                $async$temp1.set$id$x(oldActivity, null);
+                newActivity = oldActivity;
+                $async$temp1 = newActivity;
+                $async$temp1.set$project(resultProject);
+                $async$temp1 = newActivity;
+                $async$temp1.addFieldstoUpdate$1(["project", "value", "chargeable", "service", "description"]);
+                $async$temp1 = t1;
+                $async$goto = 13;
+                return H.asyncHelper($async$temp1.create$1(newActivity), $async$duplicateEntity$0, $async$completer);
+              case 13:
+                // returning from await.
+                // goto for condition
+                $async$goto = 10;
+                break;
+              case 11:
+                // after for
+                $async$temp1 = $async$self;
+                $async$goto = $async$temp1.needsmanualAdd ? 14 : 15;
+                break;
+              case 14:
+                // then
+                $async$temp1 = J;
+                $async$temp1 = $async$temp1;
+                $async$temp2 = $async$self;
+                $async$temp1.add$1$ax($async$temp2.entities, resultProject);
+              case 15:
+                // join
+                $async$temp1 = resultProject;
+                $async$temp1.cloneDescendants$1(ent);
+                $async$temp1 = $async$self;
+                $async$temp1 = $async$temp1.get$result($async$self);
+                $async$temp1 = t2 = $async$temp1.get$descendantsToUpdate();
+                $async$temp2 = t2;
+                $async$temp1, t2 = $async$temp2.get$iterator(t2);
+              case 16:
+                // for condition
+                $async$temp1 = t2;
+                if (!$async$temp1.moveNext$0()) {
+                  // goto after for
+                  $async$goto = 17;
+                  break;
+                }
+                $async$temp1 = t2;
+                entity = $async$temp1.get$current();
+                $async$temp1 = t1;
+                $async$goto = 18;
+                return H.asyncHelper($async$temp1.create$1(entity), $async$duplicateEntity$0, $async$completer);
+              case 18:
+                // returning from await.
+                // goto for condition
+                $async$goto = 16;
+                break;
+              case 17:
+                // after for
+                $async$temp1 = $async$self;
+                $async$temp1 = $async$temp1.statusservice;
+                $async$temp1.setStatusToSuccess$0();
+                $async$temp1 = $async$self;
+                $async$temp1 = $async$temp1.rootScope;
+                $async$temp1 = $async$temp1;
+                $async$temp2 = J;
+                $async$temp2 = $async$temp2;
+                $async$temp3 = J;
+                $async$temp3 = $async$temp3;
+                $async$temp4 = $async$self;
+                $async$temp1.emit$1($async$temp2.$add$ns($async$temp3.toString$0$($async$temp4.type), "Duplicated"));
+                $async$handler = 1;
+                // goto after finally
+                $async$goto = 8;
+                break;
+              case 6:
+                // catch
+                $async$handler = 5;
+                $async$exception = $async$currentError;
+                $async$temp1 = H;
+                t1 = $async$temp1.unwrapException($async$exception);
+                e = t1;
+                $async$temp1 = P;
+                $async$temp1 = $async$temp1;
+                $async$temp2 = H;
+                $async$temp2 = $async$temp2;
+                $async$temp3 = J;
+                $async$temp3 = $async$temp3;
+                $async$temp4 = $async$self;
+                $async$temp2 = "Unable to duplicate entity " + $async$temp2.S($async$temp3.toString$0$($async$temp4.type)) + "::";
+                $async$temp3 = H;
+                $async$temp3 = $async$temp3;
+                $async$temp4 = J;
+                $async$temp2 = $async$temp2 + $async$temp3.S($async$temp4.get$id$x(newProject)) + " because ";
+                $async$temp3 = H;
+                $async$temp1.print($async$temp2 + $async$temp3.S(e));
+                $async$temp1 = $async$self;
+                $async$temp1 = $async$temp1.statusservice;
+                $async$temp1.setStatusToError$1(e);
+                // goto after finally
+                $async$goto = 8;
+                break;
+              case 5:
+                // uncaught
+                // goto rethrow
+                $async$goto = 1;
+                break;
+              case 8:
+                // after finally
+              case 3:
+                // join
+                // implicit return
+                return H.asyncHelper(null, 0, $async$completer, null);
+              case 1:
+                // rethrow
+                return H.asyncHelper($async$currentError, 1, $async$completer);
+            }
+        }
+        return H.asyncHelper(null, $async$duplicateEntity$0, $async$completer, null);
+      }, "call$0", "get$duplicateEntity", 0, 0, 2]
     },
     RateGroupOverviewComponent: {
       "^": "EntityOverview;needsmanualAdd,selectedEntId,entities,type,store,router,statusservice,rootScope,routename,settingsManager,auth,filterString,sortType,sortReverse",
