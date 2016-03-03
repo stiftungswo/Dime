@@ -21,4 +21,59 @@ class ProjectOverviewComponent extends EntityOverview {
     newProject.addFieldtoUpdate('accountant');
     return newProject;
   }
+
+  cEntActivity(Activity entity) {
+    if (entity != null) {
+      return new Activity.clone(entity);
+    }
+    return new Activity();
+  }
+
+  duplicateEntity() async {
+    var ent = this.selectedEntity;
+    if (ent != null) {
+      this.statusservice.setStatusToLoading();
+
+      var duplicateProject = (await this.store.one(Project, ent.id));
+      var newProject = this.cEnt();
+
+      newProject = duplicateProject;
+      newProject.id = null;
+
+      newProject.addFieldstoUpdate(
+          ['name', 'description', 'chargeable', 'customer', 'address', 'accountant', 'rateGroup', 'projectCategory', 'deadline']);
+
+      try {
+        var resultProject = await this.store.create(newProject);
+
+        // create new activities with new project
+        for (Activity activity in newProject.activities) {
+          var oldActivity = (await this.store.one(Activity, activity.id));
+          var newActivity = this.cEntActivity(activity);
+
+          oldActivity.id = null;
+          newActivity = oldActivity;
+          newActivity.project = resultProject;
+          newActivity.addFieldstoUpdate(['project', 'value', 'chargeable', 'service', 'description']);
+
+          var resultActivity = await this.store.create(newActivity);
+        }
+
+        if (needsmanualAdd) {
+          this.entities.add(resultProject);
+        }
+
+        resultProject.cloneDescendants(ent);
+
+        for (var entity in result.descendantsToUpdate) {
+          await this.store.create(entity);
+        }
+        this.statusservice.setStatusToSuccess();
+        this.rootScope.emit(this.type.toString() + 'Duplicated');
+      } catch (e) {
+        print("Unable to duplicate entity ${this.type.toString()}::${newProject.id} because ${e}");
+        this.statusservice.setStatusToError(e);
+      }
+    }
+  }
 }
