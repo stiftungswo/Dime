@@ -7,6 +7,7 @@
 
 namespace Dime\ReportBundle\Entity;
 
+use Dime\EmployeeBundle\Entity\Employee;
 use Dime\TimetrackerBundle\Entity\RateUnitType;
 use Dime\TimetrackerBundle\Entity\Timeslice;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -24,6 +25,27 @@ class ExpenseReport extends Report
      * @var ArrayCollection
      */
     protected $timeslices;
+
+    /**
+     * @var mixed
+     */
+    protected $employee;
+
+    /**
+     * @return mixed
+     */
+    public function getEmployee()
+    {
+        return $this->employee;
+    }
+
+    /**
+     * @param mixed $employee
+     */
+    public function setEmployee($employee)
+    {
+        $this->employee = $employee;
+    }
 
     /**
      * @return mixed

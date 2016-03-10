@@ -51,7 +51,7 @@ class HolidayController extends DimeController
      */
     public function getHolidaysAction(ParamFetcherInterface $paramFetcher)
     {
-        return $this->container->get($this->handlerSerivce)->all($paramFetcher->all());
+        return $this->container->get($this->handlerSerivce)->allSortedByDate($paramFetcher->all());
     }
 
     /**

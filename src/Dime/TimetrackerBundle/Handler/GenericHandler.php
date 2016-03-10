@@ -53,6 +53,31 @@ class GenericHandler extends AbstractHandler implements HandlerInterface
     }
 
     /**
+     * Get a list of Entities sorted by date.
+     *
+     * @param array $params The Parameters from the ParamFetcherInterface
+     *
+     * @return array
+     */
+    public function allSortedByDate($params = array())
+    {
+        $this->repository->createCurrentQueryBuilder($this->alias);
+
+
+        // Filter
+        if ($this->hasParams($params)) {
+            $this->repository->filter($this->cleanParameterBag($params, false));
+        }
+
+        //Add Ordering
+        $this->orderBy('date', 'ASC');
+        $this->orderBy('id', 'ASC');
+
+        // Pagination
+        return $this->repository->getCurrentQueryBuilder()->getQuery()->getResult();
+    }
+
+    /**
      * Post Entity, creates a new Entity.
      *
      * @api

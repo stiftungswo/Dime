@@ -6,7 +6,8 @@ class Setting extends Entity {
   Setting.clone(Setting original) : super.clone(original) {
     this.namespace = original.namespace;
     this.value = original.value;
-    addFieldstoUpdate(['namespace', 'value']);
+    this.name = original.name;
+    addFieldstoUpdate(['namespace', 'value', 'name']);
   }
 
   Setting.fromMap(Map<String, dynamic> map) : super.fromMap(map);
@@ -23,6 +24,8 @@ class Setting extends Entity {
           return this.namespace;
         case 'value':
           return this.value;
+        case 'name':
+          return this.name;
         default:
           break;
       }
@@ -38,6 +41,9 @@ class Setting extends Entity {
       case 'value':
         this.value = value;
         break;
+      case 'name':
+        this.name = value;
+        break;
       default:
         super.Set(property, value);
         break;
@@ -47,4 +53,5 @@ class Setting extends Entity {
   String type = 'settings';
   String namespace;
   String value;
+  String name;
 }

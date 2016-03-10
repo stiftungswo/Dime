@@ -51,6 +51,40 @@ class PeriodController extends DimeController
     }
 
     /**
+     * list all taken holiday between start and end date.
+     *
+     * @ApiDoc(
+     * resource = true,
+     * output = "Dime\EmployeeBundle\Entity\Period",
+     * section="periods",
+     * statusCodes = {
+     * 200 = "Returned when successful"
+     * }
+     * )
+     *
+     * @Annotations\QueryParam(name="date", nullable=false, description="Filter by date use Format YYYY-MM-DD,YYYY-MM-DD to specify daterange")
+     * @Annotations\QueryParam(name="employee", nullable=true, description="Filer By User")
+     *
+     * @Annotations\View(
+     * templateVar="periods"
+     * )
+     *
+     * @Annotations\Route(requirements={"_format"="json|xml"})
+     *
+     * @param ParamFetcherInterface $paramFetcher
+     *            param fetcher service
+     *
+     * @return array
+     */
+    public function getPeriodsHolidaybalanceAction(ParamFetcherInterface $paramFetcher)
+    {
+        $takenHolidays = $this->container->get($this->handlerSerivce)->allTakenHolidays($paramFetcher->get('date'), $paramFetcher->get('employee'));
+        return array(
+            'takenHolidays' => $takenHolidays
+        );
+    }
+
+    /**
      * Get single Entity
      *
      * @ApiDoc(
@@ -176,5 +210,14 @@ class PeriodController extends DimeController
     {
         $this->container->get($this->handlerSerivce)->delete($this->getOr404($id, $this->handlerSerivce));
         return $this->view(null, Codes::HTTP_NO_CONTENT);
+    }
+
+    public function getUsedEmployeeHoliday()
+    {
+        $container = $this->container;
+        //$newsletterManager = $container->get('dime.timeslice.handler');
+        $newsletterManager = $container->get($this->handlerSerivce)->allUsedHolidays();
+
+        return $newsletterManager;
     }
 }

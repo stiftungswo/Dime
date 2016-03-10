@@ -11,6 +11,7 @@ import 'dart:html';
 
 part 'timetrack_multi.dart';
 part 'project_timetrack.dart';
+part 'timetrack_periods.dart';
 
 @Component(
     selector: 'timetrack', templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/timetrack/timetrack.html', useShadowDom: false)

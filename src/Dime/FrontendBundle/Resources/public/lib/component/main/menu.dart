@@ -14,8 +14,11 @@ class MenuComponent implements ScopeAware {
   Scope scope;
 
   List<Menu> menus = [
-    new Menu.withItems(
-        'Zeiterfassung', 'fa-clock-o', [new Menu('Erfassen', '/timetrack'), new Menu('Mehrfach Erfassen', '/timetrack/multi')]),
+    new Menu.withItems('Zeiterfassung', 'fa-clock-o', [
+      new Menu('Erfassen', '/timetrack'),
+      new Menu('Mehrfach Erfassen', '/timetrack/multi'),
+      new Menu('Stundensaldos', '/timetrack/periods')
+    ]),
     new Menu.withItems('Offerten', 'fa-file-text', [new Menu('Übersicht', '/offers/overview')]),
     new Menu.withItems('Projekte', 'fa-tree', [
       new Menu('Übersicht', '/projects/overview'),
@@ -31,12 +34,15 @@ class MenuComponent implements ScopeAware {
       new Menu('Servicerapport', '/reports/servicehours'),
       new Menu('Umsatzstatistik', '/reports/revenue')
     ]),
-    new Menu.withItems('Stammdaten', 'fa-cog', [
+    new Menu.withItems('Stammdaten', 'fa-database', [
       new Menu('Services', '/services/overview'),
       new Menu('Tarif Gruppen', '/rateGroups/overview'),
       new Menu('Tarif Typen', '/rateUnitTypes/overview'),
       new Menu('Feiertage', '/holidays/overview'),
-      new Menu('Tätigkeitsbereiche', '/projectCategories/overview'),
+      new Menu('Tätigkeitsbereiche', '/projectCategories/overview')
+    ]),
+    new Menu.withItems('Einstellungen', 'fa-cog', [
+      new Menu('Projekte Zuweisen', '/settingAssignProjects/overview'),
     ]),
   ];
 

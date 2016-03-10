@@ -4,8 +4,16 @@ part of entity_select;
     selector: 'service-select',
     templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/select/service_select.html',
     useShadowDom: false,
-    map: const {'service': '<=>selectedEntity', 'callback': '&callback', 'field': '=>!field', 'clearOnClose': '=>!clearOnClose'})
+    map: const {
+      'service': '<=>selectedEntity',
+      'callback': '&callback',
+      'field': '=>!field',
+      'clearOnClose': '=>!clearOnClose',
+      'hideArchived': '=>!hideArchived'
+    })
 class ServiceSelectComponent extends EntitySelect {
   ServiceSelectComponent(DataCache store, dom.Element element, StatusService status, UserAuthProvider auth)
       : super(Service, store, element, status, auth);
+
+  bool hideArchived = false;
 }

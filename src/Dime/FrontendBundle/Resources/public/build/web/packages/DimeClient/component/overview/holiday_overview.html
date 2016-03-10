@@ -1,33 +1,33 @@
-<html><head></head><body><div class="col-md-12">
-  <div class="box box-primary">
-    <div class="box-header with-border">
-      <h3 class="box-title">Feiertage</h3>
-    </div>
-    <div class="box-body">
-      <table class="table table-bordered table-hover form">
-        <thead>
-          <tr>
-            <th>Datum</th>
-            <th>Dauer</th>
-            <th width="60">Aktion</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr ng-repeat="entity in entities" ng-click="selectEntity(entity.id)" ng-class="isSelected(entity)? 'info': ''">
-            <td><dateinput style="width: 100%;" date="entity.date" field="'date'" callback="entity.addFieldtoUpdate(name)"></dateinput></td>
-            <td><input style="width: 100%;" type="text" class="form-control" ng-model="entity.duration" ng-change="addSaveField('duration', entity)"></td>
-            <td><button type="button" class="btn btn-default" ng-click="deleteEntity(entity.id)"><i class="fa fa-fw fa-trash-o" style="color:red"></i></button></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+<html><head></head><body><div class="box box-primary">
+  <div class="box-header with-border">
+    <h3 class="box-title">Feiertage</h3>
   </div>
-  <div class="DimeControlButtons container-inline">
-    <div class="col-md-12">
-      <button type="button" class="btn btn-primary" ng-click="saveAllEntities()"><error-icon value="saveState" timeout="20"></error-icon></button>
-      <button type="button" class="btn btn-primary" ng-click="createEntity()">Hinzufügen</button>
-      <button type="button" class="btn btn-primary" ng-click="duplicateEntity()">Duplizieren</button>
-      <button type="button" class="btn btn-default" ng-click="reload(evict: true)"><span class="glyphicon glyphicon-refresh"></span></button>
-    </div>
+  <div class="box-body">
+    <table class="table table-bordered table-hover form">
+      <thead>
+      <tr>
+        <th>Wochentag</th>
+        <th>Datum</th>
+        <th>Dauer</th>
+        <th width="60">Aktion</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr ng-repeat="entity in entities" ng-click="selectEntity(entity.id)" ng-class="isSelected(entity)? 'info': ''">
+        <td>{{entity.weekday}}</td>
+        <td><dateinput style="width: 100%;" date="entity.date" field="'date'" callback="entity.addFieldtoUpdate(name)"></dateinput></td>
+        <td><input style="width: 100%;" type="text" class="form-control" ng-model="entity.duration" ng-change="addSaveField('duration', entity)"></td>
+        <td><button type="button" class="btn btn-default" ng-click="deleteEntity(entity.id)"><i class="fa fa-fw fa-trash-o" style="color:red"></i></button></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="DimeControlButtons container-inline">
+  <div class="col-md-12">
+    <button type="button" class="btn btn-primary" ng-click="saveAllEntities()"><error-icon value="saveState" timeout="20"></error-icon></button>
+    <button type="button" class="btn btn-primary" ng-click="createEntity()">Hinzufügen</button>
+    <button type="button" class="btn btn-primary" ng-click="duplicateEntity()">Duplizieren</button>
+    <button type="button" class="btn btn-default" ng-click="reload(evict: true)"><span class="glyphicon glyphicon-refresh"></span></button>
   </div>
 </div></body></html>

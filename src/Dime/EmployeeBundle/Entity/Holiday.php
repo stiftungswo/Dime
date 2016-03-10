@@ -86,7 +86,22 @@ class Holiday extends Entity implements DimeEntityInterface
      */
     public function setDuration($duration)
     {
-        $this->duration = $duration;
+        $rateunit = new RateUnitType();
+        $this->duration = $rateunit->reverseTransform($duration);
         return $this;
+    }
+
+    /**
+     * @JMS\VirtualProperty()
+     * @JMS\SerializedName("weekday")
+     */
+    public function getWeekday()
+    {
+        setlocale(LC_TIME, "de_DE");
+        if ($this->date != null) {
+            return strftime("%A", $this->date->getTimestamp());
+        } else {
+            return "";
+        }
     }
 }

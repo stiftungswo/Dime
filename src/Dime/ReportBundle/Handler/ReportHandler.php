@@ -26,10 +26,14 @@ class ReportHandler extends AbstractHandler
     {
         $this->repository->createCurrentQueryBuilder($this->alias);
 
-
         // Filter
         if ($this->hasParams($params)) {
             $this->repository->filter($this->cleanParameterBag($params));
+        }
+
+        // check required params
+        if (!isset($params['project']) && !isset($params['employee'])) {
+            die('Projekt oder Mitarbeiter muss angegeben werden um einen Report zu erstellen.');
         }
 
         $this->repository->getCurrentQueryBuilder()
@@ -40,7 +44,6 @@ class ReportHandler extends AbstractHandler
             ->addGroupBy($this->alias.'.activity')
             ->orderBy($this->alias.'.startedAt', 'ASC')
         ;
-
 
         $tmpResults = $this->repository->getCurrentQueryBuilder()->getQuery()->getResult();
         $result = array();
@@ -58,6 +61,9 @@ class ReportHandler extends AbstractHandler
         }
         if (isset($params['user'])) {
             $report->setUser($this->container->get('dime.user.handler')->get($params['user']));
+        }
+        if (isset($params['employee'])) {
+            $report->setEmployee($this->container->get('dime.user.handler')->get($params['employee']));
         }
         if (isset($params['date'])) {
             $date = explode(',', $params['date']);
@@ -82,14 +88,12 @@ class ReportHandler extends AbstractHandler
         }
 
         $this->repository->getCurrentQueryBuilder()
-            ->Select('SUM('.$this->alias.'.value)')
+            ->Select(''.$this->alias.'.value')
             ->addSelect($this->alias.'.startedAt')
             ->addSelect('IDENTITY('.$this->alias.'.employee)')
             ->addSelect('IDENTITY('.$this->alias.'.activity)')
             ->leftJoin($this->alias.'.activity', 'act')
             ->andWhere('act.rateUnitType != :noChange')
-            ->groupBy($this->alias.'.employee')
-            ->addGroupBy($this->alias.'.startedAt')
             ->setParameter('noChange', 'a')
         ;
 
@@ -97,14 +101,14 @@ class ReportHandler extends AbstractHandler
         $result = array();
         foreach ($tmpResults as $tmpResult) {
             $slice = new Timeslice();
-            $slice->setValue($tmpResult[1])
+            $slice->setValue($tmpResult['value'])
                 ->setStartedAt($tmpResult['startedAt'])
                 ->setStandardUnit(RateUnitType::$Hourly)
-                ->setActivity($this->om->getRepository('DimeTimetrackerBundle:Activity')->find($tmpResult[3]));
+                ->setActivity($this->om->getRepository('DimeTimetrackerBundle:Activity')->find($tmpResult[2]));
             //Works around an Issue Where Employee Id Of a Timeslice is NULL in DB.
             //TODO Fix employee_id NULL in Database. For now assume that NULL means Default Employee.
-            if (isset($tmpResult[2])) {
-                $slice->setEmployee($this->om->getRepository('DimeEmployeeBundle:Employee')->find($tmpResult[2]));
+            if (isset($tmpResult[1])) {
+                $slice->setEmployee($this->om->getRepository('DimeEmployeeBundle:Employee')->find($tmpResult[1]));
             } else {
                 $slice->setEmployee($this->om->getRepository('DimeEmployeeBundle:Employee')->find(1));
             }
@@ -138,6 +142,7 @@ class ReportHandler extends AbstractHandler
             throw new HttpInvalidParamException('no date passed');
         }
 
+        /** @var Project[] $projects */
         $projects = $this->om->getRepository('DimeTimetrackerBundle:Project')->findAll();
 
         $report = [];
@@ -147,6 +152,13 @@ class ReportHandler extends AbstractHandler
         foreach ($projects as $project) {
             $projectdata = [];
             $projectdata['name'] = $project->getName();
+            if ($project->getProjectCategory()) {
+                $projectdata['projectCategory'] = $project->getProjectCategory()->getName();
+                $projectdata['projectCategoryId'] = $project->getProjectCategory()->getId();
+            } else {
+                $projectdata['projectCategory'] = '';
+                $projectdata['projectCategoryId'] = '';
+            }
 
             // alle timeslices im zeitraum ausser solche mit rateUnitType "a" (Anderes)
             $timeslices = $this->om->getRepository('DimeTimetrackerBundle:Timeslice')
@@ -192,6 +204,10 @@ class ReportHandler extends AbstractHandler
             $report['projects'][] = $projectdata;
         }
 
+        usort($report['projects'], function ($a, $b) {
+            return ($a['name'] < $b['name']) ? -1 : 1;
+        });
+
         // activitylist is only needed because AngularDart's ng-repeat does not support iterating over maps :/
         $report['total']['activitylist'] = array_values(array_unique($listofactivities));
         $report['total']['activities'] = $activitytotal;
@@ -232,8 +248,14 @@ class ReportHandler extends AbstractHandler
         // header rows
         $row = [];
         $row[] = escapeCSV('Projekt');
+        $row[] = escapeCSV('Tätigkeitsbereich ID');
+        $row[] = escapeCSV('Tätigkeitsbereich');
         foreach ($data['total']['activitylist'] as $activity) {
-            $row[] = escapeCSV($activity);
+            if ($activity == '') {
+                $row[] = 'DELETED_SERVICE';
+            } else {
+                $row[] = escapeCSV($activity);
+            }
         }
         $row[] = escapeCSV('Total');
         $rows[] = implode(';', $row);
@@ -242,6 +264,8 @@ class ReportHandler extends AbstractHandler
         foreach ($data['projects'] as $project) {
             $row = [];
             $row[] = escapeCSV($project['name']);
+            $row[] = escapeCSV($project['projectCategoryId']);
+            $row[] = escapeCSV($project['projectCategory']);
             foreach ($data['total']['activitylist'] as $activity) {
                 if (isset($project['activities'][$activity])) {
                     $row[] = round($project['activities'][$activity] / (60*60), 1);
@@ -256,6 +280,8 @@ class ReportHandler extends AbstractHandler
         // footer rows
         $row = [];
         $row[] = escapeCSV('Total');
+        $row[] = escapeCSV('');
+        $row[] = escapeCSV('');
         foreach ($data['total']['activitylist'] as $activity) {
             if (isset($data['total']['activities'][$activity])) {
                 $row[] = round($data['total']['activities'][$activity] / (60*60), 1);
@@ -265,6 +291,40 @@ class ReportHandler extends AbstractHandler
         }
         $row[] = escapeCSV('');
         $rows[] = implode(';', $row);
+
+        // summary rows
+        $rows[] = '';
+        $rows[] = escapeCSV('Zusammenfassung Tätigkeitsbereiche');
+
+        $categories = [];
+        foreach ($data['projects'] as $project) {
+            $id = $project['projectCategoryId'];
+            $categories[$id][0] = '';
+            $categories[$id][1] = escapeCSV($project['projectCategoryId']);
+            if ($project['projectCategory']) {
+                $categories[$id][2] = escapeCSV($project['projectCategory']);
+            } else {
+                $categories[$id][2] = escapeCSV('Andere');
+            }
+            $idx = 3;
+            foreach ($data['total']['activitylist'] as $activity) {
+                if (!isset($categories[$id][$idx])) {
+                    $categories[$id][$idx] = 0;
+                }
+                if (isset($project['activities'][$activity])) {
+                    $categories[$id][$idx] += round($project['activities'][$activity] / (60*60), 1);
+                }
+                $idx++;
+            }
+            if (!isset($categories[$id][$idx])) {
+                $categories[$id][$idx] = 0;
+            }
+            $categories[$id][$idx] = round($project['total'] / (60*60), 1);
+        }
+
+        foreach ($categories as $category) {
+            $rows[] = implode(';', $category);
+        }
 
         return implode("\n", $rows);
     }

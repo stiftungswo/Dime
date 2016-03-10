@@ -1,40 +1,48 @@
-<html><head></head><body><div class="col-md-12">
-  <div class="box box-primary">
-    <div class="box-header with-border">
-      <h3 class="box-title">Service bearbeiten</h3>
-    </div>
-    <div class="box-body" ng-form="" name="editform">
-      <div class="form-horizontal">
+<html><head></head><body><div class="box box-primary">
+  <div class="box-header with-border">
+    <h3 class="box-title">Service bearbeiten</h3>
+  </div>
+  <div class="box-body" ng-form="" name="editform">
+    <div class="form-horizontal">
+      <div class="form-group">
         <div class="form-group">
-          <div class="form-group">
-            <label class="col-sm-2 control-label">Name</label>
-            <div class="col-sm-4">
-              <input style="width: 100%;" class="form-control" type="text" ng-model="entity.name" ng-change="addSaveField('name')">
+          <label class="col-sm-2 control-label">Name</label>
+          <div class="col-sm-4">
+            <input style="width: 100%;" class="form-control" type="text" ng-model="entity.name" ng-change="addSaveField('name')">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">Alias</label>
+          <div class="col-sm-4">
+            <input style="width: 100%;" class="form-control" type="text" ng-model="entity.alias">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">Beschreibung</label>
+          <div class="col-sm-4">
+            <input style="width: 100%;" class="form-control" type="text" ng-model="entity.description" ng-change="addSaveField('description')">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 control-label">MwSt</label>
+          <input-percentage class="col-sm-4" htmlclass="'form-control'" value="entity.vat" ng-change="addSaveField('vat')"></input-percentage>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-offset-2 col-sm-4">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" ng-model="entity.chargeable" ng-change="addSaveField('chargeable')"> Verrechenbar
+              </label>
             </div>
           </div>
-          <div class="form-group">
-            <label class="col-sm-2 control-label">Alias</label>
-            <div class="col-sm-4">
-              <input style="width: 100%;" class="form-control" type="text" ng-model="entity.alias">
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-2 control-label">Beschreibung</label>
-            <div class="col-sm-4">
-              <input style="width: 100%;" class="form-control" type="text" ng-model="entity.description" ng-change="addSaveField('description')">
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-2 control-label">MwSt</label>
-            <input-percentage class="col-sm-4" htmlclass="'form-control'" value="entity.vat" ng-change="addSaveField('vat')"></input-percentage>
-          </div>
-          <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-4">
-              <div class="checkbox">
-                <label>
-                  <input type="checkbox" ng-model="entity.chargeable" ng-change="addSaveField('chargeable')"> Verrechenbar
-                </label>
-              </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-offset-2 col-sm-4">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" ng-model="entity.archived" ng-change="addSaveField('archived')"> Archiviert
+                <div class="text-muted">Wenn ein Service archiviert ist, kann er nicht mehr zu Projekten hinzugefügt werden.</div>
+              </label>
             </div>
           </div>
         </div>
@@ -43,9 +51,8 @@
   </div>
 </div>
 <rate-overview service="entity.id"></rate-overview>
-<div class="col-md-12">
-  <div class="DimeControlButtons">
-    <button type="button" class="btn btn-primary" ng-click="saveEntity()"><error-icon value="saveState" timeout="20"></error-icon></button>
-    <button type="button" class="btn btn-default" ng-click="reload(evict: true)"><span class="glyphicon glyphicon-refresh"></span></button>
-  </div>
-</div></body></html>
+<div class="DimeControlButtons">
+  <button type="button" class="btn btn-primary" ng-click="saveEntity()"><error-icon value="saveState" timeout="20"></error-icon></button>
+  <button type="button" class="btn btn-default" ng-click="reload(evict: true)"><span class="glyphicon glyphicon-refresh"></span></button>
+</div>
+</body></html>

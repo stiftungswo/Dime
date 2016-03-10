@@ -2,6 +2,8 @@
 
 An ERP based on Symfony and AngularDart
 
+[![Build Status](https://travis-ci.org/stiftungswo/Dime.svg?branch=master)](https://travis-ci.org/stiftungswo/Dime)
+
 ## General Purpose
 
 The project's purpose is tracking working Expenses Writing Offers and Sending Invoices
@@ -58,7 +60,17 @@ Download e.g. Dartium which is a Google Chrome for developpers:
 	
 	https://www.dartlang.org/tools/dartium/
 	Start it by unzipping and executing the file chrome.exe
-	Go to the page http://dime.test.local
+	Go to the page http://dime.test.local (-> this page does not work in a normal browser!)
+	
+### OSX
+
+Generally the same steps as for Windows:
+
+  * Install VirtualBox, Vagrant and Dartium
+  * run "vagrant up" in the env/ folder
+  * Open in Dartium: http://dime.test.local
+  
+Default Vagrant File Sync on OSX is very slow, you may want to use rsync or nfs to speed things up
 	
 ## Update
 
@@ -168,7 +180,16 @@ Generate new Empty Migration Class:
 
 ## Fixtures
 
+The fixtures are an example dataset that can be used while developing. But more important: the tests run against this database.
+
+Load fixtures into the database:
+
+    /vagrant/env/fixtures/load_fixtures.sh
+
 When the database schema changed, you need to regenerate the fixtures. You can do this with the following command:
 
     cd /vagrant/env/fixtures/ && ./regenerate_fixtures.sh
 
+Then export the changes again and check in the new dime.sql into git
+
+    cd /vagrant/env/fixtures/ && ./export_fixtures.sh 
