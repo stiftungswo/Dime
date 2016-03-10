@@ -25,6 +25,7 @@ class Offer extends Entity implements DimeEntityInterface
 	/**
 	 * @JMS\SerializedName("offerPositions")
 	 * @ORM\OneToMany(targetEntity="OfferPosition", mappedBy="offer", cascade={"all"})
+	 * @ORM\OrderBy({"order" = "ASC"})
 	 */
 	protected $offerPositions;
 	
