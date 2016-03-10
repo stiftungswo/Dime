@@ -1,21 +1,23 @@
-<html><head></head><body><div class="col-md-12 form-inline">
-  <div class="box box-primary">
-    <div class="box-header with-border">
-      <h3 class="box-title">Ist-Sollstunden {{employee.fullname}}</h3>
+<html><head></head><body><div class="row">
+  <div class="col-md-12 form-inline">
+    <div class="box box-primary">
+      <div class="box-header with-border">
+        <h3 class="box-title">Ist-Sollstunden {{employee.fullname}}</h3>
+      </div>
+      <div class="box-body">
+          <period-overview employee="employee"></period-overview>
+      </div>
     </div>
-    <div class="box-body">
-        <period-overview></period-overview>
+    <div class="box box-primary">
+      <div class="box-header with-border">
+        <h3 class="box-title">Einträge</h3>
+      </div>
+      <div class="box-body">
+        <timeslice-overview></timeslice-overview>
+      </div>
     </div>
-  </div>
-  <div class="box box-primary">
-    <div class="box-header with-border">
-      <h3 class="box-title">Einträge</h3>
+    <div class="DimeControlButtons">
+      <button type="button" class="btn btn-primary" ng-click="save()"><error-icon></error-icon></button>
     </div>
-    <div class="box-body">
-      <timeslice-overview></timeslice-overview>
-    </div>
-  </div>
-  <div class="DimeControlButtons">
-    <button type="button" class="btn btn-primary" ng-click="save()"><error-icon></error-icon></button>
   </div>
 </div></body></html>

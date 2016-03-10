@@ -21,6 +21,7 @@ systemctl stop firewalld
 # disable SELinux for development
 setenforce 0
 sed -i 's/^SELINUX=.*/SELINUX=disabled/g' /etc/sysconfig/selinux
+sed -i 's/^SELINUX=.*/SELINUX=disabled/g' /etc/selinux/config
 
 # TODO: sshd config
 
@@ -35,6 +36,12 @@ service mariadb restart
 /bin/cp /vagrant/env/config/dime.conf /etc/httpd/conf.d/dime.conf
 /bin/cp /vagrant/env/config/dime.ini /etc/php.d/dime.ini
 service httpd start
+
+# install xdebug
+yum install php56w-devel php56w-pear
+yum install gcc gcc-c++ autoconf automake
+pecl install Xdebug
+service httpd restart
 
 # configure autostart on boot
 sudo systemctl enable httpd.service

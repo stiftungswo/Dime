@@ -35,6 +35,7 @@ class AppModule extends Module {
     bind(AppComponent);
     bind(MenuComponent);
     bind(TabSetComponent);
+    bind(SettingAssignProjectOverviewComponent);
     bind(ProjectCategoryOverviewComponent);
     bind(ProjectCategorySelectComponent);
     bind(ProjectOverviewComponent);
@@ -45,6 +46,7 @@ class AppModule extends Module {
     bind(UserAuthProvider);
     bind(TimetrackComponent);
     bind(TimetrackMultiComponent);
+    bind(TimetrackPeriodsComponent);
     bind(ProjectTimetrackComponent);
     bind(UserFilter);
     bind(TimesliceDateFilter);

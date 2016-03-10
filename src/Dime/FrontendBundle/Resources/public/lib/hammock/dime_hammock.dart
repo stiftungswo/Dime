@@ -228,7 +228,6 @@ HammockConfig createHammockConfig(Injector inj) {
             return new ProjectCategory.fromMap(r.content);
           }
         }
-
       }
   )
     ..urlRewriter.baseUrl = '/api/v1';

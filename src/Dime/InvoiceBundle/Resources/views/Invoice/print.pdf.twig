@@ -32,11 +32,15 @@
 			{% if invoice.user %}
 			<div class="accountant">Sachbearbeiter: {{ invoice.user }}</div><br/>
 			{% endif %}
-			<div class="invoiceIDKey">Rechnung Nr. {{ invoice.id }}</div><br/>
+			<div class="invoiceIDKey">Rechnung</div><br/>
+			<div class="mwstNR">Rechnung Nr. {{ invoice.id }}
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                MwSt-ID {{ invoiceconfig.senderMwstId }}
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                {{ invoiceconfig.senderCity }}, {{ invoice.updatedAt|date("d.m.Y") }}</div><br/><br/>
 			{% if invoice.project %}
 			<div class="projectID">Auftrag Nr. {{ invoice.project.id }}</div><br/>
 			{% endif %}
-			<div class="mwstNR">MwSt-ID {{ invoiceconfig.senderMwstId }}</div><br/>
 			{% if invoice.start and invoice.end %}
 			<div class="dateRange">Aufwandzeitraum {{ invoice.start|date('d.m.Y') }} - {{ invoice.end|date('d.m.Y') }}</div>
 			{% endif %}

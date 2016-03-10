@@ -25,6 +25,10 @@ void dimeRouteInitializer(Router router, RouteViewFactory views) {
         path: '/timetrack/multi',
         viewHtml: '<timetrack-multi></timetrack-multi>'
     ),
+    'timetrack_periods': ngRoute(
+        path: '/timetrack/periods',
+        viewHtml: '<timetrack-periods></timetrack-periods>'
+    ),
     'projecttimetrack': ngRoute(
         path: '/projects/timetrack',
         viewHtml: '<projecttimetrack></projecttimetrack>'
@@ -108,6 +112,10 @@ void dimeRouteInitializer(Router router, RouteViewFactory views) {
     'projectCategory_edit': ngRoute(
         path: '/projectCategories/edit/:id',
         viewHtml: '<projectCategory-edit></projectCategory-edit>'
+    ),
+    'settingAssignProject_overview': ngRoute(
+        path: '/settingAssignProjects/overview',
+        viewHtml: '<settingAssignProject-overview></settingAssignProject-overview>'
     ),
   });
 }

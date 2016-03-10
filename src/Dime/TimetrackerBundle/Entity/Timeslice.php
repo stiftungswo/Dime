@@ -81,6 +81,7 @@ class Timeslice extends Entity implements DimeEntityInterface
 	 *
 	 * @JMS\Groups({"List"})
 	 * @JMS\MaxDepth(1)
+	 * @JMS\Groups({"List"})
 	 * @ORM\ManyToOne(targetEntity="Dime\EmployeeBundle\Entity\Employee")
 	 * @ORM\JoinColumn(name="employee_id", referencedColumnName="id", onDelete="SET NULL")
 	 */

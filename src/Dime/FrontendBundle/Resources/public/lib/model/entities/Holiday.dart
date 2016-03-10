@@ -6,6 +6,7 @@ class Holiday extends Entity {
   Holiday.clone(Holiday original): super.clone(original){
     this.date = original.date;
     this.duration = original.duration;
+    this.weekday = original.weekday;
     addFieldstoUpdate(['date','duration']);
   }
 
@@ -23,6 +24,8 @@ class Holiday extends Entity {
           return this.date;
         case 'duration':
           return this.duration;
+        case 'weekday':
+          return this.weekday;
         default:
           break;
       }
@@ -37,6 +40,9 @@ class Holiday extends Entity {
         break;
       case 'duration':
         this.duration = value;
+        break;
+      case 'weekday':
+        this.weekday = value;
         break;
       default:
         super.Set(property, value);
@@ -56,4 +62,5 @@ class Holiday extends Entity {
   String type = 'holidays';
   DateTime date;
   String duration;
+  String weekday;
 }

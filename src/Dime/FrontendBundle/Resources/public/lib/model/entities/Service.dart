@@ -8,7 +8,8 @@ class Service extends Entity {
     this.description = original.description;
     this.chargeable = original.chargeable;
     this.vat = original.vat;
-    addFieldstoUpdate(['name','description','chargeable','vat']);
+    this.archived = original.archived;
+    addFieldstoUpdate(['name','description','chargeable','vat','archived']);
   }
 
   Service.fromMap(Map<String, dynamic> map): super.fromMap(map);
@@ -36,6 +37,8 @@ class Service extends Entity {
           return this.chargeable;
         case 'vat':
           return this.vat;
+        case 'archived':
+          return this.archived;
         default:
           break;
       }
@@ -57,6 +60,9 @@ class Service extends Entity {
       case 'vat':
         this.vat = value;
         break;
+      case 'archived':
+        this.archived = value;
+        break;
       default:
         super.Set(property, value);
         break;
@@ -76,4 +82,5 @@ class Service extends Entity {
   String description;
   bool chargeable;
   double vat;
+  bool archived;
 }

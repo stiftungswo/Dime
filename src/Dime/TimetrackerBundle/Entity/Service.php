@@ -81,6 +81,13 @@ class Service extends Entity implements DimeEntityInterface
 	protected $vat;
 
 	/**
+	 * @var boolean $archived
+	 * @JMS\Groups({"List"})
+	 * @ORM\Column(type="boolean")
+	 */
+	protected $archived = false;
+
+	/**
 	 * Entity constructor
 	 */
 	public function __construct()
@@ -110,6 +117,46 @@ class Service extends Entity implements DimeEntityInterface
 		return $this;
 	}
 
+	/**
+	 * Get chargeable
+	 *
+	 * @return boolean
+	 */
+	public function getChargeable()
+	{
+		return $this->chargeable;
+	}
+
+	/**
+	 * @return boolean
+	 */
+	public function isArchived()
+	{
+		return $this->archived;
+	}
+
+	/**
+	 * @param boolean $archived
+	 *
+	 * @return $this
+	 */
+	public function setArchived($archived)
+	{
+		if ($archived !== 'empty') {
+			$this->archived = $archived;
+		}
+		return $this;
+	}
+
+	/**
+	 * Get archived
+	 *
+	 * @return boolean
+	 */
+	public function getArchived()
+	{
+		return $this->archived;
+	}
 
 	/**
 	 * Get id
@@ -285,16 +332,6 @@ class Service extends Entity implements DimeEntityInterface
 	{
 		$this->tags = $tags;
 		return $this;
-	}
-
-	/**
-	 * Get chargeable
-	 *
-	 * @return boolean
-	 */
-	public function getChargeable()
-	{
-		return $this->chargeable;
 	}
 
 	/**

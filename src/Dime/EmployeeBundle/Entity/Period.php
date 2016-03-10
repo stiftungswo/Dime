@@ -13,11 +13,13 @@ use Dime\TimetrackerBundle\Entity\Entity;
 use Dime\TimetrackerBundle\Entity\RateUnitType;
 use Dime\TimetrackerBundle\Entity\Timeslice;
 use Dime\TimetrackerBundle\Model\DimeEntityInterface;
+use Dime\EmployeeBundle\DependencyInjection\DimeEmployeeExtension;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use JMS\Serializer\Annotation as JMS;
 use Knp\JsonSchemaBundle\Annotations as Json;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 /**
  * Class WorkingPeriod
@@ -60,12 +62,26 @@ class Period extends Entity implements DimeEntityInterface
 	protected $holidays;
 
 	/**
+	 * @var float
+	 * Holidaybalance from last year
+	 * @JMS\SerializedName("lastYearHolidayBalance")
+	 * @ORM\Column(name="last_year_holiday_balance", type="string", nullable=true)
+	 */
+	protected $lastYearHolidayBalance;
+
+	/**
 	 * @var int
 	 * RealTime in Seconds
 	 * @ORM\Column(type="integer", nullable=true)
 	 * @JMS\SerializedName("realTime")
 	 */
 	protected $realTime;
+
+	/**
+	 * @var int
+	 * @JMS\SerializedName("timeTillToday")
+	 */
+	protected $timeTillToday = 0;
 
 	/**
 	 * @JMS\VirtualProperty()
@@ -84,25 +100,6 @@ class Period extends Entity implements DimeEntityInterface
 
 	/**
 	 * @JMS\VirtualProperty()
-	 * @JMS\SerializedName("timeTillToday")
-	 */
-	public function getTimeTillToday()
-	{
-		if($this->pensum && $this->getStart() instanceof Carbon ) {
-			$today = Carbon::today();
-			if($today > $this->getEnd()){
-				$today = $this->getEnd();
-			}
-			$weekdays = ($this->getStart()->diffInWeekdays($today->addDay()));
-			$realTime = $this->getRealTime();
-			$seconds = $weekdays * RateUnitType::$DayInSeconds;
-			return $realTime - ($seconds * $this->getPensum());
-		}
-		return null;
-	}
-
-	/**
-	 * @JMS\VirtualProperty()
 	 * @JMS\SerializedName("employeeholiday")
 	 */
 	public function getEmployeeholiday()
@@ -114,6 +111,9 @@ class Period extends Entity implements DimeEntityInterface
 			$weekdays = ($this->getStart()->diffInDays($this->getEnd()->addDay()));
 
 			$employeeholiday = number_format((float)((($holidayEntitlement / 365) * $weekdays * $pensum) * 8.4), 2, '.', '');
+
+			//add holiday balance from last year
+			$employeeholiday = $employeeholiday + floatval($this->getLastYearHolidayBalance());
 
 			return $employeeholiday . RateUnitType::$Hourly;
 		}
@@ -270,6 +270,25 @@ class Period extends Entity implements DimeEntityInterface
 	}
 
 	/**
+	 * @return string
+	 */
+	public function getLastYearHolidayBalance()
+	{
+		return $this->lastYearHolidayBalance;
+	}
+
+	/**
+	 * @param string $lastYearHolidayBalance
+	 *
+	 * @return $this
+	 */
+	public function setLastYearHolidayBalance($lastYearHolidayBalance)
+	{
+		$this->lastYearHolidayBalance = $lastYearHolidayBalance;
+		return $this;
+	}
+
+	/**
 	 * @return mixed
 	 */
 	public function getRealTime()
@@ -288,5 +307,21 @@ class Period extends Entity implements DimeEntityInterface
 		return $this;
 	}
 
+	/**
+	 * @return int
+	 */
+	public function getTimeTillToday()
+	{
+		return $this->timeTillToday;
+	}
 
+	/**
+	 * @param int $timeTillToday
+	 *
+	 * @return $this
+	 */
+	public function setTimeTillToday($timeTillToday){
+		$this->timeTillToday = $timeTillToday;
+		return $this;
+	}
 }

@@ -188,7 +188,9 @@ class RateUnitType extends Entity implements DimeEntityInterface
 					break;
 			}
 		}
-		return $value;
+
+		// convert to float because MySQL's DECIMAL is read as string
+		return floatval($value);
 	}
 
 	public static function transformBetweenTimeUnits($value, $old_unit, $new_unit, $includeUnit = true, $scale = 3, $roundMode = PHP_ROUND_HALF_UP)

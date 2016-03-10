@@ -7,7 +7,7 @@ services:
         arguments: [ "@doctrine.orm.entity_manager", "Dime\EmployeeBundle\Entity\Employee", "@service_container", "@fos_user.user_manager", "em", "dime_employeebundle_employeeformtype" ]
 
     dime.period.handler:
-        class: %generic_handler%
+        class: "Dime\TimetrackerBundle\Handler\\PeriodHandler"
         arguments: [ "@doctrine.orm.entity_manager", "Dime\EmployeeBundle\Entity\\Period",  "@service_container", "p", "dime_employeebundle_periodformtype"]
 
     dime.holiday.handler:

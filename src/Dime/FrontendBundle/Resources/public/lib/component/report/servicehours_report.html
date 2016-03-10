@@ -1,54 +1,53 @@
-<div class="col-md-12">
-  <div class="box box-primary">
-    <div class="box-header with-border">
-      <h3 class="box-title">Servicerapport</h3>
-    </div>
-    <div class="box-body" style="overflow: scroll;">
+<div class="box box-primary">
+  <div class="box-header with-border">
+    <h3 class="box-title">Servicerapport</h3>
+  </div>
+  <div class="box-body" style="overflow: scroll;">
 
-      <div class="row">
-        <div class="col-md-6">
-          <label>Datum:</label>
-          <daterange startdate="filterStartDate" enddate="filterEndDate"></daterange>
-          <button type="button" class="btn btn-primary" ng-click="reload(evict: true)"><span class="glyphicon glyphicon-refresh"></span></button>
-        </div>
+    <div class="row">
+      <div class="col-md-6">
+        <label>Datum:</label>
+        <daterange startdate="filterStartDate" enddate="filterEndDate"></daterange>
+        <button type="button" class="btn btn-primary" ng-click="reload(evict: true)"><span class="glyphicon glyphicon-refresh"></span></button>
       </div>
-
-      <table class="table table-bordered table-hover form">
-        <thead>
-          <tr>
-            <th style="width: 150px;">Projekt</th>
-            <th style="width: 150px;">Tätigkeitsbereich</th>
-            <th ng-repeat="activity in total.activitylist" style="width: 80px;" class="text-overflow-ellipsis" title="{{activity}}">
-              {{activity}}
-            </th>
-            <th style="width: 60px;">Total</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr ng-repeat="entry in entries">
-            <td class="text-overflow-ellipsis" title="{{entry.name}}">{{entry.name}}</td>
-            <td class="text-overflow-ellipsis" title="{{entry.projectCategory.name}}">{{entry.projectCategory.name}}</td>
-            <td ng-repeat="activity in total.activitylist" title="{{activity}}">
-              {{(entry.activities[activity]/(60*60)) | number:1}}
-            </td>
-            <td title="{{entry.name}}">{{(entry.total/(60*60)) | number:1}}</td>
-          </tr>
-        </tbody>
-        <tfoot>
-          <tr>
-            <td>Total</td>
-            <td>&nbsp;</td>
-            <td ng-repeat="activity in total.activitylist" title="{{activity}}">
-              {{(total.activities[activity]/(60*60)) | number:1}}
-            </td>
-            <td>&nbsp;</td>
-          </tr>
-        </tfoot>
-      </table>
     </div>
+
+    <table class="table table-bordered table-hover form">
+      <thead>
+        <tr>
+          <th style="width: 150px;">Projekt</th>
+          <th style="width: 150px;">Tätigkeitsbereich</th>
+          <th ng-repeat="activity in total.activitylist" style="width: 80px;" class="text-overflow-ellipsis" title="{{activity}}">
+            {{activity}}
+            <span ng-if="activity == ''"><i>DELETED SERVICE</i></span>
+          </th>
+          <th style="width: 60px;">Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="entry in entries">
+          <td class="text-overflow-ellipsis" title="{{entry.name}}">{{entry.name}}</td>
+          <td class="text-overflow-ellipsis" title="{{entry.projectCategory}}">{{entry.projectCategoryId}} {{entry.projectCategory}}</td>
+          <td ng-repeat="activity in total.activitylist" title="{{activity}}">
+            {{(entry.activities[activity]/(60*60)) | number:1}}
+          </td>
+          <td title="{{entry.name}}">{{(entry.total/(60*60)) | number:1}}</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td>Total</td>
+          <td>&nbsp;</td>
+          <td ng-repeat="activity in total.activitylist" title="{{activity}}">
+            {{(total.activities[activity]/(60*60)) | number:1}}
+          </td>
+          <td>&nbsp;</td>
+        </tr>
+      </tfoot>
+    </table>
   </div>
-  <div class="DimeControlButtons">
-    <a ng-href="{{getCsvLink()}}" target="_blank"><button type="button" class="btn btn-primary">Als CSV herunterladen</span></button></a>
-    <button type="button" class="btn btn-default" ng-click="reload(evict: true)"><span class="glyphicon glyphicon-refresh"></span></button>
-  </div>
+</div>
+<div class="DimeControlButtons">
+  <a ng-href="{{getCsvLink()}}" target="_blank"><button type="button" class="btn btn-primary">Als CSV herunterladen</span></button></a>
+  <button type="button" class="btn btn-default" ng-click="reload(evict: true)"><span class="glyphicon glyphicon-refresh"></span></button>
 </div>

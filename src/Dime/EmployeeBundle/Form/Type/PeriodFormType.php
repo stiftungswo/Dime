@@ -35,6 +35,7 @@ class PeriodFormType extends AbstractType
 			->add('employee', 'entity', array('class' => 'DimeEmployeeBundle:Employee'))
 			->add('realTime')
 			->add('holidays')
+			->add('lastYearHolidayBalance')
 		;
 	}
 
