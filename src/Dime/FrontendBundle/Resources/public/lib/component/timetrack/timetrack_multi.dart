@@ -14,6 +14,7 @@ class TimetrackMultiComponent extends EntityOverview {
   SettingsManager manager;
   Scope scope;
   DateTime date;
+  String statusText = '';
 
   List<TimetrackMultiEntry> entries = [];
   User selectedUserToAdd = null;
@@ -36,29 +37,28 @@ class TimetrackMultiComponent extends EntityOverview {
   }
 
   save() {
-    window.console.log('saving...');
-    window.console.log(entries);
+    var newTimeslicesCount = 0;
     entries.forEach((TimetrackMultiEntry entry) {
-      window.console.log(entry.user.fullname);
       List<Activity> projectActivities = activities.where((Activity a) => a.project.id == selectedProject.id);
       for (var i = 0; i < projectActivities.length; i++) {
-        window.console.log(i);
-        window.console.log(projectActivities.elementAt(i).alias);
-        window.console.log(entry.activities[i]);
         String value = entry.activities[i];
-        //DateTime startedAt = new DateTime(this.date, this.date..month, now.day);
-        this.createTimesclice(value, entry.user, this.date, projectActivities.elementAt(i));
+        if (value != '0' && value != '') {
+          this.createTimeslice(value, entry.user, this.date, projectActivities.elementAt(i));
+          newTimeslicesCount++;
+        }
       }
     });
+    this.statusText = newTimeslicesCount.toString() + ' Einträge erstellt.';
   }
 
-  createTimesclice(String value, Employee employee, DateTime startedAt, Activity activity) async {
+  createTimeslice(String value, Employee employee, DateTime startedAt, Activity activity) async {
     if (!(this.selectedProject is Project)) return;
     Timeslice slice = new Timeslice();
     slice.Set('value', value);
     slice.Set('activity', activity);
     slice.Set('startedAt', this.date);
     slice.Set('employee', employee);
+    slice.addFieldtoUpdate('value');
     slice.addFieldtoUpdate('activity');
     slice.addFieldtoUpdate('employee');
     slice.addFieldtoUpdate('startedAt');
@@ -71,9 +71,10 @@ class TimetrackMultiComponent extends EntityOverview {
       if (existingEntries.length == 0) {
         TimetrackMultiEntry entry = new TimetrackMultiEntry();
         if (selectedProject != null) {
+          inputAll = [];
           List<Activity> projectActivities = activities.where((Activity a) => a.project.id == selectedProject.id);
           projectActivities.forEach((Activity act) {
-            window.console.log(act);
+            inputAll.add('');
             entry.activities.add("0");
           });
         }
@@ -82,6 +83,7 @@ class TimetrackMultiComponent extends EntityOverview {
       }
       selectedUserToAdd = null;
     }
+    this.statusText = '';
   }
 
   removeUser(userId) {
@@ -89,14 +91,16 @@ class TimetrackMultiComponent extends EntityOverview {
   }
 
   updateActivities() {
-    window.console.log('update activities -------');
     entries.forEach((TimetrackMultiEntry entry) {
       entry.activities = [];
+      inputAll = [];
       List<Activity> projectActivities = activities.where((Activity a) => a.project.id == selectedProject.id);
       projectActivities.forEach((Activity act) {
+        inputAll.add('');
         entry.activities.add("0");
       });
     });
+    this.statusText = '';
   }
 
   loadActivities() async {
@@ -109,7 +113,28 @@ class TimetrackMultiComponent extends EntityOverview {
     }
   }
 
-  inputAllUpdated() {}
+  inputAllUpdated(int index) {
+    var newValue = inputAll[index];
+    if (newValue != '') {
+      inputAll[index] = '';
+      entries.forEach((TimetrackMultiEntry entry) {
+        entry.activities[index] = newValue;
+      });
+    }
+    this.statusText = '';
+  }
+
+  clearInputs() {
+    entries.forEach((TimetrackMultiEntry entry) {
+      int idx = 0;
+      List<Activity> projectActivities = activities.where((Activity a) => a.project.id == selectedProject.id);
+      projectActivities.forEach((Activity act) {
+        entry.activities[idx] = '0';
+        idx++;
+      });
+    });
+    this.statusText = '';
+  }
 
   TimetrackMultiComponent(DataCache store, SettingsManager manager, StatusService status, this.context, UserAuthProvider auth)
       : super(Timeslice, store, '', manager, status, auth: auth);

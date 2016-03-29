@@ -30,7 +30,7 @@
             <tr ng-if="entries.length > 0">
               <td>&nbsp;</td>
               <td ng-repeat="activity in activities | projectvaluefilter: selectedProject.id" style="overflow: hidden;">
-                <input style="width: 100%;" class="form-control" ng-model="inputAll[{{$index}}]" ng-blur="inputAllUpdated($index)" placeholder="Alle ändern"/>
+                <input style="width: 100%;" class="form-control" ng-model="inputAll[$index]" ng-blur="inputAllUpdated($index)" placeholder="Alle ändern"/>
               </td>
               <td>&nbsp;</td>
             </tr>
@@ -61,6 +61,8 @@
         </div>
         <div class="DimeControlButtons">
           <button type="button" class="btn btn-primary" ng-click="save()"><error-icon></error-icon></button>
+          <button type="button" class="btn btn-default" ng-click="clearInputs()">Eingaben zurücksetzen</button>
+          <div class="text-green">{{statusText}}</div>
         </div>
       </div>
     </div>
