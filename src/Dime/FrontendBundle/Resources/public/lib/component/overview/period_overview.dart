@@ -10,9 +10,7 @@ part of entity_overview;
 )
 class PeriodOverviewComponent extends EntityOverview implements ScopeAware {
   PeriodOverviewComponent(DataCache store, SettingsManager manager, StatusService status, this.context):
-  super(Period, store, '', manager, status) {
-    //this.context.onSwitch((Employee employee) => this.employee = employee);
-  }
+  super(Period, store, '', manager, status) {}
 
   cEnt({Period entity}) {
     if (entity != null) {
@@ -46,9 +44,21 @@ class PeriodOverviewComponent extends EntityOverview implements ScopeAware {
 
   List holidayBalances = [];
 
-  Employee employee;
+  Employee _employee;
 
   bool needsmanualAdd = true;
+
+  set employee(Employee employee) {
+    if (employee.id == null) {
+      return;
+    }
+    this._employee = employee;
+    this.context.onSwitch((Employee employee) => this.employee = employee);
+    this.reload();
+  }
+
+  get employee => this._employee;
+
 
   reload({Map<String, dynamic> params, bool evict: false}) async{
     this.entities = [];
@@ -60,6 +70,7 @@ class PeriodOverviewComponent extends EntityOverview implements ScopeAware {
         this.store.evict(this.type);
       }
 
+      window.console.log(_employee);
       this.entities = (await this.store.list(this.type, params: {'employee': employee.id})).toList();
 
       for(int i = 0; i < this.entities.length; i++){
@@ -100,7 +111,7 @@ class PeriodOverviewComponent extends EntityOverview implements ScopeAware {
   }
 
   attach() {
-    this.reload();
+    //this.reload();
   }
 
   createEntity({var newEnt, Map<String, dynamic> params: const{}}) {
