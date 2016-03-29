@@ -36,15 +36,20 @@ class TimetrackMultiComponent extends EntityOverview {
     this.loadActivities();
   }
 
-  save() {
+  save() async {
     var newTimeslicesCount = 0;
-    entries.forEach((TimetrackMultiEntry entry) {
+    if (this.rootScope == null) {
+      this.rootScope = this.scope.rootScope;
+    }
+    this.statusText = 'Speichern...';
+    await Future.forEach(entries, (TimetrackMultiEntry entry) async {
       List<Activity> projectActivities = activities.where((Activity a) => a.project.id == selectedProject.id);
       for (var i = 0; i < projectActivities.length; i++) {
         String value = entry.activities[i];
         if (value != '0' && value != '') {
-          this.createTimeslice(value, entry.user, this.date, projectActivities.elementAt(i));
+          await this.createTimeslice(value, entry.user, this.date, projectActivities.elementAt(i));
           newTimeslicesCount++;
+          this.statusText = 'Speichern... (' + newTimeslicesCount.toString() + ')';
         }
       }
     });
