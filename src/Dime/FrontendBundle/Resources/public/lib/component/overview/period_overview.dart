@@ -70,7 +70,6 @@ class PeriodOverviewComponent extends EntityOverview implements ScopeAware {
         this.store.evict(this.type);
       }
 
-      window.console.log(_employee);
       this.entities = (await this.store.list(this.type, params: {'employee': employee.id})).toList();
 
       for(int i = 0; i < this.entities.length; i++){
