@@ -41,6 +41,10 @@ Download and install a Git client:
 	e.g. https://www.sourcetreeapp.com/
 	Check out the current version
 	
+Install rsync plugin:
+
+    vagrant plugin install vagrant-rsync
+
 Fix vagrant rsync bug:
     
     Find file: C:\HashiCorp\Vagrant\embedded\gems\gems\vagrant-1.7.4\plugins\synced_folders\rsync\helper.rb
@@ -55,6 +59,10 @@ Start the virtual machine via the cygwin terminal:
 
 	cd /cygdrive/c/Users/YourName/Dime/env
 	vagrant up
+
+Start auto sync:
+    
+    vagrant rsync-auto
 
 Download e.g. Dartium which is a Google Chrome for developpers:
 	
