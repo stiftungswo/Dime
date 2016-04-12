@@ -12,3 +12,5 @@
 - /web/fonts/
 - /app/logs/
 - /.idea
+- env/.pub_cache/
+- src/Dime/FrontendBundle/Resources/public/packages/
