@@ -62,7 +62,7 @@ Start the virtual machine via the cygwin terminal:
 
 Start auto sync:
     
-    vagrant rsync-auto
+    vagrant rsync-auto dime
 
 Download e.g. Dartium which is a Google Chrome for developpers:
 	
