@@ -41,8 +41,7 @@ Vagrant.configure("2") do |config|
             # default sync form vagrant also didn't work, because path was too long
             #dime.vm.synced_folder '.', '/vagrant', disabled: true
             dime.vm.synced_folder "../", "/vagrant", type: "rsync",
-                            rsync__auto: "true",
-                            rsync__exclude: ["bin/", ".git/", "app/bootstrap.php.cache", "app/config/parameters.yml", "app/cache/", "vendor/", "build/", "web/bundles/", "web/css/", "web/js/", "web/build.js", "web/fonts/", "app/logs/", ".idea/", "env/.pub_cache/", "web/bundles/","src/Dime/FrontendBundle/Resources/public/packages/"],
+                            rsync__exclude: ["/bin/", "/.git/", "/web/bundles/", "/app/logs/", "/.idea/", "/src/Dime/FrontendBundle/Resources/public/packages/"],
                             rsync__args: ["--verbose", "--archive", "--delete", "-z", "-FF"]
         else
             # use rsync on other plattforms
