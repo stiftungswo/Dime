@@ -66,7 +66,7 @@ class PeriodRepository extends EntityRepository
             $qb->expr()->lte($alias . '.start', ':time'),
             $qb->expr()->gte($alias . '.end', ':time')
         );
-        $qb->setParameter('time', $slice->getStartedAt());
+        $qb->setParameter('time', date('Y-m-d', $slice->getStartedAt()->timestamp));
     }
 
     public function scopeByHoliday(Holiday $day, QueryBuilder $qb = null)
