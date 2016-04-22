@@ -85,6 +85,9 @@ class TimesliceOverviewComponent extends EntityOverview {
   @NgOneWayOneTime('allowProjectSelect')
   bool allowProjectSelect = true;
 
+  @NgOneWayOneTime('blendOutStartAndEnd')
+  bool blendOutStartAndEnd = false;
+
   bool projectBased = false;
 
   TimesliceOverviewComponent(DataCache store, SettingsManager manager, StatusService status, this.context, UserAuthProvider auth)
