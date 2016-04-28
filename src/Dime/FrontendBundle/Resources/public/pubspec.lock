@@ -2,65 +2,101 @@
 # See http://pub.dartlang.org/doc/glossary.html#lockfile
 packages:
   analyzer:
-    description: analyzer
+    description:
+      name: analyzer
+      url: "https://pub.dartlang.org"
     source: hosted
     version: "0.26.4"
   angular:
-    description: angular
+    description:
+      name: angular
+      url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.2+2"
   angular_ui:
-    description: angular_ui
+    description:
+      name: angular_ui
+      url: "https://pub.dartlang.org"
     source: hosted
     version: "0.6.11"
   args:
-    description: args
+    description:
+      name: args
+      url: "https://pub.dartlang.org"
     source: hosted
     version: "0.12.2+6"
   async:
-    description: async
+    description:
+      name: async
+      url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.7.0"
+    version: "1.9.0"
   barback:
-    description: barback
+    description:
+      name: barback
+      url: "https://pub.dartlang.org"
     source: hosted
     version: "0.15.2+7"
   browser:
-    description: browser
+    description:
+      name: browser
+      url: "https://pub.dartlang.org"
     source: hosted
     version: "0.10.0+2"
   charcode:
-    description: charcode
+    description:
+      name: charcode
+      url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.0"
   cli_util:
-    description: cli_util
+    description:
+      name: cli_util
+      url: "https://pub.dartlang.org"
     source: hosted
     version: "0.0.1+2"
   code_transformers:
-    description: code_transformers
+    description:
+      name: code_transformers
+      url: "https://pub.dartlang.org"
     source: hosted
     version: "0.2.11"
   collection:
-    description: collection
+    description:
+      name: collection
+      url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.3"
+  convert:
+    description:
+      name: convert
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.1.1"
   crypto:
-    description: crypto
+    description:
+      name: crypto
+      url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.9.1"
+    version: "0.9.2+1"
   csslib:
-    description: csslib
+    description:
+      name: csslib
+      url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.12.2"
+    version: "0.13.1"
   di:
-    description: di
+    description:
+      name: di
+      url: "https://pub.dartlang.org"
     source: hosted
     version: "3.3.5+1"
   glob:
-    description: glob
+    description:
+      name: glob
+      url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.1.0"
+    version: "1.1.2"
   hammock:
     description:
       ref: master
@@ -76,103 +112,159 @@ packages:
     source: git
     version: "0.0.2"
   html:
-    description: html
+    description:
+      name: html
+      url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.12.2+1"
+    version: "0.12.2+2"
   html5lib:
-    description: html5lib
+    description:
+      name: html5lib
+      url: "https://pub.dartlang.org"
     source: hosted
     version: "0.12.1"
   intl:
-    description: intl
+    description:
+      name: intl
+      url: "https://pub.dartlang.org"
     source: hosted
     version: "0.8.10+4"
   logging:
-    description: logging
+    description:
+      name: logging
+      url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.11.2"
+    version: "0.11.3"
   meta:
-    description: meta
+    description:
+      name: meta
+      url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.8.8"
+    version: "0.12.1"
   observe:
-    description: observe
+    description:
+      name: observe
+      url: "https://pub.dartlang.org"
     source: hosted
     version: "0.13.1+3"
   package_config:
-    description: package_config
+    description:
+      name: package_config
+      url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.3"
   path:
-    description: path
+    description:
+      name: path
+      url: "https://pub.dartlang.org"
     source: hosted
     version: "1.3.9"
   perf_api:
-    description: perf_api
+    description:
+      name: perf_api
+      url: "https://pub.dartlang.org"
     source: hosted
     version: "0.0.9"
   plugin:
-    description: plugin
+    description:
+      name: plugin
+      url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.0"
   pool:
-    description: pool
+    description:
+      name: pool
+      url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.2.1"
+    version: "1.2.3"
   route_hierarchical:
-    description: route_hierarchical
+    description:
+      name: route_hierarchical
+      url: "https://pub.dartlang.org"
     source: hosted
     version: "0.6.2"
   sass:
-    description: sass
+    description:
+      name: sass
+      url: "https://pub.dartlang.org"
     source: hosted
     version: "0.4.2"
   script_inliner:
-    description: script_inliner
+    description:
+      name: script_inliner
+      url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.0"
   smoke:
-    description: smoke
+    description:
+      name: smoke
+      url: "https://pub.dartlang.org"
     source: hosted
     version: "0.3.5"
   source_maps:
-    description: source_maps
+    description:
+      name: source_maps
+      url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.10.1"
+    version: "0.10.1+1"
   source_span:
-    description: source_span
+    description:
+      name: source_span
+      url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.2.1"
+    version: "1.2.2"
   stack_trace:
-    description: stack_trace
+    description:
+      name: stack_trace
+      url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.6.0"
+    version: "1.6.5"
   string_scanner:
-    description: string_scanner
+    description:
+      name: string_scanner
+      url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.4+1"
+  typed_data:
+    description:
+      name: typed_data
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.1.2"
   unittest:
-    description: unittest
+    description:
+      name: unittest
+      url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.11.6+1"
+    version: "0.11.6+4"
   utf:
-    description: utf
+    description:
+      name: utf
+      url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.9.0+2"
+    version: "0.9.0+3"
   watcher:
-    description: watcher
+    description:
+      name: watcher
+      url: "https://pub.dartlang.org"
     source: hosted
     version: "0.9.7"
   when:
-    description: when
+    description:
+      name: when
+      url: "https://pub.dartlang.org"
     source: hosted
     version: "0.2.0"
   which:
-    description: which
+    description:
+      name: which
+      url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.3"
   yaml:
-    description: yaml
+    description:
+      name: yaml
+      url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.8"
-sdk: ">=1.12.0 <2.0.0"
+sdk: ">=1.16.0 <2.0.0"
