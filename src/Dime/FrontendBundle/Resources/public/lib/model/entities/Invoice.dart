@@ -23,6 +23,8 @@ class Invoice extends Entity {
     this.total = original.total;
     this.subtotal = original.subtotal;
     this.totalVAT = original.totalVAT;
+    this.totalVAT8 = original.totalVAT8;
+    this.totalVAT2 = original.totalVAT2;
     this.fixedPrice = original.fixedPrice;
     addFieldstoUpdate([
       'description',
@@ -37,6 +39,8 @@ class Invoice extends Entity {
       'total',
       'subtotal',
       'totalVAT',
+      'totalVAT8',
+      'totalVAT2',
       'fixedPrice'
     ]);
   }
@@ -84,6 +88,10 @@ class Invoice extends Entity {
           return this.subtotal;
         case 'totalVAT':
           return this.totalVAT;
+        case 'totalVAT8':
+          return this.totalVAT8;
+        case 'totalVAT2':
+          return this.totalVAT2;
         case 'fixedPrice':
           return this.fixedPrice;
         default:
@@ -131,6 +139,12 @@ class Invoice extends Entity {
       case 'totalVAT':
         this.totalVAT = value;
         break;
+      case 'totalVAT8':
+        this.totalVAT8 = value;
+        break;
+      case 'totalVAT2':
+        this.totalVAT2 = value;
+        break;
       case 'fixedPrice':
         this.fixedPrice = value;
         break;
@@ -159,6 +173,8 @@ class Invoice extends Entity {
   String total;
   String subtotal;
   String totalVAT;
+  String totalVAT8;
+  String totalVAT2;
   String description;
   Customer customer;
   Project project;

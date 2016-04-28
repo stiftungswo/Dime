@@ -211,6 +211,51 @@ class Invoice extends Entity implements DimeEntityInterface
         }
     }
 
+
+    /**
+     * /**
+     * @JMS\VirtualProperty
+     * @JMS\SerializedName("totalVAT8")
+     * @JMS\Type(name="Money")
+     * @return Money
+     */
+    public function getTotalVAT8()
+    {
+        if ($this->getItems()) {
+            $totalVAT = Money::CHF(0);
+            foreach ($this->getItems() as $invoicePosition) {
+                if ($invoicePosition->getCalculatedVAT() && $invoicePosition->getVAT() == '0.080') {
+                    $totalVAT = $totalVAT->add($invoicePosition->getCalculatedVAT());
+                }
+            }
+            return $totalVAT;
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * /**
+     * @JMS\VirtualProperty
+     * @JMS\SerializedName("totalVAT2")
+     * @JMS\Type(name="Money")
+     * @return Money
+     */
+    public function getTotalVAT2()
+    {
+        if ($this->getItems()) {
+            $totalVAT = Money::CHF(0);
+            foreach ($this->getItems() as $invoicePosition) {
+                if ($invoicePosition->getCalculatedVAT() && $invoicePosition->getVAT() == '0.025') {
+                    $totalVAT = $totalVAT->add($invoicePosition->getCalculatedVAT());
+                }
+            }
+            return $totalVAT;
+        } else {
+            return null;
+        }
+    }
+
     /**
      * /**
      * @return Money
