@@ -91,7 +91,7 @@ class TimesliceOverviewComponent extends EntityOverview {
   bool allowProjectSelect = true;
 
   @NgOneWayOneTime('blendOutStartAndEnd')
-  bool blendOutStartAndEnd = false;
+  bool blendOutStartAndEnd = true;
 
   bool projectBased = false;
 
