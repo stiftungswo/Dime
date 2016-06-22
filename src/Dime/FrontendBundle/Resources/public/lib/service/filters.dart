@@ -47,7 +47,7 @@ class ProjectValueFilter {
   }
 }
 
-@Formatter(name: 'offerpositionOrder')
+@Formatter(name: 'offerpostionOrder')
 class OfferPositionOrderByOrderField {
   List call(List<OfferPosition> offerPositions) {
     offerPositions.sort((x, y) => x.order.compareTo(y.order));
