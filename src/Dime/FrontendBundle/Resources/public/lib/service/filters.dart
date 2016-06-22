@@ -55,6 +55,14 @@ class OfferPositionOrderByOrderField {
   }
 }
 
+@Formatter(name: 'invoiceitemOrder')
+class InvoiceItemOrderByOrderField {
+  List call(List<InvoiceItem> items) {
+    items.sort((x, y) => x.order.compareTo(y.order));
+    return items;
+  }
+}
+
 @Formatter(name: 'secondsToHours')
 class SecondsToHours {
   String call(int seconds) {
