@@ -17,7 +17,7 @@ class Version20160622160852 extends AbstractMigration
     {
         $this->abortIf($this->connection->getDatabasePlatform()->getName() != 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE invoice_items ADD order_no int(11) DEFAULT 0 NOT NULL AFTER user_id');
+        $this->addSql('ALTER TABLE invoice_items ADD order_no int(11) DEFAULT 0 AFTER user_id');
     }
 
     /**
