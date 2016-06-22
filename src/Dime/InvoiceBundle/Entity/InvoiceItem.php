@@ -71,6 +71,12 @@ class InvoiceItem extends Entity implements DimeEntityInterface
 	protected $activity;
 
 	/**
+	 * @JMS\SerializedName("order")
+	 * @ORM\Column(name="order_no", type="decimal", nullable=true)
+	 */
+	protected $order;
+
+	/**
 	 * @param Activity $activity
 	 *
 	 * @return $this
@@ -256,5 +262,20 @@ class InvoiceItem extends Entity implements DimeEntityInterface
 		return $this;
 	}
 
+	/**
+	 * @return mixed
+	 */
+	public function getOrder()
+	{
+		return $this->order;
+	}
+
+	/**
+	 * @param mixed $order
+	 */
+	public function setOrder($order)
+	{
+		$this->order = $order;
+	}
 
 } 
