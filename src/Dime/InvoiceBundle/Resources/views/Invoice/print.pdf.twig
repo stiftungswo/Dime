@@ -21,7 +21,9 @@
 			<div class="recipientAddress">
 				{%  if customer.company %}{{ customer.company }}{% endif %}<br/>
 				{% if customer.department %}{{ customer.department }}{% endif %}<br/>
-				{% if customer.salutation %}{{ customer.salutation }} {% endif %}{% if customer.fullname %}{{ customer.fullname }}{% else %}{{ customer.name }}{% endif %}<br/>
+				{% if customer.salutation %}{{ customer.salutation }} {% endif %}
+				    {% if customer.fullname %}{% if customer.salutation and customer.fullname|length > 25 %}<br/>{% endif %}{{ customer.fullname }}
+				    {% else %}{% if customer.salutation and customer.name|length > 25 %}<br/>{% endif %}{{ customer.name }}{% endif %}<br/>
 				{{ address.street }} {{ address.streetnumber }}<br/>
 				{{ address.plz }} {{ address.city }}<br/>
 				{% if address.state %}{{ address.state }} {% endif %}{% if address.country %}{{ address.country }}{% endif %}<br/>
