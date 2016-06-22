@@ -21,7 +21,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr ng-repeat="entity in entities | offerpostionOrder" ng-click="selectEntity(entity.id)" ng-class="isSelected(entity)? 'info': ''">
+            <tr ng-repeat="entity in entities | offerpositionOrder" ng-click="selectEntity(entity.id)" ng-class="isSelected(entity)? 'info': ''">
               <td><input class="form-control" type="text" ng-model="entity.order" ng-change="addSaveField('order', entity)"/></td>
               <td><service-select hideArchived="true" service="entity.service" callback="entity.addFieldtoUpdate(name)" field="'service'"></service-select></td>
               <td><input class="form-control" type="text" ng-model="entity.rateValue" ng-change="addSaveField('rateValue', entity)"/></td>
