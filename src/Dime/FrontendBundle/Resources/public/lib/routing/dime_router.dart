@@ -6,6 +6,7 @@ void dimeRouteInitializer(Router router, RouteViewFactory views) {
   views.configure({
     'welcome': ngRoute(path: '/welcome', view: '/bundles/dimefrontend/packages/DimeClient/component/main/welcome.html', defaultRoute: true),
     'projects_overview': ngRoute(path: '/projects/overview', viewHtml: '<project-overview></project-overview>'),
+    'projects_open-invoices': ngRoute(path: '/projects/open-invoices', viewHtml: '<projects-open-invoices></projects-open-invoices>'),
     'project_edit': ngRoute(path: '/projects/edit/:id', viewHtml: '<project-edit></project-edit>'),
     'timetrack': ngRoute(path: '/timetrack', viewHtml: '<timetrack></timetrack>'),
     'timetrack_multi': ngRoute(path: '/timetrack/multi', viewHtml: '<timetrack-multi></timetrack-multi>'),
