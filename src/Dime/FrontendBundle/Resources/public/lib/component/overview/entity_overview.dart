@@ -209,6 +209,7 @@ class EntityOverview extends AttachAware implements ScopeAware {
   }
 
   reload({Map<String, dynamic> params, bool evict: false}) async {
+    this.entities = [];
     this.statusservice.setStatusToLoading();
     try {
       if (evict) {

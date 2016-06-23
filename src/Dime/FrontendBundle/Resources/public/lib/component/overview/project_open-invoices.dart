@@ -13,7 +13,6 @@ class ProjectOpenInvoicesComponent extends EntityOverview {
   UserContext context;
 
   reload({Map<String, dynamic> params, bool evict: false}) async {
-    print('test');
     this.entities = [];
     this.statusservice.setStatusToLoading();
     try {
