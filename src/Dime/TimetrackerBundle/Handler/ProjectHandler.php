@@ -1,16 +1,8 @@
 <?php
 namespace Dime\TimetrackerBundle\Handler;
 
-use Dime\TimetrackerBundle\Entity\RateUnitType;
-use Dime\TimetrackerBundle\Event\DimeEntityPersistEvent;
-use Dime\TimetrackerBundle\Exception\InvalidFormException;
-use Dime\TimetrackerBundle\Model\DimeEntityInterface;
-use Dime\TimetrackerBundle\TimetrackEvents;
-use Doctrine\Common\Persistence\ObjectManager;
-use FOS\UserBundle\Model\UserInterface;
-use FOS\UserBundle\Model\UserManager;
+use Money\Money;
 use Symfony\Component\DependencyInjection\Container;
-use Carbon\Carbon;
 
 class ProjectHandler extends GenericHandler
 {
@@ -22,7 +14,25 @@ class ProjectHandler extends GenericHandler
     public function allProjectsWithOpenInvoices()
     {
         $projects = $this->repository->findAll();
-        // TODO: only return the once with open invoices
-        return $projects;
+        $projectsWithOpenInvoices = array();
+        foreach ($projects as $project) {
+            if ($project->isChargeable()) {
+                $projectPrice = $project->calculateCurrentPrice();
+                if ($projectPrice != null) {
+                    if ($projectPrice->getAmount() > 0) {
+                        $clearedAmount = Money::CHF(0);
+                        if (!$project->getInvoices()->isEmpty()) {
+                            foreach ($project->getInvoices() as $invoice) {
+                                $clearedAmount = $clearedAmount->add($invoice->getSubTotal());
+                            }
+                        }
+                        if ($projectPrice->greaterThan($clearedAmount)) {
+                            array_push($projectsWithOpenInvoices, $project);
+                        }
+                    }
+                }
+            }
+        }
+        return $projectsWithOpenInvoices;
     }
 }
