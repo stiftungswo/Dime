@@ -13,6 +13,10 @@ void dimeRouteInitializer(Router router, RouteViewFactory views) {
         path: '/projects/overview',
         viewHtml: '<project-overview></project-overview>'
     ),
+    'projects_open-invoices': ngRoute(
+        path: '/projects/open-invoices',
+        viewHtml: '<projects-open-invoices></projects-open-invoices>'
+    ),
     'project_edit': ngRoute(
         path: '/projects/edit/:id',
         viewHtml: '<project-edit></project-edit>'
