@@ -39,6 +39,7 @@ class AppModule extends Module {
     bind(ProjectCategoryOverviewComponent);
     bind(ProjectCategorySelectComponent);
     bind(ProjectOverviewComponent);
+    bind(ProjectOpenInvoicesComponent);
     bind(ProjectEditComponent);
     bind(ActivityOverviewComponent);
     bind(TimesliceOverviewComponent);
