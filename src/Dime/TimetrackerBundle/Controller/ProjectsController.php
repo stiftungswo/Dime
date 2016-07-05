@@ -88,6 +88,32 @@ class ProjectsController extends DimeController
     }
 
     /**
+     * List all Entities with open invoices.
+     *
+     * @ApiDoc(
+     * resource = true,
+     * description="Get a Collection of Projects with open invoices",
+     * output = "Dime\TimetrackerBundle\Entity\Project",
+     * section="projects",
+     * statusCodes = {
+     * 200 = "Returned when successful"
+     * }
+     * )
+     *
+     * @Annotations\View(
+     * serializerEnableMaxDepthChecks=true,
+     * serializerGroups={"List"}
+     * )
+     *
+     * @Annotations\Route(requirements={"_format"="json|xml"})
+     *
+     * @return array
+     */
+    public function getProjectsopeninvoicesAction() {
+        return $this->container->get($this->handlerSerivce)->allProjectsWithOpenInvoices();
+    }
+
+    /**
      * Create a new Entity from the submitted data.
      *
      * @ApiDoc(

@@ -39,6 +39,7 @@ class AppModule extends Module {
     bind(ProjectCategoryOverviewComponent);
     bind(ProjectCategorySelectComponent);
     bind(ProjectOverviewComponent);
+    bind(ProjectOpenInvoicesComponent);
     bind(ProjectEditComponent);
     bind(ActivityOverviewComponent);
     bind(TimesliceOverviewComponent);
@@ -105,6 +106,7 @@ class AppModule extends Module {
     bind(HammockConfig, toFactory: createHammockConfig, inject: [Injector]);
   }
 }
+
 
 void main() {
   Logger.root.level = Level.ALL;

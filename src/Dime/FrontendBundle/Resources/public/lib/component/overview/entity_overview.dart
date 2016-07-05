@@ -26,6 +26,7 @@ part 'offerdiscount_overview.dart';
 part 'offerposition_overview.dart';
 part 'period_overview.dart';
 part 'project_overview.dart';
+part 'project_open-invoices.dart';
 part 'projectCategory_overview.dart';
 part 'rate_overview.dart';
 part 'rateGroup_overview.dart';
