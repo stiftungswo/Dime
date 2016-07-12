@@ -15,6 +15,7 @@ class InvoiceItem extends Entity {
   InvoiceItem();
 
   InvoiceItem.clone(InvoiceItem original): super.clone(original){
+    this.order = original.order;
     this.name = original.name;
     this.amount = original.amount;
     this.rateValue = original.rateValue;
@@ -22,7 +23,7 @@ class InvoiceItem extends Entity {
     this.activity = original.activity;
     this.vat = original.vat;
     this.invoice = original.invoice;
-    addFieldstoUpdate(['name','amount','rateValue','rateUnit','activity','vat','invoice']);
+    addFieldstoUpdate(['order', 'name','amount','rateValue','rateUnit','activity','vat','invoice']);
   }
 
   InvoiceItem.fromMap(Map<String, dynamic> map): super.fromMap(map);
@@ -35,6 +36,8 @@ class InvoiceItem extends Entity {
     var val = super.Get(property);
     if (val == null) {
       switch (property) {
+        case 'order':
+          return this.order;
         case 'rateValue':
           return this.rateValue;
         case 'rateUnit':
@@ -60,6 +63,9 @@ class InvoiceItem extends Entity {
 
   void Set(String property, var value) {
     switch (property) {
+      case 'order':
+        this.order = value;
+        break;
       case 'rateValue':
         this.rateValue = value;
         break;
@@ -99,6 +105,7 @@ class InvoiceItem extends Entity {
   }
 
   String type = 'invoiceitems';
+  int order;
   Invoice invoice;
   String rateValue;
   String rateUnit;
