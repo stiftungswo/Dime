@@ -120,7 +120,7 @@
 			</tr>
 		</table>
 	</dynamic-page>
-	<page margin="192mm 5mm 5mm 5mm">
+	<page margin="188mm 5mm 5mm 5mm">
 		<table height="100mm" width="200mm" border.type="none">
 			<tr border.type="none">
 				<td height="100mm" width="55mm" border.type="none">
@@ -131,7 +131,7 @@
 					<div margin="9mm 4mm 0 20mm" text-align="right">
 						{{ invoiceconfig.senderKontoNr }}
 					</div>
-					<div margin="6mm 3mm 0 0">
+					<div margin="6mm 2mm 0 0">
 						<div margin="0" padding="0" font-size="14" text-align="center">
 							  {{ invoice.total|money_get_decimals|charbox(2) }}<div margin="0" padding="0" float="right" width="6mm"></div>{{ invoice.total|money_get_digits|charbox(8) }}
 						</div>
@@ -157,7 +157,7 @@
 								<div margin="9mm 4mm 0 20mm" text-align="right">
 									{{ invoiceconfig.senderKontoNr }}
 								</div>
-								<div margin="6mm 2mm 0 0">
+								<div margin="6mm 3mm 0 0">
 									<div margin="0" padding="0" font-size="14" text-align="center">
 										{{ invoice.total|money_get_decimals|charbox(2) }}<div margin="0" padding="0" float="right" width="6mm"></div>{{ invoice.total|money_get_digits|charbox(8) }}
 									</div>
