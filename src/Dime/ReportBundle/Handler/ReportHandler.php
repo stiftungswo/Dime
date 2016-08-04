@@ -421,6 +421,14 @@ class ReportHandler extends AbstractHandler{
 		$row[] = escapeCSV('Umsatz erwartet CHF (Total gestellte Offerten)');
 		$rows[] = implode(',',$row);
 
+		// order rows by year and accountant
+		usort($data, function($a, $b) {
+			if ($a['year'] == $b['year']) {
+				return strcmp($a['accountant'], $b['accountant']);
+			}
+			return ($a['year'] < $b['year']) ? 1 : -1;
+		});
+
 		// data rows
 		foreach($data as $project){
 			$row = [];
