@@ -431,7 +431,6 @@ class ReportHandler extends AbstractHandler{
 			$row[] = escapeCSV($project['date']);
 			$row[] = escapeCSV($project['year']);
 			$row[] = escapeCSV($project['accountant']);
-			$row[] = escapeCSV($project['user']);
 			$row[] = escapeCSV($project['aufwand']);
 			$row[] = escapeCSV($project['umsatz']);
 			$row[] = escapeCSV($project['umsatz_erwartet']);
