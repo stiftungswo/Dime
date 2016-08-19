@@ -7,6 +7,7 @@
 
 namespace Dime\ReportBundle\Handler;
 
+use Money\Money;
 use Carbon\Carbon;
 use Dime\InvoiceBundle\Entity\Invoice;
 use Dime\ReportBundle\Entity\ExpenseReport;
@@ -372,21 +373,21 @@ class ReportHandler extends AbstractHandler
             $data['accountant'] = ($project->getAccountant() != null ? $project->getAccountant()->getFullname() : '');
 
             // Total der erfassten Stunden
-            $data['aufwand'] = ($project->calculateCurrentPrice() != null ? $project->calculateCurrentPrice()->getAmount()/10 : 0);
+            $data['aufwand'] = ($project->calculateCurrentPrice() != null ? $project->calculateCurrentPrice()->getAmount()/100 : 0);
 
             // Total der Rechnungen zusammenzählen
             $invoices = $project->getInvoices();
-            $invoice_total = 0;
+            $invoice_total = Money::CHF(0);
             if (count($invoices)) {
                 /** @var $invoice Invoice */
                 foreach ($invoices as $invoice) {
-                    $invoice_total += $invoice->getTotal()->getAmount()/10;
+                    $invoice_total = $invoice_total->add($invoice->getTotal());
                 }
             }
-            $data['umsatz'] = $invoice_total;
+            $data['umsatz'] = ($invoice_total->getAmount()/100);
 
             // Total der Offerten zusammenzählen (= budget_price)
-            $data['umsatz_erwartet'] = ($project->getBudgetPrice() != null ? $project->getBudgetPrice()->getAmount()/10 : 0);
+            $data['umsatz_erwartet'] = ($project->getBudgetPrice() != null ? $project->getBudgetPrice()->getAmount()/100 : 0);
 
             $report[] = $data;
         }
