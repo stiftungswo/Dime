@@ -9,6 +9,7 @@ namespace Dime\InvoiceBundle\Entity;
 
 use Carbon\Carbon;
 use DateTime;
+use Dime\EmployeeBundle\Entity\Employee;
 use Dime\TimetrackerBundle\Entity\Customer;
 use Dime\TimetrackerBundle\Entity\Entity;
 use Dime\TimetrackerBundle\Entity\StandardDiscount;
