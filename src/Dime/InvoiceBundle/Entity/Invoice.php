@@ -125,6 +125,13 @@ class Invoice extends Entity implements DimeEntityInterface
 	 */
 	protected $customer;
 
+	/**
+	 * @ORM\ManyToOne(targetEntity="Dime\TimetrackerBundle\Entity\User")
+	 * @ORM\JoinColumn(name="accountant_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
+	 * @JMS\MaxDepth(1)
+	 */
+	protected $accountant;
+
 
 	public function __construct()
 	{
@@ -558,6 +565,26 @@ class Invoice extends Entity implements DimeEntityInterface
 	public function setCustomer($customer)
 	{
 		$this->customer = $customer;
+		return $this;
+	}
+
+	/**
+	 * @return Employee
+	 */
+	public function getAccountant()
+	{
+		return $this->accountant;
+	}
+
+	/**
+	 * @param Employee $accountant
+	 *
+	 * @return Project
+	 */
+	public function setAccountant($accountant)
+	{
+		$this->accountant = $accountant;
+
 		return $this;
 	}
 

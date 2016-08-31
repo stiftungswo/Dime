@@ -21,12 +21,14 @@ class InvoiceFormType extends AbstractType
 			->add('description')
 			->add('alias')
 			->add('fixedPrice', 'tbbc_simple_money')
+			->add('accountant', 'entity', array('class' => 'DimeEmployeeBundle:Employee'))
 			->add('customer', 'entity', array('class' => 'Dime\TimetrackerBundle\Entity\Customer'))
 			->add('start', 'datetime', array('required' => false, 'widget' => 'single_text', 'with_seconds' => true))
 			->add('end', 'datetime', array('required' => false, 'widget' => 'single_text', 'with_seconds' => true))
 			->add('standardDiscounts','entity', array('class' => 'DimeTimetrackerBundle:StandardDiscount', 'multiple' => true))
 			->add('invoiceDiscounts','entity', array('class' => 'DimeInvoiceBundle:InvoiceDiscount', 'multiple' => true))
 			->add('tags', 'entity', array('class' => 'DimeTimetrackerBundle:Tag', 'multiple' => true))
+			->add('user', 'entity', array('class' => 'DimeTimetrackerBundle:User'))
 		;
 	}
 
