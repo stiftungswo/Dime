@@ -26,8 +26,9 @@ class Invoice extends Entity {
     this.totalVAT8 = original.totalVAT8;
     this.totalVAT2 = original.totalVAT2;
     this.fixedPrice = original.fixedPrice;
+    this.accountant = original.accountant;
     addFieldstoUpdate(['description','project', 'items', 'invoiceDiscounts', 'standardDiscounts', 'start',
-      'end', 'customer', 'totalDiscounts', 'total', 'subtotal', 'totalVAT','totalVAT8','totalVAT2', 'fixedPrice']);
+      'end', 'customer', 'totalDiscounts', 'total', 'subtotal', 'totalVAT','totalVAT8','totalVAT2', 'fixedPrice', 'accountant']);
   }
 
   Invoice.fromMap(Map<String, dynamic> map): super.fromMap(map);
@@ -79,6 +80,8 @@ class Invoice extends Entity {
           return this.totalVAT2;
         case 'fixedPrice':
           return this.fixedPrice;
+        case 'accountant':
+          return this.accountant;
         default:
           break;
       }
@@ -133,6 +136,9 @@ class Invoice extends Entity {
       case 'fixedPrice':
         this.fixedPrice = value;
         break;
+      case 'accountant':
+        this.accountant = value is Entity ? value : new Employee.fromMap(value);
+        break;
       default:
         super.Set(property, value);
         break;
@@ -168,4 +174,5 @@ class Invoice extends Entity {
   List<StandardDiscount> standardDiscounts = [];
   DateTime start;
   DateTime end;
+  Employee accountant;
 }
