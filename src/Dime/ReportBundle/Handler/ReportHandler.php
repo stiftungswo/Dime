@@ -361,7 +361,6 @@ class ReportHandler extends AbstractHandler{
 			$data = [];
 			$data['name'] = $project->getName();
 			$data['category'] = ($project->getProjectCategory() != null ? $project->getProjectCategory()->getName() : '');
-			$data['section'] = ($project->getProjectCategory() != null ? $project->getProjectCategory()->getName() : '');
 			$data['customer'] = ($project->getCustomer() != null ? $project->getCustomer()->getName() : '');
 			$data['date'] = $project->getCreatedAt()->format('d.m.Y');
 			$data['year'] = $project->getCreatedAt()->format('Y');
@@ -387,6 +386,21 @@ class ReportHandler extends AbstractHandler{
 			$report[] = $data;
 		}
 
+		$invoicesWithoutProjects = $this->om->getRepository('DimeInvoiceBundle:Invoice')->findBy(array('project' => NULL));
+		foreach($invoicesWithoutProjects as $invoice){
+			$data = [];
+			$data['name'] = $invoice->getName();
+			$data['category'] = '';
+			$data['customer'] = ($invoice->getCustomer() != null ? $invoice->getCustomer()->getName() : '');
+			$data['date'] = $invoice->getCreatedAt()->format('d.m.Y');
+			$data['year'] = $invoice->getCreatedAt()->format('Y');
+			$data['accountant'] = ($invoice->getAccountant() != null ? $invoice->getAccountant()->getFullname() : '');
+			$data['aufwand'] = '';
+			$data['umsatz'] = ($invoice->getTotal()->getAmount()/100);
+			$data['umsatz_erwartet'] = '';
+
+			$report[] = $data;
+		}
 		return $report;
 	}
 
@@ -410,9 +424,8 @@ class ReportHandler extends AbstractHandler{
 
 		// header rows
 		$row = [];
-		$row[] = escapeCSV('Projekt');
+		$row[] = escapeCSV('Projekt / Rechnung');
 		$row[] = escapeCSV('Kategorie (Tätigkeitsbereich)');
-		$row[] = escapeCSV('Geschäftsbereich (Tätigkeitsbereich)');
 		$row[] = escapeCSV('Auftraggeber');
 		$row[] = escapeCSV('Start (Erstelldatum)');
 		$row[] = escapeCSV('Jahr');
@@ -435,7 +448,6 @@ class ReportHandler extends AbstractHandler{
 			$row = [];
 			$row[] = escapeCSV($project['name']);
 			$row[] = escapeCSV($project['category']);
-			$row[] = escapeCSV($project['section']);
 			$row[] = escapeCSV($project['customer']);
 			$row[] = escapeCSV($project['date']);
 			$row[] = escapeCSV($project['year']);
