@@ -187,12 +187,12 @@ class EntityOverview extends AttachAware implements ScopeAware {
     }
   }
 
-  openEditView([int entId]) {
+  openEditView([int entId, String searchTerm = ""]) {
     if (this.router != null) {
       if (entId == null) {
         entId = this.selectedEntId;
       }
-      router.go(this.routename, {'id': entId});
+      router.go(this.routename, {'id': entId, 'searchTerm': searchTerm});
     }
   }
 
