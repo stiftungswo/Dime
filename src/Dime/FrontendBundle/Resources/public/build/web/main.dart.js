@@ -49874,7 +49874,7 @@
       }
     },
     Invoice: {
-      "^": "Entity;type:Invoice_type*,totalDiscounts@,fixedPrice@,total*,subtotal@,totalVAT@,totalVAT8@,totalVAT2@,description@,customer@,project@,items*,invoiceDiscounts<,standardDiscounts@,start*,end@,_descendantsToUpdate,id,_toUpdate,type,createdAt,updatedAt,name,alias,user,tags",
+      "^": "Entity;type:Invoice_type*,totalDiscounts@,fixedPrice@,total*,subtotal@,totalVAT@,totalVAT8@,totalVAT2@,description@,customer@,project@,items*,invoiceDiscounts<,standardDiscounts@,start*,end@,accountant@,_descendantsToUpdate,id,_toUpdate,type,createdAt,updatedAt,name,alias,user,tags",
       init$1$params: function(params) {
         var t1 = J.getInterceptor$x(params);
         if (t1.containsKey$1(params, "name") !== true)
@@ -49915,6 +49915,8 @@
               return this.totalVAT2;
             case "fixedPrice":
               return this.fixedPrice;
+            case "accountant":
+              return this.accountant;
             default:
               break;
           }
@@ -49980,6 +49982,15 @@
           case "fixedPrice":
             this.fixedPrice = value;
             break;
+          case "accountant":
+            if (value instanceof D.Entity)
+              t1 = value;
+            else {
+              t1 = new D.Employee("employees", null, null, null, "users", null, null, null, null, null, null, null, null, [], null, [], "entities", null, null, null, null, null, []);
+              t1.Entity$fromMap$1(value);
+            }
+            this.accountant = t1;
+            break;
           default:
             this.super$Entity$Set(property, value);
             break;
@@ -50013,7 +50024,7 @@
           var invoices, t1, invoice;
           invoices = H.setRuntimeTypeInfo([], [D.Invoice]);
           for (t1 = J.get$iterator$ax($content); t1.moveNext$0();) {
-            invoice = new D.Invoice("invoices", null, null, null, null, null, null, null, null, null, null, [], [], [], null, null, [], null, [], "entities", null, null, null, null, null, []);
+            invoice = new D.Invoice("invoices", null, null, null, null, null, null, null, null, null, null, [], [], [], null, null, null, [], null, [], "entities", null, null, null, null, null, []);
             invoice.Entity$fromMap$1(t1.get$current());
             invoices.push(invoice);
           }
@@ -50027,7 +50038,7 @@
         var t1, t2;
         t1 = J.getInterceptor$x(params);
         if (t1.containsKey$1(params, "invoice") === true) {
-          t2 = new D.Invoice("invoices", null, null, null, null, null, null, null, null, null, null, [], [], [], null, null, [], null, [], "entities", null, null, null, null, null, []);
+          t2 = new D.Invoice("invoices", null, null, null, null, null, null, null, null, null, null, [], [], [], null, null, null, [], null, [], "entities", null, null, null, null, null, []);
           t2.id = t1.$index(params, "invoice");
           t1.$indexSet(params, "invoice", t2);
         }
@@ -50051,7 +50062,7 @@
             if (value instanceof D.Entity)
               t1 = value;
             else {
-              t1 = new D.Invoice("invoices", null, null, null, null, null, null, null, null, null, null, [], [], [], null, null, [], null, [], "entities", null, null, null, null, null, []);
+              t1 = new D.Invoice("invoices", null, null, null, null, null, null, null, null, null, null, [], [], [], null, null, null, [], null, [], "entities", null, null, null, null, null, []);
               t1.Entity$fromMap$1(value);
             }
             this.invoice = t1;
@@ -50093,7 +50104,7 @@
         if (t1.containsKey$1(params, "name") !== true)
           t1.$indexSet(params, "name", "New Item");
         if (t1.containsKey$1(params, "invoice") === true) {
-          t2 = new D.Invoice("invoices", null, null, null, null, null, null, null, null, null, null, [], [], [], null, null, [], null, [], "entities", null, null, null, null, null, []);
+          t2 = new D.Invoice("invoices", null, null, null, null, null, null, null, null, null, null, [], [], [], null, null, null, [], null, [], "entities", null, null, null, null, null, []);
           t2.id = t1.$index(params, "invoice");
           t1.$indexSet(params, "invoice", t2);
         }
@@ -50157,7 +50168,7 @@
             if (value instanceof D.Entity)
               t1 = value;
             else {
-              t1 = new D.Invoice("invoices", null, null, null, null, null, null, null, null, null, null, [], [], [], null, null, [], null, [], "entities", null, null, null, null, null, []);
+              t1 = new D.Invoice("invoices", null, null, null, null, null, null, null, null, null, null, [], [], [], null, null, null, [], null, [], "entities", null, null, null, null, null, []);
               t1.Entity$fromMap$1(value);
             }
             this.invoice = t1;
@@ -51714,8 +51725,8 @@
         t1 = J.getInterceptor$x(r);
         t2 = t1.get$content(r);
         if (typeof t2 === "string")
-          return new D.Invoice("invoices", null, null, null, null, null, null, null, null, null, null, [], [], [], null, null, [], null, [], "entities", null, null, null, null, null, []);
-        t2 = new D.Invoice("invoices", null, null, null, null, null, null, null, null, null, null, [], [], [], null, null, [], null, [], "entities", null, null, null, null, null, []);
+          return new D.Invoice("invoices", null, null, null, null, null, null, null, null, null, null, [], [], [], null, null, null, [], null, [], "entities", null, null, null, null, null, []);
+        t2 = new D.Invoice("invoices", null, null, null, null, null, null, null, null, null, null, [], [], [], null, null, null, [], null, [], "entities", null, null, null, null, null, []);
         t2.Entity$fromMap$1(t1.get$content(r));
         return t2;
       }, null, null, 2, 0, null, 12, "call"]
@@ -55253,7 +55264,7 @@
       cEnt$1$entity: function(entity) {
         var t1, t2;
         if (entity != null) {
-          t1 = new D.Invoice("invoices", null, null, null, null, null, null, null, null, null, null, [], [], [], null, null, [], null, [], "entities", null, null, null, null, null, []);
+          t1 = new D.Invoice("invoices", null, null, null, null, null, null, null, null, null, null, [], [], [], null, null, null, [], null, [], "entities", null, null, null, null, null, []);
           t1.Entity$clone$1(entity);
           t1.description = entity.get$description();
           t1.project = entity.get$project();
@@ -55271,10 +55282,11 @@
           t1.totalVAT8 = entity.get$totalVAT8();
           t1.totalVAT2 = entity.get$totalVAT2();
           t1.fixedPrice = entity.get$fixedPrice();
-          t1.addFieldstoUpdate$1(["description", "project", "items", "invoiceDiscounts", "standardDiscounts", "start", "end", "customer", "totalDiscounts", "total", "subtotal", "totalVAT", "totalVAT8", "totalVAT2", "fixedPrice"]);
+          t1.accountant = entity.get$accountant();
+          t1.addFieldstoUpdate$1(["description", "project", "items", "invoiceDiscounts", "standardDiscounts", "start", "end", "customer", "totalDiscounts", "total", "subtotal", "totalVAT", "totalVAT8", "totalVAT2", "fixedPrice", "accountant"]);
           return t1;
         }
-        return new D.Invoice("invoices", null, null, null, null, null, null, null, null, null, null, [], [], [], null, null, [], null, [], "entities", null, null, null, null, null, []);
+        return new D.Invoice("invoices", null, null, null, null, null, null, null, null, null, null, [], [], [], null, null, null, [], null, [], "entities", null, null, null, null, null, []);
       },
       cEnt$0: function() {
         return this.cEnt$1$entity(null);
