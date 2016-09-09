@@ -48654,7 +48654,10 @@
     InvoiceItemOrderByOrderField_call_closure: {
       "^": "Closure:1;",
       call$2: [function(x, y) {
-        return J.compareTo$1$ns(J.get$order$x(x), J.get$order$x(y));
+        var t1 = J.getInterceptor$x(x);
+        if (t1.get$order(x) != null && J.get$order$x(y) != null)
+          return J.compareTo$1$ns(t1.get$order(x), J.get$order$x(y));
+        return 0;
       }, null, null, 4, 0, null, 37, 134, "call"]
     },
     SecondsToHours: {
@@ -53982,12 +53985,18 @@
                 // returning from await.
                 t2 = $async$result;
                 $async$self.entity = t2;
-                $async$temp1 = $async$self;
-                $async$goto = 7;
-                return P._asyncHelper(t1.one$2(C.Type_Project_fT2, J.get$id$x(t2.get$project())), $async$load$1$evict, $async$completer);
+                $async$goto = $async$self.project != null ? 7 : 8;
+                break;
               case 7:
+                // then
+                $async$temp1 = $async$self;
+                $async$goto = 9;
+                return P._asyncHelper(t1.one$2(C.Type_Project_fT2, J.get$id$x(t2.get$project())), $async$load$1$evict, $async$completer);
+              case 9:
                 // returning from await.
                 $async$temp1.project = $async$result;
+              case 8:
+                // join
                 $async$self.statusservice.setStatusToSuccess$0();
                 $async$handler = 1;
                 // goto after finally
@@ -54083,6 +54092,7 @@
             switch ($async$goto) {
               case 0:
                 // Function start
+                P.print("haha");
                 J.go$2$x($async$self.router, "project_edit", P.LinkedHashMap__makeLiteral(["id", J.get$id$x($async$self.project)]));
                 // implicit return
                 return P._asyncHelper(null, 0, $async$completer, null);
@@ -54146,6 +54156,7 @@
             switch ($async$goto) {
               case 0:
                 // Function start
+                P.print("lol");
                 t1 = $async$self.store;
                 $async$goto = 2;
                 return P._asyncHelper(t1.customQueryOne$2(C.Type_Invoice_qJr, new E.CustomRequestParams("/api/v1/invoices/project/" + H.S(J.get$id$x($async$self.project)), "GET", null, null, null, false, null, null, null, null, null)), $async$createInvoice$0, $async$completer);
