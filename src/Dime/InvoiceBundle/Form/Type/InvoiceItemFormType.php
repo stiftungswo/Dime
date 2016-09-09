@@ -16,7 +16,7 @@ class InvoiceItemFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('order')
+            ->add('order', 'number', ['empty_data' => '0'])
             ->add('name')
             ->add('rateValue', 'tbbc_simple_money')
             ->add('amount', 'number')

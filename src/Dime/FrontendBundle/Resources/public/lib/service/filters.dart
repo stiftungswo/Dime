@@ -58,7 +58,12 @@ class OfferPositionOrderByOrderField {
 @Formatter(name: 'invoiceitemOrder')
 class InvoiceItemOrderByOrderField {
   List call(List<InvoiceItem> items) {
-    items.sort((x, y) => x.order.compareTo(y.order));
+    items.sort((x, y) {
+      if (x.order != null && y.order != null) {
+        return x.order.compareTo(y.order);
+      }
+      return 0;
+    });
     return items;
   }
 }
