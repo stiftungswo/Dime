@@ -34,7 +34,9 @@ class InvoiceEditComponent extends EntityEdit {
         this.store.evict(this.entType);
       }
       this.entity = (await this.store.one(this.entType, this._entId));
-      this.project = (await this.store.one(Project, this.entity.project.id));
+      if (this.project != null) {
+        this.project = (await this.store.one(Project, this.entity.project.id));
+      }
       this.statusservice.setStatusToSuccess();
     } catch (e) {
       this.statusservice.setStatusToError(e);
@@ -52,6 +54,7 @@ class InvoiceEditComponent extends EntityEdit {
   }
 
   openProject() async{
+    print("haha");
     router.go('project_edit', {'id': project.id});
   }
 
@@ -64,6 +67,7 @@ class InvoiceEditComponent extends EntityEdit {
   }
 
   createInvoice() async{
+    print("lol");
     var newInvoice = await this.store.customQueryOne(Invoice, new CustomRequestParams(method: 'GET', url: '/api/v1/invoices/project/${project.id}'));
     project.invoices.add(newInvoice);
     this.store.evict(Invoice, true);
