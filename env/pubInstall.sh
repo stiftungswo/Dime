@@ -8,4 +8,4 @@ wget 'https://storage.googleapis.com/dart-archive/channels/stable/release/latest
 sudo unzip -o -d /usr/local/ /tmp/dart-sdk.zip
 sudo chmod -R a+rx /usr/local/dart-sdk
 rm /tmp/dart-sdk.zip
-$SCRIPT_PATH/pub.sh update
+$SCRIPT_PATH/pub.sh update --packages-dir
