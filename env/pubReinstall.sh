@@ -12,4 +12,4 @@ if [ -d $APP_ROOT/src/Dime/FrontendBundle/Resources/public/packages ]; then
     rm -rf $APP_ROOT/src/Dime/FrontendBundle/Resources/public/packages
 fi
 
-$SCRIPT_PATH/pub.sh get
+$SCRIPT_PATH/pub.sh get --packages-dir
