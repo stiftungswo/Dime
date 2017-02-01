@@ -108,9 +108,15 @@ class Period extends Entity implements DimeEntityInterface
 
 			$pensum = ($this->getPensum());
 			$holidayEntitlement = $this->getEmployee()->getEmployeeholiday();
-			$weekdays = ($this->getStart()->diffInDays($this->getEnd()->addDay()));
+			$weekdays = ($this->getStart()->diffInDays($this->getEnd()));
 
-			$employeeholiday = number_format((float)((($holidayEntitlement / 365) * $weekdays * $pensum) * 8.4), 2, '.', '');
+            $daysofcurrentyear = 365;
+            $year = date('Y');
+            if (0 === $year % 400 || (0 === $year % 4 && 0 !== $year % 100)) {
+                $daysofcurrentyear = $daysofcurrentyear + 1;
+            }
+
+			$employeeholiday = number_format((float) ((($holidayEntitlement / $daysofcurrentyear) * $weekdays * $pensum) * 8.4), 2, '.', '');
 
 			//add holiday balance from last year
 			$employeeholiday = $employeeholiday + floatval($this->getLastYearHolidayBalance());
@@ -120,6 +126,14 @@ class Period extends Entity implements DimeEntityInterface
 
 		return null;
 	}
+
+	public function is_leap_year($year = null) {
+        if (null === $year) {
+            $year = date('Y');
+        }
+
+        return 0 === $year % 400 || (0 === $year % 4 && 0 !== $year % 100);
+    }
 
 	public function insertHolidays(array $holidays)
 	{
