@@ -186,6 +186,10 @@ Generate new Empty Migration Class:
 
     php app/console doctrine:migrations:generate
 
+After changing the ORM schema, sometimes you need to clear the cache before it works:
+
+    php app/console cache:clear
+
 ## Fixtures
 
 The fixtures are an example dataset that can be used while developing. But more important: the tests run against this database.
