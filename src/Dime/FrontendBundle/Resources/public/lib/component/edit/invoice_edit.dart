@@ -14,6 +14,10 @@ class InvoiceEditComponent extends EntityEdit {
     window.open('/api/v1/invoices/${this.entity.id}/print', 'Invoice Print');
   }
 
+  printAufwandsbericht() {
+    window.open('/api/v1/reports/expenses/print?project=${this.entity.project.id}', 'Aufwandsbericht');
+  }
+
   attach() {
     if (this.auth != null) {
       if (!auth.isloggedin) {
@@ -55,7 +59,7 @@ class InvoiceEditComponent extends EntityEdit {
 
   openProject() async{
     print("haha");
-    router.go('project_edit', {'id': project.id});
+    router.go('project_edit', {'id': this.entity.project.id});
   }
 
   openOffer(int id) async{

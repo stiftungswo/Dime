@@ -90,7 +90,7 @@ class InvoiceHandler extends GenericHandler
 		{
 			$invoice->setEnd(Carbon::now());
 		}
-		$invoice->setName($project->getName().' Rechnung'); //Datum hier auch verwenden.
+		$invoice->setName($project->getName()); //Datum hier auch verwenden.
 		$invoice->setDescription($project->getDescription());
 		$invoice->setFixedPrice($project->getFixedPrice());
 		foreach($project->getActivities() as $activity){

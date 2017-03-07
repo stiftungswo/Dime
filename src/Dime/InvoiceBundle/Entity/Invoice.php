@@ -207,15 +207,34 @@ class Invoice extends Entity implements DimeEntityInterface
 	{
 		if($this->getItems()){
 			$totalVAT = Money::CHF(0);
-			foreach ($this->getItems() as $invoicePosition) {
-				if($invoicePosition->getCalculatedVAT()) {
-					$totalVAT = $totalVAT->add($invoicePosition->getCalculatedVAT());
-				}
-			}
+			$totalWithoutVAT = $this->getTotal();
+			$vatRate = 0.080;
+			$totalVAT = $totalVAT->add($totalWithoutVAT->multiply((float)$vatRate));
+			//foreach ($this->getItems() as $invoicePosition) {
+				//if($invoicePosition->getCalculatedVAT()) {
+					//$totalVAT = $totalVAT->add($invoicePosition->getCalculatedVAT());
+				//}
+
+			//}
 			return $totalVAT;
 		} else {
 			return null;
 		}
+	}
+
+	public function getOfferNumber()
+	{
+	    $offernumberstring = "";
+	    if($this->getProject()){
+            $project = $this->getProject();
+            $offers = $project->getOffers();
+            if ($offers) {
+                foreach( $offers as $offer ) {
+                    $offernumberstring = $offernumberstring." ".$offer->getId();
+                }
+            }
+	    }
+	    return $offernumberstring;
 	}
 
 
@@ -278,6 +297,19 @@ class Invoice extends Entity implements DimeEntityInterface
 	public function getItems()
 	{
 		return $this->items;
+	}
+
+	public function getOrderedItems()
+	{
+            $orderedInvoiceItems = $this->om->getRepository('DimeInvoiceBundle:InvoiceItem')
+                ->createQueryBuilder('invoice_items')
+                ->where('invoice_items.invoice_id = :invoiceId')
+                ->setParameter('invoiceId', $this->getId())
+                ->addOrderBy('order_no', 'ASC')
+                ->getQuery()
+                ->getResult();
+
+            return count($orderedInvoiceItems);
 	}
 
 	/**
