@@ -9,12 +9,12 @@
 	<dynamic-page page-size="a4">
 		<div class="logo"><img src="{{ pdf_image('SwoCommonsBundle:swo_logo_big.png') }}" width="200"/></div>
 		<div class="absenderHeader">
-			{{ invoiceconfig.senderStreet }} {{ invoiceconfig.senderStreetnumber }}<br/>
-			{{ invoiceconfig.senderPlz }} {{ invoiceconfig.senderCity }}<br/>
-			Telefon: {{ invoiceconfig.senderPhone }}<br/>
-			Telefax: {{ invoiceconfig.senderFax }}<br/>
-			Mail: {{ invoiceconfig.senderMail }}<br/>
-			{{ invoiceconfig.senderWeb }}<br/>
+			8603 Schwerzenbach<br/>
+			Bahnstrasse 18B<br/>
+			Telefon: 044 822 13 40<br/>
+			Telefax: 044 822 13 66<br/>
+			Mail: swo@stiftungswo.ch<br/>
+			www.stiftungswo.ch<br/>
 		</div>
 		{% if customer.address %}
 			{% set address = customer.address %}
@@ -36,6 +36,10 @@
 			{% endif %}
 			<div class="invoiceIDKey">Rechnung</div><br/>
 			<div class="mwstNR">Rechnung Nr. {{ invoice.id }}
+			    {% if invoice.getOfferNumber() %}
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                Offerten Nr. {{ invoice.getOfferNumber() }}
+                {% endif %}
                 &nbsp;&nbsp;&nbsp;&nbsp;
                 MwSt-ID {{ invoiceconfig.senderMwstId }}
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -76,14 +80,6 @@
 			</tr>
 			{% endfor %}
 			<tr class="tfoot">
-				<td colspan="5" class="number">Subtotal ohne MwSt.</td>
-				<td class="number">{{ invoice.getTotalWithoutVAT() }}</td>
-			</tr>
-			<tr class="tbody">
-				<td colspan="5" class="number">MwSt.</td>
-				<td class="number">{{ invoice.getTotalVAT() }}</td>
-			</tr>
-			<tr class="tfoot">
 				<td colspan="5" class="number">Subtotal</td>
 				<td class="number">{{ invoice.subtotal }}</td>
 			</tr>
@@ -118,6 +114,11 @@
 				<td class="number">Rechnungstotal</td>
 				<td class="number">{{ invoice.total }}</td>
 			</tr>
+            <tr class="tbody">
+                <td></td>
+                <td class="number">MwSt.</td>
+                <td class="number">{{ invoice.getTotalVAT() }}</td>
+            </tr>
 		</table>
 	</dynamic-page>
 	<page margin="188mm 5mm 5mm 5mm">
@@ -131,7 +132,7 @@
 					<div margin="9mm 4mm 0 20mm" text-align="right">
 						{{ invoiceconfig.senderKontoNr }}
 					</div>
-					<div margin="6mm 2mm 0 0">
+					<div margin="8mm 2mm 0 0">
 						<div margin="0" padding="0" font-size="14" text-align="center">
 							  {{ invoice.total|money_get_decimals|charbox(2) }}<div margin="0" padding="0" float="right" width="6mm"></div>{{ invoice.total|money_get_digits|charbox(8) }}
 						</div>
@@ -157,7 +158,7 @@
 								<div margin="9mm 4mm 0 20mm" text-align="right">
 									{{ invoiceconfig.senderKontoNr }}
 								</div>
-								<div margin="6mm 3mm 0 0">
+								<div margin="8mm 3mm 0 0">
 									<div margin="0" padding="0" font-size="14" text-align="center">
 										{{ invoice.total|money_get_decimals|charbox(2) }}<div margin="0" padding="0" float="right" width="6mm"></div>{{ invoice.total|money_get_digits|charbox(8) }}
 									</div>
@@ -166,7 +167,7 @@
 							<td height="80mm" border.type="none">
 								<div height="26mm" width="100%">
 									<div height="100%" width="58mm">
-										<div margin="10mm 0 0 3mm" font-size="14">
+										<div margin="12mm 0 0 3mm" font-size="14">
 											Rechnungs- Nr. {{ invoice.id }}
 										</div>
 									</div>

@@ -18,6 +18,7 @@ use Dime\TimetrackerBundle\Handler\AbstractHandler;
 use Doctrine\Common\Collections\Criteria;
 use HttpInvalidParamException;
 use Symfony\Component\Config\Definition\Exception\Exception;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 class ReportHandler extends AbstractHandler
 {
@@ -135,7 +136,7 @@ class ReportHandler extends AbstractHandler
             $dates = explode(',', $date);
             if (count($dates) == 2) {
                 $startDate = Carbon::createFromFormat('Y-m-d', $dates[0])->setTime(0, 0, 0);
-                $endDate = Carbon::createFromFormat('Y-m-d', $dates[1])->setTime(0, 0, 0)->addDay();
+                $endDate = Carbon::createFromFormat('Y-m-d', $dates[1])->setTime(0, 0, 0);
             } else {
                 throw new HttpInvalidParamException('invalid date passed');
             }
@@ -144,13 +145,21 @@ class ReportHandler extends AbstractHandler
         }
 
         /** @var Project[] $projects */
-        $projects = $this->om->getRepository('DimeTimetrackerBundle:Project')->findAll();
+        //$projects = $this->om->getRepository('DimeTimetrackerBundle:Project')->findAll();
+
+        $filteredProjects = $this->om->getRepository('DimeTimetrackerBundle:Project')
+            ->createQueryBuilder('project')
+            ->where('project.createdAt >= :startDate')
+            ->setParameter('startDate', new \DateTime($startDate))
+            ->getQuery()
+            ->getResult();
+
 
         $report = [];
         $listofactivities = [];
         $activitytotal = [];
 
-        foreach ($projects as $project) {
+        foreach ($filteredProjects as $project) {
             $projectdata = [];
             $projectdata['name'] = $project->getName();
             if ($project->getProjectCategory()) {
@@ -336,7 +345,7 @@ class ReportHandler extends AbstractHandler
      * @return array
      * @throws HttpInvalidParamException
      */
-    public function getRevenueReport()
+    public function getRevenueReport($date)
     {
 
         /*
@@ -356,13 +365,43 @@ class ReportHandler extends AbstractHandler
          */
 
         /** @var Project[] $projects */
-        $projects = $this->om->getRepository('DimeTimetrackerBundle:Project')->findBy(array('chargeable' => 1));
+        //$projects = $this->om->getRepository('DimeTimetrackerBundle:Project')->findBy(array('chargeable' => 1));
+
+
+
+        // date filter
+        if (isset($date)) {
+            $dates = explode(',', $date);
+            if (count($dates) == 2) {
+                $startDate = Carbon::createFromFormat('Y-m-d', $dates[0])->setTime(0, 0, 0);
+                $endDate = Carbon::createFromFormat('Y-m-d', $dates[1])->setTime(0, 0, 0);
+            } else {
+                throw new HttpInvalidParamException('invalid date passed');
+            }
+        } else {
+            throw new HttpInvalidParamException('no date passed');
+        }
+
+        //print("START DATE: ".$startDate);
+
+        $filteredProjects = $this->om->getRepository('DimeTimetrackerBundle:Project')
+            ->createQueryBuilder('project')
+            ->where('project.createdAt >= :startDate')
+            ->setParameter('startDate', new \DateTime($startDate))
+            ->andWhere('project.chargeable = :chargeable')
+            ->setParameter('chargeable', 1)
+            ->getQuery()
+            ->getResult();
+
+        //$filterResult = count($filteredProjects);
+
+        //print("FILTER RESULT: ".$filterResult);
 
         $report = [];
         $listofactivities = [];
         $activitytotal = [];
 
-        foreach ($projects as $project) {
+        foreach ($filteredProjects as $project) {
             $data = [];
             $data['name'] = $project->getName();
             $data['category'] = ($project->getProjectCategory() != null ? $project->getProjectCategory()->getName() : '');
@@ -415,9 +454,9 @@ class ReportHandler extends AbstractHandler
      * @return array
      * @throws HttpInvalidParamException
      */
-    public function getRevenueReportAsCSV()
+    public function getRevenueReportAsCSV($date)
     {
-        $data = $this->getRevenueReport();
+        $data = $this->getRevenueReport($date);
 
         function escapeCSV($string)
         {

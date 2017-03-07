@@ -6,10 +6,18 @@
 
     <div class="row">
       <div class="col-md-12">
+        <label>Datum:</label>
+        <daterange startdate="filterStartDate" enddate="filterEndDate"></daterange>
+        <button type="button" class="btn btn-primary" ng-click="reload(evict: true)"><span class="glyphicon glyphicon-refresh"></span></button>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
         Statistik über alle Projekte mit den Summen der Offerten, erfassten Stunden und Rechnungen.
         <br>
         <br>
-        <a ng-href="/api/v1/reports/revenue/csv" target="_blank"><button type="button" class="btn btn-primary">Als CSV herunterladen</span></button></a>
+        <a ng-href="{{getCsvLink()}}" target="_blank"><button type="button" class="btn btn-primary">Als CSV herunterladen</span></button></a>
       </div>
     </div>
   </div>

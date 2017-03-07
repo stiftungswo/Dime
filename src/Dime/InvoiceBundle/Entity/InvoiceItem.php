@@ -106,6 +106,15 @@ class InvoiceItem extends Entity implements DimeEntityInterface
         }
     }
 
+    public function getCalculatedTotal()
+    {
+        if ($this->rateValue instanceof Money && is_numeric($this->amount)) {
+            return $this->rateValue->multiply((float)$this->amount);
+        } else {
+            return null;
+        }
+    }
+
     /**
      * @JMS\VirtualProperty()
      * @JMS\SerializedName("total")

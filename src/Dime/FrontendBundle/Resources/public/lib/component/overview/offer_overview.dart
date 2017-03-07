@@ -29,11 +29,18 @@ class OfferOverviewComponent extends EntityOverview {
   }
 
   duplicateEntity() async {
+    print("duplicate usdf offer now");
     var ent = this.selectedEntity;
+
     if (ent != null) {
       this.statusservice.setStatusToLoading();
 
       var duplicateOffer = (await this.store.one(Offer, ent.id));
+
+      for (OfferPosition offerPosition in duplicateOffer.offerPositions) {
+        print("offer position item now");
+      }
+
       var newOffer = this.cEnt();
 
       newOffer = duplicateOffer;
@@ -54,6 +61,7 @@ class OfferOverviewComponent extends EntityOverview {
 
         // create offerpositions with new offer
         for (OfferPosition offerPosition in newOffer.offerPositions) {
+          print("duplicate position now");
           var newOfferPosition = this.cEntPos(offerPosition);
           newOfferPosition.offer = resultOffer;
 
@@ -66,7 +74,7 @@ class OfferOverviewComponent extends EntityOverview {
 
         resultOffer.cloneDescendants(ent);
 
-        for (var entity in result.descendantsToUpdate) {
+        for (var entity in resultOffer.descendantsToUpdate) {
           await this.store.create(entity);
         }
         this.statusservice.setStatusToSuccess();
