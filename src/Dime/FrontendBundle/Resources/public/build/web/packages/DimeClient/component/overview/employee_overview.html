@@ -39,7 +39,7 @@
           <th width="110">Aktion</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody ng-if="entities != null">
         <tr ng-repeat="entity in entities | orderBy:sortType:sortReverse | filter:searchFilter(['id', 'username', 'fullname', 'email'], filterString)" ng-click="selectEntity(entity.id)" ng-doubleclick="openEditView(entity.id)" ng-class="isSelected(entity)? 'info': ''">
           <td>{{entity.id}}</td>
           <td>{{entity.username}}</td>

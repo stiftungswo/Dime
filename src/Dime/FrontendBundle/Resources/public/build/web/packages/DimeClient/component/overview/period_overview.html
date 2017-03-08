@@ -13,7 +13,7 @@
       <th width="60">Aktion</th>
     </tr>
   </thead>
-  <tbody>
+  <tbody ng-if="entities != null">
     <tr ng-repeat="entity in entities" ng-click="selectEntity(entity.id)" ng-class="isSelected(entity)? 'info': ''">
       <td><dateinput style="width: 100%;" date="entity.start" field="'start'" callback="entity.addFieldtoUpdate(name)"></dateinput></td>
       <td><dateinput style="width: 100%;" date="entity.end" field="'end'" callback="entity.addFieldtoUpdate(name)"></dateinput></td>
