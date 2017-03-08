@@ -12,7 +12,7 @@
           <th width="60">Aktion</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody ng-if="entities != null">
         <tr ng-repeat="entity in entities" ng-click="selectEntity(entity.id)" ng-class="isSelected(entity)? 'info': ''">
           <td><input class="form-control" type="text" ng-model="entity.name" ng-change="addSaveField('name', entity)"></td>
           <td ng-unless="entity.percentage"><input class="form-control" type="text" ng-model="entity.value" ng-change="addSaveField('value', entity)"></td>

@@ -13,7 +13,7 @@
           <th width="60">Aktion</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody ng-if="entities != null">
         <tr ng-repeat="entity in entities" ng-click="selectEntity(entity.id)" ng-class="isSelected(entity)? 'info': ''">
           <td><rategroup-select rategroup="entity.rateGroup" callback="entity.addFieldtoUpdate(name)" field="'rateGroup'"></rategroup-select></td>
           <td><input style="width: 100%;" class="form-control" type="text" ng-model="entity.rateValue" ng-change="addSaveField('rateValue', entity)"></td>

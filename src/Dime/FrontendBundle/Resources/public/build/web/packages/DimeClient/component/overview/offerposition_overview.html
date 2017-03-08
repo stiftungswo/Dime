@@ -20,7 +20,7 @@
               <th width="60">Aktion</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody ng-if="entities != null">
             <tr ng-repeat="entity in entities | offerpostionOrder" ng-click="selectEntity(entity.id)" ng-class="isSelected(entity)? 'info': ''">
               <td><input class="form-control" type="text" ng-model="entity.order" ng-change="addSaveField('order', entity)"></td>
               <td><service-select hidearchived="true" service="entity.service" callback="entity.addFieldtoUpdate(name)" field="'service'"></service-select></td>
