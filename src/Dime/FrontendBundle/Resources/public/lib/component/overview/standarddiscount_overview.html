@@ -11,7 +11,7 @@
           <th width="60">Aktion</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody ng-if="entities != null">
         <tr ng-repeat="entity in entities" ng-click="selectEntity(entity.id)" ng-class="isSelected(entity)? 'info': ''">
           <td>{{entity.name}}</td>
           <td>{{entity.ViewValue()}}</td>
