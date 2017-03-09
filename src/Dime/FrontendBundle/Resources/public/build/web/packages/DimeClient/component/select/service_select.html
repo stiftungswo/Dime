@@ -1,0 +1,12 @@
+<html><head></head><body><div class="dropdown" ng-class="{'open': open}">
+  <input ng-required="required" name="service_select" class="form-control" type="text" ng-model="selector" placeholder="{{placeholder}}" ng-click="toggleSelectionBox()" style="width: 100%;">
+
+  <div class="dropdown-menu select-dropdown">
+    <div ng-repeat="entity in entities | filter:{name: selector} | orderBy:'name'" ng-hide="hideArchived &amp;&amp; entity.archived == true">
+      <div ng-click="select(entity)" ng-class="{selected: entity.id == selectedEntity.id}">
+        {{entity.name}}
+        <i ng-if="entity.id == selectedEntity.id" class="fa fa-fw fa-check"></i>
+      </div>
+    </div>
+  </div>
+</div></body></html>

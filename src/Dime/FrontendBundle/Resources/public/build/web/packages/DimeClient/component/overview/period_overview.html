@@ -1,0 +1,42 @@
+<html><head></head><body><table class="table table-bordered table-hover form" ng-if="entities.length > 0">
+  <thead>
+    <tr>
+      <th>Start</th>
+      <th>Ende</th>
+      <th>Pensum</th>
+      <th>Istzeit</th>
+      <th>Sollzeit</th>
+      <th>Heute <i class="fa fa-info-circle" data-toggle="tooltip" title="Stundensaldo bis heute (oder Ende der Periode wenn diese bereits beendet ist)"></i></th>
+      <th>Ferien Total <i class="fa fa-info-circle" data-toggle="tooltip" title="Anzahl Ferien in dieser Periode"></i></th>
+      <th>Verfügbare Ferien <i class="fa fa-info-circle" data-toggle="tooltip" title="Noch verfügbare Ferien"></i></th>
+      <th>Ferienübertrag <i class="fa fa-info-circle" data-toggle="tooltip" title="Ferienguthaben vom letzten Jahr"></i></th>
+      <th width="60">Aktion</th>
+    </tr>
+  </thead>
+  <tbody ng-if="entities != null">
+    <tr ng-repeat="entity in entities" ng-click="selectEntity(entity.id)" ng-class="isSelected(entity)? 'info': ''">
+      <td><dateinput style="width: 100%;" date="entity.start" field="'start'" callback="entity.addFieldtoUpdate(name)"></dateinput></td>
+      <td><dateinput style="width: 100%;" date="entity.end" field="'end'" callback="entity.addFieldtoUpdate(name)"></dateinput></td>
+      <td><input-percentage htmlclass="'form-control'" safecalc="false" value="entity.pensum" ng-change="addSaveField('pensum', entity)"></input-percentage></td>
+      <td>{{entity.realTime | secondsToHours}}</td>
+      <td>{{entity.targetTime | secondsToHours}}</td>
+      <td ng-class="{'text-red': entity.timeTillToday<0, 'text-green': entity.timeTillToday>=0}">{{entity.timeTillToday | secondsToHours}}</td>
+      <td>{{entity.employeeholiday}}</td>
+      <td>{{entity.holidayBalance | secondsToHours }}</td>
+      <td>
+        <input style="width: 50%;" class="form-control" type="text" ng-model="entity.lastYearHolidayBalance" ng-change="addSaveField('lastYearHolidayBalance', entity)">
+        <label>&nbsp;h</label>
+      </td>
+      <td><button type="button" class="btn btn-default" ng-click="deleteEntity(entity.id)"><i class="fa fa-fw fa-trash-o" style="color:red"></i></button></td>
+    </tr>
+  </tbody>
+</table>
+<div class="text-muted" ng-if="entities.length == 0">
+  Keine Perioden
+</div>
+<div class="DimeControlButtons container-inline">
+  <button type="button" class="btn btn-primary" ng-click="save()"><error-icon></error-icon></button>
+  <button type="button" class="btn btn-primary" ng-click="createEntity()">Hinzufügen</button>
+  <button type="button" class="btn btn-default" ng-click="duplicateEntity()">Duplizieren</button>
+  <button type="button" class="btn btn-default" ng-click="reload(evict: true)"><span class="glyphicon glyphicon-refresh"></span></button>
+</div></body></html>

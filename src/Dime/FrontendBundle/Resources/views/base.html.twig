@@ -50,12 +50,13 @@
     <script src="{{ asset('bundles/dimefrontend/web/vendor/admin-lte/dist/js/app.js') }}" type="text/javascript"></script>
     <script src="{{ asset('bundles/dimefrontend/web/vendor/admin-lte/plugins/slimScroll/jquery.slimscroll.min.js') }}" type="text/javascript"></script>
 
-
-    <!-- required scripts for DimeERP (Dart or JS files) -->
+    <!-- required scripts for DimeERP -->
     {% if dime_release_mode == "true" %}
+        <!-- Serving PROD files from build folder (JS) -->
         <script type="text/javascript" src="{{ asset('bundles/dimefrontend/build/web/main.dart.js?nocache=' ~ date().timestamp) }}"></script>
         <script type="text/javascript" src="{{ asset('bundles/dimefrontend/build/web/packages/browser/dart.js?nocache=' ~ date().timestamp) }}"></script>
     {% else %}
+        <!-- Serving DEV files (Dart) -->
         <script type="application/dart" src="{{ asset('bundles/dimefrontend/web/main.dart?nocache=' ~ date().timestamp) }}"></script>
         <script type="text/javascript" src="{{ asset('bundles/dimefrontend/web/packages/browser/dart.js?nocache=' ~ date().timestamp) }}"></script>
     {% endif %}
