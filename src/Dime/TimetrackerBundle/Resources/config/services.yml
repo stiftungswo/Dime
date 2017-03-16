@@ -1,10 +1,10 @@
 parameters:
-    generic_handler: "Dime\TimetrackerBundle\Handler\GenericHandler"
+    generic_handler: "Dime\\TimetrackerBundle\\Handler\\GenericHandler"
 
 services:
     dime.user.handler:
-        class: "Dime\TimetrackerBundle\Handler\UserHandler"
-        arguments: [ "@doctrine.orm.entity_manager", "Dime\TimetrackerBundle\Entity\User", "@service_container", "@fos_user.user_manager", "us", "dime_timetrackerbundle_userformtype" ]
+        class: "Dime\\TimetrackerBundle\\Handler\\UserHandler"
+        arguments: [ "@doctrine.orm.entity_manager", "Dime\TimetrackerBundle\Entity\\User", "@service_container", "@fos_user.user_manager", "us", "dime_timetrackerbundle_userformtype" ]
         
     dime.timeslice.handler:
         class: %generic_handler%
