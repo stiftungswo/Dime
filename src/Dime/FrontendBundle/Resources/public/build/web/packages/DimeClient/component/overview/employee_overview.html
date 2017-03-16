@@ -35,7 +35,6 @@
             </a>
           </th>
           <th width="60">Aktiv</th>
-          <th width="80">Gesperrt</th>
           <th width="110">Aktion</th>
         </tr>
       </thead>
@@ -46,7 +45,6 @@
           <td>{{entity.fullname}}</td>
           <td>{{entity.email}}</td>
           <td><i ng-if="entity.enabled" class="fa fa-fw fa-check"></i></td>
-          <td><i ng-if="entity.locked" class="fa fa-fw fa-check"></i></td>
           <td>
             <div class="btn-group">
               <button type="button" class="btn btn-default" ng-click="openEditView(entity.id)"><i class="fa fa-fw fa-pencil"></i></button>

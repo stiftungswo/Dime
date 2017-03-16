@@ -29,7 +29,6 @@ class UserFormType extends AbstractType
             ->add('lastname')
             ->add('email', 'email')
             ->add('enabled')
-            ->add('locked')
             ->add('employeeholiday')
         ;
     }

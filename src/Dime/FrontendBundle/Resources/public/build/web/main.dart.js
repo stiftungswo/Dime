@@ -7204,12 +7204,12 @@
     },
     Future_Future: function(computation, $T) {
       var result = new P._Future(0, $.Zone__current, null, [$T]);
-      P.Timer_Timer(C.Duration_0, new P.closure1054(computation, result));
+      P.Timer_Timer(C.Duration_0, new P.closure1051(computation, result));
       return result;
     },
     Future_Future$microtask: function(computation, $T) {
       var result = new P._Future(0, $.Zone__current, null, [$T]);
-      P.scheduleMicrotask(new P.closure1053(computation, result));
+      P.scheduleMicrotask(new P.closure1050(computation, result));
       return result;
     },
     Future_Future$sync: function(computation, $T) {
@@ -7249,7 +7249,7 @@
     },
     Future_Future$delayed: function(duration, computation, $T) {
       var result = new P._Future(0, $.Zone__current, null, [$T]);
-      P.Timer_Timer(duration, new P.closure1063(computation, result));
+      P.Timer_Timer(duration, new P.closure1060(computation, result));
       return result;
     },
     Future_wait: function(futures, cleanUp, eagerError) {
@@ -7927,7 +7927,7 @@
     Future: {
       "^": "Object;$ti"
     },
-    closure1054: {
+    closure1051: {
       "^": "Closure:2;computation,result",
       call$0: [function() {
         var e, s, exception, t1;
@@ -7941,7 +7941,7 @@
         }
       }, null, null, 0, 0, null, "call"]
     },
-    closure1053: {
+    closure1050: {
       "^": "Closure:2;computation,result",
       call$0: [function() {
         var e, s, exception, t1;
@@ -7955,7 +7955,7 @@
         }
       }, null, null, 0, 0, null, "call"]
     },
-    closure1063: {
+    closure1060: {
       "^": "Closure:2;computation,result",
       call$0: [function() {
         var e, s, t1, exception;
@@ -15615,7 +15615,7 @@
             userInfo = J.$lt$n(userInfoStart, hostStart) ? P._Uri__makeUserInfo(uri, userInfoStart, t1.$sub(hostStart, 1)) : "";
             host = P._Uri__makeHost(uri, hostStart, portStart, false);
             t1 = J.getInterceptor$ns(portStart);
-            port = J.$lt$n(t1.$add(portStart, 1), pathStart) ? P._Uri__makePort(H.Primitives_parseInt(J.substring$2$s(uri, t1.$add(portStart, 1), pathStart), null, new P.closure1055(uri, portStart)), scheme) : null;
+            port = J.$lt$n(t1.$add(portStart, 1), pathStart) ? P._Uri__makePort(H.Primitives_parseInt(J.substring$2$s(uri, t1.$add(portStart, 1), pathStart), null, new P.closure1052(uri, portStart)), scheme) : null;
           } else {
             userInfo = "";
             host = null;
@@ -16190,7 +16190,7 @@
         }
       }
     },
-    closure1055: {
+    closure1052: {
       "^": "Closure:0;uri,portStart",
       call$1: function(_) {
         throw H.wrapException(new P.FormatException("Invalid port", this.uri, J.$add$ns(this.portStart, 1)));
@@ -16650,7 +16650,7 @@
     Element_Element$html: function(html, treeSanitizer, validator) {
       var t1 = document.body;
       t1 = J.get$nodes$x((t1 && C.BodyElement_methods).createFragment$3$treeSanitizer$validator(t1, html, treeSanitizer, validator));
-      t1 = new H.WhereIterable(t1, new W.closure1051(), [H.getRuntimeTypeArgument(t1, "ListMixin", 0)]);
+      t1 = new H.WhereIterable(t1, new W.closure1048(), [H.getRuntimeTypeArgument(t1, "ListMixin", 0)]);
       return t1.get$single(t1);
     },
     Element__determineMouseWheelEventType: [function(e) {
@@ -18525,7 +18525,7 @@
       $isInterceptor: 1,
       "%": ";Element"
     },
-    closure1051: {
+    closure1048: {
       "^": "Closure:0;",
       call$1: function(e) {
         return !!J.getInterceptor(e).$isElement;
@@ -22247,11 +22247,11 @@
       }, "call$1", "get$remove", 2, 0, 12, 6],
       static: {
         _MultiElementCssClassSet__MultiElementCssClassSet: function(elements) {
-          return new W._MultiElementCssClassSet(elements, new H.MappedListIterable(elements, new W.closure793(), [H.getTypeArgumentByIndex(elements, 0), null]).toList$0(0));
+          return new W._MultiElementCssClassSet(elements, new H.MappedListIterable(elements, new W.closure790(), [H.getTypeArgumentByIndex(elements, 0), null]).toList$0(0));
         }
       }
     },
-    closure793: {
+    closure790: {
       "^": "Closure:105;",
       call$1: [function(e) {
         return J.get$classes$x(e);
@@ -26966,12 +26966,12 @@
       cEnt$1$entity: function(entity) {
         var t1;
         if (entity != null) {
-          t1 = new D.Employee("employees", null, null, null, "users", null, null, null, null, null, null, null, null, [], null, [], "entities", null, null, null, null, null, []);
+          t1 = new D.Employee("employees", null, null, null, "users", null, null, null, null, null, null, null, [], null, [], "entities", null, null, null, null, null, []);
           t1.Entity$clone$1(entity);
           t1.User$clone$1(entity);
           return t1;
         }
-        return new D.Employee("employees", null, null, null, "users", null, null, null, null, null, null, null, null, [], null, [], "entities", null, null, null, null, null, []);
+        return new D.Employee("employees", null, null, null, "users", null, null, null, null, null, null, null, [], null, [], "entities", null, null, null, null, null, []);
       },
       cEnt$0: function() {
         return this.cEnt$1$entity(null);
@@ -27510,141 +27510,7 @@
       },
       cEnt$0: function() {
         return this.cEnt$1$entity(null);
-      },
-      cEntInvoiceItem$1: function(entity) {
-        if (entity != null)
-          return D.InvoiceItem$clone(entity);
-        return new D.InvoiceItem("invoiceitems", null, null, null, null, null, null, null, null, null, [], null, [], "entities", null, null, null, null, null, []);
-      },
-      duplicateInvoiceEntity$0: [function() {
-        var $async$goto = 0, $async$completer = new P.Completer_Completer$sync(), $async$handler = 1, $async$currentError, $async$next = [], $async$self = this, ent, duplicateInvoice, newInvoice, resultInvoice, invoiceItem, newInvoiceItem, entity, e, t1, t2, t3, _i, exception, $async$exception;
-        var $async$duplicateInvoiceEntity$0 = P._wrapJsFunctionForAsync(function($async$errorCode, $async$result) {
-          if ($async$errorCode === 1) {
-            $async$currentError = $async$result;
-            $async$goto = $async$handler;
-          }
-          while (true)
-            switch ($async$goto) {
-              case 0:
-                // Function start
-                P.print("duplicate csdf invoice entity");
-                ent = $async$self.get$selectedEntity();
-                $async$goto = ent != null ? 2 : 3;
-                break;
-              case 2:
-                // then
-                $async$self.statusservice.setStatusToLoading$0();
-                t1 = $async$self.store;
-                $async$goto = 4;
-                return P._asyncHelper(t1.one$2(C.Type_Invoice_K61, J.get$id$x(ent)), $async$duplicateInvoiceEntity$0, $async$completer);
-              case 4:
-                // returning from await.
-                duplicateInvoice = $async$result;
-                for (t2 = J.get$iterator$ax(J.get$items$x(duplicateInvoice)); t2.moveNext$0();) {
-                  t2.get$current();
-                  t3 = $.printToZone;
-                  if (t3 == null)
-                    H.printString("invoice item now");
-                  else
-                    t3.call$1("invoice item now");
-                }
-                newInvoice = $async$self.cEnt$0();
-                newInvoice = duplicateInvoice;
-                J.set$id$x(newInvoice, null);
-                newInvoice.addFieldtoUpdate$1("description");
-                newInvoice.addFieldtoUpdate$1("customer");
-                newInvoice.addFieldtoUpdate$1("project");
-                newInvoice.addFieldtoUpdate$1("start");
-                newInvoice.addFieldtoUpdate$1("end");
-                newInvoice.addFieldtoUpdate$1("accountant");
-                $async$handler = 6;
-                $async$goto = 9;
-                return P._asyncHelper(t1.create$1(newInvoice), $async$duplicateInvoiceEntity$0, $async$completer);
-              case 9:
-                // returning from await.
-                resultInvoice = $async$result;
-                t2 = J.get$iterator$ax(J.get$items$x(duplicateInvoice));
-              case 10:
-                // for condition
-                if (!t2.moveNext$0()) {
-                  // goto after for
-                  $async$goto = 11;
-                  break;
-                }
-                invoiceItem = t2.get$current();
-                t3 = $.printToZone;
-                if (t3 == null)
-                  H.printString("invoice item now");
-                else
-                  t3.call$1("invoice item now");
-                newInvoiceItem = $async$self.cEntInvoiceItem$1(invoiceItem);
-                newInvoiceItem.set$invoice(resultInvoice);
-                $async$goto = 12;
-                return P._asyncHelper(t1.create$1(newInvoiceItem), $async$duplicateInvoiceEntity$0, $async$completer);
-              case 12:
-                // returning from await.
-                // goto for condition
-                $async$goto = 10;
-                break;
-              case 11:
-                // after for
-                resultInvoice.cloneDescendants$1(ent);
-                t2 = resultInvoice.get$descendantsToUpdate(), t3 = t2.length, _i = 0;
-              case 13:
-                // for condition
-                if (!(_i < t2.length)) {
-                  // goto after for
-                  $async$goto = 15;
-                  break;
-                }
-                entity = t2[_i];
-                $async$goto = 16;
-                return P._asyncHelper(t1.create$1(entity), $async$duplicateInvoiceEntity$0, $async$completer);
-              case 16:
-                // returning from await.
-              case 14:
-                // for update
-                t2.length === t3 || (0, H.throwConcurrentModificationError)(t2), ++_i;
-                // goto for condition
-                $async$goto = 13;
-                break;
-              case 15:
-                // after for
-                $async$self.statusservice.setStatusToSuccess$0();
-                $async$self.rootScope.emit$1(J.$add$ns(J.toString$0$($async$self.type), "Duplicated"));
-                $async$handler = 1;
-                // goto after finally
-                $async$goto = 8;
-                break;
-              case 6:
-                // catch
-                $async$handler = 5;
-                $async$exception = $async$currentError;
-                t1 = H.unwrapException($async$exception);
-                e = t1;
-                P.print("Unable to duplicate entity " + H.S(J.toString$0$($async$self.type)) + "::" + H.S(J.get$id$x(newInvoice)) + " because " + H.S(e));
-                $async$self.statusservice.setStatusToError$1(e);
-                // goto after finally
-                $async$goto = 8;
-                break;
-              case 5:
-                // uncaught
-                // goto rethrow
-                $async$goto = 1;
-                break;
-              case 8:
-                // after finally
-              case 3:
-                // join
-                // implicit return
-                return P._asyncHelper(null, 0, $async$completer);
-              case 1:
-                // rethrow
-                return P._asyncHelper($async$currentError, 1, $async$completer);
-            }
-        });
-        return P._asyncHelper(null, $async$duplicateInvoiceEntity$0, $async$completer);
-      }, "call$0", "get$duplicateInvoiceEntity", 0, 0, 2]
+      }
     },
     InvoiceDiscountOverviewComponent: {
       "^": "EntityOverview;needsmanualAdd:InvoiceDiscountOverviewComponent_needsmanualAdd<,_invoiceId,needsmanualAdd,selectedEntId,entities,type,store,router,statusservice,rootScope,routename,settingsManager,auth,filterString,sortType,sortReverse",
@@ -31001,8 +30867,8 @@
         t1 = J.getInterceptor$x(r);
         t2 = t1.get$content(r);
         if (typeof t2 === "string")
-          return new D.Employee("employees", null, null, null, "users", null, null, null, null, null, null, null, null, [], null, [], "entities", null, null, null, null, null, []);
-        t2 = new D.Employee("employees", null, null, null, "users", null, null, null, null, null, null, null, null, [], null, [], "entities", null, null, null, null, null, []);
+          return new D.Employee("employees", null, null, null, "users", null, null, null, null, null, null, null, [], null, [], "entities", null, null, null, null, null, []);
+        t2 = new D.Employee("employees", null, null, null, "users", null, null, null, null, null, null, null, [], null, [], "entities", null, null, null, null, null, []);
         t2.Entity$fromMap$1(t1.get$content(r));
         return t2;
       }, null, null, 2, 0, null, 15, "call"]
@@ -31542,7 +31408,7 @@
             if (value instanceof D.Entity)
               t1 = value;
             else {
-              t1 = new D.Employee("employees", null, null, null, "users", null, null, null, null, null, null, null, null, [], null, [], "entities", null, null, null, null, null, []);
+              t1 = new D.Employee("employees", null, null, null, "users", null, null, null, null, null, null, null, [], null, [], "entities", null, null, null, null, null, []);
               t1.Entity$fromMap$1(value);
             }
             this.set$user(t1);
@@ -31892,7 +31758,7 @@
       }
     },
     Employee: {
-      "^": "User;type:Employee_type*,workingPeriods,realTime@,targetTime@,User_type,username,firstname,lastname,email,plainpassword,enabled,locked,employeeholiday,_descendantsToUpdate,id,_toUpdate,type,createdAt,updatedAt,name,alias,user,tags",
+      "^": "User;type:Employee_type*,workingPeriods,realTime@,targetTime@,User_type,username,firstname,lastname,email,plainpassword,enabled,employeeholiday,_descendantsToUpdate,id,_toUpdate,type,createdAt,updatedAt,name,alias,user,tags",
       Get$1: function(property) {
         var val = this.super$User$Get(property);
         if (val == null)
@@ -32111,7 +31977,7 @@
             if (value instanceof D.Entity)
               t1 = value;
             else {
-              t1 = new D.Employee("employees", null, null, null, "users", null, null, null, null, null, null, null, null, [], null, [], "entities", null, null, null, null, null, []);
+              t1 = new D.Employee("employees", null, null, null, "users", null, null, null, null, null, null, null, [], null, [], "entities", null, null, null, null, null, []);
               t1.Entity$fromMap$1(value);
             }
             this.accountant = t1;
@@ -32416,7 +32282,7 @@
             if (value instanceof D.Entity)
               t1 = value;
             else {
-              t1 = new D.Employee("employees", null, null, null, "users", null, null, null, null, null, null, null, null, [], null, [], "entities", null, null, null, null, null, []);
+              t1 = new D.Employee("employees", null, null, null, "users", null, null, null, null, null, null, null, [], null, [], "entities", null, null, null, null, null, []);
               t1.Entity$fromMap$1(value);
             }
             this.accountant = t1;
@@ -32772,7 +32638,7 @@
         var t1, t2;
         t1 = J.getInterceptor$x(params);
         if (t1.containsKey$1(params, "employee") === true) {
-          t2 = new D.Employee("employees", null, null, null, "users", null, null, null, null, null, null, null, null, [], null, [], "entities", null, null, null, null, null, []);
+          t2 = new D.Employee("employees", null, null, null, "users", null, null, null, null, null, null, null, [], null, [], "entities", null, null, null, null, null, []);
           t2.id = t1.$index(params, "employee");
           t1.$indexSet(params, "employee", t2);
         }
@@ -32825,7 +32691,7 @@
             if (value instanceof D.Entity)
               t1 = value;
             else {
-              t1 = new D.Employee("employees", null, null, null, "users", null, null, null, null, null, null, null, null, [], null, [], "entities", null, null, null, null, null, []);
+              t1 = new D.Employee("employees", null, null, null, "users", null, null, null, null, null, null, null, [], null, [], "entities", null, null, null, null, null, []);
               t1.Entity$fromMap$1(value);
             }
             this.employee = t1;
@@ -32993,7 +32859,7 @@
             if (value instanceof D.Entity)
               t1 = value;
             else {
-              t1 = new D.Employee("employees", null, null, null, "users", null, null, null, null, null, null, null, null, [], null, [], "entities", null, null, null, null, null, []);
+              t1 = new D.Employee("employees", null, null, null, "users", null, null, null, null, null, null, null, [], null, [], "entities", null, null, null, null, null, []);
               t1.Entity$fromMap$1(value);
             }
             this.accountant = t1;
@@ -33522,7 +33388,7 @@
             if (value instanceof D.Entity)
               t1 = value;
             else {
-              t1 = new D.Employee("employees", null, null, null, "users", null, null, null, null, null, null, null, null, [], null, [], "entities", null, null, null, null, null, []);
+              t1 = new D.Employee("employees", null, null, null, "users", null, null, null, null, null, null, null, [], null, [], "entities", null, null, null, null, null, []);
               t1.Entity$fromMap$1(value);
             }
             this.employee = t1;
@@ -33549,13 +33415,11 @@
       }
     },
     User: {
-      "^": "Entity;type:User_type*,username*,firstname@,lastname@,email@,plainpassword@,enabled*,locked@,employeeholiday@,_descendantsToUpdate,id,_toUpdate,type,createdAt,updatedAt,name,alias,user,tags",
+      "^": "Entity;type:User_type*,username*,firstname@,lastname@,email@,plainpassword@,enabled*,employeeholiday@,_descendantsToUpdate,id,_toUpdate,type,createdAt,updatedAt,name,alias,user,tags",
       init$1$params: function(params) {
         var t1 = J.getInterceptor$x(params);
         if (t1.containsKey$1(params, "enabled") !== true)
           t1.$indexSet(params, "enabled", false);
-        if (t1.containsKey$1(params, "locked") !== true)
-          t1.$indexSet(params, "locked", true);
         this.super$Entity$init(params);
       },
       Get$1: ["super$User$Get", function(property) {
@@ -33572,8 +33436,6 @@
               return this.email;
             case "enabled":
               return this.enabled;
-            case "locked":
-              return this.locked;
             case "plainpassword":
               return this.plainpassword;
             case "employeeholiday":
@@ -33600,9 +33462,6 @@
           case "enabled":
             this.enabled = value;
             break;
-          case "locked":
-            this.locked = value;
-            break;
           case "plainpassword":
             this.plainpassword = value;
             break;
@@ -33626,9 +33485,8 @@
         this.lastname = original.get$lastname();
         this.email = C.JSString_methods.$add("cloned" + random + "_", original.get$email());
         this.enabled = t1.get$enabled(original);
-        this.locked = original.get$locked();
         this.employeeholiday = original.get$employeeholiday();
-        this.addFieldstoUpdate$1(["username", "firstname", "lastname", "email", "enabled", "locked", "employeeholiday"]);
+        this.addFieldstoUpdate$1(["username", "firstname", "lastname", "email", "enabled", "employeeholiday"]);
       }
     }
   }], ["menu", "package:DimeClient/model/Menu.dart",, A, {
@@ -34039,7 +33897,7 @@
                 // Function start
                 $async$self.statusservice.setStatusToLoading$0();
                 $async$handler = 4;
-                usr0 = new D.User("users", null, null, null, null, null, null, null, null, [], null, [], "entities", null, null, null, null, null, []);
+                usr0 = new D.User("users", null, null, null, null, null, null, null, [], null, [], "entities", null, null, null, null, null, []);
                 usr0.id = $async$self._currentUserId;
                 usr = usr0;
                 templateSetting = new D.Setting("settings", null, null, null, [], null, [], "entities", null, null, null, null, null, []);
@@ -37329,7 +37187,7 @@
         t1[t2] = object;
       }
     },
-    closure1057: {
+    closure1054: {
       "^": "Closure:0;",
       call$1: function(index) {
         return "arg[" + index + "]";
@@ -43570,7 +43428,7 @@
       },
       $isHttpInterceptor: 1
     },
-    closure1061: {
+    closure1058: {
       "^": "Closure:80;",
       call$1: [function(config) {
         var t1, t2;
@@ -43585,7 +43443,7 @@
         return config;
       }, null, null, 2, 0, null, 103, "call"]
     },
-    closure1062: {
+    closure1059: {
       "^": "Closure:233;",
       call$1: [function(r) {
         var t1, t2, d;
@@ -43750,7 +43608,7 @@
         this._interceptors.constructChain$1(chain);
         if (interceptors != null) {
           if (!!J.getInterceptor(interceptors).$isHttpInterceptor) {
-            interceptors0 = new Y.HttpInterceptors([new Y.DefaultTransformDataHttpInterceptor(new Y.closure1061(), new Y.closure1062(), null, null)]);
+            interceptors0 = new Y.HttpInterceptors([new Y.DefaultTransformDataHttpInterceptor(new Y.closure1058(), new Y.closure1059(), null, null)]);
             interceptors0._interceptors = [interceptors];
             interceptors = interceptors0;
           }
@@ -46714,7 +46572,7 @@
       },
       $isAttachAware: 1
     },
-    closure1059: {
+    closure1056: {
       "^": "Closure:29;",
       call$2: function(_, __) {
         return;
@@ -46723,7 +46581,7 @@
         return this.call$2(_, null);
       }
     },
-    closure1060: {
+    closure1057: {
       "^": "Closure:0;",
       call$1: [function(value) {
         return;
@@ -48051,7 +47909,7 @@
         return context;
       }
     },
-    closure1058: {
+    closure1055: {
       "^": "Closure:4;",
       call$3: function(key, value, index) {
         return value;
@@ -52214,7 +52072,7 @@
         }
       }
     },
-    closure1052: {
+    closure1049: {
       "^": "Closure:17;",
       call$1: function(evt) {
         return P.LinkedHashMap__makeEmpty();
@@ -56693,7 +56551,7 @@
           t2 = new T.NumberFormat("-", "", "", "", 3, false, false, false, 40, 1, 3, 0, 0, 1, null, t3, null, null, t1, t2);
           t3 = $.numberFormatSymbols.$index(0, t3);
           t2._symbols = t3;
-          t2._setPattern$1(new T.closure1056(newPattern).call$1(t3));
+          t2._setPattern$1(new T.closure1053(newPattern).call$1(t3));
           return t2;
         },
         NumberFormat_localeExists: [function(localeName) {
@@ -56703,7 +56561,7 @@
         }, "call$1", "intl_NumberFormat_localeExists$closure", 2, 0, 13]
       }
     },
-    closure1056: {
+    closure1053: {
       "^": "Closure:0;newPattern",
       call$1: function(x) {
         return this.newPattern;
@@ -59069,129 +58927,129 @@
     }
   }, 1], ["DimeClient.web.main.generated_type_factory_maps", "main_generated_type_factory_maps.dart",, Q, {
     "^": "",
-    closure794: {
+    closure791: {
       "^": "Closure:2;",
       call$0: [function() {
         return new S.PercentageInputField(null, 2, true, null, "");
       }, null, null, 0, 0, null, "call"]
     },
-    closure795: {
+    closure792: {
       "^": "Closure:2;",
       call$0: [function() {
         return new Y.Animate(true);
       }, null, null, 0, 0, null, "call"]
     },
-    closure796: {
+    closure793: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return Y.BrowserCookies$(a1);
       }, null, null, 2, 0, null, 2, "call"]
     },
-    closure797: {
+    closure794: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return new Y.Cookies(a1);
       }, null, null, 2, 0, null, 2, "call"]
     },
-    closure798: {
+    closure795: {
       "^": "Closure:1;",
       call$2: [function(a1, a2) {
         return new Y.Compiler(a1, a2);
       }, null, null, 4, 0, null, 2, 3, "call"]
     },
-    closure799: {
+    closure796: {
       "^": "Closure:2;",
       call$0: [function() {
         return new Y.CompilerConfig(true);
       }, null, null, 0, 0, null, "call"]
     },
-    closure800: {
+    closure797: {
       "^": "Closure:5;",
       call$4: [function(a1, a2, a3, a4) {
         return Y.DirectiveMap$(a1, a2, a3, a4);
       }, null, null, 8, 0, null, 2, 3, 4, 5, "call"]
     },
-    closure801: {
+    closure798: {
       "^": "Closure:46;",
       call$8: [function(a1, a2, a3, a4, a5, a6, a7, a8) {
         return new Y.ElementBinderFactory(a1, a2, a3, a4, a5, a6, a7, a8);
       }, null, null, 16, 0, null, 2, 3, 4, 5, 8, 20, 32, 41, "call"]
     },
-    closure802: {
+    closure799: {
       "^": "Closure:4;",
       call$3: [function(a1, a2, a3) {
         return new Y.EventHandler(a1, a2, a3, P.HashMap_HashMap(null, null, null, P.String, P.Function));
       }, null, null, 6, 0, null, 2, 3, 4, "call"]
     },
-    closure803: {
+    closure800: {
       "^": "Closure:4;",
       call$3: [function(a1, a2, a3) {
         return new Y.ShadowRootEventHandler(a1, a2, a3, P.HashMap_HashMap(null, null, null, P.String, P.Function));
       }, null, null, 6, 0, null, 2, 3, 4, "call"]
     },
-    closure804: {
+    closure801: {
       "^": "Closure:2;",
       call$0: [function() {
         return new Y.DefaultShadowBoundary(null, document.head, null);
       }, null, null, 0, 0, null, "call"]
     },
-    closure805: {
+    closure802: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return new Y.ShadowRootBoundary(null, a1, null);
       }, null, null, 2, 0, null, 2, "call"]
     },
-    closure806: {
+    closure803: {
       "^": "Closure:2;",
       call$0: [function() {
         return new Y.UrlRewriter();
       }, null, null, 0, 0, null, "call"]
     },
-    closure807: {
+    closure804: {
       "^": "Closure:2;",
       call$0: [function() {
         return new Y.HttpBackend();
       }, null, null, 0, 0, null, "call"]
     },
-    closure808: {
+    closure805: {
       "^": "Closure:2;",
       call$0: [function() {
         return new Y.LocationWrapper();
       }, null, null, 0, 0, null, "call"]
     },
-    closure809: {
+    closure806: {
       "^": "Closure:2;",
       call$0: [function() {
-        var t1 = new Y.HttpInterceptors([new Y.DefaultTransformDataHttpInterceptor(new Y.closure1061(), new Y.closure1062(), null, null)]);
-        t1._interceptors = [new Y.DefaultTransformDataHttpInterceptor(new Y.closure1061(), new Y.closure1062(), null, null)];
+        var t1 = new Y.HttpInterceptors([new Y.DefaultTransformDataHttpInterceptor(new Y.closure1058(), new Y.closure1059(), null, null)]);
+        t1._interceptors = [new Y.DefaultTransformDataHttpInterceptor(new Y.closure1058(), new Y.closure1059(), null, null)];
         return t1;
       }, null, null, 0, 0, null, "call"]
     },
-    closure810: {
+    closure807: {
       "^": "Closure:2;",
       call$0: [function() {
         return new Y.HttpDefaultHeaders(P.LinkedHashMap__makeLiteral(["COMMON", P.LinkedHashMap__makeLiteral(["Accept", "application/json, text/plain, */*"]), "POST", P.LinkedHashMap__makeLiteral(["Content-Type", $.HttpDefaultHeaders__defaultContentType]), "PUT", P.LinkedHashMap__makeLiteral(["Content-Type", $.HttpDefaultHeaders__defaultContentType]), "PATCH", P.LinkedHashMap__makeLiteral(["Content-Type", $.HttpDefaultHeaders__defaultContentType])]));
       }, null, null, 0, 0, null, "call"]
     },
-    closure811: {
+    closure808: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return new Y.HttpDefaults(a1, null, "XSRF-TOKEN", "X-XSRF-TOKEN");
       }, null, null, 2, 0, null, 2, "call"]
     },
-    closure812: {
+    closure809: {
       "^": "Closure:341;",
       call$10: [function(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10) {
         return new Y.Http(P.HashMap_HashMap(null, null, null, P.String, [P.Future, Y.HttpResponse]), a1, a2, a3, a4, a6, a7, a8, a9, a10, H.setRuntimeTypeInfo([], [P.Function]), null, a5);
       }, null, null, 20, 0, null, 2, 3, 4, 5, 8, 20, 32, 41, 62, 68, "call"]
     },
-    closure813: {
+    closure810: {
       "^": "Closure:2;",
       call$0: [function() {
         return new Y.HttpConfig(null);
       }, null, null, 0, 0, null, "call"]
     },
-    closure814: {
+    closure811: {
       "^": "Closure:4;",
       call$3: [function(a1, a2, a3) {
         var t1 = new Y.TextMustache(a1);
@@ -59199,26 +59057,26 @@
         return t1;
       }, null, null, 6, 0, null, 2, 3, 4, "call"]
     },
-    closure815: {
+    closure812: {
       "^": "Closure:5;",
       call$4: [function(a1, a2, a3, a4) {
         return Y.AttrMustache$(a1, a2, a3, a4);
       }, null, null, 8, 0, null, 2, 3, 4, 5, "call"]
     },
-    closure816: {
+    closure813: {
       "^": "Closure:5;",
       call$4: [function(a1, a2, a3, a4) {
         var t1 = P.String;
         return new Y.NgElement(a1, a2, a3, a4, P.HashMap_HashMap(null, null, null, t1, P.bool), P.HashMap_HashMap(null, null, null, t1, null), false);
       }, null, null, 8, 0, null, 2, 3, 4, 5, "call"]
     },
-    closure817: {
+    closure814: {
       "^": "Closure:7;",
       call$5: [function(a1, a2, a3, a4, a5) {
         return new Y.DirectiveSelectorFactory(a1, a2, a3, a4, a5);
       }, null, null, 10, 0, null, 2, 3, 4, 5, 8, "call"]
     },
-    closure818: {
+    closure815: {
       "^": "Closure:56;",
       call$11: [function(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11) {
         var t1, styleElementCache;
@@ -59229,13 +59087,13 @@
         return t1;
       }, null, null, 22, 0, null, 2, 3, 4, 5, 8, 20, 32, 41, 62, 68, 76, "call"]
     },
-    closure819: {
+    closure816: {
       "^": "Closure:2;",
       call$0: [function() {
         return new Y.ComponentCssRewriter();
       }, null, null, 0, 0, null, "call"]
     },
-    closure820: {
+    closure817: {
       "^": "Closure:56;",
       call$11: [function(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11) {
         var t1, styleElementCache;
@@ -59246,7 +59104,7 @@
         return t1;
       }, null, null, 22, 0, null, 2, 3, 4, 5, 8, 20, 32, 41, 62, 68, 76, "call"]
     },
-    closure821: {
+    closure818: {
       "^": "Closure:5;",
       call$4: [function(a1, a2, a3, a4) {
         var t1 = new Y.Content(a1, null, a2, a3, null);
@@ -59254,13 +59112,13 @@
         return t1;
       }, null, null, 8, 0, null, 2, 3, 4, 5, "call"]
     },
-    closure822: {
+    closure819: {
       "^": "Closure:2;",
       call$0: [function() {
         return new Y.NullTreeSanitizer();
       }, null, null, 0, 0, null, "call"]
     },
-    closure823: {
+    closure820: {
       "^": "Closure:20;",
       call$6: [function(a1, a2, a3, a4, a5, a6) {
         var t1, t2;
@@ -59273,7 +59131,7 @@
         return new Y.ViewFactoryCache(t2, a1, a2, a3, a4, t1, a5);
       }, null, null, 12, 0, null, 2, 3, 4, 5, 8, 20, "call"]
     },
-    closure824: {
+    closure821: {
       "^": "Closure:2;",
       call$0: [function() {
         var t1, _platformJs, t2;
@@ -59288,25 +59146,25 @@
         return t1;
       }, null, null, 0, 0, null, "call"]
     },
-    closure825: {
+    closure822: {
       "^": "Closure:2;",
       call$0: [function() {
         return new Y.DefaultPlatformShim();
       }, null, null, 0, 0, null, "call"]
     },
-    closure826: {
+    closure823: {
       "^": "Closure:1;",
       call$2: [function(a1, a2) {
         return R.AHref$(a1, a2);
       }, null, null, 4, 0, null, 2, 3, "call"]
     },
-    closure827: {
+    closure824: {
       "^": "Closure:2;",
       call$0: [function() {
         return new R.NgBaseCss(null, C.List_empty);
       }, null, null, 0, 0, null, "call"]
     },
-    closure828: {
+    closure825: {
       "^": "Closure:1;",
       call$2: [function(a1, a2) {
         if (a2 != null)
@@ -59314,19 +59172,19 @@
         return new R.NgBind(a1);
       }, null, null, 4, 0, null, 2, 3, "call"]
     },
-    closure829: {
+    closure826: {
       "^": "Closure:1;",
       call$2: [function(a1, a2) {
         return new R.NgBindHtml(a1, a2);
       }, null, null, 4, 0, null, 2, 3, "call"]
     },
-    closure830: {
+    closure827: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return new R.NgBindTemplate(a1);
       }, null, null, 2, 0, null, 2, "call"]
     },
-    closure831: {
+    closure828: {
       "^": "Closure:4;",
       call$3: [function(a1, a2, a3) {
         var t1 = P.String;
@@ -59335,7 +59193,7 @@
         return t1;
       }, null, null, 6, 0, null, 2, 3, 4, "call"]
     },
-    closure832: {
+    closure829: {
       "^": "Closure:4;",
       call$3: [function(a1, a2, a3) {
         var t1 = P.String;
@@ -59344,7 +59202,7 @@
         return t1;
       }, null, null, 6, 0, null, 2, 3, 4, "call"]
     },
-    closure833: {
+    closure830: {
       "^": "Closure:4;",
       call$3: [function(a1, a2, a3) {
         var t1 = P.String;
@@ -59353,13 +59211,13 @@
         return t1;
       }, null, null, 6, 0, null, 2, 3, 4, "call"]
     },
-    closure834: {
+    closure831: {
       "^": "Closure:1;",
       call$2: [function(a1, a2) {
         return new R.NgEvent(P.HashMap_HashMap(null, null, null, P.int, F.BoundExpression), a1, a2);
       }, null, null, 4, 0, null, 2, 3, "call"]
     },
-    closure835: {
+    closure832: {
       "^": "Closure:1;",
       call$2: [function(a1, a2) {
         J.get$attributes$x(a1).remove$1(0, "ng-cloak");
@@ -59367,25 +59225,25 @@
         return new R.NgCloak();
       }, null, null, 4, 0, null, 2, 3, "call"]
     },
-    closure836: {
+    closure833: {
       "^": "Closure:4;",
       call$3: [function(a1, a2, a3) {
         return new R.NgIf(a1, a2, a3, null);
       }, null, null, 6, 0, null, 2, 3, 4, "call"]
     },
-    closure837: {
+    closure834: {
       "^": "Closure:4;",
       call$3: [function(a1, a2, a3) {
         return new R.NgUnless(a1, a2, a3, null);
       }, null, null, 6, 0, null, 2, 3, 4, "call"]
     },
-    closure838: {
+    closure835: {
       "^": "Closure:7;",
       call$5: [function(a1, a2, a3, a4, a5) {
         return new R.NgInclude(a1, a2, a3, a4, a5, null, null);
       }, null, null, 10, 0, null, 2, 3, 4, 5, 8, "call"]
     },
-    closure839: {
+    closure836: {
       "^": "Closure:20;",
       call$6: [function(a1, a2, a3, a4, a5, a6) {
         var t1, t2, t3, t4, t5, t6;
@@ -59396,7 +59254,7 @@
         t5 = [P.Set, R.NgControl];
         t6 = new H.JsLinkedHashMap(0, null, null, null, null, null, 0, [t3, t5]);
         t3 = new H.JsLinkedHashMap(0, null, null, null, null, null, 0, [t3, t5]);
-        t3 = new R.NgModel(a1, new R.closure1059(), null, null, null, null, null, false, new R.closure1060(), t1, null, null, null, null, null, a3.getFromParentByKey$1($.$get$NG_CONTROL_KEY()), a5, a2, t2, t4, t6, t3);
+        t3 = new R.NgModel(a1, new R.closure1056(), null, null, null, null, null, false, new R.closure1057(), t1, null, null, null, null, null, a3.getFromParentByKey$1($.$get$NG_CONTROL_KEY()), a5, a2, t2, t4, t6, t3);
         t6 = J.$index$asx(a4, "ng-model");
         t3._module3$_expression = t6;
         if (a6 != null)
@@ -59410,61 +59268,61 @@
         return t3;
       }, null, null, 12, 0, null, 2, 3, 4, 5, 8, 20, "call"]
     },
-    closure840: {
+    closure837: {
       "^": "Closure:20;",
       call$6: [function(a1, a2, a3, a4, a5, a6) {
         return R.InputCheckbox$(a1, a2, a3, a4, a5, a6);
       }, null, null, 12, 0, null, 2, 3, 4, 5, 8, 20, "call"]
     },
-    closure841: {
+    closure838: {
       "^": "Closure:5;",
       call$4: [function(a1, a2, a3, a4) {
         return R.InputTextLike$(a1, a2, a3, a4);
       }, null, null, 8, 0, null, 2, 3, 4, 5, "call"]
     },
-    closure842: {
+    closure839: {
       "^": "Closure:5;",
       call$4: [function(a1, a2, a3, a4) {
         return R.InputNumberLike$(a1, a2, a3, a4);
       }, null, null, 8, 0, null, 2, 3, 4, 5, "call"]
     },
-    closure843: {
+    closure840: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return new R.NgBindTypeForDateLike(a1, "date");
       }, null, null, 2, 0, null, 2, "call"]
     },
-    closure844: {
+    closure841: {
       "^": "Closure:7;",
       call$5: [function(a1, a2, a3, a4, a5) {
         return R.InputDateLike$(a1, a2, a3, a4, a5);
       }, null, null, 10, 0, null, 2, 3, 4, 5, 8, "call"]
     },
-    closure845: {
+    closure842: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return new R.NgValue(a1, null);
       }, null, null, 2, 0, null, 2, "call"]
     },
-    closure846: {
+    closure843: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return new R.NgTrueValue(a1, true);
       }, null, null, 2, 0, null, 2, "call"]
     },
-    closure847: {
+    closure844: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return new R.NgFalseValue(a1, false);
       }, null, null, 2, 0, null, 2, "call"]
     },
-    closure848: {
+    closure845: {
       "^": "Closure:7;",
       call$5: [function(a1, a2, a3, a4, a5) {
         return R.InputRadio$(a1, a2, a3, a4, a5);
       }, null, null, 10, 0, null, 2, 3, 4, 5, 8, "call"]
     },
-    closure849: {
+    closure846: {
       "^": "Closure:5;",
       call$4: [function(a1, a2, a3, a4) {
         var t1 = new R.ContentEditable(a1, a2, a4, a3, null);
@@ -59472,92 +59330,92 @@
         return t1;
       }, null, null, 8, 0, null, 2, 3, 4, 5, "call"]
     },
-    closure850: {
+    closure847: {
       "^": "Closure:5;",
       call$4: [function(a1, a2, a3, a4) {
         return R.NgPluralize$(a1, a2, a3, a4);
       }, null, null, 8, 0, null, 2, 3, 4, 5, "call"]
     },
-    closure851: {
+    closure848: {
       "^": "Closure:7;",
       call$5: [function(a1, a2, a3, a4, a5) {
-        return new R.NgRepeat(a1, a2, a3, a4, a5, null, null, null, null, null, new R.closure1058(), null);
+        return new R.NgRepeat(a1, a2, a3, a4, a5, null, null, null, null, null, new R.closure1055(), null);
       }, null, null, 10, 0, null, 2, 3, 4, 5, 8, "call"]
     },
-    closure852: {
+    closure849: {
       "^": "Closure:1;",
       call$2: [function(a1, a2) {
         return new R.NgTemplate(a1, a2);
       }, null, null, 4, 0, null, 2, 3, "call"]
     },
-    closure853: {
+    closure850: {
       "^": "Closure:1;",
       call$2: [function(a1, a2) {
         return new R.NgHide(a1, a2);
       }, null, null, 4, 0, null, 2, 3, "call"]
     },
-    closure854: {
+    closure851: {
       "^": "Closure:1;",
       call$2: [function(a1, a2) {
         return new R.NgShow(a1, a2);
       }, null, null, 4, 0, null, 2, 3, "call"]
     },
-    closure855: {
+    closure852: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return new R.NgBooleanAttribute(a1);
       }, null, null, 2, 0, null, 2, "call"]
     },
-    closure856: {
+    closure853: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return new R.NgSource(a1);
       }, null, null, 2, 0, null, 2, "call"]
     },
-    closure857: {
+    closure854: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return new R.NgAttribute(a1);
       }, null, null, 2, 0, null, 2, "call"]
     },
-    closure858: {
+    closure855: {
       "^": "Closure:1;",
       call$2: [function(a1, a2) {
         return new R.NgStyle(a1, a2, null, null);
       }, null, null, 4, 0, null, 2, 3, "call"]
     },
-    closure859: {
+    closure856: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return new R.NgSwitch(P.LinkedHashMap_LinkedHashMap$_literal(["?", H.setRuntimeTypeInfo([], [R._Case])], P.String, [P.List, R._Case]), H.setRuntimeTypeInfo([], [R._ViewScopePair]), null, a1);
       }, null, null, 2, 0, null, 2, "call"]
     },
-    closure860: {
+    closure857: {
       "^": "Closure:4;",
       call$3: [function(a1, a2, a3) {
         return new R.NgSwitchWhen(a1, a2, a3);
       }, null, null, 6, 0, null, 2, 3, 4, "call"]
     },
-    closure861: {
+    closure858: {
       "^": "Closure:4;",
       call$3: [function(a1, a2, a3) {
         a1.addCase$3("?", a2, a3);
         return new R.NgSwitchDefault();
       }, null, null, 6, 0, null, 2, 3, 4, "call"]
     },
-    closure862: {
+    closure859: {
       "^": "Closure:2;",
       call$0: [function() {
         return new R.NgNonBindable();
       }, null, null, 0, 0, null, "call"]
     },
-    closure863: {
+    closure860: {
       "^": "Closure:5;",
       call$4: [function(a1, a2, a3, a4) {
         return R.InputSelect$(a1, a2, a3, a4);
       }, null, null, 8, 0, null, 2, 3, 4, 5, "call"]
     },
-    closure864: {
+    closure861: {
       "^": "Closure:4;",
       call$3: [function(a1, a2, a3) {
         var t1 = new R.OptionValue(a2, a1, a3);
@@ -59566,13 +59424,13 @@
         return t1;
       }, null, null, 6, 0, null, 2, 3, 4, "call"]
     },
-    closure865: {
+    closure862: {
       "^": "Closure:5;",
       call$4: [function(a1, a2, a3, a4) {
         return R.NgForm$(a1, a2, a3, a4);
       }, null, null, 8, 0, null, 2, 3, 4, 5, "call"]
     },
-    closure866: {
+    closure863: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         var t1 = new R.NgModelRequiredValidator("ng-required", true, a1);
@@ -59580,7 +59438,7 @@
         return t1;
       }, null, null, 2, 0, null, 2, "call"]
     },
-    closure867: {
+    closure864: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         var t1 = new R.NgModelUrlValidator("ng-url");
@@ -59588,7 +59446,7 @@
         return t1;
       }, null, null, 2, 0, null, 2, "call"]
     },
-    closure868: {
+    closure865: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         var t1 = new R.NgModelColorValidator("ng-color");
@@ -59596,7 +59454,7 @@
         return t1;
       }, null, null, 2, 0, null, 2, "call"]
     },
-    closure869: {
+    closure866: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         var t1 = new R.NgModelEmailValidator("ng-email");
@@ -59604,7 +59462,7 @@
         return t1;
       }, null, null, 2, 0, null, 2, "call"]
     },
-    closure870: {
+    closure867: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         var t1 = new R.NgModelNumberValidator("ng-number");
@@ -59612,7 +59470,7 @@
         return t1;
       }, null, null, 2, 0, null, 2, "call"]
     },
-    closure871: {
+    closure868: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         var t1 = new R.NgModelMaxNumberValidator("ng-max", null, a1);
@@ -59620,7 +59478,7 @@
         return t1;
       }, null, null, 2, 0, null, 2, "call"]
     },
-    closure872: {
+    closure869: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         var t1 = new R.NgModelMinNumberValidator("ng-min", null, a1);
@@ -59628,7 +59486,7 @@
         return t1;
       }, null, null, 2, 0, null, 2, "call"]
     },
-    closure873: {
+    closure870: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         var t1 = new R.NgModelPatternValidator("ng-pattern", null, a1);
@@ -59636,7 +59494,7 @@
         return t1;
       }, null, null, 2, 0, null, 2, "call"]
     },
-    closure874: {
+    closure871: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         var t1 = new R.NgModelMinLengthValidator("ng-minlength", null, a1);
@@ -59644,7 +59502,7 @@
         return t1;
       }, null, null, 2, 0, null, 2, "call"]
     },
-    closure875: {
+    closure872: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         var t1 = new R.NgModelMaxLengthValidator("ng-maxlength", 0, a1);
@@ -59652,13 +59510,13 @@
         return t1;
       }, null, null, 2, 0, null, 2, "call"]
     },
-    closure876: {
+    closure873: {
       "^": "Closure:2;",
       call$0: [function() {
         return new R.NgModelOptions(0, null, null, null, null, null, null);
       }, null, null, 0, 0, null, "call"]
     },
-    closure877: {
+    closure874: {
       "^": "Closure:4;",
       call$3: [function(a1, a2, a3) {
         var t1 = P.LinkedHashMap__makeEmpty();
@@ -59666,25 +59524,25 @@
         return new G.Parser(a1, a2, t1);
       }, null, null, 6, 0, null, 2, 3, 4, "call"]
     },
-    closure878: {
+    closure875: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return new G.RuntimeParserBackend(new G.ClosureMapLocalsAware(a1));
       }, null, null, 2, 0, null, 2, "call"]
     },
-    closure879: {
+    closure876: {
       "^": "Closure:1;",
       call$2: [function(a1, a2) {
         return T.FormatterMap$(a1, a2);
       }, null, null, 4, 0, null, 2, 3, "call"]
     },
-    closure880: {
+    closure877: {
       "^": "Closure:2;",
       call$0: [function() {
         return new L.ExceptionHandler();
       }, null, null, 0, 0, null, "call"]
     },
-    closure881: {
+    closure878: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         var t1 = P.HashMap_HashMap(null, null, null, null, null);
@@ -59692,13 +59550,13 @@
         return new L.Interpolate(t1);
       }, null, null, 2, 0, null, 2, "call"]
     },
-    closure882: {
+    closure879: {
       "^": "Closure:2;",
       call$0: [function() {
         return new L.ScopeDigestTTL(10);
       }, null, null, 0, 0, null, "call"]
     },
-    closure883: {
+    closure880: {
       "^": "Closure:1;",
       call$2: [function(a1, a2) {
         var t1 = $.Stopwatch__frequency;
@@ -59719,49 +59577,49 @@
         return new L.ScopeStats(new V.AvgStopwatch(0, 0, 0), new V.AvgStopwatch(0, 0, 0), new V.AvgStopwatch(0, 0, 0), [], 0, 0, 0, a1, a2);
       }, null, null, 4, 0, null, 2, 3, "call"]
     },
-    closure884: {
+    closure881: {
       "^": "Closure:2;",
       call$0: [function() {
         return new L.ScopeStatsEmitter(T.NumberFormat_NumberFormat("0.00", "en_US"), T.NumberFormat_NumberFormat("0", "en_US"));
       }, null, null, 0, 0, null, "call"]
     },
-    closure885: {
+    closure882: {
       "^": "Closure:2;",
       call$0: [function() {
         return new L.ScopeStatsConfig(false);
       }, null, null, 0, 0, null, "call"]
     },
-    closure886: {
+    closure883: {
       "^": "Closure:56;",
       call$11: [function(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11) {
         return L.RootScope$(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11);
       }, null, null, 22, 0, null, 2, 3, 4, 5, 8, 20, 32, 41, 62, 68, 76, "call"]
     },
-    closure887: {
+    closure884: {
       "^": "Closure:2;",
       call$0: [function() {
         return new B.PendingAsync(0, null);
       }, null, null, 0, 0, null, "call"]
     },
-    closure888: {
+    closure885: {
       "^": "Closure:2;",
       call$0: [function() {
         return new Z.Lexer();
       }, null, null, 0, 0, null, "call"]
     },
-    closure889: {
+    closure886: {
       "^": "Closure:1;",
       call$2: [function(a1, a2) {
         return new B.ASTParser(a1, a2);
       }, null, null, 4, 0, null, 2, 3, "call"]
     },
-    closure890: {
+    closure887: {
       "^": "Closure:2;",
       call$0: [function() {
         return new Y.CacheRegister(P.LinkedHashMap__makeEmpty(), null);
       }, null, null, 0, 0, null, "call"]
     },
-    closure891: {
+    closure888: {
       "^": "Closure:1;",
       call$2: [function(a1, a2) {
         var result;
@@ -59773,91 +59631,91 @@
         return new K.ResourceUrlResolver(result, a1, a2);
       }, null, null, 4, 0, null, 2, 3, "call"]
     },
-    closure892: {
+    closure889: {
       "^": "Closure:2;",
       call$0: [function() {
         return new K.ResourceResolverConfig(true, "/packages/");
       }, null, null, 0, 0, null, "call"]
     },
-    closure893: {
+    closure890: {
       "^": "Closure:2;",
       call$0: [function() {
         return new L.Currency(new H.JsLinkedHashMap(0, null, null, null, null, null, 0, [P.String, T.NumberFormat]));
       }, null, null, 0, 0, null, "call"]
     },
-    closure894: {
+    closure891: {
       "^": "Closure:2;",
       call$0: [function() {
         return new L.Date(new H.JsLinkedHashMap(0, null, null, null, null, null, 0, [P.String, [P.Map, P.String, T.DateFormat]]));
       }, null, null, 0, 0, null, "call"]
     },
-    closure895: {
+    closure892: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return new L.Filter(a1, null, null);
       }, null, null, 2, 0, null, 2, "call"]
     },
-    closure896: {
+    closure893: {
       "^": "Closure:2;",
       call$0: [function() {
         return new L.Json();
       }, null, null, 0, 0, null, "call"]
     },
-    closure897: {
+    closure894: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return new L.LimitTo(a1);
       }, null, null, 2, 0, null, 2, "call"]
     },
-    closure898: {
+    closure895: {
       "^": "Closure:2;",
       call$0: [function() {
         return new L.Lowercase();
       }, null, null, 0, 0, null, "call"]
     },
-    closure899: {
+    closure896: {
       "^": "Closure:2;",
       call$0: [function() {
         return new L.Arrayify();
       }, null, null, 0, 0, null, "call"]
     },
-    closure900: {
+    closure897: {
       "^": "Closure:2;",
       call$0: [function() {
         return new L.Number(new H.JsLinkedHashMap(0, null, null, null, null, null, 0, [P.String, [P.Map, P.num, T.NumberFormat]]));
       }, null, null, 0, 0, null, "call"]
     },
-    closure901: {
+    closure898: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return new L.OrderBy(a1);
       }, null, null, 2, 0, null, 2, "call"]
     },
-    closure902: {
+    closure899: {
       "^": "Closure:2;",
       call$0: [function() {
         return new L.Uppercase();
       }, null, null, 0, 0, null, "call"]
     },
-    closure903: {
+    closure900: {
       "^": "Closure:2;",
       call$0: [function() {
         return new L.Stringify();
       }, null, null, 0, 0, null, "call"]
     },
-    closure904: {
+    closure901: {
       "^": "Closure:4;",
       call$3: [function(a1, a2, a3) {
         return new K.AnimationLoop(a1, a2, [], a3, false);
       }, null, null, 6, 0, null, 2, 3, 4, "call"]
     },
-    closure905: {
+    closure902: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return new K.AnimationFrame(a1);
       }, null, null, 2, 0, null, 2, "call"]
     },
-    closure906: {
+    closure903: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         var t1, t2, t3, t4, t5;
@@ -59870,43 +59728,43 @@
         return new K.AnimationOptimizer(t2, t1, true, t5, new H.JsLinkedHashMap(0, null, null, null, null, null, 0, [t3, t4]), a1);
       }, null, null, 2, 0, null, 2, "call"]
     },
-    closure907: {
+    closure904: {
       "^": "Closure:4;",
       call$3: [function(a1, a2, a3) {
         return new K.CssAnimate(new Y.NoOpAnimation(null), a1, a3, a2);
       }, null, null, 6, 0, null, 2, 3, 4, "call"]
     },
-    closure908: {
+    closure905: {
       "^": "Closure:2;",
       call$0: [function() {
         return new K.CssAnimationMap(P.HashMap_HashMap(null, null, null, W.Element, [P.Map, P.String, K.CssAnimation]));
       }, null, null, 0, 0, null, "call"]
     },
-    closure909: {
+    closure906: {
       "^": "Closure:1;",
       call$2: [function(a1, a2) {
         return new K.NgAnimate(a2, a1, "auto");
       }, null, null, 4, 0, null, 2, 3, "call"]
     },
-    closure910: {
+    closure907: {
       "^": "Closure:1;",
       call$2: [function(a1, a2) {
         return new K.NgAnimateChildren(a2, a1, "auto");
       }, null, null, 4, 0, null, 2, 3, "call"]
     },
-    closure911: {
+    closure908: {
       "^": "Closure:2;",
       call$0: [function() {
         return new T.NgRoutingUsePushState(true);
       }, null, null, 0, 0, null, "call"]
     },
-    closure912: {
+    closure909: {
       "^": "Closure:5;",
       call$4: [function(a1, a2, a3, a4) {
         return T.NgRoutingHelper$(a1, a2, a3, a4);
       }, null, null, 8, 0, null, 2, 3, 4, 5, "call"]
     },
-    closure913: {
+    closure910: {
       "^": "Closure:20;",
       call$6: [function(a1, a2, a3, a4, a5, a6) {
         var t1, t2, routeProvider;
@@ -59920,205 +59778,205 @@
         return t2;
       }, null, null, 12, 0, null, 2, 3, 4, 5, 8, 20, "call"]
     },
-    closure914: {
+    closure911: {
       "^": "Closure:4;",
       call$3: [function(a1, a2, a3) {
         return new T.NgBindRoute(null, a1, a2);
       }, null, null, 6, 0, null, 2, 3, 4, "call"]
     },
-    closure915: {
+    closure912: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return U.JsCacheRegister$(a1);
       }, null, null, 2, 0, null, 2, "call"]
     },
-    closure916: {
+    closure913: {
       "^": "Closure:5;",
       call$4: [function(a1, a2, a3, a4) {
         return new V.ActivitySelectComponent(null, null, a1, null, a2, false, null, null, C.Type_Activity_q2S, [], "", a3, a4, false, false, "", null);
       }, null, null, 8, 0, null, 2, 3, 4, 5, "call"]
     },
-    closure917: {
+    closure914: {
       "^": "Closure:5;",
       call$4: [function(a1, a2, a3, a4) {
         return new V.CustomerSelectComponent(a1, null, a2, false, null, null, C.Type_Customer_4QZ, [], "", a3, a4, false, false, "", null);
       }, null, null, 8, 0, null, 2, 3, 4, 5, "call"]
     },
-    closure918: {
+    closure915: {
       "^": "Closure:5;",
       call$4: [function(a1, a2, a3, a4) {
         return new V.OfferStatusSelectComponent(a1, null, a2, false, null, null, C.Type_OfferStatusUC_agx, [], "", a3, a4, false, false, "", null);
       }, null, null, 8, 0, null, 2, 3, 4, 5, "call"]
     },
-    closure919: {
+    closure916: {
       "^": "Closure:5;",
       call$4: [function(a1, a2, a3, a4) {
         return new V.ProjectSelectComponent(a1, null, a2, false, null, null, C.Type_Project_IEg, [], "", a3, a4, false, false, "", null);
       }, null, null, 8, 0, null, 2, 3, 4, 5, "call"]
     },
-    closure920: {
+    closure917: {
       "^": "Closure:5;",
       call$4: [function(a1, a2, a3, a4) {
         return new V.ProjectCategorySelectComponent(a1, null, a2, false, null, null, C.Type_ProjectCategory_iNa, [], "", a3, a4, false, false, "", null);
       }, null, null, 8, 0, null, 2, 3, 4, 5, "call"]
     },
-    closure921: {
+    closure918: {
       "^": "Closure:5;",
       call$4: [function(a1, a2, a3, a4) {
         return new V.RateGroupSelectComponent(a1, null, a2, false, null, null, C.Type_RateGroup_FYo, [], "", a3, a4, false, false, "", null);
       }, null, null, 8, 0, null, 2, 3, 4, 5, "call"]
     },
-    closure922: {
+    closure919: {
       "^": "Closure:5;",
       call$4: [function(a1, a2, a3, a4) {
         return new V.RateUnitTypeSelectComponent(a1, null, a2, false, null, null, C.Type_RateUnitType_ahs, [], "", a3, a4, false, false, "", null);
       }, null, null, 8, 0, null, 2, 3, 4, 5, "call"]
     },
-    closure923: {
+    closure920: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return new V.RoundModeSelect(null, null, null, null, null, a1, false, [P.LinkedHashMap__makeLiteral(["name", "Halbe Aufrunden", "value", 1]), P.LinkedHashMap__makeLiteral(["name", "Halbe Abrunden", "value", 2]), P.LinkedHashMap__makeLiteral(["name", "Halbe auf gerade runden", "value", 3]), P.LinkedHashMap__makeLiteral(["name", "Halbe auf ungerade runden", "value", 4]), P.LinkedHashMap__makeLiteral(["name", "Forciertes Abrunden", "value", 5]), P.LinkedHashMap__makeLiteral(["name", "Forciertes Aufrunden", "value", 6]), P.LinkedHashMap__makeLiteral(["name", "Halbe Schritte", "value", 7]), P.LinkedHashMap__makeLiteral(["name", "Halbe Schritte abgerundet", "value", 8]), P.LinkedHashMap__makeLiteral(["name", "Halbe Schritte aufgerundet", "value", 9])]);
       }, null, null, 2, 0, null, 2, "call"]
     },
-    closure924: {
+    closure921: {
       "^": "Closure:5;",
       call$4: [function(a1, a2, a3, a4) {
         return new V.ServiceSelectComponent(false, a1, null, a2, false, null, null, C.Type_Service_QOM, [], "", a3, a4, false, false, "", null);
       }, null, null, 8, 0, null, 2, 3, 4, 5, "call"]
     },
-    closure925: {
+    closure922: {
       "^": "Closure:5;",
       call$4: [function(a1, a2, a3, a4) {
         return new V.StandardDiscountSelectComponent(a1, null, a2, false, null, null, C.Type_StandardDiscount_8Gl, [], "", a3, a4, false, false, "", null);
       }, null, null, 8, 0, null, 2, 3, 4, 5, "call"]
     },
-    closure926: {
+    closure923: {
       "^": "Closure:7;",
       call$5: [function(a1, a2, a3, a4, a5) {
         return new V.UserSelectComponent(a3, false, a1, null, a2, false, null, null, C.Type_Employee_YsI, [], "", a4, a5, false, false, "", null);
       }, null, null, 10, 0, null, 2, 3, 4, 5, 8, "call"]
     },
-    closure927: {
+    closure924: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return new B.DataCache(a1, new H.JsLinkedHashMap(0, null, null, null, null, null, 0, [P.int, P.Future]));
       }, null, null, 2, 0, null, 2, "call"]
     },
-    closure928: {
+    closure925: {
       "^": "Closure:1;",
       call$2: [function(a1, a2) {
         return new E.ResourceStore(a1, a2, []);
       }, null, null, 4, 0, null, 2, 3, "call"]
     },
-    closure929: {
+    closure926: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return new E.HammockConfig(P.LinkedHashMap__makeEmpty(), new R.SimpleDocumentFormat(new P.JsonEncoder(null, null), new P.JsonDecoder(null)), new E.RequestDefaults(null, null, false, null, null, null, null, null), new E.HammockUrlRewriter("", ""), a1);
       }, null, null, 2, 0, null, 2, "call"]
     },
-    closure930: {
+    closure927: {
       "^": "Closure:1;",
       call$2: [function(a1, a2) {
         return new E.ObjectStore(a1, a2);
       }, null, null, 4, 0, null, 2, 3, "call"]
     },
-    closure931: {
+    closure928: {
       "^": "Closure:7;",
       call$5: [function(a1, a2, a3, a4, a5) {
         return new Z.UserAuthProvider("dimeAuthToken", a4, a3, a1, a2, a5, [], false, false);
       }, null, null, 10, 0, null, 2, 3, 4, 5, 8, "call"]
     },
-    closure932: {
+    closure929: {
       "^": "Closure:4;",
       call$3: [function(a1, a2, a3) {
         return new M.SettingsManager(a2, a1, null, null, null, null, false, a3);
       }, null, null, 6, 0, null, 2, 3, 4, "call"]
     },
-    closure933: {
+    closure930: {
       "^": "Closure:0;",
       call$1: [function(a1) {
-        return new L.UserContext(a1, [], new D.Employee("employees", null, null, null, "users", null, null, null, null, null, null, null, null, [], null, [], "entities", null, null, null, null, null, []));
+        return new L.UserContext(a1, [], new D.Employee("employees", null, null, null, "users", null, null, null, null, null, null, null, [], null, [], "entities", null, null, null, null, null, []));
       }, null, null, 2, 0, null, 2, "call"]
     },
-    closure934: {
+    closure931: {
       "^": "Closure:2;",
       call$0: [function() {
         return new K.StatusService(null, "success", "loading", "error", "default", 0);
       }, null, null, 0, 0, null, "call"]
     },
-    closure935: {
+    closure932: {
       "^": "Closure:2;",
       call$0: [function() {
         return new Y.TabSetComponent(null, H.setRuntimeTypeInfo([], [Y.ViewLink]));
       }, null, null, 0, 0, null, "call"]
     },
-    closure936: {
+    closure933: {
       "^": "Closure:1;",
       call$2: [function(a1, a2) {
         return new O.AppComponent(null, null, false, false, null, a1, a2);
       }, null, null, 4, 0, null, 2, 3, "call"]
     },
-    closure937: {
+    closure934: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return new Y.ErrorIconComponent(a1);
       }, null, null, 2, 0, null, 2, "call"]
     },
-    closure938: {
+    closure935: {
       "^": "Closure:2;",
       call$0: [function() {
         return new N.DateToTextInput(null, null, null, "dd-MM-y", false, false, "", true);
       }, null, null, 0, 0, null, "call"]
     },
-    closure939: {
+    closure936: {
       "^": "Closure:2;",
       call$0: [function() {
         return new R.UserFilter();
       }, null, null, 0, 0, null, "call"]
     },
-    closure940: {
+    closure937: {
       "^": "Closure:2;",
       call$0: [function() {
         return new R.TimesliceDateFilter();
       }, null, null, 0, 0, null, "call"]
     },
-    closure941: {
+    closure938: {
       "^": "Closure:2;",
       call$0: [function() {
         return new R.ProjectValueFilter();
       }, null, null, 0, 0, null, "call"]
     },
-    closure942: {
+    closure939: {
       "^": "Closure:2;",
       call$0: [function() {
         return new R.OfferPositionOrderByOrderField();
       }, null, null, 0, 0, null, "call"]
     },
-    closure943: {
+    closure940: {
       "^": "Closure:2;",
       call$0: [function() {
         return new R.InvoiceItemOrderByOrderField();
       }, null, null, 0, 0, null, "call"]
     },
-    closure944: {
+    closure941: {
       "^": "Closure:2;",
       call$0: [function() {
         return new R.SecondsToHours();
       }, null, null, 0, 0, null, "call"]
     },
-    closure945: {
+    closure942: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return new R.MenuComponent(a1, null, [new A.Menu("Zeiterfassung", "fa-clock-o", [new A.Menu("Erfassen", null, null, true, "/timetrack"), new A.Menu("Mehrfach Erfassen", null, null, true, "/timetrack/multi"), new A.Menu("Stundensaldos", null, null, true, "/timetrack/periods")], true, null), new A.Menu("Offerten", "fa-file-text", [new A.Menu("\xdcbersicht", null, null, true, "/offers/overview")], true, null), new A.Menu("Projekte", "fa-tree", [new A.Menu("\xdcbersicht", null, null, true, "/projects/overview"), new A.Menu("Offene Rechnungen", null, null, true, "/projects/open-invoices"), new A.Menu("Zeiterfassung", null, null, true, "/projects/timetrack")], true, null), new A.Menu("Rechnungen", "fa-calculator", [new A.Menu("\xdcbersicht", null, null, true, "/invoices/overview")], true, null), new A.Menu("Kunden", "fa-users", [new A.Menu("\xdcbersicht", null, null, true, "/customers/overview")], true, null), new A.Menu("Mitarbeiter", "fa-user", [new A.Menu("\xdcbersicht", null, null, true, "/employees/overview")], true, null), new A.Menu("Reports", "fa-bar-chart", [new A.Menu("Wochenrapport", null, null, true, "/reports/weekly"), new A.Menu("Aufwandsbericht", null, null, true, "/reports/expense"), new A.Menu("Projektaufw\xe4nde", null, null, true, "/reports/projectemployee"), new A.Menu("Servicerapport", null, null, true, "/reports/servicehours"), new A.Menu("Umsatzstatistik", null, null, true, "/reports/revenue")], true, null), new A.Menu("Stammdaten", "fa-database", [new A.Menu("Services", null, null, true, "/services/overview"), new A.Menu("Tarif Gruppen", null, null, true, "/rateGroups/overview"), new A.Menu("Tarif Typen", null, null, true, "/rateUnitTypes/overview"), new A.Menu("Feiertage", null, null, true, "/holidays/overview"), new A.Menu("T\xe4tigkeitsbereiche", null, null, true, "/projectCategories/overview")], true, null), new A.Menu("Einstellungen", "fa-cog", [new A.Menu("Projekte Zuweisen", null, null, true, "/settingAssignProjects/overview")], true, null)]);
       }, null, null, 2, 0, null, 2, "call"]
     },
-    closure946: {
+    closure943: {
       "^": "Closure:2;",
       call$0: [function() {
         return new T.AddressEditComponent(null, C.Type_Address_k45, null, null, null, null, null, null, null, null);
       }, null, null, 0, 0, null, "call"]
     },
-    closure947: {
+    closure944: {
       "^": "Closure:7;",
       call$5: [function(a1, a2, a3, a4, a5) {
         var t1 = new T.CustomerEditComponent(null, C.Type_Customer_4QZ, null, a2, a3, null, null, a4, a5, null);
@@ -60126,7 +59984,7 @@
         return t1;
       }, null, null, 10, 0, null, 2, 3, 4, 5, 8, "call"]
     },
-    closure948: {
+    closure945: {
       "^": "Closure:7;",
       call$5: [function(a1, a2, a3, a4, a5) {
         var t1 = new T.EmployeeEditComponent(C.Type_Employee_YsI, null, a2, a3, null, null, a4, a5, null);
@@ -60134,7 +59992,7 @@
         return t1;
       }, null, null, 10, 0, null, 2, 3, 4, 5, 8, "call"]
     },
-    closure949: {
+    closure946: {
       "^": "Closure:7;",
       call$5: [function(a1, a2, a3, a4, a5) {
         var t1 = new T.InvoiceEditComponent(null, C.Type_Invoice_K61, null, a2, a3, null, null, a4, a5, null);
@@ -60142,7 +60000,7 @@
         return t1;
       }, null, null, 10, 0, null, 2, 3, 4, 5, 8, "call"]
     },
-    closure950: {
+    closure947: {
       "^": "Closure:7;",
       call$5: [function(a1, a2, a3, a4, a5) {
         var t1 = new T.OfferEditComponent(null, null, null, null, null, null, C.Type_Offer_EGT, null, a2, a3, null, null, a4, a5, null);
@@ -60150,7 +60008,7 @@
         return t1;
       }, null, null, 10, 0, null, 2, 3, 4, 5, 8, "call"]
     },
-    closure951: {
+    closure948: {
       "^": "Closure:7;",
       call$5: [function(a1, a2, a3, a4, a5) {
         var t1 = new T.ProjectEditComponent(null, null, C.Type_Project_IEg, null, a2, a3, null, null, a4, a5, null);
@@ -60158,7 +60016,7 @@
         return t1;
       }, null, null, 10, 0, null, 2, 3, 4, 5, 8, "call"]
     },
-    closure952: {
+    closure949: {
       "^": "Closure:7;",
       call$5: [function(a1, a2, a3, a4, a5) {
         var t1 = new T.ServiceEditComponent(C.Type_Service_QOM, null, a2, a3, null, null, a4, a5, null);
@@ -60166,195 +60024,195 @@
         return t1;
       }, null, null, 10, 0, null, 2, 3, 4, 5, 8, "call"]
     },
-    closure953: {
+    closure950: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return new L.StatusBarComponent(a1);
       }, null, null, 2, 0, null, 2, "call"]
     },
-    closure954: {
+    closure951: {
       "^": "Closure:2;",
       call$0: [function() {
         return new F.DateRange(null, null, null, "dd-MM-y", false);
       }, null, null, 0, 0, null, "call"]
     },
-    closure955: {
+    closure952: {
       "^": "Closure:4;",
       call$3: [function(a1, a2, a3) {
         return new F.ActivityOverviewComponent(null, true, false, null, [], C.Type_Activity_q2S, a1, null, a3, null, "", a2, null, "", "", false);
       }, null, null, 6, 0, null, 2, 3, 4, "call"]
     },
-    closure956: {
+    closure953: {
       "^": "Closure:20;",
       call$6: [function(a1, a2, a3, a4, a5, a6) {
         return new F.CustomerOverviewComponent("name", false, null, [], C.Type_Customer_4QZ, a1, a2, a4, null, "customer_edit", a3, a5, "", "", false);
       }, null, null, 12, 0, null, 2, 3, 4, 5, 8, 20, "call"]
     },
-    closure957: {
+    closure954: {
       "^": "Closure:7;",
       call$5: [function(a1, a2, a3, a4, a5) {
         return new F.SettingAssignProjectOverviewComponent(a4, [], [], false, null, [], C.Type_SettingAssignProject_app, a1, null, a3, null, "", a2, a5, "", "", false);
       }, null, null, 10, 0, null, 2, 3, 4, 5, 8, "call"]
     },
-    closure958: {
+    closure955: {
       "^": "Closure:7;",
       call$5: [function(a1, a2, a3, a4, a5) {
         return new F.EmployeeOverviewComponent("username", false, null, [], C.Type_Employee_YsI, a1, a2, a4, null, "employee_edit", a3, a5, "", "", false);
       }, null, null, 10, 0, null, 2, 3, 4, 5, 8, "call"]
     },
-    closure959: {
+    closure956: {
       "^": "Closure:5;",
       call$4: [function(a1, a2, a3, a4) {
         return new F.HolidayOverviewComponent(false, null, [], C.Type_Holiday_YlI, a1, null, a3, null, "", a2, a4, "", "", false);
       }, null, null, 8, 0, null, 2, 3, 4, 5, "call"]
     },
-    closure960: {
+    closure957: {
       "^": "Closure:7;",
       call$5: [function(a1, a2, a3, a4, a5) {
         return new F.InvoiceOverviewComponent("name", false, null, [], C.Type_Invoice_K61, a1, a2, a4, null, "invoice_edit", a3, a5, "", "", false);
       }, null, null, 10, 0, null, 2, 3, 4, 5, 8, "call"]
     },
-    closure961: {
+    closure958: {
       "^": "Closure:4;",
       call$3: [function(a1, a2, a3) {
         return new F.InvoiceDiscountOverviewComponent(true, null, false, null, [], C.Type_InvoiceDiscount_0, a1, null, a3, null, "", a2, null, "", "", false);
       }, null, null, 6, 0, null, 2, 3, 4, "call"]
     },
-    closure962: {
+    closure959: {
       "^": "Closure:4;",
       call$3: [function(a1, a2, a3) {
         return new F.InvoiceItemOverviewComponent(true, null, false, null, [], C.Type_InvoiceItem_FFX, a1, null, a3, null, "", a2, null, "", "", false);
       }, null, null, 6, 0, null, 2, 3, 4, "call"]
     },
-    closure963: {
+    closure960: {
       "^": "Closure:20;",
       call$6: [function(a1, a2, a3, a4, a5, a6) {
         return new F.OfferOverviewComponent("name", a2, false, null, [], C.Type_Offer_EGT, a1, a3, a5, null, "offer_edit", a4, a6, "", "", false);
       }, null, null, 12, 0, null, 2, 3, 4, 5, 8, 20, "call"]
     },
-    closure964: {
+    closure961: {
       "^": "Closure:4;",
       call$3: [function(a1, a2, a3) {
         return new F.OfferDiscountOverviewComponent(true, null, false, null, [], C.Type_OfferDiscount_8pl, a1, null, a3, null, "", a2, null, "", "", false);
       }, null, null, 6, 0, null, 2, 3, 4, "call"]
     },
-    closure965: {
+    closure962: {
       "^": "Closure:4;",
       call$3: [function(a1, a2, a3) {
         return new F.OfferPositionOverviewComponent(true, null, false, null, [], C.Type_OfferPosition_ijl, a1, null, a3, null, "", a2, null, "", "", false);
       }, null, null, 6, 0, null, 2, 3, 4, "call"]
     },
-    closure966: {
+    closure963: {
       "^": "Closure:5;",
       call$4: [function(a1, a2, a3, a4) {
         return new F.PeriodOverviewComponent(null, a4, [], null, [], null, true, false, null, [], C.Type_Period_d05, a1, null, a3, null, "", a2, null, "", "", false);
       }, null, null, 8, 0, null, 2, 3, 4, 5, "call"]
     },
-    closure967: {
+    closure964: {
       "^": "Closure:54;",
       call$7: [function(a1, a2, a3, a4, a5, a6, a7) {
         return new F.ProjectOverviewComponent("name", a2, false, null, [], C.Type_Project_IEg, a1, a3, a5, null, "project_edit", a4, a6, "", "", false);
       }, null, null, 14, 0, null, 2, 3, 4, 5, 8, 20, 32, "call"]
     },
-    closure968: {
+    closure965: {
       "^": "Closure:54;",
       call$7: [function(a1, a2, a3, a4, a5, a6, a7) {
         return new F.ProjectOpenInvoicesComponent("name", a2, false, null, [], C.Type_Project_IEg, a1, a3, a5, null, "project_edit", a4, a6, "", "", false);
       }, null, null, 14, 0, null, 2, 3, 4, 5, 8, 20, 32, "call"]
     },
-    closure969: {
+    closure966: {
       "^": "Closure:5;",
       call$4: [function(a1, a2, a3, a4) {
         return new F.ProjectCategoryOverviewComponent(false, null, [], C.Type_ProjectCategory_iNa, a1, null, a3, null, "", a2, a4, "", "", false);
       }, null, null, 8, 0, null, 2, 3, 4, 5, "call"]
     },
-    closure970: {
+    closure967: {
       "^": "Closure:4;",
       call$3: [function(a1, a2, a3) {
         return new F.RateOverviewComponent(true, null, false, null, [], C.Type_Rate_DC0, a1, null, a3, null, "", a2, null, "", "", false);
       }, null, null, 6, 0, null, 2, 3, 4, "call"]
     },
-    closure971: {
+    closure968: {
       "^": "Closure:5;",
       call$4: [function(a1, a2, a3, a4) {
         return new F.RateGroupOverviewComponent(false, null, [], C.Type_RateGroup_FYo, a1, null, a3, null, "", a2, a4, "", "", false);
       }, null, null, 8, 0, null, 2, 3, 4, 5, "call"]
     },
-    closure972: {
+    closure969: {
       "^": "Closure:5;",
       call$4: [function(a1, a2, a3, a4) {
         return new F.RateUnitTypeOverviewComponent(false, null, [], C.Type_RateUnitType_ahs, a1, null, a3, null, "", a2, a4, "", "", false);
       }, null, null, 8, 0, null, 2, 3, 4, 5, "call"]
     },
-    closure973: {
+    closure970: {
       "^": "Closure:7;",
       call$5: [function(a1, a2, a3, a4, a5) {
         return new F.ServiceOverviewComponent("name", false, null, [], C.Type_Service_QOM, a1, a2, a4, null, "service_edit", a3, a5, "", "", false);
       }, null, null, 10, 0, null, 2, 3, 4, 5, 8, "call"]
     },
-    closure974: {
+    closure971: {
       "^": "Closure:1;",
       call$2: [function(a1, a2) {
         return new F.StandardDiscountOverviewComponent(null, null, false, null, [], C.Type_StandardDiscount_8Gl, null, null, a2, null, "", a1, null, "", "", false);
       }, null, null, 4, 0, null, 2, 3, "call"]
     },
-    closure975: {
+    closure972: {
       "^": "Closure:7;",
       call$5: [function(a1, a2, a3, a4, a5) {
         return new F.TimesliceOverviewComponent(null, a4, false, true, [], new P.DateTime(Date.now(), false), null, true, null, null, null, null, null, true, true, false, false, null, [], C.Type_Timeslice_2No, a1, null, a3, null, "", a2, a5, "", "", false);
       }, null, null, 10, 0, null, 2, 3, 4, 5, 8, "call"]
     },
-    closure976: {
+    closure973: {
       "^": "Closure:1;",
       call$2: [function(a1, a2) {
         return new D.TimetrackComponent(a2, a1, null);
       }, null, null, 4, 0, null, 2, 3, "call"]
     },
-    closure977: {
+    closure974: {
       "^": "Closure:7;",
       call$5: [function(a1, a2, a3, a4, a5) {
         return new D.TimetrackMultiComponent(a4, null, null, null, "", [], null, [], [], null, false, null, [], C.Type_Timeslice_2No, a1, null, a3, null, "", a2, a5, "", "", false);
       }, null, null, 10, 0, null, 2, 3, 4, 5, 8, "call"]
     },
-    closure978: {
+    closure975: {
       "^": "Closure:1;",
       call$2: [function(a1, a2) {
         return new D.ProjectTimetrackComponent(a1, null, a2, null, null);
       }, null, null, 4, 0, null, 2, 3, "call"]
     },
-    closure979: {
+    closure976: {
       "^": "Closure:5;",
       call$4: [function(a1, a2, a3, a4) {
         return new D.TimetrackPeriodsComponent(a2, a1, null, a3, a4, true, []);
       }, null, null, 8, 0, null, 2, 3, 4, 5, "call"]
     },
-    closure980: {
+    closure977: {
       "^": "Closure:1;",
       call$2: [function(a1, a2) {
         return new O.SettingEditComponent(a1, a2, false, null, null, null, null);
       }, null, null, 4, 0, null, 2, 3, "call"]
     },
-    closure981: {
+    closure978: {
       "^": "Closure:1;",
       call$2: [function(a1, a2) {
         $.$get$_log2().fine$1("CarouselComponent");
         return new V.Carousel(false, null, false, [], -1, null, false, null, false, a1, null, a2, null);
       }, null, null, 4, 0, null, 2, 3, "call"]
     },
-    closure982: {
+    closure979: {
       "^": "Closure:1;",
       call$2: [function(a1, a2) {
         $.$get$_log2().fine$1("SlideComponent");
         return new V.Slide(null, false, "", false, false, false, a1, a2);
       }, null, null, 4, 0, null, 2, 3, "call"]
     },
-    closure983: {
+    closure980: {
       "^": "Closure:1;",
       call$2: [function(a1, a2) {
         return new O.TimeItem(a1, a2);
       }, null, null, 4, 0, null, 2, 3, "call"]
     },
-    closure984: {
+    closure981: {
       "^": "Closure:1;",
       call$2: [function(a1, a2) {
         var t1 = new O.Timeout(new H.JsLinkedHashMap(0, null, null, null, null, null, 0, [P.Completer, O.TimeItem]), null, a2, null);
@@ -60362,49 +60220,49 @@
         return t1;
       }, null, null, 4, 0, null, 2, 3, "call"]
     },
-    closure985: {
+    closure982: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return L.Transition$(a1);
       }, null, null, 2, 0, null, 2, "call"]
     },
-    closure986: {
+    closure983: {
       "^": "Closure:4;",
       call$3: [function(a1, a2, a3) {
         return new Q.ProgressBar(a1, null, null, null, a3, a2, 0, 0, null, null);
       }, null, null, 6, 0, null, 2, 3, 4, "call"]
     },
-    closure987: {
+    closure984: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return new Q.Progress(null, a1, null);
       }, null, null, 2, 0, null, 2, "call"]
     },
-    closure988: {
+    closure985: {
       "^": "Closure:4;",
       call$3: [function(a1, a2, a3) {
         return new Q.Bar(a1, null, null, null, null, a3, a2, 0, 0, null, null);
       }, null, null, 6, 0, null, 2, 3, 4, "call"]
     },
-    closure989: {
+    closure986: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return new M.NgPseudo(a1);
       }, null, null, 2, 0, null, 2, "call"]
     },
-    closure990: {
+    closure987: {
       "^": "Closure:2;",
       call$0: [function() {
         return new K.AccordionConfig(true);
       }, null, null, 0, 0, null, "call"]
     },
-    closure991: {
+    closure988: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return new K.AccordionComponent(null, null, a1, []);
       }, null, null, 2, 0, null, 2, "call"]
     },
-    closure992: {
+    closure989: {
       "^": "Closure:4;",
       call$3: [function(a1, a2, a3) {
         var t1 = new K.AccordionGroupComponent(null, a1, a2, a3, false, true, false);
@@ -60412,7 +60270,7 @@
         return t1;
       }, null, null, 6, 0, null, 2, 3, 4, "call"]
     },
-    closure993: {
+    closure990: {
       "^": "Closure:1;",
       call$2: [function(a1, a2) {
         J.remove$0$ax(a1);
@@ -60420,49 +60278,49 @@
         return new K.AccordionHeadingComponent();
       }, null, null, 4, 0, null, 2, 3, "call"]
     },
-    closure994: {
+    closure991: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return new K.AccordionTransclude(a1);
       }, null, null, 2, 0, null, 2, "call"]
     },
-    closure995: {
+    closure992: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return new E.DblClickPreventer(true, a1);
       }, null, null, 2, 0, null, 2, "call"]
     },
-    closure996: {
+    closure993: {
       "^": "Closure:5;",
       call$4: [function(a1, a2, a3, a4) {
         return A.BtnRadio$(a1, a2, a3, a4);
       }, null, null, 8, 0, null, 2, 3, 4, 5, "call"]
     },
-    closure997: {
+    closure994: {
       "^": "Closure:5;",
       call$4: [function(a1, a2, a3, a4) {
         return A.BtnCheckbox$(a1, a2, a3, a4);
       }, null, null, 8, 0, null, 2, 3, 4, 5, "call"]
     },
-    closure998: {
+    closure995: {
       "^": "Closure:2;",
       call$0: [function() {
         return new G.DragDropZonesService([]);
       }, null, null, 0, 0, null, "call"]
     },
-    closure999: {
+    closure996: {
       "^": "Closure:2;",
       call$0: [function() {
         return new G.DragDropDataService(null, null);
       }, null, null, 0, 0, null, "call"]
     },
-    closure1000: {
+    closure997: {
       "^": "Closure:2;",
       call$0: [function() {
         return new G.DragDropConfigService(new G.DragDropConfig("ui-drag-start", "ui-drag-enter", "ui-drag-over", null, C.DataTransferEffect_move, C.DataTransferEffect_move, "move"), new G.SortableConfig("ui-sortable-drag", null, C.DataTransferEffect_move, C.DataTransferEffect_move, "move"));
       }, null, null, 0, 0, null, "call"]
     },
-    closure1001: {
+    closure998: {
       "^": "Closure:5;",
       call$4: [function(a1, a2, a3, a4) {
         var t1, t2;
@@ -60475,7 +60333,7 @@
         return t2;
       }, null, null, 8, 0, null, 2, 3, 4, 5, "call"]
     },
-    closure1002: {
+    closure999: {
       "^": "Closure:5;",
       call$4: [function(a1, a2, a3, a4) {
         var t1, t2;
@@ -60487,19 +60345,19 @@
         return t2;
       }, null, null, 8, 0, null, 2, 3, 4, 5, "call"]
     },
-    closure1003: {
+    closure1000: {
       "^": "Closure:2;",
       call$0: [function() {
         return new G.DragDropSortableDataService(null, null, null, null);
       }, null, null, 0, 0, null, "call"]
     },
-    closure1004: {
+    closure1001: {
       "^": "Closure:7;",
       call$5: [function(a1, a2, a3, a4, a5) {
         return G.SortableComponent$(a1, a2, a3, a4, a5);
       }, null, null, 10, 0, null, 2, 3, 4, 5, 8, "call"]
     },
-    closure1005: {
+    closure1002: {
       "^": "Closure:7;",
       call$5: [function(a1, a2, a3, a4, a5) {
         var t1, t2;
@@ -60513,25 +60371,25 @@
         return t2;
       }, null, null, 10, 0, null, 2, 3, 4, 5, 8, "call"]
     },
-    closure1006: {
+    closure1003: {
       "^": "Closure:5;",
       call$4: [function(a1, a2, a3, a4) {
         return new V.PagerConfig(a1, a2, a3, a4);
       }, null, null, 8, 0, null, 2, 3, 4, 5, "call"]
     },
-    closure1007: {
+    closure1004: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return V.PagerComponent$(a1);
       }, null, null, 2, 0, null, 2, "call"]
     },
-    closure1008: {
+    closure1005: {
       "^": "Closure:46;",
       call$8: [function(a1, a2, a3, a4, a5, a6, a7, a8) {
         return new V.PaginationConfig(a2, a3, a4, a7, null, a1, a5, a6, a8);
       }, null, null, 16, 0, null, 2, 3, 4, 5, 8, 20, 32, 41, "call"]
     },
-    closure1009: {
+    closure1006: {
       "^": "Closure:1;",
       call$2: [function(a1, a2) {
         var t1 = new V.PaginationComponent(null, a2, null, null, null, null, null, null, null, null, a1, null, null, null, null, null, null, null, null, null);
@@ -60546,55 +60404,55 @@
         return t1;
       }, null, null, 4, 0, null, 2, 3, "call"]
     },
-    closure1010: {
+    closure1007: {
       "^": "Closure:4;",
       call$3: [function(a1, a2, a3) {
         return new V.PageInfo(a1, a2, a3);
       }, null, null, 6, 0, null, 2, 3, 4, "call"]
     },
-    closure1011: {
+    closure1008: {
       "^": "Closure:2;",
       call$0: [function() {
         return new V.BasicPaginationGenerator();
       }, null, null, 0, 0, null, "call"]
     },
-    closure1012: {
+    closure1009: {
       "^": "Closure:5;",
       call$4: [function(a1, a2, a3, a4) {
         return G.RatingComponent$(a1, a2, a3, a4);
       }, null, null, 8, 0, null, 2, 3, 4, 5, "call"]
     },
-    closure1013: {
+    closure1010: {
       "^": "Closure:2;",
       call$0: [function() {
         return new S.TooltipConfig(P.LinkedHashMap__makeLiteral(["placement", "top", "animation", true, "popupDelay", 0]), P.LinkedHashMap__makeLiteral(["mouseenter", "mouseleave", "click", "click", "focus", "blur"]), P.LinkedHashMap__makeEmpty());
       }, null, null, 0, 0, null, "call"]
     },
-    closure1014: {
+    closure1011: {
       "^": "Closure:46;",
       call$8: [function(a1, a2, a3, a4, a5, a6, a7, a8) {
         return new S.Tooltip('<div><div class="tooltip-arrow"></div><div class="tooltip-inner"></div></div>', null, null, null, null, null, null, false, null, false, null, a1, a2, a3, a4, "mouseenter", "tooltip", a5, "tooltip", a6, a7, a8, null, null, null, null, null, null);
       }, null, null, 16, 0, null, 2, 3, 4, 5, 8, 20, 32, 41, "call"]
     },
-    closure1015: {
+    closure1012: {
       "^": "Closure:2;",
       call$0: [function() {
         return new Z.Position();
       }, null, null, 0, 0, null, "call"]
     },
-    closure1016: {
+    closure1013: {
       "^": "Closure:5;",
       call$4: [function(a1, a2, a3, a4) {
         return H.throwNoSuchMethod("", "", [a1, a2, a3, a4], ["left", "top", "width", "height"]);
       }, null, null, 8, 0, null, 2, 3, 4, 5, "call"]
     },
-    closure1017: {
+    closure1014: {
       "^": "Closure:2;",
       call$0: [function() {
         return new Q.TabsetComponent(null, false, false, "tabs", []);
       }, null, null, 0, 0, null, "call"]
     },
-    closure1018: {
+    closure1015: {
       "^": "Closure:1;",
       call$2: [function(a1, a2) {
         var t1 = new Q.TabComponent(null, a2, a1, null, null, false, null, false);
@@ -60603,7 +60461,7 @@
         return t1;
       }, null, null, 4, 0, null, 2, 3, "call"]
     },
-    closure1019: {
+    closure1016: {
       "^": "Closure:1;",
       call$2: [function(a1, a2) {
         J.remove$0$ax(a1);
@@ -60611,79 +60469,79 @@
         return new Q.TabHeading();
       }, null, null, 4, 0, null, 2, 3, "call"]
     },
-    closure1020: {
+    closure1017: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return new A.ContentAppendComponent(a1);
       }, null, null, 2, 0, null, 2, "call"]
     },
-    closure1021: {
+    closure1018: {
       "^": "Closure:2;",
       call$0: [function() {
         return new E.DatepickerConfig("dd", "MMMM", "yyyy", "EEE", "MMMM yyyy", "yyyy", true, 0, 20, null, null);
       }, null, null, 0, 0, null, "call"]
     },
-    closure1022: {
+    closure1019: {
       "^": "Closure:2;",
       call$0: [function() {
         return new E.VisibleDates([], "", []);
       }, null, null, 0, 0, null, "call"]
     },
-    closure1023: {
+    closure1020: {
       "^": "Closure:2;",
       call$0: [function() {
         return new E.Format(null, null, null, null, null, null);
       }, null, null, 0, 0, null, "call"]
     },
-    closure1024: {
+    closure1021: {
       "^": "Closure:2;",
       call$0: [function() {
         return new E.DateVO(null, "", false, false, false);
       }, null, null, 0, 0, null, "call"]
     },
-    closure1025: {
+    closure1022: {
       "^": "Closure:2;",
       call$0: [function() {
         return new E.Mode(null, null, null, null, null);
       }, null, null, 0, 0, null, "call"]
     },
-    closure1026: {
+    closure1023: {
       "^": "Closure:7;",
       call$5: [function(a1, a2, a3, a4, a5) {
         return new E.Datepicker(0, new P.DateTime(Date.now(), false), false, null, false, null, null, null, null, null, false, null, null, a1, a2, a3, a4, null, a5, null, null);
       }, null, null, 10, 0, null, 2, 3, 4, 5, 8, "call"]
     },
-    closure1027: {
+    closure1024: {
       "^": "Closure:2;",
       call$0: [function() {
         return new E.WeekNumberFilter();
       }, null, null, 0, 0, null, "call"]
     },
-    closure1028: {
+    closure1025: {
       "^": "Closure:346;",
       call$12: [function(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12) {
         return new E.DatepickerPopup(null, false, false, null, null, null, null, null, null, a2, a3, a4, a5, a7, a8, a9, a10, a11, a12, a6);
       }, null, null, 24, 0, null, 2, 3, 4, 5, 8, 20, 32, 41, 62, 68, 76, 353, "call"]
     },
-    closure1029: {
+    closure1026: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return E.DatepickerPopupWrap$(a1);
       }, null, null, 2, 0, null, 2, "call"]
     },
-    closure1030: {
+    closure1027: {
       "^": "Closure:4;",
       call$3: [function(a1, a2, a3) {
         return new R.ModalWindow("", true, 0, true, false, "", a1, a2, a3);
       }, null, null, 6, 0, null, 2, 3, 4, "call"]
     },
-    closure1031: {
+    closure1028: {
       "^": "Closure:20;",
       call$6: [function(a1, a2, a3, a4, a5, a6) {
         return new R.Modal(a2, a3, a4, a1, a5, a6);
       }, null, null, 12, 0, null, 2, 3, 4, 5, 8, 20, "call"]
     },
-    closure1032: {
+    closure1029: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         var t1 = new V.Alert(null, null, null, false);
@@ -60691,37 +60549,37 @@
         return t1;
       }, null, null, 2, 0, null, 2, "call"]
     },
-    closure1033: {
+    closure1030: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return new Z.TypeaheadParser(a1);
       }, null, null, 2, 0, null, 2, "call"]
     },
-    closure1034: {
+    closure1031: {
       "^": "Closure:2;",
       call$0: [function() {
         return new Z.TypeaheadHighlightFilter();
       }, null, null, 0, 0, null, "call"]
     },
-    closure1035: {
+    closure1032: {
       "^": "Closure:2;",
       call$0: [function() {
         return new Z.TypeaheadPopup(null, null, null, null, null, null);
       }, null, null, 0, 0, null, "call"]
     },
-    closure1036: {
+    closure1033: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return new Z.TemplateBasedComponent(a1, null, null);
       }, null, null, 2, 0, null, 2, "call"]
     },
-    closure1037: {
+    closure1034: {
       "^": "Closure:4;",
       call$3: [function(a1, a2, a3) {
         return new Z.TypeaheadMatch(a2, a1, null, null, null, null, "packages/angular_ui/typeahead/typeahead-match.html", a3, null, null);
       }, null, null, 6, 0, null, 2, 3, 4, "call"]
     },
-    closure1038: {
+    closure1035: {
       "^": "Closure:54;",
       call$7: [function(a1, a2, a3, a4, a5, a6, a7) {
         var t1, t2;
@@ -60734,19 +60592,19 @@
         return t1;
       }, null, null, 14, 0, null, 2, 3, 4, 5, 8, 20, 32, "call"]
     },
-    closure1039: {
+    closure1036: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return new Z.TypeaheadConverter("typeahead", a1);
       }, null, null, 2, 0, null, 2, "call"]
     },
-    closure1040: {
+    closure1037: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return N.DropdownToggle$(a1);
       }, null, null, 2, 0, null, 2, "call"]
     },
-    closure1041: {
+    closure1038: {
       "^": "Closure:5;",
       call$4: [function(a1, a2, a3, a4) {
         var t1 = new M.Timepicker(null, null, a1, a2, a3, a4, null, 0, 0, false, false, false, null, null, null, null, null, null, null, null);
@@ -60754,43 +60612,43 @@
         return t1;
       }, null, null, 8, 0, null, 2, 3, 4, 5, "call"]
     },
-    closure1042: {
+    closure1039: {
       "^": "Closure:46;",
       call$8: [function(a1, a2, a3, a4, a5, a6, a7, a8) {
         return new O.Popover('<div><div class="arrow"></div><div class="popover-inner"><h3 class="popover-title"></h3><div class="popover-content"></div></div></div>', null, null, null, null, null, null, null, null, false, null, false, null, a1, a2, a3, a4, "click", "popover", a5, "popover", a6, a7, a8, null, null, null, null, null, null);
       }, null, null, 16, 0, null, 2, 3, 4, 5, 8, 20, 32, 41, "call"]
     },
-    closure1043: {
+    closure1040: {
       "^": "Closure:1;",
       call$2: [function(a1, a2) {
         return new R.Collapse(a1, a2, null, true, null);
       }, null, null, 4, 0, null, 2, 3, "call"]
     },
-    closure1044: {
+    closure1041: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return new G.ProjectemployeeReportComponent(null, null, null, null, null, null, null, a1, null);
       }, null, null, 2, 0, null, 2, "call"]
     },
-    closure1045: {
+    closure1042: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return new G.RevenueReportComponent(null, null, a1, null);
       }, null, null, 2, 0, null, 2, "call"]
     },
-    closure1046: {
+    closure1043: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return new G.ServicehoursReportComponent(null, null, null, null, null, a1, null);
       }, null, null, 2, 0, null, 2, "call"]
     },
-    closure1047: {
+    closure1044: {
       "^": "Closure:5;",
       call$4: [function(a1, a2, a3, a4) {
         return new G.TimesliceExpenseReportComponent(null, null, null, null, null, false, null, [], C.Type_ExpenseReport_4gv, a1, null, a3, null, "", a2, a4, "", "", false);
       }, null, null, 8, 0, null, 2, 3, 4, 5, "call"]
     },
-    closure1048: {
+    closure1045: {
       "^": "Closure:5;",
       call$4: [function(a1, a2, a3, a4) {
         var t1, t2, t3;
@@ -60804,13 +60662,13 @@
         return new G.TimesliceWeeklyReportComponent(new P.DateTime(t1, false), null, t2, null, null, null, null, false, null, [], C.Type_ExpenseReport_4gv, a1, null, a3, null, "", a2, a4, "", "", false);
       }, null, null, 8, 0, null, 2, 3, 4, 5, "call"]
     },
-    closure1049: {
+    closure1046: {
       "^": "Closure:4;",
       call$3: [function(a1, a2, a3) {
         return new S.UserMenu(a1, a2, a3);
       }, null, null, 6, 0, null, 2, 3, 4, "call"]
     },
-    closure1050: {
+    closure1047: {
       "^": "Closure:2;",
       call$0: [function() {
         return new E.Profiler(new E.Counters(P.LinkedHashMap_LinkedHashMap$_empty(P.String, P.int)));
@@ -60818,2581 +60676,2569 @@
     }
   }], ["DimeClient.web.main.generated_expressions", "main_static_expressions.dart",, G, {
     "^": "",
-    closure363: {
+    closure362: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$htmlclass();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure364: {
+    closure363: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$precision$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure365: {
+    closure364: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$useSafeCalc();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure366: {
+    closure365: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$model();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure367: {
+    closure366: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$select$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure368: {
+    closure367: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$urls();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure369: {
+    closure368: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$value$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure370: {
+    closure369: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$bind();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure371: {
+    closure370: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$valueExpression();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure372: {
+    closure371: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$onAbort$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure373: {
+    closure372: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$onBeforeCopy$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure374: {
+    closure373: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$onBeforeCut$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure375: {
+    closure374: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$onBeforePaste$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure376: {
+    closure375: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$onBlur$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure377: {
+    closure376: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$onChange$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure378: {
+    closure377: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$onClick$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure379: {
+    closure378: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$onContextMenu$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure380: {
+    closure379: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$onCopy$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure381: {
+    closure380: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$onCut$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure382: {
+    closure381: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$onDoubleClick$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure383: {
+    closure382: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$onDrag$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure384: {
+    closure383: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$onDragEnd$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure385: {
+    closure384: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$onDragEnter$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure386: {
+    closure385: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$onDragLeave$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure387: {
+    closure386: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$onDragOver$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure388: {
+    closure387: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$onDragStart$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure389: {
+    closure388: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$onDrop$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure390: {
+    closure389: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$onError$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure391: {
+    closure390: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$onFocus$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure392: {
+    closure391: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$onFullscreenChange$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure393: {
+    closure392: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$onFullscreenError$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure394: {
+    closure393: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$onInput$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure395: {
+    closure394: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$onInvalid$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure396: {
+    closure395: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$onKeyDown$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure397: {
+    closure396: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$onKeyPress$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure398: {
+    closure397: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$onKeyUp$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure399: {
+    closure398: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$onLoad$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure400: {
+    closure399: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$onMouseDown$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure401: {
+    closure400: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$onMouseEnter$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure402: {
+    closure401: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$onMouseLeave$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure403: {
+    closure402: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$onMouseMove$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure404: {
+    closure403: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$onMouseOut$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure405: {
+    closure404: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$onMouseOver$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure406: {
+    closure405: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$onMouseUp$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure407: {
+    closure406: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$onMouseWheel$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure408: {
+    closure407: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$onPaste$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure409: {
+    closure408: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$onReset$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure410: {
+    closure409: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$onScroll$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure411: {
+    closure410: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$onSearch$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure412: {
+    closure411: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$onSelect$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure413: {
+    closure412: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$onSelectStart$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure414: {
+    closure413: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$onSubmit$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure415: {
+    closure414: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$onTouchCancel$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure416: {
+    closure415: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$onTouchEnd$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure417: {
+    closure416: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$onTouchEnter$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure418: {
+    closure417: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$onTouchLeave$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure419: {
+    closure418: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$onTouchMove$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure420: {
+    closure419: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$onTouchStart$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure421: {
+    closure420: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$onTransitionEnd$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure422: {
+    closure421: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$condition();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure423: {
+    closure422: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$url$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure424: {
+    closure423: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$name$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure425: {
+    closure424: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$idlAttrKind();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure426: {
+    closure425: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$count$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure427: {
+    closure426: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$expression();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure428: {
+    closure427: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$templateUrl();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure429: {
+    closure428: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$hide();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure430: {
+    closure429: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$show$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure431: {
+    closure430: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$checked$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure432: {
+    closure431: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$disabled$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure433: {
+    closure432: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$multiple$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure434: {
+    closure433: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$open$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure435: {
+    closure434: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$readonly();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure436: {
+    closure435: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$required$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure437: {
+    closure436: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$selected$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure438: {
+    closure437: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$href$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure439: {
+    closure438: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$src$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure440: {
+    closure439: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$srcset$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure441: {
+    closure440: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$styleExpression();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure442: {
+    closure441: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$max$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure443: {
+    closure442: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$min$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure444: {
+    closure443: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$pattern$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure445: {
+    closure444: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$minlength();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure446: {
+    closure445: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$maxlength();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure447: {
+    closure446: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$options$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure448: {
+    closure447: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$option$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure449: {
+    closure448: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$routeName();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure450: {
+    closure449: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$selectedEntity();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure451: {
+    closure450: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$projectId();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure452: {
+    closure451: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$shortname();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure453: {
+    closure452: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$callback();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure454: {
+    closure453: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$field();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure455: {
+    closure454: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$clearOnClose();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure456: {
+    closure455: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$placeholder$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure457: {
+    closure456: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$hideArchived();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure458: {
+    closure457: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$useContext();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure459: {
+    closure458: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$date();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure460: {
+    closure459: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$format();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure461: {
+    closure460: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$hasButtons();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure462: {
+    closure461: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$nullAllowed();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure463: {
+    closure462: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$address();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure464: {
+    closure463: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$editform();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure465: {
+    closure464: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$startDate();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure466: {
+    closure465: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$endDate();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure467: {
+    closure466: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$invoiceId();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure468: {
+    closure467: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$offerId();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure469: {
+    closure468: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$employee();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure470: {
+    closure469: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$serviceId();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure471: {
+    closure470: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$entities();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure472: {
+    closure471: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$projectFilter();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure473: {
+    closure472: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$allowProjectSelect();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure474: {
+    closure473: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$blendOutStartAndEnd();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure475: {
+    closure474: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$namespace();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure476: {
+    closure475: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$setting();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure477: {
+    closure476: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$isCloseOthers();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure478: {
+    closure477: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$heading$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure479: {
+    closure478: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$isOpen();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure480: {
+    closure479: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$isDisabled();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure481: {
+    closure480: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$collapse$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure482: {
+    closure481: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$btnRadioAttr();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure483: {
+    closure482: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$btnCheckboxTrue();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure484: {
+    closure483: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$btnCheckboxFalse();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure485: {
+    closure484: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$type$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure486: {
+    closure485: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$close$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure487: {
+    closure486: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$alertTypeAsString();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure488: {
+    closure487: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$closeable$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure489: {
+    closure488: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$justified();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure490: {
+    closure489: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$vertical$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure491: {
+    closure490: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$tabs();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure492: {
+    closure491: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$tab();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure493: {
+    closure492: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$active$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure494: {
+    closure493: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$onSelectCallback();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure495: {
+    closure494: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$onDeselectCallback();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure496: {
+    closure495: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$append$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure497: {
+    closure496: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$windowClass();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure498: {
+    closure497: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$visible$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure499: {
+    closure498: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$keyboard();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure500: {
+    closure499: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$index$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure501: {
+    closure500: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$backdropAsString();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure502: {
+    closure501: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$size$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure503: {
+    closure502: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$$$event();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure504: {
+    closure503: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$sizeClass();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure505: {
+    closure504: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$draggable$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure506: {
+    closure505: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$draggableData();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure507: {
+    closure506: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$dragdropConfig();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure508: {
+    closure507: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$onDragSuccessCallback();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure509: {
+    closure508: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$dropZones();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure510: {
+    closure509: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$onDropSuccessCallback();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure511: {
+    closure510: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$sortableData();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure512: {
+    closure511: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$sortableConfig();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure513: {
+    closure512: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$sortableZones();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure514: {
+    closure513: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$currentPage();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure515: {
+    closure514: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$totalItems();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure516: {
+    closure515: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$itemsPerPage();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure517: {
+    closure516: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$setNumPagesListener();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure518: {
+    closure517: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$onSelectChangeExtEventHandler();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure519: {
+    closure518: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$align$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure520: {
+    closure519: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$previousText();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure521: {
+    closure520: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$nextText();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure522: {
+    closure521: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$noPrevious();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure523: {
+    closure522: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$noNext();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure524: {
+    closure523: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$maxSize();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure525: {
+    closure524: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$rotate$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure526: {
+    closure525: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$boundaryLinks();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure527: {
+    closure526: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$directionLinks();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure528: {
+    closure527: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$firstText();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure529: {
+    closure528: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$lastText();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure530: {
+    closure529: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$pages();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure531: {
+    closure530: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$page$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure532: {
+    closure531: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$isActive();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure533: {
+    closure532: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$number();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure534: {
+    closure533: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$text$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure535: {
+    closure534: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$totalPages();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure536: {
+    closure535: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$matches$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure537: {
+    closure536: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$selectEventHandler();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure538: {
+    closure537: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$position$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure539: {
+    closure538: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$query$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure540: {
+    closure539: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$top$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure541: {
+    closure540: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$left$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure542: {
+    closure541: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$match$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure543: {
+    closure542: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$id$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure544: {
+    closure543: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$$$index();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure545: {
+    closure544: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$minLength$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure546: {
+    closure545: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$appendToBody();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure547: {
+    closure546: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$inputFormatter();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure548: {
+    closure547: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$waitInMs();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure549: {
+    closure548: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$isLoading();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure550: {
+    closure549: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$isEditable();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure551: {
+    closure550: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$showMeridian();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure552: {
+    closure551: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$invalidHours();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure553: {
+    closure552: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$readonlyInput();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure554: {
+    closure553: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$invalidMinutes();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure555: {
+    closure554: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$meridian();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure556: {
+    closure555: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$isCollapsed$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure557: {
+    closure556: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$noTransition();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure558: {
+    closure557: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$interval$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure559: {
+    closure558: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$noPause();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure560: {
+    closure559: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$slides();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure561: {
+    closure560: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$length$asx(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure562: {
+    closure561: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$item$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure563: {
+    closure562: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$direction$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure564: {
+    closure563: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$entering();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure565: {
+    closure564: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$leaving();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure566: {
+    closure565: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$next$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure567: {
+    closure566: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$animate$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure568: {
+    closure567: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$classes$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure569: {
+    closure568: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$onHover();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure570: {
+    closure569: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$onLeave();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure571: {
+    closure570: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$range();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure572: {
+    closure571: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$r$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure573: {
+    closure572: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$dayFormat();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure574: {
+    closure573: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$monthFormat();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure575: {
+    closure574: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$yearFormat();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure576: {
+    closure575: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$dayHeaderFormat();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure577: {
+    closure576: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$dayTitleFormat();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure578: {
+    closure577: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$monthTitleFormat();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure579: {
+    closure578: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$startingDay();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure580: {
+    closure579: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$yearRange();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure581: {
+    closure580: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$dateDisabled();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure582: {
+    closure581: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$showWeeks();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure583: {
+    closure582: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$d$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure584: {
+    closure583: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$display$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure585: {
+    closure584: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$showButtonBar();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure586: {
+    closure585: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$currentText();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure587: {
+    closure586: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$toggleWeeksText();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure588: {
+    closure587: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$clearText();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure589: {
+    closure588: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$closeText();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure590: {
+    closure589: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$selector();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure591: {
+    closure590: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$entity();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure592: {
+    closure591: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$service();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure593: {
+    closure592: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$fullname();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure594: {
+    closure593: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$modes();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure595: {
+    closure594: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$mode$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure596: {
+    closure595: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$archived();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure597: {
+    closure596: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$link();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure598: {
+    closure597: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$linklist();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure599: {
+    closure598: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$Title();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure600: {
+    closure599: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$auth();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure601: {
+    closure600: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$isloggedin();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure602: {
+    closure601: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$userContext();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure603: {
+    closure602: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$showlogin();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure604: {
+    closure603: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$loginFailed();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure605: {
+    closure604: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$username$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure606: {
+    closure605: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$password$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure607: {
+    closure606: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$rememberme();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure608: {
+    closure607: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$statusservice();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure609: {
+    closure608: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$status$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure610: {
+    closure609: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$isValid();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure611: {
+    closure610: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$menus();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure612: {
+    closure611: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$menu();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure613: {
+    closure612: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$icon$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure614: {
+    closure613: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$title$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure615: {
+    closure614: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$items$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure616: {
+    closure615: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$street();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure617: {
+    closure616: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$streetnumber();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure618: {
+    closure617: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$plz();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure619: {
+    closure618: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$city();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure620: {
+    closure619: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$state$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure621: {
+    closure620: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$country();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure622: {
+    closure621: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$company();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure623: {
+    closure622: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$department();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure624: {
+    closure623: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$salutation();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure625: {
+    closure624: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$rateGroup();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure626: {
+    closure625: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$chargeable();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure627: {
+    closure626: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$firstname();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure628: {
+    closure627: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$lastname();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure629: {
+    closure628: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$email();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure630: {
+    closure629: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$plainpassword();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure631: {
+    closure630: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$employeeholiday();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure632: {
+    closure631: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$enabled$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure633: {
-      "^": "Closure:0;",
-      call$1: [function(o) {
-        return o.get$locked();
-      }, null, null, 2, 0, null, 0, "call"]
-    },
-    closure634: {
+    closure632: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$project();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure635: {
+    closure633: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$offers();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure636: {
+    closure634: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$isEmpty$asx(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure637: {
+    closure635: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$offer();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure638: {
+    closure636: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$invoices();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure639: {
+    closure637: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$invoice();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure640: {
+    closure638: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$customer();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure641: {
+    closure639: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$accountant();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure642: {
+    closure640: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$start$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure643: {
+    closure641: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$end$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure644: {
+    closure642: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$description$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure645: {
+    closure643: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$standardDiscounts();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure646: {
+    closure644: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$subtotal();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure647: {
+    closure645: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$totalDiscounts();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure648: {
+    closure646: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$totalVAT();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure649: {
+    closure647: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$totalVAT8();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure650: {
+    closure648: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$totalVAT2();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure651: {
+    closure649: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$total$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure652: {
+    closure650: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$fixedPrice();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure653: {
+    closure651: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$validTo();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure654: {
+    closure652: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$shortDescription();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure655: {
+    closure653: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$alias();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure656: {
+    closure654: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$projectCategory();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure657: {
+    closure655: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$deadline();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure658: {
+    closure656: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$currentPrice();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure659: {
+    closure657: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$budgetPrice();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure660: {
+    closure658: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$remainingBudgetPrice();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure661: {
+    closure659: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$currentTime$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure662: {
+    closure660: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$budgetTime();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure663: {
+    closure661: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$remainingBudgetTime();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure664: {
+    closure662: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$updatedAt();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure665: {
+    closure663: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$user();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure666: {
+    closure664: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$createdAt();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure667: {
+    closure665: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$vat();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure668: {
+    closure666: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$error$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure669: {
+    closure667: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$loading();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure670: {
+    closure668: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$defaultVal();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure671: {
+    closure669: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$success();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure672: {
+    closure670: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$rateValue();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure673: {
+    closure671: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$rateUnit();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure674: {
+    closure672: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$filterString();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure675: {
+    closure673: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$sortType();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure676: {
+    closure674: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$sortReverse();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure677: {
+    closure675: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$projectAssignments();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure678: {
+    closure676: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$weekday();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure679: {
+    closure677: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$duration$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure680: {
+    closure678: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$percentage();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure681: {
+    closure679: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$order$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure682: {
+    closure680: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$amount();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure683: {
+    closure681: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$rateUnitType();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure684: {
+    closure682: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$discountable();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure685: {
+    closure683: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$pensum();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure686: {
+    closure684: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$realTime();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure687: {
+    closure685: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$targetTime();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure688: {
+    closure686: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$timeTillToday();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure689: {
+    closure687: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$holidayBalance();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure690: {
+    closure688: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$lastYearHolidayBalance();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure691: {
+    closure689: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$factor();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure692: {
+    closure690: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$scale$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure693: {
+    closure691: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$doTransform();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure694: {
+    closure692: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$roundMode();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure695: {
+    closure693: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$symbol();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure696: {
+    closure694: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$newDiscount();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure697: {
+    closure695: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$filterStartDate();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure698: {
+    closure696: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$filterEndDate();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure699: {
+    closure697: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$projectBased();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure700: {
+    closure698: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$activity();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure701: {
+    closure699: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$startedAt();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure702: {
+    closure700: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$stoppedAt();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure703: {
+    closure701: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$newEntryDate();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure704: {
+    closure702: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$updateNewEntryDate();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure705: {
+    closure703: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$selectedProject();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure706: {
+    closure704: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$selectedActivity();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure707: {
+    closure705: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$activities();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure708: {
+    closure706: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$entries$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure709: {
+    closure707: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$inputAll();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure710: {
+    closure708: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$entry();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure711: {
+    closure709: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$selectedUserToAdd();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure712: {
+    closure710: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$statusText$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure713: {
+    closure711: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$showEnabledUsersOnly();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure714: {
+    closure712: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$employees();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure715: {
+    closure713: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$empl();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure716: {
+    closure714: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$seconds();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure717: {
+    closure715: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$activitylist();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure718: {
+    closure716: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$projectCategoryId();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure719: {
+    closure717: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$report();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure720: {
+    closure718: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$timeslices();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure721: {
+    closure719: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$dates();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure722: {
+    closure720: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$days();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure723: {
+    closure721: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$day();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure724: {
+    closure722: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$toggleOpen();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure725: {
+    closure723: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$selectPage();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure726: {
+    closure724: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$selectMatch();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure727: {
+    closure725: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$selectActive();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure728: {
+    closure726: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$incrementHours();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure729: {
+    closure727: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$incrementMinutes();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure730: {
+    closure728: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$updateHours();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure731: {
+    closure729: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$updateMinutes();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure732: {
+    closure730: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$toggleMeridian();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure733: {
+    closure731: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$decrementHours();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure734: {
+    closure732: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$decrementMinutes();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure735: {
+    closure733: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$pause$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure736: {
+    closure734: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$play$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure737: {
+    closure735: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$prev();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure738: {
+    closure736: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$reset$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure739: {
+    closure737: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$stateClass();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure740: {
+    closure738: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$rate$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure741: {
+    closure739: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$enter();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure742: {
+    closure740: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$move();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure743: {
+    closure741: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$toggleMode();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure744: {
+    closure742: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$today();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure745: {
+    closure743: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$clear$ax(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure746: {
+    closure744: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$toggleSelectionBox();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure747: {
+    closure745: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$loginOnEnter();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure748: {
+    closure746: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$login();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure749: {
+    closure747: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$onInputBlur();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure750: {
+    closure748: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$previousDay();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure751: {
+    closure749: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$nextDay();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure752: {
+    closure750: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$toggleMenu();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure753: {
+    closure751: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$addSaveField();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure754: {
+    closure752: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$saveEntity();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure755: {
+    closure753: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$reload$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure756: {
+    closure754: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$openOffer();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure757: {
+    closure755: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$openProject();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure758: {
+    closure756: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$openInvoice();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure759: {
+    closure757: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$createInvoice();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure760: {
+    closure758: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$updateInvoicefromProject();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure761: {
+    closure759: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$printInvoice();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure762: {
+    closure760: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$printAufwandsbericht();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure763: {
+    closure761: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$createProject();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure764: {
+    closure762: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$addFieldtoUpdate();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure765: {
+    closure763: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$copyAddressFromCustomer();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure766: {
+    closure764: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$printOffer();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure767: {
+    closure765: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$previousMonth();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure768: {
+    closure766: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$previousWeek();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure769: {
+    closure767: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$nextWeek();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure770: {
+    closure768: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$nextMonth();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure771: {
+    closure769: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$isSelected();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure772: {
+    closure770: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$selectEntity();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure773: {
+    closure771: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$deleteEntity();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure774: {
+    closure772: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$createEntity();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure775: {
+    closure773: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$duplicateEntity();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure776: {
+    closure774: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$changeSortOrder();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure777: {
+    closure775: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$searchFilter();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure778: {
+    closure776: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$openEditView();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure779: {
+    closure777: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$saveAllEntities();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure780: {
-      "^": "Closure:0;",
-      call$1: [function(o) {
-        return o.get$duplicateInvoiceEntity();
-      }, null, null, 2, 0, null, 0, "call"]
-    },
-    closure781: {
+    closure778: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$save$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure782: {
+    closure779: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$ViewValue();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure783: {
+    closure780: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$inputAllUpdated();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure784: {
+    closure781: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$removeUser();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure785: {
+    closure782: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$addUser();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure786: {
+    closure783: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$clearInputs();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure787: {
+    closure784: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return J.get$update$x(o);
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure788: {
+    closure785: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$hasChanged();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure789: {
+    closure786: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$getCsvLink();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure790: {
+    closure787: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$printReport();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure791: {
+    closure788: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$userEditor();
       }, null, null, 2, 0, null, 0, "call"]
     },
-    closure792: {
+    closure789: {
       "^": "Closure:0;",
       call$1: [function(o) {
         return o.get$logout();
@@ -65291,634 +65137,627 @@
     closure272: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$locked(v);
+        o.set$project(v);
         return v;
       }
     },
     closure273: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$project(v);
+        o.set$offers(v);
         return v;
       }
     },
     closure274: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$offers(v);
+        J.set$isEmpty$asx(o, v);
         return v;
       }
     },
     closure275: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        J.set$isEmpty$asx(o, v);
+        o.set$offer(v);
         return v;
       }
     },
     closure276: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$offer(v);
+        o.set$invoices(v);
         return v;
       }
     },
     closure277: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$invoices(v);
+        o.set$invoice(v);
         return v;
       }
     },
     closure278: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$invoice(v);
+        o.set$customer(v);
         return v;
       }
     },
     closure279: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$customer(v);
+        o.set$accountant(v);
         return v;
       }
     },
     closure280: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$accountant(v);
+        J.set$start$x(o, v);
         return v;
       }
     },
     closure281: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        J.set$start$x(o, v);
+        J.set$end$x(o, v);
         return v;
       }
     },
     closure282: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        J.set$end$x(o, v);
+        J.set$description$x(o, v);
         return v;
       }
     },
     closure283: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        J.set$description$x(o, v);
+        o.set$standardDiscounts(v);
         return v;
       }
     },
     closure284: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$standardDiscounts(v);
+        o.set$subtotal(v);
         return v;
       }
     },
     closure285: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$subtotal(v);
+        o.set$totalDiscounts(v);
         return v;
       }
     },
     closure286: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$totalDiscounts(v);
+        o.set$totalVAT(v);
         return v;
       }
     },
     closure287: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$totalVAT(v);
+        o.set$totalVAT8(v);
         return v;
       }
     },
     closure288: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$totalVAT8(v);
+        o.set$totalVAT2(v);
         return v;
       }
     },
     closure289: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$totalVAT2(v);
+        J.set$total$x(o, v);
         return v;
       }
     },
     closure290: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        J.set$total$x(o, v);
+        o.set$fixedPrice(v);
         return v;
       }
     },
     closure291: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$fixedPrice(v);
+        o.set$validTo(v);
         return v;
       }
     },
     closure292: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$validTo(v);
+        o.set$shortDescription(v);
         return v;
       }
     },
     closure293: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$shortDescription(v);
+        o.set$alias(v);
         return v;
       }
     },
     closure294: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$alias(v);
+        o.set$projectCategory(v);
         return v;
       }
     },
     closure295: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$projectCategory(v);
+        o.set$deadline(v);
         return v;
       }
     },
     closure296: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$deadline(v);
+        o.set$currentPrice(v);
         return v;
       }
     },
     closure297: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$currentPrice(v);
+        o.set$budgetPrice(v);
         return v;
       }
     },
     closure298: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$budgetPrice(v);
+        o.set$remainingBudgetPrice(v);
         return v;
       }
     },
     closure299: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$remainingBudgetPrice(v);
+        J.set$currentTime$x(o, v);
         return v;
       }
     },
     closure300: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        J.set$currentTime$x(o, v);
+        o.set$budgetTime(v);
         return v;
       }
     },
     closure301: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$budgetTime(v);
+        o.set$remainingBudgetTime(v);
         return v;
       }
     },
     closure302: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$remainingBudgetTime(v);
+        o.set$updatedAt(v);
         return v;
       }
     },
     closure303: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$updatedAt(v);
+        o.set$user(v);
         return v;
       }
     },
     closure304: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$user(v);
+        o.set$createdAt(v);
         return v;
       }
     },
     closure305: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$createdAt(v);
+        o.set$vat(v);
         return v;
       }
     },
     closure306: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$vat(v);
+        J.set$error$x(o, v);
         return v;
       }
     },
     closure307: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        J.set$error$x(o, v);
+        o.set$loading(v);
         return v;
       }
     },
     closure308: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$loading(v);
+        o.set$defaultVal(v);
         return v;
       }
     },
     closure309: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$defaultVal(v);
+        o.set$success(v);
         return v;
       }
     },
     closure310: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$success(v);
+        o.set$rateValue(v);
         return v;
       }
     },
     closure311: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$rateValue(v);
+        o.set$rateUnit(v);
         return v;
       }
     },
     closure312: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$rateUnit(v);
+        o.set$filterString(v);
         return v;
       }
     },
     closure313: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$filterString(v);
+        o.set$sortType(v);
         return v;
       }
     },
     closure314: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$sortType(v);
+        o.set$sortReverse(v);
         return v;
       }
     },
     closure315: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$sortReverse(v);
+        o.set$projectAssignments(v);
         return v;
       }
     },
     closure316: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$projectAssignments(v);
+        o.set$weekday(v);
         return v;
       }
     },
     closure317: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$weekday(v);
+        J.set$duration$x(o, v);
         return v;
       }
     },
     closure318: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        J.set$duration$x(o, v);
+        o.set$percentage(v);
         return v;
       }
     },
     closure319: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$percentage(v);
+        J.set$order$x(o, v);
         return v;
       }
     },
     closure320: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        J.set$order$x(o, v);
+        o.set$amount(v);
         return v;
       }
     },
     closure321: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$amount(v);
+        o.set$rateUnitType(v);
         return v;
       }
     },
     closure322: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$rateUnitType(v);
+        o.set$discountable(v);
         return v;
       }
     },
     closure323: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$discountable(v);
+        o.set$pensum(v);
         return v;
       }
     },
     closure324: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$pensum(v);
+        o.set$realTime(v);
         return v;
       }
     },
     closure325: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$realTime(v);
+        o.set$targetTime(v);
         return v;
       }
     },
     closure326: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$targetTime(v);
+        o.set$timeTillToday(v);
         return v;
       }
     },
     closure327: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$timeTillToday(v);
+        o.set$holidayBalance(v);
         return v;
       }
     },
     closure328: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$holidayBalance(v);
+        o.set$lastYearHolidayBalance(v);
         return v;
       }
     },
     closure329: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$lastYearHolidayBalance(v);
+        o.set$factor(v);
         return v;
       }
     },
     closure330: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$factor(v);
+        J.set$scale$x(o, v);
         return v;
       }
     },
     closure331: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        J.set$scale$x(o, v);
+        o.set$doTransform(v);
         return v;
       }
     },
     closure332: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$doTransform(v);
+        o.set$roundMode(v);
         return v;
       }
     },
     closure333: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$roundMode(v);
+        o.set$symbol(v);
         return v;
       }
     },
     closure334: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$symbol(v);
+        o.set$newDiscount(v);
         return v;
       }
     },
     closure335: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$newDiscount(v);
+        o.set$filterStartDate(v);
         return v;
       }
     },
     closure336: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$filterStartDate(v);
+        o.set$filterEndDate(v);
         return v;
       }
     },
     closure337: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$filterEndDate(v);
+        o.set$projectBased(v);
         return v;
       }
     },
     closure338: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$projectBased(v);
+        o.set$activity(v);
         return v;
       }
     },
     closure339: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$activity(v);
+        o.set$startedAt(v);
         return v;
       }
     },
     closure340: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$startedAt(v);
+        o.set$stoppedAt(v);
         return v;
       }
     },
     closure341: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$stoppedAt(v);
+        o.set$newEntryDate(v);
         return v;
       }
     },
     closure342: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$newEntryDate(v);
+        o.set$updateNewEntryDate(v);
         return v;
       }
     },
     closure343: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$updateNewEntryDate(v);
+        o.set$selectedProject(v);
         return v;
       }
     },
     closure344: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$selectedProject(v);
+        o.set$selectedActivity(v);
         return v;
       }
     },
     closure345: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$selectedActivity(v);
+        o.set$activities(v);
         return v;
       }
     },
     closure346: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$activities(v);
+        J.set$entries$x(o, v);
         return v;
       }
     },
     closure347: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        J.set$entries$x(o, v);
+        o.set$inputAll(v);
         return v;
       }
     },
     closure348: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$inputAll(v);
+        o.set$entry(v);
         return v;
       }
     },
     closure349: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$entry(v);
+        o.set$selectedUserToAdd(v);
         return v;
       }
     },
     closure350: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$selectedUserToAdd(v);
+        J.set$statusText$x(o, v);
         return v;
       }
     },
     closure351: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        J.set$statusText$x(o, v);
+        o.set$showEnabledUsersOnly(v);
         return v;
       }
     },
     closure352: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$showEnabledUsersOnly(v);
+        o.set$employees(v);
         return v;
       }
     },
     closure353: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$employees(v);
+        o.set$empl(v);
         return v;
       }
     },
     closure354: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$empl(v);
+        o.set$seconds(v);
         return v;
       }
     },
     closure355: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$seconds(v);
+        o.set$activitylist(v);
         return v;
       }
     },
     closure356: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$activitylist(v);
+        o.set$projectCategoryId(v);
         return v;
       }
     },
     closure357: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$projectCategoryId(v);
+        o.set$report(v);
         return v;
       }
     },
     closure358: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$report(v);
+        o.set$timeslices(v);
         return v;
       }
     },
     closure359: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$timeslices(v);
+        o.set$dates(v);
         return v;
       }
     },
     closure360: {
       "^": "Closure:1;",
       call$2: function(o, v) {
-        o.set$dates(v);
-        return v;
-      }
-    },
-    closure361: {
-      "^": "Closure:1;",
-      call$2: function(o, v) {
         o.set$days(v);
         return v;
       }
     },
-    closure362: {
+    closure361: {
       "^": "Closure:1;",
       call$2: function(o, v) {
         o.set$day(v);
@@ -69907,7 +69746,7 @@
     t1.AST$1("#");
     return t1;
   }, "_ExpressionVisitor_contextRef", "_PositionalArgHandler__ARGS", "$get$_PositionalArgHandler__ARGS", function() {
-    return P.List_List$generate(20, new S.closure1057(), true, null);
+    return P.List_List$generate(20, new S.closure1054(), true, null);
   }, "_PositionalArgHandler__ARGS", "_NamedArgHandler__NAMED_ARG", "$get$_NamedArgHandler__NAMED_ARG", function() {
     return P.HashMap_HashMap(null, null, null, P.Symbol0, P.String);
   }, "_NamedArgHandler__NAMED_ARG", "EMPTY_INTERPOLATION", "$get$EMPTY_INTERPOLATION", function() {
@@ -70148,7 +69987,7 @@
   }, "_log2", "_log0", "$get$_log0", function() {
     return N.Logger_Logger("angular.ui.dragdrop");
   }, "_log0", "DropdownToggle__closeMenu", "$get$DropdownToggle__closeMenu", function() {
-    return new N.closure1052();
+    return new N.closure1049();
   }, "DropdownToggle__closeMenu", "Modal_openedWindows", "$get$Modal_openedWindows", function() {
     return [];
   }, "Modal_openedWindows", "_log", "$get$_log", function() {
@@ -70436,7 +70275,7 @@
   }, "_KEY_FormatterFunc", "_KEY_TimepickerConfig", "$get$_KEY_TimepickerConfig", function() {
     return Z.Key_Key(C.Type_TimepickerConfig_ZEQ, null);
   }, "_KEY_TimepickerConfig", "typeFactories", "$get$typeFactories", function() {
-    return P.LinkedHashMap_LinkedHashMap$_literal([C.Type_PercentageInputField_nFg, new Q.closure794(), C.Type_Animate_ia3, new Q.closure795(), C.Type_BrowserCookies_23h, new Q.closure796(), C.Type_Cookies_sBb, new Q.closure797(), C.Type_Compiler_A0t, new Q.closure798(), C.Type_CompilerConfig_U2T, new Q.closure799(), C.Type_DirectiveMap_o48, new Q.closure800(), C.Type_ElementBinderFactory_kMT, new Q.closure801(), C.Type_EventHandler_MYA, new Q.closure802(), C.Type_ShadowRootEventHandler_6m4, new Q.closure803(), C.Type_DefaultShadowBoundary_R4n, new Q.closure804(), C.Type_ShadowRootBoundary_OXJ, new Q.closure805(), C.Type_UrlRewriter_bl8, new Q.closure806(), C.Type_HttpBackend_KxY, new Q.closure807(), C.Type_LocationWrapper_A8Z, new Q.closure808(), C.Type_HttpInterceptors_Egs, new Q.closure809(), C.Type_HttpDefaultHeaders_2ru, new Q.closure810(), C.Type_HttpDefaults_JSb, new Q.closure811(), C.Type_Http_Zg3, new Q.closure812(), C.Type_HttpConfig_KHa, new Q.closure813(), C.Type_TextMustache_ekJ, new Q.closure814(), C.Type_AttrMustache_4eS, new Q.closure815(), C.Type_NgElement_SWJ, new Q.closure816(), C.Type_DirectiveSelectorFactory_DV7, new Q.closure817(), C.Type_ShadowDomComponentFactory_YyH, new Q.closure818(), C.Type_ComponentCssRewriter_qdZ, new Q.closure819(), C.Type_TranscludingComponentFactory_00x, new Q.closure820(), C.Type_Content_0, new Q.closure821(), C.Type_NullTreeSanitizer_KBl, new Q.closure822(), C.Type_ViewFactoryCache_7FP, new Q.closure823(), C.Type_PlatformJsBasedShim_D34, new Q.closure824(), C.Type_DefaultPlatformShim_WHx, new Q.closure825(), C.Type_AHref_QTH, new Q.closure826(), C.Type_NgBaseCss_6m4, new Q.closure827(), C.Type_NgBind_Fv2, new Q.closure828(), C.Type_NgBindHtml_Bzh, new Q.closure829(), C.Type_NgBindTemplate_flr, new Q.closure830(), C.Type_NgClass_e8P, new Q.closure831(), C.Type_NgClassOdd_lGg, new Q.closure832(), C.Type_NgClassEven_W7k, new Q.closure833(), C.Type_NgEvent_WPt, new Q.closure834(), C.Type_NgCloak_3OQ, new Q.closure835(), C.Type_NgIf_Q4r, new Q.closure836(), C.Type_NgUnless_i7B, new Q.closure837(), C.Type_NgInclude_sKi, new Q.closure838(), C.Type_NgModel_qjS, new Q.closure839(), C.Type_InputCheckbox_kqK, new Q.closure840(), C.Type_InputTextLike_IK6, new Q.closure841(), C.Type_InputNumberLike_Us6, new Q.closure842(), C.Type_NgBindTypeForDateLike_ls9, new Q.closure843(), C.Type_InputDateLike_vww, new Q.closure844(), C.Type_NgValue_Yqh, new Q.closure845(), C.Type_NgTrueValue_jWj, new Q.closure846(), C.Type_NgFalseValue_58q, new Q.closure847(), C.Type_InputRadio_CRY, new Q.closure848(), C.Type_ContentEditable_yg4, new Q.closure849(), C.Type_NgPluralize_oBb, new Q.closure850(), C.Type_NgRepeat_s3m, new Q.closure851(), C.Type_NgTemplate_7BT, new Q.closure852(), C.Type_NgHide_Fv2, new Q.closure853(), C.Type_NgShow_Otg, new Q.closure854(), C.Type_NgBooleanAttribute_3Sx, new Q.closure855(), C.Type_NgSource_ESz, new Q.closure856(), C.Type_NgAttribute_69t, new Q.closure857(), C.Type_NgStyle_SwL, new Q.closure858(), C.Type_NgSwitch_2Ex, new Q.closure859(), C.Type_NgSwitchWhen_UW6, new Q.closure860(), C.Type_NgSwitchDefault_ROw, new Q.closure861(), C.Type_NgNonBindable_XB4, new Q.closure862(), C.Type_InputSelect_rTV, new Q.closure863(), C.Type_OptionValue_ESz, new Q.closure864(), C.Type_NgForm_WV2, new Q.closure865(), C.Type_NgModelRequiredValidator_ynv, new Q.closure866(), C.Type_NgModelUrlValidator_Dfi, new Q.closure867(), C.Type_NgModelColorValidator_Z6Y, new Q.closure868(), C.Type_NgModelEmailValidator_8aB, new Q.closure869(), C.Type_NgModelNumberValidator_kfn, new Q.closure870(), C.Type_NgModelMaxNumberValidator_ato, new Q.closure871(), C.Type_NgModelMinNumberValidator_ato, new Q.closure872(), C.Type_NgModelPatternValidator_Y7N, new Q.closure873(), C.Type_NgModelMinLengthValidator_OvN, new Q.closure874(), C.Type_NgModelMaxLengthValidator_OvN, new Q.closure875(), C.Type_NgModelOptions_woc, new Q.closure876(), C.Type_Parser_v5M, new Q.closure877(), C.Type_RuntimeParserBackend_kaS, new Q.closure878(), C.Type_FormatterMap_JNA, new Q.closure879(), C.Type_ExceptionHandler_i7B, new Q.closure880(), C.Type_Interpolate_tMJ, new Q.closure881(), C.Type_ScopeDigestTTL_e9j, new Q.closure882(), C.Type_ScopeStats_Gpa, new Q.closure883(), C.Type_ScopeStatsEmitter_2jN, new Q.closure884(), C.Type_ScopeStatsConfig_Ay2, new Q.closure885(), C.Type_RootScope_KGu, new Q.closure886(), C.Type_PendingAsync_GAt, new Q.closure887(), C.Type_Lexer_AYZ, new Q.closure888(), C.Type_ASTParser_UxB, new Q.closure889(), C.Type_CacheRegister_avx, new Q.closure890(), C.Type_ResourceUrlResolver_0, new Q.closure891(), C.Type_ResourceResolverConfig_vkJ, new Q.closure892(), C.Type_Currency_MSf, new Q.closure893(), C.Type_Date_63Q, new Q.closure894(), C.Type_Filter_Roh, new Q.closure895(), C.Type_Json_mya, new Q.closure896(), C.Type_LimitTo_8qt, new Q.closure897(), C.Type_Lowercase_Gpa, new Q.closure898(), C.Type_Arrayify_gg4, new Q.closure899(), C.Type_Number_lSr, new Q.closure900(), C.Type_OrderBy_adS, new Q.closure901(), C.Type_Uppercase_TXT, new Q.closure902(), C.Type_Stringify_2jN, new Q.closure903(), C.Type_AnimationLoop_oyU, new Q.closure904(), C.Type_AnimationFrame_Nhy, new Q.closure905(), C.Type_AnimationOptimizer_e7Q, new Q.closure906(), C.Type_CssAnimate_goM, new Q.closure907(), C.Type_CssAnimationMap_erm, new Q.closure908(), C.Type_NgAnimate_u1X, new Q.closure909(), C.Type_NgAnimateChildren_QN8, new Q.closure910(), C.Type_NgRoutingUsePushState_jWj, new Q.closure911(), C.Type_NgRoutingHelper_7eO, new Q.closure912(), C.Type_NgView_ZCY, new Q.closure913(), C.Type_NgBindRoute_7Re, new Q.closure914(), C.Type_JsCacheRegister_Epa, new Q.closure915(), C.Type_ActivitySelectComponent_Ik7, new Q.closure916(), C.Type_CustomerSelectComponent_Eaj, new Q.closure917(), C.Type_OfferStatusSelectComponent_uMl, new Q.closure918(), C.Type_ProjectSelectComponent_lOq, new Q.closure919(), C.Type_QLA, new Q.closure920(), C.Type_RateGroupSelectComponent_9Yy, new Q.closure921(), C.Type_RateUnitTypeSelectComponent_e7M, new Q.closure922(), C.Type_RoundModeSelect_bCX, new Q.closure923(), C.Type_ServiceSelectComponent_4CA, new Q.closure924(), C.Type_Wnx, new Q.closure925(), C.Type_UserSelectComponent_Opm, new Q.closure926(), C.Type_DataCache_QkT, new Q.closure927(), C.Type_ResourceStore_MKd, new Q.closure928(), C.Type_HammockConfig_xGW, new Q.closure929(), C.Type_ObjectStore_Ec2, new Q.closure930(), C.Type_UserAuthProvider_4AN, new Q.closure931(), C.Type_SettingsManager_EsU, new Q.closure932(), C.Type_UserContext_69t, new Q.closure933(), C.Type_StatusService_oU9, new Q.closure934(), C.Type_TabSetComponent_4m4, new Q.closure935(), C.Type_AppComponent_kSJ, new Q.closure936(), C.Type_ErrorIconComponent_2fF, new Q.closure937(), C.Type_DateToTextInput_B8J, new Q.closure938(), C.Type_UserFilter_JTJ, new Q.closure939(), C.Type_TimesliceDateFilter_INK, new Q.closure940(), C.Type_ProjectValueFilter_Yqs, new Q.closure941(), C.Type_FYo, new Q.closure942(), C.Type_InvoiceItemOrderByOrderField_233, new Q.closure943(), C.Type_SecondsToHours_wYH, new Q.closure944(), C.Type_MenuComponent_4CA, new Q.closure945(), C.Type_AddressEditComponent_XHr, new Q.closure946(), C.Type_CustomerEditComponent_kqh, new Q.closure947(), C.Type_EmployeeEditComponent_Amm, new Q.closure948(), C.Type_InvoiceEditComponent_69P, new Q.closure949(), C.Type_OfferEditComponent_PLv, new Q.closure950(), C.Type_ProjectEditComponent_jnt, new Q.closure951(), C.Type_ServiceEditComponent_EVG, new Q.closure952(), C.Type_StatusBarComponent_QIC, new Q.closure953(), C.Type_DateRange_E4y, new Q.closure954(), C.Type_ActivityOverviewComponent_Adg, new Q.closure955(), C.Type_CustomerOverviewComponent_5wV, new Q.closure956(), C.Type_HBZ, new Q.closure957(), C.Type_EmployeeOverviewComponent_s8k, new Q.closure958(), C.Type_HolidayOverviewComponent_diW, new Q.closure959(), C.Type_InvoiceOverviewComponent_Mim, new Q.closure960(), C.Type_jYm, new Q.closure961(), C.Type_InvoiceItemOverviewComponent_8Wd, new Q.closure962(), C.Type_OfferOverviewComponent_ewF, new Q.closure963(), C.Type_sav0, new Q.closure964(), C.Type_sav, new Q.closure965(), C.Type_PeriodOverviewComponent_lVM, new Q.closure966(), C.Type_ProjectOverviewComponent_1Ka, new Q.closure967(), C.Type_ProjectOpenInvoicesComponent_UoB, new Q.closure968(), C.Type_Au4, new Q.closure969(), C.Type_RateOverviewComponent_qJs, new Q.closure970(), C.Type_RateGroupOverviewComponent_yLX, new Q.closure971(), C.Type_41V, new Q.closure972(), C.Type_ServiceOverviewComponent_cyO, new Q.closure973(), C.Type_4YB, new Q.closure974(), C.Type_TimesliceOverviewComponent_gsm, new Q.closure975(), C.Type_TimetrackComponent_ASm, new Q.closure976(), C.Type_TimetrackMultiComponent_c86, new Q.closure977(), C.Type_ProjectTimetrackComponent_ES1, new Q.closure978(), C.Type_TimetrackPeriodsComponent_evT, new Q.closure979(), C.Type_SettingEditComponent_ato, new Q.closure980(), C.Type_Carousel_U3n, new Q.closure981(), C.Type_Slide_USP, new Q.closure982(), C.Type_TimeItem_yHq, new Q.closure983(), C.Type_Timeout_N1p, new Q.closure984(), C.Type_Transition_0, new Q.closure985(), C.Type_ProgressBar_kUZ, new Q.closure986(), C.Type_Progress_oyU, new Q.closure987(), C.Type_Bar_Z3K, new Q.closure988(), C.Type_NgPseudo_8I8, new Q.closure989(), C.Type_AccordionConfig_61x, new Q.closure990(), C.Type_AccordionComponent_yhx, new Q.closure991(), C.Type_AccordionGroupComponent_oxt, new Q.closure992(), C.Type_AccordionHeadingComponent_DKy, new Q.closure993(), C.Type_AccordionTransclude_Q8G, new Q.closure994(), C.Type_DblClickPreventer_e1m, new Q.closure995(), C.Type_BtnRadio_g0t, new Q.closure996(), C.Type_BtnCheckbox_jJI, new Q.closure997(), C.Type_DragDropZonesService_a6m, new Q.closure998(), C.Type_DragDropDataService_CBX, new Q.closure999(), C.Type_DragDropConfigService_qhc, new Q.closure1000(), C.Type_DraggableComponent_eJH, new Q.closure1001(), C.Type_DroppableComponent_knt, new Q.closure1002(), C.Type_DragDropSortableDataService_VzM, new Q.closure1003(), C.Type_SortableComponent_Ey5, new Q.closure1004(), C.Type_SortableItemComponent_0, new Q.closure1005(), C.Type_PagerConfig_EgC, new Q.closure1006(), C.Type_PagerComponent_ijq, new Q.closure1007(), C.Type_PaginationConfig_w4W, new Q.closure1008(), C.Type_PaginationComponent_TcW, new Q.closure1009(), C.Type_PageInfo_qQg, new Q.closure1010(), C.Type_BasicPaginationGenerator_54c, new Q.closure1011(), C.Type_RatingComponent_sxw, new Q.closure1012(), C.Type_TooltipConfig_izV, new Q.closure1013(), C.Type_Tooltip_Ate, new Q.closure1014(), C.Type_Position_k0J, new Q.closure1015(), C.Type_Rect_cAS, new Q.closure1016(), C.Type_TabsetComponent_MXg, new Q.closure1017(), C.Type_TabComponent_SBP, new Q.closure1018(), C.Type_TabHeading_8K0, new Q.closure1019(), C.Type_ContentAppendComponent_xw8, new Q.closure1020(), C.Type_DatepickerConfig_kiE, new Q.closure1021(), C.Type_VisibleDates_ett, new Q.closure1022(), C.Type_Format_axX, new Q.closure1023(), C.Type_DateVO_2Hr, new Q.closure1024(), C.Type_Mode_ij7, new Q.closure1025(), C.Type_Datepicker_IUD, new Q.closure1026(), C.Type_WeekNumberFilter_5pG, new Q.closure1027(), C.Type_DatepickerPopup_0, new Q.closure1028(), C.Type_DatepickerPopupWrap_AGs, new Q.closure1029(), C.Type_ModalWindow_2No, new Q.closure1030(), C.Type_Modal_OjC, new Q.closure1031(), C.Type_Alert_Opy, new Q.closure1032(), C.Type_TypeaheadParser_yPK, new Q.closure1033(), C.Type_TypeaheadHighlightFilter_wDN, new Q.closure1034(), C.Type_TypeaheadPopup_apS, new Q.closure1035(), C.Type_TemplateBasedComponent_SxV, new Q.closure1036(), C.Type_TypeaheadMatch_K6y, new Q.closure1037(), C.Type_TypeaheadDecorator_ZQB, new Q.closure1038(), C.Type_TypeaheadConverter_gEE, new Q.closure1039(), C.Type_DropdownToggle_kzn, new Q.closure1040(), C.Type_Timepicker_0, new Q.closure1041(), C.Type_Popover_NAF, new Q.closure1042(), C.Type_Collapse_kn0, new Q.closure1043(), C.Type_WaA, new Q.closure1044(), C.Type_RevenueReportComponent_o0y, new Q.closure1045(), C.Type_ServicehoursReportComponent_6TW, new Q.closure1046(), C.Type_wv5, new Q.closure1047(), C.Type_PDP, new Q.closure1048(), C.Type_UserMenu_IcE, new Q.closure1049(), C.Type_Profiler_C5f, new Q.closure1050()], P.Type, P.Function);
+    return P.LinkedHashMap_LinkedHashMap$_literal([C.Type_PercentageInputField_nFg, new Q.closure791(), C.Type_Animate_ia3, new Q.closure792(), C.Type_BrowserCookies_23h, new Q.closure793(), C.Type_Cookies_sBb, new Q.closure794(), C.Type_Compiler_A0t, new Q.closure795(), C.Type_CompilerConfig_U2T, new Q.closure796(), C.Type_DirectiveMap_o48, new Q.closure797(), C.Type_ElementBinderFactory_kMT, new Q.closure798(), C.Type_EventHandler_MYA, new Q.closure799(), C.Type_ShadowRootEventHandler_6m4, new Q.closure800(), C.Type_DefaultShadowBoundary_R4n, new Q.closure801(), C.Type_ShadowRootBoundary_OXJ, new Q.closure802(), C.Type_UrlRewriter_bl8, new Q.closure803(), C.Type_HttpBackend_KxY, new Q.closure804(), C.Type_LocationWrapper_A8Z, new Q.closure805(), C.Type_HttpInterceptors_Egs, new Q.closure806(), C.Type_HttpDefaultHeaders_2ru, new Q.closure807(), C.Type_HttpDefaults_JSb, new Q.closure808(), C.Type_Http_Zg3, new Q.closure809(), C.Type_HttpConfig_KHa, new Q.closure810(), C.Type_TextMustache_ekJ, new Q.closure811(), C.Type_AttrMustache_4eS, new Q.closure812(), C.Type_NgElement_SWJ, new Q.closure813(), C.Type_DirectiveSelectorFactory_DV7, new Q.closure814(), C.Type_ShadowDomComponentFactory_YyH, new Q.closure815(), C.Type_ComponentCssRewriter_qdZ, new Q.closure816(), C.Type_TranscludingComponentFactory_00x, new Q.closure817(), C.Type_Content_0, new Q.closure818(), C.Type_NullTreeSanitizer_KBl, new Q.closure819(), C.Type_ViewFactoryCache_7FP, new Q.closure820(), C.Type_PlatformJsBasedShim_D34, new Q.closure821(), C.Type_DefaultPlatformShim_WHx, new Q.closure822(), C.Type_AHref_QTH, new Q.closure823(), C.Type_NgBaseCss_6m4, new Q.closure824(), C.Type_NgBind_Fv2, new Q.closure825(), C.Type_NgBindHtml_Bzh, new Q.closure826(), C.Type_NgBindTemplate_flr, new Q.closure827(), C.Type_NgClass_e8P, new Q.closure828(), C.Type_NgClassOdd_lGg, new Q.closure829(), C.Type_NgClassEven_W7k, new Q.closure830(), C.Type_NgEvent_WPt, new Q.closure831(), C.Type_NgCloak_3OQ, new Q.closure832(), C.Type_NgIf_Q4r, new Q.closure833(), C.Type_NgUnless_i7B, new Q.closure834(), C.Type_NgInclude_sKi, new Q.closure835(), C.Type_NgModel_qjS, new Q.closure836(), C.Type_InputCheckbox_kqK, new Q.closure837(), C.Type_InputTextLike_IK6, new Q.closure838(), C.Type_InputNumberLike_Us6, new Q.closure839(), C.Type_NgBindTypeForDateLike_ls9, new Q.closure840(), C.Type_InputDateLike_vww, new Q.closure841(), C.Type_NgValue_Yqh, new Q.closure842(), C.Type_NgTrueValue_jWj, new Q.closure843(), C.Type_NgFalseValue_58q, new Q.closure844(), C.Type_InputRadio_CRY, new Q.closure845(), C.Type_ContentEditable_yg4, new Q.closure846(), C.Type_NgPluralize_oBb, new Q.closure847(), C.Type_NgRepeat_s3m, new Q.closure848(), C.Type_NgTemplate_7BT, new Q.closure849(), C.Type_NgHide_Fv2, new Q.closure850(), C.Type_NgShow_Otg, new Q.closure851(), C.Type_NgBooleanAttribute_3Sx, new Q.closure852(), C.Type_NgSource_ESz, new Q.closure853(), C.Type_NgAttribute_69t, new Q.closure854(), C.Type_NgStyle_SwL, new Q.closure855(), C.Type_NgSwitch_2Ex, new Q.closure856(), C.Type_NgSwitchWhen_UW6, new Q.closure857(), C.Type_NgSwitchDefault_ROw, new Q.closure858(), C.Type_NgNonBindable_XB4, new Q.closure859(), C.Type_InputSelect_rTV, new Q.closure860(), C.Type_OptionValue_ESz, new Q.closure861(), C.Type_NgForm_WV2, new Q.closure862(), C.Type_NgModelRequiredValidator_ynv, new Q.closure863(), C.Type_NgModelUrlValidator_Dfi, new Q.closure864(), C.Type_NgModelColorValidator_Z6Y, new Q.closure865(), C.Type_NgModelEmailValidator_8aB, new Q.closure866(), C.Type_NgModelNumberValidator_kfn, new Q.closure867(), C.Type_NgModelMaxNumberValidator_ato, new Q.closure868(), C.Type_NgModelMinNumberValidator_ato, new Q.closure869(), C.Type_NgModelPatternValidator_Y7N, new Q.closure870(), C.Type_NgModelMinLengthValidator_OvN, new Q.closure871(), C.Type_NgModelMaxLengthValidator_OvN, new Q.closure872(), C.Type_NgModelOptions_woc, new Q.closure873(), C.Type_Parser_v5M, new Q.closure874(), C.Type_RuntimeParserBackend_kaS, new Q.closure875(), C.Type_FormatterMap_JNA, new Q.closure876(), C.Type_ExceptionHandler_i7B, new Q.closure877(), C.Type_Interpolate_tMJ, new Q.closure878(), C.Type_ScopeDigestTTL_e9j, new Q.closure879(), C.Type_ScopeStats_Gpa, new Q.closure880(), C.Type_ScopeStatsEmitter_2jN, new Q.closure881(), C.Type_ScopeStatsConfig_Ay2, new Q.closure882(), C.Type_RootScope_KGu, new Q.closure883(), C.Type_PendingAsync_GAt, new Q.closure884(), C.Type_Lexer_AYZ, new Q.closure885(), C.Type_ASTParser_UxB, new Q.closure886(), C.Type_CacheRegister_avx, new Q.closure887(), C.Type_ResourceUrlResolver_0, new Q.closure888(), C.Type_ResourceResolverConfig_vkJ, new Q.closure889(), C.Type_Currency_MSf, new Q.closure890(), C.Type_Date_63Q, new Q.closure891(), C.Type_Filter_Roh, new Q.closure892(), C.Type_Json_mya, new Q.closure893(), C.Type_LimitTo_8qt, new Q.closure894(), C.Type_Lowercase_Gpa, new Q.closure895(), C.Type_Arrayify_gg4, new Q.closure896(), C.Type_Number_lSr, new Q.closure897(), C.Type_OrderBy_adS, new Q.closure898(), C.Type_Uppercase_TXT, new Q.closure899(), C.Type_Stringify_2jN, new Q.closure900(), C.Type_AnimationLoop_oyU, new Q.closure901(), C.Type_AnimationFrame_Nhy, new Q.closure902(), C.Type_AnimationOptimizer_e7Q, new Q.closure903(), C.Type_CssAnimate_goM, new Q.closure904(), C.Type_CssAnimationMap_erm, new Q.closure905(), C.Type_NgAnimate_u1X, new Q.closure906(), C.Type_NgAnimateChildren_QN8, new Q.closure907(), C.Type_NgRoutingUsePushState_jWj, new Q.closure908(), C.Type_NgRoutingHelper_7eO, new Q.closure909(), C.Type_NgView_ZCY, new Q.closure910(), C.Type_NgBindRoute_7Re, new Q.closure911(), C.Type_JsCacheRegister_Epa, new Q.closure912(), C.Type_ActivitySelectComponent_Ik7, new Q.closure913(), C.Type_CustomerSelectComponent_Eaj, new Q.closure914(), C.Type_OfferStatusSelectComponent_uMl, new Q.closure915(), C.Type_ProjectSelectComponent_lOq, new Q.closure916(), C.Type_QLA, new Q.closure917(), C.Type_RateGroupSelectComponent_9Yy, new Q.closure918(), C.Type_RateUnitTypeSelectComponent_e7M, new Q.closure919(), C.Type_RoundModeSelect_bCX, new Q.closure920(), C.Type_ServiceSelectComponent_4CA, new Q.closure921(), C.Type_Wnx, new Q.closure922(), C.Type_UserSelectComponent_Opm, new Q.closure923(), C.Type_DataCache_QkT, new Q.closure924(), C.Type_ResourceStore_MKd, new Q.closure925(), C.Type_HammockConfig_xGW, new Q.closure926(), C.Type_ObjectStore_Ec2, new Q.closure927(), C.Type_UserAuthProvider_4AN, new Q.closure928(), C.Type_SettingsManager_EsU, new Q.closure929(), C.Type_UserContext_69t, new Q.closure930(), C.Type_StatusService_oU9, new Q.closure931(), C.Type_TabSetComponent_4m4, new Q.closure932(), C.Type_AppComponent_kSJ, new Q.closure933(), C.Type_ErrorIconComponent_2fF, new Q.closure934(), C.Type_DateToTextInput_B8J, new Q.closure935(), C.Type_UserFilter_JTJ, new Q.closure936(), C.Type_TimesliceDateFilter_INK, new Q.closure937(), C.Type_ProjectValueFilter_Yqs, new Q.closure938(), C.Type_FYo, new Q.closure939(), C.Type_InvoiceItemOrderByOrderField_233, new Q.closure940(), C.Type_SecondsToHours_wYH, new Q.closure941(), C.Type_MenuComponent_4CA, new Q.closure942(), C.Type_AddressEditComponent_XHr, new Q.closure943(), C.Type_CustomerEditComponent_kqh, new Q.closure944(), C.Type_EmployeeEditComponent_Amm, new Q.closure945(), C.Type_InvoiceEditComponent_69P, new Q.closure946(), C.Type_OfferEditComponent_PLv, new Q.closure947(), C.Type_ProjectEditComponent_jnt, new Q.closure948(), C.Type_ServiceEditComponent_EVG, new Q.closure949(), C.Type_StatusBarComponent_QIC, new Q.closure950(), C.Type_DateRange_E4y, new Q.closure951(), C.Type_ActivityOverviewComponent_Adg, new Q.closure952(), C.Type_CustomerOverviewComponent_5wV, new Q.closure953(), C.Type_HBZ, new Q.closure954(), C.Type_EmployeeOverviewComponent_s8k, new Q.closure955(), C.Type_HolidayOverviewComponent_diW, new Q.closure956(), C.Type_InvoiceOverviewComponent_Mim, new Q.closure957(), C.Type_jYm, new Q.closure958(), C.Type_InvoiceItemOverviewComponent_8Wd, new Q.closure959(), C.Type_OfferOverviewComponent_ewF, new Q.closure960(), C.Type_sav0, new Q.closure961(), C.Type_sav, new Q.closure962(), C.Type_PeriodOverviewComponent_lVM, new Q.closure963(), C.Type_ProjectOverviewComponent_1Ka, new Q.closure964(), C.Type_ProjectOpenInvoicesComponent_UoB, new Q.closure965(), C.Type_Au4, new Q.closure966(), C.Type_RateOverviewComponent_qJs, new Q.closure967(), C.Type_RateGroupOverviewComponent_yLX, new Q.closure968(), C.Type_41V, new Q.closure969(), C.Type_ServiceOverviewComponent_cyO, new Q.closure970(), C.Type_4YB, new Q.closure971(), C.Type_TimesliceOverviewComponent_gsm, new Q.closure972(), C.Type_TimetrackComponent_ASm, new Q.closure973(), C.Type_TimetrackMultiComponent_c86, new Q.closure974(), C.Type_ProjectTimetrackComponent_ES1, new Q.closure975(), C.Type_TimetrackPeriodsComponent_evT, new Q.closure976(), C.Type_SettingEditComponent_ato, new Q.closure977(), C.Type_Carousel_U3n, new Q.closure978(), C.Type_Slide_USP, new Q.closure979(), C.Type_TimeItem_yHq, new Q.closure980(), C.Type_Timeout_N1p, new Q.closure981(), C.Type_Transition_0, new Q.closure982(), C.Type_ProgressBar_kUZ, new Q.closure983(), C.Type_Progress_oyU, new Q.closure984(), C.Type_Bar_Z3K, new Q.closure985(), C.Type_NgPseudo_8I8, new Q.closure986(), C.Type_AccordionConfig_61x, new Q.closure987(), C.Type_AccordionComponent_yhx, new Q.closure988(), C.Type_AccordionGroupComponent_oxt, new Q.closure989(), C.Type_AccordionHeadingComponent_DKy, new Q.closure990(), C.Type_AccordionTransclude_Q8G, new Q.closure991(), C.Type_DblClickPreventer_e1m, new Q.closure992(), C.Type_BtnRadio_g0t, new Q.closure993(), C.Type_BtnCheckbox_jJI, new Q.closure994(), C.Type_DragDropZonesService_a6m, new Q.closure995(), C.Type_DragDropDataService_CBX, new Q.closure996(), C.Type_DragDropConfigService_qhc, new Q.closure997(), C.Type_DraggableComponent_eJH, new Q.closure998(), C.Type_DroppableComponent_knt, new Q.closure999(), C.Type_DragDropSortableDataService_VzM, new Q.closure1000(), C.Type_SortableComponent_Ey5, new Q.closure1001(), C.Type_SortableItemComponent_0, new Q.closure1002(), C.Type_PagerConfig_EgC, new Q.closure1003(), C.Type_PagerComponent_ijq, new Q.closure1004(), C.Type_PaginationConfig_w4W, new Q.closure1005(), C.Type_PaginationComponent_TcW, new Q.closure1006(), C.Type_PageInfo_qQg, new Q.closure1007(), C.Type_BasicPaginationGenerator_54c, new Q.closure1008(), C.Type_RatingComponent_sxw, new Q.closure1009(), C.Type_TooltipConfig_izV, new Q.closure1010(), C.Type_Tooltip_Ate, new Q.closure1011(), C.Type_Position_k0J, new Q.closure1012(), C.Type_Rect_cAS, new Q.closure1013(), C.Type_TabsetComponent_MXg, new Q.closure1014(), C.Type_TabComponent_SBP, new Q.closure1015(), C.Type_TabHeading_8K0, new Q.closure1016(), C.Type_ContentAppendComponent_xw8, new Q.closure1017(), C.Type_DatepickerConfig_kiE, new Q.closure1018(), C.Type_VisibleDates_ett, new Q.closure1019(), C.Type_Format_axX, new Q.closure1020(), C.Type_DateVO_2Hr, new Q.closure1021(), C.Type_Mode_ij7, new Q.closure1022(), C.Type_Datepicker_IUD, new Q.closure1023(), C.Type_WeekNumberFilter_5pG, new Q.closure1024(), C.Type_DatepickerPopup_0, new Q.closure1025(), C.Type_DatepickerPopupWrap_AGs, new Q.closure1026(), C.Type_ModalWindow_2No, new Q.closure1027(), C.Type_Modal_OjC, new Q.closure1028(), C.Type_Alert_Opy, new Q.closure1029(), C.Type_TypeaheadParser_yPK, new Q.closure1030(), C.Type_TypeaheadHighlightFilter_wDN, new Q.closure1031(), C.Type_TypeaheadPopup_apS, new Q.closure1032(), C.Type_TemplateBasedComponent_SxV, new Q.closure1033(), C.Type_TypeaheadMatch_K6y, new Q.closure1034(), C.Type_TypeaheadDecorator_ZQB, new Q.closure1035(), C.Type_TypeaheadConverter_gEE, new Q.closure1036(), C.Type_DropdownToggle_kzn, new Q.closure1037(), C.Type_Timepicker_0, new Q.closure1038(), C.Type_Popover_NAF, new Q.closure1039(), C.Type_Collapse_kn0, new Q.closure1040(), C.Type_WaA, new Q.closure1041(), C.Type_RevenueReportComponent_o0y, new Q.closure1042(), C.Type_ServicehoursReportComponent_6TW, new Q.closure1043(), C.Type_wv5, new Q.closure1044(), C.Type_PDP, new Q.closure1045(), C.Type_UserMenu_IcE, new Q.closure1046(), C.Type_Profiler_C5f, new Q.closure1047()], P.Type, P.Function);
   }, "typeFactories", "parameterKeys", "$get$parameterKeys", function() {
     var t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25, t26, t27, t28, t29, t30, t31, t32, t33, t34, t35, t36, t37, t38, t39, t40, t41, t42, t43, t44, t45, t46, t47, t48, t49, t50, t51, t52, t53, t54, t55, t56, t57, t58, t59, t60, t61, t62, t63, t64, t65, t66, t67, t68, t69, t70, t71, t72, t73, t74, t75, t76, t77, t78, t79, t80, t81, t82, t83, t84, t85, t86, t87, t88, t89, t90, t91, t92, t93, t94, t95, t96, t97, t98, t99, t100, t101, t102, t103, t104, t105, t106, t107, t108, t109, t110, t111, t112, t113, t114, t115, t116, t117, t118, t119, t120, t121;
     t1 = $.$get$_KEY_ExceptionHandler();
@@ -70562,9 +70401,9 @@
     t121 = $.$get$_KEY_Date();
     return P.LinkedHashMap__makeLiteral([C.Type_PercentageInputField_nFg, C.List_empty, C.Type_Animate_ia3, C.List_empty, C.Type_BrowserCookies_23h, [t1], C.Type_Cookies_sBb, [t2], C.Type_Compiler_A0t, [t3, t4], C.Type_CompilerConfig_U2T, C.List_empty, C.Type_DirectiveMap_o48, [t5, t6, t7, t8], C.Type_ElementBinderFactory_kMT, [t9, t3, t10, t4, t11, t12, t13, t14], C.Type_EventHandler_MYA, [t15, t4, t1], C.Type_ShadowRootEventHandler_6m4, [t16, t4, t1], C.Type_DefaultShadowBoundary_R4n, C.List_empty, C.Type_ShadowRootBoundary_OXJ, [t16], C.Type_UrlRewriter_bl8, C.List_empty, C.Type_HttpBackend_KxY, C.List_empty, C.Type_LocationWrapper_A8Z, C.List_empty, C.Type_HttpInterceptors_Egs, C.List_empty, C.Type_HttpDefaultHeaders_2ru, C.List_empty, C.Type_HttpDefaults_JSb, [t17], C.Type_Http_Zg3, [t2, t18, t19, t20, t21, t22, t23, t24, t25, t26], C.Type_HttpConfig_KHa, C.List_empty, C.Type_TextMustache_ekJ, [t15, t27, t28], C.Type_AttrMustache_4eS, [t29, t30, t27, t28], C.Type_NgElement_SWJ, [t31, t23, t32, t33], C.Type_DirectiveSelectorFactory_DV7, [t34, t35, t11, t6, t5], C.Type_ShadowDomComponentFactory_YyH, [t36, t37, t4, t10, t38, t39, t40, t41, t42, t43, t44], C.Type_ComponentCssRewriter_qdZ, C.List_empty, C.Type_TranscludingComponentFactory_00x, [t4, t36, t10, t45, t38, t39, t40, t41, t42, t43, t44], C.Type_Content_0, [t31, t46, t33, t47], C.Type_NullTreeSanitizer_KBl, C.List_empty, C.Type_ViewFactoryCache_7FP, [t40, t41, t48, t43, t39, t44], C.Type_PlatformJsBasedShim_D34, C.List_empty, C.Type_DefaultPlatformShim_WHx, C.List_empty, C.Type_AHref_QTH, [t31, t25], C.Type_NgBaseCss_6m4, C.List_empty, C.Type_NgBind_Fv2, [t31, t49], C.Type_NgBindHtml_Bzh, [t31, t50], C.Type_NgBindTemplate_flr, [t31], C.Type_NgClass_e8P, [t51, t28, t29], C.Type_NgClassOdd_lGg, [t51, t28, t29], C.Type_NgClassEven_W7k, [t51, t28, t29], C.Type_NgEvent_WPt, [t31, t28], C.Type_NgCloak_3OQ, [t31, t32], C.Type_NgIf_Q4r, [t52, t53, t28], C.Type_NgUnless_i7B, [t52, t53, t28], C.Type_NgInclude_sKi, [t31, t28, t36, t54, t55], C.Type_NgModel_qjS, [t28, t51, t54, t29, t32, t49], C.Type_InputCheckbox_kqK, [t31, t56, t28, t57, t58, t59], C.Type_InputTextLike_IK6, [t31, t56, t28, t59], C.Type_InputNumberLike_Us6, [t31, t56, t28, t59], C.Type_NgBindTypeForDateLike_ls9, [t31], C.Type_InputDateLike_vww, [t31, t56, t28, t60, t59], C.Type_NgValue_Yqh, [t31], C.Type_NgTrueValue_jWj, [t31], C.Type_NgFalseValue_58q, [t31], C.Type_InputRadio_CRY, [t31, t56, t28, t61, t29], C.Type_ContentEditable_yg4, [t31, t56, t28, t59], C.Type_NgPluralize_oBb, [t28, t31, t35, t6], C.Type_NgRepeat_s3m, [t53, t62, t28, t9, t6], C.Type_NgTemplate_7BT, [t31, t41], C.Type_NgHide_Fv2, [t31, t32], C.Type_NgShow_Otg, [t31, t32], C.Type_NgBooleanAttribute_3Sx, [t51], C.Type_NgSource_ESz, [t51], C.Type_NgAttribute_69t, [t29], C.Type_NgStyle_SwL, [t31, t28], C.Type_NgSwitch_2Ex, [t28], C.Type_NgSwitchWhen_UW6, [t63, t53, t62], C.Type_NgSwitchDefault_ROw, [t63, t53, t62], C.Type_NgNonBindable_XB4, C.List_empty, C.Type_InputSelect_rTV, [t31, t29, t56, t28], C.Type_OptionValue_ESz, [t31, t64, t61], C.Type_NgForm_WV2, [t28, t51, t54, t32], C.Type_NgModelRequiredValidator_ynv, [t56], C.Type_NgModelUrlValidator_Dfi, [t56], C.Type_NgModelColorValidator_Z6Y, [t56], C.Type_NgModelEmailValidator_8aB, [t56], C.Type_NgModelNumberValidator_kfn, [t56], C.Type_NgModelMaxNumberValidator_ato, [t56], C.Type_NgModelMinNumberValidator_ato, [t56], C.Type_NgModelPatternValidator_Y7N, [t56], C.Type_NgModelMinLengthValidator_OvN, [t56], C.Type_NgModelMaxLengthValidator_OvN, [t56], C.Type_NgModelOptions_woc, C.List_empty, C.Type_Parser_v5M, [t65, t66, t44], C.Type_RuntimeParserBackend_kaS, [t67], C.Type_FormatterMap_JNA, [t5, t7], C.Type_ExceptionHandler_i7B, C.List_empty, C.Type_Interpolate_tMJ, [t44], C.Type_ScopeDigestTTL_e9j, C.List_empty, C.Type_ScopeStats_Gpa, [t68, t69], C.Type_ScopeStatsEmitter_2jN, C.List_empty, C.Type_ScopeStatsConfig_Ay2, C.List_empty, C.Type_RootScope_KGu, [t70, t9, t11, t71, t6, t1, t72, t25, t73, t44, t26], C.Type_PendingAsync_GAt, C.List_empty, C.Type_Lexer_AYZ, C.List_empty, C.Type_ASTParser_UxB, [t9, t67], C.Type_CacheRegister_avx, C.List_empty, C.Type_ResourceUrlResolver_0, [t38, t74], C.Type_ResourceResolverConfig_vkJ, C.List_empty, C.Type_Currency_MSf, C.List_empty, C.Type_Date_63Q, C.List_empty, C.Type_Filter_Roh, [t9], C.Type_Json_mya, C.List_empty, C.Type_LimitTo_8qt, [t5], C.Type_Lowercase_Gpa, C.List_empty, C.Type_Arrayify_gg4, C.List_empty, C.Type_Number_lSr, C.List_empty, C.Type_OrderBy_adS, [t9], C.Type_Uppercase_TXT, C.List_empty, C.Type_Stringify_2jN, C.List_empty, C.Type_AnimationLoop_oyU, [t75, t3, t25], C.Type_AnimationFrame_Nhy, [t76], C.Type_AnimationOptimizer_e7Q, [t4], C.Type_CssAnimate_goM, [t77, t78, t79], C.Type_CssAnimationMap_erm, C.List_empty, C.Type_NgAnimate_u1X, [t31, t79], C.Type_NgAnimateChildren_QN8, [t31, t79], C.Type_NgRoutingUsePushState_jWj, C.List_empty, C.Type_NgRoutingHelper_7eO, [t80, t5, t81, t82], C.Type_NgView_ZCY, [t31, t36, t54, t5, t81, t28], C.Type_NgBindRoute_7Re, [t81, t54, t83], C.Type_JsCacheRegister_Epa, [t44], C.Type_ActivitySelectComponent_Ik7, [t84, t31, t85, t86], C.Type_CustomerSelectComponent_Eaj, [t84, t31, t85, t86], C.Type_OfferStatusSelectComponent_uMl, [t84, t31, t85, t86], C.Type_ProjectSelectComponent_lOq, [t84, t31, t85, t86], C.Type_QLA, [t84, t31, t85, t86], C.Type_RateGroupSelectComponent_9Yy, [t84, t31, t85, t86], C.Type_RateUnitTypeSelectComponent_e7M, [t84, t31, t85, t86], C.Type_RoundModeSelect_bCX, [t31], C.Type_ServiceSelectComponent_4CA, [t84, t31, t85, t86], C.Type_Wnx, [t84, t31, t85, t86], C.Type_UserSelectComponent_Opm, [t84, t31, t87, t85, t86], C.Type_DataCache_QkT, [t88], C.Type_ResourceStore_MKd, [t40, t89], C.Type_HammockConfig_xGW, [t5], C.Type_ObjectStore_Ec2, [t90, t89], C.Type_UserAuthProvider_4AN, [t88, t17, t91, t87, t85], C.Type_SettingsManager_EsU, [t88, t87, t85], C.Type_UserContext_69t, [t84], C.Type_StatusService_oU9, C.List_empty, C.Type_TabSetComponent_4m4, C.List_empty, C.Type_AppComponent_kSJ, [t86, t87], C.Type_ErrorIconComponent_2fF, [t85], C.Type_DateToTextInput_B8J, C.List_empty, C.Type_UserFilter_JTJ, C.List_empty, C.Type_TimesliceDateFilter_INK, C.List_empty, C.Type_ProjectValueFilter_Yqs, C.List_empty, C.Type_FYo, C.List_empty, C.Type_InvoiceItemOrderByOrderField_233, C.List_empty, C.Type_SecondsToHours_wYH, C.List_empty, C.Type_MenuComponent_4CA, [t86], C.Type_AddressEditComponent_XHr, C.List_empty, C.Type_CustomerEditComponent_kqh, [t92, t84, t85, t86, t81], C.Type_EmployeeEditComponent_Amm, [t92, t84, t85, t86, t81], C.Type_InvoiceEditComponent_69P, [t92, t84, t85, t86, t81], C.Type_OfferEditComponent_PLv, [t92, t84, t85, t86, t81], C.Type_ProjectEditComponent_jnt, [t92, t84, t85, t86, t81], C.Type_ServiceEditComponent_EVG, [t92, t84, t85, t86, t81], C.Type_StatusBarComponent_QIC, [t85], C.Type_DateRange_E4y, C.List_empty, C.Type_ActivityOverviewComponent_Adg, [t84, t91, t85], C.Type_CustomerOverviewComponent_5wV, [t84, t81, t91, t85, t86, t92], C.Type_HBZ, [t84, t91, t85, t87, t86], C.Type_EmployeeOverviewComponent_s8k, [t84, t81, t91, t85, t86], C.Type_HolidayOverviewComponent_diW, [t84, t91, t85, t86], C.Type_InvoiceOverviewComponent_Mim, [t84, t81, t91, t85, t86], C.Type_jYm, [t84, t91, t85], C.Type_InvoiceItemOverviewComponent_8Wd, [t84, t91, t85], C.Type_OfferOverviewComponent_ewF, [t84, t87, t81, t91, t85, t86], C.Type_sav0, [t84, t91, t85], C.Type_sav, [t84, t91, t85], C.Type_PeriodOverviewComponent_lVM, [t84, t91, t85, t87], C.Type_ProjectOverviewComponent_1Ka, [t84, t87, t81, t91, t85, t86, t92], C.Type_ProjectOpenInvoicesComponent_UoB, [t84, t87, t81, t91, t85, t86, t92], C.Type_Au4, [t84, t91, t85, t86], C.Type_RateOverviewComponent_qJs, [t84, t91, t85], C.Type_RateGroupOverviewComponent_yLX, [t84, t91, t85, t86], C.Type_41V, [t84, t91, t85, t86], C.Type_ServiceOverviewComponent_cyO, [t84, t81, t91, t85, t86], C.Type_4YB, [t91, t85], C.Type_TimesliceOverviewComponent_gsm, [t84, t91, t85, t87, t86], C.Type_TimetrackComponent_ASm, [t86, t87], C.Type_TimetrackMultiComponent_c86, [t84, t91, t85, t87, t86], C.Type_ProjectTimetrackComponent_ES1, [t86, t85], C.Type_TimetrackPeriodsComponent_evT, [t86, t87, t85, t84], C.Type_SettingEditComponent_ato, [t91, t86], C.Type_Carousel_U3n, [t93, t94], C.Type_Slide_USP, [t31, t95], C.Type_TimeItem_yHq, [t96, t97], C.Type_Timeout_N1p, [t5, t1], C.Type_Transition_0, [t94], C.Type_ProgressBar_kUZ, [t98, t93, t31], C.Type_Progress_oyU, [t31], C.Type_Bar_Z3K, [t98, t93, t31], C.Type_NgPseudo_8I8, [t31], C.Type_AccordionConfig_61x, C.List_empty, C.Type_AccordionComponent_yhx, [t99], C.Type_AccordionGroupComponent_oxt, [t100, t101, t94], C.Type_AccordionHeadingComponent_DKy, [t31, t102], C.Type_AccordionTransclude_Q8G, [t31], C.Type_DblClickPreventer_e1m, [t94], C.Type_BtnRadio_g0t, [t31, t56, t103, t28], C.Type_BtnCheckbox_jJI, [t31, t56, t103, t28], C.Type_DragDropZonesService_a6m, C.List_empty, C.Type_DragDropDataService_CBX, C.List_empty, C.Type_DragDropConfigService_qhc, C.List_empty, C.Type_DraggableComponent_eJH, [t31, t104, t105, t106], C.Type_DroppableComponent_knt, [t31, t104, t105, t106], C.Type_DragDropSortableDataService_VzM, C.List_empty, C.Type_SortableComponent_Ey5, [t31, t104, t106, t107, t28], C.Type_SortableItemComponent_0, [t108, t107, t31, t104, t106], C.Type_PagerConfig_EgC, [t109, t30, t30, t110], C.Type_PagerComponent_ijq, [t111], C.Type_PaginationConfig_w4W, [t109, t110, t110, t30, t30, t30, t30, t110], C.Type_PaginationComponent_TcW, [t112, t113], C.Type_PageInfo_qQg, [t109, t30, t110], C.Type_BasicPaginationGenerator_54c, C.List_empty, C.Type_RatingComponent_sxw, [t31, t29, t56, t114], C.Type_TooltipConfig_izV, C.List_empty, C.Type_Tooltip_Ate, [t31, t29, t94, t115, t35, t116, t5, t48], C.Type_Position_k0J, C.List_empty, C.Type_Rect_cAS, [t117, t117, t117, t117], C.Type_TabsetComponent_MXg, C.List_empty, C.Type_TabComponent_SBP, [t31, t118], C.Type_TabHeading_8K0, [t31, t119], C.Type_ContentAppendComponent_xw8, [t31], C.Type_DatepickerConfig_kiE, C.List_empty, C.Type_VisibleDates_ett, C.List_empty, C.Type_Format_axX, C.List_empty, C.Type_DateVO_2Hr, C.List_empty, C.Type_Mode_ij7, C.List_empty, C.Type_Datepicker_IUD, [t31, t120, t29, t56, t121], C.Type_WeekNumberFilter_5pG, C.List_empty, C.Type_DatepickerPopup_0, [t28, t31, t121, t29, t56, t116, t9, t48, t55, t5, t120, $.$get$_KEY_DatepickerPopupConfig()], C.Type_DatepickerPopupWrap_AGs, [t31], C.Type_ModalWindow_2No, [t31, $.$get$_KEY_Modal(), t94], C.Type_Modal_OjC, [t48, t94, t41, t40, t54, t55], C.Type_Alert_Opy, [t29], C.Type_TypeaheadParser_yPK, [t9], C.Type_TypeaheadHighlightFilter_wDN, C.List_empty, C.Type_TypeaheadPopup_apS, C.List_empty, C.Type_TemplateBasedComponent_SxV, [t36], C.Type_TypeaheadMatch_K6y, [t31, t5, t36], C.Type_TypeaheadDecorator_ZQB, [t56, t5, t31, $.$get$_KEY_TypeaheadParser(), t6, t36, t116], C.Type_TypeaheadConverter_gEE, [$.$get$_KEY_FormatterFunc()], C.Type_DropdownToggle_kzn, [t31], C.Type_Timepicker_0, [t31, $.$get$_KEY_TimepickerConfig(), t29, t56], C.Type_Popover_NAF, [t31, t29, t94, t115, t35, t116, t5, t48], C.Type_Collapse_kn0, [t31, t93], C.Type_WaA, [t85], C.Type_RevenueReportComponent_o0y, [t85], C.Type_ServicehoursReportComponent_6TW, [t85], C.Type_wv5, [t84, t91, t85, t86], C.Type_PDP, [t84, t91, t85, t86], C.Type_UserMenu_IcE, [t86, t87, t81], C.Type_Profiler_C5f, C.List_empty]);
   }, "parameterKeys", "getters", "$get$getters", function() {
-    return P.LinkedHashMap__makeLiteral(["htmlclass", new G.closure363(), "precision", new G.closure364(), "useSafeCalc", new G.closure365(), "model", new G.closure366(), "select", new G.closure367(), "urls", new G.closure368(), "value", new G.closure369(), "bind", new G.closure370(), "valueExpression", new G.closure371(), "onAbort", new G.closure372(), "onBeforeCopy", new G.closure373(), "onBeforeCut", new G.closure374(), "onBeforePaste", new G.closure375(), "onBlur", new G.closure376(), "onChange", new G.closure377(), "onClick", new G.closure378(), "onContextMenu", new G.closure379(), "onCopy", new G.closure380(), "onCut", new G.closure381(), "onDoubleClick", new G.closure382(), "onDrag", new G.closure383(), "onDragEnd", new G.closure384(), "onDragEnter", new G.closure385(), "onDragLeave", new G.closure386(), "onDragOver", new G.closure387(), "onDragStart", new G.closure388(), "onDrop", new G.closure389(), "onError", new G.closure390(), "onFocus", new G.closure391(), "onFullscreenChange", new G.closure392(), "onFullscreenError", new G.closure393(), "onInput", new G.closure394(), "onInvalid", new G.closure395(), "onKeyDown", new G.closure396(), "onKeyPress", new G.closure397(), "onKeyUp", new G.closure398(), "onLoad", new G.closure399(), "onMouseDown", new G.closure400(), "onMouseEnter", new G.closure401(), "onMouseLeave", new G.closure402(), "onMouseMove", new G.closure403(), "onMouseOut", new G.closure404(), "onMouseOver", new G.closure405(), "onMouseUp", new G.closure406(), "onMouseWheel", new G.closure407(), "onPaste", new G.closure408(), "onReset", new G.closure409(), "onScroll", new G.closure410(), "onSearch", new G.closure411(), "onSelect", new G.closure412(), "onSelectStart", new G.closure413(), "onSubmit", new G.closure414(), "onTouchCancel", new G.closure415(), "onTouchEnd", new G.closure416(), "onTouchEnter", new G.closure417(), "onTouchLeave", new G.closure418(), "onTouchMove", new G.closure419(), "onTouchStart", new G.closure420(), "onTransitionEnd", new G.closure421(), "condition", new G.closure422(), "url", new G.closure423(), "name", new G.closure424(), "idlAttrKind", new G.closure425(), "count", new G.closure426(), "expression", new G.closure427(), "templateUrl", new G.closure428(), "hide", new G.closure429(), "show", new G.closure430(), "checked", new G.closure431(), "disabled", new G.closure432(), "multiple", new G.closure433(), "open", new G.closure434(), "readonly", new G.closure435(), "required", new G.closure436(), "selected", new G.closure437(), "href", new G.closure438(), "src", new G.closure439(), "srcset", new G.closure440(), "styleExpression", new G.closure441(), "max", new G.closure442(), "min", new G.closure443(), "pattern", new G.closure444(), "minlength", new G.closure445(), "maxlength", new G.closure446(), "options", new G.closure447(), "option", new G.closure448(), "routeName", new G.closure449(), "selectedEntity", new G.closure450(), "projectId", new G.closure451(), "shortname", new G.closure452(), "callback", new G.closure453(), "field", new G.closure454(), "clearOnClose", new G.closure455(), "placeholder", new G.closure456(), "hideArchived", new G.closure457(), "useContext", new G.closure458(), "date", new G.closure459(), "format", new G.closure460(), "hasButtons", new G.closure461(), "nullAllowed", new G.closure462(), "address", new G.closure463(), "editform", new G.closure464(), "startDate", new G.closure465(), "endDate", new G.closure466(), "invoiceId", new G.closure467(), "offerId", new G.closure468(), "employee", new G.closure469(), "serviceId", new G.closure470(), "entities", new G.closure471(), "projectFilter", new G.closure472(), "allowProjectSelect", new G.closure473(), "blendOutStartAndEnd", new G.closure474(), "namespace", new G.closure475(), "setting", new G.closure476(), "isCloseOthers", new G.closure477(), "heading", new G.closure478(), "isOpen", new G.closure479(), "isDisabled", new G.closure480(), "collapse", new G.closure481(), "btnRadioAttr", new G.closure482(), "btnCheckboxTrue", new G.closure483(), "btnCheckboxFalse", new G.closure484(), "type", new G.closure485(), "close", new G.closure486(), "alertTypeAsString", new G.closure487(), "closeable", new G.closure488(), "justified", new G.closure489(), "vertical", new G.closure490(), "tabs", new G.closure491(), "tab", new G.closure492(), "active", new G.closure493(), "onSelectCallback", new G.closure494(), "onDeselectCallback", new G.closure495(), "append", new G.closure496(), "windowClass", new G.closure497(), "visible", new G.closure498(), "keyboard", new G.closure499(), "index", new G.closure500(), "backdropAsString", new G.closure501(), "size", new G.closure502(), "$event", new G.closure503(), "sizeClass", new G.closure504(), "draggable", new G.closure505(), "draggableData", new G.closure506(), "dragdropConfig", new G.closure507(), "onDragSuccessCallback", new G.closure508(), "dropZones", new G.closure509(), "onDropSuccessCallback", new G.closure510(), "sortableData", new G.closure511(), "sortableConfig", new G.closure512(), "sortableZones", new G.closure513(), "currentPage", new G.closure514(), "totalItems", new G.closure515(), "itemsPerPage", new G.closure516(), "setNumPagesListener", new G.closure517(), "onSelectChangeExtEventHandler", new G.closure518(), "align", new G.closure519(), "previousText", new G.closure520(), "nextText", new G.closure521(), "noPrevious", new G.closure522(), "noNext", new G.closure523(), "maxSize", new G.closure524(), "rotate", new G.closure525(), "boundaryLinks", new G.closure526(), "directionLinks", new G.closure527(), "firstText", new G.closure528(), "lastText", new G.closure529(), "pages", new G.closure530(), "page", new G.closure531(), "isActive", new G.closure532(), "number", new G.closure533(), "text", new G.closure534(), "totalPages", new G.closure535(), "matches", new G.closure536(), "selectEventHandler", new G.closure537(), "position", new G.closure538(), "query", new G.closure539(), "top", new G.closure540(), "left", new G.closure541(), "match", new G.closure542(), "id", new G.closure543(), "$index", new G.closure544(), "minLength", new G.closure545(), "appendToBody", new G.closure546(), "inputFormatter", new G.closure547(), "waitInMs", new G.closure548(), "isLoading", new G.closure549(), "isEditable", new G.closure550(), "showMeridian", new G.closure551(), "invalidHours", new G.closure552(), "readonlyInput", new G.closure553(), "invalidMinutes", new G.closure554(), "meridian", new G.closure555(), "isCollapsed", new G.closure556(), "noTransition", new G.closure557(), "interval", new G.closure558(), "noPause", new G.closure559(), "slides", new G.closure560(), "length", new G.closure561(), "item", new G.closure562(), "direction", new G.closure563(), "entering", new G.closure564(), "leaving", new G.closure565(), "next", new G.closure566(), "animate", new G.closure567(), "classes", new G.closure568(), "onHover", new G.closure569(), "onLeave", new G.closure570(), "range", new G.closure571(), "r", new G.closure572(), "dayFormat", new G.closure573(), "monthFormat", new G.closure574(), "yearFormat", new G.closure575(), "dayHeaderFormat", new G.closure576(), "dayTitleFormat", new G.closure577(), "monthTitleFormat", new G.closure578(), "startingDay", new G.closure579(), "yearRange", new G.closure580(), "dateDisabled", new G.closure581(), "showWeeks", new G.closure582(), "d", new G.closure583(), "display", new G.closure584(), "showButtonBar", new G.closure585(), "currentText", new G.closure586(), "toggleWeeksText", new G.closure587(), "clearText", new G.closure588(), "closeText", new G.closure589(), "selector", new G.closure590(), "entity", new G.closure591(), "service", new G.closure592(), "fullname", new G.closure593(), "modes", new G.closure594(), "mode", new G.closure595(), "archived", new G.closure596(), "link", new G.closure597(), "linklist", new G.closure598(), "Title", new G.closure599(), "auth", new G.closure600(), "isloggedin", new G.closure601(), "userContext", new G.closure602(), "showlogin", new G.closure603(), "loginFailed", new G.closure604(), "username", new G.closure605(), "password", new G.closure606(), "rememberme", new G.closure607(), "statusservice", new G.closure608(), "status", new G.closure609(), "isValid", new G.closure610(), "menus", new G.closure611(), "menu", new G.closure612(), "icon", new G.closure613(), "title", new G.closure614(), "items", new G.closure615(), "street", new G.closure616(), "streetnumber", new G.closure617(), "plz", new G.closure618(), "city", new G.closure619(), "state", new G.closure620(), "country", new G.closure621(), "company", new G.closure622(), "department", new G.closure623(), "salutation", new G.closure624(), "rateGroup", new G.closure625(), "chargeable", new G.closure626(), "firstname", new G.closure627(), "lastname", new G.closure628(), "email", new G.closure629(), "plainpassword", new G.closure630(), "employeeholiday", new G.closure631(), "enabled", new G.closure632(), "locked", new G.closure633(), "project", new G.closure634(), "offers", new G.closure635(), "isEmpty", new G.closure636(), "offer", new G.closure637(), "invoices", new G.closure638(), "invoice", new G.closure639(), "customer", new G.closure640(), "accountant", new G.closure641(), "start", new G.closure642(), "end", new G.closure643(), "description", new G.closure644(), "standardDiscounts", new G.closure645(), "subtotal", new G.closure646(), "totalDiscounts", new G.closure647(), "totalVAT", new G.closure648(), "totalVAT8", new G.closure649(), "totalVAT2", new G.closure650(), "total", new G.closure651(), "fixedPrice", new G.closure652(), "validTo", new G.closure653(), "shortDescription", new G.closure654(), "alias", new G.closure655(), "projectCategory", new G.closure656(), "deadline", new G.closure657(), "currentPrice", new G.closure658(), "budgetPrice", new G.closure659(), "remainingBudgetPrice", new G.closure660(), "currentTime", new G.closure661(), "budgetTime", new G.closure662(), "remainingBudgetTime", new G.closure663(), "updatedAt", new G.closure664(), "user", new G.closure665(), "createdAt", new G.closure666(), "vat", new G.closure667(), "error", new G.closure668(), "loading", new G.closure669(), "defaultVal", new G.closure670(), "success", new G.closure671(), "rateValue", new G.closure672(), "rateUnit", new G.closure673(), "filterString", new G.closure674(), "sortType", new G.closure675(), "sortReverse", new G.closure676(), "projectAssignments", new G.closure677(), "weekday", new G.closure678(), "duration", new G.closure679(), "percentage", new G.closure680(), "order", new G.closure681(), "amount", new G.closure682(), "rateUnitType", new G.closure683(), "discountable", new G.closure684(), "pensum", new G.closure685(), "realTime", new G.closure686(), "targetTime", new G.closure687(), "timeTillToday", new G.closure688(), "holidayBalance", new G.closure689(), "lastYearHolidayBalance", new G.closure690(), "factor", new G.closure691(), "scale", new G.closure692(), "doTransform", new G.closure693(), "roundMode", new G.closure694(), "symbol", new G.closure695(), "newDiscount", new G.closure696(), "filterStartDate", new G.closure697(), "filterEndDate", new G.closure698(), "projectBased", new G.closure699(), "activity", new G.closure700(), "startedAt", new G.closure701(), "stoppedAt", new G.closure702(), "newEntryDate", new G.closure703(), "updateNewEntryDate", new G.closure704(), "selectedProject", new G.closure705(), "selectedActivity", new G.closure706(), "activities", new G.closure707(), "entries", new G.closure708(), "inputAll", new G.closure709(), "entry", new G.closure710(), "selectedUserToAdd", new G.closure711(), "statusText", new G.closure712(), "showEnabledUsersOnly", new G.closure713(), "employees", new G.closure714(), "empl", new G.closure715(), "seconds", new G.closure716(), "activitylist", new G.closure717(), "projectCategoryId", new G.closure718(), "report", new G.closure719(), "timeslices", new G.closure720(), "dates", new G.closure721(), "days", new G.closure722(), "day", new G.closure723(), "toggleOpen", new G.closure724(), "selectPage", new G.closure725(), "selectMatch", new G.closure726(), "selectActive", new G.closure727(), "incrementHours", new G.closure728(), "incrementMinutes", new G.closure729(), "updateHours", new G.closure730(), "updateMinutes", new G.closure731(), "toggleMeridian", new G.closure732(), "decrementHours", new G.closure733(), "decrementMinutes", new G.closure734(), "pause", new G.closure735(), "play", new G.closure736(), "prev", new G.closure737(), "reset", new G.closure738(), "stateClass", new G.closure739(), "rate", new G.closure740(), "enter", new G.closure741(), "move", new G.closure742(), "toggleMode", new G.closure743(), "today", new G.closure744(), "clear", new G.closure745(), "toggleSelectionBox", new G.closure746(), "loginOnEnter", new G.closure747(), "login", new G.closure748(), "onInputBlur", new G.closure749(), "previousDay", new G.closure750(), "nextDay", new G.closure751(), "toggleMenu", new G.closure752(), "addSaveField", new G.closure753(), "saveEntity", new G.closure754(), "reload", new G.closure755(), "openOffer", new G.closure756(), "openProject", new G.closure757(), "openInvoice", new G.closure758(), "createInvoice", new G.closure759(), "updateInvoicefromProject", new G.closure760(), "printInvoice", new G.closure761(), "printAufwandsbericht", new G.closure762(), "createProject", new G.closure763(), "addFieldtoUpdate", new G.closure764(), "copyAddressFromCustomer", new G.closure765(), "printOffer", new G.closure766(), "previousMonth", new G.closure767(), "previousWeek", new G.closure768(), "nextWeek", new G.closure769(), "nextMonth", new G.closure770(), "isSelected", new G.closure771(), "selectEntity", new G.closure772(), "deleteEntity", new G.closure773(), "createEntity", new G.closure774(), "duplicateEntity", new G.closure775(), "changeSortOrder", new G.closure776(), "searchFilter", new G.closure777(), "openEditView", new G.closure778(), "saveAllEntities", new G.closure779(), "duplicateInvoiceEntity", new G.closure780(), "save", new G.closure781(), "ViewValue", new G.closure782(), "inputAllUpdated", new G.closure783(), "removeUser", new G.closure784(), "addUser", new G.closure785(), "clearInputs", new G.closure786(), "update", new G.closure787(), "hasChanged", new G.closure788(), "getCsvLink", new G.closure789(), "printReport", new G.closure790(), "userEditor", new G.closure791(), "logout", new G.closure792()]);
+    return P.LinkedHashMap__makeLiteral(["htmlclass", new G.closure362(), "precision", new G.closure363(), "useSafeCalc", new G.closure364(), "model", new G.closure365(), "select", new G.closure366(), "urls", new G.closure367(), "value", new G.closure368(), "bind", new G.closure369(), "valueExpression", new G.closure370(), "onAbort", new G.closure371(), "onBeforeCopy", new G.closure372(), "onBeforeCut", new G.closure373(), "onBeforePaste", new G.closure374(), "onBlur", new G.closure375(), "onChange", new G.closure376(), "onClick", new G.closure377(), "onContextMenu", new G.closure378(), "onCopy", new G.closure379(), "onCut", new G.closure380(), "onDoubleClick", new G.closure381(), "onDrag", new G.closure382(), "onDragEnd", new G.closure383(), "onDragEnter", new G.closure384(), "onDragLeave", new G.closure385(), "onDragOver", new G.closure386(), "onDragStart", new G.closure387(), "onDrop", new G.closure388(), "onError", new G.closure389(), "onFocus", new G.closure390(), "onFullscreenChange", new G.closure391(), "onFullscreenError", new G.closure392(), "onInput", new G.closure393(), "onInvalid", new G.closure394(), "onKeyDown", new G.closure395(), "onKeyPress", new G.closure396(), "onKeyUp", new G.closure397(), "onLoad", new G.closure398(), "onMouseDown", new G.closure399(), "onMouseEnter", new G.closure400(), "onMouseLeave", new G.closure401(), "onMouseMove", new G.closure402(), "onMouseOut", new G.closure403(), "onMouseOver", new G.closure404(), "onMouseUp", new G.closure405(), "onMouseWheel", new G.closure406(), "onPaste", new G.closure407(), "onReset", new G.closure408(), "onScroll", new G.closure409(), "onSearch", new G.closure410(), "onSelect", new G.closure411(), "onSelectStart", new G.closure412(), "onSubmit", new G.closure413(), "onTouchCancel", new G.closure414(), "onTouchEnd", new G.closure415(), "onTouchEnter", new G.closure416(), "onTouchLeave", new G.closure417(), "onTouchMove", new G.closure418(), "onTouchStart", new G.closure419(), "onTransitionEnd", new G.closure420(), "condition", new G.closure421(), "url", new G.closure422(), "name", new G.closure423(), "idlAttrKind", new G.closure424(), "count", new G.closure425(), "expression", new G.closure426(), "templateUrl", new G.closure427(), "hide", new G.closure428(), "show", new G.closure429(), "checked", new G.closure430(), "disabled", new G.closure431(), "multiple", new G.closure432(), "open", new G.closure433(), "readonly", new G.closure434(), "required", new G.closure435(), "selected", new G.closure436(), "href", new G.closure437(), "src", new G.closure438(), "srcset", new G.closure439(), "styleExpression", new G.closure440(), "max", new G.closure441(), "min", new G.closure442(), "pattern", new G.closure443(), "minlength", new G.closure444(), "maxlength", new G.closure445(), "options", new G.closure446(), "option", new G.closure447(), "routeName", new G.closure448(), "selectedEntity", new G.closure449(), "projectId", new G.closure450(), "shortname", new G.closure451(), "callback", new G.closure452(), "field", new G.closure453(), "clearOnClose", new G.closure454(), "placeholder", new G.closure455(), "hideArchived", new G.closure456(), "useContext", new G.closure457(), "date", new G.closure458(), "format", new G.closure459(), "hasButtons", new G.closure460(), "nullAllowed", new G.closure461(), "address", new G.closure462(), "editform", new G.closure463(), "startDate", new G.closure464(), "endDate", new G.closure465(), "invoiceId", new G.closure466(), "offerId", new G.closure467(), "employee", new G.closure468(), "serviceId", new G.closure469(), "entities", new G.closure470(), "projectFilter", new G.closure471(), "allowProjectSelect", new G.closure472(), "blendOutStartAndEnd", new G.closure473(), "namespace", new G.closure474(), "setting", new G.closure475(), "isCloseOthers", new G.closure476(), "heading", new G.closure477(), "isOpen", new G.closure478(), "isDisabled", new G.closure479(), "collapse", new G.closure480(), "btnRadioAttr", new G.closure481(), "btnCheckboxTrue", new G.closure482(), "btnCheckboxFalse", new G.closure483(), "type", new G.closure484(), "close", new G.closure485(), "alertTypeAsString", new G.closure486(), "closeable", new G.closure487(), "justified", new G.closure488(), "vertical", new G.closure489(), "tabs", new G.closure490(), "tab", new G.closure491(), "active", new G.closure492(), "onSelectCallback", new G.closure493(), "onDeselectCallback", new G.closure494(), "append", new G.closure495(), "windowClass", new G.closure496(), "visible", new G.closure497(), "keyboard", new G.closure498(), "index", new G.closure499(), "backdropAsString", new G.closure500(), "size", new G.closure501(), "$event", new G.closure502(), "sizeClass", new G.closure503(), "draggable", new G.closure504(), "draggableData", new G.closure505(), "dragdropConfig", new G.closure506(), "onDragSuccessCallback", new G.closure507(), "dropZones", new G.closure508(), "onDropSuccessCallback", new G.closure509(), "sortableData", new G.closure510(), "sortableConfig", new G.closure511(), "sortableZones", new G.closure512(), "currentPage", new G.closure513(), "totalItems", new G.closure514(), "itemsPerPage", new G.closure515(), "setNumPagesListener", new G.closure516(), "onSelectChangeExtEventHandler", new G.closure517(), "align", new G.closure518(), "previousText", new G.closure519(), "nextText", new G.closure520(), "noPrevious", new G.closure521(), "noNext", new G.closure522(), "maxSize", new G.closure523(), "rotate", new G.closure524(), "boundaryLinks", new G.closure525(), "directionLinks", new G.closure526(), "firstText", new G.closure527(), "lastText", new G.closure528(), "pages", new G.closure529(), "page", new G.closure530(), "isActive", new G.closure531(), "number", new G.closure532(), "text", new G.closure533(), "totalPages", new G.closure534(), "matches", new G.closure535(), "selectEventHandler", new G.closure536(), "position", new G.closure537(), "query", new G.closure538(), "top", new G.closure539(), "left", new G.closure540(), "match", new G.closure541(), "id", new G.closure542(), "$index", new G.closure543(), "minLength", new G.closure544(), "appendToBody", new G.closure545(), "inputFormatter", new G.closure546(), "waitInMs", new G.closure547(), "isLoading", new G.closure548(), "isEditable", new G.closure549(), "showMeridian", new G.closure550(), "invalidHours", new G.closure551(), "readonlyInput", new G.closure552(), "invalidMinutes", new G.closure553(), "meridian", new G.closure554(), "isCollapsed", new G.closure555(), "noTransition", new G.closure556(), "interval", new G.closure557(), "noPause", new G.closure558(), "slides", new G.closure559(), "length", new G.closure560(), "item", new G.closure561(), "direction", new G.closure562(), "entering", new G.closure563(), "leaving", new G.closure564(), "next", new G.closure565(), "animate", new G.closure566(), "classes", new G.closure567(), "onHover", new G.closure568(), "onLeave", new G.closure569(), "range", new G.closure570(), "r", new G.closure571(), "dayFormat", new G.closure572(), "monthFormat", new G.closure573(), "yearFormat", new G.closure574(), "dayHeaderFormat", new G.closure575(), "dayTitleFormat", new G.closure576(), "monthTitleFormat", new G.closure577(), "startingDay", new G.closure578(), "yearRange", new G.closure579(), "dateDisabled", new G.closure580(), "showWeeks", new G.closure581(), "d", new G.closure582(), "display", new G.closure583(), "showButtonBar", new G.closure584(), "currentText", new G.closure585(), "toggleWeeksText", new G.closure586(), "clearText", new G.closure587(), "closeText", new G.closure588(), "selector", new G.closure589(), "entity", new G.closure590(), "service", new G.closure591(), "fullname", new G.closure592(), "modes", new G.closure593(), "mode", new G.closure594(), "archived", new G.closure595(), "link", new G.closure596(), "linklist", new G.closure597(), "Title", new G.closure598(), "auth", new G.closure599(), "isloggedin", new G.closure600(), "userContext", new G.closure601(), "showlogin", new G.closure602(), "loginFailed", new G.closure603(), "username", new G.closure604(), "password", new G.closure605(), "rememberme", new G.closure606(), "statusservice", new G.closure607(), "status", new G.closure608(), "isValid", new G.closure609(), "menus", new G.closure610(), "menu", new G.closure611(), "icon", new G.closure612(), "title", new G.closure613(), "items", new G.closure614(), "street", new G.closure615(), "streetnumber", new G.closure616(), "plz", new G.closure617(), "city", new G.closure618(), "state", new G.closure619(), "country", new G.closure620(), "company", new G.closure621(), "department", new G.closure622(), "salutation", new G.closure623(), "rateGroup", new G.closure624(), "chargeable", new G.closure625(), "firstname", new G.closure626(), "lastname", new G.closure627(), "email", new G.closure628(), "plainpassword", new G.closure629(), "employeeholiday", new G.closure630(), "enabled", new G.closure631(), "project", new G.closure632(), "offers", new G.closure633(), "isEmpty", new G.closure634(), "offer", new G.closure635(), "invoices", new G.closure636(), "invoice", new G.closure637(), "customer", new G.closure638(), "accountant", new G.closure639(), "start", new G.closure640(), "end", new G.closure641(), "description", new G.closure642(), "standardDiscounts", new G.closure643(), "subtotal", new G.closure644(), "totalDiscounts", new G.closure645(), "totalVAT", new G.closure646(), "totalVAT8", new G.closure647(), "totalVAT2", new G.closure648(), "total", new G.closure649(), "fixedPrice", new G.closure650(), "validTo", new G.closure651(), "shortDescription", new G.closure652(), "alias", new G.closure653(), "projectCategory", new G.closure654(), "deadline", new G.closure655(), "currentPrice", new G.closure656(), "budgetPrice", new G.closure657(), "remainingBudgetPrice", new G.closure658(), "currentTime", new G.closure659(), "budgetTime", new G.closure660(), "remainingBudgetTime", new G.closure661(), "updatedAt", new G.closure662(), "user", new G.closure663(), "createdAt", new G.closure664(), "vat", new G.closure665(), "error", new G.closure666(), "loading", new G.closure667(), "defaultVal", new G.closure668(), "success", new G.closure669(), "rateValue", new G.closure670(), "rateUnit", new G.closure671(), "filterString", new G.closure672(), "sortType", new G.closure673(), "sortReverse", new G.closure674(), "projectAssignments", new G.closure675(), "weekday", new G.closure676(), "duration", new G.closure677(), "percentage", new G.closure678(), "order", new G.closure679(), "amount", new G.closure680(), "rateUnitType", new G.closure681(), "discountable", new G.closure682(), "pensum", new G.closure683(), "realTime", new G.closure684(), "targetTime", new G.closure685(), "timeTillToday", new G.closure686(), "holidayBalance", new G.closure687(), "lastYearHolidayBalance", new G.closure688(), "factor", new G.closure689(), "scale", new G.closure690(), "doTransform", new G.closure691(), "roundMode", new G.closure692(), "symbol", new G.closure693(), "newDiscount", new G.closure694(), "filterStartDate", new G.closure695(), "filterEndDate", new G.closure696(), "projectBased", new G.closure697(), "activity", new G.closure698(), "startedAt", new G.closure699(), "stoppedAt", new G.closure700(), "newEntryDate", new G.closure701(), "updateNewEntryDate", new G.closure702(), "selectedProject", new G.closure703(), "selectedActivity", new G.closure704(), "activities", new G.closure705(), "entries", new G.closure706(), "inputAll", new G.closure707(), "entry", new G.closure708(), "selectedUserToAdd", new G.closure709(), "statusText", new G.closure710(), "showEnabledUsersOnly", new G.closure711(), "employees", new G.closure712(), "empl", new G.closure713(), "seconds", new G.closure714(), "activitylist", new G.closure715(), "projectCategoryId", new G.closure716(), "report", new G.closure717(), "timeslices", new G.closure718(), "dates", new G.closure719(), "days", new G.closure720(), "day", new G.closure721(), "toggleOpen", new G.closure722(), "selectPage", new G.closure723(), "selectMatch", new G.closure724(), "selectActive", new G.closure725(), "incrementHours", new G.closure726(), "incrementMinutes", new G.closure727(), "updateHours", new G.closure728(), "updateMinutes", new G.closure729(), "toggleMeridian", new G.closure730(), "decrementHours", new G.closure731(), "decrementMinutes", new G.closure732(), "pause", new G.closure733(), "play", new G.closure734(), "prev", new G.closure735(), "reset", new G.closure736(), "stateClass", new G.closure737(), "rate", new G.closure738(), "enter", new G.closure739(), "move", new G.closure740(), "toggleMode", new G.closure741(), "today", new G.closure742(), "clear", new G.closure743(), "toggleSelectionBox", new G.closure744(), "loginOnEnter", new G.closure745(), "login", new G.closure746(), "onInputBlur", new G.closure747(), "previousDay", new G.closure748(), "nextDay", new G.closure749(), "toggleMenu", new G.closure750(), "addSaveField", new G.closure751(), "saveEntity", new G.closure752(), "reload", new G.closure753(), "openOffer", new G.closure754(), "openProject", new G.closure755(), "openInvoice", new G.closure756(), "createInvoice", new G.closure757(), "updateInvoicefromProject", new G.closure758(), "printInvoice", new G.closure759(), "printAufwandsbericht", new G.closure760(), "createProject", new G.closure761(), "addFieldtoUpdate", new G.closure762(), "copyAddressFromCustomer", new G.closure763(), "printOffer", new G.closure764(), "previousMonth", new G.closure765(), "previousWeek", new G.closure766(), "nextWeek", new G.closure767(), "nextMonth", new G.closure768(), "isSelected", new G.closure769(), "selectEntity", new G.closure770(), "deleteEntity", new G.closure771(), "createEntity", new G.closure772(), "duplicateEntity", new G.closure773(), "changeSortOrder", new G.closure774(), "searchFilter", new G.closure775(), "openEditView", new G.closure776(), "saveAllEntities", new G.closure777(), "save", new G.closure778(), "ViewValue", new G.closure779(), "inputAllUpdated", new G.closure780(), "removeUser", new G.closure781(), "addUser", new G.closure782(), "clearInputs", new G.closure783(), "update", new G.closure784(), "hasChanged", new G.closure785(), "getCsvLink", new G.closure786(), "printReport", new G.closure787(), "userEditor", new G.closure788(), "logout", new G.closure789()]);
   }, "getters", "setters", "$get$setters", function() {
-    return P.LinkedHashMap__makeLiteral(["htmlclass", new G.closure2(), "precision", new G.closure3(), "useSafeCalc", new G.closure4(), "model", new G.closure5(), "select", new G.closure6(), "urls", new G.closure7(), "value", new G.closure8(), "bind", new G.closure9(), "valueExpression", new G.closure10(), "onAbort", new G.closure11(), "onBeforeCopy", new G.closure12(), "onBeforeCut", new G.closure13(), "onBeforePaste", new G.closure14(), "onBlur", new G.closure15(), "onChange", new G.closure16(), "onClick", new G.closure17(), "onContextMenu", new G.closure18(), "onCopy", new G.closure19(), "onCut", new G.closure20(), "onDoubleClick", new G.closure21(), "onDrag", new G.closure22(), "onDragEnd", new G.closure23(), "onDragEnter", new G.closure24(), "onDragLeave", new G.closure25(), "onDragOver", new G.closure26(), "onDragStart", new G.closure27(), "onDrop", new G.closure28(), "onError", new G.closure29(), "onFocus", new G.closure30(), "onFullscreenChange", new G.closure31(), "onFullscreenError", new G.closure32(), "onInput", new G.closure33(), "onInvalid", new G.closure34(), "onKeyDown", new G.closure35(), "onKeyPress", new G.closure36(), "onKeyUp", new G.closure37(), "onLoad", new G.closure38(), "onMouseDown", new G.closure39(), "onMouseEnter", new G.closure40(), "onMouseLeave", new G.closure41(), "onMouseMove", new G.closure42(), "onMouseOut", new G.closure43(), "onMouseOver", new G.closure44(), "onMouseUp", new G.closure45(), "onMouseWheel", new G.closure46(), "onPaste", new G.closure47(), "onReset", new G.closure48(), "onScroll", new G.closure49(), "onSearch", new G.closure50(), "onSelect", new G.closure51(), "onSelectStart", new G.closure52(), "onSubmit", new G.closure53(), "onTouchCancel", new G.closure54(), "onTouchEnd", new G.closure55(), "onTouchEnter", new G.closure56(), "onTouchLeave", new G.closure57(), "onTouchMove", new G.closure58(), "onTouchStart", new G.closure59(), "onTransitionEnd", new G.closure60(), "condition", new G.closure61(), "url", new G.closure62(), "name", new G.closure63(), "idlAttrKind", new G.closure64(), "count", new G.closure65(), "expression", new G.closure66(), "templateUrl", new G.closure67(), "hide", new G.closure68(), "show", new G.closure69(), "checked", new G.closure70(), "disabled", new G.closure71(), "multiple", new G.closure72(), "open", new G.closure73(), "readonly", new G.closure74(), "required", new G.closure75(), "selected", new G.closure76(), "href", new G.closure77(), "src", new G.closure78(), "srcset", new G.closure79(), "styleExpression", new G.closure80(), "max", new G.closure81(), "min", new G.closure82(), "pattern", new G.closure83(), "minlength", new G.closure84(), "maxlength", new G.closure85(), "options", new G.closure86(), "option", new G.closure87(), "routeName", new G.closure88(), "selectedEntity", new G.closure89(), "projectId", new G.closure90(), "shortname", new G.closure91(), "callback", new G.closure92(), "field", new G.closure93(), "clearOnClose", new G.closure94(), "placeholder", new G.closure95(), "hideArchived", new G.closure96(), "useContext", new G.closure97(), "date", new G.closure98(), "format", new G.closure99(), "hasButtons", new G.closure100(), "nullAllowed", new G.closure101(), "address", new G.closure102(), "editform", new G.closure103(), "startDate", new G.closure104(), "endDate", new G.closure105(), "invoiceId", new G.closure106(), "offerId", new G.closure107(), "employee", new G.closure108(), "serviceId", new G.closure109(), "entities", new G.closure110(), "projectFilter", new G.closure111(), "allowProjectSelect", new G.closure112(), "blendOutStartAndEnd", new G.closure113(), "namespace", new G.closure114(), "setting", new G.closure115(), "isCloseOthers", new G.closure116(), "heading", new G.closure117(), "isOpen", new G.closure118(), "isDisabled", new G.closure119(), "collapse", new G.closure120(), "btnRadioAttr", new G.closure121(), "btnCheckboxTrue", new G.closure122(), "btnCheckboxFalse", new G.closure123(), "type", new G.closure124(), "close", new G.closure125(), "alertTypeAsString", new G.closure126(), "closeable", new G.closure127(), "justified", new G.closure128(), "vertical", new G.closure129(), "tabs", new G.closure130(), "tab", new G.closure131(), "active", new G.closure132(), "onSelectCallback", new G.closure133(), "onDeselectCallback", new G.closure134(), "append", new G.closure135(), "windowClass", new G.closure136(), "visible", new G.closure137(), "keyboard", new G.closure138(), "index", new G.closure139(), "backdropAsString", new G.closure140(), "size", new G.closure141(), "$event", new G.closure142(), "sizeClass", new G.closure143(), "draggable", new G.closure144(), "draggableData", new G.closure145(), "dragdropConfig", new G.closure146(), "onDragSuccessCallback", new G.closure147(), "dropZones", new G.closure148(), "onDropSuccessCallback", new G.closure149(), "sortableData", new G.closure150(), "sortableConfig", new G.closure151(), "sortableZones", new G.closure152(), "currentPage", new G.closure153(), "totalItems", new G.closure154(), "itemsPerPage", new G.closure155(), "setNumPagesListener", new G.closure156(), "onSelectChangeExtEventHandler", new G.closure157(), "align", new G.closure158(), "previousText", new G.closure159(), "nextText", new G.closure160(), "noPrevious", new G.closure161(), "noNext", new G.closure162(), "maxSize", new G.closure163(), "rotate", new G.closure164(), "boundaryLinks", new G.closure165(), "directionLinks", new G.closure166(), "firstText", new G.closure167(), "lastText", new G.closure168(), "pages", new G.closure169(), "page", new G.closure170(), "isActive", new G.closure171(), "number", new G.closure172(), "text", new G.closure173(), "totalPages", new G.closure174(), "matches", new G.closure175(), "selectEventHandler", new G.closure176(), "position", new G.closure177(), "query", new G.closure178(), "top", new G.closure179(), "left", new G.closure180(), "match", new G.closure181(), "id", new G.closure182(), "$index", new G.closure183(), "minLength", new G.closure184(), "appendToBody", new G.closure185(), "inputFormatter", new G.closure186(), "waitInMs", new G.closure187(), "isLoading", new G.closure188(), "isEditable", new G.closure189(), "showMeridian", new G.closure190(), "invalidHours", new G.closure191(), "readonlyInput", new G.closure192(), "invalidMinutes", new G.closure193(), "meridian", new G.closure194(), "isCollapsed", new G.closure195(), "noTransition", new G.closure196(), "interval", new G.closure197(), "noPause", new G.closure198(), "slides", new G.closure199(), "length", new G.closure200(), "item", new G.closure201(), "direction", new G.closure202(), "entering", new G.closure203(), "leaving", new G.closure204(), "next", new G.closure205(), "animate", new G.closure206(), "classes", new G.closure207(), "onHover", new G.closure208(), "onLeave", new G.closure209(), "range", new G.closure210(), "r", new G.closure211(), "dayFormat", new G.closure212(), "monthFormat", new G.closure213(), "yearFormat", new G.closure214(), "dayHeaderFormat", new G.closure215(), "dayTitleFormat", new G.closure216(), "monthTitleFormat", new G.closure217(), "startingDay", new G.closure218(), "yearRange", new G.closure219(), "dateDisabled", new G.closure220(), "showWeeks", new G.closure221(), "d", new G.closure222(), "display", new G.closure223(), "showButtonBar", new G.closure224(), "currentText", new G.closure225(), "toggleWeeksText", new G.closure226(), "clearText", new G.closure227(), "closeText", new G.closure228(), "selector", new G.closure229(), "entity", new G.closure230(), "service", new G.closure231(), "fullname", new G.closure232(), "modes", new G.closure233(), "mode", new G.closure234(), "archived", new G.closure235(), "link", new G.closure236(), "linklist", new G.closure237(), "Title", new G.closure238(), "auth", new G.closure239(), "isloggedin", new G.closure240(), "userContext", new G.closure241(), "showlogin", new G.closure242(), "loginFailed", new G.closure243(), "username", new G.closure244(), "password", new G.closure245(), "rememberme", new G.closure246(), "statusservice", new G.closure247(), "status", new G.closure248(), "isValid", new G.closure249(), "menus", new G.closure250(), "menu", new G.closure251(), "icon", new G.closure252(), "title", new G.closure253(), "items", new G.closure254(), "street", new G.closure255(), "streetnumber", new G.closure256(), "plz", new G.closure257(), "city", new G.closure258(), "state", new G.closure259(), "country", new G.closure260(), "company", new G.closure261(), "department", new G.closure262(), "salutation", new G.closure263(), "rateGroup", new G.closure264(), "chargeable", new G.closure265(), "firstname", new G.closure266(), "lastname", new G.closure267(), "email", new G.closure268(), "plainpassword", new G.closure269(), "employeeholiday", new G.closure270(), "enabled", new G.closure271(), "locked", new G.closure272(), "project", new G.closure273(), "offers", new G.closure274(), "isEmpty", new G.closure275(), "offer", new G.closure276(), "invoices", new G.closure277(), "invoice", new G.closure278(), "customer", new G.closure279(), "accountant", new G.closure280(), "start", new G.closure281(), "end", new G.closure282(), "description", new G.closure283(), "standardDiscounts", new G.closure284(), "subtotal", new G.closure285(), "totalDiscounts", new G.closure286(), "totalVAT", new G.closure287(), "totalVAT8", new G.closure288(), "totalVAT2", new G.closure289(), "total", new G.closure290(), "fixedPrice", new G.closure291(), "validTo", new G.closure292(), "shortDescription", new G.closure293(), "alias", new G.closure294(), "projectCategory", new G.closure295(), "deadline", new G.closure296(), "currentPrice", new G.closure297(), "budgetPrice", new G.closure298(), "remainingBudgetPrice", new G.closure299(), "currentTime", new G.closure300(), "budgetTime", new G.closure301(), "remainingBudgetTime", new G.closure302(), "updatedAt", new G.closure303(), "user", new G.closure304(), "createdAt", new G.closure305(), "vat", new G.closure306(), "error", new G.closure307(), "loading", new G.closure308(), "defaultVal", new G.closure309(), "success", new G.closure310(), "rateValue", new G.closure311(), "rateUnit", new G.closure312(), "filterString", new G.closure313(), "sortType", new G.closure314(), "sortReverse", new G.closure315(), "projectAssignments", new G.closure316(), "weekday", new G.closure317(), "duration", new G.closure318(), "percentage", new G.closure319(), "order", new G.closure320(), "amount", new G.closure321(), "rateUnitType", new G.closure322(), "discountable", new G.closure323(), "pensum", new G.closure324(), "realTime", new G.closure325(), "targetTime", new G.closure326(), "timeTillToday", new G.closure327(), "holidayBalance", new G.closure328(), "lastYearHolidayBalance", new G.closure329(), "factor", new G.closure330(), "scale", new G.closure331(), "doTransform", new G.closure332(), "roundMode", new G.closure333(), "symbol", new G.closure334(), "newDiscount", new G.closure335(), "filterStartDate", new G.closure336(), "filterEndDate", new G.closure337(), "projectBased", new G.closure338(), "activity", new G.closure339(), "startedAt", new G.closure340(), "stoppedAt", new G.closure341(), "newEntryDate", new G.closure342(), "updateNewEntryDate", new G.closure343(), "selectedProject", new G.closure344(), "selectedActivity", new G.closure345(), "activities", new G.closure346(), "entries", new G.closure347(), "inputAll", new G.closure348(), "entry", new G.closure349(), "selectedUserToAdd", new G.closure350(), "statusText", new G.closure351(), "showEnabledUsersOnly", new G.closure352(), "employees", new G.closure353(), "empl", new G.closure354(), "seconds", new G.closure355(), "activitylist", new G.closure356(), "projectCategoryId", new G.closure357(), "report", new G.closure358(), "timeslices", new G.closure359(), "dates", new G.closure360(), "days", new G.closure361(), "day", new G.closure362()]);
+    return P.LinkedHashMap__makeLiteral(["htmlclass", new G.closure2(), "precision", new G.closure3(), "useSafeCalc", new G.closure4(), "model", new G.closure5(), "select", new G.closure6(), "urls", new G.closure7(), "value", new G.closure8(), "bind", new G.closure9(), "valueExpression", new G.closure10(), "onAbort", new G.closure11(), "onBeforeCopy", new G.closure12(), "onBeforeCut", new G.closure13(), "onBeforePaste", new G.closure14(), "onBlur", new G.closure15(), "onChange", new G.closure16(), "onClick", new G.closure17(), "onContextMenu", new G.closure18(), "onCopy", new G.closure19(), "onCut", new G.closure20(), "onDoubleClick", new G.closure21(), "onDrag", new G.closure22(), "onDragEnd", new G.closure23(), "onDragEnter", new G.closure24(), "onDragLeave", new G.closure25(), "onDragOver", new G.closure26(), "onDragStart", new G.closure27(), "onDrop", new G.closure28(), "onError", new G.closure29(), "onFocus", new G.closure30(), "onFullscreenChange", new G.closure31(), "onFullscreenError", new G.closure32(), "onInput", new G.closure33(), "onInvalid", new G.closure34(), "onKeyDown", new G.closure35(), "onKeyPress", new G.closure36(), "onKeyUp", new G.closure37(), "onLoad", new G.closure38(), "onMouseDown", new G.closure39(), "onMouseEnter", new G.closure40(), "onMouseLeave", new G.closure41(), "onMouseMove", new G.closure42(), "onMouseOut", new G.closure43(), "onMouseOver", new G.closure44(), "onMouseUp", new G.closure45(), "onMouseWheel", new G.closure46(), "onPaste", new G.closure47(), "onReset", new G.closure48(), "onScroll", new G.closure49(), "onSearch", new G.closure50(), "onSelect", new G.closure51(), "onSelectStart", new G.closure52(), "onSubmit", new G.closure53(), "onTouchCancel", new G.closure54(), "onTouchEnd", new G.closure55(), "onTouchEnter", new G.closure56(), "onTouchLeave", new G.closure57(), "onTouchMove", new G.closure58(), "onTouchStart", new G.closure59(), "onTransitionEnd", new G.closure60(), "condition", new G.closure61(), "url", new G.closure62(), "name", new G.closure63(), "idlAttrKind", new G.closure64(), "count", new G.closure65(), "expression", new G.closure66(), "templateUrl", new G.closure67(), "hide", new G.closure68(), "show", new G.closure69(), "checked", new G.closure70(), "disabled", new G.closure71(), "multiple", new G.closure72(), "open", new G.closure73(), "readonly", new G.closure74(), "required", new G.closure75(), "selected", new G.closure76(), "href", new G.closure77(), "src", new G.closure78(), "srcset", new G.closure79(), "styleExpression", new G.closure80(), "max", new G.closure81(), "min", new G.closure82(), "pattern", new G.closure83(), "minlength", new G.closure84(), "maxlength", new G.closure85(), "options", new G.closure86(), "option", new G.closure87(), "routeName", new G.closure88(), "selectedEntity", new G.closure89(), "projectId", new G.closure90(), "shortname", new G.closure91(), "callback", new G.closure92(), "field", new G.closure93(), "clearOnClose", new G.closure94(), "placeholder", new G.closure95(), "hideArchived", new G.closure96(), "useContext", new G.closure97(), "date", new G.closure98(), "format", new G.closure99(), "hasButtons", new G.closure100(), "nullAllowed", new G.closure101(), "address", new G.closure102(), "editform", new G.closure103(), "startDate", new G.closure104(), "endDate", new G.closure105(), "invoiceId", new G.closure106(), "offerId", new G.closure107(), "employee", new G.closure108(), "serviceId", new G.closure109(), "entities", new G.closure110(), "projectFilter", new G.closure111(), "allowProjectSelect", new G.closure112(), "blendOutStartAndEnd", new G.closure113(), "namespace", new G.closure114(), "setting", new G.closure115(), "isCloseOthers", new G.closure116(), "heading", new G.closure117(), "isOpen", new G.closure118(), "isDisabled", new G.closure119(), "collapse", new G.closure120(), "btnRadioAttr", new G.closure121(), "btnCheckboxTrue", new G.closure122(), "btnCheckboxFalse", new G.closure123(), "type", new G.closure124(), "close", new G.closure125(), "alertTypeAsString", new G.closure126(), "closeable", new G.closure127(), "justified", new G.closure128(), "vertical", new G.closure129(), "tabs", new G.closure130(), "tab", new G.closure131(), "active", new G.closure132(), "onSelectCallback", new G.closure133(), "onDeselectCallback", new G.closure134(), "append", new G.closure135(), "windowClass", new G.closure136(), "visible", new G.closure137(), "keyboard", new G.closure138(), "index", new G.closure139(), "backdropAsString", new G.closure140(), "size", new G.closure141(), "$event", new G.closure142(), "sizeClass", new G.closure143(), "draggable", new G.closure144(), "draggableData", new G.closure145(), "dragdropConfig", new G.closure146(), "onDragSuccessCallback", new G.closure147(), "dropZones", new G.closure148(), "onDropSuccessCallback", new G.closure149(), "sortableData", new G.closure150(), "sortableConfig", new G.closure151(), "sortableZones", new G.closure152(), "currentPage", new G.closure153(), "totalItems", new G.closure154(), "itemsPerPage", new G.closure155(), "setNumPagesListener", new G.closure156(), "onSelectChangeExtEventHandler", new G.closure157(), "align", new G.closure158(), "previousText", new G.closure159(), "nextText", new G.closure160(), "noPrevious", new G.closure161(), "noNext", new G.closure162(), "maxSize", new G.closure163(), "rotate", new G.closure164(), "boundaryLinks", new G.closure165(), "directionLinks", new G.closure166(), "firstText", new G.closure167(), "lastText", new G.closure168(), "pages", new G.closure169(), "page", new G.closure170(), "isActive", new G.closure171(), "number", new G.closure172(), "text", new G.closure173(), "totalPages", new G.closure174(), "matches", new G.closure175(), "selectEventHandler", new G.closure176(), "position", new G.closure177(), "query", new G.closure178(), "top", new G.closure179(), "left", new G.closure180(), "match", new G.closure181(), "id", new G.closure182(), "$index", new G.closure183(), "minLength", new G.closure184(), "appendToBody", new G.closure185(), "inputFormatter", new G.closure186(), "waitInMs", new G.closure187(), "isLoading", new G.closure188(), "isEditable", new G.closure189(), "showMeridian", new G.closure190(), "invalidHours", new G.closure191(), "readonlyInput", new G.closure192(), "invalidMinutes", new G.closure193(), "meridian", new G.closure194(), "isCollapsed", new G.closure195(), "noTransition", new G.closure196(), "interval", new G.closure197(), "noPause", new G.closure198(), "slides", new G.closure199(), "length", new G.closure200(), "item", new G.closure201(), "direction", new G.closure202(), "entering", new G.closure203(), "leaving", new G.closure204(), "next", new G.closure205(), "animate", new G.closure206(), "classes", new G.closure207(), "onHover", new G.closure208(), "onLeave", new G.closure209(), "range", new G.closure210(), "r", new G.closure211(), "dayFormat", new G.closure212(), "monthFormat", new G.closure213(), "yearFormat", new G.closure214(), "dayHeaderFormat", new G.closure215(), "dayTitleFormat", new G.closure216(), "monthTitleFormat", new G.closure217(), "startingDay", new G.closure218(), "yearRange", new G.closure219(), "dateDisabled", new G.closure220(), "showWeeks", new G.closure221(), "d", new G.closure222(), "display", new G.closure223(), "showButtonBar", new G.closure224(), "currentText", new G.closure225(), "toggleWeeksText", new G.closure226(), "clearText", new G.closure227(), "closeText", new G.closure228(), "selector", new G.closure229(), "entity", new G.closure230(), "service", new G.closure231(), "fullname", new G.closure232(), "modes", new G.closure233(), "mode", new G.closure234(), "archived", new G.closure235(), "link", new G.closure236(), "linklist", new G.closure237(), "Title", new G.closure238(), "auth", new G.closure239(), "isloggedin", new G.closure240(), "userContext", new G.closure241(), "showlogin", new G.closure242(), "loginFailed", new G.closure243(), "username", new G.closure244(), "password", new G.closure245(), "rememberme", new G.closure246(), "statusservice", new G.closure247(), "status", new G.closure248(), "isValid", new G.closure249(), "menus", new G.closure250(), "menu", new G.closure251(), "icon", new G.closure252(), "title", new G.closure253(), "items", new G.closure254(), "street", new G.closure255(), "streetnumber", new G.closure256(), "plz", new G.closure257(), "city", new G.closure258(), "state", new G.closure259(), "country", new G.closure260(), "company", new G.closure261(), "department", new G.closure262(), "salutation", new G.closure263(), "rateGroup", new G.closure264(), "chargeable", new G.closure265(), "firstname", new G.closure266(), "lastname", new G.closure267(), "email", new G.closure268(), "plainpassword", new G.closure269(), "employeeholiday", new G.closure270(), "enabled", new G.closure271(), "project", new G.closure272(), "offers", new G.closure273(), "isEmpty", new G.closure274(), "offer", new G.closure275(), "invoices", new G.closure276(), "invoice", new G.closure277(), "customer", new G.closure278(), "accountant", new G.closure279(), "start", new G.closure280(), "end", new G.closure281(), "description", new G.closure282(), "standardDiscounts", new G.closure283(), "subtotal", new G.closure284(), "totalDiscounts", new G.closure285(), "totalVAT", new G.closure286(), "totalVAT8", new G.closure287(), "totalVAT2", new G.closure288(), "total", new G.closure289(), "fixedPrice", new G.closure290(), "validTo", new G.closure291(), "shortDescription", new G.closure292(), "alias", new G.closure293(), "projectCategory", new G.closure294(), "deadline", new G.closure295(), "currentPrice", new G.closure296(), "budgetPrice", new G.closure297(), "remainingBudgetPrice", new G.closure298(), "currentTime", new G.closure299(), "budgetTime", new G.closure300(), "remainingBudgetTime", new G.closure301(), "updatedAt", new G.closure302(), "user", new G.closure303(), "createdAt", new G.closure304(), "vat", new G.closure305(), "error", new G.closure306(), "loading", new G.closure307(), "defaultVal", new G.closure308(), "success", new G.closure309(), "rateValue", new G.closure310(), "rateUnit", new G.closure311(), "filterString", new G.closure312(), "sortType", new G.closure313(), "sortReverse", new G.closure314(), "projectAssignments", new G.closure315(), "weekday", new G.closure316(), "duration", new G.closure317(), "percentage", new G.closure318(), "order", new G.closure319(), "amount", new G.closure320(), "rateUnitType", new G.closure321(), "discountable", new G.closure322(), "pensum", new G.closure323(), "realTime", new G.closure324(), "targetTime", new G.closure325(), "timeTillToday", new G.closure326(), "holidayBalance", new G.closure327(), "lastYearHolidayBalance", new G.closure328(), "factor", new G.closure329(), "scale", new G.closure330(), "doTransform", new G.closure331(), "roundMode", new G.closure332(), "symbol", new G.closure333(), "newDiscount", new G.closure334(), "filterStartDate", new G.closure335(), "filterEndDate", new G.closure336(), "projectBased", new G.closure337(), "activity", new G.closure338(), "startedAt", new G.closure339(), "stoppedAt", new G.closure340(), "newEntryDate", new G.closure341(), "updateNewEntryDate", new G.closure342(), "selectedProject", new G.closure343(), "selectedActivity", new G.closure344(), "activities", new G.closure345(), "entries", new G.closure346(), "inputAll", new G.closure347(), "entry", new G.closure348(), "selectedUserToAdd", new G.closure349(), "statusText", new G.closure350(), "showEnabledUsersOnly", new G.closure351(), "employees", new G.closure352(), "empl", new G.closure353(), "seconds", new G.closure354(), "activitylist", new G.closure355(), "projectCategoryId", new G.closure356(), "report", new G.closure357(), "timeslices", new G.closure358(), "dates", new G.closure359(), "days", new G.closure360(), "day", new G.closure361()]);
   }, "setters", "symbols", "$get$symbols", function() {
     return P.LinkedHashMap__makeLiteral(["evict", C.Symbol_evict]);
   }, "symbols", "typeAnnotations", "$get$typeAnnotations", function() {
