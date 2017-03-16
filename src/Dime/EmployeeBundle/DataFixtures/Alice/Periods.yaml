@@ -6,7 +6,7 @@ Dime\EmployeeBundle\Entity\Period:
         end: <dateTimeBetween('now', '+ 200 days')>
         realTime: <randomNumber()>
         pensum: 1
-    period{2..300}:
+    period{2..50}:
         user: @user*
         employee: @employee*
         start: <dateTimeBetween('-1 years', '+ 10 days')>

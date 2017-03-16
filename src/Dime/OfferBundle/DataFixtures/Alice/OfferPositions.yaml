@@ -7,7 +7,7 @@ Dime\OfferBundle\Entity\OfferPosition:
         offer: @offer1
         service: @service*
         chargeable: <boolean(90)>
-    offerPosition{2..100}:
+    offerPosition{2..50}:
         order: <randomNumber(3)>
         amount: <randomNumber(2)>
         discountable: <boolean(70)>
