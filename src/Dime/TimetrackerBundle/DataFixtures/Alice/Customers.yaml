@@ -6,7 +6,7 @@ Swo\CommonsBundle\Entity\Address:
         plz: 8000
         state: ZH
         country: Switzerland
-    addressCustomer{2..50}:
+    addressCustomer{2..25}:
         streetnumber: <buildingNumber()>
         street: <streetName()>
         city: <city()>
@@ -22,7 +22,7 @@ Dime\TimetrackerBundle\Entity\Customer:
         chargeable: true
         address: @addressCustomer1
         user: @user*
-    customer{2..50}:
+    customer{2..25}:
         rateGroup: @rateGroup*
         name: <company()>
         alias: <slug()>

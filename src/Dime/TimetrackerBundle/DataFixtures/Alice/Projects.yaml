@@ -11,7 +11,7 @@ Dime\TimetrackerBundle\Entity\Project:
         stoppedAt: <dateTimeBetween('-199 days', 'now')>
         description: Eine Beschreibung zum Büro Projekt
         chargeable: true
-    project{2..25}:
+    project{2..9}:
         customer: @customer*
         rateGroup: @rateGroup*
         projectCategory: @categoryProject*
@@ -25,7 +25,7 @@ Dime\TimetrackerBundle\Entity\Project:
         description: <text(255)>
         fixedPrice: <randomNumber(5)>
         chargeable: <boolean(90)>
-    project{26..100}:
+    project{10..20}:
         customer: @customer*
         rateGroup: @rateGroup*
         projectCategory: @categoryProject*

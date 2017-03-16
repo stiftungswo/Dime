@@ -5,25 +5,25 @@ Dime\TimetrackerBundle\Entity\Timeslice:
         activity: @activityHour1
         user: @user1
         employee: @employee1
-    timesliceHour{1..1000}:
+    timesliceHour{1..100}:
         value: <randomFloat(1, 1, 8.4)> * 3600
         startedAt: <dateTimeBetween('-1000 days', 'now')>
         activity: @activityHour*
         user: @user*
         employee: @employee*
-    timesliceDay{1..1000}:
+    timesliceDay{1..100}:
         value: 30240
         startedAt: <dateTimeBetween('-1000 days', 'now')>
         activity: @activityDay*
         user: @user*
         employee: @employee*
-    timesliceNone{1..1000}:
+    timesliceNone{1..100}:
         value: <numberBetween(1, 200)>
         startedAt: <dateTimeBetween('-1000 days', 'now')>
         activity: @activityNone*
         user: @user*
         employee: @employee*
-    timeslicePauschal{1..1000}:
+    timeslicePauschal{1..100}:
         value: 1
         startedAt: <dateTimeBetween('-1000 days', 'now')>
         activity: @activityPauschal*
