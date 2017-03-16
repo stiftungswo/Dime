@@ -29,9 +29,8 @@ class EmployeeFormType extends AbstractType
             ->add('lastname')
             ->add('email', 'email')
             ->add('enabled')
-            ->add('locked')
             ->add('employeeholiday')
-	        ->add('workingPeriods', 'entity', array('class' => 'DimeEmployeeBundle:Period', 'multiple' => true))
+            ->add('workingPeriods', 'entity', array('class' => 'DimeEmployeeBundle:Period', 'multiple' => true))
         ;
     }
 

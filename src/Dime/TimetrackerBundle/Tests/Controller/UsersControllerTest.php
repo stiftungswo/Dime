@@ -62,8 +62,7 @@ class UsersControllerTest extends DimeTestCase
             'plainpassword'    => 'test',
             'firstname'        => 'Test',
             'lastname'         => 'User',
-            'email'            => 'test@user.com',
-            'locked'           => '0',
+            'email'            => 'test@user.com'
         );
         
         $this->putarray = array(

@@ -10,9 +10,8 @@ class User extends Entity {
     this.lastname = original.lastname;
     this.email = 'cloned' + random + '_' + original.email;
     this.enabled = original.enabled;
-    this.locked = original.locked;
     this.employeeholiday = original.employeeholiday;
-    addFieldstoUpdate(['username','firstname','lastname','email','enabled','locked','employeeholiday']);
+    addFieldstoUpdate(['username','firstname','lastname','email','enabled','employeeholiday']);
   }
 
   User.fromMap(Map<String, dynamic> map): super.fromMap(map);
@@ -24,9 +23,6 @@ class User extends Entity {
   init({Map<String, dynamic> params: const {}}) {
     if (!params.containsKey('enabled')) {
       params['enabled'] = false;
-    }
-    if (!params.containsKey('locked')) {
-      params['locked'] = true;
     }
     super.init(params: params);
   }
@@ -45,8 +41,6 @@ class User extends Entity {
           return this.email;
         case 'enabled':
           return this.enabled;
-        case 'locked':
-          return this.locked;
         case 'plainpassword':
           return this.plainpassword;
         case 'employeeholiday':
@@ -75,9 +69,6 @@ class User extends Entity {
       case 'enabled':
         this.enabled = value;
         break;
-      case 'locked':
-        this.locked = value;
-        break;
       case 'plainpassword':
         this.plainpassword = value;
         break;
@@ -97,7 +88,6 @@ class User extends Entity {
   String email;
   String plainpassword;
   bool enabled;
-  bool locked;
   int employeeholiday;
 
   String get fullname {
