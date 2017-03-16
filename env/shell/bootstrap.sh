@@ -9,10 +9,10 @@ yum -y install vim vim-enhanced curl unzip wget git openssh-server
 # install apache/mysql server
 yum -y install httpd mariadb mariadb-server
 
-# install php
+# install php 7.1
 rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
 rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm
-yum -y install php56w php56w-pear php56w-mbstring php56w-intl php56w-xml php56w-pecl-xdebug php56w-pecl-apcu php56w-process php56w-gd php56w-mcrypt php-phpunit-PHPUnit php56w-phpdbg php56w-pdo php56w-mysql
+yum -y install php71w php71w-common php71w-pear php71w-mbstring php71w-intl php71w-xml php71w-pecl-xdebug php71w-pecl-apcu php71w-process php71w-gd php71w-mcrypt php71w-phpdbg php71w-pdo php71w-mysql
 
 # disable firewall for development
 systemctl disable firewalld
@@ -38,7 +38,7 @@ service mariadb restart
 service httpd start
 
 # install xdebug
-yum install php56w-devel php56w-pear
+yum install php71w-devel php71w-pear
 yum install gcc gcc-c++ autoconf automake
 pecl install Xdebug
 service httpd restart
