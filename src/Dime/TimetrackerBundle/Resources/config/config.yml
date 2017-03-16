@@ -9,6 +9,9 @@ fos_user:
     db_driver: orm
     firewall_name: main
     user_class: "Dime\EmployeeBundle\Entity\Employee"
+    from_email:
+        address: "%sender_mail%"
+        sender_name: DimeERP
 
 jms_serializer:
     handlers:

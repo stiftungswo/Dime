@@ -1,6 +1,6 @@
 {
 	"name" : "stiftungswo/dimeerp",
-	"description" : "DimeERP Sandbox",
+	"description" : "DimeERP",
 	"keywords" : [
 		"timetracker",
 		"erp",
@@ -23,35 +23,35 @@
 		}
 	},
 	"require" : {
-		"php" : ">=5.4",
-		"symfony/symfony" : ">=2.5.4,<2.7.0",
+		"php" : ">=7.1",
+		"symfony/symfony" : "~2.8",
 		"doctrine/orm" : "~2.2,>=2.2.3",
 		"doctrine/doctrine-bundle" : "~1.2",
 		"twig/extensions" : "~1.0",
 		"symfony/assetic-bundle" : "~2.3",
 		"symfony/swiftmailer-bundle" : "~2.3",
 		"symfony/monolog-bundle" : "~2.4",
-		"sensio/distribution-bundle" : "~2.3",
+		"sensio/distribution-bundle" : "~4.0",
 		"sensio/framework-extra-bundle" : "~3.0",
 		"sensio/generator-bundle" : "~2.3",
 		"incenteev/composer-parameter-handler" : "~2.0",
 		"doctrine/doctrine-fixtures-bundle" : "dev-master",
 		"stof/doctrine-extensions-bundle" : "1.1.*",
 		"jms/serializer-bundle" : "~1.0",
-		"friendsofsymfony/rest-bundle" : ">=1.5.3",
+		"friendsofsymfony/rest-bundle" : "~1.7",
 		"friendsofsymfony/user-bundle" : "~2.0@dev",
-		"nelmio/api-doc-bundle" : ">=2.7.0",
-        "knplabs/json-schema-bundle": "dev-master",
-        "misd/phone-number-bundle" : ">=1.0.2",
-        "doctrine/migrations": "1.0.*@dev",
-        "doctrine/doctrine-migrations-bundle": "2.1.*@dev",
-        "psliwa/pdf-bundle": "~1.0@dev",
-	  	"nesbot/carbon": "dev-master"
+		"nelmio/api-doc-bundle" : "~2.9",
+		"knplabs/json-schema-bundle": "dev-master",
+		"misd/phone-number-bundle" : "~1.0",
+		"doctrine/migrations": "~1.5",
+		"doctrine/doctrine-migrations-bundle": "2.1.*@dev",
+		"psliwa/pdf-bundle": "~1.0@dev",
+		"nesbot/carbon": "dev-master"
 	},
-    "require-dev" : {
-        "h4cc/alice-fixtures-bundle" : ">=0.5.1",
-		"phpunit/phpunit": "4.7.*"
-    },
+	"require-dev" : {
+		"h4cc/alice-fixtures-bundle" : "dev-master",
+		"phpunit/phpunit": "~4.8"
+	},
 	"scripts" : {
 		"post-install-cmd" : [
 			"Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",

@@ -158,11 +158,13 @@ and the local branch too:
 
 Run tests:
 
-    phpunit -c app/
+    cd /vagrant
+    ./vendor/phpunit/phpunit/phpunit -c app/
 
 Run a single test:
 
-    phpunit -c app/ --filter ActivitiesControllerTest::testGetActivitiesAction
+    cd /vagrant
+    ./vendor/phpunit/phpunit/phpunit -c app/ --filter ActivitiesControllerTest::testGetActivitiesAction
     
 ## Building the Frontend
 
