@@ -4,6 +4,7 @@ An ERP based on Symfony and AngularDart
 
 [![Build Status](https://travis-ci.org/stiftungswo/Dime.svg?branch=master)](https://travis-ci.org/stiftungswo/Dime)
 
+
 ## General Purpose
 
 The project's purpose is tracking working Expenses Writing Offers and Sending Invoices
@@ -14,9 +15,11 @@ An API and open architecture will serve additional purposes:
   * manage customers (CRM)
   * project management
   
+
 ## Demo
 
 See the Vagrant VM in env Folder
+
 
 ## Installation
 
@@ -24,23 +27,23 @@ See the Vagrant VM in env Folder
 
 Download and install VirtualBox:
 
-	https://www.virtualbox.org/
-	
+    https://www.virtualbox.org/
+
 Download and install Cygwin:
 
-	https://cygwin.com/
-	In the package selection of the setup, search rsync and add it
-	
+    https://cygwin.com/
+    In the package selection of the setup, search rsync and add it
+
 Modify the hosts file:
 
-	In C:\Windows\System32\drivers\etc\hosts add the line
-	192.168.122.10 dime.test.local
-	
+    In C:\Windows\System32\drivers\etc\hosts add the line
+    192.168.122.10 dime.test.local
+
 Download and install a Git client:
 
-	e.g. https://www.sourcetreeapp.com/
-	Check out the current version
-	
+    e.g. https://www.sourcetreeapp.com/
+    Check out the current version
+
 Install rsync plugin:
 
     vagrant plugin install vagrant-rsync
@@ -54,22 +57,23 @@ Fix vagrant rsync bug:
         # rsync for Windows expects cygwin style paths, always.
         hostpath = "/cygdrive" + Vagrant::Util::Platform.cygwin_path(hostpath)
     end
-	
+
 Start the virtual machine via the cygwin terminal:
 
-	cd /cygdrive/c/Users/YourName/Dime/env
-	vagrant up
+    cd /cygdrive/c/Users/YourName/Dime/env
+    vagrant up
 
 Start auto sync:
     
     vagrant rsync-auto dime
 
 Download e.g. Dartium which is a Google Chrome for developpers:
-	
-	https://www.dartlang.org/tools/dartium/
-	Start it by unzipping and executing the file chrome.exe
-	Go to the page http://dime.test.local (-> this page does not work in a normal browser!)
-	
+
+    https://www.dartlang.org/tools/dartium/
+    Start it by unzipping and executing the file chrome.exe
+    Go to the page http://dime.test.local (-> this page does not work in a normal browser!)
+
+
 ### OSX
 
 Generally the same steps as for Windows:
@@ -79,7 +83,8 @@ Generally the same steps as for Windows:
   * Open in Dartium: http://dime.test.local
   
 Default Vagrant File Sync on OSX is very slow, you may want to use rsync or nfs to speed things up
-	
+
+
 ## Update
 
 Update to last version
@@ -99,6 +104,7 @@ Update database
 
     app/console doctrine:migrations:migrate
 
+
 ## Bundles
 
 There are Multiple Bundle Seperated by features:
@@ -109,6 +115,7 @@ There are Multiple Bundle Seperated by features:
     FrontendBundle The Javascript GUI
     SwoCommonsBundle Some Entities and Resources used by all our Applications
 
+
 ## Contributing
 
 Please feel free to contribute issues, improvements and feedback.
@@ -118,6 +125,7 @@ For code contributions, [Symfony2 Coding Standards] are the way we want to go.
 Please write in English and use the `doc` folders for documentation and proposals rather than Github wiki.
 
 [Symfony2 Coding Standards]: http://symfony.com/doc/master/contributing/code/standards.html
+
 
 ## Development-Branches
 
@@ -154,6 +162,7 @@ and the local branch too:
 
     git branch -d ISSUENO-and-a-short-description
 
+
 ## Run Test
 
 Run tests:
@@ -166,6 +175,7 @@ Run a single test:
     cd /vagrant
     ./vendor/phpunit/phpunit/phpunit -c app/ --filter ActivitiesControllerTest::testGetActivitiesAction
     
+
 ## Building the Frontend
 
 To build the JS & HTML files for deployment, run these commands inside the VM:
@@ -173,6 +183,7 @@ To build the JS & HTML files for deployment, run these commands inside the VM:
     cd /vagrant/env && ./pub.sh build
 
 Always build the frontend before merging into master!
+
 
 ## Database Schema Management
 
@@ -192,6 +203,7 @@ After changing the ORM schema, sometimes you need to clear the cache before it w
 
     php app/console cache:clear
 
+
 ## Fixtures
 
 The fixtures are an example dataset that can be used while developing. But more important: the tests run against this database.
@@ -207,3 +219,10 @@ When the database schema changed, you need to regenerate the fixtures. You can d
 Then export the changes again and check in the new dime.sql into git
 
     cd /vagrant/env/fixtures/ && ./export_fixtures.sh 
+
+
+## Deployment
+
+### Deployment at SWO
+
+Please see Documentation at: DiskStation:/intern/IT/11 Datenbank/Dime/Dokumentationen/Betriebsdokumentation.docx
