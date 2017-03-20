@@ -80,17 +80,20 @@ class PeriodOverviewComponent extends EntityOverview implements ScopeAware {
             employee.id.toString();
 
         await HttpRequest.getString('/api/v1/periods/holidaybalance?_format=json' + dateparams).then((result) {
-          this.data = JSON.decode(result);
+          // check if entities are still set
+          if (this.entities.length > i) {
+            this.data = JSON.decode(result);
 
-          if (this.data.length > 0) {
-            takenHolidays = data['takenHolidays'];
-            double employeeholiday = 0.0;
-            if (this.entities.elementAt(i).employeeholiday != null) {
-              employeeholiday = double.parse(this.entities.elementAt(i).employeeholiday.replaceAll('h', ''));
+            if (this.data.length > 0) {
+              takenHolidays = data['takenHolidays'];
+              double employeeholiday = 0.0;
+              if (this.entities.elementAt(i).employeeholiday != null) {
+                employeeholiday = double.parse(this.entities.elementAt(i).employeeholiday.replaceAll('h', ''));
+              }
+              this.entities.elementAt(i).holidayBalance = (getHolidayBalance(takenHolidays, employeeholiday));
+            } else {
+              this.entities.elementAt(i).holidayBalance = 0.0;
             }
-            this.entities.elementAt(i).holidayBalance = (getHolidayBalance(takenHolidays, employeeholiday));
-          } else {
-            this.entities.elementAt(i).holidayBalance = 0.0;
           }
         });
       }

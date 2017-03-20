@@ -28044,18 +28044,20 @@
       call$1: [function(result) {
         var employeeholiday, t1, t2, t3;
         t1 = this.$this;
-        t2 = C.JsonCodec_null_null.decode$1(result);
-        t1.data = t2;
-        if (J.$gt$n(J.get$length$asx(t2), 0)) {
-          t2 = this._box_0;
-          t2.takenHolidays = J.$index$asx(t1.data, "takenHolidays");
-          employeeholiday = 0;
-          t3 = this.i;
-          if (J.elementAt$1$ax(t1.PeriodOverviewComponent_entities, t3).get$employeeholiday() != null)
-            employeeholiday = H.Primitives_parseDouble(J.replaceAll$2$s(J.elementAt$1$ax(t1.PeriodOverviewComponent_entities, t3).get$employeeholiday(), "h", ""), null);
-          J.elementAt$1$ax(t1.PeriodOverviewComponent_entities, t3).set$holidayBalance(t1.getHolidayBalance$2(t2.takenHolidays, employeeholiday));
-        } else
-          J.elementAt$1$ax(t1.PeriodOverviewComponent_entities, this.i).set$holidayBalance(0);
+        t2 = this.i;
+        if (J.$gt$n(J.get$length$asx(t1.PeriodOverviewComponent_entities), t2)) {
+          t3 = C.JsonCodec_null_null.decode$1(result);
+          t1.data = t3;
+          if (J.$gt$n(J.get$length$asx(t3), 0)) {
+            t3 = this._box_0;
+            t3.takenHolidays = J.$index$asx(t1.data, "takenHolidays");
+            employeeholiday = 0;
+            if (J.elementAt$1$ax(t1.PeriodOverviewComponent_entities, t2).get$employeeholiday() != null)
+              employeeholiday = H.Primitives_parseDouble(J.replaceAll$2$s(J.elementAt$1$ax(t1.PeriodOverviewComponent_entities, t2).get$employeeholiday(), "h", ""), null);
+            J.elementAt$1$ax(t1.PeriodOverviewComponent_entities, t2).set$holidayBalance(t1.getHolidayBalance$2(t3.takenHolidays, employeeholiday));
+          } else
+            J.elementAt$1$ax(t1.PeriodOverviewComponent_entities, t2).set$holidayBalance(0);
+        }
       }, null, null, 2, 0, null, 27, "call"]
     },
     ProjectCategoryOverviewComponent: {
