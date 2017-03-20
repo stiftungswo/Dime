@@ -175,3 +175,14 @@ div.dropdown input.form-control {
   /* bugfix for firefox */
   display: block;
 }
+
+/* some improvements on */
+@media (max-width:767px) {
+    .content {
+        padding: 5px;
+    }
+
+    input.form-control {
+        padding-left: 2px;
+    }
+}
