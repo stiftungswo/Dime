@@ -37,21 +37,6 @@ twig:
             - 'TbbcMoneyBundle:Form:fields.html.twig'
     globals:
         dime_release_mode: "%dime_release_mode%"
-        invoiceconfig:
-            senderName: "%sender_name%"
-            senderPlz: "%sender_plz%"
-            senderCity: "%sender_city%"
-            senderStreet: "%sender_street%"
-            senderStreetnumber: "%sender_streetnumber%"
-            senderPhone: "%sender_phone%"
-            senderFax: "%sender_fax%"
-            senderMail: "%sender_mail%"
-            senderWeb: "%sender_web%"
-            senderMwstId: "%sender_mwstid%"
-            senderBank: "%sender_bank%"
-            senderIban: "%sender_iban%"
-            senderKontoNr: "%sender_kontonr%"
-            mwstPercent: 8
 
 # Assetic Configuration
 assetic:
