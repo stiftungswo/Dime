@@ -56,6 +56,20 @@ class UsersControllerTest extends DimeTestCase
         $this->assertEquals('Default', $data['firstname'], 'expected to find "Default"');
     }
 
+    public function testGetCurrentUserAction()
+    {
+        $this->loginAs('admin');
+
+        /* check existing service */
+        $response = $this->jsonRequest('GET', $this->api_prefix.'/users/current');
+
+        // convert json to array
+        $data = json_decode($response->getContent(), true);
+
+        // assert that data has content
+        $this->assertEquals('Default', $data['firstname']);
+    }
+
     public function testPostPutDeleteUserActions()
     {
         $this->postarray = array(

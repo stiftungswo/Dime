@@ -1,15 +1,9 @@
 <?php
 namespace Dime\TimetrackerBundle\Handler;
 
+use Dime\EmployeeBundle\Entity\Holiday;
 use Dime\TimetrackerBundle\Entity\RateUnitType;
-use Dime\TimetrackerBundle\Event\DimeEntityPersistEvent;
-use Dime\TimetrackerBundle\Exception\InvalidFormException;
 use Dime\TimetrackerBundle\Model\DimeEntityInterface;
-use Dime\TimetrackerBundle\TimetrackEvents;
-use Doctrine\Common\Persistence\ObjectManager;
-use FOS\UserBundle\Model\UserInterface;
-use FOS\UserBundle\Model\UserManager;
-use Symfony\Component\DependencyInjection\Container;
 use Carbon\Carbon;
 
 class PeriodHandler extends GenericHandler
@@ -89,6 +83,7 @@ class PeriodHandler extends GenericHandler
         $holidayRepository = $this->getRepositoryFromEntity($holidayEntityClass, $holidayAlias);
 
         //get holidays
+        /** @var Holiday[] $holidays */
         $holidays = $holidayRepository->getCurrentQueryBuilder()->getQuery()->getResult();
 
         //set time till today
