@@ -248,6 +248,8 @@ class OfferController extends DimeController
      */
     public function printOfferAction($id)
     {
+        // disable notices from PHPPdf which breaks this
+        error_reporting(E_ALL & ~E_NOTICE);
         return $this->get('dime.print.pdf')->render('DimeOfferBundle:Offer:print.pdf.twig', array('offer' => $this->getOr404($id, $this->handlerSerivce)), 'DimeOfferBundle:Offer:stylesheet.xml.twig');
     }
 }

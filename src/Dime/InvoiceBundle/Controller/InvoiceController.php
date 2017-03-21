@@ -246,6 +246,8 @@ class InvoiceController extends DimeController
      */
     public function printInvoiceAction($id)
     {
+        // disable notices from PHPPdf which breaks this
+        error_reporting(E_ALL & ~E_NOTICE);
         return $this->get('dime.print.pdf')->render('DimeInvoiceBundle:Invoice:print.pdf.twig', array('invoice' => $this->getOr404($id, $this->handlerSerivce)), 'DimeInvoiceBundle:Invoice:stylesheet.xml.twig');
     }
 
