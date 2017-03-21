@@ -16,4 +16,7 @@ before_script:
     - php app/console assetic:dump
     - php app/console asset:install --symlink
 
-script: vendor/phpunit/phpunit/phpunit -c app
+script: vendor/phpunit/phpunit/phpunit -c app --coverage-clover=coverage.xml
+
+after_script:
+    - bash <(curl -s https://codecov.io/bash)
