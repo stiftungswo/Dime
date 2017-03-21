@@ -9,7 +9,7 @@ namespace Dime\InvoiceBundle\Extensions;
 
 use Dime\InvoiceBundle\Service\InvoiceConfigurationValueReader;
 
-class InvoiceConfigurationExtension extends \Twig_Extension
+class InvoiceConfigurationExtension extends \Twig_Extension implements \Twig_Extension_GlobalsInterface
 {
 
     protected $configReader;
