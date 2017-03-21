@@ -8,6 +8,7 @@ php:
 
 
 before_script:
+    - phpenv config-rm xdebug.ini
     - mysql -e 'create database dime;'
     - cp app/config/parameters.yml.travis app/config/parameters.yml.dist
     - composer install -n
@@ -16,7 +17,8 @@ before_script:
     - php app/console assetic:dump
     - php app/console asset:install --symlink
 
-script: vendor/phpunit/phpunit/phpunit -c app --coverage-clover=coverage.xml
+script:
+    - phpdbg -qrr vendor/phpunit/phpunit/phpunit -c app --coverage-clover=coverage.xml
 
-after_script:
+after_success:
     - bash <(curl -s https://codecov.io/bash)
