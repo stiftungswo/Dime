@@ -18,7 +18,7 @@ before_script:
     - php app/console asset:install --symlink
 
 script:
-    - phpdbg -qrr vendor/phpunit/phpunit/phpunit -c app --coverage-clover=coverage.xml
+    - vendor/phpunit/phpunit/phpunit -c app --coverage-clover=coverage.xml
 
 after_success:
     - bash <(curl -s https://codecov.io/bash)
