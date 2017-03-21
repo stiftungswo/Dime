@@ -180,9 +180,9 @@ Run a single test:
 
 To build the JS & HTML files for deployment, run these commands inside the VM:
 
-    cd /vagrant/env && ./pub.sh build
+    /vagrant/env/build_frontend.sh
 
-Always build the frontend before merging into master!
+Always build & commit the frontend before merging into master!
 
 
 ## Database Schema Management
@@ -212,7 +212,7 @@ Load fixtures into the database:
 
     /vagrant/env/fixtures/load_fixtures.sh
 
-When the database schema changed, you need to regenerate the fixtures. You can do this with the following command:
+When the database schema changed, you need to regenerate the fixtures. You can do this with the following command (may take a while):
 
     cd /vagrant/env/fixtures/ && ./regenerate_fixtures.sh
 
