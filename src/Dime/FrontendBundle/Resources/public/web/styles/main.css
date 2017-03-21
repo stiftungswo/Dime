@@ -176,7 +176,7 @@ div.dropdown input.form-control {
   display: block;
 }
 
-/* some improvements on */
+/* some improvements on mobile */
 @media (max-width:767px) {
     .content {
         padding: 5px;
@@ -184,5 +184,36 @@ div.dropdown input.form-control {
 
     input.form-control {
         padding-left: 2px;
+    }
+
+    textarea.form-control {
+        padding: 2px;
+    }
+
+    activity-select,
+    customer-select,
+    entity-select,
+    offerstatus-select,
+    project-select,
+    projectCategory-select,
+    rategroup-select,
+    rateunittype-select,
+    roundmode-select,
+    service-select,
+    standarddiscount-select,
+    user-select,
+    dateinput
+    {
+        display: block;
+    }
+
+    .table>tbody>tr>td,
+    .table>tbody>tr>th,
+    .table>tfoot>tr>td,
+    .table>tfoot>tr>th,
+    .table>thead>tr>td,
+    .table>thead>tr>th {
+        padding: 2px;
+        overflow: hidden;
     }
 }
