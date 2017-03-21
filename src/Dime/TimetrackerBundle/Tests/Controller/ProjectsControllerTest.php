@@ -107,4 +107,17 @@ class ProjectsControllerTest extends DimeTestCase
         $response = $this->jsonRequest('GET', $this->api_prefix.'/projects/' . $id);
         $this->assertEquals(404, $response->getStatusCode());
     }
+
+    public function testGetProjectsopeninvoicesAction()
+    {
+        $this->loginAs('admin');
+        $response = $this->jsonRequest('GET', $this->api_prefix.'/projectsopeninvoices');
+
+        // convert json to array
+        $data = json_decode($response->getContent(), true);
+
+        // assert that data has content
+        $this->assertTrue(count($data) > 0, 'expected to find projects');
+        $this->assertEquals('Büro', $data[0]['name'], 'expected to find "Büro" first');
+    }
 }
