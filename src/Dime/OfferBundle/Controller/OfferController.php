@@ -194,60 +194,62 @@ class OfferController extends DimeController
     }
 
 
-	/**
-	 * Create Project from Offer
-	 *
-	 * @ApiDoc(
-	 * resource = true,
+    /**
+     * Create Project from Offer
+     *
+     * @ApiDoc(
+     * resource = true,
      * section="offers",
      * output="Dime\TimetrackerBundle\Entity\Project",
-	 * statusCodes = {
-	 * 204 = "Returned when successful",
-	 * 404 = "Returned when entity does not exist"
-	 * }
-	 * )
-	 *
-	 * @Annotations\Get("/projects/offer/{id}", name="_offers")
-	 *
-	 * @Annotations\Route(requirements={"_format"="json|xml"})
-	 *
-	 * @Annotations\View(
-	 * serializerEnableMaxDepthChecks=true
-	 * )
-	 * @param $id
-	 *
-	 * @return \Dime\TimetrackerBundle\Entity\Project
-	 */
+     * statusCodes = {
+     * 204 = "Returned when successful",
+     * 404 = "Returned when entity does not exist"
+     * }
+     * )
+     *
+     * @Annotations\Get("/projects/offer/{id}", name="_offers")
+     *
+     * @Annotations\Route(requirements={"_format"="json|xml"})
+     *
+     * @Annotations\View(
+     * serializerEnableMaxDepthChecks=true
+     * )
+     * @param $id
+     *
+     * @return \Dime\TimetrackerBundle\Entity\Project
+     */
     public function createProjectFromOfferAction($id)
     {
         return $this->container->get($this->handlerSerivce)->createProjectFromOffer($this->getOr404($id, $this->handlerSerivce));
     }
 
-	/**
-	 * Print Offer
-	 *
-	 * @ApiDoc(
-	 * resource = true,
+    /**
+     * Print Offer
+     *
+     * @ApiDoc(
+     * resource = true,
      * section="offers",
-	 * statusCodes = {
-	 * 200 = "Returned when successful",
-	 * 404 = "Returned when entity does not exist"
-	 * }
-	 * )
-	 *
-	 * @Annotations\Get("/offers/{id}/print", name="_offers_print")
-	 *
-	 * @Annotations\Route(requirements={"_format"="json|xml"})
-	 *
-	 * @Annotations\View(
-	 * serializerEnableMaxDepthChecks=true
-	 * )
-	 * @param $id
-	 *
-	 * @return \Dime\InvoiceBundle\Entity\Invoice
-	 */
-	public function printOfferAction($id)
-	{
-		return $this->get('dime.print.pdf')->render('DimeOfferBundle:Offer:print.pdf.twig', array('offer' => $this->getOr404($id, $this->handlerSerivce)), 'DimeOfferBundle:Offer:stylesheet.xml.twig');
-	}
+     * statusCodes = {
+     * 200 = "Returned when successful",
+     * 404 = "Returned when entity does not exist"
+     * }
+     * )
+     *
+     * @Annotations\Get("/offers/{id}/print", name="_offers_print")
+     *
+     * @Annotations\Route(requirements={"_format"="json|xml"})
+     *
+     * @Annotations\View(
+     * serializerEnableMaxDepthChecks=true
+     * )
+     * @param $id
+     *
+     * @return \Dime\InvoiceBundle\Entity\Invoice
+     */
+    public function printOfferAction($id)
+    {
+        // disable notices from PHPPdf which breaks this
+        error_reporting(E_ALL & ~E_NOTICE);
+        return $this->get('dime.print.pdf')->render('DimeOfferBundle:Offer:print.pdf.twig', array('offer' => $this->getOr404($id, $this->handlerSerivce)), 'DimeOfferBundle:Offer:stylesheet.xml.twig');
+    }
 }

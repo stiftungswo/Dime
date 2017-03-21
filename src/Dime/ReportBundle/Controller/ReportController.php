@@ -79,6 +79,8 @@ class ReportController extends DimeController{
 	 */
 	public function printReportsExpenseAction(ParamFetcherInterface $paramFetcher)
 	{
+		// disable notices from PHPPdf which breaks this
+		error_reporting(E_ALL & ~E_NOTICE);
 		return $this->get('dime.print.pdf')->render('DimeReportBundle:Reports:ExpenseReport.pdf.twig',
 			array(
 				'report' => $this->container->get('dime.report.handler')->getExpenseReport($paramFetcher->all()),
