@@ -8,7 +8,6 @@ php:
 
 
 before_script:
-    - phpenv config-rm xdebug.ini
     - mysql -e 'create database dime;'
     - cp app/config/parameters.yml.travis app/config/parameters.yml.dist
     - composer install -n
