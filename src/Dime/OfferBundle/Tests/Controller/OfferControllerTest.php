@@ -16,10 +16,10 @@ class OfferControllerTest extends DimeTestCase
     public function testGetOfferAction()
     {
         $this->loginAs('admin');
-        /* expect to get 404 on non-existing service */
+        /* expect to get 404 on non-existing offer */
         $this->assertEquals(404, $this->jsonRequest('GET', $this->api_prefix.'/offers/11111')->getStatusCode());
 
-        /* check existing service */
+        /* check existing offer */
         $response = $this->jsonRequest('GET', $this->api_prefix.'/offers/1');
 
         // convert json to array
@@ -34,10 +34,18 @@ class OfferControllerTest extends DimeTestCase
     {
         //Todo Fix Test Disabled for now.
         $this->loginAs('admin');
-        /* create new service */
+        /* create new offer */
         $response = $this->jsonRequest('POST', $this->api_prefix.'/offers',
             json_encode(array(
                 'name' => 'Test',
+                'description' => 'Long Description',
+                'shortDescription' => 'Short Description',
+                'project' => 8,
+                'rateGroup' => 1,
+                'customer' => 2,
+                'accountant' => 5,
+                'validTo' => '2017-02-21',
+                'fixedPrice' => '1337',
                 'status' => 1
             ))
         );
@@ -55,15 +63,34 @@ class OfferControllerTest extends DimeTestCase
         $data = json_decode($response->getContent(), true);
 
         // assert that data has content
-        $this->assertEquals('Test', $data['name'], 'expected to find "Test"');
+        $this->assertEquals('Test', $data['name']);
+        $this->assertEquals('Short Description', $data['shortDescription']);
+        $this->assertEquals('2017-02-21 00:00:00', $data['validTo']);
 
         /* modify  */
         $response = $this->jsonRequest('PUT', $this->api_prefix.'/offers/' . $id,
             json_encode(array(
-                'name' => 'Modified Test'
+                'name' => 'Modified Test',
+                'description' => 'Long Description Modified',
+                'shortDescription' => 'Short Description Modified',
+                'project' => 7,
+                'rateGroup' => 2,
+                //'customer' => 3, // setting customer somehow does not work
+                'accountant' => 4,
+                'validTo' => '2018-02-21',
+                'fixedPrice' => '2337',
+                'status' => 2
             ))
         );
         $this->assertEquals(200, $response->getStatusCode(), $response->getContent());
+
+        // convert json to array
+        $data = json_decode($response->getContent(), true);
+
+        // assert that data has content
+        $this->assertEquals('Modified Test', $data['name']);
+        $this->assertEquals('Short Description Modified', $data['shortDescription']);
+        $this->assertEquals(2337, $data['fixedPrice']);
 
         $response = $this->jsonRequest('PUT', $this->api_prefix.'/offers/' . ($id+100),
         json_encode(array(
@@ -72,7 +99,7 @@ class OfferControllerTest extends DimeTestCase
         );
         $this->assertEquals(404, $response->getStatusCode());
 
-        /* check created service */
+        /* check created offer */
         $response = $this->jsonRequest('GET', $this->api_prefix.'/offers/' . $id);
 
         // convert json to array
@@ -81,11 +108,11 @@ class OfferControllerTest extends DimeTestCase
         // assert that data has content
         $this->assertEquals('Modified Test', $data['name'], 'expected to find "Modified Test"');
 
-        /* delete service */
+        /* delete offer */
         $response = $this->jsonRequest('DELETE', $this->api_prefix.'/offers/' . $id);
         $this->assertEquals(204, $response->getStatusCode(), $response->getContent());
 
-        /* check if service still exists*/
+        /* check if offer still exists*/
         $response = $this->jsonRequest('GET', $this->api_prefix.'/offers/' . $id);
         $this->assertEquals(404, $response->getStatusCode(), $response->getContent());
     }
