@@ -11,6 +11,8 @@
     processIsolation            = "false"
     stopOnFailure               = "false"
     syntaxCheck                 = "true"
+    addUncoveredFilesFromWhitelist = "true"
+    processUncoveredFilesFromWhitelist = "true"
     bootstrap                   = "bootstrap.php.cache" >
 
     <testsuites>
