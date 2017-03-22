@@ -32,14 +32,14 @@ class OfferControllerTest extends DimeTestCase
 
     public function testPostPutDeleteOfferActions()
     {
-	    //Todo Fix Test Disabled for now.
+        //Todo Fix Test Disabled for now.
         $this->loginAs('admin');
         /* create new service */
         $response = $this->jsonRequest('POST', $this->api_prefix.'/offers',
-		    json_encode(array(
-			    'name' => 'Test',
-		    	'status' => 1
-		    ))
+            json_encode(array(
+                'name' => 'Test',
+                'status' => 1
+            ))
         );
         $this->assertEquals(201, $response->getStatusCode(), $response->getContent());
 
@@ -59,16 +59,16 @@ class OfferControllerTest extends DimeTestCase
 
         /* modify  */
         $response = $this->jsonRequest('PUT', $this->api_prefix.'/offers/' . $id,
-		    json_encode(array(
-			    'name' => 'Modified Test'
-		    ))
+            json_encode(array(
+                'name' => 'Modified Test'
+            ))
         );
         $this->assertEquals(200, $response->getStatusCode(), $response->getContent());
 
         $response = $this->jsonRequest('PUT', $this->api_prefix.'/offers/' . ($id+100),
-	    json_encode(array(
-		        'name' => 'Modified Test (to be failed)'
-		    ))
+        json_encode(array(
+                'name' => 'Modified Test (to be failed)'
+            ))
         );
         $this->assertEquals(404, $response->getStatusCode());
 
@@ -96,6 +96,17 @@ class OfferControllerTest extends DimeTestCase
         $response = $this->jsonRequest('PATCH', $this->api_prefix.'/createprojectfromoffer/1',
             json_encode(array())
         );
+    }
+
+    public function testPrintOfferAction() {
+        $this->loginAs('admin');
+
+        $response = $this->jsonRequest('GET', $this->api_prefix.'/offers/1/print');
+
+        // test if pdf seems valid
+        $data = $response->getContent();
+        $this->assertEquals('%PDF-1.4', substr($data, 0, 8), $data);
+        $this->assertContains('This is a default offer',$data);
     }
 
 }
