@@ -13,7 +13,6 @@ yum -y install httpd mariadb mariadb-server
 rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
 rpm -Uvh https://mirror.webtatic.com/yum/el7/webtatic-release.rpm
 yum -y install php71w php71w-common php71w-pear php71w-mbstring php71w-intl php71w-xml php71w-pecl-apcu php71w-process php71w-gd php71w-mcrypt php71w-phpdbg php71w-pdo php71w-mysql
-#yum -y install php71w-pecl-xdebug
 
 # disable firewall for development
 systemctl disable firewalld
@@ -23,6 +22,9 @@ systemctl stop firewalld
 setenforce 0
 sed -i 's/^SELINUX=.*/SELINUX=disabled/g' /etc/sysconfig/selinux
 sed -i 's/^SELINUX=.*/SELINUX=disabled/g' /etc/selinux/config
+
+# increase limit of max open files, php coverage reports reached the default limit of 1028
+ulimit -n 16384
 
 # TODO: sshd config
 
@@ -39,10 +41,10 @@ service mariadb restart
 service httpd start
 
 # install xdebug
-#yum install php71w-devel php71w-pear
-#yum install gcc gcc-c++ autoconf automake
-#pecl install Xdebug
-#service httpd restart
+yum install php71w-devel php71w-pear php71w-pecl-xdebug
+yum install gcc gcc-c++ autoconf automake
+pecl install Xdebug
+service httpd restart
 
 # configure autostart on boot
 sudo systemctl enable httpd.service
