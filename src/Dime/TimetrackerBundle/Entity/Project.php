@@ -228,7 +228,7 @@ class Project extends Entity implements DimeEntityInterface
     public function getRemainingBudgetTime()
     {
         if ($this->budgetTime != null) {
-            $currentBudget = $this->budgetTime - $this->getCurrentTime();
+            $currentBudget = $this->budgetTime - (int) $this->getCurrentTime();
             return number_format($currentBudget, 2) . ' ' . RateUnitType::$Hourly;
         } else {
             return null;
