@@ -167,13 +167,11 @@ and the local branch too:
 
 Run tests:
 
-    cd /vagrant
-    ./vendor/phpunit/phpunit/phpunit -c app/
+    /vagrant/env/run_tests.sh
 
 Run a single test:
 
-    cd /vagrant
-    ./vendor/phpunit/phpunit/phpunit -c app/ --filter ActivitiesControllerTest::testGetActivitiesAction
+    /vagrant/env/run_tests.sh --filter ActivitiesControllerTest::testGetActivitiesAction
     
 
 ## Building the Frontend
@@ -189,19 +187,19 @@ Always build & commit the frontend before merging into master!
 
 Update Database Schema to the latest version:
 
-    php app/console doctrine:migrations:migrate
+    php /vagrant/app/console doctrine:migrations:migrate
 
 Migrate Database Schema to a specific version:
 
-    php app/console doctrine:migrations:migrate <version>
+    php /vagrant/app/console doctrine:migrations:migrate <version>
 
 Generate new Empty Migration Class:
 
-    php app/console doctrine:migrations:generate
+    php /vagrant/app/console doctrine:migrations:generate
 
 After changing the ORM schema, sometimes you need to clear the cache before it works:
 
-    php app/console cache:clear
+    php /vagrant/app/console cache:clear
 
 
 ## Fixtures
@@ -214,11 +212,11 @@ Load fixtures into the database:
 
 When the database schema changed, you need to regenerate the fixtures. You can do this with the following command (may take a while):
 
-    cd /vagrant/env/fixtures/ && ./regenerate_fixtures.sh
+    /vagrant/env/fixtures/regenerate_fixtures.sh
 
 Then export the changes again and check in the new dime.sql into git
 
-    cd /vagrant/env/fixtures/ && ./export_fixtures.sh 
+    /vagrant/env/fixtures/export_fixtures.sh
 
 
 ## Deployment

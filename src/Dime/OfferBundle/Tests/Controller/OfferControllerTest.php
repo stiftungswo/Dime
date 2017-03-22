@@ -106,4 +106,16 @@ class OfferControllerTest extends DimeTestCase
             json_encode(array())
         );
     }
+
+    public function testPrintOfferAction()
+    {
+        $this->loginAs('admin');
+
+        $response = $this->jsonRequest('GET', $this->api_prefix.'/offers/1/print');
+
+        // test if pdf seems valid
+        $data = $response->getContent();
+        $this->assertEquals('%PDF-1.4', substr($data, 0, 8), $data);
+        $this->assertContains('This is a default offer', $data);
+    }
 }

@@ -2,7 +2,8 @@ Dime\InvoiceBundle\Entity\Invoice:
     invoice1:
         project: @project1
         customer: @customer1
-        user: @user*
+        user: @user1
+        accountant: @user1
         name: Default Invoice
         alias: default-invoice
         description: This is a detailed description
@@ -13,6 +14,7 @@ Dime\InvoiceBundle\Entity\Invoice:
         project: 75%? @project*
         customer: @customer*
         user: @user*
+        accountant: @user*
         name: Test Invoice <current()>
         alias: test-invoice-<current()>
         description: <text(700)>
