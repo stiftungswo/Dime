@@ -8,6 +8,7 @@ Dime\InvoiceBundle\Entity\InvoiceItem:
         rateUnit: CHF/h
         vat: 0.08
         activity: @activity1
+        order: 1
     itemInvoiceHour{1..10}:
         invoice: @invoice*
         user: @user*
@@ -17,6 +18,7 @@ Dime\InvoiceBundle\Entity\InvoiceItem:
         rateUnit: CHF/h
         vat: <randomElement(array (0.025, 0.08))>
         activity: @activityHour*
+        order: <randomNumber(2)>
     itemInvoiceDay{1..10}:
         invoice: @invoice*
         user: @user*
@@ -26,6 +28,7 @@ Dime\InvoiceBundle\Entity\InvoiceItem:
         rateUnit: CHF/h
         vat: <randomElement(array (0.025, 0.08))>
         activity: @activityDay*
+        order: <randomNumber(2)>
     itemInvoiceNone{1..10}:
         invoice: @invoice*
         user: @user*
@@ -35,6 +38,7 @@ Dime\InvoiceBundle\Entity\InvoiceItem:
         rateUnit: CHF/h
         vat: <randomElement(array (0.025, 0.08))>
         activity: @activityNone*
+        order: <randomNumber(2)>
     itemInvoicePauschal{1..10}:
         invoice: @invoice*
         user: @user*
@@ -44,3 +48,4 @@ Dime\InvoiceBundle\Entity\InvoiceItem:
         rateUnit: CHF/h
         vat: <randomElement(array (0.025, 0.08))>
         activity: @activityPauschal*
+        order: <randomNumber(2)>
