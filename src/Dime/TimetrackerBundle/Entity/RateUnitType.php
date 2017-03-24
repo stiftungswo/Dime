@@ -224,7 +224,7 @@ class RateUnitType extends Entity implements DimeEntityInterface
 			default:
 				break;
 		}
-		$value = round(($value * $factor), $scale, $roundMode);
+		$value = round(((float) $value * $factor), $scale, $roundMode);
 		if ($includeUnit === true) {
 			$value .= $new_unit;
 		}
