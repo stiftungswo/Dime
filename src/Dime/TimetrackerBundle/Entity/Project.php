@@ -214,7 +214,7 @@ class Project extends Entity implements DimeEntityInterface
 		$duration = 0;
 		foreach ($this->activities as $activity) {
 			if ($activity->getRateUnitType() != null && $activity->getRateUnitType()->getSymbol() !== RateUnitType::$NoChange) {
-				$duration += RateUnitType::transformBetweenTimeUnits($activity->getValue(true), RateUnitType::$Secondly, RateUnitType::$Hourly, false);
+				$duration += (float) RateUnitType::transformBetweenTimeUnits($activity->getValue(true), RateUnitType::$Secondly, RateUnitType::$Hourly, false);
 			}
 		}
 		return number_format($duration, 2). ' ' . RateUnitType::$Hourly;
