@@ -66,6 +66,7 @@ class Invoice extends Entity implements DimeEntityInterface
     /**
      * @var ArrayCollection
      * @ORM\OneToMany(targetEntity="Dime\InvoiceBundle\Entity\InvoiceItem", mappedBy="invoice", cascade={"all"}, orphanRemoval=true)
+     * @ORM\OrderBy({"order" = "ASC"})
      */
     protected $items;
 
