@@ -25722,16 +25722,21 @@
         t2 = H.Primitives_getMonth(now);
         t3 = H.Primitives_getDay(now);
         this.date = new P.DateTime(H.checkInt(H.Primitives_valueFromDecomposedDate(t1, t2, t3, 0, 0, 0, 0, false)), false);
+        this.updateDate$0();
       }, "call$0", "get$today", 0, 0, 2],
       nextDay$0: [function() {
         var t1 = this.date;
-        if (t1 != null)
+        if (t1 != null) {
           this.date = J.add$1$ax(t1, P.Duration$(1, 0, 0, 0, 0, 0));
+          this.updateDate$0();
+        }
       }, "call$0", "get$nextDay", 0, 0, 2],
       previousDay$0: [function() {
         var t1 = this.date;
-        if (t1 != null)
+        if (t1 != null) {
           this.date = t1.subtract$1(P.Duration$(1, 0, 0, 0, 0, 0));
+          this.updateDate$0();
+        }
       }, "call$0", "get$previousDay", 0, 0, 2],
       onInputBlur$0: [function() {
         var t1, t2, t3, exception;
@@ -25757,11 +25762,28 @@
             P.print(C.JSString_methods.$add("invalid date: ", this.text));
           }
         this.validate$0();
+        this.updateDate$0();
+      }, "call$0", "get$onInputBlur", 0, 0, 2],
+      updateDate$0: function() {
+        var t1, t2, t3;
+        t1 = this.date;
+        if (t1 != null && !J.$eq$(t1.get$hour(), 0)) {
+          t1 = J.$eq$(this.date.get$hour(), 23);
+          t2 = this.date;
+          if (t1)
+            this.date = J.add$1$ax(t2, P.Duration$(0, 1, 0, 0, 0, 0));
+          else {
+            t1 = t2.get$year();
+            t2 = this.date.get$month();
+            t3 = this.date.get$day();
+            this.date = new P.DateTime(H.checkInt(H.Primitives_valueFromDecomposedDate(t1, t2, t3, 0, 0, 0, 0, false)), false);
+          }
+        }
         if (this.callback != null) {
           t1 = P.LinkedHashMap__makeLiteral(["name", this.field]);
           this.callback.call$1(t1);
         }
-      }, "call$0", "get$onInputBlur", 0, 0, 2],
+      },
       validate$0: function() {
         var t1, t2, exception;
         if (J.$eq$(this.text, "")) {
