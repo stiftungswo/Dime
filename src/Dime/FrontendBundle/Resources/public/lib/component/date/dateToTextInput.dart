@@ -33,17 +33,20 @@ class DateToTextInput implements ScopeAware {
   today() {
     DateTime now = new DateTime.now();
     this.date = new DateTime(now.year, now.month, now.day);
+    updateDate();
   }
 
   nextDay() {
     if (this.date != null) {
       this.date = this.date.add(new Duration(days: 1));
+      updateDate();
     }
   }
 
   previousDay() {
     if (this.date != null) {
       this.date = this.date.subtract(new Duration(days: 1));
+      updateDate();
     }
   }
 
@@ -76,6 +79,18 @@ class DateToTextInput implements ScopeAware {
   }
 
   updateDate() {
+    // Beim Sommerzeitwechsel wird manchmal eine Stunde dazugezählt, was dazu führt dass es ein Tageswechsel gibt
+    // Das Datum ist dann 23:00 am vorherigen Tag was fehlerbehaftet ist (und 2 Tage gesprungen wird).
+    // In diesem Fall die Stunde immer auf 0 setzen, damit wirklich der Beginn des Tages ausgewählt ist.
+    if (this.date != null && this.date.hour != 0) {
+      if (this.date.hour == 23) {
+        // add one hour to be on the correct day again
+        this.date = this.date.add(new Duration(hours: 1));
+      } else {
+        // or simply reset to hour 0
+        this.date = new DateTime(this.date.year, this.date.month, this.date.day);
+      }
+    }
     if (this.callback != null) {
       callback({"name": this.field});
     }
