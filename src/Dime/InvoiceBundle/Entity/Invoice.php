@@ -208,15 +208,14 @@ class Invoice extends Entity implements DimeEntityInterface
 	{
 		if($this->getItems()){
 			$totalVAT = Money::CHF(0);
-			$totalWithoutVAT = $this->getTotal();
-			$vatRate = 0.080;
-			$totalVAT = $totalVAT->add($totalWithoutVAT->multiply((float)$vatRate));
-			//foreach ($this->getItems() as $invoicePosition) {
-				//if($invoicePosition->getCalculatedVAT()) {
-					//$totalVAT = $totalVAT->add($invoicePosition->getCalculatedVAT());
-				//}
-
-			//}
+			foreach ($this->getItems() as $invoicePosition) {
+				if($invoicePosition->getCalculatedVAT()) {
+					$totalVAT = $totalVAT->add($invoicePosition->getCalculatedVAT());
+				}
+			}
+			//$totalWithoutVAT = $this->getTotal();
+			//$vatRate = 0.080;
+			//$totalVAT = $totalVAT->add($totalWithoutVAT->multiply((float)$vatRate));
 			return $totalVAT;
 		} else {
 			return null;
