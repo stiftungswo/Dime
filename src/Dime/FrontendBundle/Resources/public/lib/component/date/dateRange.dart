@@ -27,6 +27,27 @@ class DateRange implements ScopeAware {
   bool nullAllowed = false;
 
   updateDate() {
+    // Beim Sommerzeitwechsel wird manchmal eine Stunde dazugezählt, was dazu führt dass es ein Tageswechsel gibt
+    // Das Datum ist dann 23:00 am vorherigen Tag was fehlerbehaftet ist (und 2 Tage gesprungen wird).
+    // In diesem Fall die Stunde immer auf 0 setzen, damit wirklich der Beginn des Tages ausgewählt ist.
+    if (this.startDate != null && this.startDate.hour != 0) {
+      if (this.startDate.hour == 23) {
+        // add one hour to be on the correct day again
+        this.startDate = this.startDate.add(new Duration(hours: 1));
+      } else {
+        // or simply reset to hour 0
+        this.startDate = new DateTime(this.startDate.year, this.startDate.month, this.startDate.day);
+      }
+    }
+    if (this.endDate != null && this.endDate.hour != 0) {
+      if (this.endDate.hour == 23) {
+        // add one hour to be on the correct day again
+        this.endDate = this.endDate.add(new Duration(hours: 1));
+      } else {
+        // or simply reset to hour 0
+        this.endDate = new DateTime(this.endDate.year, this.endDate.month, this.endDate.day);
+      }
+    }
     if (this.callback != null) {
       callback();
     }

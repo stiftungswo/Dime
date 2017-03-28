@@ -25628,47 +25628,67 @@
     "^": "",
     DateRange: {
       "^": "Object;startDate@,endDate@,callback@,format@,nullAllowed@",
+      updateDate$0: function() {
+        var t1, t2, t3;
+        t1 = this.startDate;
+        if (t1 != null && !J.$eq$(t1.get$hour(), 0)) {
+          t1 = J.$eq$(this.startDate.get$hour(), 23);
+          t2 = this.startDate;
+          if (t1)
+            this.startDate = J.add$1$ax(t2, P.Duration$(0, 1, 0, 0, 0, 0));
+          else {
+            t1 = t2.get$year();
+            t2 = this.startDate.get$month();
+            t3 = this.startDate.get$day();
+            this.startDate = new P.DateTime(H.checkInt(H.Primitives_valueFromDecomposedDate(t1, t2, t3, 0, 0, 0, 0, false)), false);
+          }
+        }
+        t1 = this.endDate;
+        if (t1 != null && !J.$eq$(t1.get$hour(), 0)) {
+          t1 = J.$eq$(this.endDate.get$hour(), 23);
+          t2 = this.endDate;
+          if (t1)
+            this.endDate = J.add$1$ax(t2, P.Duration$(0, 1, 0, 0, 0, 0));
+          else {
+            t1 = t2.get$year();
+            t2 = this.endDate.get$month();
+            t3 = this.endDate.get$day();
+            this.endDate = new P.DateTime(H.checkInt(H.Primitives_valueFromDecomposedDate(t1, t2, t3, 0, 0, 0, 0, false)), false);
+          }
+        }
+        t1 = this.callback;
+        if (t1 != null)
+          t1.call$0();
+      },
       previousMonth$0: [function() {
         this.startDate = this.startDate.subtract$1(P.Duration$(30, 0, 0, 0, 0, 0));
         this.endDate = this.endDate.subtract$1(P.Duration$(30, 0, 0, 0, 0, 0));
-        var t1 = this.callback;
-        if (t1 != null)
-          t1.call$0();
+        this.updateDate$0();
       }, "call$0", "get$previousMonth", 0, 0, 2],
       previousWeek$0: [function() {
         this.startDate = this.startDate.subtract$1(P.Duration$(7, 0, 0, 0, 0, 0));
         this.endDate = this.endDate.subtract$1(P.Duration$(7, 0, 0, 0, 0, 0));
-        var t1 = this.callback;
-        if (t1 != null)
-          t1.call$0();
+        this.updateDate$0();
       }, "call$0", "get$previousWeek", 0, 0, 2],
       previousDay$0: [function() {
         this.startDate = this.startDate.subtract$1(P.Duration$(1, 0, 0, 0, 0, 0));
         this.endDate = this.endDate.subtract$1(P.Duration$(1, 0, 0, 0, 0, 0));
-        var t1 = this.callback;
-        if (t1 != null)
-          t1.call$0();
+        this.updateDate$0();
       }, "call$0", "get$previousDay", 0, 0, 2],
       nextMonth$0: [function() {
         this.startDate = J.add$1$ax(this.startDate, P.Duration$(30, 0, 0, 0, 0, 0));
         this.endDate = J.add$1$ax(this.endDate, P.Duration$(30, 0, 0, 0, 0, 0));
-        var t1 = this.callback;
-        if (t1 != null)
-          t1.call$0();
+        this.updateDate$0();
       }, "call$0", "get$nextMonth", 0, 0, 2],
       nextWeek$0: [function() {
         this.startDate = J.add$1$ax(this.startDate, P.Duration$(7, 0, 0, 0, 0, 0));
         this.endDate = J.add$1$ax(this.endDate, P.Duration$(7, 0, 0, 0, 0, 0));
-        var t1 = this.callback;
-        if (t1 != null)
-          t1.call$0();
+        this.updateDate$0();
       }, "call$0", "get$nextWeek", 0, 0, 2],
       nextDay$0: [function() {
         this.startDate = J.add$1$ax(this.startDate, P.Duration$(1, 0, 0, 0, 0, 0));
         this.endDate = J.add$1$ax(this.endDate, P.Duration$(1, 0, 0, 0, 0, 0));
-        var t1 = this.callback;
-        if (t1 != null)
-          t1.call$0();
+        this.updateDate$0();
       }, "call$0", "get$nextDay", 0, 0, 2],
       set$scope: function(_, scope) {
         scope.watch$2("startDate", new F.DateRange_scope_closure(this));
@@ -25682,19 +25702,13 @@
     DateRange_scope_closure: {
       "^": "Closure:1;$this",
       call$2: function(val1, val2) {
-        var t1 = this.$this.callback;
-        if (t1 != null)
-          t1.call$0();
-        return;
+        return this.$this.updateDate$0();
       }
     },
     DateRange_scope_closure0: {
       "^": "Closure:1;$this",
       call$2: function(val1, val2) {
-        var t1 = this.$this.callback;
-        if (t1 != null)
-          t1.call$0();
-        return;
+        return this.$this.updateDate$0();
       }
     }
   }], ["dime.dateToTextInput", "package:DimeClient/component/date/dateToTextInput.dart",, N, {
