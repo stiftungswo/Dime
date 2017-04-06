@@ -132,7 +132,7 @@
 					<div margin="9mm 4mm 0 20mm" text-align="right">
 						{{ invoiceconfig.senderKontoNr }}
 					</div>
-					<div margin="8mm 2mm 0 0">
+					<div margin="6mm 2mm 0 0">
 						<div margin="0" padding="0" font-size="14" text-align="center">
 							  {{ invoice.total|money_get_decimals|charbox(2) }}<div margin="0" padding="0" float="right" width="6mm"></div>{{ invoice.total|money_get_digits|charbox(8) }}
 						</div>
@@ -158,7 +158,7 @@
 								<div margin="9mm 4mm 0 20mm" text-align="right">
 									{{ invoiceconfig.senderKontoNr }}
 								</div>
-								<div margin="8mm 3mm 0 0">
+								<div margin="6mm 3mm 0 0">
 									<div margin="0" padding="0" font-size="14" text-align="center">
 										{{ invoice.total|money_get_decimals|charbox(2) }}<div margin="0" padding="0" float="right" width="6mm"></div>{{ invoice.total|money_get_digits|charbox(8) }}
 									</div>
@@ -167,7 +167,7 @@
 							<td height="80mm" border.type="none">
 								<div height="26mm" width="100%">
 									<div height="100%" width="58mm">
-										<div margin="12mm 0 0 3mm" font-size="14">
+										<div margin="10mm 0 0 3mm" font-size="14">
 											Rechnungs- Nr. {{ invoice.id }}
 										</div>
 									</div>
