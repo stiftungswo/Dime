@@ -1,0 +1,31 @@
+version: '2'
+services:
+  dime:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: dime
+    hostname: dime
+    ports:
+      - "80:8080"
+      - "9000:9000"
+    links:
+      - mariadb:mysql
+    volumes:
+      - ./:/var/www/html
+    environment:
+      - VIRTUAL_HOST=localhost
+      - PUB_CACHE=~/.dime/pub
+    restart: always
+
+  mariadb:
+    image: mariadb:10
+    container_name: mariadb
+    hostname: mariadb
+    volumes:
+      - ~/.dime/mysql:/var/lib/mysql
+    environment:
+      - MYSQL_ALLOW_EMPTY_PASSWORD=1
+      - MYSQL_USER=dime
+      - MYSQL_PASSWORD=dime
+    restart: always
