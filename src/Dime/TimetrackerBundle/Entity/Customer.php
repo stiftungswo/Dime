@@ -219,7 +219,7 @@ class Customer extends Entity implements DimeEntityInterface
 	 * Remove tags
 	 *
 	 * @param Tag $tag
-	 * @return Activity
+	 * @return Customer
 	 */
 	public function removeTag(Tag $tag)
 	{

@@ -4,6 +4,7 @@ namespace Dime\OfferBundle\Entity;
 use Dime\EmployeeBundle\Entity\Employee;
 use Dime\TimetrackerBundle\Entity\Customer;
 use Dime\TimetrackerBundle\Entity\Entity;
+use Dime\TimetrackerBundle\Entity\Project;
 use Dime\TimetrackerBundle\Entity\StandardDiscount;
 use Dime\TimetrackerBundle\Entity\Tag;
 use Dime\TimetrackerBundle\Model\DimeEntityInterface;
@@ -258,7 +259,7 @@ class Offer extends Entity implements DimeEntityInterface
 	/**
 	 * Get project
 	 *
-	 * @return string
+	 * @return Project
 	 */
 	public function getProject()
 	{
