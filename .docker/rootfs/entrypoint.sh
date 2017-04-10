@@ -13,6 +13,7 @@ mysql --host=mysql -u root -e "DROP DATABASE IF EXISTS dime; CREATE DATABASE dim
 php app/console doctrine:schema:create
 mysql --host=mysql -u root dime < ./env/fixtures/dime.sql
 cp ./app/config/parameters.yml.dist ./app/config/parameters.yml
+cp ./web/.htaccess_dev ./web/.htaccess
 
 # init app
 php app/console assetic:dump
@@ -20,7 +21,7 @@ php app/console asset:install --symlink
 
 # dart-sdk: pub get
 cd /var/www/html/src/Dime/FrontendBundle/Resources/public
-/usr/local/dart-sdk/bin/pub get --no-packages-dir
+/usr/lib/dart/bin/pub get --packages-dir
 cd /var/www/html
 
 
