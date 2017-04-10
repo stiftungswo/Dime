@@ -9,6 +9,7 @@ RUN apt-get update -y && \
     dpkg-reconfigure locales && \
     pecl install mongodb && docker-php-ext-enable mongodb && \
     pecl install redis && docker-php-ext-enable redis && \
+    pecl install apcu && docker-php-ext-enable apcu && \
     docker-php-ext-install bcmath mbstring intl iconv mcrypt zip mysqli pdo pdo_mysql opcache && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /var/www/html/* && \
@@ -20,7 +21,7 @@ RUN apt-get update -y && \
     mv composer.phar /usr/local/bin/composer
 
 RUN apt-get update && \
-    apt-get install -y php-apc apt-transport-https && \
+    apt-get install -y apt-transport-https && \
     curl https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - && \
     curl https://storage.googleapis.com/download.dartlang.org/linux/debian/dart_stable.list > /etc/apt/sources.list.d/dart_stable.list && \
     apt-get update && \
@@ -28,7 +29,6 @@ RUN apt-get update && \
     ulimit -n 16384
 
 COPY .docker/rootfs /
-COPY ./env/config/dime.ini /usr/local/etc/php/conf.d/
 
 RUN chown www-data:www-data /etc/supervisor/supervisord.conf && \
     chmod +x /entrypoint.sh && \

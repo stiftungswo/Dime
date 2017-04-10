@@ -1,25 +1,30 @@
 #!/usr/bin/env bash
 
-# run startup commands
+# setup
 composer install
 
+# db: permissions
 mysql --host=mysql -u root -e "CREATE DATABASE IF NOT EXISTS dime;"
 mysql --host=mysql -u root -e "GRANT all privileges on dime.* to dime@'%' IDENTIFIED BY 'dime';"
 mysql --host=mysql -u root -e "FLUSH PRIVILEGES;"
 mysql --host=mysql -u root -e "DROP DATABASE IF EXISTS dime; CREATE DATABASE dime;"
+
+# db: schema & migrations
 php app/console doctrine:schema:create
 mysql --host=mysql -u root dime < ./env/fixtures/dime.sql
 cp ./app/config/parameters.yml.dist ./app/config/parameters.yml
 
+# init app
 php app/console assetic:dump
 php app/console asset:install --symlink
 
-cd ./src/Dime/FrontendBundle/Resources/public
-pub get --packages-dir
+# dart-sdk: pub get
+cd /var/www/html/src/Dime/FrontendBundle/Resources/public
+/usr/local/dart-sdk/bin/pub get --no-packages-dir
+cd /var/www/html
 
 
 # update supervisor configuration
-
 if [ -f /var/www/html/.docker/supervisord.conf ]; then
 	cp /var/www/html/.docker/supervisord.conf /var/www/html/supervisord.conf
 fi
@@ -32,7 +37,6 @@ fi
 
 
 # setup cron
-
 if [ `whoami` = 'root' ]; then
     if [ "$GIT_BRANCH" == 'develop' ] || [ "$GIT_BRANCH" == 'master' ]; then
         if [ -f /var/www/html/.docker/crontab ]; then
