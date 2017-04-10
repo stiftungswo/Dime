@@ -326,10 +326,6 @@ class Offer extends Entity implements DimeEntityInterface
     public function setCustomer($customer)
     {
         $this->customer = $customer;
-        if ($customer->getAddress()) {
-            $address = clone $customer->getAddress();
-            $this->setAddress($address);
-        }
         return $this;
     }
 
