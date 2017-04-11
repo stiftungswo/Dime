@@ -15,7 +15,7 @@ services:
       - ./:/var/www/html
     environment:
       - VIRTUAL_HOST=localhost
-      - PUB_CACHE=~/.dime/pub
+      - PUB_CACHE=/tmp/dime-pub-cache
     restart: always
 
   mariadb:
