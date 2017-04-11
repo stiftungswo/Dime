@@ -16,73 +16,41 @@ An API and open architecture will serve additional purposes:
   * project management
 
 
-## Demo
+## Installation / Setup for Development
 
-See the Vagrant VM in env Folder
+Download and install Docker and docker-compose:
 
-
-## Installation
-
-### Windows
-
-Download and install VirtualBox:
-
-    https://www.virtualbox.org/
-
-Download and install Cygwin:
-
-    https://cygwin.com/
-    In the package selection of the setup, search rsync and add it
-
-Modify the hosts file:
-
-    In C:\Windows\System32\drivers\etc\hosts add the line
-    192.168.122.10 dime.test.local
+    https://www.docker.com
 
 Download and install a Git client:
 
     e.g. https://www.sourcetreeapp.com/
     Check out the current version
 
-Install rsync plugin:
+Download Dartium (supports Dart files in chrome in uncompiled version):
 
-    vagrant plugin install vagrant-rsync
+    https://webdev.dartlang.org/tools
 
-Fix vagrant rsync bug:
+Now fire up MariaDB and Dime on the docker machine via the docker-compose tool:
 
-    Find file: C:\HashiCorp\Vagrant\embedded\gems\gems\vagrant-1.7.4\plugins\synced_folders\rsync\helper.rb
-    Find code snippet and change third line to:  
-
-    if Vagrant::Util::Platform.windows?
-        # rsync for Windows expects cygwin style paths, always.
-        hostpath = "/cygdrive" + Vagrant::Util::Platform.cygwin_path(hostpath)
-    end
-
-Start the virtual machine via the cygwin terminal:
-
-    cd /cygdrive/c/Users/YourName/Dime/env
-    vagrant up
-
-Start auto sync:
-
-    vagrant rsync-auto dime
-
-Download e.g. Dartium which is a Google Chrome for developpers:
-
-    https://www.dartlang.org/tools/dartium/
-    Start it by unzipping and executing the file chrome.exe
-    Go to the page http://dime.test.local (-> this page does not work in a normal browser!)
+    docker-compose up -d
 
 
-### OSX
+## Using Docker & docker-compose
 
-Generally the same steps as for Windows:
+You can inspect the logs of Dime and MariaDB by:
 
-  * Install VirtualBox, Vagrant and Dartium
-  * run "vagrant up" in the env/ folder
-  * Open in Dartium: http://dime.test.local
+    docker-compose logs -f
 
-Default Vagrant File Sync on OSX is very slow, you may want to use rsync or nfs to speed things up
+Enter the dime docker container as root in interactive mode (bash):
+
+    docker exec -it dime bash
+
+Run any command inside the docker container:
+
+    docker exec -it dime COMMAND
+
+For more infos visit docker.com
 
 
 ## Update
@@ -92,8 +60,7 @@ Update to last version
     git pull
     composer self-update
     composer update -v
-    app/console assetic:dump
-    app/console assets:install --symlink
+    ./env/install_bundles.sh
 
 If you have any problem remove vendor and install again
 
@@ -101,7 +68,7 @@ If you have any problem remove vendor and install again
 
 Update database
 
-    app/console doctrine:migrations:migrate
+    docker exec -it dime php app/console doctrine:migrations:migrate
 
 
 ## Bundles
