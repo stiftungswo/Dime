@@ -2,19 +2,13 @@
 
 # setup
 composer install
-
-# db: init with fixtures
-/var/www/html/env/regenerate_fixtures.sh
+/var/www/html/env/db_rebuild.sh
 
 # dev environment config
 cp ./app/config/parameters.yml.dist ./app/config/parameters.yml
 cp ./web/.htaccess_dev ./web/.htaccess
 
-# init app bundles and assets
-php app/console assetic:dump
-php app/console asset:install --symlink
-
-# dart-sdk: pub get
+/var/www/html/env/install_bundles.sh
 /var/www/html/env/pub_get.sh
 
 # update supervisor configuration
@@ -27,7 +21,6 @@ if [ -f /var/www/html/supervisord.conf ]; then
 	echo -e "\n" >> /etc/supervisor/supervisord.conf
     cat /var/www/html/supervisord.conf >> /etc/supervisor/supervisord.conf
 fi
-
 
 # setup cron
 if [ `whoami` = 'root' ]; then
@@ -53,7 +46,5 @@ echo -e "===> generated supervisord configuration:\n"
 cat /etc/supervisor/supervisord.conf
 echo -e "\n\n===> starting supervisord..."
 
-
 # start supervisord!
-
 /usr/bin/supervisord -c /etc/supervisor/supervisord.conf
