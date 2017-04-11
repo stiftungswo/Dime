@@ -20,10 +20,7 @@ php app/console assetic:dump
 php app/console asset:install --symlink
 
 # dart-sdk: pub get
-cd /var/www/html/src/Dime/FrontendBundle/Resources/public
-/usr/lib/dart/bin/pub get --packages-dir
-cd /var/www/html
-
+/var/www/html/env/pubget.sh
 
 # update supervisor configuration
 if [ -f /var/www/html/.docker/supervisord.conf ]; then

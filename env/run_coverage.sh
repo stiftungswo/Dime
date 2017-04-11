@@ -1,17 +1,13 @@
 #!/bin/bash
 set -x
+ENV_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-/vagrant/env/fixtures/load_fixtures.sh
-
-rm -rf /vagrant/test-coverage
+$ENV_DIR/fixtures/load_fixtures.sh
+rm -rf ../test-coverage
 
 # generate coverage with xdebug
-/vagrant/vendor/phpunit/phpunit/phpunit -c /vagrant/app/ --coverage-html /vagrant/test-coverage "$@"
+$ENV_DIR/../vendor/phpunit/phpunit/phpunit -c $ENV_DIR/../app/ --coverage-html $ENV_DIR/../test-coverage "$@"
 
-# generate coverage with phpdbg
-#phpdbg -dmemory_limit=4096M -qrr /vagrant/vendor/phpunit/phpunit/phpunit -c /vagrant/app/ --coverage-html /vagrant/test-coverage "$@"
-
-
-if [ -d "/vagrant/test-coverage" ]; then
-    echo -e "\n\n  Code Coverage Report written to: /vagrant/test-coverage\n\n"
+if [ -d "$ENV_DIR/../test-coverage" ]; then
+    echo -e "\n\n  Code Coverage Report written to: $ENV_DIR/../test-coverage\n\n"
 fi

@@ -4,8 +4,8 @@ SCRIPT=$(realpath ${BASH_SOURCE[0]})
 SCRIPT_PATH=$(dirname ${SCRIPT})
 APP_ROOT=$(realpath ${SCRIPT_PATH}/..)
 
-if [ -d ${SCRIPT_PATH}/.pub_cache ]; then
-    rm -rf ${SCRIPT_PATH}/.pub_cache
+if [ -d ${PUB_CACHE} ]; then
+    rm -rf ${PUB_CACHE}
 fi
 
 if [ -d $APP_ROOT/src/Dime/FrontendBundle/Resources/public/packages ]; then
