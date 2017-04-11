@@ -614,7 +614,7 @@ class Invoice extends Entity implements DimeEntityInterface
     /**
      * @param Employee $accountant
      *
-     * @return Project
+     * @return Invoice
      */
     public function setAccountant($accountant)
     {
