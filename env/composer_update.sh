@@ -5,5 +5,5 @@ set -x
 
 cd $ROOT_DIR
 composer update $@
-${ROOT_DIR}/env/cacheclear.sh
+${ROOT_DIR}/env/clear_cache.sh
 cd $CURRENT_DIR
