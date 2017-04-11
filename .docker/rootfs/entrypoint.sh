@@ -2,6 +2,9 @@
 
 # setup
 composer install
+
+# db setup after waiting
+/wait-for-it.sh mysql:3306
 /var/www/html/env/db_rebuild.sh
 
 # dev environment config

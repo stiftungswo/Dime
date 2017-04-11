@@ -9,13 +9,13 @@
 /build/
 /vendor/
 /bin/
-/composer.phar
-/env/.vagrant/
-/env/.pub_cache
 /components/*
+/test-coverage
+/env/.vagrant
 .settings/
 .buildpath
 .project
 .idea/
 .remote-sync.json
-/test-coverage
+.dime-db
+.pub-cache
