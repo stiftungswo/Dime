@@ -16,6 +16,8 @@ services:
     environment:
       - VIRTUAL_HOST=localhost
       - PUB_CACHE=/tmp/dime-pub-cache
+      - PHP_MEMLIMIT="256M"
+      - CACHE_ROOT="/tmp/app"
     restart: always
 
   mariadb:

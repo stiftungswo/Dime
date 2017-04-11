@@ -1,13 +1,13 @@
 #!/bin/bash
+ROOT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
 set -x
-ENV_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-$ENV_DIR/fixtures/load_fixtures.sh
-rm -rf ../test-coverage
+$ROOT_DIR/env/fixtures/load_fixtures.sh
+rm -rf $ROOT_DIR/test-coverage
 
 # generate coverage with xdebug
-$ENV_DIR/../vendor/phpunit/phpunit/phpunit -c $ENV_DIR/../app/ --coverage-html $ENV_DIR/../test-coverage "$@"
+$ROOT_DIR/vendor/phpunit/phpunit/phpunit -c $ROOT_DIR/app/ --coverage-html $ROOT_DIR/test-coverage "$@"
 
-if [ -d "$ENV_DIR/../test-coverage" ]; then
-    echo -e "\n\n  Code Coverage Report written to: $ENV_DIR/../test-coverage\n\n"
+if [ -d "$ROOT_DIR/test-coverage" ]; then
+    echo -e "\n\n  Code Coverage Report written to: $ROOT_DIR/test-coverage\n\n"
 fi

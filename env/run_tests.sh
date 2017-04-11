@@ -1,6 +1,7 @@
 #!/bin/bash
+CURRENT_DIR=$(pwd)
+ROOT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
 set -x
-ENV_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-$ENV_DIR/fixtures/load_fixtures.sh
-$ENV_DIR/../vendor/phpunit/phpunit/phpunit -c $ENV_DIR../app/ "$@"
+$ROOT_DIR/env/fixtures/load_fixtures.sh
+$ROOT_DIR/vendor/phpunit/phpunit/phpunit -c $ROOT_DIR/app/ "$@"
