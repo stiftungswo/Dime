@@ -3,6 +3,7 @@
 An ERP based on Symfony and AngularDart
 
 [![Build Status](https://travis-ci.org/stiftungswo/Dime.svg?branch=master)](https://travis-ci.org/stiftungswo/Dime)
+[![codecov](https://codecov.io/gh/stiftungswo/Dime/branch/master/graph/badge.svg)](https://codecov.io/gh/stiftungswo/Dime)
 
 
 ## General Purpose
