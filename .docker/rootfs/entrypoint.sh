@@ -3,24 +3,19 @@
 # setup
 composer install
 
-# db: permissions
-mysql --host=mysql -u root -e "CREATE DATABASE IF NOT EXISTS dime;"
-mysql --host=mysql -u root -e "GRANT all privileges on dime.* to dime@'%' IDENTIFIED BY 'dime';"
-mysql --host=mysql -u root -e "FLUSH PRIVILEGES;"
-mysql --host=mysql -u root -e "DROP DATABASE IF EXISTS dime; CREATE DATABASE dime;"
+# db: init with fixtures
+/var/www/html/env/regenerate_fixtures.sh
 
-# db: schema & migrations
-php app/console doctrine:schema:create
-mysql --host=mysql -u root dime < ./env/fixtures/dime.sql
+# dev environment config
 cp ./app/config/parameters.yml.dist ./app/config/parameters.yml
 cp ./web/.htaccess_dev ./web/.htaccess
 
-# init app
+# init app bundles and assets
 php app/console assetic:dump
 php app/console asset:install --symlink
 
 # dart-sdk: pub get
-/var/www/html/env/pubget.sh
+/var/www/html/env/pub_get.sh
 
 # update supervisor configuration
 if [ -f /var/www/html/.docker/supervisord.conf ]; then

@@ -6,4 +6,4 @@ if [ -d ${PUB_CACHE} ]; then
     rm -rf ${PUB_CACHE}
 fi
 
-$ROOT_DIR/env/pubget.sh
+$ROOT_DIR/env/pub_get.sh
