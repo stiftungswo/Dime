@@ -3,12 +3,10 @@ FROM php:7.1.3-fpm
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update -y && \
-    apt-get install -qqy nginx supervisor git locales libssl-dev libmcrypt-dev libicu-dev openvpn curl links cron redis-tools mysql-client vim && \
+    apt-get install -qqy nginx supervisor git locales libssl-dev libmcrypt-dev libicu-dev openvpn curl links cron mysql-client vim && \
     echo "cs_CZ.UTF-8 UTF-8" > /etc/locale.gen && locale-gen cs_CZ.UTF-8 && \
     echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen && locale-gen en_US.UTF-8 && \
     dpkg-reconfigure locales && \
-    pecl install mongodb && docker-php-ext-enable mongodb && \
-    pecl install redis && docker-php-ext-enable redis && \
     pecl install apcu && docker-php-ext-enable apcu && \
     pecl install xdebug && docker-php-ext-enable xdebug && \
     docker-php-ext-install bcmath mbstring intl iconv mcrypt zip mysqli pdo pdo_mysql opcache && \
