@@ -2,3 +2,5 @@
 .gitignore
 .gitattributes
 .gitmodules
+.dime-db
+.pub-cache

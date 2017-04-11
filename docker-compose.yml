@@ -13,6 +13,7 @@ services:
       - mariadb:mysql
     volumes:
       - ./:/var/www/html
+      - .pub-cache:/tmp/dime-pub-cache
     environment:
       - VIRTUAL_HOST=localhost
       - PUB_CACHE=/tmp/dime-pub-cache
@@ -25,7 +26,7 @@ services:
     container_name: mariadb
     hostname: mariadb
     volumes:
-      - ~/.dime/mysql:/var/lib/mysql
+      - .dime-db/mysql:/var/lib/mysql
     environment:
       - MYSQL_ALLOW_EMPTY_PASSWORD=1
       - MYSQL_USER=dime

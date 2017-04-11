@@ -10,6 +10,7 @@ RUN apt-get update -y && \
     pecl install mongodb && docker-php-ext-enable mongodb && \
     pecl install redis && docker-php-ext-enable redis && \
     pecl install apcu && docker-php-ext-enable apcu && \
+    pecl install xdebug && docker-php-ext-enable xdebug && \
     docker-php-ext-install bcmath mbstring intl iconv mcrypt zip mysqli pdo pdo_mysql opcache && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /var/www/html/* && \

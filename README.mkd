@@ -33,7 +33,11 @@ Download Dartium (supports Dart files in chrome in uncompiled version):
 
 Now fire up MariaDB and Dime on the docker machine via the docker-compose tool:
 
-    docker-compose up -d
+    docker-compose up -d --build
+
+Fix Pub Cache by Linking:
+
+    In OSX, cd into this repository's root and run: ln -s /tmp/dime-pub-cache .pub-cache
 
 
 ## Using Docker & docker-compose
@@ -174,15 +178,15 @@ The fixtures are an example dataset that can be used while developing. But more 
 
 Load fixtures into the database:
 
-    docker exec -it dime ./env/fixtures/load_fixtures.sh
+    docker exec -it dime ./env/fixtures/load.sh
 
 When the database schema changed, you need to regenerate the fixtures. You can do this with the following command (may take a while):
 
-    docker exec -it dime ./env/fixtures/regenerate_fixtures.sh
+    docker exec -it dime ./env/db_generate_new_fixtures.sh
 
 Then export the changes again and check in the new dime.sql into git
 
-    docker exec -it dime ./env/fixtures/export_fixtures.sh
+    docker exec -it dime ./env/fixtures/export.sh
 
 
 ## Deployment
