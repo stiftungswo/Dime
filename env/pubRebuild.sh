@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
+ROOT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
 set -x
-SCRIPT=$(realpath ${BASH_SOURCE[0]})
-SCRIPT_PATH=$(dirname ${SCRIPT})
-APP_ROOT=$(realpath ${SCRIPT_PATH}/..)
 
-rm -rf $APP_ROOT/src/Dime/FrontendBundle/Resources/public/build
-$SCRIPT_PATH/pub.sh build
+rm -rf $ROOT_DIR/src/Dime/FrontendBundle/Resources/public/build
+$ROOT_DIR/env/pub.sh build

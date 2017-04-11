@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
+ROOT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
 set -x
-SCRIPT=$(realpath ${BASH_SOURCE[0]})
-SCRIPT_PATH=$(dirname ${SCRIPT})
-APP_ROOT=$(realpath ${SCRIPT_PATH}/..)
 
-$SCRIPT_PATH/pub.sh update --packages-dir
+$ROOT_DIR/env/pub.sh update --packages-dir

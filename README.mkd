@@ -14,7 +14,7 @@ An API and open architecture will serve additional purposes:
   * accounting and invoicing (generate invoices, add non-time related items)
   * manage customers (CRM)
   * project management
-  
+
 
 ## Demo
 
@@ -49,10 +49,10 @@ Install rsync plugin:
     vagrant plugin install vagrant-rsync
 
 Fix vagrant rsync bug:
-    
+
     Find file: C:\HashiCorp\Vagrant\embedded\gems\gems\vagrant-1.7.4\plugins\synced_folders\rsync\helper.rb
     Find code snippet and change third line to:  
-    
+
     if Vagrant::Util::Platform.windows?
         # rsync for Windows expects cygwin style paths, always.
         hostpath = "/cygdrive" + Vagrant::Util::Platform.cygwin_path(hostpath)
@@ -64,7 +64,7 @@ Start the virtual machine via the cygwin terminal:
     vagrant up
 
 Start auto sync:
-    
+
     vagrant rsync-auto dime
 
 Download e.g. Dartium which is a Google Chrome for developpers:
@@ -81,7 +81,7 @@ Generally the same steps as for Windows:
   * Install VirtualBox, Vagrant and Dartium
   * run "vagrant up" in the env/ folder
   * Open in Dartium: http://dime.test.local
-  
+
 Default Vagrant File Sync on OSX is very slow, you may want to use rsync or nfs to speed things up
 
 
@@ -90,9 +90,8 @@ Default Vagrant File Sync on OSX is very slow, you may want to use rsync or nfs 
 Update to last version
 
     git pull
-    git submodule update
-    php composer.phar self-update
-    php composer.phar update -v
+    composer self-update
+    composer update -v
     app/console assetic:dump
     app/console assets:install --symlink
 
@@ -167,18 +166,18 @@ and the local branch too:
 
 Run tests:
 
-    /vagrant/env/run_tests.sh
+    docker exec -it dime ./env/run_tests.sh
 
 Run a single test:
 
-    /vagrant/env/run_tests.sh --filter ActivitiesControllerTest::testGetActivitiesAction
-    
+    docker exec -it dime ./env/run_tests.sh --filter ActivitiesControllerTest::testGetActivitiesAction
+
 
 ## Building the Frontend
 
 To build the JS & HTML files for deployment, run these commands inside the VM:
 
-    /vagrant/env/build_frontend.sh
+    docker exec -it dime ./env/build_frontend.sh
 
 Always build & commit the frontend before merging into master!
 
@@ -187,19 +186,19 @@ Always build & commit the frontend before merging into master!
 
 Update Database Schema to the latest version:
 
-    php /vagrant/app/console doctrine:migrations:migrate
+    docker exec -it dime php app/console doctrine:migrations:migrate
 
 Migrate Database Schema to a specific version:
 
-    php /vagrant/app/console doctrine:migrations:migrate <version>
+    docker exec -it dime php app/console doctrine:migrations:migrate <version>
 
 Generate new Empty Migration Class:
 
-    php /vagrant/app/console doctrine:migrations:generate
+    docker exec -it dime php app/console doctrine:migrations:generate
 
 After changing the ORM schema, sometimes you need to clear the cache before it works:
 
-    php /vagrant/app/console cache:clear
+    docker exec -it dime php app/console cache:clear
 
 
 ## Fixtures
@@ -208,15 +207,15 @@ The fixtures are an example dataset that can be used while developing. But more 
 
 Load fixtures into the database:
 
-    /vagrant/env/fixtures/load_fixtures.sh
+    docker exec -it dime ./env/fixtures/load_fixtures.sh
 
 When the database schema changed, you need to regenerate the fixtures. You can do this with the following command (may take a while):
 
-    /vagrant/env/fixtures/regenerate_fixtures.sh
+    docker exec -it dime ./env/fixtures/regenerate_fixtures.sh
 
 Then export the changes again and check in the new dime.sql into git
 
-    /vagrant/env/fixtures/export_fixtures.sh
+    docker exec -it dime ./env/fixtures/export_fixtures.sh
 
 
 ## Deployment

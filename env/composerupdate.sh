@@ -1,7 +1,9 @@
 #!/bin/bash
+CURRENT_DIR=$(pwd)
+ROOT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
 set -x
-SCRIPT=$(realpath ${BASH_SOURCE[0]})
-SCRIPT_PATH=$(dirname ${SCRIPT})
-sudo chmod -R 777 /tmp/app
+
+cd $ROOT_DIR
 composer update $@
-${SCRIPT_PATH}/cacheclear.sh
+${ROOT_DIR}/env/cacheclear.sh
+cd $CURRENT_DIR
