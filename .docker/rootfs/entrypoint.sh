@@ -9,7 +9,6 @@ composer install
 
 # dev environment config
 cp ./app/config/parameters.yml.dist ./app/config/parameters.yml
-cp ./web/.htaccess_dev ./web/.htaccess
 
 /var/www/html/env/install_bundles.sh
 /var/www/html/env/pub_get.sh
