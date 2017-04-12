@@ -59,6 +59,11 @@ Run any command inside the docker container:
 
     docker exec -it dime COMMAND
 
+If you made any changes to the docker config, php config, composer dependencies etc. that are affecting the docker setup, run this command again:
+
+    docker-compose up -d --build
+
+
 For more infos visit docker.com
 
 
