@@ -17,7 +17,7 @@ services:
     environment:
       - VIRTUAL_HOST=localhost
       - PUB_CACHE=/tmp/dime-pub-cache
-      - PHP_MEMLIMIT="256M"
+      - PHP_MEMLIMIT="2048M"
       - CACHE_ROOT="/tmp/app"
     restart: always
 
@@ -25,8 +25,8 @@ services:
     image: mariadb:10
     container_name: mariadb
     hostname: mariadb
-    volumes:
-      - .dime-db/mysql:/var/lib/mysql
+    ports:
+      - "3010:3306"
     environment:
       - MYSQL_ALLOW_EMPTY_PASSWORD=1
       - MYSQL_USER=dime

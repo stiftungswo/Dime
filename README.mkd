@@ -212,3 +212,8 @@ Before you blame the readme that even after fixing the pub cache things don't wo
 If you use the new Docker for Windows/Mac Tray thing, you'll have to make sure that this Repository as well as any other mounted volumes in docker-compose.yml are part of the `File Sharing` Tab of the tool. Else sync will not work.
 
 We recommend using at least 2 CPU's and 4 GB of memory for your docker machine to make everything run smooth.
+
+### OSX Workaround if response times are ugly slow
+
+http://stackoverflow.com/questions/38168130/docker-on-osx-slow-volumes/42679301#42679301
+https://github.com/IFSight/d4m-nfs
