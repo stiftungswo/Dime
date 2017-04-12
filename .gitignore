@@ -16,5 +16,4 @@
 .project
 .idea/
 .remote-sync.json
-.dime-db
 .pub-cache
