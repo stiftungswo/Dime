@@ -23,6 +23,11 @@ Download and install Docker and docker-compose:
 
     https://www.docker.com
 
+If your host system is running on Mac OS or Windows, you also need VirtualBox
+
+    https://www.virtualbox.org
+    # docker-machine create default
+
 Download and install a Git client:
 
     e.g. https://www.sourcetreeapp.com/
