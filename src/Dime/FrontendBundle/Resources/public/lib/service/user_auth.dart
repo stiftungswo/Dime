@@ -81,7 +81,7 @@ class UserAuthProvider {
   }
 
   String createAuthToken(username, password) {
-    var auth = CryptoUtils.bytesToBase64(UTF8.encode("$username:$password"));
+    var auth = BASE64.encode(UTF8.encode("$username:$password"));
     return 'Basic $auth';
   }
 
