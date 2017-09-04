@@ -23,15 +23,18 @@ Download and install Docker and docker-compose:
 
     https://www.docker.com
 
-If your host system is running on Mac OS or Windows, you also need VirtualBox
+If your host system is running on Mac OS or Windows, you also need to install VirtualBox and create a default machine
 
     https://www.virtualbox.org
     # docker-machine create default
 
 Download and install a Git client:
 
-    e.g. https://www.sourcetreeapp.com/
-    Check out the current version
+    e.g. https://www.sourcetreeapp.com/ (Win & Mac)
+
+Check out the current version with all submodules
+
+    git clone --recursive https://bitbucket.org/stiftungswo/dime
 
 Download Dartium (supports Dart files in chrome in uncompiled version):
 
@@ -216,6 +219,12 @@ Please see Documentation at: DiskStation:/intern/IT/10. Software/Dime/Betriebsdo
 
 If you use Atom as IDE you'll propably want to benefit from the type safety features of Dart and install the static analyzer plugin `dart-atom/dartlang`.
 Before you blame the readme that even after fixing the pub cache things don't work they way they are supposed to, just open the directory `src/Dime/FrontendBundle/Resources/public` in a new window and start coding.
+
+## Docker and Superuser on Linux
+
+You can run docker without sudo on Linux. Example for Ubuntu:
+
+    https://askubuntu.com/a/477554
 
 ## Using Docker with Docker for Windows/Mac
 
