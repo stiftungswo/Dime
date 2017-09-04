@@ -52365,10 +52365,12 @@
         return J.get$length$asx(this.list);
       },
       $indexSet: function(_, index, value) {
-        return H.throwExpression("Not Implemented");
+        J.$indexSet$ax(this.list, index, value);
+        return value;
       },
       set$length: function(_, value) {
-        return H.throwExpression("Not Implemented");
+        J.set$length$asx(this.list, value);
+        return value;
       },
       map$1: [function(_, fn) {
         return new R.QueryResult(J.map$1$ax(this.list, fn).toList$0(0), this.meta, [null]);
@@ -52415,6 +52417,9 @@
     SimpleDocumentFormat: {
       "^": "JsonDocumentFormat;_hammock_core$_encoder,_hammock_core$_decoder",
       jsonToManyResources$2: function(type, json) {
+        var t1 = J.getInterceptor(json);
+        if (!!t1.$isMap)
+          json = J.toList$0$ax(t1.get$values(json));
         return new R.QueryResult(J.toList$0$ax(J.map$1$ax(json, new R.SimpleDocumentFormat_jsonToManyResources_closure(this, type))), C.Map_empty0, [null]);
       }
     },
