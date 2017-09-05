@@ -26,11 +26,6 @@ class Project extends Entity implements DimeEntityInterface
 {
 
     /**
- * @ORM\Column(type="datetime", nullable=true)
- */
-    private $deletedAt;
-
-    /**
      * @var Customer $customer
      *
      * @JMS\MaxDepth(2)
@@ -74,6 +69,14 @@ class Project extends Entity implements DimeEntityInterface
      * @ORM\Column(name="stopped_at", type="datetime", nullable=true)
      */
     protected $stoppedAt;
+
+    /**
+    * @var DateTime $deletedAt
+  * @JMS\SerializedName("deletedAt")
+    * @Assert\Date()
+    * @ORM\Column(name="deleted_at", type="datetime", nullable=true)
+    */
+    protected $deletedAt;
 
     /**
      * @var DateTime $deadline
@@ -833,11 +836,23 @@ class Project extends Entity implements DimeEntityInterface
         return $this;
     }
 
+    /**
+    * Get deletedAt
+    *
+    * @return datetime
+    */
     public function getDeletedAt()
     {
             return $this->deletedAt;
     }
 
+    /**
+     * Set deletedAt
+     *
+     * @param \DateTime $deletedAt
+     *
+     * @return Project
+     */
     public function setDeletedAt($deletedAt)
     {
             $this->deletedAt = $deletedAt;
