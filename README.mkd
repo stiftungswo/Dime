@@ -56,7 +56,7 @@ Fix Pub Cache by Linking to enable auto-completion (dart-analyzer) in IDE:
 
 The Frontend can be found under `src/Dime/FrontendBundle/Resources/public`. There is a separate README.md in the folder for further information.
 
-The Backend files are located in 'src/Dime/' & the relative Bundle folder
+The Backend files are located in 'src/Dime/' & the relative Bundle folder. Server-Side Routing happens in the [Bundle]/config/routing.yml
 
 ## Using Docker & docker-compose
 
