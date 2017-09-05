@@ -20,9 +20,16 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(name="projects")
  * @ORM\Entity(repositoryClass="Dime\TimetrackerBundle\Entity\ProjectRepository")
  * @Json\Schema("projects")
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
  */
 class Project extends Entity implements DimeEntityInterface
 {
+
+	/**
+ * @ORM\Column(type="datetime", nullable=true)
+ */
+ 	private $deletedAt;
+
 	/**
 	 * @var Customer $customer
 	 *
@@ -825,5 +832,13 @@ class Project extends Entity implements DimeEntityInterface
 		return $this;
 	}
 
+	public function getDeletedAt()
+	{
+			return $this->deletedAt;
+	}
 
+	public function setDeletedAt($deletedAt)
+	{
+			$this->deletedAt = $deletedAt;
+	}
 }

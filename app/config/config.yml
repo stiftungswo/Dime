@@ -63,7 +63,16 @@ doctrine:
 
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"
-        auto_mapping: true
+        #auto_mapping: true
+        entity_managers:
+            default:
+                filters:
+                    softdeleteable:
+                        class: Gedmo\SoftDeleteable\Filter\SoftDeleteableFilter
+                        enabled: true
+
+stof_doctrine_extensions:
+    default_locale: en_US
 
 # Swiftmailer Configuration
 swiftmailer:
