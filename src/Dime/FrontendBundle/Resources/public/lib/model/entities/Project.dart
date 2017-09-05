@@ -29,9 +29,10 @@ class Project extends Entity {
     this.invoices = original.invoices;
     this.offers = original.offers;
     this.accountant = original.accountant;
+    this.deletedAt = original.deletedAt;
     addFieldstoUpdate(['currentPrice','budgetPrice','remainingBudgetPrice', 'currentTime',
       'budgetTime', 'remainingBudgetTime','description','fixedPrice','customer','rateGroup',
-    'chargeable','deadline', 'activities', 'projectCategory', 'invoices', 'offers', 'accountant']);
+    'chargeable','deadline', 'activities', 'projectCategory', 'invoices', 'offers', 'accountant', 'deletedAt']);
   }
 
   Project.fromMap(Map<String, dynamic> map): super.fromMap(map);
@@ -78,6 +79,8 @@ class Project extends Entity {
           return this.offers;
         case 'accountant':
           return this.accountant;
+        case 'deletedAt':
+          return this.deletedAt;
         default:
           break;
       }
@@ -138,6 +141,9 @@ class Project extends Entity {
       case 'accountant':
         this.accountant = value is Entity ? value : new Employee.fromMap(value);
         break;
+      case 'deletedAt':
+        this.deletedAt = _addDateValue(value);
+        break;
       default:
         super.Set(property, value);
         break;
@@ -170,4 +176,5 @@ class Project extends Entity {
   List<Invoice> invoices = [];
   List<Offer> offers = [];
   Employee accountant;
+  DateTime deletedAt;
 }
