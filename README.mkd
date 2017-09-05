@@ -52,6 +52,11 @@ Fix Pub Cache by Linking to enable auto-completion (dart-analyzer) in IDE:
 
     In OSX, cd into this repository's root and run: ln -s /tmp/dime-pub-cache .pub-cache
 
+## Project Structure
+
+The Frontend can be found under `src/Dime/FrontendBundle/Resources/public`. There is a separate README.md in the folder for further information.
+
+The Backend files are located in 'src/Dime/' & the relative Bundle folder
 
 ## Using Docker & docker-compose
 
