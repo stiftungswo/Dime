@@ -19,7 +19,6 @@ class Version20151028223057 extends AbstractMigration
 
         $this->addSql('ALTER TABLE projects ADD COLUMN accountant_id INT');
         $this->addSql('ALTER TABLE projects ADD CONSTRAINT FK_projects_accountant FOREIGN KEY (accountant_id) REFERENCES users (id)');
-        $this->addSql('ALTER TABLE projects ADD COLUMN deletedAt DATETIME NULL');
     }
 
     /**
@@ -31,6 +30,5 @@ class Version20151028223057 extends AbstractMigration
 
         $this->addSql('ALTER TABLE projects DROP FOREIGN KEY FK_projects_accountant');
         $this->addSql('ALTER TABLE projects DROP COLUMN accountant_id');
-        $this->addSql('ALTER TABLE projects DROP COLUMN deletedAt');
     }
 }
