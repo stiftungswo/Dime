@@ -2,6 +2,11 @@
 
 namespace Dime\TimetrackerBundle\Entity;
 
+use DateTime;
+use Symfony\Component\Validator\Constraints as Assert;
+use JMS\Serializer\Annotation as JMS;
+use Doctrine\ORM\Mapping as ORM;
+
 trait SoftDeleteTrait {
 
   /**
