@@ -32,3 +32,11 @@ services:
       - MYSQL_USER=dime
       - MYSQL_PASSWORD=dime
     restart: always
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    environment:
+     - PMA_ARBITRARY=1
+    ports:
+     - 8080:80
