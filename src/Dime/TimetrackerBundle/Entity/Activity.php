@@ -1,6 +1,7 @@
 <?php
 namespace Dime\TimetrackerBundle\Entity;
 
+use DateTime;
 use Dime\TimetrackerBundle\Model\ActivityReference;
 use Dime\TimetrackerBundle\Model\DimeEntityInterface;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -12,14 +13,19 @@ use Money\Money;
 /**
  * Dime\TimetrackerBundle\Entity\Activity
  *
- *
  * @ORM\Table(name="activities")
  * @ORM\Entity(repositoryClass="Dime\TimetrackerBundle\Entity\ActivityRepository")
  * @ORM\HasLifecycleCallbacks()
  * @Json\Schema("activities")
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
  */
 class Activity extends Entity implements DimeEntityInterface
 {
+    /**
+     * Hook SoftDeleteable fields
+     */
+    use SoftDeleteTrait;
+
     /**
      * @var Project $project
      *

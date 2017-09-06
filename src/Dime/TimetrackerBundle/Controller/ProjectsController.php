@@ -15,7 +15,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class ProjectsController extends DimeController
 {
     private $handlerSerivce = 'dime.project.handler';
-    
+
     private $formType = 'dime_timetrackerbundle_projectformtype';
 
     /**
