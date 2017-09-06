@@ -2,6 +2,7 @@
 
 namespace Dime\TimetrackerBundle\Controller;
 
+use Psr\Log\LoggerInterface;
 use Dime\TimetrackerBundle\Exception\InvalidFormException;
 use FOS\RestBundle\Controller\Annotations;
 use FOS\RestBundle\Request\ParamFetcherInterface;
@@ -218,7 +219,25 @@ class ProjectsController extends DimeController
      */
     public function deleteProjectAction($id)
     {
+        // Find linked activities
+        $activityRepository = $this->getDoctrine()->getRepository('Dime\TimetrackerBundle\Entity\Activity');
+        $activities = $activityRepository->findByProject($id);
+
+        foreach ($activities as $key => $activity) {
+          // Find linked timeslices
+            $timesliceRepository = $this->getDoctrine()->getRepository('Dime\TimetrackerBundle\Entity\Timeslice');
+            $timeslices = $timesliceRepository->findByActivity($activity->getId());
+
+            foreach ($timeslices as $key2 => $timeslice) {
+                $this->container->get($this->handlerSerivce)->delete($timeslice);
+            }
+
+            $this->container->get($this->handlerSerivce)->delete($activity);
+        }
+
+        // Delete the project
         $this->container->get($this->handlerSerivce)->delete($this->getOr404($id, $this->handlerSerivce));
+
         return $this->view(null, Codes::HTTP_NO_CONTENT);
     }
 }
