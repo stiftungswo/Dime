@@ -15,7 +15,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class ProjectsController extends DimeController
 {
     private $handlerSerivce = 'dime.project.handler';
-    
+
     private $formType = 'dime_timetrackerbundle_projectformtype';
 
     /**
@@ -46,7 +46,7 @@ class ProjectsController extends DimeController
      *
      * @param ParamFetcherInterface $paramFetcher
      *            param fetcher project
-     *            
+     *
      * @return array
      */
     public function getProjectsAction(ParamFetcherInterface $paramFetcher)
@@ -77,7 +77,7 @@ class ProjectsController extends DimeController
      *
      * @param int $id
      *            the page id
-     *            
+     *
      * @return array
      *
      * @throws NotFoundHttpException when page not exist
@@ -136,7 +136,7 @@ class ProjectsController extends DimeController
      *
      * @param Request $request
      *            the request object
-     *            
+     *
      * @return FormTypeInterface|View
      */
     public function postProjectAction(Request $request)
@@ -174,11 +174,11 @@ class ProjectsController extends DimeController
      *            the request object
      * @param int $id
      *            the page id
-     *            
+     *
      * @return FormTypeInterface|View
      *
      * @throws NotFoundHttpException when page not exist
-     *        
+     *
      */
     public function putProjectAction(Request $request, $id)
     {
@@ -210,7 +210,7 @@ class ProjectsController extends DimeController
      *
      * @param int $id
      *            the page id
-     *            
+     *
      * @return FormTypeInterface|View
      *
      * @throws NotFoundHttpException when page not exist
