@@ -108,6 +108,9 @@ There are Multiple Bundle Seperated by features:
     FrontendBundle The Javascript GUI
     SwoCommonsBundle Some Entities and Resources used by all our Applications
 
+For understanding the database abstraction, see
+
+    TimetrackerBundle/Handler/GenericHandler
 
 ## Contributing
 

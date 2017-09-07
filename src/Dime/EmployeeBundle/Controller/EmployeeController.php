@@ -11,6 +11,7 @@ use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Psr\Log\LoggerInterface;
 
 class EmployeeController extends DimeController
 {
@@ -53,7 +54,14 @@ class EmployeeController extends DimeController
 	 */
 	public function getEmployeesAction(ParamFetcherInterface $paramFetcher)
 	{
-		return $this->container->get($this->handlerSerivce)->all($paramFetcher->all());
+		$filters = $paramFetcher->all();
+		$enabled = $this->getRequest()->query->get('enabled');
+
+		if($enabled == 1) {
+			$filters = array_merge($filters, array('enabled' => 1));
+		}
+
+		return $this->container->get($this->handlerSerivce)->all($filters);
 	}
 
 	/**
