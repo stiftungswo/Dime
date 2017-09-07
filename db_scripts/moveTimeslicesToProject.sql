@@ -1,10 +1,16 @@
-/* This script can be used to move timeslices in a certain time range from one project to another */
-
-/* Define Project id's, start and end date */
-SET @currentProjectId=1, @newProjectId=2, @startDate:='2017-01-01', @endDate:='2017-10-01';
-
-/* TODO JOIN activities / services??? */
-UPDATE timeslices
-SET activity = @newActivity
-WHERE activity = @currentActivity
-AND started_at >= @startDate AND stopped_at < @endDate;
+/*
+ * This script can be used to move timeslices
+ * in a certain time range from one project to another
+ *
+ * Replace project IDs and Date range
+ */
+UPDATE timeslices t
+INNER JOIN activities a_origin ON t.activity_id = a_origin.id AND a_origin.project_id = 323
+SET t.activity_id =
+(
+	SELECT a_dest.id
+	FROM activities a_dest
+  WHERE a_dest.service_id = a_origin.service_id
+  AND a_dest.project_id = 383
+)
+WHERE t.stopped_at < '2017-08-01';
