@@ -4,7 +4,7 @@ part of entity_overview;
     selector: 'invoiceitem-overview',
     templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/overview/invoiceitem_overview.html',
     useShadowDom: false,
-    map: const {'invoice': '=>!invoiceId'})
+    map: const {'invoice': '=>!invoiceId', 'parentCallback': '&parentCallback'})
 class InvoiceItemOverviewComponent extends EntityOverview {
   InvoiceItemOverviewComponent(DataCache store, SettingsManager manager, StatusService status)
       : super(InvoiceItem, store, '', manager, status);
@@ -17,6 +17,8 @@ class InvoiceItemOverviewComponent extends EntityOverview {
   }
 
   bool needsmanualAdd = true;
+
+  Function parentCallback;
 
   int _invoiceId;
 
@@ -41,6 +43,8 @@ class InvoiceItemOverviewComponent extends EntityOverview {
         this.reload();
       }
     }
+
+    parentCallback({'param1': this});
   }
 
   createEntity({Entity newEnt, Map<String, dynamic> params: const {}}) {

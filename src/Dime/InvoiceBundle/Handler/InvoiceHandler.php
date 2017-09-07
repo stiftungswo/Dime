@@ -85,10 +85,12 @@ class InvoiceHandler extends GenericHandler
         $invoice->setDescription($project->getDescription());
         $invoice->setFixedPrice($project->getFixedPrice());
         foreach ($project->getActivities() as $activity) {
-            $item = new InvoiceItem();
-            $item->setFromActivity($activity);
-            $item->setInvoice($invoice);
-            $invoice->addItem($item);
+            if ($activity->getService()!=null) {
+                $item = new InvoiceItem();
+                $item->setFromActivity($activity);
+                $item->setInvoice($invoice);
+                $invoice->addItem($item);
+            }
         }
         $invoice->setProject($project);
         if (!null === $offer) {
@@ -125,7 +127,7 @@ class InvoiceHandler extends GenericHandler
                         }
                     }
                 }
-                if (!$hasactvity) {
+                if (!$hasactvity && $activity->getService()!=null) {
                     $item = new InvoiceItem();
                     $item->setFromActivity($activity);
                     $item->setInvoice($invoice);
