@@ -32,7 +32,7 @@ class AppKernel extends Kernel
 			new \Swo\CommonsBundle\SwoCommonsBundle(),
 			new \Misd\PhoneNumberBundle\MisdPhoneNumberBundle(),
 			new \Tbbc\MoneyBundle\TbbcMoneyBundle(),
-
+			
 			//Own Bundles
 			new Dime\PrintingBundle\DimePrintingBundle(),
 			new Dime\FrontendBundle\DimeFrontendBundle(),

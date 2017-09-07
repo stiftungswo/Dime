@@ -20,9 +20,15 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(name="projects")
  * @ORM\Entity(repositoryClass="Dime\TimetrackerBundle\Entity\ProjectRepository")
  * @Json\Schema("projects")
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
  */
 class Project extends Entity implements DimeEntityInterface
 {
+	/**
+	 * Hook SoftDeleteable fields
+	 */
+	use SoftDeleteTrait;
+
 	/**
 	 * @var Customer $customer
 	 *
@@ -824,6 +830,4 @@ class Project extends Entity implements DimeEntityInterface
 
 		return $this;
 	}
-
-
 }
