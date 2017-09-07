@@ -26,7 +26,14 @@ class UserSelectComponent extends EntitySelect {
   get EntText => _selectedEntity != null ? _selectedEntity.fullname : '';
 
   reload() async {
-    await super.reload();
+    this.statusservice.setStatusToLoading();
+    try {
+      this.entities = (await this.store.list(Employee, params: {"enabled": 1})).toList();
+      this.statusservice.setStatusToSuccess();
+    } catch (e) {
+      this.statusservice.setStatusToError(e);
+    }
+
     if (useContext) {
       selectedEntity = context.employee;
     }
