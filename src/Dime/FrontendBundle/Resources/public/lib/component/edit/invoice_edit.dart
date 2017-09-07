@@ -10,6 +10,8 @@ class InvoiceEditComponent extends EntityEdit {
 
   Project project;
 
+  InvoiceItemOverviewComponent invoiceitem_overview;
+
   printInvoice() {
     window.open('/api/v1/invoices/${this.entity.id}/print', 'Invoice Print');
   }
@@ -28,7 +30,10 @@ class InvoiceEditComponent extends EntityEdit {
         load();
       }
     }
+  }
 
+  setInvoiceItemOverview(InvoiceItemOverviewComponent c){
+    invoiceitem_overview = c;
   }
 
   load({bool evict: false}) async {
@@ -52,6 +57,7 @@ class InvoiceEditComponent extends EntityEdit {
     try {
       this.entity = (await this.store.customQueryOne(Invoice, new CustomRequestParams(method: 'GET', url: '/api/v1/invoices/${this.entity.id}/update')));
       this.statusservice.setStatusToSuccess();
+      this.invoiceitem_overview.reload(evict: true);
     } catch (e) {
       this.statusservice.setStatusToError(e);
     }

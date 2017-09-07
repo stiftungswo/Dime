@@ -45,7 +45,7 @@
     </div>
   </div>
 </div>
-<invoiceitem-overview invoice="entity.id"></invoiceitem-overview>
+<invoiceitem-overview invoice="entity.id" parentcallback="setInvoiceItemOverview(param1)"></invoiceitem-overview>
 <div class="row">
   <div class="col-md-6"><standarddiscount-overview discounts="entity.standardDiscounts" callback="addSaveField(name)"></standarddiscount-overview></div>
   <div class="col-md-6"><invoicediscount-overview invoice="entity.id"></invoicediscount-overview></div>

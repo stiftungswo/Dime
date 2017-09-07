@@ -18,6 +18,7 @@ class Version20170906081926 extends AbstractMigration
         $this->addSql('ALTER TABLE projects ADD deleted_at datetime NULL');
         $this->addSql('ALTER TABLE activities ADD deleted_at datetime NULL');
         $this->addSql('ALTER TABLE timeslices ADD deleted_at datetime NULL');
+        $this->addSql('ALTER TABLE services ADD deleted_at datetime NULL');
     }
 
     /**
@@ -28,5 +29,6 @@ class Version20170906081926 extends AbstractMigration
         $this->addSql('ALTER TABLE projects DROP COLUMN deleted_at');
         $this->addSql('ALTER TABLE activities DROP COLUMN deleted_at');
         $this->addSql('ALTER TABLE timeslices DROP COLUMN deleted_at');
+        $this->addSql('ALTER TABLE services DROP COLUMN deleted_at');
     }
 }
