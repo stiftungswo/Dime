@@ -6,6 +6,7 @@ import 'package:DimeClient/model/Entity.dart';
 import 'package:DimeClient/service/data_cache.dart';
 import 'package:DimeClient/service/status.dart';
 import 'package:DimeClient/service/user_auth.dart';
+import 'package:DimeClient/component/overview/entity_overview.dart';
 import 'dart:html';
 
 part 'address_edit.dart';
