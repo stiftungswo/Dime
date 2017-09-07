@@ -51,6 +51,9 @@ if you want a full app framework), the work of actually switching the views
 is simply changing the display properties of different divs. Look inside
 of `main.dart` for how different divs are displayed.
 
+See also
+    lib/routing/dime_router.dart
+
 The authors of this template believe in routing, but do admit there are
 more scalable ways to manage views.
 

@@ -20,9 +20,15 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="Dime\TimetrackerBundle\Entity\TimesliceRepository")
  * @ORM\HasLifecycleCallbacks()
  * @Json\Schema("timeslices")
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
  */
 class Timeslice extends Entity implements DimeEntityInterface
 {
+    /**
+     * Hook SoftDeleteable fields
+     */
+    use SoftDeleteTrait;
+
     /**
      * @var Activity $activity
      *
