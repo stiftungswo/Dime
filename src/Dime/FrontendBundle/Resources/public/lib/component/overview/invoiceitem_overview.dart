@@ -5,7 +5,8 @@ part of entity_overview;
     templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/overview/invoiceitem_overview.html',
     useShadowDom: false,
     map: const{
-      'invoice': '=>!invoiceId'
+      'invoice': '=>!invoiceId',
+      'parentCallback': '&parentCallback'
     }
 )
 class InvoiceItemOverviewComponent extends EntityOverview {
@@ -20,6 +21,8 @@ class InvoiceItemOverviewComponent extends EntityOverview {
   }
 
   bool needsmanualAdd = true;
+
+  Function parentCallback;
 
   int _invoiceId;
 
@@ -46,6 +49,8 @@ class InvoiceItemOverviewComponent extends EntityOverview {
         this.reload();
       }
     }
+
+    parentCallback({'param1':this});
   }
 
   createEntity({Entity newEnt, Map<String, dynamic> params: const{}}) {
