@@ -25,8 +25,8 @@ class DateToTextInput implements ScopeAware {
   @NgOneWayOneTime('has-buttons')
   bool hasButtons = false;
 
-  @NgOneWayOneTime('readonly')
-  bool readonly = false;
+  @NgOneWayOneTime('is-readonly')
+  bool isReadonly = false;
 
   @NgOneWayOneTime('null-allowed')
   bool nullAllowed = false;
