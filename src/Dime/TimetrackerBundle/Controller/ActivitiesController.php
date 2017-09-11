@@ -2,6 +2,7 @@
 
 namespace Dime\TimetrackerBundle\Controller;
 
+use Tbbc\MoneyBundle\Pair\Storage\DoctrineStorage;
 use Dime\TimetrackerBundle\Exception\InvalidFormException;
 use FOS\RestBundle\Controller\Annotations;
 use FOS\RestBundle\Request\ParamFetcherInterface;
@@ -11,11 +12,12 @@ use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Psr\Log\LoggerInterface;
 
 class ActivitiesController extends DimeController
 {
     private $handlerSerivce = 'dime.activity.handler';
-    
+
     private $formType = 'dime_timetrackerbundle_activityformtype';
 
     /**
@@ -52,12 +54,32 @@ class ActivitiesController extends DimeController
      *
      * @param ParamFetcherInterface $paramFetcher
      *            param fetcher activity
-     *            
+     *
      * @return array
      */
     public function getActivitiesAction(ParamFetcherInterface $paramFetcher)
     {
-        return $this->container->get($this->handlerSerivce)->all($paramFetcher->all());
+      $filters = $paramFetcher->all();
+  		$no_archived = $this->getRequest()->query->get('no_archived');
+
+  		if($no_archived == 1) {
+
+        $qb = $this->getDoctrine()->getManager()->createQueryBuilder();
+
+        $qb->select('a')
+          ->from('Dime\TimetrackerBundle\Entity\Activity', 'a')
+          ->leftJoin('a.service', 's')
+          ->where('s.archived = 0');
+
+        //Add Ordering
+        $qb->orderBy('s.name', 'ASC');
+        $qb->orderBy('a.id', 'ASC');
+
+         // Pagination
+         return $qb->getQuery()->getResult();
+  		}
+
+  		return $this->container->get($this->handlerSerivce)->all($filters);
     }
 
     /**
@@ -85,7 +107,7 @@ class ActivitiesController extends DimeController
      *
      * @param int $id
      *            the page id
-     *            
+     *
      * @return array
      *
      * @throws NotFoundHttpException when page not exist
@@ -118,7 +140,7 @@ class ActivitiesController extends DimeController
      *
      * @param Request $request
      *            the request object
-     *            
+     *
      * @return FormTypeInterface|View
      */
     public function postActivityAction(Request $request)
@@ -157,11 +179,11 @@ class ActivitiesController extends DimeController
      *            the request object
      * @param int $id
      *            the page id
-     *            
+     *
      * @return FormTypeInterface|View
      *
      * @throws NotFoundHttpException when page not exist
-     *        
+     *
      */
     public function putActivityAction(Request $request, $id)
     {
@@ -194,7 +216,7 @@ class ActivitiesController extends DimeController
      *
      * @param int $id
      *            the page id
-     *            
+     *
      * @return FormTypeInterface|View
      *
      * @throws NotFoundHttpException when page not exist
