@@ -20,4 +20,14 @@ class ActivitySelectComponent extends EntitySelect {
   bool shortname;
 
   get EntText => _selectedEntity != null ? (shortname == true ? _selectedEntity.service.name : _selectedEntity.name) : '';
+
+  reload() async {
+    this.statusservice.setStatusToLoading();
+    try {
+      this.entities = (await this.store.list(Activity, params: {"no_archived": 1})).toList();
+      this.statusservice.setStatusToSuccess();
+    } catch (e) {
+      this.statusservice.setStatusToError(e);
+    }
+  }
 }
