@@ -21,10 +21,22 @@ class ActivitySelectComponent extends EntitySelect {
 
   get EntText => _selectedEntity != null ? (shortname == true ? _selectedEntity.service.name : _selectedEntity.name) : '';
 
+  @override
+  void set scope(Scope scope) {
+    scope.watch('projectId', (newval, oldval) => onChange(newval, oldval));
+  }
+
+  onChange(Project oldProject, Project newProject) {
+    print("old: " + oldProject.toString() + " new: " + newProject.toString());
+  }
+
+  @override
   reload() async {
     this.statusservice.setStatusToLoading();
     try {
-      this.entities = (await this.store.list(Activity, params: {"no_archived": 1})).toList();
+      print("pid: " + this.projectId.toString());
+      this.entities = (await this.store.list(this.type, params: {"no_archived": 1})).toList();
+      print("elements: " + this.entities.length.toString());
       this.statusservice.setStatusToSuccess();
     } catch (e) {
       this.statusservice.setStatusToError(e);

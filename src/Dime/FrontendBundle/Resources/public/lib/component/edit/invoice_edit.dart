@@ -66,7 +66,6 @@ class InvoiceEditComponent extends EntityEdit {
   }
 
   openProject() async {
-    print("haha");
     router.go('project_edit', {'id': this.entity.project.id});
   }
 
@@ -79,7 +78,6 @@ class InvoiceEditComponent extends EntityEdit {
   }
 
   createInvoice() async {
-    print("lol");
     var newInvoice =
         await this.store.customQueryOne(Invoice, new CustomRequestParams(method: 'GET', url: '/api/v1/invoices/project/${project.id}'));
     project.invoices.add(newInvoice);
