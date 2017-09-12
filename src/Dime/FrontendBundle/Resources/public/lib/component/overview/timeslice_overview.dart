@@ -110,12 +110,10 @@ class TimesliceOverviewComponent extends EntityOverview {
       await super.reload(params: {
         'project': selectedProject.id
       }, evict: evict);
-      print("selected project id: " + selectedProject.id.toString());
     } else {
       await super.reload(params: {
         'employee': _employee.id
       }, evict: evict);
-      print("employee based pid: " + selectedProject.id.toString());
     }
     updateEntryDate();
   }
@@ -223,13 +221,11 @@ class TimesliceOverviewComponent extends EntityOverview {
       case 'project':
         this.settingselectedProject.value = this.selectedProject.alias;
         this.settingsManager.updateSetting(this.settingselectedProject);
-        print("projectalias " + this.settingselectedProject.value);
         break;
       case 'activity':
         if(this.selectedActivity != null) {
           this.settingselectedActivity.value = this.selectedActivity.alias;
           this.settingsManager.updateSetting(this.settingselectedActivity);
-          print("activityalias " + this.settingselectedActivity.value);
         }
         break;
     }
@@ -247,10 +243,8 @@ class TimesliceOverviewComponent extends EntityOverview {
     }
     try {
       this.selectedProject = projects.singleWhere((Project p) => p.alias == this.settingselectedProject.value);
-      print("project not null "+this.selectedProject.id.toString());
     } catch (e) {
       this.selectedProject = null;
-      print("project null!");
     }
 
     List activities = await this.store.list(Activity);

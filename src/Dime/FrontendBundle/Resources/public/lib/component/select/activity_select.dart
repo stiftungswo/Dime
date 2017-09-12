@@ -21,22 +21,27 @@ class ActivitySelectComponent extends EntitySelect {
 
   get EntText => _selectedEntity != null ? ( shortname == true ? _selectedEntity.service.name : _selectedEntity.name ) : '';
 
-  @override
+  // FIXME 'projectId' is sometimes set to null (inside timeslice_overview).
+  // Use this scope watcher to debug projectId value.
+  /*@override
   void set scope(Scope scope) {
-    scope.watch('projectId', (newval, oldval) => onChange(newval, oldval));
+    scope.watch('projectId', (newval, oldval) => onChange(oldval, newval));
   }
 
-  onChange(Project oldProject, Project newProject) {
-    print("old: " + oldProject.toString() + " new: " + newProject.toString());
-  }
+  onChange(id old, id new) {
+    print("old project id: " + old.toString() + " new project id: " + new.toString());
+  }*/
+
+  // Disable the select box because of projectId being null sometimes
+  @NgOneWayOneTime('is-readonly')
+  bool isReadonly = false;
 
   @override
   reload() async {
     this.statusservice.setStatusToLoading();
     try {
-      print("pid: " + this.projectId.toString());
+      // Don't show activities with an archived service in the selection
       this.entities = (await this.store.list(this.type, params: {"no_archived": 1})).toList();
-      print("elements: " + this.entities.length.toString());
       this.statusservice.setStatusToSuccess();
     } catch (e) {
       this.statusservice.setStatusToError(e);
