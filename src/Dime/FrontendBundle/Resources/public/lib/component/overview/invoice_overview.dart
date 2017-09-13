@@ -25,56 +25,42 @@ class InvoiceOverviewComponent extends EntityOverview {
     return new InvoiceItem();
   }
 
-  duplicateInvoiceEntity() async{
-    print("duplicate csdf invoice entity");
+  @override
+  duplicateEntity() async{
+
     var ent = this.selectedEntity;
-
     if (ent != null) {
+
       this.statusservice.setStatusToLoading();
-
-      var duplicateInvoice = (await this.store.one(Invoice, ent.id));
-
-      for(InvoiceItem invoiceItem in duplicateInvoice.items) {
-        print("invoice item now");
-      }
-
-      var newInvoice = this.cEnt();
-      //var newEnt = this.cEnt(entity: ent);
-
-      newInvoice = duplicateInvoice;
-      newInvoice.id = null;
-
-      newInvoice.addFieldtoUpdate('description');
-      newInvoice.addFieldtoUpdate('customer');
-      newInvoice.addFieldtoUpdate('project');
-      newInvoice.addFieldtoUpdate('start');
-      newInvoice.addFieldtoUpdate('end');
-      newInvoice.addFieldtoUpdate('accountant');
-
+      Invoice newEnt = this.cEnt(entity: ent);
       try {
-        var resultInvoice = await this.store.create(newInvoice);
+        Invoice duplicateInvoice = await this.store.one(Invoice, ent.id);
 
-        for(InvoiceItem invoiceItem in duplicateInvoice.items) {
-          print("invoice item now");
-          var newInvoiceItem = this.cEntInvoiceItem(invoiceItem);
-          newInvoiceItem.invoice = resultInvoice;
+        newEnt.project = duplicateInvoice.project;
+        newEnt.customer = duplicateInvoice.customer;
+        newEnt.accountant = duplicateInvoice.accountant;
 
-          var resultInvoiceItem = await this.store.create(newInvoiceItem);
-        }
+        Invoice result = await this.store.create(newEnt);
 
         if (needsmanualAdd) {
           this.entities.add(result);
         }
-
-        resultInvoice.cloneDescendants(ent);
-
-        for (var entity in resultInvoice.descendantsToUpdate) {
+        result.cloneDescendants(ent);
+        for (var entity in result.descendantsToUpdate) {
           await this.store.create(entity);
         }
+
+        for(InvoiceItem invoiceItem in duplicateInvoice.items) {
+          var newInvoiceItem = this.cEntInvoiceItem(invoiceItem);
+          newInvoiceItem.invoice = result;
+
+          await this.store.create(newInvoiceItem);
+        }
+
         this.statusservice.setStatusToSuccess();
         this.rootScope.emit(this.type.toString() + 'Duplicated');
       } catch (e) {
-        print("Unable to duplicate entity ${this.type.toString()}::${newInvoice.id} because ${e}");
+        print("Unable to duplicate entity ${this.type.toString()}::${newEnt.id} because ${e}");
         this.statusservice.setStatusToError(e);
       }
     }

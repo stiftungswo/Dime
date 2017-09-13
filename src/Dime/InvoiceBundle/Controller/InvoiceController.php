@@ -111,8 +111,10 @@ class InvoiceController extends DimeController
 	public function postInvoiceAction(Request $request)
 	{
 		try {
-			return $this->view($this->container->get($this->handlerSerivce)->post($request->request->all()), Codes::HTTP_CREATED);
-		} catch (InvalidFormException $exception) {
+			$entity = $this->container->get($this->handlerSerivce)->post($request->request->all());
+			return $this->view($entity, Codes::HTTP_CREATED);
+		}
+		catch (InvalidFormException $exception) {
 			return $exception->getForm();
 		}
 	}
