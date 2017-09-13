@@ -11,7 +11,6 @@ use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Psr\Log\LoggerInterface;
 
 class EmployeeController extends DimeController
 {
