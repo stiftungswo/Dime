@@ -15,9 +15,38 @@ use Dime\TimetrackerBundle\Entity\Activity;
 use Dime\TimetrackerBundle\Entity\Project;
 use Dime\TimetrackerBundle\Entity\Timeslice;
 use Dime\TimetrackerBundle\Handler\GenericHandler;
+use Dime\TimetrackerBundle\Event\DimeEntityPersistEvent;
+use Dime\TimetrackerBundle\Exception\InvalidFormException;
+use Dime\TimetrackerBundle\TimetrackEvents;
+use Dime\TimetrackerBundle\Model\DimeEntityInterface as DEInterface;
 
 class InvoiceHandler extends GenericHandler
 {
+
+    /**
+    * Overrides AbstractHandler -> processForm
+    */
+    protected function processForm(DEInterface $entity, array $parameters, $form, $method = "PUT", $formoptions = array())
+    {
+        $formoptions['method'] = $method;
+        $form = $this->formFactory->create($form, $entity, $formoptions);
+        $form->submit($parameters, 'PUT' !== $method);
+        if ($form->isValid()) {
+            $entity = $form->getData();
+          // FIXME this is a hack for inserting the profileId when ignored by the formFactory.
+          // Better solution: fix the formfactory
+          // Used in InvoiceController -> postInvoiceAction
+            $entity->setProject($this->om->getReference('Dime\TimetrackerBundle\Entity\Project', $parameters['project']));
+            $refclas = new \ReflectionClass($this->entityClass);
+            $this->eventDispatcher->dispatch(TimetrackEvents::ENTITY_PRE_PERSIST.'.'.$method.'.'.$refclas->getShortName(), new DimeEntityPersistEvent($entity));
+            $this->om->persist($entity);
+            $this->om->flush();
+            $this->eventDispatcher->dispatch(TimetrackEvents::ENTITY_POST_PERSIST.'.'.$method.'.'.$refclas->getShortName(), new DimeEntityPersistEvent($entity));
+            return $entity;
+        }
+        throw new InvalidFormException('Invalid submitted data', $form);
+    }
+
     public function createFromProject(Project $project)
     {
         //Search for all Invoices associated with $project ordered by start and end date
@@ -135,6 +164,7 @@ class InvoiceHandler extends GenericHandler
                 }
             }
         }
+
         $invoice->setFixedPrice($invoice->getProject()->getFixedPrice());
         $invoice->setUser($this->getCurrentUser());
         $this->om->persist($invoice);
