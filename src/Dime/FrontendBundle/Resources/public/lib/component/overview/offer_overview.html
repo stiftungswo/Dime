@@ -36,7 +36,7 @@
         <tr ng-repeat="entity in entities | orderBy:sortType:sortReverse | filter:searchFilter(['id', 'name', 'shortDescription'], filterString)" ng-click="selectEntity(entity.id)" ng-doubleclick="openEditView(entity.id)" ng-class="isSelected(entity)? 'info': ''">
           <td>{{entity.id}}</td>
           <td>{{entity.name}}</td>
-          <td>{{entity.shortDescription}}</td>
+          <td>{{entity.shortDescription|limitTo:100}}</td>
           <td>
             <div class="btn-group">
               <button type="button" class="btn btn-default" ng-click="openEditView(entity.id)"><i class="fa fa-fw fa-pencil"></i></button>
