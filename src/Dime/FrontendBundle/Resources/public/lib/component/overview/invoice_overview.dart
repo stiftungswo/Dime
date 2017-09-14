@@ -31,27 +31,20 @@ class InvoiceOverviewComponent extends EntityOverview {
       this.statusservice.setStatusToLoading();
       Invoice newEnt = this.cEnt(entity: ent);
       try {
-        Invoice duplicateInvoice = await this.store.one(Invoice, ent.id);
+        Invoice completeInvoice = await this.store.one(Invoice, ent.id);
 
-        newEnt.project = duplicateInvoice.project;
-        newEnt.customer = duplicateInvoice.customer;
-        newEnt.accountant = duplicateInvoice.accountant;
+        newEnt.project = completeInvoice.project;
+        newEnt.customer = completeInvoice.customer;
+        newEnt.accountant = completeInvoice.accountant;
 
         Invoice result = await this.store.create(newEnt);
 
         if (needsmanualAdd) {
           this.entities.add(result);
         }
-        result.cloneDescendants(ent);
+        result.cloneDescendants(completeInvoice);
         for (var entity in result.descendantsToUpdate) {
           await this.store.create(entity);
-        }
-
-        for (InvoiceItem invoiceItem in duplicateInvoice.items) {
-          var newInvoiceItem = this.cEntInvoiceItem(invoiceItem);
-          newInvoiceItem.invoice = result;
-
-          await this.store.create(newInvoiceItem);
         }
 
         this.statusservice.setStatusToSuccess();

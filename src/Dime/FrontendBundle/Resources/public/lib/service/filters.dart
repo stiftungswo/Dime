@@ -60,7 +60,9 @@ class InvoiceItemOrderByOrderField {
   List call(List<InvoiceItem> items) {
     items.sort((x, y) {
       if (x.order != null && y.order != null) {
-        return x.order.compareTo(y.order);
+        if (x.order is num && y.order is num) {
+          return x.order.compareTo(y.order);
+        }
       }
       return 0;
     });
