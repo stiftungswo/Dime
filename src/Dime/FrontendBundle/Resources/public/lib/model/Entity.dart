@@ -69,7 +69,7 @@ class Entity {
     for (String item in this._toUpdate) {
       var value = this.Get(item);
       if (value == null) {
-        print('Trying to get ${item} from ${this.type} but it does not exist or has no getter');
+        //print('Trying to get ${item} from ${this.type} but it does not exist or has no getter');
       } else if (value is Entity) {
         //TODO Fix Handling of Subentities in Backend. I Probably neeed a form transformer
         if (value.type == 'address') {
@@ -202,7 +202,7 @@ class Entity {
         this.tags = Tag.listFromMap(value);
         break;
       default:
-        print('Trying to set ${property} with ${value} in ${this.type} but it does not exist or has no setter');
+        //print('Trying to set ${property} with ${value} in ${this.type} but it does not exist or has no setter');
         break;
     }
   }

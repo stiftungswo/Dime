@@ -36,7 +36,9 @@ class InvoiceHandler extends GenericHandler
       // FIXME this is a hack for inserting the profileId when ignored by the formFactory.
       // Better solution: fix the formfactory
       // Used in InvoiceController -> postInvoiceAction
-      $entity->setProject($this->om->getReference('Dime\TimetrackerBundle\Entity\Project', $parameters['project']));
+      if(isset($parameters['project'])) {
+        $entity->setProject($this->om->getReference('Dime\TimetrackerBundle\Entity\Project', $parameters['project']));
+      }
       $refclas = new \ReflectionClass($this->entityClass);
       $this->eventDispatcher->dispatch(TimetrackEvents::ENTITY_PRE_PERSIST.'.'.$method.'.'.$refclas->getShortName(), new DimeEntityPersistEvent($entity));
       $this->om->persist($entity);
