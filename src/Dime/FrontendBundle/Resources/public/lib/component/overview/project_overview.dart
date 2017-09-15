@@ -60,15 +60,6 @@ class ProjectOverviewComponent extends EntityOverview {
           var resultActivity = await this.store.create(newActivity);
         }
 
-        if (needsmanualAdd) {
-          this.entities.add(resultProject);
-        }
-
-        resultProject.cloneDescendants(ent);
-
-        for (var entity in result.descendantsToUpdate) {
-          await this.store.create(entity);
-        }
         this.statusservice.setStatusToSuccess();
         this.rootScope.emit(this.type.toString() + 'Duplicated');
       } catch (e) {
