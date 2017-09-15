@@ -48,9 +48,15 @@ Open http://localhost:3000 with dartium:
 
     dartium localhost:3000
 
+Open http://localhost:8080 for phpmyadmin
+
+    host: mariadb
+    user: root
+    no password
+
 Fix Pub Cache by Linking to enable auto-completion (dart-analyzer) in IDE:
 
-    In OSX, cd into this repository's root and run: ln -s /tmp/dime-pub-cache .pub-cache
+    In OSX, cd into this repository's root and run: ln -s /tmp/dime-pub-cache .pub-cache    
 
 ## Project Structure
 
