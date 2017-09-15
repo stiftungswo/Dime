@@ -175,9 +175,8 @@ class InvoiceHandler extends GenericHandler
 					$invoice->addItem($item);
 				}
 			}
+      $invoice->setFixedPrice($invoice->getProject()->getFixedPrice());
 		}
-
-		$invoice->setFixedPrice($invoice->getProject()->getFixedPrice());
 		$invoice->setUser($this->getCurrentUser());
 		$this->om->persist($invoice);
 		$this->om->flush();
