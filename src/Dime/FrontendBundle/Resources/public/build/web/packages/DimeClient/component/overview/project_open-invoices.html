@@ -37,7 +37,7 @@
           <td>{{entity.id}}</td>
           <td>{{entity.name}}</td>
           <td>{{entity.alias}}</td>
-          <td>{{entity.description}}</td>
+          <td>{{entity.description|limitTo:100}}</td>
           <td>
             <div class="btn-group">
               <button type="button" class="btn btn-default" ng-click="openEditView(entity.id)"><i class="fa fa-fw fa-pencil"></i></button>
@@ -48,4 +48,5 @@
       </tbody>
     </table>
   </div>
-</div></body></html>
+</div>
+</body></html>
