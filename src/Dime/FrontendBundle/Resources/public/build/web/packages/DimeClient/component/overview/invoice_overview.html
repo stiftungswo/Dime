@@ -47,7 +47,7 @@
         <tr ng-repeat="entity in entities | orderBy:sortType:sortReverse | filter:searchFilter(['id', 'name', 'description', 'start', 'end'], filterString)" ng-click="selectEntity(entity.id)" ng-doubleclick="openEditView(entity.id)" ng-class="isSelected(entity)? 'info': ''">
           <td>{{entity.id}}</td>
           <td>{{entity.name}}</td>
-          <td>{{entity.description}}</td>
+          <td>{{entity.description|limitTo:100}}</td>
           <td>{{entity.start|date:'dd-MM-y'}}</td>
           <td>{{entity.end|date:'dd-MM-y'}}</td>
           <td>
@@ -61,5 +61,4 @@
     </table>
   </div>
 </div>
-
 </body></html>
