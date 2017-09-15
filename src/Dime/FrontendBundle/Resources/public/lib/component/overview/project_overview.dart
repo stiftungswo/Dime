@@ -54,7 +54,7 @@ class ProjectOverviewComponent extends EntityOverview {
           oldActivity.id = null;
           newActivity = oldActivity;
           newActivity.project = resultProject;
-          newActivity.addFieldstoUpdate(['project', 'value', 'chargeable', 'service', 'description']);
+          newActivity.addFieldstoUpdate(['project', 'rateValue', 'chargeable', 'service', 'description']);
 
           var resultActivity = await this.store.create(newActivity);
         }
