@@ -21,6 +21,7 @@ class InvoiceFormType extends AbstractType
 			->add('description')
 			->add('alias')
 			->add('fixedPrice', 'tbbc_simple_money')
+			->add('project', 'entity', array('class' => 'Dime\TimetrackerBundle\Entity\Project'))
 			->add('accountant', 'entity', array('class' => 'DimeEmployeeBundle:Employee'))
 			->add('customer', 'entity', array('class' => 'Dime\TimetrackerBundle\Entity\Customer'))
 			->add('start', 'datetime', array('required' => false, 'widget' => 'single_text', 'with_seconds' => true))

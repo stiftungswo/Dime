@@ -621,4 +621,4 @@ class Invoice extends Entity implements DimeEntityInterface
 		return $this;
 	}
 
-} 
+}

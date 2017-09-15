@@ -20,6 +20,7 @@ class InvoiceItemFormType extends AbstractType
 			->add('order', 'number', ['empty_data' => '0'])
 			->add('name')
 			->add('rateValue', 'tbbc_simple_money')
+			->add('activity', 'entity', array('class' => 'Dime\TimetrackerBundle\Entity\Activity'))
 			->add('amount', 'number')
 			->add('rateUnit')
 			->add('vat')
