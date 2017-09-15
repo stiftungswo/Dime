@@ -44,7 +44,11 @@ class InvoiceOverviewComponent extends EntityOverview {
         }
         result.cloneDescendants(completeInvoice);
         for (var entity in result.descendantsToUpdate) {
-          await this.store.create(entity);
+          try {
+            await this.store.create(entity);
+          } catch (e) {
+            print("Unable to duplicate entity ${entity.type.toString()}::${entity.id} because ${e}");
+          }
         }
 
         this.statusservice.setStatusToSuccess();
