@@ -21,6 +21,7 @@ part 'roundmode_select.dart';
 part 'service_select.dart';
 part 'standarddiscount_select.dart';
 part 'user_select.dart';
+part 'costgroup_select.dart';
 
 class EntitySelect extends AttachAware implements ScopeAware {
   DataCache store;

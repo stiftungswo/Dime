@@ -31,6 +31,11 @@
                        field="'accountant'"></user-select>
         </div>
         <div class="form-group">
+          <label class="col-sm-2 control-label">Kostenstelle</label>
+          <costgroup-select class="col-sm-4" user="entity.costGroup" callback="addSaveField(name)"
+                       field="'costGroup'"></costgroup-select>
+        </div>
+        <div class="form-group">
           <label class="col-md-2 control-label">Startdatum</label>
           <dateinput class="col-md-4" date="entity.start" field="'start'" callback="addSaveField(name)"></dateinput>
         </div>

@@ -10,3 +10,7 @@ services:
     dime.invoicebundle.invoiceitem.formtype:
             class: Dime\InvoiceBundle\Form\Type\InvoiceItemFormType
             tags: [{ name: "form.type", alias: "dime_invoicebundle_invoiceitemformtype" }]
+
+    dime.invoicebundle.costgroup.formtype:
+            class: Dime\InvoiceBundle\Form\Type\CostGroupFormType
+            tags: [{ name: "form.type", alias: "dime_invoicebundle_costgroupformtype" }]        

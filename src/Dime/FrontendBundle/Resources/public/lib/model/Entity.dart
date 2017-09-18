@@ -10,6 +10,7 @@ part 'entities/Customer.dart';
 part 'entities/Employee.dart';
 part 'entities/ExpenseReport.dart';
 part 'entities/Holiday.dart';
+part 'entities/CostGroup.dart';
 part 'entities/Invoice.dart';
 part 'entities/InvoiceDiscount.dart';
 part 'entities/InvoiceItem.dart';

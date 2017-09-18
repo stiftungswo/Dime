@@ -134,6 +134,12 @@ class Invoice extends Entity implements DimeEntityInterface
 	 */
 	protected $accountant;
 
+	/**
+	 * @var CostGroup $costGroup
+	 * @ORM\ManyToOne(targetEntity="Dime\InvoiceBundle\Entity\CostGroup")
+	 * @ORM\JoinColumn(name="cost_group_id", referencedColumnName="id", nullable=true, onDelete="SET NULL"))
+	 */
+	protected $costGroup;
 
 	public function __construct()
 	{
@@ -617,6 +623,26 @@ class Invoice extends Entity implements DimeEntityInterface
 	public function setAccountant($accountant)
 	{
 		$this->accountant = $accountant;
+
+		return $this;
+	}
+
+	/**
+	 * @return CostGroup
+	 */
+	public function getCostGroup()
+	{
+		return $this->costGroup;
+	}
+
+	/**
+	 * @param CostGroup $costGroup
+	 *
+	 * @return $this
+	 */
+	public function setCostGroup($costGroup)
+	{
+		$this->costGroup = $costGroup;
 
 		return $this;
 	}
