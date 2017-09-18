@@ -107,6 +107,16 @@ HammockConfig createHammockConfig(Injector inj) {
           return new StandardDiscount.fromMap(r.content);
         }
       },
+      "costgroups": {
+        "type": CostGroup,
+        "serializer": (CostGroup ent) {
+          return ent.toResource();
+        },
+        "deserializer": (Resource r) {
+          if (r.content is String) return new CostGroup();
+          return new CostGroup.fromMap(r.content);
+        }
+      },
       "invoices": {
         "type": Invoice,
         "serializer": (Invoice ent) {

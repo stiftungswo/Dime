@@ -1495,7 +1495,7 @@
           return receiver.split(pattern.get$_nativeRegExp());
         else
           return this._defaultSplit$1(receiver, pattern);
-      }, "call$1", "get$split", 2, 0, 131, 166],
+      }, "call$1", "get$split", 2, 0, 117, 166],
       replaceRange$3: function(receiver, start, end, replacement) {
         H.checkInt(start);
         end = P.RangeError_checkValidRange(start, end, receiver.length, null, null, null);
@@ -3223,7 +3223,7 @@
               this._scheduledControlEvents.removeFirst$0().call$0();
         }
         return result;
-      }, "call$1", "get$$eval", 2, 0, 205],
+      }, "call$1", "get$$eval", 2, 0, 206],
       handleControlMessage$1: function(message) {
         var t1 = J.getInterceptor$asx(message);
         switch (t1.$index(message, 0)) {
@@ -4045,7 +4045,7 @@
     },
     Primitives_dateNow: [function() {
       return Date.now();
-    }, "call$0", "_js_helper_Primitives_dateNow$closure", 0, 0, 290],
+    }, "call$0", "_js_helper_Primitives_dateNow$closure", 0, 0, 291],
     Primitives_initTicker: function() {
       var $window, performance;
       if ($.Primitives_timerFrequency != null)
@@ -5818,6 +5818,12 @@
         }
       }
     },
+    FallThroughErrorImplementation: {
+      "^": "FallThroughError;",
+      toString$0: function(_) {
+        return "Switch case fall-through.";
+      }
+    },
     RuntimeError: {
       "^": "Error;message>",
       toString$0: function(_) {
@@ -6186,7 +6192,7 @@
       }
     },
     initHooks_closure0: {
-      "^": "Closure:137;getUnknownTag",
+      "^": "Closure:132;getUnknownTag",
       call$2: function(o, tag) {
         return this.getUnknownTag(o, tag);
       }
@@ -6990,12 +6996,12 @@
     },
     Future_Future: function(computation, $T) {
       var result = new P._Future(0, $.Zone__current, null, [$T]);
-      P.Timer_Timer(C.Duration_0, new P.closure1058(computation, result));
+      P.Timer_Timer(C.Duration_0, new P.closure1059(computation, result));
       return result;
     },
     Future_Future$microtask: function(computation, $T) {
       var result = new P._Future(0, $.Zone__current, null, [$T]);
-      P.scheduleMicrotask(new P.closure1057(computation, result));
+      P.scheduleMicrotask(new P.closure1058(computation, result));
       return result;
     },
     Future_Future$error: function(error, stackTrace, $T) {
@@ -7018,7 +7024,7 @@
     },
     Future_Future$delayed: function(duration, computation, $T) {
       var result = new P._Future(0, $.Zone__current, null, [$T]);
-      P.Timer_Timer(duration, new P.closure1067(computation, result));
+      P.Timer_Timer(duration, new P.closure1068(computation, result));
       return result;
     },
     Future_wait: function(futures, cleanUp, eagerError) {
@@ -7178,7 +7184,7 @@
       }
     },
     _nullDataHandler: [function(value) {
-    }, "call$1", "async___nullDataHandler$closure", 2, 0, 292, 6],
+    }, "call$1", "async___nullDataHandler$closure", 2, 0, 293, 6],
     _nullErrorHandler: [function(error, stackTrace) {
       $.Zone__current.handleUncaughtError$2(error, stackTrace);
     }, function(error) {
@@ -7333,22 +7339,22 @@
     }],
     _rootErrorCallback: [function($self, $parent, zone, error, stackTrace) {
       return;
-    }, "call$5", "async___rootErrorCallback$closure", 10, 0, 293],
+    }, "call$5", "async___rootErrorCallback$closure", 10, 0, 294],
     _rootScheduleMicrotask: [function($self, $parent, zone, f) {
       var t1 = C.C__RootZone !== zone;
       if (t1)
         f = zone.bindCallback$2$runGuarded(f, !(!t1 || C.C__RootZone.get$errorZone() === zone.get$errorZone()));
       P._scheduleAsyncCallback(f);
-    }, "call$4", "async___rootScheduleMicrotask$closure", 8, 0, 79],
+    }, "call$4", "async___rootScheduleMicrotask$closure", 8, 0, 80],
     _rootCreateTimer: [function($self, $parent, zone, duration, callback) {
       return P.Timer__createTimer(duration, C.C__RootZone !== zone ? zone.bindCallback$1(callback) : callback);
-    }, "call$5", "async___rootCreateTimer$closure", 10, 0, 294],
+    }, "call$5", "async___rootCreateTimer$closure", 10, 0, 295],
     _rootCreatePeriodicTimer: [function($self, $parent, zone, duration, callback) {
       return P.Timer__createPeriodicTimer(duration, C.C__RootZone !== zone ? zone.bindUnaryCallback$1(callback) : callback);
-    }, "call$5", "async___rootCreatePeriodicTimer$closure", 10, 0, 295],
+    }, "call$5", "async___rootCreatePeriodicTimer$closure", 10, 0, 296],
     _rootPrint: [function($self, $parent, zone, line) {
       H.printString(H.S(line));
-    }, "call$4", "async___rootPrint$closure", 8, 0, 296],
+    }, "call$4", "async___rootPrint$closure", 8, 0, 297],
     _printToZone: [function(line) {
       J.print$1$x($.Zone__current, line);
     }, "call$1", "async___printToZone$closure", 2, 0, 44],
@@ -7391,7 +7397,7 @@
       t2 = specification.handleUncaughtError;
       t1._handleUncaughtError = t2 != null ? new P._ZoneFunction(t1, t2, [{func: 1, args: [P.Zone, P.ZoneDelegate, P.Zone,, P.StackTrace]}]) : zone.get$_handleUncaughtError();
       return t1;
-    }, "call$5", "async___rootFork$closure", 10, 0, 297],
+    }, "call$5", "async___rootFork$closure", 10, 0, 298],
     _AsyncRun__initializeScheduleImmediate_internalCallback: {
       "^": "Closure:0;_box_0",
       call$1: [function(_) {
@@ -7404,7 +7410,7 @@
       }, null, null, 2, 0, null, 14, "call"]
     },
     _AsyncRun__initializeScheduleImmediate_closure: {
-      "^": "Closure:307;_box_0,div,span",
+      "^": "Closure:312;_box_0,div,span",
       call$1: function(callback) {
         var t1, t2;
         ++init.globalState.topEventLoop._activeJsAsyncCount;
@@ -7435,13 +7441,13 @@
       }, null, null, 2, 0, null, 23, "call"]
     },
     _awaitOnObject_closure0: {
-      "^": "Closure:76;bodyFunction",
+      "^": "Closure:77;bodyFunction",
       call$2: [function(error, stackTrace) {
         this.bodyFunction.call$2(1, new H.ExceptionAndStackTrace(error, stackTrace));
       }, null, null, 4, 0, null, 22, 38, "call"]
     },
     _wrapJsFunctionForAsync_closure: {
-      "^": "Closure:118;$protected",
+      "^": "Closure:119;$protected",
       call$2: [function(errorCode, result) {
         this.$protected(errorCode, result);
       }, null, null, 4, 0, null, 176, 23, "call"]
@@ -7698,6 +7704,19 @@
     Future: {
       "^": "Object;$ti"
     },
+    closure1059: {
+      "^": "Closure:2;computation,result",
+      call$0: [function() {
+        var e, s, exception;
+        try {
+          this.result._complete$1(this.computation.call$0());
+        } catch (exception) {
+          e = H.unwrapException(exception);
+          s = H.getTraceFromException(exception);
+          P._completeWithErrorCallback(this.result, e, s);
+        }
+      }, null, null, 0, 0, null, "call"]
+    },
     closure1058: {
       "^": "Closure:2;computation,result",
       call$0: [function() {
@@ -7711,20 +7730,7 @@
         }
       }, null, null, 0, 0, null, "call"]
     },
-    closure1057: {
-      "^": "Closure:2;computation,result",
-      call$0: [function() {
-        var e, s, exception;
-        try {
-          this.result._complete$1(this.computation.call$0());
-        } catch (exception) {
-          e = H.unwrapException(exception);
-          s = H.getTraceFromException(exception);
-          P._completeWithErrorCallback(this.result, e, s);
-        }
-      }, null, null, 0, 0, null, "call"]
-    },
-    closure1067: {
+    closure1068: {
       "^": "Closure:2;computation,result",
       call$0: [function() {
         var e, s, t1, exception;
@@ -9332,7 +9338,7 @@
       }, null, null, 0, 0, null, "call"]
     },
     _cancelAndErrorClosure_closure: {
-      "^": "Closure:76;subscription,future",
+      "^": "Closure:77;subscription,future",
       call$2: function(error, stackTrace) {
         P._cancelAndError(this.subscription, this.future, error, stackTrace);
       }
@@ -9408,7 +9414,7 @@
       }, 41],
       _handleError$2: [function(error, stackTrace) {
         this._stream._handleError$3(error, stackTrace, this);
-      }, "call$2", "get$_handleError", 4, 0, 207, 22, 38],
+      }, "call$2", "get$_handleError", 4, 0, 208, 22, 38],
       _handleDone$0: [function() {
         this._async$_close$0();
       }, "call$0", "get$_handleDone", 0, 0, 3],
@@ -9613,7 +9619,7 @@
         }
       }, function(error) {
         return this._handleError$2(error, null);
-      }, "_handleError$1", "call$2", "call$1", "get$_handleError", 2, 2, 240, 2, 22, 38],
+      }, "_handleError$1", "call$2", "call$1", "get$_handleError", 2, 2, 241, 2, 22, 38],
       _handleDone$0: [function() {
         var e, s, exception;
         try {
@@ -12215,7 +12221,7 @@
         if (this._processed != null && !this.containsKey$1(0, key))
           return;
         return this._upgrade$0().remove$1(0, key);
-      }, "call$1", "get$remove", 2, 0, 267, 17],
+      }, "call$1", "get$remove", 2, 0, 268, 17],
       clear$0: [function(_) {
         var t1;
         if (this._processed == null)
@@ -12720,7 +12726,7 @@
       }, 50]
     },
     Converter_bind_closure: {
-      "^": "Closure:285;$this",
+      "^": "Closure:286;$this",
       call$1: function(sink) {
         return new P._ConverterStreamEventSink(sink, this.$this.startChunkedConversion$1(sink), [null, null]);
       }
@@ -12780,7 +12786,7 @@
       },
       bind$1: [function(stream) {
         return this.super$Converter$bind(stream);
-      }, "call$1", "get$bind", 2, 0, 287, 50],
+      }, "call$1", "get$bind", 2, 0, 288, 50],
       $asConverter: function() {
         return [P.Object, P.String];
       }
@@ -12813,7 +12819,7 @@
       },
       bind$1: [function(stream) {
         return this.super$Converter$bind(stream);
-      }, "call$1", "get$bind", 2, 0, 288, 50],
+      }, "call$1", "get$bind", 2, 0, 289, 50],
       $asConverter: function() {
         return [P.String, P.Object];
       }
@@ -13212,7 +13218,7 @@
       },
       bind$1: [function(stream) {
         return this.super$Converter$bind(stream);
-      }, "call$1", "get$bind", 2, 0, 291, 50],
+      }, "call$1", "get$bind", 2, 0, 292, 50],
       $asConverter: function() {
         return [P.String, [P.List, P.int]];
       }
@@ -13398,7 +13404,7 @@
       },
       bind$1: [function(stream) {
         return this.super$Converter$bind(stream);
-      }, "call$1", "get$bind", 2, 0, 308, 50],
+      }, "call$1", "get$bind", 2, 0, 309, 50],
       $asConverter: function() {
         return [[P.List, P.int], P.String];
       }
@@ -13415,7 +13421,7 @@
         return this.flush$2(source, null);
       }, "flush$1", function() {
         return this.flush$2(null, null);
-      }, "flush$0", "call$2", "call$1", "call$0", "get$flush", 0, 4, 152, 2, 2, 163, 120],
+      }, "flush$0", "call$2", "call$1", "call$0", "get$flush", 0, 4, 151, 2, 2, 163, 120],
       convert$3: function(codeUnits, startIndex, endIndex) {
         var value, expectedUnits, extraUnits, scanOneByteCharacters, addSingleBytes, t1, t2, i, unit, t3, oneBytes, i0, i1, t4;
         value = this._convert$_value;
@@ -13513,7 +13519,7 @@
       }
     },
     _Utf8Decoder_convert_scanOneByteCharacters: {
-      "^": "Closure:286;endIndex",
+      "^": "Closure:301;endIndex",
       call$2: function(units, from) {
         var to, t1, i, unit;
         to = this.endIndex;
@@ -13571,7 +13577,7 @@
     },
     Comparable_compare: [function(a, b) {
       return J.compareTo$1$ns(a, b);
-    }, "call$2", "core_Comparable_compare$closure", 4, 0, 298, 96, 95],
+    }, "call$2", "core_Comparable_compare$closure", 4, 0, 299, 96, 95],
     Error_safeToString: function(object) {
       if (typeof object === "number" || typeof object === "boolean" || null == object)
         return J.toString$0$(object);
@@ -13641,7 +13647,7 @@
     }, "call$1", "core_num__returnIntNull$closure", 2, 0, 66],
     num__returnDoubleNull: [function(_) {
       return;
-    }, "call$1", "core_num__returnDoubleNull$closure", 2, 0, 299],
+    }, "call$1", "core_num__returnDoubleNull$closure", 2, 0, 300],
     print: function(object) {
       var line, t1;
       line = H.S(object);
@@ -14633,6 +14639,12 @@
         }
       }
     },
+    FallThroughError: {
+      "^": "Error;",
+      toString$0: function(_) {
+        return this.super$Object$toString(0);
+      }
+    },
     NoSuchMethodError: {
       "^": "Error;_core$_receiver,_memberName,_core$_arguments,_namedArguments,_existingArgumentNames",
       toString$0: function(_) {
@@ -15213,7 +15225,7 @@
       }
     },
     Uri__parseIPv4Address_error: {
-      "^": "Closure:144;host",
+      "^": "Closure:138;host",
       call$2: function(msg, position) {
         throw H.wrapException(new P.FormatException("Illegal IPv4 address, " + msg, this.host, position));
       }
@@ -15228,7 +15240,7 @@
       }
     },
     Uri_parseIPv6Address_parseHex: {
-      "^": "Closure:171;host,error",
+      "^": "Closure:172;host,error",
       call$2: function(start, end) {
         var value, t1;
         if (J.$gt$n(J.$sub$n(end, start), 4))
@@ -15543,7 +15555,7 @@
             userInfo = J.$lt$n(userInfoStart, hostStart) ? P._Uri__makeUserInfo(uri, userInfoStart, t1.$sub(hostStart, 1)) : "";
             host = P._Uri__makeHost(uri, hostStart, portStart, false);
             t1 = J.getInterceptor$ns(portStart);
-            port = J.$lt$n(t1.$add(portStart, 1), pathStart) ? P._Uri__makePort(H.Primitives_parseInt(J.substring$2$s(uri, t1.$add(portStart, 1), pathStart), null, new P.closure1059(uri, portStart)), scheme) : null;
+            port = J.$lt$n(t1.$add(portStart, 1), pathStart) ? P._Uri__makePort(H.Primitives_parseInt(J.substring$2$s(uri, t1.$add(portStart, 1), pathStart), null, new P.closure1060(uri, portStart)), scheme) : null;
           } else {
             userInfo = "";
             host = null;
@@ -16115,7 +16127,7 @@
         }
       }
     },
-    closure1059: {
+    closure1060: {
       "^": "Closure:0;uri,portStart",
       call$1: function(_) {
         throw H.wrapException(new P.FormatException("Invalid port", this.uri, J.$add$ns(this.portStart, 1)));
@@ -16269,7 +16281,7 @@
       }
     },
     _createTables_build: {
-      "^": "Closure:174;tables",
+      "^": "Closure:175;tables",
       call$2: function(state, defaultTransition) {
         var t1 = this.tables;
         if (state >= t1.length)
@@ -16594,7 +16606,7 @@
     Element_Element$html: function(html, treeSanitizer, validator) {
       var t1 = document.body;
       t1 = J.get$nodes$x((t1 && C.BodyElement_methods).createFragment$3$treeSanitizer$validator(t1, html, treeSanitizer, validator));
-      t1 = new H.WhereIterable(t1, new W.closure1055(), [H.getRuntimeTypeArgument(t1, "ListMixin", 0)]);
+      t1 = new H.WhereIterable(t1, new W.closure1056(), [H.getRuntimeTypeArgument(t1, "ListMixin", 0)]);
       return t1.get$single(t1);
     },
     Element__determineMouseWheelEventType: [function(e) {
@@ -17119,7 +17131,7 @@
       }, "call$0", "get$clear", 0, 0, 3],
       item$1: [function(receiver, index) {
         return receiver.item(index);
-      }, "call$1", "get$item", 2, 0, 300, 20],
+      }, "call$1", "get$item", 2, 0, 302, 20],
       remove$1: [function(receiver, index) {
         return receiver.remove(index);
       }, "call$1", "get$remove", 2, 0, 24, 20],
@@ -17826,7 +17838,7 @@
         return convertedTiming == null ? receiver.animate(convertedFrames) : receiver.animate(convertedFrames, convertedTiming);
       }, function($receiver, $frames) {
         return this.animate$2($receiver, $frames, null);
-      }, "animate$1", "call$2", "call$1", "get$animate", 2, 2, 123, 2, 222, 270],
+      }, "animate$1", "call$2", "call$1", "get$animate", 2, 2, 124, 2, 222, 270],
       toString$0: function(receiver) {
         return receiver.localName;
       },
@@ -17864,7 +17876,7 @@
           return receiver.oMatchesSelector(selectors);
         else
           throw H.wrapException(new P.UnsupportedError("Not supported on this platform"));
-      }, "call$1", "get$matches", 2, 0, 141, 303],
+      }, "call$1", "get$matches", 2, 0, 142, 303],
       matchesWithAncestors$1: function(receiver, selectors) {
         var elem = receiver;
         do {
@@ -18168,7 +18180,7 @@
       $isInterceptor: 1,
       "%": ";Element"
     },
-    closure1055: {
+    closure1056: {
       "^": "Closure:0;",
       call$1: function(e) {
         return !!J.getInterceptor(e).$isElement;
@@ -18284,7 +18296,7 @@
       "^": "HtmlElement;length=,name%,target=",
       item$1: [function(receiver, index) {
         return receiver.item(index);
-      }, "call$1", "get$item", 2, 0, 80, 20],
+      }, "call$1", "get$item", 2, 0, 70, 20],
       reset$0: [function(receiver) {
         return receiver.reset();
       }, "call$0", "get$reset", 0, 0, 3],
@@ -18425,7 +18437,7 @@
         return $receiver.open(method, url);
       }, "open$2", function($receiver, method, url, async) {
         return $receiver.open(method, url, async);
-      }, "open$3$async", "call$5$async$password$user", "call$2", "call$3$async", "get$open", 4, 7, 172, 2, 2, 2, 97, 34, 170, 107, 104],
+      }, "open$3$async", "call$5$async$password$user", "call$2", "call$3$async", "get$open", 4, 7, 173, 2, 2, 2, 97, 34, 170, 107, 104],
       get$response: function(receiver) {
         return W._convertNativeToDart_XHR_Response(receiver.response);
       },
@@ -19095,7 +19107,7 @@
         return receiver.collapse(toStart);
       }, function($receiver) {
         return $receiver.collapse();
-      }, "collapse$0", "call$1", "call$0", "get$collapse", 0, 2, 206, 2, 168],
+      }, "collapse$0", "call$1", "call$0", "get$collapse", 0, 2, 207, 2, 168],
       detach$0: function(receiver) {
         return receiver.detach();
       },
@@ -19112,7 +19124,7 @@
       "^": "HtmlElement;disabled%,labels=,length%,multiple%,name%,required%,size%,type=,value%",
       item$1: [function(receiver, index) {
         return receiver.item(index);
-      }, "call$1", "get$item", 2, 0, 80, 20],
+      }, "call$1", "get$item", 2, 0, 70, 20],
       get$options: function(receiver) {
         var options = new W._FrozenElementList(receiver.querySelectorAll("option"), [null]);
         return new P.UnmodifiableListView(options.toList$0(options), [null]);
@@ -19417,7 +19429,7 @@
           return W._DOMWindowCrossFrame__createSafe(receiver.open(url, $name, options));
       }, function($receiver, url, $name) {
         return this.open$3($receiver, url, $name, null);
-      }, "open$2", "call$3", "call$2", "get$open", 4, 2, 212, 2, 34, 25, 103],
+      }, "open$2", "call$3", "call$2", "get$open", 4, 2, 213, 2, 34, 25, 103],
       get$location: function(receiver) {
         return receiver.location;
       },
@@ -19716,7 +19728,7 @@
       },
       item$1: [function(receiver, index) {
         return receiver.item(index);
-      }, "call$1", "get$item", 2, 0, 231, 20],
+      }, "call$1", "get$item", 2, 0, 232, 20],
       $isList: 1,
       $asList: function() {
         return [W.Node];
@@ -20769,7 +20781,7 @@
       }
     },
     _ValidatingTreeSanitizer_sanitizeTree_walk: {
-      "^": "Closure:251;$this",
+      "^": "Closure:252;$this",
       call$2: function(node, $parent) {
         var child, nextChild, t1, t2, exception;
         t1 = this.$this;
@@ -20817,7 +20829,7 @@
       return object;
     }, function(dict) {
       return P.convertDartToNative_Dictionary(dict, null);
-    }, "call$2", "call$1", "html_common__convertDartToNative_Dictionary$closure", 2, 2, 302, 2, 317, 149],
+    }, "call$2", "call$1", "html_common__convertDartToNative_Dictionary$closure", 2, 2, 303, 2, 317, 149],
     convertNativeToDart_DateTime: function(date) {
       var millisSinceEpoch, t1;
       millisSinceEpoch = date.getTime();
@@ -21475,7 +21487,7 @@
         else
           return P._wrapToDart(o);
       }
-    }, "call$1", "js___convertToDart$closure", 2, 0, 303, 0],
+    }, "call$1", "js___convertToDart$closure", 2, 0, 304, 0],
     _wrapToDart: function(o) {
       if (typeof o == "function")
         return P._getDartProxy(o, $.$get$DART_CLOSURE_PROPERTY_NAME(), new P._wrapToDart_closure());
@@ -21580,7 +21592,7 @@
         return P._convertToDart(this._js$_jsObject.apply(t1, t2));
       }, function(args) {
         return this.apply$2$thisArg(args, null);
-      }, "apply$1", "call$2$thisArg", "call$1", "get$apply", 2, 3, 269, 2, 68, 119],
+      }, "apply$1", "call$2$thisArg", "call$1", "get$apply", 2, 3, 270, 2, 68, 119],
       static: {
         JsFunction_JsFunction$withThis: function(f) {
           return new P.JsFunction(function(_call, f, captureThis) {
@@ -22796,7 +22808,7 @@
         return P._asyncStart($async$reload$1$evict, $async$completer);
       }, function($receiver) {
         return this.reload$1$evict($receiver, false);
-      }, "reload$0", "call$1$evict", "call$0", "get$reload", 0, 3, 282, 11, 16],
+      }, "reload$0", "call$1$evict", "call$0", "get$reload", 0, 3, 283, 12, 16],
       addSaveField$1: [function($name) {
         this.get$entity().addFieldtoUpdate$1($name);
       }, "call$1", "get$addSaveField", 2, 0, 10, 25],
@@ -22973,7 +22985,7 @@
       },
       setInvoiceItemOverview$1: [function(c) {
         this.invoiceitem_overview = c;
-      }, "call$1", "get$setInvoiceItemOverview", 2, 0, 283, 121],
+      }, "call$1", "get$setInvoiceItemOverview", 2, 0, 284, 121],
       load$1$evict: function(_, evict) {
         var $async$goto = 0, $async$completer = P.Completer_Completer$sync(), $async$handler = 1, $async$currentError, $async$next = [], $async$self = this, e, t1, t2, exception, $async$exception, $async$temp1;
         var $async$load$1$evict = P._wrapJsFunctionForAsync(function($async$errorCode, $async$result) {
@@ -23769,7 +23781,7 @@
         return this.reload$2$evict$params($receiver, false, params);
       }, "reload$1$params", function($receiver, evict) {
         return this.reload$2$evict$params($receiver, evict, null);
-      }, "reload$1$evict", "call$2$evict$params", "call$0", "call$1$params", "call$1$evict", "get$reload", 0, 5, 9, 2, 11, 10, 16]
+      }, "reload$1$evict", "call$2$evict$params", "call$0", "call$1$params", "call$1$evict", "get$reload", 0, 5, 9, 2, 12, 10, 16]
     },
     CustomerOverviewComponent: {
       "^": "EntityOverview;sortType:CustomerOverviewComponent_sortType@,needsmanualAdd,selectedEntId,entities,type,store,router,statusservice,rootScope,routename,settingsManager,auth,filterString,sortType,sortReverse",
@@ -23926,7 +23938,7 @@
         if (J.$eq$(J.get$id$x(entity), this.selectedEntId))
           return true;
         return false;
-      }, "call$1", "get$isSelected", 2, 0, 116, 43],
+      }, "call$1", "get$isSelected", 2, 0, 114, 43],
       createEntity$2$newEnt$params: ["super$EntityOverview$createEntity", function(newEnt, params) {
         var $async$goto = 0, $async$completer = P.Completer_Completer$sync(), $async$handler = 1, $async$currentError, $async$next = [], $async$self = this, resp, e, exception, $async$exception;
         var $async$createEntity$2$newEnt$params = P._wrapJsFunctionForAsync(function($async$errorCode, $async$result) {
@@ -24237,7 +24249,7 @@
         return this.reload$2$evict$params($receiver, false, params);
       }, "reload$1$params", function($receiver, evict) {
         return this.reload$2$evict$params($receiver, evict, null);
-      }, "reload$1$evict", "call$2$evict$params", "call$0", "call$1$params", "call$1$evict", "get$reload", 0, 5, 9, 2, 11, 10, 16],
+      }, "reload$1$evict", "call$2$evict$params", "call$0", "call$1$params", "call$1$evict", "get$reload", 0, 5, 9, 2, 12, 10, 16],
       addSaveField$2: [function($name, entity) {
         entity.addFieldtoUpdate$1($name);
       }, "call$2", "get$addSaveField", 4, 0, 111, 25, 43],
@@ -24312,7 +24324,7 @@
       cEnt$1$entity: function(entity) {
         var t1, t2;
         if (entity != null) {
-          t1 = new D.Invoice("invoices", null, null, null, null, null, null, null, null, null, null, [], [], [], null, null, null, [], null, [], "entities", null, null, null, null, null, []);
+          t1 = new D.Invoice("invoices", null, null, null, null, null, null, null, null, null, null, [], [], [], null, null, null, null, [], null, [], "entities", null, null, null, null, null, []);
           t1.Entity$clone$1(entity);
           t1.description = entity.get$description();
           t1.project = entity.get$project();
@@ -24331,10 +24343,11 @@
           t1.totalVAT2 = entity.get$totalVAT2();
           t1.fixedPrice = entity.get$fixedPrice();
           t1.accountant = entity.get$accountant();
-          t1.addFieldstoUpdate$1(["description", "project", "items", "invoiceDiscounts", "standardDiscounts", "start", "end", "customer", "totalDiscounts", "total", "subtotal", "totalVAT", "totalVAT8", "totalVAT2", "fixedPrice", "accountant"]);
+          t1.costGroup = entity.get$costGroup();
+          t1.addFieldstoUpdate$1(["description", "project", "items", "invoiceDiscounts", "standardDiscounts", "start", "end", "customer", "totalDiscounts", "total", "subtotal", "totalVAT", "totalVAT8", "totalVAT2", "fixedPrice", "accountant", "costGroup"]);
           return t1;
         }
-        return new D.Invoice("invoices", null, null, null, null, null, null, null, null, null, null, [], [], [], null, null, null, [], null, [], "entities", null, null, null, null, null, []);
+        return new D.Invoice("invoices", null, null, null, null, null, null, null, null, null, null, [], [], [], null, null, null, null, [], null, [], "entities", null, null, null, null, null, []);
       },
       cEnt$0: function() {
         return this.cEnt$1$entity(null);
@@ -24479,7 +24492,7 @@
         return this.reload$2$evict$params($receiver, false, params);
       }, "reload$1$params", function($receiver, evict) {
         return this.reload$2$evict$params($receiver, evict, null);
-      }, "reload$1$evict", "call$2$evict$params", "call$0", "call$1$params", "call$1$evict", "get$reload", 0, 5, 9, 2, 11, 10, 16],
+      }, "reload$1$evict", "call$2$evict$params", "call$0", "call$1$params", "call$1$evict", "get$reload", 0, 5, 9, 2, 12, 10, 16],
       attach$0: function() {
         var t1 = this.auth;
         if (t1 != null)
@@ -24527,7 +24540,7 @@
         return this.reload$2$evict$params($receiver, false, params);
       }, "reload$1$params", function($receiver, evict) {
         return this.reload$2$evict$params($receiver, evict, null);
-      }, "reload$1$evict", "call$2$evict$params", "call$0", "call$1$params", "call$1$evict", "get$reload", 0, 5, 9, 2, 11, 10, 16],
+      }, "reload$1$evict", "call$2$evict$params", "call$0", "call$1$params", "call$1$evict", "get$reload", 0, 5, 9, 2, 12, 10, 16],
       attach$0: function() {
         var t1 = this.auth;
         if (t1 != null)
@@ -24752,7 +24765,7 @@
         return this.reload$2$evict$params($receiver, false, params);
       }, "reload$1$params", function($receiver, evict) {
         return this.reload$2$evict$params($receiver, evict, null);
-      }, "reload$1$evict", "call$2$evict$params", "call$0", "call$1$params", "call$1$evict", "get$reload", 0, 5, 9, 2, 11, 10, 16],
+      }, "reload$1$evict", "call$2$evict$params", "call$0", "call$1$params", "call$1$evict", "get$reload", 0, 5, 9, 2, 12, 10, 16],
       attach$0: function() {
         var t1 = this.auth;
         if (t1 != null)
@@ -24800,7 +24813,7 @@
         return this.reload$2$evict$params($receiver, false, params);
       }, "reload$1$params", function($receiver, evict) {
         return this.reload$2$evict$params($receiver, evict, null);
-      }, "reload$1$evict", "call$2$evict$params", "call$0", "call$1$params", "call$1$evict", "get$reload", 0, 5, 9, 2, 11, 10, 16],
+      }, "reload$1$evict", "call$2$evict$params", "call$0", "call$1$params", "call$1$evict", "get$reload", 0, 5, 9, 2, 12, 10, 16],
       createEntity$2$newEnt$params: [function(newEnt, params) {
         this.super$EntityOverview$createEntity(null, P.LinkedHashMap__makeLiteral(["offer", this._offerId]));
       }, function() {
@@ -24949,7 +24962,7 @@
         return this.reload$2$evict$params($receiver, false, params);
       }, "reload$1$params", function($receiver, evict) {
         return this.reload$2$evict$params($receiver, evict, null);
-      }, "reload$1$evict", "call$2$evict$params", "call$0", "call$1$params", "call$1$evict", "get$reload", 0, 5, 9, 2, 11, 10, 16],
+      }, "reload$1$evict", "call$2$evict$params", "call$0", "call$1$params", "call$1$evict", "get$reload", 0, 5, 9, 2, 12, 10, 16],
       getHolidayBalance$2: function(takenHolidays, employeeholiday) {
         var t1, holidayBalance, t2;
         for (t1 = J.get$iterator$ax(takenHolidays), holidayBalance = 0; t1.moveNext$0();) {
@@ -25091,7 +25104,7 @@
         return this.reload$2$evict$params($receiver, false, params);
       }, "reload$1$params", function($receiver, evict) {
         return this.reload$2$evict$params($receiver, evict, null);
-      }, "reload$1$evict", "call$2$evict$params", "call$0", "call$1$params", "call$1$evict", "get$reload", 0, 5, 9, 2, 11, 10, 16]
+      }, "reload$1$evict", "call$2$evict$params", "call$0", "call$1$params", "call$1$evict", "get$reload", 0, 5, 9, 2, 12, 10, 16]
     },
     ProjectOverviewComponent: {
       "^": "EntityOverview;sortType:ProjectOverviewComponent_sortType@,context<,needsmanualAdd,selectedEntId,entities,type,store,router,statusservice,rootScope,routename,settingsManager,auth,filterString,sortType,sortReverse",
@@ -25185,7 +25198,7 @@
                 J.set$id$x(oldActivity, null);
                 newActivity = oldActivity;
                 newActivity.set$project(resultProject);
-                newActivity.addFieldstoUpdate$1(["project", "value", "chargeable", "service", "description"]);
+                newActivity.addFieldstoUpdate$1(["project", "rateValue", "chargeable", "service", "description"]);
                 $async$goto = 13;
                 return P._asyncAwait(t1.create$1(newActivity), $async$duplicateEntity$0);
               case 13:
@@ -25475,7 +25488,7 @@
         return this.reload$2$evict$params($receiver, false, params);
       }, "reload$1$params", function($receiver, evict) {
         return this.reload$2$evict$params($receiver, evict, null);
-      }, "reload$1$evict", "call$2$evict$params", "call$0", "call$1$params", "call$1$evict", "get$reload", 0, 5, 9, 2, 11, 10, 16],
+      }, "reload$1$evict", "call$2$evict$params", "call$0", "call$1$params", "call$1$evict", "get$reload", 0, 5, 9, 2, 12, 10, 16],
       createEntity$2$newEnt$params: [function(newEnt, params) {
         this.super$EntityOverview$createEntity(null, P.LinkedHashMap__makeLiteral(["service", this._serviceId]));
       }, function() {
@@ -25581,7 +25594,7 @@
         return this.reload$2$evict$params($receiver, false, params);
       }, "reload$1$params", function($receiver, evict) {
         return this.reload$2$evict$params($receiver, evict, null);
-      }, "reload$1$evict", "call$2$evict$params", "call$0", "call$1$params", "call$1$evict", "get$reload", 0, 5, 9, 2, 11, 10, 16],
+      }, "reload$1$evict", "call$2$evict$params", "call$0", "call$1$params", "call$1$evict", "get$reload", 0, 5, 9, 2, 12, 10, 16],
       load$0: function(_) {
         var $async$goto = 0, $async$completer = P.Completer_Completer$sync(), $async$handler = 1, $async$currentError, $async$next = [], $async$self = this, projectAssignmentSettings, exception, t1, projectAssignmentSetting, settingAssignProject, t2, $async$exception, $async$temp1;
         var $async$load$0 = P._wrapJsFunctionForAsync(function($async$errorCode, $async$result) {
@@ -26008,7 +26021,7 @@
         return this.reload$2$evict$params($receiver, false, params);
       }, "reload$1$params", function($receiver, evict) {
         return this.reload$2$evict$params($receiver, evict, null);
-      }, "reload$1$evict", "call$2$evict$params", "call$0", "call$1$params", "call$1$evict", "get$reload", 0, 5, 9, 2, 11, 10, 16],
+      }, "reload$1$evict", "call$2$evict$params", "call$0", "call$1$params", "call$1$evict", "get$reload", 0, 5, 9, 2, 12, 10, 16],
       createEntity$2$newEnt$params: [function(newEnt, params) {
         var $async$goto = 0, $async$completer = P.Completer_Completer$sync(), $async$returnValue, $async$next = [], $async$self = this, $name, settingForName, slice, names, t1, _i, exception, t2;
         var $async$createEntity$2$newEnt$params = P._wrapJsFunctionForAsync(function($async$errorCode, $async$result) {
@@ -26503,7 +26516,7 @@
         return this.reload$2$evict$params($receiver, false, params);
       }, "reload$1$params", function($receiver, evict) {
         return this.reload$2$evict$params($receiver, evict, null);
-      }, "reload$1$evict", "call$2$evict$params", "call$0", "call$1$params", "call$1$evict", "get$reload", 0, 5, 9, 2, 11, 10, 16],
+      }, "reload$1$evict", "call$2$evict$params", "call$0", "call$1$params", "call$1$evict", "get$reload", 0, 5, 9, 2, 12, 10, 16],
       set$scope: function(scope) {
         this.rootScope = scope.get$rootScope();
       },
@@ -26558,7 +26571,7 @@
         return this.reload$2$evict$params($receiver, false, params);
       }, "reload$1$params", function($receiver, evict) {
         return this.reload$2$evict$params($receiver, evict, null);
-      }, "reload$1$evict", "call$2$evict$params", "call$0", "call$1$params", "call$1$evict", "get$reload", 0, 5, 9, 2, 11, 10, 16],
+      }, "reload$1$evict", "call$2$evict$params", "call$0", "call$1$params", "call$1$evict", "get$reload", 0, 5, 9, 2, 12, 10, 16],
       getCsvLink$0: [function() {
         var t1, t2;
         if (this.filterStartDate != null && this.filterEndDate != null) {
@@ -26655,7 +26668,7 @@
         return this.reload$2$evict$params($receiver, false, params);
       }, "reload$1$params", function($receiver, evict) {
         return this.reload$2$evict$params($receiver, evict, null);
-      }, "reload$1$evict", "call$2$evict$params", "call$0", "call$1$params", "call$1$evict", "get$reload", 0, 5, 9, 2, 11, 10, 16],
+      }, "reload$1$evict", "call$2$evict$params", "call$0", "call$1$params", "call$1$evict", "get$reload", 0, 5, 9, 2, 12, 10, 16],
       getCsvLink$0: [function() {
         var t1, t2;
         if (this.filterStartDate != null && this.filterEndDate != null) {
@@ -26773,7 +26786,7 @@
         return this.reload$2$evict$params($receiver, false, params);
       }, "reload$1$params", function($receiver, evict) {
         return this.reload$2$evict$params($receiver, evict, null);
-      }, "reload$1$evict", "call$2$evict$params", "call$0", "call$1$params", "call$1$evict", "get$reload", 0, 5, 9, 2, 11, 10, 16],
+      }, "reload$1$evict", "call$2$evict$params", "call$0", "call$1$params", "call$1$evict", "get$reload", 0, 5, 9, 2, 12, 10, 16],
       getDateParam$0: function() {
         var t1, t2, dateparam;
         if (this.filterStartDate != null && this.filterEndDate != null) {
@@ -26947,7 +26960,7 @@
         return this.reload$2$evict$params($receiver, false, params);
       }, "reload$1$params", function($receiver, evict) {
         return this.reload$2$evict$params($receiver, evict, null);
-      }, "reload$1$evict", "call$2$evict$params", "call$0", "call$1$params", "call$1$evict", "get$reload", 0, 5, 9, 2, 11, 10, 16],
+      }, "reload$1$evict", "call$2$evict$params", "call$0", "call$1$params", "call$1$evict", "get$reload", 0, 5, 9, 2, 12, 10, 16],
       previousWeek$0: [function() {
         this.filterStartDate = this.filterStartDate.subtract$1(P.Duration$(7, 0, 0, 0, 0, 0));
         this.filterEndDate = this.filterEndDate.subtract$1(P.Duration$(7, 0, 0, 0, 0, 0));
@@ -27045,6 +27058,9 @@
         });
         return P._asyncStart($async$reload$0, $async$completer);
       }, "call$0", "get$reload", 0, 0, 2]
+    },
+    CostGroupSelectComponent: {
+      "^": "EntitySelect;store,scope,element,open,callback,field,type,entities,selector,statusservice,auth,clearOnClose,required,placeholder,_selectedEntity"
     },
     CustomerSelectComponent: {
       "^": "EntitySelect;store,scope,element,open,callback,field,type,entities,selector,statusservice,auth,clearOnClose,required,placeholder,_selectedEntity"
@@ -27190,7 +27206,7 @@
         if (C.JSString_methods.contains$1(J.toLowerCase$0$s(t1.get$name(item)), J.toLowerCase$0$s(search)))
           return true;
         return false;
-      }, "call$2", "get$projectFilter", 4, 0, 149, 78, 233]
+      }, "call$2", "get$projectFilter", 4, 0, 145, 78, 233]
     },
     RateGroupSelectComponent: {
       "^": "EntitySelect;store,scope,element,open,callback,field,type,entities,selector,statusservice,auth,clearOnClose,required,placeholder,_selectedEntity"
@@ -27585,7 +27601,7 @@
       }
     },
     TimetrackMultiComponent_save_closure: {
-      "^": "Closure:159;_box_0,$this",
+      "^": "Closure:160;_box_0,$this",
       call$1: function(entry) {
         var $async$goto = 0, $async$completer = P.Completer_Completer$sync(), $async$returnValue, $async$self = this, t1, projectActivities, t2, i, t3, value;
         var $async$call$1 = P._wrapJsFunctionForAsync(function($async$errorCode, $async$result) {
@@ -27798,10 +27814,10 @@
       var t1, t2;
       t1 = new E.HammockUrlRewriter("", "");
       t2 = new E.HammockConfig(P.LinkedHashMap__makeEmpty(), new R.SimpleDocumentFormat(new P.JsonEncoder(null, null), new P.JsonDecoder(null)), new E.RequestDefaults(null, null, false, null, null, null, null, null), t1, inj);
-      t2.config = P.LinkedHashMap__makeLiteral(["employees", P.LinkedHashMap__makeLiteral(["type", C.Type_Employee_YsI, "serializer", new O.createHammockConfig_closure(), "deserializer", new O.createHammockConfig_closure0()]), "timeslices", P.LinkedHashMap__makeLiteral(["type", C.Type_Timeslice_2No, "serializer", new O.createHammockConfig_closure1(), "deserializer", new O.createHammockConfig_closure2()]), "activities", P.LinkedHashMap__makeLiteral(["type", C.Type_Activity_q2S, "serializer", new O.createHammockConfig_closure3(), "deserializer", new O.createHammockConfig_closure4()]), "projects", P.LinkedHashMap__makeLiteral(["type", C.Type_Project_IEg, "serializer", new O.createHammockConfig_closure5(), "deserializer", new O.createHammockConfig_closure6()]), "settings", P.LinkedHashMap__makeLiteral(["type", C.Type_Setting_QOM, "serializer", new O.createHammockConfig_closure7(), "deserializer", new O.createHammockConfig_closure8()]), "offers", P.LinkedHashMap__makeLiteral(["type", C.Type_Offer_EGT, "serializer", new O.createHammockConfig_closure9(), "deserializer", new O.createHammockConfig_closure10()]), "offerpositions", P.LinkedHashMap__makeLiteral(["type", C.Type_OfferPosition_ijl, "serializer", new O.createHammockConfig_closure11(), "deserializer", new O.createHammockConfig_closure12()]), "offerdiscounts", P.LinkedHashMap__makeLiteral(["type", C.Type_OfferDiscount_8pl, "serializer", new O.createHammockConfig_closure13(), "deserializer", new O.createHammockConfig_closure14()]), "offerstatusucs", P.LinkedHashMap__makeLiteral(["type", C.Type_OfferStatusUC_agx, "serializer", new O.createHammockConfig_closure15(), "deserializer", new O.createHammockConfig_closure16()]), "standarddiscounts", P.LinkedHashMap__makeLiteral(["type", C.Type_StandardDiscount_8Gl, "serializer", new O.createHammockConfig_closure17(), "deserializer", new O.createHammockConfig_closure18()]), "invoices", P.LinkedHashMap__makeLiteral(["type", C.Type_Invoice_K61, "serializer", new O.createHammockConfig_closure19(), "deserializer", new O.createHammockConfig_closure20()]), "invoiceitems", P.LinkedHashMap__makeLiteral(["type", C.Type_InvoiceItem_FFX, "serializer", new O.createHammockConfig_closure21(), "deserializer", new O.createHammockConfig_closure22()]), "invoicediscounts", P.LinkedHashMap__makeLiteral(["type", C.Type_InvoiceDiscount_0, "serializer", new O.createHammockConfig_closure23(), "deserializer", new O.createHammockConfig_closure24()]), "services", P.LinkedHashMap__makeLiteral(["type", C.Type_Service_QOM, "serializer", new O.createHammockConfig_closure25(), "deserializer", new O.createHammockConfig_closure26()]), "rates", P.LinkedHashMap__makeLiteral(["type", C.Type_Rate_DC0, "serializer", new O.createHammockConfig_closure27(), "deserializer", new O.createHammockConfig_closure28()]), "rategroups", P.LinkedHashMap__makeLiteral(["type", C.Type_RateGroup_FYo, "serializer", new O.createHammockConfig_closure29(), "deserializer", new O.createHammockConfig_closure30()]), "rateunittypes", P.LinkedHashMap__makeLiteral(["type", C.Type_RateUnitType_ahs, "serializer", new O.createHammockConfig_closure31(), "deserializer", new O.createHammockConfig_closure32()]), "customers", P.LinkedHashMap__makeLiteral(["type", C.Type_Customer_4QZ, "serializer", new O.createHammockConfig_closure33(), "deserializer", new O.createHammockConfig_closure34()]), "periods", P.LinkedHashMap__makeLiteral(["type", C.Type_Period_d05, "serializer", new O.createHammockConfig_closure35(), "deserializer", new O.createHammockConfig_closure36()]), "holidays", P.LinkedHashMap__makeLiteral(["type", C.Type_Holiday_YlI, "serializer", new O.createHammockConfig_closure37(), "deserializer", new O.createHammockConfig_closure38()]), "expensereports", P.LinkedHashMap__makeLiteral(["type", C.Type_ExpenseReport_4gv, "serializer", new O.createHammockConfig_closure39(), "deserializer", new O.createHammockConfig_closure40()]), "projectcategories", P.LinkedHashMap__makeLiteral(["type", C.Type_ProjectCategory_iNa, "serializer", new O.createHammockConfig_closure41(), "deserializer", new O.createHammockConfig_closure42()])]);
+      t2.config = P.LinkedHashMap__makeLiteral(["employees", P.LinkedHashMap__makeLiteral(["type", C.Type_Employee_YsI, "serializer", new O.createHammockConfig_closure(), "deserializer", new O.createHammockConfig_closure0()]), "timeslices", P.LinkedHashMap__makeLiteral(["type", C.Type_Timeslice_2No, "serializer", new O.createHammockConfig_closure1(), "deserializer", new O.createHammockConfig_closure2()]), "activities", P.LinkedHashMap__makeLiteral(["type", C.Type_Activity_q2S, "serializer", new O.createHammockConfig_closure3(), "deserializer", new O.createHammockConfig_closure4()]), "projects", P.LinkedHashMap__makeLiteral(["type", C.Type_Project_IEg, "serializer", new O.createHammockConfig_closure5(), "deserializer", new O.createHammockConfig_closure6()]), "settings", P.LinkedHashMap__makeLiteral(["type", C.Type_Setting_QOM, "serializer", new O.createHammockConfig_closure7(), "deserializer", new O.createHammockConfig_closure8()]), "offers", P.LinkedHashMap__makeLiteral(["type", C.Type_Offer_EGT, "serializer", new O.createHammockConfig_closure9(), "deserializer", new O.createHammockConfig_closure10()]), "offerpositions", P.LinkedHashMap__makeLiteral(["type", C.Type_OfferPosition_ijl, "serializer", new O.createHammockConfig_closure11(), "deserializer", new O.createHammockConfig_closure12()]), "offerdiscounts", P.LinkedHashMap__makeLiteral(["type", C.Type_OfferDiscount_8pl, "serializer", new O.createHammockConfig_closure13(), "deserializer", new O.createHammockConfig_closure14()]), "offerstatusucs", P.LinkedHashMap__makeLiteral(["type", C.Type_OfferStatusUC_agx, "serializer", new O.createHammockConfig_closure15(), "deserializer", new O.createHammockConfig_closure16()]), "standarddiscounts", P.LinkedHashMap__makeLiteral(["type", C.Type_StandardDiscount_8Gl, "serializer", new O.createHammockConfig_closure17(), "deserializer", new O.createHammockConfig_closure18()]), "costgroups", P.LinkedHashMap__makeLiteral(["type", C.Type_CostGroup_M6i, "serializer", new O.createHammockConfig_closure19(), "deserializer", new O.createHammockConfig_closure20()]), "invoices", P.LinkedHashMap__makeLiteral(["type", C.Type_Invoice_K61, "serializer", new O.createHammockConfig_closure21(), "deserializer", new O.createHammockConfig_closure22()]), "invoiceitems", P.LinkedHashMap__makeLiteral(["type", C.Type_InvoiceItem_FFX, "serializer", new O.createHammockConfig_closure23(), "deserializer", new O.createHammockConfig_closure24()]), "invoicediscounts", P.LinkedHashMap__makeLiteral(["type", C.Type_InvoiceDiscount_0, "serializer", new O.createHammockConfig_closure25(), "deserializer", new O.createHammockConfig_closure26()]), "services", P.LinkedHashMap__makeLiteral(["type", C.Type_Service_QOM, "serializer", new O.createHammockConfig_closure27(), "deserializer", new O.createHammockConfig_closure28()]), "rates", P.LinkedHashMap__makeLiteral(["type", C.Type_Rate_DC0, "serializer", new O.createHammockConfig_closure29(), "deserializer", new O.createHammockConfig_closure30()]), "rategroups", P.LinkedHashMap__makeLiteral(["type", C.Type_RateGroup_FYo, "serializer", new O.createHammockConfig_closure31(), "deserializer", new O.createHammockConfig_closure32()]), "rateunittypes", P.LinkedHashMap__makeLiteral(["type", C.Type_RateUnitType_ahs, "serializer", new O.createHammockConfig_closure33(), "deserializer", new O.createHammockConfig_closure34()]), "customers", P.LinkedHashMap__makeLiteral(["type", C.Type_Customer_4QZ, "serializer", new O.createHammockConfig_closure35(), "deserializer", new O.createHammockConfig_closure36()]), "periods", P.LinkedHashMap__makeLiteral(["type", C.Type_Period_d05, "serializer", new O.createHammockConfig_closure37(), "deserializer", new O.createHammockConfig_closure38()]), "holidays", P.LinkedHashMap__makeLiteral(["type", C.Type_Holiday_YlI, "serializer", new O.createHammockConfig_closure39(), "deserializer", new O.createHammockConfig_closure40()]), "expensereports", P.LinkedHashMap__makeLiteral(["type", C.Type_ExpenseReport_4gv, "serializer", new O.createHammockConfig_closure41(), "deserializer", new O.createHammockConfig_closure42()]), "projectcategories", P.LinkedHashMap__makeLiteral(["type", C.Type_ProjectCategory_iNa, "serializer", new O.createHammockConfig_closure43(), "deserializer", new O.createHammockConfig_closure44()])]);
       t1.baseUrl = "/api/v1";
       return t2;
-    }, "call$1", "dime_hammock__createHammockConfig$closure", 2, 0, 304, 264],
+    }, "call$1", "dime_hammock__createHammockConfig$closure", 2, 0, 305, 264],
     createHammockConfig_closure: {
       "^": "Closure:56;",
       call$1: [function(ent) {
@@ -27809,7 +27825,7 @@
       }, null, null, 2, 0, null, 13, "call"]
     },
     createHammockConfig_closure0: {
-      "^": "Closure:7;",
+      "^": "Closure:6;",
       call$1: [function(r) {
         var t1, t2;
         t1 = J.getInterceptor$x(r);
@@ -27819,7 +27835,7 @@
         t2 = new D.Employee("employees", null, null, null, "users", null, null, null, null, null, null, null, [], null, [], "entities", null, null, null, null, null, []);
         t2.Entity$fromMap$1(t1.get$content(r));
         return t2;
-      }, null, null, 2, 0, null, 12, "call"]
+      }, null, null, 2, 0, null, 11, "call"]
     },
     createHammockConfig_closure1: {
       "^": "Closure:55;",
@@ -27828,7 +27844,7 @@
       }, null, null, 2, 0, null, 13, "call"]
     },
     createHammockConfig_closure2: {
-      "^": "Closure:7;",
+      "^": "Closure:6;",
       call$1: [function(r) {
         var t1, t2;
         t1 = J.getInterceptor$x(r);
@@ -27838,7 +27854,7 @@
         t2 = new D.Timeslice("timeslices", null, null, null, null, null, null, [], null, [], "entities", null, null, null, null, null, []);
         t2.Entity$fromMap$1(t1.get$content(r));
         return t2;
-      }, null, null, 2, 0, null, 12, "call"]
+      }, null, null, 2, 0, null, 11, "call"]
     },
     createHammockConfig_closure3: {
       "^": "Closure:15;",
@@ -27847,7 +27863,7 @@
       }, null, null, 2, 0, null, 13, "call"]
     },
     createHammockConfig_closure4: {
-      "^": "Closure:7;",
+      "^": "Closure:6;",
       call$1: [function(r) {
         var t1, t2;
         t1 = J.getInterceptor$x(r);
@@ -27857,7 +27873,7 @@
         t2 = new D.Activity("activities", null, null, null, null, null, null, null, null, null, null, null, null, null, [], [], null, [], "entities", null, null, null, null, null, []);
         t2.Entity$fromMap$1(t1.get$content(r));
         return t2;
-      }, null, null, 2, 0, null, 12, "call"]
+      }, null, null, 2, 0, null, 11, "call"]
     },
     createHammockConfig_closure5: {
       "^": "Closure:40;",
@@ -27866,7 +27882,7 @@
       }, null, null, 2, 0, null, 13, "call"]
     },
     createHammockConfig_closure6: {
-      "^": "Closure:7;",
+      "^": "Closure:6;",
       call$1: [function(r) {
         var t1, t2;
         t1 = J.getInterceptor$x(r);
@@ -27876,7 +27892,7 @@
         t2 = new D.Project("projects", null, null, null, null, null, null, null, null, null, null, null, null, [], null, [], [], null, null, [], null, [], "entities", null, null, null, null, null, []);
         t2.Entity$fromMap$1(t1.get$content(r));
         return t2;
-      }, null, null, 2, 0, null, 12, "call"]
+      }, null, null, 2, 0, null, 11, "call"]
     },
     createHammockConfig_closure7: {
       "^": "Closure:57;",
@@ -27885,7 +27901,7 @@
       }, null, null, 2, 0, null, 13, "call"]
     },
     createHammockConfig_closure8: {
-      "^": "Closure:7;",
+      "^": "Closure:6;",
       call$1: [function(r) {
         var t1, t2;
         t1 = J.getInterceptor$x(r);
@@ -27895,16 +27911,16 @@
         t2 = new D.Setting("settings", null, null, null, [], null, [], "entities", null, null, null, null, null, []);
         t2.Entity$fromMap$1(t1.get$content(r));
         return t2;
-      }, null, null, 2, 0, null, 12, "call"]
+      }, null, null, 2, 0, null, 11, "call"]
     },
     createHammockConfig_closure9: {
-      "^": "Closure:182;",
+      "^": "Closure:183;",
       call$1: [function(ent) {
         return ent.toResource$0();
       }, null, null, 2, 0, null, 13, "call"]
     },
     createHammockConfig_closure10: {
-      "^": "Closure:7;",
+      "^": "Closure:6;",
       call$1: [function(r) {
         var t1, t2;
         t1 = J.getInterceptor$x(r);
@@ -27914,16 +27930,16 @@
         t2 = new D.Offer(null, "offers", null, null, null, null, null, null, null, null, null, null, [], [], [], null, null, null, [], null, [], "entities", null, null, null, null, null, []);
         t2.Entity$fromMap$1(t1.get$content(r));
         return t2;
-      }, null, null, 2, 0, null, 12, "call"]
+      }, null, null, 2, 0, null, 11, "call"]
     },
     createHammockConfig_closure11: {
-      "^": "Closure:190;",
+      "^": "Closure:191;",
       call$1: [function(ent) {
         return ent.toResource$0();
       }, null, null, 2, 0, null, 13, "call"]
     },
     createHammockConfig_closure12: {
-      "^": "Closure:7;",
+      "^": "Closure:6;",
       call$1: [function(r) {
         var t1, t2;
         t1 = J.getInterceptor$x(r);
@@ -27933,16 +27949,16 @@
         t2 = new D.OfferPosition("offerpositions", null, null, null, null, null, null, 0, null, null, null, null, null, null, [], null, [], "entities", null, null, null, null, null, []);
         t2.Entity$fromMap$1(t1.get$content(r));
         return t2;
-      }, null, null, 2, 0, null, 12, "call"]
+      }, null, null, 2, 0, null, 11, "call"]
     },
     createHammockConfig_closure13: {
-      "^": "Closure:193;",
+      "^": "Closure:194;",
       call$1: [function(ent) {
         return ent.toResource$0();
       }, null, null, 2, 0, null, 13, "call"]
     },
     createHammockConfig_closure14: {
-      "^": "Closure:7;",
+      "^": "Closure:6;",
       call$1: [function(r) {
         var t1, t2;
         t1 = J.getInterceptor$x(r);
@@ -27952,16 +27968,16 @@
         t2 = new D.OfferDiscount("offerdiscounts", null, "standarddiscounts", null, null, null, [], null, [], "entities", null, null, null, null, null, []);
         t2.Entity$fromMap$1(t1.get$content(r));
         return t2;
-      }, null, null, 2, 0, null, 12, "call"]
+      }, null, null, 2, 0, null, 11, "call"]
     },
     createHammockConfig_closure15: {
-      "^": "Closure:204;",
+      "^": "Closure:205;",
       call$1: [function(ent) {
         return ent.toResource$0();
       }, null, null, 2, 0, null, 13, "call"]
     },
     createHammockConfig_closure16: {
-      "^": "Closure:7;",
+      "^": "Closure:6;",
       call$1: [function(r) {
         var t1, t2;
         t1 = J.getInterceptor$x(r);
@@ -27971,16 +27987,16 @@
         t2 = new D.OfferStatusUC(null, null, [], null, [], "entities", null, null, null, null, null, []);
         t2.Entity$fromMap$1(t1.get$content(r));
         return t2;
-      }, null, null, 2, 0, null, 12, "call"]
+      }, null, null, 2, 0, null, 11, "call"]
     },
     createHammockConfig_closure17: {
-      "^": "Closure:209;",
+      "^": "Closure:210;",
       call$1: [function(ent) {
         return ent.toResource$0();
       }, null, null, 2, 0, null, 13, "call"]
     },
     createHammockConfig_closure18: {
-      "^": "Closure:7;",
+      "^": "Closure:6;",
       call$1: [function(r) {
         var t1, t2;
         t1 = J.getInterceptor$x(r);
@@ -27990,35 +28006,54 @@
         t2 = new D.StandardDiscount("standarddiscounts", null, null, null, [], null, [], "entities", null, null, null, null, null, []);
         t2.Entity$fromMap$1(t1.get$content(r));
         return t2;
-      }, null, null, 2, 0, null, 12, "call"]
+      }, null, null, 2, 0, null, 11, "call"]
     },
     createHammockConfig_closure19: {
-      "^": "Closure:219;",
+      "^": "Closure:220;",
       call$1: [function(ent) {
         return ent.toResource$0();
       }, null, null, 2, 0, null, 13, "call"]
     },
     createHammockConfig_closure20: {
-      "^": "Closure:7;",
+      "^": "Closure:6;",
       call$1: [function(r) {
         var t1, t2;
         t1 = J.getInterceptor$x(r);
         t2 = t1.get$content(r);
         if (typeof t2 === "string")
-          return new D.Invoice("invoices", null, null, null, null, null, null, null, null, null, null, [], [], [], null, null, null, [], null, [], "entities", null, null, null, null, null, []);
-        t2 = new D.Invoice("invoices", null, null, null, null, null, null, null, null, null, null, [], [], [], null, null, null, [], null, [], "entities", null, null, null, null, null, []);
+          return new D.CostGroup("costGroups", null, [], null, [], "entities", null, null, null, null, null, []);
+        t2 = new D.CostGroup("costGroups", null, [], null, [], "entities", null, null, null, null, null, []);
         t2.Entity$fromMap$1(t1.get$content(r));
         return t2;
-      }, null, null, 2, 0, null, 12, "call"]
+      }, null, null, 2, 0, null, 11, "call"]
     },
     createHammockConfig_closure21: {
-      "^": "Closure:223;",
+      "^": "Closure:224;",
       call$1: [function(ent) {
         return ent.toResource$0();
       }, null, null, 2, 0, null, 13, "call"]
     },
     createHammockConfig_closure22: {
-      "^": "Closure:7;",
+      "^": "Closure:6;",
+      call$1: [function(r) {
+        var t1, t2;
+        t1 = J.getInterceptor$x(r);
+        t2 = t1.get$content(r);
+        if (typeof t2 === "string")
+          return new D.Invoice("invoices", null, null, null, null, null, null, null, null, null, null, [], [], [], null, null, null, null, [], null, [], "entities", null, null, null, null, null, []);
+        t2 = new D.Invoice("invoices", null, null, null, null, null, null, null, null, null, null, [], [], [], null, null, null, null, [], null, [], "entities", null, null, null, null, null, []);
+        t2.Entity$fromMap$1(t1.get$content(r));
+        return t2;
+      }, null, null, 2, 0, null, 11, "call"]
+    },
+    createHammockConfig_closure23: {
+      "^": "Closure:231;",
+      call$1: [function(ent) {
+        return ent.toResource$0();
+      }, null, null, 2, 0, null, 13, "call"]
+    },
+    createHammockConfig_closure24: {
+      "^": "Closure:6;",
       call$1: [function(r) {
         var t1, t2;
         t1 = J.getInterceptor$x(r);
@@ -28028,16 +28063,16 @@
         t2 = new D.InvoiceItem("invoiceitems", null, null, null, null, null, null, null, null, null, [], null, [], "entities", null, null, null, null, null, []);
         t2.Entity$fromMap$1(t1.get$content(r));
         return t2;
-      }, null, null, 2, 0, null, 12, "call"]
+      }, null, null, 2, 0, null, 11, "call"]
     },
-    createHammockConfig_closure23: {
-      "^": "Closure:230;",
+    createHammockConfig_closure25: {
+      "^": "Closure:240;",
       call$1: [function(ent) {
         return ent.toResource$0();
       }, null, null, 2, 0, null, 13, "call"]
     },
-    createHammockConfig_closure24: {
-      "^": "Closure:7;",
+    createHammockConfig_closure26: {
+      "^": "Closure:6;",
       call$1: [function(r) {
         var t1, t2;
         t1 = J.getInterceptor$x(r);
@@ -28047,16 +28082,16 @@
         t2 = new D.InvoiceDiscount("invoicediscounts", null, "standarddiscounts", null, null, null, [], null, [], "entities", null, null, null, null, null, []);
         t2.Entity$fromMap$1(t1.get$content(r));
         return t2;
-      }, null, null, 2, 0, null, 12, "call"]
+      }, null, null, 2, 0, null, 11, "call"]
     },
-    createHammockConfig_closure25: {
-      "^": "Closure:239;",
+    createHammockConfig_closure27: {
+      "^": "Closure:243;",
       call$1: [function(ent) {
         return ent.toResource$0();
       }, null, null, 2, 0, null, 13, "call"]
     },
-    createHammockConfig_closure26: {
-      "^": "Closure:7;",
+    createHammockConfig_closure28: {
+      "^": "Closure:6;",
       call$1: [function(r) {
         var t1, t2;
         t1 = J.getInterceptor$x(r);
@@ -28066,16 +28101,16 @@
         t2 = new D.Service("services", [], null, null, null, null, [], null, [], "entities", null, null, null, null, null, []);
         t2.Entity$fromMap$1(t1.get$content(r));
         return t2;
-      }, null, null, 2, 0, null, 12, "call"]
+      }, null, null, 2, 0, null, 11, "call"]
     },
-    createHammockConfig_closure27: {
-      "^": "Closure:242;",
+    createHammockConfig_closure29: {
+      "^": "Closure:245;",
       call$1: [function(ent) {
         return ent.toResource$0();
       }, null, null, 2, 0, null, 13, "call"]
     },
-    createHammockConfig_closure28: {
-      "^": "Closure:7;",
+    createHammockConfig_closure30: {
+      "^": "Closure:6;",
       call$1: [function(r) {
         var t1, t2;
         t1 = J.getInterceptor$x(r);
@@ -28085,16 +28120,16 @@
         t2 = new D.Rate("rates", null, null, null, null, null, [], null, [], "entities", null, null, null, null, null, []);
         t2.Entity$fromMap$1(t1.get$content(r));
         return t2;
-      }, null, null, 2, 0, null, 12, "call"]
+      }, null, null, 2, 0, null, 11, "call"]
     },
-    createHammockConfig_closure29: {
-      "^": "Closure:244;",
+    createHammockConfig_closure31: {
+      "^": "Closure:250;",
       call$1: [function(ent) {
         return ent.toResource$0();
       }, null, null, 2, 0, null, 13, "call"]
     },
-    createHammockConfig_closure30: {
-      "^": "Closure:7;",
+    createHammockConfig_closure32: {
+      "^": "Closure:6;",
       call$1: [function(r) {
         var t1, t2;
         t1 = J.getInterceptor$x(r);
@@ -28104,16 +28139,16 @@
         t2 = new D.RateGroup("rategroups", null, [], null, [], "entities", null, null, null, null, null, []);
         t2.Entity$fromMap$1(t1.get$content(r));
         return t2;
-      }, null, null, 2, 0, null, 12, "call"]
+      }, null, null, 2, 0, null, 11, "call"]
     },
-    createHammockConfig_closure31: {
-      "^": "Closure:249;",
+    createHammockConfig_closure33: {
+      "^": "Closure:251;",
       call$1: [function(ent) {
         return ent.toResource$0();
       }, null, null, 2, 0, null, 13, "call"]
     },
-    createHammockConfig_closure32: {
-      "^": "Closure:7;",
+    createHammockConfig_closure34: {
+      "^": "Closure:6;",
       call$1: [function(r) {
         var t1, t2;
         t1 = J.getInterceptor$x(r);
@@ -28123,16 +28158,16 @@
         t2 = new D.RateUnitType(null, null, "rateunittypes", null, null, null, null, null, [], null, [], "entities", null, null, null, null, null, []);
         t2.Entity$fromMap$1(t1.get$content(r));
         return t2;
-      }, null, null, 2, 0, null, 12, "call"]
+      }, null, null, 2, 0, null, 11, "call"]
     },
-    createHammockConfig_closure33: {
-      "^": "Closure:250;",
+    createHammockConfig_closure35: {
+      "^": "Closure:255;",
       call$1: [function(ent) {
         return ent.toResource$0();
       }, null, null, 2, 0, null, 13, "call"]
     },
-    createHammockConfig_closure34: {
-      "^": "Closure:7;",
+    createHammockConfig_closure36: {
+      "^": "Closure:6;",
       call$1: [function(r) {
         var t1, t2;
         t1 = J.getInterceptor$x(r);
@@ -28142,16 +28177,16 @@
         t2 = new D.Customer("customers", null, null, null, null, null, null, null, null, [], null, [], "entities", null, null, null, null, null, []);
         t2.Entity$fromMap$1(t1.get$content(r));
         return t2;
-      }, null, null, 2, 0, null, 12, "call"]
+      }, null, null, 2, 0, null, 11, "call"]
     },
-    createHammockConfig_closure35: {
-      "^": "Closure:254;",
+    createHammockConfig_closure37: {
+      "^": "Closure:260;",
       call$1: [function(ent) {
         return ent.toResource$0();
       }, null, null, 2, 0, null, 13, "call"]
     },
-    createHammockConfig_closure36: {
-      "^": "Closure:7;",
+    createHammockConfig_closure38: {
+      "^": "Closure:6;",
       call$1: [function(r) {
         var t1, t2;
         t1 = J.getInterceptor$x(r);
@@ -28161,16 +28196,16 @@
         t2 = new D.Period("periods", null, null, null, null, null, null, null, null, null, null, null, [], null, [], "entities", null, null, null, null, null, []);
         t2.Entity$fromMap$1(t1.get$content(r));
         return t2;
-      }, null, null, 2, 0, null, 12, "call"]
+      }, null, null, 2, 0, null, 11, "call"]
     },
-    createHammockConfig_closure37: {
-      "^": "Closure:259;",
+    createHammockConfig_closure39: {
+      "^": "Closure:276;",
       call$1: [function(ent) {
         return ent.toResource$0();
       }, null, null, 2, 0, null, 13, "call"]
     },
-    createHammockConfig_closure38: {
-      "^": "Closure:7;",
+    createHammockConfig_closure40: {
+      "^": "Closure:6;",
       call$1: [function(r) {
         var t1, t2;
         t1 = J.getInterceptor$x(r);
@@ -28180,16 +28215,16 @@
         t2 = new D.Holiday("holidays", null, null, null, [], null, [], "entities", null, null, null, null, null, []);
         t2.Entity$fromMap$1(t1.get$content(r));
         return t2;
-      }, null, null, 2, 0, null, 12, "call"]
+      }, null, null, 2, 0, null, 11, "call"]
     },
-    createHammockConfig_closure39: {
-      "^": "Closure:275;",
+    createHammockConfig_closure41: {
+      "^": "Closure:277;",
       call$1: [function(ent) {
         return ent.toResource$0();
       }, null, null, 2, 0, null, 13, "call"]
     },
-    createHammockConfig_closure40: {
-      "^": "Closure:7;",
+    createHammockConfig_closure42: {
+      "^": "Closure:6;",
       call$1: [function(r) {
         var t1, t2;
         t1 = J.getInterceptor$x(r);
@@ -28199,16 +28234,16 @@
         t2 = new D.ExpenseReport("expensereports", null, null, null, null, [], null, [], "entities", null, null, null, null, null, []);
         t2.Entity$fromMap$1(t1.get$content(r));
         return t2;
-      }, null, null, 2, 0, null, 12, "call"]
+      }, null, null, 2, 0, null, 11, "call"]
     },
-    createHammockConfig_closure41: {
-      "^": "Closure:276;",
+    createHammockConfig_closure43: {
+      "^": "Closure:287;",
       call$1: [function(ent) {
         return ent.toResource$0();
       }, null, null, 2, 0, null, 13, "call"]
     },
-    createHammockConfig_closure42: {
-      "^": "Closure:7;",
+    createHammockConfig_closure44: {
+      "^": "Closure:6;",
       call$1: [function(r) {
         var t1, t2;
         t1 = J.getInterceptor$x(r);
@@ -28218,7 +28253,7 @@
         t2 = new D.ProjectCategory("projectcategories", null, null, [], null, [], "entities", null, null, null, null, null, []);
         t2.Entity$fromMap$1(t1.get$content(r));
         return t2;
-      }, null, null, 2, 0, null, 12, "call"]
+      }, null, null, 2, 0, null, 11, "call"]
     }
   }], ["dime_entity", "package:DimeClient/model/Entity.dart",, D, {
     "^": "",
@@ -28612,6 +28647,36 @@
         }
       }
     },
+    CostGroup: {
+      "^": "Entity;type:CostGroup_type*,name:CostGroup_name*,_descendantsToUpdate,id,_toUpdate,type,createdAt,updatedAt,name,alias,user,tags",
+      init$1$params: function(params) {
+        var t1 = J.getInterceptor$x(params);
+        if (t1.containsKey$1(params, "name") !== true)
+          t1.$indexSet(params, "name", "New cost group");
+        this.super$Entity$init(params);
+      },
+      Get$1: function(property) {
+        var val = this.super$Entity$Get(property);
+        if (val == null)
+          switch (property) {
+            case "name":
+              return this.CostGroup_name;
+            default:
+              break;
+          }
+        return val;
+      },
+      Set$2: function(property, value) {
+        switch (property) {
+          case "name":
+            this.CostGroup_name = value;
+            break;
+          default:
+            this.super$Entity$Set(property, value);
+            break;
+        }
+      }
+    },
     Customer: {
       "^": "Entity;type:Customer_type*,chargeable@,address@,company@,department@,fullname@,salutation@,rateGroup@,phones,_descendantsToUpdate,id,_toUpdate,type,createdAt,updatedAt,name,alias,user,tags",
       init$1$params: function(params) {
@@ -28798,7 +28863,7 @@
       }
     },
     Invoice: {
-      "^": "Entity;type:Invoice_type*,totalDiscounts@,fixedPrice@,total*,subtotal@,totalVAT@,totalVAT8@,totalVAT2@,description@,customer@,project@,items*,invoiceDiscounts<,standardDiscounts@,start*,end@,accountant@,_descendantsToUpdate,id,_toUpdate,type,createdAt,updatedAt,name,alias,user,tags",
+      "^": "Entity;type:Invoice_type*,totalDiscounts@,fixedPrice@,total*,subtotal@,totalVAT@,totalVAT8@,totalVAT2@,description@,customer@,project@,items*,invoiceDiscounts<,standardDiscounts@,start*,end@,accountant@,costGroup<,_descendantsToUpdate,id,_toUpdate,type,createdAt,updatedAt,name,alias,user,tags",
       init$1$params: function(params) {
         var t1 = J.getInterceptor$x(params);
         if (t1.containsKey$1(params, "name") !== true)
@@ -28841,6 +28906,8 @@
               return this.fixedPrice;
             case "accountant":
               return this.accountant;
+            case "costGroup":
+              return this.costGroup;
             default:
               break;
           }
@@ -28915,6 +28982,9 @@
             }
             this.accountant = t1;
             break;
+          case "costGroup":
+            this.costGroup = value;
+            throw H.wrapException(new H.FallThroughErrorImplementation());
           default:
             this.super$Entity$Set(property, value);
             break;
@@ -28945,7 +29015,7 @@
           var invoices, t1, invoice;
           invoices = H.setRuntimeTypeInfo([], [D.Invoice]);
           for (t1 = J.get$iterator$ax($content); t1.moveNext$0();) {
-            invoice = new D.Invoice("invoices", null, null, null, null, null, null, null, null, null, null, [], [], [], null, null, null, [], null, [], "entities", null, null, null, null, null, []);
+            invoice = new D.Invoice("invoices", null, null, null, null, null, null, null, null, null, null, [], [], [], null, null, null, null, [], null, [], "entities", null, null, null, null, null, []);
             invoice.Entity$fromMap$1(t1.get$current());
             invoices.push(invoice);
           }
@@ -28959,7 +29029,7 @@
         var t1, t2;
         t1 = J.getInterceptor$x(params);
         if (t1.containsKey$1(params, "invoice") === true) {
-          t2 = new D.Invoice("invoices", null, null, null, null, null, null, null, null, null, null, [], [], [], null, null, null, [], null, [], "entities", null, null, null, null, null, []);
+          t2 = new D.Invoice("invoices", null, null, null, null, null, null, null, null, null, null, [], [], [], null, null, null, null, [], null, [], "entities", null, null, null, null, null, []);
           t2.id = t1.$index(params, "invoice");
           t1.$indexSet(params, "invoice", t2);
         }
@@ -28983,7 +29053,7 @@
             if (value instanceof D.Entity)
               t1 = value;
             else {
-              t1 = new D.Invoice("invoices", null, null, null, null, null, null, null, null, null, null, [], [], [], null, null, null, [], null, [], "entities", null, null, null, null, null, []);
+              t1 = new D.Invoice("invoices", null, null, null, null, null, null, null, null, null, null, [], [], [], null, null, null, null, [], null, [], "entities", null, null, null, null, null, []);
               t1.Entity$fromMap$1(value);
             }
             this.invoice = t1;
@@ -29025,7 +29095,7 @@
         if (t1.containsKey$1(params, "name") !== true)
           t1.$indexSet(params, "name", "New Item");
         if (t1.containsKey$1(params, "invoice") === true) {
-          t2 = new D.Invoice("invoices", null, null, null, null, null, null, null, null, null, null, [], [], [], null, null, null, [], null, [], "entities", null, null, null, null, null, []);
+          t2 = new D.Invoice("invoices", null, null, null, null, null, null, null, null, null, null, [], [], [], null, null, null, null, [], null, [], "entities", null, null, null, null, null, []);
           t2.id = t1.$index(params, "invoice");
           t1.$indexSet(params, "invoice", t2);
         }
@@ -29089,7 +29159,7 @@
             if (value instanceof D.Entity)
               t1 = value;
             else {
-              t1 = new D.Invoice("invoices", null, null, null, null, null, null, null, null, null, null, [], [], [], null, null, null, [], null, [], "entities", null, null, null, null, null, []);
+              t1 = new D.Invoice("invoices", null, null, null, null, null, null, null, null, null, null, [], [], [], null, null, null, null, [], null, [], "entities", null, null, null, null, null, []);
               t1.Entity$fromMap$1(value);
             }
             this.invoice = t1;
@@ -30441,7 +30511,7 @@
     "^": "",
     dimeRouteInitializer: [function(router, views) {
       views.configure$1(P.LinkedHashMap__makeLiteral(["welcome", new T.NgRouteCfg("/welcome", "/bundles/dimefrontend/packages/DimeClient/component/main/welcome.html", null, null, null, true, false, null, null, null, null, null), "projects_overview", new T.NgRouteCfg("/projects/overview", null, "<project-overview></project-overview>", null, null, false, false, null, null, null, null, null), "projects_open-invoices", new T.NgRouteCfg("/projects/open-invoices", null, "<projects-open-invoices></projects-open-invoices>", null, null, false, false, null, null, null, null, null), "project_edit", new T.NgRouteCfg("/projects/edit/:id", null, "<project-edit></project-edit>", null, null, false, false, null, null, null, null, null), "timetrack", new T.NgRouteCfg("/timetrack", null, "<timetrack></timetrack>", null, null, false, false, null, null, null, null, null), "timetrack_multi", new T.NgRouteCfg("/timetrack/multi", null, "<timetrack-multi></timetrack-multi>", null, null, false, false, null, null, null, null, null), "timetrack_periods", new T.NgRouteCfg("/timetrack/periods", null, "<timetrack-periods></timetrack-periods>", null, null, false, false, null, null, null, null, null), "projecttimetrack", new T.NgRouteCfg("/projects/timetrack", null, "<projecttimetrack></projecttimetrack>", null, null, false, false, null, null, null, null, null), "offers_overview", new T.NgRouteCfg("/offers/overview", null, "<offer-overview></offer-overview>", null, null, false, false, null, null, null, null, null), "offer_edit", new T.NgRouteCfg("/offers/edit/:id", null, "<offer-edit></offer-edit>", null, null, false, false, null, null, null, null, null), "invoices_overview", new T.NgRouteCfg("/invoices/overview", null, "<invoice-overview></invoice-overview>", null, null, false, false, null, null, null, null, null), "invoice_edit", new T.NgRouteCfg("/invoices/edit/:id", null, "<invoice-edit></invoice-edit>", null, null, false, false, null, null, null, null, null), "customer_overview", new T.NgRouteCfg("/customers/overview", null, "<customer-overview></customer-overview>", null, null, false, false, null, null, null, null, null), "customer_edit", new T.NgRouteCfg("/customers/edit/:id", null, "<customer-edit></customer-edit>", null, null, false, false, null, null, null, null, null), "service_overview", new T.NgRouteCfg("/services/overview", null, "<service-overview></service-overview>", null, null, false, false, null, null, null, null, null), "service_edit", new T.NgRouteCfg("/services/edit/:id", null, "<service-edit></service-edit>", null, null, false, false, null, null, null, null, null), "rateGroup_overview", new T.NgRouteCfg("/rateGroups/overview", null, "<rateGroup-overview></rateGroup-overview>", null, null, false, false, null, null, null, null, null), "rateUnitType_overview", new T.NgRouteCfg("/rateUnitTypes/overview", null, "<rateUnitType-overview></rateUnitType-overview>", null, null, false, false, null, null, null, null, null), "holiday_overview", new T.NgRouteCfg("/holidays/overview", null, "<holiday-overview></holiday-overview>", null, null, false, false, null, null, null, null, null), "employee_overview", new T.NgRouteCfg("/employees/overview", null, "<employee-overview></employee-overview>", null, null, false, false, null, null, null, null, null), "employee_edit", new T.NgRouteCfg("/employees/edit/:id", null, "<employee-edit></employee-edit>", null, null, false, false, null, null, null, null, null), "expense_report", new T.NgRouteCfg("/reports/expense", null, "<timeslice-expensereport></timeslice-expensereport>", null, null, false, false, null, null, null, null, null), "weekly_report", new T.NgRouteCfg("/reports/weekly", null, "<timeslice-weeklyreport></timeslice-weeklyreport>", null, null, false, false, null, null, null, null, null), "servicehours_report", new T.NgRouteCfg("/reports/servicehours", null, "<servicehours-report></servicehours-report>", null, null, false, false, null, null, null, null, null), "projectemployee_report", new T.NgRouteCfg("/reports/projectemployee", null, "<projectemployee-report></projectemployee-report>", null, null, false, false, null, null, null, null, null), "revenue_report", new T.NgRouteCfg("/reports/revenue", null, "<revenue-report></revenue-report>", null, null, false, false, null, null, null, null, null), "projectCategory_overview", new T.NgRouteCfg("/projectCategories/overview", null, "<projectCategory-overview></projectCategory-overview>", null, null, false, false, null, null, null, null, null), "projectCategory_edit", new T.NgRouteCfg("/projectCategories/edit/:id", null, "<projectCategory-edit></projectCategory-edit>", null, null, false, false, null, null, null, null, null), "settingAssignProject_overview", new T.NgRouteCfg("/settingAssignProjects/overview", null, "<settingAssignProject-overview></settingAssignProject-overview>", null, null, false, false, null, null, null, null, null)]));
-    }, "call$2", "dime_router__dimeRouteInitializer$closure", 4, 0, 232, 249, 215]
+    }, "call$2", "dime_router__dimeRouteInitializer$closure", 4, 0, 233, 249, 215]
   }], ["dime.datacache", "package:DimeClient/service/data_cache.dart",, B, {
     "^": "",
     DataCache: {
@@ -30578,7 +30648,7 @@
   }], ["dime.filters", "package:DimeClient/service/filters.dart",, R, {
     "^": "",
     UserFilter: {
-      "^": "Object:301;",
+      "^": "Object:308;",
       call$2: [function(entityList, user) {
         if (user instanceof D.User && entityList != null)
           return J.where$1$ax(entityList, new R.UserFilter_call_closure(user)).toList$0(0);
@@ -30593,7 +30663,7 @@
       }
     },
     TimesliceDateFilter: {
-      "^": "Object:157;",
+      "^": "Object:158;",
       call$3: [function(entityList, start, end) {
         var t1, t2, t3;
         t1 = {};
@@ -30639,7 +30709,7 @@
       }
     },
     ProjectValueFilter: {
-      "^": "Object:311;",
+      "^": "Object:107;",
       call$2: [function(items, filterProjectId) {
         if (items == null || filterProjectId == null || typeof filterProjectId !== "number" || Math.floor(filterProjectId) !== filterProjectId)
           return C.List_empty;
@@ -30654,7 +30724,7 @@
       }
     },
     OfferPositionOrderByOrderField: {
-      "^": "Object:107;",
+      "^": "Object:108;",
       call$1: [function(offerPositions) {
         J.sort$1$ax(offerPositions, new R.OfferPositionOrderByOrderField_call_closure());
         return offerPositions;
@@ -30668,7 +30738,7 @@
       }, null, null, 4, 0, null, 32, 118, "call"]
     },
     InvoiceItemOrderByOrderField: {
-      "^": "Object:108;",
+      "^": "Object:109;",
       call$1: [function(items) {
         J.sort$1$ax(items, new R.InvoiceItemOrderByOrderField_call_closure());
         return items;
@@ -31160,7 +31230,7 @@
         return this.login$3(username, password, false);
       }, "login$2", function() {
         return this.login$3(null, null, false);
-      }, "login$0", "call$3", "call$1", "call$2", "call$0", "get$login", 0, 6, 109, 2, 2, 11, 319, 104, 320],
+      }, "login$0", "call$3", "call$1", "call$2", "call$0", "get$login", 0, 6, 110, 2, 2, 12, 319, 104, 320],
       logout$0: [function() {
         var $async$goto = 0, $async$completer = P.Completer_Completer$sync(), $async$self = this, t1;
         var $async$logout$0 = P._wrapJsFunctionForAsync(function($async$errorCode, $async$result) {
@@ -31226,7 +31296,7 @@
       play$1: [function(_, animation) {
         this._animations.push(animation);
         this._queueAnimationFrame$0();
-      }, "call$1", "get$play", 2, 0, 110, 177],
+      }, "call$1", "get$play", 2, 0, 106, 177],
       _queueAnimationFrame$0: function() {
         if (!this._animationFrameQueued) {
           this._animationFrameQueued = true;
@@ -31383,7 +31453,7 @@
       },
       update$1: [function(timeInMs) {
         return false;
-      }, "call$1", "get$update", 2, 0, 73, 76],
+      }, "call$1", "get$update", 2, 0, 74, 76],
       $isAnimation: 1
     },
     AnimationList: {
@@ -31455,13 +31525,13 @@
         var result = K._animationFromList(J.map$1$ax(nodes, new K.CssAnimate_remove_closure(this)));
         result.get$onCompleted().then$1(new K.CssAnimate_remove_closure0(nodes));
         return result;
-      }, "call$1", "get$remove", 2, 0, 74, 58],
+      }, "call$1", "get$remove", 2, 0, 75, 58],
       move$3$insertBefore: [function(nodes, $parent, insertBefore) {
         B.domMove(nodes, $parent, insertBefore);
         return K._animationFromList(B.getElements(nodes).where$1(0, new K.CssAnimate_move_closure(this)).map$1(0, new K.CssAnimate_move_closure0(this)));
       }, function(nodes, $parent) {
         return this.move$3$insertBefore(nodes, $parent, null);
-      }, "move$2", "call$3$insertBefore", "call$2", "get$move", 4, 3, 75, 2, 58, 48, 108],
+      }, "move$2", "call$3$insertBefore", "call$2", "get$move", 4, 3, 76, 2, 58, 48, 108],
       animate$6$addAtEnd$addAtStart$removeAtEnd$removeAtStart: [function(_, element, $event, addAtEnd, addAtStart, removeAtEnd, removeAtStart) {
         var t1, _existing, t2, t3, animation;
         t1 = this._animationMap;
@@ -31489,7 +31559,7 @@
         return this.animate$6$addAtEnd$addAtStart$removeAtEnd$removeAtStart($receiver, element, $event, addAtEnd, null, null, null);
       }, "animate$3$addAtEnd", function($receiver, element, $event, removeAtEnd) {
         return this.animate$6$addAtEnd$addAtStart$removeAtEnd$removeAtStart($receiver, element, $event, null, null, removeAtEnd, null);
-      }, "animate$3$removeAtEnd", "call$6$addAtEnd$addAtStart$removeAtEnd$removeAtStart", "call$2", "call$3$addAtEnd", "call$3$removeAtEnd", "get$animate", 4, 9, 114, 2, 2, 2, 2, 18, 9, 183, 187, 188, 194],
+      }, "animate$3$removeAtEnd", "call$6$addAtEnd$addAtStart$removeAtEnd$removeAtStart", "call$2", "call$3$addAtEnd", "call$3$removeAtEnd", "get$animate", 4, 9, 115, 2, 2, 2, 2, 18, 9, 183, 187, 188, 194],
       cancelAnimation$2: function(element, $event) {
         var existing = this._animationMap.findExisting$2(element, $event);
         if (existing != null)
@@ -31599,7 +31669,7 @@
           this._started = true;
         }
         return true;
-      }, "call$1", "get$update", 2, 0, 73, 76],
+      }, "call$1", "get$update", 2, 0, 74, 76],
       cancel$0: function(_) {
         var t1;
         if (this._module4$_active) {
@@ -31732,7 +31802,7 @@
       }
     },
     Application_closure: {
-      "^": "Closure:115;",
+      "^": "Closure:116;",
       call$1: [function(app) {
         return app.get$element();
       }, null, null, 2, 0, null, 276, "call"]
@@ -31800,7 +31870,7 @@
         var map = P.LinkedHashMap__makeEmpty();
         J.forEach$1$ax(this._caches.get$stats(), new U.JsCacheRegister_sizesAsMap_closure(map));
         return P.JsObject_JsObject$jsify(map);
-      }, "call$1", "get$sizesAsMap", 2, 0, 117, 14],
+      }, "call$1", "get$sizesAsMap", 2, 0, 118, 14],
       JsCacheRegister$1: function(_caches) {
         J.$indexSet$ax($.$get$context(), "ngCaches", P.JsObject_JsObject$jsify(P.LinkedHashMap__makeLiteral(["sizes", P.JsFunction_JsFunction$withThis(this.get$sizesAsMap()), "clear", P.JsFunction_JsFunction$withThis(new U.JsCacheRegister_closure(this)), "dump", P.JsFunction_JsFunction$withThis(this.get$dump())])));
       },
@@ -31893,7 +31963,7 @@
       stats$0: [function() {
         var t1 = this._entries;
         return new Y.CacheStats(this._capacity, t1.get$length(t1), this._hits, this._misses);
-      }, "call$0", "get$stats", 0, 0, 119],
+      }, "call$0", "get$stats", 0, 0, 120],
       toString$0: function(_) {
         var t1 = this._entries;
         return "[" + H.S(new H.TypeImpl(H.getRuntimeTypeString(this), null)) + ": capacity=" + H.S(this._capacity) + ", size=" + t1.get$length(t1) + ", items=" + t1.toString$0(0) + "]";
@@ -32064,7 +32134,7 @@
     }, "call$2", "ast_parser___operation_logical_or$closure", 4, 0, 1, 19, 21],
     _operation_ternary: [function(condition, yes, no) {
       return O.toBool(condition) ? yes : no;
-    }, "call$3", "ast_parser___operation_ternary$closure", 6, 0, 4, 151, 164, 165],
+    }, "call$3", "ast_parser___operation_ternary$closure", 6, 0, 5, 151, 164, 165],
     _operation_bracket: [function(obj, key) {
       var t1;
       if (obj != null) {
@@ -32090,7 +32160,7 @@
         return;
     }, "call$2", "ast_parser___operation_bracket$closure", 4, 0, 1, 61, 17],
     ASTParser: {
-      "^": "Object:120;_ast_parser$_parser,_closureMap",
+      "^": "Object:121;_ast_parser$_parser,_closureMap",
       call$3$collection$formatters: [function(input, collection, formatters) {
         var visitor, exp, t1, t2, ast;
         visitor = new B._ExpressionVisitor(this._closureMap, formatters);
@@ -32108,14 +32178,14 @@
         return this.call$3$collection$formatters(input, false, null);
       }, "call$1", function(input, formatters) {
         return this.call$3$collection$formatters(input, false, formatters);
-      }, "call$2$formatters", null, null, null, "get$$call", 2, 5, null, 2, 11, 109, 110, 184],
+      }, "call$2$formatters", null, null, null, "get$$call", 2, 5, null, 2, 12, 109, 110, 184],
       $isFunction: 1
     },
     _ExpressionVisitor: {
       "^": "Object;_closureMap,_ast_parser$_formatters",
       _mapToAst$1: [function(expression) {
         return J.accept$1$x(expression, this);
-      }, "call$1", "get$_mapToAst", 2, 0, 121, 62],
+      }, "call$1", "get$_mapToAst", 2, 0, 122, 62],
       _toAstMap$1: function(expressions) {
         var t1, result;
         t1 = J.getInterceptor$asx(expressions);
@@ -32216,7 +32286,7 @@
       }
     },
     _ExpressionVisitor__toAstMap_closure: {
-      "^": "Closure:122;$this,result",
+      "^": "Closure:123;$this,result",
       call$2: function($name, expression) {
         var t1 = this.$this;
         this.result.$indexSet(0, t1._closureMap.lookupSymbol$1($name), J.accept$1$x(expression, t1));
@@ -32239,7 +32309,7 @@
       "^": "FunctionApply;keys>",
       apply$1: [function(values) {
         return P.LinkedHashMap_LinkedHashMap$fromIterables(this.keys, values, null, null);
-      }, "call$1", "get$apply", 2, 0, 124, 111]
+      }, "call$1", "get$apply", 2, 0, 125, 111]
     },
     _FormatterWrapper: {
       "^": "FunctionApply;formatterFn,args,argsWatches",
@@ -33325,7 +33395,7 @@
           if ((!t1 || J.$lt$n(afterIndex, record.get$currentIndex())) && A._looseIdentical(J.get$item$x(record), item))
             return record;
         return;
-      }, "call$2", "get$get", 4, 0, 125, 78, 112],
+      }, "call$2", "get$get", 4, 0, 126, 78, 112],
       remove$1: [function(_, record) {
         var prev, next;
         prev = record.get$_prevDup();
@@ -33339,7 +33409,7 @@
         else
           next.set$_prevDup(prev);
         return this._dirty_checking_change_detector$_head == null;
-      }, "call$1", "get$remove", 2, 0, 126, 79]
+      }, "call$1", "get$remove", 2, 0, 127, 79]
     },
     DuplicateMap: {
       "^": "Object;map>",
@@ -33363,7 +33433,7 @@
         return recordList == null ? null : recordList.$get$2(value, afterIndex);
       }, function(value) {
         return this.$get$2(value, null);
-      }, "$get$1", "call$2", "call$1", "get$get", 2, 2, 127, 2, 6, 112],
+      }, "$get$1", "call$2", "call$1", "get$get", 2, 2, 128, 2, 6, 112],
       remove$1: [function(_, record) {
         var key, t1;
         key = J.get$item$x(record);
@@ -33373,7 +33443,7 @@
         if (J.remove$1$ax(t1.$index(0, key), record) === true)
           t1.remove$1(0, key);
         return record;
-      }, "call$1", "get$remove", 2, 0, 128, 79],
+      }, "call$1", "get$remove", 2, 0, 129, 79],
       get$isEmpty: function(_) {
         return this.map._collection$_length === 0;
       },
@@ -33579,7 +33649,7 @@
           if (locals != null)
             t1.addAll$1(0, locals);
           return new S.ContextLocals(t1, context);
-        }, "call$2", "watch_group_ContextLocals_wrapper$closure", 4, 0, 305, 71, 91]
+        }, "call$2", "watch_group_ContextLocals_wrapper$closure", 4, 0, 306, 71, 91]
       }
     },
     PrototypeMap: {
@@ -33851,7 +33921,7 @@
       }
     },
     WatchGroup__addEvalWatch_closure: {
-      "^": "Closure:129;$this,invokeHandler,evalWatchRecord",
+      "^": "Closure:130;$this,invokeHandler,evalWatchRecord",
       call$2: function($name, ast) {
         var t1, record, t2, name0, handler;
         t1 = this.$this;
@@ -34078,7 +34148,7 @@
           delegateHandler.acceptValue$1(record.get$currentValue());
           delegateHandler = delegateHandler._watch_group$_next;
         }
-      }, "call$1", "get$onChange", 2, 0, 130, 79]
+      }, "call$1", "get$onChange", 2, 0, 131, 79]
     },
     _ConstantHandler: {
       "^": "_Handler;_watch_group$_head,_watch_group$_tail,_watch_group$_next,_watch_group$_previous,_watchHead,_watchTail,expression,watchGrp,watchRecord,forwardingHandler",
@@ -34125,7 +34195,7 @@
         t1[t2] = object;
       }
     },
-    closure1061: {
+    closure1062: {
       "^": "Closure:0;",
       call$1: function(index) {
         return "arg[" + index + "]";
@@ -34403,7 +34473,7 @@
   }], ["angular.core_internal.formatter_map", "package:angular/core/formatter.dart",, T, {
     "^": "",
     FormatterMap: {
-      "^": "Object:77;_formatter$_map,_formatter$_injector",
+      "^": "Object:78;_formatter$_map,_formatter$_injector",
       call$1: [function($name) {
         return this._formatter$_injector.$get$1(this.$index(0, $name));
       }, null, "get$$call", 2, 0, null, 25],
@@ -34442,7 +34512,7 @@
       }
     },
     FormatterMap__closure0: {
-      "^": "Closure:132;$this,type",
+      "^": "Closure:133;$this,type",
       call$1: function(formatter) {
         this.$this._formatter$_map.$indexSet(0, J.get$name$x(formatter), this.type);
       }
@@ -34453,7 +34523,7 @@
       throw H.wrapException(new P.StateError("Not Implemented"));
     },
     ExceptionHandler: {
-      "^": "Object:133;",
+      "^": "Object:134;",
       call$3: [function(error, stack, reason) {
         P.print(H.S(error) + "\n" + H.S(reason) + "\nSTACKTRACE:\n" + H.S(stack));
       }, function(error, stack) {
@@ -34465,7 +34535,7 @@
       "^": "Object;expression<,bindingExpressions<"
     },
     Interpolate: {
-      "^": "Object:134;_module_internal$_cache",
+      "^": "Object:135;_module_internal$_cache",
       call$4: [function(template, mustHaveExpression, startSymbol, endSymbol) {
         if (J.$eq$(mustHaveExpression, false) && J.$eq$(startSymbol, "{{") && J.$eq$(endSymbol, "}}"))
           return this._module_internal$_cache.putIfAbsent$2(0, template, new L.Interpolate_call_closure(this, template, mustHaveExpression, startSymbol, endSymbol));
@@ -34476,7 +34546,7 @@
         return this.call$4(template, mustHaveExpression, "{{", "}}");
       }, "call$2", function(template, mustHaveExpression, startSymbol) {
         return this.call$4(template, mustHaveExpression, startSymbol, "}}");
-      }, "call$3", null, null, null, null, "get$$call", 2, 6, null, 11, 211, 218, 230, 231, 244, 245],
+      }, "call$3", null, null, null, null, "get$$call", 2, 6, null, 12, 211, 218, 230, 231, 244, 245],
       _call$4: function(template, mustHaveExpression, startSymbol, endSymbol) {
         var startLen, endLen, t1, $length, t2, expParts, bindings, index, hasInterpolation, startIdx, endIdx, t3, binding;
         if (template == null || J.get$isEmpty$asx(template) === true)
@@ -34666,7 +34736,7 @@
         return;
       }, function(expression) {
         return this.eval$2(expression, null);
-      }, "eval$1", "call$2", "call$1", "get$$eval", 2, 2, 135, 2],
+      }, "eval$1", "call$2", "call$1", "get$$eval", 2, 2, 136, 2],
       apply$2: [function(expression, locals) {
         var e, s, t1, exception;
         this.get$rootScope()._transitionState$2(null, "apply");
@@ -34687,21 +34757,21 @@
         return this.apply$2(expression, null);
       }, "apply$1", function() {
         return this.apply$2(null, null);
-      }, "apply$0", "call$2", "call$1", "call$0", "get$apply", 0, 4, 136, 2, 2, 62, 91],
+      }, "apply$0", "call$2", "call$1", "call$0", "get$apply", 0, 4, 137, 2, 2, 62, 91],
       emit$2: [function($name, data) {
         return L._Streams_emit(this, $name, data);
       }, function($name) {
         return this.emit$2($name, null);
-      }, "emit$1", "call$2", "call$1", "get$emit", 2, 2, 78, 2, 25, 41],
+      }, "emit$1", "call$2", "call$1", "get$emit", 2, 2, 79, 2, 25, 41],
       broadcast$2: [function($name, data) {
         return L._Streams_broadcast(this, $name, data);
       }, function($name) {
         return this.broadcast$2($name, null);
-      }, "broadcast$1", "call$2", "call$1", "get$broadcast", 2, 2, 78, 2, 25, 41],
+      }, "broadcast$1", "call$2", "call$1", "get$broadcast", 2, 2, 79, 2, 25, 41],
       on$1: [function(_, $name) {
         L._Streams__forceNewScopeStream(this, this.get$rootScope()._exceptionHandler);
         return this._streams._module_internal$_get$2(this, $name);
-      }, "call$1", "get$on", 2, 0, 138],
+      }, "call$1", "get$on", 2, 0, 139],
       createChild$1: function(childContext) {
         var s, t1, t2, t3, child, prev;
         s = O.traceEnter($.$get$Scope_createChild());
@@ -34900,7 +34970,7 @@
         t1 = this._formatPrefix$1(phaseOrLoopNo) + " " + this._stat$1(fieldStopwatch) + " | " + this._stat$1(evalStopwatch) + " | " + this._stat$1(processStopwatch) + " | ";
         t2 = this._nfDec.format$1(J.$div$n(total, 1000));
         P.print(t1 + (C.JSString_methods.substring$2($.ScopeStatsEmitter__PAD_, 0, Math.max(9 - t2.length, 0)) + t2 + " ms"));
-      }, "call$4", "get$emit", 8, 0, 139, 247, 248, 250, 251],
+      }, "call$4", "get$emit", 8, 0, 140, 247, 248, 250, 251],
       _formatPrefix$1: function(prefix) {
         var t1, t2;
         t1 = J.getInterceptor(prefix);
@@ -35063,7 +35133,7 @@
           this._runAsyncTail._module_internal$_next = chain;
           this._runAsyncTail = chain;
         }
-      }, "call$1", "get$runAsync", 2, 0, 140],
+      }, "call$1", "get$runAsync", 2, 0, 141],
       _runAsyncFns$0: function() {
         var count, e, s, s0, t1, t2, exception;
         s0 = O.traceEnter($.$get$Scope_execAsync());
@@ -35157,13 +35227,13 @@
       }, null, null, 0, 0, null, "call"]
     },
     RootScope_closure0: {
-      "^": "Closure:4;$this",
+      "^": "Closure:5;$this",
       call$3: [function(e, s, ls) {
         return this.$this._exceptionHandler.call$2(e, s);
       }, null, null, 6, 0, null, 8, 63, 115, "call"]
     },
     RootScope_digest_closure: {
-      "^": "Closure:4;_box_0",
+      "^": "Closure:5;_box_0",
       call$3: function(e, c, p) {
         return this._box_0.digestLog.push(H.S(e) + ": " + H.S(c) + " <= " + H.S(p));
       }
@@ -35436,10 +35506,10 @@
       },
       _onRun$4: [function($self, delegate, zone, fn) {
         return this._onRunBase$4($self, delegate, zone, new L.VmTurnZone__onRun_closure(delegate, zone, fn));
-      }, "call$4", "get$_onRun", 8, 0, 142, 31, 53, 30, 54],
+      }, "call$4", "get$_onRun", 8, 0, 143, 31, 53, 30, 54],
       _onRunUnary$5: [function($self, delegate, zone, fn, args) {
         return this._onRunBase$4($self, delegate, zone, new L.VmTurnZone__onRunUnary_closure(delegate, zone, fn, args));
-      }, "call$5", "get$_onRunUnary", 10, 0, 143, 31, 53, 30, 54, 68],
+      }, "call$5", "get$_onRunUnary", 10, 0, 144, 31, 53, 30, 54, 68],
       _onScheduleMicrotask$4: [function($self, delegate, zone, fn) {
         var s = O.traceEnter($.$get$VmTurnZone_scheduleMicrotask());
         try {
@@ -35449,7 +35519,7 @@
         } finally {
           O.traceLeave(s);
         }
-      }, "call$4", "get$_onScheduleMicrotask", 8, 0, 79, 31, 53, 30, 54],
+      }, "call$4", "get$_onScheduleMicrotask", 8, 0, 80, 31, 53, 30, 54],
       _onCreateTimer$5: [function($self, delegate, zone, duration, fn) {
         var s, t1;
         s = O.traceEnter($.$get$VmTurnZone_createTimer());
@@ -35459,12 +35529,12 @@
         } finally {
           O.traceLeave(s);
         }
-      }, "call$5", "get$_onCreateTimer", 10, 0, 145, 31, 53, 30, 116, 54],
+      }, "call$5", "get$_onCreateTimer", 10, 0, 146, 31, 53, 30, 116, 54],
       _uncaughtError$5: [function($self, delegate, zone, e, s) {
         if (!this._errorThrownFromOnRun)
           this.onError.call$3(e, s, this._longStacktrace);
         this._errorThrownFromOnRun = false;
-      }, "call$5", "get$_uncaughtError", 10, 0, 146, 31, 53, 30, 8, 63],
+      }, "call$5", "get$_uncaughtError", 10, 0, 147, 31, 53, 30, 8, 63],
       _finishTurn$2: function(zone, delegate) {
         var e, s, t1, exception;
         if (this._inFinishTurn)
@@ -35494,7 +35564,7 @@
       },
       _defaultOnError$3: [function(e, s, ls) {
         return this._outerZone.handleUncaughtError$2(e, s);
-      }, "call$3", "get$_defaultOnError", 6, 0, 147, 8, 63, 115],
+      }, "call$3", "get$_defaultOnError", 6, 0, 148, 8, 63, 115],
       _defaultOnTurnStart$0: [function() {
         return;
       }, "call$0", "get$_defaultOnTurnStart", 0, 0, 3],
@@ -35509,7 +35579,7 @@
       }, "call$1", "get$_defaultOnScheduleMicrotask", 2, 0, 11],
       _defaultOnCreateTimer$4: [function(delegate, zone, duration, fn) {
         return L._WrappedTimer$(this, delegate, zone, duration, fn);
-      }, "call$4", "get$_defaultOnCreateTimer", 8, 0, 148, 53, 30, 116, 54],
+      }, "call$4", "get$_defaultOnCreateTimer", 8, 0, 149, 53, 30, 116, 54],
       run$1: function(body) {
         return this._innerZone.run$1(body);
       },
@@ -35894,7 +35964,7 @@
       }, "eval$1", "call$2", "call$1", "get$$eval", 2, 2, 8, 2]
     },
     CallScope_eval_closure: {
-      "^": "Closure:70;scope,formatters,namedArgs",
+      "^": "Closure:73;scope,formatters,namedArgs",
       call$2: function($name, exp) {
         this.namedArgs.$indexSet(0, $name, exp.eval$2(this.scope, this.formatters));
       }
@@ -35933,7 +36003,7 @@
       }, "eval$1", "call$2", "call$1", "get$$eval", 2, 2, 8, 2]
     },
     CallMember_eval_closure: {
-      "^": "Closure:70;scope,formatters,namedArgs",
+      "^": "Closure:73;scope,formatters,namedArgs",
       call$2: function($name, exp) {
         this.namedArgs.$indexSet(0, $name, exp.eval$2(this.scope, this.formatters));
       }
@@ -35973,7 +36043,7 @@
   }], ["angular.core.parser.lexer", "package:angular/core/parser/lexer.dart",, Z, {
     "^": "",
     Lexer: {
-      "^": "Object:151;",
+      "^": "Object:152;",
       call$1: [function(text) {
         var scanner, tokens, token;
         scanner = new Z.Scanner(text, J.get$length$asx(text), 0, -1);
@@ -36188,7 +36258,7 @@
         throw H.wrapException("Lexer Error: " + H.S(message) + " at column " + H.S(position) + " in expression [" + H.S(this.input) + "]");
       }, function($receiver, message) {
         return this.error$2($receiver, message, 0);
-      }, "error$1", "call$2", "call$1", "get$error", 2, 2, 106, 67, 117, 120]
+      }, "error$1", "call$2", "call$1", "get$error", 2, 2, 153, 67, 117, 120]
     },
     Scanner_scanString_closure: {
       "^": "Closure:0;$this,hex",
@@ -36653,7 +36723,7 @@
         throw H.wrapException("Parser Error: " + H.S(message) + " " + $location + " [" + H.S(this.input) + "]");
       }, function($receiver, message) {
         return this.error$2($receiver, message, null);
-      }, "error$1", "call$2", "call$1", "get$error", 2, 2, 153, 2, 117, 20]
+      }, "error$1", "call$2", "call$1", "get$error", 2, 2, 154, 2, 117, 20]
     }
   }], ["angular.core.parser", "package:angular/core/parser/parser.dart",, G, {
     "^": "",
@@ -36763,7 +36833,7 @@
       }
     },
     Parser: {
-      "^": "Object:154;_lexer,_backend,_parser$_cache",
+      "^": "Object:155;_lexer,_backend,_parser$_cache",
       call$1: [function(input) {
         var t1, t2;
         t1 = {};
@@ -36837,7 +36907,7 @@
       "^": "ParserBackend;_closures",
       isAssignable$1: [function(expression) {
         return expression.get$isAssignable();
-      }, "call$1", "get$isAssignable", 2, 0, 155, 62],
+      }, "call$1", "get$isAssignable", 2, 0, 156, 62],
       newFormatter$3: function(expression, $name, $arguments) {
         var allArguments = new Array($arguments.length + 1);
         allArguments.fixed$length = Array;
@@ -36958,7 +37028,7 @@
       }, null, null, 4, 0, null, 0, 6, "call"]
     },
     ClosureMapLocalsAware_lookupFunction_closure: {
-      "^": "Closure:4;$this,name,$arguments",
+      "^": "Closure:5;$this,name,$arguments",
       call$3: [function(o, pArgs, nArgs) {
         var t1, t2, fn, snArgs;
         for (t1 = this.name; o instanceof S.ContextLocals;) {
@@ -37012,7 +37082,7 @@
       }
     },
     StaticClosureMap_lookupFunction_closure: {
-      "^": "Closure:4;$this,name,fn",
+      "^": "Closure:5;$this,name,fn",
       call$3: function(o, posArgs, namedArgs) {
         var sNamedArgs, t1, t2, fn;
         sNamedArgs = P.LinkedHashMap__makeEmpty();
@@ -37064,7 +37134,7 @@
         return new F.BoundExpression(this, context, wrapper);
       }, function(context) {
         return this.bind$2(context, null);
-      }, "bind$1", "call$2", "call$1", "get$bind", 2, 2, 156, 2, 71, 154],
+      }, "bind$1", "call$2", "call$1", "get$bind", 2, 2, 157, 2, 71, 154],
       toString$0: function(_) {
         var buffer, t1;
         buffer = new P.StringBuffer("");
@@ -37505,7 +37575,7 @@
         return this._numPending;
       }, function() {
         return this.increaseCount$1(1);
-      }, "increaseCount$0", "call$1", "call$0", "get$increaseCount", 0, 2, 158, 155],
+      }, "increaseCount$0", "call$1", "call$0", "get$increaseCount", 0, 2, 159, 155],
       decreaseCount$1: function(delta) {
         return this.increaseCount$1(-delta);
       },
@@ -37565,7 +37635,7 @@
       },
       ruleToString$1: [function(rule) {
         return H.S(rule.get$selectorText()) + " " + H.S(J.get$body$x(rule));
-      }, "call$1", "get$ruleToString", 2, 0, 160, 157],
+      }, "call$1", "get$ruleToString", 2, 0, 161, 157],
       scopeStrictMode$2: function(rule, emitMode) {
         var rules, scopedSelector, scopedBody;
         if (rule.get$hasNestedRules()) {
@@ -37622,7 +37692,7 @@
       }
     },
     _CssShim_convertColonHost_partReplacer: {
-      "^": "Closure:161;",
+      "^": "Closure:162;",
       call$3: function(host, part, suffix) {
         return host + J.replaceAll$2$s(part, "-host-element", "") + H.S(suffix);
       }
@@ -38011,7 +38081,7 @@
         return this.bind$7$inject$toFactory$toImplementation$toInstanceOf$toValue$visibility(key, C.List_empty, E.module0__DEFAULT_VALUE$closure(), null, null, E.module0__DEFAULT_VALUE$closure(), visibility);
       }, "bind$2$visibility", function(key, inject, toFactory) {
         return this.bind$7$inject$toFactory$toImplementation$toInstanceOf$toValue$visibility(key, inject, toFactory, null, null, E.module0__DEFAULT_VALUE$closure(), C.Visibility_LOCAL);
-      }, "bind$3$inject$toFactory", "call$7$inject$toFactory$toImplementation$toInstanceOf$toValue$visibility", "call$1", "call$3$toInstanceOf$visibility", "call$2$visibility", "call$3$inject$toFactory", "get$bind", 2, 13, 162, 51, 51, 2, 2, 86, 161, 17, 99, 98, 94, 92, 85, 167],
+      }, "bind$3$inject$toFactory", "call$7$inject$toFactory$toImplementation$toInstanceOf$toValue$visibility", "call$1", "call$3$toInstanceOf$visibility", "call$2$visibility", "call$3$inject$toFactory", "get$bind", 2, 13, 163, 51, 51, 2, 2, 86, 161, 17, 99, 98, 94, 92, 85, 167],
       bindByKey$4: function(key, factory, parameterKeys, visibility) {
         var visibilityId, keyVisId, t1;
         if (visibility == null)
@@ -38099,7 +38169,7 @@
       },
       $get$1: [function(type) {
         return this.getByKey$1(Z.Key_Key(type, null));
-      }, "call$1", "get$get", 2, 0, 163, 65],
+      }, "call$1", "get$get", 2, 0, 164, 65],
       getByKey$1: function(key) {
         var oldTag, t1, old;
         t1 = $.$get$_TAG_GET();
@@ -38768,7 +38838,7 @@
     },
     _runNow: [function(fn) {
       return fn.call$0();
-    }, "call$1", "module_internal0___runNow$closure", 2, 0, 306],
+    }, "call$1", "module_internal0___runNow$closure", 2, 0, 307],
     _identity: [function(x) {
       return x;
     }, "call$1", "module_internal0___identity$closure", 2, 0, 0],
@@ -38907,13 +38977,13 @@
       remove$1: [function(_, nodes) {
         B.domRemove(J.toList$1$growable$ax(nodes, false));
         return new Y.NoOpAnimation(null);
-      }, "call$1", "get$remove", 2, 0, 74, 58],
+      }, "call$1", "get$remove", 2, 0, 75, 58],
       move$3$insertBefore: [function(nodes, $parent, insertBefore) {
         B.domMove(nodes, $parent, insertBefore);
         return new Y.NoOpAnimation(null);
       }, function(nodes, $parent) {
         return this.move$3$insertBefore(nodes, $parent, null);
-      }, "move$2", "call$3$insertBefore", "call$2", "get$move", 4, 3, 75, 2, 58, 48, 108]
+      }, "move$2", "call$3$insertBefore", "call$2", "get$move", 4, 3, 76, 2, 58, 48, 108]
     },
     Animation: {
       "^": "Object;"
@@ -38956,7 +39026,7 @@
       }
     },
     Compiler: {
-      "^": "Object:164;_perf,_module_internal0$_expando",
+      "^": "Object:165;_perf,_module_internal0$_expando",
       call$2: [function(elements, directives) {
         var s, elementBinders, viewFactory;
         s = O.traceEnter($.$get$Compiler_compile());
@@ -39108,7 +39178,7 @@
       "^": "Object;elementProbeEnabled<"
     },
     ComponentCssLoader: {
-      "^": "Object:166;_module_internal0$_http,_module_internal0$_templateCache,_platformShim,_componentCssRewriter,_treeSanitizer,_resourceResolver,_styleElementCache",
+      "^": "Object:167;_module_internal0$_http,_module_internal0$_templateCache,_platformShim,_componentCssRewriter,_treeSanitizer,_resourceResolver,_styleElementCache",
       call$3$type: function(tag, cssUrls, type) {
         return P.Future_wait(J.map$1$ax(cssUrls, new Y.ComponentCssLoader_call_closure(this, tag, type)), null, false);
       },
@@ -39140,7 +39210,7 @@
         styleElement.appendChild(t1.createTextNode(css));
         this._treeSanitizer.sanitizeTree$1(styleElement);
         return styleElement;
-      }, "call$1", "get$_buildStyleElement", 2, 0, 165, 75],
+      }, "call$1", "get$_buildStyleElement", 2, 0, 166, 75],
       $isFunction: 1
     },
     ComponentCssLoader_call_closure: {
@@ -39535,7 +39605,7 @@
       }
     },
     DirectiveMap__closure0: {
-      "^": "Closure:167;$this,type",
+      "^": "Closure:168;$this,type",
       call$1: function(dir) {
         J.add$1$ax(this.$this.map.putIfAbsent$2(0, dir.get$selector(), new Y.DirectiveMap___closure()), new Y.DirectiveTypeTuple(dir, this.type));
       }
@@ -39789,13 +39859,13 @@
         if (t1._collection$_length !== 0)
           t1.forEach$1(0, new Y.ElementBinder_bind_closure2(parentEventHandler));
         return nodeInjector;
-      }, "call$4", "get$bind", 8, 0, 168, 55, 45, 174, 46],
+      }, "call$4", "get$bind", 8, 0, 169, 55, 45, 174, 46],
       toString$0: function(_) {
         return "[ElementBinder decorators:" + H.S(this.decorators) + "]";
       }
     },
     ElementBinder__bindAssignablePropsOn_closure: {
-      "^": "Closure:169;$this",
+      "^": "Closure:170;$this",
       call$1: function(ref) {
         ref.get$annotation().get$updateBoundElementPropertiesOnEvents();
       }
@@ -39923,7 +39993,7 @@
       }, null, null, 2, 0, null, 14, "call"]
     },
     ElementBinder_bind_closure0: {
-      "^": "Closure:170;_box_1,scope,node,bindAssignableProps",
+      "^": "Closure:171;_box_1,scope,node,bindAssignableProps",
       call$2: function(prop, ast) {
         var t1, parts, t2, t3;
         t1 = {};
@@ -40326,7 +40396,7 @@
         return this.request$8$method$mimeType$onProgress$requestHeaders$responseType$sendData$withCredentials($receiver, url, null, null, null, null, null, null, null);
       }, "request$1", function($receiver, url, method, requestHeaders, sendData, withCredentials) {
         return this.request$8$method$mimeType$onProgress$requestHeaders$responseType$sendData$withCredentials($receiver, url, method, null, null, requestHeaders, null, sendData, withCredentials);
-      }, "request$5$method$requestHeaders$sendData$withCredentials", "call$8$method$mimeType$onProgress$requestHeaders$responseType$sendData$withCredentials", "call$1", "call$5$method$requestHeaders$sendData$withCredentials", "get$request", 2, 15, 173, 2, 2, 2, 2, 2, 2, 2, 34, 97, 80, 147, 178, 179, 180, 181]
+      }, "request$5$method$requestHeaders$sendData$withCredentials", "call$8$method$mimeType$onProgress$requestHeaders$responseType$sendData$withCredentials", "call$1", "call$5$method$requestHeaders$sendData$withCredentials", "get$request", 2, 15, 174, 2, 2, 2, 2, 2, 2, 2, 34, 97, 80, 147, 178, 179, 180, 181]
     },
     LocationWrapper: {
       "^": "Object;",
@@ -40344,7 +40414,7 @@
       },
       $isHttpInterceptor: 1
     },
-    closure1065: {
+    closure1066: {
       "^": "Closure:84;",
       call$1: [function(config) {
         var t1, t2;
@@ -40359,8 +40429,8 @@
         return config;
       }, null, null, 2, 0, null, 81, "call"]
     },
-    closure1066: {
-      "^": "Closure:175;",
+    closure1067: {
+      "^": "Closure:176;",
       call$1: [function(r) {
         var t1, t2, d;
         t1 = J.getInterceptor$x(r);
@@ -40370,7 +40440,7 @@
           return Y.HttpResponse$copy(r, C.JSString_methods.contains$1(d, $.$get$DefaultTransformDataHttpInterceptor__JSON_START()) && C.JSString_methods.contains$1(d, $.$get$DefaultTransformDataHttpInterceptor__JSON_END()) ? C.JsonCodec_null_null.decode$1(d) : d);
         }
         return r;
-      }, null, null, 2, 0, null, 12, "call"]
+      }, null, null, 2, 0, null, 11, "call"]
     },
     HttpInterceptors: {
       "^": "Object;_interceptors",
@@ -40386,7 +40456,7 @@
       }
     },
     HttpInterceptors_constructChain_closure: {
-      "^": "Closure:176;chain",
+      "^": "Closure:177;chain",
       call$1: function(i) {
         var t1, t2, t3;
         t1 = this.chain;
@@ -40422,7 +40492,7 @@
         return key == null ? t1 : t1.$index(0, key);
       }, function($receiver) {
         return this.headers$1($receiver, null);
-      }, "headers$0", "call$1", "call$0", "get$headers", 0, 2, 177, 2, 17],
+      }, "headers$0", "call$1", "call$0", "get$headers", 0, 2, 178, 2, 17],
       toString$0: function(_) {
         return "HTTP " + H.S(this.status) + ": " + H.S(this.responseText);
       },
@@ -40476,7 +40546,7 @@
       "^": "Object;headers>,cache<,xsrfCookieName<,xsrfHeaderName<"
     },
     Http: {
-      "^": "Object:180;_pendingRequests,_cookies,_module_internal0$_location,_rewriter,_module_internal0$_backend,_interceptors,_rootScope,_httpConfig,_module_internal0$_zone,_module_internal0$_pendingAsync,_responseQueue,_responseQueueTimer,defaults",
+      "^": "Object:181;_pendingRequests,_cookies,_module_internal0$_location,_rewriter,_module_internal0$_backend,_interceptors,_rootScope,_httpConfig,_module_internal0$_zone,_module_internal0$_pendingAsync,_responseQueue,_responseQueueTimer,defaults",
       call$11$cache$data$headers$interceptors$method$params$timeout$url$withCredentials$xsrfCookieName$xsrfHeaderName: [function(cache, data, headers, interceptors, method, params, timeout, url, withCredentials, xsrfCookieName, xsrfHeaderName) {
         var t1, range, t2, t3, originUrl, parsed, t4, t5, xsrfValue, chain, interceptors0, chainResult, result;
         t1 = {};
@@ -40524,7 +40594,7 @@
         this._interceptors.constructChain$1(chain);
         if (interceptors != null) {
           if (!!J.getInterceptor(interceptors).$isHttpInterceptor) {
-            interceptors0 = new Y.HttpInterceptors([new Y.DefaultTransformDataHttpInterceptor(new Y.closure1065(), new Y.closure1066(), null, null)]);
+            interceptors0 = new Y.HttpInterceptors([new Y.DefaultTransformDataHttpInterceptor(new Y.closure1066(), new Y.closure1067(), null, null)]);
             interceptors0._interceptors = [interceptors];
             interceptors = interceptors0;
           }
@@ -40545,7 +40615,7 @@
         return this.call$11$cache$data$headers$interceptors$method$params$timeout$url$withCredentials$xsrfCookieName$xsrfHeaderName(null, null, null, null, null, null, null, null, false, null, null);
       }, "call$0", function(params) {
         return this.call$11$cache$data$headers$interceptors$method$params$timeout$url$withCredentials$xsrfCookieName$xsrfHeaderName(null, null, null, null, null, params, null, null, false, null, null);
-      }, "call$1$params", null, null, null, "get$$call", 0, 23, null, 2, 2, 2, 2, 2, 11, 2, 2, 2, 2, 2, 34, 97, 41, 10, 123, 80, 124, 125, 126, 127, 128],
+      }, "call$1$params", null, null, null, "get$$call", 0, 23, null, 2, 2, 2, 2, 2, 12, 2, 2, 2, 2, 2, 34, 97, 41, 10, 123, 80, 124, 125, 126, 127, 128],
       $get$9$cache$headers$interceptors$params$timeout$withCredentials$xsrfCookieName$xsrfHeaderName: [function(url, cache, headers, interceptors, params, timeout, withCredentials, xsrfCookieName, xsrfHeaderName) {
         return this.call$11$cache$data$headers$interceptors$method$params$timeout$url$withCredentials$xsrfCookieName$xsrfHeaderName(cache, null, headers, interceptors, "GET", params, timeout, url, withCredentials, xsrfCookieName, xsrfHeaderName);
       }, function(url) {
@@ -40554,7 +40624,7 @@
         return this.$get$9$cache$headers$interceptors$params$timeout$withCredentials$xsrfCookieName$xsrfHeaderName(url, null, null, null, params, null, false, null, null);
       }, "$get$2$params", function(url, cache) {
         return this.$get$9$cache$headers$interceptors$params$timeout$withCredentials$xsrfCookieName$xsrfHeaderName(url, cache, null, null, null, null, false, null, null);
-      }, "$get$2$cache", "call$9$cache$headers$interceptors$params$timeout$withCredentials$xsrfCookieName$xsrfHeaderName", "call$1", "call$2$params", "call$2$cache", "get$get", 2, 17, 178, 2, 2, 11, 2, 2, 2, 2, 2, 34, 10, 123, 80, 124, 125, 126, 127, 128],
+      }, "$get$2$cache", "call$9$cache$headers$interceptors$params$timeout$withCredentials$xsrfCookieName$xsrfHeaderName", "call$1", "call$2$params", "call$2$cache", "get$get", 2, 17, 179, 2, 2, 12, 2, 2, 2, 2, 2, 34, 10, 123, 80, 124, 125, 126, 127, 128],
       delete$10$cache$data$headers$interceptors$params$timeout$withCredentials$xsrfCookieName$xsrfHeaderName: [function(url, cache, data, headers, interceptors, params, timeout, withCredentials, xsrfCookieName, xsrfHeaderName) {
         return this.call$11$cache$data$headers$interceptors$method$params$timeout$url$withCredentials$xsrfCookieName$xsrfHeaderName(cache, data, headers, interceptors, "DELETE", params, timeout, url, false, xsrfCookieName, xsrfHeaderName);
       }, function(url) {
@@ -40563,7 +40633,7 @@
         return this.delete$10$cache$data$headers$interceptors$params$timeout$withCredentials$xsrfCookieName$xsrfHeaderName(url, null, null, null, null, params, null, false, null, null);
       }, "delete$2$params", function(url, cache) {
         return this.delete$10$cache$data$headers$interceptors$params$timeout$withCredentials$xsrfCookieName$xsrfHeaderName(url, cache, null, null, null, null, null, false, null, null);
-      }, "delete$2$cache", "call$10$cache$data$headers$interceptors$params$timeout$withCredentials$xsrfCookieName$xsrfHeaderName", "call$1", "call$2$params", "call$2$cache", "get$$delete", 2, 19, 179, 2, 2, 2, 11, 2, 2, 2, 2, 2],
+      }, "delete$2$cache", "call$10$cache$data$headers$interceptors$params$timeout$withCredentials$xsrfCookieName$xsrfHeaderName", "call$1", "call$2$params", "call$2$cache", "get$$delete", 2, 19, 180, 2, 2, 2, 12, 2, 2, 2, 2, 2],
       put$10$cache$headers$interceptors$params$timeout$withCredentials$xsrfCookieName$xsrfHeaderName: function(url, data, cache, headers, interceptors, params, timeout, withCredentials, xsrfCookieName, xsrfHeaderName) {
         return this.call$11$cache$data$headers$interceptors$method$params$timeout$url$withCredentials$xsrfCookieName$xsrfHeaderName(cache, data, headers, interceptors, "PUT", params, timeout, url, false, xsrfCookieName, xsrfHeaderName);
       },
@@ -40671,7 +40741,7 @@
       }
     },
     Http_call_serverRequest_requestFromBackend: {
-      "^": "Closure:4;_box_0,$this,withCredentials,config",
+      "^": "Closure:5;_box_0,$this,withCredentials,config",
       call$3: function(runCoalesced, onComplete, onError) {
         var t1, t2, t3, t4, request;
         t1 = this.$this;
@@ -40895,7 +40965,7 @@
       }
     },
     CoreDomModule_closure: {
-      "^": "Closure:181;",
+      "^": "Closure:182;",
       call$1: [function(register) {
         var templateCache = new Y.TemplateCache(P.LinkedHashMap_LinkedHashMap(null, null, null, P.String, Y.HttpResponse), null, 0, 0);
         register.registerCache$2("TemplateCache", templateCache);
@@ -41000,7 +41070,7 @@
       }, null, null, 0, 0, null, "call"]
     },
     NgElement__writeToDom_closure: {
-      "^": "Closure:183;$this",
+      "^": "Closure:184;$this",
       call$2: function(className, toBeAdded) {
         var t1, t2;
         t1 = this.$this;
@@ -41096,7 +41166,7 @@
       }
     },
     DirectiveSelector_closure: {
-      "^": "Closure:184;$this",
+      "^": "Closure:185;$this",
       call$2: function(annotation, type) {
         var selector, match, t1;
         selector = annotation.get$selector();
@@ -41144,7 +41214,7 @@
       }
     },
     DirectiveSelector_matchElement__closure1: {
-      "^": "Closure:185;$this,node,builder,attrName,value",
+      "^": "Closure:186;$this,node,builder,attrName,value",
       call$1: function(tuple) {
         var t1, interpolation, t2, valueAST, t3, t4, t5;
         t1 = this.$this;
@@ -41161,7 +41231,7 @@
       }
     },
     DirectiveSelector_matchElement_closure0: {
-      "^": "Closure:186;_box_0,node,builder,classes,attrs",
+      "^": "Closure:187;_box_0,node,builder,classes,attrs",
       call$1: function(elementSelector) {
         var t1, t2, t3;
         t1 = this._box_0;
@@ -41214,7 +41284,7 @@
         return this.selector$3(directives, null, null);
       }, "selector$1", function(directives, injector) {
         return this.selector$3(directives, injector, null);
-      }, "selector$2", "call$3", "call$1", "call$2", "get$selector", 2, 4, 187, 2, 2, 57, 60, 110]
+      }, "selector$2", "call$3", "call$1", "call$2", "get$selector", 2, 4, 188, 2, 2, 57, 60, 110]
     },
     _Directive: {
       "^": "Object;type>,annotation<",
@@ -41458,7 +41528,7 @@
         t1.addAll$1(0, newStyles);
       }, function(elements) {
         return this.insertStyleElements$2$prepend(elements, false);
-      }, "insertStyleElements$1", "call$2$prepend", "call$1", "get$insertStyleElements", 2, 3, 188, 11, 83, 192],
+      }, "insertStyleElements$1", "call$2$prepend", "call$1", "get$insertStyleElements", 2, 3, 189, 12, 83, 192],
       _insertFrontNode$1: [function(style) {
         var t1, t2;
         t1 = this.root;
@@ -41467,7 +41537,7 @@
           return t2.insertBefore$2(t1, style, t2.get$firstChild(t1));
         else
           return t2.append$1(t1, style);
-      }, "call$1", "get$_insertFrontNode", 2, 0, 189],
+      }, "call$1", "get$_insertFrontNode", 2, 0, 190],
       _newStyles$1: function(elements) {
         if (this._insertedStyles == null)
           return elements;
@@ -41507,7 +41577,7 @@
       }, "call$3", "get$bind", 6, 0, 86, 129, 57, 60]
     },
     BoundShadowDomComponentFactory: {
-      "^": "Object:191;_componentFactory,_ref,_module_internal0$_injector,_tag,_styleElementsFuture,_styleElements,_shadowViewFactoryFuture,_shadowViewFactory",
+      "^": "Object:192;_componentFactory,_ref,_module_internal0$_injector,_tag,_styleElementsFuture,_styleElements,_shadowViewFactoryFuture,_shadowViewFactory",
       get$callArgs: function() {
         return $.$get$BoundShadowDomComponentFactory__CALL_ARGS();
       },
@@ -41554,7 +41624,7 @@
       }, null, null, 2, 0, null, 40, "call"]
     },
     BoundShadowDomComponentFactory_call_closure: {
-      "^": "Closure:192;$this,element",
+      "^": "Closure:193;$this,element",
       call$5: [function(injector, scope, view, baseCss, parentShadowBoundary) {
         var t1, s, shadowRoot, futures, templateLoader, eventHandler, shadowInjector, f, f0, f1, f2, controller, shadowScope, t2, t3, t4, shadowBoundary, t5, t6, t7, t8, t9, t10;
         t1 = {};
@@ -41661,7 +41731,7 @@
       }, null, null, 2, 0, null, 200, "call"]
     },
     ComponentCssRewriter: {
-      "^": "Object:194;",
+      "^": "Object:195;",
       call$3$cssUrl$selector: [function(css, cssUrl, selector) {
         return css;
       }, function(css) {
@@ -41685,7 +41755,7 @@
       }, "call$3", "get$bind", 6, 0, 86, 129, 57, 60]
     },
     BoundTranscludingComponentFactory: {
-      "^": "Object:195;_module_internal0$_f,_ref,_directives,_module_internal0$_injector,_tag,_styleElementsFuture,_styleElements,_viewFactoryFuture,_module_internal0$_viewFactory",
+      "^": "Object:196;_module_internal0$_f,_ref,_directives,_module_internal0$_injector,_tag,_styleElementsFuture,_styleElements,_viewFactoryFuture,_module_internal0$_viewFactory",
       get$callArgs: function() {
         return $.$get$BoundTranscludingComponentFactory__CALL_ARGS();
       },
@@ -41732,7 +41802,7 @@
       }, null, null, 2, 0, null, 40, "call"]
     },
     BoundTranscludingComponentFactory_call_closure: {
-      "^": "Closure:196;$this,element",
+      "^": "Closure:197;$this,element",
       call$10: [function(injector, scope, view, viewCache, http, templateCache, directives, baseCss, eventHandler, shadowBoundary) {
         var t1, shadowRoot, t2, lightDom, futures, templateLoader, t3, t4, t5, t6, t7, childInjector, controller, shadowScope;
         t1 = this.element;
@@ -41859,7 +41929,7 @@
         C.JSArray_methods.remove$1(this.views, view);
         this.scope.get$rootScope().domWrite$1(new Y.ViewPort_remove_closure(this, view));
         return view;
-      }, "call$1", "get$remove", 2, 0, 197, 55],
+      }, "call$1", "get$remove", 2, 0, 198, 55],
       move$2$moveAfter: [function(view, moveAfter) {
         var previousNode = moveAfter == null ? this.placeholder : J.get$last$ax(J.get$nodes$x(moveAfter));
         C.JSArray_methods.remove$1(this.views, view);
@@ -41868,7 +41938,7 @@
         return view;
       }, function(view) {
         return this.move$2$moveAfter(view, null);
-      }, "move$1", "call$2$moveAfter", "call$1", "get$move", 2, 3, 198, 2, 55, 207],
+      }, "move$1", "call$2$moveAfter", "call$1", "get$move", 2, 3, 199, 2, 55, 207],
       _viewsInsertAfter$2: function(view, insertAfter) {
         var index = insertAfter == null ? 0 : C.JSArray_methods.indexOf$1(this.views, insertAfter) + 1;
         C.JSArray_methods.insert$2(this.views, index, view);
@@ -41923,7 +41993,7 @@
       }, null, null, 0, 0, null, "call"]
     },
     BoundViewFactory: {
-      "^": "Object:199;viewFactory,directiveInjector",
+      "^": "Object:200;viewFactory,directiveInjector",
       call$1: [function(scope) {
         return this.viewFactory.call$2(scope, this.directiveInjector);
       }, null, "get$$call", 2, 0, null, 45],
@@ -41933,10 +42003,10 @@
       $isFunction: 1
     },
     ViewFactory: {
-      "^": "Object:201;elementBinders,templateNodes,nodeLinkingInfos,_perf,_debugHtml",
+      "^": "Object:202;elementBinders,templateNodes,nodeLinkingInfos,_perf,_debugHtml",
       bind$1: [function(directiveInjector) {
         return new Y.BoundViewFactory(this, directiveInjector);
-      }, "call$1", "get$bind", 2, 0, 200, 133],
+      }, "call$1", "get$bind", 2, 0, 201, 133],
       call$3: [function(scope, directiveInjector, nodes) {
         var s, view;
         s = O.traceEnter1($.$get$View_create(), this._debugHtml);
@@ -42044,7 +42114,7 @@
       }
     },
     ViewFactory_closure: {
-      "^": "Closure:202;",
+      "^": "Closure:203;",
       call$1: [function(e) {
         var t1 = J.getInterceptor(e);
         if (!!t1.$isElement)
@@ -42120,7 +42190,7 @@
       },
       directive$1: [function(type) {
         return this.injector.getByKey$1(Z.Key_Key(type, null));
-      }, "call$1", "get$directive", 2, 0, 203, 65],
+      }, "call$1", "get$directive", 2, 0, 204, 65],
       element$2: function(arg0, arg1) {
         return this.element.call$2(arg0, arg1);
       },
@@ -43467,7 +43537,7 @@
       },
       $isAttachAware: 1
     },
-    closure1063: {
+    closure1064: {
       "^": "Closure:23;",
       call$2: function(_, __) {
         return;
@@ -43476,7 +43546,7 @@
         return this.call$2(_, null);
       }
     },
-    closure1064: {
+    closure1065: {
       "^": "Closure:0;",
       call$1: [function(value) {
         return;
@@ -44806,14 +44876,14 @@
         return context;
       }
     },
-    closure1062: {
-      "^": "Closure:4;",
+    closure1063: {
+      "^": "Closure:5;",
       call$3: function(key, value, index) {
         return value;
       }
     },
     NgRepeat_expression_closure: {
-      "^": "Closure:4;$this,trackBy",
+      "^": "Closure:5;$this,trackBy",
       call$3: function(key, value, index) {
         var t1, t2, context, t3, t4;
         t1 = P.String;
@@ -45093,7 +45163,7 @@
           mapChangeRecord.forEachChange$1(t1);
           mapChangeRecord.forEachAddition$1(t1);
         }
-      }, "call$2", "get$_onStyleChange", 4, 0, 208]
+      }, "call$2", "get$_onStyleChange", 4, 0, 209]
     },
     NgStyle__onStyleChange_fn: {
       "^": "Closure:45;css",
@@ -45128,14 +45198,14 @@
       }
     },
     NgSwitch_value_closure: {
-      "^": "Closure:315;",
+      "^": "Closure:316;",
       call$1: function(pair) {
         var t1 = J.getInterceptor$x(pair);
         J.remove$1$ax(t1.get$port(pair), t1.get$view(pair));
       }
     },
     NgSwitch_value_closure0: {
-      "^": "Closure:210;$this",
+      "^": "Closure:211;$this",
       call$1: function(caze) {
         var t1, childScope, view;
         t1 = this.$this;
@@ -45182,7 +45252,7 @@
   }], ["angular.directive.static_keys", "package:angular/directive/static_keys.dart",, M, {}], ["angular.formatter_internal", "package:angular/formatter/module_internal.dart",, L, {
     "^": "",
     Arrayify: {
-      "^": "Object:211;",
+      "^": "Object:212;",
       call$1: [function(inputMap) {
         var result;
         if (inputMap == null)
@@ -45235,7 +45305,7 @@
       $isFunction: 1
     },
     Date: {
-      "^": "Object:213;_dfs",
+      "^": "Object:214;_dfs",
       call$2: [function(date, format) {
         var t1;
         if (J.$eq$(date, "") || date == null)
@@ -45294,7 +45364,7 @@
       }
     },
     Filter: {
-      "^": "Object:215;_module_internal1$_parser,_comparator,_stringComparator",
+      "^": "Object:216;_module_internal1$_parser,_comparator,_stringComparator",
       _configureComparator$1: function(comparatorExpression) {
         if (comparatorExpression == null || J.$eq$(comparatorExpression, false)) {
           this._stringComparator = L.module_internal1_Filter__isSubstringCaseInsensitive$closure();
@@ -45349,7 +45419,7 @@
           else
             return false;
         }
-      }, "call$2", "get$_defaultComparator", 4, 0, 214, 78, 224],
+      }, "call$2", "get$_defaultComparator", 4, 0, 215, 78, 224],
       _search$2: function(item, what) {
         var t1 = J.getInterceptor(what);
         if (!!t1.$isMap)
@@ -45460,7 +45530,7 @@
       $isFunction: 1
     },
     LimitTo: {
-      "^": "Object:216;_module_internal1$_injector",
+      "^": "Object:217;_module_internal1$_injector",
       call$2: [function(items, limit) {
         var t1, j, t2, i;
         if (items == null)
@@ -45552,7 +45622,7 @@
       }
     },
     OrderBy: {
-      "^": "Object:217;_module_internal1$_parser",
+      "^": "Object:218;_module_internal1$_parser",
       call$3: [function(items, expression, descending) {
         var t1, expressions, numExpressions, mappers, comparators, t2, t3, t4, i, desc, strExp, t5, parsed;
         if (items == null)
@@ -45614,7 +45684,7 @@
         return L.OrderBy__sorted(items, mappers, comparators, descending);
       }, function(items, expression) {
         return this.call$3(items, expression, false);
-      }, "call$2", null, null, "get$$call", 4, 2, null, 11, 66, 62, 229],
+      }, "call$2", null, null, "get$$call", 4, 2, null, 12, 66, 62, 229],
       $isFunction: 1,
       static: {
         OrderBy__nop: [function(e) {
@@ -45622,10 +45692,10 @@
         }, "call$1", "module_internal1_OrderBy__nop$closure", 2, 0, 0, 8],
         OrderBy__isNonZero: [function(n) {
           return !J.$eq$(n, 0);
-        }, "call$1", "module_internal1_OrderBy__isNonZero$closure", 2, 0, 309],
+        }, "call$1", "module_internal1_OrderBy__isNonZero$closure", 2, 0, 310],
         OrderBy__returnZero: [function() {
           return 0;
-        }, "call$0", "module_internal1_OrderBy__returnZero$closure", 0, 0, 310],
+        }, "call$0", "module_internal1_OrderBy__returnZero$closure", 0, 0, 311],
         OrderBy__defaultComparator: [function(a, b) {
           var t1 = a == null;
           if (t1 && b == null)
@@ -45846,7 +45916,7 @@
       if (probe == null)
         throw H.wrapException("Could not find an ElementProbe for " + H.S(node) + ".\xa0 This might happen either because there is no Angular directive for that node OR because your application is running with ElementProbes disabled (CompilerConfig.elementProbeEnabled = false).");
       return new R._Testability(node, probe, probe.get$injector().$get$1(C.Type_PendingAsync_GAt));
-    }, "call$1", "introspection__getTestability$closure", 2, 0, 312, 46],
+    }, "call$1", "introspection__getTestability$closure", 2, 0, 313, 46],
     publishToJavaScript: function() {
       var $D, $J, t1, t2, key;
       $D = P.LinkedHashMap__makeEmpty();
@@ -45891,7 +45961,7 @@
       }, null, null, 2, 0, null, 232, "call"]
     },
     _jsFunction_closure: {
-      "^": "Closure:218;fn,X",
+      "^": "Closure:219;fn,X",
       call$11: [function(thisArg, o1, o2, o3, o4, o5, o6, o7, o8, o9, o10) {
         return R.__invokeFn(this.fn, o1, o2, o3, o4, o5, o6, o7, o8, o9, o10);
       }, function(thisArg) {
@@ -46077,7 +46147,7 @@
       }, null, null, 2, 0, null, 138, "call"]
     },
     _Testability__toJsObject_closure6: {
-      "^": "Closure:220;$this",
+      "^": "Closure:221;$this",
       call$2: [function(selector, containsText) {
         return R.ngQuery(this.$this.node, selector, containsText);
       }, function(selector) {
@@ -46108,7 +46178,7 @@
       }, null, null, 2, 0, null, 89, "call"]
     },
     publishToJavaScript_closure2: {
-      "^": "Closure:221;",
+      "^": "Closure:222;",
       call$3: [function(node, selector, containsText) {
         return R.ngQuery(node, selector, containsText);
       }, function(node, selector) {
@@ -46186,7 +46256,7 @@
       }
     },
     RoutingModule_closure: {
-      "^": "Closure:222;",
+      "^": "Closure:223;",
       call$2: [function(state, $window) {
         var t1;
         state.get$usePushState();
@@ -46336,7 +46406,7 @@
       }
     },
     RouteViewFactory: {
-      "^": "Object:77;locationService",
+      "^": "Object:78;locationService",
       call$1: [function(templateUrl) {
         return new T.RouteViewFactory_call_closure(this, templateUrl);
       }, null, "get$$call", 2, 0, null, 254],
@@ -46386,7 +46456,7 @@
       }, null, null, 2, 0, null, 8, "call"]
     },
     RouteViewFactory__configure__closure1: {
-      "^": "Closure:224;_box_0,cfg",
+      "^": "Closure:225;_box_0,cfg",
       call$1: [function(e) {
         var t1, t2, modules;
         t1 = this.cfg;
@@ -46403,20 +46473,20 @@
       }, null, null, 2, 0, null, 8, "call"]
     },
     RouteViewFactory__configure___closure: {
-      "^": "Closure:225;_box_0",
+      "^": "Closure:226;_box_0",
       call$1: [function(m) {
         this._box_0.newModules = m;
         return true;
       }, null, null, 2, 0, null, 137, "call"]
     },
     RouteViewFactory__configure__closure2: {
-      "^": "Closure:226;cfg",
+      "^": "Closure:227;cfg",
       call$1: [function(e) {
         this.cfg.get$preLeave();
       }, null, null, 2, 0, null, 8, "call"]
     },
     RouteViewFactory__configure__closure0: {
-      "^": "Closure:227;$this,cfg",
+      "^": "Closure:228;$this,cfg",
       call$1: function(mountRoute) {
         this.cfg.get$mount();
       }
@@ -46454,7 +46524,7 @@
         this._templates.$indexSet(0, T._routePath(route), new T._View(template, templateHtml, modules));
       }, function(route, template) {
         return this._module1$_route$5$fromEvent$modules$templateHtml(route, template, null, null, null);
-      }, "_module1$_route$2", "call$5$fromEvent$modules$templateHtml", "call$2", "get$_module1$_route", 4, 7, 228, 2, 2, 2],
+      }, "_module1$_route$2", "call$5$fromEvent$modules$templateHtml", "call$2", "get$_module1$_route", 4, 7, 229, 2, 2, 2],
       _registerPortal$1: function(ngView) {
         this._portals.push(ngView);
       },
@@ -46487,7 +46557,7 @@
       }
     },
     NgRoutingHelper_closure: {
-      "^": "Closure:229;$this",
+      "^": "Closure:230;$this",
       call$1: [function($routeEvent) {
         $routeEvent.get$completed().then$1(new T.NgRoutingHelper__closure(this.$this));
       }, null, null, 2, 0, null, 255, "call"]
@@ -46865,7 +46935,7 @@
         this.isCloseOthers = t1;
         if (t1 === true)
           C.JSArray_methods.forEach$1(this.groups, new K.AccordionComponent_closeOthers_closure(openGroup));
-      }, "call$1", "get$closeOthers", 2, 0, 314, 257],
+      }, "call$1", "get$closeOthers", 2, 0, 315, 257],
       addGroup$1: function(groupScope) {
         this.groups.push(groupScope);
       },
@@ -46878,7 +46948,7 @@
       $isScopeAware: 1
     },
     AccordionComponent_closeOthers_closure: {
-      "^": "Closure:233;openGroup",
+      "^": "Closure:234;openGroup",
       call$1: function(e) {
         if (!J.$eq$(e, this.openGroup))
           e.set$isOpen(false);
@@ -47152,7 +47222,7 @@
       }, "call$0", "get$prev", 0, 0, 3],
       isActive$1: [function(slide) {
         return J.$eq$(this._currentSlide, slide);
-      }, "call$1", "get$isActive", 2, 0, 234, 258],
+      }, "call$1", "get$isActive", 2, 0, 235, 258],
       play$0: [function(_) {
         if (!this._isPlaying) {
           this._isPlaying = true;
@@ -47188,7 +47258,7 @@
         }
       }, function($receiver, nextSlide) {
         return this.select$2$direction($receiver, nextSlide, null);
-      }, "select$1", "call$2$direction", "call$1", "get$select", 2, 3, 235, 2, 259, 144],
+      }, "select$1", "call$2$direction", "call$1", "get$select", 2, 3, 236, 2, 259, 144],
       _goNext$2: function(direction, nextIndex) {
         var t1, nextSlide;
         if (this._destroyed)
@@ -47303,7 +47373,7 @@
       }, null, null, 0, 0, null, "call"]
     },
     Carousel__goNext_closure: {
-      "^": "Closure:236;",
+      "^": "Closure:237;",
       call$1: function(slide) {
         var t1 = J.getInterceptor$x(slide);
         t1.set$direction(slide, "");
@@ -47723,7 +47793,7 @@
           this.updateShowWeekNumbers$0();
           this.refill$0();
         }
-      }, "call$1", "get$select", 2, 0, 237, 49],
+      }, "call$1", "get$select", 2, 0, 238, 49],
       move$1: [function(direction) {
         var step, t1, t2, t3, t4, month, year, t5;
         step = J.get$step$x(J.$index$asx(this.modes, this.mode));
@@ -47828,7 +47898,7 @@
         return t1;
       }, function(date) {
         return this.isDisabled$2(date, 0);
-      }, "isDisabled$1", "call$2", "call$1", "get$isDisabled", 2, 2, 238, 67, 49, 139],
+      }, "isDisabled$1", "call$2", "call$1", "get$isDisabled", 2, 2, 239, 67, 49, 139],
       format$1: function(arg0) {
         return this.format.call$1(arg0);
       },
@@ -47912,7 +47982,7 @@
       }
     },
     Datepicker_showWeekNumbersEls_closure: {
-      "^": "Closure:241;$this",
+      "^": "Closure:242;$this",
       call$1: function(rowEl) {
         var rowWeekNumbersEl, t1;
         rowWeekNumbersEl = J.get$firstChild$x(rowEl);
@@ -48679,7 +48749,7 @@
           this._config = config;
           J.add$1$ax(J.get$classes$x(elem), this._config.get$onSortableDragClass());
         }
-      }, "call$2", "get$element", 4, 0, 243, 266, 81]
+      }, "call$2", "get$element", 4, 0, 244, 266, 81]
     },
     SortableComponent: {
       "^": "AbstractDraggableDroppableComponent;sortableDataService,_sortableConfig<,_sortableData<,_draggableHandler,_dropZoneNames,elem,ddZonesService,_config,_dragEnabled,dropEnabled",
@@ -48822,7 +48892,7 @@
         }
       }
     },
-    closure1056: {
+    closure1057: {
       "^": "Closure:16;",
       call$1: function(evt) {
         return P.LinkedHashMap__makeEmpty();
@@ -48999,7 +49069,7 @@
         t3.catchError$1(new R.Modal_open_closure3());
         t2.catchError$1(new R.Modal_open_closure4());
         return instance;
-      }, "call$2", "get$open", 4, 0, 245, 103, 45],
+      }, "call$2", "get$open", 4, 0, 246, 103, 45],
       _show$2: function(modalInstance, options) {
         var t1;
         J.get$ownerDocument$x(modalInstance._modal$_element);
@@ -49718,7 +49788,7 @@
           t1 = J.getInterceptor$x(r);
           return t1.containsKey$1(r, "stateOff") === true && t1.$index(r, "stateOff") != null ? t1.$index(r, "stateOff") : "glyphicon-star-empty";
         }
-      }, "call$2", "get$stateClass", 4, 0, 246, 20, 12],
+      }, "call$2", "get$stateClass", 4, 0, 247, 20, 11],
       RatingComponent$4: function(_element, _attrs, _ngModel, _ratingConfig) {
         this._rating$_ngModel.set$render(new G.RatingComponent_closure(this));
       },
@@ -49805,7 +49875,7 @@
           J.forEach$1$ax(this.tabs, new Q.TabsetComponent_select_closure());
           t1.set$select(tab, true);
         }
-      }, "call$1", "get$select", 2, 0, 247, 269],
+      }, "call$1", "get$select", 2, 0, 248, 269],
       addTab$1: function(tab) {
         J.add$1$ax(this.tabs, tab);
         if (J.$eq$(J.get$length$asx(this.tabs), 1) || tab._tabset0$_active === true)
@@ -50055,7 +50125,7 @@
       }
     },
     Timepicker_onShadowRoot_closure2: {
-      "^": "Closure:248;",
+      "^": "Closure:249;",
       call$1: function(e) {
         var t1, t2;
         t1 = J.getInterceptor$x(e);
@@ -50862,7 +50932,7 @@
       }, "call$1", "get$format", 2, 0, 0, 6]
     },
     TypeaheadHighlightFilter: {
-      "^": "Object:252;",
+      "^": "Object:253;",
       escapeRegexp$1: function(queryToEscape) {
         return J.replaceAllMapped$2$s(queryToEscape, P.RegExp_RegExp("([.?*+^$[\\]\\\\(){}|-])", true, false), new Z.TypeaheadHighlightFilter_escapeRegexp_closure());
       },
@@ -51043,7 +51113,7 @@
       "^": "Module;reflector,bindings"
     },
     DblClickPreventer: {
-      "^": "Object:253;_isNotWaiting,timeout",
+      "^": "Object:254;_isNotWaiting,timeout",
       call$2$delay: [function(func, delay) {
         if (this._isNotWaiting) {
           this._isNotWaiting = false;
@@ -51236,7 +51306,7 @@
       }
     },
     Timeout: {
-      "^": "Object:256;deferreds,scope@,exceptionHandler,rootScope<",
+      "^": "Object:257;deferreds,scope@,exceptionHandler,rootScope<",
       call$3$delay$invokeApply: [function(fn, delay, invokeApply) {
         var t1, deferred;
         t1 = new P._Future(0, $.Zone__current, null, [null]);
@@ -51269,7 +51339,7 @@
         t1.clear$0(0);
       }, function() {
         return this.flush$1$cancel(false);
-      }, "flush$0", "call$1$cancel", "call$0", "get$flush", 0, 3, 255, 11, 278],
+      }, "flush$0", "call$1$cancel", "call$0", "get$flush", 0, 3, 256, 12, 278],
       scope$1: function(arg0) {
         return this.scope.call$1(arg0);
       },
@@ -51304,7 +51374,7 @@
       }, null, null, 0, 0, null, "call"]
     },
     Timeout_flush_closure: {
-      "^": "Closure:257;$this,cancel",
+      "^": "Closure:258;$this,cancel",
       call$2: function(deferred, timeItem) {
         var e, s, exception;
         try {
@@ -51329,7 +51399,7 @@
       "^": "Module;reflector,bindings"
     },
     Transition: {
-      "^": "Object:258;timeout,transitionEndEventName,animationEndEventName",
+      "^": "Object:259;timeout,transitionEndEventName,animationEndEventName",
       call$3$options: [function(element, trigger, options) {
         var t1, t2, deferred, endEventName, t3, transitionEndHandler;
         t1 = {};
@@ -51568,7 +51638,7 @@
       "^": "Object;",
       hash$1: [function(_, e) {
         return J.get$hashCode$(e);
-      }, "call$1", "get$hash", 2, 0, 260, 8]
+      }, "call$1", "get$hash", 2, 0, 261, 8]
     },
     IterableEquality: {
       "^": "Object;_elementEquality,$ti",
@@ -51733,7 +51803,7 @@
         return this.getByKey$1(Z.Key_Key(type, annotation));
       }, function(type) {
         return this.$get$2(type, null);
-      }, "$get$1", "call$2", "call$1", "get$get", 2, 2, 261, 2, 65, 280]
+      }, "$get$1", "call$2", "call$1", "get$get", 2, 2, 262, 2, 65, 280]
     },
     RootInjector: {
       "^": "Injector;parent",
@@ -52006,7 +52076,7 @@
       }
     },
     ModuleInjector__closure: {
-      "^": "Closure:262;$this",
+      "^": "Closure:263;$this",
       call$2: function(key, binding) {
         var t1, t2;
         t1 = this.$this._bindings;
@@ -52072,7 +52142,7 @@
         }
       }, function(k, reflector) {
         return this.bind$7$inject$toFactory$toImplementation$toInstanceOf$toValue(k, reflector, C.List_empty, E.module0__DEFAULT_VALUE$closure(), null, null, E.module0__DEFAULT_VALUE$closure());
-      }, "bind$2", "call$7$inject$toFactory$toImplementation$toInstanceOf$toValue", "call$2", "get$bind", 4, 11, 263, 51, 51, 2, 86, 2, 281, 282, 99, 98, 94, 85, 92]
+      }, "bind$2", "call$7$inject$toFactory$toImplementation$toInstanceOf$toValue", "call$2", "get$bind", 4, 11, 264, 51, 51, 2, 86, 2, 281, 282, 99, 98, 94, 85, 92]
     },
     Binding_bind_closure: {
       "^": "Closure:2;toValue",
@@ -52099,7 +52169,7 @@
         return this.bind$7$inject$toFactory$toImplementation$toInstanceOf$toValue$withAnnotation(type, C.List_empty, E.module0__DEFAULT_VALUE$closure(), null, null, E.module0__DEFAULT_VALUE$closure(), null);
       }, "bind$1", function(type, inject, toFactory) {
         return this.bind$7$inject$toFactory$toImplementation$toInstanceOf$toValue$withAnnotation(type, inject, toFactory, null, null, E.module0__DEFAULT_VALUE$closure(), null);
-      }, "bind$3$inject$toFactory", "call$7$inject$toFactory$toImplementation$toInstanceOf$toValue$withAnnotation", "call$1", "call$3$inject$toFactory", "get$bind", 2, 13, 264, 51, 51, 2, 86, 2, 2, 65, 99, 98, 94, 85, 92, 284],
+      }, "bind$3$inject$toFactory", "call$7$inject$toFactory$toImplementation$toInstanceOf$toValue$withAnnotation", "call$1", "call$3$inject$toFactory", "get$bind", 2, 13, 265, 51, 51, 2, 86, 2, 2, 65, 99, 98, 94, 85, 92, 284],
       bindByKey$6$inject$toFactory$toImplementation$toInstanceOf$toValue: function(key, inject, toFactory, toImplementation, toInstanceOf, toValue) {
         var binding = new E.Binding(null, null, null);
         binding.bind$7$inject$toFactory$toImplementation$toInstanceOf$toValue(key, this.reflector, inject, toFactory, toImplementation, toInstanceOf, toValue);
@@ -52285,7 +52355,7 @@
       scope$1: [function(obj) {
         var t1 = this.config;
         return new E.ObjectStore(this.resourceStore.scope$1(t1.serializer$1(t1.resourceType$1(J.get$runtimeType$(obj))).call$1(obj)), this.config);
-      }, "call$1", "get$scope", 2, 0, 265, 61],
+      }, "call$1", "get$scope", 2, 0, 266, 61],
       one$2: function(type, id) {
         return this._resourceQueryOne$2(type, new E.ObjectStore_one_closure(this, id));
       },
@@ -52407,7 +52477,7 @@
         var t1 = P.List_List$from(this.scopingResources, true, null);
         C.JSArray_methods.add$1(t1, scopingResource);
         return new E.ResourceStore(this.http, this.config, t1);
-      }, "call$1", "get$scope", 2, 0, 266, 287],
+      }, "call$1", "get$scope", 2, 0, 267, 287],
       one$2: function(resourceType, resourceId) {
         return this._invoke$2("GET", this._url$2(resourceType, resourceId)).then$1(this._parseResource$1(resourceType));
       },
@@ -52535,7 +52605,7 @@
       call$1: [function(r) {
         var t1 = J.getInterceptor$x(r);
         return "/" + H.S(this.$this.config.route$1(t1.get$type(r))) + "/" + H.S(t1.get$id(r));
-      }, null, null, 2, 0, null, 12, "call"]
+      }, null, null, 2, 0, null, 11, "call"]
     },
     _Undefined: {
       "^": "Object;"
@@ -52544,7 +52614,7 @@
       "^": "Closure:0;",
       call$1: [function(r) {
         return P.Future_Future$error(r, null, null);
-      }, null, null, 2, 0, null, 12, "call"]
+      }, null, null, 2, 0, null, 11, "call"]
     },
     _wrappedListIntoFuture_closure: {
       "^": "Closure:0;",
@@ -52591,7 +52661,7 @@
       },
       map$1: [function(_, fn) {
         return new R.QueryResult(J.map$1$ax(this.list, fn).toList$0(0), this.meta, [null]);
-      }, "call$1", "get$map", 2, 0, 268],
+      }, "call$1", "get$map", 2, 0, 269],
       toList$1$growable: function(_, growable) {
         return this;
       },
@@ -52745,7 +52815,7 @@
       }
     }, function(howMany) {
       return T.Intl_plural(howMany, null, null, null, null, null, null, null, null, null, null, null);
-    }, "call$12$args$desc$examples$few$locale$many$name$one$other$two$zero", "call$1", "intl_Intl_plural$closure", 2, 23, 313, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 291, 292, 293, 294, 295, 296, 297, 298, 299, 300, 25, 68],
+    }, "call$12$args$desc$examples$few$locale$many$name$one$other$two$zero", "call$1", "intl_Intl_plural$closure", 2, 23, 314, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 291, 292, 293, 294, 295, 296, 297, 298, 299, 300, 25, 68],
     Intl_getCurrentLocale: function() {
       var t1 = $.Intl_defaultLocale;
       if (t1 == null) {
@@ -52914,7 +52984,7 @@
         result = J.toString$0$(t2);
         this._intl$_buffer = null;
         return result;
-      }, "call$1", "get$format", 2, 0, 270, 301],
+      }, "call$1", "get$format", 2, 0, 271, 301],
       _formatExponential$1: function(number) {
         var t1, exponent, mantissa;
         t1 = J.getInterceptor(number);
@@ -53114,7 +53184,7 @@
           t2 = new T.NumberFormat("-", "", "", "", 3, false, false, false, 40, 1, 3, 0, 0, 1, null, t3, null, null, t1, t2);
           t3 = $.numberFormatSymbols.$index(0, t3);
           t2._symbols = t3;
-          t2._setPattern$1(new T.closure1060(newPattern).call$1(t3));
+          t2._setPattern$1(new T.closure1061(newPattern).call$1(t3));
           return t2;
         },
         NumberFormat_localeExists: [function(localeName) {
@@ -53124,7 +53194,7 @@
         }, "call$1", "intl_NumberFormat_localeExists$closure", 2, 0, 12]
       }
     },
-    closure1060: {
+    closure1061: {
       "^": "Closure:0;newPattern",
       call$1: function(x) {
         return this.newPattern;
@@ -54128,7 +54198,7 @@
         return this.config$3(message, null, null);
       }, "config$1", function(message, error) {
         return this.config$3(message, error, null);
-      }, "config$2", "call$3", "call$1", "call$2", "get$config", 2, 4, 271, 2, 2],
+      }, "config$2", "call$3", "call$1", "call$2", "get$config", 2, 4, 272, 2, 2],
       warning$3: function(message, error, stackTrace) {
         return this.log$4(C.Level_WARNING_900, message, error, stackTrace);
       },
@@ -54472,7 +54542,7 @@
         return future;
       }, function(path) {
         return this.route$3$forceReload$startingFrom(path, false, null);
-      }, "route$1", "call$3$forceReload$startingFrom", "call$1", "get$route", 2, 5, 272, 2, 11, 302, 93, 304],
+      }, "route$1", "call$3$forceReload$startingFrom", "call$1", "get$route", 2, 5, 273, 2, 12, 302, 93, 304],
       _preLeave$5: function(path, treePath, activePath, baseRoute, forceReload) {
         var _box_0, ll, t1, i, t2, preLeaving;
         _box_0 = {};
@@ -54636,7 +54706,7 @@
         return this.route$3$forceReload$startingFrom(reloadPath + this._buildQuery$1(path.length === 0 ? P.LinkedHashMap__makeEmpty() : C.JSArray_methods.get$last(path).get$queryParameters()), true, startingFrom);
       }, function($receiver) {
         return this.reload$1$startingFrom($receiver, null);
-      }, "reload$0", "call$1$startingFrom", "call$0", "get$reload", 0, 3, 273, 2, 93],
+      }, "reload$0", "call$1$startingFrom", "call$0", "get$reload", 0, 3, 274, 2, 93],
       go$6$forceReload$queryParameters$replace$startingFrom: function(_, routePath, parameters, forceReload, queryParameters, replace, startingFrom) {
         var baseRoute, routeToGo, newTail, newUrl;
         baseRoute = this.root;
@@ -54662,7 +54732,7 @@
         return t1 + baseRoute._getHead$1(tail) + this._buildQuery$1(queryParameters);
       }, function($receiver, routePath) {
         return this.url$4$parameters$queryParameters$startingFrom($receiver, routePath, null, null, null);
-      }, "url$1", "call$4$parameters$queryParameters$startingFrom", "call$1", "get$url", 2, 7, 274, 2, 2, 2, 305, 93, 306, 307],
+      }, "url$1", "call$4$parameters$queryParameters$startingFrom", "call$1", "get$url", 2, 7, 275, 2, 2, 2, 305, 93, 306, 307],
       _findRoute$2: function(baseRoute, routePath) {
         var route = baseRoute.findRoute$1(routePath);
         if (route == null)
@@ -54867,7 +54937,7 @@
       }
     },
     Router__matchingRoutes_closure: {
-      "^": "Closure:277;path",
+      "^": "Closure:278;path",
       call$1: function(r) {
         return J.get$path$x(r).match$1(this.path) != null;
       }
@@ -55092,7 +55162,7 @@
       }
     },
     RouteHandle_discard_closure: {
-      "^": "Closure:278;",
+      "^": "Closure:279;",
       call$1: function(c) {
         return c.discard$0();
       }
@@ -55110,7 +55180,7 @@
       "^": "Object;",
       matches$1: [function(_, link) {
         return !C.JSArray_methods.contains$1(C.List__blank__parent__self__top, J.get$target$x(link));
-      }, "call$1", "get$matches", 2, 0, 279, 309]
+      }, "call$1", "get$matches", 2, 0, 280, 309]
     }
   }], ["route.utils", "package:route_hierarchical/src/utils.dart",, U, {
     "^": "",
@@ -55227,7 +55297,7 @@
         if (0 >= t1.length)
           return H.ioore(t1, 0);
         return new D.UrlMatch(t1[0], tail, parameters);
-      }, "call$1", "get$match", 2, 0, 280, 34],
+      }, "call$1", "get$match", 2, 0, 281, 34],
       reverse$2$parameters$tail: function(_, parameters, tail) {
         var t1, t2;
         t1 = {};
@@ -55437,6 +55507,7 @@
       t2.bindByKey$6$inject$toFactory$toImplementation$toInstanceOf$toValue(Z.Key_Key(C.Type_RateGroupSelectComponent_9Yy, E.Module__toType(null)), C.List_empty, E.module0__DEFAULT_VALUE$closure(), null, null, E.module0__DEFAULT_VALUE$closure());
       t2.bindByKey$6$inject$toFactory$toImplementation$toInstanceOf$toValue(Z.Key_Key(C.Type_RateUnitTypeSelectComponent_e7M, E.Module__toType(null)), C.List_empty, E.module0__DEFAULT_VALUE$closure(), null, null, E.module0__DEFAULT_VALUE$closure());
       t2.bindByKey$6$inject$toFactory$toImplementation$toInstanceOf$toValue(Z.Key_Key(C.Type_UserSelectComponent_Opm, E.Module__toType(null)), C.List_empty, E.module0__DEFAULT_VALUE$closure(), null, null, E.module0__DEFAULT_VALUE$closure());
+      t2.bindByKey$6$inject$toFactory$toImplementation$toInstanceOf$toValue(Z.Key_Key(C.Type_CostGroupSelectComponent_w59, E.Module__toType(null)), C.List_empty, E.module0__DEFAULT_VALUE$closure(), null, null, E.module0__DEFAULT_VALUE$closure());
       t2.bindByKey$6$inject$toFactory$toImplementation$toInstanceOf$toValue(Z.Key_Key(C.Type_UserContext_69t, E.Module__toType(null)), C.List_empty, E.module0__DEFAULT_VALUE$closure(), null, null, E.module0__DEFAULT_VALUE$closure());
       t2.bindByKey$6$inject$toFactory$toImplementation$toInstanceOf$toValue(Z.Key_Key(C.Type_DateRange_E4y, E.Module__toType(null)), C.List_empty, E.module0__DEFAULT_VALUE$closure(), null, null, E.module0__DEFAULT_VALUE$closure());
       t2.bindByKey$6$inject$toFactory$toImplementation$toInstanceOf$toValue(Z.Key_Key(C.Type_DateToTextInput_B8J, E.Module__toType(null)), C.List_empty, E.module0__DEFAULT_VALUE$closure(), null, null, E.module0__DEFAULT_VALUE$closure());
@@ -55470,10 +55541,10 @@
       "^": "Module;reflector,bindings"
     },
     main_closure: {
-      "^": "Closure:281;",
+      "^": "Closure:282;",
       call$1: [function(r) {
         P.print(J.get$message$x(r));
-      }, null, null, 2, 0, null, 12, "call"]
+      }, null, null, 2, 0, null, 11, "call"]
     }
   }, 1], ["DimeClient.web.main.generated_type_factory_maps", "main_generated_type_factory_maps.dart",, Q, {
     "^": "",
@@ -55514,7 +55585,7 @@
       }, null, null, 0, 0, null, "call"]
     },
     closure804: {
-      "^": "Closure:5;",
+      "^": "Closure:4;",
       call$4: [function(a1, a2, a3, a4) {
         return Y.DirectiveMap$(a1, a2, a3, a4);
       }, null, null, 8, 0, null, 1, 3, 4, 5, "call"]
@@ -55526,13 +55597,13 @@
       }, null, null, 16, 0, null, 1, 3, 4, 5, 7, 15, 27, 36, "call"]
     },
     closure806: {
-      "^": "Closure:4;",
+      "^": "Closure:5;",
       call$3: [function(a1, a2, a3) {
         return new Y.EventHandler(a1, a2, a3, P.HashMap_HashMap(null, null, null, P.String, P.Function));
       }, null, null, 6, 0, null, 1, 3, 4, "call"]
     },
     closure807: {
-      "^": "Closure:4;",
+      "^": "Closure:5;",
       call$3: [function(a1, a2, a3) {
         return new Y.ShadowRootEventHandler(a1, a2, a3, P.HashMap_HashMap(null, null, null, P.String, P.Function));
       }, null, null, 6, 0, null, 1, 3, 4, "call"]
@@ -55570,8 +55641,8 @@
     closure813: {
       "^": "Closure:2;",
       call$0: [function() {
-        var t1 = new Y.HttpInterceptors([new Y.DefaultTransformDataHttpInterceptor(new Y.closure1065(), new Y.closure1066(), null, null)]);
-        t1._interceptors = [new Y.DefaultTransformDataHttpInterceptor(new Y.closure1065(), new Y.closure1066(), null, null)];
+        var t1 = new Y.HttpInterceptors([new Y.DefaultTransformDataHttpInterceptor(new Y.closure1066(), new Y.closure1067(), null, null)]);
+        t1._interceptors = [new Y.DefaultTransformDataHttpInterceptor(new Y.closure1066(), new Y.closure1067(), null, null)];
         return t1;
       }, null, null, 0, 0, null, "call"]
     },
@@ -55588,7 +55659,7 @@
       }, null, null, 2, 0, null, 1, "call"]
     },
     closure816: {
-      "^": "Closure:284;",
+      "^": "Closure:285;",
       call$10: [function(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10) {
         return new Y.Http(P.HashMap_HashMap(null, null, null, P.String, [P.Future, Y.HttpResponse]), a1, a2, a3, a4, a6, a7, a8, a9, a10, H.setRuntimeTypeInfo([], [P.Function]), null, a5);
       }, null, null, 20, 0, null, 1, 3, 4, 5, 7, 15, 27, 36, 64, 59, "call"]
@@ -55600,7 +55671,7 @@
       }, null, null, 0, 0, null, "call"]
     },
     closure818: {
-      "^": "Closure:4;",
+      "^": "Closure:5;",
       call$3: [function(a1, a2, a3) {
         var t1 = new Y.TextMustache(a1);
         a3.watchAST$3$canChangeModel(a2, t1.get$_module_internal0$_updateMarkup(), false);
@@ -55608,20 +55679,20 @@
       }, null, null, 6, 0, null, 1, 3, 4, "call"]
     },
     closure819: {
-      "^": "Closure:5;",
+      "^": "Closure:4;",
       call$4: [function(a1, a2, a3, a4) {
         return Y.AttrMustache$(a1, a2, a3, a4);
       }, null, null, 8, 0, null, 1, 3, 4, 5, "call"]
     },
     closure820: {
-      "^": "Closure:5;",
+      "^": "Closure:4;",
       call$4: [function(a1, a2, a3, a4) {
         var t1 = P.String;
         return new Y.NgElement(a1, a2, a3, a4, P.HashMap_HashMap(null, null, null, t1, P.bool), P.HashMap_HashMap(null, null, null, t1, null), false);
       }, null, null, 8, 0, null, 1, 3, 4, 5, "call"]
     },
     closure821: {
-      "^": "Closure:6;",
+      "^": "Closure:7;",
       call$5: [function(a1, a2, a3, a4, a5) {
         return new Y.DirectiveSelectorFactory(a1, a2, a3, a4, a5);
       }, null, null, 10, 0, null, 1, 3, 4, 5, 7, "call"]
@@ -55655,7 +55726,7 @@
       }, null, null, 22, 0, null, 1, 3, 4, 5, 7, 15, 27, 36, 64, 59, 74, "call"]
     },
     closure825: {
-      "^": "Closure:5;",
+      "^": "Closure:4;",
       call$4: [function(a1, a2, a3, a4) {
         var t1 = new Y.Content(a1, null, a2, a3, null);
         a4.addContent$1(t1);
@@ -55734,7 +55805,7 @@
       }, null, null, 2, 0, null, 1, "call"]
     },
     closure835: {
-      "^": "Closure:4;",
+      "^": "Closure:5;",
       call$3: [function(a1, a2, a3) {
         var t1 = P.String;
         t1 = new R.NgClass(a1, a2, null, null, null, P.LinkedHashSet_LinkedHashSet(null, null, null, t1), P.LinkedHashSet_LinkedHashSet(null, null, null, t1), true);
@@ -55743,7 +55814,7 @@
       }, null, null, 6, 0, null, 1, 3, 4, "call"]
     },
     closure836: {
-      "^": "Closure:4;",
+      "^": "Closure:5;",
       call$3: [function(a1, a2, a3) {
         var t1 = P.String;
         t1 = new R.NgClassOdd(a1, a2, 0, null, null, P.LinkedHashSet_LinkedHashSet(null, null, null, t1), P.LinkedHashSet_LinkedHashSet(null, null, null, t1), true);
@@ -55752,7 +55823,7 @@
       }, null, null, 6, 0, null, 1, 3, 4, "call"]
     },
     closure837: {
-      "^": "Closure:4;",
+      "^": "Closure:5;",
       call$3: [function(a1, a2, a3) {
         var t1 = P.String;
         t1 = new R.NgClassEven(a1, a2, 1, null, null, P.LinkedHashSet_LinkedHashSet(null, null, null, t1), P.LinkedHashSet_LinkedHashSet(null, null, null, t1), true);
@@ -55775,19 +55846,19 @@
       }, null, null, 4, 0, null, 1, 3, "call"]
     },
     closure840: {
-      "^": "Closure:4;",
+      "^": "Closure:5;",
       call$3: [function(a1, a2, a3) {
         return new R.NgIf(a1, a2, a3, null);
       }, null, null, 6, 0, null, 1, 3, 4, "call"]
     },
     closure841: {
-      "^": "Closure:4;",
+      "^": "Closure:5;",
       call$3: [function(a1, a2, a3) {
         return new R.NgUnless(a1, a2, a3, null);
       }, null, null, 6, 0, null, 1, 3, 4, "call"]
     },
     closure842: {
-      "^": "Closure:6;",
+      "^": "Closure:7;",
       call$5: [function(a1, a2, a3, a4, a5) {
         return new R.NgInclude(a1, a2, a3, a4, a5, null, null);
       }, null, null, 10, 0, null, 1, 3, 4, 5, 7, "call"]
@@ -55800,7 +55871,7 @@
         t2 = H.setRuntimeTypeInfo([], [R.NgControl]);
         t3 = P.String;
         t4 = [t3, [P.Set, R.NgControl]];
-        t1 = new R.NgModel(a1, new R.closure1063(), null, null, null, null, null, false, new R.closure1064(), t1, null, null, null, null, null, a3.getFromParentByKey$1($.$get$NG_CONTROL_KEY()), a5, a2, t2, new H.JsLinkedHashMap(0, null, null, null, null, null, 0, [t3, [P.List, R.NgControl]]), new H.JsLinkedHashMap(0, null, null, null, null, null, 0, t4), new H.JsLinkedHashMap(0, null, null, null, null, null, 0, t4));
+        t1 = new R.NgModel(a1, new R.closure1064(), null, null, null, null, null, false, new R.closure1065(), t1, null, null, null, null, null, a3.getFromParentByKey$1($.$get$NG_CONTROL_KEY()), a5, a2, t2, new H.JsLinkedHashMap(0, null, null, null, null, null, 0, [t3, [P.List, R.NgControl]]), new H.JsLinkedHashMap(0, null, null, null, null, null, 0, t4), new H.JsLinkedHashMap(0, null, null, null, null, null, 0, t4));
         t2 = J.$index$asx(a4, "ng-model");
         t1._module3$_expression = t2;
         if (a6 != null)
@@ -55821,13 +55892,13 @@
       }, null, null, 12, 0, null, 1, 3, 4, 5, 7, 15, "call"]
     },
     closure845: {
-      "^": "Closure:5;",
+      "^": "Closure:4;",
       call$4: [function(a1, a2, a3, a4) {
         return R.InputTextLike$(a1, a2, a3, a4);
       }, null, null, 8, 0, null, 1, 3, 4, 5, "call"]
     },
     closure846: {
-      "^": "Closure:5;",
+      "^": "Closure:4;",
       call$4: [function(a1, a2, a3, a4) {
         return R.InputNumberLike$(a1, a2, a3, a4);
       }, null, null, 8, 0, null, 1, 3, 4, 5, "call"]
@@ -55839,7 +55910,7 @@
       }, null, null, 2, 0, null, 1, "call"]
     },
     closure848: {
-      "^": "Closure:6;",
+      "^": "Closure:7;",
       call$5: [function(a1, a2, a3, a4, a5) {
         return R.InputDateLike$(a1, a2, a3, a4, a5);
       }, null, null, 10, 0, null, 1, 3, 4, 5, 7, "call"]
@@ -55863,13 +55934,13 @@
       }, null, null, 2, 0, null, 1, "call"]
     },
     closure852: {
-      "^": "Closure:6;",
+      "^": "Closure:7;",
       call$5: [function(a1, a2, a3, a4, a5) {
         return R.InputRadio$(a1, a2, a3, a4, a5);
       }, null, null, 10, 0, null, 1, 3, 4, 5, 7, "call"]
     },
     closure853: {
-      "^": "Closure:5;",
+      "^": "Closure:4;",
       call$4: [function(a1, a2, a3, a4) {
         var t1 = new R.ContentEditable(a1, a2, a4, a3, null);
         t1.InputTextLike$4(a1, a2, a3, a4);
@@ -55877,15 +55948,15 @@
       }, null, null, 8, 0, null, 1, 3, 4, 5, "call"]
     },
     closure854: {
-      "^": "Closure:5;",
+      "^": "Closure:4;",
       call$4: [function(a1, a2, a3, a4) {
         return R.NgPluralize$(a1, a2, a3, a4);
       }, null, null, 8, 0, null, 1, 3, 4, 5, "call"]
     },
     closure855: {
-      "^": "Closure:6;",
+      "^": "Closure:7;",
       call$5: [function(a1, a2, a3, a4, a5) {
-        return new R.NgRepeat(a1, a2, a3, a4, a5, null, null, null, null, null, new R.closure1062(), null);
+        return new R.NgRepeat(a1, a2, a3, a4, a5, null, null, null, null, null, new R.closure1063(), null);
       }, null, null, 10, 0, null, 1, 3, 4, 5, 7, "call"]
     },
     closure856: {
@@ -55937,13 +56008,13 @@
       }, null, null, 2, 0, null, 1, "call"]
     },
     closure864: {
-      "^": "Closure:4;",
+      "^": "Closure:5;",
       call$3: [function(a1, a2, a3) {
         return new R.NgSwitchWhen(a1, a2, a3);
       }, null, null, 6, 0, null, 1, 3, 4, "call"]
     },
     closure865: {
-      "^": "Closure:4;",
+      "^": "Closure:5;",
       call$3: [function(a1, a2, a3) {
         a1.addCase$3("?", a2, a3);
         return new R.NgSwitchDefault();
@@ -55956,13 +56027,13 @@
       }, null, null, 0, 0, null, "call"]
     },
     closure867: {
-      "^": "Closure:5;",
+      "^": "Closure:4;",
       call$4: [function(a1, a2, a3, a4) {
         return R.InputSelect$(a1, a2, a3, a4);
       }, null, null, 8, 0, null, 1, 3, 4, 5, "call"]
     },
     closure868: {
-      "^": "Closure:4;",
+      "^": "Closure:5;",
       call$3: [function(a1, a2, a3) {
         var t1 = new R.OptionValue(a2, a1, a3);
         if (a2 != null)
@@ -55971,7 +56042,7 @@
       }, null, null, 6, 0, null, 1, 3, 4, "call"]
     },
     closure869: {
-      "^": "Closure:5;",
+      "^": "Closure:4;",
       call$4: [function(a1, a2, a3, a4) {
         return R.NgForm$(a1, a2, a3, a4);
       }, null, null, 8, 0, null, 1, 3, 4, 5, "call"]
@@ -56063,7 +56134,7 @@
       }, null, null, 0, 0, null, "call"]
     },
     closure881: {
-      "^": "Closure:4;",
+      "^": "Closure:5;",
       call$3: [function(a1, a2, a3) {
         var t1 = P.LinkedHashMap__makeEmpty();
         a3.registerCache$2("Parser", t1);
@@ -56250,7 +56321,7 @@
       }, null, null, 0, 0, null, "call"]
     },
     closure908: {
-      "^": "Closure:4;",
+      "^": "Closure:5;",
       call$3: [function(a1, a2, a3) {
         return new K.AnimationLoop(a1, a2, [], a3, false);
       }, null, null, 6, 0, null, 1, 3, 4, "call"]
@@ -56271,7 +56342,7 @@
       }, null, null, 2, 0, null, 1, "call"]
     },
     closure911: {
-      "^": "Closure:4;",
+      "^": "Closure:5;",
       call$3: [function(a1, a2, a3) {
         return new K.CssAnimate(new Y.NoOpAnimation(null), a1, a3, a2);
       }, null, null, 6, 0, null, 1, 3, 4, "call"]
@@ -56301,7 +56372,7 @@
       }, null, null, 0, 0, null, "call"]
     },
     closure916: {
-      "^": "Closure:5;",
+      "^": "Closure:4;",
       call$4: [function(a1, a2, a3, a4) {
         return T.NgRoutingHelper$(a1, a2, a3, a4);
       }, null, null, 8, 0, null, 1, 3, 4, 5, "call"]
@@ -56321,7 +56392,7 @@
       }, null, null, 12, 0, null, 1, 3, 4, 5, 7, 15, "call"]
     },
     closure918: {
-      "^": "Closure:4;",
+      "^": "Closure:5;",
       call$3: [function(a1, a2, a3) {
         return new T.NgBindRoute(null, a1, a2);
       }, null, null, 6, 0, null, 1, 3, 4, "call"]
@@ -56333,43 +56404,43 @@
       }, null, null, 2, 0, null, 1, "call"]
     },
     closure920: {
-      "^": "Closure:5;",
+      "^": "Closure:4;",
       call$4: [function(a1, a2, a3, a4) {
         return new V.ActivitySelectComponent(null, null, false, a1, null, a2, false, null, null, C.Type_Activity_q2S, [], "", a3, a4, false, false, "", null);
       }, null, null, 8, 0, null, 1, 3, 4, 5, "call"]
     },
     closure921: {
-      "^": "Closure:5;",
+      "^": "Closure:4;",
       call$4: [function(a1, a2, a3, a4) {
         return new V.CustomerSelectComponent(a1, null, a2, false, null, null, C.Type_Customer_4QZ, [], "", a3, a4, false, false, "", null);
       }, null, null, 8, 0, null, 1, 3, 4, 5, "call"]
     },
     closure922: {
-      "^": "Closure:5;",
+      "^": "Closure:4;",
       call$4: [function(a1, a2, a3, a4) {
         return new V.OfferStatusSelectComponent(a1, null, a2, false, null, null, C.Type_OfferStatusUC_agx, [], "", a3, a4, false, false, "", null);
       }, null, null, 8, 0, null, 1, 3, 4, 5, "call"]
     },
     closure923: {
-      "^": "Closure:5;",
+      "^": "Closure:4;",
       call$4: [function(a1, a2, a3, a4) {
         return new V.ProjectSelectComponent(a1, null, a2, false, null, null, C.Type_Project_IEg, [], "", a3, a4, false, false, "", null);
       }, null, null, 8, 0, null, 1, 3, 4, 5, "call"]
     },
     closure924: {
-      "^": "Closure:5;",
+      "^": "Closure:4;",
       call$4: [function(a1, a2, a3, a4) {
         return new V.ProjectCategorySelectComponent(a1, null, a2, false, null, null, C.Type_ProjectCategory_iNa, [], "", a3, a4, false, false, "", null);
       }, null, null, 8, 0, null, 1, 3, 4, 5, "call"]
     },
     closure925: {
-      "^": "Closure:5;",
+      "^": "Closure:4;",
       call$4: [function(a1, a2, a3, a4) {
         return new V.RateGroupSelectComponent(a1, null, a2, false, null, null, C.Type_RateGroup_FYo, [], "", a3, a4, false, false, "", null);
       }, null, null, 8, 0, null, 1, 3, 4, 5, "call"]
     },
     closure926: {
-      "^": "Closure:5;",
+      "^": "Closure:4;",
       call$4: [function(a1, a2, a3, a4) {
         return new V.RateUnitTypeSelectComponent(a1, null, a2, false, null, null, C.Type_RateUnitType_ahs, [], "", a3, a4, false, false, "", null);
       }, null, null, 8, 0, null, 1, 3, 4, 5, "call"]
@@ -56381,380 +56452,386 @@
       }, null, null, 2, 0, null, 1, "call"]
     },
     closure928: {
-      "^": "Closure:5;",
+      "^": "Closure:4;",
       call$4: [function(a1, a2, a3, a4) {
         return new V.ServiceSelectComponent(false, a1, null, a2, false, null, null, C.Type_Service_QOM, [], "", a3, a4, false, false, "", null);
       }, null, null, 8, 0, null, 1, 3, 4, 5, "call"]
     },
     closure929: {
-      "^": "Closure:5;",
+      "^": "Closure:4;",
       call$4: [function(a1, a2, a3, a4) {
         return new V.StandardDiscountSelectComponent(a1, null, a2, false, null, null, C.Type_StandardDiscount_8Gl, [], "", a3, a4, false, false, "", null);
       }, null, null, 8, 0, null, 1, 3, 4, 5, "call"]
     },
     closure930: {
-      "^": "Closure:6;",
+      "^": "Closure:7;",
       call$5: [function(a1, a2, a3, a4, a5) {
         return new V.UserSelectComponent(a3, false, a1, null, a2, false, null, null, C.Type_Employee_YsI, [], "", a4, a5, false, false, "", null);
       }, null, null, 10, 0, null, 1, 3, 4, 5, 7, "call"]
     },
     closure931: {
+      "^": "Closure:4;",
+      call$4: [function(a1, a2, a3, a4) {
+        return new V.CostGroupSelectComponent(a1, null, a2, false, null, null, C.Type_CostGroup_M6i, [], "", a3, a4, false, false, "", null);
+      }, null, null, 8, 0, null, 1, 3, 4, 5, "call"]
+    },
+    closure932: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return new B.DataCache(a1, new H.JsLinkedHashMap(0, null, null, null, null, null, 0, [P.int, P.Future]));
       }, null, null, 2, 0, null, 1, "call"]
     },
-    closure932: {
+    closure933: {
       "^": "Closure:1;",
       call$2: [function(a1, a2) {
         return new E.ResourceStore(a1, a2, []);
       }, null, null, 4, 0, null, 1, 3, "call"]
     },
-    closure933: {
+    closure934: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return new E.HammockConfig(P.LinkedHashMap__makeEmpty(), new R.SimpleDocumentFormat(new P.JsonEncoder(null, null), new P.JsonDecoder(null)), new E.RequestDefaults(null, null, false, null, null, null, null, null), new E.HammockUrlRewriter("", ""), a1);
       }, null, null, 2, 0, null, 1, "call"]
     },
-    closure934: {
+    closure935: {
       "^": "Closure:1;",
       call$2: [function(a1, a2) {
         return new E.ObjectStore(a1, a2);
       }, null, null, 4, 0, null, 1, 3, "call"]
     },
-    closure935: {
-      "^": "Closure:6;",
+    closure936: {
+      "^": "Closure:7;",
       call$5: [function(a1, a2, a3, a4, a5) {
         return new Z.UserAuthProvider("dimeAuthToken", a4, a3, a1, a2, a5, [], false, false);
       }, null, null, 10, 0, null, 1, 3, 4, 5, 7, "call"]
     },
-    closure936: {
-      "^": "Closure:4;",
+    closure937: {
+      "^": "Closure:5;",
       call$3: [function(a1, a2, a3) {
         return new M.SettingsManager(a2, a1, null, null, null, null, false, a3);
       }, null, null, 6, 0, null, 1, 3, 4, "call"]
     },
-    closure937: {
+    closure938: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return new L.UserContext(a1, [], new D.Employee("employees", null, null, null, "users", null, null, null, null, null, null, null, [], null, [], "entities", null, null, null, null, null, []));
       }, null, null, 2, 0, null, 1, "call"]
     },
-    closure938: {
+    closure939: {
       "^": "Closure:2;",
       call$0: [function() {
         return new K.StatusService(null, "success", "loading", "error", "default", 0);
       }, null, null, 0, 0, null, "call"]
     },
-    closure939: {
+    closure940: {
       "^": "Closure:2;",
       call$0: [function() {
         return new Y.TabSetComponent(null, H.setRuntimeTypeInfo([], [Y.ViewLink]));
       }, null, null, 0, 0, null, "call"]
     },
-    closure940: {
+    closure941: {
       "^": "Closure:1;",
       call$2: [function(a1, a2) {
         return new O.AppComponent(null, null, false, false, null, a1, a2);
       }, null, null, 4, 0, null, 1, 3, "call"]
     },
-    closure941: {
+    closure942: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return new Y.ErrorIconComponent(a1);
       }, null, null, 2, 0, null, 1, "call"]
     },
-    closure942: {
+    closure943: {
       "^": "Closure:2;",
       call$0: [function() {
         return new N.DateToTextInput(null, null, null, "dd-MM-y", false, false, false, "", true);
       }, null, null, 0, 0, null, "call"]
     },
-    closure943: {
+    closure944: {
       "^": "Closure:2;",
       call$0: [function() {
         return new R.UserFilter();
       }, null, null, 0, 0, null, "call"]
     },
-    closure944: {
+    closure945: {
       "^": "Closure:2;",
       call$0: [function() {
         return new R.TimesliceDateFilter();
       }, null, null, 0, 0, null, "call"]
     },
-    closure945: {
+    closure946: {
       "^": "Closure:2;",
       call$0: [function() {
         return new R.ProjectValueFilter();
       }, null, null, 0, 0, null, "call"]
     },
-    closure946: {
+    closure947: {
       "^": "Closure:2;",
       call$0: [function() {
         return new R.OfferPositionOrderByOrderField();
       }, null, null, 0, 0, null, "call"]
     },
-    closure947: {
+    closure948: {
       "^": "Closure:2;",
       call$0: [function() {
         return new R.InvoiceItemOrderByOrderField();
       }, null, null, 0, 0, null, "call"]
     },
-    closure948: {
+    closure949: {
       "^": "Closure:2;",
       call$0: [function() {
         return new R.SecondsToHours();
       }, null, null, 0, 0, null, "call"]
     },
-    closure949: {
+    closure950: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return new R.MenuComponent(a1, null, [new A.Menu("Zeiterfassung", "fa-clock-o", [new A.Menu("Erfassen", null, null, true, "/timetrack"), new A.Menu("Mehrfach Erfassen", null, null, true, "/timetrack/multi"), new A.Menu("Stundensaldos", null, null, true, "/timetrack/periods")], true, null), new A.Menu("Offerten", "fa-file-text", [new A.Menu("\xdcbersicht", null, null, true, "/offers/overview")], true, null), new A.Menu("Projekte", "fa-tree", [new A.Menu("\xdcbersicht", null, null, true, "/projects/overview"), new A.Menu("Offene Rechnungen", null, null, true, "/projects/open-invoices"), new A.Menu("Zeiterfassung", null, null, true, "/projects/timetrack")], true, null), new A.Menu("Rechnungen", "fa-calculator", [new A.Menu("\xdcbersicht", null, null, true, "/invoices/overview")], true, null), new A.Menu("Kunden", "fa-users", [new A.Menu("\xdcbersicht", null, null, true, "/customers/overview")], true, null), new A.Menu("Mitarbeiter", "fa-user", [new A.Menu("\xdcbersicht", null, null, true, "/employees/overview")], true, null), new A.Menu("Reports", "fa-bar-chart", [new A.Menu("Wochenrapport", null, null, true, "/reports/weekly"), new A.Menu("Aufwandsbericht", null, null, true, "/reports/expense"), new A.Menu("Projektaufw\xe4nde", null, null, true, "/reports/projectemployee"), new A.Menu("Servicerapport", null, null, true, "/reports/servicehours"), new A.Menu("Umsatzstatistik", null, null, true, "/reports/revenue")], true, null), new A.Menu("Stammdaten", "fa-database", [new A.Menu("Services", null, null, true, "/services/overview"), new A.Menu("Tarif Gruppen", null, null, true, "/rateGroups/overview"), new A.Menu("Tarif Typen", null, null, true, "/rateUnitTypes/overview"), new A.Menu("Feiertage", null, null, true, "/holidays/overview"), new A.Menu("T\xe4tigkeitsbereiche", null, null, true, "/projectCategories/overview")], true, null), new A.Menu("Einstellungen", "fa-cog", [new A.Menu("Projekte Zuweisen", null, null, true, "/settingAssignProjects/overview")], true, null)]);
       }, null, null, 2, 0, null, 1, "call"]
     },
-    closure950: {
+    closure951: {
       "^": "Closure:2;",
       call$0: [function() {
         return new T.AddressEditComponent(null, C.Type_Address_k45, null, null, null, null, null, null, null, null);
       }, null, null, 0, 0, null, "call"]
     },
-    closure951: {
-      "^": "Closure:6;",
+    closure952: {
+      "^": "Closure:7;",
       call$5: [function(a1, a2, a3, a4, a5) {
         var t1 = new T.CustomerEditComponent(null, C.Type_Customer_4QZ, null, a2, a3, null, null, a4, a5, null);
         t1._entId = a1.get$parameters().$index(0, "id");
         return t1;
       }, null, null, 10, 0, null, 1, 3, 4, 5, 7, "call"]
     },
-    closure952: {
-      "^": "Closure:6;",
+    closure953: {
+      "^": "Closure:7;",
       call$5: [function(a1, a2, a3, a4, a5) {
         var t1 = new T.EmployeeEditComponent(C.Type_Employee_YsI, null, a2, a3, null, null, a4, a5, null);
         t1._entId = a1.get$parameters().$index(0, "id");
         return t1;
       }, null, null, 10, 0, null, 1, 3, 4, 5, 7, "call"]
     },
-    closure953: {
-      "^": "Closure:6;",
+    closure954: {
+      "^": "Closure:7;",
       call$5: [function(a1, a2, a3, a4, a5) {
         var t1 = new T.InvoiceEditComponent(null, null, C.Type_Invoice_K61, null, a2, a3, null, null, a4, a5, null);
         t1._entId = a1.get$parameters().$index(0, "id");
         return t1;
       }, null, null, 10, 0, null, 1, 3, 4, 5, 7, "call"]
     },
-    closure954: {
-      "^": "Closure:6;",
+    closure955: {
+      "^": "Closure:7;",
       call$5: [function(a1, a2, a3, a4, a5) {
         var t1 = new T.OfferEditComponent(null, null, null, null, null, null, C.Type_Offer_EGT, null, a2, a3, null, null, a4, a5, null);
         t1._entId = a1.get$parameters().$index(0, "id");
         return t1;
       }, null, null, 10, 0, null, 1, 3, 4, 5, 7, "call"]
     },
-    closure955: {
-      "^": "Closure:6;",
+    closure956: {
+      "^": "Closure:7;",
       call$5: [function(a1, a2, a3, a4, a5) {
         var t1 = new T.ProjectEditComponent(null, null, C.Type_Project_IEg, null, a2, a3, null, null, a4, a5, null);
         t1._entId = a1.get$parameters().$index(0, "id");
         return t1;
       }, null, null, 10, 0, null, 1, 3, 4, 5, 7, "call"]
     },
-    closure956: {
-      "^": "Closure:6;",
+    closure957: {
+      "^": "Closure:7;",
       call$5: [function(a1, a2, a3, a4, a5) {
         var t1 = new T.ServiceEditComponent(C.Type_Service_QOM, null, a2, a3, null, null, a4, a5, null);
         t1._entId = a1.get$parameters().$index(0, "id");
         return t1;
       }, null, null, 10, 0, null, 1, 3, 4, 5, 7, "call"]
     },
-    closure957: {
-      "^": "Closure:4;",
+    closure958: {
+      "^": "Closure:5;",
       call$3: [function(a1, a2, a3) {
         return new F.ActivityOverviewComponent(null, true, false, null, [], C.Type_Activity_q2S, a1, null, a3, null, "", a2, null, "", "", false);
       }, null, null, 6, 0, null, 1, 3, 4, "call"]
     },
-    closure958: {
+    closure959: {
       "^": "Closure:17;",
       call$6: [function(a1, a2, a3, a4, a5, a6) {
         return new F.CustomerOverviewComponent("name", false, null, [], C.Type_Customer_4QZ, a1, a2, a4, null, "customer_edit", a3, a5, "", "", false);
       }, null, null, 12, 0, null, 1, 3, 4, 5, 7, 15, "call"]
     },
-    closure959: {
-      "^": "Closure:6;",
+    closure960: {
+      "^": "Closure:7;",
       call$5: [function(a1, a2, a3, a4, a5) {
         return new F.SettingAssignProjectOverviewComponent(a4, [], [], false, null, [], C.Type_SettingAssignProject_app, a1, null, a3, null, "", a2, a5, "", "", false);
       }, null, null, 10, 0, null, 1, 3, 4, 5, 7, "call"]
     },
-    closure960: {
-      "^": "Closure:6;",
+    closure961: {
+      "^": "Closure:7;",
       call$5: [function(a1, a2, a3, a4, a5) {
         return new F.EmployeeOverviewComponent("username", false, null, [], C.Type_Employee_YsI, a1, a2, a4, null, "employee_edit", a3, a5, "", "", false);
       }, null, null, 10, 0, null, 1, 3, 4, 5, 7, "call"]
     },
-    closure961: {
-      "^": "Closure:5;",
+    closure962: {
+      "^": "Closure:4;",
       call$4: [function(a1, a2, a3, a4) {
         return new F.HolidayOverviewComponent(false, null, [], C.Type_Holiday_YlI, a1, null, a3, null, "", a2, a4, "", "", false);
       }, null, null, 8, 0, null, 1, 3, 4, 5, "call"]
     },
-    closure962: {
-      "^": "Closure:6;",
+    closure963: {
+      "^": "Closure:7;",
       call$5: [function(a1, a2, a3, a4, a5) {
         return new F.InvoiceOverviewComponent("name", false, null, [], C.Type_Invoice_K61, a1, a2, a4, null, "invoice_edit", a3, a5, "", "", false);
       }, null, null, 10, 0, null, 1, 3, 4, 5, 7, "call"]
     },
-    closure963: {
-      "^": "Closure:4;",
+    closure964: {
+      "^": "Closure:5;",
       call$3: [function(a1, a2, a3) {
         return new F.InvoiceDiscountOverviewComponent(true, null, false, null, [], C.Type_InvoiceDiscount_0, a1, null, a3, null, "", a2, null, "", "", false);
       }, null, null, 6, 0, null, 1, 3, 4, "call"]
     },
-    closure964: {
-      "^": "Closure:4;",
+    closure965: {
+      "^": "Closure:5;",
       call$3: [function(a1, a2, a3) {
         return new F.InvoiceItemOverviewComponent(true, null, null, false, null, [], C.Type_InvoiceItem_FFX, a1, null, a3, null, "", a2, null, "", "", false);
       }, null, null, 6, 0, null, 1, 3, 4, "call"]
     },
-    closure965: {
+    closure966: {
       "^": "Closure:17;",
       call$6: [function(a1, a2, a3, a4, a5, a6) {
         return new F.OfferOverviewComponent("name", a2, false, null, [], C.Type_Offer_EGT, a1, a3, a5, null, "offer_edit", a4, a6, "", "", false);
       }, null, null, 12, 0, null, 1, 3, 4, 5, 7, 15, "call"]
     },
-    closure966: {
-      "^": "Closure:4;",
+    closure967: {
+      "^": "Closure:5;",
       call$3: [function(a1, a2, a3) {
         return new F.OfferDiscountOverviewComponent(true, null, false, null, [], C.Type_OfferDiscount_8pl, a1, null, a3, null, "", a2, null, "", "", false);
       }, null, null, 6, 0, null, 1, 3, 4, "call"]
     },
-    closure967: {
-      "^": "Closure:4;",
+    closure968: {
+      "^": "Closure:5;",
       call$3: [function(a1, a2, a3) {
         return new F.OfferPositionOverviewComponent(true, null, false, null, [], C.Type_OfferPosition_ijl, a1, null, a3, null, "", a2, null, "", "", false);
       }, null, null, 6, 0, null, 1, 3, 4, "call"]
     },
-    closure968: {
-      "^": "Closure:5;",
+    closure969: {
+      "^": "Closure:4;",
       call$4: [function(a1, a2, a3, a4) {
         return new F.PeriodOverviewComponent(null, a4, [], null, [], null, true, false, null, [], C.Type_Period_d05, a1, null, a3, null, "", a2, null, "", "", false);
       }, null, null, 8, 0, null, 1, 3, 4, 5, "call"]
     },
-    closure969: {
+    closure970: {
       "^": "Closure:67;",
       call$7: [function(a1, a2, a3, a4, a5, a6, a7) {
         return new F.ProjectOverviewComponent("name", a2, false, null, [], C.Type_Project_IEg, a1, a3, a5, null, "project_edit", a4, a6, "", "", false);
       }, null, null, 14, 0, null, 1, 3, 4, 5, 7, 15, 27, "call"]
     },
-    closure970: {
+    closure971: {
       "^": "Closure:67;",
       call$7: [function(a1, a2, a3, a4, a5, a6, a7) {
         return new F.ProjectOpenInvoicesComponent("name", a2, false, null, [], C.Type_Project_IEg, a1, a3, a5, null, "project_edit", a4, a6, "", "", false);
       }, null, null, 14, 0, null, 1, 3, 4, 5, 7, 15, 27, "call"]
     },
-    closure971: {
-      "^": "Closure:5;",
+    closure972: {
+      "^": "Closure:4;",
       call$4: [function(a1, a2, a3, a4) {
         return new F.ProjectCategoryOverviewComponent(false, null, [], C.Type_ProjectCategory_iNa, a1, null, a3, null, "", a2, a4, "", "", false);
       }, null, null, 8, 0, null, 1, 3, 4, 5, "call"]
     },
-    closure972: {
-      "^": "Closure:4;",
+    closure973: {
+      "^": "Closure:5;",
       call$3: [function(a1, a2, a3) {
         return new F.RateOverviewComponent(true, null, false, null, [], C.Type_Rate_DC0, a1, null, a3, null, "", a2, null, "", "", false);
       }, null, null, 6, 0, null, 1, 3, 4, "call"]
     },
-    closure973: {
-      "^": "Closure:5;",
+    closure974: {
+      "^": "Closure:4;",
       call$4: [function(a1, a2, a3, a4) {
         return new F.RateGroupOverviewComponent(false, null, [], C.Type_RateGroup_FYo, a1, null, a3, null, "", a2, a4, "", "", false);
       }, null, null, 8, 0, null, 1, 3, 4, 5, "call"]
     },
-    closure974: {
-      "^": "Closure:5;",
+    closure975: {
+      "^": "Closure:4;",
       call$4: [function(a1, a2, a3, a4) {
         return new F.RateUnitTypeOverviewComponent(false, null, [], C.Type_RateUnitType_ahs, a1, null, a3, null, "", a2, a4, "", "", false);
       }, null, null, 8, 0, null, 1, 3, 4, 5, "call"]
     },
-    closure975: {
-      "^": "Closure:6;",
+    closure976: {
+      "^": "Closure:7;",
       call$5: [function(a1, a2, a3, a4, a5) {
         return new F.ServiceOverviewComponent("name", false, null, [], C.Type_Service_QOM, a1, a2, a4, null, "service_edit", a3, a5, "", "", false);
       }, null, null, 10, 0, null, 1, 3, 4, 5, 7, "call"]
     },
-    closure976: {
+    closure977: {
       "^": "Closure:1;",
       call$2: [function(a1, a2) {
         return new F.StandardDiscountOverviewComponent(null, null, false, null, [], C.Type_StandardDiscount_8Gl, null, null, a2, null, "", a1, null, "", "", false);
       }, null, null, 4, 0, null, 1, 3, "call"]
     },
-    closure977: {
-      "^": "Closure:6;",
+    closure978: {
+      "^": "Closure:7;",
       call$5: [function(a1, a2, a3, a4, a5) {
         return new F.TimesliceOverviewComponent(null, a4, false, true, [], new P.DateTime(Date.now(), false), null, true, null, null, null, null, null, true, true, false, false, null, [], C.Type_Timeslice_2No, a1, null, a3, null, "", a2, a5, "", "", false);
       }, null, null, 10, 0, null, 1, 3, 4, 5, 7, "call"]
     },
-    closure978: {
+    closure979: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return new L.StatusBarComponent(a1);
       }, null, null, 2, 0, null, 1, "call"]
     },
-    closure979: {
+    closure980: {
       "^": "Closure:2;",
       call$0: [function() {
         return new F.DateRange(null, null, null, "dd-MM-y", false);
       }, null, null, 0, 0, null, "call"]
     },
-    closure980: {
+    closure981: {
       "^": "Closure:1;",
       call$2: [function(a1, a2) {
         return new D.TimetrackComponent(a2, a1, null);
       }, null, null, 4, 0, null, 1, 3, "call"]
     },
-    closure981: {
-      "^": "Closure:6;",
+    closure982: {
+      "^": "Closure:7;",
       call$5: [function(a1, a2, a3, a4, a5) {
         return new D.TimetrackMultiComponent(a4, null, null, null, "", [], null, [], [], null, false, null, [], C.Type_Timeslice_2No, a1, null, a3, null, "", a2, a5, "", "", false);
       }, null, null, 10, 0, null, 1, 3, 4, 5, 7, "call"]
     },
-    closure982: {
+    closure983: {
       "^": "Closure:1;",
       call$2: [function(a1, a2) {
         return new D.ProjectTimetrackComponent(a1, null, a2, null, null);
       }, null, null, 4, 0, null, 1, 3, "call"]
     },
-    closure983: {
-      "^": "Closure:5;",
+    closure984: {
+      "^": "Closure:4;",
       call$4: [function(a1, a2, a3, a4) {
         return new D.TimetrackPeriodsComponent(a2, a1, null, a3, a4, true, []);
       }, null, null, 8, 0, null, 1, 3, 4, 5, "call"]
     },
-    closure984: {
+    closure985: {
       "^": "Closure:1;",
       call$2: [function(a1, a2) {
         return new O.SettingEditComponent(a1, a2, false, null, null, null, null);
       }, null, null, 4, 0, null, 1, 3, "call"]
     },
-    closure985: {
+    closure986: {
       "^": "Closure:1;",
       call$2: [function(a1, a2) {
         $.$get$_log2().fine$1("CarouselComponent");
         return new V.Carousel(false, null, false, [], -1, null, false, null, false, a1, null, a2, null);
       }, null, null, 4, 0, null, 1, 3, "call"]
     },
-    closure986: {
+    closure987: {
       "^": "Closure:1;",
       call$2: [function(a1, a2) {
         $.$get$_log2().fine$1("SlideComponent");
         return new V.Slide(null, false, "", false, false, false, a1, a2);
       }, null, null, 4, 0, null, 1, 3, "call"]
     },
-    closure987: {
+    closure988: {
       "^": "Closure:1;",
       call$2: [function(a1, a2) {
         return new O.TimeItem(a1, a2);
       }, null, null, 4, 0, null, 1, 3, "call"]
     },
-    closure988: {
+    closure989: {
       "^": "Closure:1;",
       call$2: [function(a1, a2) {
         var t1 = new O.Timeout(new H.JsLinkedHashMap(0, null, null, null, null, null, 0, [P.Completer, O.TimeItem]), null, a2, null);
@@ -56762,57 +56839,57 @@
         return t1;
       }, null, null, 4, 0, null, 1, 3, "call"]
     },
-    closure989: {
+    closure990: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return L.Transition$(a1);
       }, null, null, 2, 0, null, 1, "call"]
     },
-    closure990: {
-      "^": "Closure:4;",
+    closure991: {
+      "^": "Closure:5;",
       call$3: [function(a1, a2, a3) {
         return new Q.ProgressBar(a1, null, null, null, a3, a2, 0, 0, null, null);
       }, null, null, 6, 0, null, 1, 3, 4, "call"]
     },
-    closure991: {
+    closure992: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return new Q.Progress(null, a1, null);
       }, null, null, 2, 0, null, 1, "call"]
     },
-    closure992: {
-      "^": "Closure:4;",
+    closure993: {
+      "^": "Closure:5;",
       call$3: [function(a1, a2, a3) {
         return new Q.Bar(a1, null, null, null, null, a3, a2, 0, 0, null, null);
       }, null, null, 6, 0, null, 1, 3, 4, "call"]
     },
-    closure993: {
+    closure994: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return new M.NgPseudo(a1);
       }, null, null, 2, 0, null, 1, "call"]
     },
-    closure994: {
+    closure995: {
       "^": "Closure:2;",
       call$0: [function() {
         return new K.AccordionConfig(true);
       }, null, null, 0, 0, null, "call"]
     },
-    closure995: {
+    closure996: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return new K.AccordionComponent(null, null, a1, []);
       }, null, null, 2, 0, null, 1, "call"]
     },
-    closure996: {
-      "^": "Closure:4;",
+    closure997: {
+      "^": "Closure:5;",
       call$3: [function(a1, a2, a3) {
         var t1 = new K.AccordionGroupComponent(null, a1, a2, a3, false, true, false);
         a1.addGroup$1(t1);
         return t1;
       }, null, null, 6, 0, null, 1, 3, 4, "call"]
     },
-    closure997: {
+    closure998: {
       "^": "Closure:1;",
       call$2: [function(a1, a2) {
         J.remove$0$ax(a1);
@@ -56820,50 +56897,50 @@
         return new K.AccordionHeadingComponent();
       }, null, null, 4, 0, null, 1, 3, "call"]
     },
-    closure998: {
+    closure999: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return new K.AccordionTransclude(a1);
       }, null, null, 2, 0, null, 1, "call"]
     },
-    closure999: {
+    closure1000: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return new E.DblClickPreventer(true, a1);
       }, null, null, 2, 0, null, 1, "call"]
     },
-    closure1000: {
-      "^": "Closure:5;",
+    closure1001: {
+      "^": "Closure:4;",
       call$4: [function(a1, a2, a3, a4) {
         return A.BtnRadio$(a1, a2, a3, a4);
       }, null, null, 8, 0, null, 1, 3, 4, 5, "call"]
     },
-    closure1001: {
-      "^": "Closure:5;",
+    closure1002: {
+      "^": "Closure:4;",
       call$4: [function(a1, a2, a3, a4) {
         return A.BtnCheckbox$(a1, a2, a3, a4);
       }, null, null, 8, 0, null, 1, 3, 4, 5, "call"]
     },
-    closure1002: {
+    closure1003: {
       "^": "Closure:2;",
       call$0: [function() {
         return new G.DragDropZonesService([]);
       }, null, null, 0, 0, null, "call"]
     },
-    closure1003: {
+    closure1004: {
       "^": "Closure:2;",
       call$0: [function() {
         return new G.DragDropDataService(null, null);
       }, null, null, 0, 0, null, "call"]
     },
-    closure1004: {
+    closure1005: {
       "^": "Closure:2;",
       call$0: [function() {
         return new G.DragDropConfigService(new G.DragDropConfig("ui-drag-start", "ui-drag-enter", "ui-drag-over", null, C.DataTransferEffect_move, C.DataTransferEffect_move, "move"), new G.SortableConfig("ui-sortable-drag", null, C.DataTransferEffect_move, C.DataTransferEffect_move, "move"));
       }, null, null, 0, 0, null, "call"]
     },
-    closure1005: {
-      "^": "Closure:5;",
+    closure1006: {
+      "^": "Closure:4;",
       call$4: [function(a1, a2, a3, a4) {
         var t1, t2;
         t1 = a4.get$dragDropConfig();
@@ -56875,8 +56952,8 @@
         return t2;
       }, null, null, 8, 0, null, 1, 3, 4, 5, "call"]
     },
-    closure1006: {
-      "^": "Closure:5;",
+    closure1007: {
+      "^": "Closure:4;",
       call$4: [function(a1, a2, a3, a4) {
         var t1, t2;
         t1 = a4.get$dragDropConfig();
@@ -56887,20 +56964,20 @@
         return t2;
       }, null, null, 8, 0, null, 1, 3, 4, 5, "call"]
     },
-    closure1007: {
+    closure1008: {
       "^": "Closure:2;",
       call$0: [function() {
         return new G.DragDropSortableDataService(null, null, null, null);
       }, null, null, 0, 0, null, "call"]
     },
-    closure1008: {
-      "^": "Closure:6;",
+    closure1009: {
+      "^": "Closure:7;",
       call$5: [function(a1, a2, a3, a4, a5) {
         return G.SortableComponent$(a1, a2, a3, a4, a5);
       }, null, null, 10, 0, null, 1, 3, 4, 5, 7, "call"]
     },
-    closure1009: {
-      "^": "Closure:6;",
+    closure1010: {
+      "^": "Closure:7;",
       call$5: [function(a1, a2, a3, a4, a5) {
         var t1, t2;
         t1 = a5.get$sortableConfig();
@@ -56913,25 +56990,25 @@
         return t2;
       }, null, null, 10, 0, null, 1, 3, 4, 5, 7, "call"]
     },
-    closure1010: {
-      "^": "Closure:5;",
+    closure1011: {
+      "^": "Closure:4;",
       call$4: [function(a1, a2, a3, a4) {
         return new V.PagerConfig(a1, a2, a3, a4);
       }, null, null, 8, 0, null, 1, 3, 4, 5, "call"]
     },
-    closure1011: {
+    closure1012: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return V.PagerComponent$(a1);
       }, null, null, 2, 0, null, 1, "call"]
     },
-    closure1012: {
+    closure1013: {
       "^": "Closure:39;",
       call$8: [function(a1, a2, a3, a4, a5, a6, a7, a8) {
         return new V.PaginationConfig(a2, a3, a4, a7, null, a1, a5, a6, a8);
       }, null, null, 16, 0, null, 1, 3, 4, 5, 7, 15, 27, 36, "call"]
     },
-    closure1013: {
+    closure1014: {
       "^": "Closure:1;",
       call$2: [function(a1, a2) {
         var t1 = new V.PaginationComponent(null, a2, null, null, null, null, null, null, null, null, a1, null, null, null, null, null, null, null, null, null);
@@ -56946,55 +57023,55 @@
         return t1;
       }, null, null, 4, 0, null, 1, 3, "call"]
     },
-    closure1014: {
-      "^": "Closure:4;",
+    closure1015: {
+      "^": "Closure:5;",
       call$3: [function(a1, a2, a3) {
         return new V.PageInfo(a1, a2, a3);
       }, null, null, 6, 0, null, 1, 3, 4, "call"]
     },
-    closure1015: {
+    closure1016: {
       "^": "Closure:2;",
       call$0: [function() {
         return new V.BasicPaginationGenerator();
       }, null, null, 0, 0, null, "call"]
     },
-    closure1016: {
-      "^": "Closure:5;",
+    closure1017: {
+      "^": "Closure:4;",
       call$4: [function(a1, a2, a3, a4) {
         return G.RatingComponent$(a1, a2, a3, a4);
       }, null, null, 8, 0, null, 1, 3, 4, 5, "call"]
     },
-    closure1017: {
+    closure1018: {
       "^": "Closure:2;",
       call$0: [function() {
         return new S.TooltipConfig(P.LinkedHashMap__makeLiteral(["placement", "top", "animation", true, "popupDelay", 0]), P.LinkedHashMap__makeLiteral(["mouseenter", "mouseleave", "click", "click", "focus", "blur"]), P.LinkedHashMap__makeEmpty());
       }, null, null, 0, 0, null, "call"]
     },
-    closure1018: {
+    closure1019: {
       "^": "Closure:39;",
       call$8: [function(a1, a2, a3, a4, a5, a6, a7, a8) {
         return new S.Tooltip('<div><div class="tooltip-arrow"></div><div class="tooltip-inner"></div></div>', null, null, null, null, null, null, false, null, false, null, a1, a2, a3, a4, "mouseenter", "tooltip", a5, "tooltip", a6, a7, a8, null, null, null, null, null, null);
       }, null, null, 16, 0, null, 1, 3, 4, 5, 7, 15, 27, 36, "call"]
     },
-    closure1019: {
+    closure1020: {
       "^": "Closure:2;",
       call$0: [function() {
         return new Z.Position();
       }, null, null, 0, 0, null, "call"]
     },
-    closure1020: {
-      "^": "Closure:5;",
+    closure1021: {
+      "^": "Closure:4;",
       call$4: [function(a1, a2, a3, a4) {
         return H.throwNoSuchMethod("", "", [a1, a2, a3, a4], ["left", "top", "width", "height"]);
       }, null, null, 8, 0, null, 1, 3, 4, 5, "call"]
     },
-    closure1021: {
+    closure1022: {
       "^": "Closure:2;",
       call$0: [function() {
         return new Q.TabsetComponent(null, false, false, "tabs", []);
       }, null, null, 0, 0, null, "call"]
     },
-    closure1022: {
+    closure1023: {
       "^": "Closure:1;",
       call$2: [function(a1, a2) {
         var t1 = new Q.TabComponent(null, a2, a1, null, null, false, null, false);
@@ -57003,7 +57080,7 @@
         return t1;
       }, null, null, 4, 0, null, 1, 3, "call"]
     },
-    closure1023: {
+    closure1024: {
       "^": "Closure:1;",
       call$2: [function(a1, a2) {
         J.remove$0$ax(a1);
@@ -57011,79 +57088,79 @@
         return new Q.TabHeading();
       }, null, null, 4, 0, null, 1, 3, "call"]
     },
-    closure1024: {
+    closure1025: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return new A.ContentAppendComponent(a1);
       }, null, null, 2, 0, null, 1, "call"]
     },
-    closure1025: {
+    closure1026: {
       "^": "Closure:2;",
       call$0: [function() {
         return new E.DatepickerConfig("dd", "MMMM", "yyyy", "EEE", "MMMM yyyy", "yyyy", true, 0, 20, null, null);
       }, null, null, 0, 0, null, "call"]
     },
-    closure1026: {
+    closure1027: {
       "^": "Closure:2;",
       call$0: [function() {
         return new E.VisibleDates([], "", []);
       }, null, null, 0, 0, null, "call"]
     },
-    closure1027: {
+    closure1028: {
       "^": "Closure:2;",
       call$0: [function() {
         return new E.Format(null, null, null, null, null, null);
       }, null, null, 0, 0, null, "call"]
     },
-    closure1028: {
+    closure1029: {
       "^": "Closure:2;",
       call$0: [function() {
         return new E.DateVO(null, "", false, false, false);
       }, null, null, 0, 0, null, "call"]
     },
-    closure1029: {
+    closure1030: {
       "^": "Closure:2;",
       call$0: [function() {
         return new E.Mode(null, null, null, null, null);
       }, null, null, 0, 0, null, "call"]
     },
-    closure1030: {
-      "^": "Closure:6;",
+    closure1031: {
+      "^": "Closure:7;",
       call$5: [function(a1, a2, a3, a4, a5) {
         return new E.Datepicker(0, new P.DateTime(Date.now(), false), false, null, false, null, null, null, null, null, false, null, null, a1, a2, a3, a4, null, a5, null, null);
       }, null, null, 10, 0, null, 1, 3, 4, 5, 7, "call"]
     },
-    closure1031: {
+    closure1032: {
       "^": "Closure:2;",
       call$0: [function() {
         return new E.WeekNumberFilter();
       }, null, null, 0, 0, null, "call"]
     },
-    closure1032: {
-      "^": "Closure:289;",
+    closure1033: {
+      "^": "Closure:290;",
       call$12: [function(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12) {
         return new E.DatepickerPopup(null, false, false, null, null, null, null, null, null, a2, a3, a4, a5, a7, a8, a9, a10, a11, a12, a6);
       }, null, null, 24, 0, null, 1, 3, 4, 5, 7, 15, 27, 36, 64, 59, 74, 321, "call"]
     },
-    closure1033: {
+    closure1034: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return E.DatepickerPopupWrap$(a1);
       }, null, null, 2, 0, null, 1, "call"]
     },
-    closure1034: {
-      "^": "Closure:4;",
+    closure1035: {
+      "^": "Closure:5;",
       call$3: [function(a1, a2, a3) {
         return new R.ModalWindow("", true, 0, true, false, "", a1, a2, a3);
       }, null, null, 6, 0, null, 1, 3, 4, "call"]
     },
-    closure1035: {
+    closure1036: {
       "^": "Closure:17;",
       call$6: [function(a1, a2, a3, a4, a5, a6) {
         return new R.Modal(a2, a3, a4, a1, a5, a6);
       }, null, null, 12, 0, null, 1, 3, 4, 5, 7, 15, "call"]
     },
-    closure1036: {
+    closure1037: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         var t1 = new V.Alert(null, null, null, false);
@@ -57091,37 +57168,37 @@
         return t1;
       }, null, null, 2, 0, null, 1, "call"]
     },
-    closure1037: {
+    closure1038: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return new Z.TypeaheadParser(a1);
       }, null, null, 2, 0, null, 1, "call"]
     },
-    closure1038: {
+    closure1039: {
       "^": "Closure:2;",
       call$0: [function() {
         return new Z.TypeaheadHighlightFilter();
       }, null, null, 0, 0, null, "call"]
     },
-    closure1039: {
+    closure1040: {
       "^": "Closure:2;",
       call$0: [function() {
         return new Z.TypeaheadPopup(null, null, null, null, null, null);
       }, null, null, 0, 0, null, "call"]
     },
-    closure1040: {
+    closure1041: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return new Z.TemplateBasedComponent(a1, null, null);
       }, null, null, 2, 0, null, 1, "call"]
     },
-    closure1041: {
-      "^": "Closure:4;",
+    closure1042: {
+      "^": "Closure:5;",
       call$3: [function(a1, a2, a3) {
         return new Z.TypeaheadMatch(a2, a1, null, null, null, null, "packages/angular_ui/typeahead/typeahead-match.html", a3, null, null);
       }, null, null, 6, 0, null, 1, 3, 4, "call"]
     },
-    closure1042: {
+    closure1043: {
       "^": "Closure:67;",
       call$7: [function(a1, a2, a3, a4, a5, a6, a7) {
         var t1, t2;
@@ -57134,64 +57211,64 @@
         return t1;
       }, null, null, 14, 0, null, 1, 3, 4, 5, 7, 15, 27, "call"]
     },
-    closure1043: {
+    closure1044: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return new Z.TypeaheadConverter("typeahead", a1);
       }, null, null, 2, 0, null, 1, "call"]
     },
-    closure1044: {
+    closure1045: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return N.DropdownToggle$(a1);
       }, null, null, 2, 0, null, 1, "call"]
     },
-    closure1045: {
-      "^": "Closure:5;",
+    closure1046: {
+      "^": "Closure:4;",
       call$4: [function(a1, a2, a3, a4) {
         var t1 = new M.Timepicker(null, null, a1, a2, a3, a4, null, 0, 0, false, false, false, null, null, null, null, null, null, null, null);
         t1.selected = new P.DateTime(Date.now(), false);
         return t1;
       }, null, null, 8, 0, null, 1, 3, 4, 5, "call"]
     },
-    closure1046: {
+    closure1047: {
       "^": "Closure:39;",
       call$8: [function(a1, a2, a3, a4, a5, a6, a7, a8) {
         return new O.Popover('<div><div class="arrow"></div><div class="popover-inner"><h3 class="popover-title"></h3><div class="popover-content"></div></div></div>', null, null, null, null, null, null, null, null, false, null, false, null, a1, a2, a3, a4, "click", "popover", a5, "popover", a6, a7, a8, null, null, null, null, null, null);
       }, null, null, 16, 0, null, 1, 3, 4, 5, 7, 15, 27, 36, "call"]
     },
-    closure1047: {
+    closure1048: {
       "^": "Closure:1;",
       call$2: [function(a1, a2) {
         return new R.Collapse(a1, a2, null, true, null);
       }, null, null, 4, 0, null, 1, 3, "call"]
     },
-    closure1048: {
+    closure1049: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return new G.ProjectemployeeReportComponent(null, null, null, null, null, null, null, a1, null);
       }, null, null, 2, 0, null, 1, "call"]
     },
-    closure1049: {
+    closure1050: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return new G.RevenueReportComponent(null, null, a1, null);
       }, null, null, 2, 0, null, 1, "call"]
     },
-    closure1050: {
+    closure1051: {
       "^": "Closure:0;",
       call$1: [function(a1) {
         return new G.ServicehoursReportComponent(null, null, null, null, null, a1, null);
       }, null, null, 2, 0, null, 1, "call"]
     },
-    closure1051: {
-      "^": "Closure:5;",
+    closure1052: {
+      "^": "Closure:4;",
       call$4: [function(a1, a2, a3, a4) {
         return new G.TimesliceExpenseReportComponent(null, null, null, null, null, false, null, [], C.Type_ExpenseReport_4gv, a1, null, a3, null, "", a2, a4, "", "", false);
       }, null, null, 8, 0, null, 1, 3, 4, 5, "call"]
     },
-    closure1052: {
-      "^": "Closure:5;",
+    closure1053: {
+      "^": "Closure:4;",
       call$4: [function(a1, a2, a3, a4) {
         var t1, t2, t3;
         t1 = Date.now();
@@ -57204,13 +57281,13 @@
         return new G.TimesliceWeeklyReportComponent(new P.DateTime(t1, false), null, t2, null, null, null, null, false, null, [], C.Type_ExpenseReport_4gv, a1, null, a3, null, "", a2, a4, "", "", false);
       }, null, null, 8, 0, null, 1, 3, 4, 5, "call"]
     },
-    closure1053: {
-      "^": "Closure:4;",
+    closure1054: {
+      "^": "Closure:5;",
       call$3: [function(a1, a2, a3) {
         return new S.UserMenu(a1, a2, a3);
       }, null, null, 6, 0, null, 1, 3, 4, "call"]
     },
-    closure1054: {
+    closure1055: {
       "^": "Closure:2;",
       call$0: [function() {
         return new E.Profiler(new E.Counters(P.LinkedHashMap_LinkedHashMap$_empty(P.String, P.int)));
@@ -64298,6 +64375,10 @@
   C.Map_KmCTk = new H.ConstantStringMap(1, {"ng-style": "@styleExpression"}, C.List_Kma, [null, null]);
   C.Decorator_ACk = new F.Decorator("[ng-style]", "compile", null, null, C.Map_KmCTk, C.List_Kma, null, null);
   C.List_B0x = Isolate.makeConstantList([C.Decorator_ACk]);
+  C.List_QmM = Isolate.makeConstantList(["costgroup", "callback", "field", "clearOnClose", "required", "placeholder", "selectedEntity"]);
+  C.Map_QmE8w = new H.ConstantStringMap(7, {costgroup: "<=>selectedEntity", callback: "&callback", field: "=>!field", clearOnClose: "=>!clearOnClose", required: "=>!required", placeholder: "=>!placeholder", selectedEntity: "<=>selectedEntity"}, C.List_QmM, [null, null]);
+  C.Component_27D = new F.Component(null, null, "/bundles/dimefrontend/packages/DimeClient/component/select/costgroup_select.html", null, false, true, "costgroup-select", "compile", null, null, C.Map_QmE8w, null, null, null);
+  C.List_B8J0 = Isolate.makeConstantList([C.Component_27D]);
   C.List_B8J = Isolate.makeConstantList(["tr. CN", "sau CN"]);
   C.List_BCE_CE = Isolate.makeConstantList(["BCE", "CE"]);
   C.List_BC_AD = Isolate.makeConstantList(["BC", "AD"]);
@@ -65650,6 +65731,8 @@
   C.Type_ContentEditable_yg4 = H.createRuntimeType("ContentEditable");
   C.Type_Content_0 = H.createRuntimeType("Content");
   C.Type_Cookies_sBb = H.createRuntimeType("Cookies");
+  C.Type_CostGroupSelectComponent_w59 = H.createRuntimeType("CostGroupSelectComponent");
+  C.Type_CostGroup_M6i = H.createRuntimeType("CostGroup");
   C.Type_CssAnimate_goM = H.createRuntimeType("CssAnimate");
   C.Type_CssAnimationMap_erm = H.createRuntimeType("CssAnimationMap");
   C.Type_Currency_MSf = H.createRuntimeType("Currency");
@@ -66151,7 +66234,7 @@
     t1.AST$1("#");
     return t1;
   }, "_ExpressionVisitor_contextRef", "_PositionalArgHandler__ARGS", "$get$_PositionalArgHandler__ARGS", function() {
-    return P.List_List$generate(20, new S.closure1061(), true, null);
+    return P.List_List$generate(20, new S.closure1062(), true, null);
   }, "_PositionalArgHandler__ARGS", "_NamedArgHandler__NAMED_ARG", "$get$_NamedArgHandler__NAMED_ARG", function() {
     return P.HashMap_HashMap(null, null, null, P.Symbol0, P.String);
   }, "_NamedArgHandler__NAMED_ARG", "EMPTY_INTERPOLATION", "$get$EMPTY_INTERPOLATION", function() {
@@ -66392,7 +66475,7 @@
   }, "_log2", "_log0", "$get$_log0", function() {
     return N.Logger_Logger("angular.ui.dragdrop");
   }, "_log0", "DropdownToggle__closeMenu", "$get$DropdownToggle__closeMenu", function() {
-    return new N.closure1056();
+    return new N.closure1057();
   }, "DropdownToggle__closeMenu", "Modal_openedWindows", "$get$Modal_openedWindows", function() {
     return [];
   }, "Modal_openedWindows", "_log", "$get$_log", function() {
@@ -66680,7 +66763,7 @@
   }, "_KEY_FormatterFunc", "_KEY_TimepickerConfig", "$get$_KEY_TimepickerConfig", function() {
     return Z.Key_Key(C.Type_TimepickerConfig_ZEQ, null);
   }, "_KEY_TimepickerConfig", "typeFactories", "$get$typeFactories", function() {
-    return P.LinkedHashMap_LinkedHashMap$_literal([C.Type_PercentageInputField_nFg, new Q.closure798(), C.Type_Animate_ia3, new Q.closure799(), C.Type_BrowserCookies_23h, new Q.closure800(), C.Type_Cookies_sBb, new Q.closure801(), C.Type_Compiler_A0t, new Q.closure802(), C.Type_CompilerConfig_U2T, new Q.closure803(), C.Type_DirectiveMap_o48, new Q.closure804(), C.Type_ElementBinderFactory_kMT, new Q.closure805(), C.Type_EventHandler_MYA, new Q.closure806(), C.Type_ShadowRootEventHandler_6m4, new Q.closure807(), C.Type_DefaultShadowBoundary_R4n, new Q.closure808(), C.Type_ShadowRootBoundary_OXJ, new Q.closure809(), C.Type_UrlRewriter_bl8, new Q.closure810(), C.Type_HttpBackend_KxY, new Q.closure811(), C.Type_LocationWrapper_A8Z, new Q.closure812(), C.Type_HttpInterceptors_Egs, new Q.closure813(), C.Type_HttpDefaultHeaders_2ru, new Q.closure814(), C.Type_HttpDefaults_JSb, new Q.closure815(), C.Type_Http_Zg3, new Q.closure816(), C.Type_HttpConfig_KHa, new Q.closure817(), C.Type_TextMustache_ekJ, new Q.closure818(), C.Type_AttrMustache_4eS, new Q.closure819(), C.Type_NgElement_SWJ, new Q.closure820(), C.Type_DirectiveSelectorFactory_DV7, new Q.closure821(), C.Type_ShadowDomComponentFactory_YyH, new Q.closure822(), C.Type_ComponentCssRewriter_qdZ, new Q.closure823(), C.Type_TranscludingComponentFactory_00x, new Q.closure824(), C.Type_Content_0, new Q.closure825(), C.Type_NullTreeSanitizer_KBl, new Q.closure826(), C.Type_ViewFactoryCache_7FP, new Q.closure827(), C.Type_PlatformJsBasedShim_D34, new Q.closure828(), C.Type_DefaultPlatformShim_WHx, new Q.closure829(), C.Type_AHref_QTH, new Q.closure830(), C.Type_NgBaseCss_6m4, new Q.closure831(), C.Type_NgBind_Fv2, new Q.closure832(), C.Type_NgBindHtml_Bzh, new Q.closure833(), C.Type_NgBindTemplate_flr, new Q.closure834(), C.Type_NgClass_e8P, new Q.closure835(), C.Type_NgClassOdd_lGg, new Q.closure836(), C.Type_NgClassEven_W7k, new Q.closure837(), C.Type_NgEvent_WPt, new Q.closure838(), C.Type_NgCloak_3OQ, new Q.closure839(), C.Type_NgIf_Q4r, new Q.closure840(), C.Type_NgUnless_i7B, new Q.closure841(), C.Type_NgInclude_sKi, new Q.closure842(), C.Type_NgModel_qjS, new Q.closure843(), C.Type_InputCheckbox_kqK, new Q.closure844(), C.Type_InputTextLike_IK6, new Q.closure845(), C.Type_InputNumberLike_Us6, new Q.closure846(), C.Type_NgBindTypeForDateLike_ls9, new Q.closure847(), C.Type_InputDateLike_vww, new Q.closure848(), C.Type_NgValue_Yqh, new Q.closure849(), C.Type_NgTrueValue_jWj, new Q.closure850(), C.Type_NgFalseValue_58q, new Q.closure851(), C.Type_InputRadio_CRY, new Q.closure852(), C.Type_ContentEditable_yg4, new Q.closure853(), C.Type_NgPluralize_oBb, new Q.closure854(), C.Type_NgRepeat_s3m, new Q.closure855(), C.Type_NgTemplate_7BT, new Q.closure856(), C.Type_NgHide_Fv2, new Q.closure857(), C.Type_NgShow_Otg, new Q.closure858(), C.Type_NgBooleanAttribute_3Sx, new Q.closure859(), C.Type_NgSource_ESz, new Q.closure860(), C.Type_NgAttribute_69t, new Q.closure861(), C.Type_NgStyle_SwL, new Q.closure862(), C.Type_NgSwitch_2Ex, new Q.closure863(), C.Type_NgSwitchWhen_UW6, new Q.closure864(), C.Type_NgSwitchDefault_ROw, new Q.closure865(), C.Type_NgNonBindable_XB4, new Q.closure866(), C.Type_InputSelect_rTV, new Q.closure867(), C.Type_OptionValue_ESz, new Q.closure868(), C.Type_NgForm_WV2, new Q.closure869(), C.Type_NgModelRequiredValidator_ynv, new Q.closure870(), C.Type_NgModelUrlValidator_Dfi, new Q.closure871(), C.Type_NgModelColorValidator_Z6Y, new Q.closure872(), C.Type_NgModelEmailValidator_8aB, new Q.closure873(), C.Type_NgModelNumberValidator_kfn, new Q.closure874(), C.Type_NgModelMaxNumberValidator_ato, new Q.closure875(), C.Type_NgModelMinNumberValidator_ato, new Q.closure876(), C.Type_NgModelPatternValidator_Y7N, new Q.closure877(), C.Type_NgModelMinLengthValidator_OvN, new Q.closure878(), C.Type_NgModelMaxLengthValidator_OvN, new Q.closure879(), C.Type_NgModelOptions_woc, new Q.closure880(), C.Type_Parser_v5M, new Q.closure881(), C.Type_RuntimeParserBackend_kaS, new Q.closure882(), C.Type_FormatterMap_JNA, new Q.closure883(), C.Type_ExceptionHandler_i7B, new Q.closure884(), C.Type_Interpolate_tMJ, new Q.closure885(), C.Type_ScopeDigestTTL_e9j, new Q.closure886(), C.Type_ScopeStats_Gpa, new Q.closure887(), C.Type_ScopeStatsEmitter_2jN, new Q.closure888(), C.Type_ScopeStatsConfig_Ay2, new Q.closure889(), C.Type_RootScope_KGu, new Q.closure890(), C.Type_PendingAsync_GAt, new Q.closure891(), C.Type_Lexer_AYZ, new Q.closure892(), C.Type_ASTParser_UxB, new Q.closure893(), C.Type_CacheRegister_avx, new Q.closure894(), C.Type_ResourceUrlResolver_0, new Q.closure895(), C.Type_ResourceResolverConfig_vkJ, new Q.closure896(), C.Type_Currency_MSf, new Q.closure897(), C.Type_Date_63Q, new Q.closure898(), C.Type_Filter_Roh, new Q.closure899(), C.Type_Json_mya, new Q.closure900(), C.Type_LimitTo_8qt, new Q.closure901(), C.Type_Lowercase_Gpa, new Q.closure902(), C.Type_Arrayify_gg4, new Q.closure903(), C.Type_Number_lSr, new Q.closure904(), C.Type_OrderBy_adS, new Q.closure905(), C.Type_Uppercase_TXT, new Q.closure906(), C.Type_Stringify_2jN, new Q.closure907(), C.Type_AnimationLoop_oyU, new Q.closure908(), C.Type_AnimationFrame_Nhy, new Q.closure909(), C.Type_AnimationOptimizer_e7Q, new Q.closure910(), C.Type_CssAnimate_goM, new Q.closure911(), C.Type_CssAnimationMap_erm, new Q.closure912(), C.Type_NgAnimate_u1X, new Q.closure913(), C.Type_NgAnimateChildren_QN8, new Q.closure914(), C.Type_NgRoutingUsePushState_jWj, new Q.closure915(), C.Type_NgRoutingHelper_7eO, new Q.closure916(), C.Type_NgView_ZCY, new Q.closure917(), C.Type_NgBindRoute_7Re, new Q.closure918(), C.Type_JsCacheRegister_Epa, new Q.closure919(), C.Type_ActivitySelectComponent_Ik7, new Q.closure920(), C.Type_CustomerSelectComponent_Eaj, new Q.closure921(), C.Type_OfferStatusSelectComponent_uMl, new Q.closure922(), C.Type_ProjectSelectComponent_lOq, new Q.closure923(), C.Type_QLA, new Q.closure924(), C.Type_RateGroupSelectComponent_9Yy, new Q.closure925(), C.Type_RateUnitTypeSelectComponent_e7M, new Q.closure926(), C.Type_RoundModeSelect_bCX, new Q.closure927(), C.Type_ServiceSelectComponent_4CA, new Q.closure928(), C.Type_Wnx, new Q.closure929(), C.Type_UserSelectComponent_Opm, new Q.closure930(), C.Type_DataCache_QkT, new Q.closure931(), C.Type_ResourceStore_MKd, new Q.closure932(), C.Type_HammockConfig_xGW, new Q.closure933(), C.Type_ObjectStore_Ec2, new Q.closure934(), C.Type_UserAuthProvider_4AN, new Q.closure935(), C.Type_SettingsManager_EsU, new Q.closure936(), C.Type_UserContext_69t, new Q.closure937(), C.Type_StatusService_oU9, new Q.closure938(), C.Type_TabSetComponent_4m4, new Q.closure939(), C.Type_AppComponent_kSJ, new Q.closure940(), C.Type_ErrorIconComponent_2fF, new Q.closure941(), C.Type_DateToTextInput_B8J, new Q.closure942(), C.Type_UserFilter_JTJ, new Q.closure943(), C.Type_TimesliceDateFilter_INK, new Q.closure944(), C.Type_ProjectValueFilter_Yqs, new Q.closure945(), C.Type_FYo, new Q.closure946(), C.Type_InvoiceItemOrderByOrderField_233, new Q.closure947(), C.Type_SecondsToHours_wYH, new Q.closure948(), C.Type_MenuComponent_4CA, new Q.closure949(), C.Type_AddressEditComponent_XHr, new Q.closure950(), C.Type_CustomerEditComponent_kqh, new Q.closure951(), C.Type_EmployeeEditComponent_Amm, new Q.closure952(), C.Type_InvoiceEditComponent_69P, new Q.closure953(), C.Type_OfferEditComponent_PLv, new Q.closure954(), C.Type_ProjectEditComponent_jnt, new Q.closure955(), C.Type_ServiceEditComponent_EVG, new Q.closure956(), C.Type_ActivityOverviewComponent_Adg, new Q.closure957(), C.Type_CustomerOverviewComponent_5wV, new Q.closure958(), C.Type_HBZ, new Q.closure959(), C.Type_EmployeeOverviewComponent_s8k, new Q.closure960(), C.Type_HolidayOverviewComponent_diW, new Q.closure961(), C.Type_InvoiceOverviewComponent_Mim, new Q.closure962(), C.Type_jYm, new Q.closure963(), C.Type_InvoiceItemOverviewComponent_8Wd, new Q.closure964(), C.Type_OfferOverviewComponent_ewF, new Q.closure965(), C.Type_sav0, new Q.closure966(), C.Type_sav, new Q.closure967(), C.Type_PeriodOverviewComponent_lVM, new Q.closure968(), C.Type_ProjectOverviewComponent_1Ka, new Q.closure969(), C.Type_ProjectOpenInvoicesComponent_UoB, new Q.closure970(), C.Type_Au4, new Q.closure971(), C.Type_RateOverviewComponent_qJs, new Q.closure972(), C.Type_RateGroupOverviewComponent_yLX, new Q.closure973(), C.Type_41V, new Q.closure974(), C.Type_ServiceOverviewComponent_cyO, new Q.closure975(), C.Type_4YB, new Q.closure976(), C.Type_TimesliceOverviewComponent_gsm, new Q.closure977(), C.Type_StatusBarComponent_QIC, new Q.closure978(), C.Type_DateRange_E4y, new Q.closure979(), C.Type_TimetrackComponent_ASm, new Q.closure980(), C.Type_TimetrackMultiComponent_c86, new Q.closure981(), C.Type_ProjectTimetrackComponent_ES1, new Q.closure982(), C.Type_TimetrackPeriodsComponent_evT, new Q.closure983(), C.Type_SettingEditComponent_ato, new Q.closure984(), C.Type_Carousel_U3n, new Q.closure985(), C.Type_Slide_USP, new Q.closure986(), C.Type_TimeItem_yHq, new Q.closure987(), C.Type_Timeout_N1p, new Q.closure988(), C.Type_Transition_0, new Q.closure989(), C.Type_ProgressBar_kUZ, new Q.closure990(), C.Type_Progress_oyU, new Q.closure991(), C.Type_Bar_Z3K, new Q.closure992(), C.Type_NgPseudo_8I8, new Q.closure993(), C.Type_AccordionConfig_61x, new Q.closure994(), C.Type_AccordionComponent_yhx, new Q.closure995(), C.Type_AccordionGroupComponent_oxt, new Q.closure996(), C.Type_AccordionHeadingComponent_DKy, new Q.closure997(), C.Type_AccordionTransclude_Q8G, new Q.closure998(), C.Type_DblClickPreventer_e1m, new Q.closure999(), C.Type_BtnRadio_g0t, new Q.closure1000(), C.Type_BtnCheckbox_jJI, new Q.closure1001(), C.Type_DragDropZonesService_a6m, new Q.closure1002(), C.Type_DragDropDataService_CBX, new Q.closure1003(), C.Type_DragDropConfigService_qhc, new Q.closure1004(), C.Type_DraggableComponent_eJH, new Q.closure1005(), C.Type_DroppableComponent_knt, new Q.closure1006(), C.Type_DragDropSortableDataService_VzM, new Q.closure1007(), C.Type_SortableComponent_Ey5, new Q.closure1008(), C.Type_SortableItemComponent_0, new Q.closure1009(), C.Type_PagerConfig_EgC, new Q.closure1010(), C.Type_PagerComponent_ijq, new Q.closure1011(), C.Type_PaginationConfig_w4W, new Q.closure1012(), C.Type_PaginationComponent_TcW, new Q.closure1013(), C.Type_PageInfo_qQg, new Q.closure1014(), C.Type_BasicPaginationGenerator_54c, new Q.closure1015(), C.Type_RatingComponent_sxw, new Q.closure1016(), C.Type_TooltipConfig_izV, new Q.closure1017(), C.Type_Tooltip_Ate, new Q.closure1018(), C.Type_Position_k0J, new Q.closure1019(), C.Type_Rect_cAS, new Q.closure1020(), C.Type_TabsetComponent_MXg, new Q.closure1021(), C.Type_TabComponent_SBP, new Q.closure1022(), C.Type_TabHeading_8K0, new Q.closure1023(), C.Type_ContentAppendComponent_xw8, new Q.closure1024(), C.Type_DatepickerConfig_kiE, new Q.closure1025(), C.Type_VisibleDates_ett, new Q.closure1026(), C.Type_Format_axX, new Q.closure1027(), C.Type_DateVO_2Hr, new Q.closure1028(), C.Type_Mode_ij7, new Q.closure1029(), C.Type_Datepicker_IUD, new Q.closure1030(), C.Type_WeekNumberFilter_5pG, new Q.closure1031(), C.Type_DatepickerPopup_0, new Q.closure1032(), C.Type_DatepickerPopupWrap_AGs, new Q.closure1033(), C.Type_ModalWindow_2No, new Q.closure1034(), C.Type_Modal_OjC, new Q.closure1035(), C.Type_Alert_Opy, new Q.closure1036(), C.Type_TypeaheadParser_yPK, new Q.closure1037(), C.Type_TypeaheadHighlightFilter_wDN, new Q.closure1038(), C.Type_TypeaheadPopup_apS, new Q.closure1039(), C.Type_TemplateBasedComponent_SxV, new Q.closure1040(), C.Type_TypeaheadMatch_K6y, new Q.closure1041(), C.Type_TypeaheadDecorator_ZQB, new Q.closure1042(), C.Type_TypeaheadConverter_gEE, new Q.closure1043(), C.Type_DropdownToggle_kzn, new Q.closure1044(), C.Type_Timepicker_0, new Q.closure1045(), C.Type_Popover_NAF, new Q.closure1046(), C.Type_Collapse_kn0, new Q.closure1047(), C.Type_WaA, new Q.closure1048(), C.Type_RevenueReportComponent_o0y, new Q.closure1049(), C.Type_ServicehoursReportComponent_6TW, new Q.closure1050(), C.Type_wv5, new Q.closure1051(), C.Type_PDP, new Q.closure1052(), C.Type_UserMenu_IcE, new Q.closure1053(), C.Type_Profiler_C5f, new Q.closure1054()], P.Type, P.Function);
+    return P.LinkedHashMap_LinkedHashMap$_literal([C.Type_PercentageInputField_nFg, new Q.closure798(), C.Type_Animate_ia3, new Q.closure799(), C.Type_BrowserCookies_23h, new Q.closure800(), C.Type_Cookies_sBb, new Q.closure801(), C.Type_Compiler_A0t, new Q.closure802(), C.Type_CompilerConfig_U2T, new Q.closure803(), C.Type_DirectiveMap_o48, new Q.closure804(), C.Type_ElementBinderFactory_kMT, new Q.closure805(), C.Type_EventHandler_MYA, new Q.closure806(), C.Type_ShadowRootEventHandler_6m4, new Q.closure807(), C.Type_DefaultShadowBoundary_R4n, new Q.closure808(), C.Type_ShadowRootBoundary_OXJ, new Q.closure809(), C.Type_UrlRewriter_bl8, new Q.closure810(), C.Type_HttpBackend_KxY, new Q.closure811(), C.Type_LocationWrapper_A8Z, new Q.closure812(), C.Type_HttpInterceptors_Egs, new Q.closure813(), C.Type_HttpDefaultHeaders_2ru, new Q.closure814(), C.Type_HttpDefaults_JSb, new Q.closure815(), C.Type_Http_Zg3, new Q.closure816(), C.Type_HttpConfig_KHa, new Q.closure817(), C.Type_TextMustache_ekJ, new Q.closure818(), C.Type_AttrMustache_4eS, new Q.closure819(), C.Type_NgElement_SWJ, new Q.closure820(), C.Type_DirectiveSelectorFactory_DV7, new Q.closure821(), C.Type_ShadowDomComponentFactory_YyH, new Q.closure822(), C.Type_ComponentCssRewriter_qdZ, new Q.closure823(), C.Type_TranscludingComponentFactory_00x, new Q.closure824(), C.Type_Content_0, new Q.closure825(), C.Type_NullTreeSanitizer_KBl, new Q.closure826(), C.Type_ViewFactoryCache_7FP, new Q.closure827(), C.Type_PlatformJsBasedShim_D34, new Q.closure828(), C.Type_DefaultPlatformShim_WHx, new Q.closure829(), C.Type_AHref_QTH, new Q.closure830(), C.Type_NgBaseCss_6m4, new Q.closure831(), C.Type_NgBind_Fv2, new Q.closure832(), C.Type_NgBindHtml_Bzh, new Q.closure833(), C.Type_NgBindTemplate_flr, new Q.closure834(), C.Type_NgClass_e8P, new Q.closure835(), C.Type_NgClassOdd_lGg, new Q.closure836(), C.Type_NgClassEven_W7k, new Q.closure837(), C.Type_NgEvent_WPt, new Q.closure838(), C.Type_NgCloak_3OQ, new Q.closure839(), C.Type_NgIf_Q4r, new Q.closure840(), C.Type_NgUnless_i7B, new Q.closure841(), C.Type_NgInclude_sKi, new Q.closure842(), C.Type_NgModel_qjS, new Q.closure843(), C.Type_InputCheckbox_kqK, new Q.closure844(), C.Type_InputTextLike_IK6, new Q.closure845(), C.Type_InputNumberLike_Us6, new Q.closure846(), C.Type_NgBindTypeForDateLike_ls9, new Q.closure847(), C.Type_InputDateLike_vww, new Q.closure848(), C.Type_NgValue_Yqh, new Q.closure849(), C.Type_NgTrueValue_jWj, new Q.closure850(), C.Type_NgFalseValue_58q, new Q.closure851(), C.Type_InputRadio_CRY, new Q.closure852(), C.Type_ContentEditable_yg4, new Q.closure853(), C.Type_NgPluralize_oBb, new Q.closure854(), C.Type_NgRepeat_s3m, new Q.closure855(), C.Type_NgTemplate_7BT, new Q.closure856(), C.Type_NgHide_Fv2, new Q.closure857(), C.Type_NgShow_Otg, new Q.closure858(), C.Type_NgBooleanAttribute_3Sx, new Q.closure859(), C.Type_NgSource_ESz, new Q.closure860(), C.Type_NgAttribute_69t, new Q.closure861(), C.Type_NgStyle_SwL, new Q.closure862(), C.Type_NgSwitch_2Ex, new Q.closure863(), C.Type_NgSwitchWhen_UW6, new Q.closure864(), C.Type_NgSwitchDefault_ROw, new Q.closure865(), C.Type_NgNonBindable_XB4, new Q.closure866(), C.Type_InputSelect_rTV, new Q.closure867(), C.Type_OptionValue_ESz, new Q.closure868(), C.Type_NgForm_WV2, new Q.closure869(), C.Type_NgModelRequiredValidator_ynv, new Q.closure870(), C.Type_NgModelUrlValidator_Dfi, new Q.closure871(), C.Type_NgModelColorValidator_Z6Y, new Q.closure872(), C.Type_NgModelEmailValidator_8aB, new Q.closure873(), C.Type_NgModelNumberValidator_kfn, new Q.closure874(), C.Type_NgModelMaxNumberValidator_ato, new Q.closure875(), C.Type_NgModelMinNumberValidator_ato, new Q.closure876(), C.Type_NgModelPatternValidator_Y7N, new Q.closure877(), C.Type_NgModelMinLengthValidator_OvN, new Q.closure878(), C.Type_NgModelMaxLengthValidator_OvN, new Q.closure879(), C.Type_NgModelOptions_woc, new Q.closure880(), C.Type_Parser_v5M, new Q.closure881(), C.Type_RuntimeParserBackend_kaS, new Q.closure882(), C.Type_FormatterMap_JNA, new Q.closure883(), C.Type_ExceptionHandler_i7B, new Q.closure884(), C.Type_Interpolate_tMJ, new Q.closure885(), C.Type_ScopeDigestTTL_e9j, new Q.closure886(), C.Type_ScopeStats_Gpa, new Q.closure887(), C.Type_ScopeStatsEmitter_2jN, new Q.closure888(), C.Type_ScopeStatsConfig_Ay2, new Q.closure889(), C.Type_RootScope_KGu, new Q.closure890(), C.Type_PendingAsync_GAt, new Q.closure891(), C.Type_Lexer_AYZ, new Q.closure892(), C.Type_ASTParser_UxB, new Q.closure893(), C.Type_CacheRegister_avx, new Q.closure894(), C.Type_ResourceUrlResolver_0, new Q.closure895(), C.Type_ResourceResolverConfig_vkJ, new Q.closure896(), C.Type_Currency_MSf, new Q.closure897(), C.Type_Date_63Q, new Q.closure898(), C.Type_Filter_Roh, new Q.closure899(), C.Type_Json_mya, new Q.closure900(), C.Type_LimitTo_8qt, new Q.closure901(), C.Type_Lowercase_Gpa, new Q.closure902(), C.Type_Arrayify_gg4, new Q.closure903(), C.Type_Number_lSr, new Q.closure904(), C.Type_OrderBy_adS, new Q.closure905(), C.Type_Uppercase_TXT, new Q.closure906(), C.Type_Stringify_2jN, new Q.closure907(), C.Type_AnimationLoop_oyU, new Q.closure908(), C.Type_AnimationFrame_Nhy, new Q.closure909(), C.Type_AnimationOptimizer_e7Q, new Q.closure910(), C.Type_CssAnimate_goM, new Q.closure911(), C.Type_CssAnimationMap_erm, new Q.closure912(), C.Type_NgAnimate_u1X, new Q.closure913(), C.Type_NgAnimateChildren_QN8, new Q.closure914(), C.Type_NgRoutingUsePushState_jWj, new Q.closure915(), C.Type_NgRoutingHelper_7eO, new Q.closure916(), C.Type_NgView_ZCY, new Q.closure917(), C.Type_NgBindRoute_7Re, new Q.closure918(), C.Type_JsCacheRegister_Epa, new Q.closure919(), C.Type_ActivitySelectComponent_Ik7, new Q.closure920(), C.Type_CustomerSelectComponent_Eaj, new Q.closure921(), C.Type_OfferStatusSelectComponent_uMl, new Q.closure922(), C.Type_ProjectSelectComponent_lOq, new Q.closure923(), C.Type_QLA, new Q.closure924(), C.Type_RateGroupSelectComponent_9Yy, new Q.closure925(), C.Type_RateUnitTypeSelectComponent_e7M, new Q.closure926(), C.Type_RoundModeSelect_bCX, new Q.closure927(), C.Type_ServiceSelectComponent_4CA, new Q.closure928(), C.Type_Wnx, new Q.closure929(), C.Type_UserSelectComponent_Opm, new Q.closure930(), C.Type_CostGroupSelectComponent_w59, new Q.closure931(), C.Type_DataCache_QkT, new Q.closure932(), C.Type_ResourceStore_MKd, new Q.closure933(), C.Type_HammockConfig_xGW, new Q.closure934(), C.Type_ObjectStore_Ec2, new Q.closure935(), C.Type_UserAuthProvider_4AN, new Q.closure936(), C.Type_SettingsManager_EsU, new Q.closure937(), C.Type_UserContext_69t, new Q.closure938(), C.Type_StatusService_oU9, new Q.closure939(), C.Type_TabSetComponent_4m4, new Q.closure940(), C.Type_AppComponent_kSJ, new Q.closure941(), C.Type_ErrorIconComponent_2fF, new Q.closure942(), C.Type_DateToTextInput_B8J, new Q.closure943(), C.Type_UserFilter_JTJ, new Q.closure944(), C.Type_TimesliceDateFilter_INK, new Q.closure945(), C.Type_ProjectValueFilter_Yqs, new Q.closure946(), C.Type_FYo, new Q.closure947(), C.Type_InvoiceItemOrderByOrderField_233, new Q.closure948(), C.Type_SecondsToHours_wYH, new Q.closure949(), C.Type_MenuComponent_4CA, new Q.closure950(), C.Type_AddressEditComponent_XHr, new Q.closure951(), C.Type_CustomerEditComponent_kqh, new Q.closure952(), C.Type_EmployeeEditComponent_Amm, new Q.closure953(), C.Type_InvoiceEditComponent_69P, new Q.closure954(), C.Type_OfferEditComponent_PLv, new Q.closure955(), C.Type_ProjectEditComponent_jnt, new Q.closure956(), C.Type_ServiceEditComponent_EVG, new Q.closure957(), C.Type_ActivityOverviewComponent_Adg, new Q.closure958(), C.Type_CustomerOverviewComponent_5wV, new Q.closure959(), C.Type_HBZ, new Q.closure960(), C.Type_EmployeeOverviewComponent_s8k, new Q.closure961(), C.Type_HolidayOverviewComponent_diW, new Q.closure962(), C.Type_InvoiceOverviewComponent_Mim, new Q.closure963(), C.Type_jYm, new Q.closure964(), C.Type_InvoiceItemOverviewComponent_8Wd, new Q.closure965(), C.Type_OfferOverviewComponent_ewF, new Q.closure966(), C.Type_sav0, new Q.closure967(), C.Type_sav, new Q.closure968(), C.Type_PeriodOverviewComponent_lVM, new Q.closure969(), C.Type_ProjectOverviewComponent_1Ka, new Q.closure970(), C.Type_ProjectOpenInvoicesComponent_UoB, new Q.closure971(), C.Type_Au4, new Q.closure972(), C.Type_RateOverviewComponent_qJs, new Q.closure973(), C.Type_RateGroupOverviewComponent_yLX, new Q.closure974(), C.Type_41V, new Q.closure975(), C.Type_ServiceOverviewComponent_cyO, new Q.closure976(), C.Type_4YB, new Q.closure977(), C.Type_TimesliceOverviewComponent_gsm, new Q.closure978(), C.Type_StatusBarComponent_QIC, new Q.closure979(), C.Type_DateRange_E4y, new Q.closure980(), C.Type_TimetrackComponent_ASm, new Q.closure981(), C.Type_TimetrackMultiComponent_c86, new Q.closure982(), C.Type_ProjectTimetrackComponent_ES1, new Q.closure983(), C.Type_TimetrackPeriodsComponent_evT, new Q.closure984(), C.Type_SettingEditComponent_ato, new Q.closure985(), C.Type_Carousel_U3n, new Q.closure986(), C.Type_Slide_USP, new Q.closure987(), C.Type_TimeItem_yHq, new Q.closure988(), C.Type_Timeout_N1p, new Q.closure989(), C.Type_Transition_0, new Q.closure990(), C.Type_ProgressBar_kUZ, new Q.closure991(), C.Type_Progress_oyU, new Q.closure992(), C.Type_Bar_Z3K, new Q.closure993(), C.Type_NgPseudo_8I8, new Q.closure994(), C.Type_AccordionConfig_61x, new Q.closure995(), C.Type_AccordionComponent_yhx, new Q.closure996(), C.Type_AccordionGroupComponent_oxt, new Q.closure997(), C.Type_AccordionHeadingComponent_DKy, new Q.closure998(), C.Type_AccordionTransclude_Q8G, new Q.closure999(), C.Type_DblClickPreventer_e1m, new Q.closure1000(), C.Type_BtnRadio_g0t, new Q.closure1001(), C.Type_BtnCheckbox_jJI, new Q.closure1002(), C.Type_DragDropZonesService_a6m, new Q.closure1003(), C.Type_DragDropDataService_CBX, new Q.closure1004(), C.Type_DragDropConfigService_qhc, new Q.closure1005(), C.Type_DraggableComponent_eJH, new Q.closure1006(), C.Type_DroppableComponent_knt, new Q.closure1007(), C.Type_DragDropSortableDataService_VzM, new Q.closure1008(), C.Type_SortableComponent_Ey5, new Q.closure1009(), C.Type_SortableItemComponent_0, new Q.closure1010(), C.Type_PagerConfig_EgC, new Q.closure1011(), C.Type_PagerComponent_ijq, new Q.closure1012(), C.Type_PaginationConfig_w4W, new Q.closure1013(), C.Type_PaginationComponent_TcW, new Q.closure1014(), C.Type_PageInfo_qQg, new Q.closure1015(), C.Type_BasicPaginationGenerator_54c, new Q.closure1016(), C.Type_RatingComponent_sxw, new Q.closure1017(), C.Type_TooltipConfig_izV, new Q.closure1018(), C.Type_Tooltip_Ate, new Q.closure1019(), C.Type_Position_k0J, new Q.closure1020(), C.Type_Rect_cAS, new Q.closure1021(), C.Type_TabsetComponent_MXg, new Q.closure1022(), C.Type_TabComponent_SBP, new Q.closure1023(), C.Type_TabHeading_8K0, new Q.closure1024(), C.Type_ContentAppendComponent_xw8, new Q.closure1025(), C.Type_DatepickerConfig_kiE, new Q.closure1026(), C.Type_VisibleDates_ett, new Q.closure1027(), C.Type_Format_axX, new Q.closure1028(), C.Type_DateVO_2Hr, new Q.closure1029(), C.Type_Mode_ij7, new Q.closure1030(), C.Type_Datepicker_IUD, new Q.closure1031(), C.Type_WeekNumberFilter_5pG, new Q.closure1032(), C.Type_DatepickerPopup_0, new Q.closure1033(), C.Type_DatepickerPopupWrap_AGs, new Q.closure1034(), C.Type_ModalWindow_2No, new Q.closure1035(), C.Type_Modal_OjC, new Q.closure1036(), C.Type_Alert_Opy, new Q.closure1037(), C.Type_TypeaheadParser_yPK, new Q.closure1038(), C.Type_TypeaheadHighlightFilter_wDN, new Q.closure1039(), C.Type_TypeaheadPopup_apS, new Q.closure1040(), C.Type_TemplateBasedComponent_SxV, new Q.closure1041(), C.Type_TypeaheadMatch_K6y, new Q.closure1042(), C.Type_TypeaheadDecorator_ZQB, new Q.closure1043(), C.Type_TypeaheadConverter_gEE, new Q.closure1044(), C.Type_DropdownToggle_kzn, new Q.closure1045(), C.Type_Timepicker_0, new Q.closure1046(), C.Type_Popover_NAF, new Q.closure1047(), C.Type_Collapse_kn0, new Q.closure1048(), C.Type_WaA, new Q.closure1049(), C.Type_RevenueReportComponent_o0y, new Q.closure1050(), C.Type_ServicehoursReportComponent_6TW, new Q.closure1051(), C.Type_wv5, new Q.closure1052(), C.Type_PDP, new Q.closure1053(), C.Type_UserMenu_IcE, new Q.closure1054(), C.Type_Profiler_C5f, new Q.closure1055()], P.Type, P.Function);
   }, "typeFactories", "parameterKeys", "$get$parameterKeys", function() {
     var t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18, t19, t20, t21, t22, t23, t24, t25, t26, t27, t28, t29, t30, t31, t32, t33, t34, t35, t36, t37, t38, t39, t40, t41, t42, t43, t44, t45, t46, t47, t48, t49, t50, t51, t52, t53, t54, t55, t56, t57, t58, t59, t60, t61, t62, t63, t64, t65, t66, t67, t68, t69, t70, t71, t72, t73, t74, t75, t76, t77, t78, t79, t80, t81, t82, t83, t84, t85, t86, t87, t88, t89, t90, t91, t92, t93, t94, t95, t96, t97, t98, t99, t100, t101, t102, t103, t104, t105, t106, t107, t108, t109, t110, t111, t112, t113, t114, t115, t116, t117, t118, t119, t120, t121;
     t1 = $.$get$_KEY_ExceptionHandler();
@@ -66804,7 +66887,7 @@
     t119 = $.$get$_KEY_TabComponent();
     t120 = $.$get$_KEY_DatepickerConfig();
     t121 = $.$get$_KEY_Date();
-    return P.LinkedHashMap__makeLiteral([C.Type_PercentageInputField_nFg, C.List_empty, C.Type_Animate_ia3, C.List_empty, C.Type_BrowserCookies_23h, [t1], C.Type_Cookies_sBb, [t2], C.Type_Compiler_A0t, [t3, t4], C.Type_CompilerConfig_U2T, C.List_empty, C.Type_DirectiveMap_o48, [t5, t6, t7, t8], C.Type_ElementBinderFactory_kMT, [t9, t3, t10, t4, t11, t12, t13, t14], C.Type_EventHandler_MYA, [t15, t4, t1], C.Type_ShadowRootEventHandler_6m4, [t16, t4, t1], C.Type_DefaultShadowBoundary_R4n, C.List_empty, C.Type_ShadowRootBoundary_OXJ, [t16], C.Type_UrlRewriter_bl8, C.List_empty, C.Type_HttpBackend_KxY, C.List_empty, C.Type_LocationWrapper_A8Z, C.List_empty, C.Type_HttpInterceptors_Egs, C.List_empty, C.Type_HttpDefaultHeaders_2ru, C.List_empty, C.Type_HttpDefaults_JSb, [t17], C.Type_Http_Zg3, [t2, t18, t19, t20, t21, t22, t23, t24, t25, t26], C.Type_HttpConfig_KHa, C.List_empty, C.Type_TextMustache_ekJ, [t15, t27, t28], C.Type_AttrMustache_4eS, [t29, t30, t27, t28], C.Type_NgElement_SWJ, [t31, t23, t32, t33], C.Type_DirectiveSelectorFactory_DV7, [t34, t35, t11, t6, t5], C.Type_ShadowDomComponentFactory_YyH, [t36, t37, t4, t10, t38, t39, t40, t41, t42, t43, t44], C.Type_ComponentCssRewriter_qdZ, C.List_empty, C.Type_TranscludingComponentFactory_00x, [t4, t36, t10, t45, t38, t39, t40, t41, t42, t43, t44], C.Type_Content_0, [t31, t46, t33, t47], C.Type_NullTreeSanitizer_KBl, C.List_empty, C.Type_ViewFactoryCache_7FP, [t40, t41, t48, t43, t39, t44], C.Type_PlatformJsBasedShim_D34, C.List_empty, C.Type_DefaultPlatformShim_WHx, C.List_empty, C.Type_AHref_QTH, [t31, t25], C.Type_NgBaseCss_6m4, C.List_empty, C.Type_NgBind_Fv2, [t31, t49], C.Type_NgBindHtml_Bzh, [t31, t50], C.Type_NgBindTemplate_flr, [t31], C.Type_NgClass_e8P, [t51, t28, t29], C.Type_NgClassOdd_lGg, [t51, t28, t29], C.Type_NgClassEven_W7k, [t51, t28, t29], C.Type_NgEvent_WPt, [t31, t28], C.Type_NgCloak_3OQ, [t31, t32], C.Type_NgIf_Q4r, [t52, t53, t28], C.Type_NgUnless_i7B, [t52, t53, t28], C.Type_NgInclude_sKi, [t31, t28, t36, t54, t55], C.Type_NgModel_qjS, [t28, t51, t54, t29, t32, t49], C.Type_InputCheckbox_kqK, [t31, t56, t28, t57, t58, t59], C.Type_InputTextLike_IK6, [t31, t56, t28, t59], C.Type_InputNumberLike_Us6, [t31, t56, t28, t59], C.Type_NgBindTypeForDateLike_ls9, [t31], C.Type_InputDateLike_vww, [t31, t56, t28, t60, t59], C.Type_NgValue_Yqh, [t31], C.Type_NgTrueValue_jWj, [t31], C.Type_NgFalseValue_58q, [t31], C.Type_InputRadio_CRY, [t31, t56, t28, t61, t29], C.Type_ContentEditable_yg4, [t31, t56, t28, t59], C.Type_NgPluralize_oBb, [t28, t31, t35, t6], C.Type_NgRepeat_s3m, [t53, t62, t28, t9, t6], C.Type_NgTemplate_7BT, [t31, t41], C.Type_NgHide_Fv2, [t31, t32], C.Type_NgShow_Otg, [t31, t32], C.Type_NgBooleanAttribute_3Sx, [t51], C.Type_NgSource_ESz, [t51], C.Type_NgAttribute_69t, [t29], C.Type_NgStyle_SwL, [t31, t28], C.Type_NgSwitch_2Ex, [t28], C.Type_NgSwitchWhen_UW6, [t63, t53, t62], C.Type_NgSwitchDefault_ROw, [t63, t53, t62], C.Type_NgNonBindable_XB4, C.List_empty, C.Type_InputSelect_rTV, [t31, t29, t56, t28], C.Type_OptionValue_ESz, [t31, t64, t61], C.Type_NgForm_WV2, [t28, t51, t54, t32], C.Type_NgModelRequiredValidator_ynv, [t56], C.Type_NgModelUrlValidator_Dfi, [t56], C.Type_NgModelColorValidator_Z6Y, [t56], C.Type_NgModelEmailValidator_8aB, [t56], C.Type_NgModelNumberValidator_kfn, [t56], C.Type_NgModelMaxNumberValidator_ato, [t56], C.Type_NgModelMinNumberValidator_ato, [t56], C.Type_NgModelPatternValidator_Y7N, [t56], C.Type_NgModelMinLengthValidator_OvN, [t56], C.Type_NgModelMaxLengthValidator_OvN, [t56], C.Type_NgModelOptions_woc, C.List_empty, C.Type_Parser_v5M, [t65, t66, t44], C.Type_RuntimeParserBackend_kaS, [t67], C.Type_FormatterMap_JNA, [t5, t7], C.Type_ExceptionHandler_i7B, C.List_empty, C.Type_Interpolate_tMJ, [t44], C.Type_ScopeDigestTTL_e9j, C.List_empty, C.Type_ScopeStats_Gpa, [t68, t69], C.Type_ScopeStatsEmitter_2jN, C.List_empty, C.Type_ScopeStatsConfig_Ay2, C.List_empty, C.Type_RootScope_KGu, [t70, t9, t11, t71, t6, t1, t72, t25, t73, t44, t26], C.Type_PendingAsync_GAt, C.List_empty, C.Type_Lexer_AYZ, C.List_empty, C.Type_ASTParser_UxB, [t9, t67], C.Type_CacheRegister_avx, C.List_empty, C.Type_ResourceUrlResolver_0, [t38, t74], C.Type_ResourceResolverConfig_vkJ, C.List_empty, C.Type_Currency_MSf, C.List_empty, C.Type_Date_63Q, C.List_empty, C.Type_Filter_Roh, [t9], C.Type_Json_mya, C.List_empty, C.Type_LimitTo_8qt, [t5], C.Type_Lowercase_Gpa, C.List_empty, C.Type_Arrayify_gg4, C.List_empty, C.Type_Number_lSr, C.List_empty, C.Type_OrderBy_adS, [t9], C.Type_Uppercase_TXT, C.List_empty, C.Type_Stringify_2jN, C.List_empty, C.Type_AnimationLoop_oyU, [t75, t3, t25], C.Type_AnimationFrame_Nhy, [t76], C.Type_AnimationOptimizer_e7Q, [t4], C.Type_CssAnimate_goM, [t77, t78, t79], C.Type_CssAnimationMap_erm, C.List_empty, C.Type_NgAnimate_u1X, [t31, t79], C.Type_NgAnimateChildren_QN8, [t31, t79], C.Type_NgRoutingUsePushState_jWj, C.List_empty, C.Type_NgRoutingHelper_7eO, [t80, t5, t81, t82], C.Type_NgView_ZCY, [t31, t36, t54, t5, t81, t28], C.Type_NgBindRoute_7Re, [t81, t54, t83], C.Type_JsCacheRegister_Epa, [t44], C.Type_ActivitySelectComponent_Ik7, [t84, t31, t85, t86], C.Type_CustomerSelectComponent_Eaj, [t84, t31, t85, t86], C.Type_OfferStatusSelectComponent_uMl, [t84, t31, t85, t86], C.Type_ProjectSelectComponent_lOq, [t84, t31, t85, t86], C.Type_QLA, [t84, t31, t85, t86], C.Type_RateGroupSelectComponent_9Yy, [t84, t31, t85, t86], C.Type_RateUnitTypeSelectComponent_e7M, [t84, t31, t85, t86], C.Type_RoundModeSelect_bCX, [t31], C.Type_ServiceSelectComponent_4CA, [t84, t31, t85, t86], C.Type_Wnx, [t84, t31, t85, t86], C.Type_UserSelectComponent_Opm, [t84, t31, t87, t85, t86], C.Type_DataCache_QkT, [t88], C.Type_ResourceStore_MKd, [t40, t89], C.Type_HammockConfig_xGW, [t5], C.Type_ObjectStore_Ec2, [t90, t89], C.Type_UserAuthProvider_4AN, [t88, t17, t91, t87, t85], C.Type_SettingsManager_EsU, [t88, t87, t85], C.Type_UserContext_69t, [t84], C.Type_StatusService_oU9, C.List_empty, C.Type_TabSetComponent_4m4, C.List_empty, C.Type_AppComponent_kSJ, [t86, t87], C.Type_ErrorIconComponent_2fF, [t85], C.Type_DateToTextInput_B8J, C.List_empty, C.Type_UserFilter_JTJ, C.List_empty, C.Type_TimesliceDateFilter_INK, C.List_empty, C.Type_ProjectValueFilter_Yqs, C.List_empty, C.Type_FYo, C.List_empty, C.Type_InvoiceItemOrderByOrderField_233, C.List_empty, C.Type_SecondsToHours_wYH, C.List_empty, C.Type_MenuComponent_4CA, [t86], C.Type_AddressEditComponent_XHr, C.List_empty, C.Type_CustomerEditComponent_kqh, [t92, t84, t85, t86, t81], C.Type_EmployeeEditComponent_Amm, [t92, t84, t85, t86, t81], C.Type_InvoiceEditComponent_69P, [t92, t84, t85, t86, t81], C.Type_OfferEditComponent_PLv, [t92, t84, t85, t86, t81], C.Type_ProjectEditComponent_jnt, [t92, t84, t85, t86, t81], C.Type_ServiceEditComponent_EVG, [t92, t84, t85, t86, t81], C.Type_ActivityOverviewComponent_Adg, [t84, t91, t85], C.Type_CustomerOverviewComponent_5wV, [t84, t81, t91, t85, t86, t92], C.Type_HBZ, [t84, t91, t85, t87, t86], C.Type_EmployeeOverviewComponent_s8k, [t84, t81, t91, t85, t86], C.Type_HolidayOverviewComponent_diW, [t84, t91, t85, t86], C.Type_InvoiceOverviewComponent_Mim, [t84, t81, t91, t85, t86], C.Type_jYm, [t84, t91, t85], C.Type_InvoiceItemOverviewComponent_8Wd, [t84, t91, t85], C.Type_OfferOverviewComponent_ewF, [t84, t87, t81, t91, t85, t86], C.Type_sav0, [t84, t91, t85], C.Type_sav, [t84, t91, t85], C.Type_PeriodOverviewComponent_lVM, [t84, t91, t85, t87], C.Type_ProjectOverviewComponent_1Ka, [t84, t87, t81, t91, t85, t86, t92], C.Type_ProjectOpenInvoicesComponent_UoB, [t84, t87, t81, t91, t85, t86, t92], C.Type_Au4, [t84, t91, t85, t86], C.Type_RateOverviewComponent_qJs, [t84, t91, t85], C.Type_RateGroupOverviewComponent_yLX, [t84, t91, t85, t86], C.Type_41V, [t84, t91, t85, t86], C.Type_ServiceOverviewComponent_cyO, [t84, t81, t91, t85, t86], C.Type_4YB, [t91, t85], C.Type_TimesliceOverviewComponent_gsm, [t84, t91, t85, t87, t86], C.Type_StatusBarComponent_QIC, [t85], C.Type_DateRange_E4y, C.List_empty, C.Type_TimetrackComponent_ASm, [t86, t87], C.Type_TimetrackMultiComponent_c86, [t84, t91, t85, t87, t86], C.Type_ProjectTimetrackComponent_ES1, [t86, t85], C.Type_TimetrackPeriodsComponent_evT, [t86, t87, t85, t84], C.Type_SettingEditComponent_ato, [t91, t86], C.Type_Carousel_U3n, [t93, t94], C.Type_Slide_USP, [t31, t95], C.Type_TimeItem_yHq, [t96, t97], C.Type_Timeout_N1p, [t5, t1], C.Type_Transition_0, [t94], C.Type_ProgressBar_kUZ, [t98, t93, t31], C.Type_Progress_oyU, [t31], C.Type_Bar_Z3K, [t98, t93, t31], C.Type_NgPseudo_8I8, [t31], C.Type_AccordionConfig_61x, C.List_empty, C.Type_AccordionComponent_yhx, [t99], C.Type_AccordionGroupComponent_oxt, [t100, t101, t94], C.Type_AccordionHeadingComponent_DKy, [t31, t102], C.Type_AccordionTransclude_Q8G, [t31], C.Type_DblClickPreventer_e1m, [t94], C.Type_BtnRadio_g0t, [t31, t56, t103, t28], C.Type_BtnCheckbox_jJI, [t31, t56, t103, t28], C.Type_DragDropZonesService_a6m, C.List_empty, C.Type_DragDropDataService_CBX, C.List_empty, C.Type_DragDropConfigService_qhc, C.List_empty, C.Type_DraggableComponent_eJH, [t31, t104, t105, t106], C.Type_DroppableComponent_knt, [t31, t104, t105, t106], C.Type_DragDropSortableDataService_VzM, C.List_empty, C.Type_SortableComponent_Ey5, [t31, t104, t106, t107, t28], C.Type_SortableItemComponent_0, [t108, t107, t31, t104, t106], C.Type_PagerConfig_EgC, [t109, t30, t30, t110], C.Type_PagerComponent_ijq, [t111], C.Type_PaginationConfig_w4W, [t109, t110, t110, t30, t30, t30, t30, t110], C.Type_PaginationComponent_TcW, [t112, t113], C.Type_PageInfo_qQg, [t109, t30, t110], C.Type_BasicPaginationGenerator_54c, C.List_empty, C.Type_RatingComponent_sxw, [t31, t29, t56, t114], C.Type_TooltipConfig_izV, C.List_empty, C.Type_Tooltip_Ate, [t31, t29, t94, t115, t35, t116, t5, t48], C.Type_Position_k0J, C.List_empty, C.Type_Rect_cAS, [t117, t117, t117, t117], C.Type_TabsetComponent_MXg, C.List_empty, C.Type_TabComponent_SBP, [t31, t118], C.Type_TabHeading_8K0, [t31, t119], C.Type_ContentAppendComponent_xw8, [t31], C.Type_DatepickerConfig_kiE, C.List_empty, C.Type_VisibleDates_ett, C.List_empty, C.Type_Format_axX, C.List_empty, C.Type_DateVO_2Hr, C.List_empty, C.Type_Mode_ij7, C.List_empty, C.Type_Datepicker_IUD, [t31, t120, t29, t56, t121], C.Type_WeekNumberFilter_5pG, C.List_empty, C.Type_DatepickerPopup_0, [t28, t31, t121, t29, t56, t116, t9, t48, t55, t5, t120, $.$get$_KEY_DatepickerPopupConfig()], C.Type_DatepickerPopupWrap_AGs, [t31], C.Type_ModalWindow_2No, [t31, $.$get$_KEY_Modal(), t94], C.Type_Modal_OjC, [t48, t94, t41, t40, t54, t55], C.Type_Alert_Opy, [t29], C.Type_TypeaheadParser_yPK, [t9], C.Type_TypeaheadHighlightFilter_wDN, C.List_empty, C.Type_TypeaheadPopup_apS, C.List_empty, C.Type_TemplateBasedComponent_SxV, [t36], C.Type_TypeaheadMatch_K6y, [t31, t5, t36], C.Type_TypeaheadDecorator_ZQB, [t56, t5, t31, $.$get$_KEY_TypeaheadParser(), t6, t36, t116], C.Type_TypeaheadConverter_gEE, [$.$get$_KEY_FormatterFunc()], C.Type_DropdownToggle_kzn, [t31], C.Type_Timepicker_0, [t31, $.$get$_KEY_TimepickerConfig(), t29, t56], C.Type_Popover_NAF, [t31, t29, t94, t115, t35, t116, t5, t48], C.Type_Collapse_kn0, [t31, t93], C.Type_WaA, [t85], C.Type_RevenueReportComponent_o0y, [t85], C.Type_ServicehoursReportComponent_6TW, [t85], C.Type_wv5, [t84, t91, t85, t86], C.Type_PDP, [t84, t91, t85, t86], C.Type_UserMenu_IcE, [t86, t87, t81], C.Type_Profiler_C5f, C.List_empty]);
+    return P.LinkedHashMap__makeLiteral([C.Type_PercentageInputField_nFg, C.List_empty, C.Type_Animate_ia3, C.List_empty, C.Type_BrowserCookies_23h, [t1], C.Type_Cookies_sBb, [t2], C.Type_Compiler_A0t, [t3, t4], C.Type_CompilerConfig_U2T, C.List_empty, C.Type_DirectiveMap_o48, [t5, t6, t7, t8], C.Type_ElementBinderFactory_kMT, [t9, t3, t10, t4, t11, t12, t13, t14], C.Type_EventHandler_MYA, [t15, t4, t1], C.Type_ShadowRootEventHandler_6m4, [t16, t4, t1], C.Type_DefaultShadowBoundary_R4n, C.List_empty, C.Type_ShadowRootBoundary_OXJ, [t16], C.Type_UrlRewriter_bl8, C.List_empty, C.Type_HttpBackend_KxY, C.List_empty, C.Type_LocationWrapper_A8Z, C.List_empty, C.Type_HttpInterceptors_Egs, C.List_empty, C.Type_HttpDefaultHeaders_2ru, C.List_empty, C.Type_HttpDefaults_JSb, [t17], C.Type_Http_Zg3, [t2, t18, t19, t20, t21, t22, t23, t24, t25, t26], C.Type_HttpConfig_KHa, C.List_empty, C.Type_TextMustache_ekJ, [t15, t27, t28], C.Type_AttrMustache_4eS, [t29, t30, t27, t28], C.Type_NgElement_SWJ, [t31, t23, t32, t33], C.Type_DirectiveSelectorFactory_DV7, [t34, t35, t11, t6, t5], C.Type_ShadowDomComponentFactory_YyH, [t36, t37, t4, t10, t38, t39, t40, t41, t42, t43, t44], C.Type_ComponentCssRewriter_qdZ, C.List_empty, C.Type_TranscludingComponentFactory_00x, [t4, t36, t10, t45, t38, t39, t40, t41, t42, t43, t44], C.Type_Content_0, [t31, t46, t33, t47], C.Type_NullTreeSanitizer_KBl, C.List_empty, C.Type_ViewFactoryCache_7FP, [t40, t41, t48, t43, t39, t44], C.Type_PlatformJsBasedShim_D34, C.List_empty, C.Type_DefaultPlatformShim_WHx, C.List_empty, C.Type_AHref_QTH, [t31, t25], C.Type_NgBaseCss_6m4, C.List_empty, C.Type_NgBind_Fv2, [t31, t49], C.Type_NgBindHtml_Bzh, [t31, t50], C.Type_NgBindTemplate_flr, [t31], C.Type_NgClass_e8P, [t51, t28, t29], C.Type_NgClassOdd_lGg, [t51, t28, t29], C.Type_NgClassEven_W7k, [t51, t28, t29], C.Type_NgEvent_WPt, [t31, t28], C.Type_NgCloak_3OQ, [t31, t32], C.Type_NgIf_Q4r, [t52, t53, t28], C.Type_NgUnless_i7B, [t52, t53, t28], C.Type_NgInclude_sKi, [t31, t28, t36, t54, t55], C.Type_NgModel_qjS, [t28, t51, t54, t29, t32, t49], C.Type_InputCheckbox_kqK, [t31, t56, t28, t57, t58, t59], C.Type_InputTextLike_IK6, [t31, t56, t28, t59], C.Type_InputNumberLike_Us6, [t31, t56, t28, t59], C.Type_NgBindTypeForDateLike_ls9, [t31], C.Type_InputDateLike_vww, [t31, t56, t28, t60, t59], C.Type_NgValue_Yqh, [t31], C.Type_NgTrueValue_jWj, [t31], C.Type_NgFalseValue_58q, [t31], C.Type_InputRadio_CRY, [t31, t56, t28, t61, t29], C.Type_ContentEditable_yg4, [t31, t56, t28, t59], C.Type_NgPluralize_oBb, [t28, t31, t35, t6], C.Type_NgRepeat_s3m, [t53, t62, t28, t9, t6], C.Type_NgTemplate_7BT, [t31, t41], C.Type_NgHide_Fv2, [t31, t32], C.Type_NgShow_Otg, [t31, t32], C.Type_NgBooleanAttribute_3Sx, [t51], C.Type_NgSource_ESz, [t51], C.Type_NgAttribute_69t, [t29], C.Type_NgStyle_SwL, [t31, t28], C.Type_NgSwitch_2Ex, [t28], C.Type_NgSwitchWhen_UW6, [t63, t53, t62], C.Type_NgSwitchDefault_ROw, [t63, t53, t62], C.Type_NgNonBindable_XB4, C.List_empty, C.Type_InputSelect_rTV, [t31, t29, t56, t28], C.Type_OptionValue_ESz, [t31, t64, t61], C.Type_NgForm_WV2, [t28, t51, t54, t32], C.Type_NgModelRequiredValidator_ynv, [t56], C.Type_NgModelUrlValidator_Dfi, [t56], C.Type_NgModelColorValidator_Z6Y, [t56], C.Type_NgModelEmailValidator_8aB, [t56], C.Type_NgModelNumberValidator_kfn, [t56], C.Type_NgModelMaxNumberValidator_ato, [t56], C.Type_NgModelMinNumberValidator_ato, [t56], C.Type_NgModelPatternValidator_Y7N, [t56], C.Type_NgModelMinLengthValidator_OvN, [t56], C.Type_NgModelMaxLengthValidator_OvN, [t56], C.Type_NgModelOptions_woc, C.List_empty, C.Type_Parser_v5M, [t65, t66, t44], C.Type_RuntimeParserBackend_kaS, [t67], C.Type_FormatterMap_JNA, [t5, t7], C.Type_ExceptionHandler_i7B, C.List_empty, C.Type_Interpolate_tMJ, [t44], C.Type_ScopeDigestTTL_e9j, C.List_empty, C.Type_ScopeStats_Gpa, [t68, t69], C.Type_ScopeStatsEmitter_2jN, C.List_empty, C.Type_ScopeStatsConfig_Ay2, C.List_empty, C.Type_RootScope_KGu, [t70, t9, t11, t71, t6, t1, t72, t25, t73, t44, t26], C.Type_PendingAsync_GAt, C.List_empty, C.Type_Lexer_AYZ, C.List_empty, C.Type_ASTParser_UxB, [t9, t67], C.Type_CacheRegister_avx, C.List_empty, C.Type_ResourceUrlResolver_0, [t38, t74], C.Type_ResourceResolverConfig_vkJ, C.List_empty, C.Type_Currency_MSf, C.List_empty, C.Type_Date_63Q, C.List_empty, C.Type_Filter_Roh, [t9], C.Type_Json_mya, C.List_empty, C.Type_LimitTo_8qt, [t5], C.Type_Lowercase_Gpa, C.List_empty, C.Type_Arrayify_gg4, C.List_empty, C.Type_Number_lSr, C.List_empty, C.Type_OrderBy_adS, [t9], C.Type_Uppercase_TXT, C.List_empty, C.Type_Stringify_2jN, C.List_empty, C.Type_AnimationLoop_oyU, [t75, t3, t25], C.Type_AnimationFrame_Nhy, [t76], C.Type_AnimationOptimizer_e7Q, [t4], C.Type_CssAnimate_goM, [t77, t78, t79], C.Type_CssAnimationMap_erm, C.List_empty, C.Type_NgAnimate_u1X, [t31, t79], C.Type_NgAnimateChildren_QN8, [t31, t79], C.Type_NgRoutingUsePushState_jWj, C.List_empty, C.Type_NgRoutingHelper_7eO, [t80, t5, t81, t82], C.Type_NgView_ZCY, [t31, t36, t54, t5, t81, t28], C.Type_NgBindRoute_7Re, [t81, t54, t83], C.Type_JsCacheRegister_Epa, [t44], C.Type_ActivitySelectComponent_Ik7, [t84, t31, t85, t86], C.Type_CustomerSelectComponent_Eaj, [t84, t31, t85, t86], C.Type_OfferStatusSelectComponent_uMl, [t84, t31, t85, t86], C.Type_ProjectSelectComponent_lOq, [t84, t31, t85, t86], C.Type_QLA, [t84, t31, t85, t86], C.Type_RateGroupSelectComponent_9Yy, [t84, t31, t85, t86], C.Type_RateUnitTypeSelectComponent_e7M, [t84, t31, t85, t86], C.Type_RoundModeSelect_bCX, [t31], C.Type_ServiceSelectComponent_4CA, [t84, t31, t85, t86], C.Type_Wnx, [t84, t31, t85, t86], C.Type_UserSelectComponent_Opm, [t84, t31, t87, t85, t86], C.Type_CostGroupSelectComponent_w59, [t84, t31, t85, t86], C.Type_DataCache_QkT, [t88], C.Type_ResourceStore_MKd, [t40, t89], C.Type_HammockConfig_xGW, [t5], C.Type_ObjectStore_Ec2, [t90, t89], C.Type_UserAuthProvider_4AN, [t88, t17, t91, t87, t85], C.Type_SettingsManager_EsU, [t88, t87, t85], C.Type_UserContext_69t, [t84], C.Type_StatusService_oU9, C.List_empty, C.Type_TabSetComponent_4m4, C.List_empty, C.Type_AppComponent_kSJ, [t86, t87], C.Type_ErrorIconComponent_2fF, [t85], C.Type_DateToTextInput_B8J, C.List_empty, C.Type_UserFilter_JTJ, C.List_empty, C.Type_TimesliceDateFilter_INK, C.List_empty, C.Type_ProjectValueFilter_Yqs, C.List_empty, C.Type_FYo, C.List_empty, C.Type_InvoiceItemOrderByOrderField_233, C.List_empty, C.Type_SecondsToHours_wYH, C.List_empty, C.Type_MenuComponent_4CA, [t86], C.Type_AddressEditComponent_XHr, C.List_empty, C.Type_CustomerEditComponent_kqh, [t92, t84, t85, t86, t81], C.Type_EmployeeEditComponent_Amm, [t92, t84, t85, t86, t81], C.Type_InvoiceEditComponent_69P, [t92, t84, t85, t86, t81], C.Type_OfferEditComponent_PLv, [t92, t84, t85, t86, t81], C.Type_ProjectEditComponent_jnt, [t92, t84, t85, t86, t81], C.Type_ServiceEditComponent_EVG, [t92, t84, t85, t86, t81], C.Type_ActivityOverviewComponent_Adg, [t84, t91, t85], C.Type_CustomerOverviewComponent_5wV, [t84, t81, t91, t85, t86, t92], C.Type_HBZ, [t84, t91, t85, t87, t86], C.Type_EmployeeOverviewComponent_s8k, [t84, t81, t91, t85, t86], C.Type_HolidayOverviewComponent_diW, [t84, t91, t85, t86], C.Type_InvoiceOverviewComponent_Mim, [t84, t81, t91, t85, t86], C.Type_jYm, [t84, t91, t85], C.Type_InvoiceItemOverviewComponent_8Wd, [t84, t91, t85], C.Type_OfferOverviewComponent_ewF, [t84, t87, t81, t91, t85, t86], C.Type_sav0, [t84, t91, t85], C.Type_sav, [t84, t91, t85], C.Type_PeriodOverviewComponent_lVM, [t84, t91, t85, t87], C.Type_ProjectOverviewComponent_1Ka, [t84, t87, t81, t91, t85, t86, t92], C.Type_ProjectOpenInvoicesComponent_UoB, [t84, t87, t81, t91, t85, t86, t92], C.Type_Au4, [t84, t91, t85, t86], C.Type_RateOverviewComponent_qJs, [t84, t91, t85], C.Type_RateGroupOverviewComponent_yLX, [t84, t91, t85, t86], C.Type_41V, [t84, t91, t85, t86], C.Type_ServiceOverviewComponent_cyO, [t84, t81, t91, t85, t86], C.Type_4YB, [t91, t85], C.Type_TimesliceOverviewComponent_gsm, [t84, t91, t85, t87, t86], C.Type_StatusBarComponent_QIC, [t85], C.Type_DateRange_E4y, C.List_empty, C.Type_TimetrackComponent_ASm, [t86, t87], C.Type_TimetrackMultiComponent_c86, [t84, t91, t85, t87, t86], C.Type_ProjectTimetrackComponent_ES1, [t86, t85], C.Type_TimetrackPeriodsComponent_evT, [t86, t87, t85, t84], C.Type_SettingEditComponent_ato, [t91, t86], C.Type_Carousel_U3n, [t93, t94], C.Type_Slide_USP, [t31, t95], C.Type_TimeItem_yHq, [t96, t97], C.Type_Timeout_N1p, [t5, t1], C.Type_Transition_0, [t94], C.Type_ProgressBar_kUZ, [t98, t93, t31], C.Type_Progress_oyU, [t31], C.Type_Bar_Z3K, [t98, t93, t31], C.Type_NgPseudo_8I8, [t31], C.Type_AccordionConfig_61x, C.List_empty, C.Type_AccordionComponent_yhx, [t99], C.Type_AccordionGroupComponent_oxt, [t100, t101, t94], C.Type_AccordionHeadingComponent_DKy, [t31, t102], C.Type_AccordionTransclude_Q8G, [t31], C.Type_DblClickPreventer_e1m, [t94], C.Type_BtnRadio_g0t, [t31, t56, t103, t28], C.Type_BtnCheckbox_jJI, [t31, t56, t103, t28], C.Type_DragDropZonesService_a6m, C.List_empty, C.Type_DragDropDataService_CBX, C.List_empty, C.Type_DragDropConfigService_qhc, C.List_empty, C.Type_DraggableComponent_eJH, [t31, t104, t105, t106], C.Type_DroppableComponent_knt, [t31, t104, t105, t106], C.Type_DragDropSortableDataService_VzM, C.List_empty, C.Type_SortableComponent_Ey5, [t31, t104, t106, t107, t28], C.Type_SortableItemComponent_0, [t108, t107, t31, t104, t106], C.Type_PagerConfig_EgC, [t109, t30, t30, t110], C.Type_PagerComponent_ijq, [t111], C.Type_PaginationConfig_w4W, [t109, t110, t110, t30, t30, t30, t30, t110], C.Type_PaginationComponent_TcW, [t112, t113], C.Type_PageInfo_qQg, [t109, t30, t110], C.Type_BasicPaginationGenerator_54c, C.List_empty, C.Type_RatingComponent_sxw, [t31, t29, t56, t114], C.Type_TooltipConfig_izV, C.List_empty, C.Type_Tooltip_Ate, [t31, t29, t94, t115, t35, t116, t5, t48], C.Type_Position_k0J, C.List_empty, C.Type_Rect_cAS, [t117, t117, t117, t117], C.Type_TabsetComponent_MXg, C.List_empty, C.Type_TabComponent_SBP, [t31, t118], C.Type_TabHeading_8K0, [t31, t119], C.Type_ContentAppendComponent_xw8, [t31], C.Type_DatepickerConfig_kiE, C.List_empty, C.Type_VisibleDates_ett, C.List_empty, C.Type_Format_axX, C.List_empty, C.Type_DateVO_2Hr, C.List_empty, C.Type_Mode_ij7, C.List_empty, C.Type_Datepicker_IUD, [t31, t120, t29, t56, t121], C.Type_WeekNumberFilter_5pG, C.List_empty, C.Type_DatepickerPopup_0, [t28, t31, t121, t29, t56, t116, t9, t48, t55, t5, t120, $.$get$_KEY_DatepickerPopupConfig()], C.Type_DatepickerPopupWrap_AGs, [t31], C.Type_ModalWindow_2No, [t31, $.$get$_KEY_Modal(), t94], C.Type_Modal_OjC, [t48, t94, t41, t40, t54, t55], C.Type_Alert_Opy, [t29], C.Type_TypeaheadParser_yPK, [t9], C.Type_TypeaheadHighlightFilter_wDN, C.List_empty, C.Type_TypeaheadPopup_apS, C.List_empty, C.Type_TemplateBasedComponent_SxV, [t36], C.Type_TypeaheadMatch_K6y, [t31, t5, t36], C.Type_TypeaheadDecorator_ZQB, [t56, t5, t31, $.$get$_KEY_TypeaheadParser(), t6, t36, t116], C.Type_TypeaheadConverter_gEE, [$.$get$_KEY_FormatterFunc()], C.Type_DropdownToggle_kzn, [t31], C.Type_Timepicker_0, [t31, $.$get$_KEY_TimepickerConfig(), t29, t56], C.Type_Popover_NAF, [t31, t29, t94, t115, t35, t116, t5, t48], C.Type_Collapse_kn0, [t31, t93], C.Type_WaA, [t85], C.Type_RevenueReportComponent_o0y, [t85], C.Type_ServicehoursReportComponent_6TW, [t85], C.Type_wv5, [t84, t91, t85, t86], C.Type_PDP, [t84, t91, t85, t86], C.Type_UserMenu_IcE, [t86, t87, t81], C.Type_Profiler_C5f, C.List_empty]);
   }, "parameterKeys", "getters", "$get$getters", function() {
     return P.LinkedHashMap__makeLiteral(["htmlclass", new G.closure365(), "precision", new G.closure366(), "useSafeCalc", new G.closure367(), "model", new G.closure368(), "select", new G.closure369(), "urls", new G.closure370(), "value", new G.closure371(), "bind", new G.closure372(), "valueExpression", new G.closure373(), "onAbort", new G.closure374(), "onBeforeCopy", new G.closure375(), "onBeforeCut", new G.closure376(), "onBeforePaste", new G.closure377(), "onBlur", new G.closure378(), "onChange", new G.closure379(), "onClick", new G.closure380(), "onContextMenu", new G.closure381(), "onCopy", new G.closure382(), "onCut", new G.closure383(), "onDoubleClick", new G.closure384(), "onDrag", new G.closure385(), "onDragEnd", new G.closure386(), "onDragEnter", new G.closure387(), "onDragLeave", new G.closure388(), "onDragOver", new G.closure389(), "onDragStart", new G.closure390(), "onDrop", new G.closure391(), "onError", new G.closure392(), "onFocus", new G.closure393(), "onFullscreenChange", new G.closure394(), "onFullscreenError", new G.closure395(), "onInput", new G.closure396(), "onInvalid", new G.closure397(), "onKeyDown", new G.closure398(), "onKeyPress", new G.closure399(), "onKeyUp", new G.closure400(), "onLoad", new G.closure401(), "onMouseDown", new G.closure402(), "onMouseEnter", new G.closure403(), "onMouseLeave", new G.closure404(), "onMouseMove", new G.closure405(), "onMouseOut", new G.closure406(), "onMouseOver", new G.closure407(), "onMouseUp", new G.closure408(), "onMouseWheel", new G.closure409(), "onPaste", new G.closure410(), "onReset", new G.closure411(), "onScroll", new G.closure412(), "onSearch", new G.closure413(), "onSelect", new G.closure414(), "onSelectStart", new G.closure415(), "onSubmit", new G.closure416(), "onTouchCancel", new G.closure417(), "onTouchEnd", new G.closure418(), "onTouchEnter", new G.closure419(), "onTouchLeave", new G.closure420(), "onTouchMove", new G.closure421(), "onTouchStart", new G.closure422(), "onTransitionEnd", new G.closure423(), "condition", new G.closure424(), "url", new G.closure425(), "name", new G.closure426(), "idlAttrKind", new G.closure427(), "count", new G.closure428(), "expression", new G.closure429(), "templateUrl", new G.closure430(), "hide", new G.closure431(), "show", new G.closure432(), "checked", new G.closure433(), "disabled", new G.closure434(), "multiple", new G.closure435(), "open", new G.closure436(), "readonly", new G.closure437(), "required", new G.closure438(), "selected", new G.closure439(), "href", new G.closure440(), "src", new G.closure441(), "srcset", new G.closure442(), "styleExpression", new G.closure443(), "max", new G.closure444(), "min", new G.closure445(), "pattern", new G.closure446(), "minlength", new G.closure447(), "maxlength", new G.closure448(), "options", new G.closure449(), "option", new G.closure450(), "routeName", new G.closure451(), "selectedEntity", new G.closure452(), "projectId", new G.closure453(), "shortname", new G.closure454(), "callback", new G.closure455(), "field", new G.closure456(), "clearOnClose", new G.closure457(), "isReadonly", new G.closure458(), "placeholder", new G.closure459(), "hideArchived", new G.closure460(), "useContext", new G.closure461(), "date", new G.closure462(), "format", new G.closure463(), "hasButtons", new G.closure464(), "nullAllowed", new G.closure465(), "address", new G.closure466(), "editform", new G.closure467(), "invoiceId", new G.closure468(), "parentCallback", new G.closure469(), "offerId", new G.closure470(), "employee", new G.closure471(), "serviceId", new G.closure472(), "entities", new G.closure473(), "projectFilter", new G.closure474(), "allowProjectSelect", new G.closure475(), "blendOutStartAndEnd", new G.closure476(), "startDate", new G.closure477(), "endDate", new G.closure478(), "namespace", new G.closure479(), "setting", new G.closure480(), "isCloseOthers", new G.closure481(), "heading", new G.closure482(), "isOpen", new G.closure483(), "isDisabled", new G.closure484(), "collapse", new G.closure485(), "btnRadioAttr", new G.closure486(), "btnCheckboxTrue", new G.closure487(), "btnCheckboxFalse", new G.closure488(), "type", new G.closure489(), "close", new G.closure490(), "alertTypeAsString", new G.closure491(), "closeable", new G.closure492(), "justified", new G.closure493(), "vertical", new G.closure494(), "tabs", new G.closure495(), "tab", new G.closure496(), "active", new G.closure497(), "onSelectCallback", new G.closure498(), "onDeselectCallback", new G.closure499(), "append", new G.closure500(), "windowClass", new G.closure501(), "visible", new G.closure502(), "keyboard", new G.closure503(), "index", new G.closure504(), "backdropAsString", new G.closure505(), "size", new G.closure506(), "$event", new G.closure507(), "sizeClass", new G.closure508(), "draggable", new G.closure509(), "draggableData", new G.closure510(), "dragdropConfig", new G.closure511(), "onDragSuccessCallback", new G.closure512(), "dropZones", new G.closure513(), "onDropSuccessCallback", new G.closure514(), "sortableData", new G.closure515(), "sortableConfig", new G.closure516(), "sortableZones", new G.closure517(), "currentPage", new G.closure518(), "totalItems", new G.closure519(), "itemsPerPage", new G.closure520(), "setNumPagesListener", new G.closure521(), "onSelectChangeExtEventHandler", new G.closure522(), "align", new G.closure523(), "previousText", new G.closure524(), "nextText", new G.closure525(), "noPrevious", new G.closure526(), "noNext", new G.closure527(), "maxSize", new G.closure528(), "rotate", new G.closure529(), "boundaryLinks", new G.closure530(), "directionLinks", new G.closure531(), "firstText", new G.closure532(), "lastText", new G.closure533(), "pages", new G.closure534(), "page", new G.closure535(), "isActive", new G.closure536(), "number", new G.closure537(), "text", new G.closure538(), "totalPages", new G.closure539(), "matches", new G.closure540(), "selectEventHandler", new G.closure541(), "position", new G.closure542(), "query", new G.closure543(), "top", new G.closure544(), "left", new G.closure545(), "match", new G.closure546(), "id", new G.closure547(), "$index", new G.closure548(), "minLength", new G.closure549(), "appendToBody", new G.closure550(), "inputFormatter", new G.closure551(), "waitInMs", new G.closure552(), "isLoading", new G.closure553(), "isEditable", new G.closure554(), "showMeridian", new G.closure555(), "invalidHours", new G.closure556(), "readonlyInput", new G.closure557(), "invalidMinutes", new G.closure558(), "meridian", new G.closure559(), "isCollapsed", new G.closure560(), "noTransition", new G.closure561(), "interval", new G.closure562(), "noPause", new G.closure563(), "slides", new G.closure564(), "length", new G.closure565(), "item", new G.closure566(), "direction", new G.closure567(), "entering", new G.closure568(), "leaving", new G.closure569(), "next", new G.closure570(), "animate", new G.closure571(), "classes", new G.closure572(), "onHover", new G.closure573(), "onLeave", new G.closure574(), "range", new G.closure575(), "r", new G.closure576(), "dayFormat", new G.closure577(), "monthFormat", new G.closure578(), "yearFormat", new G.closure579(), "dayHeaderFormat", new G.closure580(), "dayTitleFormat", new G.closure581(), "monthTitleFormat", new G.closure582(), "startingDay", new G.closure583(), "yearRange", new G.closure584(), "dateDisabled", new G.closure585(), "showWeeks", new G.closure586(), "d", new G.closure587(), "display", new G.closure588(), "showButtonBar", new G.closure589(), "currentText", new G.closure590(), "toggleWeeksText", new G.closure591(), "clearText", new G.closure592(), "closeText", new G.closure593(), "selector", new G.closure594(), "entity", new G.closure595(), "service", new G.closure596(), "fullname", new G.closure597(), "modes", new G.closure598(), "mode", new G.closure599(), "archived", new G.closure600(), "link", new G.closure601(), "linklist", new G.closure602(), "Title", new G.closure603(), "auth", new G.closure604(), "isloggedin", new G.closure605(), "userContext", new G.closure606(), "showlogin", new G.closure607(), "loginFailed", new G.closure608(), "username", new G.closure609(), "password", new G.closure610(), "rememberme", new G.closure611(), "statusservice", new G.closure612(), "status", new G.closure613(), "isValid", new G.closure614(), "menus", new G.closure615(), "menu", new G.closure616(), "icon", new G.closure617(), "title", new G.closure618(), "items", new G.closure619(), "street", new G.closure620(), "streetnumber", new G.closure621(), "plz", new G.closure622(), "city", new G.closure623(), "state", new G.closure624(), "country", new G.closure625(), "company", new G.closure626(), "department", new G.closure627(), "salutation", new G.closure628(), "rateGroup", new G.closure629(), "chargeable", new G.closure630(), "firstname", new G.closure631(), "lastname", new G.closure632(), "email", new G.closure633(), "plainpassword", new G.closure634(), "employeeholiday", new G.closure635(), "enabled", new G.closure636(), "project", new G.closure637(), "offers", new G.closure638(), "isEmpty", new G.closure639(), "offer", new G.closure640(), "invoices", new G.closure641(), "invoice", new G.closure642(), "customer", new G.closure643(), "accountant", new G.closure644(), "start", new G.closure645(), "end", new G.closure646(), "description", new G.closure647(), "param1", new G.closure648(), "standardDiscounts", new G.closure649(), "subtotal", new G.closure650(), "totalDiscounts", new G.closure651(), "totalVAT", new G.closure652(), "totalVAT8", new G.closure653(), "totalVAT2", new G.closure654(), "total", new G.closure655(), "fixedPrice", new G.closure656(), "validTo", new G.closure657(), "shortDescription", new G.closure658(), "alias", new G.closure659(), "projectCategory", new G.closure660(), "deadline", new G.closure661(), "currentPrice", new G.closure662(), "budgetPrice", new G.closure663(), "remainingBudgetPrice", new G.closure664(), "currentTime", new G.closure665(), "budgetTime", new G.closure666(), "remainingBudgetTime", new G.closure667(), "updatedAt", new G.closure668(), "user", new G.closure669(), "createdAt", new G.closure670(), "vat", new G.closure671(), "rateValue", new G.closure672(), "rateUnit", new G.closure673(), "filterString", new G.closure674(), "sortType", new G.closure675(), "sortReverse", new G.closure676(), "projectAssignments", new G.closure677(), "weekday", new G.closure678(), "duration", new G.closure679(), "percentage", new G.closure680(), "order", new G.closure681(), "amount", new G.closure682(), "rateUnitType", new G.closure683(), "discountable", new G.closure684(), "pensum", new G.closure685(), "realTime", new G.closure686(), "targetTime", new G.closure687(), "timeTillToday", new G.closure688(), "holidayBalance", new G.closure689(), "lastYearHolidayBalance", new G.closure690(), "factor", new G.closure691(), "scale", new G.closure692(), "doTransform", new G.closure693(), "roundMode", new G.closure694(), "symbol", new G.closure695(), "newDiscount", new G.closure696(), "filterStartDate", new G.closure697(), "filterEndDate", new G.closure698(), "projectBased", new G.closure699(), "activity", new G.closure700(), "startedAt", new G.closure701(), "stoppedAt", new G.closure702(), "newEntryDate", new G.closure703(), "updateNewEntryDate", new G.closure704(), "selectedProject", new G.closure705(), "selectedActivity", new G.closure706(), "error", new G.closure707(), "loading", new G.closure708(), "defaultVal", new G.closure709(), "success", new G.closure710(), "activities", new G.closure711(), "entries", new G.closure712(), "inputAll", new G.closure713(), "entry", new G.closure714(), "selectedUserToAdd", new G.closure715(), "statusText", new G.closure716(), "showEnabledUsersOnly", new G.closure717(), "employees", new G.closure718(), "empl", new G.closure719(), "seconds", new G.closure720(), "activitylist", new G.closure721(), "projectCategoryId", new G.closure722(), "report", new G.closure723(), "timeslices", new G.closure724(), "dates", new G.closure725(), "days", new G.closure726(), "day", new G.closure727(), "toggleOpen", new G.closure728(), "selectPage", new G.closure729(), "selectMatch", new G.closure730(), "selectActive", new G.closure731(), "incrementHours", new G.closure732(), "incrementMinutes", new G.closure733(), "updateHours", new G.closure734(), "updateMinutes", new G.closure735(), "toggleMeridian", new G.closure736(), "decrementHours", new G.closure737(), "decrementMinutes", new G.closure738(), "pause", new G.closure739(), "play", new G.closure740(), "prev", new G.closure741(), "reset", new G.closure742(), "stateClass", new G.closure743(), "rate", new G.closure744(), "enter", new G.closure745(), "move", new G.closure746(), "toggleMode", new G.closure747(), "today", new G.closure748(), "clear", new G.closure749(), "toggleSelectionBox", new G.closure750(), "loginOnEnter", new G.closure751(), "login", new G.closure752(), "onInputBlur", new G.closure753(), "previousDay", new G.closure754(), "nextDay", new G.closure755(), "toggleMenu", new G.closure756(), "addSaveField", new G.closure757(), "saveEntity", new G.closure758(), "reload", new G.closure759(), "openOffer", new G.closure760(), "openProject", new G.closure761(), "openInvoice", new G.closure762(), "createInvoice", new G.closure763(), "setInvoiceItemOverview", new G.closure764(), "updateInvoicefromProject", new G.closure765(), "printInvoice", new G.closure766(), "printAufwandsbericht", new G.closure767(), "createProject", new G.closure768(), "addFieldtoUpdate", new G.closure769(), "copyAddressFromCustomer", new G.closure770(), "printOffer", new G.closure771(), "isSelected", new G.closure772(), "selectEntity", new G.closure773(), "deleteEntity", new G.closure774(), "createEntity", new G.closure775(), "duplicateEntity", new G.closure776(), "changeSortOrder", new G.closure777(), "searchFilter", new G.closure778(), "openEditView", new G.closure779(), "saveAllEntities", new G.closure780(), "save", new G.closure781(), "ViewValue", new G.closure782(), "previousMonth", new G.closure783(), "previousWeek", new G.closure784(), "nextWeek", new G.closure785(), "nextMonth", new G.closure786(), "inputAllUpdated", new G.closure787(), "removeUser", new G.closure788(), "addUser", new G.closure789(), "clearInputs", new G.closure790(), "update", new G.closure791(), "hasChanged", new G.closure792(), "getCsvLink", new G.closure793(), "printReport", new G.closure794(), "userEditor", new G.closure795(), "logout", new G.closure796()]);
   }, "getters", "setters", "$get$setters", function() {
@@ -66812,16 +66895,16 @@
   }, "setters", "symbols", "$get$symbols", function() {
     return P.LinkedHashMap__makeLiteral(["evict", C.Symbol_evict]);
   }, "symbols", "typeAnnotations", "$get$typeAnnotations", function() {
-    return P.LinkedHashMap__makeLiteral([C.Type_PercentageInputField_nFg, C.List_sq4, C.Type_Animate_ia3, C.List_Injectable, C.Type_BrowserCookies_23h, C.List_Injectable, C.Type_Cookies_sBb, C.List_Injectable, C.Type_Compiler_A0t, C.List_Injectable, C.Type_CompilerConfig_U2T, C.List_Injectable, C.Type_DirectiveMap_o48, C.List_Injectable, C.Type_ElementBinderFactory_kMT, C.List_Injectable, C.Type_EventHandler_MYA, C.List_Injectable, C.Type_ShadowRootEventHandler_6m4, C.List_Injectable, C.Type_DefaultShadowBoundary_R4n, C.List_Injectable, C.Type_ShadowRootBoundary_OXJ, C.List_Injectable, C.Type_UrlRewriter_bl8, C.List_Injectable, C.Type_HttpBackend_KxY, C.List_Injectable, C.Type_LocationWrapper_A8Z, C.List_Injectable, C.Type_HttpInterceptors_Egs, C.List_Injectable, C.Type_HttpDefaultHeaders_2ru, C.List_Injectable, C.Type_HttpDefaults_JSb, C.List_Injectable, C.Type_Http_Zg3, C.List_Injectable, C.Type_HttpConfig_KHa, C.List_Injectable, C.Type_TextMustache_ekJ, C.List_NoS, C.Type_AttrMustache_4eS, C.List_qJO, C.Type_NgElement_SWJ, C.List_Injectable, C.Type_DirectiveSelectorFactory_DV7, C.List_Injectable, C.Type_ShadowDomComponentFactory_YyH, C.List_Injectable, C.Type_ComponentCssRewriter_qdZ, C.List_Injectable, C.Type_TranscludingComponentFactory_00x, C.List_Injectable, C.Type_Content_0, C.List_rCi, C.Type_NullTreeSanitizer_KBl, C.List_Injectable, C.Type_ViewFactoryCache_7FP, C.List_Injectable, C.Type_PlatformJsBasedShim_D34, C.List_Injectable, C.Type_DefaultPlatformShim_WHx, C.List_Injectable, C.Type_AHref_QTH, C.List_Fxv, C.Type_NgBaseCss_6m4, C.List_knt1, C.Type_NgBind_Fv2, C.List_cA4, C.Type_NgBindHtml_Bzh, C.List_D72, C.Type_NgBindTemplate_flr, C.List_2bL, C.Type_NgClass_e8P, C.List_36D, C.Type_NgClassOdd_lGg, C.List_86y, C.Type_NgClassEven_W7k, C.List_CtB, C.Type_NgEvent_WPt, C.List_SWM, C.Type_NgCloak_3OQ, C.List_qFe, C.Type_NgIf_Q4r, C.List_RWm, C.Type_NgUnless_i7B, C.List_Vyt0, C.Type_NgInclude_sKi, C.List_QI9, C.Type_NgModel_qjS, C.List_6TW, C.Type_InputCheckbox_kqK, C.List_176, C.Type_InputTextLike_IK6, C.List_Azz, C.Type_InputNumberLike_Us6, C.List_px4, C.Type_NgBindTypeForDateLike_ls9, C.List_b9P, C.Type_InputDateLike_vww, C.List_AGA, C.Type_NgValue_Yqh, C.List_I3h, C.Type_NgTrueValue_jWj, C.List_07, C.Type_NgFalseValue_58q, C.List_33r0, C.Type_InputRadio_CRY, C.List_qZs, C.Type_ContentEditable_yg4, C.List_wEo0, C.Type_NgPluralize_oBb, C.List_6TW0, C.Type_NgRepeat_s3m, C.List_ivT, C.Type_NgTemplate_7BT, C.List_chs0, C.Type_NgHide_Fv2, C.List_weg, C.Type_NgShow_Otg, C.List_ZeB, C.Type_NgBooleanAttribute_3Sx, C.List_XnQ, C.Type_NgSource_ESz, C.List_ww83, C.Type_NgAttribute_69t, C.List_gWj, C.Type_NgStyle_SwL, C.List_B0x, C.Type_NgSwitch_2Ex, C.List_Esk, C.Type_NgSwitchWhen_UW6, C.List_2jN1, C.Type_NgSwitchDefault_ROw, C.List_UJr, C.Type_NgNonBindable_XB4, C.List_Qsb, C.Type_InputSelect_rTV, C.List_86y0, C.Type_OptionValue_ESz, C.List_Wvz, C.Type_NgForm_WV2, C.List_4IJ0, C.Type_NgModelRequiredValidator_ynv, C.List_C6q, C.Type_NgModelUrlValidator_Dfi, C.List_dqy, C.Type_NgModelColorValidator_Z6Y, C.List_VEs, C.Type_NgModelEmailValidator_8aB, C.List_08, C.Type_NgModelNumberValidator_kfn, C.List_px4, C.Type_NgModelMaxNumberValidator_ato, C.List_Hn6, C.Type_NgModelMinNumberValidator_ato, C.List_eAf, C.Type_NgModelPatternValidator_Y7N, C.List_ZVa, C.Type_NgModelMinLengthValidator_OvN, C.List_mu7, C.Type_NgModelMaxLengthValidator_OvN, C.List_RZh, C.Type_NgModelOptions_woc, C.List_Sj8, C.Type_Parser_v5M, C.List_Injectable, C.Type_RuntimeParserBackend_kaS, C.List_Injectable, C.Type_FormatterMap_JNA, C.List_Injectable, C.Type_ExceptionHandler_i7B, C.List_Injectable, C.Type_Interpolate_tMJ, C.List_Injectable, C.Type_ScopeDigestTTL_e9j, C.List_Injectable, C.Type_ScopeStats_Gpa, C.List_Injectable, C.Type_ScopeStatsEmitter_2jN, C.List_Injectable, C.Type_ScopeStatsConfig_Ay2, C.List_Injectable, C.Type_RootScope_KGu, C.List_Injectable, C.Type_PendingAsync_GAt, C.List_Injectable, C.Type_Lexer_AYZ, C.List_Injectable, C.Type_ASTParser_UxB, C.List_Injectable, C.Type_CacheRegister_avx, C.List_Injectable, C.Type_ResourceUrlResolver_0, C.List_Injectable, C.Type_ResourceResolverConfig_vkJ, C.List_Injectable, C.Type_Currency_MSf, C.List_Formatter_currency, C.Type_Date_63Q, C.List_Formatter_date, C.Type_Filter_Roh, C.List_Formatter_filter, C.Type_Json_mya, C.List_Formatter_json, C.Type_LimitTo_8qt, C.List_Formatter_limitTo, C.Type_Lowercase_Gpa, C.List_Formatter_lowercase, C.Type_Arrayify_gg4, C.List_Formatter_arrayify, C.Type_Number_lSr, C.List_Formatter_number, C.Type_OrderBy_adS, C.List_Formatter_orderBy, C.Type_Uppercase_TXT, C.List_Formatter_uppercase, C.Type_Stringify_2jN, C.List_Formatter_stringify, C.Type_AnimationLoop_oyU, C.List_Injectable, C.Type_AnimationFrame_Nhy, C.List_Injectable, C.Type_AnimationOptimizer_e7Q, C.List_Injectable, C.Type_CssAnimate_goM, C.List_Injectable, C.Type_CssAnimationMap_erm, C.List_Injectable, C.Type_NgAnimate_u1X, C.List_gn0, C.Type_NgAnimateChildren_QN8, C.List_UWz, C.Type_NgRoutingUsePushState_jWj, C.List_Injectable, C.Type_NgRoutingHelper_7eO, C.List_Injectable, C.Type_NgView_ZCY, C.List_kGu, C.Type_NgBindRoute_7Re, C.List_3DL, C.Type_JsCacheRegister_Epa, C.List_Injectable, C.Type_ActivitySelectComponent_Ik7, C.List_ADF, C.Type_CustomerSelectComponent_Eaj, C.List_FuN, C.Type_OfferStatusSelectComponent_uMl, C.List_Nss0, C.Type_ProjectSelectComponent_lOq, C.List_udf, C.Type_QLA, C.List_woc1, C.Type_RateGroupSelectComponent_9Yy, C.List_bzF, C.Type_RateUnitTypeSelectComponent_e7M, C.List_GFv, C.Type_RoundModeSelect_bCX, C.List_2jN2, C.Type_ServiceSelectComponent_4CA, C.List_uP0, C.Type_Wnx, C.List_ES6, C.Type_UserSelectComponent_Opm, C.List_chs1, C.Type_DataCache_QkT, C.List_Injectable, C.Type_ResourceStore_MKd, C.List_Injectable, C.Type_HammockConfig_xGW, C.List_Injectable, C.Type_ObjectStore_Ec2, C.List_Injectable, C.Type_UserAuthProvider_4AN, C.List_Injectable, C.Type_SettingsManager_EsU, C.List_Injectable, C.Type_UserContext_69t, C.List_Injectable, C.Type_StatusService_oU9, C.List_Injectable, C.Type_TabSetComponent_4m4, C.List_ctK, C.Type_AppComponent_kSJ, C.List_IVn, C.Type_ErrorIconComponent_2fF, C.List_apk, C.Type_DateToTextInput_B8J, C.List_gQW, C.Type_UserFilter_JTJ, C.List_Formatter_userfilter, C.Type_TimesliceDateFilter_INK, C.List_Formatter_timeslicedatefilter, C.Type_ProjectValueFilter_Yqs, C.List_Formatter_projectvaluefilter, C.Type_FYo, C.List_Formatter_offerpostionOrder, C.Type_InvoiceItemOrderByOrderField_233, C.List_Formatter_invoiceitemOrder, C.Type_SecondsToHours_wYH, C.List_Formatter_secondsToHours, C.Type_MenuComponent_4CA, C.List_1CY, C.Type_AddressEditComponent_XHr, C.List_Ymm, C.Type_CustomerEditComponent_kqh, C.List_Ymm0, C.Type_EmployeeEditComponent_Amm, C.List_SxR, C.Type_InvoiceEditComponent_69P, C.List_AiQ0, C.Type_OfferEditComponent_PLv, C.List_qKc, C.Type_ProjectEditComponent_jnt, C.List_zkI, C.Type_ServiceEditComponent_EVG, C.List_iqF, C.Type_ActivityOverviewComponent_Adg, C.List_ykb, C.Type_CustomerOverviewComponent_5wV, C.List_7h5, C.Type_HBZ, C.List_cTv, C.Type_EmployeeOverviewComponent_s8k, C.List_cSi, C.Type_HolidayOverviewComponent_diW, C.List_AKW, C.Type_InvoiceOverviewComponent_Mim, C.List_Wvz0, C.Type_jYm, C.List_O5Z, C.Type_InvoiceItemOverviewComponent_8Wd, C.List_cKo2, C.Type_OfferOverviewComponent_ewF, C.List_apk0, C.Type_sav0, C.List_Fcu, C.Type_sav, C.List_dEZ, C.Type_PeriodOverviewComponent_lVM, C.List_ESz, C.Type_ProjectOverviewComponent_1Ka, C.List_09, C.Type_ProjectOpenInvoicesComponent_UoB, C.List_bWL, C.Type_Au4, C.List_8lO, C.Type_RateOverviewComponent_qJs, C.List_010, C.Type_RateGroupOverviewComponent_yLX, C.List_TbG, C.Type_41V, C.List_x6V, C.Type_ServiceOverviewComponent_cyO, C.List_3Vk, C.Type_4YB, C.List_IUd, C.Type_TimesliceOverviewComponent_gsm, C.List_gkc2, C.Type_StatusBarComponent_QIC, C.List_mOS, C.Type_DateRange_E4y, C.List_gNF, C.Type_TimetrackComponent_ASm, C.List_p6t, C.Type_TimetrackMultiComponent_c86, C.List_EOZ, C.Type_ProjectTimetrackComponent_ES1, C.List_wIq, C.Type_TimetrackPeriodsComponent_evT, C.List_cMx, C.Type_SettingEditComponent_ato, C.List_mBr, C.Type_TimeItem_yHq, C.List_Injectable, C.Type_Timeout_N1p, C.List_Injectable, C.Type_AccordionConfig_61x, C.List_Injectable, C.Type_AccordionComponent_yhx, C.List_Q8b, C.Type_AccordionGroupComponent_oxt, C.List_799, C.Type_AccordionHeadingComponent_DKy, C.List_tUr, C.Type_AccordionTransclude_Q8G, C.List_43h2, C.Type_DblClickPreventer_e1m, C.List_Injectable, C.Type_BtnRadio_g0t, C.List_wry, C.Type_BtnCheckbox_jJI, C.List_8eb1, C.Type_Transition_0, C.List_Injectable, C.Type_TooltipConfig_izV, C.List_Injectable, C.Type_Tooltip_Ate, C.List_iDZ1, C.Type_Position_k0J, C.List_Injectable, C.Type_Rect_cAS, C.List_Injectable, C.Type_NgPseudo_8I8, C.List_011, C.Type_Alert_Opy, C.List_eNF, C.Type_TabsetComponent_MXg, C.List_qhE, C.Type_TabComponent_SBP, C.List_uzc, C.Type_TabHeading_8K0, C.List_AeS, C.Type_ContentAppendComponent_xw8, C.List_kMT, C.Type_WaA, C.List_gg40, C.Type_RevenueReportComponent_o0y, C.List_wdn, C.Type_ServicehoursReportComponent_6TW, C.List_NLv, C.Type_wv5, C.List_7fP, C.Type_PDP, C.List_EyN, C.Type_ModalWindow_2No, C.List_PRF, C.Type_Modal_OjC, C.List_Injectable, C.Type_Popover_NAF, C.List_7eO0, C.Type_DragDropZonesService_a6m, C.List_Injectable, C.Type_DragDropDataService_CBX, C.List_Injectable, C.Type_DragDropConfigService_qhc, C.List_Injectable, C.Type_DraggableComponent_eJH, C.List_i3t, C.Type_DroppableComponent_knt, C.List_qJs, C.Type_DragDropSortableDataService_VzM, C.List_Injectable, C.Type_SortableComponent_Ey5, C.List_EmB, C.Type_SortableItemComponent_0, C.List_Wiu, C.Type_PagerConfig_EgC, C.List_Injectable, C.Type_PagerComponent_ijq, C.List_F06, C.Type_PaginationConfig_w4W, C.List_Injectable, C.Type_PaginationComponent_TcW, C.List_YDV, C.Type_PageInfo_qQg, C.List_Injectable, C.Type_BasicPaginationGenerator_54c, C.List_Injectable, C.Type_DropdownToggle_kzn, C.List_pyh, C.Type_TypeaheadParser_yPK, C.List_Injectable, C.Type_TypeaheadHighlightFilter_wDN, C.List_Formatter_highlight, C.Type_TypeaheadPopup_apS, C.List_8aB1, C.Type_TemplateBasedComponent_SxV, C.List_Injectable, C.Type_TypeaheadMatch_K6y, C.List_ugX, C.Type_TypeaheadDecorator_ZQB, C.List_h8l, C.Type_TypeaheadConverter_gEE, C.List_Injectable, C.Type_Timepicker_0, C.List_AKW0, C.Type_Collapse_kn0, C.List_4UV, C.Type_Carousel_U3n, C.List_kqK, C.Type_Slide_USP, C.List_eAf0, C.Type_ProgressBar_kUZ, C.List_9qD, C.Type_Progress_oyU, C.List_y1j, C.Type_Bar_Z3K, C.List_JcL, C.Type_RatingComponent_sxw, C.List_2jN3, C.Type_DatepickerConfig_kiE, C.List_Injectable, C.Type_VisibleDates_ett, C.List_Injectable, C.Type_Format_axX, C.List_Injectable, C.Type_DateVO_2Hr, C.List_Injectable, C.Type_Mode_ij7, C.List_Injectable, C.Type_Datepicker_IUD, C.List_jQy, C.Type_WeekNumberFilter_5pG, C.List_Formatter_weekNumber, C.Type_DatepickerPopup_0, C.List_WfA, C.Type_DatepickerPopupWrap_AGs, C.List_EVH, C.Type_UserMenu_IcE, C.List_Y3i]);
+    return P.LinkedHashMap__makeLiteral([C.Type_PercentageInputField_nFg, C.List_sq4, C.Type_Animate_ia3, C.List_Injectable, C.Type_BrowserCookies_23h, C.List_Injectable, C.Type_Cookies_sBb, C.List_Injectable, C.Type_Compiler_A0t, C.List_Injectable, C.Type_CompilerConfig_U2T, C.List_Injectable, C.Type_DirectiveMap_o48, C.List_Injectable, C.Type_ElementBinderFactory_kMT, C.List_Injectable, C.Type_EventHandler_MYA, C.List_Injectable, C.Type_ShadowRootEventHandler_6m4, C.List_Injectable, C.Type_DefaultShadowBoundary_R4n, C.List_Injectable, C.Type_ShadowRootBoundary_OXJ, C.List_Injectable, C.Type_UrlRewriter_bl8, C.List_Injectable, C.Type_HttpBackend_KxY, C.List_Injectable, C.Type_LocationWrapper_A8Z, C.List_Injectable, C.Type_HttpInterceptors_Egs, C.List_Injectable, C.Type_HttpDefaultHeaders_2ru, C.List_Injectable, C.Type_HttpDefaults_JSb, C.List_Injectable, C.Type_Http_Zg3, C.List_Injectable, C.Type_HttpConfig_KHa, C.List_Injectable, C.Type_TextMustache_ekJ, C.List_NoS, C.Type_AttrMustache_4eS, C.List_qJO, C.Type_NgElement_SWJ, C.List_Injectable, C.Type_DirectiveSelectorFactory_DV7, C.List_Injectable, C.Type_ShadowDomComponentFactory_YyH, C.List_Injectable, C.Type_ComponentCssRewriter_qdZ, C.List_Injectable, C.Type_TranscludingComponentFactory_00x, C.List_Injectable, C.Type_Content_0, C.List_rCi, C.Type_NullTreeSanitizer_KBl, C.List_Injectable, C.Type_ViewFactoryCache_7FP, C.List_Injectable, C.Type_PlatformJsBasedShim_D34, C.List_Injectable, C.Type_DefaultPlatformShim_WHx, C.List_Injectable, C.Type_AHref_QTH, C.List_Fxv, C.Type_NgBaseCss_6m4, C.List_knt1, C.Type_NgBind_Fv2, C.List_cA4, C.Type_NgBindHtml_Bzh, C.List_D72, C.Type_NgBindTemplate_flr, C.List_2bL, C.Type_NgClass_e8P, C.List_36D, C.Type_NgClassOdd_lGg, C.List_86y, C.Type_NgClassEven_W7k, C.List_CtB, C.Type_NgEvent_WPt, C.List_SWM, C.Type_NgCloak_3OQ, C.List_qFe, C.Type_NgIf_Q4r, C.List_RWm, C.Type_NgUnless_i7B, C.List_Vyt0, C.Type_NgInclude_sKi, C.List_QI9, C.Type_NgModel_qjS, C.List_6TW, C.Type_InputCheckbox_kqK, C.List_176, C.Type_InputTextLike_IK6, C.List_Azz, C.Type_InputNumberLike_Us6, C.List_px4, C.Type_NgBindTypeForDateLike_ls9, C.List_b9P, C.Type_InputDateLike_vww, C.List_AGA, C.Type_NgValue_Yqh, C.List_I3h, C.Type_NgTrueValue_jWj, C.List_07, C.Type_NgFalseValue_58q, C.List_33r0, C.Type_InputRadio_CRY, C.List_qZs, C.Type_ContentEditable_yg4, C.List_wEo0, C.Type_NgPluralize_oBb, C.List_6TW0, C.Type_NgRepeat_s3m, C.List_ivT, C.Type_NgTemplate_7BT, C.List_chs0, C.Type_NgHide_Fv2, C.List_weg, C.Type_NgShow_Otg, C.List_ZeB, C.Type_NgBooleanAttribute_3Sx, C.List_XnQ, C.Type_NgSource_ESz, C.List_ww83, C.Type_NgAttribute_69t, C.List_gWj, C.Type_NgStyle_SwL, C.List_B0x, C.Type_NgSwitch_2Ex, C.List_Esk, C.Type_NgSwitchWhen_UW6, C.List_2jN1, C.Type_NgSwitchDefault_ROw, C.List_UJr, C.Type_NgNonBindable_XB4, C.List_Qsb, C.Type_InputSelect_rTV, C.List_86y0, C.Type_OptionValue_ESz, C.List_Wvz, C.Type_NgForm_WV2, C.List_4IJ0, C.Type_NgModelRequiredValidator_ynv, C.List_C6q, C.Type_NgModelUrlValidator_Dfi, C.List_dqy, C.Type_NgModelColorValidator_Z6Y, C.List_VEs, C.Type_NgModelEmailValidator_8aB, C.List_08, C.Type_NgModelNumberValidator_kfn, C.List_px4, C.Type_NgModelMaxNumberValidator_ato, C.List_Hn6, C.Type_NgModelMinNumberValidator_ato, C.List_eAf, C.Type_NgModelPatternValidator_Y7N, C.List_ZVa, C.Type_NgModelMinLengthValidator_OvN, C.List_mu7, C.Type_NgModelMaxLengthValidator_OvN, C.List_RZh, C.Type_NgModelOptions_woc, C.List_Sj8, C.Type_Parser_v5M, C.List_Injectable, C.Type_RuntimeParserBackend_kaS, C.List_Injectable, C.Type_FormatterMap_JNA, C.List_Injectable, C.Type_ExceptionHandler_i7B, C.List_Injectable, C.Type_Interpolate_tMJ, C.List_Injectable, C.Type_ScopeDigestTTL_e9j, C.List_Injectable, C.Type_ScopeStats_Gpa, C.List_Injectable, C.Type_ScopeStatsEmitter_2jN, C.List_Injectable, C.Type_ScopeStatsConfig_Ay2, C.List_Injectable, C.Type_RootScope_KGu, C.List_Injectable, C.Type_PendingAsync_GAt, C.List_Injectable, C.Type_Lexer_AYZ, C.List_Injectable, C.Type_ASTParser_UxB, C.List_Injectable, C.Type_CacheRegister_avx, C.List_Injectable, C.Type_ResourceUrlResolver_0, C.List_Injectable, C.Type_ResourceResolverConfig_vkJ, C.List_Injectable, C.Type_Currency_MSf, C.List_Formatter_currency, C.Type_Date_63Q, C.List_Formatter_date, C.Type_Filter_Roh, C.List_Formatter_filter, C.Type_Json_mya, C.List_Formatter_json, C.Type_LimitTo_8qt, C.List_Formatter_limitTo, C.Type_Lowercase_Gpa, C.List_Formatter_lowercase, C.Type_Arrayify_gg4, C.List_Formatter_arrayify, C.Type_Number_lSr, C.List_Formatter_number, C.Type_OrderBy_adS, C.List_Formatter_orderBy, C.Type_Uppercase_TXT, C.List_Formatter_uppercase, C.Type_Stringify_2jN, C.List_Formatter_stringify, C.Type_AnimationLoop_oyU, C.List_Injectable, C.Type_AnimationFrame_Nhy, C.List_Injectable, C.Type_AnimationOptimizer_e7Q, C.List_Injectable, C.Type_CssAnimate_goM, C.List_Injectable, C.Type_CssAnimationMap_erm, C.List_Injectable, C.Type_NgAnimate_u1X, C.List_gn0, C.Type_NgAnimateChildren_QN8, C.List_UWz, C.Type_NgRoutingUsePushState_jWj, C.List_Injectable, C.Type_NgRoutingHelper_7eO, C.List_Injectable, C.Type_NgView_ZCY, C.List_kGu, C.Type_NgBindRoute_7Re, C.List_3DL, C.Type_JsCacheRegister_Epa, C.List_Injectable, C.Type_ActivitySelectComponent_Ik7, C.List_ADF, C.Type_CustomerSelectComponent_Eaj, C.List_FuN, C.Type_OfferStatusSelectComponent_uMl, C.List_Nss0, C.Type_ProjectSelectComponent_lOq, C.List_udf, C.Type_QLA, C.List_woc1, C.Type_RateGroupSelectComponent_9Yy, C.List_bzF, C.Type_RateUnitTypeSelectComponent_e7M, C.List_GFv, C.Type_RoundModeSelect_bCX, C.List_2jN2, C.Type_ServiceSelectComponent_4CA, C.List_uP0, C.Type_Wnx, C.List_ES6, C.Type_UserSelectComponent_Opm, C.List_chs1, C.Type_CostGroupSelectComponent_w59, C.List_B8J0, C.Type_DataCache_QkT, C.List_Injectable, C.Type_ResourceStore_MKd, C.List_Injectable, C.Type_HammockConfig_xGW, C.List_Injectable, C.Type_ObjectStore_Ec2, C.List_Injectable, C.Type_UserAuthProvider_4AN, C.List_Injectable, C.Type_SettingsManager_EsU, C.List_Injectable, C.Type_UserContext_69t, C.List_Injectable, C.Type_StatusService_oU9, C.List_Injectable, C.Type_TabSetComponent_4m4, C.List_ctK, C.Type_AppComponent_kSJ, C.List_IVn, C.Type_ErrorIconComponent_2fF, C.List_apk, C.Type_DateToTextInput_B8J, C.List_gQW, C.Type_UserFilter_JTJ, C.List_Formatter_userfilter, C.Type_TimesliceDateFilter_INK, C.List_Formatter_timeslicedatefilter, C.Type_ProjectValueFilter_Yqs, C.List_Formatter_projectvaluefilter, C.Type_FYo, C.List_Formatter_offerpostionOrder, C.Type_InvoiceItemOrderByOrderField_233, C.List_Formatter_invoiceitemOrder, C.Type_SecondsToHours_wYH, C.List_Formatter_secondsToHours, C.Type_MenuComponent_4CA, C.List_1CY, C.Type_AddressEditComponent_XHr, C.List_Ymm, C.Type_CustomerEditComponent_kqh, C.List_Ymm0, C.Type_EmployeeEditComponent_Amm, C.List_SxR, C.Type_InvoiceEditComponent_69P, C.List_AiQ0, C.Type_OfferEditComponent_PLv, C.List_qKc, C.Type_ProjectEditComponent_jnt, C.List_zkI, C.Type_ServiceEditComponent_EVG, C.List_iqF, C.Type_ActivityOverviewComponent_Adg, C.List_ykb, C.Type_CustomerOverviewComponent_5wV, C.List_7h5, C.Type_HBZ, C.List_cTv, C.Type_EmployeeOverviewComponent_s8k, C.List_cSi, C.Type_HolidayOverviewComponent_diW, C.List_AKW, C.Type_InvoiceOverviewComponent_Mim, C.List_Wvz0, C.Type_jYm, C.List_O5Z, C.Type_InvoiceItemOverviewComponent_8Wd, C.List_cKo2, C.Type_OfferOverviewComponent_ewF, C.List_apk0, C.Type_sav0, C.List_Fcu, C.Type_sav, C.List_dEZ, C.Type_PeriodOverviewComponent_lVM, C.List_ESz, C.Type_ProjectOverviewComponent_1Ka, C.List_09, C.Type_ProjectOpenInvoicesComponent_UoB, C.List_bWL, C.Type_Au4, C.List_8lO, C.Type_RateOverviewComponent_qJs, C.List_010, C.Type_RateGroupOverviewComponent_yLX, C.List_TbG, C.Type_41V, C.List_x6V, C.Type_ServiceOverviewComponent_cyO, C.List_3Vk, C.Type_4YB, C.List_IUd, C.Type_TimesliceOverviewComponent_gsm, C.List_gkc2, C.Type_StatusBarComponent_QIC, C.List_mOS, C.Type_DateRange_E4y, C.List_gNF, C.Type_TimetrackComponent_ASm, C.List_p6t, C.Type_TimetrackMultiComponent_c86, C.List_EOZ, C.Type_ProjectTimetrackComponent_ES1, C.List_wIq, C.Type_TimetrackPeriodsComponent_evT, C.List_cMx, C.Type_SettingEditComponent_ato, C.List_mBr, C.Type_TimeItem_yHq, C.List_Injectable, C.Type_Timeout_N1p, C.List_Injectable, C.Type_AccordionConfig_61x, C.List_Injectable, C.Type_AccordionComponent_yhx, C.List_Q8b, C.Type_AccordionGroupComponent_oxt, C.List_799, C.Type_AccordionHeadingComponent_DKy, C.List_tUr, C.Type_AccordionTransclude_Q8G, C.List_43h2, C.Type_DblClickPreventer_e1m, C.List_Injectable, C.Type_BtnRadio_g0t, C.List_wry, C.Type_BtnCheckbox_jJI, C.List_8eb1, C.Type_Transition_0, C.List_Injectable, C.Type_TooltipConfig_izV, C.List_Injectable, C.Type_Tooltip_Ate, C.List_iDZ1, C.Type_Position_k0J, C.List_Injectable, C.Type_Rect_cAS, C.List_Injectable, C.Type_NgPseudo_8I8, C.List_011, C.Type_Alert_Opy, C.List_eNF, C.Type_TabsetComponent_MXg, C.List_qhE, C.Type_TabComponent_SBP, C.List_uzc, C.Type_TabHeading_8K0, C.List_AeS, C.Type_ContentAppendComponent_xw8, C.List_kMT, C.Type_WaA, C.List_gg40, C.Type_RevenueReportComponent_o0y, C.List_wdn, C.Type_ServicehoursReportComponent_6TW, C.List_NLv, C.Type_wv5, C.List_7fP, C.Type_PDP, C.List_EyN, C.Type_ModalWindow_2No, C.List_PRF, C.Type_Modal_OjC, C.List_Injectable, C.Type_Popover_NAF, C.List_7eO0, C.Type_DragDropZonesService_a6m, C.List_Injectable, C.Type_DragDropDataService_CBX, C.List_Injectable, C.Type_DragDropConfigService_qhc, C.List_Injectable, C.Type_DraggableComponent_eJH, C.List_i3t, C.Type_DroppableComponent_knt, C.List_qJs, C.Type_DragDropSortableDataService_VzM, C.List_Injectable, C.Type_SortableComponent_Ey5, C.List_EmB, C.Type_SortableItemComponent_0, C.List_Wiu, C.Type_PagerConfig_EgC, C.List_Injectable, C.Type_PagerComponent_ijq, C.List_F06, C.Type_PaginationConfig_w4W, C.List_Injectable, C.Type_PaginationComponent_TcW, C.List_YDV, C.Type_PageInfo_qQg, C.List_Injectable, C.Type_BasicPaginationGenerator_54c, C.List_Injectable, C.Type_DropdownToggle_kzn, C.List_pyh, C.Type_TypeaheadParser_yPK, C.List_Injectable, C.Type_TypeaheadHighlightFilter_wDN, C.List_Formatter_highlight, C.Type_TypeaheadPopup_apS, C.List_8aB1, C.Type_TemplateBasedComponent_SxV, C.List_Injectable, C.Type_TypeaheadMatch_K6y, C.List_ugX, C.Type_TypeaheadDecorator_ZQB, C.List_h8l, C.Type_TypeaheadConverter_gEE, C.List_Injectable, C.Type_Timepicker_0, C.List_AKW0, C.Type_Collapse_kn0, C.List_4UV, C.Type_Carousel_U3n, C.List_kqK, C.Type_Slide_USP, C.List_eAf0, C.Type_ProgressBar_kUZ, C.List_9qD, C.Type_Progress_oyU, C.List_y1j, C.Type_Bar_Z3K, C.List_JcL, C.Type_RatingComponent_sxw, C.List_2jN3, C.Type_DatepickerConfig_kiE, C.List_Injectable, C.Type_VisibleDates_ett, C.List_Injectable, C.Type_Format_axX, C.List_Injectable, C.Type_DateVO_2Hr, C.List_Injectable, C.Type_Mode_ij7, C.List_Injectable, C.Type_Datepicker_IUD, C.List_jQy, C.Type_WeekNumberFilter_5pG, C.List_Formatter_weekNumber, C.Type_DatepickerPopup_0, C.List_WfA, C.Type_DatepickerPopupWrap_AGs, C.List_EVH, C.Type_UserMenu_IcE, C.List_Y3i]);
   }, "typeAnnotations", "typeToUriMapper", "$get$typeToUriMapper", function() {
     return new D._StaticTypeToUriMapper();
   }, "typeToUriMapper", "_uriMapping", "$get$_uriMapping", function() {
-    return P.LinkedHashMap_LinkedHashMap$_literal([C.Type_PercentageInputField_nFg, P.Uri_parse("package:DimeClient/component/percent-input/percent_input.dart", 0, null), C.Type_ActivitySelectComponent_Ik7, P.Uri_parse("package:DimeClient/component/select/entity_select.dart", 0, null), C.Type_CustomerSelectComponent_Eaj, P.Uri_parse("package:DimeClient/component/select/entity_select.dart", 0, null), C.Type_OfferStatusSelectComponent_uMl, P.Uri_parse("package:DimeClient/component/select/entity_select.dart", 0, null), C.Type_ProjectSelectComponent_lOq, P.Uri_parse("package:DimeClient/component/select/entity_select.dart", 0, null), C.Type_QLA, P.Uri_parse("package:DimeClient/component/select/entity_select.dart", 0, null), C.Type_RateGroupSelectComponent_9Yy, P.Uri_parse("package:DimeClient/component/select/entity_select.dart", 0, null), C.Type_RateUnitTypeSelectComponent_e7M, P.Uri_parse("package:DimeClient/component/select/entity_select.dart", 0, null), C.Type_RoundModeSelect_bCX, P.Uri_parse("package:DimeClient/component/select/entity_select.dart", 0, null), C.Type_ServiceSelectComponent_4CA, P.Uri_parse("package:DimeClient/component/select/entity_select.dart", 0, null), C.Type_Wnx, P.Uri_parse("package:DimeClient/component/select/entity_select.dart", 0, null), C.Type_UserSelectComponent_Opm, P.Uri_parse("package:DimeClient/component/select/entity_select.dart", 0, null), C.Type_TabSetComponent_4m4, P.Uri_parse("package:DimeClient/component/main/tabset.dart", 0, null), C.Type_AppComponent_kSJ, P.Uri_parse("package:DimeClient/component/main/app.dart", 0, null), C.Type_ErrorIconComponent_2fF, P.Uri_parse("package:DimeClient/component/errorIcon/error_icon.dart", 0, null), C.Type_DateToTextInput_B8J, P.Uri_parse("package:DimeClient/component/date/dateToTextInput.dart", 0, null), C.Type_MenuComponent_4CA, P.Uri_parse("package:DimeClient/component/main/menu.dart", 0, null), C.Type_AddressEditComponent_XHr, P.Uri_parse("package:DimeClient/component/edit/EntityEdit.dart", 0, null), C.Type_CustomerEditComponent_kqh, P.Uri_parse("package:DimeClient/component/edit/EntityEdit.dart", 0, null), C.Type_EmployeeEditComponent_Amm, P.Uri_parse("package:DimeClient/component/edit/EntityEdit.dart", 0, null), C.Type_InvoiceEditComponent_69P, P.Uri_parse("package:DimeClient/component/edit/EntityEdit.dart", 0, null), C.Type_OfferEditComponent_PLv, P.Uri_parse("package:DimeClient/component/edit/EntityEdit.dart", 0, null), C.Type_ProjectEditComponent_jnt, P.Uri_parse("package:DimeClient/component/edit/EntityEdit.dart", 0, null), C.Type_ServiceEditComponent_EVG, P.Uri_parse("package:DimeClient/component/edit/EntityEdit.dart", 0, null), C.Type_ActivityOverviewComponent_Adg, P.Uri_parse("package:DimeClient/component/overview/entity_overview.dart", 0, null), C.Type_CustomerOverviewComponent_5wV, P.Uri_parse("package:DimeClient/component/overview/entity_overview.dart", 0, null), C.Type_HBZ, P.Uri_parse("package:DimeClient/component/overview/entity_overview.dart", 0, null), C.Type_EmployeeOverviewComponent_s8k, P.Uri_parse("package:DimeClient/component/overview/entity_overview.dart", 0, null), C.Type_HolidayOverviewComponent_diW, P.Uri_parse("package:DimeClient/component/overview/entity_overview.dart", 0, null), C.Type_InvoiceOverviewComponent_Mim, P.Uri_parse("package:DimeClient/component/overview/entity_overview.dart", 0, null), C.Type_jYm, P.Uri_parse("package:DimeClient/component/overview/entity_overview.dart", 0, null), C.Type_InvoiceItemOverviewComponent_8Wd, P.Uri_parse("package:DimeClient/component/overview/entity_overview.dart", 0, null), C.Type_OfferOverviewComponent_ewF, P.Uri_parse("package:DimeClient/component/overview/entity_overview.dart", 0, null), C.Type_sav0, P.Uri_parse("package:DimeClient/component/overview/entity_overview.dart", 0, null), C.Type_sav, P.Uri_parse("package:DimeClient/component/overview/entity_overview.dart", 0, null), C.Type_PeriodOverviewComponent_lVM, P.Uri_parse("package:DimeClient/component/overview/entity_overview.dart", 0, null), C.Type_ProjectOverviewComponent_1Ka, P.Uri_parse("package:DimeClient/component/overview/entity_overview.dart", 0, null), C.Type_ProjectOpenInvoicesComponent_UoB, P.Uri_parse("package:DimeClient/component/overview/entity_overview.dart", 0, null), C.Type_Au4, P.Uri_parse("package:DimeClient/component/overview/entity_overview.dart", 0, null), C.Type_RateOverviewComponent_qJs, P.Uri_parse("package:DimeClient/component/overview/entity_overview.dart", 0, null), C.Type_RateGroupOverviewComponent_yLX, P.Uri_parse("package:DimeClient/component/overview/entity_overview.dart", 0, null), C.Type_41V, P.Uri_parse("package:DimeClient/component/overview/entity_overview.dart", 0, null), C.Type_ServiceOverviewComponent_cyO, P.Uri_parse("package:DimeClient/component/overview/entity_overview.dart", 0, null), C.Type_4YB, P.Uri_parse("package:DimeClient/component/overview/entity_overview.dart", 0, null), C.Type_TimesliceOverviewComponent_gsm, P.Uri_parse("package:DimeClient/component/overview/entity_overview.dart", 0, null), C.Type_StatusBarComponent_QIC, P.Uri_parse("package:DimeClient/component/statusbar/statusbar.dart", 0, null), C.Type_DateRange_E4y, P.Uri_parse("package:DimeClient/component/date/dateRange.dart", 0, null), C.Type_TimetrackComponent_ASm, P.Uri_parse("package:DimeClient/component/timetrack/timetrack.dart", 0, null), C.Type_TimetrackMultiComponent_c86, P.Uri_parse("package:DimeClient/component/timetrack/timetrack.dart", 0, null), C.Type_ProjectTimetrackComponent_ES1, P.Uri_parse("package:DimeClient/component/timetrack/timetrack.dart", 0, null), C.Type_TimetrackPeriodsComponent_evT, P.Uri_parse("package:DimeClient/component/timetrack/timetrack.dart", 0, null), C.Type_SettingEditComponent_ato, P.Uri_parse("package:DimeClient/component/setting/setting.dart", 0, null), C.Type_AccordionComponent_yhx, P.Uri_parse("package:angular_ui/accordion/accordion.dart", 0, null), C.Type_AccordionGroupComponent_oxt, P.Uri_parse("package:angular_ui/accordion/accordion.dart", 0, null), C.Type_Tooltip_Ate, P.Uri_parse("package:angular_ui/tooltip/tooltip.dart", 0, null), C.Type_Alert_Opy, P.Uri_parse("package:angular_ui/alert/alert.dart", 0, null), C.Type_TabsetComponent_MXg, P.Uri_parse("package:angular_ui/tabs/tabset.dart", 0, null), C.Type_TabComponent_SBP, P.Uri_parse("package:angular_ui/tabs/tabset.dart", 0, null), C.Type_WaA, P.Uri_parse("package:DimeClient/component/report/dime_report.dart", 0, null), C.Type_RevenueReportComponent_o0y, P.Uri_parse("package:DimeClient/component/report/dime_report.dart", 0, null), C.Type_ServicehoursReportComponent_6TW, P.Uri_parse("package:DimeClient/component/report/dime_report.dart", 0, null), C.Type_wv5, P.Uri_parse("package:DimeClient/component/report/dime_report.dart", 0, null), C.Type_PDP, P.Uri_parse("package:DimeClient/component/report/dime_report.dart", 0, null), C.Type_ModalWindow_2No, P.Uri_parse("package:angular_ui/modal/modal.dart", 0, null), C.Type_PagerComponent_ijq, P.Uri_parse("package:angular_ui/pagination/pagination.dart", 0, null), C.Type_PaginationComponent_TcW, P.Uri_parse("package:angular_ui/pagination/pagination.dart", 0, null), C.Type_TypeaheadPopup_apS, P.Uri_parse("package:angular_ui/typeahead/module.dart", 0, null), C.Type_Timepicker_0, P.Uri_parse("package:angular_ui/timepicker/timepicker.dart", 0, null), C.Type_Collapse_kn0, P.Uri_parse("package:angular_ui/collapse/collapse.dart", 0, null), C.Type_Carousel_U3n, P.Uri_parse("package:angular_ui/carousel/carousel.dart", 0, null), C.Type_Slide_USP, P.Uri_parse("package:angular_ui/carousel/carousel.dart", 0, null), C.Type_ProgressBar_kUZ, P.Uri_parse("package:angular_ui/progressbar/progressbar.dart", 0, null), C.Type_Progress_oyU, P.Uri_parse("package:angular_ui/progressbar/progressbar.dart", 0, null), C.Type_Bar_Z3K, P.Uri_parse("package:angular_ui/progressbar/progressbar.dart", 0, null), C.Type_RatingComponent_sxw, P.Uri_parse("package:angular_ui/rating/rating.dart", 0, null), C.Type_Datepicker_IUD, P.Uri_parse("package:angular_ui/datepicker/datepicker.dart", 0, null), C.Type_DatepickerPopupWrap_AGs, P.Uri_parse("package:angular_ui/datepicker/datepicker.dart", 0, null), C.Type_UserMenu_IcE, P.Uri_parse("package:DimeClient/component/main/usermenu.dart", 0, null)], P.Type, P.Uri);
+    return P.LinkedHashMap_LinkedHashMap$_literal([C.Type_PercentageInputField_nFg, P.Uri_parse("package:DimeClient/component/percent-input/percent_input.dart", 0, null), C.Type_ActivitySelectComponent_Ik7, P.Uri_parse("package:DimeClient/component/select/entity_select.dart", 0, null), C.Type_CustomerSelectComponent_Eaj, P.Uri_parse("package:DimeClient/component/select/entity_select.dart", 0, null), C.Type_OfferStatusSelectComponent_uMl, P.Uri_parse("package:DimeClient/component/select/entity_select.dart", 0, null), C.Type_ProjectSelectComponent_lOq, P.Uri_parse("package:DimeClient/component/select/entity_select.dart", 0, null), C.Type_QLA, P.Uri_parse("package:DimeClient/component/select/entity_select.dart", 0, null), C.Type_RateGroupSelectComponent_9Yy, P.Uri_parse("package:DimeClient/component/select/entity_select.dart", 0, null), C.Type_RateUnitTypeSelectComponent_e7M, P.Uri_parse("package:DimeClient/component/select/entity_select.dart", 0, null), C.Type_RoundModeSelect_bCX, P.Uri_parse("package:DimeClient/component/select/entity_select.dart", 0, null), C.Type_ServiceSelectComponent_4CA, P.Uri_parse("package:DimeClient/component/select/entity_select.dart", 0, null), C.Type_Wnx, P.Uri_parse("package:DimeClient/component/select/entity_select.dart", 0, null), C.Type_UserSelectComponent_Opm, P.Uri_parse("package:DimeClient/component/select/entity_select.dart", 0, null), C.Type_CostGroupSelectComponent_w59, P.Uri_parse("package:DimeClient/component/select/entity_select.dart", 0, null), C.Type_TabSetComponent_4m4, P.Uri_parse("package:DimeClient/component/main/tabset.dart", 0, null), C.Type_AppComponent_kSJ, P.Uri_parse("package:DimeClient/component/main/app.dart", 0, null), C.Type_ErrorIconComponent_2fF, P.Uri_parse("package:DimeClient/component/errorIcon/error_icon.dart", 0, null), C.Type_DateToTextInput_B8J, P.Uri_parse("package:DimeClient/component/date/dateToTextInput.dart", 0, null), C.Type_MenuComponent_4CA, P.Uri_parse("package:DimeClient/component/main/menu.dart", 0, null), C.Type_AddressEditComponent_XHr, P.Uri_parse("package:DimeClient/component/edit/EntityEdit.dart", 0, null), C.Type_CustomerEditComponent_kqh, P.Uri_parse("package:DimeClient/component/edit/EntityEdit.dart", 0, null), C.Type_EmployeeEditComponent_Amm, P.Uri_parse("package:DimeClient/component/edit/EntityEdit.dart", 0, null), C.Type_InvoiceEditComponent_69P, P.Uri_parse("package:DimeClient/component/edit/EntityEdit.dart", 0, null), C.Type_OfferEditComponent_PLv, P.Uri_parse("package:DimeClient/component/edit/EntityEdit.dart", 0, null), C.Type_ProjectEditComponent_jnt, P.Uri_parse("package:DimeClient/component/edit/EntityEdit.dart", 0, null), C.Type_ServiceEditComponent_EVG, P.Uri_parse("package:DimeClient/component/edit/EntityEdit.dart", 0, null), C.Type_ActivityOverviewComponent_Adg, P.Uri_parse("package:DimeClient/component/overview/entity_overview.dart", 0, null), C.Type_CustomerOverviewComponent_5wV, P.Uri_parse("package:DimeClient/component/overview/entity_overview.dart", 0, null), C.Type_HBZ, P.Uri_parse("package:DimeClient/component/overview/entity_overview.dart", 0, null), C.Type_EmployeeOverviewComponent_s8k, P.Uri_parse("package:DimeClient/component/overview/entity_overview.dart", 0, null), C.Type_HolidayOverviewComponent_diW, P.Uri_parse("package:DimeClient/component/overview/entity_overview.dart", 0, null), C.Type_InvoiceOverviewComponent_Mim, P.Uri_parse("package:DimeClient/component/overview/entity_overview.dart", 0, null), C.Type_jYm, P.Uri_parse("package:DimeClient/component/overview/entity_overview.dart", 0, null), C.Type_InvoiceItemOverviewComponent_8Wd, P.Uri_parse("package:DimeClient/component/overview/entity_overview.dart", 0, null), C.Type_OfferOverviewComponent_ewF, P.Uri_parse("package:DimeClient/component/overview/entity_overview.dart", 0, null), C.Type_sav0, P.Uri_parse("package:DimeClient/component/overview/entity_overview.dart", 0, null), C.Type_sav, P.Uri_parse("package:DimeClient/component/overview/entity_overview.dart", 0, null), C.Type_PeriodOverviewComponent_lVM, P.Uri_parse("package:DimeClient/component/overview/entity_overview.dart", 0, null), C.Type_ProjectOverviewComponent_1Ka, P.Uri_parse("package:DimeClient/component/overview/entity_overview.dart", 0, null), C.Type_ProjectOpenInvoicesComponent_UoB, P.Uri_parse("package:DimeClient/component/overview/entity_overview.dart", 0, null), C.Type_Au4, P.Uri_parse("package:DimeClient/component/overview/entity_overview.dart", 0, null), C.Type_RateOverviewComponent_qJs, P.Uri_parse("package:DimeClient/component/overview/entity_overview.dart", 0, null), C.Type_RateGroupOverviewComponent_yLX, P.Uri_parse("package:DimeClient/component/overview/entity_overview.dart", 0, null), C.Type_41V, P.Uri_parse("package:DimeClient/component/overview/entity_overview.dart", 0, null), C.Type_ServiceOverviewComponent_cyO, P.Uri_parse("package:DimeClient/component/overview/entity_overview.dart", 0, null), C.Type_4YB, P.Uri_parse("package:DimeClient/component/overview/entity_overview.dart", 0, null), C.Type_TimesliceOverviewComponent_gsm, P.Uri_parse("package:DimeClient/component/overview/entity_overview.dart", 0, null), C.Type_StatusBarComponent_QIC, P.Uri_parse("package:DimeClient/component/statusbar/statusbar.dart", 0, null), C.Type_DateRange_E4y, P.Uri_parse("package:DimeClient/component/date/dateRange.dart", 0, null), C.Type_TimetrackComponent_ASm, P.Uri_parse("package:DimeClient/component/timetrack/timetrack.dart", 0, null), C.Type_TimetrackMultiComponent_c86, P.Uri_parse("package:DimeClient/component/timetrack/timetrack.dart", 0, null), C.Type_ProjectTimetrackComponent_ES1, P.Uri_parse("package:DimeClient/component/timetrack/timetrack.dart", 0, null), C.Type_TimetrackPeriodsComponent_evT, P.Uri_parse("package:DimeClient/component/timetrack/timetrack.dart", 0, null), C.Type_SettingEditComponent_ato, P.Uri_parse("package:DimeClient/component/setting/setting.dart", 0, null), C.Type_AccordionComponent_yhx, P.Uri_parse("package:angular_ui/accordion/accordion.dart", 0, null), C.Type_AccordionGroupComponent_oxt, P.Uri_parse("package:angular_ui/accordion/accordion.dart", 0, null), C.Type_Tooltip_Ate, P.Uri_parse("package:angular_ui/tooltip/tooltip.dart", 0, null), C.Type_Alert_Opy, P.Uri_parse("package:angular_ui/alert/alert.dart", 0, null), C.Type_TabsetComponent_MXg, P.Uri_parse("package:angular_ui/tabs/tabset.dart", 0, null), C.Type_TabComponent_SBP, P.Uri_parse("package:angular_ui/tabs/tabset.dart", 0, null), C.Type_WaA, P.Uri_parse("package:DimeClient/component/report/dime_report.dart", 0, null), C.Type_RevenueReportComponent_o0y, P.Uri_parse("package:DimeClient/component/report/dime_report.dart", 0, null), C.Type_ServicehoursReportComponent_6TW, P.Uri_parse("package:DimeClient/component/report/dime_report.dart", 0, null), C.Type_wv5, P.Uri_parse("package:DimeClient/component/report/dime_report.dart", 0, null), C.Type_PDP, P.Uri_parse("package:DimeClient/component/report/dime_report.dart", 0, null), C.Type_ModalWindow_2No, P.Uri_parse("package:angular_ui/modal/modal.dart", 0, null), C.Type_PagerComponent_ijq, P.Uri_parse("package:angular_ui/pagination/pagination.dart", 0, null), C.Type_PaginationComponent_TcW, P.Uri_parse("package:angular_ui/pagination/pagination.dart", 0, null), C.Type_TypeaheadPopup_apS, P.Uri_parse("package:angular_ui/typeahead/module.dart", 0, null), C.Type_Timepicker_0, P.Uri_parse("package:angular_ui/timepicker/timepicker.dart", 0, null), C.Type_Collapse_kn0, P.Uri_parse("package:angular_ui/collapse/collapse.dart", 0, null), C.Type_Carousel_U3n, P.Uri_parse("package:angular_ui/carousel/carousel.dart", 0, null), C.Type_Slide_USP, P.Uri_parse("package:angular_ui/carousel/carousel.dart", 0, null), C.Type_ProgressBar_kUZ, P.Uri_parse("package:angular_ui/progressbar/progressbar.dart", 0, null), C.Type_Progress_oyU, P.Uri_parse("package:angular_ui/progressbar/progressbar.dart", 0, null), C.Type_Bar_Z3K, P.Uri_parse("package:angular_ui/progressbar/progressbar.dart", 0, null), C.Type_RatingComponent_sxw, P.Uri_parse("package:angular_ui/rating/rating.dart", 0, null), C.Type_Datepicker_IUD, P.Uri_parse("package:angular_ui/datepicker/datepicker.dart", 0, null), C.Type_DatepickerPopupWrap_AGs, P.Uri_parse("package:angular_ui/datepicker/datepicker.dart", 0, null), C.Type_UserMenu_IcE, P.Uri_parse("package:DimeClient/component/main/usermenu.dart", 0, null)], P.Type, P.Uri);
   }, "_uriMapping"]);
   Isolate = Isolate.$finishIsolateConstructor(Isolate);
   $ = new Isolate();
-  init.metadata = ["o", "a1", null, "a2", "a3", "a4", "value", "a5", "e", "event", "params", false, "r", "ent", "_", "a6", "evict", "key", "element", "left", "index", "right", "error", "result", C.Map_empty0, "name", "newEnt", "a7", "modelValue", "resp", "zone", "self", "x", C.C_Object, "url", "evt", "a8", "entId", "stackTrace", "object", "viewFactory", "data", "text", "entity", "selector", "scope", "node", "val", "parent", "date", "stream", E.module0__DEFAULT_VALUE$closure(), "p", "delegate", "fn", "view", "id", "directives", "nodes", "a10", "injector", "obj", "expression", "s", "a9", "type", "items", 0, "args", "handleError", "resumeSignal", "context", "relativeSelectors", "arg", "a11", "css", "timeInMs", "cachedObjects", "item", "record", "withCredentials", "config", "callback", "elements", "valid", "inject", C.List_empty, "results", "allowed", "nodeOrSelector", "success", "locals", "toInstanceOf", "startingFrom", "toImplementation", "b", "a", "method", "toFactory", "toValue", "el", "f", "each", "options", "password", C.C__DefaultFormatterMap, "invocation", "user", "insertBefore", "input", "formatters", "values", "afterIndex", "arg1", "arg2", "ls", "duration", "message", "y", "thisArg", "offset", "c", "attributeName", "headers", "xsrfHeaderName", "xsrfCookieName", "interceptors", "cache", "timeout", "ref", "styleElements", "baseCss", "entityList", "directiveInjector", "employee", true, "i", "m", "expr", "mode", "exactMatch", "allowNonElementNodes", "containsText", "setting", "direction", "delay", "cssList", "responseType", "xhr", "postCreate", "keepGoing", "condition", "pArgs", "nArgs", "wrapper", 1, "n", "rule", "arg3", "captureThis", "arguments", C.Visibility_LOCAL, "arg4", "source", "yes", "no", "pattern", "visibility", "toStart", "sender", "async", "closure", "isolate", "returnValue", "parentInjector", "newChild", "errorCode", "animation", "mimeType", "requestHeaders", "sendData", "onProgress", "tokens", "addAtStart", "collection", "st", "ast", "addAtEnd", "removeAtStart", "req", "register", "fields", "prepend", "shadowDom", "removeAtEnd", "time", "filterString", "", "parentShadowBoundary", "stack", "ScopeEvent", "cssUrl", "viewCache", "http", "templateCache", "eventHandler", "shadowBoundary", "moveAfter", "reason", "cls", "field", "{{", "removal", "addition", "move", "views", "inputMap", "$", "}}", "symbol", "leading", "mediumDate", "frames", "format", "what", "comparator", "jsonObj", "limit", "fractionSize", "descending", "template", "mustHaveExpression", "directive", "search", "o1", "o2", "o3", "o4", "o5", "o6", "o7", "o8", "o9", "o10", "startSymbol", "endSymbol", "bindingString", "phaseOrLoopNo", "fieldStopwatch", "router", "evalStopwatch", "processStopwatch", "state", "window", "templateUrl", "routeEvent", "userId", "openGroup", "slide", "nextSlide", "theStackTrace", "onValue", "valueToFilter", "datepicker", "inj", "dt", "elem", "content", "newPage", "tab", "timing", "matches", "matchItem", "query", 500, "func", "app", "invokeApply", "cancel", "trigger", "annotation", "k", "reflector", "t", "withAnnotation", "resourceType", "list", "scopingResource", "resource", "v", "j", "howMany", "zero", "one", "two", "few", "many", "other", "desc", "examples", "locale", "number", "path", "selectors", "forceReload", "routePath", "parameters", "queryParameters", "hash", "link", "numberOfArguments", "attr", "start", "end", "theError", "filterProjectId", "offerPositions", "dict", "seconds", "username", "save", "a12", "modelExpressions", "newValue"];
-  init.types = [{func: 1, args: [,]}, {func: 1, args: [,,]}, {func: 1}, {func: 1, v: true}, {func: 1, args: [,,,]}, {func: 1, args: [,,,,]}, {func: 1, args: [,,,,,]}, {func: 1, args: [R.Resource]}, {func: 1, args: [,], opt: [T.FormatterMap]}, {func: 1, named: {evict: P.bool, params: [P.Map, P.String,,]}}, {func: 1, args: [P.String]}, {func: 1, v: true, args: [,]}, {func: 1, ret: P.bool, args: [,]}, {func: 1, ret: P.bool, args: [P.Object]}, {func: 1, v: true, args: [W.Event]}, {func: 1, args: [D.Activity]}, {func: 1, args: [W.MouseEvent]}, {func: 1, args: [,,,,,,]}, {func: 1, opt: [P.int]}, {func: 1, named: {newEnt: D.Entity, params: [P.Map, P.String,,]}}, {func: 1, opt: [,,,,,]}, {func: 1, args: [P.String,,]}, {func: 1, args: [P.bool]}, {func: 1, args: [,], opt: [,]}, {func: 1, v: true, args: [P.int]}, {func: 1, ret: P.String, args: [P.String]}, {func: 1, args: [P.int]}, {func: 1, args: [P.DateTime, P.DateTime]}, {func: 1, ret: P.Future, args: [,]}, {func: 1, args: [W.Event]}, {func: 1, args: [D.TimetrackMultiEntry]}, {func: 1, ret: P.String, args: [P.int]}, {func: 1, ret: P.Future}, {func: 1, named: {newEnt: null, params: [P.Map, P.String,,]}}, {func: 1, v: true, args: [W.KeyboardEvent]}, {func: 1, args: [D.Entity]}, {func: 1, ret: W.Element, args: [P.String]}, {func: 1, args: [V.CollectionChangeItem]}, {func: 1, args: [Y.ViewFactory]}, {func: 1, args: [,,,,,,,,]}, {func: 1, args: [D.Project]}, {func: 1, args: [P.String, P.String]}, {func: 1, v: true, args: [P.Object], opt: [P.StackTrace]}, {func: 1, v: true, args: [P.Function]}, {func: 1, v: true, args: [P.String]}, {func: 1, args: [V.MapKeyValue]}, {func: 1, v: true, opt: [P.Future]}, {func: 1, ret: P.String, args: [,]}, {func: 1, args: [P.Match]}, {func: 1, v: true, args: [{func: 1, v: true}]}, {func: 1, args: [P.List]}, {func: 1, v: true, args: [P.bool]}, {func: 1, args: [Y.CacheRegisterStats]}, {func: 1, args: [,], opt: [,,]}, {func: 1, args: [R.QueryResult]}, {func: 1, args: [D.Timeslice]}, {func: 1, args: [D.Employee]}, {func: 1, args: [D.Setting]}, {func: 1, v: true, opt: [W.Event]}, {func: 1, v: true, opt: [L.ScopeEvent]}, {func: 1, ret: [P.Future, R.CommandResponse], args: [R.Resource]}, {func: 1, ret: P.String, args: [P.DateTime]}, {func: 1, v: true, args: [F.DirectiveBinder]}, {func: 1, ret: P.String, args: [P.Object]}, {func: 1, ret: P.String}, {func: 1, args: [,,,,,,,,,,,]}, {func: 1, ret: P.int, args: [P.String]}, {func: 1, args: [,,,,,,,]}, {func: 1, v: true, args: [,,]}, {func: 1, opt: [,]}, {func: 1, args: [, F.Expression]}, {func: 1, args: [P.Symbol0,,]}, {func: 1, v: true, args: [P.Uint8List, P.String, P.int]}, {func: 1, ret: P.bool, args: [P.num]}, {func: 1, ret: Y.Animation, args: [[P.Iterable, W.Node]]}, {func: 1, ret: Y.Animation, args: [[P.Iterable, W.Node], W.Node], named: {insertBefore: W.Node}}, {func: 1, args: [, P.StackTrace]}, {func: 1, ret: P.Function, args: [P.String]}, {func: 1, ret: L.ScopeEvent, args: [P.String], opt: [,]}, {func: 1, v: true, args: [P.Zone, P.ZoneDelegate, P.Zone, {func: 1}]}, {func: 1, ret: W.Element, args: [P.int]}, {func: 1, ret: P.int, args: [,,]}, {func: 1, ret: P.Iterable, args: [P.Type]}, {func: 1, ret: W.Node, args: [P.int]}, {func: 1, args: [Y.HttpResponseConfig]}, {func: 1, args: [W.HttpRequest]}, {func: 1, args: [Y.DirectiveRef,,,]}, {func: 1, v: true, opt: [P.String]}, {func: 1, ret: W.Node, args: [W.Node]}, {func: 1, ret: P.Map}, {func: 1, args: [Y.ElementProbe]}, {func: 1, args: [D.RouteEnterEvent]}, {func: 1, args: [T.NgView]}, {func: 1, args: [F.DirectiveBinder]}, {func: 1, args: [W.Element]}, {func: 1, v: true, args: [W.MouseEvent]}, {func: 1, args: [P.CssClassSetImpl]}, {func: 1, args: [P.bool, P.CssClassSetImpl]}, {func: 1, ret: Z.Rect, args: [W.Element]}, {func: 1, args: [P.Map]}, {func: 1, args: [[P.List, P.bool]]}, {func: 1, args: [D._Match]}, {func: 1, args: [W.KeyboardEvent]}, {func: 1, ret: P.String, args: [W.EventTarget]}, {func: 1, ret: P.bool, args: [W.Element, P.String, P.String, W._Html5NodeValidator]}, {func: 1, args: [E.DateVO]}, {func: 1, v: true, args: [P.String], opt: [P.int]}, {func: 1, ret: P.List, args: [[P.List, D.OfferPosition]]}, {func: 1, ret: P.List, args: [[P.List, D.InvoiceItem]]}, {func: 1, opt: [P.String, P.String, P.bool]}, {func: 1, v: true, args: [K.LoopedAnimation]}, {func: 1, args: [P.String, D.Entity]}, {func: 1, v: true, args: [P.int, P.int]}, {func: 1, opt: [L.ScopeEvent]}, {func: 1, ret: K.CssAnimation, args: [W.Element, P.String], named: {addAtEnd: P.String, addAtStart: P.String, removeAtEnd: P.String, removeAtStart: P.String}}, {func: 1, args: [X.Application]}, {func: 1, ret: P.bool, args: [D.Entity]}, {func: 1, ret: P.JsObject, args: [,]}, {func: 1, args: [P.int,,]}, {func: 1, ret: Y.CacheStats}, {func: 1, ret: S.AST, args: [P.String], named: {collection: P.bool, formatters: T.FormatterMap}}, {func: 1, ret: S.AST, args: [F.Expression]}, {func: 1, args: [P.String, F.Expression]}, {func: 1, ret: W.Animation0, args: [[P.Iterable, [P.Map, P.String,,]]], opt: [,]}, {func: 1, ret: P.Map, args: [P.List]}, {func: 1, ret: A.ItemRecord, args: [, P.int]}, {func: 1, ret: P.bool, args: [A.ItemRecord]}, {func: 1, ret: A.ItemRecord, args: [,], opt: [P.int]}, {func: 1, ret: A.ItemRecord, args: [A.ItemRecord]}, {func: 1, args: [P.Symbol0, S.AST]}, {func: 1, v: true, args: [[V.Record, S._Handler]]}, {func: 1, ret: [P.List, P.String], args: [P.Pattern]}, {func: 1, args: [F.Formatter]}, {func: 1, args: [,,], opt: [P.String]}, {func: 1, ret: L.Interpolation, args: [P.String], opt: [P.bool, P.String, P.String]}, {func: 1, args: [,], opt: [P.Map]}, {func: 1, opt: [, P.Map]}, {func: 1, args: [, P.String]}, {func: 1, ret: L.ScopeStream, args: [P.String]}, {func: 1, v: true, args: [P.String, V.AvgStopwatch, V.AvgStopwatch, V.AvgStopwatch]}, {func: 1, v: true, args: [{func: 1}]}, {func: 1, ret: P.bool, args: [P.String]}, {func: 1, args: [P.Zone, P.ZoneDelegate, P.Zone, {func: 1}]}, {func: 1, args: [P.Zone, P.ZoneDelegate, P.Zone, {func: 1, args: [,]},,]}, {func: 1, v: true, args: [P.String, P.int]}, {func: 1, ret: P.Timer, args: [P.Zone, P.ZoneDelegate, P.Zone, P.Duration, {func: 1}]}, {func: 1, v: true, args: [P.Zone, P.ZoneDelegate, P.Zone,, P.StackTrace]}, {func: 1, v: true, args: [,, L.LongStackTrace]}, {func: 1, ret: P.Timer, args: [P.ZoneDelegate, P.Zone, P.Duration, {func: 1}]}, {func: 1, args: [D.Project, P.String]}, {func: 1, v: true, args: [P.String], opt: [,]}, {func: 1, ret: [P.List, Z.Token], args: [P.String]}, {func: 1, v: true, opt: [[P.List, P.int], P.int]}, {func: 1, v: true, args: [,], opt: [P.int]}, {func: 1, ret: F.Expression, args: [P.String]}, {func: 1, ret: P.bool, args: [F.Expression]}, {func: 1, args: [,], opt: [{func: 1, args: [,,]}]}, {func: 1, args: [P.List,,,]}, {func: 1, ret: P.int, opt: [P.int]}, {func: 1, ret: P.Future, args: [D.TimetrackMultiEntry]}, {func: 1, ret: P.String, args: [L._Rule]}, {func: 1, ret: P.String, args: [,,,]}, {func: 1, v: true, args: [,], named: {inject: null, toFactory: P.Function, toImplementation: P.Type, toInstanceOf: null, toValue: null, visibility: F.Visibility}}, {func: 1, ret: P.Object, args: [P.Type]}, {func: 1, ret: Y.ViewFactory, args: [[P.List, W.Node], Y.DirectiveMap]}, {func: 1, ret: W.StyleElement, args: [P.String]}, {func: 1, ret: [P.Future, [P.List, W.StyleElement]], args: [P.String, [P.List, P.String]], named: {type: P.Type}}, {func: 1, args: [F.Directive]}, {func: 1, ret: S.DirectiveInjector, args: [Y.View, L.Scope, S.DirectiveInjector, W.Node]}, {func: 1, args: [Y.DirectiveRef]}, {func: 1, args: [P.String, S.AST]}, {func: 1, ret: P.int, args: [P.int, P.int]}, {func: 1, v: true, args: [P.String, P.String], named: {async: P.bool, password: P.String, user: P.String}}, {func: 1, ret: P.Future, args: [P.String], named: {method: P.String, mimeType: P.String, onProgress: {func: 1, v: true, args: [W.ProgressEvent]}, requestHeaders: [P.Map, P.String, P.String], responseType: P.String, sendData: null, withCredentials: P.bool}}, {func: 1, ret: P.Uint8List, args: [,,]}, {func: 1, args: [Y.HttpResponse]}, {func: 1, args: [Y.HttpInterceptor]}, {func: 1, opt: [P.String]}, {func: 1, ret: [P.Future, Y.HttpResponse], args: [P.String], named: {cache: null, headers: [P.Map, P.String, P.String], interceptors: null, params: [P.Map, P.String,,], timeout: null, withCredentials: P.bool, xsrfCookieName: null, xsrfHeaderName: null}}, {func: 1, ret: [P.Future, Y.HttpResponse], args: [P.String], named: {cache: null, data: null, headers: [P.Map, P.String, P.String], interceptors: null, params: [P.Map, P.String,,], timeout: null, withCredentials: P.bool, xsrfCookieName: null, xsrfHeaderName: null}}, {func: 1, ret: [P.Future, Y.HttpResponse], named: {cache: null, data: null, headers: [P.Map, P.String,,], interceptors: null, method: P.String, params: [P.Map, P.String,,], timeout: null, url: P.String, withCredentials: P.bool, xsrfCookieName: P.String, xsrfHeaderName: P.String}}, {func: 1, args: [Y.CacheRegister]}, {func: 1, args: [D.Offer]}, {func: 1, args: [P.String, P.bool]}, {func: 1, args: [F.Directive, P.Type]}, {func: 1, args: [Y.DirectiveTypeTuple]}, {func: 1, args: [Y._ElementSelector]}, {func: 1, ret: Y.DirectiveSelector, args: [Y.DirectiveMap], opt: [F.Injector, T.FormatterMap]}, {func: 1, v: true, args: [[P.List, W.StyleElement]], named: {prepend: P.bool}}, {func: 1, args: [W.StyleElement]}, {func: 1, args: [D.OfferPosition]}, {func: 1, ret: P.Function, args: [W.Element]}, {func: 1, args: [S.DirectiveInjector, L.Scope, Y.View, R.NgBaseCss, Y.ShadowBoundary]}, {func: 1, args: [D.OfferDiscount]}, {func: 1, ret: P.String, args: [P.String], named: {cssUrl: P.String, selector: P.String}}, {func: 1, ret: P.Function, args: [W.Node]}, {func: 1, args: [S.DirectiveInjector, L.Scope, Y.View, Y.ViewFactoryCache, Y.Http, Y.TemplateCache, Y.DirectiveMap, R.NgBaseCss, Y.EventHandler, Y.ShadowBoundary]}, {func: 1, ret: Y.View, args: [Y.View]}, {func: 1, ret: Y.View, args: [Y.View], named: {moveAfter: Y.View}}, {func: 1, ret: Y.View, args: [L.Scope]}, {func: 1, ret: Y.BoundViewFactory, args: [S.DirectiveInjector]}, {func: 1, ret: Y.View, args: [L.Scope, S.DirectiveInjector], opt: [[P.List, W.Node]]}, {func: 1, args: [W.Node]}, {func: 1, args: [P.Type]}, {func: 1, args: [D.OfferStatusUC]}, {func: 1, args: [P.Function]}, {func: 1, v: true, opt: [P.bool]}, {func: 1, v: true, args: [, P.StackTrace]}, {func: 1, args: [V.MapChangeRecord,,]}, {func: 1, args: [D.StandardDiscount]}, {func: 1, args: [R._Case]}, {func: 1, ret: [P.List, L._KeyValue], args: [P.Map]}, {func: 1, ret: W.WindowBase, args: [P.String, P.String], opt: [P.String]}, {func: 1, args: [P.Object], opt: [P.String]}, {func: 1, ret: P.bool, args: [,,]}, {func: 1, ret: P.List, args: [P.List,,], opt: [,]}, {func: 1, args: [,], opt: [P.int]}, {func: 1, ret: P.List, args: [P.Iterable,,], opt: [P.bool]}, {func: 1, args: [,], opt: [,,,,,,,,,,]}, {func: 1, args: [D.Invoice]}, {func: 1, args: [P.String], opt: [P.String]}, {func: 1, args: [W.Node, P.String], opt: [P.String]}, {func: 1, args: [T.NgRoutingUsePushState, W.Window]}, {func: 1, args: [D.InvoiceItem]}, {func: 1, args: [D.RoutePreEnterEvent]}, {func: 1, args: [[P.List, E.Module]]}, {func: 1, args: [D.RoutePreLeaveEvent]}, {func: 1, args: [D.Route]}, {func: 1, v: true, args: [D.Route, P.String], named: {fromEvent: P.bool, modules: [P.List, E.Module], templateHtml: P.String}}, {func: 1, args: [D.RouteStartEvent]}, {func: 1, args: [D.InvoiceDiscount]}, {func: 1, ret: W._Attr, args: [P.int]}, {func: 1, v: true, args: [D.Router, T.RouteViewFactory]}, {func: 1, args: [K.AccordionGroupComponent]}, {func: 1, ret: P.bool, args: [V.Slide]}, {func: 1, v: true, args: [V.Slide], named: {direction: P.String}}, {func: 1, args: [V.Slide]}, {func: 1, v: true, args: [P.DateTime]}, {func: 1, ret: P.bool, args: [P.DateTime], opt: [P.int]}, {func: 1, args: [D.Service]}, {func: 1, v: true, args: [,], opt: [,]}, {func: 1, args: [W.TableRowElement]}, {func: 1, args: [D.Rate]}, {func: 1, v: true, args: [W.Element, G.SortableConfig]}, {func: 1, args: [D.RateGroup]}, {func: 1, ret: R.ModalInstance, args: [R.ModalOptions, L.Scope]}, {func: 1, ret: P.String, args: [, [P.Map, P.String, P.String]]}, {func: 1, v: true, args: [Q.TabComponent]}, {func: 1, args: [W.WheelEvent]}, {func: 1, args: [D.RateUnitType]}, {func: 1, args: [D.Customer]}, {func: 1, v: true, args: [W.Node, W.Node]}, {func: 1, ret: P.String, args: [P.String, P.String]}, {func: 1, args: [P.Function], named: {delay: P.int}}, {func: 1, args: [D.Period]}, {func: 1, v: true, named: {cancel: P.bool}}, {func: 1, ret: P.Completer, args: [P.Function], named: {delay: P.int, invokeApply: P.bool}}, {func: 1, args: [P.Completer, O.TimeItem]}, {func: 1, ret: P.Completer, args: [W.Element,,], named: {options: P.Map}}, {func: 1, args: [D.Holiday]}, {func: 1, ret: P.int, args: [P.Object]}, {func: 1, args: [P.Type], opt: [P.Type]}, {func: 1, args: [Z.Key, E.Binding]}, {func: 1, v: true, args: [, G.TypeReflector], named: {inject: P.List, toFactory: P.Function, toImplementation: P.Type, toInstanceOf: null, toValue: null}}, {func: 1, v: true, args: [P.Type], named: {inject: P.List, toFactory: P.Function, toImplementation: P.Type, toInstanceOf: null, toValue: null, withAnnotation: P.Object}}, {func: 1, ret: E.ObjectStore, args: [,]}, {func: 1, ret: E.ResourceStore, args: [,]}, {func: 1, args: [P.Object]}, {func: 1, ret: R.QueryResult, args: [P.Function]}, {func: 1, args: [P.List], named: {thisArg: null}}, {func: 1, ret: P.String, args: [P.num]}, {func: 1, v: true, args: [,], opt: [P.Object, P.StackTrace]}, {func: 1, ret: [P.Future, P.bool], args: [P.String], named: {forceReload: P.bool, startingFrom: D.Route}}, {func: 1, ret: [P.Future, P.bool], named: {startingFrom: D.Route}}, {func: 1, ret: P.String, args: [P.String], named: {parameters: P.Map, queryParameters: P.Map, startingFrom: D.Route}}, {func: 1, args: [D.ExpenseReport]}, {func: 1, args: [D.ProjectCategory]}, {func: 1, args: [D.RouteImpl]}, {func: 1, args: [D.RouteHandle]}, {func: 1, ret: P.bool, args: [W.AnchorElement]}, {func: 1, ret: D.UrlMatch, args: [P.String]}, {func: 1, args: [N.LogRecord]}, {func: 1, named: {evict: P.bool}}, {func: 1, args: [F.InvoiceItemOverviewComponent]}, {func: 1, args: [,,,,,,,,,,]}, {func: 1, args: [P.EventSink]}, {func: 1, ret: P.int, args: [, P.int]}, {func: 1, ret: [P.Stream, P.String], args: [[P.Stream, P.Object]]}, {func: 1, ret: [P.Stream, P.Object], args: [[P.Stream, P.String]]}, {func: 1, args: [,,,,,,,,,,,,]}, {func: 1, ret: P.num}, {func: 1, ret: [P.Stream, [P.List, P.int]], args: [[P.Stream, P.String]]}, {func: 1, v: true, args: [P.Object]}, {func: 1, ret: P.AsyncError, args: [P.Zone, P.ZoneDelegate, P.Zone, P.Object, P.StackTrace]}, {func: 1, ret: P.Timer, args: [P.Zone, P.ZoneDelegate, P.Zone, P.Duration, {func: 1, v: true}]}, {func: 1, ret: P.Timer, args: [P.Zone, P.ZoneDelegate, P.Zone, P.Duration, {func: 1, v: true, args: [P.Timer]}]}, {func: 1, v: true, args: [P.Zone, P.ZoneDelegate, P.Zone, P.String]}, {func: 1, ret: P.Zone, args: [P.Zone, P.ZoneDelegate, P.Zone, P.ZoneSpecification, P.Map]}, {func: 1, ret: P.int, args: [P.Comparable, P.Comparable]}, {func: 1, ret: P.double, args: [P.String]}, {func: 1, ret: W.DataTransferItem, args: [P.int]}, {func: 1, args: [P.List,,]}, {func: 1, args: [P.Map], opt: [{func: 1, v: true, args: [,]}]}, {func: 1, ret: P.Object, args: [,]}, {func: 1, ret: E.HammockConfig, args: [F.Injector]}, {func: 1, ret: S.ContextLocals, args: [, [P.Map, P.String, P.Object]]}, {func: 1, args: [{func: 1}]}, {func: 1, args: [{func: 1, v: true}]}, {func: 1, ret: [P.Stream, P.String], args: [[P.Stream, [P.List, P.int]]]}, {func: 1, ret: P.bool, args: [P.int]}, {func: 1, ret: P.int}, {func: 1, ret: P.List, args: [P.List,,]}, {func: 1, ret: R._Testability, args: [W.Node]}, {func: 1, ret: P.String, args: [P.int], named: {args: null, desc: null, examples: null, few: null, locale: null, many: null, name: null, one: null, other: null, two: null, zero: null}}, {func: 1, v: true, args: [K.AccordionGroupComponent]}, {func: 1, args: [R._ViewScopePair]}];
+  init.metadata = ["o", "a1", null, "a2", "a3", "a4", "value", "a5", "e", "event", "params", "r", false, "ent", "_", "a6", "evict", "key", "element", "left", "index", "right", "error", "result", C.Map_empty0, "name", "newEnt", "a7", "modelValue", "resp", "zone", "self", "x", C.C_Object, "url", "evt", "a8", "entId", "stackTrace", "object", "viewFactory", "data", "text", "entity", "selector", "scope", "node", "val", "parent", "date", "stream", E.module0__DEFAULT_VALUE$closure(), "p", "delegate", "fn", "view", "id", "directives", "nodes", "a10", "injector", "obj", "expression", "s", "a9", "type", "items", 0, "args", "handleError", "resumeSignal", "context", "relativeSelectors", "arg", "a11", "css", "timeInMs", "cachedObjects", "item", "record", "withCredentials", "config", "callback", "elements", "valid", "inject", C.List_empty, "results", "allowed", "nodeOrSelector", "success", "locals", "toInstanceOf", "startingFrom", "toImplementation", "b", "a", "method", "toFactory", "toValue", "el", "f", "each", "options", "password", C.C__DefaultFormatterMap, "invocation", "user", "insertBefore", "input", "formatters", "values", "afterIndex", "arg1", "arg2", "ls", "duration", "message", "y", "thisArg", "offset", "c", "attributeName", "headers", "xsrfHeaderName", "xsrfCookieName", "interceptors", "cache", "timeout", "ref", "styleElements", "baseCss", "entityList", "directiveInjector", "employee", true, "i", "m", "expr", "mode", "exactMatch", "allowNonElementNodes", "containsText", "setting", "direction", "delay", "cssList", "responseType", "xhr", "postCreate", "keepGoing", "condition", "pArgs", "nArgs", "wrapper", 1, "n", "rule", "arg3", "captureThis", "arguments", C.Visibility_LOCAL, "arg4", "source", "yes", "no", "pattern", "visibility", "toStart", "sender", "async", "closure", "isolate", "returnValue", "parentInjector", "newChild", "errorCode", "animation", "mimeType", "requestHeaders", "sendData", "onProgress", "tokens", "addAtStart", "collection", "st", "ast", "addAtEnd", "removeAtStart", "req", "register", "fields", "prepend", "shadowDom", "removeAtEnd", "time", "filterString", "", "parentShadowBoundary", "stack", "ScopeEvent", "cssUrl", "viewCache", "http", "templateCache", "eventHandler", "shadowBoundary", "moveAfter", "reason", "cls", "field", "{{", "removal", "addition", "move", "views", "inputMap", "$", "}}", "symbol", "leading", "mediumDate", "frames", "format", "what", "comparator", "jsonObj", "limit", "fractionSize", "descending", "template", "mustHaveExpression", "directive", "search", "o1", "o2", "o3", "o4", "o5", "o6", "o7", "o8", "o9", "o10", "startSymbol", "endSymbol", "bindingString", "phaseOrLoopNo", "fieldStopwatch", "router", "evalStopwatch", "processStopwatch", "state", "window", "templateUrl", "routeEvent", "userId", "openGroup", "slide", "nextSlide", "theStackTrace", "onValue", "valueToFilter", "datepicker", "inj", "dt", "elem", "content", "newPage", "tab", "timing", "matches", "matchItem", "query", 500, "func", "app", "invokeApply", "cancel", "trigger", "annotation", "k", "reflector", "t", "withAnnotation", "resourceType", "list", "scopingResource", "resource", "v", "j", "howMany", "zero", "one", "two", "few", "many", "other", "desc", "examples", "locale", "number", "path", "selectors", "forceReload", "routePath", "parameters", "queryParameters", "hash", "link", "numberOfArguments", "attr", "start", "end", "theError", "filterProjectId", "offerPositions", "dict", "seconds", "username", "save", "a12", "modelExpressions", "newValue"];
+  init.types = [{func: 1, args: [,]}, {func: 1, args: [,,]}, {func: 1}, {func: 1, v: true}, {func: 1, args: [,,,,]}, {func: 1, args: [,,,]}, {func: 1, args: [R.Resource]}, {func: 1, args: [,,,,,]}, {func: 1, args: [,], opt: [T.FormatterMap]}, {func: 1, named: {evict: P.bool, params: [P.Map, P.String,,]}}, {func: 1, args: [P.String]}, {func: 1, v: true, args: [,]}, {func: 1, ret: P.bool, args: [,]}, {func: 1, ret: P.bool, args: [P.Object]}, {func: 1, v: true, args: [W.Event]}, {func: 1, args: [D.Activity]}, {func: 1, args: [W.MouseEvent]}, {func: 1, args: [,,,,,,]}, {func: 1, opt: [P.int]}, {func: 1, named: {newEnt: D.Entity, params: [P.Map, P.String,,]}}, {func: 1, opt: [,,,,,]}, {func: 1, args: [P.String,,]}, {func: 1, args: [P.bool]}, {func: 1, args: [,], opt: [,]}, {func: 1, v: true, args: [P.int]}, {func: 1, ret: P.String, args: [P.String]}, {func: 1, args: [P.int]}, {func: 1, args: [P.DateTime, P.DateTime]}, {func: 1, ret: P.Future, args: [,]}, {func: 1, args: [W.Event]}, {func: 1, args: [D.TimetrackMultiEntry]}, {func: 1, ret: P.String, args: [P.int]}, {func: 1, ret: P.Future}, {func: 1, named: {newEnt: null, params: [P.Map, P.String,,]}}, {func: 1, v: true, args: [W.KeyboardEvent]}, {func: 1, args: [D.Entity]}, {func: 1, ret: W.Element, args: [P.String]}, {func: 1, args: [V.CollectionChangeItem]}, {func: 1, args: [Y.ViewFactory]}, {func: 1, args: [,,,,,,,,]}, {func: 1, args: [D.Project]}, {func: 1, args: [P.String, P.String]}, {func: 1, v: true, args: [P.Object], opt: [P.StackTrace]}, {func: 1, v: true, args: [P.Function]}, {func: 1, v: true, args: [P.String]}, {func: 1, args: [V.MapKeyValue]}, {func: 1, v: true, opt: [P.Future]}, {func: 1, ret: P.String, args: [,]}, {func: 1, args: [P.Match]}, {func: 1, v: true, args: [{func: 1, v: true}]}, {func: 1, args: [P.List]}, {func: 1, v: true, args: [P.bool]}, {func: 1, args: [Y.CacheRegisterStats]}, {func: 1, args: [,], opt: [,,]}, {func: 1, args: [R.QueryResult]}, {func: 1, args: [D.Timeslice]}, {func: 1, args: [D.Employee]}, {func: 1, args: [D.Setting]}, {func: 1, v: true, opt: [W.Event]}, {func: 1, v: true, opt: [L.ScopeEvent]}, {func: 1, ret: [P.Future, R.CommandResponse], args: [R.Resource]}, {func: 1, ret: P.String, args: [P.DateTime]}, {func: 1, v: true, args: [F.DirectiveBinder]}, {func: 1, ret: P.String, args: [P.Object]}, {func: 1, ret: P.String}, {func: 1, args: [,,,,,,,,,,,]}, {func: 1, ret: P.int, args: [P.String]}, {func: 1, args: [,,,,,,,]}, {func: 1, v: true, args: [,,]}, {func: 1, opt: [,]}, {func: 1, ret: W.Element, args: [P.int]}, {func: 1, args: [P.Symbol0,,]}, {func: 1, v: true, args: [P.Uint8List, P.String, P.int]}, {func: 1, args: [, F.Expression]}, {func: 1, ret: P.bool, args: [P.num]}, {func: 1, ret: Y.Animation, args: [[P.Iterable, W.Node]]}, {func: 1, ret: Y.Animation, args: [[P.Iterable, W.Node], W.Node], named: {insertBefore: W.Node}}, {func: 1, args: [, P.StackTrace]}, {func: 1, ret: P.Function, args: [P.String]}, {func: 1, ret: L.ScopeEvent, args: [P.String], opt: [,]}, {func: 1, v: true, args: [P.Zone, P.ZoneDelegate, P.Zone, {func: 1}]}, {func: 1, ret: P.int, args: [,,]}, {func: 1, ret: P.Iterable, args: [P.Type]}, {func: 1, ret: W.Node, args: [P.int]}, {func: 1, args: [Y.HttpResponseConfig]}, {func: 1, args: [W.HttpRequest]}, {func: 1, args: [Y.DirectiveRef,,,]}, {func: 1, v: true, opt: [P.String]}, {func: 1, ret: W.Node, args: [W.Node]}, {func: 1, ret: P.Map}, {func: 1, args: [Y.ElementProbe]}, {func: 1, args: [D.RouteEnterEvent]}, {func: 1, args: [T.NgView]}, {func: 1, args: [F.DirectiveBinder]}, {func: 1, args: [W.Element]}, {func: 1, v: true, args: [W.MouseEvent]}, {func: 1, args: [P.CssClassSetImpl]}, {func: 1, args: [P.bool, P.CssClassSetImpl]}, {func: 1, ret: Z.Rect, args: [W.Element]}, {func: 1, args: [P.Map]}, {func: 1, args: [[P.List, P.bool]]}, {func: 1, args: [D._Match]}, {func: 1, args: [W.KeyboardEvent]}, {func: 1, ret: P.String, args: [W.EventTarget]}, {func: 1, ret: P.bool, args: [W.Element, P.String, P.String, W._Html5NodeValidator]}, {func: 1, args: [E.DateVO]}, {func: 1, v: true, args: [K.LoopedAnimation]}, {func: 1, ret: P.List, args: [P.List,,]}, {func: 1, ret: P.List, args: [[P.List, D.OfferPosition]]}, {func: 1, ret: P.List, args: [[P.List, D.InvoiceItem]]}, {func: 1, opt: [P.String, P.String, P.bool]}, {func: 1, args: [P.String, D.Entity]}, {func: 1, v: true, args: [P.int, P.int]}, {func: 1, opt: [L.ScopeEvent]}, {func: 1, ret: P.bool, args: [D.Entity]}, {func: 1, ret: K.CssAnimation, args: [W.Element, P.String], named: {addAtEnd: P.String, addAtStart: P.String, removeAtEnd: P.String, removeAtStart: P.String}}, {func: 1, args: [X.Application]}, {func: 1, ret: [P.List, P.String], args: [P.Pattern]}, {func: 1, ret: P.JsObject, args: [,]}, {func: 1, args: [P.int,,]}, {func: 1, ret: Y.CacheStats}, {func: 1, ret: S.AST, args: [P.String], named: {collection: P.bool, formatters: T.FormatterMap}}, {func: 1, ret: S.AST, args: [F.Expression]}, {func: 1, args: [P.String, F.Expression]}, {func: 1, ret: W.Animation0, args: [[P.Iterable, [P.Map, P.String,,]]], opt: [,]}, {func: 1, ret: P.Map, args: [P.List]}, {func: 1, ret: A.ItemRecord, args: [, P.int]}, {func: 1, ret: P.bool, args: [A.ItemRecord]}, {func: 1, ret: A.ItemRecord, args: [,], opt: [P.int]}, {func: 1, ret: A.ItemRecord, args: [A.ItemRecord]}, {func: 1, args: [P.Symbol0, S.AST]}, {func: 1, v: true, args: [[V.Record, S._Handler]]}, {func: 1, args: [, P.String]}, {func: 1, args: [F.Formatter]}, {func: 1, args: [,,], opt: [P.String]}, {func: 1, ret: L.Interpolation, args: [P.String], opt: [P.bool, P.String, P.String]}, {func: 1, args: [,], opt: [P.Map]}, {func: 1, opt: [, P.Map]}, {func: 1, v: true, args: [P.String, P.int]}, {func: 1, ret: L.ScopeStream, args: [P.String]}, {func: 1, v: true, args: [P.String, V.AvgStopwatch, V.AvgStopwatch, V.AvgStopwatch]}, {func: 1, v: true, args: [{func: 1}]}, {func: 1, ret: P.bool, args: [P.String]}, {func: 1, args: [P.Zone, P.ZoneDelegate, P.Zone, {func: 1}]}, {func: 1, args: [P.Zone, P.ZoneDelegate, P.Zone, {func: 1, args: [,]},,]}, {func: 1, args: [D.Project, P.String]}, {func: 1, ret: P.Timer, args: [P.Zone, P.ZoneDelegate, P.Zone, P.Duration, {func: 1}]}, {func: 1, v: true, args: [P.Zone, P.ZoneDelegate, P.Zone,, P.StackTrace]}, {func: 1, v: true, args: [,, L.LongStackTrace]}, {func: 1, ret: P.Timer, args: [P.ZoneDelegate, P.Zone, P.Duration, {func: 1}]}, {func: 1, v: true, args: [P.String], opt: [,]}, {func: 1, v: true, opt: [[P.List, P.int], P.int]}, {func: 1, ret: [P.List, Z.Token], args: [P.String]}, {func: 1, v: true, args: [P.String], opt: [P.int]}, {func: 1, v: true, args: [,], opt: [P.int]}, {func: 1, ret: F.Expression, args: [P.String]}, {func: 1, ret: P.bool, args: [F.Expression]}, {func: 1, args: [,], opt: [{func: 1, args: [,,]}]}, {func: 1, args: [P.List,,,]}, {func: 1, ret: P.int, opt: [P.int]}, {func: 1, ret: P.Future, args: [D.TimetrackMultiEntry]}, {func: 1, ret: P.String, args: [L._Rule]}, {func: 1, ret: P.String, args: [,,,]}, {func: 1, v: true, args: [,], named: {inject: null, toFactory: P.Function, toImplementation: P.Type, toInstanceOf: null, toValue: null, visibility: F.Visibility}}, {func: 1, ret: P.Object, args: [P.Type]}, {func: 1, ret: Y.ViewFactory, args: [[P.List, W.Node], Y.DirectiveMap]}, {func: 1, ret: W.StyleElement, args: [P.String]}, {func: 1, ret: [P.Future, [P.List, W.StyleElement]], args: [P.String, [P.List, P.String]], named: {type: P.Type}}, {func: 1, args: [F.Directive]}, {func: 1, ret: S.DirectiveInjector, args: [Y.View, L.Scope, S.DirectiveInjector, W.Node]}, {func: 1, args: [Y.DirectiveRef]}, {func: 1, args: [P.String, S.AST]}, {func: 1, ret: P.int, args: [P.int, P.int]}, {func: 1, v: true, args: [P.String, P.String], named: {async: P.bool, password: P.String, user: P.String}}, {func: 1, ret: P.Future, args: [P.String], named: {method: P.String, mimeType: P.String, onProgress: {func: 1, v: true, args: [W.ProgressEvent]}, requestHeaders: [P.Map, P.String, P.String], responseType: P.String, sendData: null, withCredentials: P.bool}}, {func: 1, ret: P.Uint8List, args: [,,]}, {func: 1, args: [Y.HttpResponse]}, {func: 1, args: [Y.HttpInterceptor]}, {func: 1, opt: [P.String]}, {func: 1, ret: [P.Future, Y.HttpResponse], args: [P.String], named: {cache: null, headers: [P.Map, P.String, P.String], interceptors: null, params: [P.Map, P.String,,], timeout: null, withCredentials: P.bool, xsrfCookieName: null, xsrfHeaderName: null}}, {func: 1, ret: [P.Future, Y.HttpResponse], args: [P.String], named: {cache: null, data: null, headers: [P.Map, P.String, P.String], interceptors: null, params: [P.Map, P.String,,], timeout: null, withCredentials: P.bool, xsrfCookieName: null, xsrfHeaderName: null}}, {func: 1, ret: [P.Future, Y.HttpResponse], named: {cache: null, data: null, headers: [P.Map, P.String,,], interceptors: null, method: P.String, params: [P.Map, P.String,,], timeout: null, url: P.String, withCredentials: P.bool, xsrfCookieName: P.String, xsrfHeaderName: P.String}}, {func: 1, args: [Y.CacheRegister]}, {func: 1, args: [D.Offer]}, {func: 1, args: [P.String, P.bool]}, {func: 1, args: [F.Directive, P.Type]}, {func: 1, args: [Y.DirectiveTypeTuple]}, {func: 1, args: [Y._ElementSelector]}, {func: 1, ret: Y.DirectiveSelector, args: [Y.DirectiveMap], opt: [F.Injector, T.FormatterMap]}, {func: 1, v: true, args: [[P.List, W.StyleElement]], named: {prepend: P.bool}}, {func: 1, args: [W.StyleElement]}, {func: 1, args: [D.OfferPosition]}, {func: 1, ret: P.Function, args: [W.Element]}, {func: 1, args: [S.DirectiveInjector, L.Scope, Y.View, R.NgBaseCss, Y.ShadowBoundary]}, {func: 1, args: [D.OfferDiscount]}, {func: 1, ret: P.String, args: [P.String], named: {cssUrl: P.String, selector: P.String}}, {func: 1, ret: P.Function, args: [W.Node]}, {func: 1, args: [S.DirectiveInjector, L.Scope, Y.View, Y.ViewFactoryCache, Y.Http, Y.TemplateCache, Y.DirectiveMap, R.NgBaseCss, Y.EventHandler, Y.ShadowBoundary]}, {func: 1, ret: Y.View, args: [Y.View]}, {func: 1, ret: Y.View, args: [Y.View], named: {moveAfter: Y.View}}, {func: 1, ret: Y.View, args: [L.Scope]}, {func: 1, ret: Y.BoundViewFactory, args: [S.DirectiveInjector]}, {func: 1, ret: Y.View, args: [L.Scope, S.DirectiveInjector], opt: [[P.List, W.Node]]}, {func: 1, args: [W.Node]}, {func: 1, args: [P.Type]}, {func: 1, args: [D.OfferStatusUC]}, {func: 1, args: [P.Function]}, {func: 1, v: true, opt: [P.bool]}, {func: 1, v: true, args: [, P.StackTrace]}, {func: 1, args: [V.MapChangeRecord,,]}, {func: 1, args: [D.StandardDiscount]}, {func: 1, args: [R._Case]}, {func: 1, ret: [P.List, L._KeyValue], args: [P.Map]}, {func: 1, ret: W.WindowBase, args: [P.String, P.String], opt: [P.String]}, {func: 1, args: [P.Object], opt: [P.String]}, {func: 1, ret: P.bool, args: [,,]}, {func: 1, ret: P.List, args: [P.List,,], opt: [,]}, {func: 1, args: [,], opt: [P.int]}, {func: 1, ret: P.List, args: [P.Iterable,,], opt: [P.bool]}, {func: 1, args: [,], opt: [,,,,,,,,,,]}, {func: 1, args: [D.CostGroup]}, {func: 1, args: [P.String], opt: [P.String]}, {func: 1, args: [W.Node, P.String], opt: [P.String]}, {func: 1, args: [T.NgRoutingUsePushState, W.Window]}, {func: 1, args: [D.Invoice]}, {func: 1, args: [D.RoutePreEnterEvent]}, {func: 1, args: [[P.List, E.Module]]}, {func: 1, args: [D.RoutePreLeaveEvent]}, {func: 1, args: [D.Route]}, {func: 1, v: true, args: [D.Route, P.String], named: {fromEvent: P.bool, modules: [P.List, E.Module], templateHtml: P.String}}, {func: 1, args: [D.RouteStartEvent]}, {func: 1, args: [D.InvoiceItem]}, {func: 1, ret: W._Attr, args: [P.int]}, {func: 1, v: true, args: [D.Router, T.RouteViewFactory]}, {func: 1, args: [K.AccordionGroupComponent]}, {func: 1, ret: P.bool, args: [V.Slide]}, {func: 1, v: true, args: [V.Slide], named: {direction: P.String}}, {func: 1, args: [V.Slide]}, {func: 1, v: true, args: [P.DateTime]}, {func: 1, ret: P.bool, args: [P.DateTime], opt: [P.int]}, {func: 1, args: [D.InvoiceDiscount]}, {func: 1, v: true, args: [,], opt: [,]}, {func: 1, args: [W.TableRowElement]}, {func: 1, args: [D.Service]}, {func: 1, v: true, args: [W.Element, G.SortableConfig]}, {func: 1, args: [D.Rate]}, {func: 1, ret: R.ModalInstance, args: [R.ModalOptions, L.Scope]}, {func: 1, ret: P.String, args: [, [P.Map, P.String, P.String]]}, {func: 1, v: true, args: [Q.TabComponent]}, {func: 1, args: [W.WheelEvent]}, {func: 1, args: [D.RateGroup]}, {func: 1, args: [D.RateUnitType]}, {func: 1, v: true, args: [W.Node, W.Node]}, {func: 1, ret: P.String, args: [P.String, P.String]}, {func: 1, args: [P.Function], named: {delay: P.int}}, {func: 1, args: [D.Customer]}, {func: 1, v: true, named: {cancel: P.bool}}, {func: 1, ret: P.Completer, args: [P.Function], named: {delay: P.int, invokeApply: P.bool}}, {func: 1, args: [P.Completer, O.TimeItem]}, {func: 1, ret: P.Completer, args: [W.Element,,], named: {options: P.Map}}, {func: 1, args: [D.Period]}, {func: 1, ret: P.int, args: [P.Object]}, {func: 1, args: [P.Type], opt: [P.Type]}, {func: 1, args: [Z.Key, E.Binding]}, {func: 1, v: true, args: [, G.TypeReflector], named: {inject: P.List, toFactory: P.Function, toImplementation: P.Type, toInstanceOf: null, toValue: null}}, {func: 1, v: true, args: [P.Type], named: {inject: P.List, toFactory: P.Function, toImplementation: P.Type, toInstanceOf: null, toValue: null, withAnnotation: P.Object}}, {func: 1, ret: E.ObjectStore, args: [,]}, {func: 1, ret: E.ResourceStore, args: [,]}, {func: 1, args: [P.Object]}, {func: 1, ret: R.QueryResult, args: [P.Function]}, {func: 1, args: [P.List], named: {thisArg: null}}, {func: 1, ret: P.String, args: [P.num]}, {func: 1, v: true, args: [,], opt: [P.Object, P.StackTrace]}, {func: 1, ret: [P.Future, P.bool], args: [P.String], named: {forceReload: P.bool, startingFrom: D.Route}}, {func: 1, ret: [P.Future, P.bool], named: {startingFrom: D.Route}}, {func: 1, ret: P.String, args: [P.String], named: {parameters: P.Map, queryParameters: P.Map, startingFrom: D.Route}}, {func: 1, args: [D.Holiday]}, {func: 1, args: [D.ExpenseReport]}, {func: 1, args: [D.RouteImpl]}, {func: 1, args: [D.RouteHandle]}, {func: 1, ret: P.bool, args: [W.AnchorElement]}, {func: 1, ret: D.UrlMatch, args: [P.String]}, {func: 1, args: [N.LogRecord]}, {func: 1, named: {evict: P.bool}}, {func: 1, args: [F.InvoiceItemOverviewComponent]}, {func: 1, args: [,,,,,,,,,,]}, {func: 1, args: [P.EventSink]}, {func: 1, args: [D.ProjectCategory]}, {func: 1, ret: [P.Stream, P.String], args: [[P.Stream, P.Object]]}, {func: 1, ret: [P.Stream, P.Object], args: [[P.Stream, P.String]]}, {func: 1, args: [,,,,,,,,,,,,]}, {func: 1, ret: P.num}, {func: 1, ret: [P.Stream, [P.List, P.int]], args: [[P.Stream, P.String]]}, {func: 1, v: true, args: [P.Object]}, {func: 1, ret: P.AsyncError, args: [P.Zone, P.ZoneDelegate, P.Zone, P.Object, P.StackTrace]}, {func: 1, ret: P.Timer, args: [P.Zone, P.ZoneDelegate, P.Zone, P.Duration, {func: 1, v: true}]}, {func: 1, ret: P.Timer, args: [P.Zone, P.ZoneDelegate, P.Zone, P.Duration, {func: 1, v: true, args: [P.Timer]}]}, {func: 1, v: true, args: [P.Zone, P.ZoneDelegate, P.Zone, P.String]}, {func: 1, ret: P.Zone, args: [P.Zone, P.ZoneDelegate, P.Zone, P.ZoneSpecification, P.Map]}, {func: 1, ret: P.int, args: [P.Comparable, P.Comparable]}, {func: 1, ret: P.double, args: [P.String]}, {func: 1, ret: P.int, args: [, P.int]}, {func: 1, ret: W.DataTransferItem, args: [P.int]}, {func: 1, args: [P.Map], opt: [{func: 1, v: true, args: [,]}]}, {func: 1, ret: P.Object, args: [,]}, {func: 1, ret: E.HammockConfig, args: [F.Injector]}, {func: 1, ret: S.ContextLocals, args: [, [P.Map, P.String, P.Object]]}, {func: 1, args: [{func: 1}]}, {func: 1, args: [P.List,,]}, {func: 1, ret: [P.Stream, P.String], args: [[P.Stream, [P.List, P.int]]]}, {func: 1, ret: P.bool, args: [P.int]}, {func: 1, ret: P.int}, {func: 1, args: [{func: 1, v: true}]}, {func: 1, ret: R._Testability, args: [W.Node]}, {func: 1, ret: P.String, args: [P.int], named: {args: null, desc: null, examples: null, few: null, locale: null, many: null, name: null, one: null, other: null, two: null, zero: null}}, {func: 1, v: true, args: [K.AccordionGroupComponent]}, {func: 1, args: [R._ViewScopePair]}];
   function convertToFastObject(properties) {
     function MyClass() {
     }
