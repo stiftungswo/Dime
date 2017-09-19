@@ -12,5 +12,5 @@ services:
             tags: [{ name: "form.type", alias: "dime_invoicebundle_invoiceitemformtype" }]
 
     dime.invoicebundle.costgroup.formtype:
-            class: Dime\InvoiceBundle\Form\Type\CostGroupFormType
-            tags: [{ name: "form.type", alias: "dime_invoicebundle_costgroupformtype" }]        
+            class: Dime\InvoiceBundle\Form\Type\CostgroupFormType
+            tags: [{ name: "form.type", alias: "dime_invoicebundle_costgroupformtype" }]

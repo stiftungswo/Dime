@@ -16,7 +16,7 @@ services:
 
     dime.costgroup.handler:
         class: %generic_handler%
-        arguments: [ "@doctrine.orm.entity_manager", "Dime\InvoiceBundle\Entity\CostGroup", "@service_container", "invt", "dime_invoicebundle_costgroupformtype" ]
+        arguments: [ "@doctrine.orm.entity_manager", "Dime\InvoiceBundle\Entity\Costgroup", "@service_container", "invt", "dime_invoicebundle_costgroupformtype" ]
 
 
     dime.invoice.configreader:

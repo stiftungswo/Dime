@@ -79,7 +79,7 @@ class AppModule extends Module {
     bind(RateGroupSelectComponent);
     bind(RateUnitTypeSelectComponent);
     bind(UserSelectComponent);
-    bind(CostGroupSelectComponent);
+    bind(CostgroupSelectComponent);
     bind(UserContext);
     bind(DateRange);
     bind(DateToTextInput);
