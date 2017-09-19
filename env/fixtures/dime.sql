@@ -451,30 +451,30 @@ UNLOCK TABLES;
 
 
 --
--- Table structure for table `cost_groups`
+-- Table structure for table `costgroups`
 --
 
-DROP TABLE IF EXISTS `cost_groups`;
-CREATE TABLE `cost_groups` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `costgroups`;
+CREATE TABLE `costgroups` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
-  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `number` int(11) NOT NULL,
+  `description` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `IDX_57041CB0A76ED395` (`user_id`),
-  CONSTRAINT `FK_57041CB0A76ED395` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE SET NULL
+  CONSTRAINT `FK_CG_USER` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 --
--- Dumping data for table `cost_groups`
+-- Dumping data for table `costgroups`
 --
-INSERT INTO cost_groups VALUES
-(100, NULL, "2017-09-15", "2017-09-15", "100 name"),
-(200, NULL, "2017-09-15", "2017-09-15", "200 name"),
-(300, NULL, "2017-09-15", "2017-09-15", "300 name"),
-(400, NULL, "2017-09-15", "2017-09-15", "400 name"),
-(500, NULL, "2017-09-15", "2017-09-15", "500 name"),
-(600, NULL, "2017-09-15", "2017-09-15", "600 name");
+INSERT INTO costgroups VALUES
+(1, NULL, "2017-09-15", "2017-09-15", 100, "100 name"),
+(2, NULL, "2017-09-15", "2017-09-15", 200, "200 name"),
+(3, NULL, "2017-09-15", "2017-09-15", 300, "300 name"),
+(4, NULL, "2017-09-15", "2017-09-15", 400, "400 name"),
+(5, NULL, "2017-09-15", "2017-09-15", 500, "500 name"),
+(6, NULL, "2017-09-15", "2017-09-15", 600, "600 name");
 
 
 --
@@ -489,7 +489,7 @@ CREATE TABLE `invoices` (
   `project_id` int(11) DEFAULT NULL,
   `customer_id` int(11) DEFAULT NULL,
   `accountant_id` int(11) DEFAULT NULL,
-  `cost_group_id` int(11) DEFAULT NULL,
+  `costgroup_id` int(11) DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `alias` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
@@ -508,7 +508,7 @@ CREATE TABLE `invoices` (
   CONSTRAINT `FK_6A2F2F95166D1F9C` FOREIGN KEY (`project_id`) REFERENCES `projects` (`id`),
   CONSTRAINT `FK_6A2F2F959395C3F3` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`id`) ON DELETE SET NULL,
   CONSTRAINT `FK_6A2F2F959582AA74` FOREIGN KEY (`accountant_id`) REFERENCES `users` (`id`) ON DELETE SET NULL,
-  CONSTRAINT `FK_INVOICE_COSTGROUPS` FOREIGN KEY ('cost_group_id') REFERENCES `cost_groups` (`id`) ON DELETE SET NULL
+  CONSTRAINT `FK_INVOICE_COSTGROUPS` FOREIGN KEY (`costgroup_id`) REFERENCES `costgroups` (`id`) ON DELETE SET NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -518,7 +518,7 @@ CREATE TABLE `invoices` (
 
 LOCK TABLES `invoices` WRITE;
 /*!40000 ALTER TABLE `invoices` DISABLE KEYS */;
-INSERT INTO `invoices` (`id`, `project_id`, `customer_id`, `accountant_id`, `cost_group_id`, `user_id`, `name`, `alias`, `description`, `start`, `end`, `fixed_price`, `created_at`, `updated_at`) VALUES
+INSERT INTO `invoices` (`id`, `project_id`, `customer_id`, `accountant_id`, `costgroup_id`, `user_id`, `name`, `alias`, `description`, `start`, `end`, `fixed_price`, `created_at`, `updated_at`) VALUES
 (1, 1, 1, 2, NULL, 2, 'Default Invoice', 'default-invoice', 'This is a detailed description', '2015-11-28', '2016-10-05', NULL, '2017-03-24 13:53:49', '2017-03-24 13:53:49'),
 (2, 12, 19, 4, NULL, 3, 'Test Invoice 2', 'test-invoice-2', 'Velit possimus cum ducimus vitae quam omnis ea. Odio quis est officia voluptatibus corrupti commodi. Minima reprehenderit laborum cumque molestiae aut numquam. Harum aliquam est quod. Laudantium qui ipsa ratione sunt ut officia.\nReprehenderit autem voluptatem perspiciatis eius necessitatibus qui. Quis saepe neque quia eum repellendus enim eum. Ea et harum ut explicabo odit similique nihil numquam. Sit suscipit libero nisi sunt sit quas quo totam.\nNumquam itaque magnam voluptas quidem dolorum neque. Totam non dolor voluptatibus nihil occaecati ut.', '2016-07-11', '2016-10-24', 'CHF 2170800', '2017-03-24 13:53:49', '2017-03-24 13:53:49'),
 (3, 12, 22, 5, NULL, 4, 'Test Invoice 3', 'test-invoice-3', 'Ullam iste repellat qui ipsum sit illum. Distinctio et doloremque quia commodi modi quia. Corrupti autem quae perferendis enim.\nConsequuntur provident beatae culpa consequatur aut ducimus dignissimos. Consequatur accusantium excepturi magni qui at et. Voluptas soluta eaque autem veritatis.\nNam maxime qui dolorem quam cumque eius. Vel ex occaecati dolorem ab. Eius quia iusto odio in. Reiciendis modi magni perferendis iure suscipit labore. Minus iste corrupti rerum necessitatibus aut totam sit.\nEaque nobis qui recusandae tempore molestias. Fugit delectus aut delectus laudantium. Iure quia illo neque omnis possimus numquam nostrum.', '2016-04-04', '2017-03-15', NULL, '2017-03-24 13:53:49', '2017-03-24 13:53:49'),

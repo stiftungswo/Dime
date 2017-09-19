@@ -13,7 +13,7 @@ use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class CostGroupController extends DimeController
+class CostgroupController extends DimeController
 {
 	private $handlerSerivce = 'dime.costgroup.handler';
 
@@ -22,7 +22,7 @@ class CostGroupController extends DimeController
 	 *
 	 * @ApiDoc(
 	 * resource = true,
-	 * output = "Dime\InvoiceBundle\Entity\CostGroup",
+	 * output = "Dime\InvoiceBundle\Entity\Costgroup",
 	 * section="costgroups",
 	 * statusCodes = {
 	 * 200 = "Returned when successful"
@@ -42,7 +42,7 @@ class CostGroupController extends DimeController
 	 *
 	 * @return array
 	 */
-	public function getCostGroupsAction(ParamFetcherInterface $paramFetcher)
+	public function getCostgroupsAction(ParamFetcherInterface $paramFetcher)
 	{
 		$result = $this->container->get($this->handlerSerivce)->all($paramFetcher->all());
 		return $result;
@@ -54,7 +54,7 @@ class CostGroupController extends DimeController
 	 * @ApiDoc(
 	 * resource = true,
 	 * description = "Gets a Timeslice for a given id",
-	 * output = "Dime\InvoiceBundle\Entity\CostGroup",
+	 * output = "Dime\InvoiceBundle\Entity\Costgroup",
 	 * section="costgroups",
 	 * statusCodes = {
 	 * 200 = "Returned when successful",
@@ -77,7 +77,7 @@ class CostGroupController extends DimeController
 	 *
 	 * @throws NotFoundHttpException when page not exist
 	 */
-	public function getCostGroupAction($id)
+	public function getCostgroupAction($id)
 	{
 		return $this->getOr404($id, $this->handlerSerivce);
 	}

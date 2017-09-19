@@ -6,16 +6,16 @@ use Dime\TimetrackerBundle\Entity\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
 
 /**
- * CostGroupRepository
+ * CostgroupRepository
  */
-class CostGroupRepository extends EntityRepository
+class CostgroupRepository extends EntityRepository
 {
     /**
      * Search for name or alias
      *
      * @param string            $text
      * @param QueryBuilder      $qb
-     * @return CostGroupRepository
+     * @return CostgroupRepository
      */
     public function search($text, QueryBuilder $qb = null)
     {
@@ -26,7 +26,7 @@ class CostGroupRepository extends EntityRepository
         $aliases = $qb->getRootAliases();
         $alias = array_shift($aliases);
 
-        $qb->andWhere($qb->expr()->like($alias . '.name', ':text_like'));
+        $qb->andWhere($qb->expr()->like($alias . '.description', ':text_like'));
         $qb->setParameter('text_like', '%' . $text . '%');
 
         return $this;

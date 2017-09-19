@@ -19,9 +19,9 @@ invoiceItems:
     name_prefix:  api_1_
     defaults: { _format: json }
 
-costGroups:
+costgroups:
     type:     rest
-    resource: Dime\InvoiceBundle\Controller\CostGroupController
+    resource: Dime\InvoiceBundle\Controller\CostgroupController
     prefix:   /v1
     name_prefix:  api_1_
     defaults: { _format: json }
