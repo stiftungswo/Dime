@@ -34,19 +34,45 @@
 			{% if invoice.user %}
 			<div class="accountant">Sachbearbeiter: {{ invoice.user }}</div><br/>
 			{% endif %}
+			<br /><br />
 			<div class="invoiceIDKey">Rechnung</div><br/>
+
+			<table breakable="false" class="toptable">
+				<tr>
+					<td width="20%">Rechnung Nr. {{ invoice.id }}</td>
+					{% if invoice.getOfferNumber() %}
+					<td width="35%">Offerten Nr. {{ invoice.getOfferNumber() }}</td>
+					{% endif %}
+					<td>MwSt-ID {{ invoiceconfig.senderMwstId }}</td>
+				</tr>
+			</table>
+			<table breakable="false" class="toptable">
+				<tr>
+					{% if invoice.project %}<td width="20%">Auftrag Nr. {{ invoice.project.id }}</td>{% endif %}
+					{% if invoice.costgroup %}<td>Kostenstelle {{invoice.costgroup.number}}: {{invoice.costgroup.description}}</td>{% endif %}
+				</tr>
+			</table>
+			<br/><br/>
+
+			<!--
 			<div class="mwstNR">Rechnung Nr. {{ invoice.id }}
 			    {% if invoice.getOfferNumber() %}
-                &nbsp;&nbsp;&nbsp;&nbsp;
-                Offerten Nr. {{ invoice.getOfferNumber() }}
-                {% endif %}
-                &nbsp;&nbsp;&nbsp;&nbsp;
-                MwSt-ID {{ invoiceconfig.senderMwstId }}
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                {{ invoiceconfig.senderCity }}, {{ invoice.updatedAt|date("d.m.Y") }}</div><br/><br/>
-			{% if invoice.project %}
-			<div class="projectID">Auftrag Nr. {{ invoice.project.id }}</div><br/>
-			{% endif %}
+					&nbsp;&nbsp;&nbsp;&nbsp;
+					Offerten Nr. {{ invoice.getOfferNumber() }}
+          {% endif %}
+          &nbsp;&nbsp;&nbsp;&nbsp;
+          MwSt-ID {{ invoiceconfig.senderMwstId }}
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          {{ invoiceconfig.senderCity }}, {{ invoice.updatedAt|date("d.m.Y") }}
+			</div>
+
+			<br/><br/>
+
+			<div class="projectID">
+				{% if invoice.project %}Auftrag Nr. {{ invoice.project.id }}{% endif %}
+				{% if invoice.costgroup %}Kostenstelle [{{invoice.costgroup.number}}]: {{invoice.costgroup.description}}{% endif %}
+			</div><br/>-->
+
 			{% if invoice.start and invoice.end %}
 			<div class="dateRange">Aufwandzeitraum {{ invoice.start|date('d.m.Y') }} - {{ invoice.end|date('d.m.Y') }}</div>
 			{% endif %}
