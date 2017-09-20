@@ -9,7 +9,6 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class EmployeeFormType extends AbstractType
 {
-
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(
@@ -31,6 +30,7 @@ class EmployeeFormType extends AbstractType
             ->add('email', 'email')
             ->add('enabled')
             ->add('employeeholiday')
+            ->add('extendTimetrack')
             ->add('workingPeriods', 'entity', array('class' => 'DimeEmployeeBundle:Period', 'multiple' => true))
         ;
     }

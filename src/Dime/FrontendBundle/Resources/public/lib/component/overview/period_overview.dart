@@ -48,6 +48,10 @@ class PeriodOverviewComponent extends EntityOverview implements ScopeAware {
   bool needsmanualAdd = true;
 
   set employee(Employee employee) {
+    if (this.employee != null && this.employee.id == employee.id) {
+      return;
+    }
+
     if (employee.id == null) {
       return;
     }

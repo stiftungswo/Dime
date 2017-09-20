@@ -23,6 +23,13 @@ class Employee extends User implements DimeEntityInterface
 {
 
     /**
+     * @var boolean
+     * @ORM\Column(name="extend_timetrack", type="boolean", nullable=false)
+     * @JMS\SerializedName("extendTimetrack")
+     */
+    protected $extendTimetrack;
+
+    /**
      * @var ArrayCollection
      * @ORM\OneToMany(targetEntity="Dime\EmployeeBundle\Entity\Period", mappedBy="employee")
      * @JMS\SerializedName("workingPeriods")
@@ -104,6 +111,25 @@ class Employee extends User implements DimeEntityInterface
     public function removeWorkingPeriod(Period $workingPeriod)
     {
         $this->workingPeriods->removeElement($workingPeriod);
+        return $this;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getExtendTimetrack()
+    {
+        return $this->extendTimetrack;
+    }
+
+    /**
+     * @param boolean $extendTimetrack
+     *
+     * @return $this
+     */
+    public function setExtendTimetrack($extendTimetrack)
+    {
+        $this->extendTimetrack = $extendTimetrack;
         return $this;
     }
 }
