@@ -35,6 +35,7 @@ class TimesliceOverviewComponent extends EntityOverview {
   bool needsmanualAdd = true;
 
   List<Activity> activities = [];
+  var activityResult = null;
 
   DateTime filterStartDate = new DateTime.now();
   DateTime filterEndDate;
@@ -57,6 +58,11 @@ class TimesliceOverviewComponent extends EntityOverview {
   get selectedProject => _selectedProject;
 
   set selectedProject(Project proj) {
+
+    if(proj == null || (this._selectedProject != null && this._selectedProject.id == proj.id)) {
+      return;
+    }
+
     this._selectedProject = proj;
     if(proj != null) {
       this.updateChosenSetting('project');
@@ -194,15 +200,17 @@ class TimesliceOverviewComponent extends EntityOverview {
   }
 
   attach() {
-    if (this.auth != null) {
-      if (!auth.isloggedin) {
-        this.auth.afterLogin(() {
-          this.load();
-        });
-      } else {
-        this.load();
-      }
+    if (this.auth == null) {
+      return;
     }
+    if (!auth.isloggedin) {
+      this.auth.afterLogin(() {
+        this.load();
+      });
+    } else {
+      this.load();
+    }
+
     if (this.filterStartDate.weekday != DateTime.MONDAY);
     {
       this.filterStartDate = this.filterStartDate.subtract(new Duration(days: this.filterStartDate.weekday - 1));
@@ -232,7 +240,7 @@ class TimesliceOverviewComponent extends EntityOverview {
   }
 
   load() async{
-    loadActivtyData();
+    this.activities = (await this.store.list(Activity)).toList();
     this.employee = this.context.employee;
 
     List projects = await this.store.list(Project);
@@ -247,23 +255,18 @@ class TimesliceOverviewComponent extends EntityOverview {
       this.selectedProject = null;
     }
 
-    List activities = await this.store.list(Activity);
     try {
       this.settingselectedActivity = settingsManager.getOneSetting('/usr/timeslice', 'chosenActivity');
     } catch (e) {
       this.settingselectedActivity = await settingsManager.createSetting('/usr/timeslice', 'chosenActivity', '');
     }
     try {
-      this.selectedActivity = activities.singleWhere((Activity a) =>
+      this.selectedActivity = this.activities.singleWhere((Activity a) =>
         a.alias == this.settingselectedActivity.value && a.project.id == this.selectedProject.id
       );
     } catch (e) {
       this.selectedActivity = null;
     }
-  }
-
-  loadActivtyData() async{
-    this.activities = (await this.store.list(Activity)).toList();
   }
 
   previousMonth() {

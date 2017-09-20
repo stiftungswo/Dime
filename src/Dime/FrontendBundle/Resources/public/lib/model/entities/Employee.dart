@@ -3,7 +3,10 @@ part of dime_entity;
 class Employee extends User {
   Employee();
 
-  Employee.clone(Employee original): super.clone(original);
+  Employee.clone(Employee original): super.clone(original){
+    this.extendTimetrack = original.extendTimetrack;
+    addFieldstoUpdate(['extendTimetrack']);
+  }
 
   Employee.fromMap(Map<String, dynamic> map): super.fromMap(map);
 
@@ -21,6 +24,8 @@ class Employee extends User {
           return this.realTime;
         case 'targetTime':
           return this.targetTime;
+        case 'extendTimetrack':
+          return this.extendTimetrack;
         default:
           break;
       }
@@ -39,6 +44,9 @@ class Employee extends User {
       case 'targetTime':
         this.targetTime = value;
         break;
+      case 'extendTimetrack':
+        this.extendTimetrack = value;
+        break;
       default:
         super.Set(property, value);
         break;
@@ -49,4 +57,5 @@ class Employee extends User {
   List<Period> workingPeriods;
   int realTime;
   int targetTime;
+  bool extendTimetrack;
 }

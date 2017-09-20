@@ -21,27 +21,38 @@ class ActivitySelectComponent extends EntitySelect {
 
   get EntText => _selectedEntity != null ? ( shortname == true ? _selectedEntity.service.name : _selectedEntity.name ) : '';
 
-  // FIXME 'projectId' is sometimes set to null (inside timeslice_overview).
-  // Use this scope watcher to debug projectId value.
-  /*@override
-  void set scope(Scope scope) {
-    scope.watch('projectId', (newval, oldval) => onChange(oldval, newval));
-  }
-
-  onChange(id old, id new) {
-    print("old project id: " + old.toString() + " new project id: " + new.toString());
-  }*/
-
   // Disable the select box because of projectId being null sometimes
   @NgOneWayOneTime('is-readonly')
   bool isReadonly = false;
+
+  @NgOneWay('parent-activities')
+  List<Activity> parentActivities = null;
+
+  @override
+  void set scope(Scope scope) {
+    // FIXME 'projectId' is sometimes set to null (inside timeslice_overview).
+    // Use this scope watcher to debug projectId value.
+    //scope.watch('projectId', (newval, oldval) => onChange(oldval, newval));
+    scope.watch('parentActivities', (newval, oldval) => onChange(oldval, newval));
+  }
+
+  onChange(List oldList, List newList) {
+    if(this.entities != null && this.entities.length == 0
+          && newList != null && newList.length > 0) {
+      reload();
+    }
+  }
 
   @override
   reload() async {
     this.statusservice.setStatusToLoading();
     try {
-      // Don't show activities with an archived service in the selection
-      this.entities = (await this.store.list(this.type, params: {"no_archived": 1})).toList();
+      if(this.parentActivities != null) {
+        this.entities = this.parentActivities;
+      }
+      else {
+        this.entities = (await this.store.list(Activity)).toList();
+      }
       this.statusservice.setStatusToSuccess();
     } catch (e) {
       this.statusservice.setStatusToError(e);

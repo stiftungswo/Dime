@@ -58,27 +58,7 @@ class ActivitiesController extends DimeController
      */
     public function getActivitiesAction(ParamFetcherInterface $paramFetcher)
     {
-      $filters = $paramFetcher->all();
-  		$no_archived = $this->getRequest()->query->get('no_archived');
-
-  		if($no_archived == 1) {
-
-        $qb = $this->getDoctrine()->getManager()->createQueryBuilder();
-
-        $qb->select('a')
-          ->from('Dime\TimetrackerBundle\Entity\Activity', 'a')
-          ->leftJoin('a.service', 's')
-          ->where('s.archived = 0');
-
-        //Add Ordering
-        $qb->orderBy('s.name', 'ASC');
-        $qb->orderBy('a.id', 'ASC');
-
-         // Pagination
-         return $qb->getQuery()->getResult();
-  		}
-
-  		return $this->container->get($this->handlerSerivce)->all($filters);
+      return $this->container->get($this->handlerSerivce)->all($paramFetcher->all());
     }
 
     /**

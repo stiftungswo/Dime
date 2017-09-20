@@ -5,7 +5,7 @@
     <thead>
         <tr>
             <th ng-if="projectBased">Benutzer</th>
-            <th class="col-sm-6">Service</th>
+            <th class="col-sm-6">Aktivität</th>
             <th ng-if="blendOutStartAndEnd">Datum</th>
             <th ng-if="blendOutStartAndEnd == false">Start</th>
             <th ng-if="blendOutStartAndEnd == false">Ende</th>
@@ -16,7 +16,7 @@
     <tbody ng-if="entities != null">
         <tr ng-repeat="entity in entities | timeslicedatefilter: filterStartDate:filterEndDate | orderBy:'startedAt'" ng-click="selectEntity(entity.id)" ng-class="isSelected(entity)? 'info': ''">
             <td ng-if="projectBased"><user-select user="entity.employee" callback="entity.addFieldtoUpdate(name)" field="'employee'"></user-select></td>
-            <td><activity-select is-readonly="true" activity="entity.activity" project="entity.project.id" callback="entity.addFieldtoUpdate(name)" field="'activity'"></activity-select></td>
+            <td><activity-select is-readonly="true" activity="entity.activity" parent-activities="activities" project="entity.project.id" callback="entity.addFieldtoUpdate(name)" field="'activity'"></activity-select></td>
             <td ng-if="blendOutStartAndEnd"><dateinput is-readonly="true" style="width: 100%;" format="'dd-MM-y'" date="entity.startedAt"></dateinput></td>
             <td ng-if="blendOutStartAndEnd == false"><dateinput style="width: 100%;" format="'dd-MM-y HH:mm'" date="entity.startedAt" field="'startedAt'" callback="entity.addFieldtoUpdate(name)"></dateinput></td>
             <td ng-if="blendOutStartAndEnd == false"><dateinput style="width: 100%;" format="'dd-MM-y HH:mm'" date="entity.stoppedAt" field="'stoppedAt'" callback="entity.addFieldtoUpdate(name)"></dateinput></td>
@@ -49,7 +49,7 @@
         </div>
         <div class="col-md-2">
             <label>Aktivität</label>
-            <activity-select activity="selectedActivity" project="selectedProject.id" field="'activity'" shortname="true"></activity-select>
+            <activity-select activity="selectedActivity" parent-activities="activities" project="selectedProject.id" field="'activity'" shortname="true"></activity-select>
         </div>
         <div class="col-md-1">
             <label>Wert</label>
