@@ -33,6 +33,8 @@ class ActivitySelectComponent extends EntitySelect {
     // FIXME 'projectId' is sometimes set to null (inside timeslice_overview).
     // Use this scope watcher to debug projectId value.
     //scope.watch('projectId', (newval, oldval) => onChange(oldval, newval));
+
+    // watch parentActivities to make sure it redraws
     scope.watch('parentActivities', (newval, oldval) => onChange(oldval, newval));
   }
 

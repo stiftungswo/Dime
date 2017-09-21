@@ -31,6 +31,7 @@ class TimesliceOverviewComponent extends EntityOverview {
   bool needsmanualAdd = true;
 
   List<Activity> activities = [];
+  List<Employee> employees = [];
   var activityResult = null;
 
   DateTime filterStartDate = new DateTime.now();
@@ -135,9 +136,13 @@ class TimesliceOverviewComponent extends EntityOverview {
     String dateRange = formatter.format(this.loadedStartDate) + ',' + formatter.format(this.loadedEndDate);
 
     if (this.projectBased) {
-      await super.reload(params: {'project': selectedProject.id, 'date': dateRange}, evict: evict);
+      if (selectedProject != null) {
+        await super.reload(params: {'project': selectedProject.id, 'date': dateRange}, evict: evict);
+      }
     } else {
-      await super.reload(params: {'employee': _employee.id, 'date': dateRange}, evict: evict);
+      if (_employee != null) {
+        await super.reload(params: {'employee': _employee.id, 'date': dateRange}, evict: evict);
+      }
     }
     updateEntryDate();
   }
@@ -197,25 +202,12 @@ class TimesliceOverviewComponent extends EntityOverview {
       }
       DateTime endDateEndOfDay = this.filterEndDate.add(new Duration(hours: 23, minutes: 59));
       List<Timeslice> relevantSlices =
-          this.entities.where((i) => i.startedAt.isAfter(this.filterStartDate) && i.startedAt.isBefore(endDateEndOfDay));
-      while (date.isBefore(endDateEndOfDay)) {
-        List<Timeslice> slicesInDay =
-            relevantSlices.where((i) => i.startedAt.isAfter(date) && i.startedAt.isBefore(date.add(new Duration(days: 1))));
-        int duration = 0;
-        for (Timeslice slice in slicesInDay) {
-          duration += durationParser(slice.value);
-        }
-        if (duration < 28800) {
-          break;
-        }
-        date = date.add(new Duration(days: 1));
-        if (date.weekday == DateTime.SATURDAY) {
-          date = date.add(new Duration(days: 2));
-        } else if (date.weekday == DateTime.SUNDAY) {
-          date = date.add(new Duration(days: 1));
-        }
+          this.entities.where((i) => i.startedAt.isAfter(this.filterStartDate) && i.startedAt.isBefore(endDateEndOfDay)).toList();
+      relevantSlices.sort((x, y) => x.startedAt.compareTo(y.startedAt));
+
+      if (relevantSlices.length > 0) {
+        this.newEntryDate = relevantSlices.last.startedAt;
       }
-      this.newEntryDate = date;
     }
   }
 
@@ -272,9 +264,10 @@ class TimesliceOverviewComponent extends EntityOverview {
 
   load() async {
     this.activities = (await this.store.list(Activity)).toList();
+    this.employees = (await this.store.list(Employee, params: {"enabled": 1})).toList();
     this.employee = this.context.employee;
-
     List projects = await this.store.list(Project);
+
     try {
       this.settingselectedProject = settingsManager.getOneSetting('/usr/timeslice', 'chosenProject');
     } catch (e) {

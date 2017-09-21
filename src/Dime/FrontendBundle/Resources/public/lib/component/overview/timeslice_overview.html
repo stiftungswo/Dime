@@ -15,7 +15,7 @@
     </thead>
     <tbody ng-if="entities != null">
         <tr ng-repeat="entity in entities | timeslicedatefilter: filterStartDate:filterEndDate | orderBy:'startedAt'" ng-click="selectEntity(entity.id)" ng-class="isSelected(entity)? 'info': ''">
-            <td ng-if="projectBased"><user-select user="entity.employee" callback="entity.addFieldtoUpdate(name)" field="'employee'"></user-select></td>
+            <td ng-if="projectBased"><user-select is-readonly="true" user="entity.employee" parent-employees="employees" callback="entity.addFieldtoUpdate(name)" field="'employee'"></user-select></td>
             <td><activity-select is-readonly="true" activity="entity.activity" parent-activities="activities" project="entity.project.id" callback="entity.addFieldtoUpdate(name)" field="'activity'"></activity-select></td>
             <td ng-if="blendOutStartAndEnd"><dateinput is-readonly="true" style="width: 100%;" format="'dd-MM-y'" date="entity.startedAt"></dateinput></td>
             <td ng-if="blendOutStartAndEnd == false"><dateinput style="width: 100%;" format="'dd-MM-y HH:mm'" date="entity.startedAt" field="'startedAt'" callback="entity.addFieldtoUpdate(name)"></dateinput></td>
@@ -37,7 +37,7 @@
         </div>
         <div ng-if="projectBased == true" class="col-md-2">
             <label>Benutzer</label>
-            <user-select clearOnClose="false" user="employee" useContext="false"></user-select>
+            <user-select clearOnClose="false" parent-employees="employees" user="employee" useContext="false"></user-select>
         </div>
         <div ng-if="projectBased == false" class="col-md-2">
             <label>Benutzer</label>

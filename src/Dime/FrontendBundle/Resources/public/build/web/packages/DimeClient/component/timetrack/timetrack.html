@@ -1,6 +1,6 @@
 <html><head></head><body><div class="row">
   <div class="col-md-12 form-inline">
-    <div class="box box-primary">
+    <div class="box box-primary" ng-if="employee.extendTimetrack">
       <div class="box-header with-border">
         <h3 class="box-title">Ist-Sollstunden {{employee.fullname}}</h3>
       </div>
@@ -20,4 +20,5 @@
       <button type="button" class="btn btn-primary" ng-click="save()"><error-icon></error-icon></button>
     </div>
   </div>
-</div></body></html>
+</div>
+</body></html>
