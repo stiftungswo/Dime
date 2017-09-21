@@ -39,6 +39,9 @@ class TimesliceOverviewComponent extends EntityOverview {
 
   DateTime filterStartDate = new DateTime.now();
   DateTime filterEndDate;
+  DateTime loadedStartDate;
+  DateTime loadedEndDate;
+  DateFormat formatter = new DateFormat('yyyy-MM-dd');
 
   bool updateNewEntryDate = true;
 
@@ -112,13 +115,39 @@ class TimesliceOverviewComponent extends EntityOverview {
   }
 
   reload({Map<String, dynamic> params, bool evict: false}) async {
+
+    if(this.filterStartDate == null) {
+      this.filterStartDate = new DateTime.now();
+    }
+
+    if(this.filterEndDate == null) {
+      this.filterEndDate = filterStartDate.add(new Duration(days: 6));
+    }
+
+    DateTime lastLoadedStartDate = this.loadedStartDate;
+    DateTime lastLoadedEndDate = this.loadedEndDate;
+
+    this.loadedStartDate = this.filterStartDate.subtract(new Duration(days: 20));
+    this.loadedEndDate = this.filterEndDate.add(new Duration(days: 20));
+
+    // prevent reload if date range is the same as at the last
+    if(!evict && lastLoadedStartDate != null && lastLoadedStartDate.isAtSameMomentAs(loadedStartDate) &&
+    lastLoadedEndDate != null && lastLoadedEndDate.isAtSameMomentAs(loadedEndDate))
+    {
+      return;
+    }
+
+    String dateRange = formatter.format(this.loadedStartDate) + ',' + formatter.format(this.loadedEndDate);
+
     if (this.projectBased) {
       await super.reload(params: {
-        'project': selectedProject.id
+        'project': selectedProject.id,
+        'date': dateRange
       }, evict: evict);
     } else {
       await super.reload(params: {
-        'employee': _employee.id
+        'employee': _employee.id,
+        'date': dateRange
       }, evict: evict);
     }
     updateEntryDate();
@@ -157,6 +186,18 @@ class TimesliceOverviewComponent extends EntityOverview {
   deleteEntity([int entId]) async{
     await super.deleteEntity(entId);
     updateEntryDate();
+  }
+
+  onDateUpdate() {
+    // don't reload when page is still loading
+    if(this.loadedStartDate == null || loadedEndDate == null) {
+      return;
+    }
+
+    // only reload if dates are not yet loaded
+    if(this.filterStartDate.isBefore(this.loadedStartDate) || this.filterEndDate.isAfter(this.loadedEndDate)) {
+      this.reload();
+    }
   }
 
   updateEntryDate() {
@@ -269,39 +310,10 @@ class TimesliceOverviewComponent extends EntityOverview {
     }
   }
 
-  previousMonth() {
-    this.filterStartDate = this.filterStartDate.subtract(new Duration(days: 30));
-    this.filterEndDate = this.filterEndDate.subtract(new Duration(days: 30));
-    updateEntryDate();
-  }
-
-  previousWeek() {
-    this.filterStartDate = this.filterStartDate.subtract(new Duration(days: 7));
-    this.filterEndDate = this.filterEndDate.subtract(new Duration(days: 7));
-    updateEntryDate();
-  }
-
-  previousDay() {
-    this.filterStartDate = this.filterStartDate.subtract(new Duration(days: 1));
-    this.filterEndDate = this.filterEndDate.subtract(new Duration(days: 1));
-    updateEntryDate();
-  }
-
-  nextMonth() {
-    this.filterStartDate = this.filterStartDate.add(new Duration(days: 30));
-    this.filterEndDate = this.filterEndDate.add(new Duration(days: 30));
-    updateEntryDate();
-  }
-
-  nextWeek() {
-    this.filterStartDate = this.filterStartDate.add(new Duration(days: 7));
-    this.filterEndDate = this.filterEndDate.add(new Duration(days: 7));
-    updateEntryDate();
-  }
-
-  nextDay() {
-    this.filterStartDate = this.filterStartDate.add(new Duration(days: 1));
-    this.filterEndDate = this.filterEndDate.add(new Duration(days: 1));
-    updateEntryDate();
+  @override
+  void set scope(Scope scope) {
+    super.scope = scope;
+    scope.watch('filterStartDate', (val1, val2) => this.onDateUpdate());
+    scope.watch('filterEndDate', (val1, val2) => this.onDateUpdate());
   }
 }
