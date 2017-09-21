@@ -24,6 +24,6 @@ monolog:
         nested:
             type:  stream
             path:  "%kernel.logs_dir%/%kernel.environment%.log"
-            level: debug
+            level: error #set to debug for more logs
         console:
             type:  console
