@@ -1,5 +1,5 @@
 <html><head></head><body><div class="dropdown" ng-class="{'open': open}">
-  <input ng-required="required" name="user_select" class="form-control" type="text" ng-model="selector" placeholder="{{placeholder}}" ng-click="toggleSelectionBox()" style="width: 100%;">
+  <input ng-readonly="isReadonly" ng-required="required" name="user_select" class="form-control" type="text" ng-model="selector" placeholder="{{placeholder}}" ng-click="toggleSelectionBox()" style="width: 100%;">
 
   <div class="dropdown-menu select-dropdown">
     <div ng-repeat="entity in entities | filter:{fullname: selector} | orderBy:'fullname'">
@@ -9,4 +9,5 @@
       </div>
     </div>
   </div>
-</div></body></html>
+</div>
+</body></html>

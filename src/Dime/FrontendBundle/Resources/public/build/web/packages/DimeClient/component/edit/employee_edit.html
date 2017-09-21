@@ -5,45 +5,51 @@
   <div class="box-body" ng-form="" name="editform">
     <div class="form-horizontal">
       <div class="form-group">
-        <label class="col-sm-2 control-label">Username</label>
+        <label class="col-sm-3 control-label">Username</label>
         <div class="col-sm-4">
           <input required="true" name="username" style="width: 100%;" class="form-control" type="text" ng-model="entity.username" ng-change="addSaveField('username')">
         </div>
       </div>
       <div class="form-group">
-        <label class="col-sm-2 control-label">Vorname</label>
+        <label class="col-sm-3 control-label">Vorname</label>
         <div class="col-sm-4">
           <input required="true" name="firstname" style="width: 100%;" class="form-control" type="text" ng-model="entity.firstname" ng-change="addSaveField('firstname')">
         </div>
       </div>
       <div class="form-group">
-        <label class="col-sm-2 control-label">Nachname</label>
+        <label class="col-sm-3 control-label">Nachname</label>
         <div class="col-sm-4">
           <input required="true" name="lastname" style="width: 100%;" class="form-control" type="text" ng-model="entity.lastname" ng-change="addSaveField('lastname')">
         </div>
       </div>
       <div class="form-group">
-        <label class="col-sm-2 control-label">Email</label>
+        <label class="col-sm-3 control-label">Email</label>
         <div class="col-sm-4">
           <input style="width: 100%;" class="form-control" type="text" ng-model="entity.email" ng-change="addSaveField('email')">
         </div>
       </div>
       <div class="form-group">
-        <label class="col-sm-2 control-label">Passwort</label>
+        <label class="col-sm-3 control-label">Passwort</label>
         <div class="col-sm-4">
           <input style="width: 100%;" class="form-control" type="text" ng-model="entity.plainpassword" ng-change="addSaveField('plainpassword')">
         </div>
       </div>
       <div class="form-group">
-        <label class="col-sm-2 control-label">Feriensaldo</label>
+        <label class="col-sm-3 control-label">Feriensaldo</label>
         <div class="col-sm-4">
           <input style="width: 100%;" class="form-control" type="number" ng-model="entity.employeeholiday" ng-change="addSaveField('employeeholiday')">
         </div>
       </div>
       <div class="form-group">
-        <label class="col-sm-2 control-label">Aktiv</label>
+        <label class="col-sm-3 control-label">Aktiv</label>
         <div class="col-sm-4">
           <input type="checkbox" ng-model="entity.enabled" ng-change="addSaveField('enabled')">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-sm-3 control-label">Stundensaldo beim Erfassen<br>(bitte Seite neu laden)</label>
+        <div class="col-sm-4">
+          <input type="checkbox" ng-model="entity.extendTimetrack" ng-change="addSaveField('extendTimetrack')">
         </div>
       </div>
     </div>
@@ -52,4 +58,5 @@
 <div class="DimeControlButtons">
   <button type="button" class="btn btn-primary" ng-click="saveEntity()"><error-icon value="saveState" timeout="20"></error-icon></button>
   <button type="button" class="btn btn-default" ng-click="reload(evict: true)"><span class="glyphicon glyphicon-refresh"></span></button>
-</div></body></html>
+</div>
+</body></html>
