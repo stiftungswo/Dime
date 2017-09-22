@@ -15,7 +15,7 @@ class TimesliceOverviewComponent extends EntityOverview {
   UserContext context;
 
   set employee(Employee employee) {
-    if (employee.id == null) {
+    if (employee.id == null || (this._employee != null && this._employee.id == employee.id)) {
       return;
     }
     this._employee = employee;
@@ -43,13 +43,14 @@ class TimesliceOverviewComponent extends EntityOverview {
   DateTime loadedStartDate;
   DateTime loadedEndDate;
   DateFormat formatter = new DateFormat('yyyy-MM-dd');
+  String dateRange;
 
   bool updateNewEntryDate = true;
 
   @NgTwoWay('project')
   set projectFilter(Project project) {
     this.projectBased = true;
-    if (project != null) {
+    if (project != null && (this.selectedProject == null || this.selectedProject.id != project.id)) {
       this.selectedProject = project;
       this.reload();
     }
@@ -62,10 +63,6 @@ class TimesliceOverviewComponent extends EntityOverview {
   get selectedProject => _selectedProject;
 
   set selectedProject(Project proj) {
-
-    if(proj == null || (this._selectedProject != null && this._selectedProject.id == proj.id)) {
-      return;
-    }
 
     this._selectedProject = proj;
     if(proj != null) {
@@ -115,8 +112,7 @@ class TimesliceOverviewComponent extends EntityOverview {
     return new Timeslice();
   }
 
-  reload({Map<String, dynamic> params, bool evict: false}) async {
-
+  void handleDates() {
     if(this.filterStartDate == null) {
       this.filterStartDate = new DateTime.now();
     }
@@ -130,15 +126,23 @@ class TimesliceOverviewComponent extends EntityOverview {
 
     this.loadedStartDate = this.filterStartDate.subtract(new Duration(days: 20));
     this.loadedEndDate = this.filterEndDate.add(new Duration(days: 20));
+    this.dateRange = formatter.format(this.loadedStartDate) + ',' + formatter.format(this.loadedEndDate);
 
     // prevent reload if date range is the same as at the last
-    if(!evict && lastLoadedStartDate != null && lastLoadedStartDate.isAtSameMomentAs(loadedStartDate) &&
+    if(lastLoadedStartDate != null && lastLoadedStartDate.isAtSameMomentAs(loadedStartDate) &&
     lastLoadedEndDate != null && lastLoadedEndDate.isAtSameMomentAs(loadedEndDate))
     {
       return;
     }
 
-    String dateRange = formatter.format(this.loadedStartDate) + ',' + formatter.format(this.loadedEndDate);
+    this.reload();
+  }
+
+  reload({Map<String, dynamic> params, bool evict: false}) async {
+
+    if(this.dateRange == null || this.dateRange == "") {
+      return;
+    }
 
     if (this.projectBased) {
       if(selectedProject != null) {
@@ -201,7 +205,7 @@ class TimesliceOverviewComponent extends EntityOverview {
 
     // only reload if dates are not yet loaded
     if(this.filterStartDate.isBefore(this.loadedStartDate) || this.filterEndDate.isAfter(this.loadedEndDate)) {
-      this.reload();
+      this.handleDates();
     }
   }
 
@@ -217,6 +221,9 @@ class TimesliceOverviewComponent extends EntityOverview {
 
       if(relevantSlices.length > 0) {
         this.newEntryDate = relevantSlices.last.startedAt;
+      }
+      else {
+        this.newEntryDate = new DateTime.now();
       }
     }
   }
@@ -302,6 +309,8 @@ class TimesliceOverviewComponent extends EntityOverview {
     } catch (e) {
       this.selectedActivity = null;
     }
+
+    this.handleDates();
   }
 
   @override
