@@ -25908,9 +25908,16 @@
       }
     },
     TimesliceOverviewComponent: {
-      "^": "EntityOverview;_entity_overview$_employee,context<,contextRegistered,needsmanualAdd:TimesliceOverviewComponent_needsmanualAdd<,activities@,employees@,activityResult,filterStartDate@,filterEndDate@,loadedStartDate,loadedEndDate,formatter,updateNewEntryDate@,_entity_overview$_selectedProject,settingselectedProject,_selectedActivity,settingselectedActivity,newEntryDate@,allowProjectSelect@,blendOutStartAndEnd@,projectBased@,needsmanualAdd,selectedEntId,entities,type,store,router,statusservice,rootScope,routename,settingsManager,auth,filterString,sortType,sortReverse",
+      "^": "EntityOverview;_entity_overview$_employee,context<,contextRegistered,needsmanualAdd:TimesliceOverviewComponent_needsmanualAdd<,activities@,employees@,activityResult,filterStartDate@,filterEndDate@,loadedStartDate,loadedEndDate,formatter,dateRange,updateNewEntryDate@,_entity_overview$_selectedProject,settingselectedProject,_selectedActivity,settingselectedActivity,newEntryDate@,allowProjectSelect@,blendOutStartAndEnd@,projectBased@,needsmanualAdd,selectedEntId,entities,type,store,router,statusservice,rootScope,routename,settingsManager,auth,filterString,sortType,sortReverse",
       set$employee: function(employee) {
-        if (J.get$id$x(employee) == null)
+        var t1, t2;
+        t1 = J.getInterceptor$x(employee);
+        if (t1.get$id(employee) != null) {
+          t2 = this._entity_overview$_employee;
+          t1 = t2 != null && J.$eq$(J.get$id$x(t2), t1.get$id(employee));
+        } else
+          t1 = true;
+        if (t1)
           return;
         this._entity_overview$_employee = employee;
         if (this.projectBased !== true) {
@@ -25925,8 +25932,14 @@
         return this._entity_overview$_employee;
       },
       set$projectFilter: function(project) {
+        var t1;
         this.projectBased = true;
         if (project != null) {
+          t1 = this._entity_overview$_selectedProject;
+          t1 = t1 == null || !J.$eq$(J.get$id$x(t1), J.get$id$x(project));
+        } else
+          t1 = false;
+        if (t1) {
           this.set$selectedProject(project);
           this.reload$0(0);
         }
@@ -25938,17 +25951,9 @@
         return this._entity_overview$_selectedProject;
       },
       set$selectedProject: function(proj) {
-        var t1, t2, exception;
-        t1 = proj != null;
-        if (t1) {
-          t2 = this._entity_overview$_selectedProject;
-          t2 = t2 != null && J.$eq$(J.get$id$x(t2), J.get$id$x(proj));
-        } else
-          t2 = true;
-        if (t2)
-          return;
+        var exception;
         this._entity_overview$_selectedProject = proj;
-        if (t1) {
+        if (proj != null) {
           this.updateChosenSetting$1("project");
           try {
             this._selectedActivity = J.singleWhere$1$ax(this.activities, new F.TimesliceOverviewComponent_selectedProject_closure(this));
@@ -25985,8 +25990,32 @@
       cEnt$0: function() {
         return this.cEnt$1$entity(null);
       },
+      handleDates$0: function() {
+        var t1, lastLoadedStartDate, lastLoadedEndDate;
+        t1 = this.filterStartDate;
+        if (t1 == null) {
+          t1 = new P.DateTime(Date.now(), false);
+          this.filterStartDate = t1;
+        }
+        if (this.filterEndDate == null)
+          this.filterEndDate = J.add$1$ax(t1, P.Duration$(6, 0, 0, 0, 0, 0));
+        lastLoadedStartDate = this.loadedStartDate;
+        lastLoadedEndDate = this.loadedEndDate;
+        this.loadedStartDate = this.filterStartDate.subtract$1(P.Duration$(20, 0, 0, 0, 0, 0));
+        this.loadedEndDate = J.add$1$ax(this.filterEndDate, P.Duration$(20, 0, 0, 0, 0, 0));
+        t1 = this.formatter;
+        this.dateRange = t1.format$1(this.loadedStartDate) + "," + t1.format$1(this.loadedEndDate);
+        if (lastLoadedStartDate != null) {
+          t1 = this.loadedStartDate;
+          t1 = lastLoadedStartDate._value === t1._value && lastLoadedEndDate != null && lastLoadedEndDate.isAtSameMomentAs$1(this.loadedEndDate);
+        } else
+          t1 = false;
+        if (t1)
+          return;
+        this.reload$0(0);
+      },
       reload$2$evict$params: [function(_, evict, params) {
-        var $async$goto = 0, $async$completer = P.Completer_Completer$sync(), $async$returnValue, $async$self = this, t1, lastLoadedStartDate, lastLoadedEndDate, t2, dateRange;
+        var $async$goto = 0, $async$completer = P.Completer_Completer$sync(), $async$returnValue, $async$self = this, t1;
         var $async$reload$2$evict$params = P._wrapJsFunctionForAsync(function($async$errorCode, $async$result) {
           if ($async$errorCode === 1)
             return P._asyncRethrow($async$result, $async$completer);
@@ -25994,33 +26023,12 @@
             switch ($async$goto) {
               case 0:
                 // Function start
-                t1 = $async$self.filterStartDate;
-                if (t1 == null) {
-                  t1 = new P.DateTime(Date.now(), false);
-                  $async$self.filterStartDate = t1;
-                }
-                if ($async$self.filterEndDate == null)
-                  $async$self.filterEndDate = J.add$1$ax(t1, P.Duration$(6, 0, 0, 0, 0, 0));
-                lastLoadedStartDate = $async$self.loadedStartDate;
-                lastLoadedEndDate = $async$self.loadedEndDate;
-                $async$self.loadedStartDate = $async$self.filterStartDate.subtract$1(P.Duration$(20, 0, 0, 0, 0, 0));
-                t1 = J.add$1$ax($async$self.filterEndDate, P.Duration$(20, 0, 0, 0, 0, 0));
-                $async$self.loadedEndDate = t1;
-                if (evict !== true)
-                  if (lastLoadedStartDate != null) {
-                    t2 = $async$self.loadedStartDate;
-                    t1 = lastLoadedStartDate._value === t2._value && lastLoadedEndDate != null && lastLoadedEndDate.isAtSameMomentAs$1(t1);
-                  } else
-                    t1 = false;
-                else
-                  t1 = false;
-                if (t1) {
+                t1 = $async$self.dateRange;
+                if (t1 == null || t1 === "") {
                   // goto return
                   $async$goto = 1;
                   break;
                 }
-                t1 = $async$self.formatter;
-                dateRange = t1.format$1($async$self.loadedStartDate) + "," + t1.format$1($async$self.loadedEndDate);
                 $async$goto = $async$self.projectBased === true ? 3 : 5;
                 break;
               case 3:
@@ -26031,7 +26039,7 @@
               case 6:
                 // then
                 $async$goto = 8;
-                return P._asyncAwait($async$self.super$EntityOverview$reload(0, evict, P.LinkedHashMap__makeLiteral(["project", J.get$id$x(t1), "date", dateRange])), $async$reload$2$evict$params);
+                return P._asyncAwait($async$self.super$EntityOverview$reload(0, evict, P.LinkedHashMap__makeLiteral(["project", J.get$id$x(t1), "date", $async$self.dateRange])), $async$reload$2$evict$params);
               case 8:
                 // returning from await.
               case 7:
@@ -26047,7 +26055,7 @@
               case 9:
                 // then
                 $async$goto = 11;
-                return P._asyncAwait($async$self.super$EntityOverview$reload(0, evict, P.LinkedHashMap__makeLiteral(["employee", J.get$id$x(t1), "date", dateRange])), $async$reload$2$evict$params);
+                return P._asyncAwait($async$self.super$EntityOverview$reload(0, evict, P.LinkedHashMap__makeLiteral(["employee", J.get$id$x(t1), "date", $async$self.dateRange])), $async$reload$2$evict$params);
               case 11:
                 // returning from await.
               case 10:
@@ -26153,7 +26161,7 @@
         if (t1 == null || this.loadedEndDate == null)
           return;
         if (this.filterStartDate.isBefore$1(t1) || this.filterEndDate.isAfter$1(this.loadedEndDate))
-          this.reload$0(0);
+          this.handleDates$0();
       },
       updateEntryDate$0: function() {
         var endDateEndOfDay, relevantSlices, t1;
@@ -26164,6 +26172,8 @@
           t1.sort$1(relevantSlices, new F.TimesliceOverviewComponent_updateEntryDate_closure0());
           if (t1.get$length(relevantSlices) > 0)
             this.newEntryDate = t1.get$last(relevantSlices).get$startedAt();
+          else
+            this.newEntryDate = new P.DateTime(Date.now(), false);
         }
       },
       attach$0: function() {
@@ -26303,6 +26313,7 @@
                   $async$self._selectedActivity = null;
                   $async$self.updateChosenSetting$1("activity");
                 }
+                $async$self.handleDates$0();
                 // implicit return
                 return P._asyncReturn(null, $async$completer);
               case 1:
@@ -56842,7 +56853,7 @@
         t2 = new T.DateFormat(null, null, null);
         t2._locale = T.Intl_verifiedLocale(null, T.intl_DateFormat_localeExists$closure(), T.intl_Intl__throwLocaleError$closure());
         t2.addPattern$1("yyyy-MM-dd");
-        return new F.TimesliceOverviewComponent(null, a4, false, true, [], [], null, new P.DateTime(t1, false), null, null, null, t2, true, null, null, null, null, null, true, true, false, false, null, [], C.Type_Timeslice_2No, a1, null, a3, null, "", a2, a5, "", "", false);
+        return new F.TimesliceOverviewComponent(null, a4, false, true, [], [], null, new P.DateTime(t1, false), null, null, null, t2, null, true, null, null, null, null, null, true, true, false, false, null, [], C.Type_Timeslice_2No, a1, null, a3, null, "", a2, a5, "", "", false);
       }, null, null, 10, 0, null, 1, 3, 4, 5, 7, "call"]
     },
     closure988: {
