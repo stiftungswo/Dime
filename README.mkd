@@ -57,7 +57,8 @@ Restore dart packages in .\src\Dime\FrontendBundle\Resources\public:
 
     pub get --packages-dir
 
-Restoer php packages in repository root directory:
+Restore php packages in repository root directory:
+
     composer self-update
     composer update -v
     ./env/install_bundles.sh
