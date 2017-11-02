@@ -23,10 +23,27 @@ Download and install Docker and docker-compose:
 
     https://www.docker.com
 
-If your host system is running on Mac OS or Windows, you also need to install VirtualBox and create a default machine
+If your host system is running on Mac OS or Windows, you also need to install VirtualBox and create a default machine.
+If you are using Windows 10 Pro you can enable the Hyper-V feature and don't need VirtualBox.
 
     https://www.virtualbox.org
     # docker-machine create default
+
+Download and install PHP:
+
+    http://php.net/
+
+Download and install Composer:
+
+    https://getcomposer.org/
+
+Download and install Dart:
+
+    https://www.dartlang.org/install
+
+Download Dartium (supports Dart files in chrome in uncompiled version):
+
+    https://webdev.dartlang.org/tools
 
 Download and install a Git client:
 
@@ -36,9 +53,14 @@ Check out the current version with all submodules
 
     git clone --recursive https://bitbucket.org/stiftungswo/dime
 
-Download Dartium (supports Dart files in chrome in uncompiled version):
+Restore dart packages in .\src\Dime\FrontendBundle\Resources\public:
 
-    https://webdev.dartlang.org/tools
+    pub get --packages-dir
+
+Restoer php packages in repository root directory:
+    composer self-update
+    composer update -v
+    ./env/install_bundles.sh
 
 Now fire up MariaDB and Dime on the docker machine via the docker-compose tool:
 
