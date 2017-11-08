@@ -60,7 +60,7 @@ Restore dart packages in .\src\Dime\FrontendBundle\Resources\public:
 Restore php packages in repository root directory:
 
     composer self-update
-    composer update -v
+    composer install
     ./env/install_bundles.sh
 
 Now fire up MariaDB and Dime on the docker machine via the docker-compose tool:
