@@ -27,7 +27,7 @@ class Employee extends User implements DimeEntityInterface
 	 * @ORM\Column(name="extend_timetrack", type="boolean", nullable=false)
 	 * @JMS\SerializedName("extendTimetrack")
 	 */
-	protected $extendTimetrack;
+	protected $extendTimetrack = true;
 
 	/**
 	 * @var ArrayCollection
