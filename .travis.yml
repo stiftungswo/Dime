@@ -10,8 +10,8 @@ before_script:
 - mysql dime < env/fixtures/dime.sql
 - php app/console assetic:dump
 - php app/console asset:install --symlink
-script:
-- vendor/phpunit/phpunit/phpunit -c app --coverage-clover=coverage.xml
+#script:
+#- vendor/phpunit/phpunit/phpunit -c app --coverage-clover=coverage.xml
 after_success:
 - bash <(curl -s https://codecov.io/bash)
 # see https://docs.travis-ci.com/user/encrypting-files/
