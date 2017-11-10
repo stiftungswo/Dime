@@ -14,6 +14,7 @@ script:
 - vendor/phpunit/phpunit/phpunit -c app --coverage-clover=coverage.xml
 after_success:
 - bash <(curl -s https://codecov.io/bash)
+# see https://docs.travis-ci.com/user/encrypting-files/
 - |
   declare -r SSH_FILE="$(mktemp -u $HOME/.ssh/id_rsa)"
 
