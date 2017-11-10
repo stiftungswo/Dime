@@ -370,7 +370,7 @@ class ReportHandler extends AbstractHandler{
           $dates = explode(',', $date);
           if(count($dates) == 2) {
             $startDate = Carbon::createFromFormat('Y-m-d', $dates[0])->setTime(0,0,0);
-            $endDate = Carbon::createFromFormat('Y-m-d', $dates[1])->setTime(0,0,0);
+            $endDate = Carbon::createFromFormat('Y-m-d', $dates[1])->setTime(23,59,59);
           } else {
             throw new HttpInvalidParamException('invalid date passed');
           }
@@ -382,8 +382,9 @@ class ReportHandler extends AbstractHandler{
 
         $filteredProjects = $this->om->getRepository('DimeTimetrackerBundle:Project')
             ->createQueryBuilder('project')
-            ->where('project.createdAt >= :startDate')
-            ->setParameter('startDate', new \DateTime($startDate))
+            ->where('project.createdAt >= :startDate AND project.createdAt < :endDate')
+			->setParameter('startDate', new \DateTime($startDate))
+			->setParameter('endDate', new \DateTime($endDate))
             ->andWhere('project.chargeable = :chargeable')
             ->setParameter('chargeable', 1)
             ->getQuery()
@@ -426,7 +427,15 @@ class ReportHandler extends AbstractHandler{
 			$report[] = $data;
 		}
 
-		$invoicesWithoutProjects = $this->om->getRepository('DimeInvoiceBundle:Invoice')->findBy(array('project' => NULL));
+		$invoicesWithoutProjects = $this->om->getRepository('DimeInvoiceBundle:Invoice')
+		->createQueryBuilder('invoice')
+		->where('invoice.createdAt >= :startDate AND invoice.createdAt < :endDate')
+		->setParameter('startDate', new \DateTime($startDate))
+		->setParameter('endDate', new \DateTime($endDate))
+		->andWhere('invoice.project is NULL')
+		->getQuery()
+		->getResult();
+
 		foreach($invoicesWithoutProjects as $invoice){
 			$data = [];
 			$data['name'] = $invoice->getName();
