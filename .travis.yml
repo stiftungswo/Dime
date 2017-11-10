@@ -1,23 +1,33 @@
-#Comment Line to force first Travis build.
 language: php
-
 sudo: false
-
 php:
-  - 7.1
-
-
+- 7.1
 before_script:
-    - mysql -e 'create database dime;'
-    - cp app/config/parameters.yml.travis app/config/parameters.yml.dist
-    - composer install -n
-    - php app/console doctrine:schema:create
-    - mysql dime < env/fixtures/dime.sql
-    - php app/console assetic:dump
-    - php app/console asset:install --symlink
-
+- mysql -e 'create database dime;'
+- cp app/config/parameters.yml.travis app/config/parameters.yml.dist
+- composer install -n
+- php app/console doctrine:schema:create
+- mysql dime < env/fixtures/dime.sql
+- php app/console assetic:dump
+- php app/console asset:install --symlink
 script:
-    - vendor/phpunit/phpunit/phpunit -c app --coverage-clover=coverage.xml
-
+- vendor/phpunit/phpunit/phpunit -c app --coverage-clover=coverage.xml
 after_success:
-    - bash <(curl -s https://codecov.io/bash)
+- bash <(curl -s https://codecov.io/bash)
+- |
+  declare -r SSH_FILE="$(mktemp -u $HOME/.ssh/id_rsa)"
+
+  openssl aes-256-cbc \
+    -K $encrypted_43243e92edfc_key \
+    -iv $encrypted_43243e92edfc_iv \
+    -in ".id_rsa.enc" \
+    -out "$SSH_FILE" -d
+
+  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+  # Enable SSH authentication
+  chmod 600 "$SSH_FILE"
+- ssh $TARGET './deploy_dime.sh test'
+env:
+  global:
+    secure: ElUsHhT6OTknp75c58GM7aK+Isk2xu0PiYubw65podlv70nKfMOeDTv6+Rxfoc1h8y21mOk2/LwMcxrE/SsSzEw9fYU0LkV4a5WiVex638r9cwPddtXmsYmbO8e4vB9F43soNbg+CongEiWneqHNjA8M9AMh4j1+E6NuYAvcvCc=
