@@ -5,4 +5,4 @@ composer install -n && \
 php app/console doctrine:schema:create && \
 mysql dime < env/fixtures/dime.sql && \
 php app/console assetic:dump && \
-php app/console asset:install --symlink
+php app/console asset:install --symlink --relative

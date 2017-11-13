@@ -18,8 +18,6 @@ case $1 in
     ;;
 esac
 
-composer install
-
 #Read config env
 export $(ssh $TARGET "cat dime.$ENVIRONMENT.env" | xargs)
 
@@ -31,7 +29,7 @@ if [ -z "$PROJECT_DIR" ]; then
   exit 1
 fi
 
-rsync -rav --exclude '.git' --exclude '.pub-cache' . $TARGET:$TMP && \
+rsync -ra --exclude '.git' --exclude '.pub-cache' . $TARGET:$TMP && \
 ssh $TARGET rm -r ${PROJECT_DIR}.bak && \
 ssh $TARGET mv $PROJECT_DIR ${PROJECT_DIR}.bak && \
 ssh $TARGET mv $TMP $PROJECT_DIR
