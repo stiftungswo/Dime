@@ -1,4 +1,4 @@
-declare -r SSH_FILE="$(mktemp -u $HOME/.ssh/id_rsa)"
+SSH_FILE=$HOME/.ssh/id_rsa
 openssl aes-256-cbc \
     -K $encrypted_43243e92edfc_key \
     -iv $encrypted_43243e92edfc_iv \
