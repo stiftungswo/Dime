@@ -25107,7 +25107,7 @@
       cEnt$1$entity: function(entity) {
         var t1, newProject;
         if (entity != null) {
-          t1 = new D.Project("projects", null, null, null, null, null, null, null, null, null, null, null, null, [], null, [], [], null, null, [], null, [], "entities", null, null, null, null, null, []);
+          t1 = new D.Project("projects", null, null, null, null, null, null, null, null, null, null, null, null, [], null, [], [], null, null, null, [], null, [], "entities", null, null, null, null, null, []);
           t1.Entity$clone$1(entity);
           t1.currentPrice = entity.get$currentPrice();
           t1.budgetPrice = entity.get$budgetPrice();
@@ -25127,10 +25127,11 @@
           t1.offers = entity.get$offers();
           t1.accountant = entity.get$accountant();
           t1.deletedAt = entity.get$deletedAt();
-          t1.addFieldstoUpdate$1(["currentPrice", "budgetPrice", "remainingBudgetPrice", "currentTime", "budgetTime", "remainingBudgetTime", "description", "fixedPrice", "customer", "rateGroup", "chargeable", "deadline", "activities", "projectCategory", "invoices", "offers", "accountant", "deletedAt"]);
+          t1.archived = entity.get$archived();
+          t1.addFieldstoUpdate$1(["currentPrice", "budgetPrice", "remainingBudgetPrice", "currentTime", "budgetTime", "remainingBudgetTime", "description", "fixedPrice", "customer", "rateGroup", "chargeable", "deadline", "activities", "projectCategory", "invoices", "offers", "accountant", "deletedAt", "archived"]);
           return t1;
         }
-        newProject = new D.Project("projects", null, null, null, null, null, null, null, null, null, null, null, null, [], null, [], [], null, null, [], null, [], "entities", null, null, null, null, null, []);
+        newProject = new D.Project("projects", null, null, null, null, null, null, null, null, null, null, null, null, [], null, [], [], null, null, null, [], null, [], "entities", null, null, null, null, null, []);
         newProject.accountant = this.context.get$employee();
         newProject.addFieldtoUpdate$1("accountant");
         return newProject;
@@ -27954,8 +27955,8 @@
         t1 = J.getInterceptor$x(r);
         t2 = t1.get$content(r);
         if (typeof t2 === "string")
-          return new D.Project("projects", null, null, null, null, null, null, null, null, null, null, null, null, [], null, [], [], null, null, [], null, [], "entities", null, null, null, null, null, []);
-        t2 = new D.Project("projects", null, null, null, null, null, null, null, null, null, null, null, null, [], null, [], [], null, null, [], null, [], "entities", null, null, null, null, null, []);
+          return new D.Project("projects", null, null, null, null, null, null, null, null, null, null, null, null, [], null, [], [], null, null, null, [], null, [], "entities", null, null, null, null, null, []);
+        t2 = new D.Project("projects", null, null, null, null, null, null, null, null, null, null, null, null, [], null, [], [], null, null, null, [], null, [], "entities", null, null, null, null, null, []);
         t2.Entity$fromMap$1(t1.get$content(r));
         return t2;
       }, null, null, 2, 0, null, 11, "call"]
@@ -28490,7 +28491,7 @@
         var t1, t2;
         t1 = J.getInterceptor$x(params);
         if (t1.containsKey$1(params, "project") === true) {
-          t2 = new D.Project("projects", null, null, null, null, null, null, null, null, null, null, null, null, [], null, [], [], null, null, [], null, [], "entities", null, null, null, null, null, []);
+          t2 = new D.Project("projects", null, null, null, null, null, null, null, null, null, null, null, null, [], null, [], [], null, null, null, [], null, [], "entities", null, null, null, null, null, []);
           t2.id = t1.$index(params, "project");
           t1.$indexSet(params, "project", t2);
         }
@@ -28545,7 +28546,7 @@
             if (value instanceof D.Entity)
               t1 = value;
             else {
-              t1 = new D.Project("projects", null, null, null, null, null, null, null, null, null, null, null, null, [], null, [], [], null, null, [], null, [], "entities", null, null, null, null, null, []);
+              t1 = new D.Project("projects", null, null, null, null, null, null, null, null, null, null, null, null, [], null, [], [], null, null, null, [], null, [], "entities", null, null, null, null, null, []);
               t1.Entity$fromMap$1(value);
             }
             this.project = t1;
@@ -28999,7 +29000,7 @@
             if (value instanceof D.Entity)
               t1 = value;
             else {
-              t1 = new D.Project("projects", null, null, null, null, null, null, null, null, null, null, null, null, [], null, [], [], null, null, [], null, [], "entities", null, null, null, null, null, []);
+              t1 = new D.Project("projects", null, null, null, null, null, null, null, null, null, null, null, null, [], null, [], [], null, null, null, [], null, [], "entities", null, null, null, null, null, []);
               t1.Entity$fromMap$1(value);
             }
             this.project = t1;
@@ -29424,7 +29425,7 @@
             if (value instanceof D.Entity)
               t1 = value;
             else {
-              t1 = new D.Project("projects", null, null, null, null, null, null, null, null, null, null, null, null, [], null, [], [], null, null, [], null, [], "entities", null, null, null, null, null, []);
+              t1 = new D.Project("projects", null, null, null, null, null, null, null, null, null, null, null, null, [], null, [], [], null, null, null, [], null, [], "entities", null, null, null, null, null, []);
               t1.Entity$fromMap$1(value);
             }
             this.project = t1;
@@ -29821,7 +29822,7 @@
       }
     },
     Project: {
-      "^": "Entity;type:Project_type*,currentPrice@,budgetPrice@,remainingBudgetPrice@,currentTime*,budgetTime@,remainingBudgetTime@,description@,fixedPrice@,customer@,rateGroup@,chargeable@,deadline@,activities@,projectCategory@,invoices@,offers@,accountant@,deletedAt<,_descendantsToUpdate,id,_toUpdate,type,createdAt,updatedAt,name,alias,user,tags",
+      "^": "Entity;type:Project_type*,currentPrice@,budgetPrice@,remainingBudgetPrice@,currentTime*,budgetTime@,remainingBudgetTime@,description@,fixedPrice@,customer@,rateGroup@,chargeable@,deadline@,activities@,projectCategory@,invoices@,offers@,accountant@,deletedAt<,archived@,_descendantsToUpdate,id,_toUpdate,type,createdAt,updatedAt,name,alias,user,tags",
       init$1$params: function(params) {
         var t1 = J.getInterceptor$x(params);
         if (t1.containsKey$1(params, "name") !== true)
@@ -29868,6 +29869,8 @@
               return this.accountant;
             case "deletedAt":
               return this.deletedAt;
+            case "archived":
+              return this.archived;
             default:
               break;
           }
@@ -29953,6 +29956,9 @@
             break;
           case "deletedAt":
             this.deletedAt = this._addDateValue$1(value);
+            break;
+          case "archived":
+            this.archived = value;
             break;
           default:
             this.super$Entity$Set(property, value);
@@ -30302,7 +30308,7 @@
             if (value instanceof D.Entity)
               t1 = value;
             else {
-              t1 = new D.Project("projects", null, null, null, null, null, null, null, null, null, null, null, null, [], null, [], [], null, null, [], null, [], "entities", null, null, null, null, null, []);
+              t1 = new D.Project("projects", null, null, null, null, null, null, null, null, null, null, null, null, [], null, [], [], null, null, null, [], null, [], "entities", null, null, null, null, null, []);
               t1.Entity$fromMap$1(value);
             }
             this.project = t1;
@@ -30469,7 +30475,7 @@
             if (value instanceof D.Entity)
               t1 = value;
             else {
-              t1 = new D.Project("projects", null, null, null, null, null, null, null, null, null, null, null, null, [], null, [], [], null, null, [], null, [], "entities", null, null, null, null, null, []);
+              t1 = new D.Project("projects", null, null, null, null, null, null, null, null, null, null, null, null, [], null, [], [], null, null, null, [], null, [], "entities", null, null, null, null, null, []);
               t1.Entity$fromMap$1(value);
             }
             this.project = t1;

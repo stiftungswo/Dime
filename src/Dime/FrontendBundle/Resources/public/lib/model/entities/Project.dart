@@ -29,6 +29,7 @@ class Project extends Entity {
     this.offers = original.offers;
     this.accountant = original.accountant;
     this.deletedAt = original.deletedAt;
+    this.archived = original.archived;
     addFieldstoUpdate([
       'currentPrice',
       'budgetPrice',
@@ -47,7 +48,8 @@ class Project extends Entity {
       'invoices',
       'offers',
       'accountant',
-      'deletedAt'
+      'deletedAt',
+      'archived'
     ]);
   }
 
@@ -97,6 +99,8 @@ class Project extends Entity {
           return this.accountant;
         case 'deletedAt':
           return this.deletedAt;
+        case 'archived':
+          return this.archived;
         default:
           break;
       }
@@ -160,6 +164,9 @@ class Project extends Entity {
       case 'deletedAt':
         this.deletedAt = _addDateValue(value);
         break;
+      case 'archived':
+        this.archived = value;
+        break;
       default:
         super.Set(property, value);
         break;
@@ -193,4 +200,5 @@ class Project extends Entity {
   List<Offer> offers = [];
   Employee accountant;
   DateTime deletedAt;
+  bool archived;
 }
