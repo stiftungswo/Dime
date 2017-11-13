@@ -1,3 +1,3 @@
 #!/bin/bash -x
 ./CI/establish-ssh.sh
-scp -r . $TARGET:test_bla
+rsync -rav --exclude '.git' --exclude '.pub-cache' . $TARGET:test_bla
