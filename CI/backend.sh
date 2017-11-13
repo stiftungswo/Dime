@@ -1,3 +1,4 @@
+#!/bin/bash -x
 mysql -e 'create database dime;' && \
 cp app/config/parameters.yml.travis app/config/parameters.yml.dist && \
 composer install -n && \

@@ -13,7 +13,7 @@ env:
   global:
     - secure: "0pzzWdiXvaUu9e1HkCtT9Vrq7GnbFKOtqIwjTu6lI0FKK+z3eTvJzlSyZt5QdptvowHpBWWMC5SmZswgNO96XW+tsWc70HIFqrfAm4AKgEwl9hblGDGNDabr+aokz5ekjZUXFxvBJOZtoN/247YDOmneegM9GjDH5BfWnt5m1tg=" #deployhq
     - secure: "txzOgHTsusCPimTiDVDkC8pjZocA6HwTQ4geYNL6TP2l+0UcS3qIyaXHlgL8/I1JXENG3sagpu5/zMK3k/iwA7vCb4e/BSbPd/bsfkPyrNWDqUChwRwTCs7fB+cN8x3+reHZnHPx7oSDOet/JE/ZXA831K7PGvcoY25RHzGNrAs=" #email
-    - secure: "flqTfAtzXIEJbrJoWjgFEmkcueIvtOxX+SHDqGOcHPHDikIZhwdJYQy2Vbf0jVJEFUR+JbFayHjLJImr7DZMqX53j0e7AVACvPsrTvOhEDiqp2bFiCRoe+eXGMvtTH14cckePQunBOYM71eFj01dO6ILi5agfyI2eK9uGLEiqnk=" #target
+    - secure: "ELFgvd3Wm426wLb0jrQvHIQ9yqZsqvk7quQvMIWR7QcAf9IGsUwxlQHIT99Ol+czx+4oP4OMw+39obS9zBf4RmzOi1seqHrkix1bRjKtEgnYDZUum87V5AXRd1/4wv8o2+7TUli3fIF2bEK6CGhd7bs/Lt6TRD1GL6zVBnd6Wh4=" #target
 deploy:
   - provider: script
     script: CI/deploy.sh test

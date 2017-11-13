@@ -1,3 +1,4 @@
+#!/bin/bash -x
 SSH_FILE=$HOME/.ssh/id_rsa
 openssl aes-256-cbc \
     -K $encrypted_43243e92edfc_key \
