@@ -12,11 +12,10 @@ before_script:
 #  - php app/console asset:install --symlink
 script:
 #  - vendor/phpunit/phpunit/phpunit -c app --coverage-clover=coverage.xml
-  - curl -XPOST -H "Content-Type: application/json" $DEPLOYHQ --data "{ \"payload\": { \"new_ref\": \"$TRAVIS_COMMIT\", \"branch\": \"master\", \"email\": \"$EMAIL\", \"clone_url\": \"https://github.com/stiftungswo/dime\" } }"
+  - env/deployhq.sh
 after_success:
   - bash <(curl -s https://codecov.io/bash)
 env:
   global:
-    secure:
-      - "0pzzWdiXvaUu9e1HkCtT9Vrq7GnbFKOtqIwjTu6lI0FKK+z3eTvJzlSyZt5QdptvowHpBWWMC5SmZswgNO96XW+tsWc70HIFqrfAm4AKgEwl9hblGDGNDabr+aokz5ekjZUXFxvBJOZtoN/247YDOmneegM9GjDH5BfWnt5m1tg="
-      - "txzOgHTsusCPimTiDVDkC8pjZocA6HwTQ4geYNL6TP2l+0UcS3qIyaXHlgL8/I1JXENG3sagpu5/zMK3k/iwA7vCb4e/BSbPd/bsfkPyrNWDqUChwRwTCs7fB+cN8x3+reHZnHPx7oSDOet/JE/ZXA831K7PGvcoY25RHzGNrAs="
+    - secure: "0pzzWdiXvaUu9e1HkCtT9Vrq7GnbFKOtqIwjTu6lI0FKK+z3eTvJzlSyZt5QdptvowHpBWWMC5SmZswgNO96XW+tsWc70HIFqrfAm4AKgEwl9hblGDGNDabr+aokz5ekjZUXFxvBJOZtoN/247YDOmneegM9GjDH5BfWnt5m1tg="
+    - secure: "txzOgHTsusCPimTiDVDkC8pjZocA6HwTQ4geYNL6TP2l+0UcS3qIyaXHlgL8/I1JXENG3sagpu5/zMK3k/iwA7vCb4e/BSbPd/bsfkPyrNWDqUChwRwTCs7fB+cN8x3+reHZnHPx7oSDOet/JE/ZXA831K7PGvcoY25RHzGNrAs="
