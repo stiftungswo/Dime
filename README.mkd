@@ -19,67 +19,46 @@ An API and open architecture will serve additional purposes:
 
 ## Installation / Setup for Development
 
-Download and install Docker and docker-compose:
+1. Download and install VM Ware Player or VirtualBox.
+2. Download an Ubuntu 16.04 ISO
+3. Setup your VM
+4. Installing Docker and Docker Compose on your VM:
 
-    https://www.docker.com
+    https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-16-04
+    https://www.digitalocean.com/community/tutorials/how-to-install-docker-compose-on-ubuntu-16-04
 
-If your host system is running on Mac OS or Windows, you also need to install VirtualBox and create a default machine.
-If you are using Windows 10 Pro you can enable the Hyper-V feature and don't need VirtualBox.
-
-    https://www.virtualbox.org
-    # docker-machine create default
-
-Download and install PHP:
-
-    http://php.net/
-
-Download and install Composer:
-
-    https://getcomposer.org/
-
-Download and install Dart:
-
-    https://www.dartlang.org/install
-
-Download Dartium (supports Dart files in chrome in uncompiled version):
+5. Download and install Dartium (supports Dart files in chrome in uncompiled version):
 
     https://webdev.dartlang.org/tools
+    
+6. Install GIT on your VM:
 
-Download and install a Git client:
+    sudo apt install git
 
-    e.g. https://www.sourcetreeapp.com/ (Win & Mac)
-
-Check out the current version with all submodules
+7. Check out the current version with all submodules
 
     git clone --recursive https://bitbucket.org/stiftungswo/dime
 
-Restore dart packages in .\src\Dime\FrontendBundle\Resources\public:
+8. Build & start your Docker Images:
 
-    pub get --packages-dir
+    docker-compose -d --build
 
-Restore php packages in repository root directory:
+9. Restore dart packages:
 
-    composer self-update
-    composer install
-    ./env/install_bundles.sh
+    docker exec -it dime ./env/pub_get.sh
 
-Now fire up MariaDB and Dime on the docker machine via the docker-compose tool:
+10. Restore php packages in repository root directory:
 
-    docker-compose up -d --build
+    docker exec -it dime composer install
+    docker exec -it dime ./env/install_bundles.sh
 
-Open http://localhost:3000 with dartium:
+11. Open http://localhost:3000 with dartium
 
-    dartium localhost:3000
-
-Open http://localhost:8080 for phpmyadmin
+12. Open http://localhost:8080 for phpmyadmin
 
     host: mariadb
     user: root
     no password
-
-Fix Pub Cache by Linking to enable auto-completion (dart-analyzer) in IDE:
-
-    In OSX, cd into this repository's root and run: ln -s /tmp/dime-pub-cache .pub-cache    
 
 ## Project Structure
 
@@ -114,13 +93,13 @@ For more infos visit docker.com
 Update to last version
 
     git pull
-    composer self-update
-    composer update -v
-    ./env/install_bundles.sh
+    docker exec -it dime composer self-update
+    docker exec -it dime composer update -v
+    docker exec -it dime ./env/install_bundles.sh
 
 If you have any problem remove vendor and install again
 
-    rm -fR vendor
+    docker exec -it dime rm -fR vendor
 
 Update database
 
