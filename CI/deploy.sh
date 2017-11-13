@@ -29,6 +29,8 @@ if [ -z "$PROJECT_DIR" ]; then
   exit 1
 fi
 
+
+ssh $TARGET mkdir -p ${PROJECT_DIR} ${PROJECT_DIR}.bak && \
 rsync -ra --exclude '.git' --exclude '.pub-cache' . $TARGET:$TMP && \
 ssh $TARGET rm -r ${PROJECT_DIR}.bak && \
 ssh $TARGET mv $PROJECT_DIR ${PROJECT_DIR}.bak && \
