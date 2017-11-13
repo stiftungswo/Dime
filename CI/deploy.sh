@@ -18,6 +18,8 @@ case $1 in
     ;;
 esac
 
+composer install
+
 #Read config env
 export $(ssh $TARGET "cat dime.$ENVIRONMENT.env" | xargs)
 
