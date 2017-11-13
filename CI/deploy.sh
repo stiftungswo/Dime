@@ -1,2 +1,2 @@
-./build/establish-ssh.sh
+./CI/establish-ssh.sh
 scp -r . $TARGET:test_bla
