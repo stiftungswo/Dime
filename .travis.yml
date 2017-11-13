@@ -24,4 +24,4 @@ deploy:
     script: CI/deploy.sh prod
     skip_cleanup: true
     on:
-      branch: prod
+      branch: production
