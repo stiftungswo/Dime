@@ -4,11 +4,14 @@ php:
   - 7.1
 before_script:
   - ./CI/backend.sh
+  - ls -l app
 script:
   #- vendor/phpunit/phpunit/phpunit -c app --coverage-clover=coverage.xml
   - ./CI/frontend.sh
+  - ls -l app
 after_success:
   - bash <(curl -s https://codecov.io/bash)
+  - ls -l app
 env:
   global:
     - secure: "0pzzWdiXvaUu9e1HkCtT9Vrq7GnbFKOtqIwjTu6lI0FKK+z3eTvJzlSyZt5QdptvowHpBWWMC5SmZswgNO96XW+tsWc70HIFqrfAm4AKgEwl9hblGDGNDabr+aokz5ekjZUXFxvBJOZtoN/247YDOmneegM9GjDH5BfWnt5m1tg=" #deployhq
