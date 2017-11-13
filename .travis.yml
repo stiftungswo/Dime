@@ -1,35 +1,22 @@
 language: php
 sudo: false
 php:
-- 7.1
+  - 7.1
 before_script:
-- mysql -e 'create database dime;'
-- cp app/config/parameters.yml.travis app/config/parameters.yml.dist
-- composer install -n
-- php app/console doctrine:schema:create
-- mysql dime < env/fixtures/dime.sql
-- php app/console assetic:dump
-- php app/console asset:install --symlink
+  - mysql -e 'create database dime;'
+  - cp app/config/parameters.yml.travis app/config/parameters.yml.dist
+  - composer install -n
+  - php app/console doctrine:schema:create
+  - mysql dime < env/fixtures/dime.sql
+  - php app/console assetic:dump
+  - php app/console asset:install --symlink
 script:
-- vendor/phpunit/phpunit/phpunit -c app --coverage-clover=coverage.xml
+  - vendor/phpunit/phpunit/phpunit -c app --coverage-clover=coverage.xml
+  - curl -XPOST -H "Content-Type: application/json" $DEPLOYHQ --data "{ \"payload\": { \"new_ref\": \"$TRAVIS_COMMIT\", \"branch\": \"master\", \"email\": \"$EMAIL\", \"clone_url\": \"https://github.com/stiftungswo/dime\" } }"
 after_success:
-# see https://docs.travis-ci.com/user/encrypting-files/
-- bash <(curl -s https://codecov.io/bash)
-- |
-  declare -r SSH_FILE=$HOME/.ssh/id_rsa
-
-  openssl aes-256-cbc \
-    -K $encrypted_43243e92edfc_key \
-    -iv $encrypted_43243e92edfc_iv \
-    -in ".id_rsa.enc" \
-    -out "$SSH_FILE" -d
-
-  # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-  # Enable SSH authentication
-  chmod 600 "$SSH_FILE"
-  echo "stiftungswo.ch,149.126.4.24 ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBN43sGVazZlEbitcxVESOns6JtFcXbrbu5/9AvBwacZNvhKofbiY2wn748QbrVAeAVRdfJ7W3/0t9sOLv/avvXs=" > $HOME/.ssh/known_hosts
-- ssh $TARGET './deploy_dime.sh test'
+  - bash <(curl -s https://codecov.io/bash)
 env:
   global:
-    secure: ElUsHhT6OTknp75c58GM7aK+Isk2xu0PiYubw65podlv70nKfMOeDTv6+Rxfoc1h8y21mOk2/LwMcxrE/SsSzEw9fYU0LkV4a5WiVex638r9cwPddtXmsYmbO8e4vB9F43soNbg+CongEiWneqHNjA8M9AMh4j1+E6NuYAvcvCc=
+    secure:
+      - "0pzzWdiXvaUu9e1HkCtT9Vrq7GnbFKOtqIwjTu6lI0FKK+z3eTvJzlSyZt5QdptvowHpBWWMC5SmZswgNO96XW+tsWc70HIFqrfAm4AKgEwl9hblGDGNDabr+aokz5ekjZUXFxvBJOZtoN/247YDOmneegM9GjDH5BfWnt5m1tg="
+      - "txzOgHTsusCPimTiDVDkC8pjZocA6HwTQ4geYNL6TP2l+0UcS3qIyaXHlgL8/I1JXENG3sagpu5/zMK3k/iwA7vCb4e/BSbPd/bsfkPyrNWDqUChwRwTCs7fB+cN8x3+reHZnHPx7oSDOet/JE/ZXA831K7PGvcoY25RHzGNrAs="
