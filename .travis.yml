@@ -3,10 +3,10 @@ sudo: false
 php:
   - 7.1
 before_script:
-  - ./build/backend.sh
+  - ./CI/backend.sh
 script:
   #- vendor/phpunit/phpunit/phpunit -c app --coverage-clover=coverage.xml
-  - ./build/frontend.sh
+  - ./CI/frontend.sh
 after_success:
   - bash <(curl -s https://codecov.io/bash)
 env:
@@ -15,7 +15,7 @@ env:
     - secure: "txzOgHTsusCPimTiDVDkC8pjZocA6HwTQ4geYNL6TP2l+0UcS3qIyaXHlgL8/I1JXENG3sagpu5/zMK3k/iwA7vCb4e/BSbPd/bsfkPyrNWDqUChwRwTCs7fB+cN8x3+reHZnHPx7oSDOet/JE/ZXA831K7PGvcoY25RHzGNrAs="
 deploy:
   - provider: script
-    script: build/deploy.sh test
+    script: CI/deploy.sh test
     on:
       branch: master
   
