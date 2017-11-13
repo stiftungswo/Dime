@@ -20,3 +20,8 @@ deploy:
     skip_cleanup: true
     on:
       branch: master
+  - provider: script
+    script: CI/deploy.sh prod
+    skip_cleanup: true
+    on:
+      branch: prod
