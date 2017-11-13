@@ -3,15 +3,15 @@ sudo: false
 php:
   - 7.1
 before_script:
-#  - mysql -e 'create database dime;'
-#  - cp app/config/parameters.yml.travis app/config/parameters.yml.dist
-#  - composer install -n
-#  - php app/console doctrine:schema:create
-#  - mysql dime < env/fixtures/dime.sql
-#  - php app/console assetic:dump
-#  - php app/console asset:install --symlink
+  - mysql -e 'create database dime;'
+  - cp app/config/parameters.yml.travis app/config/parameters.yml.dist
+  - composer install -n
+  - php app/console doctrine:schema:create
+  - mysql dime < env/fixtures/dime.sql
+  - php app/console assetic:dump
+  - php app/console asset:install --symlink
 script:
-#  - vendor/phpunit/phpunit/phpunit -c app --coverage-clover=coverage.xml
+  - vendor/phpunit/phpunit/phpunit -c app --coverage-clover=coverage.xml
   - env/deployhq.sh
 after_success:
   - bash <(curl -s https://codecov.io/bash)
