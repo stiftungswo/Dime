@@ -6,7 +6,7 @@ Dime\TimetrackerBundle\Entity\Timeslice:
         user: @user1
         employee: @employee1
     timesliceHour{1..100}:
-        value: <randomFloat(1, 1, 8.4)> * 3600
+        value: <numberBetween(3600, 30240)>  
         startedAt: <dateTimeBetween('-1000 days', 'now')>
         activity: @activityHour*
         user: @user*
