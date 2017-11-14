@@ -38,7 +38,7 @@
 			<div class="offerShortDescription">{{ offer.shortdescription }}</div><br/>
 			{% endif %}
 			{% if offer.description %}
-				<div class="offerDescription" breakable="false">{{ offer.description|nl2br }}</div><br/>
+				<div class="offerDescription" breakable="false">{{ offer.description|markdown }}</div><br/>
 			{% endif %}
 		</div>
 		<div breakable="false">
