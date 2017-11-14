@@ -17,3 +17,5 @@
 .idea/
 .remote-sync.json
 .pub-cache
+.DS_Store
+*.sw?
