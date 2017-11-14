@@ -17,4 +17,8 @@
 .idea/
 .remote-sync.json
 .pub-cache
+<<<<<<< HEAD
+.DS_Store
+*.sw?
 .vscode
+>>>>>>> master
