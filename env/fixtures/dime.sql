@@ -16,33 +16,6 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `WorkingPeriods`
---
-
-DROP TABLE IF EXISTS `WorkingPeriods`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `WorkingPeriods` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `employee_id` int(11) DEFAULT NULL,
-  `user_id` int(11) DEFAULT NULL,
-  `start` date DEFAULT NULL,
-  `end` date DEFAULT NULL,
-  `pensum` decimal(10,2) DEFAULT NULL,
-  `holidays` int(11) DEFAULT NULL,
-  `last_year_holiday_balance` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `realTime` int(11) DEFAULT NULL,
-  `created_at` datetime NOT NULL,
-  `updated_at` datetime NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `IDX_57C1BB888C03F15C` (`employee_id`),
-  KEY `IDX_57C1BB88A76ED395` (`user_id`),
-  CONSTRAINT `FK_57C1BB88A76ED395` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE SET NULL,
-  CONSTRAINT `FK_57C1BB888C03F15C` FOREIGN KEY (`employee_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
 -- Dumping data for table `WorkingPeriods`
 --
 
@@ -51,40 +24,6 @@ LOCK TABLES `WorkingPeriods` WRITE;
 INSERT INTO `WorkingPeriods` VALUES (1,7,2,'2017-01-25','2017-06-07',0.80,177629,'28',210880,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(2,7,1,'2016-11-08','2017-07-17',0.30,124771,'94',6040,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(3,15,4,'2016-10-10','2017-12-19',1.00,720789,'13',146918008,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(4,25,3,'2016-05-11','2017-08-09',0.20,151117,'13',34265150,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(5,11,2,'2016-11-12','2017-05-13',0.70,212260,'72',6900506,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(6,20,2,'2016-08-27','2017-11-26',0.40,302897,'57',82,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(7,11,2,'2016-05-30','2017-10-21',1.00,845063,'95',7,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(8,17,2,'2016-08-31','2017-11-19',0.50,369508,'23',476016,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(9,10,5,'2016-11-09','2017-09-24',0.20,106047,'41',87450342,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(10,25,6,'2016-12-30','2018-03-22',0.90,666606,'62',56797,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(11,12,3,'2017-03-20','2017-11-08',0.10,38608,'1',2660981,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(12,22,2,'2017-02-18','2018-02-14',0.60,359897,'4',68816,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(13,18,6,'2016-06-14','2017-05-11',0.30,165036,'21',41246257,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(14,24,6,'2016-07-23','2017-08-29',0.10,66611,'97',25,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(15,13,2,'2016-06-03','2017-12-14',0.00,NULL,'14',49784287,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(16,16,5,'2016-11-29','2018-01-02',0.50,331397,'84',51122,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(17,16,2,'2017-02-06','2017-08-03',0.10,29494,'26',499,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(18,8,4,'2016-07-16','2017-06-01',0.40,212094,'10',959807,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(19,14,1,'2017-02-05','2017-10-02',0.40,158408,'93',277343,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(20,25,5,'2016-12-07','2017-05-07',0.80,201490,'41',49590601,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(21,9,3,'2017-02-23','2018-01-10',0.50,266775,'58',55784958,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(22,16,4,'2016-04-18','2017-12-18',0.90,908194,'93',4,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(23,13,2,'2016-08-12','2017-07-27',0.60,347967,'35',3533,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(24,15,6,'2016-08-27','2017-04-05',0.80,292955,'6',376,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(25,9,3,'2016-07-16','2017-08-07',0.90,578620,'59',4048018,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(26,7,1,'2016-09-29','2017-09-30',0.80,486491,'45',210,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(27,25,2,'2016-07-23','2017-09-04',0.50,338025,'100',1,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(28,17,4,'2017-03-29','2018-02-27',1.00,556747,'84',4,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(29,15,1,'2017-02-28','2018-02-19',0.30,176966,'44',347921,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(30,26,3,'2016-09-16','2018-01-24',0.90,738187,'5',941743286,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(31,14,3,'2016-11-10','2017-11-04',0.70,416401,'27',96,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(32,26,1,'2017-02-12','2017-04-04',0.70,60314,'85',858883,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(33,24,6,'2016-06-13','2017-08-25',0.90,653184,'27',569103,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(34,18,4,'2017-03-09','2018-03-04',0.10,59817,'70',78668,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(35,19,2,'2016-11-20','2017-08-30',0.30,141175,'19',46763,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(36,24,4,'2016-07-25','2017-10-17',0.00,NULL,'90',4,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(37,10,1,'2016-12-03','2017-11-01',0.40,220711,'64',126449,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(38,23,1,'2016-08-11','2017-07-20',0.20,113669,'2',658554,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(39,26,1,'2016-06-05','2017-06-07',0.20,121623,'18',85,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(40,19,1,'2016-05-04','2017-06-24',0.40,275723,'38',2427113,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(41,8,6,'2016-11-30','2017-07-08',0.30,109361,'39',82,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(42,16,2,'2016-05-04','2017-05-01',0.90,539846,'43',51057,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(43,26,1,'2016-08-07','2018-01-16',0.00,NULL,'90',4520052,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(44,21,1,'2016-10-06','2018-01-27',0.10,79370,'98',16979,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(45,19,5,'2016-07-30','2017-06-04',1.00,512009,'92',3239,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(46,22,1,'2017-01-26','2017-08-31',0.50,179783,'41',0,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(47,9,2,'2016-12-29','2017-08-28',0.10,40265,'26',24318,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(48,10,2,'2016-06-10','2017-04-16',0.10,51532,'83',9341,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(49,26,4,'2017-02-20','2017-05-09',0.50,65451,'92',9292198,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(50,19,5,'2016-04-09','2017-07-27',0.90,706870,'90',515,'2017-03-24 13:53:49','2017-03-24 13:53:49');
 /*!40000 ALTER TABLE `WorkingPeriods` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `activities`
---
-
-DROP TABLE IF EXISTS `activities`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `activities` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `project_id` int(11) DEFAULT NULL,
-  `service_id` int(11) DEFAULT NULL,
-  `user_id` int(11) DEFAULT NULL,
-  `description` longtext COLLATE utf8_unicode_ci,
-  `rate_value` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `chargeable` tinyint(1) DEFAULT NULL,
-  `cargeable_reference` smallint(6) NOT NULL,
-  `vat` decimal(10,3) DEFAULT NULL,
-  `rate_unit` longtext COLLATE utf8_unicode_ci,
-  `created_at` datetime NOT NULL,
-  `updated_at` datetime NOT NULL,
-  `deleted_at` datetime NULL,
-  `rateUnitType_id` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `IDX_B5F1AFE5166D1F9C` (`project_id`),
-  KEY `IDX_B5F1AFE5ED5CA9E6` (`service_id`),
-  KEY `IDX_B5F1AFE52BE78CCE` (`rateUnitType_id`),
-  KEY `IDX_B5F1AFE5A76ED395` (`user_id`),
-  CONSTRAINT `FK_B5F1AFE5A76ED395` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE SET NULL,
-  CONSTRAINT `FK_B5F1AFE5166D1F9C` FOREIGN KEY (`project_id`) REFERENCES `projects` (`id`) ON DELETE SET NULL,
-  CONSTRAINT `FK_B5F1AFE52BE78CCE` FOREIGN KEY (`rateUnitType_id`) REFERENCES `rateunittypes` (`id`),
-  CONSTRAINT `FK_B5F1AFE5ED5CA9E6` FOREIGN KEY (`service_id`) REFERENCES `services` (`id`) ON DELETE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `activities`
@@ -138,24 +77,6 @@ VALUES (1,9,1,2,'DimERP Programmieren','CHF 10000',1,1,0.080,'CHF/h','2017-03-24
 UNLOCK TABLES;
 
 --
--- Table structure for table `activity_tags`
---
-
-DROP TABLE IF EXISTS `activity_tags`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `activity_tags` (
-  `activity_id` int(11) NOT NULL,
-  `tag_id` int(11) NOT NULL,
-  PRIMARY KEY (`activity_id`,`tag_id`),
-  KEY `IDX_6C784FB481C06096` (`activity_id`),
-  KEY `IDX_6C784FB4BAD26311` (`tag_id`),
-  CONSTRAINT `FK_6C784FB4BAD26311` FOREIGN KEY (`tag_id`) REFERENCES `tags` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `FK_6C784FB481C06096` FOREIGN KEY (`activity_id`) REFERENCES `activities` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
 -- Dumping data for table `activity_tags`
 --
 
@@ -163,25 +84,6 @@ LOCK TABLES `activity_tags` WRITE;
 /*!40000 ALTER TABLE `activity_tags` DISABLE KEYS */;
 /*!40000 ALTER TABLE `activity_tags` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `address`
---
-
-DROP TABLE IF EXISTS `address`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `address` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `street` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `streetnumber` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `city` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `plz` int(11) DEFAULT NULL,
-  `state` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `country` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `address`
@@ -193,24 +95,6 @@ INSERT INTO `address` VALUES (1,'Bahnhhofstrasse','25','Zürich',8000,'ZH','Swit
 (2,'Thieleplatz','880','Eutin',1133,'Baden-Württemberg','Mali'),(3,'Völkerweg','2/3','Ebersberg',68921,'Bremen','Neuseeland'),(4,'Ingolf-Roth-Gasse','850','Viechtach',13213,'Sachsen-Anhalt','St. Barthélemy'),(5,'Jordanallee','5','Rehau',79826,'Hamburg','Usbekistan'),(6,'Ahmet-Jacob-Ring','9/5','Bremervörde',87718,'Brandenburg','Pitcairn'),(7,'Paulstr.','8','Badalzungen',70183,'Thüringen','Demokratische Republik Kongo'),(8,'Heinrichring','686','Kassel',20837,'Mecklenburg-Vorpommern','Estland'),(9,'Hammerweg','5/3','Garmisch-Partenkirchen',23011,'Berlin','Tonga'),(10,'Adlerallee','5/7','Lemgo',80095,'Bayern','Albanien'),(11,'Schultzstr.','5/9','Miesbach',46220,'Schleswig-Holstein','Georgien'),(12,'Gebhardtplatz','5/0','Coburg',87944,'Sachsen','Brasilien'),(13,'Christl-Bock-Platz','0/0','Wetzlar',77679,'Hessen','Jersey'),(14,'Marliese-Arnold-Weg','9/9','Meißen',52415,'Nordrhein-Westfalen','St. Pierre und Miquelon'),(15,'Neuhausstraße','982','Gunzenhausen',75325,'Mecklenburg-Vorpommern','Neukaledonien'),(16,'Heinz-Günter-Fleischmann-Platz','31','Bad Langensalza',50744,'Sachsen-Anhalt','Niger'),(17,'Barthelstr.','55','Bad Kissingen',68475,'Baden-Württemberg','Chile'),(18,'Norman-Rupp-Gasse','28','Hofgeismar',87477,'Berlin','Belarus'),(19,'Heßallee','521','Rathenow',70866,'Brandenburg','Philippinen'),(20,'Marcel-Kirchner-Gasse','612','Bad Liebenwerda',38783,'Bayern','Belize'),(21,'Oskar-Schmitt-Ring','200','Crailsheim',23847,'Bayern','Botsuana'),(22,'Keilstr.','6','Coburg',78228,'Brandenburg','Gibraltar'),(23,'Irmhild-Reimer-Platz','07','Berchtesgaden',77211,'Rheinland-Pfalz','Ungarn'),(24,'Bertramstraße','668','Schwäbisch Hall',20640,'Saarland','Irak'),(25,'Steffen-Niemann-Gasse','881','Neustadtm Rübenberge',62663,'Rheinland-Pfalz','Ruanda');
 /*!40000 ALTER TABLE `address` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `customer_phones`
---
-
-DROP TABLE IF EXISTS `customer_phones`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `customer_phones` (
-  `customer_id` int(11) NOT NULL,
-  `phone_id` int(11) NOT NULL,
-  PRIMARY KEY (`customer_id`,`phone_id`),
-  UNIQUE KEY `UNIQ_52EDF2A43B7323CB` (`phone_id`),
-  KEY `IDX_52EDF2A49395C3F3` (`customer_id`),
-  CONSTRAINT `FK_52EDF2A43B7323CB` FOREIGN KEY (`phone_id`) REFERENCES `phone` (`id`),
-  CONSTRAINT `FK_52EDF2A49395C3F3` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `customer_phones`
@@ -225,20 +109,6 @@ UNLOCK TABLES;
 -- Table structure for table `customer_tags`
 --
 
-DROP TABLE IF EXISTS `customer_tags`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `customer_tags` (
-  `customer_id` int(11) NOT NULL,
-  `tag_id` int(11) NOT NULL,
-  PRIMARY KEY (`customer_id`,`tag_id`),
-  KEY `IDX_3B2D30519395C3F3` (`customer_id`),
-  KEY `IDX_3B2D3051BAD26311` (`tag_id`),
-  CONSTRAINT `FK_3B2D3051BAD26311` FOREIGN KEY (`tag_id`) REFERENCES `tags` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `FK_3B2D30519395C3F3` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
 --
 -- Dumping data for table `customer_tags`
 --
@@ -247,38 +117,6 @@ LOCK TABLES `customer_tags` WRITE;
 /*!40000 ALTER TABLE `customer_tags` DISABLE KEYS */;
 /*!40000 ALTER TABLE `customer_tags` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `customers`
---
-
-DROP TABLE IF EXISTS `customers`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `customers` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `rate_group_id` int(11) DEFAULT NULL,
-  `address_id` int(11) DEFAULT NULL,
-  `user_id` int(11) DEFAULT NULL,
-  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `alias` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
-  `company` varchar(60) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `department` varchar(60) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `fullname` varchar(60) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `salutation` varchar(60) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `chargeable` tinyint(1) NOT NULL,
-  `created_at` datetime NOT NULL,
-  `updated_at` datetime NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `unique_customer_alias_user` (`alias`,`user_id`),
-  KEY `IDX_62534E212983C9E6` (`rate_group_id`),
-  KEY `IDX_62534E21F5B7AF75` (`address_id`),
-  KEY `IDX_62534E21A76ED395` (`user_id`),
-  CONSTRAINT `FK_62534E21A76ED395` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE SET NULL,
-  CONSTRAINT `FK_62534E212983C9E6` FOREIGN KEY (`rate_group_id`) REFERENCES `rate_groups` (`id`) ON DELETE SET NULL,
-  CONSTRAINT `FK_62534E21F5B7AF75` FOREIGN KEY (`address_id`) REFERENCES `address` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `customers`
@@ -291,26 +129,6 @@ INSERT INTO `customers` VALUES (1,1,1,3,'StiftungSWO','stiftungswo',NULL,NULL,NU
 UNLOCK TABLES;
 
 --
--- Table structure for table `holidays`
---
-
-DROP TABLE IF EXISTS `holidays`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `holidays` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) DEFAULT NULL,
-  `date` date DEFAULT NULL,
-  `duration` int(11) DEFAULT NULL,
-  `created_at` datetime NOT NULL,
-  `updated_at` datetime NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `IDX_3A66A10CA76ED395` (`user_id`),
-  CONSTRAINT `FK_3A66A10CA76ED395` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
 -- Dumping data for table `holidays`
 --
 
@@ -319,31 +137,6 @@ LOCK TABLES `holidays` WRITE;
 INSERT INTO `holidays` VALUES (1,1,'2016-05-21',30240,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(2,3,'2016-05-26',30240,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(3,5,'2016-09-26',3600,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(4,4,'2016-10-30',16200,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(5,4,'2017-01-12',3600,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(6,4,'2016-11-23',30240,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(7,5,'2016-09-11',30240,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(8,5,'2016-06-20',30240,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(9,3,'2016-10-01',16200,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(10,4,'2016-07-14',16200,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(11,5,'2017-02-02',16200,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(12,2,'2017-02-11',30240,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(13,5,'2017-01-27',30240,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(14,1,'2017-01-26',30240,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(15,5,'2016-03-28',30240,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(16,4,'2016-05-21',30240,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(17,6,'2016-04-12',30240,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(18,5,'2016-10-24',30240,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(19,1,'2016-06-15',30240,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(20,5,'2016-12-19',30240,'2017-03-24 13:53:49','2017-03-24 13:53:49');
 /*!40000 ALTER TABLE `holidays` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `invoiceDiscounts`
---
-
-DROP TABLE IF EXISTS `invoiceDiscounts`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `invoiceDiscounts` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `invoice_id` int(11) DEFAULT NULL,
-  `user_id` int(11) DEFAULT NULL,
-  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `value` decimal(10,2) DEFAULT NULL,
-  `percentage` tinyint(1) DEFAULT NULL,
-  `minus` tinyint(1) DEFAULT NULL,
-  `created_at` datetime NOT NULL,
-  `updated_at` datetime NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `IDX_4F4E9F232989F1FD` (`invoice_id`),
-  KEY `IDX_4F4E9F23A76ED395` (`user_id`),
-  CONSTRAINT `FK_4F4E9F23A76ED395` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE SET NULL,
-  CONSTRAINT `FK_4F4E9F232989F1FD` FOREIGN KEY (`invoice_id`) REFERENCES `invoices` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `invoiceDiscounts`
@@ -356,36 +149,6 @@ INSERT INTO `invoiceDiscounts` VALUES (1,49,2,'10% Off',0.10,1,1,'2017-03-24 13:
 UNLOCK TABLES;
 
 --
--- Table structure for table `invoice_items`
---
-
-DROP TABLE IF EXISTS `invoice_items`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `invoice_items` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `invoice_id` int(11) DEFAULT NULL,
-  `activity_id` int(11) DEFAULT NULL,
-  `user_id` int(11) DEFAULT NULL,
-  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `rate_value` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `rateUnit` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `vat` decimal(10,3) DEFAULT NULL,
-  `amount` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `order_no` decimal(10,0) DEFAULT NULL,
-  `created_at` datetime NOT NULL,
-  `updated_at` datetime NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `IDX_DCC4B9F82989F1FD` (`invoice_id`),
-  KEY `IDX_DCC4B9F881C06096` (`activity_id`),
-  KEY `IDX_DCC4B9F8A76ED395` (`user_id`),
-  CONSTRAINT `FK_DCC4B9F8A76ED395` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE SET NULL,
-  CONSTRAINT `FK_DCC4B9F82989F1FD` FOREIGN KEY (`invoice_id`) REFERENCES `invoices` (`id`),
-  CONSTRAINT `FK_DCC4B9F881C06096` FOREIGN KEY (`activity_id`) REFERENCES `activities` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
 -- Dumping data for table `invoice_items`
 --
 
@@ -394,24 +157,6 @@ LOCK TABLES `invoice_items` WRITE;
 INSERT INTO `invoice_items` VALUES (1,1,1,2,'Zivi (Tagespauschale)','CHF 88000','CHF/h',0.080,'28',1,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(2,25,5,1,'molestias','CHF 64300','CHF/h',0.025,'40',48,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(3,30,8,4,'possimus','CHF 45500','CHF/h',0.080,'8',38,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(4,17,9,4,'odio','CHF 45600','CHF/h',0.025,'50',24,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(5,12,5,1,'minima','CHF 39500','CHF/h',0.025,'6',53,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(6,3,3,5,'harum','CHF 70600','CHF/h',0.025,'82',24,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(7,21,11,5,'ratione','CHF 58700','CHF/h',0.080,'87',90,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(8,7,10,1,'voluptatem','CHF 15000','CHF/h',0.080,'16',3,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(9,22,11,1,'neque','CHF 32600','CHF/h',0.025,'42',98,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(10,37,10,6,'et','CHF 3200','CHF/h',0.025,'97',65,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(11,39,9,6,'est','CHF 83700','CHF/h',0.080,'81',55,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(12,4,21,3,'quo','CHF 2600','CHF/h',0.025,'16',11,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(13,45,17,2,'quidem','CHF 37800','CHF/h',0.025,'57',17,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(14,5,21,5,'nihil','CHF 50200','CHF/h',0.080,'25',66,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(15,49,16,3,'omnis','CHF 62500','CHF/h',0.025,'87',69,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(16,12,15,5,'illo','CHF 14800','CHF/h',0.025,'22',29,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(17,45,17,5,'officia','CHF 70000','CHF/h',0.080,'99',81,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(18,1,20,2,'suscipit','CHF 70800','CHF/h',0.080,'7',47,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(19,32,20,2,'blanditiis','CHF 35200','CHF/h',0.080,'43',58,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(20,14,14,3,'qui','CHF 95700','CHF/h',0.025,'1',62,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(21,14,21,5,'quia','CHF 36600','CHF/h',0.080,'58',49,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(22,10,31,6,'perferendis','CHF 72500','CHF/h',0.080,'24',26,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(23,15,27,4,'consequatur','CHF 65400','CHF/h',0.080,'33',68,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(24,20,22,5,'magni','CHF 34000','CHF/h',0.080,'76',42,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(25,22,28,1,'autem','CHF 87600','CHF/h',0.080,'18',40,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(26,9,23,6,'quam','CHF 77500','CHF/h',0.025,'10',38,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(27,35,27,3,'ab','CHF 48500','CHF/h',0.025,'71',70,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(28,29,22,1,'reiciendis','CHF 33500','CHF/h',0.080,'34',8,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(29,21,22,3,'minus','CHF 27700','CHF/h',0.025,'21',99,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(30,41,26,5,'consectetur','CHF 29600','CHF/h',0.025,'86',47,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(31,20,24,4,'expedita','CHF 14000','CHF/h',0.025,'96',79,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(32,21,39,4,'quia','CHF 82100','CHF/h',0.080,'83',77,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(33,40,39,5,'dolor','CHF 86600','CHF/h',0.025,'3',11,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(34,9,33,2,'dolorem','CHF 23000','CHF/h',0.080,'68',92,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(35,40,33,1,'quod','CHF 83700','CHF/h',0.025,'63',37,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(36,23,38,2,'et','CHF 46700','CHF/h',0.025,'64',63,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(37,47,38,4,'nobis','CHF 49900','CHF/h',0.080,'49',16,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(38,17,38,4,'at','CHF 24600','CHF/h',0.080,'54',99,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(39,46,40,2,'rerum','CHF 30300','CHF/h',0.080,'85',72,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(40,17,39,3,'saepe','CHF 36200','CHF/h',0.080,'13',41,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(41,44,33,4,'aut','CHF 49000','CHF/h',0.025,'82',49,'2017-03-24 13:53:49','2017-03-24 13:53:49');
 /*!40000 ALTER TABLE `invoice_items` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `invoice_standard_discounts`
---
-
-DROP TABLE IF EXISTS `invoice_standard_discounts`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `invoice_standard_discounts` (
-  `invoice_id` int(11) NOT NULL,
-  `standard_discount_id` int(11) NOT NULL,
-  PRIMARY KEY (`invoice_id`,`standard_discount_id`),
-  UNIQUE KEY `UNIQ_A1BE84207EAA7D27` (`standard_discount_id`),
-  KEY `IDX_A1BE84202989F1FD` (`invoice_id`),
-  CONSTRAINT `FK_A1BE84207EAA7D27` FOREIGN KEY (`standard_discount_id`) REFERENCES `standard_discounts` (`id`),
-  CONSTRAINT `FK_A1BE84202989F1FD` FOREIGN KEY (`invoice_id`) REFERENCES `invoices` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `invoice_standard_discounts`
@@ -423,24 +168,6 @@ LOCK TABLES `invoice_standard_discounts` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `invoice_tags`
---
-
-DROP TABLE IF EXISTS `invoice_tags`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `invoice_tags` (
-  `invoice_id` int(11) NOT NULL,
-  `tag_id` int(11) NOT NULL,
-  PRIMARY KEY (`invoice_id`,`tag_id`),
-  KEY `IDX_6D79F6432989F1FD` (`invoice_id`),
-  KEY `IDX_6D79F643BAD26311` (`tag_id`),
-  CONSTRAINT `FK_6D79F643BAD26311` FOREIGN KEY (`tag_id`) REFERENCES `tags` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `FK_6D79F6432989F1FD` FOREIGN KEY (`invoice_id`) REFERENCES `invoices` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
 -- Dumping data for table `invoice_tags`
 --
 
@@ -449,22 +176,6 @@ LOCK TABLES `invoice_tags` WRITE;
 /*!40000 ALTER TABLE `invoice_tags` ENABLE KEYS */;
 UNLOCK TABLES;
 
-
---
--- Table structure for table `costgroups`
---
-
-DROP TABLE IF EXISTS `costgroups`;
-CREATE TABLE `costgroups` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) DEFAULT NULL,
-  `created_at` datetime NOT NULL,
-  `updated_at` datetime NOT NULL,
-  `number` int(11) NOT NULL,
-  `description` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`id`),
-  CONSTRAINT `FK_CG_USER` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE SET NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 --
 -- Dumping data for table `costgroups`
 --
@@ -475,42 +186,6 @@ INSERT INTO costgroups VALUES
 (4, NULL, "2017-09-15", "2017-09-15", 400, "400 name"),
 (5, NULL, "2017-09-15", "2017-09-15", 500, "500 name"),
 (6, NULL, "2017-09-15", "2017-09-15", 600, "600 name");
-
-
---
--- Table structure for table `invoices`
---
-
-DROP TABLE IF EXISTS `invoices`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `invoices` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `project_id` int(11) DEFAULT NULL,
-  `customer_id` int(11) DEFAULT NULL,
-  `accountant_id` int(11) DEFAULT NULL,
-  `costgroup_id` int(11) DEFAULT NULL,
-  `user_id` int(11) DEFAULT NULL,
-  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `alias` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
-  `description` longtext COLLATE utf8_unicode_ci,
-  `start` date DEFAULT NULL,
-  `end` date DEFAULT NULL,
-  `fixed_price` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `created_at` datetime NOT NULL,
-  `updated_at` datetime NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `IDX_6A2F2F95166D1F9C` (`project_id`),
-  KEY `IDX_6A2F2F959395C3F3` (`customer_id`),
-  KEY `IDX_6A2F2F959582AA74` (`accountant_id`),
-  KEY `IDX_6A2F2F95A76ED395` (`user_id`),
-  CONSTRAINT `FK_6A2F2F95A76ED395` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE SET NULL,
-  CONSTRAINT `FK_6A2F2F95166D1F9C` FOREIGN KEY (`project_id`) REFERENCES `projects` (`id`),
-  CONSTRAINT `FK_6A2F2F959395C3F3` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`id`) ON DELETE SET NULL,
-  CONSTRAINT `FK_6A2F2F959582AA74` FOREIGN KEY (`accountant_id`) REFERENCES `users` (`id`) ON DELETE SET NULL,
-  CONSTRAINT `FK_INVOICE_COSTGROUPS` FOREIGN KEY (`costgroup_id`) REFERENCES `costgroups` (`id`) ON DELETE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `invoices`
@@ -579,31 +254,6 @@ INSERT INTO `invoices` (`id`, `project_id`, `customer_id`, `accountant_id`, `cos
 UNLOCK TABLES;
 
 --
--- Table structure for table `offer_discounts`
---
-
-DROP TABLE IF EXISTS `offer_discounts`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `offer_discounts` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `offer_id` int(11) DEFAULT NULL,
-  `user_id` int(11) DEFAULT NULL,
-  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `value` decimal(10,2) DEFAULT NULL,
-  `percentage` tinyint(1) DEFAULT NULL,
-  `minus` tinyint(1) DEFAULT NULL,
-  `created_at` datetime NOT NULL,
-  `updated_at` datetime NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `IDX_5F927F7C53C674EE` (`offer_id`),
-  KEY `IDX_5F927F7CA76ED395` (`user_id`),
-  CONSTRAINT `FK_5F927F7CA76ED395` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE SET NULL,
-  CONSTRAINT `FK_5F927F7C53C674EE` FOREIGN KEY (`offer_id`) REFERENCES `offers` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
 -- Dumping data for table `offer_discounts`
 --
 
@@ -612,40 +262,6 @@ LOCK TABLES `offer_discounts` WRITE;
 INSERT INTO `offer_discounts` VALUES (1,47,2,'10% Off',0.10,1,1,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(2,50,1,'10% Off',0.10,1,1,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(3,49,3,'10% Off',0.10,1,1,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(4,48,3,'10% Off',0.10,1,1,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(5,50,1,'10% Off',0.10,1,1,'2017-03-24 13:53:49','2017-03-24 13:53:49');
 /*!40000 ALTER TABLE `offer_discounts` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `offer_positions`
---
-
-DROP TABLE IF EXISTS `offer_positions`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `offer_positions` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `offer_id` int(11) NOT NULL,
-  `service_id` int(11) DEFAULT NULL,
-  `user_id` int(11) DEFAULT NULL,
-  `order_no` int(11) DEFAULT NULL,
-  `amount` decimal(10,2) DEFAULT NULL,
-  `rate_value` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `rate_unit` longtext COLLATE utf8_unicode_ci,
-  `vat` decimal(10,3) DEFAULT NULL,
-  `discountable` tinyint(1) NOT NULL,
-  `chargeable` tinyint(1) DEFAULT NULL,
-  `created_at` datetime NOT NULL,
-  `updated_at` datetime NOT NULL,
-  `rateUnitType_id` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `IDX_755A98B853C674EE` (`offer_id`),
-  KEY `IDX_755A98B8ED5CA9E6` (`service_id`),
-  KEY `IDX_755A98B82BE78CCE` (`rateUnitType_id`),
-  KEY `IDX_755A98B8A76ED395` (`user_id`),
-  CONSTRAINT `FK_755A98B8A76ED395` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE SET NULL,
-  CONSTRAINT `FK_755A98B82BE78CCE` FOREIGN KEY (`rateUnitType_id`) REFERENCES `rateunittypes` (`id`),
-  CONSTRAINT `FK_755A98B853C674EE` FOREIGN KEY (`offer_id`) REFERENCES `offers` (`id`),
-  CONSTRAINT `FK_755A98B8ED5CA9E6` FOREIGN KEY (`service_id`) REFERENCES `services` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `offer_positions`
@@ -658,24 +274,6 @@ INSERT INTO `offer_positions` VALUES (1,1,19,2,1,20.00,'CHF 18000','CHF/h',0.080
 UNLOCK TABLES;
 
 --
--- Table structure for table `offer_standard_discounts`
---
-
-DROP TABLE IF EXISTS `offer_standard_discounts`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `offer_standard_discounts` (
-  `offer_id` int(11) NOT NULL,
-  `standard_discount_id` int(11) NOT NULL,
-  PRIMARY KEY (`offer_id`,`standard_discount_id`),
-  KEY `IDX_84D719D953C674EE` (`offer_id`),
-  KEY `IDX_84D719D97EAA7D27` (`standard_discount_id`),
-  CONSTRAINT `FK_84D719D97EAA7D27` FOREIGN KEY (`standard_discount_id`) REFERENCES `standard_discounts` (`id`),
-  CONSTRAINT `FK_84D719D953C674EE` FOREIGN KEY (`offer_id`) REFERENCES `offers` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
 -- Dumping data for table `offer_standard_discounts`
 --
 
@@ -683,26 +281,6 @@ LOCK TABLES `offer_standard_discounts` WRITE;
 /*!40000 ALTER TABLE `offer_standard_discounts` DISABLE KEYS */;
 /*!40000 ALTER TABLE `offer_standard_discounts` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `offer_status_uc`
---
-
-DROP TABLE IF EXISTS `offer_status_uc`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `offer_status_uc` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) DEFAULT NULL,
-  `text` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `active` tinyint(1) NOT NULL,
-  `created_at` datetime NOT NULL,
-  `updated_at` datetime NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `IDX_B021B587A76ED395` (`user_id`),
-  CONSTRAINT `FK_B021B587A76ED395` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `offer_status_uc`
@@ -715,24 +293,6 @@ INSERT INTO `offer_status_uc` VALUES (1,NULL,'Potential',1,'2017-03-24 13:53:49'
 UNLOCK TABLES;
 
 --
--- Table structure for table `offer_tags`
---
-
-DROP TABLE IF EXISTS `offer_tags`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `offer_tags` (
-  `offer_id` int(11) NOT NULL,
-  `tag_id` int(11) NOT NULL,
-  PRIMARY KEY (`offer_id`,`tag_id`),
-  KEY `IDX_9144BA3153C674EE` (`offer_id`),
-  KEY `IDX_9144BA31BAD26311` (`tag_id`),
-  CONSTRAINT `FK_9144BA31BAD26311` FOREIGN KEY (`tag_id`) REFERENCES `tags` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `FK_9144BA3153C674EE` FOREIGN KEY (`offer_id`) REFERENCES `offers` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
 -- Dumping data for table `offer_tags`
 --
 
@@ -740,47 +300,6 @@ LOCK TABLES `offer_tags` WRITE;
 /*!40000 ALTER TABLE `offer_tags` DISABLE KEYS */;
 /*!40000 ALTER TABLE `offer_tags` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `offers`
---
-
-DROP TABLE IF EXISTS `offers`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `offers` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `project_id` int(11) DEFAULT NULL,
-  `status_id` int(11) DEFAULT NULL,
-  `rate_group_id` int(11) DEFAULT NULL,
-  `customer_id` int(11) DEFAULT NULL,
-  `accountant_id` int(11) DEFAULT NULL,
-  `address_id` int(11) DEFAULT NULL,
-  `user_id` int(11) DEFAULT NULL,
-  `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `valid_to` date DEFAULT NULL,
-  `short_description` longtext COLLATE utf8_unicode_ci,
-  `description` longtext COLLATE utf8_unicode_ci,
-  `fixed_price` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `created_at` datetime NOT NULL,
-  `updated_at` datetime NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `IDX_DA460427166D1F9C` (`project_id`),
-  KEY `IDX_DA4604276BF700BD` (`status_id`),
-  KEY `IDX_DA4604272983C9E6` (`rate_group_id`),
-  KEY `IDX_DA4604279395C3F3` (`customer_id`),
-  KEY `IDX_DA4604279582AA74` (`accountant_id`),
-  KEY `IDX_DA460427F5B7AF75` (`address_id`),
-  KEY `IDX_DA460427A76ED395` (`user_id`),
-  CONSTRAINT `FK_DA460427A76ED395` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE SET NULL,
-  CONSTRAINT `FK_DA460427166D1F9C` FOREIGN KEY (`project_id`) REFERENCES `projects` (`id`) ON DELETE SET NULL,
-  CONSTRAINT `FK_DA4604272983C9E6` FOREIGN KEY (`rate_group_id`) REFERENCES `rate_groups` (`id`) ON DELETE SET NULL,
-  CONSTRAINT `FK_DA4604276BF700BD` FOREIGN KEY (`status_id`) REFERENCES `offer_status_uc` (`id`) ON DELETE SET NULL,
-  CONSTRAINT `FK_DA4604279395C3F3` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`id`) ON DELETE SET NULL,
-  CONSTRAINT `FK_DA4604279582AA74` FOREIGN KEY (`accountant_id`) REFERENCES `users` (`id`) ON DELETE SET NULL,
-  CONSTRAINT `FK_DA460427F5B7AF75` FOREIGN KEY (`address_id`) REFERENCES `address` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `offers`
@@ -793,21 +312,6 @@ INSERT INTO `offers` VALUES (1,NULL,1,1,25,1,2,5,'Default Offer','2017-01-22','T
 UNLOCK TABLES;
 
 --
--- Table structure for table `phone`
---
-
-DROP TABLE IF EXISTS `phone`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `phone` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `number` varchar(35) COLLATE utf8_unicode_ci NOT NULL COMMENT '(DC2Type:phone_number)',
-  `type` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
 -- Dumping data for table `phone`
 --
 
@@ -815,22 +319,6 @@ LOCK TABLES `phone` WRITE;
 /*!40000 ALTER TABLE `phone` DISABLE KEYS */;
 /*!40000 ALTER TABLE `phone` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `project_categories`
---
-
-DROP TABLE IF EXISTS `project_categories`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `project_categories` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `created_at` datetime NOT NULL,
-  `updated_at` datetime NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `project_categories`
@@ -843,24 +331,6 @@ INSERT INTO `project_categories` VALUES (1,'projectCategory1','2017-03-24 13:53:
 UNLOCK TABLES;
 
 --
--- Table structure for table `project_tags`
---
-
-DROP TABLE IF EXISTS `project_tags`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `project_tags` (
-  `project_id` int(11) NOT NULL,
-  `tag_id` int(11) NOT NULL,
-  PRIMARY KEY (`project_id`,`tag_id`),
-  KEY `IDX_562D5C3E166D1F9C` (`project_id`),
-  KEY `IDX_562D5C3EBAD26311` (`tag_id`),
-  CONSTRAINT `FK_562D5C3EBAD26311` FOREIGN KEY (`tag_id`) REFERENCES `tags` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `FK_562D5C3E166D1F9C` FOREIGN KEY (`project_id`) REFERENCES `projects` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
 -- Dumping data for table `project_tags`
 --
 
@@ -868,50 +338,6 @@ LOCK TABLES `project_tags` WRITE;
 /*!40000 ALTER TABLE `project_tags` DISABLE KEYS */;
 /*!40000 ALTER TABLE `project_tags` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `projects`
---
-
-DROP TABLE IF EXISTS `projects`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `projects` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `customer_id` int(11) DEFAULT NULL,
-  `rate_group_id` int(11) DEFAULT NULL,
-  `project_category_id` int(11) DEFAULT NULL,
-  `accountant_id` int(11) DEFAULT NULL,
-  `user_id` int(11) DEFAULT NULL,
-  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `alias` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
-  `started_at` datetime DEFAULT NULL,
-  `stopped_at` datetime DEFAULT NULL,
-  `deadline` datetime DEFAULT NULL,
-  `description` longtext COLLATE utf8_unicode_ci,
-  `budget_price` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `fixed_price` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `budget_time` int(11) DEFAULT NULL,
-  `chargeable` tinyint(1) DEFAULT NULL,
-  `created_at` datetime NOT NULL,
-  `updated_at` datetime NOT NULL,
-  `deleted_at` datetime NULL,
-  PRIMARY KEY (`id`),
-  KEY `IDX_5C93B3A49395C3F3` (`customer_id`),
-  KEY `IDX_5C93B3A42983C9E6` (`rate_group_id`),
-  KEY `IDX_5C93B3A4DA896A19` (`project_category_id`),
-  KEY `IDX_5C93B3A49582AA74` (`accountant_id`),
-  KEY `IDX_5C93B3A4A76ED395` (`user_id`),
-  CONSTRAINT `FK_5C93B3A4A76ED395` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE SET NULL,
-  CONSTRAINT `FK_5C93B3A42983C9E6` FOREIGN KEY (`rate_group_id`) REFERENCES `rate_groups` (`id`) ON DELETE SET NULL,
-  CONSTRAINT `FK_5C93B3A49395C3F3` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`id`) ON DELETE SET NULL,
-  CONSTRAINT `FK_5C93B3A49582AA74` FOREIGN KEY (`accountant_id`) REFERENCES `users` (`id`) ON DELETE SET NULL,
-  CONSTRAINT `FK_5C93B3A4DA896A19` FOREIGN KEY (`project_category_id`) REFERENCES `project_categories` (`id`) ON DELETE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
-
-
 
 --
 -- Dumping data for table `projects`
@@ -945,24 +371,6 @@ INSERT INTO `projects` VALUES (1,1,1,1,7,2,'Büro','project-1','2015-11-28 06:21
 UNLOCK TABLES;
 
 --
--- Table structure for table `rate_groups`
---
-DROP TABLE IF EXISTS `rate_groups`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `rate_groups` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) DEFAULT NULL,
-  `description` longtext COLLATE utf8_unicode_ci,
-  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `created_at` datetime NOT NULL,
-  `updated_at` datetime NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `IDX_529A081BA76ED395` (`user_id`),
-  CONSTRAINT `FK_529A081BA76ED395` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
---
 -- Dumping data for table `rate_groups`
 --
 
@@ -971,35 +379,6 @@ CREATE TABLE `rate_groups` (
 INSERT INTO `rate_groups` VALUES (1,1,'Tarifgruppe für kantonale Einsätze','Kanton','2017-03-24 13:53:49','2017-03-24 13:53:49'),(2,1,'Tarifgruppe für die restlichen Einsätze','Gemeinde und Private','2017-03-24 13:53:49','2017-03-24 13:53:49');
 /*!40000 ALTER TABLE `rate_groups` ENABLE KEYS */;
 /*UNLOCK TABLES;*/
-
---
--- Table structure for table `rates`
---
-
-DROP TABLE IF EXISTS `rates`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `rates` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `rate_group_id` int(11) DEFAULT NULL,
-  `service_id` int(11) DEFAULT NULL,
-  `user_id` int(11) DEFAULT NULL,
-  `rate_unit` longtext COLLATE utf8_unicode_ci,
-  `rate_value` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `created_at` datetime NOT NULL,
-  `updated_at` datetime NOT NULL,
-  `rateUnitType_id` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `IDX_44D4AB3C2983C9E6` (`rate_group_id`),
-  KEY `IDX_44D4AB3C2BE78CCE` (`rateUnitType_id`),
-  KEY `IDX_44D4AB3CED5CA9E6` (`service_id`),
-  KEY `IDX_44D4AB3CA76ED395` (`user_id`),
-  CONSTRAINT `FK_44D4AB3CA76ED395` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE SET NULL,
-  CONSTRAINT `FK_44D4AB3C2983C9E6` FOREIGN KEY (`rate_group_id`) REFERENCES `rate_groups` (`id`) ON DELETE SET NULL,
-  CONSTRAINT `FK_44D4AB3C2BE78CCE` FOREIGN KEY (`rateUnitType_id`) REFERENCES `rateunittypes` (`id`),
-  CONSTRAINT `FK_44D4AB3CED5CA9E6` FOREIGN KEY (`service_id`) REFERENCES `services` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `rates`
@@ -1012,30 +391,6 @@ INSERT INTO `rates` VALUES (1,1,1,2,'CHF/h','CHF 10000','2017-03-24 13:53:49','2
 UNLOCK TABLES;
 
 --
--- Table structure for table `rateunittypes`
---
-
-DROP TABLE IF EXISTS `rateunittypes`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `rateunittypes` (
-  `id` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `user_id` int(11) DEFAULT NULL,
-  `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `doTransform` tinyint(1) NOT NULL,
-  `factor` decimal(10,3) DEFAULT NULL,
-  `scale` int(11) NOT NULL,
-  `roundMode` int(11) NOT NULL,
-  `symbol` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `created_at` datetime NOT NULL,
-  `updated_at` datetime NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `IDX_71C44DB0A76ED395` (`user_id`),
-  CONSTRAINT `FK_71C44DB0A76ED395` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE SET NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
 -- Dumping data for table `rateunittypes`
 --
 
@@ -1046,24 +401,6 @@ INSERT INTO `rateunittypes` VALUES ('a',4,'Anderes',0,1.000,3,1,'a','2017-03-24 
 UNLOCK TABLES;
 
 --
--- Table structure for table `service_tags`
---
-
-DROP TABLE IF EXISTS `service_tags`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `service_tags` (
-  `service_id` int(11) NOT NULL,
-  `tag_id` int(11) NOT NULL,
-  PRIMARY KEY (`service_id`,`tag_id`),
-  KEY `IDX_A1FF20CAED5CA9E6` (`service_id`),
-  KEY `IDX_A1FF20CABAD26311` (`tag_id`),
-  CONSTRAINT `FK_A1FF20CABAD26311` FOREIGN KEY (`tag_id`) REFERENCES `tags` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `FK_A1FF20CAED5CA9E6` FOREIGN KEY (`service_id`) REFERENCES `services` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
 -- Dumping data for table `service_tags`
 --
 
@@ -1071,32 +408,6 @@ LOCK TABLES `service_tags` WRITE;
 /*!40000 ALTER TABLE `service_tags` DISABLE KEYS */;
 /*!40000 ALTER TABLE `service_tags` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `services`
---
-
-DROP TABLE IF EXISTS `services`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `services` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) DEFAULT NULL,
-  `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `alias` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
-  `description` longtext COLLATE utf8_unicode_ci,
-  `chargeable` tinyint(1) NOT NULL,
-  `vat` decimal(10,4) DEFAULT NULL,
-  `archived` tinyint(1) NOT NULL,
-  `created_at` datetime NOT NULL,
-  `updated_at` datetime NOT NULL,
-  `deleted_at` datetime NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `unique_service_alias_user` (`alias`,`user_id`),
-  KEY `IDX_7332E169A76ED395` (`user_id`),
-  CONSTRAINT `FK_7332E169A76ED395` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=82 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `services`
@@ -1110,28 +421,6 @@ VALUES (1,2,'consulting','consulting','This is a detailed description',1,0.0800,
 UNLOCK TABLES;
 
 --
--- Table structure for table `settings`
---
-
-DROP TABLE IF EXISTS `settings`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `settings` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) DEFAULT NULL,
-  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `namespace` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `value` longtext COLLATE utf8_unicode_ci,
-  `created_at` datetime NOT NULL,
-  `updated_at` datetime NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `unique_setting_name_namespace_user` (`name`,`namespace`,`user_id`),
-  KEY `IDX_E545A0C5A76ED395` (`user_id`),
-  CONSTRAINT `FK_E545A0C5A76ED395` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
 -- Dumping data for table `settings`
 --
 
@@ -1140,28 +429,6 @@ LOCK TABLES `settings` WRITE;
 INSERT INTO `settings` VALUES (1,1,'activity','/etc/defaults/timeslice','action:byName:Zivi*','2017-03-24 13:53:49','2017-03-24 13:53:49'),(2,1,'value','/etc/defaults/timeslice','30240','2017-03-24 13:53:49','2017-03-24 13:53:49'),(3,1,'startedAt','/etc/defaults/timeslice','action:nextDate','2017-03-24 13:53:49','2017-03-24 13:53:49'),(4,3,'name','/etc/defaults/1','New perspiciatis','2017-03-24 13:53:49','2017-03-24 13:53:49'),(5,1,'name','/etc/defaults/2','New dolor','2017-03-24 13:53:49','2017-03-24 13:53:49'),(6,5,'name','/etc/defaults/3','New molestias','2017-03-24 13:53:49','2017-03-24 13:53:49'),(7,3,'name','/etc/defaults/4','New in','2017-03-24 13:53:49','2017-03-24 13:53:49'),(8,5,'name','/etc/defaults/5','New qui','2017-03-24 13:53:49','2017-03-24 13:53:49');
 /*!40000 ALTER TABLE `settings` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `standard_discounts`
---
-
-DROP TABLE IF EXISTS `standard_discounts`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `standard_discounts` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) DEFAULT NULL,
-  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `value` decimal(10,2) NOT NULL,
-  `percentage` tinyint(1) DEFAULT NULL,
-  `minus` tinyint(1) DEFAULT NULL,
-  `created_at` datetime NOT NULL,
-  `updated_at` datetime NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `IDX_57041CB0A76ED395` (`user_id`),
-  CONSTRAINT `FK_57041CB0A76ED395` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `standard_discounts`
@@ -1174,27 +441,6 @@ INSERT INTO `standard_discounts` VALUES (1,1,'Skonto 2%',0.02,1,1,'2017-03-24 13
 UNLOCK TABLES;
 
 --
--- Table structure for table `tags`
---
-
-DROP TABLE IF EXISTS `tags`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `tags` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) DEFAULT NULL,
-  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `system` tinyint(1) NOT NULL,
-  `created_at` datetime NOT NULL,
-  `updated_at` datetime NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `unique_tag_name_user` (`name`,`user_id`),
-  KEY `IDX_6FBC9426A76ED395` (`user_id`),
-  CONSTRAINT `FK_6FBC9426A76ED395` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
 -- Dumping data for table `tags`
 --
 
@@ -1203,22 +449,6 @@ LOCK TABLES `tags` WRITE;
 INSERT INTO `tags` VALUES (1,NULL,'perspiciatis',0,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(2,NULL,'voluptas',0,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(3,NULL,'dolor',0,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(4,NULL,'veritatis',0,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(5,NULL,'molestias',0,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(6,NULL,'est',0,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(7,NULL,'in',0,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(8,NULL,'sed',0,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(9,NULL,'qui',0,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(10,NULL,'officiis',0,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(11,NULL,'perspiciatis',0,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(12,NULL,'velit',0,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(13,NULL,'possimus',0,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(14,NULL,'cum',0,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(15,NULL,'ducimus',0,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(16,NULL,'vitae',0,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(17,NULL,'quam',0,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(18,NULL,'omnis',0,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(19,NULL,'ea',0,'2017-03-24 13:53:49','2017-03-24 13:53:49'),(20,NULL,'dolores',0,'2017-03-24 13:53:49','2017-03-24 13:53:49');
 /*!40000 ALTER TABLE `tags` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `tbbc_money_doctrine_storage_ratios`
---
-
-DROP TABLE IF EXISTS `tbbc_money_doctrine_storage_ratios`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `tbbc_money_doctrine_storage_ratios` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `currency_code` varchar(3) COLLATE utf8_unicode_ci NOT NULL,
-  `ratio` double NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `UNIQ_1168A609FDA273EC` (`currency_code`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `tbbc_money_doctrine_storage_ratios`
@@ -1230,23 +460,6 @@ LOCK TABLES `tbbc_money_doctrine_storage_ratios` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `tbbc_money_ratio_history`
---
-
-DROP TABLE IF EXISTS `tbbc_money_ratio_history`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `tbbc_money_ratio_history` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `currency_code` varchar(3) COLLATE utf8_unicode_ci NOT NULL,
-  `reference_currency_code` varchar(3) COLLATE utf8_unicode_ci NOT NULL,
-  `ratio` double NOT NULL,
-  `saved_at` datetime NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
 -- Dumping data for table `tbbc_money_ratio_history`
 --
 
@@ -1254,24 +467,6 @@ LOCK TABLES `tbbc_money_ratio_history` WRITE;
 /*!40000 ALTER TABLE `tbbc_money_ratio_history` DISABLE KEYS */;
 /*!40000 ALTER TABLE `tbbc_money_ratio_history` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `timeslice_tags`
---
-
-DROP TABLE IF EXISTS `timeslice_tags`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `timeslice_tags` (
-  `timeslice_id` int(11) NOT NULL,
-  `tag_id` int(11) NOT NULL,
-  PRIMARY KEY (`timeslice_id`,`tag_id`),
-  KEY `IDX_4231EEB94FB5678C` (`timeslice_id`),
-  KEY `IDX_4231EEB9BAD26311` (`tag_id`),
-  CONSTRAINT `FK_4231EEB9BAD26311` FOREIGN KEY (`tag_id`) REFERENCES `tags` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `FK_4231EEB94FB5678C` FOREIGN KEY (`timeslice_id`) REFERENCES `timeslices` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `timeslice_tags`
@@ -1283,34 +478,6 @@ LOCK TABLES `timeslice_tags` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `timeslices`
---
-
-DROP TABLE IF EXISTS `timeslices`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `timeslices` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `activity_id` int(11) NOT NULL,
-  `employee_id` int(11) DEFAULT NULL,
-  `user_id` int(11) DEFAULT NULL,
-  `value` decimal(10,4) NOT NULL,
-  `started_at` datetime DEFAULT NULL,
-  `stopped_at` datetime DEFAULT NULL,
-  `created_at` datetime NOT NULL,
-  `updated_at` datetime NOT NULL,
-  `deleted_at` datetime NULL,
-  PRIMARY KEY (`id`),
-  KEY `IDX_72C53BF481C06096` (`activity_id`),
-  KEY `IDX_72C53BF48C03F15C` (`employee_id`),
-  KEY `IDX_72C53BF4A76ED395` (`user_id`),
-  CONSTRAINT `FK_72C53BF4A76ED395` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE SET NULL,
-  CONSTRAINT `FK_72C53BF481C06096` FOREIGN KEY (`activity_id`) REFERENCES `activities` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `FK_72C53BF48C03F15C` FOREIGN KEY (`employee_id`) REFERENCES `users` (`id`) ON DELETE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=402 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
 -- Dumping data for table `timeslices`
 --
 
@@ -1320,40 +487,6 @@ INSERT INTO `timeslices` (`id`,`activity_id`, `employee_id`, `user_id` , `value`
 VALUES (1,2,7,2,7200.0000,'2017-01-28 17:21:53','2017-01-28 19:21:53','2017-03-24 13:53:49','2017-03-24 13:53:49'),(2,4,7,4,3.3000,'2015-10-15 08:31:48','2015-10-15 08:31:51','2017-03-24 13:53:49','2017-03-24 13:53:49'),(3,5,16,5,3.5000,'2015-06-21 19:32:08','2015-06-21 19:32:11','2017-03-24 13:53:49','2017-03-24 13:53:49'),(4,10,22,4,2.3000,'2016-08-05 18:44:00','2016-08-05 18:44:02','2017-03-24 13:53:49','2017-03-24 13:53:49'),(5,8,19,4,7.2000,'2015-12-21 13:17:07','2015-12-21 13:17:14','2017-03-24 13:53:49','2017-03-24 13:53:49'),(6,2,11,2,7.3000,'2015-01-18 07:21:10','2015-01-18 07:21:17','2017-03-24 13:53:49','2017-03-24 13:53:49'),(7,6,22,5,1.7000,'2015-04-05 12:44:21','2015-04-05 12:44:22','2017-03-24 13:53:49','2017-03-24 13:53:49'),(8,5,9,3,4.7000,'2016-04-20 02:13:11','2016-04-20 02:13:15','2017-03-24 13:53:49','2017-03-24 13:53:49'),(9,8,18,5,1.2000,'2016-05-16 19:03:12','2016-05-16 19:03:13','2017-03-24 13:53:49','2017-03-24 13:53:49'),(10,8,14,4,3.3000,'2015-01-02 18:31:57','2015-01-02 18:32:00','2017-03-24 13:53:49','2017-03-24 13:53:49'),(11,11,13,5,8.3000,'2015-03-07 23:24:32','2015-03-07 23:24:40','2017-03-24 13:53:49','2017-03-24 13:53:49'),(12,8,18,1,4.6000,'2014-10-07 23:03:22','2014-10-07 23:03:26','2017-03-24 13:53:49','2017-03-24 13:53:49'),(13,3,25,1,5.3000,'2014-08-12 08:00:12','2014-08-12 08:00:17','2017-03-24 13:53:49','2017-03-24 13:53:49'),(14,10,25,6,2.0000,'2015-11-27 20:29:01','2015-11-27 20:29:03','2017-03-24 13:53:49','2017-03-24 13:53:49'),(15,3,19,2,5.8000,'2016-03-01 11:49:38','2016-03-01 11:49:43','2017-03-24 13:53:49','2017-03-24 13:53:49'),(16,7,18,5,1.9000,'2015-07-21 17:56:31','2015-07-21 17:56:32','2017-03-24 13:53:49','2017-03-24 13:53:49'),(17,9,14,2,5.8000,'2016-02-12 18:36:10','2016-02-12 18:36:15','2017-03-24 13:53:49','2017-03-24 13:53:49'),(18,4,23,2,2.0000,'2016-09-29 03:32:09','2016-09-29 03:32:11','2017-03-24 13:53:49','2017-03-24 13:53:49'),(19,11,21,6,5.1000,'2016-09-09 01:19:23','2016-09-09 01:19:28','2017-03-24 13:53:49','2017-03-24 13:53:49'),(20,9,9,5,3.4000,'2015-12-27 10:54:17','2015-12-27 10:54:20','2017-03-24 13:53:49','2017-03-24 13:53:49'),(21,6,22,5,6.3000,'2014-12-15 19:11:35','2014-12-15 19:11:41','2017-03-24 13:53:49','2017-03-24 13:53:49'),(22,11,13,2,5.9000,'2015-01-09 09:48:38','2015-01-09 09:48:43','2017-03-24 13:53:49','2017-03-24 13:53:49'),(23,5,12,2,6.5000,'2016-07-23 10:00:02','2016-07-23 10:00:08','2017-03-24 13:53:49','2017-03-24 13:53:49'),(24,11,17,6,2.3000,'2014-07-31 10:18:37','2014-07-31 10:18:39','2017-03-24 13:53:49','2017-03-24 13:53:49'),(25,10,10,1,7.4000,'2014-09-11 06:38:37','2014-09-11 06:38:44','2017-03-24 13:53:49','2017-03-24 13:53:49'),(26,2,26,6,4.2000,'2015-09-09 14:05:26','2015-09-09 14:05:30','2017-03-24 13:53:49','2017-03-24 13:53:49'),(27,7,17,6,1.6000,'2014-07-29 22:43:47','2014-07-29 22:43:48','2017-03-24 13:53:49','2017-03-24 13:53:49'),(28,9,26,3,5.4000,'2014-11-05 06:55:23','2014-11-05 06:55:28','2017-03-24 13:53:49','2017-03-24 13:53:49'),(29,3,8,2,2.2000,'2015-01-10 17:13:41','2015-01-10 17:13:43','2017-03-24 13:53:49','2017-03-24 13:53:49'),(30,3,25,5,2.3000,'2017-03-10 15:19:17','2017-03-10 15:19:19','2017-03-24 13:53:49','2017-03-24 13:53:49'),(31,7,24,4,5.8000,'2015-10-21 07:33:26','2015-10-21 07:33:31','2017-03-24 13:53:49','2017-03-24 13:53:49'),(32,4,9,4,2.5000,'2016-10-29 17:05:56','2016-10-29 17:05:58','2017-03-24 13:53:49','2017-03-24 13:53:49'),(33,8,26,4,3.2000,'2014-07-04 14:22:42','2014-07-04 14:22:45','2017-03-24 13:53:49','2017-03-24 13:53:49'),(34,3,11,4,8.0000,'2014-07-18 18:23:18','2014-07-18 18:23:26','2017-03-24 13:53:49','2017-03-24 13:53:49'),(35,11,11,1,7.4000,'2016-09-06 11:25:19','2016-09-06 11:25:26','2017-03-24 13:53:49','2017-03-24 13:53:49'),(36,5,24,1,8.4000,'2017-02-21 03:45:21','2017-02-21 03:45:29','2017-03-24 13:53:49','2017-03-24 13:53:49'),(37,11,23,5,5.6000,'2016-05-27 05:07:47','2016-05-27 05:07:52','2017-03-24 13:53:49','2017-03-24 13:53:49'),(38,7,9,3,2.0000,'2014-07-21 08:05:24','2014-07-21 08:05:26','2017-03-24 13:53:49','2017-03-24 13:53:49'),(39,5,23,1,2.5000,'2015-11-13 04:56:44','2015-11-13 04:56:46','2017-03-24 13:53:49','2017-03-24 13:53:49'),(40,2,26,5,3.4000,'2014-07-14 20:18:21','2014-07-14 20:18:24','2017-03-24 13:53:49','2017-03-24 13:53:49'),(41,7,8,5,3.1000,'2017-01-22 15:56:31','2017-01-22 15:56:34','2017-03-24 13:53:49','2017-03-24 13:53:49'),(42,10,18,1,2.5000,'2016-07-13 02:10:01','2016-07-13 02:10:03','2017-03-24 13:53:49','2017-03-24 13:53:49'),(43,7,15,5,4.8000,'2015-09-14 08:27:36','2015-09-14 08:27:40','2017-03-24 13:53:49','2017-03-24 13:53:49'),(44,6,8,6,5.5000,'2016-12-10 02:50:01','2016-12-10 02:50:06','2017-03-24 13:53:49','2017-03-24 13:53:49'),(45,2,10,3,2.1000,'2016-12-25 02:18:21','2016-12-25 02:18:23','2017-03-24 13:53:49','2017-03-24 13:53:49'),(46,10,26,3,6.0000,'2016-11-02 19:28:06','2016-11-02 19:28:12','2017-03-24 13:53:49','2017-03-24 13:53:49'),(47,6,23,3,6.3000,'2017-02-05 10:48:01','2017-02-05 10:48:07','2017-03-24 13:53:49','2017-03-24 13:53:49'),(48,9,10,6,8.1000,'2017-02-25 08:52:28','2017-02-25 08:52:36','2017-03-24 13:53:49','2017-03-24 13:53:49'),(49,2,19,1,2.4000,'2014-12-17 15:21:53','2014-12-17 15:21:55','2017-03-24 13:53:49','2017-03-24 13:53:49'),(50,9,10,3,7.1000,'2014-09-04 08:34:07','2014-09-04 08:34:14','2017-03-24 13:53:49','2017-03-24 13:53:49'),(51,9,16,6,6.4000,'2017-02-09 12:17:52','2017-02-09 12:17:58','2017-03-24 13:53:49','2017-03-24 13:53:49'),(52,5,17,3,5.6000,'2016-10-22 03:57:13','2016-10-22 03:57:18','2017-03-24 13:53:49','2017-03-24 13:53:49'),(53,10,11,2,3.8000,'2015-06-07 08:20:13','2015-06-07 08:20:16','2017-03-24 13:53:49','2017-03-24 13:53:49'),(54,3,19,2,6.8000,'2015-09-22 18:17:28','2015-09-22 18:17:34','2017-03-24 13:53:49','2017-03-24 13:53:49'),(55,2,24,6,1.8000,'2017-02-07 06:38:42','2017-02-07 06:38:43','2017-03-24 13:53:49','2017-03-24 13:53:49'),(56,9,8,5,6.3000,'2014-12-08 12:14:34','2014-12-08 12:14:40','2017-03-24 13:53:49','2017-03-24 13:53:49'),(57,9,23,3,3.0000,'2016-10-22 12:57:20','2016-10-22 12:57:23','2017-03-24 13:53:49','2017-03-24 13:53:49'),(58,9,16,3,7.0000,'2016-07-20 10:12:42','2016-07-20 10:12:49','2017-03-24 13:53:49','2017-03-24 13:53:49'),(59,8,23,1,3.9000,'2015-09-03 08:15:00','2015-09-03 08:15:03','2017-03-24 13:53:49','2017-03-24 13:53:49'),(60,6,16,5,1.3000,'2016-09-28 11:48:42','2016-09-28 11:48:43','2017-03-24 13:53:49','2017-03-24 13:53:49'),(61,7,22,2,4.6000,'2016-06-19 17:16:32','2016-06-19 17:16:36','2017-03-24 13:53:49','2017-03-24 13:53:49'),(62,9,19,1,2.4000,'2016-07-29 03:41:59','2016-07-29 03:42:01','2017-03-24 13:53:49','2017-03-24 13:53:49'),(63,3,9,4,6.1000,'2015-09-06 10:54:03','2015-09-06 10:54:09','2017-03-24 13:53:49','2017-03-24 13:53:49'),(64,3,22,6,3.1000,'2016-09-28 07:41:02','2016-09-28 07:41:05','2017-03-24 13:53:49','2017-03-24 13:53:49'),(65,2,18,5,5.0000,'2016-04-30 18:53:14','2016-04-30 18:53:19','2017-03-24 13:53:49','2017-03-24 13:53:49'),(66,2,24,2,3.1000,'2015-04-14 11:48:05','2015-04-14 11:48:08','2017-03-24 13:53:49','2017-03-24 13:53:49'),(67,6,24,4,7.8000,'2016-06-08 04:03:58','2016-06-08 04:04:05','2017-03-24 13:53:49','2017-03-24 13:53:49'),(68,4,15,1,7.5000,'2016-08-29 09:52:52','2016-08-29 09:52:59','2017-03-24 13:53:49','2017-03-24 13:53:49'),(69,4,25,2,7.2000,'2016-07-09 10:16:20','2016-07-09 10:16:27','2017-03-24 13:53:49','2017-03-24 13:53:49'),(70,9,19,5,3.9000,'2015-08-01 04:41:37','2015-08-01 04:41:40','2017-03-24 13:53:49','2017-03-24 13:53:49'),(71,11,14,6,1.6000,'2016-11-24 14:07:23','2016-11-24 14:07:24','2017-03-24 13:53:49','2017-03-24 13:53:49'),(72,7,12,3,4.5000,'2015-04-14 03:34:18','2015-04-14 03:34:22','2017-03-24 13:53:49','2017-03-24 13:53:49'),(73,8,24,6,3.4000,'2017-02-19 03:48:03','2017-02-19 03:48:06','2017-03-24 13:53:49','2017-03-24 13:53:49'),(74,11,25,2,7.6000,'2016-08-12 03:17:58','2016-08-12 03:18:05','2017-03-24 13:53:49','2017-03-24 13:53:49'),(75,3,25,6,2.1000,'2016-10-05 12:03:30','2016-10-05 12:03:32','2017-03-24 13:53:49','2017-03-24 13:53:49'),(76,3,10,1,1.3000,'2014-12-05 06:42:51','2014-12-05 06:42:52','2017-03-24 13:53:49','2017-03-24 13:53:49'),(77,5,7,3,4.0000,'2016-10-19 12:38:21','2016-10-19 12:38:25','2017-03-24 13:53:49','2017-03-24 13:53:49'),(78,10,19,5,7.9000,'2016-02-19 22:35:17','2016-02-19 22:35:24','2017-03-24 13:53:49','2017-03-24 13:53:49'),(79,10,18,4,6.1000,'2016-07-20 11:51:35','2016-07-20 11:51:41','2017-03-24 13:53:49','2017-03-24 13:53:49'),(80,8,26,3,3.1000,'2016-11-28 16:58:59','2016-11-28 16:59:02','2017-03-24 13:53:49','2017-03-24 13:53:49'),(81,9,7,3,5.6000,'2016-07-27 06:18:17','2016-07-27 06:18:22','2017-03-24 13:53:49','2017-03-24 13:53:49'),(82,6,24,4,1.5000,'2016-10-19 04:01:31','2016-10-19 04:01:32','2017-03-24 13:53:49','2017-03-24 13:53:49'),(83,7,15,3,4.8000,'2016-06-20 15:33:47','2016-06-20 15:33:51','2017-03-24 13:53:49','2017-03-24 13:53:49'),(84,8,24,2,8.0000,'2017-03-20 11:04:27','2017-03-20 11:04:35','2017-03-24 13:53:49','2017-03-24 13:53:49'),(85,11,24,3,6.0000,'2014-10-09 10:55:26','2014-10-09 10:55:32','2017-03-24 13:53:49','2017-03-24 13:53:49'),(86,2,21,4,5.9000,'2014-11-30 03:23:11','2014-11-30 03:23:16','2017-03-24 13:53:49','2017-03-24 13:53:49'),(87,11,25,5,4.6000,'2016-08-16 14:46:51','2016-08-16 14:46:55','2017-03-24 13:53:49','2017-03-24 13:53:49'),(88,6,10,3,2.2000,'2016-03-01 22:46:43','2016-03-01 22:46:45','2017-03-24 13:53:49','2017-03-24 13:53:49'),(89,11,16,2,4.0000,'2016-05-31 16:51:28','2016-05-31 16:51:32','2017-03-24 13:53:49','2017-03-24 13:53:49'),(90,5,22,1,2.1000,'2016-12-15 12:34:10','2016-12-15 12:34:12','2017-03-24 13:53:49','2017-03-24 13:53:49'),(91,7,21,3,2.7000,'2017-03-07 10:43:07','2017-03-07 10:43:09','2017-03-24 13:53:49','2017-03-24 13:53:49'),(92,11,21,3,6.0000,'2016-07-03 22:31:14','2016-07-03 22:31:20','2017-03-24 13:53:49','2017-03-24 13:53:49'),(93,2,13,5,4.9000,'2014-10-09 11:19:08','2014-10-09 11:19:12','2017-03-24 13:53:49','2017-03-24 13:53:49'),(94,7,12,2,6.8000,'2014-11-28 12:40:38','2014-11-28 12:40:44','2017-03-24 13:53:49','2017-03-24 13:53:49'),(95,3,7,2,7.6000,'2015-04-03 07:35:15','2015-04-03 07:35:22','2017-03-24 13:53:49','2017-03-24 13:53:49'),(96,10,18,3,2.9000,'2016-11-16 05:09:44','2016-11-16 05:09:46','2017-03-24 13:53:49','2017-03-24 13:53:49'),(97,2,19,3,1.9000,'2015-06-26 16:53:33','2015-06-26 16:53:34','2017-03-24 13:53:49','2017-03-24 13:53:49'),(98,9,15,3,2.5000,'2016-08-06 16:30:20','2016-08-06 16:30:22','2017-03-24 13:53:49','2017-03-24 13:53:49'),(99,9,13,6,6.8000,'2016-06-06 15:27:18','2016-06-06 15:27:24','2017-03-24 13:53:49','2017-03-24 13:53:49'),(100,5,21,2,2.3000,'2016-10-20 04:19:27','2016-10-20 04:19:29','2017-03-24 13:53:49','2017-03-24 13:53:49'),(101,11,23,5,5.1000,'2016-12-23 14:01:18','2016-12-23 14:01:23','2017-03-24 13:53:49','2017-03-24 13:53:49'),(102,21,19,4,30240.0000,'2016-10-27 19:18:42','2016-10-28 03:42:42','2017-03-24 13:53:49','2017-03-24 13:53:49'),(103,16,18,6,30240.0000,'2016-08-12 22:22:18','2016-08-13 06:46:18','2017-03-24 13:53:49','2017-03-24 13:53:49'),(104,15,11,4,30240.0000,'2015-12-20 15:06:26','2015-12-20 23:30:26','2017-03-24 13:53:49','2017-03-24 13:53:49'),(105,15,9,4,30240.0000,'2015-08-07 15:24:09','2015-08-07 23:48:09','2017-03-24 13:53:49','2017-03-24 13:53:49'),(106,13,23,1,30240.0000,'2017-03-03 08:57:45','2017-03-03 17:21:45','2017-03-24 13:53:49','2017-03-24 13:53:49'),(107,16,15,3,30240.0000,'2015-05-06 08:54:57','2015-05-06 17:18:57','2017-03-24 13:53:49','2017-03-24 13:53:49'),(108,17,16,2,30240.0000,'2016-03-23 01:09:42','2016-03-23 09:33:42','2017-03-24 13:53:49','2017-03-24 13:53:49'),(109,21,16,5,30240.0000,'2016-09-16 02:41:04','2016-09-16 11:05:04','2017-03-24 13:53:49','2017-03-24 13:53:49'),(110,14,13,5,30240.0000,'2015-10-24 20:15:10','2015-10-25 04:39:10','2017-03-24 13:53:49','2017-03-24 13:53:49'),(111,15,19,6,30240.0000,'2015-03-21 09:03:10','2015-03-21 17:27:10','2017-03-24 13:53:49','2017-03-24 13:53:49'),(112,12,8,1,30240.0000,'2015-09-16 03:22:48','2015-09-16 11:46:48','2017-03-24 13:53:49','2017-03-24 13:53:49'),(113,14,24,3,30240.0000,'2016-08-02 21:34:44','2016-08-03 05:58:44','2017-03-24 13:53:49','2017-03-24 13:53:49'),(114,16,22,5,30240.0000,'2016-01-12 01:13:14','2016-01-12 09:37:14','2017-03-24 13:53:49','2017-03-24 13:53:49'),(115,13,20,2,30240.0000,'2015-12-15 08:59:43','2015-12-15 17:23:43','2017-03-24 13:53:49','2017-03-24 13:53:49'),(116,17,16,5,30240.0000,'2014-08-06 06:12:13','2014-08-06 14:36:13','2017-03-24 13:53:49','2017-03-24 13:53:49'),(117,20,18,1,30240.0000,'2014-08-19 05:01:31','2014-08-19 13:25:31','2017-03-24 13:53:49','2017-03-24 13:53:49'),(118,13,13,6,30240.0000,'2017-03-22 13:11:34','2017-03-22 21:35:34','2017-03-24 13:53:49','2017-03-24 13:53:49'),(119,21,13,6,30240.0000,'2015-05-02 22:13:41','2015-05-03 06:37:41','2017-03-24 13:53:49','2017-03-24 13:53:49'),(120,19,11,1,30240.0000,'2014-08-26 22:13:25','2014-08-27 06:37:25','2017-03-24 13:53:49','2017-03-24 13:53:49'),(121,15,7,1,30240.0000,'2014-10-11 11:21:55','2014-10-11 19:45:55','2017-03-24 13:53:49','2017-03-24 13:53:49'),(122,19,21,2,30240.0000,'2016-11-28 08:27:57','2016-11-28 16:51:57','2017-03-24 13:53:49','2017-03-24 13:53:49'),(123,18,12,2,30240.0000,'2017-02-03 14:08:54','2017-02-03 22:32:54','2017-03-24 13:53:49','2017-03-24 13:53:49'),(124,19,21,4,30240.0000,'2015-03-03 21:14:40','2015-03-04 05:38:40','2017-03-24 13:53:49','2017-03-24 13:53:49'),(125,13,8,1,30240.0000,'2014-10-17 18:33:40','2014-10-18 02:57:40','2017-03-24 13:53:49','2017-03-24 13:53:49'),(126,20,26,1,30240.0000,'2016-12-22 12:48:33','2016-12-22 21:12:33','2017-03-24 13:53:49','2017-03-24 13:53:49'),(127,18,25,5,30240.0000,'2016-10-22 12:58:29','2016-10-22 21:22:29','2017-03-24 13:53:49','2017-03-24 13:53:49'),(128,19,8,4,30240.0000,'2014-11-15 08:19:28','2014-11-15 16:43:28','2017-03-24 13:53:49','2017-03-24 13:53:49'),(129,21,15,2,30240.0000,'2016-07-28 18:09:06','2016-07-29 02:33:06','2017-03-24 13:53:49','2017-03-24 13:53:49'),(130,21,13,3,30240.0000,'2016-04-10 06:00:46','2016-04-10 14:24:46','2017-03-24 13:53:49','2017-03-24 13:53:49'),(131,17,19,4,30240.0000,'2016-05-28 13:52:08','2016-05-28 22:16:08','2017-03-24 13:53:49','2017-03-24 13:53:49'),(132,12,19,4,30240.0000,'2016-12-04 18:07:25','2016-12-05 02:31:25','2017-03-24 13:53:49','2017-03-24 13:53:49'),(133,18,16,3,30240.0000,'2014-10-30 21:26:26','2014-10-31 05:50:26','2017-03-24 13:53:49','2017-03-24 13:53:49'),(134,16,12,4,30240.0000,'2015-03-23 22:27:48','2015-03-24 06:51:48','2017-03-24 13:53:49','2017-03-24 13:53:49'),(135,17,11,6,30240.0000,'2016-09-29 08:32:00','2016-09-29 16:56:00','2017-03-24 13:53:49','2017-03-24 13:53:49'),(136,15,22,3,30240.0000,'2015-05-09 05:50:59','2015-05-09 14:14:59','2017-03-24 13:53:49','2017-03-24 13:53:49'),(137,20,7,3,30240.0000,'2015-05-27 15:18:29','2015-05-27 23:42:29','2017-03-24 13:53:49','2017-03-24 13:53:49'),(138,12,21,4,30240.0000,'2014-08-14 22:23:31','2014-08-15 06:47:31','2017-03-24 13:53:49','2017-03-24 13:53:49'),(139,12,19,6,30240.0000,'2014-11-22 08:48:51','2014-11-22 17:12:51','2017-03-24 13:53:49','2017-03-24 13:53:49'),(140,12,15,5,30240.0000,'2015-04-13 07:35:51','2015-04-13 15:59:51','2017-03-24 13:53:49','2017-03-24 13:53:49'),(141,19,12,5,30240.0000,'2015-10-31 14:30:07','2015-10-31 22:54:07','2017-03-24 13:53:49','2017-03-24 13:53:49'),(142,15,10,6,30240.0000,'2016-02-09 16:25:39','2016-02-10 00:49:39','2017-03-24 13:53:49','2017-03-24 13:53:49'),(143,21,24,5,30240.0000,'2016-06-25 23:02:41','2016-06-26 07:26:41','2017-03-24 13:53:49','2017-03-24 13:53:49'),(144,13,18,5,30240.0000,'2016-07-10 11:34:35','2016-07-10 19:58:35','2017-03-24 13:53:49','2017-03-24 13:53:49'),(145,13,13,4,30240.0000,'2016-03-04 22:44:18','2016-03-05 07:08:18','2017-03-24 13:53:49','2017-03-24 13:53:49'),(146,16,21,6,30240.0000,'2014-10-15 07:19:38','2014-10-15 15:43:38','2017-03-24 13:53:49','2017-03-24 13:53:49'),(147,12,10,6,30240.0000,'2015-02-20 21:03:29','2015-02-21 05:27:29','2017-03-24 13:53:49','2017-03-24 13:53:49'),(148,15,23,3,30240.0000,'2014-10-08 10:56:46','2014-10-08 19:20:46','2017-03-24 13:53:49','2017-03-24 13:53:49'),(149,18,17,1,30240.0000,'2014-12-04 22:19:51','2014-12-05 06:43:51','2017-03-24 13:53:49','2017-03-24 13:53:49'),(150,20,9,6,30240.0000,'2017-02-12 22:36:30','2017-02-13 07:00:30','2017-03-24 13:53:49','2017-03-24 13:53:49'),(151,15,12,1,30240.0000,'2014-07-19 15:46:26','2014-07-20 00:10:26','2017-03-24 13:53:49','2017-03-24 13:53:49'),(152,21,21,5,30240.0000,'2014-10-29 17:08:44','2014-10-30 01:32:44','2017-03-24 13:53:49','2017-03-24 13:53:49'),(153,20,20,2,30240.0000,'2015-02-12 22:16:59','2015-02-13 06:40:59','2017-03-24 13:53:49','2017-03-24 13:53:49'),(154,16,22,5,30240.0000,'2014-09-13 17:57:58','2014-09-14 02:21:58','2017-03-24 13:53:49','2017-03-24 13:53:49'),(155,20,8,6,30240.0000,'2016-03-16 02:54:49','2016-03-16 11:18:49','2017-03-24 13:53:49','2017-03-24 13:53:49'),(156,18,24,5,30240.0000,'2016-06-26 09:28:36','2016-06-26 17:52:36','2017-03-24 13:53:49','2017-03-24 13:53:49'),(157,14,19,3,30240.0000,'2015-01-08 21:34:17','2015-01-09 05:58:17','2017-03-24 13:53:49','2017-03-24 13:53:49'),(158,21,22,4,30240.0000,'2016-09-08 23:30:41','2016-09-09 07:54:41','2017-03-24 13:53:49','2017-03-24 13:53:49'),(159,13,25,4,30240.0000,'2015-03-18 11:46:12','2015-03-18 20:10:12','2017-03-24 13:53:49','2017-03-24 13:53:49'),(160,12,8,3,30240.0000,'2014-09-11 18:54:54','2014-09-12 03:18:54','2017-03-24 13:53:49','2017-03-24 13:53:49'),(161,12,24,6,30240.0000,'2015-02-03 20:53:30','2015-02-04 05:17:30','2017-03-24 13:53:49','2017-03-24 13:53:49'),(162,19,16,4,30240.0000,'2016-08-03 03:25:53','2016-08-03 11:49:53','2017-03-24 13:53:49','2017-03-24 13:53:49'),(163,13,13,4,30240.0000,'2016-03-25 08:27:17','2016-03-25 16:51:17','2017-03-24 13:53:49','2017-03-24 13:53:49'),(164,14,17,4,30240.0000,'2015-02-16 18:53:52','2015-02-17 03:17:52','2017-03-24 13:53:49','2017-03-24 13:53:49'),(165,21,24,5,30240.0000,'2017-03-11 18:30:06','2017-03-12 02:54:06','2017-03-24 13:53:49','2017-03-24 13:53:49'),(166,15,11,4,30240.0000,'2015-04-11 22:15:31','2015-04-12 06:39:31','2017-03-24 13:53:49','2017-03-24 13:53:49'),(167,12,20,4,30240.0000,'2015-04-17 08:54:32','2015-04-17 17:18:32','2017-03-24 13:53:49','2017-03-24 13:53:49'),(168,15,25,5,30240.0000,'2014-08-01 03:37:53','2014-08-01 12:01:53','2017-03-24 13:53:49','2017-03-24 13:53:49'),(169,17,9,2,30240.0000,'2015-09-20 22:33:23','2015-09-21 06:57:23','2017-03-24 13:53:49','2017-03-24 13:53:49'),(170,16,8,6,30240.0000,'2016-12-18 08:27:16','2016-12-18 16:51:16','2017-03-24 13:53:49','2017-03-24 13:53:49'),(171,18,15,6,30240.0000,'2015-09-22 23:46:09','2015-09-23 08:10:09','2017-03-24 13:53:49','2017-03-24 13:53:49'),(172,20,26,2,30240.0000,'2016-10-16 18:00:01','2016-10-17 02:24:01','2017-03-24 13:53:49','2017-03-24 13:53:49'),(173,12,24,5,30240.0000,'2015-04-04 16:02:46','2015-04-05 00:26:46','2017-03-24 13:53:49','2017-03-24 13:53:49'),(174,20,16,4,30240.0000,'2016-01-18 05:33:25','2016-01-18 13:57:25','2017-03-24 13:53:49','2017-03-24 13:53:49'),(175,14,9,6,30240.0000,'2016-04-18 16:01:22','2016-04-19 00:25:22','2017-03-24 13:53:49','2017-03-24 13:53:49'),(176,15,14,5,30240.0000,'2014-10-22 02:31:26','2014-10-22 10:55:26','2017-03-24 13:53:49','2017-03-24 13:53:49'),(177,16,24,1,30240.0000,'2015-11-28 11:21:45','2015-11-28 19:45:45','2017-03-24 13:53:49','2017-03-24 13:53:49'),(178,14,23,4,30240.0000,'2015-03-01 09:07:11','2015-03-01 17:31:11','2017-03-24 13:53:49','2017-03-24 13:53:49'),(179,14,17,3,30240.0000,'2016-09-23 04:40:32','2016-09-23 13:04:32','2017-03-24 13:53:49','2017-03-24 13:53:49'),(180,17,23,6,30240.0000,'2015-12-18 10:02:03','2015-12-18 18:26:03','2017-03-24 13:53:49','2017-03-24 13:53:49'),(181,14,23,3,30240.0000,'2015-01-29 17:56:43','2015-01-30 02:20:43','2017-03-24 13:53:49','2017-03-24 13:53:49'),(182,15,17,1,30240.0000,'2015-04-13 20:44:54','2015-04-14 05:08:54','2017-03-24 13:53:49','2017-03-24 13:53:49'),(183,18,11,6,30240.0000,'2016-05-15 21:41:10','2016-05-16 06:05:10','2017-03-24 13:53:49','2017-03-24 13:53:49'),(184,18,9,1,30240.0000,'2015-03-05 16:46:49','2015-03-06 01:10:49','2017-03-24 13:53:49','2017-03-24 13:53:49'),(185,18,23,4,30240.0000,'2014-09-04 15:41:51','2014-09-05 00:05:51','2017-03-24 13:53:49','2017-03-24 13:53:49'),(186,13,21,1,30240.0000,'2015-02-19 02:50:44','2015-02-19 11:14:44','2017-03-24 13:53:49','2017-03-24 13:53:49'),(187,18,23,5,30240.0000,'2016-12-20 10:11:49','2016-12-20 18:35:49','2017-03-24 13:53:49','2017-03-24 13:53:49'),(188,18,20,5,30240.0000,'2016-08-14 11:12:24','2016-08-14 19:36:24','2017-03-24 13:53:49','2017-03-24 13:53:49'),(189,15,25,2,30240.0000,'2016-02-24 14:30:01','2016-02-24 22:54:01','2017-03-24 13:53:49','2017-03-24 13:53:49'),(190,19,19,4,30240.0000,'2015-03-26 08:26:21','2015-03-26 16:50:21','2017-03-24 13:53:49','2017-03-24 13:53:49'),(191,15,24,6,30240.0000,'2015-01-13 18:31:40','2015-01-14 02:55:40','2017-03-24 13:53:49','2017-03-24 13:53:49'),(192,18,12,4,30240.0000,'2015-03-22 10:51:18','2015-03-22 19:15:18','2017-03-24 13:53:49','2017-03-24 13:53:49'),(193,20,14,6,30240.0000,'2016-10-02 02:10:34','2016-10-02 10:34:34','2017-03-24 13:53:49','2017-03-24 13:53:49'),(194,21,25,5,30240.0000,'2015-09-08 20:00:51','2015-09-09 04:24:51','2017-03-24 13:53:49','2017-03-24 13:53:49'),(195,19,8,6,30240.0000,'2016-12-12 13:02:12','2016-12-12 21:26:12','2017-03-24 13:53:49','2017-03-24 13:53:49'),(196,17,7,5,30240.0000,'2016-12-09 23:14:33','2016-12-10 07:38:33','2017-03-24 13:53:49','2017-03-24 13:53:49'),(197,12,19,4,30240.0000,'2014-12-04 16:24:14','2014-12-05 00:48:14','2017-03-24 13:53:49','2017-03-24 13:53:49'),(198,19,21,4,30240.0000,'2014-09-29 01:24:25','2014-09-29 09:48:25','2017-03-24 13:53:49','2017-03-24 13:53:49'),(199,13,23,6,30240.0000,'2015-10-07 06:34:26','2015-10-07 14:58:26','2017-03-24 13:53:49','2017-03-24 13:53:49'),(200,15,16,2,30240.0000,'2016-07-09 05:16:50','2016-07-09 13:40:50','2017-03-24 13:53:49','2017-03-24 13:53:49'),(201,12,18,6,30240.0000,'2017-01-17 06:40:17','2017-01-17 15:04:17','2017-03-24 13:53:49','2017-03-24 13:53:49'),(202,24,7,6,153.0000,'2014-12-31 09:08:46','2014-12-31 09:11:19','2017-03-24 13:53:49','2017-03-24 13:53:49'),(203,27,10,1,189.0000,'2016-07-22 21:11:07','2016-07-22 21:14:16','2017-03-24 13:53:49','2017-03-24 13:53:49'),(204,31,17,6,22.0000,'2016-10-06 17:47:54','2016-10-06 17:48:16','2017-03-24 13:53:49','2017-03-24 13:53:49'),(205,27,22,6,66.0000,'2015-09-19 17:31:10','2015-09-19 17:32:16','2017-03-24 13:53:49','2017-03-24 13:53:49'),(206,27,9,1,188.0000,'2014-08-23 13:44:48','2014-08-23 13:47:56','2017-03-24 13:53:49','2017-03-24 13:53:49'),(207,26,25,5,145.0000,'2015-03-04 20:11:40','2015-03-04 20:14:05','2017-03-24 13:53:49','2017-03-24 13:53:49'),(208,26,26,4,42.0000,'2016-10-01 14:17:42','2016-10-01 14:18:24','2017-03-24 13:53:49','2017-03-24 13:53:49'),(209,25,19,1,150.0000,'2015-04-16 09:28:27','2015-04-16 09:30:57','2017-03-24 13:53:49','2017-03-24 13:53:49'),(210,28,9,4,91.0000,'2015-12-04 02:59:45','2015-12-04 03:01:16','2017-03-24 13:53:49','2017-03-24 13:53:49'),(211,29,11,4,153.0000,'2014-07-04 08:18:30','2014-07-04 08:21:03','2017-03-24 13:53:49','2017-03-24 13:53:49'),(212,27,17,3,197.0000,'2016-06-07 15:44:19','2016-06-07 15:47:36','2017-03-24 13:53:49','2017-03-24 13:53:49'),(213,24,24,1,137.0000,'2016-01-13 15:05:03','2016-01-13 15:07:20','2017-03-24 13:53:49','2017-03-24 13:53:49'),(214,30,16,3,63.0000,'2016-09-27 10:17:22','2016-09-27 10:18:25','2017-03-24 13:53:49','2017-03-24 13:53:49'),(215,28,7,2,4.0000,'2015-06-06 08:26:06','2015-06-06 08:26:10','2017-03-24 13:53:49','2017-03-24 13:53:49'),(216,28,19,5,160.0000,'2016-09-13 01:55:59','2016-09-13 01:58:39','2017-03-24 13:53:49','2017-03-24 13:53:49'),(217,25,20,1,125.0000,'2016-01-17 07:47:49','2016-01-17 07:49:54','2017-03-24 13:53:49','2017-03-24 13:53:49'),(218,31,20,5,18.0000,'2016-10-08 07:26:49','2016-10-08 07:27:07','2017-03-24 13:53:49','2017-03-24 13:53:49'),(219,22,26,3,147.0000,'2016-12-28 18:21:47','2016-12-28 18:24:14','2017-03-24 13:53:49','2017-03-24 13:53:49'),(220,23,9,6,81.0000,'2014-07-02 11:07:11','2014-07-02 11:08:32','2017-03-24 13:53:49','2017-03-24 13:53:49'),(221,25,26,1,146.0000,'2015-08-07 19:44:21','2015-08-07 19:46:47','2017-03-24 13:53:49','2017-03-24 13:53:49'),(222,29,26,1,122.0000,'2014-10-24 16:00:17','2014-10-24 16:02:19','2017-03-24 13:53:49','2017-03-24 13:53:49'),(223,28,12,3,25.0000,'2016-01-17 20:20:31','2016-01-17 20:20:56','2017-03-24 13:53:49','2017-03-24 13:53:49'),(224,29,7,2,125.0000,'2016-03-21 23:58:39','2016-03-22 00:00:44','2017-03-24 13:53:49','2017-03-24 13:53:49'),(225,30,17,4,195.0000,'2016-06-01 06:13:12','2016-06-01 06:16:27','2017-03-24 13:53:49','2017-03-24 13:53:49'),(226,30,26,5,59.0000,'2016-04-21 19:42:18','2016-04-21 19:43:17','2017-03-24 13:53:49','2017-03-24 13:53:49'),(227,22,12,2,41.0000,'2016-07-12 06:26:57','2016-07-12 06:27:38','2017-03-24 13:53:49','2017-03-24 13:53:49'),(228,30,15,2,4.0000,'2015-06-05 06:18:34','2015-06-05 06:18:38','2017-03-24 13:53:49','2017-03-24 13:53:49'),(229,26,23,1,141.0000,'2014-10-10 18:53:37','2014-10-10 18:55:58','2017-03-24 13:53:49','2017-03-24 13:53:49'),(230,27,8,3,6.0000,'2014-11-26 08:32:30','2014-11-26 08:32:36','2017-03-24 13:53:49','2017-03-24 13:53:49'),(231,27,17,3,78.0000,'2014-08-18 05:37:08','2014-08-18 05:38:26','2017-03-24 13:53:49','2017-03-24 13:53:49'),(232,30,17,1,76.0000,'2014-09-15 23:00:46','2014-09-15 23:02:02','2017-03-24 13:53:49','2017-03-24 13:53:49'),(233,28,7,5,14.0000,'2016-03-24 11:35:43','2016-03-24 11:35:57','2017-03-24 13:53:49','2017-03-24 13:53:49'),(234,27,26,5,195.0000,'2016-09-10 13:30:45','2016-09-10 13:34:00','2017-03-24 13:53:49','2017-03-24 13:53:49'),(235,30,20,1,6.0000,'2015-04-16 20:07:11','2015-04-16 20:07:17','2017-03-24 13:53:49','2017-03-24 13:53:49'),(236,30,18,2,1.0000,'2015-07-04 16:14:45','2015-07-04 16:14:46','2017-03-24 13:53:49','2017-03-24 13:53:49'),(237,30,17,5,26.0000,'2016-12-02 16:11:10','2016-12-02 16:11:36','2017-03-24 13:53:49','2017-03-24 13:53:49'),(238,31,25,3,75.0000,'2015-06-06 19:10:55','2015-06-06 19:12:10','2017-03-24 13:53:49','2017-03-24 13:53:49'),(239,22,19,5,114.0000,'2017-01-17 05:59:18','2017-01-17 06:01:12','2017-03-24 13:53:49','2017-03-24 13:53:49'),(240,22,12,3,135.0000,'2016-06-17 14:20:49','2016-06-17 14:23:04','2017-03-24 13:53:49','2017-03-24 13:53:49'),(241,23,20,4,67.0000,'2015-04-18 12:47:01','2015-04-18 12:48:08','2017-03-24 13:53:49','2017-03-24 13:53:49'),(242,28,10,4,70.0000,'2015-12-19 12:49:38','2015-12-19 12:50:48','2017-03-24 13:53:49','2017-03-24 13:53:49'),(243,27,13,6,123.0000,'2015-12-28 01:53:37','2015-12-28 01:55:40','2017-03-24 13:53:49','2017-03-24 13:53:49'),(244,22,19,4,183.0000,'2016-06-23 09:36:06','2016-06-23 09:39:09','2017-03-24 13:53:49','2017-03-24 13:53:49'),(245,22,21,1,117.0000,'2014-12-17 10:19:01','2014-12-17 10:20:58','2017-03-24 13:53:49','2017-03-24 13:53:49'),(246,29,18,6,67.0000,'2015-02-08 12:04:08','2015-02-08 12:05:15','2017-03-24 13:53:49','2017-03-24 13:53:49'),(247,24,17,2,18.0000,'2015-05-28 04:13:22','2015-05-28 04:13:40','2017-03-24 13:53:49','2017-03-24 13:53:49'),(248,24,9,1,62.0000,'2017-01-14 08:08:15','2017-01-14 08:09:17','2017-03-24 13:53:49','2017-03-24 13:53:49'),(249,31,23,6,3.0000,'2017-02-07 12:36:37','2017-02-07 12:36:40','2017-03-24 13:53:49','2017-03-24 13:53:49'),(250,27,8,2,118.0000,'2016-11-22 12:01:49','2016-11-22 12:03:47','2017-03-24 13:53:49','2017-03-24 13:53:49'),(251,31,25,3,124.0000,'2015-11-07 19:02:45','2015-11-07 19:04:49','2017-03-24 13:53:49','2017-03-24 13:53:49'),(252,29,26,3,192.0000,'2014-08-16 19:49:48','2014-08-16 19:53:00','2017-03-24 13:53:49','2017-03-24 13:53:49'),(253,22,10,5,138.0000,'2015-04-09 18:31:29','2015-04-09 18:33:47','2017-03-24 13:53:49','2017-03-24 13:53:49'),(254,28,11,3,153.0000,'2016-03-15 08:54:22','2016-03-15 08:56:55','2017-03-24 13:53:49','2017-03-24 13:53:49'),(255,26,13,2,94.0000,'2016-03-17 15:55:53','2016-03-17 15:57:27','2017-03-24 13:53:49','2017-03-24 13:53:49'),(256,29,11,3,8.0000,'2014-08-13 09:01:40','2014-08-13 09:01:48','2017-03-24 13:53:49','2017-03-24 13:53:49'),(257,31,15,3,110.0000,'2014-11-10 16:13:57','2014-11-10 16:15:47','2017-03-24 13:53:49','2017-03-24 13:53:49'),(258,31,15,4,93.0000,'2016-05-17 19:54:47','2016-05-17 19:56:20','2017-03-24 13:53:49','2017-03-24 13:53:49'),(259,28,9,5,86.0000,'2015-11-12 04:12:43','2015-11-12 04:14:09','2017-03-24 13:53:49','2017-03-24 13:53:49'),(260,23,21,2,143.0000,'2017-02-27 01:43:08','2017-02-27 01:45:31','2017-03-24 13:53:49','2017-03-24 13:53:49'),(261,24,15,1,54.0000,'2015-09-11 16:14:13','2015-09-11 16:15:07','2017-03-24 13:53:49','2017-03-24 13:53:49'),(262,25,14,2,142.0000,'2015-07-17 08:34:43','2015-07-17 08:37:05','2017-03-24 13:53:49','2017-03-24 13:53:49'),(263,26,24,6,130.0000,'2015-08-06 07:00:08','2015-08-06 07:02:18','2017-03-24 13:53:49','2017-03-24 13:53:49'),(264,29,10,1,199.0000,'2015-01-04 07:55:33','2015-01-04 07:58:52','2017-03-24 13:53:49','2017-03-24 13:53:49'),(265,24,15,1,125.0000,'2015-03-02 11:11:26','2015-03-02 11:13:31','2017-03-24 13:53:49','2017-03-24 13:53:49'),(266,31,8,4,110.0000,'2016-08-20 12:50:07','2016-08-20 12:51:57','2017-03-24 13:53:49','2017-03-24 13:53:49'),(267,24,8,1,131.0000,'2015-09-03 06:19:45','2015-09-03 06:21:56','2017-03-24 13:53:49','2017-03-24 13:53:49'),(268,26,12,3,142.0000,'2014-09-25 12:57:24','2014-09-25 12:59:46','2017-03-24 13:53:49','2017-03-24 13:53:49'),(269,23,23,5,168.0000,'2015-12-02 12:42:19','2015-12-02 12:45:07','2017-03-24 13:53:49','2017-03-24 13:53:49'),(270,25,15,2,97.0000,'2016-11-24 23:51:56','2016-11-24 23:53:33','2017-03-24 13:53:49','2017-03-24 13:53:49'),(271,30,8,4,63.0000,'2016-06-17 21:51:06','2016-06-17 21:52:09','2017-03-24 13:53:49','2017-03-24 13:53:49'),(272,27,8,4,55.0000,'2016-11-23 14:36:10','2016-11-23 14:37:05','2017-03-24 13:53:49','2017-03-24 13:53:49'),(273,25,9,1,192.0000,'2016-05-19 07:35:35','2016-05-19 07:38:47','2017-03-24 13:53:49','2017-03-24 13:53:49'),(274,28,24,3,37.0000,'2015-04-14 05:29:52','2015-04-14 05:30:29','2017-03-24 13:53:49','2017-03-24 13:53:49'),(275,29,26,6,75.0000,'2015-03-27 07:32:28','2015-03-27 07:33:43','2017-03-24 13:53:49','2017-03-24 13:53:49'),(276,26,23,6,133.0000,'2014-11-10 10:07:41','2014-11-10 10:09:54','2017-03-24 13:53:49','2017-03-24 13:53:49'),(277,27,24,4,146.0000,'2016-06-07 22:31:23','2016-06-07 22:33:49','2017-03-24 13:53:49','2017-03-24 13:53:49'),(278,25,22,6,13.0000,'2015-11-02 11:11:37','2015-11-02 11:11:50','2017-03-24 13:53:49','2017-03-24 13:53:49'),(279,23,13,6,181.0000,'2015-09-03 04:49:12','2015-09-03 04:52:13','2017-03-24 13:53:49','2017-03-24 13:53:49'),(280,27,8,4,93.0000,'2015-07-03 18:31:12','2015-07-03 18:32:45','2017-03-24 13:53:49','2017-03-24 13:53:49'),(281,24,23,2,185.0000,'2016-03-31 18:28:01','2016-03-31 18:31:06','2017-03-24 13:53:49','2017-03-24 13:53:49'),(282,25,22,1,80.0000,'2015-03-20 18:27:57','2015-03-20 18:29:17','2017-03-24 13:53:49','2017-03-24 13:53:49'),(283,23,23,4,62.0000,'2015-06-29 18:12:47','2015-06-29 18:13:49','2017-03-24 13:53:49','2017-03-24 13:53:49'),(284,22,14,6,158.0000,'2015-07-01 01:50:24','2015-07-01 01:53:02','2017-03-24 13:53:49','2017-03-24 13:53:49'),(285,22,24,3,143.0000,'2015-08-07 07:05:28','2015-08-07 07:07:51','2017-03-24 13:53:49','2017-03-24 13:53:49'),(286,30,7,3,185.0000,'2015-01-20 13:16:02','2015-01-20 13:19:07','2017-03-24 13:53:49','2017-03-24 13:53:49'),(287,23,21,2,99.0000,'2014-12-23 18:49:00','2014-12-23 18:50:39','2017-03-24 13:53:49','2017-03-24 13:53:49'),(288,29,13,2,43.0000,'2016-12-03 08:49:11','2016-12-03 08:49:54','2017-03-24 13:53:49','2017-03-24 13:53:49'),(289,31,15,5,175.0000,'2014-09-02 03:52:00','2014-09-02 03:54:55','2017-03-24 13:53:49','2017-03-24 13:53:49'),(290,29,18,6,187.0000,'2016-03-10 22:07:19','2016-03-10 22:10:26','2017-03-24 13:53:49','2017-03-24 13:53:49'),(291,29,22,3,97.0000,'2014-12-02 03:44:21','2014-12-02 03:45:58','2017-03-24 13:53:49','2017-03-24 13:53:49'),(292,25,17,6,83.0000,'2015-02-25 14:07:58','2015-02-25 14:09:21','2017-03-24 13:53:49','2017-03-24 13:53:49'),(293,30,24,2,17.0000,'2016-11-24 13:40:40','2016-11-24 13:40:57','2017-03-24 13:53:49','2017-03-24 13:53:49'),(294,27,12,3,149.0000,'2016-08-06 22:29:21','2016-08-06 22:31:50','2017-03-24 13:53:49','2017-03-24 13:53:49'),(295,24,15,5,17.0000,'2015-08-01 14:38:57','2015-08-01 14:39:14','2017-03-24 13:53:49','2017-03-24 13:53:49'),(296,30,22,5,120.0000,'2016-07-20 22:51:00','2016-07-20 22:53:00','2017-03-24 13:53:49','2017-03-24 13:53:49'),(297,24,10,6,27.0000,'2015-09-20 08:45:52','2015-09-20 08:46:19','2017-03-24 13:53:49','2017-03-24 13:53:49'),(298,27,12,3,14.0000,'2015-08-22 15:21:23','2015-08-22 15:21:37','2017-03-24 13:53:49','2017-03-24 13:53:49'),(299,24,22,4,155.0000,'2017-02-22 20:35:11','2017-02-22 20:37:46','2017-03-24 13:53:49','2017-03-24 13:53:49'),(300,26,16,3,83.0000,'2014-08-28 14:41:54','2014-08-28 14:43:17','2017-03-24 13:53:49','2017-03-24 13:53:49'),(301,26,19,1,140.0000,'2016-10-04 21:23:42','2016-10-04 21:26:02','2017-03-24 13:53:49','2017-03-24 13:53:49'),(302,40,21,1,1.0000,'2016-06-28 06:27:15','2016-06-28 06:27:16','2017-03-24 13:53:49','2017-03-24 13:53:49'),(303,38,16,3,1.0000,'2016-10-25 06:10:11','2016-10-25 06:10:12','2017-03-24 13:53:49','2017-03-24 13:53:49'),(304,33,22,4,1.0000,'2016-03-20 17:32:41','2016-03-20 17:32:42','2017-03-24 13:53:49','2017-03-24 13:53:49'),(305,39,12,3,1.0000,'2016-05-13 20:04:47','2016-05-13 20:04:48','2017-03-24 13:53:49','2017-03-24 13:53:49'),(306,37,16,1,1.0000,'2016-07-25 11:46:55','2016-07-25 11:46:56','2017-03-24 13:53:49','2017-03-24 13:53:49'),(307,34,7,1,1.0000,'2016-08-30 07:14:27','2016-08-30 07:14:28','2017-03-24 13:53:49','2017-03-24 13:53:49'),(308,37,12,5,1.0000,'2014-09-06 13:44:34','2014-09-06 13:44:35','2017-03-24 13:53:49','2017-03-24 13:53:49'),(309,36,24,1,1.0000,'2015-03-23 06:23:51','2015-03-23 06:23:52','2017-03-24 13:53:49','2017-03-24 13:53:49'),(310,40,26,5,1.0000,'2015-11-17 16:51:53','2015-11-17 16:51:54','2017-03-24 13:53:49','2017-03-24 13:53:49'),(311,32,10,2,1.0000,'2016-08-16 16:22:53','2016-08-16 16:22:54','2017-03-24 13:53:49','2017-03-24 13:53:49'),(312,37,12,6,1.0000,'2016-12-18 05:09:42','2016-12-18 05:09:43','2017-03-24 13:53:49','2017-03-24 13:53:49'),(313,34,21,6,1.0000,'2016-07-31 18:56:16','2016-07-31 18:56:17','2017-03-24 13:53:49','2017-03-24 13:53:49'),(314,39,19,4,1.0000,'2017-02-23 03:37:29','2017-02-23 03:37:30','2017-03-24 13:53:49','2017-03-24 13:53:49'),(315,38,17,5,1.0000,'2015-09-28 16:13:09','2015-09-28 16:13:10','2017-03-24 13:53:49','2017-03-24 13:53:49'),(316,32,25,5,1.0000,'2015-08-01 09:13:10','2015-08-01 09:13:11','2017-03-24 13:53:49','2017-03-24 13:53:49'),(317,38,19,2,1.0000,'2015-01-21 10:09:07','2015-01-21 10:09:08','2017-03-24 13:53:49','2017-03-24 13:53:49'),(318,38,14,1,1.0000,'2016-01-21 08:37:16','2016-01-21 08:37:17','2017-03-24 13:53:49','2017-03-24 13:53:49'),(319,34,24,3,1.0000,'2016-09-14 06:12:18','2016-09-14 06:12:19','2017-03-24 13:53:49','2017-03-24 13:53:49'),(320,38,26,1,1.0000,'2016-04-09 06:55:12','2016-04-09 06:55:13','2017-03-24 13:53:49','2017-03-24 13:53:49'),(321,37,22,5,1.0000,'2016-02-07 06:54:43','2016-02-07 06:54:44','2017-03-24 13:53:49','2017-03-24 13:53:49'),(322,38,19,5,1.0000,'2017-03-22 14:11:50','2017-03-22 14:11:51','2017-03-24 13:53:49','2017-03-24 13:53:49'),(323,33,9,5,1.0000,'2014-09-02 02:51:04','2014-09-02 02:51:05','2017-03-24 13:53:49','2017-03-24 13:53:49'),(324,40,26,2,1.0000,'2016-03-11 03:02:12','2016-03-11 03:02:13','2017-03-24 13:53:49','2017-03-24 13:53:49'),(325,33,24,4,1.0000,'2016-02-27 20:14:17','2016-02-27 20:14:18','2017-03-24 13:53:49','2017-03-24 13:53:49'),(326,39,23,1,1.0000,'2014-11-08 15:40:42','2014-11-08 15:40:43','2017-03-24 13:53:49','2017-03-24 13:53:49'),(327,32,23,3,1.0000,'2015-10-25 11:24:16','2015-10-25 11:24:17','2017-03-24 13:53:49','2017-03-24 13:53:49'),(328,35,17,5,1.0000,'2015-01-14 12:06:18','2015-01-14 12:06:19','2017-03-24 13:53:49','2017-03-24 13:53:49'),(329,34,7,2,1.0000,'2015-02-26 02:44:37','2015-02-26 02:44:38','2017-03-24 13:53:49','2017-03-24 13:53:49'),(330,33,9,3,1.0000,'2016-05-18 08:47:49','2016-05-18 08:47:50','2017-03-24 13:53:49','2017-03-24 13:53:49'),(331,32,8,3,1.0000,'2016-12-12 19:23:55','2016-12-12 19:23:56','2017-03-24 13:53:49','2017-03-24 13:53:49'),(332,32,21,3,1.0000,'2016-12-30 05:11:07','2016-12-30 05:11:08','2017-03-24 13:53:49','2017-03-24 13:53:49'),(333,38,9,1,1.0000,'2016-02-14 22:26:27','2016-02-14 22:26:28','2017-03-24 13:53:49','2017-03-24 13:53:49'),(334,32,25,6,1.0000,'2014-10-23 13:03:49','2014-10-23 13:03:50','2017-03-24 13:53:49','2017-03-24 13:53:49'),(335,38,17,1,1.0000,'2016-04-26 09:21:19','2016-04-26 09:21:20','2017-03-24 13:53:49','2017-03-24 13:53:49'),(336,38,14,5,1.0000,'2015-04-09 14:17:53','2015-04-09 14:17:54','2017-03-24 13:53:49','2017-03-24 13:53:49'),(337,36,26,1,1.0000,'2015-04-07 01:24:17','2015-04-07 01:24:18','2017-03-24 13:53:49','2017-03-24 13:53:49'),(338,38,21,2,1.0000,'2014-09-20 22:03:51','2014-09-20 22:03:52','2017-03-24 13:53:49','2017-03-24 13:53:49'),(339,34,22,2,1.0000,'2015-07-18 02:28:15','2015-07-18 02:28:16','2017-03-24 13:53:49','2017-03-24 13:53:49'),(340,41,13,3,1.0000,'2016-06-07 04:58:08','2016-06-07 04:58:09','2017-03-24 13:53:49','2017-03-24 13:53:49'),(341,32,11,3,1.0000,'2016-03-11 01:14:14','2016-03-11 01:14:15','2017-03-24 13:53:49','2017-03-24 13:53:49'),(342,33,11,2,1.0000,'2017-02-24 21:19:36','2017-02-24 21:19:37','2017-03-24 13:53:49','2017-03-24 13:53:49'),(343,41,22,5,1.0000,'2015-04-05 22:53:25','2015-04-05 22:53:26','2017-03-24 13:53:49','2017-03-24 13:53:49'),(344,35,25,3,1.0000,'2016-11-18 08:36:54','2016-11-18 08:36:55','2017-03-24 13:53:49','2017-03-24 13:53:49'),(345,41,22,3,1.0000,'2016-12-07 22:46:15','2016-12-07 22:46:16','2017-03-24 13:53:49','2017-03-24 13:53:49'),(346,33,20,2,1.0000,'2015-07-14 04:21:40','2015-07-14 04:21:41','2017-03-24 13:53:49','2017-03-24 13:53:49'),(347,35,22,5,1.0000,'2017-02-02 12:37:32','2017-02-02 12:37:33','2017-03-24 13:53:49','2017-03-24 13:53:49'),(348,38,26,4,1.0000,'2016-10-04 05:23:19','2016-10-04 05:23:20','2017-03-24 13:53:49','2017-03-24 13:53:49'),(349,39,21,1,1.0000,'2015-09-23 08:08:29','2015-09-23 08:08:30','2017-03-24 13:53:49','2017-03-24 13:53:49'),(350,37,13,5,1.0000,'2015-04-04 23:21:23','2015-04-04 23:21:24','2017-03-24 13:53:49','2017-03-24 13:53:49'),(351,38,17,4,1.0000,'2016-05-07 21:28:56','2016-05-07 21:28:57','2017-03-24 13:53:49','2017-03-24 13:53:49'),(352,32,25,6,1.0000,'2014-08-19 16:06:30','2014-08-19 16:06:31','2017-03-24 13:53:49','2017-03-24 13:53:49'),(353,38,10,4,1.0000,'2015-12-30 22:47:11','2015-12-30 22:47:12','2017-03-24 13:53:49','2017-03-24 13:53:49'),(354,35,14,2,1.0000,'2015-01-27 14:38:51','2015-01-27 14:38:52','2017-03-24 13:53:49','2017-03-24 13:53:49'),(355,37,25,5,1.0000,'2017-01-13 01:51:31','2017-01-13 01:51:32','2017-03-24 13:53:49','2017-03-24 13:53:49'),(356,39,10,1,1.0000,'2014-12-22 13:47:46','2014-12-22 13:47:47','2017-03-24 13:53:49','2017-03-24 13:53:49'),(357,32,7,3,1.0000,'2016-08-08 15:05:06','2016-08-08 15:05:07','2017-03-24 13:53:49','2017-03-24 13:53:49'),(358,32,22,3,1.0000,'2016-06-06 21:07:36','2016-06-06 21:07:37','2017-03-24 13:53:49','2017-03-24 13:53:49'),(359,38,13,4,1.0000,'2016-05-22 01:30:01','2016-05-22 01:30:02','2017-03-24 13:53:49','2017-03-24 13:53:49'),(360,39,9,2,1.0000,'2015-08-08 04:04:31','2015-08-08 04:04:32','2017-03-24 13:53:49','2017-03-24 13:53:49'),(361,39,8,1,1.0000,'2016-11-07 01:13:39','2016-11-07 01:13:40','2017-03-24 13:53:49','2017-03-24 13:53:49'),(362,41,23,5,1.0000,'2014-10-02 17:56:51','2014-10-02 17:56:52','2017-03-24 13:53:49','2017-03-24 13:53:49'),(363,41,14,5,1.0000,'2015-07-06 01:35:13','2015-07-06 01:35:14','2017-03-24 13:53:49','2017-03-24 13:53:49'),(364,32,19,1,1.0000,'2017-03-05 12:01:48','2017-03-05 12:01:49','2017-03-24 13:53:49','2017-03-24 13:53:49'),(365,34,19,1,1.0000,'2015-12-06 13:52:11','2015-12-06 13:52:12','2017-03-24 13:53:49','2017-03-24 13:53:49'),(366,41,11,6,1.0000,'2016-03-26 06:33:49','2016-03-26 06:33:50','2017-03-24 13:53:49','2017-03-24 13:53:49'),(367,35,23,1,1.0000,'2014-08-16 08:30:24','2014-08-16 08:30:25','2017-03-24 13:53:49','2017-03-24 13:53:49'),(368,39,21,4,1.0000,'2015-01-02 07:11:23','2015-01-02 07:11:24','2017-03-24 13:53:49','2017-03-24 13:53:49'),(369,33,18,2,1.0000,'2016-02-15 12:52:39','2016-02-15 12:52:40','2017-03-24 13:53:49','2017-03-24 13:53:49'),(370,41,16,1,1.0000,'2014-11-26 18:58:28','2014-11-26 18:58:29','2017-03-24 13:53:49','2017-03-24 13:53:49'),(371,41,25,1,1.0000,'2014-10-06 08:13:32','2014-10-06 08:13:33','2017-03-24 13:53:49','2017-03-24 13:53:49'),(372,32,9,1,1.0000,'2015-11-20 14:06:32','2015-11-20 14:06:33','2017-03-24 13:53:49','2017-03-24 13:53:49'),(373,34,16,6,1.0000,'2016-04-29 13:51:45','2016-04-29 13:51:46','2017-03-24 13:53:49','2017-03-24 13:53:49'),(374,40,17,2,1.0000,'2017-02-13 17:54:02','2017-02-13 17:54:03','2017-03-24 13:53:49','2017-03-24 13:53:49'),(375,36,16,6,1.0000,'2015-11-11 13:52:51','2015-11-11 13:52:52','2017-03-24 13:53:49','2017-03-24 13:53:49'),(376,35,16,4,1.0000,'2015-10-05 21:44:29','2015-10-05 21:44:30','2017-03-24 13:53:49','2017-03-24 13:53:49'),(377,32,8,3,1.0000,'2014-10-17 08:49:33','2014-10-17 08:49:34','2017-03-24 13:53:49','2017-03-24 13:53:49'),(378,38,13,6,1.0000,'2014-09-08 15:56:08','2014-09-08 15:56:09','2017-03-24 13:53:49','2017-03-24 13:53:49'),(379,38,24,5,1.0000,'2015-02-08 06:26:59','2015-02-08 06:27:00','2017-03-24 13:53:49','2017-03-24 13:53:49'),(380,33,9,3,1.0000,'2015-12-16 18:23:45','2015-12-16 18:23:46','2017-03-24 13:53:49','2017-03-24 13:53:49'),(381,38,13,1,1.0000,'2017-01-31 06:46:51','2017-01-31 06:46:52','2017-03-24 13:53:49','2017-03-24 13:53:49'),(382,34,9,3,1.0000,'2016-04-29 03:58:22','2016-04-29 03:58:23','2017-03-24 13:53:49','2017-03-24 13:53:49'),(383,41,24,3,1.0000,'2015-07-06 22:26:27','2015-07-06 22:26:28','2017-03-24 13:53:49','2017-03-24 13:53:49'),(384,37,26,1,1.0000,'2014-11-25 13:59:50','2014-11-25 13:59:51','2017-03-24 13:53:49','2017-03-24 13:53:49'),(385,35,8,4,1.0000,'2014-10-10 09:46:26','2014-10-10 09:46:27','2017-03-24 13:53:49','2017-03-24 13:53:49'),(386,40,20,4,1.0000,'2015-12-25 19:30:22','2015-12-25 19:30:23','2017-03-24 13:53:49','2017-03-24 13:53:49'),(387,36,14,1,1.0000,'2015-07-30 06:17:01','2015-07-30 06:17:02','2017-03-24 13:53:49','2017-03-24 13:53:49'),(388,33,13,4,1.0000,'2016-12-18 04:32:43','2016-12-18 04:32:44','2017-03-24 13:53:49','2017-03-24 13:53:49'),(389,39,11,4,1.0000,'2015-07-09 14:22:01','2015-07-09 14:22:02','2017-03-24 13:53:49','2017-03-24 13:53:49'),(390,33,19,1,1.0000,'2015-10-29 03:15:23','2015-10-29 03:15:24','2017-03-24 13:53:49','2017-03-24 13:53:49'),(391,38,10,2,1.0000,'2015-12-11 07:52:39','2015-12-11 07:52:40','2017-03-24 13:53:49','2017-03-24 13:53:49'),(392,33,11,5,1.0000,'2015-11-05 13:40:02','2015-11-05 13:40:03','2017-03-24 13:53:49','2017-03-24 13:53:49'),(393,40,16,6,1.0000,'2016-12-01 20:56:16','2016-12-01 20:56:17','2017-03-24 13:53:49','2017-03-24 13:53:49'),(394,41,17,2,1.0000,'2015-06-22 23:29:30','2015-06-22 23:29:31','2017-03-24 13:53:49','2017-03-24 13:53:49'),(395,35,12,6,1.0000,'2016-07-31 15:24:31','2016-07-31 15:24:32','2017-03-24 13:53:49','2017-03-24 13:53:49'),(396,34,26,4,1.0000,'2016-10-09 18:02:05','2016-10-09 18:02:06','2017-03-24 13:53:49','2017-03-24 13:53:49'),(397,41,14,5,1.0000,'2014-10-09 08:30:28','2014-10-09 08:30:29','2017-03-24 13:53:49','2017-03-24 13:53:49'),(398,37,15,6,1.0000,'2016-05-19 08:48:13','2016-05-19 08:48:14','2017-03-24 13:53:49','2017-03-24 13:53:49'),(399,35,16,4,1.0000,'2016-06-24 09:14:56','2016-06-24 09:14:57','2017-03-24 13:53:49','2017-03-24 13:53:49'),(400,40,14,6,1.0000,'2016-08-23 03:37:58','2016-08-23 03:37:59','2017-03-24 13:53:49','2017-03-24 13:53:49'),(401,36,11,6,1.0000,'2014-07-14 03:56:15','2014-07-14 03:56:16','2017-03-24 13:53:49','2017-03-24 13:53:49');
 /*!40000 ALTER TABLE `timeslices` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `users`
---
-
-DROP TABLE IF EXISTS `users`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `users` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `username` varchar(180) COLLATE utf8_unicode_ci NOT NULL,
-  `username_canonical` varchar(180) COLLATE utf8_unicode_ci NOT NULL,
-  `email` varchar(180) COLLATE utf8_unicode_ci NOT NULL,
-  `email_canonical` varchar(180) COLLATE utf8_unicode_ci NOT NULL,
-  `enabled` tinyint(1) NOT NULL,
-  `salt` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `password` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `last_login` datetime DEFAULT NULL,
-  `confirmation_token` varchar(180) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `password_requested_at` datetime DEFAULT NULL,
-  `roles` longtext COLLATE utf8_unicode_ci NOT NULL COMMENT '(DC2Type:array)',
-  `firstname` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `lastname` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `created_at` datetime NOT NULL,
-  `updated_at` datetime NOT NULL,
-  `employeeholiday` int(11) DEFAULT NULL,
-  `extend_timetrack` tinyint(1) DEFAULT 1 NOT NULL,
-  `discr` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `UNIQ_1483A5E992FC23A8` (`username_canonical`),
-  UNIQUE KEY `UNIQ_1483A5E9A0D96FBF` (`email_canonical`),
-  UNIQUE KEY `UNIQ_1483A5E9C05FB297` (`confirmation_token`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `users`
