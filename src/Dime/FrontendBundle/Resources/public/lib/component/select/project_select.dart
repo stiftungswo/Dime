@@ -8,13 +8,16 @@ part of entity_select;
       'project': '<=>selectedEntity',
       'callback': '&callback',
       'field': '=>!field',
-      'clearOnClose': '=>!clearOnClose'
+      'clearOnClose': '=>!clearOnClose',
+      'hideArchived': '=>!hideArchived'
     }
 )
 class ProjectSelectComponent extends EntitySelect {
   ProjectSelectComponent(DataCache store, dom.Element element, StatusService status, UserAuthProvider auth): super(Project, store, element, status, auth);
+  
+  bool hideArchived = false;
 
-  projectFilter(Project item, String search){
+  projectFilter(Project item, String search){  
     if (item.id.toString() == search){
       return true;
     }
