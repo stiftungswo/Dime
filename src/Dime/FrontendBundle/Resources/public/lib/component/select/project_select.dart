@@ -17,7 +17,7 @@ class ProjectSelectComponent extends EntitySelect {
   
   bool hideArchived = false;
 
-  projectFilter(Project item, String search){  
+  projectFilter(Project item, String search){
     if (item.id.toString() == search){
       return true;
     }
