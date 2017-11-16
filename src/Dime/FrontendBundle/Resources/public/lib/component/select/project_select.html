@@ -2,7 +2,7 @@
   <input ng-required="required" name="project_select" class="form-control" type="text" ng-model="selector" placeholder="{{placeholder}}" ng-click="toggleSelectionBox()" style="width: 100%;">
 
   <div class="dropdown-menu select-dropdown">
-    <div ng-repeat="entity in entities | filter:selector:projectFilter | orderBy:'name'" ng-hide="hideArchived && entity.archived == true">
+    <div ng-repeat="entity in entities | filter:selector:projectFilter | orderBy:'name'" ng-hide="hideArchived && entity.archived">
       <div ng-click="select(entity)" ng-class="{selected: entity.id == selectedEntity.id}">
         <span class="text-muted" style="display: inline-block; width: 30px">{{entity.id}}</span> {{entity.name}}
         <i ng-if="entity.id == selectedEntity.id" class="fa fa-fw fa-check"></i>
