@@ -17,3 +17,7 @@ services:
     dime.offerdiscount.handler:
         class: %generic_handler%
         arguments: [ "@doctrine.orm.entity_manager", "Dime\OfferBundle\Entity\OfferDiscount", "@service_container", "od", "dime_offerbundle_offerdiscountformtype"]
+    twig.extension.markdown:
+        class: Knp\Bundle\MarkdownBundle\Twig\Extension\MarkdownTwigExtension
+        tags:
+            - { name: twig.extension }
