@@ -19,5 +19,6 @@ services:
         arguments: [ "@doctrine.orm.entity_manager", "Dime\OfferBundle\Entity\OfferDiscount", "@service_container", "od", "dime_offerbundle_offerdiscountformtype"]
     twig.extension.markdown:
         class: Knp\Bundle\MarkdownBundle\Twig\Extension\MarkdownTwigExtension
+        arguments: [ "@markdown.parser.parser_manager" ]
         tags:
             - { name: twig.extension }
