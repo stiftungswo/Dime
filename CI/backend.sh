@@ -1,6 +1,6 @@
 #!/bin/bash -x
 cp app/config/parameters.yml.travis app/config/parameters.yml.dist && \
-composer install -n && \
+composer install --no-interaction && \
 php app/console doctrine:database:create && \
 php app/console --no-interaction doctrine:migrations:migrate && \
 mysql dime < env/fixtures/dime.sql && \
