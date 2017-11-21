@@ -2,11 +2,13 @@
 
 Markdown ist eine einfache Art, mit Klartext simple Formatierungen vorzunehmen.
 
-überschriften werden mit `#` (⎇+3 auf Mac) Gemacht
+Überschriften werden mit `#` (⎇+3 auf Mac) Gemacht
 
-*\*kursive\** und **\*\*fette\*\*** Woerter werden mit Sternen umgeben
+Sonderzeichen wie ² oder ɸ können mit der Mac Zeichentabelle (Ctrl+⌘+T) eingefügt oder aus anderen Dokumenten kopiert werden.
 
-Absaetze werden durch eine Leerzeile erreicht
+*\*kursive\** und **\*\*fette\*\*** Wörter werden mit Sternen umgeben
+
+Absätze werden durch eine Leerzeile erreicht
 
 ## Demo
 
@@ -18,7 +20,7 @@ Eine Leerzeile macht einen neuen Absatz.
 Ohne Leerzeile fliesst der Text weiter.
 
 ## Ueberschrift 2
-*Kursive* und **fette** worte werden mit Sternen gemacht. **Auch ganze Saetze koennen fett sein**
+*Kursive* und **fette** Worte werden mit Sternen gemacht. **Auch ganze Sätze können formatiert werden.**
 
 
 ### Ueberschrift 3
@@ -40,7 +42,7 @@ Eine Leerzeile macht einen neuen Absatz.
 Ohne Leerzeile fliesst der Text weiter.
 
 ## Ueberschrift 2
-*Kursive* und **fette** worte werden mit Sternen gemacht. **Auch ganze Saetze koennen fett sein**
+*Kursive* und **fette** Worte werden mit Sternen gemacht. **Auch ganze Sätze können formatiert werden.**
 
 
 ### Ueberschrift 3

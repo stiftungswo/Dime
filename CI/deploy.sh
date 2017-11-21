@@ -31,7 +31,7 @@ fi
 
 
 ssh $TARGET mkdir -p ${PROJECT_DIR} ${PROJECT_DIR}.bak && \
-rsync -ra --exclude '.git' --exclude '.pub-cache' . $TARGET:$TMP && \
+rsync -ra --exclude '.git' --exclude '.pub-cache' --exclude 'dart-sdk' --exclude 'dartsdk-linux-x64-release.zip' . $TARGET:$TMP && \
 ssh $TARGET rm -r ${PROJECT_DIR}.bak && \
 ssh $TARGET mv $PROJECT_DIR ${PROJECT_DIR}.bak && \
 ssh $TARGET mv $TMP $PROJECT_DIR
