@@ -46,8 +46,7 @@
 		"doctrine/migrations": "~1.5",
 		"doctrine/doctrine-migrations-bundle": "1.2.1.*@dev",
 		"psliwa/pdf-bundle": "~1.0@dev",
-		"nesbot/carbon": "dev-master",
-		"knplabs/knp-markdown-bundle": "^1.5"
+		"nesbot/carbon": "dev-master"
 	},
 	"require-dev" : {
 		"h4cc/alice-fixtures-bundle" : "dev-master",
