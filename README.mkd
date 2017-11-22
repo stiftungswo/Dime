@@ -107,6 +107,19 @@ Update database
 
     docker exec -it dime php app/console doctrine:migrations:migrate
 
+## Debugging
+
+In order to debug, you need to install the following things on your developer VM:
+
+* PHP (use `apt install php`)
+* Xdebug helper extensions for chromium: https://chrome.google.com/webstore/detail/xdebug-helper/eadndfjplgieldjbigjakmdgkmoaaaoc
+
+Once you have installed those tools, do the following:
+
+* Enable the debugger in Visual Studio code
+* Browse Dime using chromium and enable the Xdebug helper
+
+Once a breakpoint is hit, you will be able to inspect the code.
 
 ## Bundles
 
