@@ -2,7 +2,7 @@
 
 if [ ! -f $HOME/.ssh/id_rsa ]; then
   echo "Setting up SSH key"
-  ./CI/establish-ssh.sh
+  ./ci/establish-ssh.sh
 fi
 
 case $1 in
@@ -19,7 +19,7 @@ case $1 in
 esac
 
 #Read config env
-export $(ssh $TARGET "cat dime.$ENVIRONMENT.env" | xargs)
+export $(ssh $TARGET "cat deploy/dime.$ENVIRONMENT.env" | xargs)
 
 TMP=dime_deploy_tmp
 BACKUP_DIR=backup/dime/$ENVIRONMENT
