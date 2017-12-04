@@ -40,4 +40,4 @@ ssh $TARGET cp $CONFIG_FILE $PROJECT_DIR/app/config/parameters.yml
 
 ssh $TARGET mkdir -p $BACKUP_DIR
 ssh $TARGET "mysqldump -u $DATABASE_USER -p\"$DATABASE_PW\" $DATABASE | bzip2 -c > $BACKUP_DIR/$DATABASE_$(date +%Y-%m-%d-%H.%M.%S).sql.bz2"
-ssh $TARGET "cd $PROJECT_DIR && php71 app/console doctrine:migrations:migrate --no-interaction"
+ssh $TARGET "cd $PROJECT_DIR && php72 app/console doctrine:migrations:migrate --no-interaction"
