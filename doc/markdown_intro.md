@@ -4,7 +4,7 @@ Markdown ist eine einfache Art, mit Klartext simple Formatierungen vorzunehmen.
 
 Überschriften werden mit `#` (⎇+3 auf Mac) Gemacht
 
-Sonderzeichen wie ² oder ɸ können mit der Mac Zeichentabelle (Ctrl+⌘+T) eingefügt oder aus anderen Dokumenten kopiert werden.
+Sonderzeichen wie ² oder ɸ können mit der Mac Zeichentabelle (Ctrl+⌘+Leertaste) eingefügt oder aus anderen Dokumenten kopiert werden.
 
 *\*kursive\** und **\*\*fette\*\*** Wörter werden mit Sternen umgeben
 
