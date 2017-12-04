@@ -32,12 +32,11 @@ fi
 
 ssh $TARGET mkdir -p ${PROJECT_DIR} ${PROJECT_DIR}.bak && \
 rsync -ra --exclude '.git' --exclude '.pub-cache' --exclude 'dart-sdk' --exclude 'dartsdk-linux-x64-release.zip' . $TARGET:$TMP && \
+ssh $TARGET cp $CONFIG_FILE $TMP/app/config/parameters.yml && \
 ssh $TARGET rm -r ${PROJECT_DIR}.bak && \
 ssh $TARGET mv $PROJECT_DIR ${PROJECT_DIR}.bak && \
 ssh $TARGET mv $TMP $PROJECT_DIR
 
-ssh $TARGET cp $CONFIG_FILE $PROJECT_DIR/app/config/parameters.yml
-
-ssh $TARGET mkdir -p $BACKUP_DIR
-ssh $TARGET "mysqldump -u $DATABASE_USER -p\"$DATABASE_PW\" $DATABASE | bzip2 -c > $BACKUP_DIR/$DATABASE_$(date +%Y-%m-%d-%H.%M.%S).sql.bz2"
+ssh $TARGET mkdir -p $BACKUP_DIR && \
+ssh $TARGET "mysqldump -u $DATABASE_USER -p\"$DATABASE_PW\" $DATABASE | bzip2 -c > $BACKUP_DIR/$DATABASE_$(date +%Y-%m-%d-%H.%M.%S).sql.bz2" && \
 ssh $TARGET "cd $PROJECT_DIR && php72 app/console doctrine:migrations:migrate --no-interaction"
