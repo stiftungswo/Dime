@@ -7,8 +7,11 @@ part of entity_overview;
 )
 class ProjectOverviewComponent extends EntityOverview {
   ProjectOverviewComponent(DataCache store, this.context, Router router, SettingsManager manager, StatusService status, UserAuthProvider auth, RouteProvider prov):
-  super(Project, store, 'project_edit', manager, status, auth: auth, router: router);
+  super(Project, store, 'project_edit', manager, status, auth: auth, router: router){
+    sortReverse = false;
+  }
 
+  bool showArchived = false;
   String sortType = "name";
   UserContext context;
 
@@ -67,5 +70,11 @@ class ProjectOverviewComponent extends EntityOverview {
         this.statusservice.setStatusToError(e);
       }
     }
+  }
+
+  filterArchived() {
+    return (Project entity){
+      return showArchived || !entity.archived;
+    };
   }
 }

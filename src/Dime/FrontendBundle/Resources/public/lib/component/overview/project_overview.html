@@ -11,6 +11,10 @@
     <div class="form-group">
       <input type="text" class="form-control" placeholder="Suche" ng-model="filterString">
     </div>
+    <div class="form-group">
+      <label>Archivierte Projekte anzeigen: </label>
+      <input type="checkbox" ng-model="showArchived">
+    </div>
     <table class="table table-bordered table-hover">
       <thead>
         <tr>
@@ -38,9 +42,10 @@
         </tr>
       </thead>
       <tbody ng-if="entities != null">
-        <tr ng-repeat="entity in entities | orderBy:sortType:sortReverse | filter:searchFilter(['id', 'name', 'alias', 'description'], filterString)" ng-click="selectEntity(entity.id)" ng-doubleclick="openEditView(entity.id)" ng-class="isSelected(entity)? 'info': ''">
+        <tr ng-repeat="entity in entities | filter:searchFilter(['id', 'name', 'alias', 'description'], filterString) | filter:filterArchived() | orderBy:sortType:sortReverse " 
+        ng-click="selectEntity(entity.id)" ng-doubleclick="openEditView(entity.id)" ng-class="isSelected(entity)? 'info': ''">
           <td>{{entity.id}}</td>
-          <td>{{entity.name}}</td>
+          <td>{{entity.name}} <span class="text-muted" ng-if="entity.archived">[ARCHIVIERT]</span></td>
           <td>{{entity.alias}}</td>
           <td>{{entity.description|limitTo:180}}</td>
           <td>
