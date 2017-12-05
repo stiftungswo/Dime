@@ -20,7 +20,7 @@ class ProjectOpenInvoicesComponent extends EntityOverview {
         this.store.evict(this.type);
       }
       this.entities =
-          (await this.store.customQueryList(Invoice, new CustomRequestParams(method: 'GET', url: '/api/v1/projectsopeninvoices'))).toList();
+          (await this.store.customQueryList(Project, new CustomRequestParams(method: 'GET', url: '/api/v1/projectsopeninvoices'))).toList();
       this.statusservice.setStatusToSuccess();
       this.rootScope.emit(this.type.toString() + 'Loaded');
     } catch (e) {
