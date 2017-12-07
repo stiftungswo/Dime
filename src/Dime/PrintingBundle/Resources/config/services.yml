@@ -10,3 +10,8 @@ services:
         public: false
         tags:
             - { name: twig.extension }
+    hpnobreak.twig_extension:
+        class: Dime\PrintingBundle\Extensions\HeaderParagraphNobreakExtension
+        public: false
+        tags:
+            - { name: twig.extension }
