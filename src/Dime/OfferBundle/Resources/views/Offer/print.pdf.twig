@@ -3,7 +3,8 @@
 <pdf>
 	<dynamic-page page-size="a4">
 		<div class="logo"><img src="{{ pdf_image('SwoCommonsBundle:swo_logo_big.png') }}" width="200"/></div>
-		<div class="absenderHeader">
+		<div >
+			Stiftung Wirschaft und Ökologie SWO<br/>
 			Im Schatzacker 5<br/>
 			8600 Dübendorf - Gfenn<br/>
 			Telefon: 044 822 13 40<br/>
@@ -30,7 +31,7 @@
 			<div class="accountant">Sachbearbeiter: {{ offer.accountant }}</div><br/>
 			{% endif %}
 			<div class="idkey">{{ offer.name }}</div><br/>
-			<div class="title">Leistungsangebot Nr. {{ offer.id }}</div><br/>
+			<div class="title-o">Leistungsangebot Nr. {{ offer.id }}</div><br/>
 			{% if offer.project %}
 			<div class="projectID">Auftrag Nr. {{ offer.project.id }}</div><br/>
 			{% endif %}
