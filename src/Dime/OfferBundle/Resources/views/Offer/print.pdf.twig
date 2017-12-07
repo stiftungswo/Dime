@@ -2,6 +2,13 @@
 <!DOCTYPE pdf SYSTEM "%resources%/dtd/doctype.dtd">
 <pdf>
 	<dynamic-page page-size="a4">
+		<placeholders>
+            <footer>
+                <div height="20px" width="100%" class="pagenumber">
+                    <page-info format="Seite %s/%s" />
+                </div>
+            </footer>
+        </placeholders>
 		<div class="logo"><img src="{{ pdf_image('SwoCommonsBundle:swo_logo_big.png') }}" width="200"/></div>
 		<div >
 			Stiftung Wirschaft und Ökologie SWO<br/>
