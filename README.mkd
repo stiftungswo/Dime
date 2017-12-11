@@ -37,7 +37,7 @@ An API and open architecture will serve additional purposes:
 
 7. Check out the current version with all submodules
 
-    git clone --recursive https://bitbucket.org/stiftungswo/dime
+    git clone --recursive git@github.com:stiftungswo/dime
 
 8. Build & start your Docker Images:
 
