@@ -9,6 +9,7 @@
 	<dynamic-page page-size="a4">
 		<div class="logo"><img src="{{ pdf_image('SwoCommonsBundle:swo_logo_big.png') }}" width="200"/></div>
 		<div class="absenderHeader">
+			Stiftung Wirschaft und Ökologie SWO<br/>
 			Im Schatzacker 5<br/>
 			8600 Dübendorf - Gfenn<br/>
 			Telefon: 044 822 13 40<br/>
@@ -35,7 +36,7 @@
 			<div class="accountant">Sachbearbeiter: {{ invoice.user }}</div><br/>
 			{% endif %}
 			<br /><br />
-			<div class="invoiceIDKey">Rechnung</div><br/>
+			<div class="invoiceIDKey">Rechnung {{invoice.project.name}}</div><br/>
 
 			<table breakable="false" class="toptable">
 				<tr>
