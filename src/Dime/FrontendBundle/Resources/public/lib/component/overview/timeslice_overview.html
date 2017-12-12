@@ -30,10 +30,13 @@
         <div class="col-md-2">
             <label>Datum</label>
             <dateinput date="newEntryDate" has-buttons="true"></dateinput>
+            <div>
+                <span>automatisch anpassen</span>
+                <input class="checkbox" type="checkbox" ng-model="updateNewEntryDate" />
+                <span class="glyphicon glyphicon-question-sign" title="Stellt das Datum nach dem Erfassen auf das Datum des neusten Eintrags im ausgewaehlten Zeitfenster"></span>
+            </div>
         </div>
         <div class="col-md-1">
-            <label>Berechnen</label>
-            <input class="checkbox" type="checkbox" ng-model="updateNewEntryDate" />
         </div>
         <div ng-if="projectBased == true" class="col-md-2">
             <label>Benutzer</label>
