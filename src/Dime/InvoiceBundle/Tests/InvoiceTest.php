@@ -52,8 +52,8 @@ class InvoiceControllerTest extends TestCase
     public function testMixedDiscounts(){
         $discounts = [];
         //this is dependent on how it is inserted in UI...
-        $discounts[] = makeDiscount("Tenbucks", 1000);
-        $discounts[] = makeDiscount("Half", 50, true);
+        $discounts[] = makeDiscount("Tenbucks", 10.00);
+        $discounts[] = makeDiscount("Half", .5, true);
         $this->invoice->setInvoiceDiscounts(new ArrayCollection($discounts));
 
         $breakdown = InvoiceBreakdown::calculate($this->invoice);
@@ -62,7 +62,7 @@ class InvoiceControllerTest extends TestCase
 
     public function testFixedDiscount(){
         $discounts = [];
-        $discounts[] = makeDiscount("Tenbucks", 1000);
+        $discounts[] = makeDiscount("Tenbucks", 10.00);
         $this->invoice->setInvoiceDiscounts(new ArrayCollection($discounts));
 
         $breakdown = InvoiceBreakdown::calculate($this->invoice);
@@ -71,8 +71,7 @@ class InvoiceControllerTest extends TestCase
 
     public function testPercentDiscount(){
         $discounts = [];
-        $discounts[] = makeDiscount("Half", 50, true);
-        //$discounts[] = makeDiscount("Tenbucks", 1000);
+        $discounts[] = makeDiscount("Half", .5, true);
         $this->invoice->setInvoiceDiscounts(new ArrayCollection($discounts));
 
         $breakdown = InvoiceBreakdown::calculate($this->invoice);

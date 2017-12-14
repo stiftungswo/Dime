@@ -2,6 +2,7 @@
 
 namespace Dime\InvoiceBundle\Service;
 
+use Dime\InvoiceBundle\Entity\InvoiceDiscount;
 use Dime\InvoiceBundle\Entity\InvoiceItem;
 use Dime\InvoiceBundle\Entity\Invoice;
 use Money\Money;
@@ -39,7 +40,15 @@ function valueDistribution($groups){
     return $distributions;
 }
 
-function applyDiscountFactor($vatGroups, $factor){
+function applyDiscount($vatGroups, InvoiceDiscount $discount){
+    if($discount->getPercentage()){
+        return applyDiscountFactor($vatGroups, (float)$discount->getValue(), $discount->getName());
+    } else {
+        return applyDiscountAmount($vatGroups, Money::CHF($discount->getValue()), $discount->getName());
+    }
+}
+
+function applyDiscountFactor($vatGroups, $factor, $name){
 
     $discountedGroups = [];
     foreach($vatGroups as $vat => $group){
@@ -48,7 +57,7 @@ function applyDiscountFactor($vatGroups, $factor){
             $sum = $sum->add($item->getCalculatedTotal());
         }
         $item = new InvoiceItem();
-        $item->setName("%%Discount " . $vat);
+        $item->setName("%%$name");
         $item->setVat($vat);
         $item->setAmount(1);
         $item->setRateValue($sum->multiply(-1)->multiply($factor));
@@ -59,7 +68,7 @@ function applyDiscountFactor($vatGroups, $factor){
     return $discountedGroups;
 }
 
-function applyDiscount($vatGroups, Money $amount){
+function applyDiscountAmount($vatGroups, Money $amount, $name){
     $distribution = valueDistribution($vatGroups);
     $cuts = $amount->allocate($distribution);
 
@@ -67,7 +76,7 @@ function applyDiscount($vatGroups, Money $amount){
     $i = 0;
     foreach($vatGroups as $vat => $group){
         $item = new InvoiceItem();
-        $item->setName("%%Discount " . $vat);
+        $item->setName("%%$name");
         $item->setVat($vat);
         $item->setAmount(1);
         $item->setRateValue($cuts[$i]->multiply(-1));
@@ -103,11 +112,7 @@ class InvoiceBreakdown{
         $vatGroups = groupByVAT($items);
         $subTotal = $vatGroups;
         foreach($invoice->getInvoiceDiscounts() as $discount){
-            if($discount->getPercentage()){
-                $subTotal = applyDiscountFactor($subTotal, $discount->getValue()/100);
-            } else {
-                $subTotal = applyDiscount($subTotal, Money::CHF($discount->getValue()));
-            }
+            $subTotal = applyDiscount($subTotal, $discount);
         }
         //$total = applyVat($subTotal);
         //print_r($total);
@@ -129,9 +134,9 @@ class InvoiceBreakdown{
                 }
             }
         }
-        $breakdown['subtotal'] = $sum;
-        $breakdown['discount'] = $discount;
-        $breakdown['total'] = $sum->add($discount);
+        $breakdown['subtotal'] = $sum->format();
+        $breakdown['discount'] = $discount->format();
+        $breakdown['total'] = $sum->add($discount)->format();
         return $breakdown;
     }
 }

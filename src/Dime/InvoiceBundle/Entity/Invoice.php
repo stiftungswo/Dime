@@ -21,6 +21,7 @@ use JMS\Serializer\Annotation as JMS;
 use Knp\JsonSchemaBundle\Annotations as Json;
 use Money\Money;
 use Symfony\Component\Validator\Constraints as Assert;
+use Dime\InvoiceBundle\Service\InvoiceBreakdown;
 
 /**
  * Class Invoice
@@ -558,6 +559,15 @@ class Invoice extends Entity implements DimeEntityInterface
 	{
 		$this->fixedPrice = $fixedPrice;
 		return $this;
+	}
+
+	/**
+	 * @JMS\VirtualProperty()
+	 * @JMS\SerializedName("breakdown")
+	 * @return string
+	 */
+	public function getBreakdown() {
+		return InvoiceBreakdown::calculate($this);
 	}
 
 	/**
