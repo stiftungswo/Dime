@@ -139,12 +139,12 @@
 			<tr class="tfoot">
 				<td>Zahlbar 30 Tage netto</td>
 				<td class="number">Rechnungstotal</td>
-				<td class="number">{{ invoice.total }}</td>
+				<td class="number">{{ invoice.breakdown.total }}</td>
 			</tr>
             <tr class="tbody">
                 <td></td>
                 <td class="number">MwSt.</td>
-                <td class="number">{{ invoice.getTotalVAT() }}</td>
+                <td class="number">{{ invoice.breakdown.vat }}</td>
             </tr>
 		</table>
 	</dynamic-page>
