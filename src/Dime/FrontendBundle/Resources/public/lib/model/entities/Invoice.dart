@@ -28,6 +28,7 @@ class Invoice extends Entity {
     this.fixedPrice = original.fixedPrice;
     this.accountant = original.accountant;
     this.costgroup = original.costgroup;
+    this.breakdown = original.breakdown;
     addFieldstoUpdate(['description','project', 'items', 'invoiceDiscounts', 'standardDiscounts', 'start',
       'end', 'customer', 'totalDiscounts', 'total', 'subtotal', 'totalVAT','totalVAT8','totalVAT2',
       'fixedPrice', 'accountant', 'costgroup']);
@@ -86,6 +87,8 @@ class Invoice extends Entity {
           return this.accountant;
         case 'costgroup':
           return this.costgroup;
+        case 'breakdown':
+          return this.breakdown;
         default:
           break;
       }
@@ -146,6 +149,9 @@ class Invoice extends Entity {
       case 'costgroup':
         this.costgroup = value is Entity ? value : new Costgroup.fromMap(value);
         break;
+      case 'breakdown':
+        this.breakdown = new InvoiceBreakdown.fromMap(value);
+        break;
       default:
         super.Set(property, value);
         break;
@@ -183,4 +189,5 @@ class Invoice extends Entity {
   DateTime end;
   Employee accountant;
   Costgroup costgroup;
+  InvoiceBreakdown breakdown;
 }

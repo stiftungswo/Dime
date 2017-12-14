@@ -81,4 +81,5 @@ class InvoiceEditComponent extends EntityEdit {
     this.store.evict(Invoice, true);
     router.go('invoice_edit', {'id': newInvoice.id});
   }
+
 }
