@@ -137,10 +137,10 @@ class InvoiceBreakdown
         foreach ($subTotal as $group) {
             foreach ($group as $item) {
                 if (self::isDiscount($item)) {
-                    $discount = $discount->add($item->getTotal());
+                    $discount = $discount->add($item->getCalculatedTotal());
                     $breakdown['discounts'][] = $item;
                 } else {
-                    $sum = $sum->add($item->getTotal());
+                    $sum = $sum->add($item->getCalculatedTotal());
                     $breakdown['items'][] = $item;
                 }
                 $vatSums[$item->getVat()] = $vatSums[$item->getVat()]->add($item->getCalculatedVAT());
@@ -149,8 +149,8 @@ class InvoiceBreakdown
         }
         $breakdown['subtotal'] = $sum->format();
         $breakdown['discount'] = $discount->format();
-        $breakdown['total'] = $sum->add($discount)->format();
         $breakdown['vat'] = $vat->format();
+        $breakdown['total'] = $sum->add($discount)->add($vat)->format();
         $breakdown['vatSplit'] = [];
         foreach ($vatSums as $key => $vatSum) {
             $breakdown['vatSplit'][$key] = $vatSum->format();
