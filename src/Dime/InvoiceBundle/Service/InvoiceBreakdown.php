@@ -114,29 +114,48 @@ class InvoiceBreakdown{
         foreach($invoice->getInvoiceDiscounts() as $discount){
             $subTotal = applyDiscount($subTotal, $discount);
         }
-        //$total = applyVat($subTotal);
-        //print_r($total);
 
         $sum = Money::CHF(0);
         $discount = Money::CHF(0);
         $breakdown = [];
         $breakdown['items'] = [];
         $breakdown['discounts'] = [];
+        $vat = Money::CHF(0);
+        $vatSums = [];
+        foreach($vatGroups as $group => $_){
+            $vatSums[$group] = Money::CHF(0);
+        }
 
         foreach($subTotal as $group){
             foreach($group as $item){
-                if(startswith($item->getName(), "%%")){
+                if(self::isDiscount($item)){
                     $discount = $discount->add($item->getTotal());
                     $breakdown['discounts'][] = $item;
                 } else {
                     $sum = $sum->add($item->getTotal());
                     $breakdown['items'][] = $item;
                 }
+                $vatSums[$item->getVat()] = $vatSums[$item->getVat()]->add($item->getCalculatedVAT());
+                $vat = $vat->add($item->getCalculatedVAT());
             }
         }
         $breakdown['subtotal'] = $sum->format();
         $breakdown['discount'] = $discount->format();
         $breakdown['total'] = $sum->add($discount)->format();
+        $breakdown['vat'] = $vat->format();
+        $breakdown['vatSplit'] = [];
+        foreach($vatSums as $key => $vatSum){
+            $breakdown['vatSplit'][$key] = $vatSum->format();
+        }
         return $breakdown;
+    }
+
+    /**
+     * @param $item
+     * @return bool
+     */
+    public static function isDiscount($item)
+    {
+        return startswith($item->getName(), "%%");
     }
 }
