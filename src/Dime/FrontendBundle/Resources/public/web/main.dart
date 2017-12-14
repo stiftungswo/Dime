@@ -31,6 +31,7 @@ import 'package:DimeClient/service/setting_manager.dart';
 import 'package:DimeClient/service/status.dart';
 import 'package:DimeClient/service/user_auth.dart';
 import 'package:DimeClient/service/user_context.dart';
+import 'dart:html';
 
 class AppModule extends Module {
   AppModule() {
@@ -116,8 +117,12 @@ class AppModule extends Module {
 
 void main() {
   Logger.root.level = Level.ALL;
-  Logger.root.onRecord.listen((LogRecord r) {
-    print(r.message);
+  Logger.root.onRecord.listen((LogRecord rec) {
+    if (rec.level >= Level.WARNING) {
+      window.console.error('${rec.level.name}: ${rec.time}: ${rec.message}');
+    } else {
+      print('${rec.level.name}: ${rec.time}: ${rec.message}');
+    }
   });
   applicationFactory()
       .addModule(new AngularUIModule()) // The angular-ui module
