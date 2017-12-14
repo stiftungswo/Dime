@@ -116,7 +116,11 @@ class InvoiceBreakdown
 
     public static function calculate(Invoice $invoice)
     {
-        $items = $invoice->getItems()->toArray();
+        $itemCollection = $invoice->getItems();
+        $items = [];
+        if ($itemCollection != null) {
+            $items = $itemCollection->toArray();
+        }
         $vatGroups = groupByVAT($items);
         $subTotal = $vatGroups;
         foreach ($invoice->getInvoiceDiscounts() as $discount) {
