@@ -11,14 +11,13 @@ services:
     links:
       - mariadb:mysql
     volumes:
-      - ./:/var/www/html
-      - .pub-cache:/tmp/dime-pub-cache
+      - dime-sync:/var/www/html:nocopy
+      - pub-cache:/tmp/dime-pub-cache
     environment:
       - VIRTUAL_HOST=localhost
       - PUB_CACHE=/tmp/dime-pub-cache
       - PHP_MEMLIMIT="2048M"
       - CACHE_ROOT="/tmp/app"
-    restart: always
 
   mariadb:
     image: mariadb:10
@@ -30,7 +29,6 @@ services:
       - MYSQL_ALLOW_EMPTY_PASSWORD=1
       - MYSQL_USER=dime
       - MYSQL_PASSWORD=dime
-    restart: always
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
@@ -39,3 +37,9 @@ services:
      - PMA_ARBITRARY=1
     ports:
      - 8080:80
+
+volumes:
+  dime-sync:
+    external: true
+  pub-cache:
+    external: false
