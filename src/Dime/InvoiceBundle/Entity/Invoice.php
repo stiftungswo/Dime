@@ -91,6 +91,15 @@ class Invoice extends Entity implements DimeEntityInterface
     protected $standardDiscounts;
 
     /**
+     * @var ArrayCollection $costgroups
+     *
+     * @JMS\Type("array")
+     * @JMS\SerializedName("costgroups")
+     * @ORM\OneToMany(targetEntity="Dime\InvoiceBundle\Entity\InvoiceCostgroup", mappedBy="invoice")
+     */
+    protected $costgroups;
+
+    /**
      * @var ArrayCollection $tags
      *
      * @JMS\Type("array")
@@ -134,13 +143,6 @@ class Invoice extends Entity implements DimeEntityInterface
      * @JMS\MaxDepth(1)
      */
     protected $accountant;
-
-    /**
-     * @var Costgroup $costgroup
-     * @ORM\ManyToOne(targetEntity="Dime\InvoiceBundle\Entity\Costgroup")
-     * @ORM\JoinColumn(name="costgroup_id", referencedColumnName="id", nullable=true, onDelete="SET NULL"))
-     */
-    protected $costgroup;
 
     public function __construct()
     {
