@@ -13,6 +13,7 @@ part 'entities/Holiday.dart';
 part 'entities/Costgroup.dart';
 part 'entities/Invoice.dart';
 part 'entities/InvoiceBreakdown.dart';
+part 'entities/InvoiceCostgroup.dart';
 part 'entities/InvoiceDiscount.dart';
 part 'entities/InvoiceItem.dart';
 part 'entities/Offer.dart';

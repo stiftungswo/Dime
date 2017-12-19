@@ -16,11 +16,11 @@ class Version20171215120500 extends AbstractMigration
 
         $this->addSql("
             create table invoice_costgroups(
-              id int primary key,
+              id int primary key auto_increment,
               invoice_id int not null,
-              costgroup_id int not null,
-              user_id int not null,
-              weight float not null,
+              costgroup_id int default null,
+              user_id int,
+              weight float,
               created_at datetime default now(),
               updated_at datetime default null
               );

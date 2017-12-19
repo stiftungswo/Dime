@@ -10,6 +10,10 @@ services:
         class: %generic_handler%
         arguments: [ "@doctrine.orm.entity_manager", "Dime\InvoiceBundle\Entity\InvoiceDiscount", "@service_container", "invd", "dime_invoicebundle_invoicediscountformtype" ]
 
+    dime.invoicecostgroup.handler:
+        class: %generic_handler%
+        arguments: [ "@doctrine.orm.entity_manager", "Dime\InvoiceBundle\Entity\InvoiceCostgroup", "@service_container", "invc", "dime_invoicebundle_invoicecostgroupformtype" ]
+
     dime.invoiceitem.handler:
         class: %generic_handler%
         arguments: [ "@doctrine.orm.entity_manager", "Dime\InvoiceBundle\Entity\InvoiceItem", "@service_container", "invt", "dime_invoicebundle_invoiceitemformtype" ]

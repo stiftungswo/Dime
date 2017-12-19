@@ -62,6 +62,7 @@ class AppModule extends Module {
     bind(InvoiceOverviewComponent);
     bind(InvoiceEditComponent);
     bind(InvoiceItemOverviewComponent);
+    bind(InvoiceCostgroupOverviewComponent);
     bind(CustomerOverviewComponent);
     bind(CustomerEditComponent);
     bind(AddressEditComponent);
