@@ -20,6 +20,7 @@ part 'employee_overview.dart';
 part 'holiday_overview.dart';
 part 'invoice_overview.dart';
 part 'invoicediscount_overview.dart';
+part 'invoicecostgroup_overview.dart';
 part 'invoiceitem_overview.dart';
 part 'offer_overview.dart';
 part 'offerdiscount_overview.dart';

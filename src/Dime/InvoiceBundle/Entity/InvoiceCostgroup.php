@@ -22,7 +22,7 @@ use Dime\InvoiceBundle\Service\InvoiceBreakdown;
  * @package Dime\InvoiceBundle\Entity
  *
  * @ORM\Table(name="invoice_costgroups")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Dime\InvoiceBundle\Entity\InvoiceCostgroupRepository")
  * @Json\Schema("invoice_costgroups")
  */
 class InvoiceCostgroup extends Entity implements DimeEntityInterface
@@ -39,7 +39,6 @@ class InvoiceCostgroup extends Entity implements DimeEntityInterface
     /**
      * @var Costgroup
      *
-     * @Assert\NotBlank()
      * @ORM\ManyToOne(targetEntity="Costgroup")
      * @ORM\JoinColumn(name="costgroup_id", referencedColumnName="id")
      */
@@ -48,7 +47,6 @@ class InvoiceCostgroup extends Entity implements DimeEntityInterface
 	/**
 	 * @var float
 	 *
-	 * @Assert\NotBlank()
 	 * @ORM\Column(type="float")
 	 */
 	protected $weight;
@@ -88,17 +86,17 @@ class InvoiceCostgroup extends Entity implements DimeEntityInterface
     /**
      * @return float
      */
-    public function getRatio()
+    public function getWeight()
     {
-        return $this->ratio;
+        return $this->weight;
     }
 
     /**
-     * @param float $ratio
+     * @param float $weight
      */
-    public function setRatio($ratio)
+    public function setWeight($weight)
     {
-        $this->ratio = $ratio;
+        $this->weight = $weight;
     }
 
 }
