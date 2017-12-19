@@ -44,4 +44,9 @@ class InvoiceCostgroupOverviewComponent extends EntityOverview {
   createEntity({Entity newEnt, Map<String, dynamic> params: const {}}) {
     super.createEntity(params: {'invoice': this._invoiceId});
   }
+
+  getWeightSum() {
+    if (this.entities == null || this.entities.isEmpty) return 0;
+    return this.entities.map((group) => group.weight).where((weight) => weight != null).reduce((sum, weight) => sum + weight);
+  }
 }
