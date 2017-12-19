@@ -630,24 +630,12 @@ class Invoice extends Entity implements DimeEntityInterface
 		return $this;
 	}
 
-	/**
-	 * @return Costgroup
-	 */
-	public function getCostgroup()
-	{
-		return $this->costgroup;
-	}
-
-	/**
-	 * @param Costgroup $costgroup
-	 *
-	 * @return $this
-	 */
-	public function setCostgroup($costgroup)
-	{
-		$this->costgroup = $costgroup;
-
-		return $this;
-	}
+    /**
+     * @return ArrayCollection
+     */
+    public function getCostgroups()
+    {
+        return $this->costgroups;
+    }
 
 }
