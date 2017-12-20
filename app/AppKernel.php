@@ -43,6 +43,11 @@ class AppKernel extends Kernel
 			new Dime\TimetrackerBundle\DimeTimetrackerBundle(),
 		);
 
+        //if (in_array($this->getEnvironment(), ['staging', 'prod'], true)) {
+        if (true) {
+            $bundles[] = new Sentry\SentryBundle\SentryBundle();
+        }
+
 		if (in_array($this->getEnvironment(), array(
 			'dev',
 			'test'
