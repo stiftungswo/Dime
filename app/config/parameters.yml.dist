@@ -33,3 +33,4 @@ parameters:
     secret:            ThisTokenIsNotSoSecretChangeIt
 
     dime_release_mode: false
+    sentry_dsn: '' #leave this empty
