@@ -4,7 +4,7 @@ part of entity_overview;
     selector: 'invoicecostgroup-overview',
     templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/overview/invoicecostgroup_overview.html',
     useShadowDom: false,
-    map: const {'invoice': '=>!invoiceId'})
+    map: const {'invoice': '=>!invoiceId', 'onUpdate': '&onUpdate'})
 class InvoiceCostgroupOverviewComponent extends EntityOverview {
   InvoiceCostgroupOverviewComponent(DataCache store, SettingsManager manager, StatusService status)
       : super(InvoiceCostgroup, store, '', manager, status);
@@ -17,6 +17,7 @@ class InvoiceCostgroupOverviewComponent extends EntityOverview {
   }
 
   int _invoiceId;
+  bool valid;
 
   set invoiceId(int id) {
     if (id != null) {
@@ -46,7 +47,12 @@ class InvoiceCostgroupOverviewComponent extends EntityOverview {
   }
 
   getWeightSum() {
-    if (this.entities == null || this.entities.isEmpty) return 0;
-    return this.entities.map((group) => group.weight).where((weight) => weight != null).reduce((sum, weight) => sum + weight);
+    if (this.entities == null) return 0;
+    var weights = this.entities.map((group) => group.weight).where((weight) => weight != null);
+    if (weights.isEmpty) {
+      return 0;
+    } else {
+      return weights.reduce((sum, weight) => sum + weight);
+    }
   }
 }
