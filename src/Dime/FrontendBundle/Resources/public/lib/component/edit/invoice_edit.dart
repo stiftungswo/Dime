@@ -82,4 +82,22 @@ class InvoiceEditComponent extends EntityEdit {
     router.go('invoice_edit', {'id': newInvoice.id});
   }
 
+  bool costgroupsValid = false;
+
+  validateCostgroups(entities) {
+    costgroupsValid = entities.length > 0;
+  }
+
+  @override
+  saveEntity() async{
+    if(costgroupsValid){
+      super.saveEntity();
+    } else {
+      //TODO scroll to the input or give some better feedback
+      print("NOOOOOOOOO");
+    }
+
+  }
+
+
 }

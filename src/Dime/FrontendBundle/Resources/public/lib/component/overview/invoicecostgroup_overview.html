@@ -12,6 +12,7 @@
           <th width="60">Aktion</th>
         </tr>
       </thead>
+      <div class="alert alert-danger" ng-if="entities != null && entities.length == 0">Es muss mindestens eine Kostenstelle erfasst sein</div>
       <tbody ng-if="entities != null">
         <tr ng-repeat="entity in entities" ng-click="selectEntity(entity.id)" ng-class="isSelected(entity)? 'info': ''">
           <td><input class="form-control" type="number" ng-model="entity.weight" ng-change="addSaveField('weight', entity)"/></td>

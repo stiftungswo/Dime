@@ -66,6 +66,8 @@ class EntityOverview extends AttachAware implements ScopeAware {
 
   bool sortReverse = false;
 
+  var onUpdate = (o)=> {};
+
   get selectedEntity {
     for (Entity ent in this.entities) {
       if (ent.id == this.selectedEntId) {
@@ -130,6 +132,7 @@ class EntityOverview extends AttachAware implements ScopeAware {
       } else {
         this.entities.add(resp);
       }
+      this.onUpdate({"entities": this.entities});
     } catch (e) {
       print("Unable to create entity ${this.type.toString()} because ${e}");
       this.statusservice.setStatusToError(e);
@@ -159,6 +162,7 @@ class EntityOverview extends AttachAware implements ScopeAware {
         }
         this.statusservice.setStatusToSuccess();
         this.rootScope.emit(this.type.toString() + 'Duplicated');
+        this.onUpdate({"entities": this.entities});
       } catch (e) {
         print("Unable to duplicate entity ${this.type.toString()}::${newEnt.id} because ${e}");
         this.statusservice.setStatusToError(e);
@@ -181,6 +185,7 @@ class EntityOverview extends AttachAware implements ScopeAware {
           this.entities.removeWhere((enty) => enty.id == entId);
           this.statusservice.setStatusToSuccess();
           this.rootScope.emit(this.type.toString() + 'Deleted');
+          this.onUpdate({"entities": this.entities});
         } catch (e) {
           print("Unable to Delete entity ${this.type.toString()}::${entId} because ${e}");
           this.statusservice.setStatusToError(e);
@@ -220,6 +225,7 @@ class EntityOverview extends AttachAware implements ScopeAware {
         this.store.evict(this.type);
       }
       this.entities = (await this.store.list(this.type, params: params)).toList();
+      this.onUpdate({"entities": this.entities});
       this.statusservice.setStatusToSuccess();
       this.rootScope.emit(this.type.toString() + 'Loaded');
     } catch (e) {
@@ -254,4 +260,5 @@ class EntityOverview extends AttachAware implements ScopeAware {
   }
 
   EntityOverview(this.type, this.store, this.routename, this.settingsManager, this.statusservice, {this.router, this.auth});
+
 }

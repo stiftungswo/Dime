@@ -48,7 +48,7 @@
 </div>
 <invoiceitem-overview invoice="entity.id" parentCallback="setInvoiceItemOverview(param1)"></invoiceitem-overview>
 <div class="row">
-  <div class="col-md-6"><invoicecostgroup-overview invoice="entity.id"></invoicecostgroup-overview></div>
+  <div class="col-md-6"><invoicecostgroup-overview invoice="entity.id" onUpdate="validateCostgroups(entities)"></invoicecostgroup-overview></div>
   <div class="col-md-6"><invoicediscount-overview invoice="entity.id"></invoicediscount-overview></div>
   <div class="col-md-6">
     <div class="box box-primary">
