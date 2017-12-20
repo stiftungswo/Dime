@@ -138,6 +138,24 @@ class InvoiceItem extends Entity implements DimeEntityInterface
     }
 
     /**
+     * @JMS\VirtualProperty()
+     * @JMS\SerializedName("totalWithoutVAT")
+     * @JMS\Type(name="Money")
+     * @return Money
+     */
+    public function getTotalWithoutVAT()
+    {
+        $total = $this->getRateValue();
+        if ($total === null) {
+            return null;
+        }
+        if ($this->getAmount() !== null) {
+            $total = $total->multiply($this->getAmount());
+        }
+        return $total;
+    }
+
+    /**
      * @return Invoice
      */
     public function getInvoice()
