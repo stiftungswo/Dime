@@ -44,7 +44,7 @@
 					{% if invoice.getOfferNumber() %}
 					<td width="35%">Offerten Nr. {{ invoice.getOfferNumber() }}</td>
 					{% endif %}
-					<td>MwSt-ID {{ invoiceconfig.senderMwstId }}</td>
+					<td>MwSt.-ID {{ invoiceconfig.senderMwstId }}</td>
 				</tr>
 			</table>
 			<table breakable="false" class="toptable">
@@ -67,11 +67,11 @@
 		<table class="maintable" breakable="false">
 			<tr class="thead">
 				<td class="firstrow">Bezeichnung</td>
-				<td class="secondrow number">Ansatz Fr.</td>
+				<td class="secondrow number">Ansatz CHF</td>
 				<td class="thirdrow">Einheit</td>
 				<td class="fourthrow number">Anzahl</td>
-				<td class="fifthrow number">MwSt Satz</td>
-				<td class="sixthrow number">Teilbetrag Fr. inkl MwSt.</td>
+				<td class="fifthrow number">MwSt. Satz</td>
+				<td class="sixthrow number">Teilbetrag CHF ohne MwSt.</td>
 			</tr>
 			{% for item in invoice.items %}
 			<tr class="tbody">
@@ -86,12 +86,12 @@
 				<td>{{ item.rateUnit }}</td>
 				<td class="number">{{ item.amount }}</td>
 				<td class="number">{% if item.vat %}{{ item.vat * 100 }}%{% else %}0%{% endif %}</td>
-				<td class="number">{{ item.total }}</td>
+				<td class="number">{{ item.totalWithoutVAT }}</td>
 			</tr>
 			{% endfor %}
 			<tr class="tfoot">
 				<td colspan="5" class="number">Subtotal</td>
-				<td class="number">{{ invoice.subtotal }}</td>
+				<td class="number">{{ invoice.breakdown.subtotal }}</td>
 			</tr>
 		</table>
         {% if invoice.standardDiscounts|length > 0 or invoice.invoiceDiscounts|length > 0 %}
@@ -102,8 +102,13 @@
 			</tr>
 			{% for discount in invoice.invoiceDiscounts %}
 				<tr class="tbody">
-					<td class="number">{{ discount.name }}</td>
-					<td class="number">{% if discount.percentage %}{{ discount.value*100 }}%{% else %}{{ discount.value }} CHF{% endif %}</td>
+					{% if discount.percentage %}
+						<td class="number">{{ discount.name }} ({{ discount.value*100 }}%)</td>
+						<td class="number">{{ (invoice.breakdown.subtotal * discount.value) | number_format(2, ".", "") }}</td>
+					{% else %}
+						<td class="number">{{ discount.name }}</td>
+						<td class="number">{{ discount.value }}</td>
+					{% endif %}
 				</tr>
 			{% endfor %}
 			{% for discount in invoice.standardDiscounts %}
@@ -112,23 +117,39 @@
 					<td class="number">{% if discount.percentage %}{{ discount.value*100 }}%{% else %}{{ discount.value }} CHF{% endif %}</td>
 				</tr>
 			{% endfor %}
-			<tr class="tfoot">
+			<tr class="tfoot1">
 				<td class="number">Abzüge Total</td>
 				<td class="number">{{ invoice.getTotalDiscounts() }}</td>
 			</tr>
+			<tr class="tfoot2">
+				<td class="number">Subtotal</td>
+				<td class="number">{{ (invoice.breakdown.subtotal + invoice.breakdown.discount) | number_format(2, "." , "") }}</td>
+			</tr>
 		</table>
         {% endif %}
+        <table class="vattable" breakable="false">
+			<tr class="thead">
+				<td class="firstrow number">MwSt. Satz</td>
+				<td class="secondrow number">Betrag</td>
+			</tr>
+			{% for ratio,amount in invoice.breakdown.vatSplit %}
+			<tr class="tbody">
+				<td class="number">{{ ratio * 100}}%</td>
+				<td class="number">{{ amount }}</td>
+			</tr>
+			{% endfor %}
+			<tr class="tfoot">
+				<td class="number">MwSt. total:</td>
+				<td class="number">{{ invoice.breakdown.vat }}</td>
+			</tr>
+
+		</table>
 		<table class="sumtable" breakable="false">
 			<tr class="tfoot">
 				<td>Zahlbar 30 Tage netto</td>
 				<td class="number">Rechnungstotal</td>
 				<td class="number">{{ invoice.breakdown.total }}</td>
 			</tr>
-            <tr class="tbody">
-                <td></td>
-                <td class="number">MwSt.</td>
-                <td class="number">{{ invoice.breakdown.vat }}</td>
-            </tr>
 		</table>
 	</dynamic-page>
 	<page margin="188mm 5mm 5mm 5mm">
