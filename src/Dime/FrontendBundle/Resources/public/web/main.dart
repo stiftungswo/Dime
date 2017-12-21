@@ -1,6 +1,7 @@
 // Copyright (c) 2015, Till Wegmüller. All rights reserved. Use of this source code
 // is governed by a BSD-style license that can be found in the LICENSE file.
 
+import 'package:DimeClient/component/elements/dime-button.dart';
 import 'package:DimeClient/component/elements/help-tooltip.dart';
 import 'package:angular/angular.dart';
 import 'package:angular/application_factory.dart';
@@ -106,6 +107,7 @@ class AppModule extends Module {
     bind(RoundModeSelect);
     bind(UserMenu);
     bind(HelpTooltip);
+    bind(DimeButton);
     install(new Hammock());
     bind(RouteInitializerFn, toValue: dimeRouteInitializer);
     bind(HammockConfig, toFactory: createHammockConfig, inject: [Injector]);
