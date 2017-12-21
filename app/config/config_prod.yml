@@ -26,3 +26,6 @@ monolog:
 
 sentry:
   dsn: "%sentry_dsn%"
+  options:
+    release: "%sentry_release%"
+    environment: "%sentry_env%"
