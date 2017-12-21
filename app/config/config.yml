@@ -112,6 +112,3 @@ dime_invoice:
         iban: "%sender_iban%"
         kontoNr: "%sender_kontonr%"
     mwstPercent: 8
-
-sentry:
-  dsn: "%sentry_dsn%"
