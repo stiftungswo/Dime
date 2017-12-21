@@ -13,7 +13,11 @@ class InvoiceEditComponent extends EntityEdit {
   InvoiceItemOverviewComponent invoiceitem_overview;
 
   printInvoice() {
-    window.open('/api/v1/invoices/${this.entity.id}/print', 'Invoice Print');
+    if (costgroupsValid) {
+      window.open('/api/v1/invoices/${this.entity.id}/print', 'Invoice Print');
+    } else {
+      window.alert("Kostenstellen sind ungültig.");
+    }
   }
 
   printAufwandsbericht() {
