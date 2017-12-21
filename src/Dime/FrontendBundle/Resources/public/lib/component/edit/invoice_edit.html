@@ -71,12 +71,11 @@
   </div>
 </div>
 <div class="DimeControlButtons">
-  <button type="button" class="btn btn-primary" ng-click="saveEntity()"><error-icon value="saveState" timeout="20"></error-icon></button>
-  <button type="button" class="btn btn-primary" ng-click="updateInvoicefromProject()" data-toggle="tooltip" title="Synchronisiert die Aktivitäten mit dem Ursprungsprojekt und setzt den Sachbearbeiter auf Dich">
-    <span class="glyphicon glyphicon-refresh"></span> Rechnung Updaten
-  </button>
-  <button type="button" class="btn btn-primary" ng-click="printInvoice()"><span class="glyphicon glyphicon-print"></span> Rechnung</button>
-  <button type="button" class="btn btn-primary" ng-click="printAufwandsbericht()"><span class="glyphicon glyphicon-print"></span> Aufwandsbericht</button>
-  <button type="button" class="btn btn-default" ng-click="reload(evict: true)"><span class="glyphicon glyphicon-refresh"></span></button>
-
+  <dime-button primary ng-click="saveEntity()"><error-icon value="saveState" timeout="20"></error-icon></dime-button>
+  <dime-button primary glyphicon="magnet"
+               tooltipText="Synchronisiert die Aktivitäten mit dem Ursprungsprojekt und setzt den Sachbearbeiter auf Dich"
+               ng-click="updateInvoicefromProject()"> Update </dime-button>
+  <dime-button primary glyphicon="print" ng-click="printInvoice()"> Rechnung </dime-button>
+  <dime-button primary glyphicon="print" ng-click="printAufwandsbericht()"> Aufwandsbericht </dime-button>
+  <dime-button glyphicon="refresh" ng-click="reload(evict: true)"></dime-button>
 </div>
