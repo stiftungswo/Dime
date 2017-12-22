@@ -66,7 +66,10 @@ The Frontend can be found under `src/Dime/FrontendBundle/Resources/public`. Ther
 
 The Backend files are located in 'src/Dime/' & the relative Bundle folder. Server-Side Routing happens in [Bundle]/Resources/config/routing.yml
 
-![erm](doc/dime_erm.png)
+![erm](https://raw.githubusercontent.com/stiftungswo/Dime/master/doc/dime_erm_clean.png)
+
+This ERM excludes some tables that are currently empty/unused. [Here](https://raw.githubusercontent.com/stiftungswo/Dime/master/doc/dime_erm_full.png) is the full ERM.
+  
 
 ## Using Docker & docker-compose
 
