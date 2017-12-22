@@ -19,38 +19,50 @@ An API and open architecture will serve additional purposes:
 
 ## Installation / Setup for Development
 
-1. Download and install VM Ware Player or VirtualBox.
-2. Download an Ubuntu 16.04 ISO
-3. Setup your VM
-4. Installing Docker and Docker Compose on your VM:
-
+0. WINDOWS USERS
+  * Symfony uses symlinks that seem to break horribly on the windows file system. To circumvent this, sadly you will have to do your work in a virtual machine.
+  * Download and install VM Ware Player or VirtualBox.
+  * Download an Ubuntu 16.04 ISO
+  * Setup your VM
+1. Install Docker and Docker Compose:
+  * Linux/VM    
     https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-16-04
     https://www.digitalocean.com/community/tutorials/how-to-install-docker-compose-on-ubuntu-16-04
+    
+  * MacOS with [Homebrew](https://brew.sh/)
+    ```
+    brew cask install docker
+    brew install docker-compose
+    ```
 
-5. Download and install Dartium (supports Dart files in chrome in uncompiled version):
+2. Download and install Dartium (supports Dart files in chrome in uncompiled version):
 
     https://webdev.dartlang.org/tools
-    
-6. Install GIT on your VM:
 
-    sudo apt install git
-
-7. Check out the current version with all submodules
-
+3. Check out the current version with all submodules
+    ```
+    sudo apt update && sudo apt install git               # if you don't have git yet
     git clone --recursive git@github.com:stiftungswo/dime
+    ```
 
-8. Build & start your Docker Images:
+8. Build your Docker Images:
 
-    docker-compose -d --build
-
+    `docker-compose build`
+    
+9. Start your stack from the dime root directory:
+  * Linux/VM: `docker-compose up`
+  * MacOS needs [docker-sync](http://docker-sync.io/) because without it performance is terrible
+    *  `gem install docker-sync`
+    * `docker-sync-stack start`
+    
 9. Restore dart packages:
 
-    docker exec -it dime ./env/pub_get.sh
+    `docker exec -it dime ./env/pub_get.sh`
 
 10. Restore php packages in repository root directory:
 
-    docker exec -it dime composer install
-    docker exec -it dime ./env/install_bundles.sh
+    `docker exec -it dime composer install`
+    `docker exec -it dime ./env/install_bundles.sh`
 
 11. Open http://localhost:3000 with dartium
 
@@ -60,17 +72,34 @@ An API and open architecture will serve additional purposes:
     user: root
     no password
 
+13. Your app WILL crash at some point saying something along the lines of "Out of disk space, 0 bytes written". At this point, you will need to clear the cache:
+
+    `	docker exec dime rm -rf /dev/shm/dime`
+    
 ## Project Structure
 
-The Frontend can be found under `src/Dime/FrontendBundle/Resources/public`. There is a separate README.md in the folder for further information.
+The Frontend can be found under [`src/Dime/FrontendBundle/Resources/public`](src/Dime/FrontendBundle/Resources/public) with a seperate README for further information.
 
 The Backend files are located in 'src/Dime/' & the relative Bundle folder. Server-Side Routing happens in [Bundle]/Resources/config/routing.yml
 
 ![erm](https://raw.githubusercontent.com/stiftungswo/Dime/master/doc/dime_erm_clean.png)
 
 This ERM excludes some tables that are currently empty/unused. [Here](https://raw.githubusercontent.com/stiftungswo/Dime/master/doc/dime_erm_full.png) is the full ERM.
-  
+ 
+## Bundles
 
+There are Multiple Bundle Seperated by features:
+    TimetrackerBundle Base Entities and RestAPI for them
+    OfferBundle Offer Entities ans RestAPI
+    InvoiceBundle Invoice Entities and RestAPI
+    PrintingBundle Service for Printing PDF's
+    FrontendBundle The Javascript GUI
+    SwoCommonsBundle Some Entities and Resources used by all our Applications
+
+For understanding the database abstraction, see
+
+    TimetrackerBundle/Handler/GenericHandler
+    
 ## Using Docker & docker-compose
 
 You can inspect the logs of Dime and MariaDB by:
@@ -87,8 +116,7 @@ Run any command inside the docker container:
 
 If you made any changes to the docker config, php config, composer dependencies etc. that are affecting the docker setup, run this command again:
 
-    docker-compose up -d --build
-
+    docker-compose build
 
 For more infos visit docker.com
 
@@ -112,7 +140,7 @@ Update database
 
 ## Debugging
 
-In order to debug, you need to install the following things on your developer VM:
+In order to debug, you need to install the following things developer machine:
 
 * PHP (use `apt install php`)
 * Xdebug helper extensions for chromium: https://chrome.google.com/webstore/detail/xdebug-helper/eadndfjplgieldjbigjakmdgkmoaaaoc
@@ -124,67 +152,6 @@ Once you have installed those tools, do the following:
 
 Once a breakpoint is hit, you will be able to inspect the code.
 
-## Bundles
-
-There are Multiple Bundle Seperated by features:
-    TimetrackerBundle Base Entities and RestAPI for them
-    OfferBundle Offer Entities ans RestAPI
-    InvoiceBundle Invoice Entities and RestAPI
-    PrintingBundle Service for Printing PDF's
-    FrontendBundle The Javascript GUI
-    SwoCommonsBundle Some Entities and Resources used by all our Applications
-
-For understanding the database abstraction, see
-
-    TimetrackerBundle/Handler/GenericHandler
-
-## Contributing
-
-Please feel free to contribute issues, improvements and feedback.
-
-For code contributions, [Symfony2 Coding Standards] are the way we want to go.
-
-Please write in English and use the `doc` folders for documentation and proposals rather than Github wiki.
-
-[Symfony2 Coding Standards]: http://symfony.com/doc/master/contributing/code/standards.html
-
-
-## Development-Branches
-
-The branches API and Frontend are gone. We switch now to feature branches. Every feature branch will be created from master. Here the steps to go.
-
-Create remote feature branch:
-
-    git pull origin master
-    git push origin ISSUENO-and-a-short-description
-    git checkout -t ISSUENO-and-a-short-description
-
-or for short bugfixing create only a local branch:
-
-    git pull origin master
-    git checkout -b ISSUENO-and-a-short-description
-
-keep up to date with the master (not sure with this - have to test it):
-
-    git fetch origin master
-    git rebase orgin/master
-
-if your work is done, merge back to master:
-
-    git checkout master
-    git fetch
-    git rebase
-    git merge ISSUENO-and-a-short-description
-
-Finally remove remote feature branch:
-
-    git push origin :ISSUENO-and-a-short-description
-
-and the local branch too:
-
-    git branch -d ISSUENO-and-a-short-description
-
-
 ## Run Test
 
 Run tests:
@@ -195,15 +162,11 @@ Run a single test:
 
     docker exec -it dime ./env/run_tests.sh --filter ActivitiesControllerTest::testGetActivitiesAction
 
-
 ## Building the Frontend
 
-To build the JS & HTML files for deployment, run these commands inside the VM:
+To build the JS & HTML files for deployment, run these commands:
 
     docker exec -it dime ./env/build_frontend.sh
-
-Always build & commit the frontend before merging into master!
-
 
 ## Database Schema Management
 
@@ -222,7 +185,8 @@ Generate new Empty Migration Class:
 After changing the ORM schema, sometimes you need to clear the cache before it works:
 
     docker exec -it dime php app/console cache:clear
-
+    
+Regenerate Fixtures as needed (see below)
 
 ## Fixtures
 
@@ -250,26 +214,20 @@ To log your symfony code, you can use logger:
     $logger = $this->get('logger');
     $logger->info('My log');
 
-The log file is in your container, find it by it's extension or look here:
+The log file is in your container, look here:
 
-    /dev/shm/dime/log/var/www/html/app/dev/dev.log
+    /dev/shm/dime/log/var/www/html/app/
 
 A good way to read it is
 
-    docker exec -it dime bash
-    more /dev/shm/dime/log/var/www/html/app/dev/dev.log | grep 'app.INFO'
-    
-## Angular Dart Docs
-
-The frontend uses Angular Dart v1, of which the documentation is getting kind of hard to find. Here are some Documentation Links:
-* [AngularDart Dartdocs](https://www.dartdocs.org/documentation/angular/1.1.2%2B2/index.html)
-* [AngularJS (angular 1, javascript version)](https://www.dartdocs.org/documentation/angular/1.1.2%2B2/index.html)
+    docker exec -it dime less /dev/shm/dime/log/var/www/html/app/test/test.log   #for tests
+    docker exec -it dime less /dev/shm/dime/log/var/www/html/app/dev/dev.log     #for dev
 
 ## Deployment
 
 ### Deployment at SWO
 
-Please see Documentation at: DiskStation:/intern/IT/10. Software/Dime/Betriebsdokumentation.docx
+Please see Documentation in the [private Wiki](https://wiki.stiftungswo.ch/it:sw:dime#deployment)
 
 # Known Issues
 
@@ -277,12 +235,6 @@ Please see Documentation at: DiskStation:/intern/IT/10. Software/Dime/Betriebsdo
 
 If you use Atom as IDE you'll propably want to benefit from the type safety features of Dart and install the static analyzer plugin `dart-atom/dartlang`.
 Before you blame the readme that even after fixing the pub cache things don't work they way they are supposed to, just open the directory `src/Dime/FrontendBundle/Resources/public` in a new window and start coding.
-
-## Docker and Superuser on Linux
-
-You can run docker without sudo on Linux. Example for Ubuntu:
-
-    https://askubuntu.com/a/477554
 
 ## Using Docker with Docker for Windows/Mac
 
@@ -292,5 +244,6 @@ We recommend using at least 2 CPU's and 4 GB of memory for your docker machine t
 
 ### OSX Workaround if response times are ugly slow
 
+http://docker-sync.io/
 http://stackoverflow.com/questions/38168130/docker-on-osx-slow-volumes/42679301#42679301
 https://github.com/IFSight/d4m-nfs
