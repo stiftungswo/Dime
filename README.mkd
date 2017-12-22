@@ -20,20 +20,20 @@ An API and open architecture will serve additional purposes:
 ## Installation / Setup for Development
 
 0. WINDOWS USERS
-  * Symfony uses symlinks that seem to break horribly on the windows file system. To circumvent this, sadly you will have to do your work in a virtual machine.
-  * Download and install VM Ware Player or VirtualBox.
-  * Download an Ubuntu 16.04 ISO
-  * Setup your VM
+    * Symfony uses symlinks that seem to break horribly on the windows file system. To circumvent this, sadly you will have to do your work in a virtual machine.
+    * Download and install VM Ware Player or VirtualBox.
+    * Download an Ubuntu 16.04 ISO
+    * Setup your VM
 1. Install Docker and Docker Compose:
-  * Linux/VM    
-    https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-16-04
-    https://www.digitalocean.com/community/tutorials/how-to-install-docker-compose-on-ubuntu-16-04
+    * Linux/VM    
+      https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-16-04
+      https://www.digitalocean.com/community/tutorials/how-to-install-docker-compose-on-ubuntu-16-04
     
-  * MacOS with [Homebrew](https://brew.sh/)
-    ```
-    brew cask install docker
-    brew install docker-compose
-    ```
+    * MacOS with [Homebrew](https://brew.sh/)
+      ```
+      brew cask install docker
+      brew install docker-compose
+      ```
 
 2. Download and install Dartium (supports Dart files in chrome in uncompiled version):
 
@@ -45,34 +45,34 @@ An API and open architecture will serve additional purposes:
     git clone --recursive git@github.com:stiftungswo/dime
     ```
 
-8. Build your Docker Images:
+4. Build your Docker Images:
 
     `docker-compose build`
     
-9. Start your stack from the dime root directory:
-  * Linux/VM: `docker-compose up`
-  * MacOS needs [docker-sync](http://docker-sync.io/) because without it performance is terrible
-    *  `gem install docker-sync`
-    * `docker-sync-stack start`
+5. Start your stack from the dime root directory:
+    * Linux/VM: `docker-compose up`
+    * MacOS needs [docker-sync](http://docker-sync.io/) because without it performance is terrible
+        *  `gem install docker-sync`
+        * `docker-sync-stack start`
     
-9. Restore dart packages:
+6. Restore dart packages:
 
     `docker exec -it dime ./env/pub_get.sh`
 
-10. Restore php packages in repository root directory:
+7. Restore php packages in repository root directory:
 
     `docker exec -it dime composer install`
     `docker exec -it dime ./env/install_bundles.sh`
 
-11. Open http://localhost:3000 with dartium
+8. Open http://localhost:3000 with dartium
 
-12. Open http://localhost:8080 for phpmyadmin
+9. Open http://localhost:8080 for phpmyadmin
 
     host: mariadb
     user: root
     no password
 
-13. Your app WILL crash at some point saying something along the lines of "Out of disk space, 0 bytes written". At this point, you will need to clear the cache:
+10. Your app WILL crash at some point saying something along the lines of "Out of disk space, 0 bytes written". At this point, you will need to clear the cache:
 
     `	docker exec dime rm -rf /dev/shm/dime`
     
