@@ -148,7 +148,7 @@ class Period extends Entity implements DimeEntityInterface
 	private function handleHolidaysChange(array $holidays, $method)
 	{
 		foreach($holidays as $holiday){
-			if($holiday instanceof Holiday){
+			if($holiday instanceof Holiday && $holiday->getDate() != null){
 				if($holiday->getDate()->between($this->getStart(), $this->getEnd())) {
 					if($method == 'DELETE'){
 						$this->holidays -= $holiday->getDuration();
