@@ -1,5 +1,5 @@
 <div>
-  <div class="col-sm-3 hidden-xs" style="margin: 0; padding: 0;">
+  <div class="col-sm-3 hidden-xs text-right" style="margin: 0; padding: 0;">
     <!-- only on desktop -->
     <div class="btn-group">
       <button type="button" class="btn btn-default" ng-click="previousMonth()" title="einen Monat zurück"><span class="fa fa-caret-left"></span><span class="fa fa-caret-left"></span><span class="fa fa-caret-left"></span></button>
@@ -21,8 +21,14 @@
       <button type="button" class="btn btn-default" ng-click="previousDay()" title="einen Tag zurück"><span class="fa fa-caret-left"></span></button>
     </div>
   </div>
-  <div class="col-sm-3 col-xs-6 text-right" style="margin: 0; padding: 0;">
-    <!-- desktop & mobile -->
+  <div class="col-sm-3 hidden-xs text-left" style="margin: 0; padding: 0;">
+    <div class="btn-group">
+      <button type="button" class="btn btn-default" ng-click="nextDay()" title="einen Tag vor"><span class="fa fa-caret-right"></span></button>
+      <button type="button" class="btn btn-default" ng-click="nextWeek()" title="eine Woche vor"><span class="fa fa-caret-right"></span><span class="fa fa-caret-right"></span></button>
+      <button type="button" class="btn btn-default" ng-click="nextMonth()" title="einen Monat vor"><span class="fa fa-caret-right"></span><span class="fa fa-caret-right"></span><span class="fa fa-caret-right"></span></button>
+    </div>
+  </div>
+  <div class="col-xs-6 visible-xs text-right" style="margin: 0; padding: 0;">
     <div class="btn-group">
       <button type="button" class="btn btn-default" ng-click="nextDay()" title="einen Tag vor"><span class="fa fa-caret-right"></span></button>
       <button type="button" class="btn btn-default" ng-click="nextWeek()" title="eine Woche vor"><span class="fa fa-caret-right"></span><span class="fa fa-caret-right"></span></button>
