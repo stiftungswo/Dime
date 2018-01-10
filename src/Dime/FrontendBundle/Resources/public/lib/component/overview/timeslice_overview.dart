@@ -37,6 +37,7 @@ class TimesliceOverviewComponent extends EntityOverview {
   List<Activity> activities = [];
   List<Employee> employees = [];
   var activityResult = null;
+  Set<Timeslice> selectedTimeslices = new Set();
 
   DateTime filterStartDate = new DateTime.now();
   DateTime filterEndDate;
@@ -318,5 +319,14 @@ class TimesliceOverviewComponent extends EntityOverview {
     super.scope = scope;
     scope.watch('filterStartDate', (val1, val2) => this.onDateUpdate());
     scope.watch('filterEndDate', (val1, val2) => this.onDateUpdate());
+  }
+
+  void toggleTimeslice(Timeslice timeslice){
+    if(this.selectedTimeslices.contains(timeslice.id)){
+      this.selectedTimeslices.remove(timeslice.id);
+    } else {
+      this.selectedTimeslices.add(timeslice.id);
+    }
+    print(this.selectedTimeslices);
   }
 }
