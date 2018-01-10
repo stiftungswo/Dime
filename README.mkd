@@ -100,6 +100,10 @@ For understanding the database abstraction, see
 
     TimetrackerBundle/Handler/GenericHandler
     
+## API Doc
+
+Check out http://localhost:3000/api/doc when the server is running
+    
 ## Using Docker & docker-compose
 
 You can inspect the logs of Dime and MariaDB by:
