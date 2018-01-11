@@ -2,6 +2,8 @@
 
 namespace Dime\TimetrackerBundle\Controller;
 
+use Dime\OfferBundle\Entity\Offer;
+use Dime\TimetrackerBundle\Entity\Project;
 use Dime\TimetrackerBundle\Exception\InvalidFormException;
 use FOS\RestBundle\Controller\Annotations;
 use FOS\RestBundle\Request\ParamFetcherInterface;
@@ -236,7 +238,18 @@ class ProjectsController extends DimeController
         }
 
         // Delete the project
-        $this->container->get($this->handlerSerivce)->delete($this->getOr404($id, $this->handlerSerivce));
+        /** @var Project $project */
+        $project = $this->getOr404($id, $this->handlerSerivce);
+        $em = $this->getDoctrine()->getManager();
+
+        // set project_id of all offers pointing to the project to null
+        /** @var Offer $offer */
+        foreach ($project->getOffers() as $offer) {
+            $offer->setProject(null);
+            $em->persist($offer);
+        }
+        $em->flush();
+        $this->container->get($this->handlerSerivce)->delete($project);
 
         return $this->view(null, Codes::HTTP_NO_CONTENT);
     }
