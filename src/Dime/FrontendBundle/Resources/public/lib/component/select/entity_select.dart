@@ -71,8 +71,8 @@ class EntitySelect extends AttachAware implements ScopeAware {
     try {
       this.entities = (await this.store.list(this.type)).toList();
       this.statusservice.setStatusToSuccess();
-    } catch (e) {
-      this.statusservice.setStatusToError(e);
+    } catch (e, stack) {
+      this.statusservice.setStatusToError(e, stack);
     }
   }
 

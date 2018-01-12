@@ -51,8 +51,8 @@ class TimesliceExpenseReportComponent extends EntityOverview {
             }, method: 'GET', url: '/api/v1/reports/expense')));
         this.statusservice.setStatusToSuccess();
         this.rootScope.emit(this.type.toString() + 'Loaded');
-      } catch (e) {
-        this.statusservice.setStatusToError(e);
+      } catch (e, stack) {
+        this.statusservice.setStatusToError(e, stack);
       }
     }
   }
