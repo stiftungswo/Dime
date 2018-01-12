@@ -22,6 +22,7 @@ dependencies:
         ref: master
   crypto: ">=2.0.2 <2.1.0"
   cryptoutils: ">=0.2.1 < 0.3.0"
+  sentry_client: ">=4.0.3 < 5.0.0"
 transformers:
 - script_inliner
 - angular
