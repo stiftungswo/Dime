@@ -4,11 +4,11 @@
     <div id="controls" class="col-xs-12 col-sm-2 text-right">
         <dime-button enabled="selectedTimeslices.length > 0" glyphicon="arrow-right">Verschieben</dime-button>
     </div>
-    <div class="row">
-        <div class="col-sm-12 ">
-            <div class="panel panel-default">
-                <div class="panel-heading">Verschieben</div>
-                <div class="panel-body">
+    <div class="col-sm-12" style="padding-top: 10px">
+        <div class="panel panel-default">
+            <div class="panel-heading">Verschieben</div>
+            <div class="panel-body">
+                <div class="row">
                     <div ng-if="allowProjectSelect" class="col-md-4">
                         <label>Projekt</label>
                         <project-select hideArchived="true" project="moveTargetProject"></project-select>
@@ -17,8 +17,10 @@
                         <label>Aktivität</label>
                         <activity-select activity="moveTargetActivity" parent-activities="activities" project="moveTargetProject.id" field="'activity'" shortname="true"></activity-select>
                     </div>
-                    <div class="col-md-2">
-                        <dime-button glyphicon="arrow-right" ng-click="moveTimeslices()" enabled="moveTargetActivity != null">Verschieben</dime-button>
+                </div>
+                <div class="row">
+                    <div class="col-md-2" style="padding-top: 10px">
+                        <dime-button glyphicon="arrow-right" ng-click="moveTimeslices()" enabled="moveTargetActivity != null" primary>Verschieben</dime-button>
                     </div>
                 </div>
             </div>
