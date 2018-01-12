@@ -1,3 +1,5 @@
+forked from [phpugl/Dime](https://github.com/phpugl/Dime)
+
 # DimeErp
 
 An ERP based on Symfony and AngularDart
