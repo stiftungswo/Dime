@@ -99,6 +99,9 @@ class TimesliceOverviewComponent extends EntityOverview {
   //selection for move dialog
   Activity moveTargetActivity;
   Project moveTargetProject;
+  bool moveDialogVisible = false;
+  //apparently if we query  `selectedTimeslices.isNotEmpty` directly, it doesn't update
+  moveDialogEnabled() => selectedTimeslices.isNotEmpty;
 
   TimesliceOverviewComponent(DataCache store, SettingsManager manager, StatusService status, this.context, UserAuthProvider auth)
       : super(Timeslice, store, '', manager, status, auth: auth);
