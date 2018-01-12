@@ -37,7 +37,6 @@ class TimesliceOverviewComponent extends EntityOverview {
   List<Activity> activities = [];
   List<Employee> employees = [];
   var activityResult = null;
-  Set<Timeslice> selectedTimeslices = new Set();
 
   DateTime filterStartDate = new DateTime.now();
   DateTime filterEndDate;
@@ -102,6 +101,10 @@ class TimesliceOverviewComponent extends EntityOverview {
   bool blendOutStartAndEnd = true;
 
   bool projectBased = false;
+
+  //selection for move dialog
+  Activity moveTargetActivity;
+  Project moveTargetProject;
 
   TimesliceOverviewComponent(DataCache store, SettingsManager manager, StatusService status, this.context, UserAuthProvider auth):
   super(Timeslice, store, '', manager, status, auth: auth);
@@ -321,12 +324,22 @@ class TimesliceOverviewComponent extends EntityOverview {
     scope.watch('filterEndDate', (val1, val2) => this.onDateUpdate());
   }
 
+  Map<int, Timeslice> selectedTimeslices = new Map();
+
   void toggleTimeslice(Timeslice timeslice){
-    if(this.selectedTimeslices.contains(timeslice.id)){
+    if(this.selectedTimeslices.containsKey(timeslice.id)){
       this.selectedTimeslices.remove(timeslice.id);
     } else {
-      this.selectedTimeslices.add(timeslice.id);
+      this.selectedTimeslices[timeslice.id] = timeslice;
     }
     print(this.selectedTimeslices);
+  }
+
+  moveTimeslices() {
+    selectedTimeslices.forEach((id, slice){
+      slice.addFieldtoUpdate("activity");
+      slice.activity = moveTargetActivity;
+      this.store.update(slice);
+    });
   }
 }
