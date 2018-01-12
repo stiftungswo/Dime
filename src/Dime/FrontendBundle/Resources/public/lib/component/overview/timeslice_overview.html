@@ -2,7 +2,27 @@
     <div class="col-xs-12 col-sm-2"></div>
     <daterange class="col-xs-12 col-sm-8" startdate="filterStartDate" enddate="filterEndDate" null-allowed="true"></daterange>
     <div id="controls" class="col-xs-12 col-sm-2 text-right">
-        <dime-button ng-if="selectedTimeslices.length > 0" glyphicon="arrow-right">Verschieben</dime-button>
+        <dime-button enabled="selectedTimeslices.length > 0" glyphicon="arrow-right">Verschieben</dime-button>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 ">
+            <div class="panel panel-default">
+                <div class="panel-heading">Verschieben</div>
+                <div class="panel-body">
+                    <div ng-if="allowProjectSelect" class="col-md-4">
+                        <label>Projekt</label>
+                        <project-select hideArchived="true" project="moveTargetProject"></project-select>
+                    </div>
+                    <div class="col-md-2">
+                        <label>Aktivität</label>
+                        <activity-select activity="moveTargetActivity" parent-activities="activities" project="moveTargetProject.id" field="'activity'" shortname="true"></activity-select>
+                    </div>
+                    <div class="col-md-2">
+                        <dime-button glyphicon="arrow-right" ng-click="moveTimeslices()" enabled="moveTargetActivity != null">Verschieben</dime-button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 <table class="table table-bordered table-hover form">
@@ -20,7 +40,7 @@
     </thead>
     <tbody ng-if="entities != null">
         <tr ng-repeat="entity in entities | timeslicedatefilter: filterStartDate:filterEndDate | orderBy:'startedAt'" ng-click="selectEntity(entity.id)" ng-class="isSelected(entity)? 'info': ''">
-            <td><input type="checkbox" ng-checked="selectedTimeslices.contains(entity.id)" ng-click="toggleTimeslice(entity)"/></td>
+            <td><input type="checkbox" ng-checked="selectedTimeslices.containsKey(entity.id)" ng-click="toggleTimeslice(entity)"/></td>
             <td ng-if="projectBased"><user-select user="entity.employee" parent-employees="employees" callback="entity.addFieldtoUpdate(name)" field="'employee'"></user-select></td>
             <td><activity-select is-readonly="true" activity="entity.activity" parent-activities="activities" project="entity.project.id" callback="entity.addFieldtoUpdate(name)" field="'activity'"></activity-select></td>
             <td ng-if="blendOutStartAndEnd"><dateinput is-readonly="true" style="width: 100%;" format="'dd-MM-y'" date="entity.startedAt"></dateinput></td>
