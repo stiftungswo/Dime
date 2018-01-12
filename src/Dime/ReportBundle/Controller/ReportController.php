@@ -7,6 +7,8 @@
 
 namespace Dime\ReportBundle\Controller;
 
+use Dime\PrintingBundle\Service\PrintService;
+use Dime\ReportBundle\Entity\ExpenseReport;
 use Dime\TimetrackerBundle\Controller\DimeController;
 use FOS\RestBundle\Controller\Annotations;
 use FOS\RestBundle\Request\ParamFetcherInterface;
@@ -76,19 +78,21 @@ class ReportController extends DimeController
      * )
      * @param ParamFetcherInterface $paramFetcher
      *
-     * @return \Dime\InvoiceBundle\Entity\Invoice
+     * @return Response
      */
     public function printReportsExpenseAction(ParamFetcherInterface $paramFetcher)
     {
         // disable notices from PHPPdf which breaks this
         error_reporting(E_ALL & ~E_NOTICE);
-        return $this->get('dime.print.pdf')->render(
-            'DimeReportBundle:Reports:ExpenseReport.pdf.twig',
-            array(
-                'report' => $this->container->get('dime.report.handler')->getExpenseReport($paramFetcher->all()),
-            ),
-            'DimeReportBundle:Reports:stylesheet.xml.twig'
-        );
+        /** @var ExpenseReport $report */
+        $report = $this->container->get('dime.report.handler')->getExpenseReport($paramFetcher->all());
+        /** @var PrintService $printService */
+        $printService = $this->get('dime.print.pdf');
+        $header       = [
+            'Content-Disposition' => sprintf('filename="aufwandsrapport_%s.pdf"', $report->getId()),
+        ];
+
+        return $printService->render('DimeReportBundle:Reports:ExpenseReport.pdf.twig', ['report' => $report], 'DimeReportBundle:Reports:stylesheet.xml.twig', $header);
     }
 
     /**

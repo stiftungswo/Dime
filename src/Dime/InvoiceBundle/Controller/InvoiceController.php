@@ -2,6 +2,8 @@
 
 namespace Dime\InvoiceBundle\Controller;
 
+use Dime\InvoiceBundle\Entity\Invoice;
+use Dime\PrintingBundle\Service\PrintService;
 use Dime\TimetrackerBundle\Controller\DimeController;
 use Dime\TimetrackerBundle\Exception\InvalidFormException;
 use FOS\RestBundle\Controller\Annotations;
@@ -11,6 +13,7 @@ use FOS\RestBundle\View\View;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class InvoiceController extends DimeController
@@ -243,13 +246,23 @@ class InvoiceController extends DimeController
      * )
      * @param $id
      *
-     * @return \Dime\InvoiceBundle\Entity\Invoice
+     * @return Response
      */
     public function printInvoiceAction($id)
     {
         // disable notices from PHPPdf which breaks this
         error_reporting(E_ALL & ~E_NOTICE);
-        return $this->get('dime.print.pdf')->render('DimeInvoiceBundle:Invoice:print.pdf.twig', array('invoice' => $this->getOr404($id, $this->handlerSerivce)), 'DimeInvoiceBundle:Invoice:stylesheet.xml.twig');
+        /** @var PrintService $printService */
+        $printService = $this->get('dime.print.pdf');
+        /** @var Invoice $invoice */
+        $invoice = $this->getOr404($id, $this->handlerSerivce);
+
+        $cleanInvoiceName = trim(preg_replace('/[^\wüöäéè]+/', '-', $invoice->getName()), '-');
+        $header = [
+            'Content-Disposition' => sprintf('filename="%s_%s.pdf"', $cleanInvoiceName, $invoice->getId()),
+        ];
+
+        return $printService->render('DimeInvoiceBundle:Invoice:print.pdf.twig', ['invoice' => $invoice], 'DimeInvoiceBundle:Invoice:stylesheet.xml.twig', $header);
     }
 
     /**
