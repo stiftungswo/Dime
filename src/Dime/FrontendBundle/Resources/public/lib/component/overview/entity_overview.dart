@@ -98,9 +98,9 @@ class EntityOverview extends AttachAware implements ScopeAware {
       this.entities.add(resp);
       this.statusservice.setStatusToSuccess();
       this.rootScope.emit(this.type.toString() + 'Changed');
-    } catch (e) {
+    } catch (e, stack) {
       print("Unable to save entity ${this.type.toString()}::${entity.id} because ${e}");
-      this.statusservice.setStatusToError(e);
+      this.statusservice.setStatusToError(e, stack);
     }
   }
 
@@ -133,9 +133,9 @@ class EntityOverview extends AttachAware implements ScopeAware {
         this.entities.add(resp);
       }
       this.onUpdate({"entities": this.entities});
-    } catch (e) {
+    } catch (e, stack) {
       print("Unable to create entity ${this.type.toString()} because ${e}");
-      this.statusservice.setStatusToError(e);
+      this.statusservice.setStatusToError(e, stack);
     }
   }
 
@@ -163,9 +163,9 @@ class EntityOverview extends AttachAware implements ScopeAware {
         this.statusservice.setStatusToSuccess();
         this.rootScope.emit(this.type.toString() + 'Duplicated');
         this.onUpdate({"entities": this.entities});
-      } catch (e) {
+      } catch (e, stack) {
         print("Unable to duplicate entity ${this.type.toString()}::${newEnt.id} because ${e}");
-        this.statusservice.setStatusToError(e);
+        this.statusservice.setStatusToError(e, stack);
       }
     }
   }
@@ -186,9 +186,9 @@ class EntityOverview extends AttachAware implements ScopeAware {
           this.statusservice.setStatusToSuccess();
           this.rootScope.emit(this.type.toString() + 'Deleted');
           this.onUpdate({"entities": this.entities});
-        } catch (e) {
+        } catch (e, stack) {
           print("Unable to Delete entity ${this.type.toString()}::${entId} because ${e}");
-          this.statusservice.setStatusToError(e);
+          this.statusservice.setStatusToError(e, stack);
         }
       }
     }
@@ -228,9 +228,9 @@ class EntityOverview extends AttachAware implements ScopeAware {
       this.onUpdate({"entities": this.entities});
       this.statusservice.setStatusToSuccess();
       this.rootScope.emit(this.type.toString() + 'Loaded');
-    } catch (e) {
+    } catch (e, stack) {
       print("Unable to load ${this.type.toString()} because ${e}");
-      this.statusservice.setStatusToError(e);
+      this.statusservice.setStatusToError(e, stack);
     }
   }
 

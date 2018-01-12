@@ -114,8 +114,8 @@ class TimetrackMultiComponent extends EntityOverview {
     try {
       this.activities = (await this.store.list(Activity)).toList();
       this.statusservice.setStatusToSuccess();
-    } catch (e) {
-      this.statusservice.setStatusToError(e);
+    } catch (e, stack) {
+      this.statusservice.setStatusToError(e, stack);
     }
   }
 

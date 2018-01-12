@@ -31,8 +31,8 @@ class SettingsManager {
       })).toList();
       this._currentUserId = userId;
       this.statusservice.setStatusToSuccess();
-    } catch (e) {
-      this.statusservice.setStatusToError(e);
+    } catch (e, stack) {
+      this.statusservice.setStatusToError(e, stack);
     }
   }
 
@@ -43,8 +43,8 @@ class SettingsManager {
         'namespace': '/etc*'
       })).toList();
       this.statusservice.setStatusToSuccess();
-    } catch (e) {
-      this.statusservice.setStatusToError(e);
+    } catch (e, stack) {
+      this.statusservice.setStatusToError(e, stack);
     }
   }
 
@@ -81,8 +81,8 @@ class SettingsManager {
       this.userSettings.add(setting);
       this.statusservice.setStatusToSuccess();
       return setting;
-    } catch (e) {
-      this.statusservice.setStatusToError(e);
+    } catch (e, stack) {
+      this.statusservice.setStatusToError(e, stack);
     }
   }
 

@@ -22,9 +22,9 @@ class ProjectOpenInvoicesComponent extends EntityOverview {
       this.entities = (await this.store.customQueryList(Project, new CustomRequestParams(method: 'GET', url: '/api/v1/projectsopeninvoices'))).toList();
       this.statusservice.setStatusToSuccess();
       this.rootScope.emit(this.type.toString() + 'Loaded');
-    } catch (e) {
+    } catch (e, stack) {
       print("Unable to load ${this.type.toString()} because ${e}");
-      this.statusservice.setStatusToError(e);
+      this.statusservice.setStatusToError(e, stack);
     }
   }
 

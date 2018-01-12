@@ -56,8 +56,8 @@ class ActivitySelectComponent extends EntitySelect {
         this.entities = (await this.store.list(Activity, params: { 'project': this.projectId })).toList();
       }
       this.statusservice.setStatusToSuccess();
-    } catch (e) {
-      this.statusservice.setStatusToError(e);
+    } catch (e, stack) {
+      this.statusservice.setStatusToError(e, stack);
     }
   }
 }

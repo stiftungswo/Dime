@@ -65,9 +65,9 @@ class ProjectOverviewComponent extends EntityOverview {
 
         this.statusservice.setStatusToSuccess();
         this.rootScope.emit(this.type.toString() + 'Duplicated');
-      } catch (e) {
+      } catch (e, stack) {
         print("Unable to duplicate entity ${this.type.toString()}::${newProject.id} because ${e}");
-        this.statusservice.setStatusToError(e);
+        this.statusservice.setStatusToError(e, stack);
       }
     }
   }

@@ -115,6 +115,15 @@ class AppModule extends Module {
   }
 }
 
+@Injectable()
+class DimeExceptionHandler {
+  final Logger log = new Logger("Application");
+
+  call(dynamic error, dynamic stack, [String reason = '']) {
+    //TODO plug in sentry here
+    log.severe("$error\n$reason\nSTACKTRACE:\n$stack");
+  }
+}
 
 void main() {
   Logger.root.level = Level.ALL;
@@ -126,7 +135,8 @@ void main() {
     }
   });
   applicationFactory()
-      .addModule(new AngularUIModule()) // The angular-ui module
-      .addModule(new AppModule()) //TheMain Module
-      .run();
+    .addModule(new AngularUIModule()) // The angular-ui module
+    .addModule(new AppModule()
+      ..bind(ExceptionHandler, toImplementation: DimeExceptionHandler)
+    ).run();
 }
