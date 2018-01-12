@@ -2,9 +2,10 @@
     <div class="col-xs-12 col-sm-2"></div>
     <daterange class="col-xs-12 col-sm-8" startdate="filterStartDate" enddate="filterEndDate" null-allowed="true"></daterange>
     <div id="controls" class="col-xs-12 col-sm-2 text-right">
-        <dime-button enabled="selectedTimeslices.length > 0" glyphicon="arrow-right">Verschieben</dime-button>
+        <dime-button enabled="moveDialogEnabled()" glyphicon="arrow-right" ng-click="moveDialogVisible = !moveDialogVisible">Verschieben</dime-button>
+        <help-tooltip text="Verschiebe die ausgewählten Einträge zu einer anderen Aktivität"></help-tooltip>
     </div>
-    <div class="col-sm-12" style="padding-top: 10px">
+    <div class="col-sm-12" style="padding-top: 10px" ng-if="moveDialogVisible">
         <div class="clearfix"></div>
         <div class="panel panel-default">
             <div class="panel-heading">Verschieben</div>
