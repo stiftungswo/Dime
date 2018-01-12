@@ -111,7 +111,7 @@ class InvoiceItem extends Entity implements DimeEntityInterface
         if ($this->rateValue instanceof Money && is_numeric($this->amount)) {
             return $this->rateValue->multiply((float)$this->amount);
         } else {
-            return null;
+            return Money::CHF(0);
         }
     }
 
