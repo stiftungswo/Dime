@@ -5,8 +5,8 @@ This is the Dime Frontend. It is currently completely in german with no translat
 
 The frontend uses Angular Dart v1, of which the documentation is getting kind of hard to find. Here are some Documentation Links:
 * [AngularDart Dartdocs](https://www.dartdocs.org/documentation/angular/1.1.2%2B2/index.html)
-* [AngularJS (angular 1, javascript version)](https://www.dartdocs.org/documentation/angular/1.1.2%2B2/index.html)
-
+* [AngularJS (angular 1, javascript version)](https://docs.angularjs.org/guide)
+* [AngularDart 1 Github Issues](https://github.com/dart-archive/angular.dart/issues)
 
 ---
 Following is the README of the project template:
