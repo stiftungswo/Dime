@@ -148,15 +148,18 @@ Update database
 
 In order to debug, you need to install the following things developer machine:
 
-* PHP (use `apt install php`)
+* PHPStorm (or other Jetbrains IDE)
 * Xdebug helper extensions for chromium: https://chrome.google.com/webstore/detail/xdebug-helper/eadndfjplgieldjbigjakmdgkmoaaaoc
 
 Once you have installed those tools, do the following:
 
-* Enable the debugger in Visual Studio code
+* Activate the debug-lister in PHPStorm (Phone in the top-right)
 * Browse Dime using chromium and enable the Xdebug helper
 
 Once a breakpoint is hit, you will be able to inspect the code.
+
+Currently xdebug is configured to work with "docker for mac".
+For other development environments you might need to adjust the php.ini at `.docker/rootfs/usr/local/etc/php/php.ini` (see comment).
 
 ## Run Test
 
