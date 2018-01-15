@@ -29,6 +29,7 @@ class TimesliceFormType extends AbstractType
             //Value must be set after activity because it depends on it.
             ->add('employee', 'entity', array('class' => 'DimeEmployeeBundle:Employee'))
             ->add('value', 'text')
+            ->add('comment', 'text', array('required' => false))
             ->add('tags', 'entity', array('class' => 'DimeTimetrackerBundle:Tag', 'multiple' => true, 'required'=>false))
             ->add('user', 'entity', array('class' => 'DimeTimetrackerBundle:User'))
         ;

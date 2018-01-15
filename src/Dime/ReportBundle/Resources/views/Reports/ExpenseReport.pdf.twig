@@ -20,6 +20,7 @@
 				<td class="secondrow">Bezeichnung</td>
 				<td class="thirdrow number">Anzahl</td>
 				<td class="fourthrow">Einheit</td>
+				<td class="fifthrow">Kommentar</td>
 			</tr>
 			{% for slice in report.timeslices %}
 				<tr class="tbody">
@@ -27,6 +28,7 @@
 					<td class="secondrow">{{ slice.activity.service.name }}</td>
 					<td class="thirdrow number">{{ slice.serializeValue(false) }}</td>
 					<td class="fourthrow">{{ slice.activity.rateUnitType.name }}</td>
+					<td class="fifthrow">{{ slice.comment|nl2br }}</td>
 				</tr>
 			{% endfor %}
 		</table>

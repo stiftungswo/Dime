@@ -41,6 +41,7 @@ class ReportHandler extends AbstractHandler{
 			->Select('SUM('.$this->alias.'.value)')
 			->addSelect($this->alias.'.startedAt')
 			->addSelect('IDENTITY('.$this->alias.'.activity)')
+			->addSelect('GROUP_CONCAT(' . $this->alias . ".comment SEPARATOR '\n') comment")
 			->groupBy($this->alias.'.startedAt')
 			->addGroupBy($this->alias.'.activity')
 			->orderBy($this->alias.'.startedAt', 'ASC')
@@ -52,6 +53,7 @@ class ReportHandler extends AbstractHandler{
 			$slice = new Timeslice();
 			$slice->setValue($tmpResult[1])
 				->setStartedAt($tmpResult['startedAt'])
+                ->setComment($tmpResult['comment'])
 				->setActivity($this->om->getRepository('DimeTimetrackerBundle:Activity')->find($tmpResult[2]));
 			$result[] = $slice;
 		}

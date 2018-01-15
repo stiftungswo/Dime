@@ -94,6 +94,8 @@ class TimesliceOverviewComponent extends EntityOverview {
 
   DateTime newEntryDate;
 
+  DateTime newEntryComment;
+
   @NgOneWayOneTime('allowProjectSelect')
   bool allowProjectSelect = true;
 
@@ -189,9 +191,11 @@ class TimesliceOverviewComponent extends EntityOverview {
       }
       slice.addFieldtoUpdate(name);
     }
+    slice.Set('comment', this.newEntryComment);
     slice.Set('activity', this.selectedActivity);
     slice.Set('startedAt', this.newEntryDate);
     slice.Set('employee', this._employee);
+    slice.addFieldtoUpdate('comment');
     slice.addFieldtoUpdate('activity');
     slice.addFieldtoUpdate('employee');
     slice.addFieldtoUpdate('startedAt');

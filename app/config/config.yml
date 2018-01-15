@@ -70,6 +70,9 @@ doctrine:
                     softdeleteable:
                         class: Gedmo\SoftDeleteable\Filter\SoftDeleteableFilter
                         enabled: true
+                dql:
+                    string_functions:
+                        group_concat: DoctrineExtensions\Query\Mysql\GroupConcat
 stof_doctrine_extensions:
     default_locale: en_US
 

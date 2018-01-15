@@ -59,6 +59,13 @@ class Timeslice extends Entity implements DimeEntityInterface
 	protected $value = 0;
 
 	/**
+	 * @var string $comment
+     * @JMS\Groups({"List"})
+	 * @ORM\Column(name="comment", type="string", length=255)
+	 */
+	protected $comment = '';
+
+	/**
 	 * @var datetime $startedAt
 	 * @JMS\Exclude()
 	 * @Assert\DateTime()
@@ -187,6 +194,27 @@ class Timeslice extends Entity implements DimeEntityInterface
 			return $this->getValue();
 		}
 	}
+
+    /**
+     * @JMS\SerializedName("comment")
+     * @return string
+     */
+    public function getComment()
+    {
+        return $this->comment;
+    }
+
+    /**
+     * @param string $comment
+     *
+     * @return Timeslice
+     */
+    public function setComment($comment)
+    {
+        $this->comment = $comment;
+
+        return $this;
+    }
 
 	/**
 	 * @JMS\VirtualProperty()

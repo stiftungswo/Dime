@@ -39,6 +39,7 @@
             <th ng-if="blendOutStartAndEnd == false">Start</th>
             <th ng-if="blendOutStartAndEnd == false">Ende</th>
             <th>Dauer/Anzahl</th>
+            <th>Kommentar</th>
             <th width="60">Aktion</th>
         </tr>
     </thead>
@@ -51,6 +52,7 @@
             <td ng-if="blendOutStartAndEnd == false"><dateinput style="width: 100%;" format="'dd-MM-y HH:mm'" date="entity.startedAt" field="'startedAt'" callback="entity.addFieldtoUpdate(name)"></dateinput></td>
             <td ng-if="blendOutStartAndEnd == false"><dateinput style="width: 100%;" format="'dd-MM-y HH:mm'" date="entity.stoppedAt" field="'stoppedAt'" callback="entity.addFieldtoUpdate(name)"></dateinput></td>
             <td><input style="width: 100%;" class="form-control" ng-model="entity.value" ng-change="addSaveField('value', entity)"/></td>
+            <td><input style="width: 100%;" class="form-control" ng-model="entity.comment" ng-change="addSaveField('comment', entity)" maxlength="255"/></td>
             <td><button type="button" class="btn btn-default" ng-click="deleteEntity(entity.id)"><i class="fa fa-fw fa-trash-o" style="color:red"></i></button></td>
         </tr>
     </tbody>
@@ -66,13 +68,11 @@
                 <help-tooltip text="Stellt das Datum nach dem Erfassen auf das Datum des neusten Eintrags im ausgewaehlten Zeitfenster"></help-tooltip>
             </div>
         </div>
-        <div class="col-md-1">
-        </div>
-        <div ng-if="projectBased == true" class="col-md-2">
+        <div ng-if="projectBased == true" class="col-md-1">
             <label>Benutzer</label>
             <user-select clearOnClose="false" parent-employees="employees" user="employee" useContext="false"></user-select>
         </div>
-        <div ng-if="projectBased == false" class="col-md-2">
+        <div ng-if="projectBased == false" class="col-md-1">
             <label>Benutzer</label>
             <user-select clearOnClose="false" user="employee" useContext="true"></user-select>
         </div>
@@ -83,6 +83,10 @@
         <div class="col-md-2">
             <label>Aktivität</label>
             <activity-select activity="selectedActivity" parent-activities="activities" project="selectedProject.id" field="'activity'" shortname="true"></activity-select>
+        </div>
+        <div class="col-md-2">
+            <label>Kommentar</label>
+            <input class="form-control" style="width: 100%" ng-model="newEntryComment" />
         </div>
         <div class="col-md-1">
             <label>Wert</label>
