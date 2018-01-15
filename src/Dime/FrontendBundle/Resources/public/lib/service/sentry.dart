@@ -28,29 +28,6 @@ class BrowserSentryLogger implements SentryLogger{
     this.client = new SentryClientBrowser(SentryDsn.fromString(dsn));
   }
 
-  SentryStacktrace parseStack(String stack){
-    var frames = stack.split("#");
-    frames = frames.getRange(1, frames.length);
-    var newFrames = frames.map((line) {
-      var match = traceExp.firstMatch(line);
-      if (match != null) {
-        return {"method": match.group(1), "file": match.group(2), "line": match.group(3)};
-      } else {
-        return null;
-      }
-    });
-
-    return new SentryStacktrace(
-        frames: newFrames.where((f)=>f!=null)
-            .map((f)=> new SentryStacktraceFrame(
-            function: f["method"],
-            filename: f["file"],
-            lineno: f["line"]
-        )).toList().reversed.toList()
-    );
-
-  }
-
   void log(dynamic error, dynamic stack, [String reason = '']) {
     var split = error.toString().split(":");
     String type = null;
@@ -62,6 +39,9 @@ class BrowserSentryLogger implements SentryLogger{
       value = split[0];
     }
 
+    value += "\n";
+    value += stack.toString();
+
     client.write(new SentryPacket(
       culprit: window.location.toString(),
       timestamp: new DateTime.now().millisecondsSinceEpoch/1000,
@@ -70,8 +50,7 @@ class BrowserSentryLogger implements SentryLogger{
       exceptionValues: [
         new SentryException(
             type: type,
-            value: value,
-            stacktrace: parseStack(stack.toString())
+            value: value
         )
       ],
       user: new SentryUser(
