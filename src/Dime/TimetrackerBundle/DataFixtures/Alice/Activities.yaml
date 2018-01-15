@@ -1,6 +1,6 @@
 Dime\TimetrackerBundle\Entity\Activity:
     activity1:
-        project: @project*
+        project: @project1
         service: @service1
         description: DimERP Programmieren
         user: @user1

@@ -1,30 +1,42 @@
 Dime\TimetrackerBundle\Entity\Timeslice:
     timeslice1:
         value: 7200
+        comment: '50%? <sentence(6)>'
         startedAt: <dateTimeBetween('-1000 days', 'now')>
         activity: @activityHour1
         user: @user1
         employee: @employee1
+    timeslice2:
+        value: 7200
+        comment: '50%? <sentence(6)>'
+        startedAt: <dateTimeBetween('-1000 days', 'now')>
+        activity: @activity1
+        user: @user1
+        employee: @employee15
     timesliceHour{1..100}:
-        value: <numberBetween(3600, 30240)>  
+        value: <numberBetween(3600, 30240)>
+        comment: '50%? <sentence(6)>'
         startedAt: <dateTimeBetween('-1000 days', 'now')>
         activity: @activityHour*
         user: @user*
         employee: @employee*
     timesliceDay{1..100}:
         value: 30240
+        comment: '50%? <sentence(6)>'
         startedAt: <dateTimeBetween('-1000 days', 'now')>
         activity: @activityDay*
         user: @user*
         employee: @employee*
     timesliceNone{1..100}:
         value: <numberBetween(1, 200)>
+        comment: '50%? <sentence(6)>'
         startedAt: <dateTimeBetween('-1000 days', 'now')>
         activity: @activityNone*
         user: @user*
         employee: @employee*
     timeslicePauschal{1..100}:
         value: 1
+        comment: '50%? <sentence(6)>'
         startedAt: <dateTimeBetween('-1000 days', 'now')>
         activity: @activityPauschal*
         user: @user*

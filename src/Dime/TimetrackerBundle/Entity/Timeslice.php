@@ -61,7 +61,7 @@ class Timeslice extends Entity implements DimeEntityInterface
 	/**
 	 * @var string $comment
      * @JMS\Groups({"List"})
-	 * @ORM\Column(name="comment", type="string", length=255)
+	 * @ORM\Column(name="comment", type="string", length=255, nullable=true)
 	 */
 	protected $comment = '';
 
