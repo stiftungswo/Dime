@@ -3,6 +3,7 @@
 
 import 'package:DimeClient/component/elements/dime-button.dart';
 import 'package:DimeClient/component/elements/help-tooltip.dart';
+import 'package:DimeClient/service/release_info.dart';
 import 'package:DimeClient/service/sentry.dart';
 import 'package:angular/angular.dart';
 import 'package:angular/application_factory.dart';
@@ -123,13 +124,10 @@ class AppModule extends Module {
   }
 }
 
-const dsn = "SENTRY_DSN"; //replace this with a build script
-
-
 @Injectable()
 SentryLogger getSentry(UserContext userContext){
-  if(dsn.startsWith("https")){
-    return new BrowserSentryLogger(dsn, userContext);
+  if(sentryDSN.startsWith("https")){
+    return new BrowserSentryLogger(sentryDSN, userContext);
   } else {
     return new NullSentryLogger();
   }
