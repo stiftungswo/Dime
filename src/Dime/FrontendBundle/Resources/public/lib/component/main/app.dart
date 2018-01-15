@@ -1,5 +1,6 @@
 library main_app;
 
+import 'package:DimeClient/service/release_info.dart';
 import 'package:angular/angular.dart';
 import 'dart:js';
 import 'dart:async';
@@ -55,5 +56,7 @@ class AppComponent extends AttachAware implements ScopeAware {
       login();
     }
   }
+
+  get releaseInfo => "$release - $environment";
 
 }
