@@ -15,7 +15,7 @@ services:
       - pub-cache:/tmp/dime-pub-cache
     environment:
       - VIRTUAL_HOST=localhost
-      - PUB_CACHE=/tmp/dime-pub-cache
+      - PUB_CACHE=/var/www/html/src/Dime/FrontendBundle/Resources/public/pubcache
       - PHP_MEMLIMIT="2048M"
       - CACHE_ROOT="/tmp/app"
 
