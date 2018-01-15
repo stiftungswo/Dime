@@ -34,7 +34,7 @@ ssh $TARGET mkdir -p ${PROJECT_DIR} ${PROJECT_DIR}.bak && \
 rsync -ra --exclude '.git' --exclude '.pub-cache' --exclude 'dart-sdk' --exclude 'dartsdk-linux-x64-release.zip' . $TARGET:$TMP && \
 ssh $TARGET cp $CONFIG_FILE $TMP/app/config/parameters.yml && \
 ssh $TARGET sed -i'' "s/COMMIT_ID/$TRAVIS_COMMIT/" $TMP/app/config/parameters.yml && \
-ssh $TARGET sed -i'' "s/SENTRY_DSN/$SENTRY_DSN/g" "$TMP/src/Dime/FrontendBundle/Resources/public/build/web/main.dart.js && \
+ssh $TARGET sed -i'' "s/SENTRY_DSN/$SENTRY_DSN/g" $TMP/src/Dime/FrontendBundle/Resources/public/build/web/main.dart.js && \
 ssh $TARGET sed -i'' "s/DIME_ENVIRONMENT/$ENVIRONMENT/g" "$TMP/src/Dime/FrontendBundle/Resources/public/build/web/main.dart.js && \
 ssh $TARGET sed -i'' "s/DIME_RELEASE/$TRAVIS_COMMIT/g" "$TMP/src/Dime/FrontendBundle/Resources/public/build/web/main.dart.js && \
 ssh $TARGET rm -r ${PROJECT_DIR}.bak && \
