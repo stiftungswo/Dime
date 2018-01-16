@@ -54,6 +54,10 @@ services:
         class: %generic_handler%
         arguments: [ "@doctrine.orm.entity_manager", "Dime\TimetrackerBundle\Entity\\ProjectCategory",  "@service_container", "pc", "dime_timetrackerbundle_projectcategoryformtype"]
 
+    dime.projectcomment.handler:
+        class: %generic_handler%
+        arguments: [ "@doctrine.orm.entity_manager", "Dime\TimetrackerBundle\Entity\\ProjectComment",  "@service_container", "pcom", "dime_invoicebundle_projectcommentformtype"]
+
     dime.alice.processor:
         class: Dime\TimetrackerBundle\DataFixtures\Alice\Processor
         tags:
