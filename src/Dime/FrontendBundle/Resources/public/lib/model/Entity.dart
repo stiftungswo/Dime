@@ -33,6 +33,7 @@ part 'entities/Tag.dart';
 part 'entities/Timeslice.dart';
 part 'entities/User.dart';
 part 'entities/ProjectCategory.dart';
+part 'entities/ProjectComment.dart';
 part 'entities/SettingAssignProject.dart';
 
 class Entity {

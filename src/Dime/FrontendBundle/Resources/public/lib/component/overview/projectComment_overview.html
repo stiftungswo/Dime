@@ -1,0 +1,41 @@
+<label>Projekt</label>
+<project-select hideArchived="true" project="selectedProject"></project-select>
+
+<table class="table table-bordered table-hover">
+  <thead>
+    <tr>
+      <th>Datum</th>
+      <th>Kommentar</th>
+      <th width="60">Aktion</th>
+    </tr>
+  </thead>
+  <tbody ng-if="entities != null">
+    <tr ng-repeat="entity in entities | orderBy:'-date'" ng-click="selectEntity(entity.id)" ng-class="isSelected(entity)? 'info': ''">
+      <td><dateinput is-readonly="true" style="width: 100%;" date="entity.date"></dateinput></td>
+      <td><input type="text" class="form-control" style="width: 100%;" ng-model="entity.comment" ng-change="addSaveField('comment', entity)"/></td>
+      <td><button type="button" class="btn btn-default" ng-click="deleteEntity(entity.id)"><i class="fa fa-fw fa-trash-o" style="color:red"></i></button></td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="row form-inline">
+  <div class="col-md-2">
+    <label>Datum</label>
+    <dateinput date="newEntryDate" has-buttons="true"></dateinput>
+  </div>
+  <div class="col-md-10">
+    <label>Kommentar</label>
+    <input type="text" class="form-control" style="width: 100%;" ng-model="newEntryComment" />
+  </div>
+  <div class="col-md-12" style="margin-top: 5px;">
+    <button type="button" class="btn btn-primary" ng-click="createEntity()">Eintrag hinzufügen</button>
+    <button type="button" class="btn btn-default" ng-click="reload(evict: true)"><span class="glyphicon glyphicon-refresh"></span></button>
+  </div>
+</div>
+
+<!--<div class="DimeControlButtons">
+  <button type="button" class="btn btn-primary" ng-click="saveAllEntities()"><error-icon value="saveState" timeout="20"></error-icon></button>
+  <button type="button" class="btn btn-primary" ng-click="createEntity()">Hinzufügen</button>
+  <button type="button" class="btn btn-primary" ng-click="duplicateEntity()">Duplizieren</button>
+  <button type="button" class="btn btn-default" ng-click="reload(evict: true)"><span class="glyphicon glyphicon-refresh"></span></button>
+</div>-->
