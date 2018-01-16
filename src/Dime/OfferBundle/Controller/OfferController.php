@@ -2,6 +2,8 @@
 
 namespace Dime\OfferBundle\Controller;
 
+use Dime\OfferBundle\Entity\Offer;
+use Dime\PrintingBundle\Service\PrintService;
 use Dime\TimetrackerBundle\Controller\DimeController;
 use Dime\TimetrackerBundle\Exception\InvalidFormException;
 use FOS\RestBundle\Controller\Annotations;
@@ -11,6 +13,7 @@ use FOS\RestBundle\View\View;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class OfferController extends DimeController
@@ -244,12 +247,21 @@ class OfferController extends DimeController
      * )
      * @param $id
      *
-     * @return \Dime\InvoiceBundle\Entity\Invoice
+     * @return Response
      */
     public function printOfferAction($id)
     {
         // disable notices from PHPPdf which breaks this
         error_reporting(E_ALL & ~E_NOTICE);
-        return $this->get('dime.print.pdf')->render('DimeOfferBundle:Offer:print.pdf.twig', array('offer' => $this->getOr404($id, $this->handlerSerivce)), 'DimeOfferBundle:Offer:stylesheet.xml.twig');
+        /** @var PrintService $printService */
+        $printService = $this->get('dime.print.pdf');
+        /** @var Offer $offer */
+        $offer = $this->getOr404($id, $this->handlerSerivce);
+
+        $cleanOfferName = trim(preg_replace('/[^\wüöäéè]+/', '-', $offer->getName()), '-');
+        $header = [
+            'Content-Disposition' => sprintf('filename="%s_%s.pdf"', $cleanOfferName, $offer->getId()),
+        ];
+        return $printService->render('DimeOfferBundle:Offer:print.pdf.twig', ['offer' => $offer], 'DimeOfferBundle:Offer:stylesheet.xml.twig', $header);
     }
 }

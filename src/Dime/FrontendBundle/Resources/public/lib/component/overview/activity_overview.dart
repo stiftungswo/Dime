@@ -42,4 +42,22 @@ class ActivityOverviewComponent extends EntityOverview {
       'project': this._projectId
     }, evict: evict);
   }
+
+  deleteEntity([int entId]) async {
+    this.statusservice.setStatusToLoading();
+    var invoices = await this.store.list(Invoice, params: {'project': this._projectId});
+    var invoiceItemResults = await Future.wait(invoices.map((c) {
+      return this.store.list(InvoiceItem, params: {'invoice': c.id});
+    }));
+
+    var activityIds = invoiceItemResults.expand((c) => c.map((i) => i.activity.id));
+    print(activityIds);
+    this.statusservice.setStatusToSuccess();
+
+    if (activityIds.any((id) => id == entId)) {
+      window.alert('Kann nicht gelöscht werden, da noch Rechnungsposten darauf verweisen!');
+    } else {
+      super.deleteEntity(entId);
+    }
+  }
 }
