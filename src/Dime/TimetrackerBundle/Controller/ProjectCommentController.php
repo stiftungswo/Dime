@@ -19,6 +19,14 @@ class ProjectCommentController extends DimeController
     private $handlerSerivce = 'dime.projectcomment.handler';
 
     /**
+     * @return GenericHandler
+     */
+    private function getHandlerService(): GenericHandler
+    {
+        return $this->container->get($this->handlerSerivce);
+    }
+
+    /**
      * List all Entities.
      *
      * @ApiDoc(
@@ -32,7 +40,7 @@ class ProjectCommentController extends DimeController
      *
      * @Annotations\QueryParam(name="id" , nullable=false, description="Filter By Id")
      * @Annotations\QueryParam(name="date", nullable=false, description="Filter By Name")
-     * @Annotations\QueryParam(name="project_id", nullable=false, description="Filter By Project")
+     * @Annotations\QueryParam(name="project", nullable=false, description="Filter By Project")
      *
      * @Annotations\View(
      * serializerEnableMaxDepthChecks=true
@@ -182,13 +190,5 @@ class ProjectCommentController extends DimeController
     {
         $this->getHandlerService()->delete($this->getOr404($id, $this->handlerSerivce));
         return $this->view(null, Codes::HTTP_NO_CONTENT);
-    }
-
-    /**
-     * @return GenericHandler
-     */
-    private function getHandlerService(): GenericHandler
-    {
-        return $this->container->get($this->handlerSerivce);
     }
 }
