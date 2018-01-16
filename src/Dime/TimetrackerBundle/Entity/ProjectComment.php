@@ -14,7 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @package Dime\TimetrackerBundle\Entity
  *
  * @ORM\Table(name="project_comments")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Dime\TimetrackerBundle\Entity\ProjectCommentRepository")
  * @Json\Schema("project_comments")
  */
 class ProjectComment extends Entity implements DimeEntityInterface
@@ -26,6 +26,7 @@ class ProjectComment extends Entity implements DimeEntityInterface
      * @var Project
      * @ORM\ManyToOne(targetEntity="Project", inversedBy="comments")
      * @ORM\JoinColumn(name="project_id", referencedColumnName="id", nullable=false)
+     * @JMS\MaxDepth(1)
      */
     protected $project;
 
@@ -41,6 +42,26 @@ class ProjectComment extends Entity implements DimeEntityInterface
      * @ORM\Column(name="date", type="datetime", nullable=false)
      */
     protected $date;
+
+    /**
+     * @return Project
+     */
+    public function getProject()
+    {
+        return $this->project;
+    }
+
+    /**
+     * @param Project $project
+     *
+     * @return ProjectComment
+     */
+    public function setProject($project)
+    {
+        $this->project = $project;
+
+        return $this;
+    }
 
     /**
      * @return string
