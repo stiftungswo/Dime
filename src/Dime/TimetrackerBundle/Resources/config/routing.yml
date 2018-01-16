@@ -89,7 +89,7 @@ projectcategories:
     name_prefix:  api_1_
     defaults: { _format: json }
 
-projectcategories:
+projectcomment:
     type:     rest
     resource: Dime\TimetrackerBundle\Controller\ProjectCommentController
     prefix:   /v1
