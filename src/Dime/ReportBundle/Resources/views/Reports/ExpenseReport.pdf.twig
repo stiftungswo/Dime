@@ -21,12 +21,28 @@
 				<td class="thirdrow number">Anzahl</td>
 				<td class="fourthrow">Einheit</td>
 			</tr>
-			{% for slice in report.timeslices %}
+			{% for date, item in reportItems %}
+				{% if item.timeslices is defined %}
+					{% for slice in item.timeslices %}
+						<tr class="tbody">
+							<td class="firstrow">{{ slice.startedAt|date('d.m.Y') }}</td>
+							<td class="secondrow">{{ slice.activity.service.name }}</td>
+							<td class="thirdrow number">{{ slice.serializeValue(false) }}</td>
+							<td class="fourthrow">{{ slice.activity.rateUnitType.name }}</td>
+						</tr>
+					{% endfor %}
+				{% endif %}
+				{% if item.comment is defined %}
+					<tr class="tbody">
+						<td>{{ date }}</td>
+						<td>Kommentar:</td>
+						<td colspan="2">{{ item.comment | nl2br }}</td>
+					</tr>
+				{% endif %}
 				<tr class="tbody">
-					<td class="firstrow">{{ slice.startedAt|date('d.m.Y') }}</td>
-					<td class="secondrow">{{ slice.activity.service.name }}</td>
-					<td class="thirdrow number">{{ slice.serializeValue(false) }}</td>
-					<td class="fourthrow">{{ slice.activity.rateUnitType.name }}</td>
+					<td colspan="4">
+						<hr/>
+					</td>
 				</tr>
 			{% endfor %}
 		</table>

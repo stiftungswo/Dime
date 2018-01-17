@@ -1,0 +1,11 @@
+Dime\TimetrackerBundle\Entity\ProjectComment:
+    comment1:
+        project: @project1
+        comment: <paragraph()>
+        date: <dateTimeBetween('-100 days', 'now')>
+        user: @userAdmin
+    comment{2..100}:
+        project: @project*
+        comment: <paragraph()>
+        date: <dateTimeBetween('-100 days', 'now')>
+        user: @user*

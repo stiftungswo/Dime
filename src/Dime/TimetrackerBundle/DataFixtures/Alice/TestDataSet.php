@@ -38,6 +38,7 @@ $set->addFile($bundleFixturePath . '/Services.yaml', 'yaml');
 $set->addFile($bundleFixturePath . '/Customers.yaml', 'yaml');
 $set->addFile($bundleFixturePath . '/ProjectCategories.yaml', 'yaml');
 $set->addFile($bundleFixturePath . '/Projects.yaml', 'yaml');
+$set->addFile($bundleFixturePath . '/ProjectComments.yaml', 'yaml');
 $set->addFile($bundleFixturePath . '/Activities.yaml', 'yaml');
 $set->addFile($bundleFixturePath . '/Timeslices.yaml', 'yaml');
 
