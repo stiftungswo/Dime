@@ -35,7 +35,7 @@
 			<div class="accountant">Sachbearbeiter: {{ invoice.user }}</div><br/>
 			{% endif %}
 			<br /><br />
-			<div class="invoiceIDKey">Rechnung {{invoice.project.name}}</div><br/>
+			<div class="invoiceIDKey">Rechnung {{invoice.project.name | default(invoice.name)}}</div><br/>
 
 			<table breakable="false" class="toptable">
 				<tr>
