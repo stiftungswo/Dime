@@ -44,7 +44,7 @@ class Timeslice extends Entity {
   void Set(String property, var value) {
     switch (property) {
       case 'value':
-        this.value = value;
+        this.value = value is String ? value : value.toString();
         break;
       case 'startedAt':
         this.startedAt = _addDateValue(value);

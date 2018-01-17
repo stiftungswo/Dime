@@ -8,11 +8,12 @@ class ProjectOverviewComponent extends EntityOverview {
   ProjectOverviewComponent(DataCache store, this.context, Router router, SettingsManager manager, StatusService status,
       UserAuthProvider auth, RouteProvider prov)
       : super(Project, store, 'project_edit', manager, status, auth: auth, router: router) {
-    sortReverse = false;
+    sortType = "id";
+    sortReverse = true;
   }
 
   bool showArchived = false;
-  String sortType = "name";
+
   UserContext context;
 
   cEnt({Project entity}) {

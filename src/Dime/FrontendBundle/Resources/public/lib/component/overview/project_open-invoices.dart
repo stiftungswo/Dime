@@ -7,9 +7,11 @@ part of entity_overview;
 class ProjectOpenInvoicesComponent extends EntityOverview {
   ProjectOpenInvoicesComponent(DataCache store, this.context, Router router, SettingsManager manager, StatusService status,
       UserAuthProvider auth, RouteProvider prov)
-      : super(Project, store, 'project_edit', manager, status, auth: auth, router: router);
+      : super(Project, store, 'project_edit', manager, status, auth: auth, router: router) {
+    sortType = "id";
+    sortReverse = true;
+  }
 
-  String sortType = "name";
   UserContext context;
 
   reload({Map<String, dynamic> params, bool evict: false}) async {
