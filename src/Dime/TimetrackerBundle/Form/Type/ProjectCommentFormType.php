@@ -19,6 +19,7 @@ class ProjectCommentFormType extends AbstractType
             ->add('comment', 'text', ['required' => true])
             ->add('date', 'datetime', ['required' => true, 'widget' => 'single_text', 'with_seconds' => true])
             ->add('project')
+            ->add('user')
         ;
     }
 
