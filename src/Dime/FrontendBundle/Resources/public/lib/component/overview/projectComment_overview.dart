@@ -36,11 +36,16 @@ class ProjectCommentOverviewComponent extends EntityOverview {
   }
 
   createEntity({Entity newEnt, Map<String, dynamic> params: const {}}) {
+    if (this._selectedProject == null || this.newEntryDate == null || this.newEntryComment == null || this.newEntryComment.isEmpty) {
+      return;
+    }
+
   	var params = {
   		'project': this._selectedProject,
   		'date': this.newEntryDate,
   		'comment': this.newEntryComment,
 		};
+    this.newEntryComment = '';
     super.createEntity(params: params);
   }
 }

@@ -19,6 +19,7 @@ class ExpenseReport extends Report {
 	public function __construct()
 	{
 		$this->timeslices = new ArrayCollection();
+		$this->comments = new ArrayCollection();
 	}
 
 	/**
@@ -30,6 +31,11 @@ class ExpenseReport extends Report {
 	 * @var mixed
 	 */
 	protected $employee;
+
+    /**
+     * @var ArrayCollection
+     */
+	protected $comments;
 
 	/**
 	 * @return mixed
@@ -88,6 +94,25 @@ class ExpenseReport extends Report {
 		return $this;
 	}
 
+    /**
+     * @return ArrayCollection
+     */
+    public function getComments()
+    {
+        return $this->comments;
+    }
+
+    /**
+     * @param ArrayCollection $comments
+     *
+     * @return ExpenseReport
+     */
+    public function setComments(ArrayCollection $comments)
+    {
+        $this->comments = $comments;
+        return $this;
+    }
+
 	/**
 	 * @JMS\VirtualProperty()
 	 * @JMS\SerializedName("totalHours")
@@ -104,5 +129,17 @@ class ExpenseReport extends Report {
 			$total = round(($total / 3600), 2).'h';
 		}
 		return $total;
+	}
+
+    public function getGroupedTimeslices()
+    {
+        $groups = [];
+
+        /** @var Timeslice $timeslice */
+        foreach ($this->timeslices as $timeslice) {
+            $groups[$timeslice->getStartedAt()->format('d.m.Y')][] = $timeslice;
+        }
+
+        return $groups;
 	}
 }

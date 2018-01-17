@@ -7,6 +7,8 @@
 
 namespace Dime\ReportBundle\Controller;
 
+use Carbon\Carbon;
+use Dime\ReportBundle\Handler\ReportHandler;
 use Dime\TimetrackerBundle\Controller\DimeController;
 use FOS\RestBundle\Controller\Annotations;
 use FOS\RestBundle\Request\ParamFetcherInterface;
@@ -81,10 +83,32 @@ class ReportController extends DimeController{
 	{
 		// disable notices from PHPPdf which breaks this
 		error_reporting(E_ALL & ~E_NOTICE);
-		return $this->get('dime.print.pdf')->render('DimeReportBundle:Reports:ExpenseReport.pdf.twig',
-			array(
-				'report' => $this->container->get('dime.report.handler')->getExpenseReport($paramFetcher->all()),
-			),
+		/** @var ReportHandler $reportHandler */
+        $reportHandler = $this->container->get('dime.report.handler');
+
+        $reportItems = [];
+
+        $report = $reportHandler->getExpenseReport($paramFetcher->all());
+
+        $comments = $reportHandler->getExpensesReportComments($paramFetcher->all());
+
+        foreach ($report->getGroupedTimeslices() as $date => $timeSlices) {
+            $reportItems[$date]['timeslices'] = $timeSlices;
+        }
+
+        foreach ($comments as $date => $comment) {
+            $reportItems[$date]['comment'] = $comment;
+        }
+
+        uksort($reportItems, function ($date1, $date2) {
+            return Carbon::parse($date1) <=> Carbon::parse($date2);
+        });
+
+        return $this->get('dime.print.pdf')->render('DimeReportBundle:Reports:ExpenseReport.pdf.twig',
+			[
+				'report' => $report,
+				'reportItems' => $reportItems,
+            ],
 			'DimeReportBundle:Reports:stylesheet.xml.twig'
 		);
 	}
