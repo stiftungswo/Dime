@@ -7,6 +7,7 @@ The frontend uses Angular Dart v1, of which the documentation is getting kind of
 * [AngularDart Dartdocs](https://www.dartdocs.org/documentation/angular/1.1.2%2B2/index.html)
 * [AngularJS (angular 1, javascript version)](https://docs.angularjs.org/guide)
 * [AngularDart 1 Github Issues](https://github.com/dart-archive/angular.dart/issues)
+* [Angular Dart UI](https://github.com/akserg/angular.dart.ui) and its [Demo Page](http://akserg.github.io/angular.dart.ui.demo/index.html)
 
 ---
 Following is the README of the project template:
