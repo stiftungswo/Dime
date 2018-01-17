@@ -1,9 +1,9 @@
 Dime\TimetrackerBundle\Entity\RateGroup:
-    rateGroup1:
+    rateGroup_1:
         user: @userAdmin
         name: Kanton
         description: Tarifgruppe für kantonale Einsätze
-    rateGroup2:
-        user: @user*
+    rateGroup_2:
+        user: @user_*
         name: Gemeinde und Private
         description: Tarifgruppe für die restlichen Einsätze

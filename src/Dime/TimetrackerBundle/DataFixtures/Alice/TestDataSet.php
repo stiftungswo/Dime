@@ -47,6 +47,8 @@ $bundleFixturePath = $bundleRoot . '/InvoiceBundle' . $alicepath;
 $set->addFile($bundleFixturePath . '/InvoiceDiscounts.yaml', 'yaml');
 $set->addFile($bundleFixturePath . '/Invoices.yaml', 'yaml');
 $set->addFile($bundleFixturePath . '/InvoiceItems.yaml', 'yaml');
+$set->addFile($bundleFixturePath . '/Costgroups.yaml', 'yaml');
+$set->addFile($bundleFixturePath . '/InvoiceCostgroups.yaml', 'yaml');
 
 $bundleFixturePath = $bundleRoot . '/OfferBundle' . $alicepath;
 // OfferBundle

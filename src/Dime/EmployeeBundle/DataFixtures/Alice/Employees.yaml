@@ -1,5 +1,5 @@
 Dime\EmployeeBundle\Entity\Employee:
-    employee1:
+    employee_1:
         username: <username()>
         plainpassword: <password()>
         firstname: Default
@@ -8,7 +8,7 @@ Dime\EmployeeBundle\Entity\Employee:
         role: ['ROLE_SUPER_ADMIN']
         enabled: true
         employeeHoliday: 20
-    employee{2..20}:
+    employee_{2..20}:
         username (unique): <username()>
         plainpassword: <password()>
         firstname (unique): <firstName()>

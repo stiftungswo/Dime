@@ -1,13 +1,13 @@
 Dime\OfferBundle\Entity\OfferStatusUC:
-    offerStatusPotential:
+    offerStatus_Potential:
         text: Potential
         active: true
-    offerStatusOffered:
+    offerStatus_Offered:
         text: Offered
         active: true
-    offerStatusOrdered:
+    offerStatus_Ordered:
         text: Ordered
         active: true
-    offerStatusLost:
+    offerStatus_Lost:
         text: Lost
         active: true
