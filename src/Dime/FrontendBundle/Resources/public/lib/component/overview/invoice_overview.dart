@@ -7,9 +7,10 @@ part of entity_overview;
 )
 class InvoiceOverviewComponent extends EntityOverview {
   InvoiceOverviewComponent(DataCache store, Router router, SettingsManager manager, StatusService status, UserAuthProvider auth):
-  super(Invoice, store, 'invoice_edit', manager, status, router: router, auth: auth);
-
-  String sortType = "name";
+  super(Invoice, store, 'invoice_edit', manager, status, router: router, auth: auth) {
+    sortType = "id";
+    sortReverse = true;
+  }
 
   cEnt({Invoice entity}) {
     if (entity != null) {

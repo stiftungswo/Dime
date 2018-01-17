@@ -7,9 +7,11 @@ part of entity_overview;
 )
 class OfferOverviewComponent extends EntityOverview {
   OfferOverviewComponent(DataCache store, this.context, Router router, SettingsManager manager, StatusService status, UserAuthProvider auth):
-  super(Offer, store, 'offer_edit', manager, status, auth: auth, router: router);
+  super(Offer, store, 'offer_edit', manager, status, auth: auth, router: router) {
+    sortType = "id"; 
+    sortReverse = true;
+  }
 
-  String sortType = "name";
   UserContext context;
 
   cEnt({Offer entity}) {
