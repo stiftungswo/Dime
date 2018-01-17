@@ -7,6 +7,8 @@
 
 namespace Dime\ReportBundle\Handler;
 
+use Dime\TimetrackerBundle\Entity\ProjectComment;
+use Dime\TimetrackerBundle\Entity\ProjectCommentRepository;
 use Money\Money;
 use Carbon\Carbon;
 use Dime\InvoiceBundle\Entity\Invoice;
@@ -76,6 +78,44 @@ class ReportHandler extends AbstractHandler{
 			}
 		}
 		return $report;
+	}
+
+    public function getExpensesReportComments(array $params)
+    {
+        if (isset($params['project'])) {
+            /** @var ProjectCommentRepository $projectCommentRepository */
+            $projectCommentRepository = $this->om->getRepository('DimeTimetrackerBundle:ProjectComment');
+            $queryBuilder = $projectCommentRepository
+                ->createQueryBuilder('project_comment')
+                ->where('project_comment.project = :project')
+                ->setParameter('project', $params['project']);
+
+            if (isset($params['date'])) {
+                list($from, $to) = explode(',', $params['date']);
+
+                $queryBuilder->andWhere('project_comment.date BETWEEN :from AND :to')
+                    ->setParameter('from', Carbon::parse($from))
+                    ->setParameter('to', Carbon::parse($to));
+            }
+
+            /** @var ProjectComment[] $comments */
+            $comments = $queryBuilder->getQuery()->getResult();
+
+            $groupedComments = [];
+
+            foreach ($comments as $comment) {
+                $group = $comment->getDate()->format('d.m.Y');
+                if (isset($groupedComments[$group])) {
+                    $groupedComments[$group] .= "\n" . $comment->getComment();
+                } else {
+                    $groupedComments[$group] = $comment->getComment();
+                }
+            }
+
+            return $groupedComments;
+        } else {
+            return [];
+        }
 	}
 
 	public function getZiviWeekReport(array $params)

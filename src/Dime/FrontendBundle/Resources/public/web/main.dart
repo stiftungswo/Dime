@@ -50,6 +50,7 @@ class AppModule extends Module {
     bind(SettingAssignProjectOverviewComponent);
     bind(ProjectCategoryOverviewComponent);
     bind(ProjectCategorySelectComponent);
+    bind(ProjectCommentOverviewComponent);
     bind(ProjectOverviewComponent);
     bind(ProjectOpenInvoicesComponent);
     bind(ProjectEditComponent);
@@ -134,7 +135,7 @@ SentryLogger getSentry(UserContext userContext){
 }
 
 @Injectable()
-class DimeExceptionHandler {
+class DimeExceptionHandler extends ExceptionHandler {
   final Logger log = new Logger("Application");
   final Injector injector;
 
