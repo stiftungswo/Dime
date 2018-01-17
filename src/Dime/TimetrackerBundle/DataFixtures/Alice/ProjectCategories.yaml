@@ -1,5 +1,5 @@
 Dime\TimetrackerBundle\Entity\ProjectCategory:
-    categoryProject1:
+    categoryProject_1:
         name: projectCategory1
-    categoryProject{2..10}:
+    categoryProject_{2..10}:
         name: <word()>

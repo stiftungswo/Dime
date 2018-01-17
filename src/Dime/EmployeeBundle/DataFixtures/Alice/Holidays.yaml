@@ -1,9 +1,9 @@
 Dime\EmployeeBundle\Entity\Holiday:
-    holiday1:
-        user: @user*
+    holiday_1:
+        user: @user_*
         date: <dateTimeThisYear()>
         duration: 30240
-    holiday{2..20}:
-        user: @user*
+    holiday_{2..20}:
+        user: @user_*
         date: <dateTimeThisYear()>
         duration: <randomElement(array(30240, 30240, 30240, 3600, 16200))> # biased duration (8.4h)

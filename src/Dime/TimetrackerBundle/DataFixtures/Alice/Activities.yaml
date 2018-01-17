@@ -1,31 +1,31 @@
 Dime\TimetrackerBundle\Entity\Activity:
-    activity1:
-        project: @project*
-        service: @service1
+    activity_1:
+        project: @project_*
+        service: @service_1
         description: DimERP Programmieren
-        user: @user1
+        user: @user_1
         chargeable: true
-    activityHour{1..10}:
-        project: @project*
-        service: @serviceHour*
+    activityHour_{1..10}:
+        project: @project_*
+        service: @serviceHour_*
         description: <sentence(4)>
-        user: @user*
+        user: @user_*
         chargeable: <boolean(90)>
-    activityDay{1..10}:
-        project: @project*
-        service: @serviceDay*
+    activityDay_{1..10}:
+        project: @project_*
+        service: @serviceDay_*
         description: <sentence(4)>
-        user: @user*
+        user: @user_*
         chargeable: <boolean(90)>
-    activityNone{1..10}:
-        project: @project*
-        service: @serviceNone*
+    activityNone_{1..10}:
+        project: @project_*
+        service: @serviceNone_*
         description: <sentence(4)>
-        user: @user*
+        user: @user_*
         chargeable: <boolean(90)>
-    activityPauschal{1..10}:
-        project: @project*
-        service: @servicePauschal*
+    activityPauschal_{1..10}:
+        project: @project_*
+        service: @servicePauschal_*
         description: <sentence(4)>
-        user: @user*
+        user: @user_*
         chargeable: <boolean(90)>

@@ -1,41 +1,41 @@
 Dime\TimetrackerBundle\Entity\Service:
-    service1:
+    service_1:
         name: consulting
         alias: consulting
         vat: 0.08
         description: This is a detailed description
         chargeable: true
-        rates: <randomElements(array(@rate1))>
-        user: @user1
-    serviceHour{1..20}:
+        rates: <randomElements(array(@rate_1))>
+        user: @user_1
+    serviceHour_{1..20}:
         name: <word()>
         alias: <slug()>
         vat: <randomElement(array (0.025, 0.08))>
         description: <text(255)>
         chargeable: <boolean(90)>
-        rates: 2x @rateHour*
-        user: @user*
-    serviceDay{1..20}:
+        rates: 2x @rateHour_*
+        user: @user_*
+    serviceDay_{1..20}:
         name: <word()>
         alias: <slug()>
         vat: <randomElement(array (0.025, 0.08))>
         description: <text(255)>
         chargeable: <boolean(90)>
-        rates: 2x @rateDay*
-        user: @user*
-    serviceNone{1..20}:
+        rates: 2x @rateDay_*
+        user: @user_*
+    serviceNone_{1..20}:
         name: <word()>
         alias: <slug()>
         vat: <randomElement(array (0.025, 0.08))>
         description: <text(255)>
         chargeable: <boolean(90)>
-        rates: 2x @rateNone*
-        user: @user*
-    servicePauschal{1..20}:
+        rates: 2x @rateNone_*
+        user: @user_*
+    servicePauschal_{1..20}:
         name: <word()>
         alias: <slug()>
         vat: <randomElement(array (0.025, 0.08))>
         description: <text(255)>
         chargeable: <boolean(90)>
-        rates: 2x @ratePauschal*
-        user: @user*
+        rates: 2x @ratePauschal_*
+        user: @user_*

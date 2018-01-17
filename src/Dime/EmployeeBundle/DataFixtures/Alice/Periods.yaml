@@ -1,15 +1,15 @@
 Dime\EmployeeBundle\Entity\Period:
-    period1:
-        user: @user1
-        employee: @employee1
+    period_1:
+        user: @user_1
+        employee: @employee_1
         start: <(new DateTime("2017-01-25"))>
         end: <(new DateTime("2017-06-07"))>
         realTime: 210880
         pensum: 0.8
         lastYearHolidayBalance: 28
-    period{2..50}:
-        user: @user*
-        employee: @employee*
+    period_{2..50}:
+        user: @user_*
+        employee: @employee_*
         start: <dateTimeBetween('-1 years', '+ 10 days')>
         end: <dateTimeBetween('+ 11 days', '+ 1 years')>
         realTime: <randomNumber()>

@@ -1,11 +1,11 @@
 Dime\TimetrackerBundle\Entity\ProjectComment:
-    comment1:
-        project: @project1
+    comment_1:
+        project: @project_1
         comment: <paragraph()>
         date: <dateTimeBetween('-100 days', 'now')>
         user: @userAdmin
     comment{2..100}:
-        project: @project*
+        project: @project_*
         comment: <paragraph()>
         date: <dateTimeBetween('-100 days', 'now')>
-        user: @user*
+        user: @user_*

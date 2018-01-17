@@ -1,0 +1,14 @@
+Dime\InvoiceBundle\Entity\InvoiceCostgroup:
+  invoiceCostgroup_1:
+    invoice: @invoice_1
+    costgroup: @costgroup_1
+    weight: 30
+  invoiceCostgroup_2:
+    invoice: @invoice_1
+    costgroup: @costgroup_2
+    weight: 60
+  invoiceCostgroup_{3..20}:
+    invoice: @invoice_*
+    costgroup: @costgroup_*
+    weight: <randomNumber(2)>
+

@@ -1,0 +1,11 @@
+Dime\InvoiceBundle\Entity\Costgroup:
+  costgroup_1:
+    user: @user_1
+    number: 100
+    description: Zivildienst
+  costgroup_{2..5}:
+    user: @user_*
+    number: <randomNumber(3)>
+    description: <word()>
+
+

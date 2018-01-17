@@ -1,22 +1,22 @@
 Dime\TimetrackerBundle\Entity\Project:
-    project1:
-        customer: @customer1
-        rateGroup: @rateGroup1
-        projectCategory: @categoryProject1
-        accountant: @employee1
-        user: @user1
+    project_1:
+        customer: @customer_1
+        rateGroup: @rateGroup_1
+        projectCategory: @categoryProject_1
+        accountant: @employee_1
+        user: @user_1
         name: Büro
         alias: project-1
         startedAt: <dateTimeBetween('-2 years', '-200 days')>
         stoppedAt: <dateTimeBetween('-199 days', 'now')>
         description: Eine Beschreibung zum Büro Projekt
         chargeable: true
-    project{2..9}:
-        customer: @customer*
-        rateGroup: @rateGroup*
-        projectCategory: @categoryProject*
-        accountant: @employee*
-        user: @user*
+    project_{2..9}:
+        customer: @customer_*
+        rateGroup: @rateGroup_*
+        projectCategory: @categoryProject_*
+        accountant: @employee_*
+        user: @user_*
         name: Test Project <current()>
         alias: test-project-<current()>
         startedAt: <dateTimeBetween('-2 years', '-200 days')>
@@ -25,12 +25,12 @@ Dime\TimetrackerBundle\Entity\Project:
         description: <text(255)>
         fixedPrice: <randomNumber(5)>
         chargeable: <boolean(90)>
-    project{10..20}:
-        customer: @customer*
-        rateGroup: @rateGroup*
-        projectCategory: @categoryProject*
-        accountant: @employee*
-        user: @user*
+    project_{10..20}:
+        customer: @customer_*
+        rateGroup: @rateGroup_*
+        projectCategory: @categoryProject_*
+        accountant: @employee_*
+        user: @user_*
         name: Test Project <current()>
         alias: test-project-<current()>
         startedAt: <dateTimeBetween('-2 years', '-200 days')>

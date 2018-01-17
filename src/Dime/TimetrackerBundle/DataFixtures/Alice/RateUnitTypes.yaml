@@ -1,7 +1,7 @@
 Dime\TimetrackerBundle\Entity\RateUnitType:
     rateUnitType_h:
         id: h
-        user: @user*
+        user: @user_*
         name: Stunden
         doTransform: true
         factor: 3600
@@ -10,7 +10,7 @@ Dime\TimetrackerBundle\Entity\RateUnitType:
         symbol: h
     rateUnitType_t:
         id: t
-        user: @user*
+        user: @user_*
         name: Tage
         doTransform: true
         factor: 30240
@@ -19,7 +19,7 @@ Dime\TimetrackerBundle\Entity\RateUnitType:
         symbol: d
     rateUnitType_zt:
         id: zt
-        user: @user*
+        user: @user_*
         name: Zivitage
         doTransform: true
         factor: 30240
@@ -28,7 +28,7 @@ Dime\TimetrackerBundle\Entity\RateUnitType:
         symbol: zt
     rateUnitType_m:
         id: m
-        user: @user*
+        user: @user_*
         name: Minuten
         doTransform: true
         factor: 60
@@ -37,7 +37,7 @@ Dime\TimetrackerBundle\Entity\RateUnitType:
         symbol: m
     rateUnitType_a:
         id: a
-        user: @user*
+        user: @user_*
         name: Anderes
         doTransform: false
         factor: 1
