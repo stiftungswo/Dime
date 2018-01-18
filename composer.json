@@ -48,7 +48,8 @@
 		"psliwa/pdf-bundle": "~1.0@dev",
 		"nesbot/carbon": "dev-master",
 		"sentry/sentry": "^1.8",
-		"sentry/sentry-symfony": "~1.0"
+		"sentry/sentry-symfony": "~1.0",
+		"beberlei/DoctrineExtensions": "^1.0"
 	},
 	"require-dev" : {
 		"h4cc/alice-fixtures-bundle" : "dev-master",
