@@ -6,7 +6,7 @@ class ActivitiesControllerTest extends DimeTestCase
 {
     public function testAuthentification()
     {
-        $this->assertEquals(302, $this->jsonRequest('GET', $this->api_prefix.'/activities')->getStatusCode());
+        $this->assertEquals(401, $this->jsonRequest('GET', $this->api_prefix.'/activities')->getStatusCode());
         $this->loginas('admin');
         $this->assertEquals(200, $this->jsonRequest('GET', $this->api_prefix.'/activities')->getStatusCode());
     }

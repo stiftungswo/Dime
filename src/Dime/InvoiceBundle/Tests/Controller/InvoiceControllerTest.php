@@ -8,7 +8,7 @@ class InvoiceControllerTest extends DimeTestCase
 {
     public function testAuthentification()
     {
-        $this->assertEquals(302, $this->jsonRequest('GET', $this->api_prefix.'/invoices')->getStatusCode());
+        $this->assertEquals(401, $this->jsonRequest('GET', $this->api_prefix.'/invoices')->getStatusCode());
         $this->loginAs('admin');
         $this->assertEquals(200, $this->jsonRequest('GET', $this->api_prefix.'/invoices')->getStatusCode());
     }
