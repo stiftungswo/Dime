@@ -31,12 +31,14 @@
 							<td class="fourthrow">{{ slice.activity.rateUnitType.name }}</td>
 						</tr>
 					{% endfor %}
+				{% else %}
+					<tr class="tbody">
+						<td colspan="4">{{ date }}</td>
+					</tr>
 				{% endif %}
 				{% if item.comment is defined %}
 					<tr class="tbody">
-						<td>{{ date }}</td>
-						<td>Kommentar:</td>
-						<td colspan="2">{{ item.comment | nl2br }}</td>
+						<td colspan="4">{{ item.comment | nl2br }}</td>
 					</tr>
 				{% endif %}
 				<tr class="tbody">
