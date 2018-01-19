@@ -63,6 +63,8 @@ class TimesliceOverviewComponent extends EntityOverview {
     if (proj != null) {
       this.updateChosenSetting('project');
 
+      this.rootScope.emit(FORMDATA_CHANGE_EVENT_NAME, {'project': proj});
+
       // select the same activity if also it exists in new project
       try {
         this.selectedActivity = activities
@@ -104,8 +106,9 @@ class TimesliceOverviewComponent extends EntityOverview {
   Set<int> selectedTimeslices = new Set();
   HttpService httpService;
 
-  TimesliceOverviewComponent(
-      DataCache store, SettingsManager manager, StatusService status, this.context, UserAuthProvider auth, this.httpService)
+  static const String FORMDATA_CHANGE_EVENT_NAME = 'FORMDATA_CHANGE_EVENT_NAME';
+
+  TimesliceOverviewComponent(DataCache store, SettingsManager manager, StatusService status, this.context, UserAuthProvider auth)
       : super(Timeslice, store, '', manager, status, auth: auth);
 
   cEnt({Timeslice entity}) {
@@ -195,6 +198,7 @@ class TimesliceOverviewComponent extends EntityOverview {
   }
 
   onDateUpdate() {
+    this.rootScope.emit(FORMDATA_CHANGE_EVENT_NAME, {'filterStartDate': filterStartDate, 'filterEndDate': filterEndDate});
     // don't reload when page is still loading
     if (this.loadedStartDate == null || loadedEndDate == null) {
       return;
@@ -314,6 +318,7 @@ class TimesliceOverviewComponent extends EntityOverview {
     super.scope = scope;
     scope.watch('filterStartDate', (val1, val2) => this.onDateUpdate());
     scope.watch('filterEndDate', (val1, val2) => this.onDateUpdate());
+    scope.watch('newEntryDate', (val, _) => this.rootScope.emit(FORMDATA_CHANGE_EVENT_NAME, {'newEntryDate': val}));
   }
 
   void toggleTimeslice(Timeslice timeslice) {

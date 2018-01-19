@@ -14,10 +14,12 @@ class ProjectCommentOverviewComponent extends EntityOverview {
   get selectedProject => _selectedProject;
 
   set selectedProject(Project project) {
-    print(project);
     _selectedProject = project;
     reload();
   }
+
+  DateTime filterStartDate;
+  DateTime filterEndDate;
 
   DateTime newEntryDate;
   String newEntryComment;
@@ -47,5 +49,35 @@ class ProjectCommentOverviewComponent extends EntityOverview {
     };
     this.newEntryComment = '';
     super.createEntity(params: params);
+  }
+
+  @override
+  attach() {
+    this.rootScope.on(TimesliceOverviewComponent.FORMDATA_CHANGE_EVENT_NAME).forEach((ScopeEvent e) {
+      Map<String, dynamic> data = e.data;
+
+      data.forEach((key, value) {
+        switch (key) {
+          case 'project':
+            selectedProject = value;
+            break;
+          case 'filterStartDate':
+            filterStartDate = value;
+            break;
+          case 'filterEndDate':
+            filterEndDate = value;
+            break;
+          case 'newEntryDate':
+            newEntryDate = value;
+            break;
+        }
+      });
+    });
+  }
+
+  commentDateFilter() {
+    return (ProjectComment value) {
+      return value.date.isAfter(filterStartDate) && value.date.isBefore(filterEndDate);
+    };
   }
 }
