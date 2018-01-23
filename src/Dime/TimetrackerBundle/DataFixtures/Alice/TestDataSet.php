@@ -38,6 +38,7 @@ $set->addFile($bundleFixturePath . '/Services.yaml', 'yaml');
 $set->addFile($bundleFixturePath . '/Customers.yaml', 'yaml');
 $set->addFile($bundleFixturePath . '/ProjectCategories.yaml', 'yaml');
 $set->addFile($bundleFixturePath . '/Projects.yaml', 'yaml');
+$set->addFile($bundleFixturePath . '/ProjectComments.yaml', 'yaml');
 $set->addFile($bundleFixturePath . '/Activities.yaml', 'yaml');
 $set->addFile($bundleFixturePath . '/Timeslices.yaml', 'yaml');
 
@@ -46,6 +47,8 @@ $bundleFixturePath = $bundleRoot . '/InvoiceBundle' . $alicepath;
 $set->addFile($bundleFixturePath . '/InvoiceDiscounts.yaml', 'yaml');
 $set->addFile($bundleFixturePath . '/Invoices.yaml', 'yaml');
 $set->addFile($bundleFixturePath . '/InvoiceItems.yaml', 'yaml');
+$set->addFile($bundleFixturePath . '/Costgroups.yaml', 'yaml');
+$set->addFile($bundleFixturePath . '/InvoiceCostgroups.yaml', 'yaml');
 
 $bundleFixturePath = $bundleRoot . '/OfferBundle' . $alicepath;
 // OfferBundle

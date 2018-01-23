@@ -1,24 +1,24 @@
 Dime\InvoiceBundle\Entity\Invoice:
-    invoice1:
-        project: @project1
-        customer: @customer1
-        user: @user1
-        accountant: @user1
+    invoice_1:
+        project: @project_1
+        customer: @customer_1
+        user: @user_1
+        accountant: @user_1
         name: Default Invoice
         alias: default-invoice
         description: This is a detailed description
         start: <dateTimeBetween('-2 years', '-200 days')>
         end: <dateTimeBetween('-199 days', 'now')>
         invoiceDiscounts: <numberBetween(1, 2)>x @discountInvoice*
-    invoice{2..50}:
-        project: 75%? @project*
-        customer: @customer*
-        user: @user*
-        accountant: @user*
+    invoice_{2..50}:
+        project: 75%? @project_*
+        customer: @customer_*
+        user: @user_*
+        accountant: @user_*
         name: Test Invoice <current()>
         alias: test-invoice-<current()>
         description: <text(700)>
         start: <dateTimeBetween('-2 years', '-200 days')>
         end: <dateTimeBetween('-199 days', 'now')>
         fixedPrice: 25%? <randomNumber(5)>
-        invoiceDiscounts: <numberBetween(1, 2)>x @discountInvoice*
+        invoiceDiscounts: <numberBetween(1, 2)>x @discountInvoice_*

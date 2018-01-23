@@ -29,8 +29,8 @@ class SettingsManager {
       this.userSettings = (await this.store.list(Setting, params: {'namespace': '/usr*', 'user': userId})).toList();
       this._currentUserId = userId;
       this.statusservice.setStatusToSuccess();
-    } catch (e) {
-      this.statusservice.setStatusToError(e);
+    } catch (e, stack) {
+      this.statusservice.setStatusToError(e, stack);
     }
   }
 
@@ -39,8 +39,8 @@ class SettingsManager {
     try {
       this.systemSettings = (await this.store.list(Setting, params: {'namespace': '/etc*'})).toList();
       this.statusservice.setStatusToSuccess();
-    } catch (e) {
-      this.statusservice.setStatusToError(e);
+    } catch (e, stack) {
+      this.statusservice.setStatusToError(e, stack);
     }
   }
 
@@ -71,8 +71,8 @@ class SettingsManager {
       this.userSettings.add(setting);
       this.statusservice.setStatusToSuccess();
       return setting;
-    } catch (e) {
-      this.statusservice.setStatusToError(e);
+    } catch (e, stack) {
+      this.statusservice.setStatusToError(e, stack);
     }
   }
 

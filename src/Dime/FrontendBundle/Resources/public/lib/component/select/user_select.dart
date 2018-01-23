@@ -47,8 +47,8 @@ class UserSelectComponent extends EntitySelect {
         this.entities = (await this.store.list(Employee, params: {"enabled": 1})).toList();
       }
       this.statusservice.setStatusToSuccess();
-    } catch (e) {
-      this.statusservice.setStatusToError(e);
+    } catch (e, stack) {
+      this.statusservice.setStatusToError(e, stack);
     }
 
     if (useContext) {

@@ -103,9 +103,9 @@ class PeriodOverviewComponent extends EntityOverview implements ScopeAware {
       }
       this.statusservice.setStatusToSuccess();
       this.rootScope.emit(this.type.toString() + 'Loaded');
-    } catch (e) {
+    } catch (e, stack) {
       print("Unable to load ${this.type.toString()} because ${e}");
-      this.statusservice.setStatusToError(e);
+      this.statusservice.setStatusToError(e, stack);
     }
   }
 

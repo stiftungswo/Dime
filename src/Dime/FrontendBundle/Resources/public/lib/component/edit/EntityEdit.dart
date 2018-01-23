@@ -67,8 +67,8 @@ class EntityEdit extends AttachAware implements ScopeAware {
       }
       this.entity = (await this.store.one(this.entType, this._entId));
       this.statusservice.setStatusToSuccess();
-    } catch (e) {
-      this.statusservice.setStatusToError(e);
+    } catch (e, stack) {
+      this.statusservice.setStatusToError(e, stack);
     }
   }
 
@@ -99,8 +99,8 @@ class EntityEdit extends AttachAware implements ScopeAware {
         try {
           this.entity = (await store.update(this.entity));
           this.statusservice.setStatusToSuccess();
-        } catch (e) {
-          this.statusservice.setStatusToError(e);
+        } catch (e, stack) {
+          this.statusservice.setStatusToError(e, stack);
         }
         this.reload();
       }

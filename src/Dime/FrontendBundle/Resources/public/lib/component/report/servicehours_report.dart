@@ -44,8 +44,8 @@ class ServicehoursReportComponent extends AttachAware implements ScopeAware {
         });
         this.statusservice.setStatusToSuccess();
         this.rootScope.emit(this.type.toString() + 'Loaded');
-      } catch (e) {
-        this.statusservice.setStatusToError(e);
+      } catch (e, stack) {
+        this.statusservice.setStatusToError(e, stack);
       }
     }
   }

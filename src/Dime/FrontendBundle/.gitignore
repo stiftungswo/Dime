@@ -37,6 +37,7 @@ Resources/public/out.js.map
 Resources/public/out.js
 Resources/public/out.js.deps
 Resources/public/.pub
+Resources/public/pubcache/*
 Resources/public/packages/*
 !Resources/public/packages/DimeClient
 Resources/public/web/packages

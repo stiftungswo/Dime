@@ -6,9 +6,11 @@ part of entity_overview;
     useShadowDom: false)
 class OfferOverviewComponent extends EntityOverview {
   OfferOverviewComponent(DataCache store, this.context, Router router, SettingsManager manager, StatusService status, UserAuthProvider auth)
-      : super(Offer, store, 'offer_edit', manager, status, auth: auth, router: router);
+      : super(Offer, store, 'offer_edit', manager, status, auth: auth, router: router) {
+    sortType = "id";
+    sortReverse = true;
+  }
 
-  String sortType = "name";
   UserContext context;
 
   cEnt({Offer entity}) {
@@ -79,9 +81,9 @@ class OfferOverviewComponent extends EntityOverview {
         }
         this.statusservice.setStatusToSuccess();
         this.rootScope.emit(this.type.toString() + 'Duplicated');
-      } catch (e) {
+      } catch (e, stack) {
         print("Unable to duplicate entity ${this.type.toString()}::${newOffer.id} because ${e}");
-        this.statusservice.setStatusToError(e);
+        this.statusservice.setStatusToError(e, stack);
       }
     }
   }

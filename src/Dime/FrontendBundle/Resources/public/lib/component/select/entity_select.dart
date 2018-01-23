@@ -71,8 +71,8 @@ class EntitySelect extends AttachAware implements ScopeAware {
     try {
       this.entities = (await this.store.list(this.type)).toList();
       this.statusservice.setStatusToSuccess();
-    } catch (e) {
-      this.statusservice.setStatusToError(e);
+    } catch (e, stack) {
+      this.statusservice.setStatusToError(e, stack);
     }
   }
 
@@ -100,8 +100,8 @@ class EntitySelect extends AttachAware implements ScopeAware {
       // adjust size of dropdown to available size
       DivElement dropdown = this.element.querySelector(".dropdown");
       BodyElement body = querySelector("body");
-      int distanceToBottom = body.getBoundingClientRect().height - (window.scrollY + dropdown.getBoundingClientRect().top + 40);
-      int maxDropdownHeight = math.min(distanceToBottom, 400);
+      double distanceToBottom = body.getBoundingClientRect().height - (window.scrollY + dropdown.getBoundingClientRect().top + 40);
+      int maxDropdownHeight = math.min(distanceToBottom.round(), 400);
       this.element.querySelector(".dropdown .dropdown-menu").style.maxHeight = maxDropdownHeight.toString() + 'px';
       this.selector = '';
       this.open = true;

@@ -74,8 +74,8 @@ class UserAuthProvider {
       await manager.loadUserSettings(result.id);
       this.statusservice.setStatusToSuccess();
       return result;
-    } catch (e) {
-      this.statusservice.setStatusToError(e);
+    } catch (e, stack) {
+      this.statusservice.setStatusToError(e, stack);
       throw new Exception();
     }
   }

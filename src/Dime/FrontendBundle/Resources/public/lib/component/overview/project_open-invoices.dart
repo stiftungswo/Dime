@@ -7,9 +7,11 @@ part of entity_overview;
 class ProjectOpenInvoicesComponent extends EntityOverview {
   ProjectOpenInvoicesComponent(DataCache store, this.context, Router router, SettingsManager manager, StatusService status,
       UserAuthProvider auth, RouteProvider prov)
-      : super(Project, store, 'project_edit', manager, status, auth: auth, router: router);
+      : super(Project, store, 'project_edit', manager, status, auth: auth, router: router) {
+    sortType = "id";
+    sortReverse = true;
+  }
 
-  String sortType = "name";
   UserContext context;
 
   reload({Map<String, dynamic> params, bool evict: false}) async {
@@ -23,9 +25,9 @@ class ProjectOpenInvoicesComponent extends EntityOverview {
           (await this.store.customQueryList(Project, new CustomRequestParams(method: 'GET', url: '/api/v1/projectsopeninvoices'))).toList();
       this.statusservice.setStatusToSuccess();
       this.rootScope.emit(this.type.toString() + 'Loaded');
-    } catch (e) {
+    } catch (e, stack) {
       print("Unable to load ${this.type.toString()} because ${e}");
-      this.statusservice.setStatusToError(e);
+      this.statusservice.setStatusToError(e, stack);
     }
   }
 }

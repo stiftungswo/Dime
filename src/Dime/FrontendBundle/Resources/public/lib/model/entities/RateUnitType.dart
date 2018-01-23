@@ -38,7 +38,7 @@ class RateUnitType extends Entity {
         this.doTransform = value;
         break;
       case 'factor':
-        this.factor = value;
+        this.factor = value is double ? value : value.toDouble();
         break;
       case 'scale':
         this.scale = value;

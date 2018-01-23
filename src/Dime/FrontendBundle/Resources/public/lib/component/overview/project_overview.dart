@@ -8,11 +8,12 @@ class ProjectOverviewComponent extends EntityOverview {
   ProjectOverviewComponent(DataCache store, this.context, Router router, SettingsManager manager, StatusService status,
       UserAuthProvider auth, RouteProvider prov)
       : super(Project, store, 'project_edit', manager, status, auth: auth, router: router) {
-    sortReverse = false;
+    sortType = "id";
+    sortReverse = true;
   }
 
   bool showArchived = false;
-  String sortType = "name";
+
   UserContext context;
 
   cEnt({Project entity}) {
@@ -64,9 +65,9 @@ class ProjectOverviewComponent extends EntityOverview {
 
         this.statusservice.setStatusToSuccess();
         this.rootScope.emit(this.type.toString() + 'Duplicated');
-      } catch (e) {
+      } catch (e, stack) {
         print("Unable to duplicate entity ${this.type.toString()}::${newProject.id} because ${e}");
-        this.statusservice.setStatusToError(e);
+        this.statusservice.setStatusToError(e, stack);
       }
     }
   }

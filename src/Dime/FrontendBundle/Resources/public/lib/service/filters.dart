@@ -43,7 +43,7 @@ class ProjectValueFilter {
     if (items == null || filterProjectId == null || filterProjectId is! int) {
       return const [];
     }
-    return items.where((i) => i.project.id == filterProjectId);
+    return items.where((i) => i.project.id == filterProjectId).toList();
   }
 }
 
