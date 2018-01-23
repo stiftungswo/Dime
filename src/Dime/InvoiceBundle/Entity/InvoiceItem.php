@@ -256,7 +256,7 @@ class InvoiceItem extends Entity implements DimeEntityInterface
 	 */
 	public function getVat()
 	{
-		return $this->vat;
+		return $this->vat ? $this->vat : 0;
 	}
 
 	/**
