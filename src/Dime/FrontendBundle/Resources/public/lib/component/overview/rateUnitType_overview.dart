@@ -37,8 +37,8 @@ class RateUnitTypeOverviewComponent extends EntityOverview {
       this.entities.add(resp);
       this.statusservice.setStatusToSuccess();
       this.rootScope.emit(this.type.toString() + 'Changed');
-    } catch (e) {
-      this.statusservice.setStatusToError(e);
+    } catch (e, stack) {
+      this.statusservice.setStatusToError(e, stack);
     }
   }
 
@@ -57,8 +57,8 @@ class RateUnitTypeOverviewComponent extends EntityOverview {
           this.entities.removeWhere((enty) => enty.id == entId);
           this.statusservice.setStatusToSuccess();
           this.rootScope.emit(this.type.toString() + 'Deleted');
-        } catch (e) {
-          this.statusservice.setStatusToError(e);
+        } catch (e, stack) {
+          this.statusservice.setStatusToError(e, stack);
         }
       }
     }

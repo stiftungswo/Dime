@@ -1,51 +1,51 @@
 Dime\InvoiceBundle\Entity\InvoiceItem:
-    itemInvoice1:
-        invoice: @invoice1
-        user: @user1
+    itemInvoice_1:
+        invoice: @invoice_1
+        user: @user_1
         name: Zivi (Tagespauschale)
         amount: <randomNumber(2)>
         rateValue: <randomNumber(3)>
         rateUnit: CHF/h
         vat: 0.08
-        activity: @activity1
+        activity: @activity_1
         order: 1
-    itemInvoiceHour{1..10}:
-        invoice: @invoice*
-        user: @user*
+    itemInvoiceHour_{1..10}:
+        invoice: @invoice_*
+        user: @user_*
         name: <word()>
         amount: <randomNumber(2)>
         rateValue: <randomNumber(3)>
         rateUnit: CHF/h
         vat: <randomElement(array (0.025, 0.08))>
-        activity: @activityHour*
+        activity: @activityHour_*
         order: <randomNumber(2)>
-    itemInvoiceDay{1..10}:
-        invoice: @invoice*
-        user: @user*
+    itemInvoiceDay_{1..10}:
+        invoice: @invoice_*
+        user: @user_*
         name: <word()>
         amount: <randomNumber(2)>
         rateValue: <randomNumber(3)>
         rateUnit: CHF/h
         vat: <randomElement(array (0.025, 0.08))>
-        activity: @activityDay*
+        activity: @activityDay_*
         order: <randomNumber(2)>
-    itemInvoiceNone{1..10}:
-        invoice: @invoice*
-        user: @user*
+    itemInvoiceNone_{1..10}:
+        invoice: @invoice_*
+        user: @user_*
         name: <word()>
         amount: <randomNumber(2)>
         rateValue: <randomNumber(3)>
         rateUnit: CHF/h
         vat: <randomElement(array (0.025, 0.08))>
-        activity: @activityNone*
+        activity: @activityNone_*
         order: <randomNumber(2)>
-    itemInvoicePauschal{1..10}:
-        invoice: @invoice*
-        user: @user*
+    itemInvoicePauschal_{1..10}:
+        invoice: @invoice_*
+        user: @user_*
         name: <word()>
         amount: <randomNumber(2)>
         rateValue: <randomNumber(3)>
         rateUnit: CHF/h
         vat: <randomElement(array (0.025, 0.08))>
-        activity: @activityPauschal*
+        activity: @activityPauschal_*
         order: <randomNumber(2)>

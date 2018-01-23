@@ -7,8 +7,8 @@
 
 namespace Dime\ReportBundle\Controller;
 
-use Dime\PrintingBundle\Service\PrintService;
-use Dime\ReportBundle\Entity\ExpenseReport;
+use Carbon\Carbon;
+use Dime\ReportBundle\Handler\ReportHandler;
 use Dime\TimetrackerBundle\Controller\DimeController;
 use FOS\RestBundle\Controller\Annotations;
 use FOS\RestBundle\Request\ParamFetcherInterface;
@@ -79,20 +79,44 @@ class ReportController extends DimeController{
 	 *
 	 * @return Response
 	 */
-    public function printReportsExpenseAction(ParamFetcherInterface $paramFetcher)
-    {
-        // disable notices from PHPPdf which breaks this
-        error_reporting(E_ALL & ~E_NOTICE);
-        /** @var ExpenseReport $report */
-        $report = $this->container->get('dime.report.handler')->getExpenseReport($paramFetcher->all());
-        /** @var PrintService $printService */
-        $printService = $this->get('dime.print.pdf');
-        $header       = [
+	public function printReportsExpenseAction(ParamFetcherInterface $paramFetcher)
+	{
+		// disable notices from PHPPdf which breaks this
+		error_reporting(E_ALL & ~E_NOTICE);
+		/** @var ReportHandler $reportHandler */
+        $reportHandler = $this->container->get('dime.report.handler');
+
+        $reportItems = [];
+
+        $report = $reportHandler->getExpenseReport($paramFetcher->all());
+
+        $comments = $reportHandler->getExpensesReportComments($paramFetcher->all());
+
+        foreach ($report->getGroupedTimeslices() as $date => $timeSlices) {
+            $reportItems[$date]['timeslices'] = $timeSlices;
+        }
+
+        foreach ($comments as $date => $comment) {
+            $reportItems[$date]['comment'] = $comment;
+        }
+
+        uksort($reportItems, function ($date1, $date2) {
+            return Carbon::parse($date1) <=> Carbon::parse($date2);
+        });
+
+        $header = [
             'Content-Disposition' => sprintf('filename="aufwandsrapport_%s.pdf"', $report->getId()),
         ];
 
-        return $printService->render('DimeReportBundle:Reports:ExpenseReport.pdf.twig', ['report' => $report], 'DimeReportBundle:Reports:stylesheet.xml.twig', $header);
-    }
+        return $this->get('dime.print.pdf')->render('DimeReportBundle:Reports:ExpenseReport.pdf.twig',
+			[
+				'report' => $report,
+				'reportItems' => $reportItems,
+            ],
+			'DimeReportBundle:Reports:stylesheet.xml.twig',
+            $header
+		);
+	}
 
 	/**
 	 *

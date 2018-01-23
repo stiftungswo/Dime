@@ -47,7 +47,7 @@ class InvoiceCostgroup extends Entity implements DimeEntityInterface
 	/**
 	 * @var float
 	 *
-	 * @ORM\Column(type="float")
+	 * @ORM\Column(type="float", nullable=true)
 	 */
 	protected $weight;
 

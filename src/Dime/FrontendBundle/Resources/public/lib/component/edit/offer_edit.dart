@@ -51,8 +51,8 @@ class OfferEditComponent extends EntityEdit {
         this.project = (await this.store.one(Project, this.entity.project.id));
       }
       this.statusservice.setStatusToSuccess();
-    } catch (e) {
-      this.statusservice.setStatusToError(e);
+    } catch (e, stack) {
+      this.statusservice.setStatusToError(e, stack);
     }
   }
 

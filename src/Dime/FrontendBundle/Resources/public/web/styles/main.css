@@ -176,6 +176,10 @@ div.dropdown input.form-control {
   display: block;
 }
 
+.release-info {
+  color: #EEEEEE;
+}
+
 /* some improvements on mobile */
 @media (max-width:767px) {
     .content {

@@ -103,8 +103,8 @@ class TimesliceWeeklyReportComponent extends EntityOverview {
       }, method: 'GET', url: '/api/v1/reports/ziviweekly')));
       this.statusservice.setStatusToSuccess();
       this.rootScope.emit(this.type.toString() + 'Loaded');
-    } catch (e) {
-      this.statusservice.setStatusToError(e);
+    } catch (e, stack) {
+      this.statusservice.setStatusToError(e, stack);
     }
     updateDates();
     updateEmployees();

@@ -7,9 +7,10 @@ part of entity_overview;
 )
 class InvoiceOverviewComponent extends EntityOverview {
   InvoiceOverviewComponent(DataCache store, Router router, SettingsManager manager, StatusService status, UserAuthProvider auth):
-  super(Invoice, store, 'invoice_edit', manager, status, router: router, auth: auth);
-
-  String sortType = "name";
+  super(Invoice, store, 'invoice_edit', manager, status, router: router, auth: auth) {
+    sortType = "id";
+    sortReverse = true;
+  }
 
   cEnt({Invoice entity}) {
     if (entity != null) {
@@ -56,9 +57,9 @@ class InvoiceOverviewComponent extends EntityOverview {
 
         this.statusservice.setStatusToSuccess();
         this.rootScope.emit(this.type.toString() + 'Duplicated');
-      } catch (e) {
+      } catch (e, stack) {
         print("Unable to duplicate entity ${this.type.toString()}::${newEnt.id} because ${e}");
-        this.statusservice.setStatusToError(e);
+        this.statusservice.setStatusToError(e, stack);
       }
     }
   }

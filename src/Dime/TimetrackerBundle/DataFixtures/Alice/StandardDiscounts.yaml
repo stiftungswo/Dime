@@ -5,7 +5,7 @@ Dime\TimetrackerBundle\Entity\StandardDiscount:
         percentage: true
         value: 0.02
         user: @userAdmin
-    standardDiscount{10..14}:
+    standardDiscount_{10..14}:
         name: Flat Rate <current()> CHF
         minus: true
         percentage: false

@@ -1,13 +1,13 @@
 Dime\InvoiceBundle\Entity\InvoiceDiscount:
-    discountInvoice1:
+    discountInvoice_1:
         name: 10% Off
         minus: true
         percentage: true
         value: 0.1
-        user: @user1
-    discountInvoice{2..5}:
+        user: @user_1
+    discountInvoice_{2..5}:
         name: 10% Off
         minus: true
         percentage: true
         value: 0.1
-        user: @user*
+        user: @user_*

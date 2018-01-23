@@ -1,11 +1,13 @@
 library dime.ui.statusservice;
 
 import 'package:angular/angular.dart';
+import 'package:logging/logging.dart';
 
 @Injectable()
 class StatusService {
   String status;
 
+  final Logger log = new Logger("StatusService");
   final String success = 'success';
   final String loading = 'loading';
   final String error = 'error';
@@ -18,12 +20,9 @@ class StatusService {
     numLoading += 1;
   }
 
-  setStatusToError(e, [stack]) {
+  setStatusToError(e, stack) {
     this.status = error;
-    print(e);
-    if (stack != null) {
-      print(stack);
-    }
+    log.severe("$error\n$e\nSTACKTRACE:\n$stack");
     numLoading -= 1;
   }
 

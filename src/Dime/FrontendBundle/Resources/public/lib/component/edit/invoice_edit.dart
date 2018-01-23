@@ -51,8 +51,8 @@ class InvoiceEditComponent extends EntityEdit {
         this.project = (await this.store.one(Project, this.entity.project.id));
       }
       this.statusservice.setStatusToSuccess();
-    } catch (e) {
-      this.statusservice.setStatusToError(e);
+    } catch (e, stack) {
+      this.statusservice.setStatusToError(e, stack);
     }
   }
 
@@ -62,8 +62,8 @@ class InvoiceEditComponent extends EntityEdit {
       this.entity = (await this.store.customQueryOne(Invoice, new CustomRequestParams(method: 'GET', url: '/api/v1/invoices/${this.entity.id}/update')));
       this.statusservice.setStatusToSuccess();
       this.invoiceitem_overview.reload(evict: true);
-    } catch (e) {
-      this.statusservice.setStatusToError(e);
+    } catch (e, stack) {
+      this.statusservice.setStatusToError(e, stack);
     }
   }
 

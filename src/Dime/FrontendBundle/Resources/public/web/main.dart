@@ -3,6 +3,8 @@
 
 import 'package:DimeClient/component/elements/dime-button.dart';
 import 'package:DimeClient/component/elements/help-tooltip.dart';
+import 'package:DimeClient/service/release_info.dart';
+import 'package:DimeClient/service/sentry.dart';
 import 'package:angular/angular.dart';
 import 'package:angular/application_factory.dart';
 import 'package:angular_ui/angular_ui.dart';
@@ -31,6 +33,14 @@ import 'package:DimeClient/service/setting_manager.dart';
 import 'package:DimeClient/service/status.dart';
 import 'package:DimeClient/service/user_auth.dart';
 import 'package:DimeClient/service/user_context.dart';
+import 'dart:html';
+import 'package:sentry_client/api_data/sentry_exception.dart';
+import 'package:sentry_client/api_data/sentry_packet.dart';
+import 'package:sentry_client/api_data/sentry_stacktrace.dart';
+import 'package:sentry_client/api_data/sentry_stacktrace_frame.dart';
+import 'package:sentry_client/api_data/sentry_user.dart';
+import 'package:sentry_client/sentry_dsn.dart';
+import 'package:sentry_client/sentry_client_browser.dart';
 
 class AppModule extends Module {
   AppModule() {
@@ -40,6 +50,7 @@ class AppModule extends Module {
     bind(SettingAssignProjectOverviewComponent);
     bind(ProjectCategoryOverviewComponent);
     bind(ProjectCategorySelectComponent);
+    bind(ProjectCommentOverviewComponent);
     bind(ProjectOverviewComponent);
     bind(ProjectOpenInvoicesComponent);
     bind(ProjectEditComponent);
@@ -114,12 +125,41 @@ class AppModule extends Module {
   }
 }
 
+@Injectable()
+SentryLogger getSentry(UserContext userContext){
+  if(sentryDSN.startsWith("https")){
+    return new BrowserSentryLogger(sentryDSN, userContext);
+  } else {
+    return new NullSentryLogger();
+  }
+}
+
+@Injectable()
+class DimeExceptionHandler extends ExceptionHandler {
+  final Logger log = new Logger("Application");
+  final Injector injector;
+
+  DimeExceptionHandler(this.injector);
+
+  call(dynamic error, dynamic stack, [String reason = '']) {
+    log.severe("$error\n$reason\nSTACKTRACE:\n$stack");
+    injector.get(SentryLogger).log(error, stack, reason);
+  }
+}
 
 void main() {
   Logger.root.level = Level.ALL;
-  Logger.root.onRecord.listen((LogRecord r) { print(r.message); });
+  Logger.root.onRecord.listen((LogRecord rec) {
+    if(rec.level >= Level.WARNING){
+      window.console.error('${rec.level.name}: ${rec.time}: ${rec.message}');
+    } else {
+      print('${rec.level.name}: ${rec.time}: ${rec.message}');
+    }
+  });
   applicationFactory()
-      .addModule(new AngularUIModule()) // The angular-ui module
-      .addModule(new AppModule()) //TheMain Module
-      .run();
+    .addModule(new AngularUIModule()) // The angular-ui module
+    .addModule(new AppModule()
+      ..bind(SentryLogger, toFactory: getSentry, inject: [UserContext])
+      ..bind(ExceptionHandler, toImplementation: DimeExceptionHandler)
+    ).run();
 }

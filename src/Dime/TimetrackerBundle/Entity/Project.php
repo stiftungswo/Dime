@@ -151,7 +151,7 @@ class Project extends Entity implements DimeEntityInterface
 	/**
 	 * @var ProjectCategory $projectCategory
 	 *
-	 * @ORM\ManyToOne(targetEntity="ProjectCategory")
+	 * @ORM\ManyToOne(targetEntity="ProjectCategory",cascade={"persist"})
 	 * @ORM\JoinColumn(name="project_category_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
 	 * @JMS\SerializedName("projectCategory")
 	 */
@@ -167,6 +167,16 @@ class Project extends Entity implements DimeEntityInterface
 	 * @JMS\MaxDepth(1)
 	 */
 	protected $invoices;
+
+	/**
+	 * @var ArrayCollection $invoices
+	 *
+	 * @ORM\OneToMany(targetEntity="Dime\TimetrackerBundle\Entity\ProjectComment", mappedBy="project")
+	 * @ORM\JoinColumn(name="id", referencedColumnName="project_id", nullable=true, onDelete="SET NULL")
+	 * @JMS\SerializedName("comments")
+	 * @JMS\Type("array")
+	 */
+	protected $comments;
 
 	/**
 	 * @var ArrayCollection $offers
@@ -759,6 +769,26 @@ class Project extends Entity implements DimeEntityInterface
 
 		return $this;
 	}
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getComments()
+    {
+        return $this->comments;
+    }
+
+    /**
+     * @param ArrayCollection $comments
+     *
+     * @return Project
+     */
+    public function setComments($comments)
+    {
+        $this->comments = $comments;
+
+        return $this;
+    }
 
 	/**
 	 * @param Invoice $invoice

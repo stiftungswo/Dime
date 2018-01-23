@@ -91,9 +91,9 @@ class SettingAssignProjectOverviewComponent extends EntityOverview {
           this.projectAssignments.removeWhere((enty) => enty.id == entId);
           this.statusservice.setStatusToSuccess();
           this.rootScope.emit(this.type.toString() + 'Deleted');
-        } catch (e) {
+        } catch (e, stack) {
           print("Unable to Delete entity ${this.type.toString()}::${entId} because ${e}");
-          this.statusservice.setStatusToError(e);
+          this.statusservice.setStatusToError(e, stack);
         }
       }
     }
@@ -123,9 +123,9 @@ class SettingAssignProjectOverviewComponent extends EntityOverview {
       this.projectAssignments.add(settingAssignProject);
       this.statusservice.setStatusToSuccess();
       this.rootScope.emit(this.type.toString() + 'Changed');
-    } catch (e) {
+    } catch (e, stack) {
       print("Unable to save entity ${this.type.toString()}::${projectAssignmentSetting.id} because ${e}");
-      this.statusservice.setStatusToError(e);
+      this.statusservice.setStatusToError(e, stack);
     }
   }
 

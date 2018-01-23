@@ -29,9 +29,9 @@ class TimetrackPeriodsComponent extends AttachAware implements ScopeAware {
       this.employees = (await this.store.list(Employee)).toList();
       this.statusservice.setStatusToSuccess();
       //this.rootScope.emit(this.type.toString() + 'Loaded');
-    } catch (e) {
+    } catch (e, stack) {
       print("Unable to load employees because ${e}");
-      this.statusservice.setStatusToError(e);
+      this.statusservice.setStatusToError(e, stack);
     }
   }
 
