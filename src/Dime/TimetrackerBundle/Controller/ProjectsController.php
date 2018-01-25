@@ -3,7 +3,10 @@
 namespace Dime\TimetrackerBundle\Controller;
 
 use Dime\OfferBundle\Entity\Offer;
+use Dime\TimetrackerBundle\Entity\Activity;
+use Dime\TimetrackerBundle\Entity\ActivityRepository;
 use Dime\TimetrackerBundle\Entity\Project;
+use Dime\TimetrackerBundle\Entity\Timeslice;
 use Dime\TimetrackerBundle\Exception\InvalidFormException;
 use FOS\RestBundle\Controller\Annotations;
 use FOS\RestBundle\Request\ParamFetcherInterface;
@@ -13,6 +16,7 @@ use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Intl\Exception\NotImplementedException;
 
 class ProjectsController extends DimeController
 {
@@ -35,7 +39,7 @@ class ProjectsController extends DimeController
      *
      * @Annotations\QueryParam(name="customer", requirements="\d+", nullable=true, description="Filter By Project")
      * @Annotations\QueryParam(name="user", requirements="\d+", nullable=true, description="Filter By User")
-     * @Annotations\QueryParam(name="search", requirements="\w+", nullable=true, description="Filter By Name or alias")
+     * @Annotations\QueryParam(name="search", requirements="[\w-]+", nullable=true, description="Filter By Name or alias")
      * @Annotations\QueryParam(array=true, name="withtags", requirements="\d+", nullable=true, description="Show Entities with these Tags")
      * @Annotations\QueryParam(array=true, name="withouttags", requirements="\d+", nullable=true, description="Show Entities without this Tags")
      *
@@ -250,6 +254,77 @@ class ProjectsController extends DimeController
         $em->flush();
         $this->container->get($this->handlerSerivce)->delete($project);
 
+        return $this->view(null, Codes::HTTP_NO_CONTENT);
+    }
+
+    /**
+     * Move timeslices to this project.
+     *
+     * Each timeslice will be moved to an activity corresponding to the service it previously belonged to.
+     * If the project does not have the corresponding activity, it will be created.
+     *
+     * @ApiDoc(
+     * resource = true,
+     * section="projects",
+     * statusCodes = {
+     * 204 = "Returned when successful",
+     * 404 = "Returned when Project does not exist."
+     * }
+     * )
+     *
+     * @Annotations\Route(requirements={"_format"="json|xml"})
+     * @Annotations\View(
+     * serializerEnableMaxDepthChecks=true
+     * )
+     *
+     * @Annotations\RequestParam(name="timeslices", array=true, description="The IDs of the timeslices to move")
+     *
+     * @param int $projectId
+     *            the page id
+     *
+     * @return FormTypeInterface|View
+     *
+     * @throws NotFoundHttpException when page not exist
+     */
+    public function putProjectTimeslicesAction(int $projectId, ParamFetcherInterface $params)
+    {
+        $timesliceIds = $params->get("timeslices");
+
+        /** @var Project $targetProject */
+        $targetProject = $this->getOr404($projectId, $this->handlerSerivce);
+
+        $timesliceRepository = $this->getDoctrine()->getRepository(Timeslice::class);
+        $timeslices = $timesliceRepository->findById($timesliceIds);
+
+        $em = $this->getDoctrine()->getManager();
+
+        /** @var Timeslice $timeslice */
+        foreach ($timeslices as $timeslice) {
+            $service = $timeslice->getActivity()->getService();
+
+            /** @var Activity $targetActivity */
+            $targetActivity = null;
+            /** @var Activity $Activity */
+            foreach ($targetProject->getActivities() as $activity) {
+                if ($activity->getService()->getId() == $service->getId()) {
+                    $targetActivity = $activity;
+                    break;
+                }
+            }
+
+            if ($targetActivity == null) {
+                //create new activity for target project
+                $targetActivity = clone $timeslice->getActivity();
+                $targetActivity->setProject($targetProject);
+                $em->persist($targetActivity);
+                $em->flush();
+                $targetProject->getActivities()->add($targetActivity);
+            }
+
+            $timeslice->setActivity($targetActivity);
+            $em->persist($timeslice);
+        }
+        $em->flush();
         return $this->view(null, Codes::HTTP_NO_CONTENT);
     }
 }

@@ -29,3 +29,17 @@ Dime\TimetrackerBundle\Entity\Timeslice:
         activity: @activityPauschal_*
         user: @user_*
         employee: @employee_*
+    timesliceMoveTest_{1..5}:
+        id: 10001
+        value: 1
+        startedAt: <dateTimeBetween('-1000 days', 'now')>
+        activity: @activityMoveTest_1
+        user: @user_*
+        employee: @employee_*
+    timesliceMoveTest_{6..10}:
+        id: 10002
+        value: 1
+        startedAt: <dateTimeBetween('-1000 days', 'now')>
+        activity: @activityMoveTest_2
+        user: @user_*
+        employee: @employee_*

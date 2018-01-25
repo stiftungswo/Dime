@@ -5,6 +5,7 @@ namespace Dime\TimetrackerBundle\Tests\Controller;
 use Symfony\Bundle\FrameworkBundle\Client;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\BrowserKit\Cookie;
+use Symfony\Component\HttpFoundation\Response;
 
 class DimeTestCase extends WebTestCase
 {
@@ -59,6 +60,13 @@ class DimeTestCase extends WebTestCase
         $server['ACCEPT'] = 'application/xml';
         $this->client->request($method, $uri, $parameters, $files, $server, $content, $changeHistory);
         return $this->client->getResponse();
+    }
+
+    protected function assertStatus($expectedStatus, Response $response)
+    {
+        if ($response->getStatusCode() != $expectedStatus) {
+            $this->fail("Expected statusCode to be $expectedStatus, but was {$response->getStatusCode()}. Response body: \n\n {$response->getContent()}");
+        }
     }
 
     /**

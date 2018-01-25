@@ -29,3 +29,21 @@ Dime\TimetrackerBundle\Entity\Activity:
         description: <sentence(4)>
         user: @user_*
         chargeable: <boolean(90)>
+    activityMoveTest_1:
+        project: @project-timesliceMove_source
+        service: @servicePauschal_1
+        description: <sentence(4)>
+        user: @user_*
+        chargeable: <boolean(90)>
+    activityMoveTest_2:
+        project: @project-timesliceMove_source
+        service: @servicePauschal_2
+        description: <sentence(4)>
+        user: @user_*
+        chargeable: <boolean(90)>
+    activityMoveTest_3:
+        project: @project-timesliceMove_target
+        service: @servicePauschal_1
+        description: <sentence(4)>
+        user: @user_*
+        chargeable: <boolean(90)>

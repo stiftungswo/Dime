@@ -120,4 +120,35 @@ class ProjectsControllerTest extends DimeTestCase
         $this->assertTrue(count($data) > 0, 'expected to find projects');
         $this->assertEquals('Büro', $data[0]['name'], 'expected to find "Büro" first');
     }
+
+    public function testPutProjectTimeslicesAction()
+    {
+        //int $projectId, ParamFetcherInterface $params
+        $this->loginAs('admin');
+
+        $response = $this->jsonRequest('GET', $this->api_prefix.'/projects?search=test-project-move-source');
+        $sourceProject = json_decode($response->getContent(), true)[0]['id'];
+
+        $response = $this->jsonRequest('GET', $this->api_prefix.'/projects?search=test-project-move-target');
+        $targetProject = json_decode($response->getContent(), true)[0]['id'];
+
+        $response = $this->jsonRequest('GET', $this->api_prefix."/timeslices?project=$sourceProject");
+        $slices = json_decode($response->getContent(), true);
+
+        $slice_ids = array_map(function ($slice) {
+            return $slice['id'];
+        }, $slices);
+
+        $body = ["timeslices" => $slice_ids];
+
+        $response = $this->jsonRequest('PUT', $this->api_prefix."/projects/$targetProject/timeslices", json_encode($body));
+        echo $response->getContent();
+        $this->assertStatus(204, $response);
+
+        foreach ($slice_ids as $id) {
+            $response = $this->jsonRequest('GET', $this->api_prefix."/timeslices/$id");
+            $slice = json_decode($response->getContent(), true);
+            $this->assertEquals($targetProject, $slice['project']['id'], "Timeslice $id did not get moved to target project");
+        }
+    }
 }
