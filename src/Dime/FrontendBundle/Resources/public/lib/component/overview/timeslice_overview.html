@@ -62,12 +62,25 @@
             <setting-edit namespace="'/usr/defaults/timeslice'" name="'value'" defaultvalue="'8.4h'"></setting-edit>
         </div>
         <div class="col-md-12" style="margin-top: 5px;">
-            <dime-button primary ng-click="createEntity()" glyphicon="plus">Eintrag hinzufügen</dime-button>
-            <dime-button primary enabled="selectedTimeslices.length == 1" ng-click="duplicateEntity()" glyphicon="asterisk"
-                         tooltipText="Exakt ein (1) Eintrag muss ausgewählt sein.">Duplizieren</dime-button>
-            <dime-button enabled="moveDialogEnabled()" glyphicon="arrow-right" ng-click="moveDialogVisible = !moveDialogVisible"
-                         tooltipText="Verschiebe die ausgewählten Einträge in ein anderes Projekt">Verschieben</dime-button>
-            <dime-button ng-click="reload(evict: true)" glyphicon="refresh"></dime-button>
+            <dime-button primary
+                         click="createEntity()"
+                         glyphicon="plus"
+            >Eintrag hinzufügen</dime-button>
+            <dime-button primary
+                         click="duplicateEntity()"
+                         enabled="selectedTimeslices.length == 1"
+                         glyphicon="asterisk"
+                         tooltipText="Exakt ein (1) Eintrag muss ausgewählt sein."
+            >Duplizieren</dime-button>
+            <dime-button
+                    enabled="moveDialogEnabled()"
+                    glyphicon="arrow-right"
+                    click="moveDialogVisible = !moveDialogVisible"
+                    tooltipText="Verschiebe die ausgewählten Einträge in ein anderes Projekt"
+            >Verschieben</dime-button>
+            <dime-button
+                    click="reload(evict: true)"
+                    glyphicon="refresh"></dime-button>
         </div>
         <div class="col-sm-12" style="padding-top: 10px" ng-if="moveDialogVisible">
             <div class="clearfix"></div>
@@ -82,7 +95,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-2" style="padding-top: 10px">
-                            <dime-button glyphicon="arrow-right" ng-click="moveTimeslices()" enabled="moveTargetProject != null" primary>Verschieben</dime-button>
+                            <dime-button glyphicon="arrow-right" click="moveTimeslices()" enabled="moveTargetProject != null" primary>Verschieben</dime-button>
                         </div>
                     </div>
                 </div>

@@ -4,7 +4,7 @@ import 'package:angular/angular.dart';
     selector: 'dime-button',
     template: """
     <span data-toggle="tooltip" title="{{tooltip}}" >
-      <button type="button" class="{{getClass()}}" ng-disabled="!enabled">
+      <button type="button" class="{{getClass()}}" ng-disabled="!enabled" ng-click='onClick()'>
           <span ng-if="glyphicon != null" class="glyphicon glyphicon-{{glyphicon}}"></span>
           <content></content>
       </button>
@@ -16,8 +16,10 @@ import 'package:angular/angular.dart';
       "tooltipText": "@tooltip",
       "primary": "@primary",
       "enabled": "=>enabled",
+      "click": "&onClick",
     })
 class DimeButton {
+  Function onClick = () {};
   String glyphicon = null;
   String tooltip = null;
   String primary = null;

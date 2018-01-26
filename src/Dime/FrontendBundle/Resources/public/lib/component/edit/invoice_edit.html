@@ -71,11 +71,11 @@
   </div>
 </div>
 <div class="DimeControlButtons">
-  <dime-button primary ng-click="saveEntity()"><error-icon value="saveState" timeout="20"></error-icon></dime-button>
+  <dime-button primary click="saveEntity()"><error-icon value="saveState" timeout="20"></error-icon></dime-button>
   <dime-button primary glyphicon="magnet"
                tooltipText="Synchronisiert die Aktivitäten mit dem Ursprungsprojekt und setzt den Sachbearbeiter auf Dich"
-               ng-click="updateInvoicefromProject()"> Update </dime-button>
-  <dime-button primary glyphicon="print" ng-click="printInvoice()"> Rechnung </dime-button>
-  <dime-button primary glyphicon="print" ng-click="printAufwandsbericht()"> Aufwandsbericht </dime-button>
-  <dime-button glyphicon="refresh" ng-click="reload(evict: true)"></dime-button>
+               click="updateInvoicefromProject()"> Update </dime-button>
+  <dime-button primary glyphicon="print" click="printInvoice()"> Rechnung </dime-button>
+  <dime-button primary glyphicon="print" click="printAufwandsbericht()"> Aufwandsbericht </dime-button>
+  <dime-button glyphicon="refresh" click="reload(evict: true)"></dime-button>
 </div>
