@@ -6,6 +6,7 @@ import 'package:angular/angular.dart';
     <span data-toggle="tooltip" title="{{tooltip}}" >
       <button type="button" class="{{getClass()}}" ng-disabled="!enabled" ng-click='onClick()'>
           <span ng-if="glyphicon != null" class="glyphicon glyphicon-{{glyphicon}}"></span>
+          <span ng-if="fontAwesome != null" class="fa fa-{{fontAwesome}}"></span>
           <content></content>
       </button>
     </span>
@@ -13,6 +14,7 @@ import 'package:angular/angular.dart';
     useShadowDom: false,
     map: const {
       "glyphicon": "@glyphicon",
+      "font-awesome": "@fontAwesome",
       "tooltipText": "@tooltip",
       "primary": "@primary",
       "enabled": "=>enabled",
@@ -21,6 +23,7 @@ import 'package:angular/angular.dart';
 class DimeButton {
   Function onClick = () {};
   String glyphicon = null;
+  String fontAwesome = null;
   String tooltip = null;
   String primary = null;
   bool enabled = true;
