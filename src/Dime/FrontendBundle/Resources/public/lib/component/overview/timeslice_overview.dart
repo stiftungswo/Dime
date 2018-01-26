@@ -317,12 +317,19 @@ class TimesliceOverviewComponent extends EntityOverview {
   }
 
   void toggleTimeslice(Timeslice timeslice) {
-    if (this.selectedTimeslices.contains(timeslice.id)) {
-      this.selectedTimeslices.remove(timeslice.id);
+    if (selectedTimeslices.contains(timeslice.id)) {
+      selectedTimeslices.remove(timeslice.id);
     } else {
-      this.selectedTimeslices.add(timeslice.id);
+      selectedTimeslices.add(timeslice.id);
     }
-    print(this.selectedTimeslices);
+
+    //for compatibility with the single-select of the EntityOverview
+    if (selectedTimeslices.length == 1) {
+      selectEntity(selectedTimeslices.single);
+    } else {
+      selectEntity(null);
+    }
+    print(selectedTimeslices);
   }
 
   moveTimeslices() async {
@@ -333,5 +340,12 @@ class TimesliceOverviewComponent extends EntityOverview {
       selectedTimeslices.clear();
       moveDialogVisible = false;
     });
+  }
+
+  selectRow(MouseEvent event, Timeslice timeslice) {
+    //only fire when a td was clicked, not any input elements
+    if (event.target.nodeName == "TD") {
+      toggleTimeslice(timeslice);
+    }
   }
 }
