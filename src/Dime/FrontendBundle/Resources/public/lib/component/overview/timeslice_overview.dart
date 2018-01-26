@@ -97,13 +97,15 @@ class TimesliceOverviewComponent extends EntityOverview {
   bool projectBased = false;
 
   //selection for move dialog
-  Activity moveTargetActivity;
   Project moveTargetProject;
   bool moveDialogVisible = false;
   //apparently if we query  `selectedTimeslices.isNotEmpty` directly, it doesn't update
   moveDialogEnabled() => selectedTimeslices.isNotEmpty;
+  Set<int> selectedTimeslices = new Set();
+  HttpService httpService;
 
-  TimesliceOverviewComponent(DataCache store, SettingsManager manager, StatusService status, this.context, UserAuthProvider auth)
+  TimesliceOverviewComponent(
+      DataCache store, SettingsManager manager, StatusService status, this.context, UserAuthProvider auth, this.httpService)
       : super(Timeslice, store, '', manager, status, auth: auth);
 
   cEnt({Timeslice entity}) {
@@ -314,22 +316,22 @@ class TimesliceOverviewComponent extends EntityOverview {
     scope.watch('filterEndDate', (val1, val2) => this.onDateUpdate());
   }
 
-  Map<int, Timeslice> selectedTimeslices = new Map();
-
   void toggleTimeslice(Timeslice timeslice) {
-    if (this.selectedTimeslices.containsKey(timeslice.id)) {
+    if (this.selectedTimeslices.contains(timeslice.id)) {
       this.selectedTimeslices.remove(timeslice.id);
     } else {
-      this.selectedTimeslices[timeslice.id] = timeslice;
+      this.selectedTimeslices.add(timeslice.id);
     }
     print(this.selectedTimeslices);
   }
 
-  moveTimeslices() {
-    selectedTimeslices.forEach((id, slice) {
-      slice.addFieldtoUpdate("activity");
-      slice.activity = moveTargetActivity;
-      this.store.update(slice);
+  moveTimeslices() async {
+    final ids = selectedTimeslices.toList(growable: false);
+    var body = new JsonEncoder().convert({"timeslices": ids});
+    httpService.request("projects/${this.moveTargetProject.id}/timeslices", method: "PUT", sendData: body).then((_) {
+      reload();
+      selectedTimeslices.clear();
+      moveDialogVisible = false;
     });
   }
 }

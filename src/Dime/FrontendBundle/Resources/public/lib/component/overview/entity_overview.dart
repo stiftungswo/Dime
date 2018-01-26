@@ -1,5 +1,6 @@
 library entity_overview;
 
+import 'package:DimeClient/service/http_service.dart';
 import 'package:angular/angular.dart';
 import 'package:hammock/hammock.dart';
 import 'package:DimeClient/model/Entity.dart';

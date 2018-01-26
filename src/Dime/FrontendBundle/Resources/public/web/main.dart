@@ -3,6 +3,7 @@
 
 import 'package:DimeClient/component/elements/dime-button.dart';
 import 'package:DimeClient/component/elements/help-tooltip.dart';
+import 'package:DimeClient/service/http_service.dart';
 import 'package:DimeClient/service/release_info.dart';
 import 'package:DimeClient/service/sentry.dart';
 import 'package:angular/angular.dart';
@@ -119,6 +120,7 @@ class AppModule extends Module {
     bind(UserMenu);
     bind(HelpTooltip);
     bind(DimeButton);
+    bind(HttpService);
     install(new Hammock());
     bind(RouteInitializerFn, toValue: dimeRouteInitializer);
     bind(HammockConfig, toFactory: createHammockConfig, inject: [Injector]);
