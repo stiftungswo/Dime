@@ -62,11 +62,12 @@
             <setting-edit namespace="'/usr/defaults/timeslice'" name="'value'" defaultvalue="'8.4h'"></setting-edit>
         </div>
         <div class="col-md-12" style="margin-top: 5px;">
-            <dime-button primary ng-click="createEntity()">Eintrag hinzufügen</dime-button>
-            <dime-button primary enabled="selectedTimeslices.length == 1" ng-click="duplicateEntity()">Duplizieren</dime-button>
-            <dime-button enabled="moveDialogEnabled()" glyphicon="arrow-right" ng-click="moveDialogVisible = !moveDialogVisible">Verschieben</dime-button>
-            <help-tooltip text="Verschiebe die ausgewählten Einträge zu einer anderen Aktivität"></help-tooltip>
-            <button type="button" class="btn btn-default" ng-click="reload(evict: true)"><span class="glyphicon glyphicon-refresh"></span></button>
+            <dime-button primary ng-click="createEntity()" glyphicon="plus">Eintrag hinzufügen</dime-button>
+            <dime-button primary enabled="selectedTimeslices.length == 1" ng-click="duplicateEntity()" glyphicon="asterisk"
+                         tooltipText="Exakt ein (1) Eintrag muss ausgewählt sein.">Duplizieren</dime-button>
+            <dime-button enabled="moveDialogEnabled()" glyphicon="arrow-right" ng-click="moveDialogVisible = !moveDialogVisible"
+                         tooltipText="Verschiebe die ausgewählten Einträge in ein anderes Projekt">Verschieben</dime-button>
+            <dime-button ng-click="reload(evict: true)" glyphicon="refresh"></dime-button>
         </div>
         <div class="col-sm-12" style="padding-top: 10px" ng-if="moveDialogVisible">
             <div class="clearfix"></div>

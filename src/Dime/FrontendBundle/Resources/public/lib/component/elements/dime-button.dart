@@ -3,10 +3,12 @@ import 'package:angular/angular.dart';
 @Component(
     selector: 'dime-button',
     template: """
-    <button type="button" class="{{getClass()}}" data-toggle="tooltip" title="{{tooltip}}" ng-disabled="!enabled">
-        <span ng-if="glyphicon != null" class="glyphicon glyphicon-{{glyphicon}}"></span>
-        <content></content>
-    </button>
+    <span data-toggle="tooltip" title="{{tooltip}}" >
+      <button type="button" class="{{getClass()}}" ng-disabled="!enabled">
+          <span ng-if="glyphicon != null" class="glyphicon glyphicon-{{glyphicon}}"></span>
+          <content></content>
+      </button>
+    </span>
     """,
     useShadowDom: false,
     map: const {
