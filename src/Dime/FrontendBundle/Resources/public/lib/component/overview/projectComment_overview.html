@@ -26,7 +26,7 @@
   <tbody ng-if="entities != null">
     <tr ng-repeat="entity in entities | filter:commentDateFilter() | orderBy:['-date', '-id']" ng-click="selectEntity(entity.id)" ng-class="isSelected(entity)? 'info': ''">
       <td><dateinput is-readonly="true" style="width: 100%;" date="entity.date"></dateinput></td>
-      <td><textarea class="form-control" style="width: 100%;" ng-model="entity.comment" ng-change="addSaveField('comment', entity)"></textarea></td>
+      <td><textarea class="form-control" style="width: 100%; height: auto" ng-model="entity.comment" ng-change="addSaveField('comment', entity)"></textarea></td>
       <td><button type="button" class="btn btn-default" ng-click="deleteEntity(entity.id)"><i class="fa fa-fw fa-trash-o" style="color:red"></i></button></td>
     </tr>
   </tbody>
