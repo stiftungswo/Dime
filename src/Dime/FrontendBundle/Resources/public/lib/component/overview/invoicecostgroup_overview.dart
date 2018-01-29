@@ -43,7 +43,8 @@ class InvoiceCostgroupOverviewComponent extends EntityOverview {
   }
 
   createEntity({Entity newEnt, Map<String, dynamic> params: const {}}) {
-    super.createEntity(params: {'invoice': this._invoiceId});
+    // set default weight of 100
+    super.createEntity(params: {'invoice': this._invoiceId, 'weight': 100});
   }
 
   getWeightSum() {
