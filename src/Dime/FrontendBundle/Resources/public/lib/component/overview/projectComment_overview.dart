@@ -77,7 +77,9 @@ class ProjectCommentOverviewComponent extends EntityOverview {
 
   commentDateFilter() {
     return (ProjectComment value) {
-      return value.date.isAfter(filterStartDate) && value.date.isBefore(filterEndDate);
+      // fix excluding comments with dates almost the same as the filters
+      Duration d = new Duration(seconds: 2);
+      return value.date.isAfter(filterStartDate.subtract(d)) && value.date.isBefore(filterEndDate.add(d));
     };
   }
 }
