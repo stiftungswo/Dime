@@ -79,4 +79,22 @@ class ReportControllerTest extends DimeTestCase
         $csv = str_getcsv($data, ';');
         $this->assertGreaterThan(4, count($csv), 'expected more than 4 rows in CSV file');
     }
+
+    public function testGetRevenueReportAsCSVAction()
+    {
+        $this->loginAs('admin');
+
+        // load report
+        $response = $this->jsonRequest('GET', $this->api_prefix . '/reports/revenue/csv?date=2017-08-01,2018-08-31');
+
+        $data = $response->getContent();
+
+        // validate content
+        $this->assertContains('Projekt / Rechnung', $data);
+        $csvrows = explode("\n", $data);
+        $csv = str_getcsv($csvrows[1], ',');
+        $this->assertEquals('sep=,', $csvrows[0], 'expect first row to be excel marker');
+        $this->assertGreaterThan(4, count($csvrows), 'expected more than 4 rows in CSV file');
+        $this->assertGreaterThan(9, count($csv), 'expected more than 9 columns in CSV file (costgroups)');
+    }
 }

@@ -242,7 +242,7 @@ class ReportController extends DimeController
         $data = $this->container->get('dime.report.handler')->getRevenueReportAsCSV($paramFetcher->get('date'));
 
         $response = new Response($data);
-        $response->headers->set('Content-Type', 'text/csv');
+        $response->headers->set('Content-Type', 'text/csv; charset=latin1');
         $response->headers->set('Content-Disposition', 'attachment; filename="umsatzrapport.csv"');
 
         return $response;

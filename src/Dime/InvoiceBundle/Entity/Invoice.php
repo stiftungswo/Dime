@@ -650,13 +650,16 @@ class Invoice extends Entity implements DimeEntityInterface
             $sum += $group->getWeight();
         }
         foreach ($this->costgroups as $group) {
-            if ($group->getCostgroup()) {
+            $costgroup = $group->getCostgroup();
+            if ($costgroup) {
                 $dist[] = [
-                    "number" => $group->getCostgroup()->getNumber(),
-                    "ratio" => ($group->getWeight()/$sum) * 100
+                    "number" => $costgroup->getNumber(),
+                    "description" => $costgroup->getDescription(),
+                    "ratio" => ($group->getWeight() / $sum) * 100,
                 ];
             }
         }
+
         return $dist;
     }
 }
