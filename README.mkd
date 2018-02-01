@@ -90,13 +90,14 @@ This ERM excludes some tables that are currently empty/unused. [Here](https://ra
  
 ## Bundles
 
-There are Multiple Bundle Seperated by features:
-    TimetrackerBundle Base Entities and RestAPI for them
-    OfferBundle Offer Entities ans RestAPI
-    InvoiceBundle Invoice Entities and RestAPI
-    PrintingBundle Service for Printing PDF's
-    FrontendBundle The Javascript GUI
-    SwoCommonsBundle Some Entities and Resources used by all our Applications
+There are Multiple Bundle Seperated by features:  
+
+  - TimetrackerBundle: Base Entities and RestAPI for them
+  - OfferBundle: Offer Entities ans RestAPI
+  - InvoiceBundle: Invoice Entities and RestAPI
+  - PrintingBundle: Service for Printing PDF's
+  - FrontendBundle: The Javascript GUI
+  - SwoCommonsBundle: Some Entities and Resources used by all our Applications
 
 For understanding the database abstraction, see
 
@@ -197,6 +198,13 @@ After changing the ORM schema, sometimes you need to clear the cache before it w
     
 Regenerate Fixtures as needed (see below)
 
+### Recommended schema editing workflow
+
+- edit the Doctrine-Annotations on the entities
+- generate a new migration with `docker exec -it dime php app/console doctrine:migrations:diff`
+- you may need to edit the migration by hand
+- regenerate Fixtures as needed (see below)
+
 ## Fixtures
 
 The fixtures are an example dataset that can be used while developing. But more important: the tests run against this database.
@@ -253,6 +261,6 @@ We recommend using at least 2 CPU's and 4 GB of memory for your docker machine t
 
 ### OSX Workaround if response times are ugly slow
 
-http://docker-sync.io/
-http://stackoverflow.com/questions/38168130/docker-on-osx-slow-volumes/42679301#42679301
+http://docker-sync.io/  
+http://stackoverflow.com/questions/38168130/docker-on-osx-slow-volumes/42679301#42679301  
 https://github.com/IFSight/d4m-nfs
