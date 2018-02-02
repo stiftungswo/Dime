@@ -18,7 +18,7 @@
     </div>
     <div class="box box-primary">
       <div class="box-header with-border">
-        <h3 class="box-title">Kommentare</h3>
+        <h3 class="box-title">Kommentare <span ng-if="project != null"> für Projekt "{{ project.name }}"</span></h3>
       </div>
       <div class="box-body">
         <projectComment-overview></projectComment-overview>

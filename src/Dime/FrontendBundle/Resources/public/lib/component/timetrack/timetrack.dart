@@ -21,10 +21,25 @@ class TimetrackComponent extends AttachAware implements ScopeAware {
   UserContext context;
   UserAuthProvider auth;
   Scope scope;
+  Project project;
 
   get employee => this.context.employee;
 
-  attach() {}
+  attach() {
+    this.scope.rootScope.on(TimesliceOverviewComponent.FORMDATA_CHANGE_EVENT_NAME).forEach((ScopeEvent e) {
+      Map<String, dynamic> data = e.data;
+
+      data.forEach((key, value) {
+        switch (key) {
+          case 'project':
+            project = value;
+            break;
+          default:
+            break;
+        }
+      });
+    });
+  }
 
   void reloadUser([ScopeEvent e]) {
     this.context.reloadUserData();
