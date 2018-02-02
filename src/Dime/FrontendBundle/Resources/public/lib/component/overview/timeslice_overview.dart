@@ -108,7 +108,8 @@ class TimesliceOverviewComponent extends EntityOverview {
 
   static const String FORMDATA_CHANGE_EVENT_NAME = 'FORMDATA_CHANGE_EVENT_NAME';
 
-  TimesliceOverviewComponent(DataCache store, SettingsManager manager, StatusService status, this.context, UserAuthProvider auth)
+  TimesliceOverviewComponent(
+      DataCache store, SettingsManager manager, StatusService status, this.context, UserAuthProvider auth, this.httpService)
       : super(Timeslice, store, '', manager, status, auth: auth);
 
   cEnt({Timeslice entity}) {
