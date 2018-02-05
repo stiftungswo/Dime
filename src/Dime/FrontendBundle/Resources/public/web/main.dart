@@ -8,7 +8,6 @@ import 'package:DimeClient/service/release_info.dart';
 import 'package:DimeClient/service/sentry.dart';
 import 'package:angular/angular.dart';
 import 'package:angular/application_factory.dart';
-import 'package:angular_ui/angular_ui.dart';
 import 'package:logging/logging.dart';
 import 'package:hammock/hammock.dart';
 import 'package:DimeClient/component/date/dateRange.dart';
@@ -159,7 +158,6 @@ void main() {
     }
   });
   applicationFactory()
-      .addModule(new AngularUIModule()) // The angular-ui module
       .addModule(new AppModule()
         ..bind(SentryLogger, toFactory: getSentry, inject: [UserContext])
         ..bind(ExceptionHandler, toImplementation: DimeExceptionHandler))
