@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {Link} from "react-router-dom";
+import {client} from "./api";
 
 const limit = (text) => {
   if(text.length > 100){
@@ -12,11 +13,10 @@ export class ServiceOverview extends Component{
   constructor(props){
     super(props);
     this.state = {
-      entities: [
-        {id: '1', name: 'Foo', alias: 'foo', shortDescription: "foodledoo", archived: true},
-        {id: '2', name: 'Boo', alias: 'foo', shortDescription: "bartendebartendebartendebartendebartendebartendebartendebartendebartendebartendebartendebartendebartendebartendebartendebartendebartendebartendebartenderrrrrrrrrrrrrrrrrrrbartender"},
-        ]
+      entities: []
     }
+
+    client({path: '/services'}).then(console.log);
   }
 
   render = () => {
