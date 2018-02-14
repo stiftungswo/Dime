@@ -3,7 +3,7 @@ import {Link} from "react-router-dom";
 import {client} from "./api";
 
 const limit = (text) => {
-  if(text.length > 100){
+  if(text && text.length > 100){
     return text.substr(0,100) + "..."
   }
   return text;
@@ -16,7 +16,10 @@ export class ServiceOverview extends Component{
       entities: []
     }
 
-    client({path: '/services'}).then(console.log);
+    client({path: '/services'}).then(res => {
+      console.log(res);
+      this.setState({entities: res.entity});
+    });
   }
 
   render = () => {
@@ -61,7 +64,7 @@ export class ServiceOverview extends Component{
                 <td>{service.id}</td>
                 <td>{service.name} {service.archived ? <span className="text-muted">[ARCHIVIERT]</span>: null}</td>
                 <td>{service.alias}</td>
-                <td>{limit(service.shortDescription)}</td>
+                <td>{limit(service.description)}</td>
                 <td>
                   <div className="btn-group">
                     <Link to={`/services/${service.id}`}>EDIT</Link>
