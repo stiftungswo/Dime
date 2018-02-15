@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {Link} from "react-router-dom";
-import {client} from "./api";
+import {ServiceRepository} from "./api/api";
 
 const limit = (text) => {
   if(text && text.length > 100){
@@ -15,11 +15,13 @@ export class ServiceOverview extends Component{
     this.state = {
       entities: []
     }
+  }
 
-    client({path: '/services'}).then(res => {
-      console.log(res);
-      this.setState({entities: res.entity});
-    });
+  componentWillMount = () => this.reload();
+
+  reload = async () => {
+    const entities = await ServiceRepository.list();
+    this.setState({entities});
   }
 
   render = () => {
@@ -79,7 +81,7 @@ export class ServiceOverview extends Component{
         <div className="DimeControlButtons">
           <button type="button" className="btn btn-primary" ng-click="createEntity()">Hinzufügen</button>
           <button type="button" className="btn btn-primary" ng-click="duplicateEntity()">Duplizieren</button>
-          <button type="button" className="btn btn-default" ng-click="reload(evict: true)"><span className="glyphicon glyphicon-refresh"></span></button>
+          <button type="button" className="btn btn-default" onClick={this.reload}ng-click="reload(evict: true)"><span className="glyphicon glyphicon-refresh"></span></button>
         </div>
       </div>
     );

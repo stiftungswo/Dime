@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {client} from "./api";
+import {client, ServiceRepository} from "./api/api";
 
 const TODO = () => <div>TODO</div>;
 const RateOverview = TODO;
@@ -12,24 +12,22 @@ export class ServiceEdit extends Component{
       service: null,
       changed: []
     }
-
-    client({path: `/services/${props.match.params.id}`}).then(res => {
-      this.setState({service: res.entity})
-    })
   }
 
-  save = () => {
-    //const entity = JSON.stringify(this.state.service)
+  componentWillMount = () => this.refresh();
+
+  refresh = async () => {
+    const service = await ServiceRepository.one(this.props.match.params.id);
+    this.setState({service})
+  }
+
+  save = async () => {
     const entity = {}
     this.state.changed.forEach(field => entity[field] = this.state.service[field]);
     console.log(entity);
-    client({
-      path: `/services/${this.state.service.id}`,
-      method: 'PUT',
-      entity,
-    }).then(res => {
-      console.log(res);
-    });
+
+    await ServiceRepository.save(entity, {id: this.state.service.id})
+    this.refresh();
   }
 
   changeService = (field, value)  => this.setState({
@@ -45,7 +43,6 @@ export class ServiceEdit extends Component{
 
   changeText = (field) => (e) => this.changeService(field, e.target.value)
   changeCheckbox = (field) => (e) => this.changeService(field, e.target.checked)
-
 
   render = () => {
     const service = this.state.service;
@@ -113,7 +110,7 @@ export class ServiceEdit extends Component{
     <RateOverview/>
     <div className="DimeControlButtons">
       <button type="button" className="btn btn-primary" onClick={this.save} ng-click="saveEntity()">SAVE</button>
-      <button type="button" className="btn btn-default" ng-click="reload(evict: true)"><span className="glyphicon glyphicon-refresh">REFRESH</span></button>
+      <button type="button" className="btn btn-default" onClick={this.refresh} ng-click="reload(evict: true)"><span className="glyphicon glyphicon-refresh">REFRESH</span></button>
     </div>
     </div>
   );
