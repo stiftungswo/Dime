@@ -27,22 +27,17 @@ export class Repository{
     this.clone = clone;
   }
 
-  one = (id) => client({path: this.baseUrl + '/' + id})
-    .then(res => this.enrich(res.entity))
+  one = (id) => client.get(this.baseUrl + '/' + id)
+    .then(res => this.enrich(res.data))
 
-  list = () => client({path: this.baseUrl})
-    .then(res => res.entity.map(this.enrich))
+  list = () => client.get(this.baseUrl)
+    .then(res => res.data.map(this.enrich))
 
-  save = (entity, {id = null} = {}) => client({
-    path: this.baseUrl + '/' + (id || entity.id),
-    method: 'PUT',
-    entity: this.unenrich(entity),
-  })
+  save = (entity, {id = null} = {}) => client.put(
+    this.baseUrl + '/' + (id || entity.id),
+    this.unenrich(entity)
+  )
 
-  clone = (entity) => client({
-    path: this.baseUrl,
-    method: 'POST',
-    entity: this.clone(entity)
-  })
+  clone = (entity) => client.post(this.baseUrl, this.clone(entity))
 
 }
