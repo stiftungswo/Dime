@@ -240,6 +240,24 @@ A good way to read it is
     docker exec -it dime less /dev/shm/dime/log/var/www/html/app/test/test.log   #for tests
     docker exec -it dime less /dev/shm/dime/log/var/www/html/app/dev/dev.log     #for dev
 
+## Formatting
+
+The backend and frontend should always be properly formatted (is checked by travis).
+
+Before committing you should always run the code-formatting tools:
+
+### Backend
+
+The backend is formatted using [phpcbf](https://github.com/squizlabs/PHP_CodeSniffer) based on [PSR-2](https://www.php-fig.org/psr/psr-2/).  
+
+Run it with `composer run format` or `docker exec dime composer run format`.
+
+### Frontend
+
+The frontend is formatted using [dartfmt](https://github.com/dart-lang/dart_style#readme) (comes installed with the Dart SDK).
+
+Run it with `dartfmt -w --line-length 140 src/Dime/FrontendBundle/Resources/public/lib` or `docker exec dime /usr/lib/dart/bin/dartfmt -w --line-length 140 src/Dime/FrontendBundle/Resources/public/lib`.
+
 ## Deployment
 
 ### Deployment at SWO

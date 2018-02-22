@@ -52,7 +52,8 @@
 	},
 	"require-dev" : {
 		"h4cc/alice-fixtures-bundle" : "dev-master",
-		"phpunit/phpunit": "~4.8"
+		"phpunit/phpunit": "~4.8",
+		"squizlabs/php_codesniffer": "^3.2"
 	},
 	"scripts" : {
 		"post-install-cmd" : [
@@ -66,7 +67,8 @@
 			"Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
 			"Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
 			"Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile"
-		]
+    ],
+		"format": "phpcbf --standard=psr2 --ignore=vendor,src/Tbbc/MoneyBundle,src/Money,src/Dime/FrontendBundle/Resources/public --extensions=php src"
 	},
 	"config" : {
 		"bin-dir" : "bin"

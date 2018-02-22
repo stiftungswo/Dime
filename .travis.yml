@@ -3,6 +3,8 @@ sudo: false
 php:
   - 7.1
 before_script:
+  - ./ci/dart_sdk.sh
+  - ./ci/check_format.sh
   - ./ci/backend.sh
 script:
   - ./ci/test.sh
