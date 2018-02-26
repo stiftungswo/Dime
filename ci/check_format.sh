@@ -1,3 +1,4 @@
+#!/bin/bash -vue
 # checks if formatters could have been run locally to fix the code style
 
 # check backend

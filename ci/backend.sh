@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/bash -vue
 cp app/config/parameters.yml.travis app/config/parameters.yml.dist && \
 composer install --no-interaction && \
 php app/console doctrine:database:create && \

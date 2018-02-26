@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/bash -vue
 
 cd src/Dime/FrontendBundle/Resources/public && \
 ../../../../../dart-sdk/bin/pub get --packages-dir && \

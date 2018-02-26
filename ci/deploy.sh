@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -vue
 
 if [ ! -f $HOME/.ssh/id_rsa ]; then
   echo "Setting up SSH key"
@@ -21,13 +21,8 @@ esac
 #Read config env
 export $(ssh $TARGET "cat deploy/dime.$ENVIRONMENT.env" | xargs)
 
-TMP=dime_deploy_tmp
+TMP=dime_deploy_tmp_${TRAVIS_BRANCH}_${TRAVIS_COMMIT}
 BACKUP_DIR=backup/dime/$ENVIRONMENT
-
-if [ -z "$PROJECT_DIR" ]; then
-  echo "PROJECT_DIR is not set"
-  exit 1
-fi
 
 
 ssh $TARGET mkdir -p ${PROJECT_DIR} ${PROJECT_DIR}.bak && \
