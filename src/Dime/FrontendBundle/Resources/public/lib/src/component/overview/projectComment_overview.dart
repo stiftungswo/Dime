@@ -29,7 +29,7 @@ class ProjectCommentOverviewComponent extends EntityOverview {
 
   cEnt({Entity entity}) {
     if (entity != null) {
-      if (!(entity is ProjectComment)) {
+      if (entity is! ProjectComment) {
         throw new Exception("I WANT A PROJECT COMMENT");
       }
       return new ProjectComment.clone(entity);

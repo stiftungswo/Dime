@@ -12,6 +12,7 @@ import '../date/dateToTextInput.dart';
 import '../../emailValidator.dart';
 import '../overview/entity_overview.dart';
 import '../select/entity_select.dart';
+import '../percent-input/percent_input.dart';
 import 'dart:async';
 import 'dart:html';
 import 'package:angular/angular.dart';

@@ -36,7 +36,8 @@ class InvoiceDiscountOverviewComponent extends EntityOverview {
     super.reload(params: {'invoice': this._invoiceId}, evict: evict);
   }
 
-  attach() {
+  @override
+  ngOnInit() {
     if (this.auth != null) {
       if (!auth.isloggedin) {
         this.auth.afterLogin(() {

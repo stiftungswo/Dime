@@ -25,7 +25,8 @@ class ProjectEditComponent extends EntityEdit {
       EntityEventsService entityEventsService)
       : super(routeProvider, store, Project, status, auth, router, entityEventsService);
 
-  attach() {
+  @override
+  ngOnInit() {
     if (this.auth != null) {
       if (!auth.isloggedin) {
         this.auth.afterLogin(() {

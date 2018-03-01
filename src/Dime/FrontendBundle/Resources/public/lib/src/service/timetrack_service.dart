@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:DimeClient/src/model/Entity.dart';
+import '../model/Entity.dart';
 import 'package:angular/angular.dart';
 
 @Injectable()

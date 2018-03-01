@@ -1,11 +1,15 @@
 library dime.dateRange;
 
 import 'dart:async';
-import 'package:DimeClient/src/component/date/dateToTextInput.dart';
+import 'dateToTextInput.dart';
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
 
-@Component(selector: 'daterange', templateUrl: 'dateRange.html', directives: const [CORE_DIRECTIVES, formDirectives, DateToTextInput])
+@Component(
+  selector: 'daterange',
+  templateUrl: 'dateRange.html',
+  directives: const [CORE_DIRECTIVES, formDirectives, DateToTextInput],
+)
 class DateRange implements OnChanges {
   //start date
   DateTime _startDate;

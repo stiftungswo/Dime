@@ -1,6 +1,5 @@
 import 'package:angular/angular.dart';
-import 'package:DimeClient/src/component/report/dime_report.dart';
-import 'package:DimeClient/src/component/timetrack/timetrack.dart';
+import '../timetrack/timetrack.dart';
 import 'package:angular_forms/angular_forms.dart';
 import 'package:angular_router/angular_router.dart';
 
@@ -13,6 +12,7 @@ import '../statusbar/statusbar.dart';
 import '../report/dime_report.dart';
 import '../../service/user_auth.dart';
 import '../../service/user_context.dart';
+import '../../service/release_info.dart';
 import 'welcome.dart';
 import 'menu.dart';
 import 'usermenu.dart';
@@ -98,6 +98,5 @@ class AppComponent implements AfterViewInit, OnInit {
     }
   }
 
-  // todo replace with release_info service
-  get releaseInfo => "\$release - \$environment";
+  get releaseInfo => "$release - $environment";
 }

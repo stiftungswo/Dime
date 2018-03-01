@@ -46,7 +46,6 @@ class ProjectComment extends Entity {
         break;
       case 'project':
         this.project = value is Entity ? value : new Project.fromMap(value);
-        ;
         break;
       case 'id':
         this.id = value;

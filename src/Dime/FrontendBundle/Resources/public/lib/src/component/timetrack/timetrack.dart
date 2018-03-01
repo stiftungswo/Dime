@@ -1,14 +1,19 @@
 library timetrack;
 
 import 'dart:async';
-import 'package:DimeClient/dime_client.dart';
 import '../date/dateToTextInput.dart';
-import 'package:DimeClient/src/component/elements/error_icon.dart';
-import 'package:DimeClient/src/component/overview/entity_overview.dart';
+import '../elements/error_icon.dart';
+import '../overview/entity_overview.dart';
 import '../select/entity_select.dart';
-import 'package:DimeClient/src/model/Entity.dart';
-import 'package:DimeClient/src/pipes/dime_pipes.dart';
+import '../../model/Entity.dart';
 import '../../pipes/project_value.dart';
+import '../../service/data_cache.dart';
+import '../../service/entity_events_service.dart';
+import '../../service/setting_manager.dart';
+import '../../service/status.dart';
+import '../../service/timetrack_service.dart';
+import '../../service/user_auth.dart';
+import '../../service/user_context.dart';
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
 

@@ -14,7 +14,7 @@ class EmployeeOverviewComponent extends EntityOverview {
 
   cEnt({Entity entity}) {
     if (entity != null) {
-      if (!(entity is Employee)) {
+      if (entity is! Employee) {
         throw new Exception("I want Employees");
       }
       return new Employee.clone(entity);

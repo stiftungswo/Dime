@@ -12,7 +12,7 @@ class PeriodOverviewComponent extends EntityOverview {
 
   cEnt({Entity entity}) {
     if (entity != null) {
-      if (!(entity is Period)) {
+      if (entity is! Period) {
         throw new Exception("I NEED A PERIOD");
       }
       return new Period.clone(entity);
@@ -117,7 +117,8 @@ class PeriodOverviewComponent extends EntityOverview {
     return holidayBalance;
   }
 
-  //@override ngOnInit(); //noop
+  @override
+  ngOnInit();
 
   createEntity({var newEnt, Map<String, dynamic> params: const {}}) {
     var now = new DateTime.now();
@@ -130,14 +131,7 @@ class PeriodOverviewComponent extends EntityOverview {
   }
 
   save() {
-    //TODO: clean this up
-    saveAllEntities();
-    //scope.rootScope.emit('saveChanges');
-    //_onSave.add(null);
-    //reload();
+    this.entityEventsService.emitSaveChanges();
+    reload();
   }
-
-//  @Output("save");
-//  final StreamController<String> _onSave = new StreamController<String>();
-//  Stream<String> get onSave => _onSave.stream;
 }

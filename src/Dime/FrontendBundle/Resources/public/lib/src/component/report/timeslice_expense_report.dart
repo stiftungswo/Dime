@@ -16,7 +16,6 @@ class TimesliceExpenseReportComponent extends EntityOverview {
 
   set project(Project proj) {
     _project = proj;
-    print("SET PRO");
     if (_project != null) {
       reload();
     }

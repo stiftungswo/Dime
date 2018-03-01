@@ -4,7 +4,8 @@ part of entity_edit;
 class AddressEditComponent extends EntityEdit {
   AddressEditComponent() : super.Child(Address);
 
-  attach() {
+  @override
+  ngOnInit() {
     //Dont Reload its not working.
   }
 

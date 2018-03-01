@@ -14,7 +14,7 @@ class CustomerOverviewComponent extends EntityOverview {
 
   cEnt({Entity entity}) {
     if (entity != null) {
-      if (!(entity is Customer)) {
+      if (entity is! Customer) {
         throw new Exception("I want a customer");
       }
       return new Customer.clone(entity);

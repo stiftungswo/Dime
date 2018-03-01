@@ -1,9 +1,10 @@
 part of entity_edit;
 
 @Component(
-    selector: 'customer-edit',
-    templateUrl: 'customer_edit.html',
-    directives: const [CORE_DIRECTIVES, formDirectives, ErrorIconComponent, RateGroupSelectComponent, AddressEditComponent])
+  selector: 'customer-edit',
+  templateUrl: 'customer_edit.html',
+  directives: const [CORE_DIRECTIVES, formDirectives, ErrorIconComponent, RateGroupSelectComponent, AddressEditComponent],
+)
 class CustomerEditComponent extends EntityEdit {
   List<RateGroup> rateGroups;
 
@@ -11,7 +12,8 @@ class CustomerEditComponent extends EntityEdit {
       EntityEventsService entityEventsService)
       : super(routeProvider, store, Customer, status, auth, router, entityEventsService);
 
-  attach() {
+  @override
+  ngOnInit() {
     if (this.auth != null) {
       if (!auth.isloggedin) {
         this.auth.afterLogin(() {

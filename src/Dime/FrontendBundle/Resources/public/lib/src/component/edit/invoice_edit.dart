@@ -43,7 +43,8 @@ class InvoiceEditComponent extends EntityEdit {
     window.open('http://localhost:3000/api/v1/reports/expenses/print?project=${this.entity.project.id}', 'Aufwandsbericht');
   }
 
-  attach() {
+  @override
+  ngOnInit() {
     if (this.auth != null) {
       if (!auth.isloggedin) {
         this.auth.afterLogin(() {
@@ -109,8 +110,8 @@ class InvoiceEditComponent extends EntityEdit {
   }
 
   createInvoice() async {
-    var newInvoice =
-        await this.store.customQueryOne(Invoice, new CustomRequestParams(method: 'GET', url: '/api/v1/invoices/project/${project.id}'));
+    var newInvoice = await this.store.customQueryOne(
+        Invoice, new CustomRequestParams(method: 'GET', url: 'http://localhost:3000/api/v1/invoices/project/${project.id}'));
     project.invoices.add(newInvoice);
     this.store.evict(Invoice, true);
     router.navigate([

@@ -1,18 +1,21 @@
 part of entity_overview;
 
-@Component(selector: 'timeslice-overview', templateUrl: 'timeslice_overview.html', directives: const [
-  CORE_DIRECTIVES,
-  formDirectives,
-  DateToTextInput,
-  UserSelectComponent,
-  ProjectSelectComponent,
-  ActivitySelectComponent,
-  DateRange,
-  DimeButton,
-  SettingEditComponent
-], pipes: const [
-  DIME_PIPES
-])
+@Component(
+  selector: 'timeslice-overview',
+  templateUrl: 'timeslice_overview.html',
+  directives: const [
+    CORE_DIRECTIVES,
+    formDirectives,
+    DateToTextInput,
+    UserSelectComponent,
+    ProjectSelectComponent,
+    ActivitySelectComponent,
+    DateRange,
+    DimeButton,
+    SettingEditComponent
+  ],
+  pipes: const [DIME_PIPES],
+)
 class TimesliceOverviewComponent extends EntityOverview {
   Employee _employee;
 
@@ -64,7 +67,6 @@ class TimesliceOverviewComponent extends EntityOverview {
 
   bool updateNewEntryDate = true;
 
-  //@NgTwoWay('project')
   @Input('project')
   set projectFilter(Project project) {
     this.projectBased = true;
@@ -148,7 +150,7 @@ class TimesliceOverviewComponent extends EntityOverview {
   cEnt({Entity entity}) {
     if (entity != null) {
       //TODO: make EntityOverview generic and get rid of this
-      if (!(entity is Timeslice)) {
+      if (entity is! Timeslice) {
         throw new Exception("I NEED TIMESLICE");
       }
       return new Timeslice.clone(entity);

@@ -36,7 +36,8 @@ class OfferDiscountOverviewComponent extends EntityOverview {
     super.reload(params: {'offer': this._offerId}, evict: evict);
   }
 
-  attach() {
+  @override
+  ngOnInit() {
     if (this.auth != null) {
       if (!auth.isloggedin) {
         this.auth.afterLogin(() {
