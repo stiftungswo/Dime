@@ -40,7 +40,7 @@ class ExpenseReport extends Entity {
         this.user = value;
         break;
       case 'project':
-        this.project = value;
+        this.project = value is Project ? value : new Project.fromMap(value);
         break;
       default:
         super.Set(property, value);
@@ -52,5 +52,5 @@ class ExpenseReport extends Entity {
   List<Timeslice> timeslices;
   Project project;
   User user;
-  String totalHours;
+  dynamic totalHours; //FIXME int?
 }

@@ -1,33 +1,39 @@
 part of entity_select;
 
 @Component(
-    selector: 'activity-select',
-    templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/select/activity_select.html',
-    useShadowDom: false,
-    map: const {
+  selector: 'activity-select',
+  templateUrl: 'activity_select.html',
+  directives: const [formDirectives, CORE_DIRECTIVES],
+  pipes: const [FilterPipe, OrderByPipe, ProjectValueFilter],
+  /*map: const{
       'activity': '<=>selectedEntity',
       'project': '=>projectId',
       'shortname': '=>shortname',
       'callback': '&callback',
       'field': '=>!field',
       'clearOnClose': '=>!clearOnClose'
-    })
-class ActivitySelectComponent extends EntitySelect {
+    }*/
+)
+class ActivitySelectComponent extends EntitySelect implements OnChanges {
   ActivitySelectComponent(DataCache store, dom.Element element, StatusService status, UserAuthProvider auth)
       : super(Activity, store, element, status, auth);
 
+  @Input('project')
   int projectId;
-  bool shortname;
+  @Input('shortname')
+  bool shortname = false;
 
   get EntText => _selectedEntity != null ? (shortname == true ? _selectedEntity.service.name : _selectedEntity.name) : '';
 
   // Disable the select box because of projectId being null sometimes
-  @NgOneWayOneTime('is-readonly')
+  @Input('is-readonly')
   bool isReadonly = false;
 
-  @NgOneWay('parent-activities')
+  @Input('parent-activities')
   List<Activity> parentActivities = null;
 
+  /*
+  todo check if this.ngOnChanges replaces the old scope() method
   @override
   void set scope(Scope scope) {
     // FIXME 'projectId' is sometimes set to null (inside timeslice_overview).
@@ -36,6 +42,14 @@ class ActivitySelectComponent extends EntitySelect {
 
     // watch parentActivities to make sure it redraws
     scope.watch('parentActivities', (newval, oldval) => onChange(oldval, newval));
+  }*/
+
+  @override
+  void ngOnChanges(Map<String, SimpleChange> changes) {
+    if (changes.containsKey('parentActivities')) {
+      var change = changes['parentActivities'];
+      onChange(change.previousValue, change.currentValue);
+    }
   }
 
   onChange(List oldList, List newList) {

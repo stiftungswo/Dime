@@ -1,15 +1,24 @@
 part of entity_overview;
 
-@Component(
-    selector: 'timeslice-overview',
-    templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/overview/timeslice_overview.html',
-    useShadowDom: false,
-    map: const {'filterByUser': '=>employee'})
+@Component(selector: 'timeslice-overview', templateUrl: 'timeslice_overview.html', directives: const [
+  CORE_DIRECTIVES,
+  formDirectives,
+  DateToTextInput,
+  UserSelectComponent,
+  ProjectSelectComponent,
+  ActivitySelectComponent,
+  DateRange,
+  DimeButton,
+  SettingEditComponent
+], pipes: const [
+  DIME_PIPES
+])
 class TimesliceOverviewComponent extends EntityOverview {
   Employee _employee;
 
   UserContext context;
 
+  @Input("filterByUser")
   set employee(Employee employee) {
     if (employee.id == null || (this._employee != null && this._employee.id == employee.id)) {
       return;
@@ -34,8 +43,20 @@ class TimesliceOverviewComponent extends EntityOverview {
   List<Employee> employees = [];
   var activityResult = null;
 
-  DateTime filterStartDate = new DateTime.now();
-  DateTime filterEndDate;
+  DateTime _filterStartDate = new DateTime.now();
+  DateTime get filterStartDate => _filterStartDate;
+  void set filterStartDate(DateTime filterStartDate) {
+    _filterStartDate = filterStartDate;
+    onDateUpdate();
+  }
+
+  DateTime _filterEndDate;
+  DateTime get filterEndDate => _filterEndDate;
+  void set filterEndDate(DateTime filterEndDate) {
+    _filterEndDate = filterEndDate;
+    onDateUpdate();
+  }
+
   DateTime loadedStartDate;
   DateTime loadedEndDate;
   DateFormat formatter = new DateFormat('yyyy-MM-dd');
@@ -43,7 +64,8 @@ class TimesliceOverviewComponent extends EntityOverview {
 
   bool updateNewEntryDate = true;
 
-  @NgTwoWay('project')
+  //@NgTwoWay('project')
+  @Input('project')
   set projectFilter(Project project) {
     this.projectBased = true;
     if (project != null && (this.selectedProject == null || this.selectedProject.id != project.id)) {
@@ -54,6 +76,10 @@ class TimesliceOverviewComponent extends EntityOverview {
 
   get projectFilter => this.selectedProject;
 
+  final StreamController<Project> _projectChange = new StreamController<Project>();
+  @Output('projectChange')
+  Stream<Project> get projectChange => _projectChange.stream;
+
   Project _selectedProject;
 
   get selectedProject => _selectedProject;
@@ -62,8 +88,8 @@ class TimesliceOverviewComponent extends EntityOverview {
     this._selectedProject = proj;
     if (proj != null) {
       this.updateChosenSetting('project');
-
-      this.rootScope.emit(FORMDATA_CHANGE_EVENT_NAME, {'project': proj});
+      this.timetrackService.projectSelect.add(proj);
+      _projectChange.add(proj);
 
       // select the same activity if also it exists in new project
       try {
@@ -88,12 +114,17 @@ class TimesliceOverviewComponent extends EntityOverview {
 
   Setting settingselectedActivity;
 
-  DateTime newEntryDate;
+  DateTime _newEntryDate;
+  DateTime get newEntryDate => _newEntryDate;
+  set newEntryDate(DateTime date) {
+    _newEntryDate = date;
+    timetrackService.targetDate.add(date);
+  }
 
-  @NgOneWayOneTime('allowProjectSelect')
+  @Input('allowProjectSelect')
   bool allowProjectSelect = true;
 
-  @NgOneWayOneTime('blendOutStartAndEnd')
+  @Input('blendOutStartAndEnd')
   bool blendOutStartAndEnd = true;
 
   bool projectBased = false;
@@ -104,16 +135,22 @@ class TimesliceOverviewComponent extends EntityOverview {
   //apparently if we query  `selectedTimeslices.isNotEmpty` directly, it doesn't update
   moveDialogEnabled() => selectedTimeslices.isNotEmpty;
   Set<int> selectedTimeslices = new Set();
-  HttpService httpService;
+
+  TimetrackService timetrackService;
 
   static const String FORMDATA_CHANGE_EVENT_NAME = 'FORMDATA_CHANGE_EVENT_NAME';
 
-  TimesliceOverviewComponent(
-      DataCache store, SettingsManager manager, StatusService status, this.context, UserAuthProvider auth, this.httpService)
-      : super(Timeslice, store, '', manager, status, auth: auth);
+  TimesliceOverviewComponent(DataCache store, SettingsManager manager, StatusService status, this.context, UserAuthProvider auth,
+      EntityEventsService entityEventsService, this.timetrackService)
+      : super(Timeslice, store, '', manager, status, entityEventsService, auth: auth);
 
-  cEnt({Timeslice entity}) {
+  @override
+  cEnt({Entity entity}) {
     if (entity != null) {
+      //TODO: make EntityOverview generic and get rid of this
+      if (!(entity is Timeslice)) {
+        throw new Exception("I NEED TIMESLICE");
+      }
       return new Timeslice.clone(entity);
     }
     return new Timeslice();
@@ -146,6 +183,7 @@ class TimesliceOverviewComponent extends EntityOverview {
     this.reload();
   }
 
+  @override
   reload({Map<String, dynamic> params, bool evict: false}) async {
     if (this.dateRange == null || this.dateRange == "") {
       return;
@@ -163,7 +201,8 @@ class TimesliceOverviewComponent extends EntityOverview {
     updateEntryDate();
   }
 
-  createEntity({Entity newEnt, Map<String, dynamic> params: const {}}) async {
+  @override
+  createEntity({dynamic newEnt, Map<String, dynamic> params: const {}}) async {
     if (!(this.selectedProject is Project)) return;
     Timeslice slice = new Timeslice();
     List names = ['value'];
@@ -184,7 +223,7 @@ class TimesliceOverviewComponent extends EntityOverview {
       slice.addFieldtoUpdate(name);
     }
     slice.Set('activity', this.selectedActivity);
-    slice.Set('startedAt', this.newEntryDate);
+    slice.Set('startedAt', this._newEntryDate);
     slice.Set('employee', this._employee);
     slice.addFieldtoUpdate('activity');
     slice.addFieldtoUpdate('employee');
@@ -193,13 +232,15 @@ class TimesliceOverviewComponent extends EntityOverview {
     updateEntryDate();
   }
 
+  @override
   deleteEntity([int entId]) async {
     await super.deleteEntity(entId);
     updateEntryDate();
   }
 
   onDateUpdate() {
-    this.rootScope.emit(FORMDATA_CHANGE_EVENT_NAME, {'filterStartDate': filterStartDate, 'filterEndDate': filterEndDate});
+    timetrackService.filterStart.add(filterStartDate);
+    timetrackService.filterEnd.add(filterEndDate);
     // don't reload when page is still loading
     if (this.loadedStartDate == null || loadedEndDate == null) {
       return;
@@ -213,7 +254,7 @@ class TimesliceOverviewComponent extends EntityOverview {
 
   updateEntryDate() {
     if (updateNewEntryDate && this.entities != null) {
-      DateTime date = this.newEntryDate;
+      DateTime date = this._newEntryDate;
       if (date == null) {
         date = this.filterStartDate;
       }
@@ -223,9 +264,9 @@ class TimesliceOverviewComponent extends EntityOverview {
       relevantSlices.sort((x, y) => x.startedAt.compareTo(y.startedAt));
 
       if (relevantSlices.length > 0) {
-        this.newEntryDate = relevantSlices.last.startedAt;
+        this._newEntryDate = relevantSlices.last.startedAt;
       } else {
-        this.newEntryDate = new DateTime.now();
+        this._newEntryDate = new DateTime.now();
       }
     }
   }
@@ -242,7 +283,8 @@ class TimesliceOverviewComponent extends EntityOverview {
     return 0;
   }
 
-  attach() {
+  @override
+  ngOnInit() {
     if (this.auth == null) {
       return;
     }
@@ -269,8 +311,14 @@ class TimesliceOverviewComponent extends EntityOverview {
   updateChosenSetting(String name) {
     switch (name) {
       case 'project':
-        this.settingselectedProject.value = this.selectedProject.alias;
-        this.settingsManager.updateSetting(this.settingselectedProject);
+        if (this.settingselectedProject == null) {
+          settingsManager
+              .createSetting('/usr/timeslice', 'chosenProject', this.selectedProject.alias)
+              .then((setting) => this.settingselectedProject = setting);
+        } else {
+          this.settingselectedProject.value = this.selectedProject.alias;
+          this.settingsManager.updateSetting(this.settingselectedProject);
+        }
         break;
       case 'activity':
         if (this.selectedActivity != null) {
@@ -314,14 +362,6 @@ class TimesliceOverviewComponent extends EntityOverview {
     this.handleDates();
   }
 
-  @override
-  void set scope(Scope scope) {
-    super.scope = scope;
-    scope.watch('filterStartDate', (val1, val2) => this.onDateUpdate());
-    scope.watch('filterEndDate', (val1, val2) => this.onDateUpdate());
-    scope.watch('newEntryDate', (val, _) => this.rootScope.emit(FORMDATA_CHANGE_EVENT_NAME, {'newEntryDate': val}));
-  }
-
   void toggleTimeslice(Timeslice timeslice) {
     if (selectedTimeslices.contains(timeslice.id)) {
       selectedTimeslices.remove(timeslice.id);
@@ -341,14 +381,21 @@ class TimesliceOverviewComponent extends EntityOverview {
   moveTimeslices() async {
     final ids = selectedTimeslices.toList(growable: false);
     var body = new JsonEncoder().convert({"timeslices": ids});
-    httpService.request("projects/${this.moveTargetProject.id}/timeslices", method: "PUT", sendData: body).then((_) {
+
+    //FIXME don't hardcode base url; extract a HTTP Service
+    //httpService.request("projects/${this.moveTargetProject.id}/timeslices", method: "PUT", sendData: body)
+    HttpRequest
+        .request("http://localhost:3000/projects/${this.moveTargetProject.id}/timeslices",
+            method: 'PUT', withCredentials: true, sendData: body)
+        .then((_) {
       reload();
       selectedTimeslices.clear();
       moveDialogVisible = false;
     });
   }
 
-  selectRow(MouseEvent event, Timeslice timeslice) {
+  selectRow(dynamic event, Timeslice timeslice) {
+    //TODO event is actually a MouseEvent, but dart doesn't know it has a "nodeName" property?
     //only fire when a td was clicked, not any input elements
     if (event.target.nodeName == "TD") {
       toggleTimeslice(timeslice);

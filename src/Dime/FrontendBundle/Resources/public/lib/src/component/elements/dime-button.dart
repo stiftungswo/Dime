@@ -1,31 +1,36 @@
+import 'dart:async';
 import 'package:angular/angular.dart';
 
 @Component(
-    selector: 'dime-button',
-    template: """
+  selector: 'dime-button',
+  template: """
     <span data-toggle="tooltip" title="{{tooltip}}" >
-      <button type="button" class="{{getClass()}}" ng-disabled="!enabled" ng-click='onClick()'>
-          <span ng-if="glyphicon != null" class="glyphicon glyphicon-{{glyphicon}}"></span>
-          <span ng-if="fontAwesome != null" class="fa fa-{{fontAwesome}}"></span>
-          <content></content>
+      <button type="button" class="{{getClass()}}" [disabled]="!enabled" (click)='internalClick()'>
+          <span *ngIf="glyphicon != null" class="glyphicon glyphicon-{{glyphicon}}"></span>
+          <span *ngIf="fontAwesome != null" class="fa fa-{{fontAwesome}}"></span>
+          <ng-content></ng-content>
       </button>
     </span>
     """,
-    useShadowDom: false,
-    map: const {
-      "glyphicon": "@glyphicon",
-      "font-awesome": "@fontAwesome",
-      "tooltipText": "@tooltip",
-      "primary": "@primary",
-      "enabled": "=>enabled",
-      "click": "&onClick",
-    })
+  directives: const [
+    CORE_DIRECTIVES,
+  ],
+)
 class DimeButton {
-  Function onClick = () {};
+  final _onClick = new StreamController<String>();
+
+  // todo maybe rename to avoid collision with angular
+  @Output('click')
+  Stream<String> get onClick => _onClick.stream;
+  @Input()
   String glyphicon = null;
+  @Input()
   String fontAwesome = null;
+  @Input()
   String tooltip = null;
+  @Input()
   String primary = null;
+  @Input()
   bool enabled = true;
 
   getClass() {
@@ -34,5 +39,9 @@ class DimeButton {
     } else {
       return "btn btn-primary";
     }
+  }
+
+  internalClick() {
+    _onClick.add(null);
   }
 }

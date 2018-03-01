@@ -6,25 +6,31 @@ homepage: http://github.com/stiftungswo/Dime
 environment:
   sdk: '>=1.0.0 <2.0.0'
 dependencies:
-  angular: ">=1.1.1 <2.0.0"
+  angular: "^4.0.0+2"
+  angular_router: "^1.0.2"
+  angular_forms: ^1.0.0
   browser: any
   route_hierarchical: '>=0.5.0 <0.7.0'
   sass: '>=0.4.0 <0.5.0'
-  script_inliner: '>=1.0.0 <2.0.0'
   hammock:
     git:
-        url: https://github.com/toasterson/hammock.git
+        url: https://github.com/stiftungswo/hammock.git
         ref: master
   hammock_mapper:
     git:
         url: https://github.com/stiftungswo/hammock_mapper.git
-        ref: master
+        ref: swo_hammock_angular_4
   crypto: ">=2.0.2 <2.1.0"
-  cryptoutils: ">=0.2.1 < 0.3.0"
   sentry_client: ">=4.0.3 < 5.0.0"
+
+dev_dependencies:
+  dart_to_js_script_rewriter: ^1.0.1
 transformers:
-- script_inliner
-- angular
+- angular:
+    $exclude: ['web/vendor/**']
+    entry_points:
+    - web/main.dart
+- dart_to_js_script_rewriter
 - $dart2js:
     checked: false
     minify: false
@@ -32,3 +38,4 @@ transformers:
     suppressWarnings: false
     suppressHints: false
     terse: false
+

@@ -6,13 +6,14 @@ class TimetrackMultiEntry {
 }
 
 @Component(
-    selector: 'timetrack-multi',
-    templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/timetrack/timetrack_multi.html',
-    useShadowDom: false)
+  selector: 'timetrack-multi',
+  templateUrl: 'timetrack_multi.html',
+  directives: const [CORE_DIRECTIVES, formDirectives, DateToTextInput, ProjectSelectComponent, UserSelectComponent, ErrorIconComponent],
+  pipes: const [ProjectValueFilter],
+)
 class TimetrackMultiComponent extends EntityOverview {
   UserContext context;
   SettingsManager manager;
-  Scope scope;
   DateTime date;
   String statusText = '';
 
@@ -30,7 +31,7 @@ class TimetrackMultiComponent extends EntityOverview {
 
   get selectedProject => this._selectedProject;
 
-  attach() {
+  ngOnInit() {
     DateTime now = new DateTime.now();
     this.date = new DateTime(now.year, now.month, now.day);
     this.loadActivities();
@@ -38,12 +39,10 @@ class TimetrackMultiComponent extends EntityOverview {
 
   save() async {
     var newTimeslicesCount = 0;
-    if (this.rootScope == null) {
-      this.rootScope = this.scope.rootScope;
-    }
+
     this.statusText = 'Speichern...';
     await Future.forEach(entries, (TimetrackMultiEntry entry) async {
-      List<Activity> projectActivities = activities.where((Activity a) => a.project.id == selectedProject.id);
+      List<Activity> projectActivities = activities.where((Activity a) => a.project.id == selectedProject.id).toList();
       for (var i = 0; i < projectActivities.length; i++) {
         String value = entry.activities[i];
         if (value != '0' && value != '') {
@@ -72,12 +71,12 @@ class TimetrackMultiComponent extends EntityOverview {
 
   addUser() {
     if (selectedUserToAdd != null) {
-      List<TimetrackMultiEntry> existingEntries = entries.where((TimetrackMultiEntry e) => e.user.id == selectedUserToAdd.id);
+      List<TimetrackMultiEntry> existingEntries = entries.where((TimetrackMultiEntry e) => e.user.id == selectedUserToAdd.id).toList();
       if (existingEntries.length == 0) {
         TimetrackMultiEntry entry = new TimetrackMultiEntry();
         if (selectedProject != null) {
           inputAll = [];
-          List<Activity> projectActivities = activities.where((Activity a) => a.project.id == selectedProject.id);
+          List<Activity> projectActivities = activities.where((Activity a) => a.project.id == selectedProject.id).toList();
           projectActivities.forEach((Activity act) {
             inputAll.add('');
             entry.activities.add("0");
@@ -99,7 +98,7 @@ class TimetrackMultiComponent extends EntityOverview {
     entries.forEach((TimetrackMultiEntry entry) {
       entry.activities = [];
       inputAll = [];
-      List<Activity> projectActivities = activities.where((Activity a) => a.project.id == selectedProject.id);
+      List<Activity> projectActivities = activities.where((Activity a) => a.project.id == selectedProject.id).toList();
       projectActivities.forEach((Activity act) {
         inputAll.add('');
         entry.activities.add("0");
@@ -132,7 +131,7 @@ class TimetrackMultiComponent extends EntityOverview {
   clearInputs() {
     entries.forEach((TimetrackMultiEntry entry) {
       int idx = 0;
-      List<Activity> projectActivities = activities.where((Activity a) => a.project.id == selectedProject.id);
+      List<Activity> projectActivities = activities.where((Activity a) => a.project.id == selectedProject.id).toList();
       projectActivities.forEach((Activity act) {
         entry.activities[idx] = '0';
         idx++;
@@ -141,6 +140,7 @@ class TimetrackMultiComponent extends EntityOverview {
     this.statusText = '';
   }
 
-  TimetrackMultiComponent(DataCache store, SettingsManager manager, StatusService status, this.context, UserAuthProvider auth)
-      : super(Timeslice, store, '', manager, status, auth: auth);
+  TimetrackMultiComponent(DataCache store, SettingsManager manager, StatusService status, this.context, UserAuthProvider auth,
+      EntityEventsService entityEventsService)
+      : super(Timeslice, store, '', manager, status, entityEventsService, auth: auth);
 }

@@ -1,32 +1,48 @@
 library dime.dateToTextInput;
 
+import 'dart:async';
 import 'package:angular/angular.dart';
+import 'package:angular_forms/angular_forms.dart';
 import 'package:intl/intl.dart';
 
 @Component(
-    selector: 'dateinput',
-    templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/date/dateToTextInput.html',
-    useShadowDom: false)
-class DateToTextInput implements ScopeAware {
-  @NgCallback('callback')
-  Function callback;
+  selector: 'dateinput',
+  templateUrl: 'dateToTextInput.html',
+  directives: const [CORE_DIRECTIVES, formDirectives],
+)
+class DateToTextInput implements OnChanges {
+  // todo directly use field in parent template (remove [this.field])
+  final StreamController<String> _callback = new StreamController<String>();
+  @Output('callback')
+  Stream<String> get callback => _callback.stream;
 
-  @NgOneWayOneTime('field')
+  @Input('field')
   String field;
 
-  @NgTwoWay('date')
-  DateTime date;
+  DateTime _date;
 
-  @NgOneWayOneTime('format')
+  get date => _date;
+
+  @Input('date')
+  set date(DateTime newDate) {
+    _date = newDate;
+    _dateChange.add(newDate);
+  }
+
+  final StreamController<DateTime> _dateChange = new StreamController<DateTime>();
+  @Output('dateChange')
+  Stream<DateTime> get dateChange => _dateChange.stream;
+
+  @Input('format')
   String format = 'dd-MM-y';
 
-  @NgOneWayOneTime('has-buttons')
+  @Input('has-buttons')
   bool hasButtons = false;
 
-  @NgOneWayOneTime('is-readonly')
+  @Input('is-readonly')
   bool isReadonly = false;
 
-  @NgOneWayOneTime('null-allowed')
+  @Input('null-allowed')
   bool nullAllowed = false;
 
   String text = "";
@@ -94,9 +110,8 @@ class DateToTextInput implements ScopeAware {
         this.date = new DateTime(this.date.year, this.date.month, this.date.day);
       }
     }
-    if (this.callback != null) {
-      callback({"name": this.field});
-    }
+
+    _callback.add(this.field);
   }
 
   validate() {
@@ -112,7 +127,7 @@ class DateToTextInput implements ScopeAware {
 
     // check for non parseable values
     try {
-      DateTime test = new DateFormat(format).parse(text);
+      DateTime _ = new DateFormat(format).parse(text);
       this.isValid = true;
     } catch (exception) {
       this.isValid = false;
@@ -120,7 +135,10 @@ class DateToTextInput implements ScopeAware {
   }
 
   @override
-  void set scope(Scope scope) {
-    scope.watch('date', (newval, oldval) => onDateChanged(newval, oldval));
+  ngOnChanges(Map<String, SimpleChange> changes) {
+    if (changes.containsKey('date')) {
+      SimpleChange change = changes['date'];
+      onDateChanged(change.currentValue, change.previousValue);
+    }
   }
 }

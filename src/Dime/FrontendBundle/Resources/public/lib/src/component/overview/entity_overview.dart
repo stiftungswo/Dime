@@ -1,19 +1,34 @@
 library entity_overview;
 
-import 'package:DimeClient/service/http_service.dart';
-import 'package:angular/angular.dart';
-import 'package:hammock/hammock.dart';
-import 'package:DimeClient/model/Entity.dart';
-import 'package:DimeClient/service/setting_manager.dart';
-import 'package:DimeClient/service/data_cache.dart';
-import 'package:DimeClient/service/status.dart';
-import 'package:DimeClient/service/user_auth.dart';
-import 'package:DimeClient/service/user_context.dart';
-import 'dart:html';
-import 'dart:convert';
-import 'package:intl/intl.dart';
-import 'dart:math';
 import 'dart:async';
+import 'dart:convert';
+import 'dart:math';
+import 'package:DimeClient/src/component/date/dateRange.dart';
+import 'package:DimeClient/src/component/elements/dime-button.dart';
+import 'package:DimeClient/src/pipes/dime_pipes.dart';
+import 'package:DimeClient/src/service/timetrack_service.dart';
+import 'package:angular_router/angular_router.dart';
+import 'package:angular_router/src/router.dart';
+import '../../pipes/filter.dart';
+import '../../pipes/limit_to.dart';
+import '../../pipes/order_by.dart';
+import 'package:angular/angular.dart';
+import 'package:angular_forms/angular_forms.dart';
+import '../../model/Entity.dart';
+import '../../service/setting_manager.dart';
+import '../../service/data_cache.dart';
+import '../../service/status.dart';
+import '../../service/user_auth.dart';
+import '../../service/user_context.dart';
+import '../../service/entity_events_service.dart';
+import '../select/entity_select.dart';
+import '../elements/error_icon.dart';
+import '../percent-input/percent_input.dart';
+import '../setting/setting.dart';
+import '../date/dateToTextInput.dart';
+import 'dart:html';
+import 'package:hammock/hammock.dart';
+import 'package:intl/intl.dart';
 
 part 'activity_overview.dart';
 part 'customer_overview.dart';
@@ -36,13 +51,12 @@ part 'rate_overview.dart';
 part 'rateGroup_overview.dart';
 part 'rateUnitType_overview.dart';
 part 'service_overview.dart';
-part 'standarddiscount_overview.dart';
 part 'timeslice_overview.dart';
 
-class EntityOverview extends AttachAware implements ScopeAware {
+class EntityOverview implements OnInit {
   bool needsmanualAdd = false;
 
-  int selectedEntId;
+  dynamic selectedEntId;
 
   List entities = [];
 
@@ -54,7 +68,7 @@ class EntityOverview extends AttachAware implements ScopeAware {
 
   StatusService statusservice;
 
-  RootScope rootScope;
+  EntityEventsService entityEventsService;
 
   String routename;
 
@@ -68,8 +82,6 @@ class EntityOverview extends AttachAware implements ScopeAware {
 
   bool sortReverse = false;
 
-  var onUpdate = (o) => {};
-
   get selectedEntity {
     for (Entity ent in this.entities) {
       if (ent.id == this.selectedEntId) {
@@ -79,12 +91,7 @@ class EntityOverview extends AttachAware implements ScopeAware {
     return null;
   }
 
-  set scope(Scope scope) {
-    this.rootScope = scope.rootScope;
-    this.rootScope.on('saveChanges').listen(saveAllEntities);
-  }
-
-  void saveAllEntities([ScopeEvent e]) {
+  void saveAllEntities() {
     for (Entity entity in this.entities) {
       if (entity.needsUpdate) {
         this.saveEntity(entity);
@@ -99,7 +106,7 @@ class EntityOverview extends AttachAware implements ScopeAware {
       this.entities.removeWhere((enty) => enty.id == resp.id);
       this.entities.add(resp);
       this.statusservice.setStatusToSuccess();
-      this.rootScope.emit(this.type.toString() + 'Changed');
+//      this.rootScope.emit(this.type.toString() + 'Changed');
     } catch (e, stack) {
       print("Unable to save entity ${this.type.toString()}::${entity.id} because ${e}");
       this.statusservice.setStatusToError(e, stack);
@@ -128,13 +135,13 @@ class EntityOverview extends AttachAware implements ScopeAware {
     try {
       Entity resp = await this.store.create(newEnt);
       this.statusservice.setStatusToSuccess();
-      this.rootScope.emit(this.type.toString() + 'Created');
+      //FIXME reimplement
+      //this.rootScope.emit(this.type.toString() + 'Created');
       if (this.router != null) {
         this.openEditView(resp.id);
       } else {
         this.entities.add(resp);
       }
-      this.onUpdate({"entities": this.entities});
     } catch (e, stack) {
       print("Unable to create entity ${this.type.toString()} because ${e}");
       this.statusservice.setStatusToError(e, stack);
@@ -163,8 +170,7 @@ class EntityOverview extends AttachAware implements ScopeAware {
           await this.store.create(entity);
         }
         this.statusservice.setStatusToSuccess();
-        this.rootScope.emit(this.type.toString() + 'Duplicated');
-        this.onUpdate({"entities": this.entities});
+//        this.rootScope.emit(this.type.toString() + 'Duplicated');
       } catch (e, stack) {
         print("Unable to duplicate entity ${this.type.toString()}::${newEnt.id} because ${e}");
         this.statusservice.setStatusToError(e, stack);
@@ -182,12 +188,11 @@ class EntityOverview extends AttachAware implements ScopeAware {
         try {
           if (this.store != null) {
             var ent = this.entities.singleWhere((enty) => enty.id == entId);
-            CommandResponse resp = await this.store.delete(ent);
+            await this.store.delete(ent);
           }
           this.entities.removeWhere((enty) => enty.id == entId);
           this.statusservice.setStatusToSuccess();
-          this.rootScope.emit(this.type.toString() + 'Deleted');
-          this.onUpdate({"entities": this.entities});
+//          this.rootScope.emit(this.type.toString() + 'Deleted');
         } catch (e, stack) {
           print("Unable to Delete entity ${this.type.toString()}::${entId} because ${e}");
           this.statusservice.setStatusToError(e, stack);
@@ -201,11 +206,15 @@ class EntityOverview extends AttachAware implements ScopeAware {
       if (entId == null) {
         entId = this.selectedEntId;
       }
-      router.go(this.routename, {'id': entId});
+      router.navigate([
+        this.routename,
+        {'id': entId.toString()}
+      ]);
     }
   }
 
-  attach() {
+  @override
+  ngOnInit() {
     if (this.auth != null) {
       if (!auth.isloggedin) {
         this.auth.afterLogin(() {
@@ -217,7 +226,15 @@ class EntityOverview extends AttachAware implements ScopeAware {
     }
   }
 
+  /**
+   * for usage in templates; can't use named parameters in templates
+   */
+  reloadEvict() async {
+    return reload(evict: true);
+  }
+
   reload({Map<String, dynamic> params, bool evict: false}) async {
+    // todo: make sure there aren't two reloads happening at the same time (breaks form / validation)
     this.entities = [];
     this.statusservice.setStatusToLoading();
     try {
@@ -225,9 +242,8 @@ class EntityOverview extends AttachAware implements ScopeAware {
         this.store.evict(this.type);
       }
       this.entities = (await this.store.list(this.type, params: params)).toList();
-      this.onUpdate({"entities": this.entities});
       this.statusservice.setStatusToSuccess();
-      this.rootScope.emit(this.type.toString() + 'Loaded');
+//      this.rootScope.emit(this.type.toString() + 'Loaded');
     } catch (e, stack) {
       print("Unable to load ${this.type.toString()} because ${e}");
       this.statusservice.setStatusToError(e, stack);
@@ -258,5 +274,8 @@ class EntityOverview extends AttachAware implements ScopeAware {
     }
   }
 
-  EntityOverview(this.type, this.store, this.routename, this.settingsManager, this.statusservice, {this.router, this.auth});
+  EntityOverview(this.type, this.store, this.routename, this.settingsManager, this.statusservice, this.entityEventsService,
+      {this.router, this.auth}) {
+    entityEventsService.addSaveChangesListener(this.saveAllEntities);
+  }
 }

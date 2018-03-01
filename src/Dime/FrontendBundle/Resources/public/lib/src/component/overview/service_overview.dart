@@ -2,17 +2,23 @@ part of entity_overview;
 
 @Component(
     selector: 'service-overview',
-    templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/overview/service_overview.html',
-    useShadowDom: false)
+    templateUrl: 'service_overview.html',
+    directives: const [formDirectives, COMMON_DIRECTIVES, ROUTER_DIRECTIVES],
+    pipes: const [LimitToPipe, OrderByPipe, FilterPipe])
 class ServiceOverviewComponent extends EntityOverview {
-  ServiceOverviewComponent(DataCache store, Router router, SettingsManager manager, StatusService status, UserAuthProvider auth)
-      : super(Service, store, 'service_edit', manager, status, router: router, auth: auth);
+  ServiceOverviewComponent(DataCache store, Router router, SettingsManager manager, StatusService status, UserAuthProvider auth,
+      EntityEventsService entityEventsService)
+      : super(Service, store, 'ServiceEdit', manager, status, entityEventsService, router: router, auth: auth);
 
   String sortType = "name";
 
-  cEnt({Service entity}) {
+  cEnt({Entity entity}) {
     if (entity != null) {
-      return new Service.clone(entity);
+      if (entity is Service) {
+        return new Service.clone(entity);
+      } else {
+        throw new Exception("Invalid parameter type!");
+      }
     }
     return new Service();
   }

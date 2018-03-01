@@ -1,35 +1,34 @@
 part of entity_select;
 
 @Component(
-    selector: 'user-select',
-    templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/select/user_select.html',
-    useShadowDom: false,
-    map: const {
-      'useContext': '=>!useContext',
-      'user': '<=>selectedEntity',
-      'callback': '&callback',
-      'field': '=>!field',
-      'clearOnClose': '=>!clearOnClose'
-    })
-class UserSelectComponent extends EntitySelect {
+  selector: 'user-select',
+  templateUrl: 'user_select.html',
+  directives: const [CORE_DIRECTIVES, formDirectives],
+  pipes: const [FilterPipe, OrderByPipe],
+)
+class UserSelectComponent extends EntitySelect implements OnChanges {
   UserSelectComponent(DataCache store, dom.Element element, this.context, StatusService status, UserAuthProvider auth)
       : super(Employee, store, element, status, auth);
 
   UserContext context;
+  @Input()
   bool useContext = false;
 
-  @NgOneWay('parent-employees')
-  List<Activity> parentEmployees = null;
+  @Input('parentEmployees')
+  List<Employee> parentEmployees = null;
 
   // Disable the select box because of projectId being null sometimes
-  @NgOneWayOneTime('is-readonly')
+  @Input('isReadonly')
   bool isReadonly = false;
 
   get EntText => _selectedEntity != null ? _selectedEntity.fullname : '';
 
   @override
-  void set scope(Scope scope) {
-    scope.watch('parentEmployees', (newval, oldval) => onChange(oldval, newval));
+  void ngOnChanges(Map<String, SimpleChange> changes) {
+    if (changes.containsKey('parentEmployees')) {
+      var change = changes['parentEmployees'];
+      onChange(change.previousValue, change.currentValue);
+    }
   }
 
   onChange(List oldList, List newList) {

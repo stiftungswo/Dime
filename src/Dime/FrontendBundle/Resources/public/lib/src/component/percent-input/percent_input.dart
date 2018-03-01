@@ -1,17 +1,21 @@
 library percentage_input;
 
+import 'dart:async';
 import 'package:angular/angular.dart';
+import 'package:angular_forms/angular_forms.dart';
 
 @Component(
-    selector: 'input-percentage',
-    templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/percent-input/percent_input.html',
-    useShadowDom: false,
-    map: const {'htmlclass': '=>!htmlclass', 'precision': '=>!precision', 'safecalc': '=>!useSafeCalc', 'value': '<=>model'})
+  selector: 'input-percentage',
+  templateUrl: 'percent_input.html',
+  directives: const [CORE_DIRECTIVES, formDirectives],
+)
 class PercentageInputField {
   double _model;
 
+  @Input('precision')
   int precision = 2;
 
+  @Input('value')
   set model(double m) {
     _model = m;
     if (useSafeCalc == true) {
@@ -19,12 +23,19 @@ class PercentageInputField {
     } else {
       text = (m * 100).truncate().toString() + '%';
     }
+    _modelChange.add(_model);
   }
-
-  bool useSafeCalc = true;
 
   get model => _model;
 
+  final StreamController<double> _modelChange = new StreamController<double>();
+  @Output('valueChange')
+  Stream<double> get modelChange => _modelChange.stream;
+
+  @Input('safecalc')
+  bool useSafeCalc = true;
+
+  @Input('htmlclass')
   String htmlclass;
 
   String text = '';
@@ -62,6 +73,6 @@ class PercentageInputField {
   }
 
   onChange() {
-    _model = _toNumber(text);
+    model = _toNumber(text);
   }
 }

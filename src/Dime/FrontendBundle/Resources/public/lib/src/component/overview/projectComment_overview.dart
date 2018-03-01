@@ -2,14 +2,17 @@ part of entity_overview;
 
 @Component(
     selector: 'projectComment-overview',
-    templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/overview/projectComment_overview.html',
-    useShadowDom: false,
-    map: const {})
+    templateUrl: 'projectComment_overview.html',
+    directives: const [CORE_DIRECTIVES, formDirectives, DateToTextInput],
+    pipes: const [DIME_PIPES])
 class ProjectCommentOverviewComponent extends EntityOverview {
-  ProjectCommentOverviewComponent(DataCache store, SettingsManager manager, StatusService status, UserAuthProvider auth)
-      : super(ProjectComment, store, '', manager, status, auth: auth);
+  ProjectCommentOverviewComponent(DataCache store, SettingsManager manager, StatusService status, UserAuthProvider auth,
+      EntityEventsService entityEventsService, this.timetrackService)
+      : super(ProjectComment, store, '', manager, status, entityEventsService, auth: auth);
 
   Project _selectedProject;
+
+  TimetrackService timetrackService;
 
   get selectedProject => _selectedProject;
 
@@ -24,8 +27,11 @@ class ProjectCommentOverviewComponent extends EntityOverview {
   DateTime newEntryDate;
   String newEntryComment;
 
-  cEnt({ProjectComment entity}) {
+  cEnt({Entity entity}) {
     if (entity != null) {
+      if (!(entity is ProjectComment)) {
+        throw new Exception("I WANT A PROJECT COMMENT");
+      }
       return new ProjectComment.clone(entity);
     }
     return new ProjectComment();
@@ -37,49 +43,45 @@ class ProjectCommentOverviewComponent extends EntityOverview {
     }
   }
 
-  createEntity({Entity newEnt, Map<String, dynamic> params: const {}}) {
+  createEntity({dynamic newEnt, Map<String, dynamic> params: const {}}) {
     if (this._selectedProject == null || this.newEntryDate == null || this.newEntryComment == null || this.newEntryComment.isEmpty) {
       return;
     }
 
-    var params = {
+    var localParams = {
       'project': this._selectedProject,
       'date': this.newEntryDate,
       'comment': this.newEntryComment,
     };
     this.newEntryComment = '';
-    super.createEntity(params: params);
+    super.createEntity(params: localParams);
   }
 
   @override
-  attach() {
-    this.rootScope.on(TimesliceOverviewComponent.FORMDATA_CHANGE_EVENT_NAME).forEach((ScopeEvent e) {
-      Map<String, dynamic> data = e.data;
+  ngOnInit() {
+    timetrackService.projectSelect.stream.listen((project) {
+      selectedProject = project;
+    });
 
-      data.forEach((key, value) {
-        switch (key) {
-          case 'project':
-            selectedProject = value;
-            break;
-          case 'filterStartDate':
-            filterStartDate = value;
-            break;
-          case 'filterEndDate':
-            filterEndDate = value;
-            break;
-          case 'newEntryDate':
-            newEntryDate = value;
-            break;
-        }
-      });
+    timetrackService.filterStart.stream.listen((date) {
+      filterStartDate = date;
+    });
+
+    timetrackService.filterEnd.stream.listen((date) {
+      filterEndDate = date;
+    });
+
+    timetrackService.targetDate.stream.listen((date) {
+      newEntryDate = date;
     });
   }
 
-  commentDateFilter() {
-    return (ProjectComment value) {
-      // fix excluding comments with dates almost the same as the filters
-      Duration d = new Duration(seconds: 2);
-      return value.date.isAfter(filterStartDate.subtract(d)) && value.date.isBefore(filterEndDate.add(d));
-    };
+  List<ProjectComment> get filteredComments {
+    // this fixes excluding comments with dates almost the same as the filters
+    Duration extension = new Duration(seconds: 2);
+    return entities
+        .where(
+            (comment) => comment.date.isAfter(filterStartDate.subtract(extension)) && comment.date.isBefore(filterEndDate.add(extension)))
+        .toList();
   }
 }

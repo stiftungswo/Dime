@@ -15,22 +15,22 @@
           <th width="60">Aktion</th>
         </tr>
       </thead>
-      <tbody ng-if="entities != null">
-        <tr ng-repeat="entity in entities" ng-click="selectEntity(entity.id)" ng-class="isSelected(entity)? 'info': ''">
+      <tbody *ngIf="entities != null">
+        <tr *ngFor="let entity of entities" (click)="selectEntity(entity.id)" [class.info]="isSelected(entity)">
           <td>{{entity.id}}</td>
-          <td><service-select hideArchived="true" service="entity.service" callback="entity.addFieldtoUpdate(name)" field="'service'"></service-select></td>
-          <td><textarea class="form-control tiny" ng-model="entity.description" ng-change="addSaveField('description', entity)"></textarea></td>
+          <td><service-select [hideArchived]="true" [(selectedEntity)]="entity.service" (callback)="entity.addFieldtoUpdate($event)" [field]="'service'"></service-select></td>
+          <td><textarea class="form-control tiny" [(ngModel)]="entity.description" (change)="addSaveField('description', entity)"></textarea></td>
           <td>{{entity.rateValue}}</td>
           <td>{{entity.rateUnit}}</td>
           <td>{{entity.value}}</td>
-          <td><button type="button" class="btn btn-default" ng-click="deleteEntity(entity.id)"><i class="fa fa-fw fa-trash-o" style="color:red"></i></button></td>
+          <td><button type="button" class="btn btn-default" (click)="deleteEntity(entity.id)"><i class="fa fa-fw fa-trash-o" style="color:red"></i></button></td>
         </tr>
       </tbody>
     </table>
     <div class="DimeControlButtons">
-      <button type="button" class="btn btn-primary" ng-click="createEntity()">Hinzufügen</button>
-      <button type="button" class="btn btn-primary" ng-click="duplicateEntity()">Duplizieren</button>
-      <button type="button" class="btn btn-default" ng-click="reload(evict: true)"><span class="glyphicon glyphicon-refresh"></span></button>
+      <button type="button" class="btn btn-primary" (click)="createEntity()">Hinzufügen</button>
+      <button type="button" class="btn btn-primary" (click)="duplicateEntity()">Duplizieren</button>
+      <button type="button" class="btn btn-default" (click)="reloadEvict()"><span class="glyphicon glyphicon-refresh"></span></button>
     </div>
   </div>
 </div>

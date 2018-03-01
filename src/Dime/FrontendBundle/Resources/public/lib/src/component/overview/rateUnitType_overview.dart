@@ -1,25 +1,30 @@
 part of entity_overview;
 
 @Component(
-    selector: 'rateUnitType-overview',
-    templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/overview/rateUnitType_overview.html',
-    useShadowDom: false)
+  selector: 'rateUnitType-overview',
+  templateUrl: 'rateUnitType_overview.html',
+  directives: const [formDirectives, CORE_DIRECTIVES, ErrorIconComponent, SettingEditComponent],
+)
 class RateUnitTypeOverviewComponent extends EntityOverview {
-  RateUnitTypeOverviewComponent(DataCache store, SettingsManager manager, StatusService status, UserAuthProvider auth)
-      : super(RateUnitType, store, '', manager, status, auth: auth);
+  RateUnitTypeOverviewComponent(
+      DataCache store, SettingsManager manager, StatusService status, EntityEventsService entityEventsService, UserAuthProvider auth)
+      : super(RateUnitType, store, '', manager, status, entityEventsService, auth: auth);
 
-  cEnt({RateUnitType entity}) {
+  // override to accept strings todo: use generics
+  dynamic selectedEntId;
+
+  cEnt({Entity entity}) {
     return new RateUnitType();
   }
 
-  createEntity({Entity newEnt, Map<String, dynamic> params: const {}}) async {
+  createEntity({dynamic newEnt, Map<String, dynamic> params: const {}}) async {
     RateUnitType rateType = cEnt();
     List names = ['id', 'name'];
     for (var name in names) {
       Setting settingForName;
       try {
         settingForName = this.settingsManager.getOneSetting('/usr/defaults/rateunittype', name);
-      } catch (exception, stackTrace) {
+      } catch (exception) {
         settingForName = this.settingsManager.getOneSetting('/etc/defaults/rateunittype', name, system: true);
       }
       rateType.Set(name, settingForName.value);
@@ -36,13 +41,18 @@ class RateUnitTypeOverviewComponent extends EntityOverview {
       this.entities.removeWhere((enty) => enty.id == resp.id);
       this.entities.add(resp);
       this.statusservice.setStatusToSuccess();
-      this.rootScope.emit(this.type.toString() + 'Changed');
+//      this.rootScope.emit(this.type.toString() + 'Changed');
     } catch (e, stack) {
       this.statusservice.setStatusToError(e, stack);
     }
   }
 
-  deleteEntity([int entId]) async {
+  @override
+  void selectEntity(dynamic entId) {
+    this.selectedEntId = entId;
+  }
+
+  deleteEntity([dynamic entId]) async {
     if (entId == null) {
       entId = this.selectedEntId;
     }
@@ -52,11 +62,11 @@ class RateUnitTypeOverviewComponent extends EntityOverview {
         try {
           if (this.store != null) {
             var ent = this.entities.singleWhere((enty) => enty.id == entId);
-            CommandResponse resp = await this.store.delete(ent);
+            await this.store.delete(ent);
           }
           this.entities.removeWhere((enty) => enty.id == entId);
           this.statusservice.setStatusToSuccess();
-          this.rootScope.emit(this.type.toString() + 'Deleted');
+//          this.rootScope.emit(this.type.toString() + 'Deleted');
         } catch (e, stack) {
           this.statusservice.setStatusToError(e, stack);
         }

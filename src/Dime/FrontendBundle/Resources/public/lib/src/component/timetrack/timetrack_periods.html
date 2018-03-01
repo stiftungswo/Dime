@@ -5,12 +5,12 @@
         <h3 class="box-title">Ist-Sollstunden Übersicht</h3>
       </div>
       <div class="box-body">
-        <label><input type="checkbox" ng-model="showEnabledUsersOnly"> Nur aktivierte Benutzer auflisten</label>
-        <div ng-repeat="empl in employees">
-          <div ng-if="(showEnabledUsersOnly && empl.enabled) || !showEnabledUsersOnly">
+        <label><input type="checkbox" [(ngModel)]="showEnabledUsersOnly"> Nur aktivierte Benutzer auflisten</label>
+        <div *ngFor="let empl of employees">
+          <div *ngIf="(showEnabledUsersOnly && empl.enabled) || !showEnabledUsersOnly">
             <h4>{{empl.fullname}}</h4>
             <div>
-              <period-overview employee="empl"></period-overview>
+              <period-overview [employee]="empl"></period-overview>
             </div>
           </div>
         </div>

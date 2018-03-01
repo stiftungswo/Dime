@@ -1,13 +1,14 @@
 part of timetrack;
 
 @Component(
-    selector: 'timetrack-periods',
-    templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/timetrack/timetrack_periods.html',
-    useShadowDom: false)
-class TimetrackPeriodsComponent extends AttachAware implements ScopeAware {
+  selector: 'timetrack-periods',
+  templateUrl: 'timetrack_periods.html',
+  directives: const [CORE_DIRECTIVES, formDirectives, PeriodOverviewComponent],
+)
+class TimetrackPeriodsComponent implements OnInit {
   UserContext context;
   UserAuthProvider auth;
-  Scope scope;
+  EntityEventsService entityEventsService;
   StatusService statusservice;
   DataCache store;
   bool showEnabledUsersOnly = true;
@@ -16,7 +17,8 @@ class TimetrackPeriodsComponent extends AttachAware implements ScopeAware {
 
   List<Employee> employees = [];
 
-  attach() {
+  @override
+  ngOnInit() {
     this.reload();
     //employees[0].workingPeriods.length
   }
@@ -35,8 +37,8 @@ class TimetrackPeriodsComponent extends AttachAware implements ScopeAware {
   }
 
   save() {
-    scope.rootScope.emit('saveChanges');
+    entityEventsService.emitSaveChanges();
   }
 
-  TimetrackPeriodsComponent(this.auth, this.context, this.statusservice, this.store);
+  TimetrackPeriodsComponent(this.auth, this.context, this.statusservice, this.store, this.entityEventsService);
 }

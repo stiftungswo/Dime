@@ -1,25 +1,50 @@
 library dime.dateRange;
 
+import 'dart:async';
+import 'package:DimeClient/src/component/date/dateToTextInput.dart';
 import 'package:angular/angular.dart';
-import 'package:intl/intl.dart';
-import 'dart:html';
+import 'package:angular_forms/angular_forms.dart';
 
-@Component(
-    selector: 'daterange', templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/date/dateRange.html', useShadowDom: false)
-class DateRange implements ScopeAware {
-  @NgTwoWay('startdate')
-  DateTime startDate;
+@Component(selector: 'daterange', templateUrl: 'dateRange.html', directives: const [CORE_DIRECTIVES, formDirectives, DateToTextInput])
+class DateRange implements OnChanges {
+  //start date
+  DateTime _startDate;
 
-  @NgTwoWay('enddate')
-  DateTime endDate;
+  get startDate => _startDate;
 
-  @NgCallback('callback')
-  Function callback;
+  @Input('startdate')
+  set startDate(DateTime newDate) {
+    _startDate = newDate;
+    _startDateChange.add(newDate);
+  }
 
-  @NgOneWayOneTime('format')
+  final StreamController<DateTime> _startDateChange = new StreamController<DateTime>();
+  @Output('startdateChange')
+  Stream<DateTime> get startDateChange => _startDateChange.stream;
+
+  //end date
+  DateTime _endDate;
+
+  get endDate => _endDate;
+
+  @Input('enddate')
+  set endDate(DateTime newDate) {
+    _endDate = newDate;
+    _endDateChange.add(newDate);
+  }
+
+  final StreamController<DateTime> _endDateChange = new StreamController<DateTime>();
+  @Output('enddateChange')
+  Stream<DateTime> get endDateChange => _endDateChange.stream;
+
+  final StreamController<String> _callback = new StreamController<String>();
+  @Output('callback')
+  Stream<String> get callback => _callback.stream;
+
+  @Input('format')
   String format = 'dd-MM-y';
 
-  @NgOneWayOneTime('null-allowed')
+  @Input('null-allowed')
   bool nullAllowed = false;
 
   updateDate() {
@@ -44,9 +69,7 @@ class DateRange implements ScopeAware {
         this.endDate = new DateTime(this.endDate.year, this.endDate.month, this.endDate.day);
       }
     }
-    if (this.callback != null) {
-      callback();
-    }
+    _callback.add(null);
   }
 
   previousMonth() {
@@ -85,9 +108,20 @@ class DateRange implements ScopeAware {
     updateDate();
   }
 
+//  @override
+//  void set scope(Scope scope) {
+//    scope.watch('startDate', (val1, val2) => updateDate());
+//    scope.watch('endDate', (val1, val2) => updateDate());
+//  }
+
   @override
-  void set scope(Scope scope) {
-    scope.watch('startDate', (val1, val2) => updateDate());
-    scope.watch('endDate', (val1, val2) => updateDate());
+  ngOnChanges(Map<String, SimpleChange> changes) {
+//    if (changes.containsKey('date')) {
+//      SimpleChange change = changes['date'];
+//      onDateChanged(change.currentValue, change.previousValue);
+//    }
+    if (changes.containsKey('startDate') || changes.containsKey('endDate')) {
+      updateDate();
+    }
   }
 }

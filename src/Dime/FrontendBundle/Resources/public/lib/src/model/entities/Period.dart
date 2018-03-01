@@ -111,13 +111,13 @@ class Period extends Entity {
   String type = 'periods';
   DateTime start;
   DateTime end;
-  int pensum;
+  num pensum;
   Employee employee;
   int holidays;
   int realTime;
-  int targetTime;
-  int timeTillToday;
-  int employeeholiday;
-  int holidayBalance;
+  num targetTime;
+  num timeTillToday;
+  dynamic /* todo: was int */ employeeholiday;
+  num holidayBalance;
   String lastYearHolidayBalance;
 }

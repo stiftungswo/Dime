@@ -18,8 +18,8 @@ class Costgroup extends Entity {
 
   Costgroup.fromMap(Map<String, dynamic> map) : super.fromMap(map);
 
-  static List<Invoice> listFromMap(List content) {
-    List<Invoice> groups = new List<Invoice>();
+  static List<Costgroup> listFromMap(List<Map<String, dynamic>> content) {
+    List<Costgroup> groups = new List<Costgroup>();
     for (var element in content) {
       Costgroup group = new Costgroup.fromMap(element);
       groups.add(group);
@@ -61,6 +61,6 @@ class Costgroup extends Entity {
   }
 
   String type = 'costgroup';
-  Integer number;
+  int number;
   String description;
 }

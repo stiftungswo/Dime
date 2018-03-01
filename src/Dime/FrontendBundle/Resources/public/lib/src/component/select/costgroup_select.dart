@@ -1,10 +1,11 @@
 part of entity_select;
 
 @Component(
-    selector: 'costgroup-select',
-    templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/select/costgroup_select.html',
-    useShadowDom: false,
-    map: const {'costgroup': '<=>selectedEntity', 'callback': '&callback', 'field': '=>!field', 'clearOnClose': '=>!clearOnClose'})
+  selector: 'costgroup-select',
+  templateUrl: 'costgroup_select.html',
+  directives: const [formDirectives, CORE_DIRECTIVES],
+  pipes: const [FilterPipe, OrderByPipe],
+)
 class CostgroupSelectComponent extends EntitySelect {
   CostgroupSelectComponent(DataCache store, dom.Element element, StatusService status, UserAuthProvider auth)
       : super(Costgroup, store, element, status, auth);

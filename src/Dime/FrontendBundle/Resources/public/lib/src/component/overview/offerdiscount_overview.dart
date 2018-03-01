@@ -1,17 +1,21 @@
 part of entity_overview;
 
 @Component(
-    selector: 'offerdiscount-overview',
-    templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/overview/offerdiscount_overview.html',
-    useShadowDom: false,
-    map: const {'offer': '=>!offerId'})
+  selector: 'offerdiscount-overview',
+  templateUrl: 'offerdiscount_overview.html',
+  directives: const [CORE_DIRECTIVES, formDirectives, PercentageInputField],
+)
 class OfferDiscountOverviewComponent extends EntityOverview {
-  OfferDiscountOverviewComponent(DataCache store, SettingsManager manager, StatusService status)
-      : super(OfferDiscount, store, '', manager, status);
+  OfferDiscountOverviewComponent(DataCache store, SettingsManager manager, StatusService status, EntityEventsService entityEventsService)
+      : super(OfferDiscount, store, '', manager, status, entityEventsService);
 
-  cEnt({OfferDiscount entity}) {
+  cEnt({Entity entity}) {
     if (entity != null) {
-      return new OfferDiscount.clone(entity);
+      if (entity is OfferDiscount) {
+        return new OfferDiscount.clone(entity);
+      } else {
+        throw new Exception("Invalid Type; OfferDiscount expected!");
+      }
     }
     return new OfferDiscount();
   }
@@ -20,6 +24,7 @@ class OfferDiscountOverviewComponent extends EntityOverview {
 
   int _offerId;
 
+  @Input('offer')
   set offerId(int id) {
     if (id != null) {
       this._offerId = id;
@@ -43,7 +48,7 @@ class OfferDiscountOverviewComponent extends EntityOverview {
     }
   }
 
-  createEntity({Entity newEnt, Map<String, dynamic> params: const {}}) {
+  createEntity({dynamic newEnt, Map<String, dynamic> params: const {}}) {
     super.createEntity(params: {'offer': this._offerId});
   }
 }

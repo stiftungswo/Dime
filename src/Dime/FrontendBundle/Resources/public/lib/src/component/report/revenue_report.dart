@@ -1,10 +1,7 @@
 part of dime_report;
 
-@Component(
-    selector: 'revenue-report',
-    templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/report/revenue_report.html',
-    useShadowDom: false)
-class RevenueReportComponent extends AttachAware implements ScopeAware {
+@Component(selector: 'revenue-report', templateUrl: 'revenue_report.html', directives: const [CORE_DIRECTIVES, DateRange])
+class RevenueReportComponent implements OnInit {
   RevenueReportComponent(StatusService this.statusservice);
 
   DateTime filterStartDate;
@@ -13,19 +10,20 @@ class RevenueReportComponent extends AttachAware implements ScopeAware {
 
   StatusService statusservice;
 
-  RootScope rootScope;
-
-  attach() {
+  @override
+  ngOnInit() {
     DateTime now = new DateTime.now();
     this.filterStartDate = new DateTime(now.year, 1, 1);
     this.filterEndDate = new DateTime(now.year, 12, 31);
     reload();
   }
 
+  void reloadEvict() => reload(evict: true);
+
   reload({Map<String, dynamic> params, bool evict: false}) async {
     if (filterStartDate != null && filterEndDate != null) {
-      String dateparams =
-          '&date=' + new DateFormat('y-MM-dd').format(filterStartDate) + ',' + new DateFormat('y-MM-dd').format(filterEndDate);
+      // todo cleanup
+      String _ = '&date=' + new DateFormat('y-MM-dd').format(filterStartDate) + ',' + new DateFormat('y-MM-dd').format(filterEndDate);
     }
   }
 
@@ -33,13 +31,10 @@ class RevenueReportComponent extends AttachAware implements ScopeAware {
     if (filterStartDate != null && filterEndDate != null) {
       String dateparams =
           '?date=' + new DateFormat('y-MM-dd').format(filterStartDate) + ',' + new DateFormat('y-MM-dd').format(filterEndDate);
-      return '/api/v1/reports/revenue/csv' + dateparams;
+      //FIXME: don't hardcode url base
+      return 'http://localhost:3000/api/v1/reports/revenue/csv' + dateparams;
     } else {
       return '';
     }
-  }
-
-  void set scope(Scope scope) {
-    this.rootScope = scope.rootScope;
   }
 }

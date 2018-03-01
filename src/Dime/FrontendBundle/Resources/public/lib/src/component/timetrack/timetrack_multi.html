@@ -8,44 +8,44 @@
         <div class="col-12">
           <div class="form-group">
             <label class="control-label col-xs-4 col-md-2">Datum</label>
-            <dateinput class="col-xs-8 col-md-4" date="date" field="'date'" has-buttons="true"></dateinput>
+            <dateinput class="col-xs-8 col-md-4" [(date)]="date" [field]="'date'" [has-buttons]="true"></dateinput>
           </div>
           <div class="form-group">
             <label class="control-label col-xs-4 col-md-2">Projekt</label>
-            <project-select project="selectedProject" class="col-xs-8 col-md-4"></project-select>
+            <project-select [(selectedEntity)]="selectedProject" class="col-xs-8 col-md-4"></project-select>
           </div>
         </div>
-        <div class="col-12">
+        <div class="col-12" *ngIf="selectedProject != null">
           <table class="table table-bordered table-hover form">
             <thead>
             <tr>
               <th>Mitarbeiter</th>
-              <th ng-repeat="activity in activities | projectvaluefilter: selectedProject.id" style="overflow: hidden;">
+              <th *ngFor="let activity of activities | projectvaluefilter: selectedProject.id" style="overflow: hidden;">
                 {{activity.id}} {{activity.service.name}}
               </th>
               <td>&nbsp;</td>
             </tr>
             </thead>
             <tbody>
-            <tr ng-if="entries.length > 0">
+            <tr *ngIf="entries.length > 0">
               <td>&nbsp;</td>
-              <td ng-repeat="activity in activities | projectvaluefilter: selectedProject.id" style="overflow: hidden;">
-                <input style="width: 100%;" class="form-control" ng-model="inputAll[$index]" ng-blur="inputAllUpdated($index)" placeholder="Alle ändern"/>
+              <td *ngFor="let activity of activities | projectvaluefilter: selectedProject.id; let i=index" style="overflow: hidden;">
+                <input style="width: 100%;" class="form-control" [(ngModel)]="inputAll[i]" (blur)="inputAllUpdated(i)" placeholder="Alle ändern"/>
               </td>
               <td>&nbsp;</td>
             </tr>
-            <tr ng-repeat="entry in entries">
+            <tr *ngFor="let entry of entries">
               <td>{{entry.user.fullname}}</td>
-              <td ng-repeat="activity in activities | projectvaluefilter: selectedProject.id" style="overflow: hidden;">
-                <input style="width: 100%;" class="form-control" ng-model="entry.activities[$index]"/>
+              <td *ngFor="let activity of activities | projectvaluefilter: selectedProject.id; let i=index" style="overflow: hidden;">
+                <input style="width: 100%;" class="form-control" [(ngModel)]="entry.activities[i]"/>
               </td>
               <td>
-                <button type="button" class="btn btn-default pull-right" ng-click="removeUser(entry.user.id)"><i class="fa fa-fw fa-trash-o" style="color:red"></i></button>
+                <button type="button" class="btn btn-default pull-right" (click)="removeUser(entry.user.id)"><i class="fa fa-fw fa-trash-o" style="color:red"></i></button>
               </td>
             </tr>
             </tbody>
           </table>
-          <div ng-if="entries.length == 0" class="text-muted">
+          <div *ngIf="entries.length == 0" class="text-muted">
             Keine Mitarbeiter hinzugefügt.<br>
           </div>
           <br>
@@ -54,14 +54,14 @@
           <div class="col-sm-12">
             <label>Mitarbeiter hinzufügen:</label>
           </div>
-          <user-select class="col-sm-4 col-xs-8" user="selectedUserToAdd"></user-select>
+          <user-select class="col-sm-4 col-xs-8" [(selectedEntity)]="selectedUserToAdd"></user-select>
           <div class="col-sm-4 col-xs-4">
-            <button type="button" class="btn btn-default" ng-click="addUser()">Hinzufügen</button>
+            <button type="button" class="btn btn-default" (click)="addUser()">Hinzufügen</button>
           </div>
         </div>
         <div class="DimeControlButtons">
-          <button type="button" class="btn btn-primary" ng-click="save()"><error-icon></error-icon></button>
-          <button type="button" class="btn btn-default" ng-click="clearInputs()">Eingaben zurücksetzen</button>
+          <button type="button" class="btn btn-primary" (click)="save()"><error-icon></error-icon></button>
+          <button type="button" class="btn btn-default" (click)="clearInputs()">Eingaben zurücksetzen</button>
           <div class="text-green">{{statusText}}</div>
         </div>
       </div>

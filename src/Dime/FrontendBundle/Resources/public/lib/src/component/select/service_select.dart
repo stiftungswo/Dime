@@ -1,19 +1,15 @@
 part of entity_select;
 
 @Component(
-    selector: 'service-select',
-    templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/select/service_select.html',
-    useShadowDom: false,
-    map: const {
-      'service': '<=>selectedEntity',
-      'callback': '&callback',
-      'field': '=>!field',
-      'clearOnClose': '=>!clearOnClose',
-      'hideArchived': '=>!hideArchived'
-    })
+  selector: 'service-select',
+  templateUrl: 'service_select.html',
+  directives: const [CORE_DIRECTIVES, formDirectives],
+  pipes: const [FilterPipe, OrderByPipe],
+)
 class ServiceSelectComponent extends EntitySelect {
   ServiceSelectComponent(DataCache store, dom.Element element, StatusService status, UserAuthProvider auth)
       : super(Service, store, element, status, auth);
 
+  @Input('hideArchived')
   bool hideArchived = false;
 }

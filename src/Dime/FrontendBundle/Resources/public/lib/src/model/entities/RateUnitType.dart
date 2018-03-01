@@ -54,7 +54,7 @@ class RateUnitType extends Entity {
     }
   }
 
-  String id;
+  dynamic id;
   String name;
   String type = 'rateunittypes';
   bool doTransform;

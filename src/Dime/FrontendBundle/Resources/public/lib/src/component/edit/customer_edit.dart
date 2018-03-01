@@ -2,13 +2,14 @@ part of entity_edit;
 
 @Component(
     selector: 'customer-edit',
-    templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/edit/customer_edit.html',
-    useShadowDom: false)
+    templateUrl: 'customer_edit.html',
+    directives: const [CORE_DIRECTIVES, formDirectives, ErrorIconComponent, RateGroupSelectComponent, AddressEditComponent])
 class CustomerEditComponent extends EntityEdit {
   List<RateGroup> rateGroups;
 
-  CustomerEditComponent(RouteProvider routeProvider, DataCache store, StatusService status, UserAuthProvider auth, Router router)
-      : super(routeProvider, store, Customer, status, auth, router);
+  CustomerEditComponent(RouteParams routeProvider, DataCache store, StatusService status, UserAuthProvider auth, Router router,
+      EntityEventsService entityEventsService)
+      : super(routeProvider, store, Customer, status, auth, router, entityEventsService);
 
   attach() {
     if (this.auth != null) {

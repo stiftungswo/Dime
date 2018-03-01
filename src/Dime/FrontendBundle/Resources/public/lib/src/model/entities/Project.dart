@@ -173,11 +173,15 @@ class Project extends Entity {
     }
   }
 
-  cloneDescendants(Project original) {
-    for (Activity activity in original.activities) {
-      Activity clone = new Activity.clone(activity);
-      clone.project = this;
-      this._descendantsToUpdate.add(clone);
+  cloneDescendants(Entity original) {
+    if (original is Project) {
+      for (Activity activity in original.activities) {
+        Activity clone = new Activity.clone(activity);
+        clone.project = this;
+        this._descendantsToUpdate.add(clone);
+      }
+    } else {
+      throw new Exception("Invalid Type; Project expected!");
     }
   }
 

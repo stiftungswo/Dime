@@ -1,27 +1,46 @@
 part of entity_edit;
 
 @Component(
-    selector: 'invoice-edit',
-    templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/edit/invoice_edit.html',
-    useShadowDom: false)
+  selector: 'invoice-edit',
+  templateUrl: 'invoice_edit.html',
+  directives: const [
+    CORE_DIRECTIVES,
+    formDirectives,
+    DimeButton,
+    CustomerSelectComponent,
+    UserSelectComponent,
+    DateToTextInput,
+    ErrorIconComponent,
+    InvoiceItemOverviewComponent,
+    InvoiceCostgroupOverviewComponent,
+    InvoiceDiscountOverviewComponent,
+  ],
+)
 class InvoiceEditComponent extends EntityEdit {
-  InvoiceEditComponent(RouteProvider routeProvider, DataCache store, StatusService status, UserAuthProvider auth, Router router)
-      : super(routeProvider, store, Invoice, status, auth, router);
+  InvoiceEditComponent(RouteParams routeProvider, DataCache store, StatusService status, UserAuthProvider auth, Router router,
+      EntityEventsService entityEventsService)
+      : super(routeProvider, store, Invoice, status, auth, router, entityEventsService);
 
   Project project;
 
+  @ViewChild('invoiceitemOverview')
   InvoiceItemOverviewComponent invoiceitem_overview;
+
+  @ViewChild('invoicecostgroupOverview')
+  InvoiceCostgroupOverviewComponent costgroupOverview;
+
+  get costgroupsValid => costgroupOverview.entities.length > 0;
 
   printInvoice() {
     if (costgroupsValid) {
-      window.open('/api/v1/invoices/${this.entity.id}/print', 'Invoice Print');
+      window.open('http://localhost:3000/api/v1/invoices/${this.entity.id}/print', 'Invoice Print');
     } else {
       window.alert("Kostenstellen sind ungültig.");
     }
   }
 
   printAufwandsbericht() {
-    window.open('/api/v1/reports/expenses/print?project=${this.entity.project.id}', 'Aufwandsbericht');
+    window.open('http://localhost:3000/api/v1/reports/expenses/print?project=${this.entity.project.id}', 'Aufwandsbericht');
   }
 
   attach() {
@@ -59,9 +78,8 @@ class InvoiceEditComponent extends EntityEdit {
   updateInvoicefromProject() async {
     this.statusservice.setStatusToLoading();
     try {
-      this.entity = (await this
-          .store
-          .customQueryOne(Invoice, new CustomRequestParams(method: 'GET', url: '/api/v1/invoices/${this.entity.id}/update')));
+      this.entity = (await this.store.customQueryOne(
+          Invoice, new CustomRequestParams(method: 'GET', url: 'http://localhost:3000/api/v1/invoices/${this.entity.id}/update')));
       this.statusservice.setStatusToSuccess();
       this.invoiceitem_overview.reload(evict: true);
     } catch (e, stack) {
@@ -70,15 +88,24 @@ class InvoiceEditComponent extends EntityEdit {
   }
 
   openProject() async {
-    router.go('project_edit', {'id': this.entity.project.id});
+    router.navigate([
+      'ProjectEdit',
+      {'id': this.entity.project.id}
+    ]);
   }
 
   openOffer(int id) async {
-    router.go('offer_edit', {'id': id});
+    router.navigate([
+      'OfferEdit',
+      {'id': id.toString()}
+    ]);
   }
 
   openInvoice(int id) async {
-    router.go('invoice_edit', {'id': id});
+    router.navigate([
+      'InvoiceEdit',
+      {'id': id.toString()}
+    ]);
   }
 
   createInvoice() async {
@@ -86,13 +113,10 @@ class InvoiceEditComponent extends EntityEdit {
         await this.store.customQueryOne(Invoice, new CustomRequestParams(method: 'GET', url: '/api/v1/invoices/project/${project.id}'));
     project.invoices.add(newInvoice);
     this.store.evict(Invoice, true);
-    router.go('invoice_edit', {'id': newInvoice.id});
-  }
-
-  bool costgroupsValid = false;
-
-  validateCostgroups(entities) {
-    costgroupsValid = entities.length > 0;
+    router.navigate([
+      'InvoiceEdit',
+      {'id': newInvoice.id}
+    ]);
   }
 
   @override

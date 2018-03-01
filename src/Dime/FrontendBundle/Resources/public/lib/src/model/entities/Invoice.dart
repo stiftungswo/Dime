@@ -174,16 +174,20 @@ class Invoice extends Entity {
     }
   }
 
-  cloneDescendants(Invoice original) {
-    for (InvoiceItem entity in original.items) {
-      InvoiceItem clone = new InvoiceItem.clone(entity);
-      clone.invoice = this;
-      this._descendantsToUpdate.add(clone);
-    }
-    for (InvoiceDiscount entity in original.invoiceDiscounts) {
-      InvoiceDiscount clone = new InvoiceDiscount.clone(entity);
-      clone.invoice = this;
-      this._descendantsToUpdate.add(clone);
+  cloneDescendants(Entity original) {
+    if (original is Invoice) {
+      for (InvoiceItem entity in original.items) {
+        InvoiceItem clone = new InvoiceItem.clone(entity);
+        clone.invoice = this;
+        this._descendantsToUpdate.add(clone);
+      }
+      for (InvoiceDiscount entity in original.invoiceDiscounts) {
+        InvoiceDiscount clone = new InvoiceDiscount.clone(entity);
+        clone.invoice = this;
+        this._descendantsToUpdate.add(clone);
+      }
+    } else {
+      throw new Exception("Invalid Type; Invoice expected!");
     }
   }
 

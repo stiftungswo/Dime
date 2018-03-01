@@ -12,18 +12,18 @@
           <th></th>
         </tr>
       </thead>
-      <tbody ng-if="projectAssignments != null">
-        <tr ng-repeat="entity in projectAssignments" ng-click="selectEntity(entity.id)" ng-class="isSelected(entity)? 'info': ''">
+      <tbody *ngIf="projectAssignments != null">
+        <tr *ngFor="let entity of projectAssignments" (click)="selectEntity(entity.id)" [class.info]="isSelected(entity)">
           <td>{{entity.id}}</td>
           <td>{{entity.name}}</td>
-          <td><project-select project="entity.project" callback="addSaveField('project', entity)" ></project-select></td>
-          <td><button type="button" class="btn btn-default" ng-click="deleteEntity(entity.id)"><i class="fa fa-fw fa-trash-o" style="color:red"></i></button></td>
+          <td><project-select [(selectedEntity)]="entity.project" (callback)="addSaveField('project', entity)" ></project-select></td>
+          <td><button type="button" class="btn btn-default" (click)="deleteEntity(entity.id)"><i class="fa fa-fw fa-trash-o" style="color:red"></i></button></td>
         </tr>
       </tbody>
     </table>
     <div class="DimeControlButtons">
-      <button type="button" class="btn btn-primary" ng-click="saveAllEntities()"><error-icon value="saveState" timeout="20"></error-icon></button>
-      <button type="button" class="btn btn-default" ng-click="reload(evict: true)"><span class="glyphicon glyphicon-refresh"></span></button>
+      <button type="button" class="btn btn-primary" (click)="saveAllEntities()"><error-icon value="saveState" timeout="20"></error-icon></button>
+      <button type="button" class="btn btn-default" (click)="reloadEvict()"><span class="glyphicon glyphicon-refresh"></span></button>
     </div>
   </div>
 </div>

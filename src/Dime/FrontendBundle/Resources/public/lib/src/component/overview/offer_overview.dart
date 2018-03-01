@@ -1,21 +1,28 @@
 part of entity_overview;
 
 @Component(
-    selector: 'offer-overview',
-    templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/overview/offer_overview.html',
-    useShadowDom: false)
+  selector: 'offer-overview',
+  templateUrl: 'offer_overview.html',
+  directives: const [CORE_DIRECTIVES, formDirectives],
+  pipes: const [FilterPipe, OrderByPipe, LimitToPipe],
+)
 class OfferOverviewComponent extends EntityOverview {
-  OfferOverviewComponent(DataCache store, this.context, Router router, SettingsManager manager, StatusService status, UserAuthProvider auth)
-      : super(Offer, store, 'offer_edit', manager, status, auth: auth, router: router) {
+  OfferOverviewComponent(DataCache store, this.context, Router router, SettingsManager manager, StatusService status, UserAuthProvider auth,
+      EntityEventsService entityEventsService)
+      : super(Offer, store, 'OfferEdit', manager, status, entityEventsService, auth: auth, router: router) {
     sortType = "id";
     sortReverse = true;
   }
 
   UserContext context;
 
-  cEnt({Offer entity}) {
+  cEnt({Entity entity}) {
     if (entity != null) {
-      return new Offer.clone(entity);
+      if (entity is Offer) {
+        return new Offer.clone(entity);
+      } else {
+        throw new Exception("Invalid Type; Offer expected!");
+      }
     }
     Offer newOffer = new Offer();
     newOffer.accountant = this.context.employee;
@@ -39,7 +46,7 @@ class OfferOverviewComponent extends EntityOverview {
 
       var duplicateOffer = (await this.store.one(Offer, ent.id));
 
-      for (OfferPosition offerPosition in duplicateOffer.offerPositions) {
+      for (OfferPosition _ in duplicateOffer.offerPositions) {
         print("offer position item now");
       }
 
@@ -67,7 +74,7 @@ class OfferOverviewComponent extends EntityOverview {
           var newOfferPosition = this.cEntPos(offerPosition);
           newOfferPosition.offer = resultOffer;
 
-          var resultOfferPosition = await this.store.create(newOfferPosition);
+          await this.store.create(newOfferPosition);
         }
 
         if (needsmanualAdd) {
@@ -80,7 +87,7 @@ class OfferOverviewComponent extends EntityOverview {
           await this.store.create(entity);
         }
         this.statusservice.setStatusToSuccess();
-        this.rootScope.emit(this.type.toString() + 'Duplicated');
+        // this.rootScope.emit(this.type.toString() + 'Duplicated');
       } catch (e, stack) {
         print("Unable to duplicate entity ${this.type.toString()}::${newOffer.id} because ${e}");
         this.statusservice.setStatusToError(e, stack);

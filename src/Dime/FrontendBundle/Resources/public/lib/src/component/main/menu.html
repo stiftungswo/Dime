@@ -1,13 +1,14 @@
 <section class="sidebar">
-  <ul class="sidebar-menu" ng-repeat="menu in menus">
+  <ul class="sidebar-menu" *ngFor="let menu of menus">
     <li class="treeview">
-      <a ng-click="toggleMenu($event)">
-        <i ng-class="menu.icon" class="fa"></i>
+      <a (click)="toggleMenu($event)">
+        <i [ngClass]="menu.icon" class="fa"></i>
         <span>{{menu.title}}</span>
+        <i class="fa fa-angle-left pull-right"></i>
       </a>
       <ul class="treeview-menu">
-        <li ng-repeat="item in menu.items">
-          <a href="{{item.link}}">{{item.title}}</a>
+        <li *ngFor="let item of menu.items">
+          <a [routerLink]="item.link">{{item.title}}</a>
         </li>
       </ul>
     </li>

@@ -1,16 +1,22 @@
 part of entity_overview;
 
 @Component(
-    selector: 'projectCategory-overview',
-    templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/overview/projectCategory_overview.html',
-    useShadowDom: false)
+  selector: 'projectCategory-overview',
+  templateUrl: 'projectCategory_overview.html',
+  directives: const [CORE_DIRECTIVES, formDirectives, ErrorIconComponent],
+)
 class ProjectCategoryOverviewComponent extends EntityOverview {
-  ProjectCategoryOverviewComponent(DataCache store, SettingsManager manager, StatusService status, UserAuthProvider auth)
-      : super(ProjectCategory, store, '', manager, status, auth: auth);
+  ProjectCategoryOverviewComponent(
+      DataCache store, SettingsManager manager, StatusService status, UserAuthProvider auth, EntityEventsService entityEventsService)
+      : super(ProjectCategory, store, '', manager, status, entityEventsService, auth: auth);
 
-  cEnt({ProjectCategory entity}) {
+  cEnt({Entity entity}) {
     if (entity != null) {
-      return new ProjectCategory.clone(entity);
+      if (entity is ProjectCategory) {
+        return new ProjectCategory.clone(entity);
+      } else {
+        throw new Exception("Invalid Type; ProjectCategory expected!");
+      }
     }
     return new ProjectCategory();
   }

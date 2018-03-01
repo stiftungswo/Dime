@@ -2,36 +2,31 @@ part of entity_overview;
 
 @Component(
     selector: 'period-overview',
-    templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/overview/period_overview.html',
-    useShadowDom: false,
-    map: const {
-      'employee': '=>employee',
-    })
-class PeriodOverviewComponent extends EntityOverview implements ScopeAware {
-  PeriodOverviewComponent(DataCache store, SettingsManager manager, StatusService status, this.context)
-      : super(Period, store, '', manager, status) {}
+    templateUrl: 'period_overview.html',
+    directives: const [CORE_DIRECTIVES, formDirectives, PercentageInputField, ErrorIconComponent, DateToTextInput],
+    pipes: const [DIME_PIPES])
+class PeriodOverviewComponent extends EntityOverview {
+  PeriodOverviewComponent(
+      DataCache store, SettingsManager manager, StatusService status, this.context, EntityEventsService entityEventsService)
+      : super(Period, store, '', manager, status, entityEventsService);
 
-  cEnt({Period entity}) {
+  cEnt({Entity entity}) {
     if (entity != null) {
+      if (!(entity is Period)) {
+        throw new Exception("I NEED A PERIOD");
+      }
       return new Period.clone(entity);
     }
     return new Period();
   }
 
-  Scope _scope;
+  //TODO: clean this up; is any of it actually needed?
+//    this.scope.rootScope.on('TimesliceChanged').listen(onTimesliceChange);
+//    this.scope.rootScope.on('TimesliceCreated').listen(onTimesliceChange);
+//    this.scope.rootScope.on('TimesliceDeleted').listen(onTimesliceChange);
+//    this.scope.rootScope.on('saveChanges').listen(saveAllEntities);
 
-  set scope(Scope scope) {
-    this.rootScope = scope.rootScope;
-    this._scope = scope;
-    this.scope.rootScope.on('TimesliceChanged').listen(onTimesliceChange);
-    this.scope.rootScope.on('TimesliceCreated').listen(onTimesliceChange);
-    this.scope.rootScope.on('TimesliceDeleted').listen(onTimesliceChange);
-    this.scope.rootScope.on('saveChanges').listen(saveAllEntities);
-  }
-
-  get scope => this._scope;
-
-  onTimesliceChange([ScopeEvent e]) {
+  onTimesliceChange() {
     this.reload();
   }
 
@@ -39,14 +34,13 @@ class PeriodOverviewComponent extends EntityOverview implements ScopeAware {
 
   List entities = [];
 
-  Map data;
-
   List holidayBalances = [];
 
   Employee _employee;
 
   bool needsmanualAdd = true;
 
+  @Input("employee")
   set employee(Employee employee) {
     if (this.employee != null && this.employee.id == employee.id) {
       return;
@@ -83,12 +77,15 @@ class PeriodOverviewComponent extends EntityOverview implements ScopeAware {
             '&employee=' +
             employee.id.toString();
 
-        await HttpRequest.getString('/api/v1/periods/holidaybalance?_format=json' + dateparams).then((result) {
+        //FIXME: don't hardcode base url
+        await HttpRequest
+            .getString('http://localhost:3000/api/v1/periods/holidaybalance?_format=json' + dateparams, withCredentials: true)
+            .then((result) {
           // check if entities are still set
           if (this.entities.length > i) {
-            this.data = JSON.decode(result);
+            dynamic data = JSON.decode(result);
 
-            if (this.data.length > 0) {
+            if (data is Map) {
               takenHolidays = data['takenHolidays'];
               double employeeholiday = 0.0;
               if (this.entities.elementAt(i).employeeholiday != null) {
@@ -102,10 +99,11 @@ class PeriodOverviewComponent extends EntityOverview implements ScopeAware {
         });
       }
       this.statusservice.setStatusToSuccess();
-      this.rootScope.emit(this.type.toString() + 'Loaded');
+      //this.rootScope.emit(this.type.toString() + 'Loaded');
     } catch (e, stack) {
       print("Unable to load ${this.type.toString()} because ${e}");
       this.statusservice.setStatusToError(e, stack);
+      rethrow;
     }
   }
 
@@ -119,9 +117,7 @@ class PeriodOverviewComponent extends EntityOverview implements ScopeAware {
     return holidayBalance;
   }
 
-  attach() {
-    //this.reload();
-  }
+  //@override ngOnInit(); //noop
 
   createEntity({var newEnt, Map<String, dynamic> params: const {}}) {
     var now = new DateTime.now();
@@ -134,7 +130,14 @@ class PeriodOverviewComponent extends EntityOverview implements ScopeAware {
   }
 
   save() {
-    scope.rootScope.emit('saveChanges');
-    reload();
+    //TODO: clean this up
+    saveAllEntities();
+    //scope.rootScope.emit('saveChanges');
+    //_onSave.add(null);
+    //reload();
   }
+
+//  @Output("save");
+//  final StreamController<String> _onSave = new StreamController<String>();
+//  Stream<String> get onSave => _onSave.stream;
 }

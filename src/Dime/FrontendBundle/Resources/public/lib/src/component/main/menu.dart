@@ -1,49 +1,56 @@
 library main_menu;
 
 import 'package:angular/angular.dart';
-import 'package:DimeClient/model/Menu.dart';
-import 'package:DimeClient/service/user_auth.dart';
 import 'dart:html';
 import 'dart:js';
+import 'package:angular_router/angular_router.dart';
+import '../../model/Menu.dart';
 
-@Component(selector: 'main-menu', templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/main/menu.html', useShadowDom: false)
-class MenuComponent implements ScopeAware {
-  MenuComponent(this.auth);
-
-  UserAuthProvider auth;
-  Scope scope;
-
+@Component(
+  selector: 'main-menu',
+  templateUrl: 'menu.html',
+  directives: const [CORE_DIRECTIVES, ROUTER_DIRECTIVES],
+)
+class MenuComponent {
   List<Menu> menus = [
     new Menu.withItems('Zeiterfassung', 'fa-clock-o', [
-      new Menu('Erfassen', '/timetrack'),
-      new Menu('Mehrfach Erfassen', '/timetrack/multi'),
-      new Menu('Stundensaldos', '/timetrack/periods')
+      new Menu('Erfassen', ['Timetrack']),
+      new Menu('Mehrfach Erfassen', ['TimetrackMulti']),
+      new Menu('Stundensaldos', ['TimetrackPeriods'])
     ]),
-    new Menu.withItems('Offerten', 'fa-file-text', [new Menu('Übersicht', '/offers/overview')]),
+    new Menu.withItems('Offerten', 'fa-file-text', [
+      new Menu('Übersicht', ['OfferOverview'])
+    ]),
     new Menu.withItems('Projekte', 'fa-tree', [
-      new Menu('Übersicht', '/projects/overview'),
-      new Menu('Offene Rechnungen', '/projects/open-invoices'),
-      new Menu('Zeiterfassung', '/projects/timetrack'),
+      new Menu('Übersicht', ['ProjectOverview']),
+      new Menu('Offene Rechnungen', ['ProjectOpenInvoices']),
+      new Menu('Zeiterfassung', ['ProjectTimetrack']),
     ]),
-    new Menu.withItems('Rechnungen', 'fa-calculator', [new Menu('Übersicht', '/invoices/overview')]),
-    new Menu.withItems('Kunden', 'fa-users', [new Menu('Übersicht', '/customers/overview')]),
-    new Menu.withItems('Mitarbeiter', 'fa-user', [new Menu('Übersicht', '/employees/overview')]),
-    new Menu.withItems('Reports', 'fa-bar-chart', [
-      new Menu('Wochenrapport', '/reports/weekly'),
-      new Menu('Aufwandsbericht', '/reports/expense'),
-      new Menu('Projektaufwände', '/reports/projectemployee'),
-      new Menu('Servicerapport', '/reports/servicehours'),
-      new Menu('Umsatzstatistik', '/reports/revenue')
+    new Menu.withItems('Rechnungen', 'fa-calculator', [
+      new Menu('Übersicht', ['InvoiceOverview'])
+    ]),
+    new Menu.withItems('Kunden', 'fa-users', [
+      new Menu('Übersicht', ['CustomerOverview'])
+    ]),
+    new Menu.withItems('Mitarbeiter', 'fa-user', [
+      new Menu('Übersicht', ['EmployeeOverview'])
+    ]),
+    new Menu.withItems('Rapporte', 'fa-bar-chart', [
+      new Menu('Wochen', ['ReportWeekly']),
+      new Menu('Aufwand', ['ReportExpense']),
+      new Menu('Projektaufwände', ['ReportProjectEmployee']),
+      new Menu('Services', ['ReportServiceHours']),
+      new Menu('Umsatz', ['ReportRevenue'])
     ]),
     new Menu.withItems('Stammdaten', 'fa-database', [
-      new Menu('Services', '/services/overview'),
-      new Menu('Tarif Gruppen', '/rateGroups/overview'),
-      new Menu('Tarif Typen', '/rateUnitTypes/overview'),
-      new Menu('Feiertage', '/holidays/overview'),
-      new Menu('Tätigkeitsbereiche', '/projectCategories/overview')
+      new Menu('Services', ['ServiceOverview']),
+      new Menu('Tarif Gruppen', ['RateGroupOverview']),
+      new Menu('Tarif Typen', ['RateUnitTypeOverview']),
+      new Menu('Feiertage', ['HolidayOverview']),
+      new Menu('Tätigkeitsbereiche', ['ProjectCategoryOverview'])
     ]),
     new Menu.withItems('Einstellungen', 'fa-cog', [
-      new Menu('Projekte Zuweisen', '/settingAssignProjects/overview'),
+      new Menu('Projekte Zuweisen', ['SettingAssignProjectOverview']),
     ]),
   ];
 

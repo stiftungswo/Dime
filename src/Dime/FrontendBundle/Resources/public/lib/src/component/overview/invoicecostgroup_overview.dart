@@ -1,17 +1,22 @@
 part of entity_overview;
 
 @Component(
-    selector: 'invoicecostgroup-overview',
-    templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/overview/invoicecostgroup_overview.html',
-    useShadowDom: false,
-    map: const {'invoice': '=>!invoiceId', 'onUpdate': '&onUpdate'})
+  selector: 'invoicecostgroup-overview',
+  templateUrl: 'invoicecostgroup_overview.html',
+  directives: const [CORE_DIRECTIVES, formDirectives, CostgroupSelectComponent],
+  pipes: const [DecimalPipe],
+)
 class InvoiceCostgroupOverviewComponent extends EntityOverview {
-  InvoiceCostgroupOverviewComponent(DataCache store, SettingsManager manager, StatusService status)
-      : super(InvoiceCostgroup, store, '', manager, status);
+  InvoiceCostgroupOverviewComponent(DataCache store, SettingsManager manager, StatusService status, EntityEventsService entityEventsService)
+      : super(InvoiceCostgroup, store, '', manager, status, entityEventsService);
 
-  cEnt({InvoiceCostgroup entity}) {
+  cEnt({Entity entity}) {
     if (entity != null) {
-      return new InvoiceCostgroup.clone(entity);
+      if (entity is InvoiceCostgroup) {
+        return new InvoiceCostgroup.clone(entity);
+      } else {
+        throw new Exception("Invalid Type; InvoiceCostgroup expected!");
+      }
     }
     return new InvoiceCostgroup();
   }
@@ -19,6 +24,7 @@ class InvoiceCostgroupOverviewComponent extends EntityOverview {
   int _invoiceId;
   bool valid;
 
+  @Input('invoice')
   set invoiceId(int id) {
     if (id != null) {
       this._invoiceId = id;
@@ -30,7 +36,7 @@ class InvoiceCostgroupOverviewComponent extends EntityOverview {
     super.reload(params: {'invoice': this._invoiceId}, evict: evict);
   }
 
-  attach() {
+  ngOnInit() {
     if (this.auth != null) {
       if (!auth.isloggedin) {
         this.auth.afterLogin(() {
@@ -42,7 +48,7 @@ class InvoiceCostgroupOverviewComponent extends EntityOverview {
     }
   }
 
-  createEntity({Entity newEnt, Map<String, dynamic> params: const {}}) {
+  createEntity({dynamic newEnt, Map<String, dynamic> params: const {}}) {
     // set default weight of 100
     super.createEntity(params: {'invoice': this._invoiceId, 'weight': 100});
   }

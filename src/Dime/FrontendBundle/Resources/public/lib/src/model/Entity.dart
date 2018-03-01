@@ -1,7 +1,6 @@
 library dime_entity;
 
 import 'package:hammock/hammock.dart';
-import 'dart:html';
 import 'dart:math';
 
 part 'entities/Activity.dart';

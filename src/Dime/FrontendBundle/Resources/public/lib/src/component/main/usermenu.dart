@@ -1,10 +1,27 @@
 library dime.usermenu;
 
 import 'package:angular/angular.dart';
-import 'package:DimeClient/service/user_auth.dart';
-import 'package:DimeClient/service/user_context.dart';
+import '../../service/user_auth.dart';
+import '../../service/user_context.dart';
+import 'package:angular_router/angular_router.dart';
 
-@Component(selector: 'usermenu', templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/main/usermenu.html', useShadowDom: false)
+@Component(
+    selector: 'usermenu',
+    template: """
+<ul class="menu">
+  <li>
+    <a (click)="userEditor()">
+      <i class="fa fa-user"></i> Meine Daten
+    </a>
+  </li>
+  <li>
+    <a (click)="logout()">
+      <i class="fa fa-sign-out"></i> Abmelden
+    </a>
+  </li>
+</ul>
+    """,
+    directives: const [CORE_DIRECTIVES, ROUTER_DIRECTIVES])
 class UserMenu {
   UserAuthProvider auth;
 
@@ -21,6 +38,9 @@ class UserMenu {
   }
 
   userEditor() {
-    router.go("employee_edit", {'id': userContext.employee.id});
+    router.navigate([
+      "employee_edit",
+      {'id': userContext.employee.id}
+    ]);
   }
 }

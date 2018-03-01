@@ -168,16 +168,20 @@ class Offer extends Entity {
     }
   }
 
-  cloneDescendants(Offer original) {
-    for (OfferPosition entity in original.offerPositions) {
-      OfferPosition clone = new OfferPosition.clone(entity);
-      clone.offer = this;
-      this._descendantsToUpdate.add(clone);
-    }
-    for (OfferDiscount entity in original.offerDiscounts) {
-      OfferDiscount clone = new OfferDiscount.clone(entity);
-      clone.offer = this;
-      this._descendantsToUpdate.add(clone);
+  cloneDescendants(Entity original) {
+    if (original is Offer) {
+      for (OfferPosition entity in original.offerPositions) {
+        OfferPosition clone = new OfferPosition.clone(entity);
+        clone.offer = this;
+        this._descendantsToUpdate.add(clone);
+      }
+      for (OfferDiscount entity in original.offerDiscounts) {
+        OfferDiscount clone = new OfferDiscount.clone(entity);
+        clone.offer = this;
+        this._descendantsToUpdate.add(clone);
+      }
+    } else {
+      throw new Exception("Invalid Type; Offer expected!");
     }
   }
 

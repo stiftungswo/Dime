@@ -1,20 +1,16 @@
 part of entity_select;
 
 @Component(
-    selector: 'project-select',
-    templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/select/project_select.html',
-    useShadowDom: false,
-    map: const {
-      'project': '<=>selectedEntity',
-      'callback': '&callback',
-      'field': '=>!field',
-      'clearOnClose': '=>!clearOnClose',
-      'hideArchived': '=>!hideArchived'
-    })
+  selector: 'project-select',
+  templateUrl: 'project_select.html',
+  directives: const [CORE_DIRECTIVES, formDirectives],
+  pipes: const [FilterPipe, OrderByPipe],
+)
 class ProjectSelectComponent extends EntitySelect {
   ProjectSelectComponent(DataCache store, dom.Element element, StatusService status, UserAuthProvider auth)
       : super(Project, store, element, status, auth);
 
+  @Input()
   bool hideArchived = false;
 
   projectFilter(Project item, String search) {

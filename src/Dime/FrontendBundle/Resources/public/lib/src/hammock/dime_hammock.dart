@@ -1,11 +1,9 @@
-library dime_hammock;
-
 import 'package:angular/angular.dart';
 import 'package:hammock/hammock.dart';
-import 'package:DimeClient/model/Entity.dart';
+import '../model/Entity.dart';
 
-HammockConfig createHammockConfig(Injector inj) {
-  return new HammockConfig(inj)
+createHammockConfig(Injector i) {
+  return new HammockConfig(i)
     ..set({
       "employees": {
         "type": Employee,
@@ -258,5 +256,5 @@ HammockConfig createHammockConfig(Injector inj) {
         }
       }
     })
-    ..urlRewriter.baseUrl = '/api/v1';
+    ..urlRewriter.baseUrl = 'http://localhost:3000/api/v1';
 }

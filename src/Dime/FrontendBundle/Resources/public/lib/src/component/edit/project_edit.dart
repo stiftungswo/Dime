@@ -1,16 +1,29 @@
 part of entity_edit;
 
 @Component(
-    selector: 'project-edit',
-    templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/edit/project_edit.html',
-    useShadowDom: false)
+  selector: 'project-edit',
+  templateUrl: 'project_edit.html',
+  directives: const [
+    CORE_DIRECTIVES,
+    formDirectives,
+    ErrorIconComponent,
+    CustomerSelectComponent,
+    UserSelectComponent,
+    RateGroupSelectComponent,
+    DateToTextInput,
+    HelpTooltip,
+    ProjectCategorySelectComponent,
+    ActivityOverviewComponent
+  ],
+)
 class ProjectEditComponent extends EntityEdit {
   List<Customer> customers;
 
   List<RateGroup> rateGroups;
 
-  ProjectEditComponent(RouteProvider routeProvider, DataCache store, StatusService status, UserAuthProvider auth, Router router)
-      : super(routeProvider, store, Project, status, auth, router);
+  ProjectEditComponent(RouteParams routeProvider, DataCache store, StatusService status, UserAuthProvider auth, Router router,
+      EntityEventsService entityEventsService)
+      : super(routeProvider, store, Project, status, auth, router, entityEventsService);
 
   attach() {
     if (this.auth != null) {
@@ -37,21 +50,29 @@ class ProjectEditComponent extends EntityEdit {
   }
 
   openOffer(int id) async {
-    router.go('offer_edit', {'id': id});
+    router.navigate([
+      'OfferEdit',
+      {'id': id.toString()}
+    ]);
   }
 
   openInvoice(int id) async {
-    router.go('invoice_edit', {'id': id});
+    router.navigate([
+      'InvoiceEdit',
+      {'id': id}
+    ]);
   }
 
   createInvoice() async {
     if (await saveEntity()) {
-      var newInvoice = await this
-          .store
-          .customQueryOne(Invoice, new CustomRequestParams(method: 'GET', url: '/api/v1/invoices/project/${this.entity.id}'));
+      var newInvoice = await this.store.customQueryOne(
+          Invoice, new CustomRequestParams(method: 'GET', url: 'http://localhost:3000/api/v1/invoices/project/${this.entity.id}'));
       entity.invoices.add(newInvoice);
       this.store.evict(Invoice, true);
-      router.go('invoice_edit', {'id': newInvoice.id});
+      router.navigate([
+        'InvoiceEdit',
+        {'id': newInvoice.id}
+      ]);
     }
   }
 }

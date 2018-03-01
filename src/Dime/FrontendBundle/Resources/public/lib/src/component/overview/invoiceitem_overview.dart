@@ -1,27 +1,31 @@
 part of entity_overview;
 
 @Component(
-    selector: 'invoiceitem-overview',
-    templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/overview/invoiceitem_overview.html',
-    useShadowDom: false,
-    map: const {'invoice': '=>!invoiceId', 'parentCallback': '&parentCallback'})
+  selector: 'invoiceitem-overview',
+  templateUrl: 'invoiceitem_overview.html',
+  directives: const [CORE_DIRECTIVES, formDirectives, PercentageInputField],
+  pipes: const [OrderByPipe],
+)
 class InvoiceItemOverviewComponent extends EntityOverview {
-  InvoiceItemOverviewComponent(DataCache store, SettingsManager manager, StatusService status)
-      : super(InvoiceItem, store, '', manager, status);
+  InvoiceItemOverviewComponent(DataCache store, SettingsManager manager, StatusService status, EntityEventsService entityEventsService)
+      : super(InvoiceItem, store, '', manager, status, entityEventsService);
 
-  cEnt({InvoiceItem entity}) {
+  cEnt({Entity entity}) {
     if (entity != null) {
-      return new InvoiceItem.clone(entity);
+      if (entity is InvoiceItem) {
+        return new InvoiceItem.clone(entity);
+      } else {
+        throw new Exception("Invalid Type; InvoiceItem expected!");
+      }
     }
     return new InvoiceItem();
   }
 
   bool needsmanualAdd = true;
 
-  Function parentCallback;
-
   int _invoiceId;
 
+  @Input('invoice')
   set invoiceId(int id) {
     if (id != null) {
       this._invoiceId = id;
@@ -33,7 +37,7 @@ class InvoiceItemOverviewComponent extends EntityOverview {
     super.reload(params: {'invoice': this._invoiceId}, evict: evict);
   }
 
-  attach() {
+  ngOnInit() {
     if (this.auth != null) {
       if (!auth.isloggedin) {
         this.auth.afterLogin(() {
@@ -43,11 +47,9 @@ class InvoiceItemOverviewComponent extends EntityOverview {
         this.reload();
       }
     }
-
-    parentCallback({'param1': this});
   }
 
-  createEntity({Entity newEnt, Map<String, dynamic> params: const {}}) {
+  createEntity({dynamic newEnt, Map<String, dynamic> params: const {}}) {
     super.createEntity(params: {'invoice': this._invoiceId});
   }
 }

@@ -4,51 +4,51 @@
   </div>
   <div class="box-body">
     <div class="DimeControlButtons">
-      <button type="button" class="btn btn-primary" ng-click="createEntity()">Hinzufügen</button>
-      <button type="button" class="btn btn-primary" ng-click="duplicateEntity()">Duplizieren</button>
-      <button type="button" class="btn btn-default" ng-click="reload(evict: true)"><span class="glyphicon glyphicon-refresh"></span></button>
+      <button type="button" class="btn btn-primary" (click)="createEntity()">Hinzufügen</button>
+      <button type="button" class="btn btn-primary" (click)="duplicateEntity()">Duplizieren</button>
+      <button type="button" class="btn btn-default" (click)="reloadEvict()"><span class="glyphicon glyphicon-refresh"></span></button>
     </div>
     <div class="form-group">
-      <input type="text" class="form-control" placeholder="Suche" ng-model="filterString">
+      <input type="text" class="form-control" placeholder="Suche" [(ngModel)]="filterString">
     </div>
     <table class="table table-bordered table-hover">
       <thead>
         <tr>
           <th width="50">
-          <a ng-click="changeSortOrder('id')">
-            ID<span ng-show="sortType == 'id' && sortReverse" class="fa fa-fw fa-angle-up"></span><span ng-show="sortType == 'id' && !sortReverse" class="fa fa-fw fa-angle-down"></span>
+          <a (click)="changeSortOrder('id')">
+            ID<span *ngIf="sortType == 'id' && sortReverse" class="fa fa-fw fa-angle-up"></span><span *ngIf="sortType == 'id' && !sortReverse" class="fa fa-fw fa-angle-down"></span>
           </a>
         </th>
           <th>
-            <a ng-click="changeSortOrder('username')">
-              Username<span ng-show="sortType == 'username' && sortReverse" class="fa fa-fw fa-angle-up"></span><span ng-show="sortType == 'username' && !sortReverse" class="fa fa-fw fa-angle-down"></span>
+            <a (click)="changeSortOrder('username')">
+              Username<span *ngIf="sortType == 'username' && sortReverse" class="fa fa-fw fa-angle-up"></span><span *ngIf="sortType == 'username' && !sortReverse" class="fa fa-fw fa-angle-down"></span>
             </a>
           </th>
           <th>
-            <a ng-click="changeSortOrder('fullname')">
-              Name<span ng-show="sortType == 'fullname' && sortReverse" class="fa fa-fw fa-angle-up"></span><span ng-show="sortType == 'fullname' && !sortReverse" class="fa fa-fw fa-angle-down"></span>
+            <a (click)="changeSortOrder('fullname')">
+              Name<span *ngIf="sortType == 'fullname' && sortReverse" class="fa fa-fw fa-angle-up"></span><span *ngIf="sortType == 'fullname' && !sortReverse" class="fa fa-fw fa-angle-down"></span>
             </a>
           </th>
           <th>
-            <a ng-click="changeSortOrder('email')">
-              Email<span ng-show="sortType == 'email' && sortReverse" class="fa fa-fw fa-angle-up"></span><span ng-show="sortType == 'email' && !sortReverse" class="fa fa-fw fa-angle-down"></span>
+            <a (click)="changeSortOrder('email')">
+              Email<span *ngIf="sortType == 'email' && sortReverse" class="fa fa-fw fa-angle-up"></span><span *ngIf="sortType == 'email' && !sortReverse" class="fa fa-fw fa-angle-down"></span>
             </a>
           </th>
           <th width="60">Aktiv</th>
           <th width="110">Aktion</th>
         </tr>
       </thead>
-      <tbody ng-if="entities != null">
-        <tr ng-repeat="entity in entities | orderBy:sortType:sortReverse | filter:searchFilter(['id', 'username', 'firstname', 'lastname', 'email'], filterString)" ng-click="selectEntity(entity.id)" ng-doubleclick="openEditView(entity.id)" ng-class="isSelected(entity)? 'info': ''">
+      <tbody *ngIf="entities != null">
+        <tr *ngFor="let entity of entities | orderBy:sortType:sortReverse | filter:['id', 'username', 'firstname', 'lastname', 'email']:filterString" (click)="selectEntity(entity.id)" (dblclick)="openEditView(entity.id)" [class.info]="isSelected(entity)">
           <td>{{entity.id}}</td>
           <td>{{entity.username}}</td>
           <td>{{entity.fullname}}</td>
           <td>{{entity.email}}</td>
-          <td><i ng-if="entity.enabled" class="fa fa-fw fa-check"></i></td>
+          <td><i *ngIf="entity.enabled" class="fa fa-fw fa-check"></i></td>
           <td>
             <div class="btn-group">
-              <button type="button" class="btn btn-default" ng-click="openEditView(entity.id)"><i class="fa fa-fw fa-pencil"></i></button>
-              <button type="button" class="btn btn-default" ng-click="deleteEntity(entity.id)"><i class="fa fa-fw fa-trash-o" style="color:red"></i></button>
+              <button type="button" class="btn btn-default" (click)="openEditView(entity.id)"><i class="fa fa-fw fa-pencil"></i></button>
+              <button type="button" class="btn btn-default" (click)="deleteEntity(entity.id)"><i class="fa fa-fw fa-trash-o" style="color:red"></i></button>
             </div>
           </td>
         </tr>

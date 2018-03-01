@@ -2,9 +2,10 @@ part of dime_report;
 
 @Component(
     selector: 'projectemployee-report',
-    templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/report/projectemployee_report.html',
-    useShadowDom: false)
-class ProjectemployeeReportComponent extends AttachAware implements ScopeAware {
+    templateUrl: 'projectemployee_report.html',
+    directives: const [CORE_DIRECTIVES, ProjectSelectComponent, DateRange],
+    pipes: const [COMMON_PIPES])
+class ProjectemployeeReportComponent implements OnInit {
   ProjectemployeeReportComponent(StatusService this.statusservice);
 
   Project _project;
@@ -22,9 +23,9 @@ class ProjectemployeeReportComponent extends AttachAware implements ScopeAware {
 
   DateTime filterEndDate;
 
-  Map data;
+  dynamic data;
 
-  Map entries;
+  dynamic entries;
 
   int total;
 
@@ -32,11 +33,12 @@ class ProjectemployeeReportComponent extends AttachAware implements ScopeAware {
 
   StatusService statusservice;
 
-  RootScope rootScope;
-
-  attach() {
+  @override
+  ngOnInit() {
     reload();
   }
+
+  void reloadEvict() => reload(evict: true);
 
   reload({Map<String, dynamic> params, bool evict: false}) async {
     if (project != null) {
@@ -52,22 +54,20 @@ class ProjectemployeeReportComponent extends AttachAware implements ScopeAware {
         } else if (filterEndDate != null) {
           dateparams = '&date=' + new DateFormat('y-MM-dd').format(filterEndDate);
         }
+        //FIXME: don't hardcode base url
         await HttpRequest
-            .getString('/api/v1/reports/projectemployee?_format=json&project=' + project.id.toString() + dateparams)
+            .getString('http://localhost:3000/api/v1/reports/projectemployee?_format=json&project=' + project.id.toString() + dateparams,
+                withCredentials: true)
             .then((result) {
           this.data = JSON.decode(result);
           this.entries = data['employees'];
           this.total = data['total'];
         });
         this.statusservice.setStatusToSuccess();
-        this.rootScope.emit(this.type.toString() + 'Loaded');
+        //this.rootScope.emit(this.type.toString() + 'Loaded');
       } catch (e, stack) {
         this.statusservice.setStatusToError(e, stack);
       }
     }
-  }
-
-  void set scope(Scope scope) {
-    this.rootScope = scope.rootScope;
   }
 }

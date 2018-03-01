@@ -1,5 +1,4 @@
-library dime.ui.statusservice;
-
+import 'dart:async';
 import 'package:angular/angular.dart';
 import 'package:logging/logging.dart';
 
@@ -14,27 +13,53 @@ class StatusService {
   final String defaultVal = 'default';
 
   int numLoading = 0;
+  int numSuccess = 0;
+  int numError = 0;
 
   setStatusToLoading() {
-    this.status = loading;
     numLoading += 1;
+    _setStatus();
   }
 
   setStatusToError(e, stack) {
-    this.status = error;
     log.severe("$error\n$e\nSTACKTRACE:\n$stack");
+    numError += 1;
     numLoading -= 1;
+    _setStatus();
   }
 
   setStatusToSuccess() {
-    if (status == loading && numLoading <= 1) {
-      this.status = success;
-    }
+    numSuccess += 1;
     numLoading -= 1;
+    _setStatus();
   }
 
   resetStatus() {
     this.status = defaultVal;
     numLoading = 0;
+    numSuccess = 0;
+    numError = 0;
+  }
+
+  void _setStatus() {
+    if (numLoading > 0 && numError == 0) {
+      this.status = loading;
+    } else if (numError > 0) {
+      this.status = error;
+    } else if (numSuccess > 0) {
+      this.status = success;
+      new Timer(const Duration(seconds: 5), () {
+        if (status == success) {
+          status = defaultVal;
+        }
+      });
+    } else {
+      this.status = defaultVal;
+    }
+
+    if (numLoading == 0) {
+      numSuccess = 0;
+      numError = 0;
+    }
   }
 }

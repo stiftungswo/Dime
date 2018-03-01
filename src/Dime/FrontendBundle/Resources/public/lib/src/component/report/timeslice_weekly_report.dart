@@ -12,11 +12,13 @@ class WeekReportDayEntry {
 
 @Component(
     selector: 'timeslice-weeklyreport',
-    templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/report/timeslice_weekly_report.html',
-    useShadowDom: false)
+    templateUrl: 'timeslice_weekly_report.html',
+    directives: const [CORE_DIRECTIVES, DateToTextInput],
+    pipes: const [COMMON_PIPES])
 class TimesliceWeeklyReportComponent extends EntityOverview {
-  TimesliceWeeklyReportComponent(DataCache store, SettingsManager manager, StatusService status, UserAuthProvider auth)
-      : super(ExpenseReport, store, '', manager, status, auth: auth);
+  TimesliceWeeklyReportComponent(
+      DataCache store, SettingsManager manager, StatusService status, UserAuthProvider auth, EntityEventsService entityEventsService)
+      : super(ExpenseReport, store, '', manager, status, entityEventsService, auth: auth);
 
   DateTime filterStartDate = new DateTime(new DateTime.now().year, new DateTime.now().month, new DateTime.now().day);
 
@@ -86,7 +88,8 @@ class TimesliceWeeklyReportComponent extends EntityOverview {
     return false;
   }
 
-  attach() {
+  @override
+  ngOnInit() {
     if (this.filterStartDate.weekday != DateTime.MONDAY) ;
     {
       this.filterStartDate = this.filterStartDate.subtract(new Duration(days: this.filterStartDate.weekday - 1));
@@ -103,9 +106,9 @@ class TimesliceWeeklyReportComponent extends EntityOverview {
           this.type,
           new CustomRequestParams(params: {
             'date': '${format.format(filterStartDate)},${format.format(filterEndDate)}',
-          }, method: 'GET', url: '/api/v1/reports/ziviweekly')));
+          }, method: 'GET', url: 'http://localhost:3000/api/v1/reports/ziviweekly'))); //FIXME don't hardcode this
       this.statusservice.setStatusToSuccess();
-      this.rootScope.emit(this.type.toString() + 'Loaded');
+      //this.rootScope.emit(this.type.toString() + 'Loaded');
     } catch (e, stack) {
       this.statusservice.setStatusToError(e, stack);
     }

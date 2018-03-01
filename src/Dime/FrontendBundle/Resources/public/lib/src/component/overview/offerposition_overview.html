@@ -20,25 +20,25 @@
               <th width="60">Aktion</th>
             </tr>
           </thead>
-          <tbody ng-if="entities != null">
-            <tr ng-repeat="entity in entities | offerpostionOrder" ng-click="selectEntity(entity.id)" ng-class="isSelected(entity)? 'info': ''">
-              <td><input class="form-control" type="text" ng-model="entity.order" ng-change="addSaveField('order', entity)"/></td>
-              <td><service-select hideArchived="true" service="entity.service" callback="entity.addFieldtoUpdate(name)" field="'service'"></service-select></td>
-              <td><input class="form-control" type="text" ng-model="entity.rateValue" ng-change="addSaveField('rateValue', entity)"/></td>
-              <td><input class="form-control" type="text" ng-model="entity.rateUnit" ng-change="addSaveField('rateUnit', entity)"/></td>
-              <td><rateunittype-select rateunittype="entity.rateUnitType" callback="entity.addFieldtoUpdate(name)" field="'rateUnitType'"></rateunittype-select></td>
-              <td><input class="form-control" type="text" ng-model="entity.amount" ng-change="addSaveField('amount', entity)"/></td>
-              <td><input-percentage htmlclass="'form-control'" value="entity.vat" ng-change="addSaveField('vat', entity)"></input-percentage></td>
-              <td><input class="checkbox" type="checkbox" ng-model="entity.discountable" ng-change="addSaveField('discountable', entity)"/></td>
+          <tbody *ngIf="entities != null">
+            <tr *ngFor="let entity of entities | orderBy:'order'" (click)="selectEntity(entity.id)" [class.info]="isSelected(entity)">
+              <td><input class="form-control" type="text" [(ngModel)]="entity.order" (change)="addSaveField('order', entity)"/></td>
+              <td><service-select [hideArchived]="true" [(selectedEntity)]="entity.service" (callback)="entity.addFieldtoUpdate($event)" [field]="'service'"></service-select></td>
+              <td><input class="form-control" type="text" [(ngModel)]="entity.rateValue" (change)="addSaveField('rateValue', entity)"/></td>
+              <td><input class="form-control" type="text" [(ngModel)]="entity.rateUnit" (change)="addSaveField('rateUnit', entity)"/></td>
+              <td><rateunittype-select [(selectedEntity)]="entity.rateUnitType" (callback)="entity.addFieldtoUpdate($event)" [field]="'rateUnitType'"></rateunittype-select></td>
+              <td><input class="form-control" type="text" [(ngModel)]="entity.amount" (change)="addSaveField('amount', entity)"/></td>
+              <td><input-percentage [htmlclass]="'form-control'" [(value)]="entity.vat" (change)="addSaveField('vat', entity)"></input-percentage></td>
+              <td><input class="checkbox" type="checkbox" [(ngModel)]="entity.discountable" (change)="addSaveField('discountable', entity)"/></td>
               <td>{{entity.total}}</td>
-              <td><button type="button" class="btn btn-default" ng-click="deleteEntity(entity.id)"><i class="fa fa-fw fa-trash-o" style="color:red"></i></button></td>
+              <td><button type="button" class="btn btn-default" (click)="deleteEntity(entity.id)"><i class="fa fa-fw fa-trash-o" style="color:red"></i></button></td>
             </tr>
           </tbody>
         </table>
         <div class="DimeControlButtons">
-          <button type="button" class="btn btn-primary" ng-click="createEntity()">Hinzufügen</button>
-          <button type="button" class="btn btn-primary" ng-click="duplicateEntity()">Duplizieren</button>
-          <button type="button" class="btn btn-default" ng-click="reload(evict: true)"><span class="glyphicon glyphicon-refresh"></span></button>
+          <button type="button" class="btn btn-primary" (click)="createEntity()">Hinzufügen</button>
+          <button type="button" class="btn btn-primary" (click)="duplicateEntity()">Duplizieren</button>
+          <button type="button" class="btn btn-default" (click)="reloadEvict()"><span class="glyphicon glyphicon-refresh"></span></button>
         </div>
       </div>
     </div>

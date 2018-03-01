@@ -1,19 +1,26 @@
 part of entity_overview;
 
 @Component(
-    selector: 'invoice-overview',
-    templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/overview/invoice_overview.html',
-    useShadowDom: false)
+  selector: 'invoice-overview',
+  templateUrl: 'invoice_overview.html',
+  directives: const [CORE_DIRECTIVES, formDirectives],
+  pipes: const [FilterPipe, OrderByPipe, LimitToPipe, DatePipe],
+)
 class InvoiceOverviewComponent extends EntityOverview {
-  InvoiceOverviewComponent(DataCache store, Router router, SettingsManager manager, StatusService status, UserAuthProvider auth)
-      : super(Invoice, store, 'invoice_edit', manager, status, router: router, auth: auth) {
+  InvoiceOverviewComponent(DataCache store, Router router, SettingsManager manager, StatusService status, UserAuthProvider auth,
+      EntityEventsService entityEventsService)
+      : super(Invoice, store, 'InvoiceEdit', manager, status, entityEventsService, router: router, auth: auth) {
     sortType = "id";
     sortReverse = true;
   }
 
-  cEnt({Invoice entity}) {
+  cEnt({Entity entity}) {
     if (entity != null) {
-      return new Invoice.clone(entity);
+      if (entity is Invoice) {
+        return new Invoice.clone(entity);
+      } else {
+        throw new Exception("Invalid Type; Invoice expected!");
+      }
     }
     return new Invoice();
   }
@@ -53,7 +60,7 @@ class InvoiceOverviewComponent extends EntityOverview {
         }
 
         this.statusservice.setStatusToSuccess();
-        this.rootScope.emit(this.type.toString() + 'Duplicated');
+        //this.rootScope.emit(this.type.toString() + 'Duplicated');
       } catch (e, stack) {
         print("Unable to duplicate entity ${this.type.toString()}::${newEnt.id} because ${e}");
         this.statusservice.setStatusToError(e, stack);

@@ -1,8 +1,6 @@
-library dime.user.context;
-
 import 'package:angular/angular.dart';
-import 'package:DimeClient/model/Entity.dart';
-import 'package:DimeClient/service/data_cache.dart';
+import '../model/Entity.dart';
+import 'data_cache.dart';
 
 @Injectable()
 class UserContext {

@@ -54,20 +54,25 @@ class InvoiceBreakdown extends Entity {
         this.items = InvoiceItem.listFromMap(value);
         break;
       case 'discount':
-        this.discount = value;
+        this.discount = value is double ? value : double.parse(value);
         break;
       case 'subtotal':
-        this.subtotal = value;
+        this.subtotal = value is double ? value : double.parse(value);
         break;
       case 'vat':
-        this.vat = value;
+        this.vat = value is double ? value : double.parse(value);
         break;
       case 'total':
-        this.total = value;
+        this.total = value is double ? value : double.parse(value);
         break;
       case 'vatSplit':
-        //TODO... does this need conversions?
-        this.vatSplit = value;
+        if (value is Map<String, dynamic>) {
+          this.vatSplit = new Map.fromIterables(value.keys.map((key) => double.parse(key)), value.values.map((val) => double.parse(val)));
+        } else if (value is List<String> && value.length == 1) {
+          this.vatSplit = {0.0: double.parse(value[0])};
+        } else {
+          this.vatSplit = value;
+        }
         break;
       default:
         super.Set(property, value);

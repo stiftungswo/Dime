@@ -1,4 +1,4 @@
-<div class="wrapper" ng-show="auth.isloggedin">
+<div class="wrapper" [hidden]="!auth.isloggedin">
   <header class="main-header">
 
     <!-- Logo -->
@@ -43,7 +43,10 @@
 
   <!-- Main Content -->
   <div class="content-wrapper">
-    <maintabset></maintabset>
+    <div class="content">
+      <router-outlet></router-outlet>
+      <maintabset></maintabset>
+    </div>
     <div class="clearfix"></div>
   </div>
 
@@ -52,7 +55,7 @@
     &copy; DimeERP <span class="release-info">({{releaseInfo}})</span>
   </footer>
 </div>
-<div ng-show="!auth.isloggedin && !auth.showlogin">
+<div [hidden]="auth.isloggedin || auth.showlogin">
   <div class="login-page">
     <div class="login-box">
       <div class="login-logo">
@@ -62,28 +65,28 @@
     </div>
   </div>
 </div>
-<div ng-show="auth.showlogin">
+<div [hidden]="!auth.showlogin">
   <div class="login-page">
     <div class="login-box">
       <div class="login-logo">
         DimeERP
       </div>
 
-      <div class="login-box-body" ng-keypress="loginOnEnter($event)">
+      <div class="login-box-body" (keypress)="loginOnEnter($event)">
         <p class="login-box-msg">Login</p>
 
-        <div class="alert alert-danger" role="alert" ng-if="loginFailed">Login fehlgeschlagen</div>
+        <div class="alert alert-danger" role="alert" *ngIf="loginFailed">Login fehlgeschlagen</div>
         <div class="form-group has-feedback">
-          <input type="text" id="username" class="form-control" placeholder="Benutzername" ng-model="username" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+          <input type="text" id="username" class="form-control" placeholder="Benutzername" [(ngModel)]="username" autocorrect="off" autocapitalize="off" spellcheck="false"/>
           <span class="glyphicon glyphicon-user form-control-feedback"></span>
         </div>
         <div class="form-group has-feedback">
-          <input type="password" id="password" class="form-control" placeholder="Passwort" ng-model="password"/>
+          <input type="password" id="password" class="form-control" placeholder="Passwort" [(ngModel)]="password"/>
           <span class="glyphicon glyphicon-lock form-control-feedback"></span>
         </div>
         <div class="checkbox">
           <label>
-            <input class="checkbox" type="checkbox" ng-model="rememberme"> Angemeldet bleiben
+            <input class="checkbox" type="checkbox" [(ngModel)]="rememberme"> Angemeldet bleiben
           </label>
         </div>
         <div class="row">
@@ -92,7 +95,7 @@
           </div>
           <!-- /.col -->
           <div class="col-xs-4">
-            <button type="submit" class="btn btn-primary btn-block btn-flat" ng-click="login()">
+            <button type="submit" class="btn btn-primary btn-block btn-flat" (click)="login()">
               Login
             </button>
           </div>

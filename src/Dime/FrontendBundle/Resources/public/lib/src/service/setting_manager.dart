@@ -1,11 +1,9 @@
-library dime.setting.manager;
-
 import 'package:angular/angular.dart';
 import 'package:hammock/hammock.dart';
-import 'package:DimeClient/model/Entity.dart';
-import 'package:DimeClient/service/user_context.dart';
+import '../model/Entity.dart';
+import 'user_context.dart';
 import 'dart:async';
-import 'package:DimeClient/service/status.dart';
+import 'status.dart';
 
 @Injectable()
 class SettingsManager {
@@ -26,7 +24,7 @@ class SettingsManager {
       if (userId == null) {
         userId = this.context.employee.id;
       }
-      this.userSettings = (await this.store.list(Setting, params: {'namespace': '/usr*', 'user': userId})).toList();
+      this.userSettings = (await this.store.list(Setting, params: {'namespace': '/usr*', 'user': userId})) as List<Setting>;
       this._currentUserId = userId;
       this.statusservice.setStatusToSuccess();
     } catch (e, stack) {
@@ -37,7 +35,7 @@ class SettingsManager {
   loadSystemSettings() async {
     this.statusservice.setStatusToLoading();
     try {
-      this.systemSettings = (await this.store.list(Setting, params: {'namespace': '/etc*'})).toList();
+      this.systemSettings = (await this.store.list(Setting, params: {'namespace': '/etc*'})) as List<Setting>;
       this.statusservice.setStatusToSuccess();
     } catch (e, stack) {
       this.statusservice.setStatusToError(e, stack);
@@ -47,9 +45,9 @@ class SettingsManager {
   getSettings(String namespace, {bool system: false}) {
     if (this.systemSettings != null) {
       if (system) {
-        return this.systemSettings.where((setting) => setting.namespace == namespace);
+        return this.systemSettings.where((setting) => setting.namespace == namespace).toList();
       }
-      return this.userSettings.where((setting) => setting.namespace == namespace);
+      return this.userSettings.where((setting) => setting.namespace == namespace).toList();
     }
     return null;
   }
@@ -73,6 +71,7 @@ class SettingsManager {
       return setting;
     } catch (e, stack) {
       this.statusservice.setStatusToError(e, stack);
+      rethrow;
     }
   }
 
@@ -88,6 +87,7 @@ class SettingsManager {
     } catch (e, stack) {
       print(toUpdate);
       this.statusservice.setStatusToError(e, stack);
+      rethrow;
     }
   }
 }

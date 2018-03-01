@@ -1,13 +1,15 @@
 part of entity_overview;
 
 @Component(
-    selector: 'project-overview',
-    templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/overview/project_overview.html',
-    useShadowDom: false)
+  selector: 'project-overview',
+  templateUrl: 'project_overview.html',
+  directives: const [CORE_DIRECTIVES, formDirectives],
+  pipes: const [FilterPipe, OrderByPipe, LimitToPipe],
+)
 class ProjectOverviewComponent extends EntityOverview {
   ProjectOverviewComponent(DataCache store, this.context, Router router, SettingsManager manager, StatusService status,
-      UserAuthProvider auth, RouteProvider prov)
-      : super(Project, store, 'project_edit', manager, status, auth: auth, router: router) {
+      UserAuthProvider auth, EntityEventsService entityEventsService)
+      : super(Project, store, 'ProjectEdit', manager, status, entityEventsService, auth: auth, router: router) {
     sortType = "id";
     sortReverse = true;
   }
@@ -16,9 +18,13 @@ class ProjectOverviewComponent extends EntityOverview {
 
   UserContext context;
 
-  cEnt({Project entity}) {
+  cEnt({Entity entity}) {
     if (entity != null) {
-      return new Project.clone(entity);
+      if (entity is Project) {
+        return new Project.clone(entity);
+      } else {
+        throw new Exception("Invalid Type; Project expected!");
+      }
     }
     Project newProject = new Project();
     newProject.accountant = this.context.employee;
@@ -60,11 +66,11 @@ class ProjectOverviewComponent extends EntityOverview {
           newActivity.project = resultProject;
           newActivity.addFieldstoUpdate(['project', 'rateValue', 'chargeable', 'service', 'description']);
 
-          var resultActivity = await this.store.create(newActivity);
+          await this.store.create(newActivity);
         }
 
         this.statusservice.setStatusToSuccess();
-        this.rootScope.emit(this.type.toString() + 'Duplicated');
+        //this.rootScope.emit(this.type.toString() + 'Duplicated');
       } catch (e, stack) {
         print("Unable to duplicate entity ${this.type.toString()}::${newProject.id} because ${e}");
         this.statusservice.setStatusToError(e, stack);

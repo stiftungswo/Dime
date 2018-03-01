@@ -1,22 +1,21 @@
 part of timetrack;
 
 @Component(
-    selector: 'projecttimetrack',
-    templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/timetrack/project_timetrack.html',
-    useShadowDom: false)
-class ProjectTimetrackComponent extends AttachAware implements ScopeAware {
+  selector: 'projecttimetrack',
+  templateUrl: 'project_timetrack.html',
+  directives: const [CORE_DIRECTIVES, formDirectives, ProjectSelectComponent, TimesliceOverviewComponent, ErrorIconComponent],
+)
+class ProjectTimetrackComponent {
   UserAuthProvider auth;
-  Scope scope;
+  EntityEventsService entityEventsService;
   StatusService statusservice;
   DataCache store;
-
-  attach() {}
 
   Project project;
 
   save() {
-    scope.rootScope.emit('saveChanges');
+    entityEventsService.emitSaveChanges();
   }
 
-  ProjectTimetrackComponent(this.auth, this.statusservice);
+  ProjectTimetrackComponent(this.auth, this.statusservice, this.entityEventsService);
 }

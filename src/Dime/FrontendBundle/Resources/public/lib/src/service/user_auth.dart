@@ -1,15 +1,14 @@
-library dime.user.auth;
+//library dime.user.auth;
 
 import 'package:angular/angular.dart';
-import 'package:DimeClient/model/Entity.dart';
+import '../model/Entity.dart';
 import 'package:hammock/hammock.dart';
-import 'package:crypto/crypto.dart';
 import 'dart:html';
 import 'dart:convert';
 import 'dart:async';
-import 'package:DimeClient/service/setting_manager.dart';
-import 'package:DimeClient/service/user_context.dart';
-import 'package:DimeClient/service/status.dart';
+import 'setting_manager.dart';
+import 'user_context.dart';
+import 'status.dart';
 
 @Injectable()
 class UserAuthProvider {
@@ -25,9 +24,9 @@ class UserAuthProvider {
 
   set authHeader(String authToken) {
     if (authToken == null) {
-      headers['Common'].remove('Authorization');
+      headers.map.remove('Authorization');
     } else {
-      headers['Common'].addAll({'Authorization': authToken});
+      headers.map.addAll({'Authorization': authToken});
     }
   }
 
@@ -68,15 +67,16 @@ class UserAuthProvider {
   Future<Employee> loadUserData() async {
     this.statusservice.setStatusToLoading();
     try {
-      Employee result =
-          (await this.store.customQueryOne(Employee, new CustomRequestParams(method: 'GET', url: '/api/v1/employees/current')));
+      Employee result = (await this
+          .store
+          .customQueryOne(Employee, new CustomRequestParams(method: 'GET', url: 'http://localhost:3000/api/v1/employees/current')));
       this.context.switchContext(result);
       await manager.loadUserSettings(result.id);
       this.statusservice.setStatusToSuccess();
       return result;
     } catch (e, stack) {
       this.statusservice.setStatusToError(e, stack);
-      throw new Exception();
+      rethrow;
     }
   }
 
@@ -114,7 +114,7 @@ class UserAuthProvider {
       this.authHeader = null;
       this.authToken = null;
       this.authSessionToken = null;
-      throw new Exception();
+      rethrow;
     }
   }
 

@@ -55,7 +55,7 @@ class Employee extends User {
 
   String type = 'employees';
   List<Period> workingPeriods;
-  int realTime;
-  int targetTime;
+  num realTime;
+  num targetTime;
   bool extendTimetrack;
 }

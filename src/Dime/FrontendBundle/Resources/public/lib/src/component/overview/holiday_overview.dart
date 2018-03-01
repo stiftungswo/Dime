@@ -1,16 +1,22 @@
 part of entity_overview;
 
 @Component(
-    selector: 'holiday-overview',
-    templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/overview/holiday_overview.html',
-    useShadowDom: false)
+  selector: 'holiday-overview',
+  templateUrl: 'holiday_overview.html',
+  directives: const [formDirectives, CORE_DIRECTIVES, ErrorIconComponent, DateToTextInput],
+)
 class HolidayOverviewComponent extends EntityOverview {
-  HolidayOverviewComponent(DataCache store, SettingsManager manager, StatusService status, UserAuthProvider auth)
-      : super(Holiday, store, '', manager, status, auth: auth);
+  HolidayOverviewComponent(
+      DataCache store, SettingsManager manager, StatusService status, UserAuthProvider auth, EntityEventsService entityEventsService)
+      : super(Holiday, store, '', manager, status, entityEventsService, auth: auth);
 
-  cEnt({Holiday entity}) {
+  cEnt({Entity entity}) {
     if (entity != null) {
-      return new Holiday.clone(entity);
+      if (entity is Holiday) {
+        return new Holiday.clone(entity);
+      } else {
+        throw new Exception("Invalid Type; Holiday expected!");
+      }
     }
     return new Holiday();
   }

@@ -1,13 +1,23 @@
 library entity_edit;
 
-import 'package:angular/angular.dart';
-import 'package:hammock/hammock.dart';
-import 'package:DimeClient/model/Entity.dart';
-import 'package:DimeClient/service/data_cache.dart';
-import 'package:DimeClient/service/status.dart';
-import 'package:DimeClient/service/user_auth.dart';
-import 'package:DimeClient/component/overview/entity_overview.dart';
+import '../../service/data_cache.dart';
+import '../../model/Entity.dart';
+import '../../service/status.dart';
+import '../../service/user_auth.dart';
+import '../../service/entity_events_service.dart';
+import '../elements/error_icon.dart';
+import '../elements/help-tooltip.dart';
+import '../elements/dime-button.dart';
+import '../date/dateToTextInput.dart';
+import '../../emailValidator.dart';
+import '../overview/entity_overview.dart';
+import '../select/entity_select.dart';
+import 'dart:async';
 import 'dart:html';
+import 'package:angular/angular.dart';
+import 'package:angular_forms/angular_forms.dart';
+import 'package:angular_router/angular_router.dart';
+import 'package:hammock/hammock.dart';
 
 part 'address_edit.dart';
 part 'customer_edit.dart';
@@ -17,7 +27,7 @@ part 'offer_edit.dart';
 part 'project_edit.dart';
 part 'service_edit.dart';
 
-class EntityEdit extends AttachAware implements ScopeAware {
+class EntityEdit implements OnInit {
   Type entType;
 
   String _entId;
@@ -28,26 +38,24 @@ class EntityEdit extends AttachAware implements ScopeAware {
 
   dynamic entity;
 
-  RootScope rootScope;
+  EntityEventsService entityEventsService;
 
   UserAuthProvider auth;
 
   Router router;
 
-  @NgTwoWay('editform')
+  //@NgTwoWay('editform')
+  @ViewChild('editform')
   NgForm editform;
-
-  set scope(Scope scope) {
-    this.rootScope = scope.rootScope;
-  }
 
   EntityEdit.Child(this.entType);
 
-  EntityEdit(RouteProvider routeProvider, this.store, this.entType, this.statusservice, this.auth, this.router) {
-    _entId = routeProvider.parameters['id'];
+  EntityEdit(RouteParams params, this.store, this.entType, this.statusservice, this.auth, this.router, this.entityEventsService) {
+    _entId = params.get('id');
   }
 
-  attach() {
+  @override
+  ngOnInit() {
     if (this.auth != null) {
       if (!auth.isloggedin) {
         this.auth.afterLogin(() {
@@ -57,6 +65,10 @@ class EntityEdit extends AttachAware implements ScopeAware {
         reload();
       }
     }
+  }
+
+  reloadEvict() async {
+    reload(evict: true);
   }
 
   reload({bool evict: false}) async {
@@ -77,23 +89,9 @@ class EntityEdit extends AttachAware implements ScopeAware {
   }
 
   saveEntity() async {
-    if (this.editform != null && this.editform.invalid) {
-      // form invalid
-      bool focusSet = false;
-      this.editform.controls.forEach((name, field) {
-        if (this.editform[name].invalid) {
-          if (!focusSet) {
-            // focus first invalid form
-            this.editform[name].element.node.focus();
-            focusSet = true;
-          }
-          this.editform[name].element.addClass('ng-touched');
-        }
-      });
-      return false;
-    } else {
+    if (this.editform.valid) {
       // form valid, save data
-      rootScope.emit('saveChanges');
+      entityEventsService.emitSaveChanges();
       if (this.entity.needsUpdate) {
         this.statusservice.setStatusToLoading();
         try {
@@ -105,6 +103,8 @@ class EntityEdit extends AttachAware implements ScopeAware {
         this.reload();
       }
       return true;
+    } else {
+      throw new Exception("FORM IS NOT VALID");
     }
   }
 }

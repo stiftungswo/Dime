@@ -1,17 +1,21 @@
 part of entity_overview;
 
 @Component(
-    selector: 'invoicediscount-overview',
-    templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/overview/invoicediscount_overview.html',
-    useShadowDom: false,
-    map: const {'invoice': '=>!invoiceId'})
+  selector: 'invoicediscount-overview',
+  templateUrl: 'invoicediscount_overview.html',
+  directives: const [CORE_DIRECTIVES, formDirectives, PercentageInputField],
+)
 class InvoiceDiscountOverviewComponent extends EntityOverview {
-  InvoiceDiscountOverviewComponent(DataCache store, SettingsManager manager, StatusService status)
-      : super(InvoiceDiscount, store, '', manager, status);
+  InvoiceDiscountOverviewComponent(DataCache store, SettingsManager manager, StatusService status, EntityEventsService entityEventsService)
+      : super(InvoiceDiscount, store, '', manager, status, entityEventsService);
 
-  cEnt({InvoiceDiscount entity}) {
+  cEnt({Entity entity}) {
     if (entity != null) {
-      return new InvoiceDiscount.clone(entity);
+      if (entity is InvoiceDiscount) {
+        return new InvoiceDiscount.clone(entity);
+      } else {
+        throw new Exception("Invalid Type; InvoiceDiscount expected!");
+      }
     }
     return new InvoiceDiscount();
   }
@@ -20,6 +24,7 @@ class InvoiceDiscountOverviewComponent extends EntityOverview {
 
   int _invoiceId;
 
+  @Input('invoice')
   set invoiceId(int id) {
     if (id != null) {
       this._invoiceId = id;
@@ -43,7 +48,7 @@ class InvoiceDiscountOverviewComponent extends EntityOverview {
     }
   }
 
-  createEntity({Entity newEnt, Map<String, dynamic> params: const {}}) {
+  createEntity({dynamic newEnt, Map<String, dynamic> params: const {}}) {
     super.createEntity(params: {'invoice': this._invoiceId});
   }
 }

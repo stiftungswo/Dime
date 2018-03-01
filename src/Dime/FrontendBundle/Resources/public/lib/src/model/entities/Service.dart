@@ -69,11 +69,15 @@ class Service extends Entity {
     }
   }
 
-  cloneDescendants(Service original) {
-    for (Rate entity in original.rates) {
-      Rate clone = new Rate.clone(entity);
-      clone.service = this;
-      this._descendantsToUpdate.add(clone);
+  cloneDescendants(Entity original) {
+    if (original is Service) {
+      for (Rate entity in original.rates) {
+        Rate clone = new Rate.clone(entity);
+        clone.service = this;
+        this._descendantsToUpdate.add(clone);
+      }
+    } else {
+      throw new Exception("Invalid type ${original.runtimeType}, Service expected");
     }
   }
 

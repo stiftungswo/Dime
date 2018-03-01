@@ -1,15 +1,17 @@
 library dime.setting;
 
+import 'dart:async';
 import 'package:angular/angular.dart';
-import 'package:DimeClient/model/Entity.dart';
-import 'package:DimeClient/service/setting_manager.dart';
-import 'package:DimeClient/service/user_auth.dart';
+import 'package:angular_forms/angular_forms.dart';
+import '../../model/Entity.dart';
+import '../../service/setting_manager.dart';
+import '../../service/user_auth.dart';
 
 @Component(
-    selector: 'setting-edit',
-    templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/setting/setting_edit.html',
-    useShadowDom: false,
-    map: const {'namespace': '=>!namespace', 'name': '=>!name', 'setting': '<=>setting', 'defaultvalue': '=>!value'})
+  selector: 'setting-edit',
+  templateUrl: 'setting_edit.html',
+  directives: const [CORE_DIRECTIVES, formDirectives],
+)
 class SettingEditComponent {
   SettingsManager settingsManager;
   UserAuthProvider auth;
@@ -18,6 +20,7 @@ class SettingEditComponent {
 
   String _namespace;
 
+  @Input('namespace')
   set namespace(String namespace) {
     this._namespace = namespace;
     loadSetting();
@@ -25,6 +28,7 @@ class SettingEditComponent {
 
   String _name;
 
+  @Input('name')
   set name(String name) {
     this._name = name;
     loadSetting();
@@ -32,12 +36,30 @@ class SettingEditComponent {
 
   String _value;
 
+  @Input('defaultvalue')
+  set defaultValue(String defaultValue) {
+    if (_value == null) {
+      value = defaultValue;
+    }
+  }
+
   set value(String value) {
     this._value = value;
     loadSetting();
   }
 
-  Setting setting;
+  Setting _setting = new Setting();
+
+  get setting => _setting;
+
+  @Input('setting')
+  set setting(Setting setting) {
+    _setting = setting;
+  }
+
+  final StreamController<Setting> _settingChange = new StreamController<Setting>();
+  @Output('settingChange')
+  Stream<Setting> get settingChange => _settingChange.stream;
 
   SettingEditComponent(this.settingsManager, this.auth);
 
@@ -63,7 +85,10 @@ class SettingEditComponent {
 
   update() {
     if (this.doUpdate) {
-      settingsManager.updateSetting(this.setting).then((Setting setting) => this.setting = setting);
+      settingsManager.updateSetting(this.setting).then((Setting setting) {
+        this.setting = setting;
+        this.doUpdate = false;
+      });
     }
   }
 }

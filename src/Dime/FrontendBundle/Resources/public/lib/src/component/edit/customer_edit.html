@@ -2,56 +2,56 @@
   <div class="box-header with-border">
     <h3 class="box-title">Kunde bearbeiten</h3>
   </div>
-  <div class="box-body" ng-form name="editform">
+  <form *ngIf="entity != null" class="box-body" #editform="ngForm">
     <div class="form-horizontal">
       <div class="form-group">
         <label class="col-sm-2 control-label">Name</label>
         <div class="col-sm-4">
-          <input required name="name" style="width: 100%;" class="form-control" type="text" ng-model="entity.name" ng-change="addSaveField('name')">
+          <input required name="name" style="width: 100%;" class="form-control" type="text" [(ngModel)]="entity.name" (change)="addSaveField('name')">
         </div>
       </div>
       <div class="form-group">
         <label class="col-sm-2 control-label">Firma</label>
         <div class="col-sm-4">
-          <input style="width: 100%;" class="form-control" type="text" ng-model="entity.company" ng-change="addSaveField('company')">
+          <input style="width: 100%;" class="form-control" type="text" [(ngModel)]="entity.company" (change)="addSaveField('company')">
         </div>
       </div>
       <div class="form-group">
         <label class="col-sm-2 control-label">Abteilung</label>
         <div class="col-sm-4">
-          <input style="width: 100%;" class="form-control" type="text" ng-model="entity.department" ng-change="addSaveField('department')">
+          <input style="width: 100%;" class="form-control" type="text" [(ngModel)]="entity.department" (change)="addSaveField('department')">
         </div>
       </div>
       <div class="form-group">
         <label class="col-sm-2 control-label">Anrede</label>
         <div class="col-sm-4">
-          <input style="width: 100%;" class="form-control" type="text" ng-model="entity.salutation" ng-change="addSaveField('salutation')">
+          <input style="width: 100%;" class="form-control" type="text" [(ngModel)]="entity.salutation" (change)="addSaveField('salutation')">
         </div>
       </div>
       <div class="form-group">
         <label class="col-sm-2 control-label">Name</label>
         <div class="col-sm-4">
-          <input style="width: 100%;" class="form-control" type="text" ng-model="entity.fullname" ng-change="addSaveField('fullname')">
+          <input style="width: 100%;" class="form-control" type="text" [(ngModel)]="entity.fullname" (change)="addSaveField('fullname')">
         </div>
       </div>
       <div class="form-group">
         <label class="col-sm-2 control-label">Tarif Gruppe</label>
-        <rategroup-select class="col-sm-4" rategroup="entity.rateGroup" callback="addSaveField(name)" field="'rateGroup'"></rategroup-select>
+        <rategroup-select class="col-sm-4" [(selectedEntity)]="entity.rateGroup" (callback)="addSaveField($event)" field="rateGroup"></rategroup-select>
       </div>
       <div class="form-group">
         <div class="col-sm-offset-2 col-sm-4 checkbox">
           <label class="control-label">
-            <input type="checkbox" ng-model="entity.chargeable" ng-change="addSaveField('chargeable')"/>
+            <input type="checkbox" [(ngModel)]="entity.chargeable" (change)="addSaveField('chargeable')"/>
             Verrechenbar
           </label>
         </div>
       </div>
     </div>
     <h4>Adresse</h4>
-    <address-edit address="entity.address"  ng-change="addSaveField('address')"></address-edit>
-  </div>
+    <address-edit [(address)]="entity.address"  (change)="addSaveField('address')"></address-edit>
+  </form>
 </div>
 <div class="DimeControlButtons">
-  <button type="button" class="btn btn-primary" ng-click="saveEntity()"><error-icon value="saveState" timeout="20"></error-icon></button>
-  <button type="button" class="btn btn-default" ng-click="reload(evict: true)"><span class="glyphicon glyphicon-refresh"></span></button>
+  <button type="button" class="btn btn-primary" (click)="saveEntity()"><error-icon value="saveState" timeout="20"></error-icon></button>
+  <button type="button" class="btn btn-default" (click)="reloadEvict()"><span class="glyphicon glyphicon-refresh"></span></button>
 </div>

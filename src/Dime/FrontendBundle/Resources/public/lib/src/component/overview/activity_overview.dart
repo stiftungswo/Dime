@@ -1,13 +1,14 @@
 part of entity_overview;
 
 @Component(
-    selector: 'activity-overview',
-    templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/overview/activity_overview.html',
-    useShadowDom: false,
-    map: const {'project': '=>!projectId'})
+  selector: 'activity-overview',
+  templateUrl: 'activity_overview.html',
+  directives: const [CORE_DIRECTIVES, formDirectives, ServiceSelectComponent],
+)
 class ActivityOverviewComponent extends EntityOverview {
   int _projectId;
 
+  @Input('project')
   set projectId(int id) {
     if (id != null) {
       this._projectId = id;
@@ -15,18 +16,24 @@ class ActivityOverviewComponent extends EntityOverview {
     }
   }
 
-  ActivityOverviewComponent(DataCache store, SettingsManager manager, StatusService status) : super(Activity, store, '', manager, status);
+  ActivityOverviewComponent(DataCache store, SettingsManager manager, StatusService status, EntityEventsService entityEventsService)
+      : super(Activity, store, '', manager, status, entityEventsService);
 
-  cEnt({Activity entity}) {
+  cEnt({Entity entity}) {
     if (entity != null) {
-      return new Activity.clone(entity);
+      if (entity is Activity) {
+        return new Activity.clone(entity);
+      } else {
+        throw new Exception("Invalid Type; Activity expected!");
+      }
     }
     return new Activity();
   }
 
   bool needsmanualAdd = true;
 
-  attach();
+  @override
+  ngOnInit();
 
   createEntity({var newEnt, Map<String, dynamic> params: const {}}) {
     super.createEntity(params: {'project': this._projectId});

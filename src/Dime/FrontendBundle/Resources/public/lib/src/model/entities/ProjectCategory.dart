@@ -53,5 +53,5 @@ class ProjectCategory extends Entity {
 
   String type = 'projectcategories';
   String name;
-  int id;
+  dynamic id;
 }

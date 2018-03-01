@@ -5,7 +5,7 @@ class Menu {
   String icon;
   List<Menu> items;
   bool isOpen = true;
-  String link;
+  List<String> link;
   Menu(this.title, this.link);
   Menu.withItems(this.title, this.icon, this.items);
 }

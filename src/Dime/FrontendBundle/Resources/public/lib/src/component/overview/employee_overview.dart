@@ -2,16 +2,21 @@ part of entity_overview;
 
 @Component(
     selector: 'employee-overview',
-    templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/overview/employee_overview.html',
-    useShadowDom: false)
+    templateUrl: 'employee_overview.html',
+    directives: const [CORE_DIRECTIVES, formDirectives],
+    pipes: const [FilterPipe, OrderByPipe])
 class EmployeeOverviewComponent extends EntityOverview {
-  EmployeeOverviewComponent(DataCache store, Router router, SettingsManager manager, StatusService status, UserAuthProvider auth)
-      : super(Employee, store, 'employee_edit', manager, status, router: router, auth: auth);
+  EmployeeOverviewComponent(DataCache store, Router router, SettingsManager manager, StatusService status, UserAuthProvider auth,
+      EntityEventsService entityEventsService)
+      : super(Employee, store, 'EmployeeEdit', manager, status, entityEventsService, router: router, auth: auth);
 
   String sortType = "username";
 
-  cEnt({Employee entity}) {
+  cEnt({Entity entity}) {
     if (entity != null) {
+      if (!(entity is Employee)) {
+        throw new Exception("I want Employees");
+      }
       return new Employee.clone(entity);
     }
     return new Employee();

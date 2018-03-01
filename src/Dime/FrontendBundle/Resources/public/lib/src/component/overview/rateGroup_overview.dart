@@ -1,16 +1,22 @@
 part of entity_overview;
 
 @Component(
-    selector: 'rateGroup-overview',
-    templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/overview/rateGroup_overview.html',
-    useShadowDom: false)
+  selector: 'rateGroup-overview',
+  templateUrl: 'rateGroup_overview.html',
+  directives: const [formDirectives, CORE_DIRECTIVES, ErrorIconComponent],
+)
 class RateGroupOverviewComponent extends EntityOverview {
-  RateGroupOverviewComponent(DataCache store, SettingsManager manager, StatusService status, UserAuthProvider auth)
-      : super(RateGroup, store, '', manager, status, auth: auth);
+  RateGroupOverviewComponent(
+      DataCache store, SettingsManager manager, StatusService status, UserAuthProvider auth, EntityEventsService entityEventsService)
+      : super(RateGroup, store, '', manager, status, entityEventsService, auth: auth);
 
-  cEnt({RateGroup entity}) {
+  cEnt({Entity entity}) {
     if (entity != null) {
-      return new RateGroup.clone(entity);
+      if (entity is RateGroup) {
+        return new RateGroup.clone(entity);
+      } else {
+        throw new Exception("Invalid Type; RateGroup expected!");
+      }
     }
     return new RateGroup();
   }

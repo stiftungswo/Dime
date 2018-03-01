@@ -44,7 +44,7 @@ class Phone extends Entity {
     }
   }
 
-  int id;
+  dynamic id;
   int number;
   String type;
 }

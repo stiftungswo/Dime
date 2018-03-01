@@ -1,9 +1,7 @@
-library dime.datacache;
-
 import 'package:hammock/hammock.dart';
 import 'package:angular/angular.dart';
 import 'dart:async';
-import 'package:DimeClient/model/Entity.dart';
+import '../model/Entity.dart';
 
 @Injectable()
 class DataCache {
@@ -67,7 +65,7 @@ class DataCache {
 
   Future customQueryList(type, CustomRequestParams params) => this._store.customQueryList(type, params);
 
-  void evict(Type type, [bool reload = false]) async {
+  Future evict(Type type, [bool reload = false]) async {
     this._cache.remove(type.hashCode);
     if (reload) {
       await this.list(type);

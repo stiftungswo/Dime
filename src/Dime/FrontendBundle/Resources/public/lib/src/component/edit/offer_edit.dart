@@ -1,7 +1,22 @@
 part of entity_edit;
 
 @Component(
-    selector: 'offer-edit', templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/edit/offer_edit.html', useShadowDom: false)
+  selector: 'offer-edit',
+  templateUrl: 'offer_edit.html',
+  directives: const [
+    CORE_DIRECTIVES,
+    formDirectives,
+    ErrorIconComponent,
+    DateToTextInput,
+    UserSelectComponent,
+    RateGroupSelectComponent,
+    CustomerSelectComponent,
+    AddressEditComponent,
+    OfferStatusSelectComponent,
+    OfferPositionOverviewComponent,
+    OfferDiscountOverviewComponent
+  ],
+)
 class OfferEditComponent extends EntityEdit {
   List<Customer> customers;
 
@@ -11,14 +26,16 @@ class OfferEditComponent extends EntityEdit {
 
   List<Employee> users;
 
-  Offer entity;
+  dynamic entity;
 
   Project project;
 
-  OfferEditComponent(RouteProvider routeProvider, DataCache store, StatusService status, UserAuthProvider auth, Router router)
-      : super(routeProvider, store, Offer, status, auth, router);
+  OfferEditComponent(RouteParams routeProvider, DataCache store, StatusService status, UserAuthProvider auth, Router router,
+      EntityEventsService entityEventsService)
+      : super(routeProvider, store, Offer, status, auth, router, entityEventsService);
 
-  attach() {
+  @override
+  ngOnInit() {
     if (this.auth != null) {
       if (!auth.isloggedin) {
         this.auth.afterLogin(() {
@@ -71,33 +88,43 @@ class OfferEditComponent extends EntityEdit {
   }
 
   openProject() async {
-    router.go('project_edit', {'id': entity.project.id});
+    router.navigate([
+      'ProjectEdit',
+      {'id': entity.project.id}
+    ]);
   }
 
   createProject() async {
     if (await saveEntity()) {
-      var newProject = (await this
-          .store
-          .customQueryOne(Project, new CustomRequestParams(method: 'GET', url: '/api/v1/projects/offer/${this.entity.id}')));
+      var newProject = (await this.store.customQueryOne(
+          Project, new CustomRequestParams(method: 'GET', url: 'http://localhost:3000/api/v1/projects/offer/${this.entity.id}')));
       this.store.evict(Project, true);
       this.statusservice.setStatusToSuccess();
       entity.project = newProject;
-      router.go('project_edit', {'id': newProject.id});
+      router.navigate([
+        'ProjectEdit',
+        {'id': newProject.id}
+      ]);
     }
   }
 
   openInvoice(int id) async {
-    router.go('invoice_edit', {'id': id});
+    router.navigate([
+      'InvoiceEdit',
+      {'id': id}
+    ]);
   }
 
   createInvoice() async {
     if (await saveEntity()) {
-      var newInvoice = await this
-          .store
-          .customQueryOne(Invoice, new CustomRequestParams(method: 'GET', url: '/api/v1/invoices/project/${this.entity.project.id}'));
+      var newInvoice = await this.store.customQueryOne(
+          Invoice, new CustomRequestParams(method: 'GET', url: 'http://localhost:3000/api/v1/invoices/project/${this.entity.project.id}'));
       entity.project.invoices.add(newInvoice);
       this.store.evict(Invoice, true);
-      router.go('invoice_edit', {'id': newInvoice.id});
+      router.navigate([
+        'InvoiceEdit',
+        {'id': newInvoice.id}
+      ]);
     }
   }
 

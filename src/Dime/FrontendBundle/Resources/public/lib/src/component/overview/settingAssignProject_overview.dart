@@ -1,17 +1,19 @@
 part of entity_overview;
 
 @Component(
-    selector: 'settingAssignProject-overview',
-    templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/overview/settingAssignProject_overview.html',
-    useShadowDom: false)
-class SettingAssignProjectOverviewComponent extends EntityOverview {
+  selector: 'settingAssignProject-overview',
+  templateUrl: 'settingAssignProject_overview.html',
+  directives: const [CORE_DIRECTIVES, formDirectives, ErrorIconComponent, ProjectSelectComponent],
+)
+class SettingAssignProjectOverviewComponent extends EntityOverview implements OnInit {
   UserContext context;
 
   List<SettingAssignProject> projectAssignments = [];
 
   List projects = [];
 
-  void saveAllEntities([ScopeEvent e]) {
+  @override
+  void saveAllEntities() {
     for (Entity entity in this.projectAssignments) {
       if (entity.needsUpdate) {
         saveEntity(entity);
@@ -19,17 +21,24 @@ class SettingAssignProjectOverviewComponent extends EntityOverview {
     }
   }
 
-  SettingAssignProjectOverviewComponent(DataCache store, SettingsManager manager, StatusService status, this.context, UserAuthProvider auth)
-      : super(SettingAssignProject, store, '', manager, status, auth: auth);
+  SettingAssignProjectOverviewComponent(DataCache store, SettingsManager manager, StatusService status, this.context, UserAuthProvider auth,
+      EntityEventsService entityEventsService)
+      : super(SettingAssignProject, store, '', manager, status, entityEventsService, auth: auth);
 
-  cEnt({SettingAssignProject entity}) {
+  @override
+  cEnt({Entity entity}) {
     if (entity != null) {
-      return new SettingAssignProject.clone(entity);
+      if (entity is SettingAssignProject) {
+        return new SettingAssignProject.clone(entity);
+      } else {
+        throw new Exception("Invalid Type; SettingAssignProject expected!");
+      }
     }
     return new SettingAssignProject();
   }
 
-  attach() {
+  @override
+  ngOnInit() {
     if (this.auth != null) {
       if (!auth.isloggedin) {
         this.auth.afterLogin(() {
@@ -41,6 +50,7 @@ class SettingAssignProjectOverviewComponent extends EntityOverview {
     }
   }
 
+  @override
   reload({Map<String, dynamic> params, bool evict: false}) async {
     this.settingsManager.loadSystemSettings();
   }
@@ -68,6 +78,7 @@ class SettingAssignProjectOverviewComponent extends EntityOverview {
     }
   }
 
+  @override
   deleteEntity([int entId]) async {
     if (entId == null) {
       entId = this.selectedEntId;
@@ -82,11 +93,11 @@ class SettingAssignProjectOverviewComponent extends EntityOverview {
             Setting projectAssignmentSetting = new Setting();
             projectAssignmentSetting.id = ent.id;
 
-            CommandResponse resp = await this.store.delete(projectAssignmentSetting);
+            await this.store.delete(projectAssignmentSetting);
           }
           this.projectAssignments.removeWhere((enty) => enty.id == entId);
           this.statusservice.setStatusToSuccess();
-          this.rootScope.emit(this.type.toString() + 'Deleted');
+          //this.rootScope.emit(this.type.toString() + 'Deleted');
         } catch (e, stack) {
           print("Unable to Delete entity ${this.type.toString()}::${entId} because ${e}");
           this.statusservice.setStatusToError(e, stack);
@@ -95,7 +106,13 @@ class SettingAssignProjectOverviewComponent extends EntityOverview {
     }
   }
 
-  saveEntity(Entity entity) async {
+  @override
+  saveEntity(Entity someEntity) async {
+    if (someEntity is! SettingAssignProject) {
+      throw new Exception("Invalid Type; SettingAssignProject expected!");
+    }
+    SettingAssignProject entity = someEntity;
+
     Setting projectAssignmentSetting = new Setting();
     projectAssignmentSetting.value = entity.project.alias;
     projectAssignmentSetting.id = entity.id;
@@ -107,7 +124,10 @@ class SettingAssignProjectOverviewComponent extends EntityOverview {
     this.statusservice.setStatusToLoading();
     this.projects = await this.store.list(Project);
     try {
-      Entity resp = await store.update(projectAssignmentSetting);
+      dynamic resp = await store.update(projectAssignmentSetting);
+      if (resp is! Entity) {
+        throw new Exception("resp is not Entity, its a ${resp.runtimeType}");
+      }
       this.projectAssignments.removeWhere((enty) => enty.id == resp.id);
 
       SettingAssignProject settingAssignProject = new SettingAssignProject();
@@ -118,7 +138,7 @@ class SettingAssignProjectOverviewComponent extends EntityOverview {
 
       this.projectAssignments.add(settingAssignProject);
       this.statusservice.setStatusToSuccess();
-      this.rootScope.emit(this.type.toString() + 'Changed');
+      //this.rootScope.emit(this.type.toString() + 'Changed');
     } catch (e, stack) {
       print("Unable to save entity ${this.type.toString()}::${projectAssignmentSetting.id} because ${e}");
       this.statusservice.setStatusToError(e, stack);

@@ -2,11 +2,13 @@ part of dime_report;
 
 @Component(
     selector: 'timeslice-expensereport',
-    templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/report/timeslice_expense_report.html',
-    useShadowDom: false)
+    templateUrl: 'timeslice_expense_report.html',
+    directives: const [CORE_DIRECTIVES, DateRange, UserSelectComponent, ProjectSelectComponent],
+    pipes: const [COMMON_PIPES])
 class TimesliceExpenseReportComponent extends EntityOverview {
-  TimesliceExpenseReportComponent(DataCache store, SettingsManager manager, StatusService status, UserAuthProvider auth)
-      : super(ExpenseReport, store, '', manager, status, auth: auth);
+  TimesliceExpenseReportComponent(
+      DataCache store, SettingsManager manager, StatusService status, UserAuthProvider auth, EntityEventsService entityEventsService)
+      : super(ExpenseReport, store, '', manager, status, entityEventsService, auth: auth);
 
   Project _project;
 
@@ -14,6 +16,7 @@ class TimesliceExpenseReportComponent extends EntityOverview {
 
   set project(Project proj) {
     _project = proj;
+    print("SET PRO");
     if (_project != null) {
       reload();
     }
@@ -34,7 +37,8 @@ class TimesliceExpenseReportComponent extends EntityOverview {
 
   ExpenseReport report;
 
-  attach();
+  @override
+  ngOnInit(); //noop
 
   reload({Map<String, dynamic> params, bool evict: false}) async {
     if (_project != null || _employee != null) {
@@ -48,9 +52,9 @@ class TimesliceExpenseReportComponent extends EntityOverview {
               'project': _project != null ? _project.id : null,
               'employee': _employee != null ? _employee.id : null,
               'date': dateparam != null ? dateparam : null
-            }, method: 'GET', url: '/api/v1/reports/expense')));
+            }, method: 'GET', url: 'http://localhost:3000/api/v1/reports/expense'))); //FIXME don't hardcode
         this.statusservice.setStatusToSuccess();
-        this.rootScope.emit(this.type.toString() + 'Loaded');
+        //this.rootScope.emit(this.type.toString() + 'Loaded');
       } catch (e, stack) {
         this.statusservice.setStatusToError(e, stack);
       }

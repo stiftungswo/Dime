@@ -1,53 +1,49 @@
 library timetrack;
 
-import 'package:angular/angular.dart';
-import 'package:DimeClient/service/user_auth.dart';
-import 'package:DimeClient/service/user_context.dart';
-import 'package:DimeClient/model/Entity.dart';
-import 'package:DimeClient/service/status.dart';
-import 'package:DimeClient/service/data_cache.dart';
-import 'package:DimeClient/service/setting_manager.dart';
-import 'package:DimeClient/component/overview/entity_overview.dart';
-import 'dart:html';
 import 'dart:async';
+import 'package:DimeClient/dime_client.dart';
+import '../date/dateToTextInput.dart';
+import 'package:DimeClient/src/component/elements/error_icon.dart';
+import 'package:DimeClient/src/component/overview/entity_overview.dart';
+import '../select/entity_select.dart';
+import 'package:DimeClient/src/model/Entity.dart';
+import 'package:DimeClient/src/pipes/dime_pipes.dart';
+import '../../pipes/project_value.dart';
+import 'package:angular/angular.dart';
+import 'package:angular_forms/angular_forms.dart';
 
 part 'timetrack_multi.dart';
 part 'project_timetrack.dart';
 part 'timetrack_periods.dart';
 
-@Component(
-    selector: 'timetrack', templateUrl: '/bundles/dimefrontend/packages/DimeClient/component/timetrack/timetrack.html', useShadowDom: false)
-class TimetrackComponent extends AttachAware implements ScopeAware {
+@Component(selector: 'timetrack', templateUrl: 'timetrack.html', directives: const [
+  CORE_DIRECTIVES,
+  PeriodOverviewComponent,
+  TimesliceOverviewComponent,
+  ProjectCommentOverviewComponent,
+  ErrorIconComponent
+])
+class TimetrackComponent implements OnInit {
   UserContext context;
   UserAuthProvider auth;
-  Scope scope;
   Project project;
+  TimetrackService timetrackService;
+  EntityEventsService entityEventsService;
 
   get employee => this.context.employee;
 
-  attach() {
-    this.scope.rootScope.on(TimesliceOverviewComponent.FORMDATA_CHANGE_EVENT_NAME).forEach((ScopeEvent e) {
-      Map<String, dynamic> data = e.data;
-
-      data.forEach((key, value) {
-        switch (key) {
-          case 'project':
-            project = value;
-            break;
-          default:
-            break;
-        }
-      });
-    });
+  @override
+  ngOnInit() {
+    timetrackService.projectSelect.stream.listen((project) => this.project = project);
   }
 
-  void reloadUser([ScopeEvent e]) {
+  void reloadUser() {
     this.context.reloadUserData();
   }
 
   save() {
-    scope.rootScope.emit('saveChanges');
+    entityEventsService.emitSaveChanges();
   }
 
-  TimetrackComponent(this.auth, this.context);
+  TimetrackComponent(this.auth, this.context, this.timetrackService, this.entityEventsService);
 }

@@ -58,7 +58,7 @@ class ProjectComment extends Entity {
   }
 
   String type = 'projectcomments';
-  int id;
+  dynamic id;
   Project project;
   String comment;
   DateTime date;

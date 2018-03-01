@@ -57,7 +57,7 @@ class SettingAssignProject extends Entity {
       SettingAssignProject a = new SettingAssignProject.fromMap(element);
       settingAssignProject.add(a);
     }
-    return defaultProjects;
+    return settingAssignProject; // todo is this right? check how old code worked
   }
 
   String type = 'settingassignprojects';
