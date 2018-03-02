@@ -6,7 +6,7 @@ part of dime_report;
     directives: const [CORE_DIRECTIVES, ProjectSelectComponent, DateRange],
     pipes: const [COMMON_PIPES])
 class ProjectemployeeReportComponent implements OnInit {
-  ProjectemployeeReportComponent(StatusService this.statusservice);
+  ProjectemployeeReportComponent(StatusService this.statusservice, HttpService this.http);
 
   Project _project;
 
@@ -33,6 +33,8 @@ class ProjectemployeeReportComponent implements OnInit {
 
   StatusService statusservice;
 
+  HttpService http;
+
   @override
   ngOnInit() {
     reload();
@@ -46,19 +48,16 @@ class ProjectemployeeReportComponent implements OnInit {
       this.total = null;
       this.statusservice.setStatusToLoading();
       try {
-        String dateparams = '';
+        String dateparams = null;
         if (filterStartDate != null && filterEndDate != null) {
-          dateparams = '&date=' + new DateFormat('y-MM-dd').format(filterStartDate) + ',' + new DateFormat('y-MM-dd').format(filterEndDate);
+          dateparams = new DateFormat('y-MM-dd').format(filterStartDate) + ',' + new DateFormat('y-MM-dd').format(filterEndDate);
         } else if (filterStartDate != null) {
-          dateparams = '&date=' + new DateFormat('y-MM-dd').format(filterStartDate);
+          dateparams = new DateFormat('y-MM-dd').format(filterStartDate);
         } else if (filterEndDate != null) {
-          dateparams = '&date=' + new DateFormat('y-MM-dd').format(filterEndDate);
+          dateparams = new DateFormat('y-MM-dd').format(filterEndDate);
         }
-        //FIXME: don't hardcode base url
-        await HttpRequest
-            .getString('http://localhost:3000/api/v1/reports/projectemployee?_format=json&project=' + project.id.toString() + dateparams,
-                withCredentials: true)
-            .then((result) {
+        await http
+            .get("reports/projectemployee", queryParams: {"date": dateparams, "_format": "json", "project": project.id}).then((result) {
           this.data = JSON.decode(result);
           this.entries = data['employees'];
           this.total = data['total'];
@@ -67,6 +66,7 @@ class ProjectemployeeReportComponent implements OnInit {
         //this.rootScope.emit(this.type.toString() + 'Loaded');
       } catch (e, stack) {
         this.statusservice.setStatusToError(e, stack);
+        rethrow;
       }
     }
   }

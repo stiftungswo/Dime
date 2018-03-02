@@ -10,6 +10,7 @@ import '../../service/entity_events_service.dart';
 import '../../service/setting_manager.dart';
 import '../../service/status.dart';
 import '../../service/user_auth.dart';
+import 'package:DimeClient/src/service/http_service.dart';
 import 'package:angular/angular.dart';
 import 'dart:html';
 import 'dart:convert';
