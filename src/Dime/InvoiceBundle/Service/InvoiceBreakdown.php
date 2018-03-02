@@ -7,11 +7,16 @@ use Dime\InvoiceBundle\Entity\InvoiceItem;
 use Dime\InvoiceBundle\Entity\Invoice;
 use Money\Money;
 
+/**
+ * @param \Dime\InvoiceBundle\Entity\InvoiceItem[] $items
+ *
+ * @return array
+ */
 function groupByVAT($items)
 {
     $vatGroups = [];
     foreach ($items as $item) {
-        $vat = $item->getVat();
+        $vat = (string)$item->getVat();
         if (!array_key_exists($vat, $vatGroups)) {
             $vatGroups[$vat] = [];
         }
@@ -147,7 +152,7 @@ class InvoiceBreakdown
                     $sum = $sum->add($item->getCalculatedTotal());
                     $breakdown['items'][] = $item;
                 }
-                $vatSums[$item->getVat()] = $vatSums[$item->getVat()]->add($item->getCalculatedVAT());
+                $vatSums[(string)$item->getVat()] = $vatSums[(string)$item->getVat()]->add($item->getCalculatedVAT());
                 $vat = $vat->add($item->getCalculatedVAT());
             }
         }

@@ -2,7 +2,7 @@ version: "2"
 syncs:
   dime-sync:
     sync_strategy: unison
-    sync_excludes: ['.idea', '.git']
+    sync_excludes: ['.idea', '.git', 'src/Dime/FrontendBundle/Resources/public']
     sync_excludes_type: 'Name'
     notify_terminal: true
     src: .

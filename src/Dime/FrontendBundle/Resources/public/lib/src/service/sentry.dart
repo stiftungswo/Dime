@@ -1,8 +1,8 @@
 library dime.sentry;
 
 import 'dart:html';
-import 'package:DimeClient/service/user_context.dart';
-import 'package:DimeClient/service/release_info.dart';
+import 'user_context.dart';
+import 'release_info.dart';
 import 'package:sentry_client/api_data/sentry_exception.dart';
 import 'package:sentry_client/api_data/sentry_packet.dart';
 import 'package:sentry_client/api_data/sentry_stacktrace.dart';
