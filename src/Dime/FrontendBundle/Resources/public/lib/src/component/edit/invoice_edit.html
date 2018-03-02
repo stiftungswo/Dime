@@ -29,20 +29,19 @@
             </div>
             <div class="form-group">
               <label class="col-md-2 control-label">Kunde</label>
-              <customer-select class="col-md-4" [(selectedEntity)]="entity.customer" (callback)="addSaveField($event)" [field]="'customer'"></customer-select>
+              <customer-select class="col-md-4" [(selectedEntity)]="entity.customer" (selectedEntityChange)="addSaveField('customer')"></customer-select>
             </div>
             <div class="form-group">
               <label class="col-sm-2 control-label">Verantwortlicher Mitarbeiter</label>
-              <user-select class="col-sm-4" [(selectedEntity)]="entity.accountant" (callback)="addSaveField($event)"
-                           [field]="'accountant'"></user-select>
+              <user-select class="col-sm-4" [(selectedEntity)]="entity.accountant" (selectedEntityChange)="addSaveField('accountant')"></user-select>
             </div>
             <div class="form-group">
               <label class="col-md-2 control-label">Startdatum</label>
-              <dateinput class="col-md-4" [(date)]="entity.start" [field]="'start'" (callback)="addSaveField($event)"></dateinput>
+              <dateinput class="col-md-4" [(date)]="entity.start" (dateChange)="addSaveField('start')"></dateinput>
             </div>
             <div class="form-group">
               <label class="col-md-2 control-label">Enddatum</label>
-              <dateinput class="col-md-4" [(date)]="entity.end" [field]="'end'" (callback)="addSaveField($event)"></dateinput>
+              <dateinput class="col-md-4" [(date)]="entity.end" (dateChange)="addSaveField('end')"></dateinput>
             </div>
           </div>
           <div class="form-group">

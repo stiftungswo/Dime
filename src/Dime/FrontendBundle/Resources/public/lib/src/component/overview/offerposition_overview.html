@@ -23,10 +23,10 @@
           <tbody *ngIf="entities != null">
             <tr *ngFor="let entity of entities | orderBy:'order'" (click)="selectEntity(entity.id)" [class.info]="isSelected(entity)">
               <td><input class="form-control" type="text" [(ngModel)]="entity.order" (change)="addSaveField('order', entity)"/></td>
-              <td><service-select [hideArchived]="true" [(selectedEntity)]="entity.service" (callback)="entity.addFieldtoUpdate($event)" [field]="'service'"></service-select></td>
+              <td><service-select [hideArchived]="true" [(selectedEntity)]="entity.service" (selectedEntityChange)="entity.addFieldtoUpdate('service')"></service-select></td>
               <td><input class="form-control" type="text" [(ngModel)]="entity.rateValue" (change)="addSaveField('rateValue', entity)"/></td>
               <td><input class="form-control" type="text" [(ngModel)]="entity.rateUnit" (change)="addSaveField('rateUnit', entity)"/></td>
-              <td><rateunittype-select [(selectedEntity)]="entity.rateUnitType" (callback)="entity.addFieldtoUpdate($event)" [field]="'rateUnitType'"></rateunittype-select></td>
+              <td><rateunittype-select [(selectedEntity)]="entity.rateUnitType" (selectedEntityChange)="entity.addFieldtoUpdate('rateUnitType')"></rateunittype-select></td>
               <td><input class="form-control" type="text" [(ngModel)]="entity.amount" (change)="addSaveField('amount', entity)"/></td>
               <td><input-percentage [htmlclass]="'form-control'" [(value)]="entity.vat" (change)="addSaveField('vat', entity)"></input-percentage></td>
               <td><input class="checkbox" type="checkbox" [(ngModel)]="entity.discountable" (change)="addSaveField('discountable', entity)"/></td>

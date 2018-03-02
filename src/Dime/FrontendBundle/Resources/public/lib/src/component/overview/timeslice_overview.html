@@ -21,11 +21,11 @@
     <tbody>
         <tr *ngFor="let entity of entities | timeslicedatefilter:filterStartDate:filterEndDate | orderBy:'startedAt'" (click)="selectRow($event, entity)" [class.info]="selectedTimeslices.contains(entity.id)">
             <td></td>
-            <td *ngIf="projectBased"><user-select [(selectedEntity)]="entity.employee" [parentEmployees]="employees" (callback)="entity.addFieldtoUpdate($event)" field="employee"></user-select></td>
-            <td><activity-select [is-readonly]="true" [(selectedEntity)]="entity.activity" [parent-activities]="activities" [project]="entity?.project?.id" (callback)="entity.addFieldtoUpdate($event)" field="activity"></activity-select></td>
+            <td *ngIf="projectBased"><user-select [(selectedEntity)]="entity.employee" [parentEmployees]="employees" (selectedEntityChange)="entity.addFieldtoUpdate('employee')"></user-select></td>
+            <td><activity-select [is-readonly]="true" [(selectedEntity)]="entity.activity" [parent-activities]="activities" [project]="entity?.project?.id" (selectedEntityChange)="entity.addFieldtoUpdate('activity')"></activity-select></td>
             <td *ngIf="blendOutStartAndEnd"><dateinput [is-readonly]="true" style="width: 100%;" format="dd-MM-y" [(date)]="entity.startedAt"></dateinput></td>
-            <td *ngIf="blendOutStartAndEnd == false"><dateinput style="width: 100%;" format="dd-MM-y HH:mm" [(date)]="entity.startedAt" field="startedAt" (callback)="entity.addFieldtoUpdate($event)"></dateinput></td>
-            <td *ngIf="blendOutStartAndEnd == false"><dateinput style="width: 100%;" format="dd-MM-y HH:mm" [(date)]="entity.stoppedAt" field="stoppedAt" (callback)="entity.addFieldtoUpdate($event)"></dateinput></td>
+            <td *ngIf="blendOutStartAndEnd == false"><dateinput style="width: 100%;" format="dd-MM-y HH:mm" [(date)]="entity.startedAt" (dateChange)="entity.addFieldtoUpdate('startedAt')"></dateinput></td>
+            <td *ngIf="blendOutStartAndEnd == false"><dateinput style="width: 100%;" format="dd-MM-y HH:mm" [(date)]="entity.stoppedAt" (dateChange)="entity.addFieldtoUpdate('stoppedAt')"></dateinput></td>
             <td><input style="width: 100%;" class="form-control" [(ngModel)]="entity.value" (change)="addSaveField('value', entity)"/></td>
             <td><button type="button" class="btn btn-default" (click)="deleteEntity(entity.id)"><i class="fa fa-fw fa-trash-o" style="color:red"></i></button></td>
         </tr>
@@ -58,7 +58,7 @@
         </div>
         <div class="col-md-2">
             <label>Aktivität</label>
-            <activity-select [(selectedEntity)]="selectedActivity" [parent-activities]="activities" [project]="selectedProject?.id" field="activity" [shortname]="true"></activity-select>
+            <activity-select [(selectedEntity)]="selectedActivity" [parent-activities]="activities" [project]="selectedProject?.id" [shortname]="true"></activity-select>
         </div>
         <div class="col-md-1">
             <label>Wert</label>

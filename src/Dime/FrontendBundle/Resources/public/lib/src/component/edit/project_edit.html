@@ -37,12 +37,11 @@
           <div class="form-group">
             <label class="col-sm-2 control-label">Kunde</label>
             <customer-select [required]="true" class="col-sm-4" [(selectedEntity)]="entity.customer"
-                             (callback)="entity.addFieldtoUpdate($event)" [field]="'customer'"></customer-select>
+                             (selectedEntityChange)="entity.addFieldtoUpdate('customer')"></customer-select>
           </div>
           <div class="form-group">
             <label class="col-sm-2 control-label">Verantwortlicher Mitarbeiter</label>
-            <user-select class="col-sm-4" [(selectedEntity)]="entity.accountant" (callback)="addSaveField($event)"
-                       [field]="'accountant'"></user-select>
+            <user-select class="col-sm-4" [(selectedEntity)]="entity.accountant" (selectedEntityChange)="addSaveField('accountant')"></user-select>
           </div>
           <div class="form-group">
             <div class="col-sm-offset-2 col-sm-4">
@@ -65,20 +64,17 @@
           </div>
           <div class="form-group">
             <label class="col-sm-2 control-label">Tarif Gruppe</label>
-            <rategroup-select [placeholder]="entity?.customer?.rateGroup?.name" class="col-sm-4" [(selectedEntity)]="entity.rateGroup" (callback)="entity.addFieldtoUpdate($event)"
-                              [field]="'rateGroup'"></rategroup-select>
+            <rategroup-select [placeholder]="entity?.customer?.rateGroup?.name" class="col-sm-4" [(selectedEntity)]="entity.rateGroup" (selectedEntityChange)="entity.addFieldtoUpdate('rateGroup')"></rategroup-select>
             <help-tooltip text="Falls keine Tarif Gruppe ausgewählt ist, wird die Tarif Gruppe des Kunden verwendet"></help-tooltip>
           </div>
           <div class="form-group">
             <label class="col-sm-2 control-label">Tätigkeitsbereich</label>
             <projectCategory-select [required]="true" class="col-sm-4" [(selectedEntity)]="entity.projectCategory"
-                                    (callback)="entity.addFieldtoUpdate($event)"
-                                    [field]="'projectCategory'"></projectCategory-select>
+                                    (selectedEntityChange)="entity.addFieldtoUpdate('projectCategory')"></projectCategory-select>
           </div>
           <div class="form-group">
             <label class="col-sm-2 control-label">Deadline</label>
-            <dateinput [null-allowed]="true" class="col-sm-4" [(date)]="entity.deadline" [field]="'deadline'"
-                       (callback)="addSaveField($event)"></dateinput>
+            <dateinput [null-allowed]="true" class="col-sm-4" [(date)]="entity.deadline" (dateChange)="addSaveField('deadline')"></dateinput>
           </div>
         </div>
         <div>

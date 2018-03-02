@@ -15,7 +15,7 @@
       <tbody *ngIf="entities != null">
         <tr *ngFor="let entity of entities" (click)="selectEntity(entity.id)" [class.info]="isSelected(entity)">
           <td>{{entity.weekday}}</td>
-          <td><dateinput style="width: 100%;" [(date)]="entity.date" [field]="'date'" (callback)="entity.addFieldtoUpdate($event)"></dateinput></td>
+          <td><dateinput style="width: 100%;" [(date)]="entity.date" (dateChange)="entity.addFieldtoUpdate('date')"></dateinput></td>
           <td><input style="width: 100%;" type="text" class="form-control" [(ngModel)]="entity.duration" (change)="addSaveField('duration', entity)"/></td>
           <td><button type="button" class="btn btn-default" (click)="deleteEntity(entity.id)"><i class="fa fa-fw fa-trash-o" style="color:red"></i></button></td>
         </tr>

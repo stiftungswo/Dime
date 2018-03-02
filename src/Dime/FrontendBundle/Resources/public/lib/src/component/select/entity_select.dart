@@ -22,7 +22,6 @@ part 'project_select.dart';
 part 'projectCategory_select.dart';
 part 'rategroup_select.dart';
 part 'rateunittype_select.dart';
-//part 'roundmode_select.dart';
 part 'service_select.dart';
 part 'standarddiscount_select.dart';
 part 'user_select.dart';
@@ -30,19 +29,11 @@ part 'costgroup_select.dart';
 
 class EntitySelect implements OnInit {
   DataCache store;
-  // Scope scope;
   dom.Element element;
   bool open = false;
 
-  // todo: is this really needed?? cant we listen for selectedEntityChange or two-way-bind this.field?
-  final StreamController<String> _callbackStream = new StreamController<String>();
-  @Output('callback')
-  Stream<String> get callback => _callbackStream.stream;
-
-  @Input('field')
-  String field;
   Type type;
-  List entities = [];
+  List<Entity> entities = [];
   String selector = '';
   StatusService statusservice;
   UserAuthProvider auth;
@@ -63,11 +54,8 @@ class EntitySelect implements OnInit {
 
   @Input('selectedEntity')
   set selectedEntity(entity) {
-    // FIXME this setter, and thus the onchange evemt is triggered twice on change:
-    // once from the changed() function, and once from the angular internal change detection. (use a debugger to see this)
     this._selectedEntity = entity;
     this.selector = EntText;
-    _selectedEntityEvent.add(entity);
   }
 
   get selectedEntity => _selectedEntity;
@@ -100,12 +88,10 @@ class EntitySelect implements OnInit {
     }
   }
 
-  select(entity) {
+  select(Entity entity) {
     this.selectedEntity = entity;
+    _selectedEntityEvent.add(entity);
     this.open = false;
-    if (this.callback != null) {
-      _callbackStream.add(this.field);
-    }
   }
 
   toggleSelectionBox() {
@@ -133,6 +119,7 @@ class EntitySelect implements OnInit {
     if (this.open) {
       if (clearOnClose) {
         this.selectedEntity = null;
+        _selectedEntityEvent.add(null);
       }
       this.selector = EntText;
       this.open = false;

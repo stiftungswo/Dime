@@ -11,14 +11,6 @@ import 'package:intl/intl.dart';
   directives: const [CORE_DIRECTIVES, formDirectives],
 )
 class DateToTextInput implements OnChanges {
-  // todo directly use field in parent template (remove [this.field])
-  final StreamController<String> _callback = new StreamController<String>();
-  @Output('callback')
-  Stream<String> get callback => _callback.stream;
-
-  @Input('field')
-  String field;
-
   DateTime _date;
 
   get date => _date;
@@ -26,7 +18,6 @@ class DateToTextInput implements OnChanges {
   @Input('date')
   set date(DateTime newDate) {
     _date = newDate;
-    _dateChange.add(newDate);
   }
 
   final StreamController<DateTime> _dateChange = new StreamController<DateTime>();
@@ -111,7 +102,7 @@ class DateToTextInput implements OnChanges {
       }
     }
 
-    _callback.add(this.field);
+    _dateChange.add(this.date);
   }
 
   validate() {

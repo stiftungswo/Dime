@@ -52,6 +52,7 @@ class UserSelectComponent extends EntitySelect implements OnChanges {
 
     if (useContext) {
       selectedEntity = context.employee;
+      _selectedEntityEvent.add(context.employee);
     }
   }
 }

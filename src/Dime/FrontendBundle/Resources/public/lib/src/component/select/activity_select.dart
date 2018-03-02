@@ -5,14 +5,6 @@ part of entity_select;
   templateUrl: 'activity_select.html',
   directives: const [formDirectives, CORE_DIRECTIVES],
   pipes: const [FilterPipe, OrderByPipe, ProjectValueFilter],
-  /*map: const{
-      'activity': '<=>selectedEntity',
-      'project': '=>projectId',
-      'shortname': '=>shortname',
-      'callback': '&callback',
-      'field': '=>!field',
-      'clearOnClose': '=>!clearOnClose'
-    }*/
 )
 class ActivitySelectComponent extends EntitySelect implements OnChanges {
   ActivitySelectComponent(DataCache store, dom.Element element, StatusService status, UserAuthProvider auth)
