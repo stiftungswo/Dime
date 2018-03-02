@@ -1,12 +1,10 @@
-library dime.sentry;
-
 import 'dart:html';
+import 'package:angular/angular.dart';
+import 'package:angular/src/platform/browser/exceptions.dart';
 import 'user_context.dart';
 import 'release_info.dart';
 import 'package:sentry_client/api_data/sentry_exception.dart';
 import 'package:sentry_client/api_data/sentry_packet.dart';
-import 'package:sentry_client/api_data/sentry_stacktrace.dart';
-import 'package:sentry_client/api_data/sentry_stacktrace_frame.dart';
 import 'package:sentry_client/api_data/sentry_user.dart';
 import 'package:sentry_client/sentry_client_browser.dart';
 import 'package:sentry_client/sentry_dsn.dart';
@@ -51,5 +49,29 @@ class BrowserSentryLogger implements SentryLogger {
       user: new SentryUser(id: userContext.employee.username),
       tags: {"userAgent": window.navigator.userAgent},
     ));
+  }
+}
+
+SentryLogger getSentry(UserContext userContext) {
+  if (sentryDSN.startsWith("https")) {
+    print("Logging to Sentry");
+    return new BrowserSentryLogger(sentryDSN, userContext);
+  } else {
+    print("No Sentry DSN configured, not logging to Sentry");
+    return new NullSentryLogger();
+  }
+}
+
+@Injectable()
+class SentryLoggingExceptionHandler extends BrowserExceptionHandler {
+  final Injector injector;
+
+  SentryLoggingExceptionHandler(this.injector);
+
+  @override
+  call(dynamic error, [dynamic stack, String reason = '']) {
+    super.call(error, stack, reason);
+    //get logger manually to prevent circular DI dependencies
+    injector.get(SentryLogger).log(error, stack, reason);
   }
 }
