@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "779865eaa56406207df7027c8b296352",
+    "content-hash": "4a2db993ba458ea14d7e1cd893ded834",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -666,16 +666,16 @@
         },
         {
             "name": "doctrine/doctrine-fixtures-bundle",
-            "version": "dev-master",
+            "version": "2.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/DoctrineFixturesBundle.git",
-                "reference": "561fb64d1d3b47673bdb13a0ac76f0003cf0eeef"
+                "reference": "0f1a2f91b349e10f5c343f75ab71d23aace5b029"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/DoctrineFixturesBundle/zipball/561fb64d1d3b47673bdb13a0ac76f0003cf0eeef",
-                "reference": "561fb64d1d3b47673bdb13a0ac76f0003cf0eeef",
+                "url": "https://api.github.com/repos/doctrine/DoctrineFixturesBundle/zipball/0f1a2f91b349e10f5c343f75ab71d23aace5b029",
+                "reference": "0f1a2f91b349e10f5c343f75ab71d23aace5b029",
                 "shasum": ""
             },
             "require": {
@@ -719,7 +719,7 @@
                 "Fixture",
                 "persistence"
             ],
-            "time": "2017-05-23T11:55:00+00:00"
+            "time": "2015-11-04T21:23:23+00:00"
         },
         {
             "name": "doctrine/doctrine-migrations-bundle",
@@ -1918,16 +1918,16 @@
         },
         {
             "name": "knplabs/json-schema-bundle",
-            "version": "dev-master",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/KnpLabs/KnpJsonSchemaBundle.git",
-                "reference": "bfd70102dcf39035f3452e6e18290d7c3b7c681f"
+                "reference": "94b88d34e4dc010afbca9c8c1b785fa89e17737d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/KnpLabs/KnpJsonSchemaBundle/zipball/bfd70102dcf39035f3452e6e18290d7c3b7c681f",
-                "reference": "bfd70102dcf39035f3452e6e18290d7c3b7c681f",
+                "url": "https://api.github.com/repos/KnpLabs/KnpJsonSchemaBundle/zipball/94b88d34e4dc010afbca9c8c1b785fa89e17737d",
+                "reference": "94b88d34e4dc010afbca9c8c1b785fa89e17737d",
                 "shasum": ""
             },
             "require": {
@@ -1959,7 +1959,7 @@
                 }
             ],
             "description": "A bundle to generate json schema based on various metadata",
-            "time": "2016-03-29T18:58:19+00:00"
+            "time": "2015-07-02T16:31:41+00:00"
         },
         {
             "name": "kriswallsmith/assetic",
@@ -2379,16 +2379,16 @@
         },
         {
             "name": "nesbot/carbon",
-            "version": "dev-master",
+            "version": "1.22.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "926aee5ab38c2868816aa760f862a85ad01cb61a"
+                "reference": "7cdf42c0b1cc763ab7e4c33c47a24e27c66bfccc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/926aee5ab38c2868816aa760f862a85ad01cb61a",
-                "reference": "926aee5ab38c2868816aa760f862a85ad01cb61a",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/7cdf42c0b1cc763ab7e4c33c47a24e27c66bfccc",
+                "reference": "7cdf42c0b1cc763ab7e4c33c47a24e27c66bfccc",
                 "shasum": ""
             },
             "require": {
@@ -2428,7 +2428,7 @@
                 "datetime",
                 "time"
             ],
-            "time": "2017-02-06T22:02:47+00:00"
+            "time": "2017-01-16T07:55:07+00:00"
         },
         {
             "name": "ocramius/package-versions",
@@ -4839,16 +4839,16 @@
         },
         {
             "name": "h4cc/alice-fixtures-bundle",
-            "version": "dev-master",
+            "version": "0.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/h4cc/AliceFixturesBundle.git",
-                "reference": "d5ad280224cfd91231f316f71a95edd78136d9fb"
+                "reference": "4cd0a22454f740ba71c37117a842dc47e6dcdaf7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/h4cc/AliceFixturesBundle/zipball/d5ad280224cfd91231f316f71a95edd78136d9fb",
-                "reference": "d5ad280224cfd91231f316f71a95edd78136d9fb",
+                "url": "https://api.github.com/repos/h4cc/AliceFixturesBundle/zipball/4cd0a22454f740ba71c37117a842dc47e6dcdaf7",
+                "reference": "4cd0a22454f740ba71c37117a842dc47e6dcdaf7",
                 "shasum": ""
             },
             "require": {
@@ -4892,7 +4892,7 @@
                 "mongodb",
                 "orm"
             ],
-            "time": "2016-04-30T10:30:50+00:00"
+            "time": "2015-04-13T19:29:16+00:00"
         },
         {
             "name": "knplabs/knp-markdown-bundle",
@@ -5971,6 +5971,57 @@
             "time": "2015-06-21T13:59:46+00:00"
         },
         {
+            "name": "squizlabs/php_codesniffer",
+            "version": "3.2.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/squizlabs/PHP_CodeSniffer.git",
+                "reference": "4842476c434e375f9d3182ff7b89059583aa8b27"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/4842476c434e375f9d3182ff7b89059583aa8b27",
+                "reference": "4842476c434e375f9d3182ff7b89059583aa8b27",
+                "shasum": ""
+            },
+            "require": {
+                "ext-simplexml": "*",
+                "ext-tokenizer": "*",
+                "ext-xmlwriter": "*",
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.0 || ^5.0 || ^6.0 || ^7.0"
+            },
+            "bin": [
+                "bin/phpcs",
+                "bin/phpcbf"
+            ],
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.x-dev"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Greg Sherwood",
+                    "role": "lead"
+                }
+            ],
+            "description": "PHP_CodeSniffer tokenizes PHP, JavaScript and CSS files and detects violations of a defined set of coding standards.",
+            "homepage": "http://www.squizlabs.com/php-codesniffer",
+            "keywords": [
+                "phpcs",
+                "standards"
+            ],
+            "time": "2018-02-20T21:35:23+00:00"
+        },
+        {
             "name": "webmozart/assert",
             "version": "1.2.0",
             "source": {
@@ -6024,13 +6075,9 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "doctrine/doctrine-fixtures-bundle": 20,
         "friendsofsymfony/user-bundle": 20,
-        "knplabs/json-schema-bundle": 20,
         "doctrine/doctrine-migrations-bundle": 20,
-        "psliwa/pdf-bundle": 20,
-        "nesbot/carbon": 20,
-        "h4cc/alice-fixtures-bundle": 20
+        "psliwa/pdf-bundle": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

@@ -3,6 +3,8 @@ sudo: false
 php:
   - 7.1
 before_script:
+  - ./ci/dart_sdk.sh
+  - ./ci/check_format.sh
   - ./ci/backend.sh
 script:
   - ./ci/test.sh
@@ -22,12 +24,13 @@ deploy:
     script: ci/deploy.sh test
     skip_cleanup: true
     on:
-      branch: master
+      all_branches: true
+      condition: $TRAVIS_BRANCH == *-DEPLOY
   - provider: script
     script: ci/deploy.sh test
     skip_cleanup: true
     on:
-      branch: dev
+      branch: master
   - provider: script
     script: ci/deploy.sh prod
     skip_cleanup: true

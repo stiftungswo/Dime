@@ -176,7 +176,7 @@ class ReportHandler extends AbstractHandler
             $dates = explode(',', $date);
             if (count($dates) == 2) {
                 $startDate = Carbon::createFromFormat('Y-m-d', $dates[0])->setTime(0, 0, 0);
-                $endDate = Carbon::createFromFormat('Y-m-d', $dates[1])->setTime(0, 0, 0);
+                $endDate = Carbon::createFromFormat('Y-m-d', $dates[1])->setTime(0, 0, 0)->addDay()->subSecond();
             } else {
                 throw new HttpInvalidParamException('invalid date passed');
             }
@@ -185,21 +185,13 @@ class ReportHandler extends AbstractHandler
         }
 
         /** @var Project[] $projects */
-        //$projects = $this->om->getRepository('DimeTimetrackerBundle:Project')->findAll();
-
-        $filteredProjects = $this->om->getRepository('DimeTimetrackerBundle:Project')
-            ->createQueryBuilder('project')
-            ->where('project.createdAt >= :startDate')
-            ->setParameter('startDate', new \DateTime($startDate))
-            ->getQuery()
-            ->getResult();
-
+        $projects = $this->om->getRepository('DimeTimetrackerBundle:Project')->findAll();
 
         $report = [];
         $listofactivities = [];
         $activitytotal = [];
 
-        foreach ($filteredProjects as $project) {
+        foreach ($projects as $project) {
             $projectdata = [];
             $projectdata['name'] = $project->getName();
             if ($project->getProjectCategory()) {
@@ -249,9 +241,13 @@ class ReportHandler extends AbstractHandler
                 // Total pro Projekt
                 $projecttotal += (int) $slice->getValue();
             }
-            $projectdata['activities'] = $activities;
-            $projectdata['total'] = $projecttotal;
-            $report['projects'][] = $projectdata;
+
+            //only add projects that have time tracked
+            if ($projecttotal > 0) {
+                $projectdata['activities'] = $activities;
+                $projectdata['total'] = $projecttotal;
+                $report['projects'][] = $projectdata;
+            }
         }
 
         usort($report['projects'], function ($a, $b) {
