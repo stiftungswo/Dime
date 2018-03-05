@@ -3,7 +3,8 @@ part of entity_overview;
 @Component(
     selector: 'service-overview',
     templateUrl: 'service_overview.html',
-    directives: const [formDirectives, COMMON_DIRECTIVES, ROUTER_DIRECTIVES],
+    //TODO why does this have router_directives while others don't?
+    directives: const [formDirectives, COMMON_DIRECTIVES, ROUTER_DIRECTIVES, dimeDirectives],
     pipes: const [LimitToPipe, OrderByPipe, FilterPipe])
 class ServiceOverviewComponent extends EntityOverview {
   ServiceOverviewComponent(DataCache store, Router router, SettingsManager manager, StatusService status, UserAuthProvider auth,

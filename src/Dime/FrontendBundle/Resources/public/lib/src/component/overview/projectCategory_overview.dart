@@ -3,7 +3,7 @@ part of entity_overview;
 @Component(
   selector: 'projectCategory-overview',
   templateUrl: 'projectCategory_overview.html',
-  directives: const [CORE_DIRECTIVES, formDirectives, ErrorIconComponent],
+  directives: const [CORE_DIRECTIVES, formDirectives, dimeDirectives],
 )
 class ProjectCategoryOverviewComponent extends EntityOverview {
   ProjectCategoryOverviewComponent(

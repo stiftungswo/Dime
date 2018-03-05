@@ -3,7 +3,7 @@ part of entity_overview;
 @Component(
   selector: 'rateUnitType-overview',
   templateUrl: 'rateUnitType_overview.html',
-  directives: const [formDirectives, CORE_DIRECTIVES, ErrorIconComponent, SettingEditComponent],
+  directives: const [formDirectives, CORE_DIRECTIVES, dimeDirectives, SettingEditComponent],
 )
 class RateUnitTypeOverviewComponent extends EntityOverview {
   RateUnitTypeOverviewComponent(

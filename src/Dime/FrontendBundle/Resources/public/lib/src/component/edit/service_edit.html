@@ -59,7 +59,7 @@
 </div>
 <rate-overview [service]="entity.id" #rateOverview ></rate-overview>
 <div class="DimeControlButtons">
-  <button type="button" class="btn btn-primary" (click)="saveEntity()" [disabled]="!editform.form.valid || !rateOverview.valid"><error-icon value="saveState" timeout="20"></error-icon></button>
-  <button type="button" class="btn btn-default" (click)="reloadEvict()"><span class="glyphicon glyphicon-refresh"></span></button>
+  <dime-button primary (click)="saveEntity()" [disabled]="!editform.form.valid || !rateOverview.valid"><error-icon></error-icon></dime-button>
+  <dime-button (click)="reloadEvict()" glyphicon="refresh"></dime-button>
 </div>
 </div>

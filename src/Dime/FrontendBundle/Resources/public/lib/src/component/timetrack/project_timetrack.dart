@@ -3,7 +3,7 @@ part of timetrack;
 @Component(
   selector: 'projecttimetrack',
   templateUrl: 'project_timetrack.html',
-  directives: const [CORE_DIRECTIVES, formDirectives, ProjectSelectComponent, TimesliceOverviewComponent, ErrorIconComponent],
+  directives: const [CORE_DIRECTIVES, formDirectives, ProjectSelectComponent, TimesliceOverviewComponent, dimeDirectives],
 )
 class ProjectTimetrackComponent {
   UserAuthProvider auth;

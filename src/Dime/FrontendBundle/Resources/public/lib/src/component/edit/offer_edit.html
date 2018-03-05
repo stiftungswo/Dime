@@ -110,13 +110,8 @@
     </div>
   </div>
   <div class="DimeControlButtons">
-    <button type="button" class="btn btn-primary" (click)="saveEntity()">
-      <error-icon value="saveState" timeout="20"></error-icon>
-    </button>
-    <button type="button" class="btn btn-primary" (click)="printOffer()"><span
-            class="glyphicon glyphicon-print"></span> Drucken
-    </button>
-    <button type="button" class="btn btn-default" (click)="reloadEvict()"><span
-            class="glyphicon glyphicon-refresh"></span></button>
+    <dime-button primary (click)="saveEntity()"><error-icon></error-icon></dime-button>
+    <dime-button primary (click)="printOffer()" glyphicon="print">Drucken</dime-button>
+    <dime-button (click)="reloadEvict()" glyphicon="refresh"></dime-button>
   </div>
 </form>

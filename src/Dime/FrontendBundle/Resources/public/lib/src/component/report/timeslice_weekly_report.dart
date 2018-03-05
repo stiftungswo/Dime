@@ -13,7 +13,7 @@ class WeekReportDayEntry {
 @Component(
     selector: 'timeslice-weeklyreport',
     templateUrl: 'timeslice_weekly_report.html',
-    directives: const [CORE_DIRECTIVES, DateToTextInput],
+    directives: const [CORE_DIRECTIVES, dimeDirectives],
     pipes: const [COMMON_PIPES])
 class TimesliceWeeklyReportComponent extends EntityOverview {
   TimesliceWeeklyReportComponent(DataCache store, SettingsManager manager, StatusService status, UserAuthProvider auth,

@@ -3,7 +3,7 @@ part of entity_overview;
 @Component(
   selector: 'activity-overview',
   templateUrl: 'activity_overview.html',
-  directives: const [CORE_DIRECTIVES, formDirectives, ServiceSelectComponent],
+  directives: const [CORE_DIRECTIVES, formDirectives, dimeDirectives, ServiceSelectComponent],
 )
 class ActivityOverviewComponent extends EntityOverview {
   int _projectId;

@@ -6,8 +6,7 @@ part of entity_edit;
   directives: const [
     CORE_DIRECTIVES,
     formDirectives,
-    ErrorIconComponent,
-    DateToTextInput,
+    dimeDirectives,
     UserSelectComponent,
     RateGroupSelectComponent,
     CustomerSelectComponent,

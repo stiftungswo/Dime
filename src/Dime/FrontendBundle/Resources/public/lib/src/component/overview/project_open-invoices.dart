@@ -3,7 +3,7 @@ part of entity_overview;
 @Component(
   selector: 'projects-open-invoices',
   templateUrl: 'project_open-invoices.html',
-  directives: const [CORE_DIRECTIVES, formDirectives],
+  directives: const [CORE_DIRECTIVES, formDirectives, dimeDirectives],
   pipes: const [LimitToPipe, OrderByPipe, FilterPipe],
 )
 class ProjectOpenInvoicesComponent extends EntityOverview {

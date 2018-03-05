@@ -3,7 +3,7 @@ part of entity_overview;
 @Component(
   selector: 'offerdiscount-overview',
   templateUrl: 'offerdiscount_overview.html',
-  directives: const [CORE_DIRECTIVES, formDirectives, PercentageInputField],
+  directives: const [CORE_DIRECTIVES, formDirectives, dimeDirectives],
 )
 class OfferDiscountOverviewComponent extends EntityOverview {
   OfferDiscountOverviewComponent(DataCache store, SettingsManager manager, StatusService status, EntityEventsService entityEventsService)

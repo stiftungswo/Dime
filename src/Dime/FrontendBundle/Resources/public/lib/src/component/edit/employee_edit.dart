@@ -3,7 +3,7 @@ part of entity_edit;
 @Component(
   selector: 'employee-edit',
   templateUrl: 'employee_edit.html',
-  directives: const [CORE_DIRECTIVES, formDirectives, ErrorIconComponent],
+  directives: const [CORE_DIRECTIVES, formDirectives, dimeDirectives],
 )
 class EmployeeEditComponent extends EntityEdit {
   EmployeeEditComponent(RouteParams routeProvider, DataCache store, StatusService status, UserAuthProvider auth, Router router,

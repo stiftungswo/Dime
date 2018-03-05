@@ -8,7 +8,7 @@ class TimetrackMultiEntry {
 @Component(
   selector: 'timetrack-multi',
   templateUrl: 'timetrack_multi.html',
-  directives: const [CORE_DIRECTIVES, formDirectives, DateToTextInput, ProjectSelectComponent, UserSelectComponent, ErrorIconComponent],
+  directives: const [CORE_DIRECTIVES, formDirectives, dimeDirectives, ProjectSelectComponent, UserSelectComponent],
   pipes: const [ProjectValueFilter],
 )
 class TimetrackMultiComponent extends EntityOverview {

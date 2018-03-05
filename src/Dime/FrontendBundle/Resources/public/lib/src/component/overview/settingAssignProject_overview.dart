@@ -3,7 +3,7 @@ part of entity_overview;
 @Component(
   selector: 'settingAssignProject-overview',
   templateUrl: 'settingAssignProject_overview.html',
-  directives: const [CORE_DIRECTIVES, formDirectives, ErrorIconComponent, ProjectSelectComponent],
+  directives: const [CORE_DIRECTIVES, formDirectives, dimeDirectives, ProjectSelectComponent],
 )
 class SettingAssignProjectOverviewComponent extends EntityOverview implements OnInit {
   UserContext context;

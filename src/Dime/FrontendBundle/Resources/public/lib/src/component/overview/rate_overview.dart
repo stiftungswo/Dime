@@ -3,7 +3,7 @@ part of entity_overview;
 @Component(
   selector: 'rate-overview',
   templateUrl: 'rate_overview.html',
-  directives: const [formDirectives, CORE_DIRECTIVES, RateGroupSelectComponent, RateUnitTypeSelectComponent],
+  directives: const [formDirectives, CORE_DIRECTIVES, dimeDirectives, RateGroupSelectComponent, RateUnitTypeSelectComponent],
 )
 class RateOverviewComponent extends EntityOverview {
   RateOverviewComponent(DataCache store, SettingsManager manager, StatusService status, EntityEventsService entityEventsService)

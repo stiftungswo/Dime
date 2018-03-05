@@ -3,7 +3,7 @@ part of dime_report;
 @Component(
     selector: 'servicehours-report',
     templateUrl: 'servicehours_report.html',
-    directives: const [CORE_DIRECTIVES, DateRange],
+    directives: const [CORE_DIRECTIVES, dimeDirectives],
     pipes: const [COMMON_PIPES])
 class ServicehoursReportComponent implements OnInit {
   ServicehoursReportComponent(StatusService this.statusservice, this.http);

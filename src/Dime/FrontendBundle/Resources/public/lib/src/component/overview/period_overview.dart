@@ -3,7 +3,7 @@ part of entity_overview;
 @Component(
     selector: 'period-overview',
     templateUrl: 'period_overview.html',
-    directives: const [CORE_DIRECTIVES, formDirectives, PercentageInputField, ErrorIconComponent, DateToTextInput],
+    directives: const [CORE_DIRECTIVES, formDirectives, dimeDirectives],
     pipes: const [DIME_PIPES])
 class PeriodOverviewComponent extends EntityOverview {
   PeriodOverviewComponent(

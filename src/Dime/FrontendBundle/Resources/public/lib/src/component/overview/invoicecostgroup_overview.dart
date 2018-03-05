@@ -3,7 +3,7 @@ part of entity_overview;
 @Component(
   selector: 'invoicecostgroup-overview',
   templateUrl: 'invoicecostgroup_overview.html',
-  directives: const [CORE_DIRECTIVES, formDirectives, CostgroupSelectComponent],
+  directives: const [CORE_DIRECTIVES, formDirectives, dimeDirectives, CostgroupSelectComponent],
   pipes: const [DecimalPipe],
 )
 class InvoiceCostgroupOverviewComponent extends EntityOverview {

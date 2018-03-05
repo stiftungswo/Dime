@@ -5,7 +5,7 @@ import 'package:angular/angular.dart';
   selector: 'dime-button',
   template: """
     <span data-toggle="tooltip" title="{{tooltip}}" >
-      <button type="button" class="{{getClass()}}" [disabled]="!enabled" (click)='internalClick()'>
+      <button type="button" class="{{getClass()}}" [disabled]="!enabled" (click)='internalClick()' [style.color]='color'>
           <span *ngIf="glyphicon != null" class="glyphicon glyphicon-{{glyphicon}}"></span>
           <span *ngIf="fontAwesome != null" class="fa fa-{{fontAwesome}}"></span>
           <ng-content></ng-content>
@@ -32,6 +32,8 @@ class DimeButton {
   String primary = null;
   @Input()
   bool enabled = true;
+  @Input()
+  String color = null;
 
   getClass() {
     if (primary == null) {

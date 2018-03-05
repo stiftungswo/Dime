@@ -15,8 +15,9 @@
       </div>
       <div class="col-xs-1" style="margin: 0; padding: 0; width: 11%;">
         <button type="button" class="btn btn-default" (click)="nextWeek()"><span class="fa fa-caret-right"></span><span class="fa fa-caret-right"></span></button>
+        <button type="button" class="btn btn-default" (click)="nextWeek()"><span class="fa fa-caret-right"></span><span class="fa fa-caret-right"></span></button>
       </div>
-      <button type="button" class="btn btn-default" (click)="reloadEvict()"><span class="glyphicon glyphicon-refresh"></span></button>
+      <dime-button (click)="reloadEvict()" glyphicon="refresh"></dime-button>
     </div>
     <table class="table table-bordered table-hover form">
       <thead>
@@ -35,5 +36,5 @@
   </div>
 </div>
 <div class="DimeControlButtons">
-  <button type="button" class="btn btn-default" (click)="reloadEvict()"><span class="glyphicon glyphicon-refresh"></span></button>
+  <dime-button (click)="reloadEvict()" glyphicon="refresh"></dime-button>
 </div>

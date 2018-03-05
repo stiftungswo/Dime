@@ -3,7 +3,7 @@ part of entity_overview;
 @Component(
     selector: 'employee-overview',
     templateUrl: 'employee_overview.html',
-    directives: const [CORE_DIRECTIVES, formDirectives],
+    directives: const [CORE_DIRECTIVES, formDirectives, dimeDirectives],
     pipes: const [FilterPipe, OrderByPipe])
 class EmployeeOverviewComponent extends EntityOverview {
   EmployeeOverviewComponent(DataCache store, Router router, SettingsManager manager, StatusService status, UserAuthProvider auth,

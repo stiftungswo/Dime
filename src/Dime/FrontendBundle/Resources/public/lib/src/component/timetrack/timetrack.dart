@@ -14,6 +14,7 @@ import '../../service/status.dart';
 import '../../service/timetrack_service.dart';
 import '../../service/user_auth.dart';
 import '../../service/user_context.dart';
+import '../elements/dime_directives.dart';
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
 
@@ -26,7 +27,7 @@ part 'timetrack_periods.dart';
   PeriodOverviewComponent,
   TimesliceOverviewComponent,
   ProjectCommentOverviewComponent,
-  ErrorIconComponent
+  dimeDirectives
 ])
 class TimetrackComponent implements OnInit {
   UserContext context;

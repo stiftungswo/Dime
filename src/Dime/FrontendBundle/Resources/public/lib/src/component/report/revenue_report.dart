@@ -1,6 +1,6 @@
 part of dime_report;
 
-@Component(selector: 'revenue-report', templateUrl: 'revenue_report.html', directives: const [CORE_DIRECTIVES, DateRange])
+@Component(selector: 'revenue-report', templateUrl: 'revenue_report.html', directives: const [CORE_DIRECTIVES, dimeDirectives])
 class RevenueReportComponent implements OnInit {
   RevenueReportComponent(StatusService this.statusservice, this.http);
 

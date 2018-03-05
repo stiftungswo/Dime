@@ -3,7 +3,7 @@ part of entity_overview;
 @Component(
   selector: 'holiday-overview',
   templateUrl: 'holiday_overview.html',
-  directives: const [formDirectives, CORE_DIRECTIVES, ErrorIconComponent, DateToTextInput],
+  directives: const [formDirectives, CORE_DIRECTIVES, dimeDirectives],
 )
 class HolidayOverviewComponent extends EntityOverview {
   HolidayOverviewComponent(

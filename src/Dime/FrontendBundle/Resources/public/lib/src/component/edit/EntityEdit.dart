@@ -13,6 +13,7 @@ import '../../emailValidator.dart';
 import '../overview/entity_overview.dart';
 import '../select/entity_select.dart';
 import '../percent-input/percent_input.dart';
+import 'package:DimeClient/src/component/elements/dime_directives.dart';
 import 'package:DimeClient/src/service/http_service.dart';
 import 'dart:async';
 import 'dart:html';

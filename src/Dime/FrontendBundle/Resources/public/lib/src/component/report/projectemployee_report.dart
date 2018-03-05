@@ -3,7 +3,7 @@ part of dime_report;
 @Component(
     selector: 'projectemployee-report',
     templateUrl: 'projectemployee_report.html',
-    directives: const [CORE_DIRECTIVES, ProjectSelectComponent, DateRange],
+    directives: const [CORE_DIRECTIVES, ProjectSelectComponent, dimeDirectives],
     pipes: const [COMMON_PIPES])
 class ProjectemployeeReportComponent implements OnInit {
   ProjectemployeeReportComponent(StatusService this.statusservice, HttpService this.http);

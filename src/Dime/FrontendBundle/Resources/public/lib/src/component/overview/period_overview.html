@@ -27,7 +27,7 @@
         <input style="width: 50%;" class="form-control" type="text" [(ngModel)]="entity.lastYearHolidayBalance" (change)="addSaveField('lastYearHolidayBalance', entity)" />
         <label>&nbsp;h</label>
       </td>
-      <td class="hidden-xs"><button type="button" class="btn btn-default" (click)="deleteEntity(entity.id)"><i class="fa fa-fw fa-trash-o" style="color:red"></i></button></td>
+      <td class="hidden-xs"><dime-button (click)="deleteEntity(entity.id)" fontAwesome="trash-o" color="red"></dime-button></td>
     </tr>
   </tbody>
 </table>
@@ -35,8 +35,8 @@
   Keine Perioden
 </div>
 <div class="DimeControlButtons container-inline">
-  <button type="button" class="btn btn-primary" (click)="save()"><error-icon></error-icon></button>
-  <button type="button" class="btn btn-primary" (click)="createEntity()">Hinzufügen</button>
-  <button type="button" class="btn btn-default" (click)="duplicateEntity()">Duplizieren</button>
-  <button type="button" class="btn btn-default" (click)="reloadEvict()"><span class="glyphicon glyphicon-refresh"></span></button>
+  <dime-button primary (click)="save()"><error-icon></error-icon></dime-button>
+  <dime-button primary (click)="createEntity()" glyphicon="plus">Hinzufügen</dime-button>
+  <dime-button primary (click)="duplicateEntity()" fontAwesome="copy">Duplizieren</dime-button>
+  <dime-button (click)="reloadEvict()" glyphicon="refresh"></dime-button>
 </div>

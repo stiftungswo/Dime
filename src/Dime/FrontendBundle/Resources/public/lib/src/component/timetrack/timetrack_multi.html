@@ -56,12 +56,12 @@
           </div>
           <user-select class="col-sm-4 col-xs-8" [(selectedEntity)]="selectedUserToAdd"></user-select>
           <div class="col-sm-4 col-xs-4">
-            <button type="button" class="btn btn-default" (click)="addUser()">Hinzufügen</button>
+            <dime-button primary (click)="addUser()" glyphicon="plus"> Hinzufügen</dime-button>
           </div>
         </div>
         <div class="DimeControlButtons">
-          <button type="button" class="btn btn-primary" (click)="save()"><error-icon></error-icon></button>
-          <button type="button" class="btn btn-default" (click)="clearInputs()">Eingaben zurücksetzen</button>
+          <dime-button primary (click)="save()"><error-icon></error-icon></dime-button>
+          <dime-button (click)="clearInputs()" glyphicon="erase">Eingaben zurücksetzen</dime-button>
           <div class="text-green">{{statusText}}</div>
         </div>
       </div>

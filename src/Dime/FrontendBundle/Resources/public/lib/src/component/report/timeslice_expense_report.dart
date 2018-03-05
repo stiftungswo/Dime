@@ -3,7 +3,7 @@ part of dime_report;
 @Component(
     selector: 'timeslice-expensereport',
     templateUrl: 'timeslice_expense_report.html',
-    directives: const [CORE_DIRECTIVES, DateRange, UserSelectComponent, ProjectSelectComponent],
+    directives: const [CORE_DIRECTIVES, dimeDirectives, UserSelectComponent, ProjectSelectComponent],
     pipes: const [COMMON_PIPES])
 class TimesliceExpenseReportComponent extends EntityOverview {
   TimesliceExpenseReportComponent(DataCache store, SettingsManager manager, StatusService status, UserAuthProvider auth,

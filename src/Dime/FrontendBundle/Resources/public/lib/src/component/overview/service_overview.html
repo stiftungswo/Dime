@@ -40,8 +40,8 @@
           <td>{{entity.description|limitTo:100}}</td>
           <td>
             <div class="btn-group">
-              <button type="button" class="btn btn-default" (click)="openEditView(entity.id)"><i class="fa fa-fw fa-pencil"></i></button>
-              <button type="button" class="btn btn-default" (click)="deleteEntity(entity.id)"><i class="fa fa-fw fa-trash-o" style="color:red"></i></button>
+              <dime-button (click)="openEditView(entity.id)" fontAwesome="pencil"></dime-button>
+              <dime-button (click)="deleteEntity(entity.id)" fontAwesome="trash-o" color="red"></dime-button>
             </div>
           </td>
         </tr>
@@ -50,7 +50,7 @@
   </div>
 </div>
 <div class="DimeControlButtons">
-  <button type="button" class="btn btn-primary" (click)="createEntity()">Hinzufügen</button>
-  <button type="button" class="btn btn-primary" (click)="duplicateEntity()">Duplizieren</button>
-  <button type="button" class="btn btn-default" (click)="reloadEvict()"><span class="glyphicon glyphicon-refresh"></span></button>
+  <dime-button primary (click)="createEntity()" glyphicon="plus">Hinzufügen</dime-button>
+  <dime-button primary (click)="duplicateEntity()" fontAwesome="copy">Duplizieren</dime-button>
+  <dime-button (click)="reloadEvict()" glyphicon="refresh"></dime-button>
 </div>

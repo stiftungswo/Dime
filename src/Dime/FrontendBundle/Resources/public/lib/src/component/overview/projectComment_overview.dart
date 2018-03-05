@@ -3,7 +3,7 @@ part of entity_overview;
 @Component(
     selector: 'projectComment-overview',
     templateUrl: 'projectComment_overview.html',
-    directives: const [CORE_DIRECTIVES, formDirectives, DateToTextInput],
+    directives: const [CORE_DIRECTIVES, formDirectives, dimeDirectives],
     pipes: const [DIME_PIPES])
 class ProjectCommentOverviewComponent extends EntityOverview {
   ProjectCommentOverviewComponent(DataCache store, SettingsManager manager, StatusService status, UserAuthProvider auth,

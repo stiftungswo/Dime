@@ -6,12 +6,10 @@ part of entity_overview;
   directives: const [
     CORE_DIRECTIVES,
     formDirectives,
-    DateToTextInput,
+    dimeDirectives,
     UserSelectComponent,
     ProjectSelectComponent,
     ActivitySelectComponent,
-    DateRange,
-    DimeButton,
     SettingEditComponent
   ],
   pipes: const [DIME_PIPES, TimesliceDateFilterPipe],

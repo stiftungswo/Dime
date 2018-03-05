@@ -3,7 +3,7 @@ part of entity_overview;
 @Component(
   selector: 'invoicediscount-overview',
   templateUrl: 'invoicediscount_overview.html',
-  directives: const [CORE_DIRECTIVES, formDirectives, PercentageInputField],
+  directives: const [CORE_DIRECTIVES, formDirectives, dimeDirectives],
 )
 class InvoiceDiscountOverviewComponent extends EntityOverview {
   InvoiceDiscountOverviewComponent(DataCache store, SettingsManager manager, StatusService status, EntityEventsService entityEventsService)

@@ -3,7 +3,7 @@ part of entity_edit;
 @Component(
   selector: 'customer-edit',
   templateUrl: 'customer_edit.html',
-  directives: const [CORE_DIRECTIVES, formDirectives, ErrorIconComponent, RateGroupSelectComponent, AddressEditComponent],
+  directives: const [CORE_DIRECTIVES, formDirectives, dimeDirectives, RateGroupSelectComponent, AddressEditComponent],
 )
 class CustomerEditComponent extends EntityEdit {
   List<RateGroup> rateGroups;

@@ -3,7 +3,7 @@ part of entity_overview;
 @Component(
   selector: 'offer-overview',
   templateUrl: 'offer_overview.html',
-  directives: const [CORE_DIRECTIVES, formDirectives],
+  directives: const [CORE_DIRECTIVES, formDirectives, dimeDirectives],
   pipes: const [FilterPipe, OrderByPipe, LimitToPipe],
 )
 class OfferOverviewComponent extends EntityOverview {
