@@ -53,12 +53,4 @@ class MenuComponent {
       new Menu('Projekte Zuweisen', ['SettingAssignProjectOverview']),
     ]),
   ];
-
-  toggleMenu(Event event) {
-    // TODO: add slideDown/Up Animation
-    Node node = event.currentTarget;
-    node.parent.parent.classes.toggle('menu-open'); // ul element
-    node.parent.classes.toggle('active'); // li element
-    context['jQuery']['AdminLTE']['layout'].callMethod('fix');
-  }
 }

@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:angular/angular.dart';
 import '../timetrack/timetrack.dart';
 import 'package:angular_forms/angular_forms.dart';
@@ -68,8 +69,11 @@ class AppComponent implements AfterViewInit, OnInit {
 
   @override
   void ngAfterViewInit() {
-    context['jQuery']['AdminLTE']['pushMenu'].callMethod('activate', ["[data-toggle='offcanvas']"]);
-    context['jQuery']['AdminLTE']['layout'].callMethod('activate');
+    if (const bool.fromEnvironment("DEBUG")) {
+      //since the dev environment loads differently, we need to initialize adminLTE here.
+      //if it's included in index.html, it will fire to soon and find no elements to enhance
+      document.body.children.add(new ScriptElement()..src = "vendor/admin-lte/dist/js/app.js");
+    }
   }
 
   @override

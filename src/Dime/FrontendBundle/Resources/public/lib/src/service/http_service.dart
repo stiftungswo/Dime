@@ -39,7 +39,6 @@ class HttpService {
 }
 
 const httpBaseUrl = const OpaqueToken("http.base.url");
-const httpDefaultHeaders = const OpaqueToken("http.default.headers");
 
 String encodeQueryParams(Map<String, dynamic> params) {
   if (params.length == 0) {

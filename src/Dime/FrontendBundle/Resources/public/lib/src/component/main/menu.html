@@ -1,7 +1,7 @@
 <section class="sidebar">
   <ul class="sidebar-menu" *ngFor="let menu of menus">
     <li class="treeview">
-      <a (click)="toggleMenu($event)">
+      <a>
         <i [ngClass]="menu.icon" class="fa"></i>
         <span>{{menu.title}}</span>
         <i class="fa fa-angle-left pull-right"></i>

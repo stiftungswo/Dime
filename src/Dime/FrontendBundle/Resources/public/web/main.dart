@@ -35,7 +35,7 @@ void main() {
     customProviders.add(provide(LocationStrategy, useClass: HashLocationStrategy));
     customProviders.add(provide(httpBaseUrl, useValue: "http://localhost:3000/api/v1"));
   } else {
-    customProviders.add(provide(httpBaseUrl, useValue: "/api/v1"));
+    customProviders.add(provide(httpBaseUrl, useValue: "${window.location.protocol}//${window.location.host}/api/v1"));
   }
 
   Logger.root.onRecord.listen((LogRecord rec) {
