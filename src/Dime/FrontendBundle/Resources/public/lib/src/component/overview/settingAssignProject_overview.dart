@@ -10,7 +10,7 @@ class SettingAssignProjectOverviewComponent extends EntityOverview implements On
 
   List<SettingAssignProject> projectAssignments = [];
 
-  List projects = [];
+  List<Project> projects = [];
 
   @override
   void saveAllEntities() {

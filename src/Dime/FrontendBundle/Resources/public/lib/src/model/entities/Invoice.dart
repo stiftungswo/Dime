@@ -52,7 +52,7 @@ class Invoice extends Entity {
 
   Invoice.fromMap(Map<String, dynamic> map) : super.fromMap(map);
 
-  static List<Invoice> listFromMap(List content) {
+  static List<Invoice> listFromMap(List<Map<String, dynamic>> content) {
     List<Invoice> invoices = new List<Invoice>();
     for (var element in content) {
       Invoice invoice = new Invoice.fromMap(element);

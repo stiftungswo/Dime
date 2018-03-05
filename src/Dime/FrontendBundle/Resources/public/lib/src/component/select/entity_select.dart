@@ -33,7 +33,7 @@ class EntitySelect implements OnInit {
   bool open = false;
 
   Type type;
-  List<Entity> entities = [];
+  List entities = [];
   String selector = '';
   StatusService statusservice;
   UserAuthProvider auth;

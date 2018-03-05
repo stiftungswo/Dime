@@ -55,7 +55,7 @@ class InvoiceCostgroup extends Entity {
     }
   }
 
-  static List<InvoiceCostgroup> listFromMap(List content) {
+  static List<InvoiceCostgroup> listFromMap(List<Map<String, dynamic>> content) {
     List<InvoiceCostgroup> array = new List<InvoiceCostgroup>();
     for (var element in content) {
       array.add(new InvoiceCostgroup.fromMap(element));

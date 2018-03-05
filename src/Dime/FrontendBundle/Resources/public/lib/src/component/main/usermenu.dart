@@ -39,7 +39,7 @@ class UserMenu {
 
   userEditor() {
     router.navigate([
-      "employee_edit",
+      "EmployeeEdit",
       {'id': userContext.employee.id}
     ]);
   }

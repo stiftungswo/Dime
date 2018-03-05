@@ -9,7 +9,7 @@ class InvoiceBreakdown extends Entity {
 
   InvoiceBreakdown.fromMap(Map<String, dynamic> map) : super.fromMap(map);
 
-  static List<InvoiceBreakdown> listFromMap(List content) {
+  static List<InvoiceBreakdown> listFromMap(List<Map<String, dynamic>> content) {
     List<InvoiceBreakdown> invoices = new List<InvoiceBreakdown>();
     for (var element in content) {
       InvoiceBreakdown invoice = new InvoiceBreakdown.fromMap(element);
@@ -68,10 +68,10 @@ class InvoiceBreakdown extends Entity {
       case 'vatSplit':
         if (value is Map<String, dynamic>) {
           this.vatSplit = new Map.fromIterables(value.keys.map((key) => double.parse(key)), value.values.map((val) => double.parse(val)));
-        } else if (value is List<String> && value.length == 1) {
+        } else if (value is List<dynamic> && value.length == 1) {
           this.vatSplit = {0.0: double.parse(value[0])};
         } else {
-          this.vatSplit = value;
+          this.vatSplit = {};
         }
         break;
       default:

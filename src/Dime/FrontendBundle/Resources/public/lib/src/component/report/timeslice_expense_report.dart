@@ -98,6 +98,6 @@ class TimesliceExpenseReportComponent extends EntityOverview {
         }
       }
     }
-    window.open('/api/v1/reports/expenses/print${paramString}', 'Expense Report Print');
+    window.open('http://localhost:3000/api/v1/reports/expenses/print${paramString}', 'Expense Report Print');
   }
 }

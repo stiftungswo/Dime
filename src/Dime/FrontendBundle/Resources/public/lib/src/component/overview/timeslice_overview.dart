@@ -14,7 +14,7 @@ part of entity_overview;
     DimeButton,
     SettingEditComponent
   ],
-  pipes: const [DIME_PIPES],
+  pipes: const [DIME_PIPES, TimesliceDateFilterPipe],
 )
 class TimesliceOverviewComponent extends EntityOverview {
   Employee _employee;
@@ -207,7 +207,7 @@ class TimesliceOverviewComponent extends EntityOverview {
   createEntity({dynamic newEnt, Map<String, dynamic> params: const {}}) async {
     if (!(this.selectedProject is Project)) return;
     Timeslice slice = new Timeslice();
-    List names = ['value'];
+    List<String> names = ['value'];
     for (var name in names) {
       Setting settingForName;
       try {
@@ -266,9 +266,9 @@ class TimesliceOverviewComponent extends EntityOverview {
       relevantSlices.sort((x, y) => x.startedAt.compareTo(y.startedAt));
 
       if (relevantSlices.length > 0) {
-        this._newEntryDate = relevantSlices.last.startedAt;
+        this.newEntryDate = relevantSlices.last.startedAt;
       } else {
-        this._newEntryDate = new DateTime.now();
+        this.newEntryDate = new DateTime.now();
       }
     }
   }
@@ -335,7 +335,7 @@ class TimesliceOverviewComponent extends EntityOverview {
     this.activities = (await this.store.list(Activity)).toList();
     this.employees = (await this.store.list(Employee, params: {"enabled": 1})).toList();
     this.employee = this.context.employee;
-    List projects = await this.store.list(Project);
+    List<Project> projects = await this.store.list(Project);
 
     try {
       this.settingselectedProject = settingsManager.getOneSetting('/usr/timeslice', 'chosenProject');
@@ -386,10 +386,8 @@ class TimesliceOverviewComponent extends EntityOverview {
 
     //FIXME don't hardcode base url; extract a HTTP Service
     //httpService.request("projects/${this.moveTargetProject.id}/timeslices", method: "PUT", sendData: body)
-    HttpRequest
-        .request("http://localhost:3000/projects/${this.moveTargetProject.id}/timeslices",
-            method: 'PUT', withCredentials: true, sendData: body)
-        .then((_) {
+    HttpRequest.request("http://localhost:3000/api/v1/projects/${this.moveTargetProject.id}/timeslices",
+        method: 'PUT', withCredentials: true, sendData: body, requestHeaders: {'Content-Type': 'application/json;charset=UTF-8'}).then((_) {
       reload();
       selectedTimeslices.clear();
       moveDialogVisible = false;
@@ -402,5 +400,28 @@ class TimesliceOverviewComponent extends EntityOverview {
     if (event.target.nodeName == "TD") {
       toggleTimeslice(timeslice);
     }
+  }
+}
+
+@Pipe('timeslicedatefilter', pure: false)
+class TimesliceDateFilterPipe implements PipeTransform {
+  transform(List<Timeslice> values, DateTime start, DateTime end) {
+    if ((start is DateTime || end is DateTime) && values != null) {
+      if (end != null) {
+        // set end date to end of day to include entries of the last day
+        end = end.add(new Duration(hours: 23, minutes: 59));
+      }
+      if (start is DateTime && end == null) {
+        //Only Show Timeslices that begin after start
+        return values.where((i) => i.startedAt.isAfter(start)).toList();
+      } else if (end is DateTime && start == null) {
+        //Only Show Timeslices that end before end
+        return values.where((i) => i.startedAt.isBefore(end)).toList();
+      } else if (start is DateTime && end is DateTime) {
+        //Show Timeslices that startedAt between start and end
+        return values.where((i) => (i.startedAt.isAfter(start) && i.startedAt.isBefore(end))).toList();
+      }
+    }
+    return const [];
   }
 }

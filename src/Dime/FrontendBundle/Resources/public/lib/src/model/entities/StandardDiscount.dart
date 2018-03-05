@@ -57,7 +57,7 @@ class StandardDiscount extends Entity {
     }
   }
 
-  static List<StandardDiscount> listFromMap(List content) {
+  static List<StandardDiscount> listFromMap(List<Map<String, dynamic>> content) {
     List<StandardDiscount> array = new List<StandardDiscount>();
     for (var element in content) {
       array.add(new StandardDiscount.fromMap(element));
@@ -65,8 +65,8 @@ class StandardDiscount extends Entity {
     return array;
   }
 
-  static List MapFromList(List<StandardDiscount> discounts) {
-    List result = new List();
+  static List<Map<String, dynamic>> MapFromList(List<StandardDiscount> discounts) {
+    List<Map<String, dynamic>> result = new List();
     for (var element in discounts) {
       result.add(element.toMap());
     }

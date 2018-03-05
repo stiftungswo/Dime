@@ -99,7 +99,7 @@ class Period extends Entity {
     }
   }
 
-  static List<Period> listFromResource(List content) {
+  static List<Period> listFromResource(List<Map<String, dynamic>> content) {
     List<Period> array = new List<Period>();
     for (var element in content) {
       Period t = new Period.fromMap(element);

@@ -50,7 +50,7 @@ class Holiday extends Entity {
     }
   }
 
-  static List<Holiday> listFromResource(List content) {
+  static List<Holiday> listFromResource(List<Map<String, dynamic>> content) {
     List<Holiday> array = new List<Holiday>();
     for (var element in content) {
       Holiday t = new Holiday.fromMap(element);

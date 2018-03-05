@@ -71,7 +71,7 @@ class Timeslice extends Entity {
     return double.parse(this.value.replaceAll('h', ''));
   }
 
-  static List<Timeslice> listFromMap(List content) {
+  static List<Timeslice> listFromMap(List<Map<String, dynamic>> content) {
     List<Timeslice> timeslices = new List<Timeslice>();
     for (var element in content) {
       Timeslice t = new Timeslice.fromMap(element);

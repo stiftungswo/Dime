@@ -51,7 +51,7 @@ class Offer extends Entity {
 
   Offer.fromMap(Map<String, dynamic> map) : super.fromMap(map);
 
-  static List<Offer> listFromMap(List content) {
+  static List<Offer> listFromMap(List<Map<String, dynamic>> content) {
     List<Offer> offers = new List<Offer>();
     for (var element in content) {
       Offer offer = new Offer.fromMap(element);

@@ -15,7 +15,7 @@
       <tbody>
         <tr *ngFor="let entity of entities" (click)="selectEntity(entity.id)" [class.info]="isSelected(entity)">
           <td><input class="form-control" type="text" [(ngModel)]="entity.name" (change)="addSaveField('name', entity)"/></td>
-          <td *ngIf="!entity.percentage"><input class="form-control" type="text" [(ngModel)]="entity.value" (change)="addSaveField('value', entity)"/></td>
+          <td *ngIf="!entity.percentage"><input class="form-control" type="number" [(ngModel)]="entity.value" (change)="addSaveField('value', entity)"/></td>
           <td *ngIf="entity.percentage"><input-percentage [safecalc]="false" [htmlclass]="'form-control'" [(value)]="entity.value" (change)="addSaveField('value', entity)"></input-percentage></td>
           <td><input class="checkbox" type="checkbox" [(ngModel)]="entity.percentage" (change)="addSaveField('percentage', entity)"/></td>
           <td><button type="button" class="btn btn-default" (click)="deleteEntity(entity.id)"><i class="fa fa-fw fa-trash-o" style="color:red"></i></button></td>

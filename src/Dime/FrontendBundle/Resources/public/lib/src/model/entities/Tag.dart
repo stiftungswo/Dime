@@ -10,7 +10,7 @@ class Tag extends Entity {
 
   Tag.fromMap(Map<String, dynamic> map) : super.fromMap(map);
 
-  static List<Tag> listFromMap(List content) {
+  static List<Tag> listFromMap(List<Map<String, dynamic>> content) {
     List<Tag> array = new List<Tag>();
     for (var element in content) {
       array.add(new Tag.fromMap(element));

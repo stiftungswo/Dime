@@ -34,8 +34,6 @@ class PeriodOverviewComponent extends EntityOverview {
 
   List entities = [];
 
-  List holidayBalances = [];
-
   Employee _employee;
 
   bool needsmanualAdd = true;
@@ -58,8 +56,7 @@ class PeriodOverviewComponent extends EntityOverview {
 
   reload({Map<String, dynamic> params, bool evict: false}) async {
     this.entities = [];
-    this.holidayBalances = [];
-    List takenHolidays = [];
+    List<dynamic> takenHolidays = [];
     this.statusservice.setStatusToLoading();
     try {
       if (evict) {
@@ -107,7 +104,7 @@ class PeriodOverviewComponent extends EntityOverview {
     }
   }
 
-  getHolidayBalance(List takenHolidays, double employeeholiday) {
+  getHolidayBalance(List<dynamic> takenHolidays, double employeeholiday) {
     double holidayBalance = 0.0;
     for (final i in takenHolidays) {
       holidayBalance += double.parse(i.values.elementAt(0));

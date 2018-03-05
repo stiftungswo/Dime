@@ -21,7 +21,7 @@ class OfferDiscount extends StandardDiscount {
     return new OfferDiscount();
   }
 
-  static List<OfferDiscount> listFromMap(List content) {
+  static List<OfferDiscount> listFromMap(List<Map<String, dynamic>> content) {
     List<OfferDiscount> array = new List<OfferDiscount>();
     for (var element in content) {
       array.add(new OfferDiscount.fromMap(element));

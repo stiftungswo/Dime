@@ -114,7 +114,7 @@ class OfferPosition extends Entity {
     }
   }
 
-  static List<OfferPosition> listFromMap(List content) {
+  static List<OfferPosition> listFromMap(List<Map<String, dynamic>> content) {
     List<OfferPosition> array = new List<OfferPosition>();
     for (var element in content) {
       array.add(new OfferPosition.fromMap(element));
@@ -139,7 +139,7 @@ class OfferPosition extends Entity {
   String calculatedVAT;
   Service service;
   int order = 0;
-  int amount;
+  num amount;
   String rateValue;
   String rateUnit;
   RateUnitType rateUnitType;

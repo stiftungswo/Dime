@@ -11,6 +11,9 @@ import 'package:angular_forms/angular_forms.dart';
   directives: const [CORE_DIRECTIVES, formDirectives, DateToTextInput],
 )
 class DateRange implements OnChanges {
+  // todo: this component doesnt work with empty fields
+  // the user has to fill it in to use it
+
   //start date
   DateTime _startDate;
 

@@ -19,7 +19,7 @@ class RateUnitTypeOverviewComponent extends EntityOverview {
 
   createEntity({dynamic newEnt, Map<String, dynamic> params: const {}}) async {
     RateUnitType rateType = cEnt();
-    List names = ['id', 'name'];
+    List<String> names = ['id', 'name'];
     for (var name in names) {
       Setting settingForName;
       try {

@@ -141,6 +141,6 @@ class OfferEditComponent extends EntityEdit {
   }
 
   printOffer() {
-    window.open('/api/v1/offers/${this.entity.id}/print', 'Offer Print');
+    window.open('http://localhost:3000/api/v1/offers/${this.entity.id}/print', 'Offer Print');
   }
 }

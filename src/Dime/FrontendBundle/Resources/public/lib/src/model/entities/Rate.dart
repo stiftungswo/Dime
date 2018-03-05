@@ -69,7 +69,7 @@ class Rate extends Entity {
     }
   }
 
-  static List<Rate> listFromResource(List content) {
+  static List<Rate> listFromResource(List<Map<String, dynamic>> content) {
     List<Rate> array = new List<Rate>();
     for (var element in content) {
       Rate t = new Rate.fromMap(element);

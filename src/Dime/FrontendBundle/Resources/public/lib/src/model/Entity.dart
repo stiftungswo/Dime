@@ -104,9 +104,9 @@ class Entity {
 
   cloneDescendants(Entity original) {}
 
-  List _descendantsToUpdate = [];
+  List<Entity> _descendantsToUpdate = [];
 
-  List get descendantsToUpdate => _descendantsToUpdate;
+  List<Entity> get descendantsToUpdate => _descendantsToUpdate;
 
   var id;
   List<String> _toUpdate = [];

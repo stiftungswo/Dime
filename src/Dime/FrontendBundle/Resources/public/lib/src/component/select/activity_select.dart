@@ -44,7 +44,7 @@ class ActivitySelectComponent extends EntitySelect implements OnChanges {
     }
   }
 
-  onChange(List oldList, List newList) {
+  onChange(List<Activity> oldList, List<Activity> newList) {
     if (this.entities != null && this.entities.length == 0 && newList != null && newList.length > 0) {
       reload();
     }

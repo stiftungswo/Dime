@@ -12,9 +12,9 @@ class ServicehoursReportComponent implements OnInit {
 
   DateTime filterEndDate;
 
-  List entries;
+  List<dynamic> entries;
 
-  Map total;
+  Map<String, dynamic> total;
 
   Type type;
 

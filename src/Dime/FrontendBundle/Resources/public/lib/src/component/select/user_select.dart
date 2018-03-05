@@ -31,7 +31,7 @@ class UserSelectComponent extends EntitySelect implements OnChanges {
     }
   }
 
-  onChange(List oldList, List newList) {
+  onChange(List<Employee> oldList, List<Employee> newList) {
     if (this.entities != null && this.entities.length == 0 && newList != null && newList.length > 0) {
       reload();
     }

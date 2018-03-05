@@ -45,7 +45,7 @@ class InvoiceDiscount extends StandardDiscount {
     }
   }
 
-  static List<InvoiceDiscount> listFromMap(List content) {
+  static List<InvoiceDiscount> listFromMap(List<Map<String, dynamic>> content) {
     List<InvoiceDiscount> array = new List<InvoiceDiscount>();
     for (var element in content) {
       array.add(new InvoiceDiscount.fromMap(element));

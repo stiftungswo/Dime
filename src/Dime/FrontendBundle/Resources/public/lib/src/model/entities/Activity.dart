@@ -117,7 +117,7 @@ class Activity extends Entity {
     }
   }
 
-  static List<Activity> listFromMap(List content) {
+  static List<Activity> listFromMap(List<Map<String, dynamic>> content) {
     List<Activity> activities = new List<Activity>();
     for (var element in content) {
       Activity a = new Activity.fromMap(element);

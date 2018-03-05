@@ -51,7 +51,7 @@ class SettingAssignProject extends Entity {
     }
   }
 
-  static List<SettingAssignProject> listFromMap(List content) {
+  static List<SettingAssignProject> listFromMap(List<Map<String, dynamic>> content) {
     List<SettingAssignProject> settingAssignProject = new List<SettingAssignProject>();
     for (var element in content) {
       SettingAssignProject a = new SettingAssignProject.fromMap(element);

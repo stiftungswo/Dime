@@ -95,7 +95,7 @@ class InvoiceItem extends Entity {
     }
   }
 
-  static List<InvoiceItem> listFromMap(List content) {
+  static List<InvoiceItem> listFromMap(List<Map<String, dynamic>> content) {
     List<InvoiceItem> array = new List<InvoiceItem>();
     for (var element in content) {
       array.add(new InvoiceItem.fromMap(element));
