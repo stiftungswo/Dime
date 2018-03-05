@@ -14,43 +14,35 @@ import '../../model/Menu.dart';
 class MenuComponent {
   List<Menu> menus = [
     new Menu.withItems('Zeiterfassung', 'fa-clock-o', [
-      new Menu('Erfassen', ['Timetrack']),
-      new Menu('Mehrfach Erfassen', ['TimetrackMulti']),
-      new Menu('Stundensaldos', ['TimetrackPeriods'])
+      new Menu.child('Erfassen', ['Timetrack']),
+      new Menu.child('Mehrfach Erfassen', ['TimetrackMulti']),
+      new Menu.child('Stundensaldos', ['TimetrackPeriods'])
     ]),
-    new Menu.withItems('Offerten', 'fa-file-text', [
-      new Menu('Übersicht', ['OfferOverview'])
-    ]),
+    new Menu.single('Offerten', 'fa-file-text', ['OfferOverview']),
     new Menu.withItems('Projekte', 'fa-tree', [
-      new Menu('Übersicht', ['ProjectOverview']),
-      new Menu('Offene Rechnungen', ['ProjectOpenInvoices']),
-      new Menu('Zeiterfassung', ['ProjectTimetrack']),
+      new Menu.child('Übersicht', ['ProjectOverview']),
+      new Menu.child('Offene Rechnungen', ['ProjectOpenInvoices']),
+      new Menu.child('Zeiterfassung', ['ProjectTimetrack']),
     ]),
-    new Menu.withItems('Rechnungen', 'fa-calculator', [
-      new Menu('Übersicht', ['InvoiceOverview'])
-    ]),
-    new Menu.withItems('Kunden', 'fa-users', [
-      new Menu('Übersicht', ['CustomerOverview'])
-    ]),
-    new Menu.withItems('Mitarbeiter', 'fa-user', [
-      new Menu('Übersicht', ['EmployeeOverview'])
-    ]),
+    new Menu.single('Rechnungen', 'fa-calculator', ['InvoiceOverview']),
+    new Menu.single('Kunden', 'fa-users', ['CustomerOverview']),
+    new Menu.single('Mitarbeiter', 'fa-user', ['EmployeeOverview']),
     new Menu.withItems('Rapporte', 'fa-bar-chart', [
-      new Menu('Wochen', ['ReportWeekly']),
-      new Menu('Aufwand', ['ReportExpense']),
-      new Menu('Projektaufwände', ['ReportProjectEmployee']),
-      new Menu('Services', ['ReportServiceHours']),
-      new Menu('Umsatz', ['ReportRevenue'])
+      new Menu.child('Wochen', ['ReportWeekly']),
+      new Menu.child('Aufwand', ['ReportExpense']),
+      new Menu.child('Projektaufwände', ['ReportProjectEmployee']),
+      new Menu.child('Services', ['ReportServiceHours']),
+      new Menu.child('Umsatz', ['ReportRevenue'])
     ]),
     new Menu.withItems('Stammdaten', 'fa-database', [
-      new Menu('Services', ['ServiceOverview']),
-      new Menu('Tarif Gruppen', ['RateGroupOverview']),
-      new Menu('Tarif Typen', ['RateUnitTypeOverview']),
-      new Menu('Feiertage', ['HolidayOverview']),
-      new Menu('Tätigkeitsbereiche', ['ProjectCategoryOverview'])
+      new Menu.child('Services', ['ServiceOverview']),
+      new Menu.child('Tarif Gruppen', ['RateGroupOverview']),
+      new Menu.child('Tarif Typen', ['RateUnitTypeOverview']),
+      new Menu.child('Feiertage', ['HolidayOverview']),
+      new Menu.child('Tätigkeitsbereiche', ['ProjectCategoryOverview'])
     ]),
     new Menu.withItems('Einstellungen', 'fa-cog', [
-      new Menu('Projekte Zuweisen', ['SettingAssignProjectOverview']),
+      new Menu.child('Projekte Zuweisen', ['SettingAssignProjectOverview']),
     ]),
   ];
 }

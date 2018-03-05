@@ -1,6 +1,6 @@
 <section class="sidebar">
   <ul class="sidebar-menu" *ngFor="let menu of menus">
-    <li class="treeview">
+    <li class="treeview" *ngIf="menu.items.length > 0">
       <a>
         <i [ngClass]="menu.icon" class="fa"></i>
         <span>{{menu.title}}</span>
@@ -11,6 +11,12 @@
           <a [routerLink]="item.link">{{item.title}}</a>
         </li>
       </ul>
+    </li>
+    <li *ngIf="menu.items.length == 0">
+      <a [routerLink]="menu.link">
+        <i [ngClass]="menu.icon" class="fa"></i>
+        <span>{{menu.title}}</span>
+      </a>
     </li>
   </ul>
 </section>
