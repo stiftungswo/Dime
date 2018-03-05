@@ -2,7 +2,7 @@
   <h2 class="page-header">{{entity.name}}&nbsp;</h2>
   <div class ="nav-tabs-custom">
     <ul class="nav nav-tabs">
-      <template [ngIf]="!entity.project.offers.isEmpty" >
+      <template [ngIf]="entity.project != null && !entity.project.offers.isEmpty" >
         <li *ngFor="let offer of entity.project.offers"><a data-toggle="tab" (click)="openOffer(offer.id)">Offerte {{offer.id}}</a></li>
       </template>
       <li *ngIf="entity.project != null"><a data-toggle="tab" (click)="openProject()">Projekt {{entity.project.id}}</a></li>
