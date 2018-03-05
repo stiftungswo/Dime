@@ -16,9 +16,11 @@ class WeekReportDayEntry {
     directives: const [CORE_DIRECTIVES, DateToTextInput],
     pipes: const [COMMON_PIPES])
 class TimesliceWeeklyReportComponent extends EntityOverview {
-  TimesliceWeeklyReportComponent(
-      DataCache store, SettingsManager manager, StatusService status, UserAuthProvider auth, EntityEventsService entityEventsService)
+  TimesliceWeeklyReportComponent(DataCache store, SettingsManager manager, StatusService status, UserAuthProvider auth,
+      EntityEventsService entityEventsService, this.http)
       : super(ExpenseReport, store, '', manager, status, entityEventsService, auth: auth);
+
+  HttpService http;
 
   DateTime filterStartDate = new DateTime(new DateTime.now().year, new DateTime.now().month, new DateTime.now().day);
 
@@ -106,7 +108,7 @@ class TimesliceWeeklyReportComponent extends EntityOverview {
           this.type,
           new CustomRequestParams(params: {
             'date': '${format.format(filterStartDate)},${format.format(filterEndDate)}',
-          }, method: 'GET', url: 'http://localhost:3000/api/v1/reports/ziviweekly'))); //FIXME don't hardcode this
+          }, method: 'GET', url: '${http.baseUrl}/reports/ziviweekly')));
       this.statusservice.setStatusToSuccess();
       //this.rootScope.emit(this.type.toString() + 'Loaded');
     } catch (e, stack) {

@@ -21,8 +21,10 @@ class ProjectEditComponent extends EntityEdit {
 
   List<RateGroup> rateGroups;
 
+  HttpService http;
+
   ProjectEditComponent(RouteParams routeProvider, DataCache store, StatusService status, UserAuthProvider auth, Router router,
-      EntityEventsService entityEventsService)
+      EntityEventsService entityEventsService, this.http)
       : super(routeProvider, store, Project, status, auth, router, entityEventsService);
 
   @override
@@ -66,8 +68,9 @@ class ProjectEditComponent extends EntityEdit {
 
   createInvoice() async {
     if (await saveEntity()) {
-      var newInvoice = await this.store.customQueryOne(
-          Invoice, new CustomRequestParams(method: 'GET', url: 'http://localhost:3000/api/v1/invoices/project/${this.entity.id}'));
+      var newInvoice = await this
+          .store
+          .customQueryOne(Invoice, new CustomRequestParams(method: 'GET', url: '${http.baseUrl}/invoices/project/${this.entity.id}'));
       entity.invoices.add(newInvoice);
       this.store.evict(Invoice, true);
       router.navigate([

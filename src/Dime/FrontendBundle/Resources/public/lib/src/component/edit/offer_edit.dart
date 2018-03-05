@@ -30,8 +30,10 @@ class OfferEditComponent extends EntityEdit {
 
   Project project;
 
+  HttpService http;
+
   OfferEditComponent(RouteParams routeProvider, DataCache store, StatusService status, UserAuthProvider auth, Router router,
-      EntityEventsService entityEventsService)
+      EntityEventsService entityEventsService, this.http)
       : super(routeProvider, store, Offer, status, auth, router, entityEventsService);
 
   @override
@@ -96,8 +98,9 @@ class OfferEditComponent extends EntityEdit {
 
   createProject() async {
     if (await saveEntity()) {
-      var newProject = (await this.store.customQueryOne(
-          Project, new CustomRequestParams(method: 'GET', url: 'http://localhost:3000/api/v1/projects/offer/${this.entity.id}')));
+      var newProject = (await this
+          .store
+          .customQueryOne(Project, new CustomRequestParams(method: 'GET', url: '${http.baseUrl}/projects/offer/${this.entity.id}')));
       this.store.evict(Project, true);
       this.statusservice.setStatusToSuccess();
       entity.project = newProject;
@@ -118,7 +121,7 @@ class OfferEditComponent extends EntityEdit {
   createInvoice() async {
     if (await saveEntity()) {
       var newInvoice = await this.store.customQueryOne(
-          Invoice, new CustomRequestParams(method: 'GET', url: 'http://localhost:3000/api/v1/invoices/project/${this.entity.project.id}'));
+          Invoice, new CustomRequestParams(method: 'GET', url: '${http.baseUrl}/invoices/project/${this.entity.project.id}'));
       entity.project.invoices.add(newInvoice);
       this.store.evict(Invoice, true);
       router.navigate([
@@ -141,6 +144,6 @@ class OfferEditComponent extends EntityEdit {
   }
 
   printOffer() {
-    window.open('http://localhost:3000/api/v1/offers/${this.entity.id}/print', 'Offer Print');
+    window.open('${http.baseUrl}/offers/${this.entity.id}/print', 'Offer Print');
   }
 }

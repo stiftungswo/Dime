@@ -7,8 +7,10 @@ part of entity_overview;
     pipes: const [DIME_PIPES])
 class PeriodOverviewComponent extends EntityOverview {
   PeriodOverviewComponent(
-      DataCache store, SettingsManager manager, StatusService status, this.context, EntityEventsService entityEventsService)
+      DataCache store, SettingsManager manager, StatusService status, this.context, EntityEventsService entityEventsService, this.http)
       : super(Period, store, '', manager, status, entityEventsService);
+
+  HttpService http;
 
   cEnt({Entity entity}) {
     if (entity != null) {
@@ -67,17 +69,8 @@ class PeriodOverviewComponent extends EntityOverview {
 
       for (int i = 0; i < this.entities.length; i++) {
         Period entity = this.entities.elementAt(i);
-        String dateparams = '&date=' +
-            new DateFormat('y-MM-dd').format(entity.start) +
-            ',' +
-            new DateFormat('y-MM-dd').format(entity.end) +
-            '&employee=' +
-            employee.id.toString();
-
-        //FIXME: don't hardcode base url
-        await HttpRequest
-            .getString('http://localhost:3000/api/v1/periods/holidaybalance?_format=json' + dateparams, withCredentials: true)
-            .then((result) {
+        await http.get('periods/holidaybalance',
+            queryParams: {"_format": "json", "date": encodeDateRange(entity.start, entity.end), "employee": employee.id}).then((result) {
           // check if entities are still set
           if (this.entities.length > i) {
             dynamic data = JSON.decode(result);

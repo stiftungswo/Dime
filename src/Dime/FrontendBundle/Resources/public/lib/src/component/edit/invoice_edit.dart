@@ -18,10 +18,11 @@ part of entity_edit;
 )
 class InvoiceEditComponent extends EntityEdit {
   InvoiceEditComponent(RouteParams routeProvider, DataCache store, StatusService status, UserAuthProvider auth, Router router,
-      EntityEventsService entityEventsService)
+      EntityEventsService entityEventsService, this.http)
       : super(routeProvider, store, Invoice, status, auth, router, entityEventsService);
 
   Project project;
+  HttpService http;
 
   @ViewChild('invoiceitemOverview')
   InvoiceItemOverviewComponent invoiceitem_overview;
@@ -33,14 +34,14 @@ class InvoiceEditComponent extends EntityEdit {
 
   printInvoice() {
     if (costgroupsValid) {
-      window.open('http://localhost:3000/api/v1/invoices/${this.entity.id}/print', 'Invoice Print');
+      window.open('${http.baseUrl}/invoices/${this.entity.id}/print', 'Invoice Print');
     } else {
       window.alert("Kostenstellen sind ungültig.");
     }
   }
 
   printAufwandsbericht() {
-    window.open('http://localhost:3000/api/v1/reports/expenses/print?project=${this.entity.project.id}', 'Aufwandsbericht');
+    window.open('${http.baseUrl}/reports/expenses/print?project=${this.entity.project.id}', 'Aufwandsbericht');
   }
 
   @override
@@ -76,11 +77,13 @@ class InvoiceEditComponent extends EntityEdit {
     }
   }
 
+  //TODO: make a confirmation prompt for this, as it is a quite destructive operation
   updateInvoicefromProject() async {
     this.statusservice.setStatusToLoading();
     try {
-      this.entity = (await this.store.customQueryOne(
-          Invoice, new CustomRequestParams(method: 'GET', url: 'http://localhost:3000/api/v1/invoices/${this.entity.id}/update')));
+      this.entity = (await this
+          .store
+          .customQueryOne(Invoice, new CustomRequestParams(method: 'GET', url: '${http.baseUrl}/invoices/${this.entity.id}/update')));
       this.statusservice.setStatusToSuccess();
       this.invoiceitem_overview.reload(evict: true);
     } catch (e, stack) {
@@ -109,9 +112,11 @@ class InvoiceEditComponent extends EntityEdit {
     ]);
   }
 
+  //TODO: this might be dead code (from copy/paste). Creating an invoice form an invoice doesn't make too much sense.
   createInvoice() async {
-    var newInvoice = await this.store.customQueryOne(
-        Invoice, new CustomRequestParams(method: 'GET', url: 'http://localhost:3000/api/v1/invoices/project/${project.id}'));
+    var newInvoice = await this
+        .store
+        .customQueryOne(Invoice, new CustomRequestParams(method: 'GET', url: '${http.baseUrl}/invoices/project/${project.id}'));
     project.invoices.add(newInvoice);
     this.store.evict(Invoice, true);
     router.navigate([

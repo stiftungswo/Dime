@@ -1,5 +1,6 @@
 //library dime.user.auth;
 
+import 'http_service.dart';
 import 'package:angular/angular.dart';
 import '../model/Entity.dart';
 import 'package:hammock/hammock.dart';
@@ -21,6 +22,7 @@ class UserAuthProvider {
   List<Function> loginsuccesscallbacks = [];
   bool isloggedin = false;
   bool showlogin = false;
+  HttpService http;
 
   set authHeader(String authToken) {
     if (authToken == null) {
@@ -62,14 +64,13 @@ class UserAuthProvider {
     }
   }
 
-  UserAuthProvider(this.store, this.headers, this.manager, this.context, this.statusservice);
+  UserAuthProvider(this.store, this.headers, this.manager, this.context, this.statusservice, this.http);
 
   Future<Employee> loadUserData() async {
     this.statusservice.setStatusToLoading();
     try {
-      Employee result = (await this
-          .store
-          .customQueryOne(Employee, new CustomRequestParams(method: 'GET', url: 'http://localhost:3000/api/v1/employees/current')));
+      Employee result =
+          (await this.store.customQueryOne(Employee, new CustomRequestParams(method: 'GET', url: '${http.baseUrl}/employees/current')));
       this.context.switchContext(result);
       await manager.loadUserSettings(result.id);
       this.statusservice.setStatusToSuccess();

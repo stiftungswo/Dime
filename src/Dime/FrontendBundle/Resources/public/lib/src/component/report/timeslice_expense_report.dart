@@ -6,9 +6,11 @@ part of dime_report;
     directives: const [CORE_DIRECTIVES, DateRange, UserSelectComponent, ProjectSelectComponent],
     pipes: const [COMMON_PIPES])
 class TimesliceExpenseReportComponent extends EntityOverview {
-  TimesliceExpenseReportComponent(
-      DataCache store, SettingsManager manager, StatusService status, UserAuthProvider auth, EntityEventsService entityEventsService)
+  TimesliceExpenseReportComponent(DataCache store, SettingsManager manager, StatusService status, UserAuthProvider auth,
+      EntityEventsService entityEventsService, this.http)
       : super(ExpenseReport, store, '', manager, status, entityEventsService, auth: auth);
+
+  HttpService http;
 
   Project _project;
 
@@ -51,7 +53,7 @@ class TimesliceExpenseReportComponent extends EntityOverview {
               'project': _project != null ? _project.id : null,
               'employee': _employee != null ? _employee.id : null,
               'date': dateparam != null ? dateparam : null
-            }, method: 'GET', url: 'http://localhost:3000/api/v1/reports/expense'))); //FIXME don't hardcode
+            }, method: 'GET', url: '${http.baseUrl}/reports/expense')));
         this.statusservice.setStatusToSuccess();
         //this.rootScope.emit(this.type.toString() + 'Loaded');
       } catch (e, stack) {
@@ -98,6 +100,6 @@ class TimesliceExpenseReportComponent extends EntityOverview {
         }
       }
     }
-    window.open('http://localhost:3000/api/v1/reports/expenses/print${paramString}', 'Expense Report Print');
+    window.open('${http.baseUrl}/reports/expenses/print${paramString}', 'Expense Report Print');
   }
 }

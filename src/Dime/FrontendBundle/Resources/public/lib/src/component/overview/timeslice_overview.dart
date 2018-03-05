@@ -21,6 +21,8 @@ class TimesliceOverviewComponent extends EntityOverview {
 
   UserContext context;
 
+  HttpService http;
+
   @Input("filterByUser")
   set employee(Employee employee) {
     if (employee.id == null || (this._employee != null && this._employee.id == employee.id)) {
@@ -143,7 +145,7 @@ class TimesliceOverviewComponent extends EntityOverview {
   static const String FORMDATA_CHANGE_EVENT_NAME = 'FORMDATA_CHANGE_EVENT_NAME';
 
   TimesliceOverviewComponent(DataCache store, SettingsManager manager, StatusService status, this.context, UserAuthProvider auth,
-      EntityEventsService entityEventsService, this.timetrackService)
+      EntityEventsService entityEventsService, this.timetrackService, this.http)
       : super(Timeslice, store, '', manager, status, entityEventsService, auth: auth);
 
   @override
@@ -384,10 +386,7 @@ class TimesliceOverviewComponent extends EntityOverview {
     final ids = selectedTimeslices.toList(growable: false);
     var body = new JsonEncoder().convert({"timeslices": ids});
 
-    //FIXME don't hardcode base url; extract a HTTP Service
-    //httpService.request("projects/${this.moveTargetProject.id}/timeslices", method: "PUT", sendData: body)
-    HttpRequest.request("http://localhost:3000/api/v1/projects/${this.moveTargetProject.id}/timeslices",
-        method: 'PUT', withCredentials: true, sendData: body, requestHeaders: {'Content-Type': 'application/json;charset=UTF-8'}).then((_) {
+    http.put("projects/${this.moveTargetProject.id}/timeslices", body: body).then((_) {
       reload();
       selectedTimeslices.clear();
       moveDialogVisible = false;

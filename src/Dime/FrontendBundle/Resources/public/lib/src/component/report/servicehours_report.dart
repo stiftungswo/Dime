@@ -6,7 +6,7 @@ part of dime_report;
     directives: const [CORE_DIRECTIVES, DateRange],
     pipes: const [COMMON_PIPES])
 class ServicehoursReportComponent implements OnInit {
-  ServicehoursReportComponent(StatusService this.statusservice);
+  ServicehoursReportComponent(StatusService this.statusservice, this.http);
 
   DateTime filterStartDate;
 
@@ -20,6 +20,8 @@ class ServicehoursReportComponent implements OnInit {
 
   StatusService statusservice;
 
+  HttpService http;
+
   @override
   ngOnInit() {
     DateTime now = new DateTime.now();
@@ -32,16 +34,12 @@ class ServicehoursReportComponent implements OnInit {
 
   reload({Map<String, dynamic> params, bool evict: false}) async {
     if (filterStartDate != null && filterEndDate != null) {
-      String dateparams =
-          '&date=' + new DateFormat('y-MM-dd').format(filterStartDate) + ',' + new DateFormat('y-MM-dd').format(filterEndDate);
+      String dateparams = encodeDateRange(filterStartDate, filterEndDate);
       this.entries = null;
       this.total = null;
       this.statusservice.setStatusToLoading();
       try {
-        //FIXME don't hardcode url
-        await HttpRequest
-            .getString('http://localhost:3000/api/v1/reports/servicehours?_format=json' + dateparams, withCredentials: true)
-            .then((result) {
+        await http.get('reports/servicehours', queryParams: {"_format": 'json', "date": dateparams}).then((result) {
           var data = JSON.decode(result);
           window.console.log(data);
           this.entries = data['projects'];
@@ -66,9 +64,7 @@ class ServicehoursReportComponent implements OnInit {
 
   getCsvLink() {
     if (filterStartDate != null && filterEndDate != null) {
-      String dateparams =
-          '?date=' + new DateFormat('y-MM-dd').format(filterStartDate) + ',' + new DateFormat('y-MM-dd').format(filterEndDate);
-      return '/api/v1/reports/servicehours/csv' + dateparams;
+      return '${http.baseUrl}/reports/servicehours/csv?date=${encodeDateRange(filterStartDate, filterEndDate)}';
     } else {
       return '';
     }

@@ -2,7 +2,9 @@ part of dime_report;
 
 @Component(selector: 'revenue-report', templateUrl: 'revenue_report.html', directives: const [CORE_DIRECTIVES, DateRange])
 class RevenueReportComponent implements OnInit {
-  RevenueReportComponent(StatusService this.statusservice);
+  RevenueReportComponent(StatusService this.statusservice, this.http);
+
+  HttpService http;
 
   DateTime filterStartDate;
 
@@ -22,17 +24,14 @@ class RevenueReportComponent implements OnInit {
 
   reload({Map<String, dynamic> params, bool evict: false}) async {
     if (filterStartDate != null && filterEndDate != null) {
-      // todo cleanup
+      // TODO: this code seems dead - remove it
       String _ = '&date=' + new DateFormat('y-MM-dd').format(filterStartDate) + ',' + new DateFormat('y-MM-dd').format(filterEndDate);
     }
   }
 
   getCsvLink() {
     if (filterStartDate != null && filterEndDate != null) {
-      String dateparams =
-          '?date=' + new DateFormat('y-MM-dd').format(filterStartDate) + ',' + new DateFormat('y-MM-dd').format(filterEndDate);
-      //FIXME: don't hardcode url base
-      return 'http://localhost:3000/api/v1/reports/revenue/csv' + dateparams;
+      return '${http.baseUrl}/reports/revenue/csv?date=${encodeDateRange(filterStartDate, filterEndDate)}';
     } else {
       return '';
     }
