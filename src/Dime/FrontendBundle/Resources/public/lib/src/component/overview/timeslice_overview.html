@@ -11,9 +11,7 @@
             <th style="width: 30px"></th>
             <th *ngIf="projectBased">Benutzer</th>
             <th class="col-sm-6">Aktivität</th>
-            <th *ngIf="blendOutStartAndEnd">Datum</th>
-            <th *ngIf="blendOutStartAndEnd == false">Start</th>
-            <th *ngIf="blendOutStartAndEnd == false">Ende</th>
+            <th>Datum</th>
             <th>Dauer/Anzahl</th>
             <th width="60">Aktion</th>
         </tr>
@@ -23,9 +21,7 @@
             <td></td>
             <td *ngIf="projectBased"><user-select [(selectedEntity)]="entity.employee" [parentEmployees]="employees" (selectedEntityChange)="entity.addFieldtoUpdate('employee')"></user-select></td>
             <td><activity-select [is-readonly]="true" [(selectedEntity)]="entity.activity" [parent-activities]="activities" [project]="entity?.project?.id" (selectedEntityChange)="entity.addFieldtoUpdate('activity')"></activity-select></td>
-            <td *ngIf="blendOutStartAndEnd"><dateinput [is-readonly]="true" style="width: 100%;" [(date)]="entity.startedAt"></dateinput></td>
-            <td *ngIf="blendOutStartAndEnd == false"><dateinput style="width: 100%;" format="DD.MM.YYYY HH:mm" [(date)]="entity.startedAt" (dateChange)="entity.addFieldtoUpdate('startedAt')"></dateinput></td>
-            <td *ngIf="blendOutStartAndEnd == false"><dateinput style="width: 100%;" format="DD.MM.YYYY HH:mm" [(date)]="entity.stoppedAt" (dateChange)="entity.addFieldtoUpdate('stoppedAt')"></dateinput></td>
+            <td><dateinput [is-readonly]="true" style="width: 100%;" [(date)]="entity.startedAt"></dateinput></td>
             <td><input style="width: 100%;" class="form-control" [(ngModel)]="entity.value" (change)="addSaveField('value', entity)"/></td>
             <td><dime-button (click)="deleteEntity(entity.id)" fontAwesome="trash-o" color="red"></dime-button></td>
         </tr>

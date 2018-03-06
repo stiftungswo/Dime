@@ -126,9 +126,6 @@ class TimesliceOverviewComponent extends EntityOverview {
   @Input('allowProjectSelect')
   bool allowProjectSelect = true;
 
-  @Input('blendOutStartAndEnd')
-  bool blendOutStartAndEnd = true;
-
   bool projectBased = false;
 
   //selection for move dialog
