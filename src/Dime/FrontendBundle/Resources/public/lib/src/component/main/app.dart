@@ -1,10 +1,8 @@
-import 'dart:async';
 import 'package:angular/angular.dart';
 import '../timetrack/timetrack.dart';
 import 'package:angular_forms/angular_forms.dart';
 import 'package:angular_router/angular_router.dart';
 
-import 'dart:js';
 import 'dart:html';
 
 import '../edit/EntityEdit.dart';

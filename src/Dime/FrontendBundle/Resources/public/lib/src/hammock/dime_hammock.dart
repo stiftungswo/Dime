@@ -1,4 +1,4 @@
-import 'package:DimeClient/src/service/http_service.dart';
+import '../service/http_service.dart';
 import 'package:angular/angular.dart';
 import 'package:hammock/hammock.dart';
 import '../model/Entity.dart';

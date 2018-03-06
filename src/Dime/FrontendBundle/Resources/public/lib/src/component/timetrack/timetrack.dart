@@ -1,8 +1,6 @@
 library timetrack;
 
 import 'dart:async';
-import '../date/dateToTextInput.dart';
-import '../elements/error_icon.dart';
 import '../overview/entity_overview.dart';
 import '../select/entity_select.dart';
 import '../../model/Entity.dart';

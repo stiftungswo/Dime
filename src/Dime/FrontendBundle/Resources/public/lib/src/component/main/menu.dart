@@ -1,8 +1,6 @@
 library main_menu;
 
 import 'package:angular/angular.dart';
-import 'dart:html';
-import 'dart:js';
 import 'package:angular_router/angular_router.dart';
 import '../../model/Menu.dart';
 
