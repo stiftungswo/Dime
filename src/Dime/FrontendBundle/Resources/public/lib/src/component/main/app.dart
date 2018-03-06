@@ -1,3 +1,6 @@
+import 'package:DimeClient/src/component/timetrack/project_timetrack.dart';
+import 'package:DimeClient/src/component/timetrack/timetrack_multi.dart';
+import 'package:DimeClient/src/component/timetrack/timetrack_periods.dart';
 import 'package:angular/angular.dart';
 import '../timetrack/timetrack.dart';
 import 'package:angular_forms/angular_forms.dart';

@@ -1,24 +1,14 @@
 library timetrack;
 
-import 'dart:async';
-import '../overview/entity_overview.dart';
-import '../select/entity_select.dart';
+import 'package:angular/angular.dart';
+
 import '../../model/Entity.dart';
-import '../../pipes/project_value.dart';
-import '../../service/data_cache.dart';
 import '../../service/entity_events_service.dart';
-import '../../service/setting_manager.dart';
-import '../../service/status.dart';
 import '../../service/timetrack_service.dart';
 import '../../service/user_auth.dart';
 import '../../service/user_context.dart';
 import '../elements/dime_directives.dart';
-import 'package:angular/angular.dart';
-import 'package:angular_forms/angular_forms.dart';
-
-part 'timetrack_multi.dart';
-part 'project_timetrack.dart';
-part 'timetrack_periods.dart';
+import '../overview/entity_overview.dart';
 
 @Component(selector: 'timetrack', templateUrl: 'timetrack.html', directives: const [
   CORE_DIRECTIVES,
