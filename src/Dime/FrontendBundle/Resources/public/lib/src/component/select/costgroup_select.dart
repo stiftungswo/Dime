@@ -1,14 +1,24 @@
-part of entity_select;
+import 'dart:html' as dom;
+
+import 'package:angular/angular.dart';
+import 'package:angular_forms/angular_forms.dart';
+
+import '../../component/select/entity_select.dart';
+import '../../model/Entity.dart';
+import '../../pipes/dime_pipes.dart';
+import '../../service/data_cache.dart';
+import '../../service/status.dart';
+import '../../service/user_auth.dart';
 
 @Component(
   selector: 'costgroup-select',
   templateUrl: 'costgroup_select.html',
   directives: const [formDirectives, CORE_DIRECTIVES],
-  pipes: const [FilterPipe, OrderByPipe],
+  pipes: const [dimePipes],
 )
 class CostgroupSelectComponent extends EntitySelect {
   CostgroupSelectComponent(DataCache store, dom.Element element, StatusService status, UserAuthProvider auth)
       : super(Costgroup, store, element, status, auth);
 
-  get EntText => this._selectedEntity != null ? this._selectedEntity.number.toString() + ": " + this._selectedEntity.description : '';
+  get EntText => this.selectedEntity != null ? this.selectedEntity.number.toString() + ": " + this.selectedEntity.description : '';
 }

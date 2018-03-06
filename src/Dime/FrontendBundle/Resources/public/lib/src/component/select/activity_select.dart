@@ -1,10 +1,20 @@
-part of entity_select;
+import 'dart:html' as dom;
+
+import 'package:angular/angular.dart';
+import 'package:angular_forms/angular_forms.dart';
+
+import '../../component/select/entity_select.dart';
+import '../../model/Entity.dart';
+import '../../pipes/dime_pipes.dart';
+import '../../service/data_cache.dart';
+import '../../service/status.dart';
+import '../../service/user_auth.dart';
 
 @Component(
   selector: 'activity-select',
   templateUrl: 'activity_select.html',
   directives: const [formDirectives, CORE_DIRECTIVES],
-  pipes: const [FilterPipe, OrderByPipe, ProjectValueFilter],
+  pipes: const [dimePipes],
 )
 class ActivitySelectComponent extends EntitySelect implements OnChanges {
   ActivitySelectComponent(DataCache store, dom.Element element, StatusService status, UserAuthProvider auth)
@@ -15,7 +25,7 @@ class ActivitySelectComponent extends EntitySelect implements OnChanges {
   @Input('shortname')
   bool shortname = false;
 
-  get EntText => _selectedEntity != null ? (shortname == true ? _selectedEntity.service.name : _selectedEntity.name) : '';
+  get EntText => selectedEntity != null ? (shortname ? selectedEntity.service.name : selectedEntity.name) : '';
 
   // Disable the select box because of projectId being null sometimes
   @Input('is-readonly')

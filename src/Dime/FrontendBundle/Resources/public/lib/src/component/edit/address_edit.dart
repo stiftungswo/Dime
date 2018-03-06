@@ -1,4 +1,10 @@
-part of entity_edit;
+import 'dart:async';
+
+import 'package:angular/angular.dart';
+import 'package:angular_forms/angular_forms.dart';
+
+import '../../component/edit/EntityEdit.dart';
+import '../../model/Entity.dart';
 
 @Component(selector: 'address-edit', templateUrl: 'address_edit.html', directives: const [CORE_DIRECTIVES, formDirectives])
 class AddressEditComponent extends EntityEdit {

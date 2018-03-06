@@ -1,4 +1,4 @@
-part of dime_entity;
+import '../Entity.dart';
 
 class Offer extends Entity {
   init({Map<String, dynamic> params: const {}}) {
@@ -112,7 +112,7 @@ class Offer extends Entity {
   void Set(String property, var value) {
     switch (property) {
       case 'validTo':
-        this.validTo = _addDateValue(value);
+        this.validTo = addDateValue(value);
         break;
       case 'rateGroup':
         this.rateGroup = value is Entity ? value : new RateGroup.fromMap(value);
@@ -173,12 +173,12 @@ class Offer extends Entity {
       for (OfferPosition entity in original.offerPositions) {
         OfferPosition clone = new OfferPosition.clone(entity);
         clone.offer = this;
-        this._descendantsToUpdate.add(clone);
+        this.descendantsToUpdate_.add(clone);
       }
       for (OfferDiscount entity in original.offerDiscounts) {
         OfferDiscount clone = new OfferDiscount.clone(entity);
         clone.offer = this;
-        this._descendantsToUpdate.add(clone);
+        this.descendantsToUpdate_.add(clone);
       }
     } else {
       throw new Exception("Invalid Type; Offer expected!");

@@ -1,11 +1,23 @@
-part of entity_overview;
+import 'dart:html';
 
-@Component(
-    selector: 'service-overview',
-    templateUrl: 'service_overview.html',
+import 'package:angular/angular.dart';
+import 'package:angular_forms/angular_forms.dart';
+import 'package:angular_router/angular_router.dart';
+import 'package:angular_router/src/router.dart';
+
+import '../../component/overview/entity_overview.dart';
+import '../../model/Entity.dart';
+import '../../pipes/dime_pipes.dart';
+import '../../service/data_cache.dart';
+import '../../service/entity_events_service.dart';
+import '../../service/setting_manager.dart';
+import '../../service/status.dart';
+import '../../service/user_auth.dart';
+import '../elements/dime_directives.dart';
+
+@Component(selector: 'service-overview', templateUrl: 'service_overview.html',
     //TODO why does this have router_directives while others don't?
-    directives: const [formDirectives, COMMON_DIRECTIVES, ROUTER_DIRECTIVES, dimeDirectives],
-    pipes: const [LimitToPipe, OrderByPipe, FilterPipe])
+    directives: const [formDirectives, COMMON_DIRECTIVES, ROUTER_DIRECTIVES, dimeDirectives], pipes: const [dimePipes])
 class ServiceOverviewComponent extends EntityOverview {
   ServiceOverviewComponent(DataCache store, Router router, SettingsManager manager, StatusService status, UserAuthProvider auth,
       EntityEventsService entityEventsService)

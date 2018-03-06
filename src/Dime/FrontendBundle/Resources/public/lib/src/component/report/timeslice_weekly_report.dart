@@ -1,4 +1,16 @@
-part of dime_report;
+import 'package:angular/angular.dart';
+import 'package:hammock/hammock.dart';
+import 'package:intl/intl.dart';
+
+import '../../component/elements/dime_directives.dart';
+import '../../component/overview/entity_overview.dart';
+import '../../model/Entity.dart';
+import '../../service/data_cache.dart';
+import '../../service/entity_events_service.dart';
+import '../../service/http_service.dart';
+import '../../service/setting_manager.dart';
+import '../../service/status.dart';
+import '../../service/user_auth.dart';
 
 class WeekReportEntry {
   String name;

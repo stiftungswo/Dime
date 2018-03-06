@@ -1,12 +1,13 @@
-import 'package:DimeClient/src/component/overview/entity_overview.dart';
-import 'package:DimeClient/src/model/Entity.dart';
-import 'package:DimeClient/src/service/data_cache.dart';
-import 'package:DimeClient/src/service/entity_events_service.dart';
-import 'package:DimeClient/src/service/status.dart';
-import 'package:DimeClient/src/service/user_auth.dart';
-import 'package:DimeClient/src/service/user_context.dart';
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
+
+import '../../component/overview/entity_overview.dart';
+import '../../model/Entity.dart';
+import '../../service/data_cache.dart';
+import '../../service/entity_events_service.dart';
+import '../../service/status.dart';
+import '../../service/user_auth.dart';
+import '../../service/user_context.dart';
 
 @Component(
   selector: 'timetrack-periods',

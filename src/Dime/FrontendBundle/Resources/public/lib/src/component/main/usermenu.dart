@@ -1,5 +1,3 @@
-library dime.usermenu;
-
 import 'package:angular/angular.dart';
 import '../../service/user_auth.dart';
 import '../../service/user_context.dart';

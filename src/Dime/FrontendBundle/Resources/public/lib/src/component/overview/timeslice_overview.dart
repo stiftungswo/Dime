@@ -1,4 +1,24 @@
-part of entity_overview;
+import 'dart:async';
+import 'dart:convert';
+
+import 'package:angular/angular.dart';
+import 'package:angular_forms/angular_forms.dart';
+import 'package:intl/intl.dart';
+
+import '../../component/overview/entity_overview.dart';
+import '../../model/Entity.dart';
+import '../../pipes/dime_pipes.dart';
+import '../../service/data_cache.dart';
+import '../../service/entity_events_service.dart';
+import '../../service/http_service.dart';
+import '../../service/setting_manager.dart';
+import '../../service/status.dart';
+import '../../service/timetrack_service.dart';
+import '../../service/user_auth.dart';
+import '../../service/user_context.dart';
+import '../elements/dime_directives.dart';
+import '../select/entity_select.dart';
+import '../setting/setting.dart';
 
 @Component(
   selector: 'timeslice-overview',
@@ -12,7 +32,7 @@ part of entity_overview;
     ActivitySelectComponent,
     SettingEditComponent
   ],
-  pipes: const [DIME_PIPES, TimesliceDateFilterPipe],
+  pipes: const [dimePipes, TimesliceDateFilterPipe],
 )
 class TimesliceOverviewComponent extends EntityOverview {
   Employee _employee;

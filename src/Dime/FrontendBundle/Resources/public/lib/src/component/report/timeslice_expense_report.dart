@@ -1,4 +1,19 @@
-part of dime_report;
+import 'dart:html';
+
+import 'package:angular/angular.dart';
+import 'package:hammock/hammock.dart';
+import 'package:intl/intl.dart';
+
+import '../../component/elements/dime_directives.dart';
+import '../../component/overview/entity_overview.dart';
+import '../../component/select/entity_select.dart';
+import '../../model/Entity.dart';
+import '../../service/data_cache.dart';
+import '../../service/entity_events_service.dart';
+import '../../service/http_service.dart';
+import '../../service/setting_manager.dart';
+import '../../service/status.dart';
+import '../../service/user_auth.dart';
 
 @Component(
     selector: 'timeslice-expensereport',
@@ -65,6 +80,7 @@ class TimesliceExpenseReportComponent extends EntityOverview {
   getDateParam() {
     String dateparam = null;
     if (filterStartDate != null && filterEndDate != null) {
+      //TODO use encodeDateRange
       dateparam = new DateFormat('y-MM-dd').format(filterStartDate) + ',' + new DateFormat('y-MM-dd').format(filterEndDate);
     }
     return dateparam;

@@ -1,10 +1,20 @@
-part of entity_select;
+import 'dart:html' as dom;
+
+import 'package:angular/angular.dart';
+import 'package:angular_forms/angular_forms.dart';
+
+import '../../component/select/entity_select.dart';
+import '../../model/Entity.dart';
+import '../../pipes/dime_pipes.dart';
+import '../../service/data_cache.dart';
+import '../../service/status.dart';
+import '../../service/user_auth.dart';
 
 @Component(
   selector: 'standarddiscount-select',
   templateUrl: 'standarddiscount_select.html',
   directives: const [formDirectives, CORE_DIRECTIVES],
-  pipes: const [FilterPipe, OrderByPipe],
+  pipes: const [dimePipes],
 )
 class StandardDiscountSelectComponent extends EntitySelect {
   StandardDiscountSelectComponent(DataCache store, dom.Element element, StatusService status, UserAuthProvider auth)

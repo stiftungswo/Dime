@@ -1,4 +1,4 @@
-part of dime_entity;
+import '../Entity.dart';
 
 class StandardDiscount extends Entity {
   init({Map<String, dynamic> params: const {}}) {

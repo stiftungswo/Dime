@@ -1,4 +1,13 @@
-part of dime_report;
+import 'dart:convert';
+
+import 'package:angular/angular.dart';
+import 'package:intl/intl.dart';
+
+import '../../component/elements/dime_directives.dart';
+import '../../component/select/entity_select.dart';
+import '../../model/Entity.dart';
+import '../../service/http_service.dart';
+import '../../service/status.dart';
 
 @Component(
     selector: 'projectemployee-report',
@@ -50,6 +59,7 @@ class ProjectemployeeReportComponent implements OnInit {
       try {
         String dateparams = null;
         if (filterStartDate != null && filterEndDate != null) {
+          //TODO use encodeDateRange here
           dateparams = new DateFormat('y-MM-dd').format(filterStartDate) + ',' + new DateFormat('y-MM-dd').format(filterEndDate);
         } else if (filterStartDate != null) {
           dateparams = new DateFormat('y-MM-dd').format(filterStartDate);

@@ -1,4 +1,5 @@
-part of dime_entity;
+import '../Entity.dart';
+import 'dart:math';
 
 class User extends Entity {
   User();

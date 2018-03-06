@@ -1,10 +1,21 @@
-part of entity_select;
+import 'dart:html' as dom;
+
+import 'package:angular/angular.dart';
+import 'package:angular_forms/angular_forms.dart';
+
+import '../../component/select/entity_select.dart';
+import '../../model/Entity.dart';
+import '../../pipes/dime_pipes.dart';
+import '../../service/data_cache.dart';
+import '../../service/status.dart';
+import '../../service/user_auth.dart';
+import '../../service/user_context.dart';
 
 @Component(
   selector: 'user-select',
   templateUrl: 'user_select.html',
   directives: const [CORE_DIRECTIVES, formDirectives],
-  pipes: const [FilterPipe, OrderByPipe],
+  pipes: const [dimePipes],
 )
 class UserSelectComponent extends EntitySelect implements OnChanges {
   UserSelectComponent(DataCache store, dom.Element element, this.context, StatusService status, UserAuthProvider auth)
@@ -21,7 +32,7 @@ class UserSelectComponent extends EntitySelect implements OnChanges {
   @Input('isReadonly')
   bool isReadonly = false;
 
-  get EntText => _selectedEntity != null ? _selectedEntity.fullname : '';
+  get EntText => selectedEntity != null ? selectedEntity.fullname : '';
 
   @override
   void ngOnChanges(Map<String, SimpleChange> changes) {
@@ -52,7 +63,7 @@ class UserSelectComponent extends EntitySelect implements OnChanges {
 
     if (useContext) {
       selectedEntity = context.employee;
-      _selectedEntityEvent.add(context.employee);
+      selectedEntityEvent.add(context.employee);
     }
   }
 }

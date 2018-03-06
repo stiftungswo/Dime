@@ -1,4 +1,4 @@
-part of dime_entity;
+import '../Entity.dart';
 
 class ProjectComment extends Entity {
   ProjectComment();
@@ -39,7 +39,7 @@ class ProjectComment extends Entity {
   void Set(String property, var value) {
     switch (property) {
       case 'date':
-        this.date = _addDateValue(value);
+        this.date = addDateValue(value);
         break;
       case 'comment':
         this.comment = value;

@@ -1,4 +1,4 @@
-part of dime_entity;
+import '../Entity.dart';
 
 class Project extends Entity {
   init({Map<String, dynamic> params: const {}}) {
@@ -144,7 +144,7 @@ class Project extends Entity {
         this.chargeable = value;
         break;
       case 'deadline':
-        this.deadline = _addDateValue(value);
+        this.deadline = addDateValue(value);
         break;
       case 'activities':
         this.activities = Activity.listFromMap(value);
@@ -162,7 +162,7 @@ class Project extends Entity {
         this.accountant = value is Entity ? value : new Employee.fromMap(value);
         break;
       case 'deletedAt':
-        this.deletedAt = _addDateValue(value);
+        this.deletedAt = addDateValue(value);
         break;
       case 'archived':
         this.archived = value;
@@ -178,7 +178,7 @@ class Project extends Entity {
       for (Activity activity in original.activities) {
         Activity clone = new Activity.clone(activity);
         clone.project = this;
-        this._descendantsToUpdate.add(clone);
+        this.descendantsToUpdate_.add(clone);
       }
     } else {
       throw new Exception("Invalid Type; Project expected!");

@@ -1,10 +1,26 @@
-part of entity_overview;
+import 'package:angular/angular.dart';
+import 'package:angular_forms/angular_forms.dart';
+import 'package:angular_router/angular_router.dart';
+import 'package:angular_router/src/router.dart';
+import 'package:hammock/hammock.dart';
+
+import '../../component/overview/entity_overview.dart';
+import '../../model/Entity.dart';
+import '../../pipes/dime_pipes.dart';
+import '../../service/data_cache.dart';
+import '../../service/entity_events_service.dart';
+import '../../service/http_service.dart';
+import '../../service/setting_manager.dart';
+import '../../service/status.dart';
+import '../../service/user_auth.dart';
+import '../../service/user_context.dart';
+import '../elements/dime_directives.dart';
 
 @Component(
   selector: 'projects-open-invoices',
   templateUrl: 'project_open-invoices.html',
   directives: const [CORE_DIRECTIVES, formDirectives, dimeDirectives],
-  pipes: const [LimitToPipe, OrderByPipe, FilterPipe],
+  pipes: const [dimePipes],
 )
 class ProjectOpenInvoicesComponent extends EntityOverview {
   ProjectOpenInvoicesComponent(DataCache store, this.context, Router router, SettingsManager manager, StatusService status,

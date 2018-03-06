@@ -1,5 +1,3 @@
-library dime.ui.statusbar;
-
 import 'package:angular/angular.dart';
 import '../../service/status.dart';
 

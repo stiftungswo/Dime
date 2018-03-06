@@ -1,4 +1,9 @@
-part of dime_report;
+import 'package:angular/angular.dart';
+import 'package:intl/intl.dart';
+
+import '../../component/elements/dime_directives.dart';
+import '../../service/http_service.dart';
+import '../../service/status.dart';
 
 @Component(selector: 'revenue-report', templateUrl: 'revenue_report.html', directives: const [CORE_DIRECTIVES, dimeDirectives])
 class RevenueReportComponent implements OnInit {

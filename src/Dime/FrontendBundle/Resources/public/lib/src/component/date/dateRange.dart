@@ -1,5 +1,3 @@
-library dime.dateRange;
-
 import 'dart:async';
 import 'dateToTextInput.dart';
 import 'package:angular/angular.dart';

@@ -1,4 +1,4 @@
-part of dime_entity;
+import '../Entity.dart';
 
 class Holiday extends Entity {
   Holiday();
@@ -36,7 +36,7 @@ class Holiday extends Entity {
   void Set(String property, var value) {
     switch (property) {
       case 'date':
-        this.date = _addDateValue(value);
+        this.date = addDateValue(value);
         break;
       case 'duration':
         this.duration = value;

@@ -1,10 +1,22 @@
-part of entity_overview;
+import 'package:angular/angular.dart';
+import 'package:angular_forms/angular_forms.dart';
+
+import '../../component/overview/entity_overview.dart';
+import '../../model/Entity.dart';
+import '../../pipes/dime_pipes.dart';
+import '../../service/data_cache.dart';
+import '../../service/entity_events_service.dart';
+import '../../service/setting_manager.dart';
+import '../../service/status.dart';
+import '../../service/timetrack_service.dart';
+import '../../service/user_auth.dart';
+import '../elements/dime_directives.dart';
 
 @Component(
     selector: 'projectComment-overview',
     templateUrl: 'projectComment_overview.html',
     directives: const [CORE_DIRECTIVES, formDirectives, dimeDirectives],
-    pipes: const [DIME_PIPES])
+    pipes: const [dimePipes])
 class ProjectCommentOverviewComponent extends EntityOverview {
   ProjectCommentOverviewComponent(DataCache store, SettingsManager manager, StatusService status, UserAuthProvider auth,
       EntityEventsService entityEventsService, this.timetrackService)

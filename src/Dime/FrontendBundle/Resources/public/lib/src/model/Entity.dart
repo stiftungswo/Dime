@@ -1,39 +1,41 @@
-library dime_entity;
-
 import 'package:hammock/hammock.dart';
-import 'dart:math';
+import 'package:meta/meta.dart';
 
-part 'entities/Activity.dart';
-part 'entities/Address.dart';
-part 'entities/Customer.dart';
-part 'entities/Employee.dart';
-part 'entities/ExpenseReport.dart';
-part 'entities/Holiday.dart';
-part 'entities/Costgroup.dart';
-part 'entities/Invoice.dart';
-part 'entities/InvoiceBreakdown.dart';
-part 'entities/InvoiceCostgroup.dart';
-part 'entities/InvoiceDiscount.dart';
-part 'entities/InvoiceItem.dart';
-part 'entities/Offer.dart';
-part 'entities/OfferDiscount.dart';
-part 'entities/OfferPosition.dart';
-part 'entities/OfferStatusUC.dart';
-part 'entities/Period.dart';
-part 'entities/Phone.dart';
-part 'entities/Project.dart';
-part 'entities/Rate.dart';
-part 'entities/RateGroup.dart';
-part 'entities/RateUnitType.dart';
-part 'entities/Service.dart';
-part 'entities/Setting.dart';
-part 'entities/StandardDiscount.dart';
-part 'entities/Tag.dart';
-part 'entities/Timeslice.dart';
-part 'entities/User.dart';
-part 'entities/ProjectCategory.dart';
-part 'entities/ProjectComment.dart';
-part 'entities/SettingAssignProject.dart';
+import 'entities/Employee.dart';
+import 'entities/Tag.dart';
+import 'entities/User.dart';
+
+export 'entities/Activity.dart';
+export 'entities/Address.dart';
+export 'entities/Costgroup.dart';
+export 'entities/Customer.dart';
+export 'entities/Employee.dart';
+export 'entities/ExpenseReport.dart';
+export 'entities/Holiday.dart';
+export 'entities/Invoice.dart';
+export 'entities/InvoiceBreakdown.dart';
+export 'entities/InvoiceCostgroup.dart';
+export 'entities/InvoiceDiscount.dart';
+export 'entities/InvoiceItem.dart';
+export 'entities/Offer.dart';
+export 'entities/OfferDiscount.dart';
+export 'entities/OfferPosition.dart';
+export 'entities/OfferStatusUC.dart';
+export 'entities/Period.dart';
+export 'entities/Phone.dart';
+export 'entities/Project.dart';
+export 'entities/ProjectCategory.dart';
+export 'entities/ProjectComment.dart';
+export 'entities/Rate.dart';
+export 'entities/RateGroup.dart';
+export 'entities/RateUnitType.dart';
+export 'entities/Service.dart';
+export 'entities/Setting.dart';
+export 'entities/SettingAssignProject.dart';
+export 'entities/StandardDiscount.dart';
+export 'entities/Tag.dart';
+export 'entities/Timeslice.dart';
+export 'entities/User.dart';
 
 class Entity {
   Entity();
@@ -104,9 +106,10 @@ class Entity {
 
   cloneDescendants(Entity original) {}
 
-  List<Entity> _descendantsToUpdate = [];
+  @protected
+  List<Entity> descendantsToUpdate_ = [];
 
-  List<Entity> get descendantsToUpdate => _descendantsToUpdate;
+  List<Entity> get descendantsToUpdate => descendantsToUpdate;
 
   var id;
   List<String> _toUpdate = [];
@@ -132,7 +135,8 @@ class Entity {
     }
   }
 
-  DateTime _addDateValue(value) {
+  @protected
+  DateTime addDateValue(value) {
     if (value == null) {
       return null;
     }
@@ -184,10 +188,10 @@ class Entity {
         this.id = value;
         break;
       case 'createdAt':
-        this.createdAt = _addDateValue(value);
+        this.createdAt = addDateValue(value);
         break;
       case 'updatedAt':
-        this.updatedAt = _addDateValue(value);
+        this.updatedAt = addDateValue(value);
         break;
       case 'name':
         this.name = value;

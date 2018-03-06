@@ -1,4 +1,4 @@
-part of dime_entity;
+import '../Entity.dart';
 
 class Setting extends Entity {
   Setting();

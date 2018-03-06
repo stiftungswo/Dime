@@ -1,4 +1,20 @@
-part of entity_edit;
+import 'dart:html';
+
+import 'package:angular/angular.dart';
+import 'package:angular_forms/angular_forms.dart';
+import 'package:angular_router/angular_router.dart';
+import 'package:hammock/hammock.dart';
+
+import '../../component/edit/EntityEdit.dart';
+import '../../component/elements/dime_directives.dart';
+import '../../model/Entity.dart';
+import '../../service/data_cache.dart';
+import '../../service/entity_events_service.dart';
+import '../../service/http_service.dart';
+import '../../service/status.dart';
+import '../../service/user_auth.dart';
+import '../overview/entity_overview.dart';
+import '../select/entity_select.dart';
 
 @Component(
   selector: 'invoice-edit',
@@ -6,11 +22,9 @@ part of entity_edit;
   directives: const [
     CORE_DIRECTIVES,
     formDirectives,
-    DimeButton,
+    dimeDirectives,
     CustomerSelectComponent,
     UserSelectComponent,
-    DateToTextInput,
-    ErrorIconComponent,
     InvoiceItemOverviewComponent,
     InvoiceCostgroupOverviewComponent,
     InvoiceDiscountOverviewComponent,
@@ -67,7 +81,7 @@ class InvoiceEditComponent extends EntityEdit {
       if (evict) {
         this.store.evict(this.entType);
       }
-      this.entity = (await this.store.one(this.entType, this._entId));
+      this.entity = (await this.store.one(this.entType, this.entId));
       if (this.project != null) {
         this.project = (await this.store.one(Project, this.entity.project.id));
       }

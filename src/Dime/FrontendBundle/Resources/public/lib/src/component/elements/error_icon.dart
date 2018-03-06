@@ -1,5 +1,3 @@
-library error_icon;
-
 import '../../service/status.dart';
 import 'package:angular/angular.dart';
 

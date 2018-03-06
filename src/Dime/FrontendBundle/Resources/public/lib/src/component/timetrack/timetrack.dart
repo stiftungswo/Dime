@@ -1,5 +1,3 @@
-library timetrack;
-
 import 'package:angular/angular.dart';
 
 import '../../model/Entity.dart';

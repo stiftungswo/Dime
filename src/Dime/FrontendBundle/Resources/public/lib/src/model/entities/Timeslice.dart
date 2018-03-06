@@ -1,4 +1,4 @@
-part of dime_entity;
+import '../Entity.dart';
 
 class Timeslice extends Entity {
   Timeslice();
@@ -47,10 +47,10 @@ class Timeslice extends Entity {
         this.value = value is String ? value : value.toString();
         break;
       case 'startedAt':
-        this.startedAt = _addDateValue(value);
+        this.startedAt = addDateValue(value);
         break;
       case 'stoppedAt':
-        this.stoppedAt = _addDateValue(value);
+        this.stoppedAt = addDateValue(value);
         break;
       case 'activity':
         this.activity = value is Entity ? value : new Activity.fromMap(value);

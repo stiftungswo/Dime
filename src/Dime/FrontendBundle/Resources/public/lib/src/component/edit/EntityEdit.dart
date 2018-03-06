@@ -1,38 +1,26 @@
-library entity_edit;
-
-import '../../service/data_cache.dart';
-import '../../model/Entity.dart';
-import '../../service/status.dart';
-import '../../service/user_auth.dart';
-import '../../service/entity_events_service.dart';
-import '../elements/error_icon.dart';
-import '../elements/help-tooltip.dart';
-import '../elements/dime-button.dart';
-import '../date/dateToTextInput.dart';
-import '../overview/entity_overview.dart';
-import '../select/entity_select.dart';
-import '../percent-input/percent_input.dart';
-import '../elements/dime_directives.dart';
-import '../../service/http_service.dart';
-import 'dart:async';
-import 'dart:html';
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
 import 'package:angular_router/angular_router.dart';
-import 'package:hammock/hammock.dart';
+import 'package:meta/meta.dart';
 
-part 'address_edit.dart';
-part 'customer_edit.dart';
-part 'employee_edit.dart';
-part 'invoice_edit.dart';
-part 'offer_edit.dart';
-part 'project_edit.dart';
-part 'service_edit.dart';
+import '../../service/data_cache.dart';
+import '../../service/entity_events_service.dart';
+import '../../service/status.dart';
+import '../../service/user_auth.dart';
+
+export 'address_edit.dart';
+export 'customer_edit.dart';
+export 'employee_edit.dart';
+export 'invoice_edit.dart';
+export 'offer_edit.dart';
+export 'project_edit.dart';
+export 'service_edit.dart';
 
 class EntityEdit implements OnInit {
   Type entType;
 
-  String _entId;
+  @protected
+  String entId;
 
   DataCache store;
 
@@ -46,14 +34,13 @@ class EntityEdit implements OnInit {
 
   Router router;
 
-  //@NgTwoWay('editform')
   @ViewChild('editform')
   NgForm editform;
 
   EntityEdit.Child(this.entType);
 
   EntityEdit(RouteParams params, this.store, this.entType, this.statusservice, this.auth, this.router, this.entityEventsService) {
-    _entId = params.get('id');
+    entId = params.get('id');
   }
 
   @override
@@ -79,7 +66,7 @@ class EntityEdit implements OnInit {
       if (evict) {
         this.store.evict(this.entType);
       }
-      this.entity = (await this.store.one(this.entType, this._entId));
+      this.entity = (await this.store.one(this.entType, this.entId));
       this.statusservice.setStatusToSuccess();
     } catch (e, stack) {
       this.statusservice.setStatusToError(e, stack);

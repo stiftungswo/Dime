@@ -22,6 +22,7 @@ dependencies:
         ref: swo_hammock_angular_4
   crypto: ">=2.0.2 <2.1.0"
   sentry_client: ">=4.0.3 < 5.0.0"
+  meta: ^1.1.2
 
 dev_dependencies:
   dart_to_js_script_rewriter: ^1.0.1

@@ -1,4 +1,4 @@
-part of dime_entity;
+import '../Entity.dart';
 
 class Service extends Entity {
   Service();
@@ -74,7 +74,7 @@ class Service extends Entity {
       for (Rate entity in original.rates) {
         Rate clone = new Rate.clone(entity);
         clone.service = this;
-        this._descendantsToUpdate.add(clone);
+        this.descendantsToUpdate_.add(clone);
       }
     } else {
       throw new Exception("Invalid type ${original.runtimeType}, Service expected");

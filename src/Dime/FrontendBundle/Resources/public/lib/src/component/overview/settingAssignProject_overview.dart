@@ -1,4 +1,18 @@
-part of entity_overview;
+import 'dart:html';
+
+import 'package:angular/angular.dart';
+import 'package:angular_forms/angular_forms.dart';
+
+import '../../component/overview/entity_overview.dart';
+import '../../model/Entity.dart';
+import '../../service/data_cache.dart';
+import '../../service/entity_events_service.dart';
+import '../../service/setting_manager.dart';
+import '../../service/status.dart';
+import '../../service/user_auth.dart';
+import '../../service/user_context.dart';
+import '../elements/dime_directives.dart';
+import '../select/entity_select.dart';
 
 @Component(
   selector: 'settingAssignProject-overview',
@@ -125,7 +139,7 @@ class SettingAssignProjectOverviewComponent extends EntityOverview implements On
     this.projects = await this.store.list(Project);
     try {
       dynamic resp = await store.update(projectAssignmentSetting);
-      if (resp is! Entity) {
+      if (resp is! Setting) {
         throw new Exception("resp is not Entity, its a ${resp.runtimeType}");
       }
       this.projectAssignments.removeWhere((enty) => enty.id == resp.id);

@@ -1,4 +1,4 @@
-part of dime_entity;
+import '../Entity.dart';
 
 class Period extends Entity {
   Period();
@@ -61,10 +61,10 @@ class Period extends Entity {
   void Set(String property, var value) {
     switch (property) {
       case 'start':
-        this.start = _addDateValue(value);
+        this.start = addDateValue(value);
         break;
       case 'end':
-        this.end = _addDateValue(value);
+        this.end = addDateValue(value);
         break;
       case 'pensum':
         this.pensum = value;

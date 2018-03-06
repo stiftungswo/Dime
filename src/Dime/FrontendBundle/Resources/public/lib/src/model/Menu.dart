@@ -1,5 +1,3 @@
-library menu;
-
 class Menu {
   String title;
   String icon;

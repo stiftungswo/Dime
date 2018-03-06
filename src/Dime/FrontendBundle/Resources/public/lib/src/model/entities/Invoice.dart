@@ -1,4 +1,4 @@
-part of dime_entity;
+import '../Entity.dart';
 
 class Invoice extends Entity {
   init({Map<String, dynamic> params: const {}}) {
@@ -130,10 +130,10 @@ class Invoice extends Entity {
         this.standardDiscounts = StandardDiscount.listFromMap(value);
         break;
       case 'start':
-        this.start = this._addDateValue(value);
+        this.start = this.addDateValue(value);
         break;
       case 'end':
-        this.end = this._addDateValue(value);
+        this.end = this.addDateValue(value);
         break;
       case 'customer':
         this.customer = value is Entity ? value : new Customer.fromMap(value);
@@ -179,12 +179,12 @@ class Invoice extends Entity {
       for (InvoiceItem entity in original.items) {
         InvoiceItem clone = new InvoiceItem.clone(entity);
         clone.invoice = this;
-        this._descendantsToUpdate.add(clone);
+        this.descendantsToUpdate_.add(clone);
       }
       for (InvoiceDiscount entity in original.invoiceDiscounts) {
         InvoiceDiscount clone = new InvoiceDiscount.clone(entity);
         clone.invoice = this;
-        this._descendantsToUpdate.add(clone);
+        this.descendantsToUpdate_.add(clone);
       }
     } else {
       throw new Exception("Invalid Type; Invoice expected!");

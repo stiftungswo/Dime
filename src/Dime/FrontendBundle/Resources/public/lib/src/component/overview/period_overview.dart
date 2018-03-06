@@ -1,10 +1,24 @@
-part of entity_overview;
+import 'dart:convert';
+
+import 'package:angular/angular.dart';
+import 'package:angular_forms/angular_forms.dart';
+
+import '../../component/overview/entity_overview.dart';
+import '../../model/Entity.dart';
+import '../../pipes/dime_pipes.dart';
+import '../../service/data_cache.dart';
+import '../../service/entity_events_service.dart';
+import '../../service/http_service.dart';
+import '../../service/setting_manager.dart';
+import '../../service/status.dart';
+import '../../service/user_context.dart';
+import '../elements/dime_directives.dart';
 
 @Component(
     selector: 'period-overview',
     templateUrl: 'period_overview.html',
     directives: const [CORE_DIRECTIVES, formDirectives, dimeDirectives],
-    pipes: const [DIME_PIPES])
+    pipes: const [dimePipes])
 class PeriodOverviewComponent extends EntityOverview {
   PeriodOverviewComponent(
       DataCache store, SettingsManager manager, StatusService status, this.context, EntityEventsService entityEventsService, this.http)

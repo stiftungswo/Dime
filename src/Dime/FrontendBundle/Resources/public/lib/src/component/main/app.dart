@@ -1,23 +1,23 @@
-import 'package:DimeClient/src/component/timetrack/project_timetrack.dart';
-import 'package:DimeClient/src/component/timetrack/timetrack_multi.dart';
-import 'package:DimeClient/src/component/timetrack/timetrack_periods.dart';
+import 'dart:html';
+
 import 'package:angular/angular.dart';
-import '../timetrack/timetrack.dart';
 import 'package:angular_forms/angular_forms.dart';
 import 'package:angular_router/angular_router.dart';
 
-import 'dart:html';
-
-import '../edit/EntityEdit.dart';
-import '../overview/entity_overview.dart';
-import '../statusbar/statusbar.dart';
-import '../report/dime_report.dart';
+import '../../service/release_info.dart';
 import '../../service/user_auth.dart';
 import '../../service/user_context.dart';
-import '../../service/release_info.dart';
-import 'welcome.dart';
+import '../edit/EntityEdit.dart';
+import '../overview/entity_overview.dart';
+import '../report/dime_report.dart';
+import '../statusbar/statusbar.dart';
+import '../timetrack/project_timetrack.dart';
+import '../timetrack/timetrack.dart';
+import '../timetrack/timetrack_multi.dart';
+import '../timetrack/timetrack_periods.dart';
 import 'menu.dart';
 import 'usermenu.dart';
+import 'welcome.dart';
 
 @Component(
   selector: 'my-app',

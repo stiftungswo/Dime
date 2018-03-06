@@ -1,4 +1,4 @@
-part of dime_entity;
+import '../Entity.dart';
 
 class Employee extends User {
   Employee();
