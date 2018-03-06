@@ -1,4 +1,4 @@
-<input [readonly]="isReadonly" style="width: 100%;" [(ngModel)]="text" [class.ng-invalid]="!isValid" class="form-control" (blur)="onInputBlur()" placeholder="DD-MM-YYYY">
+<pikaday #datepicker [(day)]="date" (dayChange)="updateDate()" placeholder="DD.MM.YYYY" cssClasses="form-control" [format]="format" firstDay="1" [i18n]="pikadayI18n" showDaysInNextAndPreviousMonths="true" [readonly]="isReadonly" cssText="width: 100%;"></pikaday>
 <div *ngIf="hasButtons" class="btn-group" style="padding-top: 2px;">
   <button type="button" class="btn btn-default" (click)="previousDay()" title="einen Tag zurück">&laquo;</button>
   <button type="button" class="btn btn-default" (click)="today()">Heute</button>

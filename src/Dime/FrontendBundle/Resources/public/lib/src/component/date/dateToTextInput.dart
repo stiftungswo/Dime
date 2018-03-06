@@ -1,16 +1,20 @@
 library dime.dateToTextInput;
 
 import 'dart:async';
+import 'dart:html';
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
-import 'package:intl/intl.dart';
+import 'package:pikaday/pikaday.dart';
+import 'pikaday/pikaday_component.dart';
 
 @Component(
   selector: 'dateinput',
   templateUrl: 'dateToTextInput.html',
-  directives: const [CORE_DIRECTIVES, formDirectives],
+  directives: const [CORE_DIRECTIVES, formDirectives, PikadayComponent],
 )
-class DateToTextInput implements OnChanges {
+class DateToTextInput implements OnChanges, AfterViewInit {
+  // todo add validation
+
   DateTime _date;
 
   get date => _date;
@@ -25,7 +29,7 @@ class DateToTextInput implements OnChanges {
   Stream<DateTime> get dateChange => _dateChange.stream;
 
   @Input('format')
-  String format = 'dd-MM-y';
+  String format = 'DD.MM.YYYY';
 
   @Input('has-buttons')
   bool hasButtons = false;
@@ -36,9 +40,19 @@ class DateToTextInput implements OnChanges {
   @Input('null-allowed')
   bool nullAllowed = false;
 
-  String text = "";
-
   bool isValid = true;
+
+  @ViewChild('datepicker')
+  PikadayComponent pikaday;
+
+  InputElement pikadayInput;
+
+  get pikadayI18n => new PikadayI18nConfig(
+      previousMonth: 'Letzer Monat',
+      nextMonth: 'Nächster Monat',
+      months: ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'],
+      weekdays: ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'],
+      weekdaysShort: ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa']);
 
   today() {
     DateTime now = new DateTime.now();
@@ -60,34 +74,6 @@ class DateToTextInput implements OnChanges {
     }
   }
 
-  onInputBlur() {
-    if (text == '') {
-      this.date = null;
-    } else {
-      try {
-        // convert dots do hypens to allow more convenient input
-        text = text.replaceAll(new RegExp('[.]'), '-');
-        this.date = new DateFormat(format).parse(text);
-        if (this.date.year < 100) {
-          this.date = new DateTime(this.date.year + 2000, this.date.month, this.date.day);
-        }
-      } catch (exception) {
-        print('invalid date: ' + text);
-      }
-    }
-    validate();
-    updateDate();
-  }
-
-  onDateChanged(newval, oldval) {
-    if (date != null) {
-      this.text = new DateFormat(format).format(date);
-    } else {
-      this.text = '';
-    }
-    validate();
-  }
-
   updateDate() {
     // Beim Sommerzeitwechsel wird manchmal eine Stunde dazugezählt, was dazu führt dass es ein Tageswechsel gibt
     // Das Datum ist dann 23:00 am vorherigen Tag was fehlerbehaftet ist (und 2 Tage gesprungen wird).
@@ -105,31 +91,24 @@ class DateToTextInput implements OnChanges {
     _dateChange.add(this.date);
   }
 
-  validate() {
-    // check for null values
-    if (text == "") {
-      if (nullAllowed) {
-        this.isValid = true;
-      } else {
-        this.isValid = false;
-      }
-      return;
-    }
-
-    // check for non parseable values
-    try {
-      DateTime _ = new DateFormat(format).parse(text);
-      this.isValid = true;
-    } catch (exception) {
-      this.isValid = false;
-    }
-  }
+  @override
+  ngOnChanges(Map<String, SimpleChange> changes) {}
 
   @override
-  ngOnChanges(Map<String, SimpleChange> changes) {
-    if (changes.containsKey('date')) {
-      SimpleChange change = changes['date'];
-      onDateChanged(change.currentValue, change.previousValue);
-    }
+  ngAfterViewInit() {
+    pikadayInput = document.getElementById(pikaday.id);
+    //updatePikadayAttributes();
+  }
+
+  updatePikadayAttributes() {
+    pikadayInput.onChange.listen((Event e) {
+      print(e);
+      print(pikadayInput.value);
+
+      if (pikadayInput.value.trim().isEmpty) {
+        pikaday.day = null;
+        _dateChange.add(null);
+      }
+    });
   }
 }

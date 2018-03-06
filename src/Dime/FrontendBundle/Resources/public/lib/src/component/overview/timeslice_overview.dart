@@ -416,7 +416,10 @@ class TimesliceDateFilterPipe implements PipeTransform {
         return values.where((i) => i.startedAt.isBefore(end)).toList();
       } else if (start is DateTime && end is DateTime) {
         //Show Timeslices that startedAt between start and end
-        return values.where((i) => (i.startedAt.isAfter(start) && i.startedAt.isBefore(end))).toList();
+        return values
+            .where((i) => ((i.startedAt.isAfter(start) || i.startedAt.isAtSameMomentAs(start)) &&
+                (i.startedAt.isBefore(end) || i.startedAt.isAtSameMomentAs(end))))
+            .toList();
       }
     }
     return const [];
