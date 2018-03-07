@@ -23,58 +23,40 @@
     <div class="tab-content">
       <div class="tab-pane active" id="offer_tab">
         <div class="form-horizontal">
-          <div class="form-group">
-            <label class="col-sm-2 control-label">Name</label>
-
-            <div class="col-sm-4">
-              <input required="true" class="form-control" style="width: 100%;" type="text" [(ngModel)]="entity.name"
-                     (change)="addSaveField('name')">
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-2 control-label">Kunde</label>
-            <customer-select [required]="true" class="col-sm-4" [(selectedEntity)]="entity.customer"
+          <dime-form-group horizontal label="Name">
+            <dime-input required [(ngModel)]="entity.name"
+                        (change)="addSaveField('name')"></dime-input>
+          </dime-form-group>
+          <dime-form-group horizontal label="Kunde">
+            <customer-select [required]="true" [(selectedEntity)]="entity.customer"
                              (selectedEntityChange)="entity.addFieldtoUpdate('customer')"></customer-select>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-2 control-label">Status</label>
-            <offerstatus-select class="col-sm-4" [(selectedEntity)]="entity.status" (selectedEntityChange)="entity.addFieldtoUpdate('status')"></offerstatus-select>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-2 control-label">Verantwortlicher Mitarbeiter</label>
-            <user-select class="col-sm-4" [(selectedEntity)]="entity.accountant" (selectedEntityChange)="addSaveField('accountant')"></user-select>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-2 control-label">Gültig bis</label>
-            <dateinput class="col-sm-4" [(date)]="entity.validTo" (dateChange)="addSaveField('validTo')"></dateinput>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-2 control-label">Tarif</label>
-            <rategroup-select class="col-sm-4" [(selectedEntity)]="entity.rateGroup" (selectedEntityChange)="addSaveField('rateGroup')"></rategroup-select>
-          </div>
+          </dime-form-group>
+          <dime-form-group horizontal label="Status">
+            <offerstatus-select [(selectedEntity)]="entity.status" (selectedEntityChange)="entity.addFieldtoUpdate('status')"></offerstatus-select>
+          </dime-form-group>
+          <dime-form-group horizontal label="Verantwortlicher Mitarbeiter">
+            <user-select [(selectedEntity)]="entity.accountant" (selectedEntityChange)="addSaveField('accountant')"></user-select>
+          </dime-form-group>
+          <dime-form-group horizontal label="Gültig bis">
+            <dateinput [(date)]="entity.validTo" (dateChange)="addSaveField('validTo')"></dateinput>
+          </dime-form-group>
+          <dime-form-group horizontal label="Tarif">
+            <rategroup-select [(selectedEntity)]="entity.rateGroup" (selectedEntityChange)="addSaveField('rateGroup')"></rategroup-select>
+          </dime-form-group>
           <h4>Addresse</h4>
           <address-edit [(address)]="entity.address" (change)="addSaveField('address')"></address-edit>
-          <div class="form-horizontal">
-            <div class="form-group">
-              <label class="col-sm-2"></label>
-
-              <div class="col-sm-4">
-                <a (click)="copyAddressFromCustomer()" *ngIf="entity.customer != null">Adresse aus Kunde
-                  übernehmen</a>
-              </div>
-            </div>
-          </div>
+          <dime-form-group horizontal>
+            <a (click)="copyAddressFromCustomer()" *ngIf="entity.customer != null">Adresse aus Kunde übernehmen</a>
+          </dime-form-group>
         </div>
-        <div class="form-group">
-          <label class="control-label">Kurzbeschreibung</label>
+        <dime-form-group label="Kurzbeschreibung">
           <input class="form-control" [(ngModel)]="entity.shortDescription" (change)="addSaveField('shortDescription')">
-        </div>
-        <div class="form-group">
-          <label class="control-label">Beschreibung</label>
+        </dime-form-group>
+        <dime-form-group label="Beschreibung" class="form-group">
           <p class="help-block">Beschreibungstexte werden neu mit Markdown formatiert. <a target="_blank" href="https://github.com/stiftungswo/Dime/blob/master/doc/markdown_intro.md">Hilfe</a></p>
           <textarea class="form-control" [(ngModel)]="entity.description"
                     (change)="addSaveField('description')"></textarea>
-        </div>
+        </dime-form-group>
       </div>
     </div>
   </div>

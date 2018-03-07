@@ -1,0 +1,12 @@
+<input [id]="eId != null ? eId : label"
+       class="form-control"
+       type="text"
+       [(ngModel)]="value"
+       #form="ngForm"
+       [ngControl]="ngControl"
+       [required]="required"
+       [class.is-invalid]="!form.valid"
+       [placeholder]="placeholder"
+       [bsPattern]="bsPattern"
+       [attr.pattern]="bsPattern"
+/>
