@@ -1,17 +1,4 @@
-import 'dart:async';
-import 'package:angular/angular.dart';
-import 'package:hammock/hammock.dart';
-import 'package:intl/intl.dart';
-
-import '../../component/elements/dime_directives.dart';
-import '../../component/overview/entity_overview.dart';
-import '../../model/Entity.dart';
-import '../../service/data_cache.dart';
-import '../../service/entity_events_service.dart';
-import '../../service/http_service.dart';
-import '../../service/setting_manager.dart';
-import '../../service/status.dart';
-import '../../service/user_auth.dart';
+part of entity_overview;
 
 class WeekReportEntry {
   String name;
@@ -25,7 +12,7 @@ class WeekReportDayEntry {
 
 @Component(
     selector: 'timeslice-weeklyreport',
-    templateUrl: 'timeslice_weekly_report.html',
+    templateUrl: '../report/timeslice_weekly_report.html',
     directives: const [CORE_DIRECTIVES, dimeDirectives],
     pipes: const [COMMON_PIPES])
 class TimesliceWeeklyReportComponent extends EntityOverview<ExpenseReport> {

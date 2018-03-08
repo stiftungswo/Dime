@@ -1,16 +1,4 @@
-import 'dart:async';
-import 'package:angular/angular.dart';
-import 'package:angular_forms/angular_forms.dart';
-import 'package:angular_router/angular_router.dart';
-
-import '../../component/edit/EntityEdit.dart';
-import '../../model/Entity.dart';
-import '../../service/data_cache.dart';
-import '../../service/entity_events_service.dart';
-import '../../service/status.dart';
-import '../../service/user_auth.dart';
-import '../elements/dime_directives.dart';
-import '../overview/entity_overview.dart';
+part of entity_edit;
 
 @Component(
   selector: 'service-edit',

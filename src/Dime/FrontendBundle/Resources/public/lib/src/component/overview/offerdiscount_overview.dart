@@ -1,14 +1,15 @@
 import 'dart:async';
+
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
 
-import '../../component/overview/entity_overview.dart';
 import '../../model/Entity.dart';
 import '../../service/data_cache.dart';
 import '../../service/entity_events_service.dart';
 import '../../service/setting_manager.dart';
 import '../../service/status.dart';
 import '../elements/dime_directives.dart';
+import 'entity_overview.dart';
 
 @Component(
   selector: 'offerdiscount-overview',

@@ -1,24 +1,8 @@
-import 'dart:async';
-import 'dart:html';
-
-import 'package:angular/angular.dart';
-import 'package:hammock/hammock.dart';
-import 'package:intl/intl.dart';
-
-import '../../component/elements/dime_directives.dart';
-import '../../component/overview/entity_overview.dart';
-import '../../component/select/entity_select.dart';
-import '../../model/Entity.dart';
-import '../../service/data_cache.dart';
-import '../../service/entity_events_service.dart';
-import '../../service/http_service.dart';
-import '../../service/setting_manager.dart';
-import '../../service/status.dart';
-import '../../service/user_auth.dart';
+part of entity_overview;
 
 @Component(
     selector: 'timeslice-expensereport',
-    templateUrl: 'timeslice_expense_report.html',
+    templateUrl: '../report/timeslice_expense_report.html',
     directives: const [CORE_DIRECTIVES, dimeDirectives, UserSelectComponent, ProjectSelectComponent],
     pipes: const [COMMON_PIPES])
 class TimesliceExpenseReportComponent extends EntityOverview<ExpenseReport> {

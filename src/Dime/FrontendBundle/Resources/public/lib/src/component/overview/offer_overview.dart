@@ -1,10 +1,10 @@
 import 'dart:async';
+
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
 import 'package:angular_router/angular_router.dart';
 import 'package:angular_router/src/router.dart';
 
-import '../../component/overview/entity_overview.dart';
 import '../../model/Entity.dart';
 import '../../pipes/dime_pipes.dart';
 import '../../service/data_cache.dart';
@@ -14,6 +14,7 @@ import '../../service/status.dart';
 import '../../service/user_auth.dart';
 import '../../service/user_context.dart';
 import '../elements/dime_directives.dart';
+import 'entity_overview.dart';
 
 @Component(
   selector: 'offer-overview',

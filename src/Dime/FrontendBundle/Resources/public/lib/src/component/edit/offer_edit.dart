@@ -6,7 +6,6 @@ import 'package:angular_forms/angular_forms.dart';
 import 'package:angular_router/angular_router.dart';
 import 'package:hammock/hammock.dart';
 
-import '../../component/edit/EntityEdit.dart';
 import '../../model/Entity.dart';
 import '../../service/data_cache.dart';
 import '../../service/entity_events_service.dart';
@@ -16,6 +15,7 @@ import '../../service/user_auth.dart';
 import '../elements/dime_directives.dart';
 import '../overview/entity_overview.dart';
 import '../select/entity_select.dart';
+import 'EntityEdit.dart';
 
 @Component(
   selector: 'offer-edit',

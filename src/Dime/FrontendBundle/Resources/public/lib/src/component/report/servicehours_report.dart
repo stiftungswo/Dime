@@ -3,9 +3,9 @@ import 'dart:html';
 
 import 'package:angular/angular.dart';
 
-import '../../component/elements/dime_directives.dart';
 import '../../service/http_service.dart';
 import '../../service/status.dart';
+import '../elements/dime_directives.dart';
 
 @Component(
     selector: 'servicehours-report',
