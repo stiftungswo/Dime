@@ -7,6 +7,7 @@ import 'help-tooltip.dart';
 import 'dime_input.dart';
 import '../percent-input/percent_input.dart';
 import 'dime_form_group.dart';
+import 'discount_input.dart';
 
 const dimeDirectives = const [
   DimeButton,
@@ -18,4 +19,5 @@ const dimeDirectives = const [
   PercentageInputField,
   DimeInput,
   DimeFormGroup,
+  DiscountInputComponent,
 ];

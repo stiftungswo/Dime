@@ -1,7 +1,7 @@
 <!--TODO: merge mit invoicediscount_overview -->
 <div class="box box-primary">
   <div class="box-header with-border">
-    <h3 class="box-title">Weitere Abzüge</h3>
+    <h3 class="box-title">Abzüge</h3>
   </div>
   <div class="box-body">
     <table class="table table-bordered table-hover">
@@ -9,17 +9,15 @@
         <tr>
           <th>Name</th>
           <th>Abzug</th>
-          <th>Prozent</th>
           <th width="60">Aktion</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let entity of entities" (click)="selectEntity(entity.id)" [class.info]="isSelected(entity)">
           <td><input class="form-control" type="text" [(ngModel)]="entity.name" (change)="addSaveField('name', entity)"/></td>
-          <!-- TODO: CHF/% liesse sich so gut visualisieren: https://getbootstrap.com/docs/3.3/components/#input-groups-buttons-multiple -->
-          <td *ngIf="!entity.percentage"><input class="form-control" type="number" [(ngModel)]="entity.value" (change)="addSaveField('value', entity)"/></td>
-          <td *ngIf="entity.percentage"><input-percentage [safecalc]="false" [htmlclass]="'form-control'" [(value)]="entity.value" (change)="addSaveField('value', entity)"></input-percentage></td>
-          <td><input class="checkbox" type="checkbox" [(ngModel)]="entity.percentage" (change)="addSaveField('percentage', entity)"/></td>
+          <td><discount-input
+            [(percentage)]="entity.percentage" (percentageChange)="addSaveField('percentage', entity)"
+            [(value)]="entity.value" (valueChange)="addSaveField('value', entity)"></discount-input></td>
           <td><dime-button (click)="deleteEntity(entity.id)" fontAwesome="trash-o" color="red"></dime-button></td>
         </tr>
       </tbody>
