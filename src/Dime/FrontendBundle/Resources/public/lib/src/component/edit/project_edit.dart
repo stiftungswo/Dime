@@ -5,7 +5,7 @@ import 'package:angular_forms/angular_forms.dart';
 import 'package:angular_router/angular_router.dart';
 import 'package:hammock/hammock.dart';
 
-import '../../model/Entity.dart';
+import '../../model/entity_export.dart';
 import '../../service/data_cache.dart';
 import '../../service/entity_events_service.dart';
 import '../../service/http_service.dart';
@@ -14,8 +14,8 @@ import '../../service/user_auth.dart';
 import '../date/dateToTextInput.dart';
 import '../elements/dime_directives.dart';
 import '../elements/help-tooltip.dart';
-import '../overview/entity_overview.dart';
-import '../select/entity_select.dart';
+import '../overview/overview.dart';
+import '../select/select.dart';
 import 'EntityEdit.dart';
 
 @Component(

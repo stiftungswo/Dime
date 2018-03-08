@@ -1,5 +1,5 @@
 import 'package:angular/angular.dart';
-import '../model/Entity.dart';
+import '../model/entity_export.dart';
 
 @Pipe('projectvaluefilter', pure: false)
 class ProjectValueFilter implements PipeTransform {

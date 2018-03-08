@@ -1,4 +1,4 @@
-import '../Entity.dart';
+import '../entity_export.dart';
 
 class StandardDiscount extends Entity {
   @override

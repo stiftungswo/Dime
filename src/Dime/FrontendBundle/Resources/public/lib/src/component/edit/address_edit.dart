@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
 
-import '../../model/Entity.dart';
+import '../../model/entity_export.dart';
 import 'EntityEdit.dart';
 
 @Component(selector: 'address-edit', templateUrl: 'address_edit.html', directives: const [CORE_DIRECTIVES, formDirectives])

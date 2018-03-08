@@ -12,17 +12,6 @@ import '../../service/data_cache.dart';
 import '../../service/entity_events_service.dart';
 import '../../service/status.dart';
 import '../../service/user_auth.dart';
-import '../elements/dime_directives.dart';
-import '../overview/entity_overview.dart';
-
-export 'address_edit.dart';
-export 'customer_edit.dart';
-export 'employee_edit.dart';
-export 'invoice_edit.dart';
-export 'offer_edit.dart';
-export 'project_edit.dart';
-
-part 'service_edit.dart';
 
 abstract class EntityEdit<T extends Entity> implements OnInit {
   Type entType;

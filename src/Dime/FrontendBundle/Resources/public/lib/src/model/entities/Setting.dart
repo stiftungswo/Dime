@@ -1,4 +1,4 @@
-import '../Entity.dart';
+import '../entity_export.dart';
 
 class Setting extends Entity {
   Setting();

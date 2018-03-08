@@ -1,14 +1,14 @@
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
 
-import '../../model/Entity.dart';
+import '../../model/entity_export.dart';
 import '../../service/data_cache.dart';
 import '../../service/entity_events_service.dart';
 import '../../service/status.dart';
 import '../../service/user_auth.dart';
 import '../elements/dime_directives.dart';
-import '../overview/entity_overview.dart';
-import '../select/entity_select.dart';
+import '../overview/overview.dart';
+import '../select/select.dart';
 
 @Component(
   selector: 'projecttimetrack',

@@ -1,4 +1,4 @@
-import '../Entity.dart';
+import '../entity_export.dart';
 import 'dart:math';
 
 class User extends Entity {

@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
 
-import '../../model/Entity.dart';
+import '../../model/entity_export.dart';
 import '../../pipes/dime_pipes.dart';
 import '../../service/data_cache.dart';
 import '../../service/entity_events_service.dart';

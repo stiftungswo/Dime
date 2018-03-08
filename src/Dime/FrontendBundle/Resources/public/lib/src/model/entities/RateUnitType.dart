@@ -1,4 +1,4 @@
-import '../Entity.dart';
+import '../entity_export.dart';
 
 class RateUnitType extends Entity {
   RateUnitType();

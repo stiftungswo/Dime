@@ -3,11 +3,11 @@ import 'dart:convert';
 import 'package:angular/angular.dart';
 import 'package:intl/intl.dart';
 
-import '../../model/Entity.dart';
+import '../../model/entity_export.dart';
 import '../../service/http_service.dart';
 import '../../service/status.dart';
 import '../elements/dime_directives.dart';
-import '../select/entity_select.dart';
+import '../select/select.dart';
 
 @Component(
     selector: 'projectemployee-report',

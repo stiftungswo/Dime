@@ -2,7 +2,7 @@
 import '../service/http_service.dart';
 import 'package:angular/angular.dart';
 import 'package:hammock/hammock.dart';
-import '../model/Entity.dart';
+import '../model/entity_export.dart';
 
 createHammockConfig(Injector i) {
   return new HammockConfig(i)

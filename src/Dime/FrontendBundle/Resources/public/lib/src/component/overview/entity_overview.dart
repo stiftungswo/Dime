@@ -1,60 +1,18 @@
 library entity_overview;
 
 import 'dart:async';
-import 'dart:convert';
 import 'dart:html';
 
 import 'package:angular/angular.dart';
-import 'package:angular_forms/angular_forms.dart';
 import 'package:angular_router/angular_router.dart';
 import 'package:angular_router/src/router.dart';
-import 'package:hammock/hammock.dart';
-import 'package:intl/intl.dart';
 
 import '../../model/Entity.dart';
-import '../../pipes/dime_pipes.dart';
-import '../../pipes/project_value.dart';
 import '../../service/data_cache.dart';
 import '../../service/entity_events_service.dart';
-import '../../service/http_service.dart';
 import '../../service/setting_manager.dart';
 import '../../service/status.dart';
-import '../../service/timetrack_service.dart';
 import '../../service/user_auth.dart';
-import '../../service/user_context.dart';
-import '../elements/dime_directives.dart';
-import '../select/activity_select.dart';
-import '../select/entity_select.dart';
-import '../select/project_select.dart';
-import '../select/user_select.dart';
-import '../setting/setting.dart';
-
-export 'activity_overview.dart';
-export 'customer_overview.dart';
-export 'employee_overview.dart';
-export 'holiday_overview.dart';
-export 'invoice_overview.dart';
-export 'invoicecostgroup_overview.dart';
-export 'invoicediscount_overview.dart';
-export 'invoiceitem_overview.dart';
-export 'offer_overview.dart';
-export 'offerdiscount_overview.dart';
-export 'offerposition_overview.dart';
-export 'period_overview.dart';
-export 'projectCategory_overview.dart';
-export 'projectComment_overview.dart';
-export 'project_open-invoices.dart';
-export 'project_overview.dart';
-export 'rateGroup_overview.dart';
-export 'rateUnitType_overview.dart';
-export 'rate_overview.dart';
-export 'service_overview.dart';
-export 'settingAssignProject_overview.dart';
-
-part '../report/timeslice_expense_report.dart';
-part '../report/timeslice_weekly_report.dart';
-part '../timetrack/timetrack_multi.dart';
-part 'timeslice_overview.dart';
 
 abstract class EntityOverview<T extends Entity> implements OnInit {
   bool needsmanualAdd = false;

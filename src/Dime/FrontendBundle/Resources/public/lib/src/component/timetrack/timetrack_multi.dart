@@ -1,4 +1,21 @@
-part of entity_overview;
+import 'dart:async';
+
+import 'package:angular/angular.dart';
+import 'package:angular_forms/angular_forms.dart';
+
+import '../../model/entity_export.dart';
+import '../../pipes/project_value.dart';
+import '../../service/data_cache.dart';
+import '../../service/entity_events_service.dart';
+import '../../service/setting_manager.dart';
+import '../../service/status.dart';
+import '../../service/user_auth.dart';
+import '../../service/user_context.dart';
+import '../elements/dime_directives.dart';
+import '../overview/entity_overview.dart';
+import '../select/project_select.dart';
+import '../select/select.dart';
+import '../select/user_select.dart';
 
 class TimetrackMultiEntry {
   User user;
@@ -7,7 +24,7 @@ class TimetrackMultiEntry {
 
 @Component(
   selector: 'timetrack-multi',
-  templateUrl: '../timetrack/timetrack_multi.html',
+  templateUrl: 'timetrack_multi.html',
   directives: const [CORE_DIRECTIVES, formDirectives, dimeDirectives, ProjectSelectComponent, UserSelectComponent],
   pipes: const [ProjectValueFilter],
 )

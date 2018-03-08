@@ -1,5 +1,5 @@
 import 'package:angular/angular.dart';
-import '../model/Entity.dart';
+import '../model/entity_export.dart';
 import 'data_cache.dart';
 
 @Injectable()

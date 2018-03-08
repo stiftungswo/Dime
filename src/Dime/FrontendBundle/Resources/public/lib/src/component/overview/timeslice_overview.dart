@@ -1,4 +1,27 @@
-part of entity_overview;
+import 'dart:async';
+import 'dart:convert';
+
+import 'package:angular/angular.dart';
+import 'package:angular_forms/angular_forms.dart';
+import 'package:intl/intl.dart';
+
+import '../../model/entity_export.dart';
+import '../../pipes/dime_pipes.dart';
+import '../../service/data_cache.dart';
+import '../../service/entity_events_service.dart';
+import '../../service/http_service.dart';
+import '../../service/setting_manager.dart';
+import '../../service/status.dart';
+import '../../service/timetrack_service.dart';
+import '../../service/user_auth.dart';
+import '../../service/user_context.dart';
+import '../elements/dime_directives.dart';
+import '../select/activity_select.dart';
+import '../select/project_select.dart';
+import '../select/select.dart';
+import '../select/user_select.dart';
+import '../setting/setting.dart';
+import 'entity_overview.dart';
 
 @Component(
   selector: 'timeslice-overview',

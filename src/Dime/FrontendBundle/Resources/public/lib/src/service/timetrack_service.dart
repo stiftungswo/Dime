@@ -1,5 +1,5 @@
 import 'dart:async';
-import '../model/Entity.dart';
+import '../model/entity_export.dart';
 import 'package:angular/angular.dart';
 
 @Injectable()

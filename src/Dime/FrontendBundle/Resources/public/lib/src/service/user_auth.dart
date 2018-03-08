@@ -2,7 +2,7 @@
 
 import 'http_service.dart';
 import 'package:angular/angular.dart';
-import '../model/Entity.dart';
+import '../model/entity_export.dart';
 import 'package:hammock/hammock.dart';
 import 'dart:html';
 import 'dart:convert';

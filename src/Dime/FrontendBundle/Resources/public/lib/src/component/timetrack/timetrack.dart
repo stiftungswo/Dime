@@ -1,12 +1,12 @@
 import 'package:angular/angular.dart';
 
-import '../../model/Entity.dart';
+import '../../model/entity_export.dart';
 import '../../service/entity_events_service.dart';
 import '../../service/timetrack_service.dart';
 import '../../service/user_auth.dart';
 import '../../service/user_context.dart';
 import '../elements/dime_directives.dart';
-import '../overview/entity_overview.dart';
+import '../overview/overview.dart';
 
 @Component(selector: 'timetrack', templateUrl: 'timetrack.html', directives: const [
   CORE_DIRECTIVES,
