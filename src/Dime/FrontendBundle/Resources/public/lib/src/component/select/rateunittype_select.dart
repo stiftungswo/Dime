@@ -9,12 +9,14 @@ import '../../service/data_cache.dart';
 import '../../service/status.dart';
 import '../../service/user_auth.dart';
 import 'entity_select.dart';
+import '../../component/elements/dime_form_group.dart';
 
 @Component(
   selector: 'rateunittype-select',
   templateUrl: 'rateunittype_select.html',
   directives: const [formDirectives, CORE_DIRECTIVES],
   pipes: const [dimePipes],
+  providers: const [ const Provider(Validatable, useExisting: RateUnitTypeSelectComponent)]
 )
 class RateUnitTypeSelectComponent extends EntitySelect<RateUnitType> {
   RateUnitTypeSelectComponent(DataCache store, dom.Element element, StatusService status, UserAuthProvider auth)

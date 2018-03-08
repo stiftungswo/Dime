@@ -25,9 +25,9 @@ import 'package:angular_forms/angular_forms.dart';
         <ng-content></ng-content>
       </div>
       <ul *ngIf='validatable != null' class='help-block'>
-        <li *ngFor='let error of validatable.errors.values'>
+        <li *ngIf="validatable.errors['required'] == true">
           <i class="fa fa-times"></i>
-          {{error}}
+          Dieses Feld darf nicht leer sein
         </li>
       </ul>
     </div>
@@ -63,24 +63,19 @@ abstract class Validatable{
 
 class ValidatableNgForm implements Validatable{
   @ViewChild(NgControl) NgControl control;
+  final Map<String, dynamic> _empty = {};
 
   Map<String,dynamic> get _errors{
     if(control == null){
       print("control is null");
-      return {};
+      return _empty;
     } else {
       print("control is here");
-      return control.errors == null ? {} : control.errors;
+      return control.errors == null ? _empty : control.errors;
     }
   }
 
-  @override Map<String,dynamic> get errors{
-    var map = _errors;
-    if(map.containsKey('required')){
-      map['required'] = "Dieses Feld muss ausgefüllt sein.";
-    }
-    return map;
-  }
+  @override Map<String,dynamic> get errors => _errors;
   //form != null ? form.errors : null;
   @override bool get valid => control != null ? control.valid : false;
 }
@@ -88,5 +83,16 @@ class ValidatableNgForm implements Validatable{
 class ValidatableCustom implements Validatable{
   Map<String, dynamic> _errors = {};
   Map<String, dynamic> get errors => _errors;
-  bool get valid => _errors.values.where((msg)=> msg!=null && msg.isNotEmpty).isEmpty;
+  bool get valid => _errors.values.where((msg)=> msg!=null && msg.toString().isNotEmpty).isEmpty;
+}
+
+Map<String, String> mapErrors(Map<String, dynamic> errors){
+  print("mapp errors:");
+  print(errors);
+  var map = {}..addAll(errors);
+  if(map.containsKey('required')){
+    map['required'] = "Dieses Feld muss ausgefüllt sein.";
+  }
+  print(map);
+  return map;
 }

@@ -6,12 +6,13 @@ import 'dart:math' as math;
 import 'package:angular/angular.dart';
 import 'package:meta/meta.dart';
 
+import '../../component/elements/dime_form_group.dart';
 import '../../model/Entity.dart';
 import '../../service/data_cache.dart';
 import '../../service/status.dart';
 import '../../service/user_auth.dart';
 
-abstract class EntitySelect<T extends Entity> implements OnInit {
+abstract class EntitySelect<T extends Entity> extends ValidatableCustom implements OnInit {
   DataCache store;
   dom.Element element;
   bool open = false;
@@ -41,6 +42,7 @@ abstract class EntitySelect<T extends Entity> implements OnInit {
   set selectedEntity(T entity) {
     this._selectedEntity = entity;
     this.selector = EntText;
+    validate();
   }
 
   T get selectedEntity => _selectedEntity;
@@ -71,6 +73,7 @@ abstract class EntitySelect<T extends Entity> implements OnInit {
     } catch (e, stack) {
       this.statusservice.setStatusToError(e, stack);
     }
+    validate();
   }
 
   void select(T entity) {
@@ -108,6 +111,14 @@ abstract class EntitySelect<T extends Entity> implements OnInit {
       }
       this.selector = EntText;
       this.open = false;
+    }
+  }
+
+  void validate(){
+    if(this.selectedEntity == null && required){
+      this.errors['required'] = true;
+    } else {
+      this.errors.remove('required');
     }
   }
 }

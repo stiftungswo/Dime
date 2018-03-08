@@ -3,6 +3,7 @@ import 'dart:html' as dom;
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
 
+import '../../component/elements/dime_form_group.dart';
 import '../../model/entity_export.dart';
 import '../../pipes/dime_pipes.dart';
 import '../../service/data_cache.dart';
@@ -15,6 +16,7 @@ import 'entity_select.dart';
   templateUrl: 'offerstatus_select.html',
   directives: const [CORE_DIRECTIVES, formDirectives],
   pipes: const [dimePipes],
+  providers: const [ const Provider(Validatable, useExisting: OfferStatusSelectComponent)]
 )
 class OfferStatusSelectComponent extends EntitySelect<OfferStatusUC> {
   OfferStatusSelectComponent(DataCache store, dom.Element element, StatusService status, UserAuthProvider auth)

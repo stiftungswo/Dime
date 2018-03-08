@@ -8,6 +8,7 @@ import '../../pipes/dime_pipes.dart';
 import '../../service/data_cache.dart';
 import '../../service/status.dart';
 import '../../service/user_auth.dart';
+import '../../component/elements/dime_form_group.dart';
 import 'entity_select.dart';
 
 @Component(
@@ -15,6 +16,7 @@ import 'entity_select.dart';
   templateUrl: 'rategroup_select.html',
   directives: const [formDirectives, CORE_DIRECTIVES],
   pipes: const [dimePipes],
+  providers: const [ const Provider(Validatable, useExisting: RateGroupSelectComponent)]
 )
 class RateGroupSelectComponent extends EntitySelect<RateGroup> {
   RateGroupSelectComponent(DataCache store, dom.Element element, StatusService status, UserAuthProvider auth)

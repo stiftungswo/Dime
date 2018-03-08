@@ -28,7 +28,7 @@
                         (change)="addSaveField('name')"></dime-input>
           </dime-form-group>
           <dime-form-group horizontal label="Kunde">
-            <customer-select [required]="true" [(selectedEntity)]="entity.customer"
+            <customer-select required [(selectedEntity)]="entity.customer"
                              (selectedEntityChange)="entity.addFieldtoUpdate('customer')"></customer-select>
           </dime-form-group>
           <dime-form-group horizontal label="Status">

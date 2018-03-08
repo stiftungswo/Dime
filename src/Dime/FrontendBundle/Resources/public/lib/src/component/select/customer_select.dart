@@ -4,6 +4,7 @@ import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
 
 import '../../model/entity_export.dart';
+import '../../component/elements/dime_form_group.dart';
 import '../../pipes/dime_pipes.dart';
 import '../../service/data_cache.dart';
 import '../../service/status.dart';
@@ -15,6 +16,7 @@ import 'entity_select.dart';
   templateUrl: 'customer_select.html',
   directives: const [CORE_DIRECTIVES, formDirectives],
   pipes: const [dimePipes],
+  providers: const [ const Provider(Validatable, useExisting: CustomerSelectComponent)]
 )
 class CustomerSelectComponent extends EntitySelect<Customer> {
   CustomerSelectComponent(DataCache store, dom.Element element, StatusService status, UserAuthProvider auth)
