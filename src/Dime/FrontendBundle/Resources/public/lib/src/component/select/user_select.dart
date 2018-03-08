@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:html' as dom;
 
 import 'package:angular/angular.dart';
