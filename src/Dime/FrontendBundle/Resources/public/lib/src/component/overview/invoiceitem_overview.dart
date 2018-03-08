@@ -16,21 +16,19 @@ import '../elements/dime_directives.dart';
   directives: const [CORE_DIRECTIVES, formDirectives, dimeDirectives],
   pipes: const [OrderByPipe],
 )
-class InvoiceItemOverviewComponent extends EntityOverview {
+class InvoiceItemOverviewComponent extends EntityOverview<InvoiceItem> {
   InvoiceItemOverviewComponent(DataCache store, SettingsManager manager, StatusService status, EntityEventsService entityEventsService)
       : super(InvoiceItem, store, '', manager, status, entityEventsService);
 
-  cEnt({Entity entity}) {
+  @override
+  InvoiceItem cEnt({InvoiceItem entity}) {
     if (entity != null) {
-      if (entity is InvoiceItem) {
-        return new InvoiceItem.clone(entity);
-      } else {
-        throw new Exception("Invalid Type; InvoiceItem expected!");
-      }
+      return new InvoiceItem.clone(entity);
     }
     return new InvoiceItem();
   }
 
+  @override
   bool needsmanualAdd = true;
 
   int _invoiceId;
@@ -43,11 +41,13 @@ class InvoiceItemOverviewComponent extends EntityOverview {
     }
   }
 
-  reload({Map<String, dynamic> params, bool evict: false}) {
-    super.reload(params: {'invoice': this._invoiceId}, evict: evict);
+  @override
+  Future reload({Map<String, dynamic> params, bool evict: false}) {
+    return super.reload(params: {'invoice': this._invoiceId}, evict: evict);
   }
 
-  ngOnInit() {
+  @override
+  void ngOnInit() {
     if (this.auth != null) {
       if (!auth.isloggedin) {
         this.auth.afterLogin(() {
@@ -59,7 +59,8 @@ class InvoiceItemOverviewComponent extends EntityOverview {
     }
   }
 
-  createEntity({dynamic newEnt, Map<String, dynamic> params: const {}}) {
-    super.createEntity(params: {'invoice': this._invoiceId});
+  @override
+  Future createEntity({InvoiceItem newEnt, Map<String, dynamic> params: const {}}) {
+    return super.createEntity(params: {'invoice': this._invoiceId});
   }
 }

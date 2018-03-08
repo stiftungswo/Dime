@@ -1,6 +1,7 @@
 import '../Entity.dart';
 
 class Invoice extends Entity {
+  @override
   init({Map<String, dynamic> params: const {}}) {
     if (!params.containsKey('name')) {
       params['name'] = 'New Invoice';
@@ -61,10 +62,12 @@ class Invoice extends Entity {
     return invoices;
   }
 
-  newObj() {
+  @override
+  Invoice newObj() {
     return new Invoice();
   }
 
+  @override
   dynamic Get(String property) {
     var val = super.Get(property);
     if (val == null) {
@@ -112,22 +115,23 @@ class Invoice extends Entity {
     return val;
   }
 
-  void Set(String property, var value) {
+  @override
+  void Set(String property, dynamic value) {
     switch (property) {
       case 'description':
-        this.description = value;
+        this.description = value as String;
         break;
       case 'project':
-        this.project = value is Entity ? value : new Project.fromMap(value);
+        this.project = value is Project ? value : new Project.fromMap(value as Map<String, dynamic>);
         break;
       case 'items':
-        this.items = InvoiceItem.listFromMap(value);
+        this.items = InvoiceItem.listFromMap(value as List<Map<String, dynamic>>);
         break;
       case 'invoiceDiscounts':
-        this.invoiceDiscounts = InvoiceDiscount.listFromMap(value);
+        this.invoiceDiscounts = InvoiceDiscount.listFromMap(value as List<Map<String, dynamic>>);
         break;
       case 'standardDiscounts':
-        this.standardDiscounts = StandardDiscount.listFromMap(value);
+        this.standardDiscounts = StandardDiscount.listFromMap(value as List<Map<String, dynamic>>);
         break;
       case 'start':
         this.start = this.addDateValue(value);
@@ -136,37 +140,37 @@ class Invoice extends Entity {
         this.end = this.addDateValue(value);
         break;
       case 'customer':
-        this.customer = value is Entity ? value : new Customer.fromMap(value);
+        this.customer = value is Customer ? value : new Customer.fromMap(value as Map<String, dynamic>);
         break;
       case 'totalDiscounts':
-        this.totalDiscounts = value;
+        this.totalDiscounts = value as String;
         break;
       case 'total':
-        this.total = value;
+        this.total = value as String;
         break;
       case 'subtotal':
-        this.subtotal = value;
+        this.subtotal = value as String;
         break;
       case 'totalVAT':
-        this.totalVAT = value;
+        this.totalVAT = value as String;
         break;
       case 'totalVAT8':
-        this.totalVAT8 = value;
+        this.totalVAT8 = value as String;
         break;
       case 'totalVAT2':
-        this.totalVAT2 = value;
+        this.totalVAT2 = value as String;
         break;
       case 'fixedPrice':
-        this.fixedPrice = value;
+        this.fixedPrice = value as String;
         break;
       case 'accountant':
-        this.accountant = value is Entity ? value : new Employee.fromMap(value);
+        this.accountant = value is Employee ? value : new Employee.fromMap(value as Map<String, dynamic>);
         break;
       case 'costgroup':
-        this.costgroup = value is Entity ? value : new Costgroup.fromMap(value);
+        this.costgroup = value is Costgroup ? value : new Costgroup.fromMap(value as Map<String, dynamic>);
         break;
       case 'breakdown':
-        this.breakdown = new InvoiceBreakdown.fromMap(value);
+        this.breakdown = new InvoiceBreakdown.fromMap(value as Map<String, dynamic>);
         break;
       default:
         super.Set(property, value);
@@ -174,6 +178,7 @@ class Invoice extends Entity {
     }
   }
 
+  @override
   cloneDescendants(Entity original) {
     if (original is Invoice) {
       for (InvoiceItem entity in original.items) {
@@ -191,6 +196,7 @@ class Invoice extends Entity {
     }
   }
 
+  @override
   String type = 'invoices';
   String totalDiscounts;
   String fixedPrice;

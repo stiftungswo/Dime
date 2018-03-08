@@ -22,7 +22,7 @@ import '../elements/dime_directives.dart';
   directives: const [CORE_DIRECTIVES, formDirectives, dimeDirectives],
   pipes: const [dimePipes],
 )
-class ProjectOpenInvoicesComponent extends EntityOverview {
+class ProjectOpenInvoicesComponent extends EntityOverview<Project> {
   ProjectOpenInvoicesComponent(DataCache store, this.context, Router router, SettingsManager manager, StatusService status,
       UserAuthProvider auth, RouteParams prov, EntityEventsService entityEventsService, this.http)
       : super(Project, store, 'ProjectEdit', manager, status, entityEventsService, auth: auth, router: router) {
@@ -34,7 +34,19 @@ class ProjectOpenInvoicesComponent extends EntityOverview {
 
   UserContext context;
 
-  reload({Map<String, dynamic> params, bool evict: false}) async {
+  @override
+  Project cEnt({Project entity}) {
+    if (entity != null) {
+      return new Project.clone(entity);
+    }
+    Project newProject = new Project();
+    newProject.accountant = this.context.employee;
+    newProject.addFieldtoUpdate('accountant');
+    return newProject;
+  }
+
+  @override
+  Future reload({Map<String, dynamic> params, bool evict: false}) async {
     this.entities = [];
     this.statusservice.setStatusToLoading();
     try {
@@ -43,7 +55,7 @@ class ProjectOpenInvoicesComponent extends EntityOverview {
       }
       this.entities =
           (await this.store.customQueryList(Project, new CustomRequestParams(method: 'GET', url: '${http.baseUrl}/projectsopeninvoices')))
-              .toList();
+              .toList() as List<Project>;
       this.statusservice.setStatusToSuccess();
       //this.rootScope.emit(this.type.toString() + 'Loaded');
     } catch (e, stack) {

@@ -14,21 +14,19 @@ import '../elements/dime_directives.dart';
   templateUrl: 'offerdiscount_overview.html',
   directives: const [CORE_DIRECTIVES, formDirectives, dimeDirectives],
 )
-class OfferDiscountOverviewComponent extends EntityOverview {
+class OfferDiscountOverviewComponent extends EntityOverview<OfferDiscount> {
   OfferDiscountOverviewComponent(DataCache store, SettingsManager manager, StatusService status, EntityEventsService entityEventsService)
       : super(OfferDiscount, store, '', manager, status, entityEventsService);
 
-  cEnt({Entity entity}) {
+  @override
+  OfferDiscount cEnt({OfferDiscount entity}) {
     if (entity != null) {
-      if (entity is OfferDiscount) {
-        return new OfferDiscount.clone(entity);
-      } else {
-        throw new Exception("Invalid Type; OfferDiscount expected!");
-      }
+      return new OfferDiscount.clone(entity);
     }
     return new OfferDiscount();
   }
 
+  @override
   bool needsmanualAdd = true;
 
   int _offerId;
@@ -41,12 +39,13 @@ class OfferDiscountOverviewComponent extends EntityOverview {
     }
   }
 
-  reload({Map<String, dynamic> params, bool evict: false}) {
-    super.reload(params: {'offer': this._offerId}, evict: evict);
+  @override
+  Future reload({Map<String, dynamic> params, bool evict: false}) {
+    return super.reload(params: {'offer': this._offerId}, evict: evict);
   }
 
   @override
-  ngOnInit() {
+  void ngOnInit() {
     if (this.auth != null) {
       if (!auth.isloggedin) {
         this.auth.afterLogin(() {
@@ -58,7 +57,8 @@ class OfferDiscountOverviewComponent extends EntityOverview {
     }
   }
 
-  createEntity({dynamic newEnt, Map<String, dynamic> params: const {}}) {
-    super.createEntity(params: {'offer': this._offerId});
+  @override
+  Future createEntity({OfferDiscount newEnt, Map<String, dynamic> params: const {}}) {
+    return super.createEntity(params: {'offer': this._offerId});
   }
 }

@@ -16,7 +16,7 @@ import '../../service/user_auth.dart';
   directives: const [formDirectives, CORE_DIRECTIVES],
   pipes: const [dimePipes],
 )
-class RateGroupSelectComponent extends EntitySelect {
+class RateGroupSelectComponent extends EntitySelect<RateGroup> {
   RateGroupSelectComponent(DataCache store, dom.Element element, StatusService status, UserAuthProvider auth)
       : super(RateGroup, store, element, status, auth);
 }

@@ -14,6 +14,7 @@ class Rate extends Entity {
 
   Rate.fromMap(Map<String, dynamic> map) : super.fromMap(map);
 
+  @override
   init({Map<String, dynamic> params: const {}}) {
     if (params.containsKey('service')) {
       params['service'] = new Service()..id = params['service'];
@@ -21,10 +22,12 @@ class Rate extends Entity {
     super.init(params: params);
   }
 
+  @override
   newObj() {
     return new Rate();
   }
 
+  @override
   dynamic Get(String property) {
     var val = super.Get(property);
     if (val == null) {
@@ -46,22 +49,23 @@ class Rate extends Entity {
     return val;
   }
 
-  void Set(String property, var value) {
+  @override
+  void Set(String property, dynamic value) {
     switch (property) {
       case 'rateValue':
-        this.rateValue = value;
+        this.rateValue = value as String;
         break;
       case 'rateUnit':
-        this.rateUnit = value;
+        this.rateUnit = value as String;
         break;
       case 'rateUnitType':
-        this.rateUnitType = value is Entity ? value : new RateUnitType.fromMap(value);
+        this.rateUnitType = value is RateUnitType ? value : new RateUnitType.fromMap(value as Map<String, dynamic>);
         break;
       case 'rateGroup':
-        this.rateGroup = value is Entity ? value : new RateGroup.fromMap(value);
+        this.rateGroup = value is RateGroup ? value : new RateGroup.fromMap(value as Map<String, dynamic>);
         break;
       case 'service':
-        this.service = value is Entity ? value : new Service.fromMap(value);
+        this.service = value is Service ? value : new Service.fromMap(value as Map<String, dynamic>);
         break;
       default:
         super.Set(property, value);
@@ -78,6 +82,7 @@ class Rate extends Entity {
     return array;
   }
 
+  @override
   String type = 'rates';
   String rateValue;
   String rateUnit;

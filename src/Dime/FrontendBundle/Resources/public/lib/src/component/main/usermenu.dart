@@ -38,7 +38,7 @@ class UserMenu {
   userEditor() {
     router.navigate([
       "EmployeeEdit",
-      {'id': userContext.employee.id}
+      {'id': userContext.employee.id.toString()}
     ]);
   }
 }

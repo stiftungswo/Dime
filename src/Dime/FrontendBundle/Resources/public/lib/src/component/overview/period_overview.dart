@@ -19,18 +19,16 @@ import '../elements/dime_directives.dart';
     templateUrl: 'period_overview.html',
     directives: const [CORE_DIRECTIVES, formDirectives, dimeDirectives],
     pipes: const [dimePipes])
-class PeriodOverviewComponent extends EntityOverview {
+class PeriodOverviewComponent extends EntityOverview<Period> {
   PeriodOverviewComponent(
       DataCache store, SettingsManager manager, StatusService status, this.context, EntityEventsService entityEventsService, this.http)
       : super(Period, store, '', manager, status, entityEventsService);
 
   HttpService http;
 
-  cEnt({Entity entity}) {
+  @override
+  Period cEnt({Period entity}) {
     if (entity != null) {
-      if (entity is! Period) {
-        throw new Exception("I NEED A PERIOD");
-      }
       return new Period.clone(entity);
     }
     return new Period();
@@ -42,16 +40,18 @@ class PeriodOverviewComponent extends EntityOverview {
 //    this.scope.rootScope.on('TimesliceDeleted').listen(onTimesliceChange);
 //    this.scope.rootScope.on('saveChanges').listen(saveAllEntities);
 
-  onTimesliceChange() {
+  void onTimesliceChange() {
     this.reload();
   }
 
   UserContext context;
 
-  List entities = [];
+  @override
+  List<Period> entities = [];
 
   Employee _employee;
 
+  @override
   bool needsmanualAdd = true;
 
   @Input("employee")
@@ -68,9 +68,10 @@ class PeriodOverviewComponent extends EntityOverview {
     this.reload();
   }
 
-  get employee => this._employee;
+  Employee get employee => this._employee;
 
-  reload({Map<String, dynamic> params, bool evict: false}) async {
+  @override
+  Future reload({Map<String, dynamic> params, bool evict: false}) async {
     this.entities = [];
     List<dynamic> takenHolidays = [];
     this.statusservice.setStatusToLoading();
@@ -79,7 +80,7 @@ class PeriodOverviewComponent extends EntityOverview {
         this.store.evict(this.type);
       }
 
-      this.entities = (await this.store.list(this.type, params: {'employee': employee.id})).toList();
+      this.entities = (await this.store.list(this.type, params: {'employee': employee.id})).toList() as List<Period>;
 
       for (int i = 0; i < this.entities.length; i++) {
         Period entity = this.entities.elementAt(i);
@@ -90,12 +91,12 @@ class PeriodOverviewComponent extends EntityOverview {
             dynamic data = JSON.decode(result);
 
             if (data is Map) {
-              takenHolidays = data['takenHolidays'];
+              takenHolidays = data['takenHolidays'] as List<dynamic>;
               double employeeholiday = 0.0;
               if (this.entities.elementAt(i).employeeholiday != null) {
-                employeeholiday = double.parse(this.entities.elementAt(i).employeeholiday.replaceAll('h', ''));
+                employeeholiday = double.parse(this.entities.elementAt(i).employeeholiday.toString().replaceAll('h', ''));
               }
-              this.entities.elementAt(i).holidayBalance = (getHolidayBalance(takenHolidays, employeeholiday));
+              this.entities.elementAt(i).holidayBalance = getHolidayBalance(takenHolidays, employeeholiday);
             } else {
               this.entities.elementAt(i).holidayBalance = 0.0;
             }
@@ -111,10 +112,10 @@ class PeriodOverviewComponent extends EntityOverview {
     }
   }
 
-  getHolidayBalance(List<dynamic> takenHolidays, double employeeholiday) {
+  double getHolidayBalance(List<dynamic> takenHolidays, double employeeholiday) {
     double holidayBalance = 0.0;
     for (final i in takenHolidays) {
-      holidayBalance += double.parse(i.values.elementAt(0));
+      holidayBalance += double.parse(i.values.elementAt(0) as String);
     }
     holidayBalance = (employeeholiday * 3600) - holidayBalance;
 
@@ -122,11 +123,12 @@ class PeriodOverviewComponent extends EntityOverview {
   }
 
   @override
-  ngOnInit();
+  void ngOnInit();
 
-  createEntity({var newEnt, Map<String, dynamic> params: const {}}) {
+  @override
+  Future createEntity({Period newEnt, Map<String, dynamic> params: const {}}) {
     var now = new DateTime.now();
-    super.createEntity(params: {
+    return super.createEntity(params: {
       'employee': this.employee.id,
       'start': new DateTime(now.year, DateTime.JANUARY, 1),
       'end': new DateTime(now.year, DateTime.DECEMBER, 31),
@@ -134,7 +136,7 @@ class PeriodOverviewComponent extends EntityOverview {
     });
   }
 
-  save() {
+  void save() {
     this.entityEventsService.emitSaveChanges();
     reload();
   }

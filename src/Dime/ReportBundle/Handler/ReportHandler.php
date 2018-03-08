@@ -187,7 +187,9 @@ class ReportHandler extends AbstractHandler
         /** @var Project[] $projects */
         $projects = $this->om->getRepository('DimeTimetrackerBundle:Project')->findAll();
 
-        $report = [];
+        $report = [
+            'projects' => []
+        ];
         $listofactivities = [];
         $activitytotal = [];
 

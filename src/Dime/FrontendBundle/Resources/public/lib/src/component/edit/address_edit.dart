@@ -7,11 +7,11 @@ import '../../component/edit/EntityEdit.dart';
 import '../../model/Entity.dart';
 
 @Component(selector: 'address-edit', templateUrl: 'address_edit.html', directives: const [CORE_DIRECTIVES, formDirectives])
-class AddressEditComponent extends EntityEdit {
+class AddressEditComponent extends EntityEdit<Address> {
   AddressEditComponent() : super.Child(Address);
 
   @override
-  ngOnInit() {
+  void ngOnInit() {
     //Dont Reload its not working.
   }
 
@@ -25,7 +25,7 @@ class AddressEditComponent extends EntityEdit {
 
   Address get address => _address;
 
-  final _addressChange = new StreamController<Address>();
+  final StreamController<Address> _addressChange = new StreamController<Address>();
   @Output()
   Stream<Address> get addressChange => _addressChange.stream;
 }

@@ -1,10 +1,6 @@
 import '../Entity.dart';
 
 class InvoiceBreakdown extends Entity {
-  init({Map<String, dynamic> params: const {}}) {
-    super.init(params: params);
-  }
-
   InvoiceBreakdown();
 
   InvoiceBreakdown.fromMap(Map<String, dynamic> map) : super.fromMap(map);
@@ -18,10 +14,12 @@ class InvoiceBreakdown extends Entity {
     return invoices;
   }
 
-  newObj() {
+  @override
+  InvoiceBreakdown newObj() {
     return new InvoiceBreakdown();
   }
 
+  @override
   dynamic Get(String property) {
     var val = super.Get(property);
     if (val == null) {
@@ -45,31 +43,33 @@ class InvoiceBreakdown extends Entity {
     return val;
   }
 
-  void Set(String property, var value) {
+  @override
+  void Set(String property, dynamic value) {
     switch (property) {
       case 'items':
-        this.items = InvoiceItem.listFromMap(value);
+        this.items = InvoiceItem.listFromMap(value as List<Map<String, dynamic>>);
         break;
       case 'discounts':
-        this.items = InvoiceItem.listFromMap(value);
+        this.items = InvoiceItem.listFromMap(value as List<Map<String, dynamic>>);
         break;
       case 'discount':
-        this.discount = value is double ? value : double.parse(value);
+        this.discount = value is double ? value : double.parse(value as String);
         break;
       case 'subtotal':
-        this.subtotal = value is double ? value : double.parse(value);
+        this.subtotal = value is double ? value : double.parse(value as String);
         break;
       case 'vat':
-        this.vat = value is double ? value : double.parse(value);
+        this.vat = value is double ? value : double.parse(value as String);
         break;
       case 'total':
-        this.total = value is double ? value : double.parse(value);
+        this.total = value is double ? value : double.parse(value as String);
         break;
       case 'vatSplit':
         if (value is Map<String, dynamic>) {
-          this.vatSplit = new Map.fromIterables(value.keys.map((key) => double.parse(key)), value.values.map((val) => double.parse(val)));
+          this.vatSplit = new Map.fromIterables(
+              value.keys.map((key) => double.parse(key)), value.values.map((dynamic val) => double.parse(val.toString())));
         } else if (value is List<dynamic> && value.length == 1) {
-          this.vatSplit = {0.0: double.parse(value[0])};
+          this.vatSplit = {0.0: double.parse(value[0].toString())};
         } else {
           this.vatSplit = {};
         }

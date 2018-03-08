@@ -19,7 +19,7 @@ import '../elements/dime_directives.dart';
   directives: const [CORE_DIRECTIVES, formDirectives, dimeDirectives],
   pipes: const [dimePipes, COMMON_PIPES],
 )
-class InvoiceOverviewComponent extends EntityOverview {
+class InvoiceOverviewComponent extends EntityOverview<Invoice> {
   InvoiceOverviewComponent(DataCache store, Router router, SettingsManager manager, StatusService status, UserAuthProvider auth,
       EntityEventsService entityEventsService)
       : super(Invoice, store, 'InvoiceEdit', manager, status, entityEventsService, router: router, auth: auth) {
@@ -27,18 +27,15 @@ class InvoiceOverviewComponent extends EntityOverview {
     sortReverse = true;
   }
 
-  cEnt({Entity entity}) {
+  @override
+  Invoice cEnt({Invoice entity}) {
     if (entity != null) {
-      if (entity is Invoice) {
-        return new Invoice.clone(entity);
-      } else {
-        throw new Exception("Invalid Type; Invoice expected!");
-      }
+      return new Invoice.clone(entity);
     }
     return new Invoice();
   }
 
-  cEntInvoiceItem(InvoiceItem entity) {
+  InvoiceItem cEntInvoiceItem(InvoiceItem entity) {
     if (entity != null) {
       return new InvoiceItem.clone(entity);
     }
@@ -46,13 +43,13 @@ class InvoiceOverviewComponent extends EntityOverview {
   }
 
   @override
-  duplicateEntity() async {
-    var ent = this.selectedEntity;
+  Future duplicateEntity() async {
+    Invoice ent = this.selectedEntity;
     if (ent != null) {
       this.statusservice.setStatusToLoading();
       Invoice newEnt = this.cEnt(entity: ent);
       try {
-        Invoice completeInvoice = await this.store.one(Invoice, ent.id);
+        Invoice completeInvoice = (await this.store.one(Invoice, ent.id)) as Invoice;
 
         newEnt.project = completeInvoice.project;
         newEnt.customer = completeInvoice.customer;

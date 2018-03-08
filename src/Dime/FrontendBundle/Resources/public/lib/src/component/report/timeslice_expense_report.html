@@ -30,7 +30,7 @@
       </thead>
       <tbody *ngIf="report != null">
         <tr *ngFor="let entity of report.timeslices" (click)="selectEntity(entity.id)" [class.info]="isSelected(entity)">
-          <td>{{entity.startedAt | date:'dd-MM-y'}}</td>
+          <td>{{entity.startedAt | date:'dd.MM.y'}}</td>
           <td>{{entity.activity.name}}</td>
           <td>{{entity.value}}</td>
           <td>{{entity.activity.rateUnitType.name}}</td>

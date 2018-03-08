@@ -16,7 +16,7 @@ import '../../service/user_auth.dart';
   directives: const [CORE_DIRECTIVES, formDirectives],
   pipes: const [dimePipes],
 )
-class ServiceSelectComponent extends EntitySelect {
+class ServiceSelectComponent extends EntitySelect<Service> {
   ServiceSelectComponent(DataCache store, dom.Element element, StatusService status, UserAuthProvider auth)
       : super(Service, store, element, status, auth);
 

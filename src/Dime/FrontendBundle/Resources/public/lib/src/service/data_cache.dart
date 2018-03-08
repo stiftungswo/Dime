@@ -10,7 +10,7 @@ class DataCache {
 
   DataCache(this._store);
 
-  Future list(Type type, {params}) {
+  Future list(Type type, {Map params}) {
     if (this._cache.containsKey(type.hashCode) && params == null) {
       return this._cache[type.hashCode];
     }
@@ -23,24 +23,24 @@ class DataCache {
     return future;
   }
 
-  Future one(Type type, id) => this._store.one(type, id);
+  Future one(Type type, dynamic id) => this._store.one(type, id);
 
-  Future delete(object) {
-    return this._store.delete(object).then((result) {
+  Future<T> delete<T extends Entity>(T object) {
+    return this._store.delete(object).then((T result) {
       if (this._cache.containsKey(result.runtimeType.hashCode)) {
         this._cache[result.runtimeType.hashCode].then((QueryResult cachedObjects) {
-          cachedObjects.removeWhere((i) => i.id == object.id);
+          cachedObjects.removeWhere((T i) => i.id == object.id);
         });
       }
       return result;
     });
   }
 
-  Future update(object) {
-    return this._store.update(object).then((result) {
+  Future<T> update<T extends Entity>(T object) {
+    return this._store.update(object).then((T result) {
       if (this._cache.containsKey(result.runtimeType.hashCode)) {
         this._cache[result.runtimeType.hashCode].then((QueryResult cachedObjects) {
-          cachedObjects.removeWhere((i) => i.id == result.id);
+          cachedObjects.removeWhere((T i) => i.id == result.id);
           cachedObjects.add(result);
         });
       }
@@ -48,8 +48,8 @@ class DataCache {
     });
   }
 
-  Future create(object) {
-    return this._store.create(object).then((Entity result) {
+  Future<T> create<T extends Entity>(T object) {
+    return this._store.create(object).then((T result) {
       if (this._cache.containsKey(result.runtimeType.hashCode)) {
         this._cache[result.runtimeType.hashCode].then((QueryResult cachedObjects) {
           cachedObjects.add(result);
@@ -59,11 +59,11 @@ class DataCache {
     });
   }
 
-  Future customQueryOne(type, CustomRequestParams params) => this._store.customQueryOne(type, params);
+  Future customQueryOne(Type type, CustomRequestParams params) => this._store.customQueryOne(type, params);
 
-  Future customCommand(type, CustomRequestParams params) => this._store.customCommand(type, params);
+  Future customCommand(Type type, CustomRequestParams params) => this._store.customCommand(type, params);
 
-  Future customQueryList(type, CustomRequestParams params) => this._store.customQueryList(type, params);
+  Future customQueryList(Type type, CustomRequestParams params) => this._store.customQueryList(type, params);
 
   Future evict(Type type, [bool reload = false]) async {
     this._cache.remove(type.hashCode);

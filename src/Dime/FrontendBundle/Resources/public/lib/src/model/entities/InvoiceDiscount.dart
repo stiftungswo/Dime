@@ -10,6 +10,7 @@ class InvoiceDiscount extends StandardDiscount {
 
   InvoiceDiscount.fromMap(Map<String, dynamic> map) : super.fromMap(map);
 
+  @override
   init({Map<String, dynamic> params: const {}}) {
     if (params.containsKey('invoice')) {
       params['invoice'] = new Invoice()..id = params['invoice'];
@@ -17,10 +18,12 @@ class InvoiceDiscount extends StandardDiscount {
     super.init(params: params);
   }
 
+  @override
   newObj() {
     return new InvoiceDiscount();
   }
 
+  @override
   dynamic Get(String property) {
     var val = super.Get(property);
     if (val == null) {
@@ -34,10 +37,11 @@ class InvoiceDiscount extends StandardDiscount {
     return val;
   }
 
-  void Set(String property, var value) {
+  @override
+  void Set(String property, dynamic value) {
     switch (property) {
       case 'invoice':
-        this.invoice = value is Entity ? value : new Invoice.fromMap(value);
+        this.invoice = value is Invoice ? value : new Invoice.fromMap(value as Map<String, dynamic>);
         break;
       default:
         super.Set(property, value);
@@ -53,6 +57,7 @@ class InvoiceDiscount extends StandardDiscount {
     return array;
   }
 
+  @override
   String type = 'invoicediscounts';
   Invoice invoice;
 }

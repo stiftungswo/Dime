@@ -1,6 +1,7 @@
 import '../Entity.dart';
 
 class InvoiceItem extends Entity {
+  @override
   init({Map<String, dynamic> params: const {}}) {
     if (!params.containsKey('name')) {
       params['name'] = 'New Item';
@@ -27,10 +28,12 @@ class InvoiceItem extends Entity {
 
   InvoiceItem.fromMap(Map<String, dynamic> map) : super.fromMap(map);
 
-  newObj() {
+  @override
+  InvoiceItem newObj() {
     return new InvoiceItem();
   }
 
+  @override
   dynamic Get(String property) {
     var val = super.Get(property);
     if (val == null) {
@@ -60,34 +63,35 @@ class InvoiceItem extends Entity {
     return val;
   }
 
-  void Set(String property, var value) {
+  @override
+  void Set(String property, dynamic value) {
     switch (property) {
       case 'order':
-        this.order = value;
+        this.order = value as int;
         break;
       case 'rateValue':
-        this.rateValue = value;
+        this.rateValue = value as String;
         break;
       case 'rateUnit':
-        this.rateUnit = value;
+        this.rateUnit = value as String;
         break;
       case 'amount':
         this.amount = value;
         break;
       case 'activity':
-        this.activity = value is Entity ? value : new Activity.fromMap(value);
+        this.activity = value is Activity ? value : new Activity.fromMap(value as Map<String, dynamic>);
         break;
       case 'vat':
-        this.vat = value;
+        this.vat = value as double;
         break;
       case 'invoice':
-        this.invoice = value is Entity ? value : new Invoice.fromMap(value);
+        this.invoice = value is Invoice ? value : new Invoice.fromMap(value as Map<String, dynamic>);
         break;
       case 'calculatedVAT':
-        this.calculatedVAT = value;
+        this.calculatedVAT = value as String;
         break;
       case 'total':
-        this.total = value;
+        this.total = value as String;
         break;
       default:
         super.Set(property, value);
@@ -103,6 +107,7 @@ class InvoiceItem extends Entity {
     return array;
   }
 
+  @override
   String type = 'invoiceitems';
   int order;
   Invoice invoice;

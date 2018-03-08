@@ -1,3 +1,4 @@
+// ignore_for_file: strong_mode_implicit_dynamic_parameter
 import 'dart:async';
 import 'dart:html';
 
@@ -281,7 +282,7 @@ class PikadayComponent implements AfterViewInit {
 
   @override
   ngAfterViewInit() {
-    _options.field = querySelector('#$id');
+    _options.field = querySelector('#$id') as HtmlElement;
     _options.onSelect = allowInterop((dateTimeOrDate) {
       var day =
           dateTimeOrDate is DateTime ? dateTimeOrDate : new DateTime.fromMillisecondsSinceEpoch(getPikadayMillisecondsSinceEpoch(_pikaday));

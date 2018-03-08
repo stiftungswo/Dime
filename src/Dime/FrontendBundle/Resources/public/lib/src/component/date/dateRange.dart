@@ -15,7 +15,7 @@ class DateRange implements OnChanges {
   //start date
   DateTime _startDate;
 
-  get startDate => _startDate;
+  DateTime get startDate => _startDate;
 
   @Input('startdate')
   set startDate(DateTime newDate) {
@@ -30,7 +30,7 @@ class DateRange implements OnChanges {
   //end date
   DateTime _endDate;
 
-  get endDate => _endDate;
+  DateTime get endDate => _endDate;
 
   @Input('enddate')
   set endDate(DateTime newDate) {
@@ -47,7 +47,7 @@ class DateRange implements OnChanges {
   Stream<String> get callback => _callback.stream;
 
   @Input('format')
-  String format = 'dd-MM-y';
+  String format = 'dd.MM.y';
 
   @Input('null-allowed')
   bool nullAllowed = false;

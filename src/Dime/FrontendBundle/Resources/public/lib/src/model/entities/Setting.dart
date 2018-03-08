@@ -12,10 +12,12 @@ class Setting extends Entity {
 
   Setting.fromMap(Map<String, dynamic> map) : super.fromMap(map);
 
-  newObj() {
+  @override
+  Setting newObj() {
     return new Setting();
   }
 
+  @override
   dynamic Get(String property) {
     var val = super.Get(property);
     if (val == null) {
@@ -33,16 +35,17 @@ class Setting extends Entity {
     return val;
   }
 
-  void Set(String property, var value) {
+  @override
+  void Set(String property, dynamic value) {
     switch (property) {
       case 'namespace':
-        this.namespace = value;
+        this.namespace = value as String;
         break;
       case 'value':
-        this.value = value;
+        this.value = value as String;
         break;
       case 'name':
-        this.name = value;
+        this.name = value as String;
         break;
       default:
         super.Set(property, value);
@@ -50,8 +53,10 @@ class Setting extends Entity {
     }
   }
 
+  @override
   String type = 'settings';
   String namespace;
   String value;
+  @override
   String name;
 }

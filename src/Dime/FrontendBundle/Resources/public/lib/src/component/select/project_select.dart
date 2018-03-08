@@ -16,20 +16,10 @@ import '../../service/user_auth.dart';
   directives: const [CORE_DIRECTIVES, formDirectives],
   pipes: const [dimePipes],
 )
-class ProjectSelectComponent extends EntitySelect {
+class ProjectSelectComponent extends EntitySelect<Project> {
   ProjectSelectComponent(DataCache store, dom.Element element, StatusService status, UserAuthProvider auth)
       : super(Project, store, element, status, auth);
 
   @Input()
   bool hideArchived = false;
-
-  projectFilter(Project item, String search) {
-    if (item.id.toString() == search) {
-      return true;
-    }
-    if (item.name.toLowerCase().contains(search.toLowerCase())) {
-      return true;
-    }
-    return false;
-  }
 }

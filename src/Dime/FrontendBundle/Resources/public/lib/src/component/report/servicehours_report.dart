@@ -47,10 +47,10 @@ class ServicehoursReportComponent implements OnInit {
       this.statusservice.setStatusToLoading();
       try {
         await http.get('reports/servicehours', queryParams: {"_format": 'json', "date": dateparams}).then((result) {
-          var data = JSON.decode(result);
+          dynamic data = JSON.decode(result);
           window.console.log(data);
-          this.entries = data['projects'];
-          this.total = data['total'];
+          this.entries = data['projects'] as List<dynamic>;
+          this.total = data['total'] as Map<String, dynamic>;
         });
         this.statusservice.setStatusToSuccess();
         //this.rootScope.emit(this.type.toString() + 'Loaded');
@@ -64,7 +64,7 @@ class ServicehoursReportComponent implements OnInit {
     if (map is List) {
       return null;
     } else {
-      final time = map[key];
+      final time = map[key] as num;
       return time != null ? time / 3600 : null;
     }
   }

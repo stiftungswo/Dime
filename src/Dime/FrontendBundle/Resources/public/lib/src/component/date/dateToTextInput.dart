@@ -15,7 +15,7 @@ class DateToTextInput implements OnChanges, AfterViewInit {
 
   DateTime _date;
 
-  get date => _date;
+  DateTime get date => _date;
 
   @Input('date')
   set date(DateTime newDate) {
@@ -94,7 +94,7 @@ class DateToTextInput implements OnChanges, AfterViewInit {
 
   @override
   ngAfterViewInit() {
-    pikadayInput = document.getElementById(pikaday.id);
+    pikadayInput = document.getElementById(pikaday.id) as InputElement;
     //updatePikadayAttributes();
   }
 

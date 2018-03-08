@@ -5,10 +5,12 @@ class ExpenseReport extends Entity {
 
   ExpenseReport.fromMap(Map<String, dynamic> map) : super.fromMap(map);
 
-  newObj() {
+  @override
+  ExpenseReport newObj() {
     return new ExpenseReport();
   }
 
+  @override
   dynamic Get(String property) {
     var val = super.Get(property);
     if (val == null) {
@@ -28,19 +30,20 @@ class ExpenseReport extends Entity {
     return val;
   }
 
-  void Set(String property, var value) {
+  @override
+  void Set(String property, dynamic value) {
     switch (property) {
       case 'timeslices':
-        this.timeslices = Timeslice.listFromMap(value);
+        this.timeslices = Timeslice.listFromMap(value as List<Map<String, dynamic>>);
         break;
       case 'totalHours':
         this.totalHours = value;
         break;
       case 'user':
-        this.user = value;
+        this.user = value as User;
         break;
       case 'project':
-        this.project = value is Project ? value : new Project.fromMap(value);
+        this.project = value is Project ? value : new Project.fromMap(value as Map<String, dynamic>);
         break;
       default:
         super.Set(property, value);
@@ -48,9 +51,11 @@ class ExpenseReport extends Entity {
     }
   }
 
+  @override
   String type = 'expensereports';
   List<Timeslice> timeslices;
   Project project;
+  @override
   User user;
   dynamic totalHours; //FIXME int?
 }

@@ -34,7 +34,7 @@ import '../setting/setting.dart';
   ],
   pipes: const [dimePipes, TimesliceDateFilterPipe],
 )
-class TimesliceOverviewComponent extends EntityOverview {
+class TimesliceOverviewComponent extends EntityOverview<Timeslice> {
   Employee _employee;
 
   UserContext context;
@@ -58,13 +58,13 @@ class TimesliceOverviewComponent extends EntityOverview {
 
   bool contextRegistered = false;
 
-  get employee => this._employee;
+  Employee get employee => this._employee;
 
+  @override
   bool needsmanualAdd = true;
 
   List<Activity> activities = [];
   List<Employee> employees = [];
-  var activityResult = null;
 
   DateTime _filterStartDate = new DateTime.now();
   DateTime get filterStartDate => _filterStartDate;
@@ -96,7 +96,7 @@ class TimesliceOverviewComponent extends EntityOverview {
     }
   }
 
-  get projectFilter => this.selectedProject;
+  Project get projectFilter => this.selectedProject;
 
   final StreamController<Project> _projectChange = new StreamController<Project>();
   @Output('projectChange')
@@ -104,7 +104,7 @@ class TimesliceOverviewComponent extends EntityOverview {
 
   Project _selectedProject;
 
-  get selectedProject => _selectedProject;
+  Project get selectedProject => _selectedProject;
 
   set selectedProject(Project proj) {
     this._selectedProject = proj;
@@ -127,7 +127,7 @@ class TimesliceOverviewComponent extends EntityOverview {
 
   Activity _selectedActivity;
 
-  get selectedActivity => _selectedActivity;
+  Activity get selectedActivity => _selectedActivity;
 
   set selectedActivity(Activity act) {
     this._selectedActivity = act;
@@ -152,7 +152,7 @@ class TimesliceOverviewComponent extends EntityOverview {
   Project moveTargetProject;
   bool moveDialogVisible = false;
   //apparently if we query  `selectedTimeslices.isNotEmpty` directly, it doesn't update
-  moveDialogEnabled() => selectedTimeslices.isNotEmpty;
+  bool moveDialogEnabled() => selectedTimeslices.isNotEmpty;
   Set<int> selectedTimeslices = new Set();
 
   TimetrackService timetrackService;
@@ -164,12 +164,8 @@ class TimesliceOverviewComponent extends EntityOverview {
       : super(Timeslice, store, '', manager, status, entityEventsService, auth: auth);
 
   @override
-  cEnt({Entity entity}) {
+  Timeslice cEnt({Timeslice entity}) {
     if (entity != null) {
-      //TODO: make EntityOverview generic and get rid of this
-      if (entity is! Timeslice) {
-        throw new Exception("I NEED TIMESLICE");
-      }
       return new Timeslice.clone(entity);
     }
     return new Timeslice();
@@ -203,7 +199,7 @@ class TimesliceOverviewComponent extends EntityOverview {
   }
 
   @override
-  reload({Map<String, dynamic> params, bool evict: false}) async {
+  Future reload({Map<String, dynamic> params, bool evict: false}) async {
     if (this.dateRange == null || this.dateRange == "") {
       return;
     }
@@ -221,11 +217,11 @@ class TimesliceOverviewComponent extends EntityOverview {
   }
 
   @override
-  createEntity({dynamic newEnt, Map<String, dynamic> params: const {}}) async {
+  Future createEntity({Timeslice newEnt, Map<String, dynamic> params: const {}}) async {
     if (!(this.selectedProject is Project)) return;
     Timeslice slice = new Timeslice();
     List<String> names = ['value'];
-    for (var name in names) {
+    for (String name in names) {
       Setting settingForName;
       try {
         settingForName = this.settingsManager.getOneSetting('/usr/defaults/timeslice', name);
@@ -252,12 +248,12 @@ class TimesliceOverviewComponent extends EntityOverview {
   }
 
   @override
-  deleteEntity([int entId]) async {
+  Future deleteEntity([int entId]) async {
     await super.deleteEntity(entId);
     updateEntryDate();
   }
 
-  onDateUpdate() {
+  void onDateUpdate() {
     timetrackService.filterStart.add(filterStartDate);
     timetrackService.filterEnd.add(filterEndDate);
     // don't reload when page is still loading
@@ -271,7 +267,7 @@ class TimesliceOverviewComponent extends EntityOverview {
     }
   }
 
-  updateEntryDate() {
+  void updateEntryDate() {
     if (updateNewEntryDate && this.entities != null) {
       DateTime date = this._newEntryDate;
       if (date == null) {
@@ -282,7 +278,7 @@ class TimesliceOverviewComponent extends EntityOverview {
           this.entities.where((i) => i.startedAt.isAfter(this.filterStartDate) && i.startedAt.isBefore(endDateEndOfDay)).toList();
       relevantSlices.sort((x, y) => x.startedAt.compareTo(y.startedAt));
 
-      if (relevantSlices.length > 0) {
+      if (relevantSlices.isNotEmpty) {
         this.newEntryDate = relevantSlices.last.startedAt;
       } else {
         this.newEntryDate = new DateTime.now();
@@ -303,7 +299,7 @@ class TimesliceOverviewComponent extends EntityOverview {
   }
 
   @override
-  ngOnInit() {
+  void ngOnInit() {
     if (this.auth == null) {
       return;
     }
@@ -315,8 +311,7 @@ class TimesliceOverviewComponent extends EntityOverview {
       this.load();
     }
 
-    if (this.filterStartDate.weekday != DateTime.MONDAY) ;
-    {
+    if (this.filterStartDate.weekday != DateTime.MONDAY) {
       this.filterStartDate = this.filterStartDate.subtract(new Duration(days: this.filterStartDate.weekday - 1));
     }
     this.filterStartDate = this.filterStartDate.subtract(new Duration(
@@ -327,7 +322,7 @@ class TimesliceOverviewComponent extends EntityOverview {
     this.filterEndDate = this.filterStartDate.add(new Duration(days: 6));
   }
 
-  updateChosenSetting(String name) {
+  void updateChosenSetting(String name) {
     switch (name) {
       case 'project':
         if (this.settingselectedProject == null) {
@@ -348,11 +343,11 @@ class TimesliceOverviewComponent extends EntityOverview {
     }
   }
 
-  load() async {
-    this.activities = (await this.store.list(Activity)).toList();
-    this.employees = (await this.store.list(Employee, params: {"enabled": 1})).toList();
+  Future load() async {
+    this.activities = (await this.store.list(Activity)).toList() as List<Activity>;
+    this.employees = (await this.store.list(Employee, params: {"enabled": 1})).toList() as List<Employee>;
     this.employee = this.context.employee;
-    List<Project> projects = await this.store.list(Project);
+    List<Project> projects = (await this.store.list(Project)) as List<Project>;
 
     try {
       this.settingselectedProject = settingsManager.getOneSetting('/usr/timeslice', 'chosenProject');
@@ -385,7 +380,7 @@ class TimesliceOverviewComponent extends EntityOverview {
     if (selectedTimeslices.contains(timeslice.id)) {
       selectedTimeslices.remove(timeslice.id);
     } else {
-      selectedTimeslices.add(timeslice.id);
+      selectedTimeslices.add(timeslice.id as int);
     }
 
     //for compatibility with the single-select of the EntityOverview
@@ -397,7 +392,7 @@ class TimesliceOverviewComponent extends EntityOverview {
     print(selectedTimeslices);
   }
 
-  moveTimeslices() async {
+  Future moveTimeslices() async {
     final ids = selectedTimeslices.toList(growable: false);
     var body = new JsonEncoder().convert({"timeslices": ids});
 
@@ -408,7 +403,7 @@ class TimesliceOverviewComponent extends EntityOverview {
     });
   }
 
-  selectRow(dynamic event, Timeslice timeslice) {
+  void selectRow(dynamic event, Timeslice timeslice) {
     //TODO event is actually a MouseEvent, but dart doesn't know it has a "nodeName" property?
     //only fire when a td was clicked, not any input elements
     if (event.target.nodeName == "TD") {
@@ -419,7 +414,7 @@ class TimesliceOverviewComponent extends EntityOverview {
 
 @Pipe('timeslicedatefilter', pure: false)
 class TimesliceDateFilterPipe implements PipeTransform {
-  transform(List<Timeslice> values, DateTime start, DateTime end) {
+  List<Timeslice> transform(List<Timeslice> values, DateTime start, DateTime end) {
     if ((start is DateTime || end is DateTime) && values != null) {
       if (end != null) {
         // set end date to end of day to include entries of the last day

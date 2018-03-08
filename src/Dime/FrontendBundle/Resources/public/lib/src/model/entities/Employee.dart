@@ -10,10 +10,12 @@ class Employee extends User {
 
   Employee.fromMap(Map<String, dynamic> map) : super.fromMap(map);
 
-  newObj() {
+  @override
+  Employee newObj() {
     return new Employee();
   }
 
+  @override
   dynamic Get(String property) {
     var val = super.Get(property);
     if (val == null) {
@@ -33,19 +35,20 @@ class Employee extends User {
     return val;
   }
 
-  void Set(String property, var value) {
+  @override
+  void Set(String property, dynamic value) {
     switch (property) {
       case 'workingPeriods':
-        this.workingPeriods = Period.listFromResource(value);
+        this.workingPeriods = Period.listFromResource(value as List<Map<String, dynamic>>);
         break;
       case 'realTime':
-        this.realTime = value;
+        this.realTime = value as num;
         break;
       case 'targetTime':
-        this.targetTime = value;
+        this.targetTime = value as num;
         break;
       case 'extendTimetrack':
-        this.extendTimetrack = value;
+        this.extendTimetrack = value as bool;
         break;
       default:
         super.Set(property, value);
@@ -53,6 +56,7 @@ class Employee extends User {
     }
   }
 
+  @override
   String type = 'employees';
   List<Period> workingPeriods;
   num realTime;

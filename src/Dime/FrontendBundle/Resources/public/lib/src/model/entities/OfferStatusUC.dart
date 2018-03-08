@@ -1,6 +1,7 @@
 import '../Entity.dart';
 
 class OfferStatusUC extends Entity {
+  @override
   init({Map<String, dynamic> params: const {}}) {
     if (!params.containsKey('text')) {
       params['text'] = 'New OfferUserCode';
@@ -21,10 +22,12 @@ class OfferStatusUC extends Entity {
 
   OfferStatusUC.fromMap(Map<String, dynamic> map) : super.fromMap(map);
 
-  newObj() {
+  @override
+  OfferStatusUC newObj() {
     return new OfferStatusUC();
   }
 
+  @override
   dynamic Get(String property) {
     var val = super.Get(property);
     if (val == null) {
@@ -40,13 +43,14 @@ class OfferStatusUC extends Entity {
     return val;
   }
 
-  void Set(String property, var value) {
+  @override
+  void Set(String property, dynamic value) {
     switch (property) {
       case 'text':
-        this.text = value;
+        this.text = value as String;
         break;
       case 'active':
-        this.active = value;
+        this.active = value as bool;
         break;
       default:
         super.Set(property, value);

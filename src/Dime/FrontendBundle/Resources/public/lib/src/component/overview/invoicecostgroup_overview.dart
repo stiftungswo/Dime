@@ -16,17 +16,14 @@ import '../select/entity_select.dart';
   directives: const [CORE_DIRECTIVES, formDirectives, dimeDirectives, CostgroupSelectComponent],
   pipes: const [DecimalPipe],
 )
-class InvoiceCostgroupOverviewComponent extends EntityOverview {
+class InvoiceCostgroupOverviewComponent extends EntityOverview<InvoiceCostgroup> {
   InvoiceCostgroupOverviewComponent(DataCache store, SettingsManager manager, StatusService status, EntityEventsService entityEventsService)
       : super(InvoiceCostgroup, store, '', manager, status, entityEventsService);
 
-  cEnt({Entity entity}) {
+  @override
+  InvoiceCostgroup cEnt({InvoiceCostgroup entity}) {
     if (entity != null) {
-      if (entity is InvoiceCostgroup) {
-        return new InvoiceCostgroup.clone(entity);
-      } else {
-        throw new Exception("Invalid Type; InvoiceCostgroup expected!");
-      }
+      return new InvoiceCostgroup.clone(entity);
     }
     return new InvoiceCostgroup();
   }
@@ -42,11 +39,13 @@ class InvoiceCostgroupOverviewComponent extends EntityOverview {
     }
   }
 
-  reload({Map<String, dynamic> params, bool evict: false}) {
-    super.reload(params: {'invoice': this._invoiceId}, evict: evict);
+  @override
+  Future reload({Map<String, dynamic> params, bool evict: false}) {
+    return super.reload(params: {'invoice': this._invoiceId}, evict: evict);
   }
 
-  ngOnInit() {
+  @override
+  void ngOnInit() {
     if (this.auth != null) {
       if (!auth.isloggedin) {
         this.auth.afterLogin(() {
@@ -58,14 +57,15 @@ class InvoiceCostgroupOverviewComponent extends EntityOverview {
     }
   }
 
-  createEntity({dynamic newEnt, Map<String, dynamic> params: const {}}) {
+  @override
+  Future createEntity({dynamic newEnt, Map<String, dynamic> params: const {}}) {
     // set default weight of 100
-    super.createEntity(params: {'invoice': this._invoiceId, 'weight': 100});
+    return super.createEntity(params: {'invoice': this._invoiceId, 'weight': 100});
   }
 
-  getWeightSum() {
+  num getWeightSum() {
     if (this.entities == null) return 0;
-    var weights = this.entities.map((group) => group.weight).where((weight) => weight != null);
+    List<num> weights = this.entities.map((group) => group.weight).where((weight) => weight != null).toList();
     if (weights.isEmpty) {
       return 0;
     } else {

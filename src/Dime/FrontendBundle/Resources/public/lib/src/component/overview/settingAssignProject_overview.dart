@@ -19,7 +19,7 @@ import '../select/entity_select.dart';
   templateUrl: 'settingAssignProject_overview.html',
   directives: const [CORE_DIRECTIVES, formDirectives, dimeDirectives, ProjectSelectComponent],
 )
-class SettingAssignProjectOverviewComponent extends EntityOverview implements OnInit {
+class SettingAssignProjectOverviewComponent extends EntityOverview<SettingAssignProject> implements OnInit {
   UserContext context;
 
   List<SettingAssignProject> projectAssignments = [];
@@ -28,7 +28,7 @@ class SettingAssignProjectOverviewComponent extends EntityOverview implements On
 
   @override
   void saveAllEntities() {
-    for (Entity entity in this.projectAssignments) {
+    for (SettingAssignProject entity in this.projectAssignments) {
       if (entity.needsUpdate) {
         saveEntity(entity);
       }
@@ -40,19 +40,15 @@ class SettingAssignProjectOverviewComponent extends EntityOverview implements On
       : super(SettingAssignProject, store, '', manager, status, entityEventsService, auth: auth);
 
   @override
-  cEnt({Entity entity}) {
+  SettingAssignProject cEnt({SettingAssignProject entity}) {
     if (entity != null) {
-      if (entity is SettingAssignProject) {
-        return new SettingAssignProject.clone(entity);
-      } else {
-        throw new Exception("Invalid Type; SettingAssignProject expected!");
-      }
+      return new SettingAssignProject.clone(entity);
     }
     return new SettingAssignProject();
   }
 
   @override
-  ngOnInit() {
+  void ngOnInit() {
     if (this.auth != null) {
       if (!auth.isloggedin) {
         this.auth.afterLogin(() {
@@ -65,11 +61,11 @@ class SettingAssignProjectOverviewComponent extends EntityOverview implements On
   }
 
   @override
-  reload({Map<String, dynamic> params, bool evict: false}) async {
+  Future reload({Map<String, dynamic> params, bool evict: false}) async {
     this.settingsManager.loadSystemSettings();
   }
 
-  load() async {
+  Future load() async {
     List<Setting> projectAssignmentSettings = [];
     this.projectAssignments = [];
     try {
@@ -77,7 +73,7 @@ class SettingAssignProjectOverviewComponent extends EntityOverview implements On
     } catch (e) {
       projectAssignmentSettings = await settingsManager.getSettings('/etc/projectassignments', system: true);
     }
-    this.projects = await this.store.list(Project);
+    this.projects = (await this.store.list(Project)) as List<Project>;
 
     for (Setting projectAssignmentSetting in projectAssignmentSettings) {
       SettingAssignProject settingAssignProject = new SettingAssignProject();
@@ -93,9 +89,9 @@ class SettingAssignProjectOverviewComponent extends EntityOverview implements On
   }
 
   @override
-  deleteEntity([int entId]) async {
+  Future deleteEntity([int entId]) async {
     if (entId == null) {
-      entId = this.selectedEntId;
+      entId = this.selectedEntId as int;
     }
     if (entId != null) {
       if (window.confirm("Wirklich löschen?")) {
@@ -121,10 +117,7 @@ class SettingAssignProjectOverviewComponent extends EntityOverview implements On
   }
 
   @override
-  saveEntity(Entity someEntity) async {
-    if (someEntity is! SettingAssignProject) {
-      throw new Exception("Invalid Type; SettingAssignProject expected!");
-    }
+  saveEntity(SettingAssignProject someEntity) async {
     SettingAssignProject entity = someEntity;
 
     Setting projectAssignmentSetting = new Setting();
@@ -136,12 +129,9 @@ class SettingAssignProjectOverviewComponent extends EntityOverview implements On
     projectAssignmentSetting.namespace = '/etc/projectassignments';
 
     this.statusservice.setStatusToLoading();
-    this.projects = await this.store.list(Project);
+    this.projects = (await this.store.list(Project)) as List<Project>;
     try {
-      dynamic resp = await store.update(projectAssignmentSetting);
-      if (resp is! Setting) {
-        throw new Exception("resp is not Entity, its a ${resp.runtimeType}");
-      }
+      Setting resp = await store.update(projectAssignmentSetting);
       this.projectAssignments.removeWhere((enty) => enty.id == resp.id);
 
       SettingAssignProject settingAssignProject = new SettingAssignProject();

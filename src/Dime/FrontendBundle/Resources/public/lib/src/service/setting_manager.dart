@@ -22,7 +22,7 @@ class SettingsManager {
     this.statusservice.setStatusToLoading();
     try {
       if (userId == null) {
-        userId = this.context.employee.id;
+        userId = this.context.employee.id as int;
       }
       this.userSettings = (await this.store.list(Setting, params: {'namespace': '/usr*', 'user': userId})) as List<Setting>;
       this._currentUserId = userId;
@@ -42,7 +42,7 @@ class SettingsManager {
     }
   }
 
-  getSettings(String namespace, {bool system: false}) {
+  List<Setting> getSettings(String namespace, {bool system: false}) {
     if (this.systemSettings != null) {
       if (system) {
         return this.systemSettings.where((setting) => setting.namespace == namespace).toList();
@@ -52,7 +52,7 @@ class SettingsManager {
     return null;
   }
 
-  getOneSetting(String namespace, String name, {bool system: false}) {
+  Setting getOneSetting(String namespace, String name, {bool system: false}) {
     if (system) {
       return this.systemSettings.singleWhere((setting) => setting.namespace == namespace && setting.name == name);
     }
@@ -65,7 +65,7 @@ class SettingsManager {
       User usr = new User()..id = this._currentUserId;
       Setting templateSetting = new Setting();
       templateSetting.init(params: {'user': usr, 'namespace': namespace, 'name': name, 'value': value});
-      Setting setting = await this.store.create(templateSetting);
+      Setting setting = (await this.store.create(templateSetting)) as Setting;
       this.userSettings.add(setting);
       this.statusservice.setStatusToSuccess();
       return setting;
@@ -79,7 +79,7 @@ class SettingsManager {
     this.statusservice.setStatusToLoading();
     try {
       toUpdate.addFieldtoUpdate('value');
-      Setting updatedSetting = (await this.store.update(toUpdate));
+      Setting updatedSetting = (await this.store.update(toUpdate)) as Setting;
       this.userSettings.removeWhere((setting) => setting.id == toUpdate.id);
       this.userSettings.add(updatedSetting);
       this.statusservice.setStatusToSuccess();

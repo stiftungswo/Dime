@@ -10,10 +10,12 @@ class Phone extends Entity {
     addFieldstoUpdate(['id', 'number', 'type']);
   }
 
+  @override
   newObj() {
     return new Phone();
   }
 
+  @override
   dynamic Get(String property) {
     switch (property) {
       case 'id':
@@ -28,23 +30,26 @@ class Phone extends Entity {
     return null;
   }
 
-  void Set(String property, var value) {
+  @override
+  void Set(String property, dynamic value) {
     switch (property) {
       case 'id':
         this.id = value;
         break;
       case 'number':
-        this.number = value;
+        this.number = value as int;
         break;
       case 'type':
-        this.type = value;
+        this.type = value as String;
         break;
       default:
         break;
     }
   }
 
+  @override
   dynamic id;
   int number;
+  @override
   String type;
 }

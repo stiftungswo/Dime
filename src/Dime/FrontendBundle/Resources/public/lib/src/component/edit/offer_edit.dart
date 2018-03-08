@@ -32,7 +32,7 @@ import '../select/entity_select.dart';
     OfferDiscountOverviewComponent
   ],
 )
-class OfferEditComponent extends EntityEdit {
+class OfferEditComponent extends EntityEdit<Offer> {
   List<Customer> customers;
 
   List<RateGroup> rateGroups;
@@ -41,7 +41,8 @@ class OfferEditComponent extends EntityEdit {
 
   List<Employee> users;
 
-  dynamic entity;
+  @override
+  Offer entity;
 
   Project project;
 
@@ -52,7 +53,7 @@ class OfferEditComponent extends EntityEdit {
       : super(routeProvider, store, Offer, status, auth, router, entityEventsService);
 
   @override
-  ngOnInit() {
+  void ngOnInit() {
     if (this.auth != null) {
       if (!auth.isloggedin) {
         this.auth.afterLogin(() {
@@ -72,15 +73,15 @@ class OfferEditComponent extends EntityEdit {
     }
   }
 
-  load({bool evict: false}) async {
+  Future load({bool evict: false}) async {
     this.statusservice.setStatusToLoading();
     try {
       if (evict) {
         this.store.evict(this.entType);
       }
-      this.entity = (await this.store.one(this.entType, this.entId));
+      this.entity = (await this.store.one(this.entType, this.entId)) as Offer;
       if (this.entity.project != null) {
-        this.project = (await this.store.one(Project, this.entity.project.id));
+        this.project = (await this.store.one(Project, this.entity.project.id)) as Project;
       }
       this.statusservice.setStatusToSuccess();
     } catch (e, stack) {
@@ -88,65 +89,64 @@ class OfferEditComponent extends EntityEdit {
     }
   }
 
-  loadCustomers() async {
-    this.customers = (await this.store.list(Customer)).toList();
+  Future loadCustomers() async {
+    this.customers = (await this.store.list(Customer)).toList() as List<Customer>;
   }
 
-  loadRateGroups() async {
-    this.rateGroups = (await this.store.list(RateGroup)).toList();
+  Future loadRateGroups() async {
+    this.rateGroups = (await this.store.list(RateGroup)).toList() as List<RateGroup>;
   }
 
-  loadOfferStates() async {
-    this.states = (await this.store.list(OfferStatusUC)).toList();
+  Future loadOfferStates() async {
+    this.states = (await this.store.list(OfferStatusUC)).toList() as List<OfferStatusUC>;
   }
 
-  loadUsers() async {
-    this.users = (await this.store.list(Employee)).toList();
+  Future loadUsers() async {
+    this.users = (await this.store.list(Employee)).toList() as List<Employee>;
   }
 
-  openProject() async {
+  Future openProject() async {
     router.navigate([
       'ProjectEdit',
-      {'id': entity.project.id}
+      {'id': entity.project.id.toString()}
     ]);
   }
 
-  createProject() async {
+  Future createProject() async {
     if (await saveEntity()) {
-      var newProject = (await this
-          .store
-          .customQueryOne(Project, new CustomRequestParams(method: 'GET', url: '${http.baseUrl}/projects/offer/${this.entity.id}')));
+      Project newProject = (await this.store.customQueryOne(
+          Project, new CustomRequestParams(method: 'GET', url: '${http.baseUrl}/projects/offer/${this.entity.id}'))) as Project;
       this.store.evict(Project, true);
       this.statusservice.setStatusToSuccess();
       entity.project = newProject;
       router.navigate([
         'ProjectEdit',
-        {'id': newProject.id}
+        {'id': newProject.id.toString()}
       ]);
     }
   }
 
-  openInvoice(int id) async {
+  Future openInvoice(int id) async {
     router.navigate([
       'InvoiceEdit',
-      {'id': id}
+      {'id': id.toString()}
     ]);
   }
 
-  createInvoice() async {
+  Future createInvoice() async {
     if (await saveEntity()) {
-      var newInvoice = await this.store.customQueryOne(
-          Invoice, new CustomRequestParams(method: 'GET', url: '${http.baseUrl}/invoices/project/${this.entity.project.id}'));
+      Invoice newInvoice = await this.store.customQueryOne(
+          Invoice, new CustomRequestParams(method: 'GET', url: '${http.baseUrl}/invoices/project/${this.entity.project.id}')) as Invoice;
       entity.project.invoices.add(newInvoice);
       this.store.evict(Invoice, true);
       router.navigate([
         'InvoiceEdit',
-        {'id': newInvoice.id}
+        {'id': newInvoice.id.toString()}
       ]);
     }
   }
 
-  copyAddressFromCustomer() {
+  void copyAddressFromCustomer() {
     if (entity.customer != null && entity.customer.address != null) {
       addSaveField('address');
       entity.address.street = entity.customer.address.street;
@@ -158,7 +158,7 @@ class OfferEditComponent extends EntityEdit {
     }
   }
 
-  printOffer() {
+  void printOffer() {
     window.open('${http.baseUrl}/offers/${this.entity.id}/print', 'Offer Print');
   }
 }

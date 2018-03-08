@@ -1,6 +1,7 @@
 import '../Entity.dart';
 
 class OfferPosition extends Entity {
+  @override
   init({Map<String, dynamic> params: const {}}) {
     if (params.containsKey('offer')) {
       params['offer'] = new Offer()..id = params['offer'];
@@ -28,10 +29,12 @@ class OfferPosition extends Entity {
 
   OfferPosition.fromMap(Map<String, dynamic> map) : super.fromMap(map);
 
-  newObj() {
+  @override
+  OfferPosition newObj() {
     return new OfferPosition();
   }
 
+  @override
   dynamic Get(String property) {
     var val = super.Get(property);
     if (val == null) {
@@ -67,46 +70,47 @@ class OfferPosition extends Entity {
     return val;
   }
 
-  void Set(String property, var value) {
+  @override
+  void Set(String property, dynamic value) {
     switch (property) {
       case 'offer':
-        this.offer = value is Entity ? value : new Offer.fromMap(value);
+        this.offer = value is Offer ? value : new Offer.fromMap(value as Map<String, dynamic>);
         break;
       case 'service':
-        this.service = value is Entity ? value : new Service.fromMap(value);
+        this.service = value is Service ? value : new Service.fromMap(value as Map<String, dynamic>);
         break;
       case 'order':
-        this.order = value;
+        this.order = value as int;
         break;
       case 'amount':
-        this.amount = value;
+        this.amount = value as num;
         break;
       case 'rateValue':
-        this.rateValue = value;
+        this.rateValue = value as String;
         break;
       case 'rateUnit':
-        this.rateUnit = value;
+        this.rateUnit = value as String;
         break;
       case 'rateUnitType':
-        this.rateUnitType = value is Entity ? value : new RateUnitType.fromMap(value);
+        this.rateUnitType = value is RateUnitType ? value : new RateUnitType.fromMap(value as Map<String, dynamic>);
         break;
       case 'vat':
-        this.vat = value;
+        this.vat = value as double;
         break;
       case 'discountable':
-        this.discountable = value;
+        this.discountable = value as bool;
         break;
       case 'serviceRate':
-        this.serviceRate = value is Entity ? value : new Rate.fromMap(value);
+        this.serviceRate = value is Rate ? value : new Rate.fromMap(value as Map<String, dynamic>);
         break;
       case 'calculatedVAT':
-        this.calculatedVAT = value;
+        this.calculatedVAT = value as String;
         break;
       case 'calculatedRateValue':
-        this.calculatedRateValue = value;
+        this.calculatedRateValue = value as String;
         break;
       case 'total':
-        this.total = value;
+        this.total = value as String;
         break;
       default:
         super.Set(property, value);
@@ -122,6 +126,7 @@ class OfferPosition extends Entity {
     return array;
   }
 
+  @override
   String type = 'offerpositions';
 
   bool get isManualRateValueSet => serviceRate.rateValue == rateValue;

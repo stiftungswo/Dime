@@ -1,7 +1,8 @@
 import '../Entity.dart';
 
 class Activity extends Entity {
-  init({Map<String, dynamic> params: const {}}) {
+  @override
+  void init({Map<String, dynamic> params: const {}}) {
     if (params.containsKey('project')) {
       params['project'] = new Project()..id = params['project'];
     }
@@ -24,10 +25,12 @@ class Activity extends Entity {
 
   Activity.fromMap(Map<String, dynamic> map) : super.fromMap(map);
 
-  newObj() {
+  @override
+  Activity newObj() {
     return new Activity();
   }
 
+  @override
   dynamic Get(String property) {
     var val = super.Get(property);
     if (val == null) {
@@ -67,49 +70,50 @@ class Activity extends Entity {
     return val;
   }
 
-  void Set(String property, var value) {
+  @override
+  void Set(String property, dynamic value) {
     switch (property) {
       case 'project':
-        this.project = value is Entity ? value : new Project.fromMap(value);
+        this.project = value is Project ? value : new Project.fromMap(value as Map<String, dynamic>);
         break;
       case 'value':
         this.value = value;
         break;
       case 'chargeable':
-        this.chargeable = value;
+        this.chargeable = value as bool;
         break;
       case 'service':
-        this.service = value is Entity ? value : new Service.fromMap(value);
+        this.service = value is Service ? value : new Service.fromMap(value as Map<String, dynamic>);
         break;
       case 'description':
-        this.description = value;
+        this.description = value as String;
         break;
       case 'timeslices':
-        this.timeslices = Timeslice.listFromMap(value);
+        this.timeslices = Timeslice.listFromMap(value as List<Map<String, dynamic>>);
         break;
       case 'rateValue':
-        this.rateValue = value;
+        this.rateValue = value as String;
         break;
       case 'rateUnit':
-        this.rateUnit = value;
+        this.rateUnit = value as String;
         break;
       case 'rateUnitType':
-        this.rateUnitType = value is Entity ? value : new RateUnitType.fromMap(value);
+        this.rateUnitType = value is RateUnitType ? value : new RateUnitType.fromMap(value as Map<String, dynamic>);
         break;
       case 'serviceRate':
-        this.serviceRate = value is Entity ? value : new Rate.fromMap(value);
+        this.serviceRate = value is Rate ? value : new Rate.fromMap(value as Map<String, dynamic>);
         break;
       case 'customer':
-        this.customer = value is Entity ? value : new Customer.fromMap(value);
+        this.customer = value is Customer ? value : new Customer.fromMap(value as Map<String, dynamic>);
         break;
       case 'charge':
-        this.charge = value;
+        this.charge = value as String;
         break;
       case 'vat':
-        this.vat = value;
+        this.vat = value as double;
         break;
       case 'calculatedVAT':
-        this.calculatedVAT = value;
+        this.calculatedVAT = value as String;
         break;
       default:
         super.Set(property, value);
@@ -126,6 +130,7 @@ class Activity extends Entity {
     return activities;
   }
 
+  @override
   String type = 'activities';
   Project project;
   Rate serviceRate;

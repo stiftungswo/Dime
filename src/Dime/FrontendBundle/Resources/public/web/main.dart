@@ -14,7 +14,7 @@ void main() {
     FORM_PROVIDERS,
   ];
 
-  customProviders.addAll(Hammock.getProviders());
+  customProviders.addAll(Hammock.getProviders() as List<Provider>);
   customProviders.add(provide(ExceptionHandler, useClass: SentryLoggingExceptionHandler));
   customProviders.add(provide(SentryLogger, useFactory: getSentry, deps: const[UserContext]));
   customProviders.add(provide(HammockConfig, useFactory: createHammockConfig, deps: const [Injector]));

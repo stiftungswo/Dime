@@ -20,7 +20,7 @@ import '../elements/dime_directives.dart';
   directives: const [CORE_DIRECTIVES, formDirectives, dimeDirectives],
   pipes: const [dimePipes],
 )
-class OfferOverviewComponent extends EntityOverview {
+class OfferOverviewComponent extends EntityOverview<Offer> {
   OfferOverviewComponent(DataCache store, this.context, Router router, SettingsManager manager, StatusService status, UserAuthProvider auth,
       EntityEventsService entityEventsService)
       : super(Offer, store, 'OfferEdit', manager, status, entityEventsService, auth: auth, router: router) {
@@ -30,13 +30,10 @@ class OfferOverviewComponent extends EntityOverview {
 
   UserContext context;
 
-  cEnt({Entity entity}) {
+  @override
+  Offer cEnt({Offer entity}) {
     if (entity != null) {
-      if (entity is Offer) {
-        return new Offer.clone(entity);
-      } else {
-        throw new Exception("Invalid Type; Offer expected!");
-      }
+      return new Offer.clone(entity);
     }
     Offer newOffer = new Offer();
     newOffer.accountant = this.context.employee;
@@ -44,27 +41,28 @@ class OfferOverviewComponent extends EntityOverview {
     return newOffer;
   }
 
-  cEntPos(OfferPosition entity) {
+  OfferPosition cEntPos(OfferPosition entity) {
     if (entity != null) {
       return new OfferPosition.clone(entity);
     }
     return new OfferPosition();
   }
 
-  duplicateEntity() async {
+  @override
+  Future duplicateEntity() async {
     print("duplicate usdf offer now");
     var ent = this.selectedEntity;
 
     if (ent != null) {
       this.statusservice.setStatusToLoading();
 
-      var duplicateOffer = (await this.store.one(Offer, ent.id));
+      Offer duplicateOffer = (await this.store.one(Offer, ent.id)) as Offer;
 
       for (OfferPosition _ in duplicateOffer.offerPositions) {
         print("offer position item now");
       }
 
-      var newOffer = this.cEnt();
+      Offer newOffer = this.cEnt();
 
       newOffer = duplicateOffer;
       newOffer.id = null;
@@ -80,12 +78,12 @@ class OfferOverviewComponent extends EntityOverview {
       newOffer.addFieldtoUpdate('validTo');
 
       try {
-        var resultOffer = await this.store.create(newOffer);
+        Offer resultOffer = await this.store.create(newOffer);
 
         // create offerpositions with new offer
         for (OfferPosition offerPosition in newOffer.offerPositions) {
           print("duplicate position now");
-          var newOfferPosition = this.cEntPos(offerPosition);
+          OfferPosition newOfferPosition = this.cEntPos(offerPosition);
           newOfferPosition.offer = resultOffer;
 
           await this.store.create(newOfferPosition);

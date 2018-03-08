@@ -34,12 +34,12 @@ export 'service_overview.dart';
 export 'settingAssignProject_overview.dart';
 export 'timeslice_overview.dart';
 
-class EntityOverview implements OnInit {
+abstract class EntityOverview<T extends Entity> implements OnInit {
   bool needsmanualAdd = false;
 
   dynamic selectedEntId;
 
-  List entities = [];
+  List<T> entities = [];
 
   Type type;
 
@@ -63,8 +63,8 @@ class EntityOverview implements OnInit {
 
   bool sortReverse = false;
 
-  get selectedEntity {
-    for (Entity ent in this.entities) {
+  T get selectedEntity {
+    for (T ent in this.entities) {
       if (ent.id == this.selectedEntId) {
         return ent;
       }
@@ -73,17 +73,17 @@ class EntityOverview implements OnInit {
   }
 
   void saveAllEntities() {
-    for (Entity entity in this.entities) {
+    for (T entity in this.entities) {
       if (entity.needsUpdate) {
         this.saveEntity(entity);
       }
     }
   }
 
-  saveEntity(Entity entity) async {
+  Future saveEntity(T entity) async {
     this.statusservice.setStatusToLoading();
     try {
-      Entity resp = await store.update(entity);
+      T resp = await store.update(entity);
       this.entities.removeWhere((enty) => enty.id == resp.id);
       this.entities.add(resp);
       this.statusservice.setStatusToSuccess();
@@ -98,13 +98,14 @@ class EntityOverview implements OnInit {
     this.selectedEntId = entId;
   }
 
+  /// entity is [Entity] not [T] because some components use isSelected and selectEntity for other entities (not [T])
   bool isSelected(Entity entity) {
     if (entity == null || this.selectedEntId == null) return false;
     if (entity.id == this.selectedEntId) return true;
     return false;
   }
 
-  createEntity({var newEnt, Map<String, dynamic> params: const {}}) async {
+  Future createEntity({T newEnt, Map<String, dynamic> params: const {}}) async {
     if (params.isEmpty) {
       params = {};
     }
@@ -114,12 +115,12 @@ class EntityOverview implements OnInit {
       newEnt.init(params: params);
     }
     try {
-      Entity resp = await this.store.create(newEnt);
+      T resp = await this.store.create(newEnt);
       this.statusservice.setStatusToSuccess();
       //FIXME reimplement
       //this.rootScope.emit(this.type.toString() + 'Created');
       if (this.router != null) {
-        this.openEditView(resp.id);
+        this.openEditView(resp.id as int);
       } else {
         this.entities.add(resp);
       }
@@ -129,25 +130,20 @@ class EntityOverview implements OnInit {
     }
   }
 
-  cEnt({Entity entity}) {
-    if (entity != null) {
-      return new Entity.clone(entity);
-    }
-    return new Entity();
-  }
+  T cEnt({T entity});
 
-  duplicateEntity() async {
-    var ent = this.selectedEntity;
+  Future duplicateEntity() async {
+    T ent = this.selectedEntity;
     if (ent != null) {
       this.statusservice.setStatusToLoading();
-      var newEnt = this.cEnt(entity: ent);
+      T newEnt = this.cEnt(entity: ent);
       try {
-        var result = await this.store.create(newEnt);
+        T result = await this.store.create(newEnt);
         if (needsmanualAdd) {
           this.entities.add(result);
         }
         result.cloneDescendants(ent);
-        for (var entity in result.descendantsToUpdate) {
+        for (Entity entity in result.descendantsToUpdate) {
           await this.store.create(entity);
         }
         this.statusservice.setStatusToSuccess();
@@ -159,16 +155,16 @@ class EntityOverview implements OnInit {
     }
   }
 
-  deleteEntity([int entId]) async {
+  Future deleteEntity([int entId]) async {
     if (entId == null) {
-      entId = this.selectedEntId;
+      entId = this.selectedEntId as int;
     }
     if (entId != null) {
       if (window.confirm("Wirklich löschen?")) {
         this.statusservice.setStatusToLoading();
         try {
           if (this.store != null) {
-            var ent = this.entities.singleWhere((enty) => enty.id == entId);
+            T ent = this.entities.singleWhere((enty) => enty.id == entId);
             await this.store.delete(ent);
           }
           this.entities.removeWhere((enty) => enty.id == entId);
@@ -182,10 +178,10 @@ class EntityOverview implements OnInit {
     }
   }
 
-  openEditView([int entId]) {
+  void openEditView([int entId]) {
     if (this.router != null) {
       if (entId == null) {
-        entId = this.selectedEntId;
+        entId = this.selectedEntId as int;
       }
       router.navigate([
         this.routename,
@@ -195,7 +191,7 @@ class EntityOverview implements OnInit {
   }
 
   @override
-  ngOnInit() {
+  void ngOnInit() {
     if (this.auth != null) {
       if (!auth.isloggedin) {
         this.auth.afterLogin(() {
@@ -210,11 +206,11 @@ class EntityOverview implements OnInit {
   /**
    * for usage in templates; can't use named parameters in templates
    */
-  reloadEvict() async {
+  Future reloadEvict() async {
     return reload(evict: true);
   }
 
-  reload({Map<String, dynamic> params, bool evict: false}) async {
+  Future reload({Map<String, dynamic> params, bool evict: false}) async {
     // todo: make sure there aren't two reloads happening at the same time (breaks form / validation)
     this.entities = [];
     this.statusservice.setStatusToLoading();
@@ -222,7 +218,7 @@ class EntityOverview implements OnInit {
       if (evict) {
         this.store.evict(this.type);
       }
-      this.entities = (await this.store.list(this.type, params: params)).toList();
+      this.entities = (await this.store.list(this.type, params: params)).toList() as List<T>;
       this.statusservice.setStatusToSuccess();
 //      this.rootScope.emit(this.type.toString() + 'Loaded');
     } catch (e, stack) {
@@ -231,22 +227,11 @@ class EntityOverview implements OnInit {
     }
   }
 
-  addSaveField(String name, Entity entity) {
+  void addSaveField(String name, T entity) {
     entity.addFieldtoUpdate(name);
   }
 
-  searchFilter(var fields, filterString) {
-    return (Entity entity) {
-      for (var field in fields) {
-        if (entity.Get(field).toString().toLowerCase().contains(filterString.toLowerCase())) {
-          return true;
-        }
-      }
-      return false;
-    };
-  }
-
-  changeSortOrder(String field) {
+  void changeSortOrder(String field) {
     if (sortType == field) {
       sortReverse = !sortReverse;
     } else {

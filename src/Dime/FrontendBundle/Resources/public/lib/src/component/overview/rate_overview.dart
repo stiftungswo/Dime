@@ -15,21 +15,19 @@ import '../select/entity_select.dart';
   templateUrl: 'rate_overview.html',
   directives: const [formDirectives, CORE_DIRECTIVES, dimeDirectives, RateGroupSelectComponent, RateUnitTypeSelectComponent],
 )
-class RateOverviewComponent extends EntityOverview {
+class RateOverviewComponent extends EntityOverview<Rate> {
   RateOverviewComponent(DataCache store, SettingsManager manager, StatusService status, EntityEventsService entityEventsService)
       : super(Rate, store, '', manager, status, entityEventsService);
 
-  cEnt({Entity entity}) {
+  @override
+  Rate cEnt({Rate entity}) {
     if (entity != null) {
-      if (entity is Rate) {
-        return new Rate.clone(entity);
-      } else {
-        throw new Exception("Invalid Type; Rate expected!");
-      }
+      return new Rate.clone(entity);
     }
     return new Rate();
   }
 
+  @override
   bool needsmanualAdd = true;
 
   int _serviceId;
@@ -37,8 +35,8 @@ class RateOverviewComponent extends EntityOverview {
   @ViewChild('rateEditForm')
   NgForm form;
 
-  get valid {
-    return form.valid && entities.length > 0;
+  bool get valid {
+    return form.valid && entities.isNotEmpty;
   }
 
   @Input()
@@ -49,14 +47,16 @@ class RateOverviewComponent extends EntityOverview {
     }
   }
 
-  reload({Map<String, dynamic> params, bool evict: false}) {
-    super.reload(params: {'service': this._serviceId}, evict: evict);
+  @override
+  Future reload({Map<String, dynamic> params, bool evict: false}) {
+    return super.reload(params: {'service': this._serviceId}, evict: evict);
   }
 
   @override
-  ngOnInit();
+  void ngOnInit();
 
-  createEntity({dynamic newEnt, Map<String, dynamic> params: const {}}) {
-    super.createEntity(params: {'service': this._serviceId});
+  @override
+  Future createEntity({dynamic newEnt, Map<String, dynamic> params: const {}}) {
+    return super.createEntity(params: {'service': this._serviceId});
   }
 }

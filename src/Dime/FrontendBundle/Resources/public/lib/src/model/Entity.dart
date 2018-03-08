@@ -109,9 +109,9 @@ class Entity {
   @protected
   List<Entity> descendantsToUpdate_ = [];
 
-  List<Entity> get descendantsToUpdate => descendantsToUpdate;
+  List<Entity> get descendantsToUpdate => descendantsToUpdate_;
 
-  var id;
+  dynamic id;
   List<String> _toUpdate = [];
   String type = 'entities';
 
@@ -136,7 +136,7 @@ class Entity {
   }
 
   @protected
-  DateTime addDateValue(value) {
+  DateTime addDateValue(dynamic value) {
     if (value == null) {
       return null;
     }
@@ -150,7 +150,7 @@ class Entity {
   }
 
   bool get needsUpdate {
-    if (this._toUpdate.length >= 1) {
+    if (this._toUpdate.isNotEmpty) {
       return true;
     }
     return false;
@@ -182,7 +182,7 @@ class Entity {
     return null;
   }
 
-  void Set(String property, var value) {
+  void Set(String property, dynamic value) {
     switch (property) {
       case 'id':
         this.id = value;
@@ -194,16 +194,16 @@ class Entity {
         this.updatedAt = addDateValue(value);
         break;
       case 'name':
-        this.name = value;
+        this.name = value as String;
         break;
       case 'alias':
-        this.alias = value;
+        this.alias = value as String;
         break;
       case 'user':
-        this.user = value is Entity ? value : new Employee.fromMap(value);
+        this.user = value is Employee ? value : new Employee.fromMap(value as Map<String, dynamic>);
         break;
       case 'tags':
-        this.tags = Tag.listFromMap(value);
+        this.tags = Tag.listFromMap(value as List<Map<String, dynamic>>);
         break;
       default:
         //print('Trying to set ${property} with ${value} in ${this.type} but it does not exist or has no setter');

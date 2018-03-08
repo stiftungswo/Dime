@@ -15,18 +15,15 @@ import '../elements/dime_directives.dart';
   templateUrl: 'holiday_overview.html',
   directives: const [formDirectives, CORE_DIRECTIVES, dimeDirectives],
 )
-class HolidayOverviewComponent extends EntityOverview {
+class HolidayOverviewComponent extends EntityOverview<Holiday> {
   HolidayOverviewComponent(
       DataCache store, SettingsManager manager, StatusService status, UserAuthProvider auth, EntityEventsService entityEventsService)
       : super(Holiday, store, '', manager, status, entityEventsService, auth: auth);
 
-  cEnt({Entity entity}) {
+  @override
+  Holiday cEnt({Holiday entity}) {
     if (entity != null) {
-      if (entity is Holiday) {
-        return new Holiday.clone(entity);
-      } else {
-        throw new Exception("Invalid Type; Holiday expected!");
-      }
+      return new Holiday.clone(entity);
     }
     return new Holiday();
   }

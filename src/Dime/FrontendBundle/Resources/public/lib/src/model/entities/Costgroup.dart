@@ -1,6 +1,7 @@
 import '../Entity.dart';
 
 class Costgroup extends Entity {
+  @override
   init({Map<String, dynamic> params: const {}}) {
     if (!params.containsKey('number')) {
       params['number'] = 1000;
@@ -27,10 +28,12 @@ class Costgroup extends Entity {
     return groups;
   }
 
-  newObj() {
+  @override
+  Costgroup newObj() {
     return new Costgroup();
   }
 
+  @override
   dynamic Get(String property) {
     var val = super.Get(property);
     if (val == null) {
@@ -46,13 +49,14 @@ class Costgroup extends Entity {
     return val;
   }
 
-  void Set(String property, var value) {
+  @override
+  void Set(String property, dynamic value) {
     switch (property) {
       case 'number':
-        this.number = value;
+        this.number = value as int;
         break;
       case 'description':
-        this.description = value;
+        this.description = value as String;
         break;
       default:
         super.Set(property, value);
@@ -60,6 +64,7 @@ class Costgroup extends Entity {
     }
   }
 
+  @override
   String type = 'costgroup';
   int number;
   String description;

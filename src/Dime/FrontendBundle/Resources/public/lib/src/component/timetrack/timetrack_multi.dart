@@ -26,7 +26,7 @@ class TimetrackMultiEntry {
   directives: const [CORE_DIRECTIVES, formDirectives, dimeDirectives, ProjectSelectComponent, UserSelectComponent],
   pipes: const [ProjectValueFilter],
 )
-class TimetrackMultiComponent extends EntityOverview {
+class TimetrackMultiComponent extends EntityOverview<Timeslice> {
   UserContext context;
   SettingsManager manager;
   DateTime date;
@@ -44,15 +44,24 @@ class TimetrackMultiComponent extends EntityOverview {
     updateActivities();
   }
 
-  get selectedProject => this._selectedProject;
+  Project get selectedProject => this._selectedProject;
 
-  ngOnInit() {
+  @override
+  Timeslice cEnt({Timeslice entity}) {
+    if (entity != null) {
+      return new Timeslice.clone(entity);
+    }
+    return new Timeslice();
+  }
+
+  @override
+  void ngOnInit() {
     DateTime now = new DateTime.now();
     this.date = new DateTime(now.year, now.month, now.day);
     this.loadActivities();
   }
 
-  save() async {
+  Future save() async {
     var newTimeslicesCount = 0;
 
     this.statusText = 'Speichern...';
@@ -61,7 +70,7 @@ class TimetrackMultiComponent extends EntityOverview {
       for (var i = 0; i < projectActivities.length; i++) {
         String value = entry.activities[i];
         if (value != '0' && value != '') {
-          await this.createTimeslice(value, entry.user, this.date, projectActivities.elementAt(i));
+          await this.createTimeslice(value, new Employee()..id = entry.user.id, this.date, projectActivities.elementAt(i));
           newTimeslicesCount++;
           this.statusText = 'Speichern... (' + newTimeslicesCount.toString() + ')';
         }
@@ -70,7 +79,7 @@ class TimetrackMultiComponent extends EntityOverview {
     this.statusText = newTimeslicesCount.toString() + ' Einträge erstellt.';
   }
 
-  createTimeslice(String value, Employee employee, DateTime startedAt, Activity activity) async {
+  Future createTimeslice(String value, Employee employee, DateTime startedAt, Activity activity) async {
     if (!(this.selectedProject is Project)) return;
     Timeslice slice = new Timeslice();
     slice.Set('value', value);
@@ -84,10 +93,10 @@ class TimetrackMultiComponent extends EntityOverview {
     await super.createEntity(newEnt: slice);
   }
 
-  addUser() {
+  void addUser() {
     if (selectedUserToAdd != null) {
       List<TimetrackMultiEntry> existingEntries = entries.where((TimetrackMultiEntry e) => e.user.id == selectedUserToAdd.id).toList();
-      if (existingEntries.length == 0) {
+      if (existingEntries.isEmpty) {
         TimetrackMultiEntry entry = new TimetrackMultiEntry();
         if (selectedProject != null) {
           inputAll = [];
@@ -105,11 +114,11 @@ class TimetrackMultiComponent extends EntityOverview {
     this.statusText = '';
   }
 
-  removeUser(userId) {
+  void removeUser(int userId) {
     entries.removeWhere((TimetrackMultiEntry e) => e.user.id == userId);
   }
 
-  updateActivities() {
+  void updateActivities() {
     entries.forEach((TimetrackMultiEntry entry) {
       entry.activities = [];
       inputAll = [];
@@ -122,17 +131,17 @@ class TimetrackMultiComponent extends EntityOverview {
     this.statusText = '';
   }
 
-  loadActivities() async {
+  Future loadActivities() async {
     this.statusservice.setStatusToLoading();
     try {
-      this.activities = (await this.store.list(Activity)).toList();
+      this.activities = (await this.store.list(Activity)).toList() as List<Activity>;
       this.statusservice.setStatusToSuccess();
     } catch (e, stack) {
       this.statusservice.setStatusToError(e, stack);
     }
   }
 
-  inputAllUpdated(int index) {
+  void inputAllUpdated(int index) {
     var newValue = inputAll[index];
     if (newValue != '') {
       inputAll[index] = '';
@@ -143,7 +152,7 @@ class TimetrackMultiComponent extends EntityOverview {
     this.statusText = '';
   }
 
-  clearInputs() {
+  void clearInputs() {
     entries.forEach((TimetrackMultiEntry entry) {
       int idx = 0;
       List<Activity> projectActivities = activities.where((Activity a) => a.project.id == selectedProject.id).toList();

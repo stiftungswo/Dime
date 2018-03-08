@@ -17,10 +17,12 @@ class User extends Entity {
 
   User.fromMap(Map<String, dynamic> map) : super.fromMap(map);
 
-  newObj() {
+  @override
+  User newObj() {
     return new User();
   }
 
+  @override
   init({Map<String, dynamic> params: const {}}) {
     if (!params.containsKey('enabled')) {
       params['enabled'] = false;
@@ -28,6 +30,7 @@ class User extends Entity {
     super.init(params: params);
   }
 
+  @override
   dynamic Get(String property) {
     var val = super.Get(property);
     if (val == null) {
@@ -53,28 +56,29 @@ class User extends Entity {
     return val;
   }
 
-  void Set(String property, var value) {
+  @override
+  void Set(String property, dynamic value) {
     switch (property) {
       case 'username':
-        this.username = value;
+        this.username = value as String;
         break;
       case 'firstname':
-        this.firstname = value;
+        this.firstname = value as String;
         break;
       case 'lastname':
-        this.lastname = value;
+        this.lastname = value as String;
         break;
       case 'email':
-        this.email = value;
+        this.email = value as String;
         break;
       case 'enabled':
-        this.enabled = value;
+        this.enabled = value as bool;
         break;
       case 'plainpassword':
-        this.plainpassword = value;
+        this.plainpassword = value as String;
         break;
       case 'employeeholiday':
-        this.employeeholiday = value;
+        this.employeeholiday = value as int;
         break;
       default:
         super.Set(property, value);
@@ -82,6 +86,7 @@ class User extends Entity {
     }
   }
 
+  @override
   String type = 'users';
   String username;
   String firstname;

@@ -16,7 +16,7 @@ import '../../service/user_auth.dart';
   directives: const [formDirectives, CORE_DIRECTIVES],
   pipes: const [dimePipes],
 )
-class StandardDiscountSelectComponent extends EntitySelect {
+class StandardDiscountSelectComponent extends EntitySelect<StandardDiscount> {
   StandardDiscountSelectComponent(DataCache store, dom.Element element, StatusService status, UserAuthProvider auth)
       : super(StandardDiscount, store, element, status, auth);
 }

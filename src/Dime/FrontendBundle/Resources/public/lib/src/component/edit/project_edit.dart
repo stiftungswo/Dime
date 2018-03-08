@@ -32,7 +32,7 @@ import '../select/entity_select.dart';
     ActivityOverviewComponent
   ],
 )
-class ProjectEditComponent extends EntityEdit {
+class ProjectEditComponent extends EntityEdit<Project> {
   List<Customer> customers;
 
   List<RateGroup> rateGroups;
@@ -44,7 +44,7 @@ class ProjectEditComponent extends EntityEdit {
       : super(routeProvider, store, Project, status, auth, router, entityEventsService);
 
   @override
-  ngOnInit() {
+  void ngOnInit() {
     if (this.auth != null) {
       if (!auth.isloggedin) {
         this.auth.afterLogin(() {
@@ -60,38 +60,37 @@ class ProjectEditComponent extends EntityEdit {
     }
   }
 
-  loadCustomers() async {
-    this.customers = (await this.store.list(Customer)).toList();
+  Future loadCustomers() async {
+    this.customers = (await this.store.list(Customer)).toList() as List<Customer>;
   }
 
-  loadRateGroups() async {
-    this.rateGroups = (await this.store.list(RateGroup)).toList();
+  Future loadRateGroups() async {
+    this.rateGroups = (await this.store.list(RateGroup)).toList() as List<RateGroup>;
   }
 
-  openOffer(int id) async {
+  Future openOffer(int id) async {
     router.navigate([
       'OfferEdit',
       {'id': id.toString()}
     ]);
   }
 
-  openInvoice(int id) async {
+  Future openInvoice(int id) async {
     router.navigate([
       'InvoiceEdit',
-      {'id': id}
+      {'id': id.toString()}
     ]);
   }
 
-  createInvoice() async {
+  Future createInvoice() async {
     if (await saveEntity()) {
-      var newInvoice = await this
-          .store
-          .customQueryOne(Invoice, new CustomRequestParams(method: 'GET', url: '${http.baseUrl}/invoices/project/${this.entity.id}'));
+      Invoice newInvoice = await this.store.customQueryOne(
+          Invoice, new CustomRequestParams(method: 'GET', url: '${http.baseUrl}/invoices/project/${this.entity.id}')) as Invoice;
       entity.invoices.add(newInvoice);
       this.store.evict(Invoice, true);
       router.navigate([
         'InvoiceEdit',
-        {'id': newInvoice.id}
+        {'id': newInvoice.id.toString()}
       ]);
     }
   }

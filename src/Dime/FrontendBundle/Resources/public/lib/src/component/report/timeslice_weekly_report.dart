@@ -27,7 +27,7 @@ class WeekReportDayEntry {
     templateUrl: 'timeslice_weekly_report.html',
     directives: const [CORE_DIRECTIVES, dimeDirectives],
     pipes: const [COMMON_PIPES])
-class TimesliceWeeklyReportComponent extends EntityOverview {
+class TimesliceWeeklyReportComponent extends EntityOverview<ExpenseReport> {
   TimesliceWeeklyReportComponent(DataCache store, SettingsManager manager, StatusService status, UserAuthProvider auth,
       EntityEventsService entityEventsService, this.http)
       : super(ExpenseReport, store, '', manager, status, entityEventsService, auth: auth);
@@ -48,7 +48,12 @@ class TimesliceWeeklyReportComponent extends EntityOverview {
 
   ExpenseReport report;
 
-  updateDates() {
+  @override
+  ExpenseReport cEnt({ExpenseReport entity}) {
+    return new ExpenseReport();
+  }
+
+  void updateDates() {
     dates = [];
     DateTime date = filterStartDate;
     DateTime endDate = filterEndDate.add(new Duration(hours: 23, minutes: 59));
@@ -58,7 +63,7 @@ class TimesliceWeeklyReportComponent extends EntityOverview {
     }
   }
 
-  updateEmployees() {
+  void updateEmployees() {
     employees = [];
     for (Timeslice slice in this.report.timeslices) {
       if (!employees.contains(slice.employee.fullname)) {
@@ -67,7 +72,7 @@ class TimesliceWeeklyReportComponent extends EntityOverview {
     }
   }
 
-  updateEntries() {
+  void updateEntries() {
     this.entries = [];
     for (String employee in employees) {
       WeekReportEntry entry = new WeekReportEntry();
@@ -75,7 +80,7 @@ class TimesliceWeeklyReportComponent extends EntityOverview {
       for (DateTime date in dates) {
         List<Timeslice> slices =
             report.timeslices.where((Timeslice s) => s.employee.fullname == employee && isSameDay(date, s.startedAt)).toList();
-        if (slices.length == 0) {
+        if (slices.isEmpty) {
           entry.days.add(new WeekReportDayEntry());
         } else {
           double totalThisDay = 0.0;
@@ -103,16 +108,16 @@ class TimesliceWeeklyReportComponent extends EntityOverview {
   }
 
   @override
-  ngOnInit() {
-    if (this.filterStartDate.weekday != DateTime.MONDAY) ;
-    {
+  void ngOnInit() {
+    if (this.filterStartDate.weekday != DateTime.MONDAY) {
       this.filterStartDate = this.filterStartDate.subtract(new Duration(days: this.filterStartDate.weekday - 1));
     }
     this.filterEndDate = this.filterStartDate.add(new Duration(days: 7));
     reload();
   }
 
-  reload({Map<String, dynamic> params, bool evict: false}) async {
+  @override
+  Future reload({Map<String, dynamic> params, bool evict: false}) async {
     this.entities = [];
     this.statusservice.setStatusToLoading();
     try {
@@ -120,7 +125,7 @@ class TimesliceWeeklyReportComponent extends EntityOverview {
           this.type,
           new CustomRequestParams(params: {
             'date': '${format.format(filterStartDate)},${format.format(filterEndDate)}',
-          }, method: 'GET', url: '${http.baseUrl}/reports/ziviweekly')));
+          }, method: 'GET', url: '${http.baseUrl}/reports/ziviweekly'))) as ExpenseReport;
       this.statusservice.setStatusToSuccess();
       //this.rootScope.emit(this.type.toString() + 'Loaded');
     } catch (e, stack) {
@@ -131,13 +136,13 @@ class TimesliceWeeklyReportComponent extends EntityOverview {
     updateEntries();
   }
 
-  previousWeek() {
+  void previousWeek() {
     this.filterStartDate = this.filterStartDate.subtract(new Duration(days: 7));
     this.filterEndDate = this.filterEndDate.subtract(new Duration(days: 7));
     reload();
   }
 
-  nextWeek() {
+  void nextWeek() {
     this.filterStartDate = this.filterStartDate.add(new Duration(days: 7));
     this.filterEndDate = this.filterEndDate.add(new Duration(days: 7));
     reload();

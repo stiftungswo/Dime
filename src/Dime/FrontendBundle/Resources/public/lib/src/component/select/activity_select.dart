@@ -16,7 +16,7 @@ import '../../service/user_auth.dart';
   directives: const [formDirectives, CORE_DIRECTIVES],
   pipes: const [dimePipes],
 )
-class ActivitySelectComponent extends EntitySelect implements OnChanges {
+class ActivitySelectComponent extends EntitySelect<Activity> implements OnChanges {
   ActivitySelectComponent(DataCache store, dom.Element element, StatusService status, UserAuthProvider auth)
       : super(Activity, store, element, status, auth);
 
@@ -25,6 +25,7 @@ class ActivitySelectComponent extends EntitySelect implements OnChanges {
   @Input('shortname')
   bool shortname = false;
 
+  @override
   get EntText => selectedEntity != null ? (shortname ? selectedEntity.service.name : selectedEntity.name) : '';
 
   // Disable the select box because of projectId being null sometimes
@@ -50,24 +51,24 @@ class ActivitySelectComponent extends EntitySelect implements OnChanges {
   void ngOnChanges(Map<String, SimpleChange> changes) {
     if (changes.containsKey('parentActivities')) {
       var change = changes['parentActivities'];
-      onChange(change.previousValue, change.currentValue);
+      onChange(change.previousValue as List<Activity>, change.currentValue as List<Activity>);
     }
   }
 
-  onChange(List<Activity> oldList, List<Activity> newList) {
-    if (this.entities != null && this.entities.length == 0 && newList != null && newList.length > 0) {
+  void onChange(List<Activity> oldList, List<Activity> newList) {
+    if (this.entities != null && this.entities.isEmpty && newList != null && newList.isNotEmpty) {
       reload();
     }
   }
 
   @override
-  reload() async {
+  Future reload() async {
     this.statusservice.setStatusToLoading();
     try {
       if (this.parentActivities != null) {
         this.entities = this.parentActivities;
       } else {
-        this.entities = (await this.store.list(Activity, params: {'project': this.projectId})).toList();
+        this.entities = (await this.store.list(Activity, params: {'project': this.projectId})).toList() as List<Activity>;
       }
       this.statusservice.setStatusToSuccess();
     } catch (e, stack) {

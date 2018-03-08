@@ -21,7 +21,7 @@ class StatusService {
     _setStatus();
   }
 
-  setStatusToError(e, stack) {
+  setStatusToError(dynamic e, StackTrace stack) {
     log.severe("$error\n$e\nSTACKTRACE:\n$stack");
     numError += 1;
     numLoading -= 1;

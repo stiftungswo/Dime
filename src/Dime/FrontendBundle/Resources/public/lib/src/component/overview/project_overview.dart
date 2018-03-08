@@ -20,7 +20,7 @@ import '../elements/dime_directives.dart';
   directives: const [CORE_DIRECTIVES, formDirectives, dimeDirectives],
   pipes: const [dimePipes],
 )
-class ProjectOverviewComponent extends EntityOverview {
+class ProjectOverviewComponent extends EntityOverview<Project> {
   ProjectOverviewComponent(DataCache store, this.context, Router router, SettingsManager manager, StatusService status,
       UserAuthProvider auth, EntityEventsService entityEventsService)
       : super(Project, store, 'ProjectEdit', manager, status, entityEventsService, auth: auth, router: router) {
@@ -32,13 +32,10 @@ class ProjectOverviewComponent extends EntityOverview {
 
   UserContext context;
 
-  cEnt({Entity entity}) {
+  @override
+  Project cEnt({Project entity}) {
     if (entity != null) {
-      if (entity is Project) {
-        return new Project.clone(entity);
-      } else {
-        throw new Exception("Invalid Type; Project expected!");
-      }
+      return new Project.clone(entity);
     }
     Project newProject = new Project();
     newProject.accountant = this.context.employee;
@@ -46,20 +43,21 @@ class ProjectOverviewComponent extends EntityOverview {
     return newProject;
   }
 
-  cEntActivity(Activity entity) {
+  Activity cEntActivity(Activity entity) {
     if (entity != null) {
       return new Activity.clone(entity);
     }
     return new Activity();
   }
 
-  duplicateEntity() async {
-    var ent = this.selectedEntity;
+  @override
+  Future duplicateEntity() async {
+    Project ent = this.selectedEntity;
     if (ent != null) {
       this.statusservice.setStatusToLoading();
 
-      var duplicateProject = (await this.store.one(Project, ent.id));
-      var newProject = this.cEnt();
+      Project duplicateProject = (await this.store.one(Project, ent.id)) as Project;
+      Project newProject = this.cEnt();
 
       newProject = duplicateProject;
       newProject.id = null;
@@ -68,12 +66,12 @@ class ProjectOverviewComponent extends EntityOverview {
           ['name', 'description', 'chargeable', 'customer', 'address', 'accountant', 'rateGroup', 'projectCategory', 'deadline']);
 
       try {
-        var resultProject = await this.store.create(newProject);
+        Project resultProject = await this.store.create(newProject);
 
         // create new activities with new project
         for (Activity activity in newProject.activities) {
-          var oldActivity = (await this.store.one(Activity, activity.id));
-          var newActivity = this.cEntActivity(activity);
+          Activity oldActivity = (await this.store.one(Activity, activity.id)) as Activity;
+          Activity newActivity = this.cEntActivity(activity);
 
           oldActivity.id = null;
           newActivity = oldActivity;
@@ -90,11 +88,5 @@ class ProjectOverviewComponent extends EntityOverview {
         this.statusservice.setStatusToError(e, stack);
       }
     }
-  }
-
-  filterArchived() {
-    return (Project entity) {
-      return showArchived || !entity.archived;
-    };
   }
 }

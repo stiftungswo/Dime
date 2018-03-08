@@ -36,7 +36,7 @@ class TimetrackPeriodsComponent implements OnInit {
     this.employees = [];
     this.statusservice.setStatusToLoading();
     try {
-      this.employees = (await this.store.list(Employee)).toList();
+      this.employees = (await this.store.list(Employee)).toList() as List<Employee>;
       this.statusservice.setStatusToSuccess();
       //this.rootScope.emit(this.type.toString() + 'Loaded');
     } catch (e, stack) {

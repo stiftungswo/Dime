@@ -1,0 +1,29 @@
+analyzer:
+  strong-mode:
+    implicit-casts: false
+    implicit-dynamic: false
+  exclude: []
+  errors:
+    strong_mode_implicit_dynamic_return: ignore
+    strong_mode_implicit_dynamic_map_literal: ignore
+    strong_mode_implicit_dynamic_list_literal: ignore
+    strong_mode_implicit_dynamic_variable: ignore
+
+
+linter:
+  rules:
+    - empty_statements
+    - invariant_booleans
+    - iterable_contains_unrelated_type
+    - list_remove_unrelated_type
+    - literal_only_boolean_expressions
+    - no_adjacent_strings_in_list
+    - no_duplicate_case_values
+    - unnecessary_statements
+    - valid_regexps
+    - annotate_overrides
+    - prefer_contains
+    - prefer_is_empty
+    - prefer_is_not_empty
+    - unnecessary_null_in_if_null_operators
+    - unnecessary_overrides

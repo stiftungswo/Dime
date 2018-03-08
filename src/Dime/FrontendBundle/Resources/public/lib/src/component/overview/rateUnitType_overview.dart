@@ -18,19 +18,22 @@ import '../setting/setting.dart';
   templateUrl: 'rateUnitType_overview.html',
   directives: const [formDirectives, CORE_DIRECTIVES, dimeDirectives, SettingEditComponent],
 )
-class RateUnitTypeOverviewComponent extends EntityOverview {
+class RateUnitTypeOverviewComponent extends EntityOverview<RateUnitType> {
   RateUnitTypeOverviewComponent(
       DataCache store, SettingsManager manager, StatusService status, EntityEventsService entityEventsService, UserAuthProvider auth)
       : super(RateUnitType, store, '', manager, status, entityEventsService, auth: auth);
 
   // override to accept strings todo: use generics
+  @override
   dynamic selectedEntId;
 
-  cEnt({Entity entity}) {
+  @override
+  RateUnitType cEnt({RateUnitType entity}) {
     return new RateUnitType();
   }
 
-  createEntity({dynamic newEnt, Map<String, dynamic> params: const {}}) async {
+  @override
+  Future createEntity({RateUnitType newEnt, Map<String, dynamic> params: const {}}) async {
     RateUnitType rateType = cEnt();
     List<String> names = ['id', 'name'];
     for (var name in names) {
@@ -47,10 +50,11 @@ class RateUnitTypeOverviewComponent extends EntityOverview {
     await super.createEntity(newEnt: rateType);
   }
 
-  saveEntity(Entity entity) async {
+  @override
+  Future saveEntity(RateUnitType entity) async {
     this.statusservice.setStatusToLoading();
     try {
-      Entity resp = await store.update(entity);
+      RateUnitType resp = await store.update(entity);
       this.entities.removeWhere((enty) => enty.id == resp.id);
       this.entities.add(resp);
       this.statusservice.setStatusToSuccess();
@@ -65,7 +69,8 @@ class RateUnitTypeOverviewComponent extends EntityOverview {
     this.selectedEntId = entId;
   }
 
-  deleteEntity([dynamic entId]) async {
+  @override
+  Future deleteEntity([dynamic entId]) async {
     if (entId == null) {
       entId = this.selectedEntId;
     }

@@ -30,7 +30,7 @@ import '../select/entity_select.dart';
     InvoiceDiscountOverviewComponent,
   ],
 )
-class InvoiceEditComponent extends EntityEdit {
+class InvoiceEditComponent extends EntityEdit<Invoice> {
   InvoiceEditComponent(RouteParams routeProvider, DataCache store, StatusService status, UserAuthProvider auth, Router router,
       EntityEventsService entityEventsService, this.http)
       : super(routeProvider, store, Invoice, status, auth, router, entityEventsService);
@@ -44,9 +44,9 @@ class InvoiceEditComponent extends EntityEdit {
   @ViewChild('invoicecostgroupOverview')
   InvoiceCostgroupOverviewComponent costgroupOverview;
 
-  get costgroupsValid => costgroupOverview.entities.length > 0;
+  bool get costgroupsValid => costgroupOverview.entities.isNotEmpty;
 
-  printInvoice() {
+  void printInvoice() {
     if (costgroupsValid) {
       window.open('${http.baseUrl}/invoices/${this.entity.id}/print', 'Invoice Print');
     } else {
@@ -54,12 +54,12 @@ class InvoiceEditComponent extends EntityEdit {
     }
   }
 
-  printAufwandsbericht() {
+  void printAufwandsbericht() {
     window.open('${http.baseUrl}/reports/expenses/print?project=${this.entity.project.id}', 'Aufwandsbericht');
   }
 
   @override
-  ngOnInit() {
+  void ngOnInit() {
     if (this.auth != null) {
       if (!auth.isloggedin) {
         this.auth.afterLogin(() {
@@ -71,19 +71,19 @@ class InvoiceEditComponent extends EntityEdit {
     }
   }
 
-  setInvoiceItemOverview(InvoiceItemOverviewComponent c) {
+  void setInvoiceItemOverview(InvoiceItemOverviewComponent c) {
     invoiceitem_overview = c;
   }
 
-  load({bool evict: false}) async {
+  Future load({bool evict: false}) async {
     this.statusservice.setStatusToLoading();
     try {
       if (evict) {
         this.store.evict(this.entType);
       }
-      this.entity = (await this.store.one(this.entType, this.entId));
+      this.entity = (await this.store.one(this.entType, this.entId)) as Invoice;
       if (this.project != null) {
-        this.project = (await this.store.one(Project, this.entity.project.id));
+        this.project = (await this.store.one(Project, this.entity.project.id)) as Project;
       }
       this.statusservice.setStatusToSuccess();
     } catch (e, stack) {
@@ -91,35 +91,35 @@ class InvoiceEditComponent extends EntityEdit {
     }
   }
 
-  //TODO: make a confirmation prompt for this, as it is a quite destructive operation
-  updateInvoicefromProject() async {
-    this.statusservice.setStatusToLoading();
-    try {
-      this.entity = (await this
-          .store
-          .customQueryOne(Invoice, new CustomRequestParams(method: 'GET', url: '${http.baseUrl}/invoices/${this.entity.id}/update')));
-      this.statusservice.setStatusToSuccess();
-      this.invoiceitem_overview.reload(evict: true);
-    } catch (e, stack) {
-      this.statusservice.setStatusToError(e, stack);
+  Future updateInvoicefromProject() async {
+    if (window.confirm('Wiklich updaten und alle Daten überschreiben?')) {
+      this.statusservice.setStatusToLoading();
+      try {
+        this.entity = (await this.store.customQueryOne(
+            Invoice, new CustomRequestParams(method: 'GET', url: '${http.baseUrl}/invoices/${this.entity.id}/update'))) as Invoice;
+        this.statusservice.setStatusToSuccess();
+        this.invoiceitem_overview.reload(evict: true);
+      } catch (e, stack) {
+        this.statusservice.setStatusToError(e, stack);
+      }
     }
   }
 
-  openProject() async {
+  Future openProject() async {
     router.navigate([
       'ProjectEdit',
-      {'id': this.entity.project.id}
+      {'id': this.entity.project.id.toString()}
     ]);
   }
 
-  openOffer(int id) async {
+  Future openOffer(int id) async {
     router.navigate([
       'OfferEdit',
       {'id': id.toString()}
     ]);
   }
 
-  openInvoice(int id) async {
+  Future openInvoice(int id) async {
     router.navigate([
       'InvoiceEdit',
       {'id': id.toString()}
@@ -127,25 +127,27 @@ class InvoiceEditComponent extends EntityEdit {
   }
 
   //TODO: this might be dead code (from copy/paste). Creating an invoice form an invoice doesn't make too much sense.
-  createInvoice() async {
-    var newInvoice = await this
+  Future createInvoice() async {
+    Invoice newInvoice = await this
         .store
-        .customQueryOne(Invoice, new CustomRequestParams(method: 'GET', url: '${http.baseUrl}/invoices/project/${project.id}'));
+        .customQueryOne(Invoice, new CustomRequestParams(method: 'GET', url: '${http.baseUrl}/invoices/project/${project.id}')) as Invoice;
     project.invoices.add(newInvoice);
     this.store.evict(Invoice, true);
     router.navigate([
       'InvoiceEdit',
-      {'id': newInvoice.id}
+      {'id': newInvoice.id.toString()}
     ]);
   }
 
   @override
-  saveEntity() async {
+  Future<bool> saveEntity() async {
     if (costgroupsValid) {
-      super.saveEntity();
+      return super.saveEntity();
     } else {
       //TODO scroll to the input or give some better feedback
       print("NOOOOOOOOO");
+      window.alert('Es müssen noch Kostenstellen hinterlegt werden!');
+      return false;
     }
   }
 }

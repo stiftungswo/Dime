@@ -16,7 +16,7 @@ import '../overview/entity_overview.dart';
   templateUrl: 'service_edit.html',
   directives: const [formDirectives, CORE_DIRECTIVES, dimeDirectives, RateOverviewComponent],
 )
-class ServiceEditComponent extends EntityEdit {
+class ServiceEditComponent extends EntityEdit<Service> {
   ServiceEditComponent(RouteParams routeProvider, DataCache store, StatusService status, UserAuthProvider auth, Router router,
       EntityEventsService entityEventsService)
       : super(routeProvider, store, Service, status, auth, router, entityEventsService);
@@ -27,9 +27,9 @@ class ServiceEditComponent extends EntityEdit {
   RateOverviewComponent rateOverview;
 
   @override
-  saveEntity() {
+  Future<bool> saveEntity() async {
     print(form.valid);
     print(rateOverview.valid);
-    super.saveEntity();
+    return super.saveEntity();
   }
 }

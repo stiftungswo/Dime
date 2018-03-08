@@ -5,6 +5,7 @@ class RateUnitType extends Entity {
 
   RateUnitType.fromMap(Map<String, dynamic> map) : super.fromMap(map);
 
+  @override
   dynamic Get(String property) {
     switch (property) {
       case 'id':
@@ -26,36 +27,40 @@ class RateUnitType extends Entity {
     }
   }
 
-  void Set(String property, var value) {
+  @override
+  void Set(String property, dynamic value) {
     switch (property) {
       case 'id':
         this.id = value;
         break;
       case 'name':
-        this.name = value;
+        this.name = value as String;
         break;
       case 'doTransform':
-        this.doTransform = value;
+        this.doTransform = value as bool;
         break;
       case 'factor':
-        this.factor = value is double ? value : value.toDouble();
+        this.factor = value is double ? value : double.parse(value.toString());
         break;
       case 'scale':
-        this.scale = value;
+        this.scale = value as int;
         break;
       case 'roundMode':
-        this.roundMode = value;
+        this.roundMode = value as int;
         break;
       case 'symbol':
-        this.symbol = value;
+        this.symbol = value as String;
         break;
       default:
         break;
     }
   }
 
+  @override
   dynamic id;
+  @override
   String name;
+  @override
   String type = 'rateunittypes';
   bool doTransform;
   double factor;

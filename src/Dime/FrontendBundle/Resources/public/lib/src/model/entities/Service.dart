@@ -14,10 +14,12 @@ class Service extends Entity {
 
   Service.fromMap(Map<String, dynamic> map) : super.fromMap(map);
 
-  newObj() {
+  @override
+  Service newObj() {
     return new Service();
   }
 
+  @override
   init({Map<String, dynamic> params: const {}}) {
     if (!params.containsKey('name')) {
       params['name'] = 'New Service';
@@ -25,6 +27,7 @@ class Service extends Entity {
     super.init(params: params);
   }
 
+  @override
   dynamic Get(String property) {
     var val = super.Get(property);
     if (val == null) {
@@ -46,22 +49,23 @@ class Service extends Entity {
     return val;
   }
 
-  void Set(String property, var value) {
+  @override
+  void Set(String property, dynamic value) {
     switch (property) {
       case 'rates':
-        this.rates = Rate.listFromResource(value);
+        this.rates = Rate.listFromResource(value as List<Map<String, dynamic>>);
         break;
       case 'description':
-        this.description = value;
+        this.description = value as String;
         break;
       case 'chargeable':
-        this.chargeable = value;
+        this.chargeable = value as bool;
         break;
       case 'vat':
-        this.vat = value;
+        this.vat = value as double;
         break;
       case 'archived':
-        this.archived = value;
+        this.archived = value as bool;
         break;
       default:
         super.Set(property, value);
@@ -69,6 +73,7 @@ class Service extends Entity {
     }
   }
 
+  @override
   cloneDescendants(Entity original) {
     if (original is Service) {
       for (Rate entity in original.rates) {
@@ -81,6 +86,7 @@ class Service extends Entity {
     }
   }
 
+  @override
   String type = 'services';
   List<Rate> rates = [];
   String description;

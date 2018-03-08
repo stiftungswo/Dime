@@ -17,7 +17,7 @@ import '../../service/user_context.dart';
   directives: const [CORE_DIRECTIVES, formDirectives],
   pipes: const [dimePipes],
 )
-class UserSelectComponent extends EntitySelect implements OnChanges {
+class UserSelectComponent extends EntitySelect<Employee> implements OnChanges {
   UserSelectComponent(DataCache store, dom.Element element, this.context, StatusService status, UserAuthProvider auth)
       : super(Employee, store, element, status, auth);
 
@@ -32,29 +32,31 @@ class UserSelectComponent extends EntitySelect implements OnChanges {
   @Input('isReadonly')
   bool isReadonly = false;
 
+  @override
   get EntText => selectedEntity != null ? selectedEntity.fullname : '';
 
   @override
   void ngOnChanges(Map<String, SimpleChange> changes) {
     if (changes.containsKey('parentEmployees')) {
       var change = changes['parentEmployees'];
-      onChange(change.previousValue, change.currentValue);
+      onChange(change.previousValue as List<Employee>, change.currentValue as List<Employee>);
     }
   }
 
-  onChange(List<Employee> oldList, List<Employee> newList) {
-    if (this.entities != null && this.entities.length == 0 && newList != null && newList.length > 0) {
+  void onChange(List<Employee> oldList, List<Employee> newList) {
+    if (this.entities != null && this.entities.isEmpty && newList != null && newList.isNotEmpty) {
       reload();
     }
   }
 
-  reload() async {
+  @override
+  Future reload() async {
     this.statusservice.setStatusToLoading();
     try {
       if (this.parentEmployees != null) {
         this.entities = this.parentEmployees;
       } else {
-        this.entities = (await this.store.list(Employee, params: {"enabled": 1})).toList();
+        this.entities = (await this.store.list(Employee, params: {"enabled": 1})).toList() as List<Employee>;
       }
       this.statusservice.setStatusToSuccess();
     } catch (e, stack) {

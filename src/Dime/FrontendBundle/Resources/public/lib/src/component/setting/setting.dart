@@ -48,7 +48,7 @@ class SettingEditComponent {
 
   Setting _setting = new Setting();
 
-  get setting => _setting;
+  Setting get setting => _setting;
 
   @Input('setting')
   set setting(Setting setting) {

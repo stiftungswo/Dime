@@ -10,6 +10,7 @@ class InvoiceCostgroup extends Entity {
 
   InvoiceCostgroup.fromMap(Map<String, dynamic> map) : super.fromMap(map);
 
+  @override
   init({Map<String, dynamic> params: const {}}) {
     if (params.containsKey('invoice')) {
       params['invoice'] = new Invoice()..id = params['invoice'];
@@ -17,10 +18,12 @@ class InvoiceCostgroup extends Entity {
     super.init(params: params);
   }
 
+  @override
   newObj() {
     return new InvoiceCostgroup();
   }
 
+  @override
   dynamic Get(String property) {
     var val = super.Get(property);
     if (val == null) {
@@ -38,16 +41,17 @@ class InvoiceCostgroup extends Entity {
     return val;
   }
 
-  void Set(String property, var value) {
+  @override
+  void Set(String property, dynamic value) {
     switch (property) {
       case 'invoice':
-        this.invoice = value is Entity ? value : new Invoice.fromMap(value);
+        this.invoice = value is Invoice ? value : new Invoice.fromMap(value as Map<String, dynamic>);
         break;
       case 'costgroup':
-        this.costgroup = value is Entity ? value : new Costgroup.fromMap(value);
+        this.costgroup = value is Costgroup ? value : new Costgroup.fromMap(value as Map<String, dynamic>);
         break;
       case 'weight':
-        this.weight = value;
+        this.weight = value as double;
         break;
       default:
         super.Set(property, value);
@@ -63,6 +67,7 @@ class InvoiceCostgroup extends Entity {
     return array;
   }
 
+  @override
   String type = 'invoicecostgroups';
   Invoice invoice;
   Costgroup costgroup;

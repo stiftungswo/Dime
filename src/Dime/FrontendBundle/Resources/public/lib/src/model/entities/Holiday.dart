@@ -12,10 +12,12 @@ class Holiday extends Entity {
 
   Holiday.fromMap(Map<String, dynamic> map) : super.fromMap(map);
 
-  newObj() {
+  @override
+  Holiday newObj() {
     return new Holiday();
   }
 
+  @override
   dynamic Get(String property) {
     var val = super.Get(property);
     if (val == null) {
@@ -33,16 +35,17 @@ class Holiday extends Entity {
     return val;
   }
 
-  void Set(String property, var value) {
+  @override
+  void Set(String property, dynamic value) {
     switch (property) {
       case 'date':
         this.date = addDateValue(value);
         break;
       case 'duration':
-        this.duration = value;
+        this.duration = value as String;
         break;
       case 'weekday':
-        this.weekday = value;
+        this.weekday = value as String;
         break;
       default:
         super.Set(property, value);
@@ -59,6 +62,7 @@ class Holiday extends Entity {
     return array;
   }
 
+  @override
   String type = 'holidays';
   DateTime date;
   String duration;

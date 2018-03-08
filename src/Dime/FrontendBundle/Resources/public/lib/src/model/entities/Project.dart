@@ -1,6 +1,7 @@
 import '../Entity.dart';
 
 class Project extends Entity {
+  @override
   init({Map<String, dynamic> params: const {}}) {
     if (!params.containsKey('name')) {
       params['name'] = 'New Project';
@@ -55,10 +56,12 @@ class Project extends Entity {
 
   Project.fromMap(Map<String, dynamic> map) : super.fromMap(map);
 
-  newObj() {
+  @override
+  Project newObj() {
     return new Project();
   }
 
+  @override
   dynamic Get(String property) {
     var val = super.Get(property);
     if (val == null) {
@@ -108,64 +111,65 @@ class Project extends Entity {
     return val;
   }
 
-  void Set(String property, var value) {
+  @override
+  void Set(String property, dynamic value) {
     switch (property) {
       case 'currentPrice':
-        this.currentPrice = value;
+        this.currentPrice = value as String;
         break;
       case 'budgetPrice':
-        this.budgetPrice = value;
+        this.budgetPrice = value as String;
         break;
       case 'remainingBudgetPrice':
-        this.remainingBudgetPrice = value;
+        this.remainingBudgetPrice = value as String;
         break;
       case 'currentTime':
-        this.currentTime = value;
+        this.currentTime = value as String;
         break;
       case 'budgetTime':
-        this.budgetTime = value;
+        this.budgetTime = value as String;
         break;
       case 'remainingBudgetTime':
-        this.remainingBudgetTime = value;
+        this.remainingBudgetTime = value as String;
         break;
       case 'description':
-        this.description = value;
+        this.description = value as String;
         break;
       case 'fixedPrice':
-        this.fixedPrice = value;
+        this.fixedPrice = value as String;
         break;
       case 'customer':
-        this.customer = value is Entity ? value : new Customer.fromMap(value);
+        this.customer = value is Customer ? value : new Customer.fromMap(value as Map<String, dynamic>);
         break;
       case 'rateGroup':
-        this.rateGroup = value is Entity ? value : new RateGroup.fromMap(value);
+        this.rateGroup = value is RateGroup ? value : new RateGroup.fromMap(value as Map<String, dynamic>);
         break;
       case 'chargeable':
-        this.chargeable = value;
+        this.chargeable = value as bool;
         break;
       case 'deadline':
         this.deadline = addDateValue(value);
         break;
       case 'activities':
-        this.activities = Activity.listFromMap(value);
+        this.activities = Activity.listFromMap(value as List<Map<String, dynamic>>);
         break;
       case 'projectCategory':
-        this.projectCategory = value is Entity ? value : new ProjectCategory.fromMap(value);
+        this.projectCategory = value is ProjectCategory ? value : new ProjectCategory.fromMap(value as Map<String, dynamic>);
         break;
       case 'invoices':
-        this.invoices = value is Entity ? value : Invoice.listFromMap(value);
+        this.invoices = Invoice.listFromMap(value as List<Map<String, dynamic>>);
         break;
       case 'offers':
-        this.offers = value is Entity ? value : Offer.listFromMap(value);
+        this.offers = Offer.listFromMap(value as List<Map<String, dynamic>>);
         break;
       case 'accountant':
-        this.accountant = value is Entity ? value : new Employee.fromMap(value);
+        this.accountant = value is Employee ? value : new Employee.fromMap(value as Map<String, dynamic>);
         break;
       case 'deletedAt':
         this.deletedAt = addDateValue(value);
         break;
       case 'archived':
-        this.archived = value;
+        this.archived = value as bool;
         break;
       default:
         super.Set(property, value);
@@ -173,6 +177,7 @@ class Project extends Entity {
     }
   }
 
+  @override
   cloneDescendants(Entity original) {
     if (original is Project) {
       for (Activity activity in original.activities) {
@@ -185,6 +190,7 @@ class Project extends Entity {
     }
   }
 
+  @override
   String type = 'projects';
   String currentPrice;
   String budgetPrice;

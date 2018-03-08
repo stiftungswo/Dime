@@ -10,6 +10,7 @@ class OfferDiscount extends StandardDiscount {
 
   OfferDiscount.fromMap(Map<String, dynamic> map) : super.fromMap(map);
 
+  @override
   init({Map<String, dynamic> params: const {}}) {
     if (params.containsKey('offer')) {
       params['offer'] = new Offer()..id = params['offer'];
@@ -17,7 +18,8 @@ class OfferDiscount extends StandardDiscount {
     super.init(params: params);
   }
 
-  newObj() {
+  @override
+  OfferDiscount newObj() {
     return new OfferDiscount();
   }
 
@@ -29,6 +31,7 @@ class OfferDiscount extends StandardDiscount {
     return array;
   }
 
+  @override
   dynamic Get(String property) {
     var val = super.Get(property);
     if (val == null) {
@@ -42,10 +45,11 @@ class OfferDiscount extends StandardDiscount {
     return val;
   }
 
-  void Set(String property, var value) {
+  @override
+  void Set(String property, dynamic value) {
     switch (property) {
       case 'offer':
-        this.offer = value is Entity ? value : new Offer.fromMap(value);
+        this.offer = value is Offer ? value : new Offer.fromMap(value as Map<String, dynamic>);
         break;
       default:
         super.Set(property, value);
@@ -53,6 +57,7 @@ class OfferDiscount extends StandardDiscount {
     }
   }
 
+  @override
   String type = 'offerdiscounts';
   Offer offer;
 }

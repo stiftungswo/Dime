@@ -19,10 +19,12 @@ class Customer extends Entity {
 
   Customer.fromMap(Map<String, dynamic> map) : super.fromMap(map);
 
-  newObj() {
+  @override
+  Customer newObj() {
     return new Customer();
   }
 
+  @override
   init({Map<String, dynamic> params: const {}}) {
     if (!params.containsKey('name')) {
       params['name'] = 'New Customer';
@@ -30,6 +32,7 @@ class Customer extends Entity {
     super.init(params: params);
   }
 
+  @override
   dynamic Get(String property) {
     var val = super.Get(property);
     if (val == null) {
@@ -57,31 +60,32 @@ class Customer extends Entity {
     return val;
   }
 
-  void Set(String property, var value) {
+  @override
+  void Set(String property, dynamic value) {
     switch (property) {
       case 'chargeable':
-        this.chargeable = value;
+        this.chargeable = value as bool;
         break;
       case 'address':
-        this.address = value is Entity ? value : new Address.fromMap(value);
+        this.address = value is Address ? value : new Address.fromMap(value as Map<String, dynamic>);
         break;
       case 'company':
-        this.company = value;
+        this.company = value as String;
         break;
       case 'department':
-        this.department = value;
+        this.department = value as String;
         break;
       case 'fullname':
-        this.fullname = value;
+        this.fullname = value as String;
         break;
       case 'salutation':
-        this.salutation = value;
+        this.salutation = value as String;
         break;
       case 'rateGroup':
-        this.rateGroup = value is Entity ? value : new RateGroup.fromMap(value);
+        this.rateGroup = value is RateGroup ? value : new RateGroup.fromMap(value as Map<String, dynamic>);
         break;
       case 'phones':
-        this.phones = value;
+        this.phones = value as List<Phone>;
         break;
       default:
         super.Set(property, value);
@@ -89,6 +93,7 @@ class Customer extends Entity {
     }
   }
 
+  @override
   String type = 'customers';
   bool chargeable;
   Address address;

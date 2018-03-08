@@ -20,24 +20,24 @@ import '../elements/dime_directives.dart';
     templateUrl: 'employee_overview.html',
     directives: const [CORE_DIRECTIVES, formDirectives, dimeDirectives],
     pipes: const [dimePipes])
-class EmployeeOverviewComponent extends EntityOverview {
+class EmployeeOverviewComponent extends EntityOverview<Employee> {
   EmployeeOverviewComponent(DataCache store, Router router, SettingsManager manager, StatusService status, UserAuthProvider auth,
       EntityEventsService entityEventsService)
       : super(Employee, store, 'EmployeeEdit', manager, status, entityEventsService, router: router, auth: auth);
 
+  @override
   String sortType = "username";
 
-  cEnt({Entity entity}) {
+  @override
+  Employee cEnt({Employee entity}) {
     if (entity != null) {
-      if (entity is! Employee) {
-        throw new Exception("I want Employees");
-      }
       return new Employee.clone(entity);
     }
     return new Employee();
   }
 
-  createEntity({var newEnt, Map<String, dynamic> params: const {}}) async {
+  @override
+  Future createEntity({Employee newEnt, Map<String, dynamic> params: const {}}) async {
     String random = new Random().nextInt(1000).toString();
     super.createEntity(params: {
       'username': 'newuser' + random,

@@ -1,6 +1,7 @@
 import '../Entity.dart';
 
 class StandardDiscount extends Entity {
+  @override
   init({Map<String, dynamic> params: const {}}) {
     if (!params.containsKey('name')) {
       params['name'] = 'New Discount';
@@ -19,10 +20,12 @@ class StandardDiscount extends Entity {
 
   StandardDiscount.fromMap(Map<String, dynamic> map) : super.fromMap(map);
 
-  newObj() {
+  @override
+  StandardDiscount newObj() {
     return new StandardDiscount();
   }
 
+  @override
   dynamic Get(String property) {
     var val = super.Get(property);
     if (val == null) {
@@ -40,16 +43,17 @@ class StandardDiscount extends Entity {
     return val;
   }
 
-  void Set(String property, var value) {
+  @override
+  void Set(String property, dynamic value) {
     switch (property) {
       case 'value':
-        this.value = value;
+        this.value = value as double;
         break;
       case 'percentage':
-        this.percentage = value;
+        this.percentage = value as bool;
         break;
       case 'minus':
-        this.minus = value;
+        this.minus = value as bool;
         break;
       default:
         super.Set(property, value);
@@ -80,6 +84,7 @@ class StandardDiscount extends Entity {
     return this.value;
   }
 
+  @override
   String type = 'standarddiscounts';
   double value;
   bool percentage;

@@ -18,10 +18,12 @@ class Tag extends Entity {
     return array;
   }
 
-  newObj() {
+  @override
+  Tag newObj() {
     return new Tag();
   }
 
+  @override
   dynamic Get(String property) {
     var val = super.Get(property);
     if (val == null) {
@@ -35,10 +37,11 @@ class Tag extends Entity {
     return val;
   }
 
-  void Set(String property, var value) {
+  @override
+  void Set(String property, dynamic value) {
     switch (property) {
       case 'system':
-        this.system = value;
+        this.system = value as bool;
         break;
       default:
         super.Set(property, value);
@@ -46,6 +49,7 @@ class Tag extends Entity {
     }
   }
 
+  @override
   String type = 'tags';
   bool system;
 }

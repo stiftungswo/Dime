@@ -16,7 +16,7 @@ import '../select/entity_select.dart';
   templateUrl: 'customer_edit.html',
   directives: const [CORE_DIRECTIVES, formDirectives, dimeDirectives, RateGroupSelectComponent, AddressEditComponent],
 )
-class CustomerEditComponent extends EntityEdit {
+class CustomerEditComponent extends EntityEdit<Customer> {
   List<RateGroup> rateGroups;
 
   CustomerEditComponent(RouteParams routeProvider, DataCache store, StatusService status, UserAuthProvider auth, Router router,
@@ -24,7 +24,7 @@ class CustomerEditComponent extends EntityEdit {
       : super(routeProvider, store, Customer, status, auth, router, entityEventsService);
 
   @override
-  ngOnInit() {
+  void ngOnInit() {
     if (this.auth != null) {
       if (!auth.isloggedin) {
         this.auth.afterLogin(() {
@@ -38,7 +38,7 @@ class CustomerEditComponent extends EntityEdit {
     }
   }
 
-  loadRateGroups() async {
-    this.rateGroups = (await this.store.list(RateGroup)).toList();
+  Future loadRateGroups() async {
+    this.rateGroups = (await this.store.list(RateGroup)).toList() as List<RateGroup>;
   }
 }

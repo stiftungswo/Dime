@@ -15,10 +15,12 @@ class Address extends Entity {
 
   Address.fromMap(Map<String, dynamic> map) : super.fromMap(map);
 
-  newObj() {
+  @override
+  Address newObj() {
     return new Address();
   }
 
+  @override
   dynamic Get(String property) {
     var value = super.Get(property);
     if (value == null) {
@@ -42,25 +44,26 @@ class Address extends Entity {
     return value;
   }
 
-  void Set(String property, var value) {
+  @override
+  void Set(String property, dynamic value) {
     switch (property) {
       case 'street':
-        this.street = value;
+        this.street = value as String;
         break;
       case 'streetnumber':
-        this.streetnumber = value;
+        this.streetnumber = value as String;
         break;
       case 'city':
-        this.city = value;
+        this.city = value as String;
         break;
       case 'plz':
-        this.plz = value;
+        this.plz = value as int;
         break;
       case 'state':
-        this.state = value;
+        this.state = value as String;
         break;
       case 'country':
-        this.country = value;
+        this.country = value as String;
         break;
       default:
         super.Set(property, value);
@@ -68,6 +71,7 @@ class Address extends Entity {
     }
   }
 
+  @override
   String type = 'address';
   String street;
   String streetnumber;
@@ -76,6 +80,7 @@ class Address extends Entity {
   String state;
   String country;
 
+  @override
   String toString() {
     return '$streetnumber $street - $plz $city';
   }

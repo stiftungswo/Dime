@@ -19,7 +19,7 @@ class ProjectemployeeReportComponent implements OnInit {
 
   Project _project;
 
-  get project => _project;
+  Project get project => _project;
 
   set project(Project proj) {
     _project = proj;
@@ -70,7 +70,7 @@ class ProjectemployeeReportComponent implements OnInit {
             .get("reports/projectemployee", queryParams: {"date": dateparams, "_format": "json", "project": project.id}).then((result) {
           this.data = JSON.decode(result);
           this.entries = data['employees'];
-          this.total = data['total'];
+          this.total = data['total'] as int;
         });
         this.statusservice.setStatusToSuccess();
         //this.rootScope.emit(this.type.toString() + 'Loaded');

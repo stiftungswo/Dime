@@ -16,9 +16,10 @@ import '../../service/user_auth.dart';
   directives: const [formDirectives, CORE_DIRECTIVES],
   pipes: const [dimePipes],
 )
-class CostgroupSelectComponent extends EntitySelect {
+class CostgroupSelectComponent extends EntitySelect<Costgroup> {
   CostgroupSelectComponent(DataCache store, dom.Element element, StatusService status, UserAuthProvider auth)
       : super(Costgroup, store, element, status, auth);
 
+  @override
   get EntText => this.selectedEntity != null ? this.selectedEntity.number.toString() + ": " + this.selectedEntity.description : '';
 }

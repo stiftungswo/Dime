@@ -1,3 +1,4 @@
+// ignore_for_file: argument_type_not_assignable
 import '../service/http_service.dart';
 import 'package:angular/angular.dart';
 import 'package:hammock/hammock.dart';

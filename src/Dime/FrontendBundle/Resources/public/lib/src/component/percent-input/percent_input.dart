@@ -24,7 +24,7 @@ class PercentageInputField {
     _modelChange.add(_model);
   }
 
-  get model => _model;
+  double get model => _model;
 
   final StreamController<double> _modelChange = new StreamController<double>();
   @Output('valueChange')

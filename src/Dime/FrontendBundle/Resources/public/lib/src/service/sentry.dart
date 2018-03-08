@@ -14,6 +14,7 @@ abstract class SentryLogger {
 }
 
 class NullSentryLogger implements SentryLogger {
+  @override
   void log(dynamic error, dynamic stack, [String reason = '']) {}
 }
 
@@ -26,6 +27,7 @@ class BrowserSentryLogger implements SentryLogger {
     this.client = new SentryClientBrowser(SentryDsn.fromString(dsn));
   }
 
+  @override
   void log(dynamic error, dynamic stack, [String reason = '']) {
     var split = error.toString().split(":");
     String type = null;

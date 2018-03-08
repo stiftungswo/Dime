@@ -11,6 +11,7 @@ class RateGroup extends Entity {
 
   RateGroup.fromMap(Map<String, dynamic> map) : super.fromMap(map);
 
+  @override
   init({Map<String, dynamic> params: const {}}) {
     if (!params.containsKey('name')) {
       params['name'] = 'New RateGroup';
@@ -18,10 +19,12 @@ class RateGroup extends Entity {
     super.init(params: params);
   }
 
+  @override
   newObj() {
     return new Rate();
   }
 
+  @override
   dynamic Get(String property) {
     var val = super.Get(property);
     if (val == null) {
@@ -35,10 +38,11 @@ class RateGroup extends Entity {
     return val;
   }
 
-  void Set(String property, var value) {
+  @override
+  void Set(String property, dynamic value) {
     switch (property) {
       case 'description':
-        this.description = value;
+        this.description = value as String;
         break;
       default:
         super.Set(property, value);
@@ -46,6 +50,7 @@ class RateGroup extends Entity {
     }
   }
 
+  @override
   String type = 'rategroups';
   String description;
 }

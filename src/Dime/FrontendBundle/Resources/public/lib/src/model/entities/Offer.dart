@@ -1,6 +1,7 @@
 import '../Entity.dart';
 
 class Offer extends Entity {
+  @override
   init({Map<String, dynamic> params: const {}}) {
     if (!params.containsKey('name')) {
       params['name'] = 'New Offer';
@@ -60,10 +61,12 @@ class Offer extends Entity {
     return offers;
   }
 
-  newObj() {
+  @override
+  Offer newObj() {
     return new Offer();
   }
 
+  @override
   dynamic Get(String property) {
     var val = super.Get(property);
     if (val == null) {
@@ -109,58 +112,59 @@ class Offer extends Entity {
     return val;
   }
 
-  void Set(String property, var value) {
+  @override
+  void Set(String property, dynamic value) {
     switch (property) {
       case 'validTo':
         this.validTo = addDateValue(value);
         break;
       case 'rateGroup':
-        this.rateGroup = value is Entity ? value : new RateGroup.fromMap(value);
+        this.rateGroup = value is RateGroup ? value : new RateGroup.fromMap(value as Map<String, dynamic>);
         break;
       case 'customer':
-        this.customer = value is Entity ? value : new Customer.fromMap(value);
+        this.customer = value is Customer ? value : new Customer.fromMap(value as Map<String, dynamic>);
         break;
       case 'accountant':
-        this.accountant = value is Entity ? value : new Employee.fromMap(value);
+        this.accountant = value is Employee ? value : new Employee.fromMap(value as Map<String, dynamic>);
         break;
       case 'shortDescription':
-        this.shortDescription = value;
+        this.shortDescription = value as String;
         break;
       case 'description':
-        this.description = value;
+        this.description = value as String;
         break;
       case 'offerPositions':
-        this.offerPositions = OfferPosition.listFromMap(value);
+        this.offerPositions = OfferPosition.listFromMap(value as List<Map<String, dynamic>>);
         break;
       case 'standardDiscounts':
-        this.standardDiscounts = StandardDiscount.listFromMap(value);
+        this.standardDiscounts = StandardDiscount.listFromMap(value as List<Map<String, dynamic>>);
         break;
       case 'offerDiscounts':
-        this.offerDiscounts = OfferDiscount.listFromMap(value);
+        this.offerDiscounts = OfferDiscount.listFromMap(value as List<Map<String, dynamic>>);
         break;
       case 'status':
-        this.status = value is Entity ? value : new OfferStatusUC.fromMap(value);
+        this.status = value is OfferStatusUC ? value : new OfferStatusUC.fromMap(value as Map<String, dynamic>);
         break;
       case 'address':
-        this.address = value is Entity ? value : new Address.fromMap(value);
+        this.address = value is Address ? value : new Address.fromMap(value as Map<String, dynamic>);
         break;
       case 'fixedPrice':
-        this.fixedPrice = value;
+        this.fixedPrice = value as String;
         break;
       case 'subtotal':
-        this.subtotal = value;
+        this.subtotal = value as String;
         break;
       case 'totalVAT':
-        this.totalVAT = value;
+        this.totalVAT = value as String;
         break;
       case 'totalDiscounts':
-        this.totalDiscounts = value;
+        this.totalDiscounts = value as String;
         break;
       case 'total':
-        this.total = value;
+        this.total = value as String;
         break;
       case 'project':
-        this.project = value is Entity ? value : new Project.fromMap(value);
+        this.project = value is Project ? value : new Project.fromMap(value as Map<String, dynamic>);
         break;
       default:
         super.Set(property, value);
@@ -168,7 +172,8 @@ class Offer extends Entity {
     }
   }
 
-  cloneDescendants(Entity original) {
+  @override
+  void cloneDescendants(Entity original) {
     if (original is Offer) {
       for (OfferPosition entity in original.offerPositions) {
         OfferPosition clone = new OfferPosition.clone(entity);
@@ -186,6 +191,7 @@ class Offer extends Entity {
   }
 
   Project project;
+  @override
   String type = 'offers';
   String subtotal;
   String totalVAT;

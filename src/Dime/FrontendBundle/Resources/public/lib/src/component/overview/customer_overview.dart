@@ -18,18 +18,17 @@ import '../elements/dime_directives.dart';
     templateUrl: 'customer_overview.html',
     directives: const [CORE_DIRECTIVES, formDirectives, dimeDirectives],
     pipes: const [dimePipes])
-class CustomerOverviewComponent extends EntityOverview {
+class CustomerOverviewComponent extends EntityOverview<Customer> {
   CustomerOverviewComponent(DataCache store, Router router, SettingsManager manager, StatusService status, UserAuthProvider auth,
       RouteParams prov, EntityEventsService entityEventsService)
       : super(Customer, store, 'CustomerEdit', manager, status, entityEventsService, auth: auth, router: router);
 
+  @override
   String sortType = "name";
 
-  cEnt({Entity entity}) {
+  @override
+  Customer cEnt({Customer entity}) {
     if (entity != null) {
-      if (entity is! Customer) {
-        throw new Exception("I want a customer");
-      }
       return new Customer.clone(entity);
     }
     return new Customer();

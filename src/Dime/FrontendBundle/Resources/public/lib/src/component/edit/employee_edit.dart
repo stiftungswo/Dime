@@ -15,7 +15,7 @@ import '../elements/dime_directives.dart';
   templateUrl: 'employee_edit.html',
   directives: const [CORE_DIRECTIVES, formDirectives, dimeDirectives],
 )
-class EmployeeEditComponent extends EntityEdit {
+class EmployeeEditComponent extends EntityEdit<Employee> {
   EmployeeEditComponent(RouteParams routeProvider, DataCache store, StatusService status, UserAuthProvider auth, Router router,
       EntityEventsService entityEventsService)
       : super(routeProvider, store, Employee, status, auth, router, entityEventsService);

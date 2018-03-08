@@ -16,7 +16,7 @@ export 'offer_edit.dart';
 export 'project_edit.dart';
 export 'service_edit.dart';
 
-class EntityEdit implements OnInit {
+abstract class EntityEdit<T extends Entity> implements OnInit {
   Type entType;
 
   @protected
@@ -26,7 +26,7 @@ class EntityEdit implements OnInit {
 
   StatusService statusservice;
 
-  dynamic entity;
+  T entity;
 
   EntityEventsService entityEventsService;
 
@@ -44,7 +44,7 @@ class EntityEdit implements OnInit {
   }
 
   @override
-  ngOnInit() {
+  void ngOnInit() {
     if (this.auth != null) {
       if (!auth.isloggedin) {
         this.auth.afterLogin(() {
@@ -56,35 +56,35 @@ class EntityEdit implements OnInit {
     }
   }
 
-  reloadEvict() async {
+  Future reloadEvict() async {
     reload(evict: true);
   }
 
-  reload({bool evict: false}) async {
+  Future reload({bool evict: false}) async {
     this.statusservice.setStatusToLoading();
     try {
       if (evict) {
         this.store.evict(this.entType);
       }
-      this.entity = (await this.store.one(this.entType, this.entId));
+      this.entity = (await this.store.one(this.entType, this.entId)) as T;
       this.statusservice.setStatusToSuccess();
     } catch (e, stack) {
       this.statusservice.setStatusToError(e, stack);
     }
   }
 
-  addSaveField(String name) {
+  void addSaveField(String name) {
     this.entity.addFieldtoUpdate(name);
   }
 
-  saveEntity() async {
+  Future<bool> saveEntity() async {
     if (this.editform.valid) {
       // form valid, save data
       entityEventsService.emitSaveChanges();
       if (this.entity.needsUpdate) {
         this.statusservice.setStatusToLoading();
         try {
-          this.entity = (await store.update(this.entity));
+          this.entity = await store.update(this.entity);
           this.statusservice.setStatusToSuccess();
         } catch (e, stack) {
           this.statusservice.setStatusToError(e, stack);

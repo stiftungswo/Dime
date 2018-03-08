@@ -16,9 +16,10 @@ import '../../service/user_auth.dart';
   directives: const [CORE_DIRECTIVES, formDirectives],
   pipes: const [dimePipes],
 )
-class OfferStatusSelectComponent extends EntitySelect {
+class OfferStatusSelectComponent extends EntitySelect<OfferStatusUC> {
   OfferStatusSelectComponent(DataCache store, dom.Element element, StatusService status, UserAuthProvider auth)
       : super(OfferStatusUC, store, element, status, auth);
 
+  @override
   get EntText => selectedEntity != null ? selectedEntity.text : '';
 }

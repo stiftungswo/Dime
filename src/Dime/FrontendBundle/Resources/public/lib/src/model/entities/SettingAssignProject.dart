@@ -1,6 +1,7 @@
 import '../Entity.dart';
 
 class SettingAssignProject extends Entity {
+  @override
   init({Map<String, dynamic> params: const {}}) {
     if (!params.containsKey('name')) {
       params['name'] = 'New Project name';
@@ -18,10 +19,12 @@ class SettingAssignProject extends Entity {
 
   SettingAssignProject.fromMap(Map<String, dynamic> map) : super.fromMap(map);
 
-  newObj() {
+  @override
+  SettingAssignProject newObj() {
     return new SettingAssignProject();
   }
 
+  @override
   dynamic Get(String property) {
     var val = super.Get(property);
     if (val == null) {
@@ -37,13 +40,14 @@ class SettingAssignProject extends Entity {
     return val;
   }
 
-  void Set(String property, var value) {
+  @override
+  void Set(String property, dynamic value) {
     switch (property) {
       case 'project':
-        this.project = value is Entity ? value : new Project.fromMap(value);
+        this.project = value is Project ? value : new Project.fromMap(value as Map<String, dynamic>);
         break;
       case 'name':
-        this.name = value;
+        this.name = value as String;
         break;
       default:
         super.Set(property, value);
@@ -60,7 +64,9 @@ class SettingAssignProject extends Entity {
     return settingAssignProject; // todo is this right? check how old code worked
   }
 
+  @override
   String type = 'settingassignprojects';
   Project project;
+  @override
   String name;
 }

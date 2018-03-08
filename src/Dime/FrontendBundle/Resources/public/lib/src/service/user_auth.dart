@@ -69,10 +69,11 @@ class UserAuthProvider {
   Future<Employee> loadUserData() async {
     this.statusservice.setStatusToLoading();
     try {
-      Employee result =
-          (await this.store.customQueryOne(Employee, new CustomRequestParams(method: 'GET', url: '${http.baseUrl}/employees/current')));
+      Employee result = (await this
+          .store
+          .customQueryOne(Employee, new CustomRequestParams(method: 'GET', url: '${http.baseUrl}/employees/current'))) as Employee;
       this.context.switchContext(result);
-      await manager.loadUserSettings(result.id);
+      await manager.loadUserSettings(result.id as int);
       this.statusservice.setStatusToSuccess();
       return result;
     } catch (e, stack) {
@@ -81,7 +82,7 @@ class UserAuthProvider {
     }
   }
 
-  String createAuthToken(username, password) {
+  String createAuthToken(String username, String password) {
     var auth = BASE64.encode(UTF8.encode("$username:$password"));
     return 'Basic $auth';
   }

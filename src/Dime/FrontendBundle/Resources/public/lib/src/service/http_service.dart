@@ -34,14 +34,14 @@ class HttpService {
         .then((HttpRequest resp) => resp.responseText);
   }
 
-  String get baseUrl => injector.get(httpBaseUrl, "");
-  Map<String, String> get _defaultHeaders => injector.get(HttpDefaultHeaders).map;
+  String get baseUrl => injector.get(httpBaseUrl, "") as String;
+  Map<String, String> get _defaultHeaders => (injector.get(HttpDefaultHeaders) as HttpDefaultHeaders).map;
 }
 
 const httpBaseUrl = const OpaqueToken("http.base.url");
 
 String encodeQueryParams(Map<String, dynamic> params) {
-  if (params.length == 0) {
+  if (params.isEmpty) {
     return "";
   }
   var pairs =

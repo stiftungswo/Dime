@@ -17,7 +17,7 @@ import '../elements/dime_directives.dart';
     templateUrl: 'projectComment_overview.html',
     directives: const [CORE_DIRECTIVES, formDirectives, dimeDirectives],
     pipes: const [dimePipes])
-class ProjectCommentOverviewComponent extends EntityOverview {
+class ProjectCommentOverviewComponent extends EntityOverview<ProjectComment> {
   ProjectCommentOverviewComponent(DataCache store, SettingsManager manager, StatusService status, UserAuthProvider auth,
       EntityEventsService entityEventsService, this.timetrackService)
       : super(ProjectComment, store, '', manager, status, entityEventsService, auth: auth);
@@ -26,7 +26,7 @@ class ProjectCommentOverviewComponent extends EntityOverview {
 
   TimetrackService timetrackService;
 
-  get selectedProject => _selectedProject;
+  Project get selectedProject => _selectedProject;
 
   set selectedProject(Project project) {
     _selectedProject = project;
@@ -39,23 +39,23 @@ class ProjectCommentOverviewComponent extends EntityOverview {
   DateTime newEntryDate;
   String newEntryComment;
 
-  cEnt({Entity entity}) {
+  @override
+  ProjectComment cEnt({ProjectComment entity}) {
     if (entity != null) {
-      if (entity is! ProjectComment) {
-        throw new Exception("I WANT A PROJECT COMMENT");
-      }
       return new ProjectComment.clone(entity);
     }
     return new ProjectComment();
   }
 
-  reload({Map<String, dynamic> params, bool evict: false}) {
+  @override
+  Future reload({Map<String, dynamic> params, bool evict: false}) async {
     if (this._selectedProject != null) {
       super.reload(params: {'project': this._selectedProject.id}, evict: evict);
     }
   }
 
-  createEntity({dynamic newEnt, Map<String, dynamic> params: const {}}) {
+  @override
+  Future createEntity({ProjectComment newEnt, Map<String, dynamic> params: const {}}) async {
     if (this._selectedProject == null || this.newEntryDate == null || this.newEntryComment == null || this.newEntryComment.isEmpty) {
       return;
     }
@@ -70,7 +70,7 @@ class ProjectCommentOverviewComponent extends EntityOverview {
   }
 
   @override
-  ngOnInit() {
+  void ngOnInit() {
     timetrackService.projectSelect.stream.listen((project) {
       selectedProject = project;
     });

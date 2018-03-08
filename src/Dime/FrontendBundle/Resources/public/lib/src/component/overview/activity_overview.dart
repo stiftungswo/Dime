@@ -18,7 +18,7 @@ import '../select/entity_select.dart';
   templateUrl: 'activity_overview.html',
   directives: const [CORE_DIRECTIVES, formDirectives, dimeDirectives, ServiceSelectComponent],
 )
-class ActivityOverviewComponent extends EntityOverview {
+class ActivityOverviewComponent extends EntityOverview<Activity> {
   int _projectId;
 
   @Input('project')
@@ -32,38 +32,39 @@ class ActivityOverviewComponent extends EntityOverview {
   ActivityOverviewComponent(DataCache store, SettingsManager manager, StatusService status, EntityEventsService entityEventsService)
       : super(Activity, store, '', manager, status, entityEventsService);
 
-  cEnt({Entity entity}) {
+  @override
+  Activity cEnt({Activity entity}) {
     if (entity != null) {
-      if (entity is Activity) {
-        return new Activity.clone(entity);
-      } else {
-        throw new Exception("Invalid Type; Activity expected!");
-      }
+      return new Activity.clone(entity);
     }
     return new Activity();
   }
 
+  @override
   bool needsmanualAdd = true;
 
   @override
-  ngOnInit();
+  void ngOnInit();
 
-  createEntity({var newEnt, Map<String, dynamic> params: const {}}) {
-    super.createEntity(params: {'project': this._projectId});
+  @override
+  Future createEntity({Activity newEnt, Map<String, dynamic> params: const {}}) {
+    return super.createEntity(params: {'project': this._projectId});
   }
 
-  reload({Map<String, dynamic> params, bool evict: false}) {
-    super.reload(params: {'project': this._projectId}, evict: evict);
+  @override
+  Future reload({Map<String, dynamic> params, bool evict: false}) {
+    return super.reload(params: {'project': this._projectId}, evict: evict);
   }
 
-  deleteEntity([int entId]) async {
+  @override
+  Future deleteEntity([int entId]) async {
     this.statusservice.setStatusToLoading();
-    var invoices = await this.store.list(Invoice, params: {'project': this._projectId});
-    var invoiceItemResults = await Future.wait(invoices.map((c) {
-      return this.store.list(InvoiceItem, params: {'invoice': c.id});
+    List<Invoice> invoices = (await this.store.list(Invoice, params: {'project': this._projectId})) as List<Invoice>;
+    List<List<InvoiceItem>> invoiceItemResults = await Future.wait<List<InvoiceItem>>(invoices.map((c) {
+      return this.store.list(InvoiceItem, params: {'invoice': c.id}) as Future<List<InvoiceItem>>;
     }));
 
-    var activityIds = invoiceItemResults.expand((c) => c.map((i) => i.activity.id));
+    List<int> activityIds = invoiceItemResults.expand((c) => c.map((i) => i.activity.id as int)).toList();
     print(activityIds);
     this.statusservice.setStatusToSuccess();
 

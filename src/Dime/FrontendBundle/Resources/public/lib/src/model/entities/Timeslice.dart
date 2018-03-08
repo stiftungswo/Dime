@@ -14,10 +14,12 @@ class Timeslice extends Entity {
 
   Timeslice.fromMap(Map<String, dynamic> map) : super.fromMap(map);
 
-  newObj() {
+  @override
+  Timeslice newObj() {
     return new Timeslice();
   }
 
+  @override
   dynamic Get(String property) {
     var val = super.Get(property);
     if (val == null) {
@@ -41,7 +43,8 @@ class Timeslice extends Entity {
     return val;
   }
 
-  void Set(String property, var value) {
+  @override
+  void Set(String property, dynamic value) {
     switch (property) {
       case 'value':
         this.value = value is String ? value : value.toString();
@@ -53,13 +56,13 @@ class Timeslice extends Entity {
         this.stoppedAt = addDateValue(value);
         break;
       case 'activity':
-        this.activity = value is Entity ? value : new Activity.fromMap(value);
+        this.activity = value is Activity ? value : new Activity.fromMap(value as Map<String, dynamic>);
         break;
       case 'project':
-        this.project = value is Entity ? value : new Project.fromMap(value);
+        this.project = value is Project ? value : new Project.fromMap(value as Map<String, dynamic>);
         break;
       case 'employee':
-        this.employee = value is Entity ? value : new Employee.fromMap(value);
+        this.employee = value is Employee ? value : new Employee.fromMap(value as Map<String, dynamic>);
         break;
       default:
         super.Set(property, value);
@@ -80,6 +83,7 @@ class Timeslice extends Entity {
     return timeslices;
   }
 
+  @override
   String type = 'timeslices';
   String value;
   DateTime startedAt;

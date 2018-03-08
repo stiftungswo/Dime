@@ -13,10 +13,12 @@ class ProjectComment extends Entity {
 
   ProjectComment.fromMap(Map<String, dynamic> map) : super.fromMap(map);
 
-  newObj() {
+  @override
+  ProjectComment newObj() {
     return new ProjectComment();
   }
 
+  @override
   dynamic Get(String property) {
     var val = super.Get(property);
     if (val == null) {
@@ -36,16 +38,17 @@ class ProjectComment extends Entity {
     return val;
   }
 
-  void Set(String property, var value) {
+  @override
+  void Set(String property, dynamic value) {
     switch (property) {
       case 'date':
         this.date = addDateValue(value);
         break;
       case 'comment':
-        this.comment = value;
+        this.comment = value as String;
         break;
       case 'project':
-        this.project = value is Entity ? value : new Project.fromMap(value);
+        this.project = value is Project ? value : new Project.fromMap(value as Map<String, dynamic>);
         break;
       case 'id':
         this.id = value;
@@ -56,7 +59,9 @@ class ProjectComment extends Entity {
     }
   }
 
+  @override
   String type = 'projectcomments';
+  @override
   dynamic id;
   Project project;
   String comment;

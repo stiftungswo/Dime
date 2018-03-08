@@ -23,13 +23,13 @@ export 'service_select.dart';
 export 'standarddiscount_select.dart';
 export 'user_select.dart';
 
-class EntitySelect implements OnInit {
+abstract class EntitySelect<T extends Entity> implements OnInit {
   DataCache store;
   dom.Element element;
   bool open = false;
 
   Type type;
-  List entities = [];
+  List<T> entities = [];
   String selector = '';
   StatusService statusservice;
   UserAuthProvider auth;
@@ -44,26 +44,26 @@ class EntitySelect implements OnInit {
 
   EntitySelect(this.type, this.store, this.element, this.statusservice, this.auth);
 
-  dynamic _selectedEntity;
+  T _selectedEntity;
 
   @protected
   final StreamController<Entity> selectedEntityEvent = new StreamController<Entity>();
 
   @Input('selectedEntity')
-  set selectedEntity(entity) {
+  set selectedEntity(T entity) {
     this._selectedEntity = entity;
     this.selector = EntText;
   }
 
-  get selectedEntity => _selectedEntity;
+  T get selectedEntity => _selectedEntity;
 
   @Output('selectedEntityChange')
   Stream<Entity> get selectedEntityChange => selectedEntityEvent.stream;
 
-  get EntText => this._selectedEntity != null ? this._selectedEntity.name : '';
+  String get EntText => this._selectedEntity != null ? this._selectedEntity.name : '';
 
   @override
-  ngOnInit() {
+  void ngOnInit() {
     if (this.auth != null) {
       if (!auth.isloggedin) {
         this.auth.afterLogin(() {
@@ -75,23 +75,23 @@ class EntitySelect implements OnInit {
     }
   }
 
-  reload() async {
+  Future reload() async {
     this.statusservice.setStatusToLoading();
     try {
-      this.entities = (await this.store.list(this.type)).toList();
+      this.entities = (await this.store.list(this.type)).toList() as List<T>;
       this.statusservice.setStatusToSuccess();
     } catch (e, stack) {
       this.statusservice.setStatusToError(e, stack);
     }
   }
 
-  select(Entity entity) {
+  void select(T entity) {
     this.selectedEntity = entity;
     selectedEntityEvent.add(entity);
     this.open = false;
   }
 
-  toggleSelectionBox() {
+  void toggleSelectionBox() {
     if (this.open) {
       this.closeSelectionBox();
     } else {
@@ -99,12 +99,12 @@ class EntitySelect implements OnInit {
     }
   }
 
-  openSelectionBox() {
+  void openSelectionBox() {
     if (!this.open) {
       // adjust size of dropdown to available size
-      DivElement dropdown = this.element.querySelector(".dropdown");
-      BodyElement body = querySelector("body");
-      double distanceToBottom = body.getBoundingClientRect().height - (window.scrollY + dropdown.getBoundingClientRect().top + 40);
+      DivElement dropdown = this.element.querySelector(".dropdown") as DivElement;
+      BodyElement body = querySelector("body") as BodyElement;
+      num distanceToBottom = body.getBoundingClientRect().height - (window.scrollY + dropdown.getBoundingClientRect().top + 40);
       int maxDropdownHeight = math.min(distanceToBottom.round(), 400);
       this.element.querySelector(".dropdown .dropdown-menu").style.maxHeight = maxDropdownHeight.toString() + 'px';
       this.selector = '';
@@ -112,7 +112,7 @@ class EntitySelect implements OnInit {
     }
   }
 
-  closeSelectionBox() {
+  void closeSelectionBox() {
     if (this.open) {
       if (clearOnClose) {
         this.selectedEntity = null;

@@ -14,6 +14,7 @@ class Period extends Entity {
 
   Period.fromMap(Map<String, dynamic> map) : super.fromMap(map);
 
+  @override
   init({Map<String, dynamic> params: const {}}) {
     if (params.containsKey('employee')) {
       params['employee'] = new Employee()..id = params['employee'];
@@ -21,10 +22,12 @@ class Period extends Entity {
     super.init(params: params);
   }
 
+  @override
   newObj() {
     return new Period();
   }
 
+  @override
   dynamic Get(String property) {
     var val = super.Get(property);
     if (val == null) {
@@ -58,7 +61,8 @@ class Period extends Entity {
     return val;
   }
 
-  void Set(String property, var value) {
+  @override
+  void Set(String property, dynamic value) {
     switch (property) {
       case 'start':
         this.start = addDateValue(value);
@@ -67,31 +71,31 @@ class Period extends Entity {
         this.end = addDateValue(value);
         break;
       case 'pensum':
-        this.pensum = value;
+        this.pensum = value as num;
         break;
       case 'employee':
-        this.employee = value is Entity ? value : new Employee.fromMap(value);
+        this.employee = value is Employee ? value : new Employee.fromMap(value as Map<String, dynamic>);
         break;
       case 'holidays':
-        this.holidays = value;
+        this.holidays = value as int;
         break;
       case 'realTime':
-        this.realTime = value;
+        this.realTime = value as int;
         break;
       case 'targetTime':
-        this.targetTime = value;
+        this.targetTime = value as num;
         break;
       case 'timeTillToday':
-        this.timeTillToday = value;
+        this.timeTillToday = value as num;
         break;
       case 'employeeholiday':
         this.employeeholiday = value;
         break;
       case 'holidayBalance':
-        this.holidayBalance = value;
+        this.holidayBalance = value as num;
         break;
       case 'lastYearHolidayBalance':
-        this.lastYearHolidayBalance = value;
+        this.lastYearHolidayBalance = value as String;
         break;
       default:
         super.Set(property, value);
@@ -108,6 +112,7 @@ class Period extends Entity {
     return array;
   }
 
+  @override
   String type = 'periods';
   DateTime start;
   DateTime end;

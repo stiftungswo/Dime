@@ -11,10 +11,12 @@ class ProjectCategory extends Entity {
 
   ProjectCategory.fromMap(Map<String, dynamic> map) : super.fromMap(map);
 
-  newObj() {
+  @override
+  ProjectCategory newObj() {
     return new ProjectCategory();
   }
 
+  @override
   init({Map<String, dynamic> params: const {}}) {
     if (!params.containsKey('name')) {
       params['name'] = 'New Category';
@@ -22,6 +24,7 @@ class ProjectCategory extends Entity {
     super.init(params: params);
   }
 
+  @override
   dynamic Get(String property) {
     var val = super.Get(property);
     if (val == null) {
@@ -37,10 +40,11 @@ class ProjectCategory extends Entity {
     return val;
   }
 
-  void Set(String property, var value) {
+  @override
+  void Set(String property, dynamic value) {
     switch (property) {
       case 'name':
-        this.name = value;
+        this.name = value as String;
         break;
       case 'id':
         this.id = value;
@@ -51,7 +55,10 @@ class ProjectCategory extends Entity {
     }
   }
 
+  @override
   String type = 'projectcategories';
+  @override
   String name;
+  @override
   dynamic id;
 }
