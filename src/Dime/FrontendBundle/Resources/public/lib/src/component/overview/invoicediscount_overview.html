@@ -9,16 +9,15 @@
         <tr>
           <th>Name</th>
           <th>Abzug</th>
-          <th>Prozent</th>
           <th width="60">Aktion</th>
         </tr>
       </thead>
       <tbody *ngIf="entities != null">
         <tr *ngFor="let entity of entities" (click)="selectEntity(entity.id)" [class.info]="isSelected(entity)">
           <td><input class="form-control" type="text" [(ngModel)]="entity.name" (change)="addSaveField('name', entity)"/></td>
-          <td *ngIf="!entity.percentage"><input class="form-control" type="number" [(ngModel)]="entity.value" (change)="addSaveField('value', entity)"/></td>
-          <td *ngIf="entity.percentage"><input-percentage [safecalc]="false" [htmlclass]="'form-control'" [(value)]="entity.value" (change)="addSaveField('value', entity)"></input-percentage></td>
-          <td><input class="checkbox" type="checkbox" [(ngModel)]="entity.percentage" (change)="addSaveField('percentage', entity)"/></td>
+          <td><discount-input
+            [(percentage)]="entity.percentage" (percentageChange)="addSaveField('percentage', entity)"
+            [(value)]="entity.value" (valueChange)="addSaveField('value', entity)"></discount-input></td>
           <td><dime-button (click)="deleteEntity(entity.id)" fontAwesome="trash-o" color="red"></dime-button></td>
         </tr>
       </tbody>
