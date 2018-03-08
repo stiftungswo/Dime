@@ -56,6 +56,7 @@ class DimeFormGroup implements AfterViewInit{
   }
 }
 
+//TODO move this into a seperate file
 abstract class Validatable{
   Map<String, dynamic> get errors;
   bool get valid;
@@ -67,32 +68,18 @@ class ValidatableNgForm implements Validatable{
 
   Map<String,dynamic> get _errors{
     if(control == null){
-      print("control is null");
       return _empty;
     } else {
-      print("control is here");
       return control.errors == null ? _empty : control.errors;
     }
   }
 
   @override Map<String,dynamic> get errors => _errors;
-  //form != null ? form.errors : null;
-  @override bool get valid => control != null ? control.valid : false;
+  @override bool get valid => control != null ? control.valid : true;
 }
 
 class ValidatableCustom implements Validatable{
   Map<String, dynamic> _errors = {};
   Map<String, dynamic> get errors => _errors;
   bool get valid => _errors.values.where((msg)=> msg!=null && msg.toString().isNotEmpty).isEmpty;
-}
-
-Map<String, String> mapErrors(Map<String, dynamic> errors){
-  print("mapp errors:");
-  print(errors);
-  var map = {}..addAll(errors);
-  if(map.containsKey('required')){
-    map['required'] = "Dieses Feld muss ausgefüllt sein.";
-  }
-  print(map);
-  return map;
 }

@@ -17,5 +17,5 @@ const dimeDirectives = const [
   DateRange,
   PercentageInputField,
   DimeInput,
-  DimeFormGroup
+  DimeFormGroup,
 ];

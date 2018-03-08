@@ -24,11 +24,11 @@
       <div class="tab-pane active" id="offer_tab">
         <div class="form-horizontal">
           <dime-form-group horizontal label="Name">
-            <dime-input required [(ngModel)]="entity.name"
+            <dime-input #validate required [(ngModel)]="entity.name"
                         (change)="addSaveField('name')"></dime-input>
           </dime-form-group>
           <dime-form-group horizontal label="Kunde">
-            <customer-select required [(selectedEntity)]="entity.customer"
+            <customer-select #validate required [(selectedEntity)]="entity.customer"
                              (selectedEntityChange)="entity.addFieldtoUpdate('customer')"></customer-select>
           </dime-form-group>
           <dime-form-group horizontal label="Status">
@@ -60,7 +60,8 @@
       </div>
     </div>
   </div>
-  <offerposition-overview [offer]="entity.id"></offerposition-overview>
+  <!-- TODO(98): remove required, just here for testing -->
+  <offerposition-overview [offer]="entity.id" required></offerposition-overview>
   <div class="row">
     <div class="col-md-12 right">
       <offerdiscount-overview [offer]="entity.id"></offerdiscount-overview>
@@ -92,7 +93,7 @@
     </div>
   </div>
   <div class="DimeControlButtons">
-    <dime-button primary (click)="saveEntity()"><error-icon></error-icon></dime-button>
+    <dime-button primary [enabled]="formValid" (click)="saveEntity()"><error-icon></error-icon></dime-button>
     <dime-button primary (click)="printOffer()" glyphicon="print">Drucken</dime-button>
     <dime-button (click)="reloadEvict()" glyphicon="refresh"></dime-button>
   </div>

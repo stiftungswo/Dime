@@ -3,6 +3,7 @@ library entity_overview;
 import 'dart:async';
 import 'dart:html';
 
+import 'package:DimeClient/src/component/elements/dime_form_group.dart';
 import 'package:angular/angular.dart';
 import 'package:angular_router/angular_router.dart';
 import 'package:angular_router/src/router.dart';
@@ -14,7 +15,7 @@ import '../../service/setting_manager.dart';
 import '../../service/status.dart';
 import '../../service/user_auth.dart';
 
-abstract class EntityOverview<T extends Entity> implements OnInit {
+abstract class EntityOverview<T extends Entity> extends ValidatableCustom implements OnInit {
   bool needsmanualAdd = false;
 
   dynamic selectedEntId;
@@ -42,6 +43,8 @@ abstract class EntityOverview<T extends Entity> implements OnInit {
   String sortType = "";
 
   bool sortReverse = false;
+
+  @Input() bool required = false;
 
   T get selectedEntity {
     for (T ent in this.entities) {
@@ -224,4 +227,6 @@ abstract class EntityOverview<T extends Entity> implements OnInit {
       {this.router, this.auth}) {
     entityEventsService.addSaveChangesListener(this.saveAllEntities);
   }
+
+  bool get valid => super.valid && (!required || entities.isNotEmpty);
 }

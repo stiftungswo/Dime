@@ -7,13 +7,14 @@ import 'package:angular_forms/angular_forms.dart';
 import 'package:angular_router/angular_router.dart';
 import 'package:meta/meta.dart';
 
+import '../../component/elements/dime_form_group.dart';
 import '../../model/Entity.dart';
 import '../../service/data_cache.dart';
 import '../../service/entity_events_service.dart';
 import '../../service/status.dart';
 import '../../service/user_auth.dart';
 
-abstract class EntityEdit<T extends Entity> implements OnInit {
+abstract class EntityEdit<T extends Entity> implements OnInit, AfterViewInit {
   Type entType;
 
   @protected
@@ -92,5 +93,18 @@ abstract class EntityEdit<T extends Entity> implements OnInit {
     } else {
       throw new Exception("FORM IS NOT VALID");
     }
+  }
+
+  @ViewChildren('validate') QueryList<Validatable> validations;
+  bool get formValid => validations.every((Validatable v) => v.valid);
+
+  ngAfterViewInit(){
+    validations.changes.listen((vs){
+      vs.forEach((v){
+        if(v is! Validatable){
+          throw new Exception("#validate on (${v.toString()}) which doesn't implement Validatable.");
+        }
+      });
+    });
   }
 }
