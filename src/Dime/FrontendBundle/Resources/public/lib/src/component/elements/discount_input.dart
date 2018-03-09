@@ -33,7 +33,16 @@ class DiscountInputComponent{
   @Output()
   Stream<num> get valueChange => _valueChange.stream;
 
-  num get displayValue => percentage ? value * 100 : value;
+  num get displayValue{
+    if(value == null){
+      return null;
+    }
+    if(percentage){
+      return value * 100;
+    } else {
+      return value;
+    }
+  }
 
   void set displayValue(num displayValue) {
     if(percentage){

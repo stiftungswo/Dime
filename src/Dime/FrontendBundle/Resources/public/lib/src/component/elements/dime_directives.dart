@@ -8,6 +8,7 @@ import 'dime_input.dart';
 import '../percent-input/percent_input.dart';
 import 'dime_form_group.dart';
 import 'discount_input.dart';
+import 'percentage_input.dart';
 
 const dimeDirectives = const [
   DimeButton,
@@ -16,8 +17,9 @@ const dimeDirectives = const [
   ErrorIconComponent,
   DateToTextInput,
   DateRange,
-  PercentageInputField,
+  PercentageInputField, //TODO(98) remove
   DimeInput,
   DimeFormGroup,
   DiscountInputComponent,
+  PercentageInputComponent,
 ];

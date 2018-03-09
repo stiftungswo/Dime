@@ -28,7 +28,7 @@
               <td><input class="form-control" type="text" [(ngModel)]="entity.rateUnit" (change)="addSaveField('rateUnit', entity)"/></td>
               <td><rateunittype-select [(selectedEntity)]="entity.rateUnitType" (selectedEntityChange)="entity.addFieldtoUpdate('rateUnitType')"></rateunittype-select></td>
               <td><input class="form-control" type="number" [(ngModel)]="entity.amount" (change)="addSaveField('amount', entity)"/></td>
-              <td><input-percentage [htmlclass]="'form-control'" [(value)]="entity.vat" (change)="addSaveField('vat', entity)"></input-percentage></td>
+              <td><percentage-input [(value)]="entity.vat" (valueChange)="addSaveField('vat', entity)"></percentage-input></td>
               <td><input class="checkbox" type="checkbox" [(ngModel)]="entity.discountable" (change)="addSaveField('discountable', entity)"/></td>
               <td>{{entity.total}}</td>
               <td><dime-button (click)="deleteEntity(entity.id)" fontAwesome="trash-o" color="red"></dime-button></td>
