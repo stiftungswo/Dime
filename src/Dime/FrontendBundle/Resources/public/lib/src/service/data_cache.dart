@@ -6,15 +6,15 @@ import '../model/Entity.dart';
 @Injectable()
 class DataCache {
   ObjectStore _store;
-  Map<int, Future> _cache = new Map<int, Future>();
+  Map<int, Future<List>> _cache = new Map<int, Future<List>>();
 
   DataCache(this._store);
 
-  Future list(Type type, {Map params}) {
+  Future<List> list(Type type, {Map params}) {
     if (this._cache.containsKey(type.hashCode) && params == null) {
       return this._cache[type.hashCode];
     }
-    Future future = this._store.list(type, params: params);
+    Future<List> future = this._store.list(type, params: params);
     if (params == null) {
       this._cache.addAll({
         type.hashCode: future,
@@ -22,13 +22,26 @@ class DataCache {
     }
     return future;
   }
+  Future<List<T>> listT<T extends Entity>({Map params}) {
+    if (this._cache.containsKey(T.hashCode) && params == null) {
+      return this._cache[T.hashCode] as Future<List<T>>;
+    }
+    Future<List<T>> future = this._store.listT<T>(params: params);
+    if (params == null) {
+      this._cache.addAll({
+        T.hashCode: future,
+      });
+    }
+    return future;
+  }
 
   Future one(Type type, dynamic id) => this._store.one(type, id);
+  Future<T> oneT<T extends Entity>(dynamic id) => this._store.oneT<T>(id);
 
   Future<T> delete<T extends Entity>(T object) {
     return this._store.delete(object).then((T result) {
       if (this._cache.containsKey(result.runtimeType.hashCode)) {
-        this._cache[result.runtimeType.hashCode].then((QueryResult cachedObjects) {
+        this._cache[result.runtimeType.hashCode].then((List cachedObjects) {
           cachedObjects.removeWhere((T i) => i.id == object.id);
         });
       }
@@ -39,7 +52,7 @@ class DataCache {
   Future<T> update<T extends Entity>(T object) {
     return this._store.update(object).then((T result) {
       if (this._cache.containsKey(result.runtimeType.hashCode)) {
-        this._cache[result.runtimeType.hashCode].then((QueryResult cachedObjects) {
+        this._cache[result.runtimeType.hashCode].then((List cachedObjects) {
           cachedObjects.removeWhere((T i) => i.id == result.id);
           cachedObjects.add(result);
         });
@@ -51,7 +64,7 @@ class DataCache {
   Future<T> create<T extends Entity>(T object) {
     return this._store.create(object).then((T result) {
       if (this._cache.containsKey(result.runtimeType.hashCode)) {
-        this._cache[result.runtimeType.hashCode].then((QueryResult cachedObjects) {
+        this._cache[result.runtimeType.hashCode].then((List cachedObjects) {
           cachedObjects.add(result);
         });
       }
@@ -61,7 +74,7 @@ class DataCache {
 
   Future customQueryOne(Type type, CustomRequestParams params) => this._store.customQueryOne(type, params);
 
-  Future customCommand(Type type, CustomRequestParams params) => this._store.customCommand(type, params);
+  Future customCommand(Type type, CustomRequestParams params) => this._store.customCommand<dynamic>(type, params);
 
   Future customQueryList(Type type, CustomRequestParams params) => this._store.customQueryList(type, params);
 

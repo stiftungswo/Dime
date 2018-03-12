@@ -58,7 +58,7 @@ class OfferOverviewComponent extends EntityOverview<Offer> {
     if (ent != null) {
       this.statusservice.setStatusToLoading();
 
-      Offer duplicateOffer = (await this.store.one(Offer, ent.id)) as Offer;
+      Offer duplicateOffer = await this.store.oneT<Offer>(ent.id);
 
       for (OfferPosition _ in duplicateOffer.offerPositions) {
         print("offer position item now");

@@ -57,7 +57,7 @@ class UserSelectComponent extends EntitySelect<Employee> implements OnChanges {
       if (this.parentEmployees != null) {
         this.entities = this.parentEmployees;
       } else {
-        this.entities = (await this.store.list(Employee, params: {"enabled": 1})).toList() as List<Employee>;
+        this.entities = await this.store.listT<Employee>(params: {"enabled": 1});
       }
       this.statusservice.setStatusToSuccess();
     } catch (e, stack) {

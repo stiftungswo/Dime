@@ -63,11 +63,11 @@ class ProjectEditComponent extends EntityEdit<Project> {
   }
 
   Future loadCustomers() async {
-    this.customers = (await this.store.list(Customer)).toList() as List<Customer>;
+    this.customers = await this.store.listT<Customer>();
   }
 
   Future loadRateGroups() async {
-    this.rateGroups = (await this.store.list(RateGroup)).toList() as List<RateGroup>;
+    this.rateGroups = await this.store.listT<RateGroup>();
   }
 
   Future openOffer(int id) async {

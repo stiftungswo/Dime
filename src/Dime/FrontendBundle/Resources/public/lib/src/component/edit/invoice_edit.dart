@@ -82,9 +82,9 @@ class InvoiceEditComponent extends EntityEdit<Invoice> {
       if (evict) {
         this.store.evict(this.entType);
       }
-      this.entity = (await this.store.one(this.entType, this.entId)) as Invoice;
+      this.entity = await this.store.oneT<Invoice>(this.entId);
       if (this.project != null) {
-        this.project = (await this.store.one(Project, this.entity.project.id)) as Project;
+        this.project = await this.store.oneT<Project>(this.entity.project.id);
       }
       this.statusservice.setStatusToSuccess();
     } catch (e, stack) {

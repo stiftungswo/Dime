@@ -81,9 +81,9 @@ class OfferEditComponent extends EntityEdit<Offer> {
       if (evict) {
         this.store.evict(this.entType);
       }
-      this.entity = (await this.store.one(this.entType, this.entId)) as Offer;
+      this.entity = await this.store.oneT<Offer>(this.entId);
       if (this.entity.project != null) {
-        this.project = (await this.store.one(Project, this.entity.project.id)) as Project;
+        this.project = await this.store.oneT<Project>(this.entity.project.id);
       }
       this.statusservice.setStatusToSuccess();
     } catch (e, stack) {
@@ -92,19 +92,19 @@ class OfferEditComponent extends EntityEdit<Offer> {
   }
 
   Future loadCustomers() async {
-    this.customers = (await this.store.list(Customer)).toList() as List<Customer>;
+    this.customers = await this.store.listT<Customer>();
   }
 
   Future loadRateGroups() async {
-    this.rateGroups = (await this.store.list(RateGroup)).toList() as List<RateGroup>;
+    this.rateGroups = await this.store.listT<RateGroup>();
   }
 
   Future loadOfferStates() async {
-    this.states = (await this.store.list(OfferStatusUC)).toList() as List<OfferStatusUC>;
+    this.states = await this.store.listT<OfferStatusUC>();
   }
 
   Future loadUsers() async {
-    this.users = (await this.store.list(Employee)).toList() as List<Employee>;
+    this.users = await this.store.listT<Employee>();
   }
 
   Future openProject() async {

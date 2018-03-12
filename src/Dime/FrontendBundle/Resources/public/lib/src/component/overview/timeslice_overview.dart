@@ -347,10 +347,10 @@ class TimesliceOverviewComponent extends EntityOverview<Timeslice> {
   }
 
   Future load() async {
-    this.activities = (await this.store.list(Activity)).toList() as List<Activity>;
-    this.employees = (await this.store.list(Employee, params: {"enabled": 1})).toList() as List<Employee>;
+    this.activities = await this.store.listT<Activity>();
+    this.employees = await this.store.listT<Employee>(params: {"enabled": 1});
     this.employee = this.context.employee;
-    List<Project> projects = (await this.store.list(Project)) as List<Project>;
+    List<Project> projects = await this.store.listT<Project>();
 
     try {
       this.settingselectedProject = settingsManager.getOneSetting('/usr/timeslice', 'chosenProject');

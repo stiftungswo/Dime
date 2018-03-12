@@ -24,7 +24,7 @@ class SettingsManager {
       if (userId == null) {
         userId = this.context.employee.id as int;
       }
-      this.userSettings = (await this.store.list(Setting, params: {'namespace': '/usr*', 'user': userId})) as List<Setting>;
+      this.userSettings = await this.store.listT<Setting>(params: {'namespace': '/usr*', 'user': userId});
       this._currentUserId = userId;
       this.statusservice.setStatusToSuccess();
     } catch (e, stack) {
@@ -35,7 +35,7 @@ class SettingsManager {
   loadSystemSettings() async {
     this.statusservice.setStatusToLoading();
     try {
-      this.systemSettings = (await this.store.list(Setting, params: {'namespace': '/etc*'})) as List<Setting>;
+      this.systemSettings = await this.store.listT<Setting>(params: {'namespace': '/etc*'});
       this.statusservice.setStatusToSuccess();
     } catch (e, stack) {
       this.statusservice.setStatusToError(e, stack);
@@ -65,7 +65,7 @@ class SettingsManager {
       User usr = new User()..id = this._currentUserId;
       Setting templateSetting = new Setting();
       templateSetting.init(params: {'user': usr, 'namespace': namespace, 'name': name, 'value': value});
-      Setting setting = (await this.store.create(templateSetting)) as Setting;
+      Setting setting = await this.store.create(templateSetting);
       this.userSettings.add(setting);
       this.statusservice.setStatusToSuccess();
       return setting;
@@ -79,7 +79,7 @@ class SettingsManager {
     this.statusservice.setStatusToLoading();
     try {
       toUpdate.addFieldtoUpdate('value');
-      Setting updatedSetting = (await this.store.update(toUpdate)) as Setting;
+      Setting updatedSetting = await this.store.update(toUpdate);
       this.userSettings.removeWhere((setting) => setting.id == toUpdate.id);
       this.userSettings.add(updatedSetting);
       this.statusservice.setStatusToSuccess();
