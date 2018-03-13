@@ -69,7 +69,7 @@ class ActivitySelectComponent extends EntitySelect<Activity> implements OnChange
       if (this.parentActivities != null) {
         this.entities = this.parentActivities;
       } else {
-        this.entities = await this.store.listT<Activity>(params: {'project': this.projectId});
+        this.entities = await this.store.list(Activity, params: {'project': this.projectId});
       }
       this.statusservice.setStatusToSuccess();
     } catch (e, stack) {

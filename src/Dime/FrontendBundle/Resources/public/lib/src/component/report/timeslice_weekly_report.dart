@@ -123,11 +123,11 @@ class TimesliceWeeklyReportComponent extends EntityOverview<ExpenseReport> {
     this.entities = [];
     this.statusservice.setStatusToLoading();
     try {
-      this.report = (await this.store.customQueryOne(
-          this.type,
+      this.report = (await this.store.customQueryOne<ExpenseReport>(
+          ExpenseReport,
           new CustomRequestParams(params: {
             'date': '${format.format(filterStartDate)},${format.format(filterEndDate)}',
-          }, method: 'GET', url: '${http.baseUrl}/reports/ziviweekly'))) as ExpenseReport;
+          }, method: 'GET', url: '${http.baseUrl}/reports/ziviweekly')));
       this.statusservice.setStatusToSuccess();
       //this.rootScope.emit(this.type.toString() + 'Loaded');
     } catch (e, stack) {

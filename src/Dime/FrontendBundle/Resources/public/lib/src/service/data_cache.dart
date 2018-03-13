@@ -6,15 +6,15 @@ import '../model/Entity.dart';
 @Injectable()
 class DataCache {
   ObjectStore _store;
-  Map<int, Future<List>> _cache = new Map<int, Future<List>>();
+  Map<int, Future<List<Entity>>> _cache = new Map<int, Future<List<Entity>>>();
 
   DataCache(this._store);
 
-  Future<List> list(Type type, {Map params}) {
+  Future<List<T>> list<T extends Entity>(Type type, {Map params}) {
     if (this._cache.containsKey(type.hashCode) && params == null) {
-      return this._cache[type.hashCode];
+      return this._cache[type.hashCode] as Future<List<T>>;
     }
-    Future<List> future = this._store.list(type, params: params);
+    Future<List<T>> future = this._store.list(type, params: params);
     if (params == null) {
       this._cache.addAll({
         type.hashCode: future,
@@ -22,21 +22,8 @@ class DataCache {
     }
     return future;
   }
-  Future<List<T>> listT<T extends Entity>({Map params}) {
-    if (this._cache.containsKey(T.hashCode) && params == null) {
-      return this._cache[T.hashCode] as Future<List<T>>;
-    }
-    Future<List<T>> future = this._store.listT<T>(params: params);
-    if (params == null) {
-      this._cache.addAll({
-        T.hashCode: future,
-      });
-    }
-    return future;
-  }
 
-  Future one(Type type, dynamic id) => this._store.one(type, id);
-  Future<T> oneT<T extends Entity>(dynamic id) => this._store.oneT<T>(id);
+  Future<T> one<T extends Entity>(Type type, dynamic id) => this._store.one<T>(type, id);
 
   Future<T> delete<T extends Entity>(T object) {
     return this._store.delete(object).then((T result) {
@@ -72,11 +59,11 @@ class DataCache {
     });
   }
 
-  Future customQueryOne(Type type, CustomRequestParams params) => this._store.customQueryOne(type, params);
+  Future<T> customQueryOne<T extends Entity>(Type type, CustomRequestParams params) => this._store.customQueryOne<T>(type, params);
 
-  Future customCommand(Type type, CustomRequestParams params) => this._store.customCommand<dynamic>(type, params);
+  Future<T> customCommand<T extends Entity>(T type, CustomRequestParams params) => this._store.customCommand<T>(type, params);
 
-  Future customQueryList(Type type, CustomRequestParams params) => this._store.customQueryList(type, params);
+  Future<List<T>> customQueryList<T extends Entity>(Type type, CustomRequestParams params) => this._store.customQueryList<T>(type, params);
 
   Future evict(Type type, [bool reload = false]) async {
     this._cache.remove(type.hashCode);

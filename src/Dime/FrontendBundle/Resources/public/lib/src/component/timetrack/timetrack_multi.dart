@@ -136,7 +136,7 @@ class TimetrackMultiComponent extends EntityOverview<Timeslice> {
   Future loadActivities() async {
     this.statusservice.setStatusToLoading();
     try {
-      this.activities = await this.store.listT<Activity>();
+      this.activities = await this.store.list(Activity);
       this.statusservice.setStatusToSuccess();
     } catch (e, stack) {
       this.statusservice.setStatusToError(e, stack);

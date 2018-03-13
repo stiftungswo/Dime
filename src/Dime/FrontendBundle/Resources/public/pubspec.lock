@@ -160,7 +160,7 @@ packages:
   hammock:
     description:
       ref: master
-      resolved-ref: "5a2efaeaeff53f948863664b6c6016542eded60f"
+      resolved-ref: "513ade8783553ae5e285e7d14fa5f0aa44b36f42"
       url: "https://github.com/stiftungswo/hammock.git"
     source: git
     version: "0.5.0"

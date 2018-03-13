@@ -24,7 +24,7 @@ class SettingsManager {
       if (userId == null) {
         userId = this.context.employee.id as int;
       }
-      this.userSettings = await this.store.listT<Setting>(params: {'namespace': '/usr*', 'user': userId});
+      this.userSettings = await this.store.list(Setting, params: {'namespace': '/usr*', 'user': userId});
       this._currentUserId = userId;
       this.statusservice.setStatusToSuccess();
     } catch (e, stack) {
@@ -35,7 +35,7 @@ class SettingsManager {
   loadSystemSettings() async {
     this.statusservice.setStatusToLoading();
     try {
-      this.systemSettings = await this.store.listT<Setting>(params: {'namespace': '/etc*'});
+      this.systemSettings = await this.store.list(Setting, params: {'namespace': '/etc*'});
       this.statusservice.setStatusToSuccess();
     } catch (e, stack) {
       this.statusservice.setStatusToError(e, stack);

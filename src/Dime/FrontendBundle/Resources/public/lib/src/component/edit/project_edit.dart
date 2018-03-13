@@ -63,11 +63,11 @@ class ProjectEditComponent extends EntityEdit<Project> {
   }
 
   Future loadCustomers() async {
-    this.customers = await this.store.listT<Customer>();
+    this.customers = await this.store.list(Customer);
   }
 
   Future loadRateGroups() async {
-    this.rateGroups = await this.store.listT<RateGroup>();
+    this.rateGroups = await this.store.list(RateGroup);
   }
 
   Future openOffer(int id) async {
@@ -86,8 +86,8 @@ class ProjectEditComponent extends EntityEdit<Project> {
 
   Future createInvoice() async {
     if (await saveEntity()) {
-      Invoice newInvoice = await this.store.customQueryOne(
-          Invoice, new CustomRequestParams(method: 'GET', url: '${http.baseUrl}/invoices/project/${this.entity.id}')) as Invoice;
+      Invoice newInvoice = await this.store.customQueryOne<Invoice>(
+          Invoice, new CustomRequestParams(method: 'GET', url: '${http.baseUrl}/invoices/project/${this.entity.id}'));
       entity.invoices.add(newInvoice);
       this.store.evict(Invoice, true);
       router.navigate([

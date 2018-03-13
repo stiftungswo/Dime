@@ -71,7 +71,7 @@ class UserAuthProvider {
     try {
       Employee result = (await this
           .store
-          .customQueryOne(Employee, new CustomRequestParams(method: 'GET', url: '${http.baseUrl}/employees/current'))) as Employee;
+          .customQueryOne<Employee>(Employee, new CustomRequestParams(method: 'GET', url: '${http.baseUrl}/employees/current')));
       this.context.switchContext(result);
       await manager.loadUserSettings(result.id as int);
       this.statusservice.setStatusToSuccess();

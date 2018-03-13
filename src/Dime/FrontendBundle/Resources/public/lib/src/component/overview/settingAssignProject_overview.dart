@@ -74,7 +74,7 @@ class SettingAssignProjectOverviewComponent extends EntityOverview<SettingAssign
     } catch (e) {
       projectAssignmentSettings = await settingsManager.getSettings('/etc/projectassignments', system: true);
     }
-    this.projects = await this.store.listT<Project>();
+    this.projects = await this.store.list(Project);
 
     for (Setting projectAssignmentSetting in projectAssignmentSettings) {
       SettingAssignProject settingAssignProject = new SettingAssignProject();
@@ -130,7 +130,7 @@ class SettingAssignProjectOverviewComponent extends EntityOverview<SettingAssign
     projectAssignmentSetting.namespace = '/etc/projectassignments';
 
     this.statusservice.setStatusToLoading();
-    this.projects = await this.store.listT<Project>();
+    this.projects = await this.store.list(Project);
     try {
       Setting resp = await store.update(projectAssignmentSetting);
       this.projectAssignments.removeWhere((enty) => enty.id == resp.id);

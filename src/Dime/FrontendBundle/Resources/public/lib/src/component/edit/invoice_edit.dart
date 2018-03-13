@@ -82,9 +82,9 @@ class InvoiceEditComponent extends EntityEdit<Invoice> {
       if (evict) {
         this.store.evict(this.entType);
       }
-      this.entity = await this.store.oneT<Invoice>(this.entId);
+      this.entity = await this.store.one(Invoice, this.entId);
       if (this.project != null) {
-        this.project = await this.store.oneT<Project>(this.entity.project.id);
+        this.project = await this.store.one(Project, this.entity.project.id);
       }
       this.statusservice.setStatusToSuccess();
     } catch (e, stack) {
@@ -96,8 +96,8 @@ class InvoiceEditComponent extends EntityEdit<Invoice> {
     if (window.confirm('Wiklich updaten und alle Daten überschreiben?')) {
       this.statusservice.setStatusToLoading();
       try {
-        this.entity = (await this.store.customQueryOne(
-            Invoice, new CustomRequestParams(method: 'GET', url: '${http.baseUrl}/invoices/${this.entity.id}/update'))) as Invoice;
+        this.entity = (await this.store.customQueryOne<Invoice>(
+            Invoice, new CustomRequestParams(method: 'GET', url: '${http.baseUrl}/invoices/${this.entity.id}/update')));
         this.statusservice.setStatusToSuccess();
         this.invoiceitem_overview.reload(evict: true);
       } catch (e, stack) {
@@ -131,7 +131,7 @@ class InvoiceEditComponent extends EntityEdit<Invoice> {
   Future createInvoice() async {
     Invoice newInvoice = await this
         .store
-        .customQueryOne(Invoice, new CustomRequestParams(method: 'GET', url: '${http.baseUrl}/invoices/project/${project.id}')) as Invoice;
+        .customQueryOne<Invoice>(Invoice, new CustomRequestParams(method: 'GET', url: '${http.baseUrl}/invoices/project/${project.id}'));
     project.invoices.add(newInvoice);
     this.store.evict(Invoice, true);
     router.navigate([

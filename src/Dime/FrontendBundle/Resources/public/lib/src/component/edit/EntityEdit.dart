@@ -63,7 +63,7 @@ abstract class EntityEdit<T extends Entity> implements OnInit {
       if (evict) {
         this.store.evict(this.entType);
       }
-      this.entity = (await this.store.one(this.entType, this.entId)) as T;
+      this.entity = await this.store.one<T>(this.entType, this.entId);
       this.statusservice.setStatusToSuccess();
     } catch (e, stack) {
       this.statusservice.setStatusToError(e, stack);

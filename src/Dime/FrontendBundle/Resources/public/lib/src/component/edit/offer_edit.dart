@@ -81,9 +81,9 @@ class OfferEditComponent extends EntityEdit<Offer> {
       if (evict) {
         this.store.evict(this.entType);
       }
-      this.entity = await this.store.oneT<Offer>(this.entId);
+      this.entity = await this.store.one(Offer, this.entId);
       if (this.entity.project != null) {
-        this.project = await this.store.oneT<Project>(this.entity.project.id);
+        this.project = await this.store.one(Project, this.entity.project.id);
       }
       this.statusservice.setStatusToSuccess();
     } catch (e, stack) {
@@ -92,19 +92,19 @@ class OfferEditComponent extends EntityEdit<Offer> {
   }
 
   Future loadCustomers() async {
-    this.customers = await this.store.listT<Customer>();
+    this.customers = await this.store.list(Customer);
   }
 
   Future loadRateGroups() async {
-    this.rateGroups = await this.store.listT<RateGroup>();
+    this.rateGroups = await this.store.list(RateGroup);
   }
 
   Future loadOfferStates() async {
-    this.states = await this.store.listT<OfferStatusUC>();
+    this.states = await this.store.list(OfferStatusUC);
   }
 
   Future loadUsers() async {
-    this.users = await this.store.listT<Employee>();
+    this.users = await this.store.list(Employee);
   }
 
   Future openProject() async {
@@ -116,8 +116,8 @@ class OfferEditComponent extends EntityEdit<Offer> {
 
   Future createProject() async {
     if (await saveEntity()) {
-      Project newProject = (await this.store.customQueryOne(
-          Project, new CustomRequestParams(method: 'GET', url: '${http.baseUrl}/projects/offer/${this.entity.id}'))) as Project;
+      Project newProject = (await this.store.customQueryOne<Project>(
+          Project, new CustomRequestParams(method: 'GET', url: '${http.baseUrl}/projects/offer/${this.entity.id}')));
       this.store.evict(Project, true);
       this.statusservice.setStatusToSuccess();
       entity.project = newProject;
@@ -137,8 +137,8 @@ class OfferEditComponent extends EntityEdit<Offer> {
 
   Future createInvoice() async {
     if (await saveEntity()) {
-      Invoice newInvoice = await this.store.customQueryOne(
-          Invoice, new CustomRequestParams(method: 'GET', url: '${http.baseUrl}/invoices/project/${this.entity.project.id}')) as Invoice;
+      Invoice newInvoice = await this.store.customQueryOne<Invoice>(
+          Invoice, new CustomRequestParams(method: 'GET', url: '${http.baseUrl}/invoices/project/${this.entity.project.id}'));
       entity.project.invoices.add(newInvoice);
       this.store.evict(Invoice, true);
       router.navigate([

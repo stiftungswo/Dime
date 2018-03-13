@@ -18,7 +18,7 @@ class UserContext {
   }
 
   reloadUserData() async {
-    this.employee = await this.store.oneT<Employee>(this.employee.id);
+    this.employee = await this.store.one(Employee, this.employee.id);
   }
 
   onSwitch(Function callback) {

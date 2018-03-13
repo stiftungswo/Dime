@@ -58,7 +58,7 @@ class ProjectOverviewComponent extends EntityOverview<Project> {
     if (ent != null) {
       this.statusservice.setStatusToLoading();
 
-      Project duplicateProject = await this.store.oneT<Project>(ent.id);
+      Project duplicateProject = await this.store.one(Project, ent.id);
       Project newProject = this.cEnt();
 
       newProject = duplicateProject;
@@ -72,7 +72,7 @@ class ProjectOverviewComponent extends EntityOverview<Project> {
 
         // create new activities with new project
         for (Activity activity in newProject.activities) {
-          Activity oldActivity = await this.store.oneT<Activity>(activity.id);
+          Activity oldActivity = await this.store.one(Activity, activity.id);
           Activity newActivity = this.cEntActivity(activity);
 
           oldActivity.id = null;

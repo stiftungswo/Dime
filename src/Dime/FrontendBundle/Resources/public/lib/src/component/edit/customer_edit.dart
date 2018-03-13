@@ -42,6 +42,6 @@ class CustomerEditComponent extends EntityEdit<Customer> {
   }
 
   Future loadRateGroups() async {
-    this.rateGroups = await this.store.listT<RateGroup>();
+    this.rateGroups = await this.store.list(RateGroup);
   }
 }

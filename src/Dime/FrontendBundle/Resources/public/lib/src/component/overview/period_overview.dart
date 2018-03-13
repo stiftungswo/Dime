@@ -81,7 +81,7 @@ class PeriodOverviewComponent extends EntityOverview<Period> {
         this.store.evict(this.type);
       }
 
-      this.entities = await this.store.listT<Period>(params: {'employee': employee.id});
+      this.entities = await this.store.list(Period, params: {'employee': employee.id});
 
       for (int i = 0; i < this.entities.length; i++) {
         Period entity = this.entities.elementAt(i);

@@ -59,9 +59,9 @@ class ActivityOverviewComponent extends EntityOverview<Activity> {
   @override
   Future deleteEntity([int entId]) async {
     this.statusservice.setStatusToLoading();
-    List<Invoice> invoices = await this.store.listT<Invoice>(params: {'project': this._projectId});
+    List<Invoice> invoices = await this.store.list(Invoice, params: {'project': this._projectId});
     List<List<InvoiceItem>> invoiceItemResults = await Future.wait<List<InvoiceItem>>(invoices.map((c) {
-      return this.store.listT<InvoiceItem>(params: {'invoice': c.id});
+      return this.store.list(InvoiceItem, params: {'invoice': c.id});
     }));
 
     List<int> activityIds = invoiceItemResults.expand((c) => c.map((i) => i.activity.id as int)).toList();

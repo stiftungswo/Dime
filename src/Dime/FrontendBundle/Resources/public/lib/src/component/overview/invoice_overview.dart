@@ -51,7 +51,7 @@ class InvoiceOverviewComponent extends EntityOverview<Invoice> {
       this.statusservice.setStatusToLoading();
       Invoice newEnt = this.cEnt(entity: ent);
       try {
-        Invoice completeInvoice = await this.store.oneT<Invoice>(ent.id);
+        Invoice completeInvoice = await this.store.one(Invoice, ent.id);
 
         newEnt.project = completeInvoice.project;
         newEnt.customer = completeInvoice.customer;

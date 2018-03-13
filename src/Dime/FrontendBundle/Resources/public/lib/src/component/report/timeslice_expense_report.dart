@@ -66,13 +66,13 @@ class TimesliceExpenseReportComponent extends EntityOverview<ExpenseReport> {
       this.statusservice.setStatusToLoading();
       try {
         String dateparam = this.getDateParam();
-        this.report = (await this.store.customQueryOne(
-            this.type,
+        this.report = (await this.store.customQueryOne<ExpenseReport>(
+            ExpenseReport,
             new CustomRequestParams(params: {
               'project': _project != null ? _project.id : null,
               'employee': _employee != null ? _employee.id : null,
               'date': dateparam != null ? dateparam : null
-            }, method: 'GET', url: '${http.baseUrl}/reports/expense'))) as ExpenseReport;
+            }, method: 'GET', url: '${http.baseUrl}/reports/expense')));
         this.statusservice.setStatusToSuccess();
         //this.rootScope.emit(this.type.toString() + 'Loaded');
       } catch (e, stack) {
