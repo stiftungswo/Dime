@@ -23,19 +23,13 @@
     <div class="tab-content">
       <div class="tab-pane active" id="offer_tab">
         <div class="form-horizontal">
-          <div class="form-group">
-            <label class="col-sm-2 control-label">Name</label>
-
-            <div class="col-sm-4">
-              <input required="true" class="form-control" style="width: 100%;" type="text" [(ngModel)]="entity.name"
-                     (change)="addSaveField('name')">
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-2 control-label">Kunde</label>
-            <customer-select [required]="true" class="col-sm-4" [(selectedEntity)]="entity.customer"
-                             (selectedEntityChange)="entity.addFieldtoUpdate('customer')"></customer-select>
-          </div>
+          <dime-form-group horizontal label="Name">
+            <input class="form-control" required [(ngModel)]="entity.name" ngControl="name" (change)="addSaveField('name')">
+          </dime-form-group>
+          <dime-form-group horizontal label="Kunde">
+            <customer-select ngControl="customer" [required]="true" [(ngModel)]="entity.customer"
+                             (ngModelChange)="entity.addFieldtoUpdate('customer')"></customer-select>
+          </dime-form-group>
           <div class="form-group">
             <label class="col-sm-2 control-label">Status</label>
             <offerstatus-select class="col-sm-4" [(selectedEntity)]="entity.status" (selectedEntityChange)="entity.addFieldtoUpdate('status')"></offerstatus-select>
