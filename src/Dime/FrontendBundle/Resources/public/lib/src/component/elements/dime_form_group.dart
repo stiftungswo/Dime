@@ -101,6 +101,9 @@ class ValidationStatusDirective implements AfterContentChecked{
 
   @override
   ngAfterContentChecked(){
+    if(control == null){
+      throw new Exception("No child tag that uses ngControl found");
+    }
     if(control.valid){
       el.classes.remove("has-error");
     } else {

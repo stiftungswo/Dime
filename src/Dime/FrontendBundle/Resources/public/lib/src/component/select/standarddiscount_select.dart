@@ -16,6 +16,7 @@ import 'entity_select.dart';
   directives: const [formDirectives, CORE_DIRECTIVES],
   pipes: const [dimePipes],
 )
+//TODO(43): remove this
 class StandardDiscountSelectComponent extends EntitySelect<StandardDiscount> {
   StandardDiscountSelectComponent(DataCache store, dom.Element element, StatusService status, UserAuthProvider auth)
       : super(StandardDiscount, store, element, status, auth);

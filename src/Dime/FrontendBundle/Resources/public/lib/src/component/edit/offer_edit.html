@@ -32,11 +32,11 @@
           </dime-form-group>
           <div class="form-group">
             <label class="col-sm-2 control-label">Status</label>
-            <offerstatus-select class="col-sm-4" [(selectedEntity)]="entity.status" (selectedEntityChange)="entity.addFieldtoUpdate('status')"></offerstatus-select>
+            <offerstatus-select class="col-sm-4" [(ngModel)]="entity.status" (ngModelChange)="entity.addFieldtoUpdate('status')"></offerstatus-select>
           </div>
           <div class="form-group">
             <label class="col-sm-2 control-label">Verantwortlicher Mitarbeiter</label>
-            <user-select class="col-sm-4" [(selectedEntity)]="entity.accountant" (selectedEntityChange)="addSaveField('accountant')"></user-select>
+            <user-select class="col-sm-4" [(ngModel)]="entity.accountant" (ngModelChange)="addSaveField('accountant')"></user-select>
           </div>
           <div class="form-group">
             <label class="col-sm-2 control-label">Gültig bis</label>
@@ -44,7 +44,7 @@
           </div>
           <div class="form-group">
             <label class="col-sm-2 control-label">Tarif</label>
-            <rategroup-select class="col-sm-4" [(selectedEntity)]="entity.rateGroup" (selectedEntityChange)="addSaveField('rateGroup')"></rategroup-select>
+            <rategroup-select class="col-sm-4" [(ngModel)]="entity.rateGroup" (ngModelChange)="addSaveField('rateGroup')"></rategroup-select>
           </div>
           <h4>Addresse</h4>
           <address-edit [(address)]="entity.address" (change)="addSaveField('address')"></address-edit>

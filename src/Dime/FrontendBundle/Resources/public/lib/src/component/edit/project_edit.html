@@ -36,12 +36,12 @@
           </div>
           <div class="form-group">
             <label class="col-sm-2 control-label">Kunde</label>
-            <customer-select [required]="true" class="col-sm-4" [(selectedEntity)]="entity.customer"
-                             (selectedEntityChange)="entity.addFieldtoUpdate('customer')"></customer-select>
+            <customer-select [required]="true" class="col-sm-4" [(ngModel)]="entity.customer"
+                             (ngModelChange)="entity.addFieldtoUpdate('customer')"></customer-select>
           </div>
           <div class="form-group">
             <label class="col-sm-2 control-label">Verantwortlicher Mitarbeiter</label>
-            <user-select class="col-sm-4" [(selectedEntity)]="entity.accountant" (selectedEntityChange)="addSaveField('accountant')"></user-select>
+            <user-select class="col-sm-4" [(ngModel)]="entity.accountant" (ngModelChange)="addSaveField('accountant')"></user-select>
           </div>
           <div class="form-group">
             <div class="col-sm-offset-2 col-sm-4">
@@ -64,13 +64,13 @@
           </div>
           <div class="form-group">
             <label class="col-sm-2 control-label">Tarif Gruppe</label>
-            <rategroup-select [placeholder]="entity?.customer?.rateGroup?.name ?? ''" class="col-sm-4" [(selectedEntity)]="entity.rateGroup" (selectedEntityChange)="entity.addFieldtoUpdate('rateGroup')"></rategroup-select>
+            <rategroup-select [placeholder]="entity?.customer?.rateGroup?.name ?? ''" class="col-sm-4" [(ngModel)]="entity.rateGroup" (ngModelChange)="entity.addFieldtoUpdate('rateGroup')"></rategroup-select>
             <help-tooltip text="Falls keine Tarif Gruppe ausgewählt ist, wird die Tarif Gruppe des Kunden verwendet"></help-tooltip>
           </div>
           <div class="form-group">
             <label class="col-sm-2 control-label">Tätigkeitsbereich</label>
-            <projectCategory-select [required]="true" class="col-sm-4" [(selectedEntity)]="entity.projectCategory"
-                                    (selectedEntityChange)="entity.addFieldtoUpdate('projectCategory')"></projectCategory-select>
+            <projectCategory-select [required]="true" class="col-sm-4" [(ngModel)]="entity.projectCategory"
+                                    (ngModelChange)="entity.addFieldtoUpdate('projectCategory')"></projectCategory-select>
           </div>
           <div class="form-group">
             <label class="col-sm-2 control-label">Deadline</label>

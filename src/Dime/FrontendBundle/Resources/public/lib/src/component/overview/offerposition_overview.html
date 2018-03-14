@@ -10,7 +10,7 @@
           <thead>
             <tr>
               <th>Reihenfolge</th>
-              <th class="col-sm-5">Service</th>
+              <th class="col-sm-4">Service</th>
               <th>Tarif</th>
               <th>Tarif Einheit</th>
               <th>Einheits-Typ</th>
@@ -29,10 +29,10 @@
               ngControlGroup="position{{i}}"
               #row="ngForm">
               <td validationStatus class="form-group"><input required ngControl="order{{i}}" class="form-control" type="number" [(ngModel)]="entity.order" (change)="addSaveField('order', entity)"/></td>
-              <td><service-select hideArchived [(selectedEntity)]="entity.service" (selectedEntityChange)="entity.addFieldtoUpdate('service')"></service-select></td>
+              <td validationStatus class="form-group"><service-select required ngControl="service{{i}}" hideArchived [(ngModel)]="entity.service" (ngModelChange)="entity.addFieldtoUpdate('service')"></service-select></td>
               <td validationStatus class="form-group"><input required ngControl="rateValue{{i}}" class="form-control" type="text" [(ngModel)]="entity.rateValue" (change)="addSaveField('rateValue', entity)"/></td>
               <td validationStatus class="form-group"><input required ngControl="rateUnit{{i}}" class="form-control" type="text" [(ngModel)]="entity.rateUnit" (change)="addSaveField('rateUnit', entity)"/></td>
-              <td><rateunittype-select [(selectedEntity)]="entity.rateUnitType" (selectedEntityChange)="entity.addFieldtoUpdate('rateUnitType')"></rateunittype-select></td>
+              <td validationStatus class="form-group"><rateunittype-select required ngControl="rateUnitType{{i}}" [(ngModel)]="entity.rateUnitType" (ngModelChange)="entity.addFieldtoUpdate('rateUnitType')"></rateunittype-select></td>
               <td validationStatus class="form-group"><input required ngControl="amount{{i}}" class="form-control" type="number" [(ngModel)]="entity.amount" (change)="addSaveField('amount', entity)"/></td>
               <td><input-percentage [htmlclass]="'form-control'" [(value)]="entity.vat" (change)="addSaveField('vat', entity)"></input-percentage></td>
               <td><input class="checkbox" type="checkbox" [(ngModel)]="entity.discountable" (change)="addSaveField('discountable', entity)"/></td>

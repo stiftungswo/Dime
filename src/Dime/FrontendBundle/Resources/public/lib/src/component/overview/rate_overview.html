@@ -17,10 +17,10 @@
       </thead>
       <tbody *ngIf="entities != null">
         <tr *ngFor="let entity of entities" (click)="selectEntity(entity.id)" [class.info]="isSelected(entity)">
-          <td><rategroup-select [(selectedEntity)]="entity.rateGroup" (selectedEntityChange)="entity.addFieldtoUpdate('rateGroup')"></rategroup-select></td>
+          <td><rategroup-select [(ngModel)]="entity.rateGroup" (ngModelChange)="entity.addFieldtoUpdate('rateGroup')"></rategroup-select></td>
           <td><input style="width: 100%;" class="form-control" type="text" required [(ngModel)]="entity.rateValue" (change)="addSaveField('rateValue', entity)" /></td>
           <td><input style="width: 100%;" class="form-control" type="text" [(ngModel)]="entity.rateUnit" (change)="addSaveField('rateUnit', entity)"/></td>
-          <td><rateunittype-select [(selectedEntity)]="entity.rateUnitType" (selectedEntityChange)="entity.addFieldtoUpdate('rateUnitType')"></rateunittype-select></td>
+          <td><rateunittype-select [(ngModel)]="entity.rateUnitType" (ngModelChange)="entity.addFieldtoUpdate('rateUnitType')"></rateunittype-select></td>
           <td><dime-button (click)="deleteEntity(entity.id)" fontAwesome="trash-o" color="red"></dime-button></td>
         </tr>
       </tbody>

@@ -14,34 +14,11 @@ import 'entity_select.dart';
   selector: 'customer-select',
   templateUrl: 'customer_select.html',
   directives: const [CORE_DIRECTIVES, formDirectives],
-  providers: const[const Provider(NG_VALUE_ACCESSOR, useExisting: CustomerSelectComponent, multi: true)],
   pipes: const [dimePipes],
+  providers: const[const Provider(NG_VALUE_ACCESSOR, useExisting: CustomerSelectComponent, multi: true)],
 )
-class CustomerSelectComponent extends EntitySelect<Customer> implements ControlValueAccessor<Customer>{
-  ChangeFunction<Customer> onChange;
-
+class CustomerSelectComponent extends EntitySelect<Customer>{
   CustomerSelectComponent(DataCache store, dom.Element element, StatusService status, UserAuthProvider auth)
       : super(Customer, store, element, status, auth);
 
-  @override
-  void registerOnChange(ChangeFunction<Customer> f) {
-    this.onChange = f;
-  }
-
-  @override
-  void registerOnTouched(TouchFunction f) {
-    //don't care, for now
-  }
-
-  @override
-  void writeValue(Customer obj) {
-    this.selectedEntity = obj;
-  }
-
-  @override
-  void select(Customer entity) {
-    this.selectedEntity = entity;
-    onChange(entity);
-    this.open = false;
-  }
 }

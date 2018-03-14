@@ -6,11 +6,11 @@
     <div class="row">
       <div class="col-md-6">
         <label>Projekt:</label>
-        <project-select [clearOnClose]="true" [(selectedEntity)]="project"></project-select>
+        <project-select [clearOnClose]="true" [(ngModel)]="project"></project-select>
       </div>
       <div class="col-md-6">
         <label>Benutzer:</label>
-        <user-select [clearOnClose]="true" [(selectedEntity)]="employee"></user-select>
+        <user-select [clearOnClose]="true" [(ngModel)]="employee"></user-select>
       </div>
     </div>
     <div class="row">

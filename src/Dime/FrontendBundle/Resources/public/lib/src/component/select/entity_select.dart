@@ -4,14 +4,14 @@ import 'dart:html';
 import 'dart:math' as math;
 
 import 'package:angular/angular.dart';
-import 'package:meta/meta.dart';
+import 'package:angular_forms/angular_forms.dart';
 
 import '../../model/Entity.dart';
 import '../../service/data_cache.dart';
 import '../../service/status.dart';
 import '../../service/user_auth.dart';
 
-abstract class EntitySelect<T extends Entity> implements OnInit {
+abstract class EntitySelect<T extends Entity> implements OnInit, ControlValueAccessor<T> {
   DataCache store;
   dom.Element element;
   bool open = false;
@@ -30,23 +30,19 @@ abstract class EntitySelect<T extends Entity> implements OnInit {
   @Input('placeholder')
   String placeholder = '';
 
-  EntitySelect(this.type, this.store, this.element, this.statusservice, this.auth);
+  ChangeFunction<T> onChange;
 
   T _selectedEntity;
 
-  @protected
-  final StreamController<Entity> selectedEntityEvent = new StreamController<Entity>();
-
-  @Input('selectedEntity')
   set selectedEntity(T entity) {
     this._selectedEntity = entity;
     this.selector = EntText;
+    onChange(entity);
   }
 
   T get selectedEntity => _selectedEntity;
 
-  @Output('selectedEntityChange')
-  Stream<Entity> get selectedEntityChange => selectedEntityEvent.stream;
+  EntitySelect(this.type, this.store, this.element, this.statusservice, this.auth);
 
   String get EntText => this._selectedEntity != null ? this._selectedEntity.name : '';
 
@@ -75,7 +71,6 @@ abstract class EntitySelect<T extends Entity> implements OnInit {
 
   void select(T entity) {
     this.selectedEntity = entity;
-    selectedEntityEvent.add(entity);
     this.open = false;
   }
 
@@ -104,10 +99,26 @@ abstract class EntitySelect<T extends Entity> implements OnInit {
     if (this.open) {
       if (clearOnClose) {
         this.selectedEntity = null;
-        selectedEntityEvent.add(null);
       }
       this.selector = EntText;
       this.open = false;
     }
   }
+
+  @override
+  void registerOnChange(ChangeFunction<T> f) {
+    this.onChange = f;
+  }
+
+  @override
+  void registerOnTouched(TouchFunction f) {
+    //don't care, for now
+  }
+
+  @override
+  void writeValue(T obj) {
+    this._selectedEntity = obj;
+    this.selector = EntText;
+  }
+
 }

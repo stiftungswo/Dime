@@ -16,7 +16,7 @@
         <tr *ngFor="let entity of projectAssignments" (click)="selectEntity(entity.id)" [class.info]="isSelected(entity)">
           <td>{{entity.id}}</td>
           <td>{{entity.name}}</td>
-          <td><project-select [(selectedEntity)]="entity.project" (selectedEntityChange)="addSaveField('project', entity)"></project-select></td>
+          <td><project-select [(ngModel)]="entity.project" (ngModelChange)="addSaveField('project', entity)"></project-select></td>
           <td><dime-button (click)="deleteEntity(entity.id)" fontAwesome="trash-o" color="red"></dime-button></td>
         </tr>
       </tbody>

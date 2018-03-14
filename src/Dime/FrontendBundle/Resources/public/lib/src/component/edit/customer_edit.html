@@ -36,7 +36,7 @@
       </div>
       <div class="form-group">
         <label class="col-sm-2 control-label">Tarif Gruppe</label>
-        <rategroup-select class="col-sm-4" [(selectedEntity)]="entity.rateGroup" (selectedEntityChange)="addSaveField('rateGroup')"></rategroup-select>
+        <rategroup-select class="col-sm-4" [(ngModel)]="entity.rateGroup" (ngModelChange)="addSaveField('rateGroup')"></rategroup-select>
       </div>
       <div class="form-group">
         <div class="col-sm-offset-2 col-sm-4 checkbox">

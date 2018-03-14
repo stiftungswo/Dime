@@ -19,8 +19,8 @@
     <tbody>
         <tr *ngFor="let entity of entities | timeslicedatefilter:filterStartDate:filterEndDate | orderBy:'startedAt'" (click)="selectRow($event, entity)" [class.info]="selectedTimeslices.contains(entity.id)">
             <td></td>
-            <td *ngIf="projectBased"><user-select [(selectedEntity)]="entity.employee" [parentEmployees]="employees" (selectedEntityChange)="entity.addFieldtoUpdate('employee')"></user-select></td>
-            <td><activity-select [is-readonly]="true" [(selectedEntity)]="entity.activity" [parent-activities]="activities" [project]="entity?.project?.id" (selectedEntityChange)="entity.addFieldtoUpdate('activity')"></activity-select></td>
+            <td *ngIf="projectBased"><user-select [(ngModel)]="entity.employee" [parentEmployees]="employees" (ngModelChange)="entity.addFieldtoUpdate('employee')"></user-select></td>
+            <td><activity-select [is-readonly]="true" [(ngModel)]="entity.activity" [parent-activities]="activities" [project]="entity?.project?.id" (ngModelChange)="entity.addFieldtoUpdate('activity')"></activity-select></td>
             <td><dateinput [is-readonly]="true" style="width: 100%;" [(date)]="entity.startedAt"></dateinput></td>
             <td><input style="width: 100%;" class="form-control" [(ngModel)]="entity.value" (change)="addSaveField('value', entity)"/></td>
             <td><dime-button (click)="deleteEntity(entity.id)" fontAwesome="trash-o" color="red"></dime-button></td>
@@ -42,19 +42,19 @@
         </div>
         <div *ngIf="projectBased == true" class="col-md-2">
             <label>Benutzer</label>
-            <user-select [clearOnClose]="false" [parentEmployees]="employees" [(selectedEntity)]="employee" [useContext]="false"></user-select>
+            <user-select [clearOnClose]="false" [parentEmployees]="employees" [(ngModel)]="employee" [useContext]="false"></user-select>
         </div>
         <div *ngIf="projectBased == false" class="col-md-2">
             <label>Benutzer</label>
-            <user-select [clearOnClose]="false" [(selectedEntity)]="employee" [useContext]="true"></user-select>
+            <user-select [clearOnClose]="false" [(ngModel)]="employee" [useContext]="true"></user-select>
         </div>
         <div *ngIf="allowProjectSelect" class="col-md-4">
             <label>Projekt</label>
-            <project-select [hideArchived]="true" [(selectedEntity)]="selectedProject"></project-select>
+            <project-select [hideArchived]="true" [(ngModel)]="selectedProject"></project-select>
         </div>
         <div class="col-md-2">
             <label>Aktivität</label>
-            <activity-select [(selectedEntity)]="selectedActivity" [parent-activities]="activities" [project]="selectedProject?.id" [shortname]="true"></activity-select>
+            <activity-select [(ngModel)]="selectedActivity" [parent-activities]="activities" [project]="selectedProject?.id" [shortname]="true"></activity-select>
         </div>
         <div class="col-md-1">
             <label>Wert</label>
@@ -89,7 +89,7 @@
                     <div class="row">
                         <div class="col-md-4">
                             <label>Projekt</label>
-                            <project-select [hideArchived]="true" [(selectedEntity)]="moveTargetProject"></project-select>
+                            <project-select [hideArchived]="true" [(ngModel)]="moveTargetProject"></project-select>
                         </div>
                     </div>
                     <div class="row">
