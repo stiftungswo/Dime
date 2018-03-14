@@ -59,12 +59,11 @@ class ProjectemployeeReportComponent implements OnInit {
       try {
         String dateparams = null;
         if (filterStartDate != null && filterEndDate != null) {
-          //TODO(98) use encodeDateRange everywhere
-          dateparams = new DateFormat('y-MM-dd').format(filterStartDate) + ',' + new DateFormat('y-MM-dd').format(filterEndDate);
+          dateparams = encodeDateRange(filterStartDate, filterEndDate);
         } else if (filterStartDate != null) {
-          dateparams = new DateFormat('y-MM-dd').format(filterStartDate);
+          dateparams = encodeDate(filterStartDate);
         } else if (filterEndDate != null) {
-          dateparams = new DateFormat('y-MM-dd').format(filterEndDate);
+          dateparams = encodeDate(filterEndDate);
         }
         await http
             .get("reports/projectemployee", queryParams: {"date": dateparams, "_format": "json", "project": project.id}).then((result) {
