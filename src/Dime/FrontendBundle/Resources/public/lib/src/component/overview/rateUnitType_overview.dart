@@ -24,10 +24,6 @@ class RateUnitTypeOverviewComponent extends EntityOverview<RateUnitType> {
       DataCache store, SettingsManager manager, StatusService status, EntityEventsService entityEventsService, UserAuthProvider auth)
       : super(RateUnitType, store, '', manager, status, entityEventsService, auth: auth);
 
-  // todo(98) why is this overridden? just use the parents... (also in other places)
-  @override
-  dynamic selectedEntId;
-
   @override
   RateUnitType cEnt({RateUnitType entity}) {
     return new RateUnitType();

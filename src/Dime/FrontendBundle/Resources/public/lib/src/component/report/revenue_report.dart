@@ -1,5 +1,4 @@
 import 'package:angular/angular.dart';
-import 'package:intl/intl.dart';
 
 import '../../service/http_service.dart';
 import '../../service/status.dart';

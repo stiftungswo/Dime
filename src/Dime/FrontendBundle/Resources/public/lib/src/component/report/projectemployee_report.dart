@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:angular/angular.dart';
-import 'package:intl/intl.dart';
 
 import '../../model/entity_export.dart';
 import '../../service/http_service.dart';

@@ -3,7 +3,6 @@ import 'dart:html';
 
 import 'package:angular/angular.dart';
 import 'package:hammock/hammock.dart';
-import 'package:intl/intl.dart';
 
 import '../../model/entity_export.dart';
 import '../../service/data_cache.dart';
