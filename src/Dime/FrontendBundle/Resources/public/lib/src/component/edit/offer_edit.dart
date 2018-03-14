@@ -22,6 +22,7 @@ import 'edit.dart';
 @Component(
   selector: 'offer-edit',
   templateUrl: 'offer_edit.html',
+  pipes: const[COMMON_PIPES],
   directives: const [
     CORE_DIRECTIVES,
     formDirectives,
@@ -52,8 +53,10 @@ class OfferEditComponent extends EntityEdit<Offer> {
 
   HttpService http;
 
+  ApplicationRef ref;
+
   OfferEditComponent(RouteParams routeProvider, DataCache store, StatusService status, UserAuthProvider auth, Router router,
-      EntityEventsService entityEventsService, this.http)
+      EntityEventsService entityEventsService, this.http, this.ref)
       : super(routeProvider, store, Offer, status, auth, router, entityEventsService);
 
   @override

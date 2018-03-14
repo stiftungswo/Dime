@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:html';
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
 
@@ -79,14 +80,33 @@ class DimeBox {
 @Component(
   selector: "validation-wrapper",
   template: """
-    <span class="form-group" [class.has-error]="validatable != null && !validatable.valid">
+    <span class="form-group" [class.has-error]="control != null && !control.valid">
       <ng-content></ng-content>
     </span>
   """,
   directives: const [CORE_DIRECTIVES]
 )
 class ValidationWrapper {
-  @ContentChild(Validatable) Validatable validatable;
+  @ContentChild(NgControl) NgControl control;
+}
+
+@Directive(
+  selector: '[validationStatus]'
+)
+class ValidationStatusDirective implements AfterContentChecked{
+  final Element el;
+  @ContentChild(NgControl) NgControl control;
+
+  ValidationStatusDirective(this.el);
+
+  @override
+  ngAfterContentChecked(){
+    if(control.valid){
+      el.classes.remove("has-error");
+    } else {
+      el.classes.add("has-error");
+    }
+  }
 }
 
 //TODO move this into a seperate file
