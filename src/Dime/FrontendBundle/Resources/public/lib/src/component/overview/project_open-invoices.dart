@@ -60,7 +60,6 @@ class ProjectOpenInvoicesComponent extends EntityOverview<Project> {
               .customQueryList<Project>(Project, new CustomRequestParams(method: 'GET', url: '${http.baseUrl}/projectsopeninvoices')))
           .toList();
       this.statusservice.setStatusToSuccess();
-      //this.rootScope.emit(this.type.toString() + 'Loaded');
     } catch (e, stack) {
       print("Unable to load ${this.type.toString()} because ${e}");
       this.statusservice.setStatusToError(e, stack);

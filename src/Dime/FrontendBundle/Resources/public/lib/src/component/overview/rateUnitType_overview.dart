@@ -24,7 +24,7 @@ class RateUnitTypeOverviewComponent extends EntityOverview<RateUnitType> {
       DataCache store, SettingsManager manager, StatusService status, EntityEventsService entityEventsService, UserAuthProvider auth)
       : super(RateUnitType, store, '', manager, status, entityEventsService, auth: auth);
 
-  // override to accept strings todo: use generics
+  // todo(98) why is this overridden? just use the parents... (also in other places)
   @override
   dynamic selectedEntId;
 
@@ -59,7 +59,6 @@ class RateUnitTypeOverviewComponent extends EntityOverview<RateUnitType> {
       this.entities.removeWhere((enty) => enty.id == resp.id);
       this.entities.add(resp);
       this.statusservice.setStatusToSuccess();
-//      this.rootScope.emit(this.type.toString() + 'Changed');
     } catch (e, stack) {
       this.statusservice.setStatusToError(e, stack);
     }
@@ -85,7 +84,6 @@ class RateUnitTypeOverviewComponent extends EntityOverview<RateUnitType> {
           }
           this.entities.removeWhere((enty) => enty.id == entId);
           this.statusservice.setStatusToSuccess();
-//          this.rootScope.emit(this.type.toString() + 'Deleted');
         } catch (e, stack) {
           this.statusservice.setStatusToError(e, stack);
         }

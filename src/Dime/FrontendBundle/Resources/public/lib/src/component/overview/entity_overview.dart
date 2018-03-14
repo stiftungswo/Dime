@@ -67,7 +67,6 @@ abstract class EntityOverview<T extends Entity> implements OnInit {
       this.entities.removeWhere((enty) => enty.id == resp.id);
       this.entities.add(resp);
       this.statusservice.setStatusToSuccess();
-//      this.rootScope.emit(this.type.toString() + 'Changed');
     } catch (e, stack) {
       print("Unable to save entity ${this.type.toString()}::${entity.id} because ${e}");
       this.statusservice.setStatusToError(e, stack);
@@ -97,8 +96,6 @@ abstract class EntityOverview<T extends Entity> implements OnInit {
     try {
       T resp = await this.store.create(newEnt);
       this.statusservice.setStatusToSuccess();
-      //FIXME reimplement
-      //this.rootScope.emit(this.type.toString() + 'Created');
       if (this.router != null) {
         this.openEditView(resp.id as int);
       } else {
@@ -127,7 +124,6 @@ abstract class EntityOverview<T extends Entity> implements OnInit {
           await this.store.create(entity);
         }
         this.statusservice.setStatusToSuccess();
-//        this.rootScope.emit(this.type.toString() + 'Duplicated');
       } catch (e, stack) {
         print("Unable to duplicate entity ${this.type.toString()}::${newEnt.id} because ${e}");
         this.statusservice.setStatusToError(e, stack);
@@ -149,7 +145,6 @@ abstract class EntityOverview<T extends Entity> implements OnInit {
           }
           this.entities.removeWhere((enty) => enty.id == entId);
           this.statusservice.setStatusToSuccess();
-//          this.rootScope.emit(this.type.toString() + 'Deleted');
         } catch (e, stack) {
           print("Unable to Delete entity ${this.type.toString()}::${entId} because ${e}");
           this.statusservice.setStatusToError(e, stack);
@@ -191,7 +186,6 @@ abstract class EntityOverview<T extends Entity> implements OnInit {
   }
 
   Future reload({Map<String, dynamic> params, bool evict: false}) async {
-    // todo: make sure there aren't two reloads happening at the same time (breaks form / validation)
     this.entities = [];
     this.statusservice.setStatusToLoading();
     try {
@@ -200,7 +194,6 @@ abstract class EntityOverview<T extends Entity> implements OnInit {
       }
       this.entities = (await this.store.list(this.type, params: params)).toList() as List<T>;
       this.statusservice.setStatusToSuccess();
-//      this.rootScope.emit(this.type.toString() + 'Loaded');
     } catch (e, stack) {
       print("Unable to load ${this.type.toString()} because ${e}");
       this.statusservice.setStatusToError(e, stack);

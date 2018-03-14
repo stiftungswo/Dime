@@ -17,7 +17,6 @@
         </tr>
       </thead>
       <tbody *ngIf="entities != null">
-        <!-- TODO: hierfür drag&drop reorder verwenden -->
         <tr *ngFor="let entity of entities | orderBy:'order'" (click)="selectEntity(entity.id)" [class.info]="isSelected(entity)">
           <td><input class="form-control" type="number" [(ngModel)]="entity.order" (change)="addSaveField('order', entity)"/></td>
           <td><input style="width: 100%;" class="form-control" type="text" [(ngModel)]="entity.name" (change)="addSaveField('name', entity)"/></td>

@@ -61,7 +61,7 @@ class SettingAssignProject extends Entity {
       SettingAssignProject a = new SettingAssignProject.fromMap(element);
       settingAssignProject.add(a);
     }
-    return settingAssignProject; // todo is this right? check how old code worked
+    return settingAssignProject;
   }
 
   @override

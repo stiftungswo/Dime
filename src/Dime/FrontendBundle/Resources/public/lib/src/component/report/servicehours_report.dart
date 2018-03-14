@@ -53,7 +53,6 @@ class ServicehoursReportComponent implements OnInit {
           this.total = data['total'] as Map<String, dynamic>;
         });
         this.statusservice.setStatusToSuccess();
-        //this.rootScope.emit(this.type.toString() + 'Loaded');
       } catch (e, stack) {
         this.statusservice.setStatusToError(e, stack);
       }

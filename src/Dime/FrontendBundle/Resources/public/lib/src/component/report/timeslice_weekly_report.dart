@@ -129,7 +129,6 @@ class TimesliceWeeklyReportComponent extends EntityOverview<ExpenseReport> {
             'date': '${format.format(filterStartDate)},${format.format(filterEndDate)}',
           }, method: 'GET', url: '${http.baseUrl}/reports/ziviweekly')));
       this.statusservice.setStatusToSuccess();
-      //this.rootScope.emit(this.type.toString() + 'Loaded');
     } catch (e, stack) {
       this.statusservice.setStatusToError(e, stack);
     }

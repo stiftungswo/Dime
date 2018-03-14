@@ -407,8 +407,8 @@ class TimesliceOverviewComponent extends EntityOverview<Timeslice> {
   }
 
   void selectRow(dynamic event, Timeslice timeslice) {
-    //TODO event is actually a MouseEvent, but dart doesn't know it has a "nodeName" property?
-    //only fire when a td was clicked, not any input elements
+    // event is actually a MouseEvent, but dart doesn't know it has a "nodeName" property
+    // only fire when a td was clicked, not any input elements
     if (event.target.nodeName == "TD") {
       toggleTimeslice(timeslice);
     }

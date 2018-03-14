@@ -22,16 +22,6 @@ class RevenueReportComponent implements OnInit {
     DateTime now = new DateTime.now();
     this.filterStartDate = new DateTime(now.year, 1, 1);
     this.filterEndDate = new DateTime(now.year, 12, 31);
-    reload();
-  }
-
-  void reloadEvict() => reload(evict: true);
-
-  reload({Map<String, dynamic> params, bool evict: false}) async {
-    if (filterStartDate != null && filterEndDate != null) {
-      // TODO: this code seems dead - remove it
-      String _ = '&date=' + new DateFormat('y-MM-dd').format(filterStartDate) + ',' + new DateFormat('y-MM-dd').format(filterEndDate);
-    }
   }
 
   getCsvLink() {

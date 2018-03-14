@@ -16,9 +16,12 @@ import '../../service/user_auth.dart';
 import '../elements/dime_directives.dart';
 import 'entity_overview.dart';
 
-@Component(selector: 'service-overview', templateUrl: 'service_overview.html',
-    //TODO why does this have router_directives while others don't?
-    directives: const [formDirectives, COMMON_DIRECTIVES, ROUTER_DIRECTIVES, dimeDirectives], pipes: const [dimePipes])
+@Component(
+  selector: 'service-overview',
+  templateUrl: 'service_overview.html',
+  directives: const [formDirectives, COMMON_DIRECTIVES, dimeDirectives],
+  pipes: const [dimePipes],
+)
 class ServiceOverviewComponent extends EntityOverview<Service> {
   ServiceOverviewComponent(DataCache store, Router router, SettingsManager manager, StatusService status, UserAuthProvider auth,
       EntityEventsService entityEventsService)

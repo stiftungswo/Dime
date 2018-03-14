@@ -101,7 +101,6 @@ class OfferOverviewComponent extends EntityOverview<Offer> {
           await this.store.create(entity);
         }
         this.statusservice.setStatusToSuccess();
-        // this.rootScope.emit(this.type.toString() + 'Duplicated');
       } catch (e, stack) {
         print("Unable to duplicate entity ${this.type.toString()}::${newOffer.id} because ${e}");
         this.statusservice.setStatusToError(e, stack);

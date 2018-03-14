@@ -72,7 +72,6 @@ class InvoiceOverviewComponent extends EntityOverview<Invoice> {
         }
 
         this.statusservice.setStatusToSuccess();
-        //this.rootScope.emit(this.type.toString() + 'Duplicated');
       } catch (e, stack) {
         print("Unable to duplicate entity ${this.type.toString()}::${newEnt.id} because ${e}");
         this.statusservice.setStatusToError(e, stack);

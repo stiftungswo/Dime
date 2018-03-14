@@ -19,7 +19,6 @@ import 'package:angular/angular.dart';
 class DimeButton {
   final _onClick = new StreamController<String>();
 
-  // todo maybe rename to avoid collision with angular
   @Output('click')
   Stream<String> get onClick => _onClick.stream;
   @Input()

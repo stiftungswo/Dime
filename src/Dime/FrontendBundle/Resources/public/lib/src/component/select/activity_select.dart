@@ -36,18 +36,6 @@ class ActivitySelectComponent extends EntitySelect<Activity> implements OnChange
   @Input('parent-activities')
   List<Activity> parentActivities = null;
 
-  /*
-  todo check if this.ngOnChanges replaces the old scope() method
-  @override
-  void set scope(Scope scope) {
-    // FIXME 'projectId' is sometimes set to null (inside timeslice_overview).
-    // Use this scope watcher to debug projectId value.
-    //scope.watch('projectId', (newval, oldval) => onChange(oldval, newval));
-
-    // watch parentActivities to make sure it redraws
-    scope.watch('parentActivities', (newval, oldval) => onChange(oldval, newval));
-  }*/
-
   @override
   void ngOnChanges(Map<String, SimpleChange> changes) {
     if (changes.containsKey('parentActivities')) {

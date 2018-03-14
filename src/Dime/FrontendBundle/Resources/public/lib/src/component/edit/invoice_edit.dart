@@ -127,7 +127,6 @@ class InvoiceEditComponent extends EntityEdit<Invoice> {
     ]);
   }
 
-  //TODO: this might be dead code (from copy/paste). Creating an invoice form an invoice doesn't make too much sense.
   Future createInvoice() async {
     Invoice newInvoice = await this
         .store
@@ -145,8 +144,6 @@ class InvoiceEditComponent extends EntityEdit<Invoice> {
     if (costgroupsValid) {
       return super.saveEntity();
     } else {
-      //TODO scroll to the input or give some better feedback
-      print("NOOOOOOOOO");
       window.alert('Es müssen noch Kostenstellen hinterlegt werden!');
       return false;
     }

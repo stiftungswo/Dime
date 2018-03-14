@@ -122,7 +122,7 @@ class Period extends Entity {
   int realTime;
   num targetTime;
   num timeTillToday;
-  dynamic /* todo: was int */ employeeholiday;
+  dynamic /* todo(98) was int, replace with num and test */ employeeholiday;
   num holidayBalance;
   String lastYearHolidayBalance;
 }

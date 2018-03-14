@@ -59,7 +59,7 @@ class ProjectemployeeReportComponent implements OnInit {
       try {
         String dateparams = null;
         if (filterStartDate != null && filterEndDate != null) {
-          //TODO use encodeDateRange here
+          //TODO(98) use encodeDateRange everywhere
           dateparams = new DateFormat('y-MM-dd').format(filterStartDate) + ',' + new DateFormat('y-MM-dd').format(filterEndDate);
         } else if (filterStartDate != null) {
           dateparams = new DateFormat('y-MM-dd').format(filterStartDate);
@@ -73,7 +73,6 @@ class ProjectemployeeReportComponent implements OnInit {
           this.total = data['total'] as int;
         });
         this.statusservice.setStatusToSuccess();
-        //this.rootScope.emit(this.type.toString() + 'Loaded');
       } catch (e, stack) {
         this.statusservice.setStatusToError(e, stack);
         rethrow;

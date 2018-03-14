@@ -35,12 +35,6 @@ class PeriodOverviewComponent extends EntityOverview<Period> {
     return new Period();
   }
 
-  //TODO: clean this up; is any of it actually needed?
-//    this.scope.rootScope.on('TimesliceChanged').listen(onTimesliceChange);
-//    this.scope.rootScope.on('TimesliceCreated').listen(onTimesliceChange);
-//    this.scope.rootScope.on('TimesliceDeleted').listen(onTimesliceChange);
-//    this.scope.rootScope.on('saveChanges').listen(saveAllEntities);
-
   void onTimesliceChange() {
     this.reload();
   }
@@ -105,7 +99,6 @@ class PeriodOverviewComponent extends EntityOverview<Period> {
         });
       }
       this.statusservice.setStatusToSuccess();
-      //this.rootScope.emit(this.type.toString() + 'Loaded');
     } catch (e, stack) {
       print("Unable to load ${this.type.toString()} because ${e}");
       this.statusservice.setStatusToError(e, stack);
