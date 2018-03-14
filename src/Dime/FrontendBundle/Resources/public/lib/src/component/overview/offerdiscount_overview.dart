@@ -13,7 +13,7 @@ import 'entity_overview.dart';
 
 @Component(
   selector: 'offerdiscount-overview',
-  templateUrl: 'offerdiscount_overview.html',
+  templateUrl: 'invoicediscount_overview.html', // uses InvoiceDiscountOverviewComponent template because both require the EXACT same markup
   directives: const [CORE_DIRECTIVES, formDirectives, dimeDirectives],
 )
 class OfferDiscountOverviewComponent extends EntityOverview<OfferDiscount> {
