@@ -57,5 +57,5 @@ class ExpenseReport extends Entity {
   Project project;
   @override
   User user;
-  dynamic totalHours; //todo(98) int? replace with num and test
+  dynamic /* num | String */ totalHours;
 }
