@@ -1,89 +1,77 @@
 <h2 class="page-header">{{entity?.name}}&nbsp;</h2>
 
-<div class="nav-tabs-custom">
-  <ul class="nav nav-tabs">
-    <template [ngIf]="entity?.offers != null && !entity.offers.isEmpty">
-      <li *ngFor="let offer of entity.offers">
-        <a data-toggle="tab" (click)="openOffer(offer.id)">Offerte {{offer.id}}</a>
-      </li>
-    </template>
-    <li class="active"><a data-toggle="tab">Projekt {{entity?.id}}</a></li>
-    <template [ngIf]="entity?.invoices != null && !entity.invoices.isEmpty">
-      <li *ngFor="let invoice of entity.invoices">
-        <a data-toggle="tab" (click)="openInvoice(invoice.id)">Rechnung {{invoice.id}}</a>
-      </li>
-    </template>
-    <li><a data-toggle="tab" (click)="createInvoice()"><i class="fa fa-fw fa-plus"></i> Rechnung erstellen</a></li>
-  </ul>
+<form *ngIf="entity != null" class="box-body" #editform="ngForm">
+  <div class="nav-tabs-custom">
+    <ul class="nav nav-tabs">
+      <template [ngIf]="entity?.offers != null && !entity.offers.isEmpty">
+        <li *ngFor="let offer of entity.offers">
+          <a data-toggle="tab" (click)="openOffer(offer.id)">Offerte {{offer.id}}</a>
+        </li>
+      </template>
+      <li class="active"><a data-toggle="tab">Projekt {{entity?.id}}</a></li>
+      <template [ngIf]="entity?.invoices != null && !entity.invoices.isEmpty">
+        <li *ngFor="let invoice of entity.invoices">
+          <a data-toggle="tab" (click)="openInvoice(invoice.id)">Rechnung {{invoice.id}}</a>
+        </li>
+      </template>
+      <li><a data-toggle="tab" (click)="createInvoice()"><i class="fa fa-fw fa-plus"></i> Rechnung erstellen</a></li>
+    </ul>
 
-  <div class="tab-content">
-    <form *ngIf="entity != null" class="box-body" #editform="ngForm">
+    <div class="tab-content">
       <div class="tab-pane active">
         <div class="form-horizontal">
-          <div class="form-group">
-            <label class="col-sm-2 control-label">Name</label>
-            <div class="col-sm-4">
-              <input name="name" required="true" style="width: 100%;" class="form-control" type="text"
+          <dime-form-group horizontal label="Name">
+              <input required ngControl="name" name="name" class="form-control"
                      [(ngModel)]="entity.name" (change)="addSaveField('name')">
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-2 control-label">Alias</label>
-            <div class="col-sm-4">
-              <input name="alias" required="true" style="width: 100%;" class="form-control" type="text"
+          </dime-form-group>
+          <dime-form-group horizontal label="Alias">
+              <input required ngControl="alias" name="alias" class="form-control"
                      [(ngModel)]="entity.alias" (change)="addSaveField('alias')">
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-2 control-label">Kunde</label>
-            <customer-select [required]="true" class="col-sm-4" [(ngModel)]="entity.customer"
+          </dime-form-group>
+          <dime-form-group horizontal label="Kunde">
+            <customer-select required ngControl="customer"
+                             [(ngModel)]="entity.customer"
                              (ngModelChange)="entity.addFieldtoUpdate('customer')"></customer-select>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-2 control-label">Verantwortlicher Mitarbeiter</label>
-            <user-select class="col-sm-4" [(ngModel)]="entity.accountant" (ngModelChange)="addSaveField('accountant')"></user-select>
-          </div>
-          <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-4">
-              <div class="checkbox">
-                <label>
-                  <input type="checkbox" [(ngModel)]="entity.chargeable" (change)="addSaveField('chargeable')"> Verrechenbar
-                </label>
-              </div>
+          </dime-form-group>
+          <dime-form-group horizontal label="Verantwortlicher Mitarbeiter">
+            <user-select
+              [(ngModel)]="entity.accountant"
+              (ngModelChange)="addSaveField('accountant')"></user-select>
+          </dime-form-group>
+          <dime-form-group horizontal>
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" [(ngModel)]="entity.chargeable" (change)="addSaveField('chargeable')"> Verrechenbar
+              </label>
             </div>
-          </div>
-          <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-4">
-              <div class="checkbox">
-                <label>
-                  <input type="checkbox" [(ngModel)]="entity.archived" (change)="addSaveField('archived')"> Archiviert
-                  <div class="text-muted">Wenn ein Projekt archiviert ist, kann nicht mehr darauf gebucht werden.</div>
-                </label>
-              </div>
+          </dime-form-group>
+          <dime-form-group horizontal help="Wenn ein Projekt archiviert ist, kann nicht mehr darauf gebucht werden.">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" [(ngModel)]="entity.archived" (change)="addSaveField('archived')"> Archiviert
+              </label>
             </div>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-2 control-label">Tarif Gruppe</label>
-            <rategroup-select [placeholder]="entity?.customer?.rateGroup?.name ?? ''" class="col-sm-4" [(ngModel)]="entity.rateGroup" (ngModelChange)="entity.addFieldtoUpdate('rateGroup')"></rategroup-select>
-            <help-tooltip text="Falls keine Tarif Gruppe ausgewählt ist, wird die Tarif Gruppe des Kunden verwendet"></help-tooltip>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-2 control-label">Tätigkeitsbereich</label>
-            <projectCategory-select [required]="true" class="col-sm-4" [(ngModel)]="entity.projectCategory"
+          </dime-form-group>
+          <dime-form-group horizontal label="Tarif Gruppe"
+                           help="Falls keine Tarif Gruppe ausgewählt ist, wird die Tarif Gruppe des Kunden verwendet">
+            <rategroup-select [placeholder]="entity?.customer?.rateGroup?.name ?? ''"
+                              [(ngModel)]="entity.rateGroup"
+                              (ngModelChange)="entity.addFieldtoUpdate('rateGroup')"></rategroup-select>
+          </dime-form-group>
+          <dime-form-group horizontal label="Tätigkeitsbereich">
+            <projectCategory-select required ngcontrol="projectCategory"
+                                    [(ngModel)]="entity.projectCategory"
                                     (ngModelChange)="entity.addFieldtoUpdate('projectCategory')"></projectCategory-select>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-2 control-label">Deadline</label>
-            <dateinput [null-allowed]="true" class="col-sm-4" [(date)]="entity.deadline" (dateChange)="addSaveField('deadline')"></dateinput>
-          </div>
+          </dime-form-group>
+          <dime-form-group horizontal label="Deadline">
+            <!-- TODO(98) rework this for ngModel, change/merge null-allowed to required? -->
+            <dateinput [null-allowed]="true" [(date)]="entity.deadline" (dateChange)="addSaveField('deadline')"></dateinput>
+          </dime-form-group>
         </div>
-        <div>
-          <div class="form-group">
-            <label class="control-label">Beschreibung</label>
-            <textarea class="form-control" [(ngModel)]="entity.description"
-                      (change)="addSaveField('description')"></textarea>
-          </div>
-        </div>
+        <dime-form-group label="Beschreibung">
+          <textarea class="form-control" [(ngModel)]="entity.description"
+                    (change)="addSaveField('description')"></textarea>
+        </dime-form-group>
         <div class="form-group">
           <div class="row" *ngIf="entity.currentPrice != null && entity.budgetPrice == null"><label
                   class="col-sm-2 col-xs-6 control-label">Verbuchte Kosten</label>
@@ -108,14 +96,14 @@
           </div>
         </div>
       </div>
-    </form>
+    </div>
   </div>
-</div>
 <activity-overview [project]="entity?.id"></activity-overview>
 <div class="DimeControlButtons">
-  <dime-button primary (click)="saveEntity()"><error-icon></error-icon></dime-button>
+  <dime-button primary [enabled]="editform.valid" (click)="saveEntity()"><error-icon></error-icon></dime-button>
   <dime-button (click)="reloadEvict()" glyphicon="refresh"></dime-button>
 </div>
+</form>
 <footer *ngIf="entity?.updatedAt != null">
   <div class="text-muted pull-right">
     <small>

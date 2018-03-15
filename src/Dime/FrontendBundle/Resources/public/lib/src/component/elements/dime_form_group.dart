@@ -1,4 +1,5 @@
 import 'dart:html';
+import 'help-tooltip.dart';
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
 
@@ -24,6 +25,7 @@ import 'package:angular_forms/angular_forms.dart';
       <div [class.col-sm-4]="horizontal">
         <ng-content></ng-content>
       </div>
+      <help-tooltip *ngIf="help != null" text="{{help}}"></help-tooltip>
       <ul *ngIf='control?.errors != null' class='help-block'>
         <li *ngIf="control.errors['required']">
           <i class="fa fa-times"></i>
@@ -32,13 +34,14 @@ import 'package:angular_forms/angular_forms.dart';
       </ul>
     </div>
   """,
-  directives: const [CORE_DIRECTIVES]
+  directives: const [CORE_DIRECTIVES, HelpTooltip]
 )
 class DimeFormGroup{
   @ContentChild(NgControl) NgControl control;
 
   @Input() bool horizontal = false;
   @Input() String label;
+  @Input() String help = null;
   String eId = null;
 }
 
