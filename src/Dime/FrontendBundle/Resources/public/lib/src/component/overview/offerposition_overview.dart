@@ -17,7 +17,7 @@ import 'entity_overview.dart';
 @Component(
   selector: 'offerposition-overview',
   templateUrl: 'offerposition_overview.html',
-  directives: const [CORE_DIRECTIVES, formDirectives, dimeDirectives, RateUnitTypeSelectComponent, ServiceSelectComponent, ValidationWrapper, ValidationStatusDirective],
+  directives: const [CORE_DIRECTIVES, formDirectives, dimeDirectives, RateUnitTypeSelectComponent, ServiceSelectComponent, ValidationStatusDirective, DimeBox],
   pipes: const [OrderByPipe],
 )
 class OfferPositionOverviewComponent extends EntityOverview<OfferPosition> {

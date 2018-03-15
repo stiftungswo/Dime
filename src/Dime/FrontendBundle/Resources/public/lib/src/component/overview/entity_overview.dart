@@ -270,6 +270,7 @@ abstract class EntityOverview<T extends Entity> implements OnInit, AfterViewInit
   void checkEntitiesEmpty() {
     if (required) {
       _entitiesHasContent.updateValue(_entities.isEmpty ? null : true);
+      _entitiesHasContent.markAsTouched();
     }
   }
 }

@@ -1,51 +1,45 @@
-<div class="row">
-  <div class="col-md-12">
-    <div class="box box-primary" [class.box-primary]="overview.valid" [class.box-danger]="!overview.valid">
-      <div class="box-header with-border">
-        <h3 class="box-title">Services</h3>
-      </div>
-      <div class="box-body" ngControlGroup="offerpositions" #overview="ngForm">
-        <table class="table table-bordered table-hover" >
-          <thead>
-            <tr>
-              <th>Reihenfolge</th>
-              <th class="col-sm-4">Service</th>
-              <th>Tarif</th>
-              <th>Tarif Einheit</th>
-              <th>Einheits-Typ</th>
-              <th>Menge</th>
-              <th>MwSt.</th>
-              <th>Rabattierbar</th>
-              <th>Total</th>
-              <th width="60">Aktion</th>
-            </tr>
-          </thead>
-          <tbody *ngIf="entities != null">
-            <tr
-              *ngFor="let entity of entities | orderBy:'order' ; let i = index"
-              (click)="selectEntity(entity.id)"
-              [ngClass]="rowClass(entity, row.valid)"
-              ngControlGroup="position{{i}}"
-              #row="ngForm">
-              <td validationStatus class="form-group"><input required ngControl="order{{i}}" class="form-control" type="number" [(ngModel)]="entity.order" (change)="addSaveField('order', entity)"/></td>
-              <td validationStatus class="form-group"><service-select required ngControl="service{{i}}" hideArchived [(ngModel)]="entity.service" (ngModelChange)="entity.addFieldtoUpdate('service')"></service-select></td>
-              <td validationStatus class="form-group"><input required ngControl="rateValue{{i}}" class="form-control" type="text" [(ngModel)]="entity.rateValue" (change)="addSaveField('rateValue', entity)"/></td>
-              <td validationStatus class="form-group"><input required ngControl="rateUnit{{i}}" class="form-control" type="text" [(ngModel)]="entity.rateUnit" (change)="addSaveField('rateUnit', entity)"/></td>
-              <td validationStatus class="form-group"><rateunittype-select required ngControl="rateUnitType{{i}}" [(ngModel)]="entity.rateUnitType" (ngModelChange)="entity.addFieldtoUpdate('rateUnitType')"></rateunittype-select></td>
-              <td validationStatus class="form-group"><input required ngControl="amount{{i}}" class="form-control" type="number" [(ngModel)]="entity.amount" (change)="addSaveField('amount', entity)"/></td>
-              <td><input-percentage [htmlclass]="'form-control'" [(value)]="entity.vat" (change)="addSaveField('vat', entity)"></input-percentage></td>
-              <td><input class="checkbox" type="checkbox" [(ngModel)]="entity.discountable" (change)="addSaveField('discountable', entity)"/></td>
-              <td>{{entity.total}}</td>
-              <td><dime-button (click)="deleteEntity(entity.id)" fontAwesome="trash-o" color="red"></dime-button></td>
-            </tr>
-          </tbody>
-        </table>
-        <div class="DimeControlButtons">
-          <dime-button primary (click)="createEntity()" glyphicon="plus">Hinzufügen</dime-button>
-          <dime-button primary (click)="duplicateEntity()" fontAwesome="copy">Duplizieren</dime-button>
-          <dime-button (click)="reloadEvict()" glyphicon="refresh"></dime-button>
-        </div>
-      </div>
-    </div>
+<dime-box title="Services">
+  <div boxBody ngControlGroup="offerpositions" #overview="ngForm">
+    <table class="table table-bordered table-hover" >
+      <thead>
+        <tr>
+          <th>Reihenfolge</th>
+          <th class="col-sm-4">Service</th>
+          <th>Tarif</th>
+          <th>Tarif Einheit</th>
+          <th>Einheits-Typ</th>
+          <th>Menge</th>
+          <th>MwSt.</th>
+          <th>Rabattierbar</th>
+          <th>Total</th>
+          <th width="60">Aktion</th>
+        </tr>
+      </thead>
+      <tbody *ngIf="entities != null">
+        <tr
+          *ngFor="let entity of entities | orderBy:'order' ; let i = index"
+          (click)="selectEntity(entity.id)"
+          [ngClass]="rowClass(entity, row.valid)"
+          ngControlGroup="position{{i}}"
+          #row="ngForm">
+          <td validationStatus class="form-group"><input required ngControl="order{{i}}" class="form-control" type="number" [(ngModel)]="entity.order" (change)="addSaveField('order', entity)"/></td>
+          <td validationStatus class="form-group"><service-select required ngControl="service{{i}}" hideArchived [(ngModel)]="entity.service" (ngModelChange)="entity.addFieldtoUpdate('service')"></service-select></td>
+          <td validationStatus class="form-group"><input required ngControl="rateValue{{i}}" class="form-control" type="text" [(ngModel)]="entity.rateValue" (change)="addSaveField('rateValue', entity)"/></td>
+          <td validationStatus class="form-group"><input required ngControl="rateUnit{{i}}" class="form-control" type="text" [(ngModel)]="entity.rateUnit" (change)="addSaveField('rateUnit', entity)"/></td>
+          <td validationStatus class="form-group"><rateunittype-select required ngControl="rateUnitType{{i}}" [(ngModel)]="entity.rateUnitType" (ngModelChange)="entity.addFieldtoUpdate('rateUnitType')"></rateunittype-select></td>
+          <td validationStatus class="form-group"><input required ngControl="amount{{i}}" class="form-control" type="number" [(ngModel)]="entity.amount" (change)="addSaveField('amount', entity)"/></td>
+          <td><input-percentage [htmlclass]="'form-control'" [(value)]="entity.vat" (change)="addSaveField('vat', entity)"></input-percentage></td>
+          <td><input class="checkbox" type="checkbox" [(ngModel)]="entity.discountable" (change)="addSaveField('discountable', entity)"/></td>
+          <td>{{entity.total}}</td>
+          <td><dime-button (click)="deleteEntity(entity.id)" fontAwesome="trash-o" color="red"></dime-button></td>
+        </tr>
+      </tbody>
+    </table>
   </div>
-</div>
+  <div boxFooter class="DimeControlButtons">
+    <dime-button primary (click)="createEntity()" glyphicon="plus">Hinzufügen</dime-button>
+    <dime-button primary (click)="duplicateEntity()" fontAwesome="copy">Duplizieren</dime-button>
+    <dime-button (click)="reloadEvict()" glyphicon="refresh"></dime-button>
+  </div>
+</dime-box>
+
