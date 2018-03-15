@@ -9,7 +9,7 @@ import 'percentage_input.dart';
   selector: "discount-input",
   template: """
     <div class="input-group">
-      <percentage-input *ngIf="percentage" [(value)]="displayValue" [showAddon]="false"></percentage-input>
+      <percentage-input *ngIf="percentage" [(ngModel)]="displayValue" [showAddon]="false"></percentage-input>
       <input *ngIf="!percentage" type="number" [(ngModel)]="displayValue" class="form-control" aria-label="...">
       <div class="input-group-btn">
         <button type="button" class="btn" [class.btn-default]='!percentage' [class.btn-primary]="percentage" (click)='percentage = true'>%</button>
@@ -18,9 +18,12 @@ import 'percentage_input.dart';
     </div>
   """,
   directives: const [formDirectives, CORE_DIRECTIVES, PercentageInputComponent],
+  providers: const[const Provider(NG_VALUE_ACCESSOR, useExisting: DiscountInputComponent, multi: true)],
 )
-class DiscountInputComponent {
+class DiscountInputComponent implements ControlValueAccessor<double>{
   bool _percentage;
+
+  ChangeFunction<double> _onValueChange;
   bool get percentage => _percentage;
   @Input()
   void set percentage(bool percentage) {
@@ -32,11 +35,7 @@ class DiscountInputComponent {
   @Output()
   Stream<bool> get percentageChange => _percentageChange.stream;
 
-  @Input()
   num value;
-  final StreamController<num> _valueChange = new StreamController<num>();
-  @Output()
-  Stream<num> get valueChange => _valueChange.stream;
 
   num get displayValue {
     if (value == null) {
@@ -48,6 +47,18 @@ class DiscountInputComponent {
 
   void set displayValue(num displayValue) {
     value = displayValue;
-    _valueChange.add(value);
+    _onValueChange(value);
+  }
+  @override
+  void registerOnChange(ChangeFunction<double> f) {
+    _onValueChange = f;
+  }
+
+  @override
+  void registerOnTouched(TouchFunction f) { }
+
+  @override
+  void writeValue(double val) {
+    this.value = val;
   }
 }

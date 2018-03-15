@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:DimeClient/src/component/elements/dime_form_group.dart';
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
 
@@ -17,7 +16,7 @@ import 'entity_overview.dart';
 @Component(
   selector: 'offerposition-overview',
   templateUrl: 'offerposition_overview.html',
-  directives: const [CORE_DIRECTIVES, formDirectives, dimeDirectives, RateUnitTypeSelectComponent, ServiceSelectComponent, ValidationStatusDirective, DimeBox],
+  directives: const [CORE_DIRECTIVES, formDirectives, dimeDirectives, RateUnitTypeSelectComponent, ServiceSelectComponent],
   pipes: const [OrderByPipe],
 )
 class OfferPositionOverviewComponent extends EntityOverview<OfferPosition> {

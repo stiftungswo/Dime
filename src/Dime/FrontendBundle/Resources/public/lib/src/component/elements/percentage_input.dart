@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
 
@@ -13,29 +11,28 @@ import 'package:angular_forms/angular_forms.dart';
     <input *ngIf="!showAddon" type="text" [(ngModel)]="text" (change)="onChange()" class="form-control" aria-label="...">
   """,
   directives: const [formDirectives, CORE_DIRECTIVES],
+  providers: const[const Provider(NG_VALUE_ACCESSOR, useExisting: PercentageInputComponent, multi: true)],
 )
-class PercentageInputComponent {
+class PercentageInputComponent implements ControlValueAccessor<double> {
   String text = '';
+
+  ChangeFunction<double> _onchange;
+
   double _model;
 
-  @Input('value')
   set model(double m) {
     _model = m;
     text = _toPercentage(m);
-    _modelChange.add(_model);
   }
 
   double get model => _model;
-
-  final StreamController<double> _modelChange = new StreamController<double>();
-  @Output('valueChange')
-  Stream<double> get modelChange => _modelChange.stream;
 
   @Input('showAddon')
   bool showAddon = true;
 
   onChange() {
     model = _toNumber(text);
+    _onchange(model);
   }
 
   String _toPercentage(double val) {
@@ -64,5 +61,17 @@ class PercentageInputComponent {
 
   double _toNumber(String percentage) {
     return (double.parse(percentage) / 100);
+  }
+  @override
+  void registerOnChange(ChangeFunction<double> f) {
+    _onchange = f;
+  }
+
+  @override
+  void registerOnTouched(TouchFunction f) {}
+
+  @override
+  void writeValue(double val) {
+    model = val;
   }
 }
