@@ -58,21 +58,4 @@ class OfferPositionOverviewComponent extends EntityOverview<OfferPosition> {
     return super.createEntity(params: {'offer': this._offerId});
   }
 
-  rowClass(OfferPosition entity, bool valid){
-    if(valid ?? true){
-      return {
-        "info": isSelected(entity)
-      };
-    } else {
-      if(isSelected(entity)){
-        return {
-          "warning": true
-        };
-      } else {
-        return {
-          "danger": true
-        };
-      }
-    }
-  }
 }

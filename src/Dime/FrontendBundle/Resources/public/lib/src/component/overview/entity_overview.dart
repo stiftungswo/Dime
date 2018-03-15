@@ -4,6 +4,8 @@ import 'dart:async';
 import 'dart:html';
 
 import 'package:angular/angular.dart';
+import 'package:angular_forms/angular_forms.dart';
+import 'package:angular_forms/src/directives/validators.dart';
 import 'package:angular_router/angular_router.dart';
 import 'package:angular_router/src/router.dart';
 
@@ -14,12 +16,19 @@ import '../../service/setting_manager.dart';
 import '../../service/status.dart';
 import '../../service/user_auth.dart';
 
-abstract class EntityOverview<T extends Entity> implements OnInit {
+abstract class EntityOverview<T extends Entity> implements OnInit, AfterViewInit {
   bool needsmanualAdd = false;
 
   dynamic selectedEntId;
 
-  List<T> entities = [];
+  List<T> _entities = [];
+
+  List<T> get entities => _entities;
+
+  void set entities(List<T> entities) {
+    _entities = entities;
+    checkEntitiesEmpty();
+  }
 
   Type type;
 
@@ -100,6 +109,7 @@ abstract class EntityOverview<T extends Entity> implements OnInit {
         this.openEditView(resp.id as int);
       } else {
         this.entities.add(resp);
+        this.checkEntitiesEmpty();
       }
     } catch (e, stack) {
       print("Unable to create entity ${this.type.toString()} because ${e}");
@@ -124,6 +134,7 @@ abstract class EntityOverview<T extends Entity> implements OnInit {
           await this.store.create(entity);
         }
         this.statusservice.setStatusToSuccess();
+        this.checkEntitiesEmpty();
       } catch (e, stack) {
         print("Unable to duplicate entity ${this.type.toString()}::${newEnt.id} because ${e}");
         this.statusservice.setStatusToError(e, stack);
@@ -144,6 +155,7 @@ abstract class EntityOverview<T extends Entity> implements OnInit {
             await this.store.delete(ent);
           }
           this.entities.removeWhere((enty) => enty.id == entId);
+          this.checkEntitiesEmpty();
           this.statusservice.setStatusToSuccess();
         } catch (e, stack) {
           print("Unable to Delete entity ${this.type.toString()}::${entId} because ${e}");
@@ -213,8 +225,51 @@ abstract class EntityOverview<T extends Entity> implements OnInit {
     }
   }
 
+  rowClass(T entity, bool valid) {
+    if (valid ?? true) {
+      return {
+        "info": isSelected(entity)
+      };
+    } else {
+      if (isSelected(entity)) {
+        return {
+          "warning": true
+        };
+      } else {
+        return {
+          "danger": true
+        };
+      }
+    }
+  }
+
   EntityOverview(this.type, this.store, this.routename, this.settingsManager, this.statusservice, this.entityEventsService,
-      {this.router, this.auth}) {
+    {this.router, this.auth}) {
     entityEventsService.addSaveChangesListener(this.saveAllEntities);
+  }
+
+  @Input() bool required = false;
+
+
+  ///a dummy control to mimick empty state of [entities], used for [required] validation
+  Control _entitiesHasContent = null;
+
+  @ViewChild("overview") NgControlGroup overview;
+
+  ngAfterViewInit() {
+    if (required) {
+      if (overview == null) {
+        throw new Exception("Marked ${this.toString()} as required, but did not export an `#overview='ngForm'` in its template");
+      } else {
+        _entitiesHasContent = new Control(null, Validators.required);
+        overview.control.addControl("entities", _entitiesHasContent);
+      }
+    }
+  }
+
+  void checkEntitiesEmpty() {
+    if (required) {
+      _entitiesHasContent.updateValue(_entities.isEmpty ? null : true);
+    }
   }
 }
