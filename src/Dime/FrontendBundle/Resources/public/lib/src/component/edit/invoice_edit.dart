@@ -45,14 +45,8 @@ class InvoiceEditComponent extends EntityEdit<Invoice> {
   @ViewChild('invoicecostgroupOverview')
   InvoiceCostgroupOverviewComponent costgroupOverview;
 
-  bool get costgroupsValid => costgroupOverview.entities.isNotEmpty;
-
   void printInvoice() {
-    if (costgroupsValid) {
-      window.open('${http.baseUrl}/invoices/${this.entity.id}/print', 'Invoice Print');
-    } else {
-      window.alert("Kostenstellen sind ungültig.");
-    }
+    window.open('${http.baseUrl}/invoices/${this.entity.id}/print', 'Invoice Print');
   }
 
   void printAufwandsbericht() {
@@ -141,11 +135,6 @@ class InvoiceEditComponent extends EntityEdit<Invoice> {
 
   @override
   Future<bool> saveEntity() async {
-    if (costgroupsValid) {
-      return super.saveEntity();
-    } else {
-      window.alert('Es müssen noch Kostenstellen hinterlegt werden!');
-      return false;
-    }
+    return super.saveEntity();
   }
 }

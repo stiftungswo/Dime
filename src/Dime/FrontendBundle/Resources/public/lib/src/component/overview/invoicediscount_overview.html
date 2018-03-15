@@ -15,9 +15,9 @@
         ngControlGroup="row{{i}}"
         #row="ngForm"
     >
-      <td validationStatus class="form-group"><input required class="form-control" type="text" [(ngModel)]="entity.name" (change)="addSaveField('name', entity)"/></td>
+      <td validationStatus class="form-group"><input required ngControl="discountName{{i}}" class="form-control" type="text" [(ngModel)]="entity.name" (change)="addSaveField('name', entity)"/></td>
       <td validationStatus class="form-group"><discount-input
-        required ngControl="value{{i}}"
+        required ngControl="discountValue{{i}}"
         [(percentage)]="entity.percentage" (percentageChange)="addSaveField('percentage', entity)"
         [(ngModel)]="entity.value" (ngModelChange)="addSaveField('value', entity)"></discount-input></td>
       <td><dime-button (click)="deleteEntity(entity.id)" fontAwesome="trash-o" color="red"></dime-button></td>

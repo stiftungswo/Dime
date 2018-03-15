@@ -72,6 +72,7 @@ abstract class EntityOverview<T extends Entity> implements OnInit, AfterViewInit
     this.statusservice.setStatusToLoading();
     try {
       T resp = await store.update(entity);
+      //FIXME(98) mutating this array appears to break ngControls
       this.entities.removeWhere((enty) => enty.id == resp.id);
       this.entities.add(resp);
       this.statusservice.setStatusToSuccess();
