@@ -16,7 +16,7 @@ const dimeDirectives = const [
   ErrorIconComponent,
   DateToTextInput,
   DateRange,
-  PercentageInputField, //TODO(98) remove
+  PercentageInputField, //TODO(106) remove
   DiscountInputComponent,
   PercentageInputComponent,
   DimeFormGroup,

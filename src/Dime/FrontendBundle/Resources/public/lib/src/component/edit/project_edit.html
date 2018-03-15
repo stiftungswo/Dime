@@ -64,7 +64,7 @@
                                     (ngModelChange)="entity.addFieldtoUpdate('projectCategory')"></projectCategory-select>
           </dime-form-group>
           <dime-form-group horizontal label="Deadline">
-            <!-- TODO(98) rework this for ngModel, change/merge null-allowed to required? -->
+            <!-- TODO(106) rework this for ngModel, change/merge null-allowed to required? -->
             <dateinput [null-allowed]="true" [(date)]="entity.deadline" (dateChange)="addSaveField('deadline')"></dateinput>
           </dime-form-group>
         </div>

@@ -7,7 +7,7 @@ import 'package:angular_forms/angular_forms.dart';
   templateUrl: 'percent_input.html',
   directives: const [CORE_DIRECTIVES, formDirectives],
 )
-//TODO(98) remove this as it is replaced with percentage-input
+//TODO(106) remove this as it is replaced with percentage-input
 class PercentageInputField {
   double _model;
 

@@ -34,13 +34,6 @@ class RateOverviewComponent extends EntityOverview<Rate> {
 
   int _serviceId;
 
-  @ViewChild('rateEditForm')
-  NgForm form;
-
-  bool get valid {
-    return form.valid && entities.isNotEmpty;
-  }
-
   @Input()
   set service(int id) {
     if (id != null) {

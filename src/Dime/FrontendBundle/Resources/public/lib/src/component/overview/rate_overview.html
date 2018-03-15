@@ -1,35 +1,36 @@
-
-<div class="box box-primary">
-  <div class="box-header with-border">
-    <h3 class="box-title">Tarife</h3>
+<dime-box title="Tarife">
+  <table boxBody class="table table-bordered table-hover" ngControlGroup="rateoverview" #overview="ngForm" >
+    <thead>
+      <tr>
+        <th>Tarifgruppe</th>
+        <th>Tarif</th>
+        <th>Tarif Einheit</th>
+        <th>Einheits-Typ</th>
+        <th width="60">Aktion</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="entities != null">
+      <tr
+        *ngFor="let entity of entities ; let i = index"
+        (click)="selectEntity(entity.id)"
+        [ngClass]="rowClass(entity, row.valid)"
+        ngControlGroup="rate{{i}}"
+        #row="ngForm">
+        <td><rategroup-select required ngControl="rategroup{{i}}"
+                              [(ngModel)]="entity.rateGroup" (ngModelChange)="entity.addFieldtoUpdate('rateGroup')"></rategroup-select></td>
+        <td><input required ngControl="rateValue{{i}}" class="form-control"
+                   [(ngModel)]="entity.rateValue" (change)="addSaveField('rateValue', entity)" /></td>
+        <td><input required ngControl="rateUnit{{i}}" class="form-control"
+                   [(ngModel)]="entity.rateUnit" (change)="addSaveField('rateUnit', entity)"/></td>
+        <td><rateunittype-select required ngControl="rateUnitType{{i}}"
+                                 [(ngModel)]="entity.rateUnitType" (ngModelChange)="entity.addFieldtoUpdate('rateUnitType')"></rateunittype-select></td>
+        <td><dime-button (click)="deleteEntity(entity.id)" fontAwesome="trash-o" color="red"></dime-button></td>
+      </tr>
+    </tbody>
+  </table>
+  <div boxFooter class="DimeControlButtons">
+    <dime-button primary (click)="createEntity()" glyphicon="plus">Hinzufügen</dime-button>
+    <dime-button primary (click)="duplicateEntity()" fontAwesome="copy">Duplizieren</dime-button>
+    <dime-button (click)="reloadEvict()" glyphicon="refresh"></dime-button>
   </div>
-  <div class="box-body">
-  <form #rateEditForm="ngForm" >
-    <table class="table table-bordered table-hover">
-      <thead>
-        <tr>
-          <th>Tarifgruppe</th>
-          <th>Tarif</th>
-          <th>Tarif Einheit</th>
-          <th>Einheits-Typ</th>
-          <th width="60">Aktion</th>
-        </tr>
-      </thead>
-      <tbody *ngIf="entities != null">
-        <tr *ngFor="let entity of entities" (click)="selectEntity(entity.id)" [class.info]="isSelected(entity)">
-          <td><rategroup-select [(ngModel)]="entity.rateGroup" (ngModelChange)="entity.addFieldtoUpdate('rateGroup')"></rategroup-select></td>
-          <td><input style="width: 100%;" class="form-control" type="text" required [(ngModel)]="entity.rateValue" (change)="addSaveField('rateValue', entity)" /></td>
-          <td><input style="width: 100%;" class="form-control" type="text" [(ngModel)]="entity.rateUnit" (change)="addSaveField('rateUnit', entity)"/></td>
-          <td><rateunittype-select [(ngModel)]="entity.rateUnitType" (ngModelChange)="entity.addFieldtoUpdate('rateUnitType')"></rateunittype-select></td>
-          <td><dime-button (click)="deleteEntity(entity.id)" fontAwesome="trash-o" color="red"></dime-button></td>
-        </tr>
-      </tbody>
-    </table>
-  </form>
-    <div class="DimeControlButtons">
-      <dime-button primary (click)="createEntity()" glyphicon="plus">Hinzufügen</dime-button>
-      <dime-button primary (click)="duplicateEntity()" fontAwesome="copy">Duplizieren</dime-button>
-      <dime-button (click)="reloadEvict()" glyphicon="refresh"></dime-button>
-    </div>
-  </div>
-</div>
+</dime-box>
