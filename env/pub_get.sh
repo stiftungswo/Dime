@@ -6,4 +6,4 @@ if [ -d $ROOT_DIR/src/Dime/FrontendBundle/Resources/public/packages ]; then
     rm -rf $ROOT_DIR/src/Dime/FrontendBundle/Resources/public/packages
 fi
 
-$ROOT_DIR/env/pub.sh get --packages-dir
+$ROOT_DIR/env/pub.sh get
