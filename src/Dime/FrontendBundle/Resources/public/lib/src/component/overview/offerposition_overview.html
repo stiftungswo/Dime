@@ -22,13 +22,13 @@
           [ngClass]="rowClass(entity, row.valid)"
           ngControlGroup="position{{i}}"
           #row="ngForm">
-          <td validationStatus class="form-group"><input required ngControl="order{{i}}" class="form-control" type="number" [(ngModel)]="entity.order" (change)="addSaveField('order', entity)"/></td>
+          <td validationStatus class="form-group"><input ngControl="order{{i}}" class="form-control" type="number" [(ngModel)]="entity.order" (change)="addSaveField('order', entity)"/></td>
           <td validationStatus class="form-group"><service-select required ngControl="service{{i}}" hideArchived [(ngModel)]="entity.service" (ngModelChange)="entity.addFieldtoUpdate('service')"></service-select></td>
-          <td validationStatus class="form-group"><input required ngControl="rateValue{{i}}" class="form-control" type="text" [(ngModel)]="entity.rateValue" (change)="addSaveField('rateValue', entity)"/></td>
-          <td validationStatus class="form-group"><input required ngControl="rateUnit{{i}}" class="form-control" type="text" [(ngModel)]="entity.rateUnit" (change)="addSaveField('rateUnit', entity)"/></td>
-          <td validationStatus class="form-group"><rateunittype-select required ngControl="rateUnitType{{i}}" [(ngModel)]="entity.rateUnitType" (ngModelChange)="entity.addFieldtoUpdate('rateUnitType')"></rateunittype-select></td>
-          <td validationStatus class="form-group"><input required ngControl="amount{{i}}" class="form-control" type="number" [(ngModel)]="entity.amount" (change)="addSaveField('amount', entity)"/></td>
-          <td validationStatus class="form-group"><percentage-input required ngControl="vat{{i}}" [(ngModel)]="entity.vat" (ngModelChange)="addSaveField('vat', entity)"></percentage-input></td>
+          <td validationStatus class="form-group"><input ngControl="rateValue{{i}}" class="form-control" type="text" [(ngModel)]="entity.rateValue" (change)="addSaveField('rateValue', entity)"/></td>
+          <td validationStatus class="form-group"><input ngControl="rateUnit{{i}}" class="form-control" type="text" [(ngModel)]="entity.rateUnit" (change)="addSaveField('rateUnit', entity)"/></td>
+          <td validationStatus class="form-group"><rateunittype-select ngControl="rateUnitType{{i}}" [(ngModel)]="entity.rateUnitType" (ngModelChange)="entity.addFieldtoUpdate('rateUnitType')"></rateunittype-select></td>
+          <td validationStatus class="form-group"><input ngControl="amount{{i}}" class="form-control" type="number" [(ngModel)]="entity.amount" (change)="addSaveField('amount', entity)"/></td>
+          <td validationStatus class="form-group"><percentage-input ngControl="vat{{i}}" [(ngModel)]="entity.vat" (ngModelChange)="addSaveField('vat', entity)"></percentage-input></td>
           <td><input class="checkbox" type="checkbox" [(ngModel)]="entity.discountable" (change)="addSaveField('discountable', entity)"/></td>
           <td>{{entity.total}}</td>
           <td><dime-button (click)="deleteEntity(entity.id)" fontAwesome="trash-o" color="red"></dime-button></td>
@@ -37,6 +37,20 @@
     </table>
   </div>
   <div boxFooter class="DimeControlButtons">
+    <!-- FIXME(98) update row
+      the old (shifty) workflow was as follows:
+      1. add a new position
+      2. choose a service
+      3. save the form
+      => saving then pulled in the other fields of the position based on the selected service
+
+      building in the new validation somehow broke the displaying part of this - the whole row is displayed white
+      after saving. clicking the refresh button below then loaded the row and everything is displayed correctly.
+
+      While this is a regression, the previous workflow wasn't very clean to begin with. Either try to restore the old
+      workflow or improve it by triggering a save on selecting the service, so the rest of the fields get pulled in
+      immediately
+    -->
     <dime-button primary (click)="createEntity()" glyphicon="plus">Hinzufügen</dime-button>
     <dime-button primary (click)="duplicateEntity()" fontAwesome="copy">Duplizieren</dime-button>
     <dime-button (click)="reloadEvict()" glyphicon="refresh"></dime-button>

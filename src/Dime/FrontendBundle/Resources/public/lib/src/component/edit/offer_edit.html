@@ -27,37 +27,26 @@
             <input class="form-control" required [(ngModel)]="entity.name" ngControl="name" (change)="addSaveField('name')">
           </dime-form-group>
           <dime-form-group horizontal label="Kunde">
-            <customer-select ngControl="customer" [required]="true" [(ngModel)]="entity.customer"
+            <customer-select [(ngModel)]="entity.customer"
                              (ngModelChange)="entity.addFieldtoUpdate('customer')"></customer-select>
           </dime-form-group>
-          <div class="form-group">
-            <label class="col-sm-2 control-label">Status</label>
-            <offerstatus-select class="col-sm-4" [(ngModel)]="entity.status" (ngModelChange)="entity.addFieldtoUpdate('status')"></offerstatus-select>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-2 control-label">Verantwortlicher Mitarbeiter</label>
-            <user-select class="col-sm-4" [(ngModel)]="entity.accountant" (ngModelChange)="addSaveField('accountant')"></user-select>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-2 control-label">Gültig bis</label>
-            <dateinput class="col-sm-4" [(date)]="entity.validTo" (dateChange)="addSaveField('validTo')"></dateinput>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-2 control-label">Tarif</label>
-            <rategroup-select class="col-sm-4" [(ngModel)]="entity.rateGroup" (ngModelChange)="addSaveField('rateGroup')"></rategroup-select>
-          </div>
+          <dime-form-group horizontal label="Status">
+            <offerstatus-select [(ngModel)]="entity.status" (ngModelChange)="entity.addFieldtoUpdate('status')"></offerstatus-select>
+          </dime-form-group>
+          <dime-form-group horizontal label="Verantwortlicher Mitarbeiter">
+            <user-select [(ngModel)]="entity.accountant" (ngModelChange)="addSaveField('accountant')"></user-select>
+          </dime-form-group>
+          <dime-form-group horizontal label="Gültig bis">
+            <dateinput [(date)]="entity.validTo" (dateChange)="addSaveField('validTo')"></dateinput>
+          </dime-form-group>
+          <dime-form-group horizontal label="Tarif" class="form-group">
+            <rategroup-select [(ngModel)]="entity.rateGroup" (ngModelChange)="addSaveField('rateGroup')"></rategroup-select>
+          </dime-form-group>
           <h4>Addresse</h4>
           <address-edit [(address)]="entity.address" (change)="addSaveField('address')"></address-edit>
-          <div class="form-horizontal">
-            <div class="form-group">
-              <label class="col-sm-2"></label>
-
-              <div class="col-sm-4">
-                <a (click)="copyAddressFromCustomer()" *ngIf="entity.customer != null">Adresse aus Kunde
-                  übernehmen</a>
-              </div>
-            </div>
-          </div>
+          <dime-form-group horizontal>
+            <a (click)="copyAddressFromCustomer()" *ngIf="entity.customer != null">Adresse aus Kunde übernehmen</a>
+          </dime-form-group>
         </div>
         <div class="form-group">
           <label class="control-label">Kurzbeschreibung</label>
@@ -78,37 +67,37 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-md-12 right">
+    <div class="col-sm-12 col-md-6 right">
       <offerdiscount-overview [offer]="entity.id"></offerdiscount-overview>
     </div>
-  </div>
-  <div class="box box-primary">
-    <div class="box-header with-border">
-      <h3 class="box-title">Berechnung</h3>
-    </div>
-    <div class="box-body">
-      <div class="row"><label class="col-sm-2 col-xs-6 control-label">Subtotal</label>
-        <div class="col-sm-4 col-xs-6">{{entity.subtotal}}</div>
-      </div>
-      <div class="row"><label class="col-sm-2 col-xs-6 control-label">Davon Mwst.</label>
-        <div class="col-sm-4 col-xs-6">{{entity.totalVAT}}</div>
-      </div>
-      <div class="row"><label class="col-sm-2 col-xs-6 control-label">Total Abzüge</label>
-        <div class="col-sm-4 col-xs-6">{{entity.totalDiscounts}}</div>
-      </div>
-      <div class="row"><label class="col-sm-2 col-xs-6 control-label">Total</label>
-        <div class="col-sm-4 col-xs-6">{{entity.total}}</div>
-      </div>
-      <div class="row">
-        <label class="col-sm-2 control-label">Fixpreis</label>
-        <div class="col-sm-4">
-          <input class="form-control" type="text" [(ngModel)]="entity.fixedPrice" (change)="addSaveField('fixedPrice')">
+    <div class="col-sm-12 col-md-6 right">
+      <dime-box title="Berechnung">
+        <div boxBody>
+          <div class="row"><label class="col-sm-2 col-xs-6 control-label">Subtotal</label>
+            <div class="col-sm-4 col-xs-6">{{entity.subtotal}}</div>
+          </div>
+          <div class="row"><label class="col-sm-2 col-xs-6 control-label">Davon Mwst.</label>
+            <div class="col-sm-4 col-xs-6">{{entity.totalVAT}}</div>
+          </div>
+          <div class="row"><label class="col-sm-2 col-xs-6 control-label">Total Abzüge</label>
+            <div class="col-sm-4 col-xs-6">{{entity.totalDiscounts}}</div>
+          </div>
+          <div class="row"><label class="col-sm-2 col-xs-6 control-label">Total</label>
+            <div class="col-sm-4 col-xs-6">{{entity.total}}</div>
+          </div>
+          <div class="row">
+            <label class="col-sm-2 control-label">Fixpreis</label>
+            <div class="col-sm-4">
+              <input class="form-control" type="text" [(ngModel)]="entity.fixedPrice" (change)="addSaveField('fixedPrice')">
+            </div>
+          </div>
         </div>
-      </div>
+      </dime-box>
     </div>
   </div>
+
   <div class="DimeControlButtons">
-    <dime-button primary (click)="saveEntity()"><error-icon></error-icon></dime-button>
+    <dime-button primary [enabled]="editform.valid" (click)="saveEntity()"><error-icon></error-icon></dime-button>
     <dime-button primary (click)="printOffer()" glyphicon="print">Drucken</dime-button>
     <dime-button (click)="reloadEvict()" glyphicon="refresh"></dime-button>
   </div>

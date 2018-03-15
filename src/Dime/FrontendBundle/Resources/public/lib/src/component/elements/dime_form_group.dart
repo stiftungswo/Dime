@@ -34,18 +34,12 @@ import 'package:angular_forms/angular_forms.dart';
   """,
   directives: const [CORE_DIRECTIVES]
 )
-class DimeFormGroup implements AfterViewInit{
+class DimeFormGroup{
   @ContentChild(NgControl) NgControl control;
 
   @Input() bool horizontal = false;
   @Input() String label;
   String eId = null;
-
-  @override
-  ngAfterViewInit() {
-    print("CONTROL:" + control.toString());
-
-  }
 }
 
 @Component(
@@ -105,7 +99,7 @@ class ValidationStatusDirective implements AfterContentChecked{
     if(control == null){
       throw new Exception("No child tag that uses ngControl found");
     }
-    if(control.valid){
+    if(control.valid ?? true){
       el.classes.remove("has-error");
     } else {
       el.classes.add("has-error");
