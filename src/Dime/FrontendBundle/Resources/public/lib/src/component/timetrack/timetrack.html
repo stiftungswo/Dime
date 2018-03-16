@@ -1,3 +1,4 @@
+<form #editform="ngForm">
 <div class="row">
   <div class="col-md-12 form-inline">
     <div class="box box-primary" *ngIf="employee.extendTimetrack">
@@ -25,7 +26,8 @@
       </div>
     </div>
     <div class="DimeControlButtons">
-      <dime-button primary (click)="save()"><error-icon></error-icon></dime-button>
+      <save-button [valid]="editform.valid" (click)="save()"></save-button>
     </div>
   </div>
 </div>
+</form>

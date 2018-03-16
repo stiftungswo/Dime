@@ -30,8 +30,7 @@ class ActivitySelectComponent extends EntitySelect<Activity> implements OnChange
   @override
   get EntText => selectedEntity != null ? (shortname ? selectedEntity.service.name : selectedEntity.name) : '';
 
-  // Disable the select box because of projectId being null sometimes
-  @Input('is-readonly')
+  @Input('disabled')
   bool isReadonly = false;
 
   @Input('parent-activities')

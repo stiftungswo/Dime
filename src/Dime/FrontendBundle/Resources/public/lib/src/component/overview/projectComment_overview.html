@@ -18,7 +18,7 @@
 <div class="text-muted" *ngIf="filteredComments.length == 0">
     Keine Kommentare
 </div>
-<table *ngIf="filteredComments.length > 0" class="table table-bordered table-hover">
+<table *ngIf="filteredComments.length > 0" class="table table-bordered table-hover" ngControlGroup="comments">
   <thead>
     <tr>
       <th>Datum</th>
@@ -27,9 +27,14 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let entity of filteredComments | orderBy:'id':true" (click)="selectEntity(entity.id)" [class.info]="isSelected(entity)">
+    <tr
+      *ngFor="let entity of entities | orderBy:'id':true ; let i = index"
+      (click)="selectEntity(entity.id)"
+      [ngClass]="rowClass(entity, row.valid)"
+      ngControlGroup="position{{i}}"
+      #row="ngForm">
       <td><date-input disabled style="width: 100%;" [(ngModel)]="entity.date"></date-input></td>
-      <td><textarea class="form-control" style="width: 100%; height: auto" [(ngModel)]="entity.comment" (change)="addSaveField('comment', entity)"></textarea></td>
+      <td validationStatus><textarea required ngControl="comment{{i}}" class="form-control" style="width: 100%; height: auto" [(ngModel)]="entity.comment" (change)="addSaveField('comment', entity)"></textarea></td>
       <td><dime-button (click)="deleteEntity(entity.id)" fontAwesome="trash-o" color="red"></dime-button></td>
     </tr>
   </tbody>

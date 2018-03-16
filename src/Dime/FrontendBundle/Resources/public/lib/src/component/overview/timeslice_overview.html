@@ -5,7 +5,7 @@
 <div class="text-muted" *ngIf="entities.length == 0">
     Keine Einträge
 </div>
-<table *ngIf="entities.length > 0" class="table table-bordered table-hover form">
+<table *ngIf="entities.length > 0" class="table table-bordered table-hover form" ngControlGroup="timeslices">
     <thead>
         <tr>
             <th style="width: 30px"></th>
@@ -17,12 +17,17 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let entity of entities | timeslicedatefilter:filterStartDate:filterEndDate | orderBy:'startedAt'" (click)="selectRow($event, entity)" [class.info]="selectedTimeslices.contains(entity.id)">
+        <tr
+          *ngFor="let entity of entities | timeslicedatefilter:filterStartDate:filterEndDate | orderBy:'startedAt'; let i = index"
+          (click)="selectEntity(entity.id)"
+          [ngClass]="rowClass(entity, row.valid)"
+          ngControlGroup="position{{i}}"
+          #row="ngForm">
             <td></td>
             <td *ngIf="projectBased"><user-select [(ngModel)]="entity.employee" [parentEmployees]="employees" (ngModelChange)="entity.addFieldtoUpdate('employee')"></user-select></td>
             <td><activity-select disabled [(ngModel)]="entity.activity" [parent-activities]="activities" [project]="entity?.project?.id" (ngModelChange)="entity.addFieldtoUpdate('activity')"></activity-select></td>
             <td><date-input disabled style="width: 100%;" [(ngModel)]="entity.startedAt"></date-input></td>
-            <td><input style="width: 100%;" class="form-control" [(ngModel)]="entity.value" (change)="addSaveField('value', entity)"/></td>
+            <td validationStatus><input required ngControl="value{{i}}" class="form-control" [(ngModel)]="entity.value" (change)="addSaveField('value', entity)"/></td>
             <td><dime-button (click)="deleteEntity(entity.id)" fontAwesome="trash-o" color="red"></dime-button></td>
         </tr>
     </tbody>
