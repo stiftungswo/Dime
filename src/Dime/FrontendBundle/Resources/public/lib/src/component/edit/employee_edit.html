@@ -38,6 +38,6 @@
   </form>
 </div>
 <div class="DimeControlButtons">
-  <dime-button primary (click)="saveEntity()"><error-icon></error-icon></dime-button>
+  <save-button [valid]="editform.valid" (click)="saveEntity()"></save-button>
   <dime-button (click)="reloadEvict()" glyphicon="refresh"></dime-button>
 </div>

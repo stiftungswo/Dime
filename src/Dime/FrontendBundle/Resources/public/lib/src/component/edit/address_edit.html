@@ -1,18 +1,18 @@
-<div class="form-horizontal">
+<div class="form-horizontal" ngControlGroup="address">
   <dime-form-group horizontal label="Strasse" >
-    <input class="form-control" type="text" [(ngModel)]="address.street">
+    <input required ngControl="street" class="form-control" [(ngModel)]="address.street">
   </dime-form-group>
   <dime-form-group horizontal label="Nummer">
-    <input class="form-control" type="text" [(ngModel)]="address.streetnumber">
+    <input required ngControl="number" class="form-control" [(ngModel)]="address.streetnumber">
   </dime-form-group>
   <dime-form-group horizontal label="Postleitzahl">
-    <input class="form-control" type="number" [(ngModel)]="address.plz">
+    <input required ngControl="plz" class="form-control" type="number" [(ngModel)]="address.plz">
   </dime-form-group>
   <dime-form-group horizontal label="Stadt">
-    <input class="form-control" type="text" [(ngModel)]="address.city">
+    <input required ngControl="city" class="form-control" type="text" [(ngModel)]="address.city">
   </dime-form-group>
   <dime-form-group horizontal label="Kanton">
-    <input class="form-control" type="text" [(ngModel)]="address.state">
+    <input required ngControl="state" class="form-control" type="text" [(ngModel)]="address.state">
   </dime-form-group>
   <dime-form-group horizontal label="Land">
     <input class="form-control" type="text" [(ngModel)]="address.country">

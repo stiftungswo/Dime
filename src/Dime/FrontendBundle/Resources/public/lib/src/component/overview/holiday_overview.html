@@ -1,9 +1,6 @@
-<div class="box box-primary">
-  <div class="box-header with-border">
-    <h3 class="box-title">Feiertage</h3>
-  </div>
-  <div class="box-body">
-    <table class="table table-bordered table-hover form">
+<form #editform="ngForm">
+  <dime-box title="Feiertage">
+    <table boxBody class="table table-bordered table-hover form" ngControlGroup="holidays" #overview="ngForm">
       <thead>
         <tr>
           <th>Wochentag</th>
@@ -13,21 +10,26 @@
         </tr>
       </thead>
       <tbody *ngIf="entities != null">
-        <tr *ngFor="let entity of entities" (click)="selectEntity(entity.id)" [class.info]="isSelected(entity)">
+        <tr
+          *ngFor="let entity of entities ; let i = index"
+          (click)="selectEntity(entity.id)"
+          [ngClass]="rowClass(entity, row.valid)"
+          ngControlGroup="position{{i}}"
+          #row="ngForm">
           <td>{{entity.weekday}}</td>
-          <td><date-input style="width: 100%;" [(ngModel)]="entity.date" (ngModelChange)="entity.addFieldtoUpdate('date')"></date-input></td>
-          <td><input style="width: 100%;" type="text" class="form-control" [(ngModel)]="entity.duration" (change)="addSaveField('duration', entity)"/></td>
+          <td validationStatus class="form-group"><date-input required ngControl="date{{i}}" [(ngModel)]="entity.date" (ngModelChange)="entity.addFieldtoUpdate('date')"></date-input></td>
+          <td validationStatus class="form-group"><input required ngControl="duration{{i}}" class="form-control" [(ngModel)]="entity.duration" (change)="addSaveField('duration', entity)"/></td>
           <td> <dime-button (click)="deleteEntity(entity.id)" fontAwesome="trash-o" color="red"></dime-button> </td>
         </tr>
       </tbody>
     </table>
+  </dime-box>
+  <div class="DimeControlButtons container-inline">
+    <div class="col-md-12">
+      <save-button [valid]="editform.valid" (click)="saveAllEntities()"></save-button>
+      <dime-button primary (click)="createEntity()" glyphicon="plus">Hinzufügen</dime-button>
+      <dime-button primary (click)="duplicateEntity()" fontAwesome="copy">Duplizieren</dime-button>
+      <dime-button (click)="reloadEvict()" glyphicon="refresh"></dime-button>
+    </div>
   </div>
-</div>
-<div class="DimeControlButtons container-inline">
-  <div class="col-md-12">
-    <dime-button primary (click)="saveAllEntities()"><error-icon></error-icon></dime-button>
-    <dime-button primary (click)="createEntity()" glyphicon="plus">Hinzufügen</dime-button>
-    <dime-button primary (click)="duplicateEntity()" fontAwesome="copy">Duplizieren</dime-button>
-    <dime-button (click)="reloadEvict()" glyphicon="refresh"></dime-button>
-  </div>
-</div>
+</form>

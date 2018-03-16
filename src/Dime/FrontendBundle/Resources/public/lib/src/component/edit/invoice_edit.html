@@ -24,25 +24,30 @@
               <input disabled class="form-control" [value]="entity.project.name"/>
             </dime-form-group>
             <dime-form-group horizontal label="Kunde">
-              <customer-select [(ngModel)]="entity.customer" (ngModelChange)="addSaveField('customer')"></customer-select>
+              <customer-select required ngControl="customer"
+                               [(ngModel)]="entity.customer" (ngModelChange)="addSaveField('customer')"></customer-select>
             </dime-form-group>
             <dime-form-group horizontal label="Verantwortlicher Mitarbeiter">
-              <user-select [(ngModel)]="entity.accountant" (ngModelChange)="addSaveField('accountant')"></user-select>
+              <user-select required ngControl="accountant"
+                           [(ngModel)]="entity.accountant" (ngModelChange)="addSaveField('accountant')"></user-select>
             </dime-form-group>
             <dime-form-group horizontal label="Startdatum">
-              <date-input [(ngModel)]="entity.start" (ngModelChange)="addSaveField('start')"></date-input>
+              <date-input required ngControl="start"
+                          [(ngModel)]="entity.start" (ngModelChange)="addSaveField('start')"></date-input>
             </dime-form-group>
             <dime-form-group horizontal label="Enddatum">
-              <date-input [(ngModel)]="entity.end" (ngModelChange)="addSaveField('end')"></date-input>
+              <date-input required ngControl="end"
+                          [(ngModel)]="entity.end" (ngModelChange)="addSaveField('end')"></date-input>
             </dime-form-group>
           </div>
           <dime-form-group label="Beschreibung">
-            <textarea class="form-control" [(ngModel)]="entity.description" (change)="addSaveField('description')"></textarea>
+            <textarea required ngControl="description" class="form-control"
+                      [(ngModel)]="entity.description" (change)="addSaveField('description')"></textarea>
           </dime-form-group>
         </div>
     </div>
   </div>
-  <invoiceitem-overview [invoice]="entity.id" #invoiceitemOverview></invoiceitem-overview>
+  <invoiceitem-overview [invoice]="entity.id"></invoiceitem-overview>
   <div class="row">
     <div class="col-md-6"><invoicecostgroup-overview required [invoice]="entity.id"></invoicecostgroup-overview></div>
     <div class="col-md-6"><invoicediscount-overview [invoice]="entity.id"></invoicediscount-overview></div>
@@ -66,7 +71,7 @@
     </div>
   </div>
   <div class="DimeControlButtons">
-    <dime-button primary [enabled]="editform.valid" (click)="saveEntity()"><error-icon></error-icon></dime-button>
+    <save-button [valid]="editform.valid" (click)="saveEntity()"></save-button>
     <dime-button primary glyphicon="magnet"
                  tooltipText="Synchronisiert die Aktivitäten/Rechnungsposten mit dem Ursprungsprojekt und setzt den Sachbearbeiter auf Dich"
                  (click)="updateInvoicefromProject()"> Update </dime-button>

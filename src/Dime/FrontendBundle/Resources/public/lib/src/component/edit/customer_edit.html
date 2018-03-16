@@ -4,8 +4,9 @@
   </div>
   <form *ngIf="entity != null" class="box-body" #editform="ngForm">
     <div class="form-horizontal">
-      <dime-form-group horizontal label="Name (Firma)">
-        <input required ngcontrol="name" name="name" class="form-control" [(ngModel)]="entity.name" (change)="addSaveField('name')">
+      <dime-form-group horizontal label="Beschreibung">
+        <input required ngControl="name" class="form-control"
+               [(ngModel)]="entity.name" (change)="addSaveField('name')">
       </dime-form-group>
       <dime-form-group horizontal label="Firma">
         <input class="form-control" [(ngModel)]="entity.company" (change)="addSaveField('company')">
@@ -14,13 +15,16 @@
         <input class="form-control" [(ngModel)]="entity.department" (change)="addSaveField('department')">
       </dime-form-group>
       <dime-form-group horizontal label="Anrede">
-        <input class="form-control" [(ngModel)]="entity.salutation" (change)="addSaveField('salutation')">
+        <input required ngControl="salutation" class="form-control"
+               [(ngModel)]="entity.salutation" (change)="addSaveField('salutation')">
       </dime-form-group>
-      <dime-form-group horizontal label="Name (Ansprechperson)">
-        <input class="form-control" [(ngModel)]="entity.fullname" (change)="addSaveField('fullname')">
+      <dime-form-group horizontal label="Ansprechperson">
+        <input required ngControl="fullname"
+               class="form-control" [(ngModel)]="entity.fullname" (change)="addSaveField('fullname')">
       </dime-form-group>
       <dime-form-group horizontal label="Tarif Gruppe">
-        <rategroup-select [(ngModel)]="entity.rateGroup" (ngModelChange)="addSaveField('rateGroup')"></rategroup-select>
+        <rategroup-select required ngControl="rateGroup"
+                          [(ngModel)]="entity.rateGroup" (ngModelChange)="addSaveField('rateGroup')"></rategroup-select>
       </dime-form-group>
       <dime-form-group horizontal class="checkbox">
           <label>
@@ -34,6 +38,6 @@
   </form>
 </div>
 <div class="DimeControlButtons">
-  <dime-button primary (click)="saveEntity()"><error-icon></error-icon></dime-button>
+  <save-button [valid]="editform.valid" (click)="saveEntity()"></save-button>
   <dime-button (click)="reloadEvict()" glyphicon="refresh"></dime-button>
 </div>

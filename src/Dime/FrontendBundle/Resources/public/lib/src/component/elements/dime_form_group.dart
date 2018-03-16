@@ -16,6 +16,7 @@ import 'package:angular_forms/angular_forms.dart';
 ///
 @Component(
   selector: "dime-form-group",
+  //FIXME(106) label vs validation error color aren't the same; AdminLTE vs Bootstrap
   template: """
     <div class='form-group' [class.has-error]='control != null && !control.valid'>
       <label [attr.for]="eId != null ? eId : label"

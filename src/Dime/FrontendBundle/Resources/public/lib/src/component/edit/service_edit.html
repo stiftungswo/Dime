@@ -9,7 +9,7 @@
                  [(ngModel)]="entity.name" (change)="addSaveField('name')" >
       </dime-form-group>
       <dime-form-group horizontal label="Alias">
-        <input class="form-control" [(ngModel)]="entity.alias">
+        <input disabled class="form-control" [value]="entity.alias">
       </dime-form-group>
       <dime-form-group horizontal label="Beschreibung">
         <input class="form-control" [(ngModel)]="entity.description" (change)="addSaveField('description')">
@@ -32,7 +32,7 @@
   </div>
   <rate-overview required [service]="entity.id"></rate-overview>
   <div class="DimeControlButtons">
-    <dime-button primary [enabled]="editform.valid" (click)="saveEntity()"><error-icon></error-icon></dime-button>
+    <save-button [valid]="editform.valid" (click)="saveEntity()"></save-button>
     <dime-button (click)="reloadEvict()" glyphicon="refresh"></dime-button>
   </div>
 </form>
