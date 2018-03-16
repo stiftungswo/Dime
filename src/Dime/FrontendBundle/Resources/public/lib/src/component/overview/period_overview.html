@@ -21,7 +21,7 @@
       <td>{{entity.realTime | secondsToHours}}</td>
       <td>{{entity.targetTime | secondsToHours}}</td>
       <td [class.text-red]="entity.timeTillToday<0" [class.text-green]="entity.timeTillToday>=0">{{entity.timeTillToday | secondsToHours}}</td>
-      <td class="hidden-xs">{{entity.employeeholiday}}</td>
+      <td class="hidden-xs">{{entity.employeeholiday | secondsToHours }}</td>
       <td>{{entity.holidayBalance | secondsToHours }}</td>
       <td class="hidden-xs">
         <input style="width: 50%;" class="form-control" type="text" [(ngModel)]="entity.lastYearHolidayBalance" (change)="addSaveField('lastYearHolidayBalance', entity)" />

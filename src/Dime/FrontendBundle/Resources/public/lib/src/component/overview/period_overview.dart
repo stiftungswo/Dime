@@ -89,7 +89,7 @@ class PeriodOverviewComponent extends EntityOverview<Period> {
               takenHolidays = data['takenHolidays'] as List<dynamic>;
               double employeeholiday = 0.0;
               if (this.entities.elementAt(i).employeeholiday != null) {
-                employeeholiday = double.parse(this.entities.elementAt(i).employeeholiday.toString().replaceAll('h', ''));
+                employeeholiday = this.entities.elementAt(i).employeeholiday.toDouble();
               }
               this.entities.elementAt(i).holidayBalance = getHolidayBalance(takenHolidays, employeeholiday);
             } else {
@@ -111,7 +111,7 @@ class PeriodOverviewComponent extends EntityOverview<Period> {
     for (final i in takenHolidays) {
       holidayBalance += double.parse(i.values.elementAt(0) as String);
     }
-    holidayBalance = (employeeholiday * 3600) - holidayBalance;
+    holidayBalance = employeeholiday - holidayBalance;
 
     return holidayBalance;
   }

@@ -106,32 +106,39 @@ class Period extends Entity implements DimeEntityInterface
         if ($this->pensum && $this->getStart() instanceof Carbon && $this->getEmployee()->getEmployeeholiday() != null) {
             $pensum = ($this->getPensum());
             $holidayEntitlement = $this->getEmployee()->getEmployeeholiday();
-            $weekdays = ($this->getStart()->diffInDays($this->getEnd()));
 
-            $daysofcurrentyear = 365;
-            $year = date('Y');
-            if (0 === $year % 400 || (0 === $year % 4 && 0 !== $year % 100)) {
-                $daysofcurrentyear = $daysofcurrentyear + 1;
+
+            $startYear = $this->getStart()->year;
+            $endYear = $this->getEnd()->year;
+
+            $holidayDays = 0;
+
+            for ($i = $startYear; $i <= $endYear; $i++) {
+                $start = Carbon::create($i)->startOfYear();
+                $end = Carbon::create($i)->endOfYear()->startOfDay();
+                $daysOfYear = $start->diffInDays($end) + 1; // diff excludes day of second param
+
+                if ($this->getStart() > $start) {
+                    $start = $this->getStart();
+                }
+
+                if ($this->getEnd() < $end) {
+                    $end = $this->getEnd();
+                }
+
+                $daysInYearPeriod = $start->diffInDays($end) + 1; // diff excludes day of second param
+
+                $holidayDays += ($holidayEntitlement / $daysOfYear) * $daysInYearPeriod;
             }
-
-            $employeeholiday = number_format((float) ((($holidayEntitlement / $daysofcurrentyear) * $weekdays * $pensum) * 8.4), 2, '.', '');
+            $holidaySeconds = $holidayDays * $pensum * RateUnitType::$DayInSeconds;
 
             //add holiday balance from last year
-            $employeeholiday = $employeeholiday + floatval($this->getLastYearHolidayBalance());
+            $holidaySeconds += floatval($this->getLastYearHolidayBalance()) * RateUnitType::$HourInSeconds;
 
-            return $employeeholiday . RateUnitType::$Hourly;
+            return $holidaySeconds;
         }
 
         return null;
-    }
-
-    public function is_leap_year($year = null)
-    {
-        if (null === $year) {
-            $year = date('Y');
-        }
-
-        return 0 === $year % 400 || (0 === $year % 4 && 0 !== $year % 100);
     }
 
     public function insertHolidays(array $holidays)
