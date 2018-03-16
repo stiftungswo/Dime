@@ -19,7 +19,7 @@ import 'entity_overview.dart';
     templateUrl: 'projectComment_overview.html',
     directives: const [CORE_DIRECTIVES, formDirectives, dimeDirectives],
     pipes: const [dimePipes])
-class ProjectCommentOverviewComponent extends EntityOverview<ProjectComment> {
+class ProjectCommentOverviewComponent extends EntityOverview<ProjectComment> implements OnDestroy {
   ProjectCommentOverviewComponent(DataCache store, SettingsManager manager, StatusService status, UserAuthProvider auth,
       EntityEventsService entityEventsService, this.timetrackService)
       : super(ProjectComment, store, '', manager, status, entityEventsService, auth: auth);
@@ -27,6 +27,7 @@ class ProjectCommentOverviewComponent extends EntityOverview<ProjectComment> {
   Project _selectedProject;
 
   TimetrackService timetrackService;
+  List<StreamSubscription<dynamic>> subscriptions = [];
 
   Project get selectedProject => _selectedProject;
 
@@ -73,21 +74,26 @@ class ProjectCommentOverviewComponent extends EntityOverview<ProjectComment> {
 
   @override
   void ngOnInit() {
-    timetrackService.projectSelect.stream.listen((project) {
+    subscriptions.add(timetrackService.projectSelect.stream.listen((project) {
       selectedProject = project;
-    });
+    }));
 
-    timetrackService.filterStart.stream.listen((date) {
+    subscriptions.add(timetrackService.filterStart.stream.listen((date) {
       filterStartDate = date;
-    });
+    }));
 
-    timetrackService.filterEnd.stream.listen((date) {
+    subscriptions.add(timetrackService.filterEnd.stream.listen((date) {
       filterEndDate = date;
-    });
+    }));
 
-    timetrackService.targetDate.stream.listen((date) {
+    subscriptions.add(timetrackService.targetDate.stream.listen((date) {
       newEntryDate = date;
-    });
+    }));
+  }
+
+  @override
+  ngOnDestroy() {
+    subscriptions.forEach((s) => s.cancel());
   }
 
   List<ProjectComment> get filteredComments {

@@ -2,4 +2,4 @@
 ROOT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
 set -x
 
-$ROOT_DIR/env/pub.sh update --packages-dir
+$ROOT_DIR/env/pub.sh update

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:angular/angular.dart';
 
 import '../../model/entity_export.dart';
@@ -15,18 +17,24 @@ import '../overview/overview.dart';
   ProjectCommentOverviewComponent,
   dimeDirectives
 ])
-class TimetrackComponent implements OnInit {
+class TimetrackComponent implements OnInit, OnDestroy {
   UserContext context;
   UserAuthProvider auth;
   Project project;
   TimetrackService timetrackService;
+  StreamSubscription<Project> streamSubscription;
   EntityEventsService entityEventsService;
 
   get employee => this.context.employee;
 
   @override
   ngOnInit() {
-    timetrackService.projectSelect.stream.listen((project) => this.project = project);
+    streamSubscription = timetrackService.projectSelect.stream.listen((project) => this.project = project);
+  }
+
+  @override
+  ngOnDestroy() {
+    streamSubscription.cancel();
   }
 
   void reloadUser() {

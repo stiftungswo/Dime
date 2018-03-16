@@ -1,0 +1,48 @@
+#!/bin/sh
+dartfiles=$(git diff --cached --name-only --diff-filter=ACM "*.dart" | tr '\n' ' ')
+phpfiles=$(git diff --cached --name-only --diff-filter=ACM "*.php" | tr '\n' ' ')
+
+
+exitstatus=0
+
+git checkout-index --prefix=git-export-dir/ -a
+cd git-export-dir/
+
+
+if [[ ! ( -z "$dartfiles" ) ]];
+then
+
+    echo "$dartfiles" | xargs dartfmt -n --set-exit-if-changed --line-length 140
+
+    if [[ $? != 0 ]];
+    then
+        echo
+        echo "dart files were not properly formatted, please format them with:"
+        echo "dartfmt -w --line-length 140 <path>"
+        echo
+
+
+        exitstatus=1
+    fi
+fi
+
+if [[ ! ( -z "$phpfiles" ) ]];
+then
+
+    echo "$phpfiles" | xargs docker exec dime bin/phpcs --standard=psr2 | grep "PHPCBF CAN FIX" > /dev/null
+
+    if [[ $? -eq 0 ]];
+    then
+        echo
+        echo "php files were not properly formatted, please format them with:"
+        echo "composer run format"
+        echo
+
+        exitstatus=1
+    fi
+fi
+
+cd ..
+rm -rf git-export-dir/
+
+exit $exitstatus
