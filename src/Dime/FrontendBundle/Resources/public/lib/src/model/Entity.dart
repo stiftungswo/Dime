@@ -168,7 +168,7 @@ class Entity {
         this.alias = value as String;
         break;
       case 'user':
-        this.user = value is Employee ? value : new Employee.fromMap(value as Map<String, dynamic>);
+        this.user = value is User ? value : new User.fromMap(value as Map<String, dynamic>);
         break;
       case 'tags':
         this.tags = Tag.listFromMap(value as List<Map<String, dynamic>>);
