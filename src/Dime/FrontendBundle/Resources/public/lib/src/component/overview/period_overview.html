@@ -15,8 +15,8 @@
   </thead>
   <tbody *ngIf="entities != null">
     <tr *ngFor="let entity of entities" (click)="selectEntity(entity.id)" [class.info]="isSelected(entity)">
-      <td><dateinput style="width: 100%;" [(date)]="entity.start" (dateChange)="entity.addFieldtoUpdate('start')"></dateinput></td>
-      <td><dateinput style="width: 100%;" [(date)]="entity.end" (dateChange)="entity.addFieldtoUpdate('end')"></dateinput></td>
+      <td><date-input style="width: 100%;" [(ngModel)]="entity.start" (ngModelChange)="entity.addFieldtoUpdate('start')"></date-input></td>
+      <td><date-input style="width: 100%;" [(ngModel)]="entity.end" (ngModelChange)="entity.addFieldtoUpdate('end')"></date-input></td>
       <td class="hidden-xs"><input-percentage htmlclass="form-control" [safecalc]="false" [(value)]="entity.pensum" (change)="addSaveField('pensum', entity)"></input-percentage></td>
       <td>{{entity.realTime | secondsToHours}}</td>
       <td>{{entity.targetTime | secondsToHours}}</td>

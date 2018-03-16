@@ -20,8 +20,8 @@
         <tr *ngFor="let entity of entities | timeslicedatefilter:filterStartDate:filterEndDate | orderBy:'startedAt'" (click)="selectRow($event, entity)" [class.info]="selectedTimeslices.contains(entity.id)">
             <td></td>
             <td *ngIf="projectBased"><user-select [(ngModel)]="entity.employee" [parentEmployees]="employees" (ngModelChange)="entity.addFieldtoUpdate('employee')"></user-select></td>
-            <td><activity-select [is-readonly]="true" [(ngModel)]="entity.activity" [parent-activities]="activities" [project]="entity?.project?.id" (ngModelChange)="entity.addFieldtoUpdate('activity')"></activity-select></td>
-            <td><dateinput [is-readonly]="true" style="width: 100%;" [(date)]="entity.startedAt"></dateinput></td>
+            <td><activity-select disabled [(ngModel)]="entity.activity" [parent-activities]="activities" [project]="entity?.project?.id" (ngModelChange)="entity.addFieldtoUpdate('activity')"></activity-select></td>
+            <td><date-input disabled style="width: 100%;" [(ngModel)]="entity.startedAt"></date-input></td>
             <td><input style="width: 100%;" class="form-control" [(ngModel)]="entity.value" (change)="addSaveField('value', entity)"/></td>
             <td><dime-button (click)="deleteEntity(entity.id)" fontAwesome="trash-o" color="red"></dime-button></td>
         </tr>
@@ -31,7 +31,7 @@
     <div class="row form-inline">
         <div class="col-md-2">
             <label>Datum</label>
-            <dateinput [(date)]="newEntryDate" [has-buttons]="true"></dateinput>
+            <date-input [(ngModel)]="newEntryDate" [has-buttons]="true"></date-input>
             <div>
                 <span>automatisch anpassen</span>
                 <input class="checkbox" type="checkbox" [(ngModel)]="updateNewEntryDate" />

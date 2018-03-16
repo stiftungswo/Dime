@@ -1,7 +1,7 @@
 <div class="row form-inline" *ngIf="selectedProject != null">
     <div class="col-md-2">
         <label>Datum</label>
-        <dateinput [is-readonly]="true" [(date)]="newEntryDate"></dateinput>
+        <date-input disabled [(ngModel)]="newEntryDate"></date-input>
     </div>
     <div class="col-md-10">
         <label>Kommentar</label>
@@ -28,7 +28,7 @@
   </thead>
   <tbody>
     <tr *ngFor="let entity of filteredComments | orderBy:'id':true" (click)="selectEntity(entity.id)" [class.info]="isSelected(entity)">
-      <td><dateinput [is-readonly]="true" style="width: 100%;" [(date)]="entity.date"></dateinput></td>
+      <td><date-input disabled style="width: 100%;" [(ngModel)]="entity.date"></date-input></td>
       <td><textarea class="form-control" style="width: 100%; height: auto" [(ngModel)]="entity.comment" (change)="addSaveField('comment', entity)"></textarea></td>
       <td><dime-button (click)="deleteEntity(entity.id)" fontAwesome="trash-o" color="red"></dime-button></td>
     </tr>

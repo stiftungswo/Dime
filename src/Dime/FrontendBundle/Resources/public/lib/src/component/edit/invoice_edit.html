@@ -30,10 +30,10 @@
               <user-select [(ngModel)]="entity.accountant" (ngModelChange)="addSaveField('accountant')"></user-select>
             </dime-form-group>
             <dime-form-group horizontal label="Startdatum">
-              <dateinput [(date)]="entity.start" (dateChange)="addSaveField('start')"></dateinput>
+              <date-input [(ngModel)]="entity.start" (ngModelChange)="addSaveField('start')"></date-input>
             </dime-form-group>
             <dime-form-group horizontal label="Enddatum">
-              <dateinput [(date)]="entity.end" (dateChange)="addSaveField('end')"></dateinput>
+              <date-input [(ngModel)]="entity.end" (ngModelChange)="addSaveField('end')"></date-input>
             </dime-form-group>
           </div>
           <dime-form-group label="Beschreibung">

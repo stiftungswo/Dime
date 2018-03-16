@@ -6,25 +6,22 @@ import 'package:pikaday/pikaday.dart';
 import 'pikaday/pikaday_component.dart';
 
 @Component(
-  selector: 'dateinput',
+  selector: 'date-input',
   templateUrl: 'dateToTextInput.html',
   directives: const [CORE_DIRECTIVES, formDirectives, PikadayComponent],
+  providers: const[const Provider(NG_VALUE_ACCESSOR, useExisting: DateToTextInput, multi: true)],
 )
-class DateToTextInput implements OnChanges, AfterViewInit {
-  // todo add validation
+class DateToTextInput implements ControlValueAccessor<DateTime>, OnChanges, AfterViewInit {
 
   DateTime _date;
 
+  ChangeFunction<DateTime> _onChange;
+
   DateTime get date => _date;
 
-  @Input('date')
   set date(DateTime newDate) {
     _date = newDate;
   }
-
-  final StreamController<DateTime> _dateChange = new StreamController<DateTime>();
-  @Output('dateChange')
-  Stream<DateTime> get dateChange => _dateChange.stream;
 
   @Input('format')
   String format = 'DD.MM.YYYY';
@@ -32,13 +29,8 @@ class DateToTextInput implements OnChanges, AfterViewInit {
   @Input('has-buttons')
   bool hasButtons = false;
 
-  @Input('is-readonly')
+  @Input('disabled')
   bool isReadonly = false;
-
-  @Input('null-allowed')
-  bool nullAllowed = false;
-
-  bool isValid = true;
 
   @ViewChild('datepicker')
   PikadayComponent pikaday;
@@ -86,7 +78,7 @@ class DateToTextInput implements OnChanges, AfterViewInit {
       }
     }
 
-    _dateChange.add(this.date);
+    _onChange(this.date);
   }
 
   @override
@@ -95,7 +87,6 @@ class DateToTextInput implements OnChanges, AfterViewInit {
   @override
   ngAfterViewInit() {
     pikadayInput = document.getElementById(pikaday.id) as InputElement;
-    //updatePikadayAttributes();
   }
 
   updatePikadayAttributes() {
@@ -105,8 +96,21 @@ class DateToTextInput implements OnChanges, AfterViewInit {
 
       if (pikadayInput.value.trim().isEmpty) {
         pikaday.day = null;
-        _dateChange.add(null);
+        _onChange(null);
       }
     });
+  }
+
+  @override
+  void registerOnChange(ChangeFunction<DateTime> f) {
+    _onChange = f;
+  }
+
+  @override
+  void registerOnTouched(TouchFunction f) { }
+
+  @override
+  void writeValue(DateTime obj) {
+    date = obj;
   }
 }
