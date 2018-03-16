@@ -34,27 +34,23 @@
                              (ngModelChange)="entity.addFieldtoUpdate('customer')"></customer-select>
           </dime-form-group>
           <dime-form-group horizontal label="Verantwortlicher Mitarbeiter">
-            <user-select
+            <user-select required ngControl="accountant"
               [(ngModel)]="entity.accountant"
               (ngModelChange)="addSaveField('accountant')"></user-select>
           </dime-form-group>
-          <dime-form-group horizontal>
-            <div class="checkbox">
-              <label>
-                <input type="checkbox" [(ngModel)]="entity.chargeable" (change)="addSaveField('chargeable')"> Verrechenbar
-              </label>
-            </div>
+          <dime-form-group horizontal class="checkbox">
+            <label>
+              <input type="checkbox" [(ngModel)]="entity.chargeable" (change)="addSaveField('chargeable')"> Verrechenbar
+            </label>
           </dime-form-group>
-          <dime-form-group horizontal help="Wenn ein Projekt archiviert ist, kann nicht mehr darauf gebucht werden.">
-            <div class="checkbox">
-              <label>
-                <input type="checkbox" [(ngModel)]="entity.archived" (change)="addSaveField('archived')"> Archiviert
-              </label>
-            </div>
+          <dime-form-group horizontal help="Wenn ein Projekt archiviert ist, kann nicht mehr darauf gebucht werden." class="checkbox">
+            <label>
+              <input type="checkbox" [(ngModel)]="entity.archived" (change)="addSaveField('archived')"> Archiviert
+            </label>
           </dime-form-group>
-          <dime-form-group horizontal label="Tarif Gruppe"
-                           help="Falls keine Tarif Gruppe ausgewählt ist, wird die Tarif Gruppe des Kunden verwendet">
-            <rategroup-select [placeholder]="entity?.customer?.rateGroup?.name ?? ''"
+          <dime-form-group horizontal label="Tarif Gruppe">
+            <rategroup-select required ngControl="rateGroup"
+                              [placeholder]="entity?.customer?.rateGroup?.name ?? ''"
                               [(ngModel)]="entity.rateGroup"
                               (ngModelChange)="entity.addFieldtoUpdate('rateGroup')"></rategroup-select>
           </dime-form-group>
@@ -69,7 +65,8 @@
           </dime-form-group>
         </div>
         <dime-form-group label="Beschreibung">
-          <textarea class="form-control" [(ngModel)]="entity.description"
+          <textarea required ngControl="description"
+                    class="form-control" [(ngModel)]="entity.description"
                     (change)="addSaveField('description')"></textarea>
         </dime-form-group>
         <div class="form-group">
@@ -100,7 +97,7 @@
   </div>
 <activity-overview [project]="entity?.id"></activity-overview>
 <div class="DimeControlButtons">
-  <dime-button primary [enabled]="editform.valid" (click)="saveEntity()"><error-icon></error-icon></dime-button>
+  <save-button [valid]="editform.valid" (click)="saveEntity()"></save-button>
   <dime-button (click)="reloadEvict()" glyphicon="refresh"></dime-button>
 </div>
 </form>

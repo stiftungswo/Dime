@@ -27,20 +27,23 @@
             <input class="form-control" required [(ngModel)]="entity.name" ngControl="name" (change)="addSaveField('name')">
           </dime-form-group>
           <dime-form-group horizontal label="Kunde">
-            <customer-select [(ngModel)]="entity.customer"
-                             (ngModelChange)="entity.addFieldtoUpdate('customer')"></customer-select>
+            <customer-select required ngControl="customer"
+                             [(ngModel)]="entity.customer" (ngModelChange)="entity.addFieldtoUpdate('customer')"></customer-select>
           </dime-form-group>
           <dime-form-group horizontal label="Status">
-            <offerstatus-select [(ngModel)]="entity.status" (ngModelChange)="entity.addFieldtoUpdate('status')"></offerstatus-select>
+            <offerstatus-select required ngControl="status"
+                                [(ngModel)]="entity.status" (ngModelChange)="entity.addFieldtoUpdate('status')"></offerstatus-select>
           </dime-form-group>
           <dime-form-group horizontal label="Verantwortlicher Mitarbeiter">
-            <user-select [(ngModel)]="entity.accountant" (ngModelChange)="addSaveField('accountant')"></user-select>
+            <user-select required ngControl="accountant"
+                         [(ngModel)]="entity.accountant" (ngModelChange)="addSaveField('accountant')"></user-select>
           </dime-form-group>
           <dime-form-group horizontal label="Gültig bis">
             <dateinput [(date)]="entity.validTo" (dateChange)="addSaveField('validTo')"></dateinput>
           </dime-form-group>
           <dime-form-group horizontal label="Tarif" class="form-group">
-            <rategroup-select [(ngModel)]="entity.rateGroup" (ngModelChange)="addSaveField('rateGroup')"></rategroup-select>
+            <rategroup-select required ngControl="rateGroup"
+                              [(ngModel)]="entity.rateGroup" (ngModelChange)="addSaveField('rateGroup')"></rategroup-select>
           </dime-form-group>
           <h4>Addresse</h4>
           <address-edit [(address)]="entity.address" (change)="addSaveField('address')"></address-edit>
@@ -48,16 +51,15 @@
             <a (click)="copyAddressFromCustomer()" *ngIf="entity.customer != null">Adresse aus Kunde übernehmen</a>
           </dime-form-group>
         </div>
-        <div class="form-group">
-          <label class="control-label">Kurzbeschreibung</label>
-          <input class="form-control" [(ngModel)]="entity.shortDescription" (change)="addSaveField('shortDescription')">
-        </div>
-        <div class="form-group">
-          <label class="control-label">Beschreibung</label>
+        <dime-form-group label="Kurzbeschreibung">
+          <input class="form-control" required ngControl="shortDescription"
+                 [(ngModel)]="entity.shortDescription" (change)="addSaveField('shortDescription')">
+        </dime-form-group>
+        <dime-form-group label="Beschreibung">
           <p class="help-block">Beschreibungstexte werden neu mit Markdown formatiert. <a target="_blank" href="https://github.com/stiftungswo/Dime/blob/master/doc/markdown_intro.md">Hilfe</a></p>
           <textarea class="form-control" [(ngModel)]="entity.description"
                     (change)="addSaveField('description')"></textarea>
-        </div>
+        </dime-form-group>
       </div>
     </div>
   </div>
@@ -97,7 +99,7 @@
   </div>
 
   <div class="DimeControlButtons">
-    <dime-button primary [enabled]="editform.valid" (click)="saveEntity()"><error-icon></error-icon></dime-button>
+    <save-button [valid]="editform.valid" (click)="saveEntity()"></save-button>
     <dime-button primary (click)="printOffer()" glyphicon="print">Drucken</dime-button>
     <dime-button (click)="reloadEvict()" glyphicon="refresh"></dime-button>
   </div>

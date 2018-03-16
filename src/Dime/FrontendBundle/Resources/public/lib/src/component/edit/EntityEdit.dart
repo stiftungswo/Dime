@@ -75,22 +75,17 @@ abstract class EntityEdit<T extends Entity> implements OnInit {
   }
 
   Future<bool> saveEntity() async {
-    if (this.editform.valid) {
-      // form valid, save data
-      entityEventsService.emitSaveChanges();
-      if (this.entity.needsUpdate) {
-        this.statusservice.setStatusToLoading();
-        try {
-          this.entity = await store.update(this.entity);
-          this.statusservice.setStatusToSuccess();
-        } catch (e, stack) {
-          this.statusservice.setStatusToError(e, stack);
-        }
-        this.reload();
+    entityEventsService.emitSaveChanges();
+    if (this.entity.needsUpdate) {
+      this.statusservice.setStatusToLoading();
+      try {
+        this.entity = await store.update(this.entity);
+        this.statusservice.setStatusToSuccess();
+      } catch (e, stack) {
+        this.statusservice.setStatusToError(e, stack);
       }
-      return true;
-    } else {
-      throw new Exception("FORM IS NOT VALID");
+      this.reload();
     }
+    return true;
   }
 }

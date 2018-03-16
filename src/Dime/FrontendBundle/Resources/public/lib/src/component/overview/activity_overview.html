@@ -20,7 +20,7 @@
       #row="ngForm"
     >
       <td>{{entity.id}}</td>
-      <td validationStatus class="form-group"><service-select hideArchived ngControl="service"
+      <td validationStatus class="form-group"><service-select hideArchived required ngControl="service"
                                                               [(ngModel)]="entity.service"
                                                               (ngModelChange)="entity.addFieldtoUpdate('service')"></service-select></td>
       <td><textarea class="form-control tiny" [(ngModel)]="entity.description" (change)="addSaveField('description', entity)"></textarea></td>
