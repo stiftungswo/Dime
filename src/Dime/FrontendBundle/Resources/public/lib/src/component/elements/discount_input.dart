@@ -9,11 +9,12 @@ import 'percentage_input.dart';
   selector: "discount-input",
   template: """
     <div class="input-group">
-      <percentage-input *ngIf="percentage" [(ngModel)]="displayValue" [showAddon]="false"></percentage-input>
+      <!-- precision is 0 because the backend rounds -->
+      <percentage-input *ngIf="percentage" [(ngModel)]="displayValue" [showAddon]="false" [precision]='0'></percentage-input>
       <input *ngIf="!percentage" type="number" [(ngModel)]="displayValue" class="form-control" aria-label="...">
       <div class="input-group-btn">
-        <button type="button" class="btn" [class.btn-default]='!percentage' [class.btn-primary]="percentage" (click)='percentage = true'>%</button>
-        <button type="button" class="btn" [class.btn-default]='percentage' [class.btn-primary]="!percentage" (click)='percentage = false'>CHF</button>
+        <button type="button" class="btn" [class.btn-default]='!percentage' [class.btn-primary]="percentage" (click)='setPercentage(true)'>%</button>
+        <button type="button" class="btn" [class.btn-default]='percentage' [class.btn-primary]="!percentage" (click)='setPercentage(false)'>CHF</button>
       </div>
     </div>
   """,
@@ -21,14 +22,14 @@ import 'percentage_input.dart';
   providers: const [const Provider(NG_VALUE_ACCESSOR, useExisting: DiscountInputComponent, multi: true)],
 )
 class DiscountInputComponent implements ControlValueAccessor<double> {
-  bool _percentage;
-
   ChangeFunction<double> _onValueChange;
-  bool get percentage => _percentage;
+
   @Input()
-  void set percentage(bool percentage) {
-    _percentage = percentage;
-    //FIXME(106): this triggers the dirty check of the including views too soon; this field is always saved, even without changes
+  bool percentage = false;
+
+  //this is a separate setter so the percentageChange event doesn't get fired when angular first sets the value
+  void setPercentage(bool p) {
+    percentage = p;
     _percentageChange.add(percentage);
   }
 

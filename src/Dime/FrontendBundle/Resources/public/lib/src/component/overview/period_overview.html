@@ -25,7 +25,7 @@
                                        [(ngModel)]="entity.start" (ngModelChange)="entity.addFieldtoUpdate('start')"></date-input></td>
       <td validationStatus><date-input required ngControl="end{{i}}"
                                        [(ngModel)]="entity.end" (ngModelChange)="entity.addFieldtoUpdate('end')"></date-input></td>
-      <td validationStatus><percentage-input required ngControl="pensum{{i}}"
+      <td validationStatus><percentage-input required ngControl="pensum{{i}}" [precision]="0"
                                              [(ngModel)]="entity.pensum" (ngModelChange)="addSaveField('pensum', entity)"></percentage-input></td>
       <td>{{entity.realTime | secondsToHours}}</td>
       <td>{{entity.targetTime | secondsToHours}}</td>

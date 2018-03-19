@@ -16,6 +16,9 @@ import 'package:angular_forms/angular_forms.dart';
 class PercentageInputComponent implements ControlValueAccessor<double> {
   String text = '';
 
+  @Input()
+  int precision = 2;
+
   ChangeFunction<double> _onchange;
 
   double _model;
@@ -39,24 +42,7 @@ class PercentageInputComponent implements ControlValueAccessor<double> {
     if (val == null) {
       return '';
     }
-    int position = val.toString().indexOf('.');
-    String str = val.toString().replaceAll('.', '');
-    for (int i = 0; i < 2; i++) {
-      if (str.startsWith('0')) {
-        str = str.replaceFirst('0', '');
-        str = str + '0';
-      } else {
-        str = str + '0';
-      }
-    }
-    String resString = '';
-    for (int i = 0; i < str.length; i++) {
-      if (i == position) {
-        resString = resString + '.';
-      }
-      resString = resString + str.substring(i, i + 1);
-    }
-    return resString;
+    return (100 * val).toStringAsFixed(precision);
   }
 
   double _toNumber(String percentage) {
