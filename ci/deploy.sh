@@ -18,6 +18,9 @@ case $1 in
     ;;
 esac
 
+# copy over dart files to build folder for sourcemap support
+rsync -zarv --prune-empty-dirs --include "*/" --include "*.dart" --exclude "*" src/Dime/FrontendBundle/Resources/public/lib/ src/Dime/FrontendBundle/Resources/public/build/web/packages/DimeClient/
+
 # This imports the config from $CONFIG_FILE on the remote system ($TARGET) into this scripts environment
 export $(ssh $TARGET "cat deploy/dime.$ENVIRONMENT.env" | xargs)
 
