@@ -2,6 +2,7 @@ import 'dart:html';
 
 import 'package:angular/angular.dart';
 import 'package:angular/src/platform/browser/exceptions.dart';
+import 'package:path/path.dart';
 import 'package:sentry_client/api_data/sentry_exception.dart';
 import 'package:sentry_client/api_data/sentry_packet.dart';
 import 'package:sentry_client/api_data/sentry_platform.dart';
@@ -55,13 +56,17 @@ class BrowserSentryLogger implements SentryLogger {
     }
 
     List<SentryStacktraceFrame> frames = stackTrace.frames.map((Frame f) {
+      var uri = f.uri;
+      uri = uri.replace(queryParameters: {});
+      //uri.
       return new SentryStacktraceFrame(
-        //filename: f.library,
+        filename: prettyUri(uri),
         function: f.member,
         module: f.package,
         lineno: f.line,
         colno: f.column,
-        absPath: f.library,
+        //absPath: f.uri.path,
+        absPath: uri.toString(),
         //contextLine: ,
         //preContext: ,
         //postContext: ,
