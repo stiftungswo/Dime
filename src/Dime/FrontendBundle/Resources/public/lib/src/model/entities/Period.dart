@@ -89,7 +89,7 @@ class Period extends Entity {
         this.timeTillToday = value as num;
         break;
       case 'employeeholiday':
-        this.employeeholiday = value;
+        this.employeeholiday = value as num;
         break;
       case 'holidayBalance':
         this.holidayBalance = value as num;
@@ -122,7 +122,7 @@ class Period extends Entity {
   int realTime;
   num targetTime;
   num timeTillToday;
-  dynamic /* num | String */ employeeholiday;
+  num employeeholiday;
   num holidayBalance;
   String lastYearHolidayBalance;
 }

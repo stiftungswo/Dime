@@ -19,13 +19,6 @@ RUN apt-get update -y && \
     php -r "unlink('composer-setup.php');" && \
     mv composer.phar /usr/local/bin/composer
 
-RUN apt-get update && \
-    apt-get install -y apt-transport-https symlinks && \
-    curl https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - && \
-    curl https://storage.googleapis.com/download.dartlang.org/linux/debian/dart_stable.list > /etc/apt/sources.list.d/dart_stable.list && \
-    apt-get update && \
-    apt-get install dart && \
-    ulimit -n 16384
 
 COPY .docker/rootfs /
 

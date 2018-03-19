@@ -11,11 +11,9 @@ services:
     links:
       - mariadb:mysql
     volumes:
-      - dime-sync:/var/www/html:nocopy
-      - pub-cache:/tmp/dime-pub-cache
+      - .:/var/www/html:cached
     environment:
       - VIRTUAL_HOST=localhost
-      - PUB_CACHE=/var/www/html/src/Dime/FrontendBundle/Resources/public/pubcache
       - PHP_MEMLIMIT="2048M"
       - CACHE_ROOT="/tmp/app"
 
@@ -37,9 +35,3 @@ services:
      - PMA_ARBITRARY=1
     ports:
      - 8080:80
-
-volumes:
-  dime-sync:
-    external: true
-  pub-cache:
-    external: false
