@@ -39,7 +39,7 @@
                          [(ngModel)]="entity.accountant" (ngModelChange)="addSaveField('accountant')"></user-select>
           </dime-form-group>
           <dime-form-group horizontal label="Gültig bis">
-            <date-input [(ngModel)]="entity.validTo" (ngModelChange)="addSaveField('validTo')"></date-input>
+            <date-input ngControl="validTo" [(ngModel)]="entity.validTo" (ngModelChange)="addSaveField('validTo')"></date-input>
           </dime-form-group>
           <dime-form-group horizontal label="Tarif" class="form-group">
             <rategroup-select required ngControl="rateGroup"

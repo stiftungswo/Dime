@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'dart:html';
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
@@ -12,15 +11,9 @@ import 'pikaday/pikaday_component.dart';
   providers: const [const Provider(NG_VALUE_ACCESSOR, useExisting: DateToTextInput, multi: true)],
 )
 class DateToTextInput implements ControlValueAccessor<DateTime>, OnChanges, AfterViewInit {
-  DateTime _date;
+  DateTime date;
 
   ChangeFunction<DateTime> _onChange;
-
-  DateTime get date => _date;
-
-  set date(DateTime newDate) {
-    _date = newDate;
-  }
 
   @Input('format')
   String format = 'DD.MM.YYYY';
@@ -45,39 +38,40 @@ class DateToTextInput implements ControlValueAccessor<DateTime>, OnChanges, Afte
 
   today() {
     DateTime now = new DateTime.now();
-    this.date = new DateTime(now.year, now.month, now.day);
-    updateDate();
+    updateDate(new DateTime(now.year, now.month, now.day));
   }
 
   nextDay() {
     if (this.date != null) {
-      this.date = this.date.add(new Duration(days: 1));
-      updateDate();
+      updateDate(this.date.add(new Duration(days: 1)));
     }
   }
 
   previousDay() {
     if (this.date != null) {
-      this.date = this.date.subtract(new Duration(days: 1));
-      updateDate();
+      updateDate(this.date.subtract(new Duration(days: 1)));
     }
   }
 
-  updateDate() {
+  updateDate(DateTime newDate) {
     // Beim Sommerzeitwechsel wird manchmal eine Stunde dazugezählt, was dazu führt dass es ein Tageswechsel gibt
     // Das Datum ist dann 23:00 am vorherigen Tag was fehlerbehaftet ist (und 2 Tage gesprungen wird).
     // In diesem Fall die Stunde immer auf 0 setzen, damit wirklich der Beginn des Tages ausgewählt ist.
-    if (this.date != null && this.date.hour != 0) {
-      if (this.date.hour == 23) {
+    if (newDate != null && newDate.hour != 0) {
+      if (newDate.hour == 23) {
         // add one hour to be on the correct day again
-        this.date = this.date.add(new Duration(hours: 1));
+        newDate = newDate.add(new Duration(hours: 1));
       } else {
         // or simply reset to hour 0
-        this.date = new DateTime(this.date.year, this.date.month, this.date.day);
+        newDate = new DateTime(newDate.year, newDate.month, newDate.day);
       }
     }
 
-    _onChange(this.date);
+    //only fire the event if the date actually changed, otherwise the onChange callback will fire on load
+    if (this.date == null || newDate == null || newDate.compareTo(this.date) != 0) {
+      this.date = newDate;
+      _onChange(this.date);
+    }
   }
 
   @override
