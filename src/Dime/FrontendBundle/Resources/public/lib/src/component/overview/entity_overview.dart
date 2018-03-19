@@ -226,34 +226,29 @@ abstract class EntityOverview<T extends Entity> implements OnInit, AfterViewInit
 
   rowClass(T entity, bool valid) {
     if (valid ?? true) {
-      return {
-        "info": isSelected(entity)
-      };
+      return {"info": isSelected(entity)};
     } else {
       if (isSelected(entity)) {
-        return {
-          "warning": true
-        };
+        return {"warning": true};
       } else {
-        return {
-          "danger": true
-        };
+        return {"danger": true};
       }
     }
   }
 
   EntityOverview(this.type, this.store, this.routename, this.settingsManager, this.statusservice, this.entityEventsService,
-    {this.router, this.auth}) {
+      {this.router, this.auth}) {
     entityEventsService.addSaveChangesListener(this.saveAllEntities);
   }
 
-  @Input() bool required = false;
-
+  @Input()
+  bool required = false;
 
   ///a dummy control to mimick empty state of [entities], used for [required] validation
   Control _entitiesHasContent = null;
 
-  @ViewChild("overview") NgControlGroup overview;
+  @ViewChild("overview")
+  NgControlGroup overview;
 
   ngAfterViewInit() {
     if (required) {

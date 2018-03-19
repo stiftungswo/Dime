@@ -22,7 +22,7 @@ import 'edit.dart';
 @Component(
   selector: 'offer-edit',
   templateUrl: 'offer_edit.html',
-  pipes: const[COMMON_PIPES],
+  pipes: const [COMMON_PIPES],
   directives: const [
     CORE_DIRECTIVES,
     formDirectives,

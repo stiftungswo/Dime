@@ -9,10 +9,9 @@ import 'pikaday/pikaday_component.dart';
   selector: 'date-input',
   templateUrl: 'dateToTextInput.html',
   directives: const [CORE_DIRECTIVES, formDirectives, PikadayComponent],
-  providers: const[const Provider(NG_VALUE_ACCESSOR, useExisting: DateToTextInput, multi: true)],
+  providers: const [const Provider(NG_VALUE_ACCESSOR, useExisting: DateToTextInput, multi: true)],
 )
 class DateToTextInput implements ControlValueAccessor<DateTime>, OnChanges, AfterViewInit {
-
   DateTime _date;
 
   ChangeFunction<DateTime> _onChange;
@@ -107,7 +106,7 @@ class DateToTextInput implements ControlValueAccessor<DateTime>, OnChanges, Afte
   }
 
   @override
-  void registerOnTouched(TouchFunction f) { }
+  void registerOnTouched(TouchFunction f) {}
 
   @override
   void writeValue(DateTime obj) {

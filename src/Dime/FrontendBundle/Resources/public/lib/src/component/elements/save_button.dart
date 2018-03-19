@@ -14,9 +14,7 @@ import 'package:angular/angular.dart';
       <error-icon></error-icon>
     </dime-button>
     """,
-  directives: const [
-    CORE_DIRECTIVES, DimeButton, ErrorIconComponent
-  ],
+  directives: const [CORE_DIRECTIVES, DimeButton, ErrorIconComponent],
 )
 class SaveButton {
   final _onClick = new StreamController<String>();

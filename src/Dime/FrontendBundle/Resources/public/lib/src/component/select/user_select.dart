@@ -17,7 +17,7 @@ import 'entity_select.dart';
   templateUrl: 'user_select.html',
   directives: const [CORE_DIRECTIVES, formDirectives],
   pipes: const [dimePipes],
-  providers: const[const Provider(NG_VALUE_ACCESSOR, useExisting: UserSelectComponent, multi: true)],
+  providers: const [const Provider(NG_VALUE_ACCESSOR, useExisting: UserSelectComponent, multi: true)],
 )
 class UserSelectComponent extends EntitySelect<Employee> implements OnChanges {
   UserSelectComponent(DataCache store, dom.Element element, this.context, StatusService status, UserAuthProvider auth)

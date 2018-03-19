@@ -15,7 +15,7 @@ import 'entity_select.dart';
   templateUrl: 'costgroup_select.html',
   directives: const [formDirectives, CORE_DIRECTIVES],
   pipes: const [dimePipes],
-  providers: const[const Provider(NG_VALUE_ACCESSOR, useExisting: CostgroupSelectComponent, multi: true)],
+  providers: const [const Provider(NG_VALUE_ACCESSOR, useExisting: CostgroupSelectComponent, multi: true)],
 )
 class CostgroupSelectComponent extends EntitySelect<Costgroup> {
   CostgroupSelectComponent(DataCache store, dom.Element element, StatusService status, UserAuthProvider auth)

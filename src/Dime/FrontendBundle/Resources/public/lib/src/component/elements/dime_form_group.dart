@@ -15,9 +15,9 @@ import 'package:angular_forms/angular_forms.dart';
 ///     class Foo extends BaseFoo with Validatable{
 ///
 @Component(
-  selector: "dime-form-group",
-  //FIXME(106) label vs validation error color aren't the same; AdminLTE vs Bootstrap
-  template: """
+    selector: "dime-form-group",
+    //FIXME(106) label vs validation error color aren't the same; AdminLTE vs Bootstrap
+    template: """
     <div class='form-group' [class.has-error]='control != null && !control.valid'>
       <label [attr.for]="eId != null ? eId : label"
              class="control-label"
@@ -35,20 +35,23 @@ import 'package:angular_forms/angular_forms.dart';
       </ul>
     </div>
   """,
-  directives: const [CORE_DIRECTIVES, HelpTooltip]
-)
-class DimeFormGroup{
-  @ContentChild(NgControl) NgControl control;
+    directives: const [CORE_DIRECTIVES, HelpTooltip])
+class DimeFormGroup {
+  @ContentChild(NgControl)
+  NgControl control;
 
-  @Input() bool horizontal = false;
-  @Input() String label;
-  @Input() String help = null;
+  @Input()
+  bool horizontal = false;
+  @Input()
+  String label;
+  @Input()
+  String help = null;
   String eId = null;
 }
 
 @Component(
-  selector: "dime-box",
-  template: """
+    selector: "dime-box",
+    template: """
     <div class="box box-primary" [class.box-danger]="control != null && !control.valid">
       <div class="box-header with-border">
         <h3 class="box-title">{{title}}</h3>
@@ -68,48 +71,49 @@ class DimeFormGroup{
       </div>
     </div>
   """,
-  directives: const [CORE_DIRECTIVES]
-)
+    directives: const [CORE_DIRECTIVES])
 class DimeBox {
-  @ContentChild(NgControlGroup) NgControlGroup control;
+  @ContentChild(NgControlGroup)
+  NgControlGroup control;
   //FIXME(106) rename this attribute - it also gets interpeted as the HTML title attribute
-  @Input() String title;
-  @Input() String requiredMessage = "Feld muss ausgefüllt werden";
-  @Input() bool footer = true;
+  @Input()
+  String title;
+  @Input()
+  String requiredMessage = "Feld muss ausgefüllt werden";
+  @Input()
+  bool footer = true;
 }
 
 @Component(
-  selector: "validation-wrapper",
-  template: """
+    selector: "validation-wrapper",
+    template: """
     <span class="form-group" [class.has-error]="control != null && !control.valid">
       <ng-content></ng-content>
     </span>
   """,
-  directives: const [CORE_DIRECTIVES]
-)
+    directives: const [CORE_DIRECTIVES])
 class ValidationWrapper {
-  @ContentChild(NgControl) NgControl control;
+  @ContentChild(NgControl)
+  NgControl control;
 }
 
-@Directive(
-  selector: '[validationStatus]'
-)
-class ValidationStatusDirective implements AfterContentChecked{
+@Directive(selector: '[validationStatus]')
+class ValidationStatusDirective implements AfterContentChecked {
   final Element el;
-  @ContentChild(NgControl) NgControl control;
+  @ContentChild(NgControl)
+  NgControl control;
 
   ValidationStatusDirective(this.el);
 
   @override
-  ngAfterContentChecked(){
-    if(control == null){
+  ngAfterContentChecked() {
+    if (control == null) {
       throw new Exception("No child tag that uses ngControl found");
     }
-    if(control.valid ?? true){
+    if (control.valid ?? true) {
       el.classes.remove("has-error");
     } else {
       el.classes.add("has-error");
     }
   }
 }
-

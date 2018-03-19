@@ -37,7 +37,7 @@ class DimeButton {
   String color = null;
 
   getClass() {
-    if(danger){
+    if (danger) {
       return "btn btn-danger";
     }
     if (primary) {

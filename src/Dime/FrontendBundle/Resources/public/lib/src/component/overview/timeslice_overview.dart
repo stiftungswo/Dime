@@ -417,18 +417,12 @@ class TimesliceOverviewComponent extends EntityOverview<Timeslice> {
   @override
   rowClass(Timeslice entity, bool valid) {
     if (valid ?? true) {
-      return {
-        "info": selectedTimeslices.contains(entity.id)
-      };
+      return {"info": selectedTimeslices.contains(entity.id)};
     } else {
       if (selectedTimeslices.contains(entity.id)) {
-        return {
-          "warning": true
-        };
+        return {"warning": true};
       } else {
-        return {
-          "danger": true
-        };
+        return {"danger": true};
       }
     }
   }
@@ -458,5 +452,4 @@ class TimesliceDateFilterPipe implements PipeTransform {
     }
     return const [];
   }
-
 }

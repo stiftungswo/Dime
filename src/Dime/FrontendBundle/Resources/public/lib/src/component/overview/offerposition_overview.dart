@@ -56,5 +56,4 @@ class OfferPositionOverviewComponent extends EntityOverview<OfferPosition> {
   Future createEntity({OfferPosition newEnt, Map<String, dynamic> params: const {}}) {
     return super.createEntity(params: {'offer': this._offerId});
   }
-
 }
