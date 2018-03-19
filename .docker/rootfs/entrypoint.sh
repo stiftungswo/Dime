@@ -7,7 +7,7 @@ composer install
 cp ./app/config/parameters.yml.dist ./app/config/parameters.yml
 
 /var/www/html/env/install_bundles.sh
-/var/www/html/env/pub_get.sh
+# /var/www/html/env/pub_get.sh
 
 # update supervisor configuration
 if [ -f /var/www/html/.docker/supervisord.conf ]; then
