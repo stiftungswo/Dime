@@ -54,7 +54,7 @@ class DimeFormGroup {
     template: """
     <div class="box box-primary" [class.box-danger]="control != null && !control.valid">
       <div class="box-header with-border">
-        <h3 class="box-title">{{title}}</h3>
+        <h3 class="box-title">{{label}}</h3>
       </div>
       <div class="box-body">
         <ng-content select='[boxBody]'></ng-content>
@@ -75,9 +75,8 @@ class DimeFormGroup {
 class DimeBox {
   @ContentChild(NgControlGroup)
   NgControlGroup control;
-  //FIXME(106) rename this attribute - it also gets interpeted as the HTML title attribute
   @Input()
-  String title;
+  String label;
   @Input()
   String requiredMessage = "Feld muss ausgefüllt werden";
   @Input()
