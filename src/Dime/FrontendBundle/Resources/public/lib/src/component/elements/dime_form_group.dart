@@ -72,6 +72,7 @@ class DimeFormGroup{
 )
 class DimeBox {
   @ContentChild(NgControlGroup) NgControlGroup control;
+  //FIXME(106) rename this attribute - it also gets interpeted as the HTML title attribute
   @Input() String title;
   @Input() String requiredMessage = "Feld muss ausgefüllt werden";
   @Input() bool footer = true;

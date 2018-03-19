@@ -72,9 +72,8 @@ abstract class EntityOverview<T extends Entity> implements OnInit, AfterViewInit
     this.statusservice.setStatusToLoading();
     try {
       T resp = await store.update(entity);
-      //FIXME(106) mutating this array appears to break ngControls
-      this.entities.removeWhere((enty) => enty.id == resp.id);
-      this.entities.add(resp);
+      //mutating this array appears to break ngControl, so instead we just reload the component now
+      this.reload();
       this.statusservice.setStatusToSuccess();
     } catch (e, stack) {
       print("Unable to save entity ${this.type.toString()}::${entity.id} because ${e}");

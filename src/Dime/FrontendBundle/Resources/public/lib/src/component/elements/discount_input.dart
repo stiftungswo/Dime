@@ -28,6 +28,7 @@ class DiscountInputComponent implements ControlValueAccessor<double>{
   @Input()
   void set percentage(bool percentage) {
     _percentage = percentage;
+    //FIXME(106): this triggers the dirty check of the including views too soon; this field is always saved, even without changes
     _percentageChange.add(percentage);
   }
 
