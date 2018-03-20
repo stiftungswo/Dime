@@ -34,7 +34,6 @@ import 'edit.dart';
     OfferStatusSelectComponent,
     OfferPositionOverviewComponent,
     OfferDiscountOverviewComponent,
-    DimeFormGroup
   ],
 )
 class OfferEditComponent extends EntityEdit<Offer> {
@@ -53,10 +52,8 @@ class OfferEditComponent extends EntityEdit<Offer> {
 
   HttpService http;
 
-  ApplicationRef ref;
-
   OfferEditComponent(RouteParams routeProvider, DataCache store, StatusService status, UserAuthProvider auth, Router router,
-      EntityEventsService entityEventsService, this.http, this.ref)
+      EntityEventsService entityEventsService, this.http)
       : super(routeProvider, store, Offer, status, auth, router, entityEventsService);
 
   @override

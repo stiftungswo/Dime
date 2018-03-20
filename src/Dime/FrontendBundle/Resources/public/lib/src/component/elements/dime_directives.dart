@@ -10,6 +10,7 @@ import 'validation/validation_status_directive.dart';
 import 'discount_input.dart';
 import 'save_button.dart';
 import 'percentage_input.dart';
+import 'edit_footer.dart';
 
 const dimeDirectives = const [
   DimeButton,
@@ -24,4 +25,5 @@ const dimeDirectives = const [
   DimeFormGroup,
   DimeBox,
   ValidationStatusDirective,
+  EditFooterComponent
 ];
