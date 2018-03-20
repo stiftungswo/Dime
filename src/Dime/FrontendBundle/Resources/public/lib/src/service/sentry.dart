@@ -1,13 +1,21 @@
 import 'dart:html';
+
 import 'package:angular/angular.dart';
 import 'package:angular/src/platform/browser/exceptions.dart';
-import 'user_context.dart';
-import 'release_info.dart';
+import 'package:path/path.dart';
 import 'package:sentry_client/api_data/sentry_exception.dart';
 import 'package:sentry_client/api_data/sentry_packet.dart';
+import 'package:sentry_client/api_data/sentry_platform.dart';
+import 'package:sentry_client/api_data/sentry_request.dart';
+import 'package:sentry_client/api_data/sentry_stacktrace.dart';
+import 'package:sentry_client/api_data/sentry_stacktrace_frame.dart';
 import 'package:sentry_client/api_data/sentry_user.dart';
 import 'package:sentry_client/sentry_client_browser.dart';
 import 'package:sentry_client/sentry_dsn.dart';
+import 'package:stack_trace/stack_trace.dart';
+
+import 'release_info.dart';
+import 'user_context.dart';
 
 abstract class SentryLogger {
   void log(dynamic error, dynamic stack, [String reason = '']);
@@ -39,16 +47,56 @@ class BrowserSentryLogger implements SentryLogger {
       value = split[0];
     }
 
-    value += "\n";
-    value += stack.toString();
+    Trace stackTrace;
+
+    if (stack is Iterable) {
+      stackTrace = new Chain((stack as Iterable).map((dynamic trace) => new Trace.parse(trace.toString()))).toTrace();
+    } else {
+      stackTrace = new Trace.parse(stack.toString());
+    }
+
+    List<SentryStacktraceFrame> frames = stackTrace.frames.map((Frame f) {
+      var uri = f.uri;
+      uri = uri.replace(queryParameters: {});
+      //uri.
+      return new SentryStacktraceFrame(
+        filename: prettyUri(uri),
+        function: f.member,
+        module: f.package,
+        lineno: f.line,
+        colno: f.column,
+        //absPath: f.uri.path,
+        absPath: uri.toString(),
+        //contextLine: ,
+        //preContext: ,
+        //postContext: ,
+        inApp: !f.isCore,
+        //vars: ,
+        //package: ,
+      );
+    }).toList();
+
+    var exception = new SentryException(
+      type: type,
+      value: value,
+      stacktrace: new SentryStacktrace(frames: frames),
+    );
+
+    var sentryUser = new SentryUser(
+      id: userContext.employee.username,
+      userName: userContext.employee.username,
+      email: userContext.employee.email,
+    );
 
     client.write(new SentryPacket(
+      logger: 'dart',
+      platform: SentryPlatform.javascript,
       culprit: window.location.toString(),
       timestamp: new DateTime.now().millisecondsSinceEpoch / 1000,
       environment: environment,
       release: release,
-      exceptionValues: [new SentryException(type: type, value: value)],
-      user: new SentryUser(id: userContext.employee.username),
+      exceptionValues: [exception],
+      user: sentryUser,
       tags: {"userAgent": window.navigator.userAgent},
     ));
   }

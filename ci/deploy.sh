@@ -18,6 +18,9 @@ case $1 in
     ;;
 esac
 
+# copy over dart files to build folder for sourcemap support
+rsync -zarv --prune-empty-dirs --include "*/" --include "*.dart" --exclude "*" src/Dime/FrontendBundle/Resources/public/lib/ src/Dime/FrontendBundle/Resources/public/build/web/packages/DimeClient/
+
 # This imports the config from $CONFIG_FILE on the remote system ($TARGET) into this scripts environment
 export $(ssh $TARGET "cat deploy/dime.$ENVIRONMENT.env" | xargs)
 
@@ -39,9 +42,9 @@ ssh $TARGET rm -r ${PROJECT_DIR}.bak
 ssh $TARGET mv $PROJECT_DIR ${PROJECT_DIR}.bak
 ssh $TARGET mv $TMP $PROJECT_DIR
 
-ssh $TARGET "cd $PROJECT_DIR && php72 app/console cache:clear --env=prod"
+ssh $TARGET "cd $PROJECT_DIR && php71 app/console cache:clear --env=prod"
 
 ssh $TARGET mkdir -p $BACKUP_DIR
 ssh $TARGET "mysqldump -u $DATABASE_USER -p\"$DATABASE_PW\" $DATABASE | bzip2 -c > $BACKUP_DIR/${DATABASE}_$(date +%Y-%m-%d-%H.%M.%S).sql.bz2"
-ssh $TARGET "cd $PROJECT_DIR && php72 app/console doctrine:migrations:migrate --no-interaction"
+ssh $TARGET "cd $PROJECT_DIR && php71 app/console doctrine:migrations:migrate --no-interaction"
 

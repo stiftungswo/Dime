@@ -23,6 +23,7 @@ dependencies:
   crypto: ">=2.0.2 <2.1.0"
   sentry_client: ">=4.0.3 < 5.0.0"
   meta: ^1.1.2
+  stack_trace: "^1.9.2"
 
 dev_dependencies:
   dart_to_js_script_rewriter: ^1.0.1
@@ -39,4 +40,5 @@ transformers:
     suppressWarnings: false
     suppressHints: false
     terse: false
+    sourceMaps: true
 
