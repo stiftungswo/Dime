@@ -8,6 +8,7 @@
 namespace Dime\EmployeeBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
@@ -35,6 +36,7 @@ class PeriodFormType extends AbstractType
             ->add('realTime')
             ->add('holidays')
             ->add('lastYearHolidayBalance')
+            ->add('yearlyEmployeeVacationBudget', IntegerType::class, ['required' => true])
         ;
     }
 

@@ -49,19 +49,27 @@ class PeriodTest extends KernelTestCase
         $period->setEnd(Carbon::create(2018, 12, 31, 0));
 
         $employee = new Employee();
-        $employee->setEmployeeholiday(20);
+        $employee->setEmployeeholiday(200000); // current employee holiday doesnt matter
         $period->setEmployee($employee);
+
+        $period->setYearlyEmployeeVacationBudget(20);
 
         $expected = 20 * self::SECONDS_IN_WORKDAYS;
 
-        $this->assertSame($expected, $period->getEmployeeholiday());
+        $this->assertSame($expected, $period->getPeriodVacationBudget());
+
+        $period->setYearlyEmployeeVacationBudget(21);
+
+        $expected = 21 * self::SECONDS_IN_WORKDAYS;
+
+        $this->assertSame($expected, $period->getPeriodVacationBudget());
 
         $period->setPensum(0.3);
-        $this->assertSame($expected * 0.3, $period->getEmployeeholiday());
+        $this->assertSame($expected * 0.3, $period->getPeriodVacationBudget());
         $period->setPensum(1.0);
 
         $period->setLastYearHolidayBalance('2.0');
-        $this->assertSame($expected + (2 * self::SECONDS_IN_HOURS), $period->getEmployeeholiday());
+        $this->assertSame($expected + (2 * self::SECONDS_IN_HOURS), $period->getPeriodVacationBudget());
     }
 
     public function testGetEmployeeholidayPartOfYear()
@@ -71,13 +79,11 @@ class PeriodTest extends KernelTestCase
         $period->setStart(Carbon::create(2018, 1, 1, 0));
         $period->setEnd(Carbon::create(2018, 3, 31, 0)); // so 90 days
 
-        $employee = new Employee();
-        $employee->setEmployeeholiday(20);
-        $period->setEmployee($employee);
+        $period->setYearlyEmployeeVacationBudget(20);
 
         $expected = (20 / 365 * 90) * self::SECONDS_IN_WORKDAYS;
 
-        $this->assertSame($expected, $period->getEmployeeholiday());
+        $this->assertSame($expected, $period->getPeriodVacationBudget());
     }
 
     public function testGetEmployeeholidayAcrossYears()
@@ -87,14 +93,12 @@ class PeriodTest extends KernelTestCase
         $period->setStart(Carbon::create(2017, 12, 1, 0));
         $period->setEnd(Carbon::create(2018, 1, 31, 0));
 
-        $employee = new Employee();
-        $employee->setEmployeeholiday(20);
-        $period->setEmployee($employee);
+        $period->setYearlyEmployeeVacationBudget(20);
 
         $expected = (20 / 365 * 31) * self::SECONDS_IN_WORKDAYS; // for 2017 (not leap year)
         $expected += (20 / 365 * 31) * self::SECONDS_IN_WORKDAYS; // for 2018 (not leap year)
 
-        $this->assertSame($expected, $period->getEmployeeholiday());
+        $this->assertSame($expected, $period->getPeriodVacationBudget());
     }
 
     public function testGetEmployeeholidayLeapYear()
@@ -104,13 +108,11 @@ class PeriodTest extends KernelTestCase
         $period->setStart(Carbon::create(2016, 1, 1, 0));
         $period->setEnd(Carbon::create(2016, 3, 31, 0)); // so 91 days
 
-        $employee = new Employee();
-        $employee->setEmployeeholiday(20);
-        $period->setEmployee($employee);
+        $period->setYearlyEmployeeVacationBudget(20);
 
         $expected = (20 / 366 * 91) * self::SECONDS_IN_WORKDAYS;
 
-        $this->assertSame($expected, $period->getEmployeeholiday());
+        $this->assertSame($expected, $period->getPeriodVacationBudget());
     }
 
     public function testGetEmployeeholidayAcrossLeapYears()
@@ -120,13 +122,12 @@ class PeriodTest extends KernelTestCase
         $period->setStart(Carbon::create(2015, 12, 1, 0));
         $period->setEnd(Carbon::create(2016, 3, 31, 0));
 
-        $employee = new Employee();
-        $employee->setEmployeeholiday(20);
-        $period->setEmployee($employee);
+
+        $period->setYearlyEmployeeVacationBudget(20);
 
         $expected = (20 / 365 * 31) * self::SECONDS_IN_WORKDAYS; // for 2015 (not leap year)
         $expected += (20 / 366 * 91) * self::SECONDS_IN_WORKDAYS; // for 2016 (leap year)
 
-        $this->assertSame($expected, $period->getEmployeeholiday());
+        $this->assertSame($expected, $period->getPeriodVacationBudget());
     }
 }

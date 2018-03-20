@@ -87,11 +87,11 @@ class PeriodOverviewComponent extends EntityOverview<Period> {
 
             if (data is Map) {
               takenHolidays = data['takenHolidays'] as List<dynamic>;
-              double employeeholiday = 0.0;
-              if (this.entities.elementAt(i).employeeholiday != null) {
-                employeeholiday = this.entities.elementAt(i).employeeholiday.toDouble();
+              double periodVacationBudget = 0.0;
+              if (this.entities.elementAt(i).periodVacationBudget != null) {
+                periodVacationBudget = this.entities.elementAt(i).periodVacationBudget.toDouble();
               }
-              this.entities.elementAt(i).holidayBalance = getHolidayBalance(takenHolidays, employeeholiday);
+              this.entities.elementAt(i).holidayBalance = getHolidayBalance(takenHolidays, periodVacationBudget);
             } else {
               this.entities.elementAt(i).holidayBalance = 0.0;
             }
@@ -106,12 +106,12 @@ class PeriodOverviewComponent extends EntityOverview<Period> {
     }
   }
 
-  double getHolidayBalance(List<dynamic> takenHolidays, double employeeholiday) {
+  double getHolidayBalance(List<dynamic> takenHolidays, double periodVacationBudget) {
     double holidayBalance = 0.0;
     for (final i in takenHolidays) {
       holidayBalance += double.parse(i.values.elementAt(0) as String);
     }
-    holidayBalance = employeeholiday - holidayBalance;
+    holidayBalance = periodVacationBudget - holidayBalance;
 
     return holidayBalance;
   }
@@ -126,7 +126,8 @@ class PeriodOverviewComponent extends EntityOverview<Period> {
       'employee': this.employee.id,
       'start': new DateTime(now.year, DateTime.JANUARY, 1),
       'end': new DateTime(now.year, DateTime.DECEMBER, 31),
-      'pensum': 1
+      'pensum': 1,
+      'yearlyEmployeeVacationBudget': this.employee.employeeholiday ?? 20,
     });
   }
 
