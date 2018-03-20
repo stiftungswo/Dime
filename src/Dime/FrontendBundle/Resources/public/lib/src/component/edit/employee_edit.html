@@ -1,9 +1,6 @@
-<div *ngIf="entity != null" class="box box-primary">
-  <div class="box-header with-border">
-    <h3 class="box-title">Mitarbeiter {{entity?.username}} bearbeiten</h3>
-  </div>
-  <form class="box-body" name="editform" #editform="ngForm">
-    <div class="form-horizontal">
+<form class="box-body" name="editform" #editform="ngForm">
+  <dime-box label="Mitarbeiter {{entity?.username}} bearbeiten">
+    <div boxBody class="form-horizontal" *ngIf="entity != null">
       <dime-form-group horizontal label="Username">
         <input required #name="ngForm" ngControl="username" class="form-control" type="text" [(ngModel)]="entity.username" (change)="addSaveField('username')">
       </dime-form-group>
@@ -35,9 +32,9 @@
         </label>
       </dime-form-group>
     </div>
-  </form>
-</div>
-<div class="DimeControlButtons">
-  <save-button [valid]="editform.valid" (click)="saveEntity()"></save-button>
-  <dime-button (click)="reloadEvict()" glyphicon="refresh"></dime-button>
-</div>
+    <div boxFooter class="DimeControlButtons">
+      <save-button [valid]="editform.valid" (click)="saveEntity()"></save-button>
+      <dime-button (click)="reloadEvict()" glyphicon="refresh"></dime-button>
+    </div>
+  </dime-box>
+</form>

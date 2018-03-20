@@ -1,9 +1,6 @@
-<div class="box box-primary">
-  <div class="box-header with-border">
-    <h3 class="box-title">Kunde bearbeiten</h3>
-  </div>
-  <form *ngIf="entity != null" class="box-body" #editform="ngForm">
-    <div class="form-horizontal">
+<form *ngIf="entity != null" class="box-body" #editform="ngForm">
+  <dime-box label="Kunde bearbeiten">
+    <div boxBody class="form-horizontal" *ngIf="entity != null">
       <dime-form-group horizontal label="Beschreibung">
         <input required ngControl="name" class="form-control"
                [(ngModel)]="entity.name" (change)="addSaveField('name')">
@@ -32,12 +29,12 @@
             Verrechenbar
           </label>
       </dime-form-group>
+      <h4>Adresse</h4>
+      <address-edit [(address)]="entity.address"  (change)="addSaveField('address')"></address-edit>
     </div>
-    <h4>Adresse</h4>
-    <address-edit [(address)]="entity.address"  (change)="addSaveField('address')"></address-edit>
-  </form>
-</div>
-<div class="DimeControlButtons">
-  <save-button [valid]="editform.valid" (click)="saveEntity()"></save-button>
-  <dime-button (click)="reloadEvict()" glyphicon="refresh"></dime-button>
-</div>
+    <div boxFooter class="DimeControlButtons">
+      <save-button [valid]="editform.valid" (click)="saveEntity()"></save-button>
+      <dime-button (click)="reloadEvict()" glyphicon="refresh"></dime-button>
+    </div>
+  </dime-box>
+</form>
