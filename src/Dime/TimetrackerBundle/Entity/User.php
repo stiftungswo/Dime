@@ -75,7 +75,7 @@ class User extends BaseUser implements DimeEntityInterface
      * @ORM\Column(type="integer", nullable=true)
      */
     protected $employeeholiday;
-    
+
     /**
      * @return string
      */
@@ -181,6 +181,15 @@ class User extends BaseUser implements DimeEntityInterface
         $this->employeeholiday = $employeeholiday;
 
         return $this;
+    }
+
+    /**
+     * @JMS\VirtualProperty()
+     * @JMS\SerializedName("roles")
+     */
+    public function getRoles()
+    {
+        return parent::getRoles();
     }
 
     /**

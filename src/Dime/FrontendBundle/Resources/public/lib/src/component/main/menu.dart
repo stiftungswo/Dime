@@ -1,6 +1,8 @@
 import 'package:angular/angular.dart';
 import 'package:angular_router/angular_router.dart';
+
 import '../../model/Menu.dart';
+import '../../service/user_context.dart';
 
 @Component(
   selector: 'main-menu',
@@ -33,7 +35,7 @@ class MenuComponent {
     new Menu.withItems('Stammdaten', 'fa-database', [
       new Menu.child('Services', ['ServiceOverview']),
       new Menu.child('Tarif Gruppen', ['RateGroupOverview']),
-      new Menu.child('Tarif Typen', ['RateUnitTypeOverview']),
+      new Menu.child('Tarif Typen', ['RateUnitTypeOverview'], adminOnly: true),
       new Menu.child('Feiertage', ['HolidayOverview']),
       new Menu.child('Tätigkeitsbereiche', ['ProjectCategoryOverview'])
     ]),
@@ -41,4 +43,10 @@ class MenuComponent {
       new Menu.child('Projekte Zuweisen', ['SettingAssignProjectOverview']),
     ]),
   ];
+
+  UserContext _userContext;
+
+  bool isUserAdmin() => _userContext.employee.isAdmin();
+
+  MenuComponent(this._userContext);
 }
