@@ -55,10 +55,19 @@ class Period extends Entity implements DimeEntityInterface
 
     /**
      * @var int
-     * Holidays in Seconds that are in this Period
+     * Holidays (Feiertage, see Holiday Entity) in Seconds that are in this Period
      * @ORM\Column(type="integer", nullable=true)
      */
     protected $holidays;
+
+    /**
+     * @var int
+     * Holidays in Seconds that are available to the employee
+     * (according to his employeeholiday at the time of creation of this period (or edited later))
+     * @JMS\SerializedName("yearlyEmployeeVacationBudget")
+     * @ORM\Column(name="yearly_employee_vacation_budget", type="integer", nullable=false)
+     */
+    protected $yearlyEmployeeVacationBudget;
 
     /**
      * @var float
@@ -99,13 +108,13 @@ class Period extends Entity implements DimeEntityInterface
 
     /**
      * @JMS\VirtualProperty()
-     * @JMS\SerializedName("employeeholiday")
+     * @JMS\SerializedName("periodVacationBudget")
      */
-    public function getEmployeeholiday()
+    public function getPeriodVacationBudget()
     {
-        if ($this->pensum && $this->getStart() instanceof Carbon && $this->getEmployee()->getEmployeeholiday() != null) {
+        if ($this->pensum && $this->getStart() instanceof Carbon && $this->yearlyEmployeeVacationBudget != null) {
             $pensum = ($this->getPensum());
-            $holidayEntitlement = $this->getEmployee()->getEmployeeholiday();
+            $holidayEntitlement = $this->yearlyEmployeeVacationBudget;
 
 
             $startYear = $this->getStart()->year;
@@ -286,6 +295,26 @@ class Period extends Entity implements DimeEntityInterface
     public function setHolidays($holidays)
     {
         $this->holidays = $holidays;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getYearlyEmployeeVacationBudget()
+    {
+        return $this->yearlyEmployeeVacationBudget;
+    }
+
+    /**
+     * @param int $yearlyEmployeeVacationBudget
+     *
+     * @return Period
+     */
+    public function setYearlyEmployeeVacationBudget($yearlyEmployeeVacationBudget)
+    {
+        $this->yearlyEmployeeVacationBudget = $yearlyEmployeeVacationBudget;
+
         return $this;
     }
 

@@ -50,7 +50,8 @@ class PeriodControllerTest extends DimeTestCase
             'employee'      => 7,
             "start"         => "2017-01-25 00:00:00",
             "end"           => "2017-06-07 00:00:00",
-            "pensum"        => 0.8
+            "pensum"        => 0.8,
+            "yearlyEmployeeVacationBudget" => 20,
         )));
 
         $this->assertEquals(201, $response->getStatusCode());
@@ -69,6 +70,7 @@ class PeriodControllerTest extends DimeTestCase
         // assert that data has content
         $this->assertEquals('2017-01-25 00:00:00', $data['start']);
         $this->assertEquals('0.8', $data['pensum']);
+        $this->assertEquals(20, $data['yearlyEmployeeVacationBudget']);
 
 
         // modify period

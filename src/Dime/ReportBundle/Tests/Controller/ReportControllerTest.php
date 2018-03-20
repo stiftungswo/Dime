@@ -22,7 +22,7 @@ class ReportControllerTest extends DimeTestCase
         $data = json_decode($response->getContent(), true);
 
         // validate content
-        $this->assertTrue(count($data['timeslices']) > 0);
+        $this->assertNotEmpty($data['timeslices']);
         $this->assertEquals(1, $data['project']['id']);
         $this->assertEquals(15, $data['employee']['id']);
 

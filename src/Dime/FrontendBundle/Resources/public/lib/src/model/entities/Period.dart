@@ -9,7 +9,8 @@ class Period extends Entity {
     this.pensum = original.pensum;
     this.employee = original.employee;
     this.lastYearHolidayBalance = original.lastYearHolidayBalance;
-    addFieldstoUpdate(['start', 'end', 'pensum', 'employee', 'lastYearHolidayBalance']);
+    this.yearlyEmployeeVacationBudget = original.yearlyEmployeeVacationBudget;
+    addFieldstoUpdate(['start', 'end', 'pensum', 'employee', 'lastYearHolidayBalance', 'yearlyEmployeeVacationBudget']);
   }
 
   Period.fromMap(Map<String, dynamic> map) : super.fromMap(map);
@@ -48,12 +49,14 @@ class Period extends Entity {
           return this.targetTime;
         case 'timeTillToday':
           return this.timeTillToday;
-        case 'employeeholiday':
-          return this.employeeholiday;
+        case 'periodVacationBudget':
+          return this.periodVacationBudget;
         case 'holidayBalance':
           return this.holidayBalance;
         case 'lastYearHolidayBalance':
           return this.lastYearHolidayBalance;
+        case 'yearlyEmployeeVacationBudget':
+          return this.yearlyEmployeeVacationBudget;
         default:
           break;
       }
@@ -88,14 +91,17 @@ class Period extends Entity {
       case 'timeTillToday':
         this.timeTillToday = value as num;
         break;
-      case 'employeeholiday':
-        this.employeeholiday = value as num;
+      case 'periodVacationBudget':
+        this.periodVacationBudget = value as num;
         break;
       case 'holidayBalance':
         this.holidayBalance = value as num;
         break;
       case 'lastYearHolidayBalance':
         this.lastYearHolidayBalance = value as String;
+        break;
+      case 'yearlyEmployeeVacationBudget':
+        this.yearlyEmployeeVacationBudget = value as int;
         break;
       default:
         super.Set(property, value);
@@ -122,7 +128,8 @@ class Period extends Entity {
   int realTime;
   num targetTime;
   num timeTillToday;
-  num employeeholiday;
+  num periodVacationBudget;
   num holidayBalance;
   String lastYearHolidayBalance;
+  int yearlyEmployeeVacationBudget;
 }

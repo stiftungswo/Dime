@@ -6,6 +6,7 @@ Dime\EmployeeBundle\Entity\Period:
         end: <(new DateTime("2017-06-07"))>
         realTime: 210880
         pensum: 0.8
+        yearlyEmployeeVacationBudget: 20
         lastYearHolidayBalance: 28
     period_{2..50}:
         user: @user_*
@@ -14,4 +15,5 @@ Dime\EmployeeBundle\Entity\Period:
         end: <dateTimeBetween('+ 11 days', '+ 1 years')>
         realTime: <randomNumber()>
         pensum: <randomFloat(1, 0, 1)>
+        yearlyEmployeeVacationBudget: <randomElement(array(20,20,20,20,20,20,20,25))>
         lastYearHolidayBalance: <numberBetween(0, 100)>
