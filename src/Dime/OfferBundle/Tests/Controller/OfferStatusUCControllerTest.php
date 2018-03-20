@@ -27,7 +27,7 @@ class OfferStatusUCControllerTest extends DimeTestCase
 
         // assert that data has content
         $this->assertTrue(count($data) > 0, 'expected to find offerstatusucs');
-        $this->assertEquals('Potential', $data['text'], 'expected to find "Potential"');
+        $this->assertEquals('Offeriert', $data['text'], 'expected to find "Offeriert"');
     }
 
     public function testPostPutDeleteOfferActions()
