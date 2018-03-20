@@ -2,6 +2,8 @@ import '../entity_export.dart';
 import 'dart:math';
 
 class User extends Entity {
+  static const ROLE_ADMIN = 'ROLE_SUPER_ADMIN';
+
   User();
 
   User.clone(User original) : super.clone(original) {
@@ -12,6 +14,7 @@ class User extends Entity {
     this.email = 'cloned' + random + '_' + original.email;
     this.enabled = original.enabled;
     this.employeeholiday = original.employeeholiday;
+    this.roles = []; // dont carry over roles by default
     addFieldstoUpdate(['username', 'firstname', 'lastname', 'email', 'enabled', 'employeeholiday']);
   }
 
@@ -49,6 +52,8 @@ class User extends Entity {
           return this.plainpassword;
         case 'employeeholiday':
           return this.employeeholiday;
+        case 'roles':
+          return this.roles;
         default:
           break;
       }
@@ -80,6 +85,9 @@ class User extends Entity {
       case 'employeeholiday':
         this.employeeholiday = value as int;
         break;
+      case 'roles':
+        this.roles = value as List<String>;
+        break;
       default:
         super.Set(property, value);
         break;
@@ -95,8 +103,11 @@ class User extends Entity {
   String plainpassword;
   bool enabled;
   int employeeholiday;
+  List<String> roles = [];
 
   String get fullname {
     return '$firstname $lastname';
   }
+
+  bool isAdmin() => roles.contains(User.ROLE_ADMIN);
 }

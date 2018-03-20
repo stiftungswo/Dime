@@ -3,7 +3,8 @@ class Menu {
   String icon;
   List<Menu> items = const [];
   List<String> link;
-  Menu.child(this.title, this.link);
-  Menu.withItems(this.title, this.icon, this.items);
-  Menu.single(this.title, this.icon, this.link);
+  bool adminOnly;
+  Menu.child(this.title, this.link, {this.adminOnly = false});
+  Menu.withItems(this.title, this.icon, this.items, {this.adminOnly = false});
+  Menu.single(this.title, this.icon, this.link, {this.adminOnly = false});
 }
