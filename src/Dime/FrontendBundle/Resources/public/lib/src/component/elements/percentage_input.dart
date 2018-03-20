@@ -46,6 +46,9 @@ class PercentageInputComponent implements ControlValueAccessor<double> {
   }
 
   double _toNumber(String percentage) {
+    if (percentage == null || percentage == '') {
+      return null;
+    }
     return (double.parse(percentage) / 100);
   }
 
