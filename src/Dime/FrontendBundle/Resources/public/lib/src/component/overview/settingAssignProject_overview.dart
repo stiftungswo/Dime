@@ -91,7 +91,9 @@ class SettingAssignProjectOverviewComponent extends EntityOverview<SettingAssign
 
   @override
   Future deleteEntity([int entId]) async {
-    if (entId == null) {
+    // dont delete these settings
+    // they are currently only used for "Ferien" and the application wont work if there is no setting for it
+    /*if (entId == null) {
       entId = this.selectedEntId as int;
     }
     if (entId != null) {
@@ -113,7 +115,7 @@ class SettingAssignProjectOverviewComponent extends EntityOverview<SettingAssign
           this.statusservice.setStatusToError(e, stack);
         }
       }
-    }
+    }*/
   }
 
   @override

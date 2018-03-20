@@ -1,6 +1,6 @@
 <div class="box box-primary">
   <div class="box-header with-border">
-    <h3 class="box-title">Projekte zuweisen</h3>
+    <h3 class="box-title">Projekte zuweisen <help-tooltip text="Wird aktuell nur zum Zuweisen eines Projekts, auf dem alle Ferien verbucht werden, benutzt!"></help-tooltip></h3>
   </div>
   <div class="box-body">
     <table class="table table-bordered table-hover">
@@ -9,7 +9,6 @@
           <th width="40">ID</th>
           <th>Name</th>
           <th>Projekt</th>
-          <th></th>
         </tr>
       </thead>
       <tbody *ngIf="projectAssignments != null">
@@ -17,7 +16,6 @@
           <td>{{entity.id}}</td>
           <td>{{entity.name}}</td>
           <td><project-select [(selectedEntity)]="entity.project" (selectedEntityChange)="addSaveField('project', entity)"></project-select></td>
-          <td><dime-button (click)="deleteEntity(entity.id)" fontAwesome="trash-o" color="red"></dime-button></td>
         </tr>
       </tbody>
     </table>
