@@ -1,6 +1,14 @@
-<pikaday #datepicker [day]="date" (dayChange)="updateDate($event)" [placeholder]="format" cssClasses="form-control" [format]="format" firstDay="1" [i18n]="pikadayI18n" showDaysInNextAndPreviousMonths="true" [readonly]="isReadonly" cssText="width: 100%;"></pikaday>
-<div *ngIf="hasButtons" class="btn-group" style="padding-top: 2px;">
-  <button type="button" class="btn btn-default" (click)="previousDay()" title="einen Tag zurück">&laquo;</button>
-  <button type="button" class="btn btn-default" (click)="today()">Heute</button>
-  <button type="button" class="btn btn-default" (click)="nextDay()" title="einen Tag vor">&raquo;</button>
+<template #picker>
+  <pikaday #datepicker [day]="date" (dayChange)="updateDate($event)" [placeholder]="format" cssClasses="form-control" [format]="format" firstDay="1" [i18n]="pikadayI18n" showDaysInNextAndPreviousMonths="true" [readonly]="isReadonly" cssText="width: 100%;"></pikaday>
+</template>
+<div class="input-group" *ngIf="hasButtons">
+  <template [ngTemplateOutlet]="picker"></template>
+  <div *ngIf="hasButtons" class="input-group-btn">
+    <button type="button" class="btn btn-default" (click)="previousDay()" title="einen Tag zurück">&laquo;</button>
+    <button type="button" class="btn btn-default" (click)="today()">Heute</button>
+    <button type="button" class="btn btn-default" (click)="nextDay()" title="einen Tag vor">&raquo;</button>
+    <ng-content></ng-content>
+  </div>
 </div>
+<template *ngIf="!hasButtons" [ngTemplateOutlet]="picker"></template>
+

@@ -295,3 +295,7 @@ a > img {
 .has-error .help-block{
     color: #dd4b39;
 }
+
+.input-group-btn .tooltip-inner{
+    white-space: normal;
+}

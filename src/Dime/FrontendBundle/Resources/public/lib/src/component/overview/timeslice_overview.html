@@ -34,16 +34,16 @@
 </table>
 <div class="DimeControlButtons container-inline">
     <div class="row form-inline">
-        <div class="col-md-2">
+        <div class="col-md-3">
             <label>Datum</label>
-            <date-input [(ngModel)]="newEntryDate" [has-buttons]="true"></date-input>
-            <div>
-                <span>automatisch anpassen</span>
-                <input class="checkbox" type="checkbox" [(ngModel)]="updateNewEntryDate" />
-                <help-tooltip text="Stellt das Datum nach dem Erfassen auf das Datum des neusten Eintrags im ausgewaehlten Zeitfenster"></help-tooltip>
-            </div>
-        </div>
-        <div class="col-md-1">
+            <date-input [(ngModel)]="newEntryDate" [has-buttons]="true">
+              <button class="btn" [class.btn-default]="!updateNewEntryDate" [class.btn-primary]="updateNewEntryDate"
+                      data-toggle="tooltip" title="Stellt das Datum nach dem Erfassen auf das Datum des neusten Eintrags im ausgewaehlten Zeitfenster"
+                      (click)="updateNewEntryDate = !updateNewEntryDate">
+                Auto
+                <i class="fa" [class.fa-check-square-o]="updateNewEntryDate" [class.fa-square-o]="!updateNewEntryDate"></i>
+              </button>
+            </date-input>
         </div>
         <div *ngIf="projectBased == true" class="col-md-2">
             <label>Benutzer</label>

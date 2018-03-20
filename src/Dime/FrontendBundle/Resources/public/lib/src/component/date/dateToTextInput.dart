@@ -79,7 +79,9 @@ class DateToTextInput implements ControlValueAccessor<DateTime>, OnChanges, Afte
 
   @override
   ngAfterViewInit() {
-    pikadayInput = document.getElementById(pikaday.id) as InputElement;
+    if (pikaday != null) {
+      pikadayInput = document.getElementById(pikaday.id) as InputElement;
+    }
   }
 
   updatePikadayAttributes() {
