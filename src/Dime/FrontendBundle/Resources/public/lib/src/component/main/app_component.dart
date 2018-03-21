@@ -103,7 +103,4 @@ class AppComponent implements AfterViewInit, OnInit {
   }
 
   get releaseInfo => "$release - $environment";
-
-  //TODO: remove this after we've verified sentry works on production builds
-  boing() => throw new Exception("WOOP WOOP");
 }
