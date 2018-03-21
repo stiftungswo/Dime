@@ -20,7 +20,7 @@ class DateInputComponent implements ControlValueAccessor<DateTime>, OnChanges, A
   @Input('format')
   String format = 'DD.MM.YYYY';
 
-  @Input('has-buttons')
+  @Input('withButtons')
   bool hasButtons = false;
 
   @Input('disabled')

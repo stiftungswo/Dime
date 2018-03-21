@@ -33,7 +33,7 @@ class ActivitySelectComponent extends EntitySelect<Activity> implements OnChange
   @Input('disabled')
   bool isReadonly = false;
 
-  @Input('parent-activities')
+  @Input()
   List<Activity> parentActivities = null;
 
   @override

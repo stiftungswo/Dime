@@ -49,9 +49,6 @@ class DateRangeComponent implements OnChanges {
   @Input('format')
   String format = 'dd.MM.y';
 
-  @Input('null-allowed')
-  bool nullAllowed = false;
-
   updateDate() {
     // Beim Sommerzeitwechsel wird manchmal eine Stunde dazugezählt, was dazu führt dass es ein Tageswechsel gibt
     // Das Datum ist dann 23:00 am vorherigen Tag was fehlerbehaftet ist (und 2 Tage gesprungen wird).

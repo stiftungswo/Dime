@@ -1,6 +1,6 @@
 <div class="row" style="margin-bottom: 5px;">
     <div class="col-xs-12 col-sm-2"></div>
-    <date-range class="col-xs-12 col-sm-8" [(startdate)]="filterStartDate" [(enddate)]="filterEndDate" [null-allowed]="true"></date-range>
+    <date-range class="col-xs-12 col-sm-8" [(startdate)]="filterStartDate" [(enddate)]="filterEndDate"></date-range>
 </div>
 <div class="text-muted" *ngIf="entities.length == 0">
     Keine Einträge
@@ -25,7 +25,7 @@
           #row="ngForm">
             <td></td>
             <td *ngIf="projectBased"><user-select [(ngModel)]="entity.employee" [parentEmployees]="employees" (ngModelChange)="entity.addFieldtoUpdate('employee')"></user-select></td>
-            <td><activity-select disabled [(ngModel)]="entity.activity" [parent-activities]="activities" [project]="entity?.project?.id" (ngModelChange)="entity.addFieldtoUpdate('activity')"></activity-select></td>
+            <td><activity-select disabled [(ngModel)]="entity.activity" [parentActivities]="activities" [project]="entity?.project?.id" (ngModelChange)="entity.addFieldtoUpdate('activity')"></activity-select></td>
             <td><date-input disabled style="width: 100%;" [(ngModel)]="entity.startedAt"></date-input></td>
             <td validationStatus><input required ngControl="value{{i}}" class="form-control" [(ngModel)]="entity.value" (change)="addSaveField('value', entity)"/></td>
             <td><dime-button (click)="deleteEntity(entity.id)" fontAwesome="trash-o" color="red"></dime-button></td>
@@ -36,7 +36,7 @@
     <div class="row form-inline">
         <div class="col-md-3">
             <label>Datum</label>
-            <date-input [(ngModel)]="newEntryDate" [has-buttons]="true">
+            <date-input withButtons [(ngModel)]="newEntryDate">
               <button class="btn" [class.btn-default]="!updateNewEntryDate" [class.btn-primary]="updateNewEntryDate"
                       data-toggle="tooltip" title="Stellt das Datum nach dem Erfassen auf das Datum des neusten Eintrags im ausgewaehlten Zeitfenster"
                       (click)="updateNewEntryDate = !updateNewEntryDate">
@@ -59,7 +59,7 @@
         </div>
         <div class="col-md-2">
             <label>Aktivität</label>
-            <activity-select [(ngModel)]="selectedActivity" [parent-activities]="activities" [project]="selectedProject?.id" [shortname]="true"></activity-select>
+            <activity-select [(ngModel)]="selectedActivity" [parentActivities]="activities" [project]="selectedProject?.id" [shortname]="true"></activity-select>
         </div>
         <div class="col-md-1">
             <label>Wert</label>
