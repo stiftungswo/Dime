@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:html';
 
-import 'package:DimeClient/src/component/elements/validation/dime_form_group.dart';
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
 import 'package:angular_router/angular_router.dart';
@@ -14,6 +13,7 @@ import '../../service/http_service.dart';
 import '../../service/status.dart';
 import '../../service/user_auth.dart';
 import '../elements/dime_directives.dart';
+import '../elements/markdown-input.dart';
 import '../overview/overview.dart';
 import '../select/select.dart';
 import 'EntityEdit.dart';
@@ -34,6 +34,7 @@ import 'edit.dart';
     OfferStatusSelectComponent,
     OfferPositionOverviewComponent,
     OfferDiscountOverviewComponent,
+    MarkdownInput,
   ],
 )
 class OfferEditComponent extends EntityEdit<Offer> {

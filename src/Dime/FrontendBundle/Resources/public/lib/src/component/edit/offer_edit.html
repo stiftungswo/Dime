@@ -56,9 +56,7 @@
                  [(ngModel)]="entity.shortDescription" (change)="addSaveField('shortDescription')">
         </dime-form-group>
         <dime-form-group label="Beschreibung">
-          <p class="help-block">Beschreibungstexte werden neu mit Markdown formatiert. <a target="_blank" href="https://github.com/stiftungswo/Dime/blob/master/doc/markdown_intro.md">Hilfe</a></p>
-          <textarea class="form-control" [(ngModel)]="entity.description"
-                    (change)="addSaveField('description')"></textarea>
+          <markdown-input [ngModel]="entity.description" (ngModelChange)="entity.description = $event; addSaveField('description')"></markdown-input>
         </dime-form-group>
       </div>
     </div>
@@ -97,7 +95,6 @@
       </dime-box>
     </div>
   </div>
-
   <div class="DimeControlButtons">
     <save-button [valid]="editform.valid" (click)="saveEntity()"></save-button>
     <dime-button primary (click)="printOffer()" glyphicon="print">Drucken</dime-button>
