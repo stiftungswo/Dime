@@ -1,0 +1,70 @@
+<div class="row">
+  <div class="col-md-12 form-horizontal">
+    <div class="box box-primary">
+      <div class="box-header with-border">
+        <h3 class="box-title">Mehrfach Zeiterfassung</h3>
+      </div>
+      <div class="box-body">
+        <div class="col-12">
+          <div class="form-group">
+            <label class="control-label col-xs-4 col-md-2">Datum</label>
+            <date-input class="col-xs-8 col-md-4" [(ngModel)]="date" [has-buttons]="true"></date-input>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-xs-4 col-md-2">Projekt</label>
+            <project-select [(ngModel)]="selectedProject" class="col-xs-8 col-md-4"></project-select>
+          </div>
+        </div>
+        <div class="col-12" *ngIf="selectedProject != null">
+          <table class="table table-bordered table-hover form">
+            <thead>
+            <tr>
+              <th>Mitarbeiter</th>
+              <th *ngFor="let activity of activities | projectValueFilter: selectedProject.id" style="overflow: hidden;">
+                {{activity.id}} {{activity.service.name}}
+              </th>
+              <td>&nbsp;</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngIf="entries.length > 0">
+              <td>&nbsp;</td>
+              <td *ngFor="let activity of activities | projectValueFilter: selectedProject.id; let i=index" style="overflow: hidden;">
+                <input style="width: 100%;" class="form-control" [(ngModel)]="inputAll[i]" (blur)="inputAllUpdated(i)" placeholder="Alle ändern"/>
+              </td>
+              <td>&nbsp;</td>
+            </tr>
+            <tr *ngFor="let entry of entries">
+              <td>{{entry.user.fullname}}</td>
+              <td *ngFor="let activity of activities | projectValueFilter: selectedProject.id; let i=index" style="overflow: hidden;">
+                <input style="width: 100%;" class="form-control" [(ngModel)]="entry.activities[i]"/>
+              </td>
+              <td>
+                <button type="button" class="btn btn-default pull-right" (click)="removeUser(entry.user.id)"><i class="fa fa-fw fa-trash-o" style="color:red"></i></button>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+          <div *ngIf="entries.length == 0" class="text-muted">
+            Keine Mitarbeiter hinzugefügt.<br>
+          </div>
+          <br>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <label>Mitarbeiter hinzufügen:</label>
+          </div>
+          <user-select class="col-sm-4 col-xs-8" [(ngModel)]="selectedUserToAdd"></user-select>
+          <div class="col-sm-4 col-xs-4">
+            <dime-button primary (click)="addUser()" glyphicon="plus"> Hinzufügen</dime-button>
+          </div>
+        </div>
+        <div class="DimeControlButtons">
+          <dime-button primary (click)="save()"><error-icon></error-icon></dime-button>
+          <dime-button (click)="clearInputs()" glyphicon="erase">Eingaben zurücksetzen</dime-button>
+          <div class="text-green">{{statusText}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

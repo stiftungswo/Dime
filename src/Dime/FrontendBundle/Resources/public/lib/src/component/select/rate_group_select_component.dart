@@ -11,13 +11,13 @@ import '../../service/user_auth_service.dart';
 import 'entity_select.dart';
 
 @Component(
-  selector: 'standarddiscount-select',
-  templateUrl: 'standarddiscount_select.html',
+  selector: 'rate-group-select',
+  templateUrl: 'rate_group_select_component.html',
   directives: const [formDirectives, CORE_DIRECTIVES],
   pipes: const [dimePipes],
+  providers: const [const Provider(NG_VALUE_ACCESSOR, useExisting: RateGroupSelectComponent, multi: true)],
 )
-//TODO(43): remove this
-class StandardDiscountSelectComponent extends EntitySelect<StandardDiscount> {
-  StandardDiscountSelectComponent(CachingObjectStoreService store, dom.Element element, StatusService status, UserAuthService auth)
-      : super(StandardDiscount, store, element, status, auth);
+class RateGroupSelectComponent extends EntitySelect<RateGroup> {
+  RateGroupSelectComponent(CachingObjectStoreService store, dom.Element element, StatusService status, UserAuthService auth)
+      : super(RateGroup, store, element, status, auth);
 }

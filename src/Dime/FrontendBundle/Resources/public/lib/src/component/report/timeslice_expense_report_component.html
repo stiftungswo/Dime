@@ -1,0 +1,45 @@
+<div class="box box-primary">
+  <div class="box-header with-border">
+    <h3 class="box-title">Aufwandsbericht</h3>
+  </div>
+  <div class="box-body">
+    <div class="row">
+      <div class="col-md-6">
+        <label>Projekt:</label>
+        <project-select [clearOnClose]="true" [(ngModel)]="project"></project-select>
+      </div>
+      <div class="col-md-6">
+        <label>Benutzer:</label>
+        <user-select [clearOnClose]="true" [(ngModel)]="employee"></user-select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <label>Nach Datum filtern:</label>
+        <date-range [(startdate)]="filterStartDate" [(enddate)]="filterEndDate" [null-allowed]="true" (callback)="reload()"></date-range>
+      </div>
+    </div>
+    <table class="table table-bordered table-hover form">
+      <thead>
+        <tr>
+          <th>Datum</th>
+          <th>Bezeichnung</th>
+          <th>Anzahl</th>
+          <th>Einheit</th>
+        </tr>
+      </thead>
+      <tbody *ngIf="report != null">
+        <tr *ngFor="let entity of report.timeslices" (click)="selectEntity(entity.id)" [class.info]="isSelected(entity)">
+          <td>{{entity.startedAt | date:'dd.MM.y'}}</td>
+          <td>{{entity.activity.name}}</td>
+          <td>{{entity.value}}</td>
+          <td>{{entity.activity.rateUnitType.name}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="DimeControlButtons">
+  <dime-button primary glyphicon="print" (click)="printReport()"> Drucken</dime-button>
+  <dime-button (click)="reloadEvict()" glyphicon="refresh"></dime-button>
+</div>

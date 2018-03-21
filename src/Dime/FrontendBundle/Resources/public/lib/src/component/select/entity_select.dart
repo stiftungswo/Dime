@@ -7,12 +7,12 @@ import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
 
 import '../../model/Entity.dart';
-import '../../service/data_cache.dart';
-import '../../service/status.dart';
-import '../../service/user_auth.dart';
+import '../../service/caching_object_store_service.dart';
+import '../../service/status_service.dart';
+import '../../service/user_auth_service.dart';
 
 abstract class EntitySelect<T extends Entity> implements OnInit, ControlValueAccessor<T> {
-  DataCache store;
+  CachingObjectStoreService store;
   dom.Element element;
   bool open = false;
 
@@ -20,7 +20,7 @@ abstract class EntitySelect<T extends Entity> implements OnInit, ControlValueAcc
   List<T> entities = [];
   String selector = '';
   StatusService statusservice;
-  UserAuthProvider auth;
+  UserAuthService auth;
   @Input('clearOnClose')
   bool clearOnClose = false;
 
