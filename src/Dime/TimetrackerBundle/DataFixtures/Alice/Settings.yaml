@@ -19,3 +19,8 @@ Dime\TimetrackerBundle\Entity\Setting:
             name: name
             value: New <word()>
             user: @user_*
+    setting_vacation:
+            namespace: /etc/projectassignments
+            name: Ferien
+            value: dime-ferien
+            user: @userAdmin

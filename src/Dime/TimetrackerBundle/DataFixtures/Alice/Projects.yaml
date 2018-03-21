@@ -55,4 +55,18 @@ Dime\TimetrackerBundle\Entity\Project:
         budgetTime: <randomNumber(3)>
         budgetPrice: <randomNumber(6)>
         chargeable: <boolean(90)>
-
+    project-vacation:
+        customer: @customer_*
+        rateGroup: @rateGroup_*
+        projectCategory: @categoryProject_*
+        accountant: @employee_*
+        user: @user_*
+        name: Dime Ferien
+        alias: dime-ferien
+        startedAt: <dateTimeBetween('-2 years', '-200 days')>
+        stoppedAt: <dateTimeBetween('-199 days', 'now')>
+        deadline: 25%? <dateTimeBetween('-50 days', 'now')>
+        description: <text(255)>
+        budgetTime: <randomNumber(3)>
+        budgetPrice: <randomNumber(6)>
+        chargeable: <boolean(90)>
