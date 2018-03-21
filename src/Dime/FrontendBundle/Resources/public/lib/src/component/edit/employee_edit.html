@@ -1,61 +1,41 @@
-<div *ngIf="entity != null" class="box box-primary">
-  <div class="box-header with-border">
-    <h3 class="box-title">Mitarbeiter {{entity?.username}} bearbeiten</h3>
-  </div>
-  <form class="box-body" name="editform" #editform="ngForm">
-    <div class="form-horizontal">
-      <div class="form-group">
-        <label class="col-sm-3 control-label">Username</label>
-        <div class="col-sm-4">
-          <input required #name="ngForm" ngControl="username" style="width: 100%;" class="form-control" type="text" [(ngModel)]="entity.username" (change)="addSaveField('username')">
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="col-sm-3 control-label">Vorname</label>
-        <div class="col-sm-4">
-          <input required ngControl="firstname" style="width: 100%;" class="form-control" type="text" [(ngModel)]="entity.firstname" (change)="addSaveField('firstname')">
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="col-sm-3 control-label">Nachname</label>
-        <div class="col-sm-4">
-          <input required ngControl="lastname" style="width: 100%;" class="form-control" type="text" [(ngModel)]="entity.lastname" (change)="addSaveField('lastname')">
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="col-sm-3 control-label">Email</label>
-        <div class="col-sm-4">
-          <input style="width: 100%;" class="form-control" type="text" [(ngModel)]="entity.email" (change)="addSaveField('email')">
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="col-sm-3 control-label">Neues Passwort</label>
-        <div class="col-sm-4">
-          <input style="width: 100%;" class="form-control" type="password" [(ngModel)]="entity.plainpassword" (change)="addSaveField('plainpassword')">
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="col-sm-3 control-label">Feriensaldo</label>
-        <div class="col-sm-4">
-          <input style="width: 100%;" class="form-control" type="number" [(ngModel)]="entity.employeeholiday" (change)="addSaveField('employeeholiday')">
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="col-sm-3 control-label">Aktiv</label>
-        <div class="col-sm-4">
+<form class="box-body" name="editform" #editform="ngForm">
+  <dime-box label="Mitarbeiter {{entity?.username}} bearbeiten">
+    <div boxBody class="form-horizontal" *ngIf="entity != null">
+      <dime-form-group horizontal label="Username">
+        <input required #name="ngForm" ngControl="username" class="form-control" type="text" [(ngModel)]="entity.username" (change)="addSaveField('username')">
+      </dime-form-group>
+      <dime-form-group horizontal label="Vorname">
+        <input required ngControl="firstname"  class="form-control" type="text" [(ngModel)]="entity.firstname" (change)="addSaveField('firstname')">
+      </dime-form-group>
+      <dime-form-group horizontal label="Nachname">
+        <input required ngControl="lastname" class="form-control" type="text" [(ngModel)]="entity.lastname" (change)="addSaveField('lastname')">
+      </dime-form-group>
+      <dime-form-group horizontal label="Email">
+        <input class="form-control" type="text" [(ngModel)]="entity.email" (change)="addSaveField('email')">
+      </dime-form-group>
+      <dime-form-group horizontal label="Neues Passwort">
+        <input class="form-control" type="password" [(ngModel)]="entity.plainpassword" (change)="addSaveField('plainpassword')">
+      </dime-form-group>
+      <dime-form-group horizontal label="Feriensaldo">
+        <input class="form-control" type="number" [(ngModel)]="entity.employeeholiday" (change)="addSaveField('employeeholiday')">
+      </dime-form-group>
+      <dime-form-group horizontal class="checkbox">
+        <label>
           <input type="checkbox" [(ngModel)]="entity.enabled" (change)="addSaveField('enabled')">
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="col-sm-3 control-label">Stundensaldo beim Erfassen<br/>(bitte Seite neu laden)</label>
-        <div class="col-sm-4">
+          Aktiv
+        </label>
+      </dime-form-group>
+      <dime-form-group horizontal class="checkbox">
+        <label>
           <input type="checkbox" [(ngModel)]="entity.extendTimetrack" (change)="addSaveField('extendTimetrack')">
-        </div>
-      </div>
+          Stundensaldo auf Zeiterfassungs-Ansicht <br/>(bitte Seite neu laden)
+        </label>
+      </dime-form-group>
     </div>
-  </form>
-</div>
-<div class="DimeControlButtons">
-  <dime-button primary (click)="saveEntity()"><error-icon></error-icon></dime-button>
-  <dime-button (click)="reloadEvict()" glyphicon="refresh"></dime-button>
-</div>
+    <div boxFooter class="DimeControlButtons">
+      <save-button [valid]="editform.valid" (click)="saveEntity()"></save-button>
+      <dime-button (click)="reloadEvict()" glyphicon="refresh"></dime-button>
+    </div>
+  </dime-box>
+</form>
+<edit-footer [entity]="entity"></edit-footer>

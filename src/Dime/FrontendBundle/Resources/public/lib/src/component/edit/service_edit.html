@@ -1,65 +1,39 @@
-<div *ngIf="entity == null">...</div>
-<div *ngIf="entity != null">
-<div class="box box-primary">
-  <div class="box-header with-border">
-    <h3 class="box-title">Service bearbeiten</h3>
-  </div>
-  <form class="box-body" (ngSubmit)="saveEntity()" #editform="ngForm" >
-    <div class="form-horizontal">
-      <div class="form-group">
-        <div class="form-group">
-          <label class="col-sm-2 control-label">Name</label>
-          <div class="col-sm-4" [class.has-success]="name.valid && name.dirty" [class.has-error]="!name.valid" >
-            <input required style="width: 100%;" class="form-control" type="text"
-                   [(ngModel)]="entity.name"
-                   ngControl="name"
-                   (change)="addSaveField('name')"
-                   #name="ngForm"
-            >
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-2 control-label">Alias</label>
-          <div class="col-sm-4">
-            <input style="width: 100%;" class="form-control" type="text" [(ngModel)]="entity.alias" ngControl="alias">
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-2 control-label">Beschreibung</label>
-          <div class="col-sm-4">
-            <input style="width: 100%;" class="form-control" type="text" [(ngModel)]="entity.description" ngControl="description" (change)="addSaveField('description')">
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-2 control-label">MwSt</label>
-          <input-percentage class="col-sm-4" [htmlclass]="'form-control'" [(value)]="entity.vat" (change)="addSaveField('vat')"></input-percentage>
-        </div>
-        <div class="form-group">
-          <div class="col-sm-offset-2 col-sm-4">
-            <div class="checkbox">
-              <label>
-                <input type="checkbox" [(ngModel)]="entity.chargeable" ngControl="chargeable" (change)="addSaveField('chargeable')"> Verrechenbar
-              </label>
-            </div>
-          </div>
-        </div>
-        <div class="form-group">
-          <div class="col-sm-offset-2 col-sm-4">
-            <div class="checkbox">
-              <label>
-                <input type="checkbox" [(ngModel)]="entity.archived" ngControl="archived" (change)="addSaveField('archived')"> Archiviert
-                <div class="text-muted">Wenn ein Service archiviert ist, kann er nicht mehr zu Projekten hinzugefügt werden.</div>
-              </label>
-            </div>
-          </div>
-        </div>
-      </div>
+<form class="box-body" (ngSubmit)="saveEntity()" #editform="ngForm" *ngIf="entity != null">
+  <div class="box box-primary">
+    <div class="box-header with-border">
+      <h3 class="box-title">Service bearbeiten</h3>
     </div>
-  </form>
-</div>
-<rate-overview [service]="entity.id" #rateOverview ></rate-overview>
-<div class="DimeControlButtons">
-  <dime-button primary (click)="saveEntity()" [disabled]="!editform.form.valid || !rateOverview.valid"><error-icon></error-icon></dime-button>
-  <dime-button (click)="reloadEvict()" glyphicon="refresh"></dime-button>
-</div>
-</div>
+    <div class="form-horizontal">
+      <dime-form-group horizontal label="Name">
+        <input required ngControl="name" class="form-control"
+                 [(ngModel)]="entity.name" (change)="addSaveField('name')" >
+      </dime-form-group>
+      <dime-form-group horizontal label="Alias">
+        <input disabled class="form-control" [value]="entity.alias">
+      </dime-form-group>
+      <dime-form-group horizontal label="Beschreibung">
+        <input class="form-control" [(ngModel)]="entity.description" (change)="addSaveField('description')">
+      </dime-form-group>
+      <dime-form-group horizontal label="MwSt.">
+        <percentage-input required ngControl="vat"
+                          [(ngModel)]="entity.vat" (ngModelChange)="addSaveField('vat')"></percentage-input>
+      </dime-form-group>
+      <dime-form-group horizontal class="checkbox">
+        <label>
+          <input type="checkbox" [(ngModel)]="entity.chargeable" ngControl="chargeable" (change)="addSaveField('chargeable')"> Verrechenbar
+        </label>
+      </dime-form-group>
+      <dime-form-group horizontal class="checkbox" info="Wenn ein Service archiviert ist, kann er nicht mehr zu Projekten hinzugefügt werden.">
+        <label>
+          <input type="checkbox" [(ngModel)]="entity.archived" ngControl="archived" (change)="addSaveField('archived')"> Archiviert
+        </label>
+      </dime-form-group>
+    </div>
+  </div>
+  <rate-overview required [service]="entity.id"></rate-overview>
+  <div class="DimeControlButtons">
+    <save-button [valid]="editform.valid" (click)="saveEntity()"></save-button>
+    <dime-button (click)="reloadEvict()" glyphicon="refresh"></dime-button>
+  </div>
+</form>
+<edit-footer [entity]="entity"></edit-footer>

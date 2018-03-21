@@ -8,10 +8,10 @@
         <button type="button" class="btn btn-default" (click)="previousWeek()"><span class="fa fa-caret-left"></span><span class="fa fa-caret-left"></span></button>
       </div>
       <div class="col-xs-3" style="margin: 0; padding: 0;">
-        <dateinput [(date)]="filterStartDate"></dateinput>
+        <date-input [(ngModel)]="filterStartDate"></date-input>
       </div>
       <div class="col-xs-3" style="margin: 0; padding: 0;">
-        <dateinput [(date)]="filterEndDate"></dateinput>
+        <date-input [(ngModel)]="filterEndDate"></date-input>
       </div>
       <div class="col-xs-1" style="margin: 0; padding: 0; width: 11%;">
         <button type="button" class="btn btn-default" (click)="nextWeek()"><span class="fa fa-caret-right"></span><span class="fa fa-caret-right"></span></button>

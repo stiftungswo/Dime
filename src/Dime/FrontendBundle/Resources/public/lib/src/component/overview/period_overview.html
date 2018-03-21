@@ -1,5 +1,6 @@
-<table class="table table-bordered table-hover form" *ngIf="entities.length > 0">
-  <thead>
+<form #editform="ngForm">
+  <table class="table table-bordered table-hover form" *ngIf="entities.length > 0" ngControlGroup="periods" #overview="ngForm">
+    <thead>
     <tr>
       <th>Start</th>
       <th>Ende</th>
@@ -8,37 +9,47 @@
       <th>Sollzeit</th>
       <th>Heute <help-tooltip text="Stundensaldo bis heute (oder Ende der Periode wenn diese bereits beendet ist)"></help-tooltip></th>
       <th class="hidden-xs">Ferien Total <help-tooltip text="Anzahl Ferien in dieser Periode"></help-tooltip></th>
-      <th>Verfügbare Ferien <help-tooltip text="Noch verfügbare Ferien"></help-tooltip></th>
+      <th>Verfügbare Ferien</th>
       <th class="hidden-xs">Übertrag <help-tooltip text="Nicht benutztes Ferienguthaben und Überstunden vom letzten Jahr (oder der letzten Periode)"></help-tooltip></th>
       <th class="hidden-xs">Jährliches Ferienbudget <help-tooltip text="Anzahl Ferientage die dem Miarbeiter fürs ganze Jahr zur Verfügung stehen (nicht nur für die Periode)"></help-tooltip></th>
       <th width="60" class="hidden-xs">Aktion</th>
     </tr>
-  </thead>
-  <tbody *ngIf="entities != null">
-    <tr *ngFor="let entity of entities" (click)="selectEntity(entity.id)" [class.info]="isSelected(entity)">
-      <td><dateinput style="width: 100%;" [(date)]="entity.start" (dateChange)="entity.addFieldtoUpdate('start')"></dateinput></td>
-      <td><dateinput style="width: 100%;" [(date)]="entity.end" (dateChange)="entity.addFieldtoUpdate('end')"></dateinput></td>
-      <td class="hidden-xs"><input-percentage htmlclass="form-control" [safecalc]="false" [(value)]="entity.pensum" (change)="addSaveField('pensum', entity)"></input-percentage></td>
+    </thead>
+    <tbody *ngIf="entities != null">
+    <tr
+      *ngFor="let entity of entities | orderBy:'order' ; let i = index"
+      (click)="selectEntity(entity.id)"
+      [ngClass]="rowClass(entity, row.valid)"
+      ngControlGroup="position{{i}}"
+      #row="ngForm">
+      <td validationStatus class="form-group"><date-input required ngControl="start{{i}}"
+                                       [(ngModel)]="entity.start" (ngModelChange)="entity.addFieldtoUpdate('start')"></date-input></td>
+      <td validationStatus class="form-group"><date-input required ngControl="end{{i}}"
+                                       [(ngModel)]="entity.end" (ngModelChange)="entity.addFieldtoUpdate('end')"></date-input></td>
+      <td validationStatus class="form-group"><percentage-input required ngControl="pensum{{i}}" [precision]="0"
+                                             [(ngModel)]="entity.pensum" (ngModelChange)="addSaveField('pensum', entity)"></percentage-input></td>
       <td>{{entity.realTime | secondsToHours}}</td>
       <td>{{entity.targetTime | secondsToHours}}</td>
       <td [class.text-red]="entity.timeTillToday<0" [class.text-green]="entity.timeTillToday>=0">{{entity.timeTillToday | secondsToHours}}</td>
       <td class="hidden-xs">{{entity.periodVacationBudget | secondsToHours }}</td>
       <td>{{entity.holidayBalance | secondsToHours }}</td>
-      <td class="hidden-xs">
-        <input style="width: 50%;" class="form-control" type="text" [(ngModel)]="entity.lastYearHolidayBalance" (change)="addSaveField('lastYearHolidayBalance', entity)" />
-        <label>&nbsp;h</label>
+      <td class="hidden-xs input-group">
+        <input class="form-control" type="text" [(ngModel)]="entity.lastYearHolidayBalance" (change)="addSaveField('lastYearHolidayBalance', entity)" />
+        <span class="input-group-addon">h</span>
       </td>
-      <td class="hidden-xs"><input class="form-control" type="number" [(ngModel)]="entity.yearlyEmployeeVacationBudget" (change)="addSaveField('yearlyEmployeeVacationBudget', entity)" ></td>
+      <td validationStatus class="hidden-xs form-group"><input required ngControl={vacationBudget{{i}}} class="form-control" type="number" style="width: 100%"
+                                                    [(ngModel)]="entity.yearlyEmployeeVacationBudget" (change)="addSaveField('yearlyEmployeeVacationBudget', entity)" ></td>
       <td class="hidden-xs"><dime-button (click)="deleteEntity(entity.id)" fontAwesome="trash-o" color="red"></dime-button></td>
     </tr>
-  </tbody>
-</table>
-<div class="text-muted" *ngIf="entities.length == 0">
-  Keine Perioden
-</div>
-<div class="DimeControlButtons container-inline">
-  <dime-button primary (click)="save()"><error-icon></error-icon></dime-button>
-  <dime-button primary (click)="createEntity()" glyphicon="plus">Hinzufügen</dime-button>
-  <dime-button primary (click)="duplicateEntity()" fontAwesome="copy">Duplizieren</dime-button>
-  <dime-button (click)="reloadEvict()" glyphicon="refresh"></dime-button>
-</div>
+    </tbody>
+  </table>
+  <div class="text-muted" *ngIf="entities.length == 0">
+    Keine Perioden
+  </div>
+  <div class="DimeControlButtons container-inline">
+    <save-button [valid]="editform.valid" (click)="save()"></save-button>
+    <dime-button primary (click)="createEntity()" glyphicon="plus">Hinzufügen</dime-button>
+    <dime-button primary (click)="duplicateEntity()" fontAwesome="copy">Duplizieren</dime-button>
+    <dime-button (click)="reloadEvict()" glyphicon="refresh"></dime-button>
+  </div>
+</form>

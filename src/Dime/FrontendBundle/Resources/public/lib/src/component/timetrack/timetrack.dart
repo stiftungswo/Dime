@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:angular/angular.dart';
+import 'package:angular_forms/angular_forms.dart';
 
 import '../../model/entity_export.dart';
 import '../../service/entity_events_service.dart';
@@ -12,6 +13,7 @@ import '../overview/overview.dart';
 
 @Component(selector: 'timetrack', templateUrl: 'timetrack.html', directives: const [
   CORE_DIRECTIVES,
+  formDirectives,
   PeriodOverviewComponent,
   TimesliceOverviewComponent,
   ProjectCommentOverviewComponent,

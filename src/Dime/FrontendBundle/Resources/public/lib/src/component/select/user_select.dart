@@ -17,6 +17,7 @@ import 'entity_select.dart';
   templateUrl: 'user_select.html',
   directives: const [CORE_DIRECTIVES, formDirectives],
   pipes: const [dimePipes],
+  providers: const [const Provider(NG_VALUE_ACCESSOR, useExisting: UserSelectComponent, multi: true)],
 )
 class UserSelectComponent extends EntitySelect<Employee> implements OnChanges {
   UserSelectComponent(DataCache store, dom.Element element, this.context, StatusService status, UserAuthProvider auth)
@@ -40,11 +41,11 @@ class UserSelectComponent extends EntitySelect<Employee> implements OnChanges {
   void ngOnChanges(Map<String, SimpleChange> changes) {
     if (changes.containsKey('parentEmployees')) {
       var change = changes['parentEmployees'];
-      onChange(change.previousValue as List<Employee>, change.currentValue as List<Employee>);
+      _onChange(change.previousValue as List<Employee>, change.currentValue as List<Employee>);
     }
   }
 
-  void onChange(List<Employee> oldList, List<Employee> newList) {
+  void _onChange(List<Employee> oldList, List<Employee> newList) {
     if (this.entities != null && this.entities.isEmpty && newList != null && newList.isNotEmpty) {
       reload();
     }
@@ -66,7 +67,6 @@ class UserSelectComponent extends EntitySelect<Employee> implements OnChanges {
 
     if (useContext) {
       selectedEntity = context.employee;
-      selectedEntityEvent.add(context.employee);
     }
   }
 }

@@ -1,12 +1,13 @@
 import 'dart:async';
 
+import 'package:DimeClient/src/component/elements/dime_directives.dart';
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
 
 import '../../model/entity_export.dart';
 import 'EntityEdit.dart';
 
-@Component(selector: 'address-edit', templateUrl: 'address_edit.html', directives: const [CORE_DIRECTIVES, formDirectives])
+@Component(selector: 'address-edit', templateUrl: 'address_edit.html', directives: const [CORE_DIRECTIVES, formDirectives, dimeDirectives])
 class AddressEditComponent extends EntityEdit<Address> {
   AddressEditComponent() : super.Child(Address);
 

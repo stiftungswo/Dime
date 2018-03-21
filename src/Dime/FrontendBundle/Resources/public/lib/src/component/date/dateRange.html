@@ -8,10 +8,10 @@
     </div>
   </div>
   <div class="col-sm-2 col-xs-6" style="margin: 0; padding: 0;">
-    <dateinput [(date)]="startDate" [null-allowed]="nullAllowed"></dateinput>
+    <date-input [(ngModel)]="startDate" ></date-input>
   </div>
   <div class="col-sm-2 col-xs-6" style="margin: 0; padding: 0;">
-    <dateinput [(date)]="endDate" [null-allowed]="nullAllowed"></dateinput>
+    <date-input [(ngModel)]="endDate" ></date-input>
   </div>
   <div class="col-xs-6 visible-xs" style="margin: 0; padding: 0;">
     <!-- only on mobile -->

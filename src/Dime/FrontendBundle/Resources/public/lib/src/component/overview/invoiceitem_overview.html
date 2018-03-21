@@ -1,38 +1,38 @@
-<div class="box box-primary">
-  <div class="box-header with-border">
-    <h3 class="box-title">Rechnungsposten</h3>
+<dime-box label="Rechnungsposten">
+  <table boxBody class="table table-bordered table-hover" ngControlGroup="invoiceitems" #overview="ngForm">
+    <thead>
+      <tr>
+        <th width="80">Reihenfolge</th>
+        <th class="col-md-6">Bezeichnung</th>
+        <th>Tarif</th>
+        <th>Tarif Einheit</th>
+        <th>Menge</th>
+        <th>MwSt.</th>
+        <th>Total</th>
+        <th width="60">Aktion</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="entities != null">
+      <tr
+        *ngFor="let entity of entities | orderBy:'order' ; let i = index"
+        (click)="selectEntity(entity.id)"
+        [ngClass]="rowClass(entity, row.valid)"
+        ngControlGroup="position{{i}}"
+        #row="ngForm">
+        <td><input class="form-control" type="number" [(ngModel)]="entity.order" (change)="addSaveField('order', entity)"/></td>
+        <td validationStatus class="form-group"><input class="form-control" required ngControl="name" [(ngModel)]="entity.name" (change)="addSaveField('name', entity)"/></td>
+        <td validationStatus class="form-group"><input class="form-control" required ngControl="rateValue" [(ngModel)]="entity.rateValue" (change)="addSaveField('rateValue', entity)"/></td>
+        <td validationStatus class="form-group"><input class="form-control" required ngControl="rateUnit" [(ngModel)]="entity.rateUnit" (change)="addSaveField('rateUnit', entity)"/></td>
+        <td validationStatus class="form-group"><input class="form-control" required ngControl="amount" [(ngModel)]="entity.amount" (change)="addSaveField('amount', entity)"/></td>
+        <td validationStatus class="form-group"><percentage-input required ngControl="vat" [(ngModel)]="entity.vat" (ngModelChange)="addSaveField('vat', entity)"></percentage-input></td>
+        <td>{{entity.total}}</td>
+        <td><dime-button (click)="deleteEntity(entity.id)" fontAwesome="trash-o" color="red"></dime-button></td>
+      </tr>
+    </tbody>
+  </table>
+  <div boxFooter class="DimeControlButtons">
+    <dime-button primary (click)="createEntity()" glyphicon="plus">Hinzufügen</dime-button>
+    <dime-button primary (click)="duplicateEntity()" fontAwesome="copy">Duplizieren</dime-button>
+    <dime-button (click)="reloadEvict()" glyphicon="refresh"></dime-button>
   </div>
-  <div class="box-body">
-    <table class="table table-bordered table-hover">
-      <thead>
-        <tr>
-          <th width="80">Reihenfolge</th>
-          <th class="col-md-6">Bezeichnung</th>
-          <th>Tarif</th>
-          <th>Tarif Einheit</th>
-          <th>Menge</th>
-          <th>MwSt.</th>
-          <th>Total</th>
-          <th width="60">Aktion</th>
-        </tr>
-      </thead>
-      <tbody *ngIf="entities != null">
-        <tr *ngFor="let entity of entities | orderBy:'order'" (click)="selectEntity(entity.id)" [class.info]="isSelected(entity)">
-          <td><input class="form-control" type="number" [(ngModel)]="entity.order" (change)="addSaveField('order', entity)"/></td>
-          <td><input style="width: 100%;" class="form-control" type="text" [(ngModel)]="entity.name" (change)="addSaveField('name', entity)"/></td>
-          <td><input style="width: 100%;" class="form-control" type="text" [(ngModel)]="entity.rateValue" (change)="addSaveField('rateValue', entity)"/></td>
-          <td><input style="width: 100%;" class="form-control" type="text" [(ngModel)]="entity.rateUnit" (change)="addSaveField('rateUnit', entity)"/></td>
-          <td><input style="width: 100%;" class="form-control" type="text" [(ngModel)]="entity.amount" (change)="addSaveField('amount', entity)"/></td>
-          <td><input-percentage [htmlclass]="'form-control'" [(value)]="entity.vat" (change)="addSaveField('vat', entity)"></input-percentage></td>
-          <td>{{entity.total}}</td>
-          <td><dime-button (click)="deleteEntity(entity.id)" fontAwesome="trash-o" color="red"></dime-button></td>
-        </tr>
-      </tbody>
-    </table>
-    <div class="DimeControlButtons">
-      <dime-button primary (click)="createEntity()" glyphicon="plus">Hinzufügen</dime-button>
-      <dime-button primary (click)="duplicateEntity()" fontAwesome="copy">Duplizieren</dime-button>
-      <dime-button (click)="reloadEvict()" glyphicon="refresh"></dime-button>
-    </div>
-  </div>
-</div>
+</dime-box>

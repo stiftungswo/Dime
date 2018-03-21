@@ -413,6 +413,19 @@ class TimesliceOverviewComponent extends EntityOverview<Timeslice> {
       toggleTimeslice(timeslice);
     }
   }
+
+  @override
+  rowClass(Timeslice entity, bool valid) {
+    if (valid ?? true) {
+      return {"info": selectedTimeslices.contains(entity.id)};
+    } else {
+      if (selectedTimeslices.contains(entity.id)) {
+        return {"warning": true};
+      } else {
+        return {"danger": true};
+      }
+    }
+  }
 }
 
 @Pipe('timeslicedatefilter', pure: false)

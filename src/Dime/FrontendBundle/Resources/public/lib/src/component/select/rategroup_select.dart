@@ -15,6 +15,7 @@ import 'entity_select.dart';
   templateUrl: 'rategroup_select.html',
   directives: const [formDirectives, CORE_DIRECTIVES],
   pipes: const [dimePipes],
+  providers: const [const Provider(NG_VALUE_ACCESSOR, useExisting: RateGroupSelectComponent, multi: true)],
 )
 class RateGroupSelectComponent extends EntitySelect<RateGroup> {
   RateGroupSelectComponent(DataCache store, dom.Element element, StatusService status, UserAuthProvider auth)

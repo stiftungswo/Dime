@@ -8,11 +8,11 @@
         <div class="col-12">
           <div class="form-group">
             <label class="control-label col-xs-4 col-md-2">Datum</label>
-            <dateinput class="col-xs-8 col-md-4" [(date)]="date" [has-buttons]="true"></dateinput>
+            <date-input class="col-xs-8 col-md-4" [(ngModel)]="date" [has-buttons]="true"></date-input>
           </div>
           <div class="form-group">
             <label class="control-label col-xs-4 col-md-2">Projekt</label>
-            <project-select [(selectedEntity)]="selectedProject" class="col-xs-8 col-md-4"></project-select>
+            <project-select [(ngModel)]="selectedProject" class="col-xs-8 col-md-4"></project-select>
           </div>
         </div>
         <div class="col-12" *ngIf="selectedProject != null">
@@ -54,7 +54,7 @@
           <div class="col-sm-12">
             <label>Mitarbeiter hinzufügen:</label>
           </div>
-          <user-select class="col-sm-4 col-xs-8" [(selectedEntity)]="selectedUserToAdd"></user-select>
+          <user-select class="col-sm-4 col-xs-8" [(ngModel)]="selectedUserToAdd"></user-select>
           <div class="col-sm-4 col-xs-4">
             <dime-button primary (click)="addUser()" glyphicon="plus"> Hinzufügen</dime-button>
           </div>

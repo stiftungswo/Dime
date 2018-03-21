@@ -1,5 +1,6 @@
-<template [ngIf]="entity != null">
-  <h2 class="page-header">{{entity.name}}&nbsp;</h2>
+<h2 class="page-header">{{entity?.name}}&nbsp;</h2>
+
+<form #editform="ngForm" *ngIf="entity != null">
   <div class ="nav-tabs-custom">
     <ul class="nav nav-tabs">
       <template [ngIf]="entity.project != null && !entity.project.offers.isEmpty" >
@@ -14,54 +15,47 @@
     </ul>
 
     <div class="tab-content">
-      <form #editform="ngForm">
         <div class="tab-pane active">
           <div class="form-horizontal">
-            <div class="form-group">
-              <label class="col-md-2 control-label">Name</label>
-              <div class="col-md-4">
-                <input class="form-control" style="width: 100%;" type="text" [(ngModel)]="entity.name" (change)="addSaveField('name')">
-              </div>
-            </div>
-            <div class="form-group" *ngIf="entity.project != null">
-              <label class="col-md-2 control-label">Auftrag</label>
-              {{entity.project.name}}
-            </div>
-            <div class="form-group">
-              <label class="col-md-2 control-label">Kunde</label>
-              <customer-select class="col-md-4" [(selectedEntity)]="entity.customer" (selectedEntityChange)="addSaveField('customer')"></customer-select>
-            </div>
-            <div class="form-group">
-              <label class="col-sm-2 control-label">Verantwortlicher Mitarbeiter</label>
-              <user-select class="col-sm-4" [(selectedEntity)]="entity.accountant" (selectedEntityChange)="addSaveField('accountant')"></user-select>
-            </div>
-            <div class="form-group">
-              <label class="col-md-2 control-label">Startdatum</label>
-              <dateinput class="col-md-4" [(date)]="entity.start" (dateChange)="addSaveField('start')"></dateinput>
-            </div>
-            <div class="form-group">
-              <label class="col-md-2 control-label">Enddatum</label>
-              <dateinput class="col-md-4" [(date)]="entity.end" (dateChange)="addSaveField('end')"></dateinput>
-            </div>
+            <dime-form-group horizontal label="Name">
+              <input required ngControl="name" class="form-control" [(ngModel)]="entity.name" (change)="addSaveField('name')">
+            </dime-form-group>
+            <dime-form-group horizontal label="Auftrag" *ngIf="entity.project != null">
+              <input disabled class="form-control" [value]="entity.project.name"/>
+            </dime-form-group>
+            <dime-form-group horizontal label="Kunde">
+              <customer-select required ngControl="customer"
+                               [(ngModel)]="entity.customer" (ngModelChange)="addSaveField('customer')"></customer-select>
+            </dime-form-group>
+            <dime-form-group horizontal label="Verantwortlicher Mitarbeiter">
+              <user-select required ngControl="accountant"
+                           [(ngModel)]="entity.accountant" (ngModelChange)="addSaveField('accountant')"></user-select>
+            </dime-form-group>
+            <dime-form-group horizontal label="Startdatum">
+              <date-input required ngControl="start"
+                          [(ngModel)]="entity.start" (ngModelChange)="addSaveField('start')"></date-input>
+            </dime-form-group>
+            <dime-form-group horizontal label="Enddatum">
+              <date-input required ngControl="end"
+                          [(ngModel)]="entity.end" (ngModelChange)="addSaveField('end')"></date-input>
+            </dime-form-group>
           </div>
-          <div class="form-group">
-            <label class="control-label">Beschreibung</label>
-            <textarea class="form-control" [(ngModel)]="entity.description" (change)="addSaveField('description')"></textarea>
-          </div>
+          <dime-form-group label="Beschreibung">
+            <textarea required ngControl="description" class="form-control"
+                      [(ngModel)]="entity.description" (change)="addSaveField('description')"></textarea>
+          </dime-form-group>
         </div>
-      </form>
     </div>
   </div>
-  <invoiceitem-overview [invoice]="entity.id" #invoiceitemOverview></invoiceitem-overview>
+  <invoiceitem-overview [invoice]="entity.id"></invoiceitem-overview>
   <div class="row">
-    <div class="col-md-6"><invoicecostgroup-overview [invoice]="entity.id" #invoicecostgroupOverview></invoicecostgroup-overview></div>
+    <div class="col-md-6"><invoicecostgroup-overview required [invoice]="entity.id"></invoicecostgroup-overview></div>
     <div class="col-md-6"><invoicediscount-overview [invoice]="entity.id"></invoicediscount-overview></div>
+  </div>
+  <div class="row">
     <div class="col-md-6">
-      <div class="box box-primary">
-        <div class="box-header with-border">
-          <h3 class="box-title">Berechnung</h3>
-        </div>
-        <div class="box-body">
+      <dime-box label="Berechnung" [footer]="false">
+        <div boxBody>
           <div class="row"><label class="col-xs-6 control-label">Subtotal</label><div class="col-xs-6">{{entity.breakdown.subtotal}}</div></div>
           <div class="row"><label class="col-xs-6 control-label">Total Abzüge</label><div class="col-xs-6">{{entity.totalDiscounts}}</div></div>
           <div class="row"><label class="col-xs-6 control-label">MwSt. </label><div class="col-xs-6">{{entity.breakdown.vat}}</div></div>
@@ -73,16 +67,17 @@
             </div>
           </div>
         </div>
-      </div>
+      </dime-box>
     </div>
   </div>
-</template>
-<div class="DimeControlButtons">
-  <dime-button primary (click)="saveEntity()"><error-icon value="saveState" timeout="20"></error-icon></dime-button>
-  <dime-button primary glyphicon="magnet"
-               tooltipText="Synchronisiert die Aktivitäten mit dem Ursprungsprojekt und setzt den Sachbearbeiter auf Dich"
-               (click)="updateInvoicefromProject()"> Update </dime-button>
-  <dime-button primary glyphicon="print" (click)="printInvoice()"> Rechnung </dime-button>
-  <dime-button primary glyphicon="print" (click)="printAufwandsbericht()"> Aufwandsbericht </dime-button>
-  <dime-button glyphicon="refresh" (click)="reloadEvict()"></dime-button>
-</div>
+  <div class="DimeControlButtons">
+    <save-button [valid]="editform.valid" (click)="saveEntity()"></save-button>
+    <dime-button primary glyphicon="magnet"
+                 tooltipText="Synchronisiert die Aktivitäten/Rechnungsposten mit dem Ursprungsprojekt und setzt den Sachbearbeiter auf Dich"
+                 (click)="updateInvoicefromProject()"> Update </dime-button>
+    <dime-button primary glyphicon="print" (click)="printInvoice()"> Rechnung </dime-button>
+    <dime-button primary glyphicon="print" (click)="printAufwandsbericht()"> Aufwandsbericht </dime-button>
+    <dime-button glyphicon="refresh" (click)="reloadEvict()"></dime-button>
+  </div>
+</form>
+<edit-footer [entity]="entity"></edit-footer>

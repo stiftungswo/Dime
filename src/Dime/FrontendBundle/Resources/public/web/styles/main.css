@@ -290,3 +290,12 @@ a > img {
 .nav, .pagination, .carousel, .panel-title a {
     cursor: pointer;
 }
+
+/* override bootstrap error color with that from AdminLTE */
+.has-error .help-block{
+    color: #dd4b39;
+}
+
+.input-group-btn .tooltip-inner{
+    white-space: normal;
+}

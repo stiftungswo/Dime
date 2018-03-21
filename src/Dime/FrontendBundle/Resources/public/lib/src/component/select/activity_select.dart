@@ -16,6 +16,7 @@ import 'entity_select.dart';
   templateUrl: 'activity_select.html',
   directives: const [formDirectives, CORE_DIRECTIVES],
   pipes: const [dimePipes],
+  providers: const [const Provider(NG_VALUE_ACCESSOR, useExisting: ActivitySelectComponent, multi: true)],
 )
 class ActivitySelectComponent extends EntitySelect<Activity> implements OnChanges {
   ActivitySelectComponent(DataCache store, dom.Element element, StatusService status, UserAuthProvider auth)
@@ -29,8 +30,7 @@ class ActivitySelectComponent extends EntitySelect<Activity> implements OnChange
   @override
   get EntText => selectedEntity != null ? (shortname ? selectedEntity.service.name : selectedEntity.name) : '';
 
-  // Disable the select box because of projectId being null sometimes
-  @Input('is-readonly')
+  @Input('disabled')
   bool isReadonly = false;
 
   @Input('parent-activities')
@@ -40,11 +40,11 @@ class ActivitySelectComponent extends EntitySelect<Activity> implements OnChange
   void ngOnChanges(Map<String, SimpleChange> changes) {
     if (changes.containsKey('parentActivities')) {
       var change = changes['parentActivities'];
-      onChange(change.previousValue as List<Activity>, change.currentValue as List<Activity>);
+      _onChange(change.previousValue as List<Activity>, change.currentValue as List<Activity>);
     }
   }
 
-  void onChange(List<Activity> oldList, List<Activity> newList) {
+  void _onChange(List<Activity> oldList, List<Activity> newList) {
     if (this.entities != null && this.entities.isEmpty && newList != null && newList.isNotEmpty) {
       reload();
     }

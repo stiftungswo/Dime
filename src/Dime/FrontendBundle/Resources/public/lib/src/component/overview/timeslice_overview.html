@@ -5,7 +5,7 @@
 <div class="text-muted" *ngIf="entities.length == 0">
     Keine Einträge
 </div>
-<table *ngIf="entities.length > 0" class="table table-bordered table-hover form">
+<table *ngIf="entities.length > 0" class="table table-bordered table-hover form" ngControlGroup="timeslices">
     <thead>
         <tr>
             <th style="width: 30px"></th>
@@ -17,44 +17,49 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let entity of entities | timeslicedatefilter:filterStartDate:filterEndDate | orderBy:'startedAt'" (click)="selectRow($event, entity)" [class.info]="selectedTimeslices.contains(entity.id)">
+        <tr
+          *ngFor="let entity of entities | timeslicedatefilter:filterStartDate:filterEndDate | orderBy:'startedAt'; let i = index"
+          (click)="selectEntity(entity.id)"
+          [ngClass]="rowClass(entity, row.valid)"
+          ngControlGroup="position{{i}}"
+          #row="ngForm">
             <td></td>
-            <td *ngIf="projectBased"><user-select [(selectedEntity)]="entity.employee" [parentEmployees]="employees" (selectedEntityChange)="entity.addFieldtoUpdate('employee')"></user-select></td>
-            <td><activity-select [is-readonly]="true" [(selectedEntity)]="entity.activity" [parent-activities]="activities" [project]="entity?.project?.id" (selectedEntityChange)="entity.addFieldtoUpdate('activity')"></activity-select></td>
-            <td><dateinput [is-readonly]="true" style="width: 100%;" [(date)]="entity.startedAt"></dateinput></td>
-            <td><input style="width: 100%;" class="form-control" [(ngModel)]="entity.value" (change)="addSaveField('value', entity)"/></td>
+            <td *ngIf="projectBased"><user-select [(ngModel)]="entity.employee" [parentEmployees]="employees" (ngModelChange)="entity.addFieldtoUpdate('employee')"></user-select></td>
+            <td><activity-select disabled [(ngModel)]="entity.activity" [parent-activities]="activities" [project]="entity?.project?.id" (ngModelChange)="entity.addFieldtoUpdate('activity')"></activity-select></td>
+            <td><date-input disabled style="width: 100%;" [(ngModel)]="entity.startedAt"></date-input></td>
+            <td validationStatus><input required ngControl="value{{i}}" class="form-control" [(ngModel)]="entity.value" (change)="addSaveField('value', entity)"/></td>
             <td><dime-button (click)="deleteEntity(entity.id)" fontAwesome="trash-o" color="red"></dime-button></td>
         </tr>
     </tbody>
 </table>
 <div class="DimeControlButtons container-inline">
     <div class="row form-inline">
-        <div class="col-md-2">
+        <div class="col-md-3">
             <label>Datum</label>
-            <dateinput [(date)]="newEntryDate" [has-buttons]="true"></dateinput>
-            <div>
-                <span>automatisch anpassen</span>
-                <input class="checkbox" type="checkbox" [(ngModel)]="updateNewEntryDate" />
-                <help-tooltip text="Stellt das Datum nach dem Erfassen auf das Datum des neusten Eintrags im ausgewaehlten Zeitfenster"></help-tooltip>
-            </div>
-        </div>
-        <div class="col-md-1">
+            <date-input [(ngModel)]="newEntryDate" [has-buttons]="true">
+              <button class="btn" [class.btn-default]="!updateNewEntryDate" [class.btn-primary]="updateNewEntryDate"
+                      data-toggle="tooltip" title="Stellt das Datum nach dem Erfassen auf das Datum des neusten Eintrags im ausgewaehlten Zeitfenster"
+                      (click)="updateNewEntryDate = !updateNewEntryDate">
+                Auto
+                <i class="fa" [class.fa-check-square-o]="updateNewEntryDate" [class.fa-square-o]="!updateNewEntryDate"></i>
+              </button>
+            </date-input>
         </div>
         <div *ngIf="projectBased == true" class="col-md-2">
             <label>Benutzer</label>
-            <user-select [clearOnClose]="false" [parentEmployees]="employees" [(selectedEntity)]="employee" [useContext]="false"></user-select>
+            <user-select [clearOnClose]="false" [parentEmployees]="employees" [(ngModel)]="employee" [useContext]="false"></user-select>
         </div>
         <div *ngIf="projectBased == false" class="col-md-2">
             <label>Benutzer</label>
-            <user-select [clearOnClose]="false" [(selectedEntity)]="employee" [useContext]="true"></user-select>
+            <user-select [clearOnClose]="false" [(ngModel)]="employee" [useContext]="true"></user-select>
         </div>
         <div *ngIf="allowProjectSelect" class="col-md-4">
             <label>Projekt</label>
-            <project-select [hideArchived]="true" [(selectedEntity)]="selectedProject"></project-select>
+            <project-select [hideArchived]="true" [(ngModel)]="selectedProject"></project-select>
         </div>
         <div class="col-md-2">
             <label>Aktivität</label>
-            <activity-select [(selectedEntity)]="selectedActivity" [parent-activities]="activities" [project]="selectedProject?.id" [shortname]="true"></activity-select>
+            <activity-select [(ngModel)]="selectedActivity" [parent-activities]="activities" [project]="selectedProject?.id" [shortname]="true"></activity-select>
         </div>
         <div class="col-md-1">
             <label>Wert</label>
@@ -89,7 +94,7 @@
                     <div class="row">
                         <div class="col-md-4">
                             <label>Projekt</label>
-                            <project-select [hideArchived]="true" [(selectedEntity)]="moveTargetProject"></project-select>
+                            <project-select [hideArchived]="true" [(ngModel)]="moveTargetProject"></project-select>
                         </div>
                     </div>
                     <div class="row">

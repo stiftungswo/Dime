@@ -28,18 +28,22 @@ class DimeButton {
   @Input()
   String tooltip = null;
   @Input()
-  String primary = null;
+  bool primary = false;
+  @Input()
+  bool danger = false;
   @Input()
   bool enabled = true;
   @Input()
   String color = null;
 
   getClass() {
-    if (primary == null) {
-      return "btn btn-default";
-    } else {
+    if (danger) {
+      return "btn btn-danger";
+    }
+    if (primary) {
       return "btn btn-primary";
     }
+    return "btn btn-default";
   }
 
   internalClick() {

@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'dart:html';
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
@@ -6,25 +5,15 @@ import 'package:pikaday/pikaday.dart';
 import 'pikaday/pikaday_component.dart';
 
 @Component(
-  selector: 'dateinput',
+  selector: 'date-input',
   templateUrl: 'dateToTextInput.html',
   directives: const [CORE_DIRECTIVES, formDirectives, PikadayComponent],
+  providers: const [const Provider(NG_VALUE_ACCESSOR, useExisting: DateToTextInput, multi: true)],
 )
-class DateToTextInput implements OnChanges, AfterViewInit {
-  // todo add validation
+class DateToTextInput implements ControlValueAccessor<DateTime>, OnChanges, AfterViewInit {
+  DateTime date;
 
-  DateTime _date;
-
-  DateTime get date => _date;
-
-  @Input('date')
-  set date(DateTime newDate) {
-    _date = newDate;
-  }
-
-  final StreamController<DateTime> _dateChange = new StreamController<DateTime>();
-  @Output('dateChange')
-  Stream<DateTime> get dateChange => _dateChange.stream;
+  ChangeFunction<DateTime> _onChange;
 
   @Input('format')
   String format = 'DD.MM.YYYY';
@@ -32,13 +21,8 @@ class DateToTextInput implements OnChanges, AfterViewInit {
   @Input('has-buttons')
   bool hasButtons = false;
 
-  @Input('is-readonly')
+  @Input('disabled')
   bool isReadonly = false;
-
-  @Input('null-allowed')
-  bool nullAllowed = false;
-
-  bool isValid = true;
 
   @ViewChild('datepicker')
   PikadayComponent pikaday;
@@ -54,39 +38,40 @@ class DateToTextInput implements OnChanges, AfterViewInit {
 
   today() {
     DateTime now = new DateTime.now();
-    this.date = new DateTime(now.year, now.month, now.day);
-    updateDate();
+    updateDate(new DateTime(now.year, now.month, now.day));
   }
 
   nextDay() {
     if (this.date != null) {
-      this.date = this.date.add(new Duration(days: 1));
-      updateDate();
+      updateDate(this.date.add(new Duration(days: 1)));
     }
   }
 
   previousDay() {
     if (this.date != null) {
-      this.date = this.date.subtract(new Duration(days: 1));
-      updateDate();
+      updateDate(this.date.subtract(new Duration(days: 1)));
     }
   }
 
-  updateDate() {
+  updateDate(DateTime newDate) {
     // Beim Sommerzeitwechsel wird manchmal eine Stunde dazugezählt, was dazu führt dass es ein Tageswechsel gibt
     // Das Datum ist dann 23:00 am vorherigen Tag was fehlerbehaftet ist (und 2 Tage gesprungen wird).
     // In diesem Fall die Stunde immer auf 0 setzen, damit wirklich der Beginn des Tages ausgewählt ist.
-    if (this.date != null && this.date.hour != 0) {
-      if (this.date.hour == 23) {
+    if (newDate != null && newDate.hour != 0) {
+      if (newDate.hour == 23) {
         // add one hour to be on the correct day again
-        this.date = this.date.add(new Duration(hours: 1));
+        newDate = newDate.add(new Duration(hours: 1));
       } else {
         // or simply reset to hour 0
-        this.date = new DateTime(this.date.year, this.date.month, this.date.day);
+        newDate = new DateTime(newDate.year, newDate.month, newDate.day);
       }
     }
 
-    _dateChange.add(this.date);
+    //only fire the event if the date actually changed, otherwise the onChange callback will fire on load
+    if (this.date == null || newDate == null || newDate.compareTo(this.date) != 0) {
+      this.date = newDate;
+      _onChange(this.date);
+    }
   }
 
   @override
@@ -94,8 +79,9 @@ class DateToTextInput implements OnChanges, AfterViewInit {
 
   @override
   ngAfterViewInit() {
-    pikadayInput = document.getElementById(pikaday.id) as InputElement;
-    //updatePikadayAttributes();
+    if (pikaday != null) {
+      pikadayInput = document.getElementById(pikaday.id) as InputElement;
+    }
   }
 
   updatePikadayAttributes() {
@@ -105,8 +91,21 @@ class DateToTextInput implements OnChanges, AfterViewInit {
 
       if (pikadayInput.value.trim().isEmpty) {
         pikaday.day = null;
-        _dateChange.add(null);
+        _onChange(null);
       }
     });
+  }
+
+  @override
+  void registerOnChange(ChangeFunction<DateTime> f) {
+    _onChange = f;
+  }
+
+  @override
+  void registerOnTouched(TouchFunction f) {}
+
+  @override
+  void writeValue(DateTime obj) {
+    date = obj;
   }
 }

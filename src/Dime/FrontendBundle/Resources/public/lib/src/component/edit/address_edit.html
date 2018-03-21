@@ -1,38 +1,20 @@
-<div class="form-horizontal">
-  <div class="form-group">
-    <label class="col-sm-2 control-label">Strasse</label>
-    <div class="col-sm-4">
-      <input class="form-control" type="text" [(ngModel)]="address.street">
-    </div>
-  </div>
-  <div class="form-group">
-    <label class="col-sm-2 control-label">Nummer</label>
-    <div class="col-sm-4">
-      <input class="form-control" type="text" [(ngModel)]="address.streetnumber">
-    </div>
-  </div>
-  <div class="form-group">
-    <label class="col-sm-2 control-label">Postleitzahl</label>
-    <div class="col-sm-4">
-      <input class="form-control" type="number" [(ngModel)]="address.plz">
-    </div>
-  </div>
-  <div class="form-group">
-    <label class="col-sm-2 control-label">Stadt</label>
-    <div class="col-sm-4">
-      <input class="form-control" type="text" [(ngModel)]="address.city">
-    </div>
-  </div>
-  <div class="form-group">
-    <label class="col-sm-2 control-label">Kanton</label>
-    <div class="col-sm-4">
-      <input class="form-control" type="text" [(ngModel)]="address.state">
-    </div>
-  </div>
-  <div class="form-group">
-    <label class="col-sm-2 control-label">Land</label>
-    <div class="col-sm-4">
-      <input class="form-control" type="text" [(ngModel)]="address.country">
-    </div>
-  </div>
+<div class="form-horizontal" ngControlGroup="address">
+  <dime-form-group horizontal label="Strasse" >
+    <input required ngControl="street" class="form-control" [(ngModel)]="address.street">
+  </dime-form-group>
+  <dime-form-group horizontal label="Nummer">
+    <input required ngControl="number" class="form-control" [(ngModel)]="address.streetnumber">
+  </dime-form-group>
+  <dime-form-group horizontal label="Postleitzahl">
+    <input required ngControl="plz" class="form-control" type="number" [(ngModel)]="address.plz">
+  </dime-form-group>
+  <dime-form-group horizontal label="Stadt">
+    <input required ngControl="city" class="form-control" type="text" [(ngModel)]="address.city">
+  </dime-form-group>
+  <dime-form-group horizontal label="Kanton">
+    <input required ngControl="state" class="form-control" type="text" [(ngModel)]="address.state">
+  </dime-form-group>
+  <dime-form-group horizontal label="Land">
+    <input class="form-control" type="text" [(ngModel)]="address.country">
+  </dime-form-group>
 </div>

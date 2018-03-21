@@ -133,6 +133,5 @@ class PeriodOverviewComponent extends EntityOverview<Period> {
 
   void save() {
     this.entityEventsService.emitSaveChanges();
-    reload();
   }
 }

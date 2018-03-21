@@ -1,10 +1,6 @@
-<div class="box box-primary">
-  <div class="box-header with-border">
-    <h3 class="box-title">Tarif Typen</h3>
-  </div>
-  <div class="box-body">
-
-    <table class="table table-bordered table-hover">
+<form #editform="ngForm">
+  <dime-box label="Tarif Typen">
+    <table boxBody class="table table-bordered table-hover" ngControlGroup="rateUnitTypes" #overview="ngForm">
       <thead>
         <tr>
           <th width="40">ID</th>
@@ -18,19 +14,28 @@
         </tr>
       </thead>
       <tbody *ngIf="entities != null">
-        <tr *ngFor="let entity of entities" (click)="selectEntity(entity.id)" [class.info]="isSelected(entity)">
+        <tr
+          *ngFor="let entity of entities ; let i = index"
+          (click)="selectEntity(entity.id)"
+          [ngClass]="rowClass(entity, row.valid)"
+          ngControlGroup="position{{i}}"
+          #row="ngForm">
           <td>{{entity.id}}</td>
-          <td><input type="text" class="form-control" [(ngModel)]="entity.name" (change)="addSaveField('name', entity)"/></td>
-          <td><input type="number" class="form-control" [(ngModel)]="entity.factor" (change)="addSaveField('factor', entity)"/></td>
-          <td><input type="number" class="form-control" [(ngModel)]="entity.scale" (change)="addSaveField('scale', entity)"/></td>
+          <td validationStatus class="form-group"><input required ngControl="name{{i}}" class="form-control"
+                                                         [(ngModel)]="entity.name" (change)="addSaveField('name', entity)"/></td>
+          <td validationStatus class="form-group"><input required ngControl="factor{{i}}" type="number" class="form-control"
+                                                         [(ngModel)]="entity.factor" (change)="addSaveField('factor', entity)"/></td>
+          <td validationStatus class="form-group"><input required ngControl="precision{{i}}" type="number" class="form-control"
+                                                         [(ngModel)]="entity.scale" (change)="addSaveField('scale', entity)"/></td>
           <td><input class="checkbox" type="checkbox" [(ngModel)]="entity.doTransform" (change)="addSaveField('doTransform', entity)"/></td>
-          <td><input type="number" class="form-control" [(ngModel)]="entity.roundMode" (change)="addSaveField('roundMode', entity)"/></td>
+          <td validationStatus class="form-group"><input required ngControl="roundMode{{i}}" type="number" class="form-control" [(ngModel)]="entity.roundMode" (change)="addSaveField('roundMode', entity)"/></td>
           <td><input type="text" class="form-control" [(ngModel)]="entity.symbol" (change)="addSaveField('symbol', entity)"/></td>
           <td><dime-button (click)="deleteEntity(entity.id)" fontAwesome="trash-o" color="red"></dime-button></td>
         </tr>
       </tbody>
     </table>
-    <div class="DimeControlButtons container-inline">
+    <div boxFooter class="DimeControlButtons container-inline">
+      <h4>Neuer Typ</h4>
       <div class="row form-inline">
         <div class="col-md-2">
           <label>Id</label>
@@ -41,11 +46,13 @@
           <setting-edit [namespace]="'/usr/defaults/rateunittype'" [name]="'name'" [defaultvalue]="'Neuer Typ'"></setting-edit>
         </div>
         <div class="col-md-12" style="margin-top: 5px;">
-          <dime-button primary (click)="saveAllEntities()"><error-icon></error-icon></dime-button>
           <dime-button primary (click)="createEntity()" glyphicon="plus">Hinzufügen</dime-button>
-          <dime-button (click)="reloadEvict()" glyphicon="refresh"></dime-button>
         </div>
       </div>
     </div>
+  </dime-box>
+  <div class="DimeControlButtons container-inline">
+    <save-button [valid]="editform.valid" (click)="saveAllEntities()"></save-button>
+    <dime-button (click)="reloadEvict()" glyphicon="refresh"></dime-button>
   </div>
-</div>
+</form>

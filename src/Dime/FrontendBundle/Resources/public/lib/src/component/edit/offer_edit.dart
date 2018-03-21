@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:html';
 
+import 'package:DimeClient/src/component/elements/validation/dime_form_group.dart';
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
 import 'package:angular_router/angular_router.dart';
@@ -21,6 +22,7 @@ import 'edit.dart';
 @Component(
   selector: 'offer-edit',
   templateUrl: 'offer_edit.html',
+  pipes: const [COMMON_PIPES],
   directives: const [
     CORE_DIRECTIVES,
     formDirectives,
@@ -31,7 +33,7 @@ import 'edit.dart';
     AddressEditComponent,
     OfferStatusSelectComponent,
     OfferPositionOverviewComponent,
-    OfferDiscountOverviewComponent
+    OfferDiscountOverviewComponent,
   ],
 )
 class OfferEditComponent extends EntityEdit<Offer> {
