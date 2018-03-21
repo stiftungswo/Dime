@@ -90,13 +90,12 @@ class BrowserSentryLogger implements SentryLogger {
     client.write(new SentryPacket(
       logger: 'dart',
       platform: SentryPlatform.javascript,
-      culprit: window.location.toString(),
       timestamp: new DateTime.now().millisecondsSinceEpoch / 1000,
       environment: environment,
       release: release,
       exceptionValues: [exception],
       user: sentryUser,
-      tags: {"userAgent": window.navigator.userAgent},
+      tags: {"userAgent": window.navigator.userAgent, "url": window.location.toString()},
     ));
   }
 }
