@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:html';
 
 import 'package:angular/angular.dart';
+import 'package:angular_forms/angular_forms.dart';
 import 'package:hammock/hammock.dart';
 
 import '../../model/entity_export.dart';
@@ -20,7 +21,7 @@ import '../select/user_select.dart';
 @Component(
     selector: 'timeslice-expensereport',
     templateUrl: 'timeslice_expense_report.html',
-    directives: const [CORE_DIRECTIVES, dimeDirectives, UserSelectComponent, ProjectSelectComponent],
+    directives: const [CORE_DIRECTIVES, formDirectives, dimeDirectives, UserSelectComponent, ProjectSelectComponent],
     pipes: const [COMMON_PIPES])
 class TimesliceExpenseReportComponent extends EntityOverview<ExpenseReport> {
   TimesliceExpenseReportComponent(DataCache store, SettingsManager manager, StatusService status, UserAuthProvider auth,
