@@ -10,27 +10,27 @@ services:
     dime.tag.form.type:
         class: Dime\TimetrackerBundle\Form\Type\TagFormType
         tags: [{ name: "form.type", alias: "dime_timetrackerbundle_tagformtype" }]
-        
+
     dime.setting.form.type:
         class: Dime\TimetrackerBundle\Form\Type\SettingFormType
         tags: [{ name: "form.type", alias: "dime_timetrackerbundle_settingformtype" }]
-        
+
     dime.service.form.type:
         class: Dime\TimetrackerBundle\Form\Type\ServiceFormType
         tags: [{ name: "form.type", alias: "dime_timetrackerbundle_serviceformtype" }]
-        
+
     dime.project.form.type:
         class: Dime\TimetrackerBundle\Form\Type\ProjectFormType
         tags: [{ name: "form.type", alias: "dime_timetrackerbundle_projectformtype" }]
-        
+
     dime.customer.form.type:
         class: Dime\TimetrackerBundle\Form\Type\CustomerFormType
         tags: [{ name: "form.type", alias: "dime_timetrackerbundle_customerformtype" }]
-        
+
     dime.activity.form.type:
         class: Dime\TimetrackerBundle\Form\Type\ActivityFormType
         tags: [{ name: "form.type", alias: "dime_timetrackerbundle_activityformtype" }]
-        
+
     dime.rategroup.form.type:
         class: Dime\TimetrackerBundle\Form\Type\RateGroupFormType
         tags: [{ name: "form.type", alias: "dime_timetrackerbundle_rategroupformtype" }]
@@ -38,10 +38,6 @@ services:
     dime.rate.form.type:
         class: Dime\TimetrackerBundle\Form\Type\RateFormType
         tags: [{ name: "form.type", alias: "dime_timetrackerbundle_rateformtype" }]
-
-    dime.standarddiscount.form.type:
-        class: Dime\TimetrackerBundle\Form\Type\StandardDiscountFormType
-        tags: [{ name: "form.type", alias: "dime_timetrackerbundle_standarddiscountformtype" }]
 
     dime.rategunittype.form.type:
         class: Dime\TimetrackerBundle\Form\Type\RateUnitTypeFormType

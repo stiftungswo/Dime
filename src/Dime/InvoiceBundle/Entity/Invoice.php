@@ -12,7 +12,6 @@ use DateTime;
 use Dime\EmployeeBundle\Entity\Employee;
 use Dime\TimetrackerBundle\Entity\Customer;
 use Dime\TimetrackerBundle\Entity\Entity;
-use Dime\TimetrackerBundle\Entity\StandardDiscount;
 use Dime\TimetrackerBundle\Model\DimeEntityInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
@@ -80,17 +79,6 @@ class Invoice extends Entity implements DimeEntityInterface
     protected $invoiceDiscounts;
 
     /**
-     * @var ArrayCollection
-     * @ORM\ManyToMany(targetEntity="Dime\TimetrackerBundle\Entity\StandardDiscount")
-     * @ORM\JoinTable(name="invoice_standard_discounts",
-     *      joinColumns={@ORM\JoinColumn(name="invoice_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="standard_discount_id", referencedColumnName="id", unique=true)}
-     *      )
-     * @JMS\SerializedName("standardDiscounts")
-     */
-    protected $standardDiscounts;
-
-    /**
      * @var ArrayCollection $costgroups
      *
      * @JMS\Type("array")
@@ -147,7 +135,6 @@ class Invoice extends Entity implements DimeEntityInterface
     public function __construct()
     {
         $this->invoiceDiscounts = new ArrayCollection();
-        $this->standardDiscounts = new ArrayCollection();
     }
 
     /**
@@ -159,11 +146,6 @@ class Invoice extends Entity implements DimeEntityInterface
     public function getTotalDiscounts()
     {
         $totalDiscounts = Money::CHF(0);
-        if ($this->getStandardDiscounts()) {
-            foreach ($this->getStandardDiscounts() as $standardDiscount) {
-                $totalDiscounts = $totalDiscounts->add($standardDiscount->getCalculatedDiscount($this->getSubtotal()));
-            }
-        }
         if ($this->getInvoiceDiscounts()) {
             foreach ($this->getInvoiceDiscounts() as $invoiceDiscount) {
                 $totalDiscounts = $totalDiscounts->add($invoiceDiscount->getCalculatedDiscount($this->getSubtotal()));
@@ -403,25 +385,6 @@ class Invoice extends Entity implements DimeEntityInterface
     public function setProject($project)
     {
         $this->project = $project;
-        return $this;
-    }
-
-    /**
-     * @return ArrayCollection|StandardDiscount[]
-     */
-    public function getStandardDiscounts()
-    {
-        return $this->standardDiscounts;
-    }
-
-    /**
-     * @param mixed $standardDiscounts
-     *
-     * @return $this
-     */
-    public function setStandardDiscounts($standardDiscounts)
-    {
-        $this->standardDiscounts = $standardDiscounts;
         return $this;
     }
 

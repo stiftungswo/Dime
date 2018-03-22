@@ -53,24 +53,17 @@ users:
     prefix:   /v1
     name_prefix:  api_1_
     defaults: { _format: json }
-    
+
 rategroups:
     type:     rest
     resource: Dime\TimetrackerBundle\Controller\RateGroupController
     prefix:   /v1
     name_prefix:  api_1_
     defaults: { _format: json }
-    
+
 rates:
     type:     rest
     resource: Dime\TimetrackerBundle\Controller\RateController
-    prefix:   /v1
-    name_prefix:  api_1_
-    defaults: { _format: json }
-
-standarddiscounts:
-    type:     rest
-    resource: Dime\TimetrackerBundle\Controller\StandardDiscountController
     prefix:   /v1
     name_prefix:  api_1_
     defaults: { _format: json }

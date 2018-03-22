@@ -93,7 +93,7 @@
 				<td class="number">{{ invoice.breakdown.subtotal }}</td>
 			</tr>
 		</table>
-        {% if invoice.standardDiscounts|length > 0 or invoice.invoiceDiscounts|length > 0 %}
+        {% if invoice.invoiceDiscounts|length > 0 %}
 		<table class="discounttable" breakable="false">
 			<tr class="thead">
 				<td class="firstrow number">Abzug</td>
@@ -108,12 +108,6 @@
 						<td class="number">{{ discount.name }}</td>
 						<td class="number">{{ discount.value }}</td>
 					{% endif %}
-				</tr>
-			{% endfor %}
-			{% for discount in invoice.standardDiscounts %}
-				<tr class="tbody">
-					<td class="number">{{ discount.name }}</td>
-					<td class="number">{% if discount.percentage %}{{ discount.value*100 }}%{% else %}{{ discount.value }} CHF{% endif %}</td>
 				</tr>
 			{% endfor %}
 			<tr class="tfoot1">

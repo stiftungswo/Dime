@@ -95,12 +95,6 @@
 					<td class="number">{% if discount.percentage %}{{ discount.value*100 }}%{% else %}{{ discount.value }} CHF{% endif %}</td>
 				</tr>
 			{% endfor %}
-			{% for discount in offer.standardDiscounts %}
-				<tr class="tbody">
-					<td class="number">{{ discount.name }}</td>
-					<td class="number">{% if discount.percentage %}{{ discount.value*100 }}%{% else %}{{ discount.value }} CHF{% endif %}</td>
-				</tr>
-			{% endfor %}
 			<tr class="tfoot">
 				<td class="number">Abzüge Total</td>
 				<td class="number">{{ offer.totalDiscounts }}</td>
