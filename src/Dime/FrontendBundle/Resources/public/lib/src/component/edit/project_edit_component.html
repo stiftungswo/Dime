@@ -55,7 +55,7 @@
                               (ngModelChange)="entity.addFieldtoUpdate('rateGroup')"></rate-group-select>
           </dime-form-group>
           <dime-form-group horizontal label="Tätigkeitsbereich">
-            <project-category-select required ngcontrol="projectCategory"
+            <project-category-select required ngcontrol="projectCategory" #projectCategory="ngForm"
                                     [(ngModel)]="entity.projectCategory"
                                     (ngModelChange)="entity.addFieldtoUpdate('projectCategory')"></project-category-select>
           </dime-form-group>
@@ -96,7 +96,9 @@
   </div>
 <activity-overview [project]="entity?.id"></activity-overview>
 <div class="DimeControlButtons">
-  <save-button [valid]="editform.valid" (click)="saveEntity()"></save-button>
+  <save-button [valid]="editform.valid"
+               [enabled]="projectCategory.valid" disabledTooltip="Der Tätigkeitsbereich muss erfasst sein"
+               (click)="saveEntity()"></save-button>
   <dime-button (click)="reloadEvict()" glyphicon="refresh"></dime-button>
 </div>
 </form>

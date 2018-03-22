@@ -32,6 +32,8 @@ class DimeButtonComponent {
   @Input()
   bool danger = false;
   @Input()
+  bool warning = false;
+  @Input()
   bool enabled = true;
   @Input()
   String color = null;
@@ -39,6 +41,9 @@ class DimeButtonComponent {
   getClass() {
     if (danger) {
       return "btn btn-danger";
+    }
+    if (warning) {
+      return "btn btn-warning";
     }
     if (primary) {
       return "btn btn-primary";

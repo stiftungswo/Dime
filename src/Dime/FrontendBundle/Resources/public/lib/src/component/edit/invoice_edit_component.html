@@ -49,7 +49,7 @@
   </div>
   <invoice-item-overview [invoice]="entity.id"></invoice-item-overview>
   <div class="row">
-    <div class="col-md-6"><invoice-costgroup-overview required [invoice]="entity.id"></invoice-costgroup-overview></div>
+    <div class="col-md-6"><invoice-costgroup-overview required [invoice]="entity.id" ngControlGroup="invoicecostgroups" #costgroups="ngForm"></invoice-costgroup-overview></div>
     <div class="col-md-6"><invoice-discount-overview [invoice]="entity.id"></invoice-discount-overview></div>
   </div>
   <div class="row">
@@ -71,7 +71,9 @@
     </div>
   </div>
   <div class="DimeControlButtons">
-    <save-button [valid]="editform.valid" (click)="saveEntity()"></save-button>
+    <save-button [valid]="editform.valid"
+                 [enabled]="costgroups.valid" disabledTooltip="Die Kostenstellen müssen erfasst werden."
+                 (click)="saveEntity()"></save-button>
     <dime-button primary glyphicon="magnet"
                  tooltipText="Synchronisiert die Aktivitäten/Rechnungsposten mit dem Ursprungsprojekt und setzt den Sachbearbeiter auf Dich"
                  (click)="updateInvoicefromProject()"> Update </dime-button>
