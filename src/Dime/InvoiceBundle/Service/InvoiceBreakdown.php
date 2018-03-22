@@ -80,6 +80,9 @@ function applyDiscountFactor($vatGroups, $factor, $name)
 function applyDiscountAmount($vatGroups, Money $amount, $name)
 {
     $distribution = valueDistribution($vatGroups);
+    if (empty($distribution)) {
+        return [];
+    }
     $cuts = $amount->allocate($distribution);
 
     $discountedGroups = [];
