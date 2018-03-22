@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:collection';
 import 'dart:html';
 
 import 'package:angular/angular.dart';
@@ -55,6 +56,34 @@ class TimesliceExpenseReportComponent extends EntityOverview<ExpenseReport> {
   DateTime filterEndDate;
 
   ExpenseReport report;
+
+  /// group timeslices / comments by date and sort the groups by date
+  /// so in the end the structure looks like this:
+  ///
+  /// [
+  ///   [<date>, {timeslice: [<timeslice>, <timeslice>,...], comment: [<comment>, <comment>,...]}],
+  ///   [<date>, {timeslice: [<timeslice>, <timeslice>,...], comment: [<comment>, <comment>,...]}]
+  /// ]
+  List get elements {
+    var map = new LinkedHashMap();
+
+    for (Timeslice t in report.timeslices) {
+      Map<String, List<dynamic>> dateMap = map.putIfAbsent(new DateTime(t.startedAt.year, t.startedAt.month, t.startedAt.day), () => {});
+      dateMap.putIfAbsent('timeslice', () => []).add(t);
+    }
+    for (ProjectComment t in report.comments) {
+      Map<String, List<dynamic>> dateMap = map.putIfAbsent(new DateTime(t.date.year, t.date.month, t.date.day), () => {});
+      dateMap.putIfAbsent('comment', () => []).add(t);
+    }
+
+    var list = [];
+
+    map.forEach((date, items) => list.add([date, items]));
+
+    list.sort((a, b) => (a[0] as DateTime).compareTo(b[0] as DateTime));
+
+    return list;
+  }
 
   @override
   void ngOnInit(); //noop

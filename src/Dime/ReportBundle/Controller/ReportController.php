@@ -10,6 +10,7 @@ namespace Dime\ReportBundle\Controller;
 use Carbon\Carbon;
 use Dime\ReportBundle\Handler\ReportHandler;
 use Dime\TimetrackerBundle\Controller\DimeController;
+use Doctrine\Common\Collections\ArrayCollection;
 use FOS\RestBundle\Controller\Annotations;
 use FOS\RestBundle\Request\ParamFetcherInterface;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
@@ -49,7 +50,12 @@ class ReportController extends DimeController
      */
     public function getReportsExpenseAction(ParamFetcherInterface $paramFetcher)
     {
-        return $this->container->get('dime.report.handler')->getExpenseReport($paramFetcher->all());
+        $reportHandler = $this->container->get('dime.report.handler');
+
+        $report = $reportHandler->getExpenseReport($paramFetcher->all());
+        $report->setComments(new ArrayCollection($reportHandler->getExpensesReportComments($paramFetcher->all())));
+
+        return $report;
     }
 
     /**
@@ -97,8 +103,13 @@ class ReportController extends DimeController
             $reportItems[$date]['timeslices'] = $timeSlices;
         }
 
-        foreach ($comments as $date => $comment) {
-            $reportItems[$date]['comment'] = $comment;
+        foreach ($comments as $comment) {
+            $group = $comment->getDate()->format('d.m.Y');
+            if (isset($reportItems[$group]['comment'])) {
+                $reportItems[$group]['comment'] .= "\n" . $comment->getComment();
+            } else {
+                $reportItems[$group]['comment'] = $comment->getComment();
+            }
         }
 
         uksort($reportItems, function ($date1, $date2) {

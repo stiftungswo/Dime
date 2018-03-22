@@ -102,18 +102,7 @@ class ReportHandler extends AbstractHandler
             /** @var ProjectComment[] $comments */
             $comments = $queryBuilder->getQuery()->getResult();
 
-            $groupedComments = [];
-
-            foreach ($comments as $comment) {
-                $group = $comment->getDate()->format('d.m.Y');
-                if (isset($groupedComments[$group])) {
-                    $groupedComments[$group] .= "\n" . $comment->getComment();
-                } else {
-                    $groupedComments[$group] = $comment->getComment();
-                }
-            }
-
-            return $groupedComments;
+            return $comments;
         } else {
             return [];
         }

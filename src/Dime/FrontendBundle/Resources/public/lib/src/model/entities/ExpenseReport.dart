@@ -17,6 +17,8 @@ class ExpenseReport extends Entity {
       switch (property) {
         case 'timeslices':
           return this.timeslices;
+        case 'comments':
+          return this.comments;
         case 'totalHours':
           return this.totalHours;
         case 'user':
@@ -36,6 +38,9 @@ class ExpenseReport extends Entity {
       case 'timeslices':
         this.timeslices = Timeslice.listFromMap(value as List<Map<String, dynamic>>);
         break;
+      case 'comments':
+        this.comments = (value as List<Map<String, dynamic>>).map((e) => new ProjectComment.fromMap(e)).toList();
+        break;
       case 'totalHours':
         this.totalHours = value;
         break;
@@ -54,6 +59,7 @@ class ExpenseReport extends Entity {
   @override
   String type = 'expensereports';
   List<Timeslice> timeslices;
+  List<ProjectComment> comments;
   Project project;
   @override
   User user;
