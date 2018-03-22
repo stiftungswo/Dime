@@ -71,7 +71,7 @@ abstract class EntityOverview<T extends Entity> implements OnInit, AfterViewInit
   Future saveEntity(T entity) async {
     this.statusservice.setStatusToLoading();
     try {
-      T resp = await store.update(entity);
+      T _ = await store.update(entity);
       //mutating this array appears to break ngControl, so instead we just reload the component now
       this.reload();
       this.statusservice.setStatusToSuccess();
@@ -250,6 +250,7 @@ abstract class EntityOverview<T extends Entity> implements OnInit, AfterViewInit
   @ViewChild("overview")
   NgControlGroup overview;
 
+  @override
   ngAfterViewInit() {
     if (required) {
       if (overview == null) {

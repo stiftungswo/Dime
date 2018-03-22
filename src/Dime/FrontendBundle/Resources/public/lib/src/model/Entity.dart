@@ -1,7 +1,6 @@
 import 'package:hammock/hammock.dart';
 import 'package:meta/meta.dart';
 
-import 'entities/Employee.dart';
 import 'entities/Tag.dart';
 import 'entities/User.dart';
 

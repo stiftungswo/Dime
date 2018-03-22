@@ -21,8 +21,8 @@ import 'percentage_input.dart';
   directives: const [formDirectives, CORE_DIRECTIVES, PercentageInputComponent],
   providers: const [const Provider(NG_VALUE_ACCESSOR, useExisting: DiscountInputComponent, multi: true)],
 )
-class DiscountInputComponent implements ControlValueAccessor<double> {
-  ChangeFunction<double> _onValueChange;
+class DiscountInputComponent implements ControlValueAccessor<num> {
+  ChangeFunction<num> _onValueChange;
 
   @Input()
   bool percentage = false;
@@ -53,7 +53,7 @@ class DiscountInputComponent implements ControlValueAccessor<double> {
   }
 
   @override
-  void registerOnChange(ChangeFunction<double> f) {
+  void registerOnChange(ChangeFunction<num> f) {
     _onValueChange = f;
   }
 
@@ -61,7 +61,7 @@ class DiscountInputComponent implements ControlValueAccessor<double> {
   void registerOnTouched(TouchFunction f) {}
 
   @override
-  void writeValue(double val) {
+  void writeValue(num val) {
     this.value = val;
   }
 }

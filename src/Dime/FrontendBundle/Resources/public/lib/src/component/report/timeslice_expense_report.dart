@@ -65,22 +65,24 @@ class TimesliceExpenseReportComponent extends EntityOverview<ExpenseReport> {
   ///   [<date>, {timeslice: [<timeslice>, <timeslice>,...], comment: [<comment>, <comment>,...]}]
   /// ]
   List get elements {
-    var map = new LinkedHashMap();
+    Map<DateTime, Map<String, List<dynamic>>> map = {};
 
     for (Timeslice t in report.timeslices) {
-      Map<String, List<dynamic>> dateMap = map.putIfAbsent(new DateTime(t.startedAt.year, t.startedAt.month, t.startedAt.day), () => {});
+      Map<String, List<Timeslice>> dateMap =
+          map.putIfAbsent(new DateTime(t.startedAt.year, t.startedAt.month, t.startedAt.day), () => {}) as Map<String, List<Timeslice>>;
       dateMap.putIfAbsent('timeslice', () => []).add(t);
     }
     for (ProjectComment t in report.comments) {
-      Map<String, List<dynamic>> dateMap = map.putIfAbsent(new DateTime(t.date.year, t.date.month, t.date.day), () => {});
+      Map<String, List<ProjectComment>> dateMap =
+          map.putIfAbsent(new DateTime(t.date.year, t.date.month, t.date.day), () => {}) as Map<String, List<ProjectComment>>;
       dateMap.putIfAbsent('comment', () => []).add(t);
     }
 
     var list = [];
 
-    map.forEach((date, items) => list.add([date, items]));
+    map.forEach((DateTime date, Map<String, dynamic> items) => list.add([date, items]));
 
-    list.sort((a, b) => (a[0] as DateTime).compareTo(b[0] as DateTime));
+    list.sort((dynamic a, dynamic b) => (a[0] as DateTime).compareTo(b[0] as DateTime));
 
     return list;
   }

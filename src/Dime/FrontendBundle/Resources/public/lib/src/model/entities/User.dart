@@ -44,6 +44,8 @@ class User extends Entity {
           return this.firstname;
         case 'lastname':
           return this.lastname;
+        case 'fullname':
+          return this.fullname; // useful for our filter / orderBy pipes
         case 'email':
           return this.email;
         case 'enabled':

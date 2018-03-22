@@ -6,7 +6,6 @@ import 'package:path/path.dart';
 import 'package:sentry_client/api_data/sentry_exception.dart';
 import 'package:sentry_client/api_data/sentry_packet.dart';
 import 'package:sentry_client/api_data/sentry_platform.dart';
-import 'package:sentry_client/api_data/sentry_request.dart';
 import 'package:sentry_client/api_data/sentry_stacktrace.dart';
 import 'package:sentry_client/api_data/sentry_stacktrace_frame.dart';
 import 'package:sentry_client/api_data/sentry_user.dart';
@@ -50,7 +49,7 @@ class BrowserSentryLogger implements SentryLogger {
     Trace stackTrace;
 
     if (stack is Iterable) {
-      stackTrace = new Chain((stack as Iterable).map((dynamic trace) => new Trace.parse(trace.toString()))).toTrace();
+      stackTrace = new Chain(stack.map((dynamic trace) => new Trace.parse(trace.toString()))).toTrace();
     } else {
       stackTrace = new Trace.parse(stack.toString());
     }
