@@ -22,8 +22,18 @@ class ActivitySelectComponent extends EntitySelect<Activity> implements OnChange
   ActivitySelectComponent(CachingObjectStoreService store, dom.Element element, StatusService status, UserAuthService auth)
       : super(Activity, store, element, status, auth);
 
+  int _projectId;
+
+  int get projectId => _projectId;
+
   @Input('project')
-  int projectId;
+  void set projectId(int projectId) {
+    if (projectId != _projectId) {
+      _projectId = projectId;
+      reload();
+    }
+  }
+
   @Input('shortname')
   bool shortname = false;
 

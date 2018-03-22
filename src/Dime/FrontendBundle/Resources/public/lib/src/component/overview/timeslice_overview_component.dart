@@ -152,18 +152,26 @@ class TimesliceOverviewComponent extends EntityOverview<Timeslice> {
   bool projectBased = false;
 
   //selection for move dialog
-  Project moveTargetProject;
+  Project _moveTargetProject;
+  Project get moveTargetProject => _moveTargetProject;
+  void set moveTargetProject(Project moveTargetProject) {
+    _moveTargetProject = moveTargetProject;
+    moveTargetActivity = null;
+  }
+
+  Activity moveTargetActivity;
   bool moveDialogVisible = false;
   //apparently if we query  `selectedTimeslices.isNotEmpty` directly, it doesn't update
   bool moveDialogEnabled() => selectedTimeslices.isNotEmpty;
-  Set<int> selectedTimeslices = new Set();
+  Set<Timeslice> selectedTimeslices = new Set();
 
   TimetrackService timetrackService;
+  StatusService statusService;
 
   static const String FORMDATA_CHANGE_EVENT_NAME = 'FORMDATA_CHANGE_EVENT_NAME';
 
   TimesliceOverviewComponent(CachingObjectStoreService store, SettingsService manager, StatusService status, this.context,
-      UserAuthService auth, EntityEventsService entityEventsService, this.timetrackService, this.http)
+      UserAuthService auth, EntityEventsService entityEventsService, this.timetrackService, this.http, this.statusService)
       : super(Timeslice, store, '', manager, status, entityEventsService, auth: auth);
 
   @override
@@ -380,15 +388,15 @@ class TimesliceOverviewComponent extends EntityOverview<Timeslice> {
   }
 
   void toggleTimeslice(Timeslice timeslice) {
-    if (selectedTimeslices.contains(timeslice.id)) {
-      selectedTimeslices.remove(timeslice.id);
+    if (selectedTimeslices.contains(timeslice)) {
+      selectedTimeslices.remove(timeslice);
     } else {
-      selectedTimeslices.add(timeslice.id as int);
+      selectedTimeslices.add(timeslice);
     }
 
     //for compatibility with the single-select of the EntityOverview
     if (selectedTimeslices.length == 1) {
-      selectEntity(selectedTimeslices.single);
+      selectEntity(selectedTimeslices.single.id);
     } else {
       selectEntity(null);
     }
@@ -396,14 +404,37 @@ class TimesliceOverviewComponent extends EntityOverview<Timeslice> {
   }
 
   Future moveTimeslices() async {
-    final ids = selectedTimeslices.toList(growable: false);
-    var body = new JsonEncoder().convert({"timeslices": ids});
-
-    http.put("projects/${this.moveTargetProject.id}/timeslices", body: body).then((_) {
+    statusService.setStatusToLoading();
+    try {
+      if (moveTargetActivity == null) {
+        await moveTimeslicesToProject();
+      } else {
+        await moveTimeslicesToActivity();
+      }
       reload();
       selectedTimeslices.clear();
       moveDialogVisible = false;
+      statusService.setStatusToSuccess();
+    } catch (e, stack) {
+      statusService.setStatusToError(e, stack);
+    }
+  }
+
+  Future moveTimeslicesToProject() async {
+    final ids = selectedTimeslices.map((slice) => slice.id).toList(growable: false);
+    var body = new JsonEncoder().convert({"timeslices": ids});
+
+    return http.put("projects/${this.moveTargetProject.id}/timeslices", body: body);
+  }
+
+  Future moveTimeslicesToActivity() async {
+    var futures = selectedTimeslices.map((slice) {
+      slice.addFieldtoUpdate("activity");
+      slice.activity = moveTargetActivity;
+      return this.store.update(slice);
     });
+
+    return Future.wait(futures);
   }
 
   void selectRow(dynamic event, Timeslice timeslice) {
@@ -417,9 +448,9 @@ class TimesliceOverviewComponent extends EntityOverview<Timeslice> {
   @override
   rowClass(Timeslice entity, bool valid) {
     if (valid ?? true) {
-      return {"info": selectedTimeslices.contains(entity.id)};
+      return {"info": selectedTimeslices.contains(entity)};
     } else {
-      if (selectedTimeslices.contains(entity.id)) {
+      if (selectedTimeslices.contains(entity)) {
         return {"warning": true};
       } else {
         return {"danger": true};

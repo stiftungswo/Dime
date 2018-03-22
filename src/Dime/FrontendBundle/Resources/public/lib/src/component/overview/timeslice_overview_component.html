@@ -19,7 +19,7 @@
     <tbody>
         <tr
           *ngFor="let entity of entities | timeslicedatefilter:filterStartDate:filterEndDate | orderBy:'startedAt'; let i = index"
-          (click)="selectEntity(entity.id)"
+          (click)="selectRow($event, entity)"
           [ngClass]="rowClass(entity, row.valid)"
           ngControlGroup="position{{i}}"
           #row="ngForm">
@@ -91,12 +91,16 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Verschieben</div>
                 <div class="panel-body">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <label>Projekt</label>
-                            <project-select [hideArchived]="true" [(ngModel)]="moveTargetProject"></project-select>
-                        </div>
+                  <div class="row">
+                    <div class="col-md-4">
+                      <label>Projekt</label>
+                      <project-select hideArchived [(ngModel)]="moveTargetProject"></project-select>
                     </div>
+                    <div class="col-md-4">
+                      <label>Aktivität</label>
+                      <activity-select clearOnClose [project]="moveTargetProject?.id" [(ngModel)]="moveTargetActivity" placeholder="Beibehalten"></activity-select>
+                    </div>
+                  </div>
                     <div class="row">
                         <div class="col-md-2" style="padding-top: 10px">
                             <dime-button glyphicon="arrow-right" (click)="moveTimeslices()" [enabled]="moveTargetProject != null" primary>Verschieben</dime-button>
