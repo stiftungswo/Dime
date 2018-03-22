@@ -7,5 +7,4 @@ export 'project_select_component.dart';
 export 'rate_group_select_component.dart';
 export 'rate_unit_type_select_component.dart';
 export 'service_select_component.dart';
-export 'standarddiscount_select.dart';
 export 'user_select_component.dart';

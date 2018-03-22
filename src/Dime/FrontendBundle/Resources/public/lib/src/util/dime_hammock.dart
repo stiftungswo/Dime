@@ -97,16 +97,6 @@ createHammockConfig(Injector i) {
           return new OfferStatusUC.fromMap(r.content);
         }
       },
-      "standarddiscounts": {
-        "type": StandardDiscount,
-        "serializer": (StandardDiscount ent) {
-          return ent.toResource();
-        },
-        "deserializer": (Resource r) {
-          if (r.content is String) return new StandardDiscount();
-          return new StandardDiscount.fromMap(r.content);
-        }
-      },
       "costgroups": {
         "type": Costgroup,
         "serializer": (Costgroup ent) {

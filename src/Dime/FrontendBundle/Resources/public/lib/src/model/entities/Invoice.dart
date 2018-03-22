@@ -16,7 +16,6 @@ class Invoice extends Entity {
     this.project = original.project;
     this.items = original.items;
     this.invoiceDiscounts = original.invoiceDiscounts;
-    this.standardDiscounts = original.standardDiscounts;
     this.start = original.start;
     this.end = original.end;
     this.customer = original.customer;
@@ -35,7 +34,6 @@ class Invoice extends Entity {
       'project',
       'items',
       'invoiceDiscounts',
-      'standardDiscounts',
       'start',
       'end',
       'customer',
@@ -80,8 +78,6 @@ class Invoice extends Entity {
           return this.items;
         case 'invoiceDiscounts':
           return this.invoiceDiscounts;
-        case 'standardDiscounts':
-          return this.standardDiscounts;
         case 'start':
           return this.start;
         case 'end':
@@ -129,9 +125,6 @@ class Invoice extends Entity {
         break;
       case 'invoiceDiscounts':
         this.invoiceDiscounts = InvoiceDiscount.listFromMap(value as List<Map<String, dynamic>>);
-        break;
-      case 'standardDiscounts':
-        this.standardDiscounts = StandardDiscount.listFromMap(value as List<Map<String, dynamic>>);
         break;
       case 'start':
         this.start = this.addDateValue(value);
@@ -210,7 +203,6 @@ class Invoice extends Entity {
   Project project;
   List<InvoiceItem> items = [];
   List<InvoiceDiscount> invoiceDiscounts = [];
-  List<StandardDiscount> standardDiscounts = [];
   DateTime start;
   DateTime end;
   Employee accountant;

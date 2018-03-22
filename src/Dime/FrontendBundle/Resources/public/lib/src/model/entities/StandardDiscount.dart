@@ -1,6 +1,6 @@
 import '../entity_export.dart';
 
-class StandardDiscount extends Entity {
+abstract class StandardDiscount extends Entity {
   @override
   init({Map<String, dynamic> params: const {}}) {
     if (!params.containsKey('name')) {
@@ -21,9 +21,7 @@ class StandardDiscount extends Entity {
   StandardDiscount.fromMap(Map<String, dynamic> map) : super.fromMap(map);
 
   @override
-  StandardDiscount newObj() {
-    return new StandardDiscount();
-  }
+  StandardDiscount newObj();
 
   @override
   dynamic Get(String property) {
@@ -61,31 +59,6 @@ class StandardDiscount extends Entity {
     }
   }
 
-  static List<StandardDiscount> listFromMap(List<Map<String, dynamic>> content) {
-    List<StandardDiscount> array = new List<StandardDiscount>();
-    for (var element in content) {
-      array.add(new StandardDiscount.fromMap(element));
-    }
-    return array;
-  }
-
-  static List<Map<String, dynamic>> MapFromList(List<StandardDiscount> discounts) {
-    List<Map<String, dynamic>> result = new List();
-    for (var element in discounts) {
-      result.add(element.toMap());
-    }
-    return result;
-  }
-
-  ViewValue() {
-    if (this.percentage) {
-      return (this.value * 100).truncate().toString() + '%';
-    }
-    return this.value;
-  }
-
-  @override
-  String type = 'standarddiscounts';
   double value;
   bool percentage;
   bool minus;
