@@ -21,8 +21,8 @@ class OfferFormType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        
-        
+
+
         $builder
             ->add('name')
             ->add('project')
@@ -37,8 +37,7 @@ class OfferFormType extends AbstractType
             ->add('user')
             ->add('address', 'swo_commons_addressformtype')
             ->add('validTo', 'datetime', array('required' => false, 'widget' => 'single_text', 'with_seconds' => false))
-            ->add('offerPositions')
-            ->add('standardDiscounts', 'entity', array('class' => 'DimeTimetrackerBundle:StandardDiscount', 'multiple' => true));
+            ->add('offerPositions');
     }
 
     public function getName()

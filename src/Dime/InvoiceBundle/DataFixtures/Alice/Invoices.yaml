@@ -11,7 +11,7 @@ Dime\InvoiceBundle\Entity\Invoice:
         end: <dateTimeBetween('-199 days', 'now')>
         invoiceDiscounts: <numberBetween(1, 2)>x @discountInvoice*
     invoice_{2..50}:
-        project: 75%? @project_*
+        project: @project_*
         customer: @customer_*
         user: @user_*
         accountant: @user_*

@@ -1,0 +1,36 @@
+<dime-box label="Tarife">
+  <table boxBody class="table table-bordered table-hover" ngControlGroup="rateoverview" #overview="ngForm" >
+    <thead>
+      <tr>
+        <th>Tarifgruppe</th>
+        <th>Tarif</th>
+        <th>Tarif Einheit</th>
+        <th>Einheits-Typ</th>
+        <th width="60">Aktion</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="entities != null">
+      <tr
+        *ngFor="let entity of entities ; let i = index"
+        (click)="selectEntity(entity.id)"
+        [ngClass]="rowClass(entity, row.valid)"
+        ngControlGroup="rate{{i}}"
+        #row="ngForm">
+        <td validationStatus class="form-group"><rate-group-select required ngControl="rategroup{{i}}"
+                              [(ngModel)]="entity.rateGroup" (ngModelChange)="entity.addFieldtoUpdate('rateGroup')"></rate-group-select></td>
+        <td validationStatus class="form-group"><input required ngControl="rateValue{{i}}" class="form-control"
+                   [(ngModel)]="entity.rateValue" (change)="addSaveField('rateValue', entity)" /></td>
+        <td validationStatus class="form-group"><input required ngControl="rateUnit{{i}}" class="form-control"
+                   [(ngModel)]="entity.rateUnit" (change)="addSaveField('rateUnit', entity)"/></td>
+        <td validationStatus class="form-group"><rate-unit-type-select required ngControl="rateUnitType{{i}}"
+                                 [(ngModel)]="entity.rateUnitType" (ngModelChange)="entity.addFieldtoUpdate('rateUnitType')"></rate-unit-type-select></td>
+        <td><dime-button (click)="deleteEntity(entity.id)" fontAwesome="trash-o" color="red"></dime-button></td>
+      </tr>
+    </tbody>
+  </table>
+  <div boxFooter class="DimeControlButtons">
+    <dime-button primary (click)="createEntity()" glyphicon="plus">Hinzufügen</dime-button>
+    <dime-button primary (click)="duplicateEntity()" fontAwesome="copy">Duplizieren</dime-button>
+    <dime-button (click)="reloadEvict()" glyphicon="refresh"></dime-button>
+  </div>
+</dime-box>

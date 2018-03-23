@@ -9,11 +9,11 @@ import 'package:angular_router/angular_router.dart';
 import 'package:angular_router/src/router.dart';
 
 import '../../model/Entity.dart';
-import '../../service/data_cache.dart';
+import '../../service/caching_object_store_service.dart';
 import '../../service/entity_events_service.dart';
-import '../../service/setting_manager.dart';
-import '../../service/status.dart';
-import '../../service/user_auth.dart';
+import '../../service/settings_service.dart';
+import '../../service/status_service.dart';
+import '../../service/user_auth_service.dart';
 
 abstract class EntityOverview<T extends Entity> implements OnInit, AfterViewInit {
   bool needsmanualAdd = false;
@@ -31,7 +31,7 @@ abstract class EntityOverview<T extends Entity> implements OnInit, AfterViewInit
 
   Type type;
 
-  DataCache store;
+  CachingObjectStoreService store;
 
   Router router;
 
@@ -41,9 +41,9 @@ abstract class EntityOverview<T extends Entity> implements OnInit, AfterViewInit
 
   String routename;
 
-  SettingsManager settingsManager;
+  SettingsService settingsManager;
 
-  UserAuthProvider auth;
+  UserAuthService auth;
 
   String filterString = "";
 

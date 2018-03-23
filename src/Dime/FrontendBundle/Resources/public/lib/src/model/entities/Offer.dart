@@ -19,7 +19,6 @@ class Offer extends Entity {
     this.shortDescription = original.shortDescription;
     this.description = original.description;
     this.offerPositions = original.offerPositions;
-    this.standardDiscounts = original.standardDiscounts;
     this.offerDiscounts = original.offerDiscounts;
     this.status = original.status;
     this.address = original.address;
@@ -37,7 +36,6 @@ class Offer extends Entity {
       'shortDescription',
       'description',
       'offerPositions',
-      'standardDiscounts',
       'offerDiscounts',
       'status',
       'address',
@@ -85,8 +83,6 @@ class Offer extends Entity {
           return this.description;
         case 'offerPositions':
           return this.offerPositions;
-        case 'standardDiscounts':
-          return this.standardDiscounts;
         case 'offerDiscounts':
           return this.offerDiscounts;
         case 'status':
@@ -135,9 +131,6 @@ class Offer extends Entity {
         break;
       case 'offerPositions':
         this.offerPositions = OfferPosition.listFromMap(value as List<Map<String, dynamic>>);
-        break;
-      case 'standardDiscounts':
-        this.standardDiscounts = StandardDiscount.listFromMap(value as List<Map<String, dynamic>>);
         break;
       case 'offerDiscounts':
         this.offerDiscounts = OfferDiscount.listFromMap(value as List<Map<String, dynamic>>);
@@ -204,7 +197,6 @@ class Offer extends Entity {
   String shortDescription;
   String description;
   List<OfferPosition> offerPositions = [];
-  List<StandardDiscount> standardDiscounts = [];
   List<OfferDiscount> offerDiscounts = [];
   OfferStatusUC status;
   Address address;

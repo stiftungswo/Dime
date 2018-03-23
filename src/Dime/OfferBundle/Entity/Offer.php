@@ -5,7 +5,6 @@ use Dime\EmployeeBundle\Entity\Employee;
 use Dime\TimetrackerBundle\Entity\Customer;
 use Dime\TimetrackerBundle\Entity\Entity;
 use Dime\TimetrackerBundle\Entity\Project;
-use Dime\TimetrackerBundle\Entity\StandardDiscount;
 use Dime\TimetrackerBundle\Entity\Tag;
 use Dime\TimetrackerBundle\Model\DimeEntityInterface;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -22,80 +21,70 @@ use Money\Money;
  */
 class Offer extends Entity implements DimeEntityInterface
 {
-    
+
     /**
      * @JMS\SerializedName("offerPositions")
      * @ORM\OneToMany(targetEntity="OfferPosition", mappedBy="offer", cascade={"all"})
      * @ORM\OrderBy({"order" = "ASC"})
      */
     protected $offerPositions;
-    
+
     /**
      * @JMS\Groups({"List"})
      * @ORM\Column(type="string", nullable=true)
      */
     protected $name;
-    
+
     /**
      * @JMS\SerializedName("validTo")
      * @ORM\Column(name="valid_to", type="date", nullable=true)
      */
     protected $validTo;
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="Dime\TimetrackerBundle\Entity\Project", inversedBy="offers")
      * @ORM\JoinColumn(name="project_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
      * @JMS\MaxDepth(1)
      */
     protected $project;
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="OfferStatusUC")
      * @ORM\JoinColumn(name="status_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
      */
     protected $status;
-    
+
     /**
      * @JMS\SerializedName("rateGroup")
      * @ORM\ManyToOne(targetEntity="Dime\TimetrackerBundle\Entity\RateGroup")
      * @ORM\JoinColumn(name="rate_group_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
      */
     protected $rateGroup;
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="Dime\TimetrackerBundle\Entity\Customer")
      * @ORM\JoinColumn(name="customer_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
      */
     protected $customer;
-    
+
     /**
      * @JMS\SerializedName("accountant")
      * @ORM\ManyToOne(targetEntity="Dime\TimetrackerBundle\Entity\User")
      * @ORM\JoinColumn(name="accountant_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
      */
     protected $accountant;
-    
+
     /**
      * @JMS\Groups({"List"})
      * @JMS\SerializedName("shortDescription")
      * @ORM\Column(name="short_description", type="text", nullable=true)
      */
     protected $shortDescription;
-    
+
     /**
      * @ORM\Column(name="description", type="text", nullable=true)
      */
     protected $description;
-
-    /**
-     * @JMS\SerializedName("standardDiscounts")
-     * @ORM\ManyToMany(targetEntity="Dime\TimetrackerBundle\Entity\StandardDiscount", cascade={"all"})
-     * @ORM\JoinTable(name="offer_standard_discounts",
-     *      joinColumns={@ORM\JoinColumn(name="offer_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="standard_discount_id", referencedColumnName="id")}
-     *      )
-     **/
-    protected $standardDiscounts;
 
     /**
      * @JMS\SerializedName("offerDiscounts")
@@ -130,7 +119,6 @@ class Offer extends Entity implements DimeEntityInterface
 
     public function __construct()
     {
-        $this->standardDiscounts = new ArrayCollection();
         $this->tags = new ArrayCollection();
         $this->offerPositions = new ArrayCollection();
         $this->offerDiscounts = new ArrayCollection();
@@ -196,11 +184,6 @@ class Offer extends Entity implements DimeEntityInterface
     public function getTotalDiscounts()
     {
         $totalDiscounts = Money::CHF(0);
-        if ($this->getStandardDiscounts()) {
-            foreach ($this->getStandardDiscounts() as $standardDiscount) {
-                $totalDiscounts = $totalDiscounts->add($standardDiscount->getCalculatedDiscount($this->getSubtotal()));
-            }
-        }
         if ($this->getOfferDiscounts()) {
             foreach ($this->getOfferDiscounts() as $offerDiscount) {
                 $totalDiscounts = $totalDiscounts->add($offerDiscount->getCalculatedDiscount($this->getSubtotal()));
@@ -439,41 +422,6 @@ class Offer extends Entity implements DimeEntityInterface
         return $this;
     }
 
-    /**
-     * Add discount
-     *
-     * @param StandardDiscount $standardDiscount
-     *
-     *
-     * @return Offer
-     */
-    public function addStandardDiscount(StandardDiscount $standardDiscount)
-    {
-        $this->standardDiscounts[] = $standardDiscount;
-
-        return $this;
-    }
-
-    /**
-     * Remove discount
-     *
-     * @param StandardDiscount $standardDiscounts
-     *
-     */
-    public function removeStandardDiscount(StandardDiscount $standardDiscounts)
-    {
-        $this->standardDiscounts->removeElement($standardDiscounts);
-    }
-
-    /**
-     * Get discounts
-     *
-     * @return \Doctrine\Common\Collections\Collection|StandardDiscount[]
-     */
-    public function getStandardDiscounts()
-    {
-        return $this->standardDiscounts;
-    }
 
     /**
      * Add discount

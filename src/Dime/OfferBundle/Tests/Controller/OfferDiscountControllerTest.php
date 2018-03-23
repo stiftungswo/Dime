@@ -13,19 +13,6 @@ class OfferDiscountControllerTest extends DimeTestCase
         $this->assertEquals(200, $this->jsonRequest('GET', $this->api_prefix.'/projects')->getStatusCode());
     }
 
-    public function testGetStandardDiscountsAction()
-    {
-        $this->loginAs('admin');
-        $response = $this->jsonRequest('GET', $this->api_prefix.'/offerdiscounts');
-
-        // convert json to array
-        $data = json_decode($response->getContent(), true);
-
-        // assert that data has content
-        $this->assertTrue(count($data) > 0, 'expected to find projects');
-        $this->assertEquals('10% Off', $data[0]['name'], 'expected to find other value first');
-    }
-
     public function testGetProjectAction()
     {
         $this->loginAs('admin');

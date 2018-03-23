@@ -1,0 +1,32 @@
+<dime-box label="Kostenstellen">
+  <table boxBody class="table table-bordered table-hover" ngControlGroup="invoicecostgroups" #overview="ngForm">
+    <thead>
+      <tr>
+        <th>Gewicht</th>
+        <th width="80">Anteil <help-tooltip text="Der Anteil wird aus der Verteilung der Gewichte berechnet"></help-tooltip></th>
+        <th>Kostenstelle</th>
+        <th width="60">Aktion</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="entities != null">
+      <tr *ngFor="let entity of entities; let i = index"
+          (click)="selectEntity(entity.id)"
+          [ngClass]="rowClass(entity, row.valid)"
+          ngControlGroup="row{{i}}"
+          #row="ngForm"
+      >
+        <td validationStatus class="form-group"><input required ngControl="weight{{i}}" class="form-control" type="number"
+                   [(ngModel)]="entity.weight" (change)="addSaveField('weight', entity)"/></td>
+        <td>{{  entity.weight/getWeightSum() * 100  | number:'0.0-0' }} %</td>
+        <td validationStatus class="form-group">
+          <costgroup-select required ngControl="costgroup{{i}}" style="width:100%;" class="col-sm-4" [(ngModel)]="entity.costgroup" (ngModelChange)="addSaveField('costgroup', entity)"></costgroup-select>
+        </td>
+        <td><dime-button (click)="deleteEntity(entity.id)" fontAwesome="trash-o" color="red"></dime-button></td>
+      </tr>
+    </tbody>
+  </table>
+  <div boxFooter class="DimeControlButtons">
+    <dime-button primary (click)="createEntity()" glyphicon="plus">Hinzufügen</dime-button>
+    <dime-button (click)="reloadEvict()" glyphicon="refresh"></dime-button>
+  </div>
+</dime-box>

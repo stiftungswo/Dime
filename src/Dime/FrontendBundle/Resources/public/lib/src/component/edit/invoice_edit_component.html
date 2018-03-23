@@ -1,0 +1,85 @@
+<h2 class="page-header">{{entity?.name}}&nbsp;</h2>
+
+<form #editform="ngForm" *ngIf="entity != null">
+  <div class ="nav-tabs-custom">
+    <ul class="nav nav-tabs">
+      <template [ngIf]="entity.project != null && !entity.project.offers.isEmpty" >
+        <li *ngFor="let offer of entity.project.offers"><a data-toggle="tab" (click)="openOffer(offer.id)">Offerte {{offer.id}}</a></li>
+      </template>
+      <li *ngIf="entity.project != null"><a data-toggle="tab" (click)="openProject()">Projekt {{entity.project.id}}</a></li>
+      <template [ngIf]="project != null">
+        <li *ngFor="let invoice of project.invoices" [class.active]="invoice.id == entity.id"><a *ngIf="invoice.id == entity.id" data-toggle="tab">Rechnung {{invoice.id}}</a><a *ngIf="invoice.id != entity.id" data-toggle="tab" (click)="openInvoice(invoice.id)">Rechnung {{invoice.id}}</a></li>
+      </template>
+      <li *ngIf="project == null" class="active"><a data-toggle="tab">Rechnung {{entity.id}}</a></li>
+      <li><a *ngIf="project != null" data-toggle="tab" (click)="createInvoice()"><i class="fa fa-fw fa-plus"></i> Rechnung erstellen</a></li>
+    </ul>
+
+    <div class="tab-content">
+        <div class="tab-pane active">
+          <div class="form-horizontal">
+            <dime-form-group horizontal label="Name">
+              <input required ngControl="name" class="form-control" [(ngModel)]="entity.name" (change)="addSaveField('name')">
+            </dime-form-group>
+            <dime-form-group horizontal label="Auftrag" *ngIf="entity.project != null">
+              <input disabled class="form-control" [value]="entity.project.name"/>
+            </dime-form-group>
+            <dime-form-group horizontal label="Kunde">
+              <customer-select required ngControl="customer"
+                               [(ngModel)]="entity.customer" (ngModelChange)="addSaveField('customer')"></customer-select>
+            </dime-form-group>
+            <dime-form-group horizontal label="Verantwortlicher Mitarbeiter">
+              <user-select required ngControl="accountant"
+                           [(ngModel)]="entity.accountant" (ngModelChange)="addSaveField('accountant')"></user-select>
+            </dime-form-group>
+            <dime-form-group horizontal label="Startdatum">
+              <date-input required ngControl="start"
+                          [(ngModel)]="entity.start" (ngModelChange)="addSaveField('start')"></date-input>
+            </dime-form-group>
+            <dime-form-group horizontal label="Enddatum">
+              <date-input required ngControl="end"
+                          [(ngModel)]="entity.end" (ngModelChange)="addSaveField('end')"></date-input>
+            </dime-form-group>
+          </div>
+          <dime-form-group label="Beschreibung">
+            <textarea required ngControl="description" class="form-control"
+                      [(ngModel)]="entity.description" (change)="addSaveField('description')"></textarea>
+          </dime-form-group>
+        </div>
+    </div>
+  </div>
+  <invoice-item-overview [invoice]="entity.id"></invoice-item-overview>
+  <div class="row">
+    <div class="col-md-6"><invoice-costgroup-overview required [invoice]="entity.id" ngControlGroup="invoicecostgroups" #costgroups="ngForm"></invoice-costgroup-overview></div>
+    <div class="col-md-6"><invoice-discount-overview [invoice]="entity.id"></invoice-discount-overview></div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <dime-box label="Berechnung" [footer]="false">
+        <div boxBody>
+          <div class="row"><label class="col-xs-6 control-label">Subtotal</label><div class="col-xs-6">{{entity.breakdown.subtotal}}</div></div>
+          <div class="row"><label class="col-xs-6 control-label">Total Abzüge</label><div class="col-xs-6">{{entity.totalDiscounts}}</div></div>
+          <div class="row"><label class="col-xs-6 control-label">MwSt. </label><div class="col-xs-6">{{entity.breakdown.vat}}</div></div>
+          <div class="row"><label class="col-xs-6 control-label">Total</label><div class="col-xs-6">{{entity.breakdown.total}}</div></div>
+          <div class="row">
+            <label class="col-sm-6 control-label">Fixpreis</label>
+            <div class="col-sm-6">
+              <input class="form-control" type="text" [(ngModel)]="entity.fixedPrice" (change)="addSaveField('fixedPrice')">
+            </div>
+          </div>
+        </div>
+      </dime-box>
+    </div>
+  </div>
+  <div class="DimeControlButtons">
+    <save-button [valid]="editform.valid"
+                 [enabled]="costgroups.valid" disabledTooltip="Die Kostenstellen müssen erfasst werden."
+                 (click)="saveEntity()"></save-button>
+    <dime-button primary glyphicon="magnet"
+                 tooltipText="Synchronisiert die Aktivitäten/Rechnungsposten mit dem Ursprungsprojekt und setzt den Sachbearbeiter auf Dich"
+                 (click)="updateInvoicefromProject()"> Update </dime-button>
+    <dime-button primary glyphicon="print" (click)="printInvoice()"> Rechnung </dime-button>
+    <dime-button primary glyphicon="print" (click)="printAufwandsbericht()"> Aufwandsbericht </dime-button>
+    <dime-button glyphicon="refresh" (click)="reloadEvict()"></dime-button>
+  </div>
+</form>
+<edit-footer [entity]="entity"></edit-footer>
