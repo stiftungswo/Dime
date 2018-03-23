@@ -57,10 +57,8 @@ An API and open architecture will serve additional purposes:
     `pub get`
     
 6. Start your backend from the dime root directory:
-    * Linux/VM: `docker-compose up`
-    * MacOS needs [docker-sync](http://docker-sync.io/) because without it performance is terrible
-        *  `gem install docker-sync`
-        * `docker-sync-stack start`
+
+    `docker-compose up`
 
 7. Start your frontend form the `src/Dime/FrontendBundle/Resources/public` directory:
 
@@ -285,6 +283,9 @@ We recommend using at least 2 CPU's and 4 GB of memory for your docker machine t
 
 ### OSX Workaround if response times are ugly slow
 
-http://docker-sync.io/  
+We used to use [docker-sync](http://docker-sync.io/  ), but recently using [osxfs caching](https://docs.docker.com/docker-for-mac/osxfs-caching/) has been good enough and is now activated [by default](https://github.com/stiftungswo/Dime/commit/775bc3bd0b2fa988bd5195474b724bda5624aac3#diff-4e5e90c6228fd48698d074241c2ba760). Still slow, but not as bad, and without the hassle of docker-sync suddenly deciding to stop syncing again.
+
+Some alternatives: 
+
 http://stackoverflow.com/questions/38168130/docker-on-osx-slow-volumes/42679301#42679301  
-https://github.com/IFSight/d4m-nfs
+https://github.com/IFSight/d4m-nfs  
