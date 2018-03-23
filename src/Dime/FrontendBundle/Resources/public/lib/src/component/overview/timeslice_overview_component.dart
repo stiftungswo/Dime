@@ -396,7 +396,7 @@ class TimesliceOverviewComponent extends EntityOverview<Timeslice> {
 
     //for compatibility with the single-select of the EntityOverview
     if (selectedTimeslices.length == 1) {
-      selectEntity(selectedTimeslices.single.id);
+      selectEntity(selectedTimeslices.single.id as int);
     } else {
       selectEntity(null);
     }
@@ -421,7 +421,7 @@ class TimesliceOverviewComponent extends EntityOverview<Timeslice> {
   }
 
   Future moveTimeslicesToProject() async {
-    final ids = selectedTimeslices.map((slice) => slice.id).toList(growable: false);
+    final ids = selectedTimeslices.map((slice) => slice.id as int).toList(growable: false);
     var body = new JsonEncoder().convert({"timeslices": ids});
 
     return http.put("projects/${this.moveTargetProject.id}/timeslices", body: body);
