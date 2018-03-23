@@ -5,12 +5,12 @@ phpfiles=$(git diff --cached --name-only --diff-filter=ACM "*.php" | tr '\n' ' '
 
 exitstatus=0
 
-git checkout-index --prefix=git-export-dir/ -a
-cd git-export-dir/
-
 
 if [[ ! ( -z "$dartfiles" ) ]];
 then
+
+    git checkout-index --prefix=git-export-dir/ -a
+    cd git-export-dir/
 
     echo "$dartfiles" | xargs dartfmt -n --set-exit-if-changed --line-length 140
 
@@ -24,12 +24,15 @@ then
 
         exitstatus=1
     fi
+
+    cd ..
 fi
 
 if [[ ! ( -z "$phpfiles" ) ]];
 then
 
-    echo "$phpfiles" | xargs docker exec dime bin/phpcs --standard=psr2 | grep "PHPCBF CAN FIX" > /dev/null
+    [ ! -d git-export-dir/ ] && git checkout-index --prefix=git-export-dir/ -a
+    echo "$phpfiles" | xargs docker run --rm  -v $(pwd)/git-export-dir:/app -w /app texthtml/phpcs:3.2.3 phpcs --standard=psr2 | grep "PHPCBF CAN FIX" > /dev/null
 
     if [[ $? -eq 0 ]];
     then
@@ -42,7 +45,6 @@ then
     fi
 fi
 
-cd ..
-rm -rf git-export-dir/
+[ -d git-export-dir/ ] && rm -rf git-export-dir/
 
 exit $exitstatus
