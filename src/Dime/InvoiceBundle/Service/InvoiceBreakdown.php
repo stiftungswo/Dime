@@ -162,7 +162,8 @@ class InvoiceBreakdown
         $breakdown['subtotal'] = $sum->format();
         $breakdown['discount'] = $discount->format();
         $breakdown['vat'] = $vat->format();
-        $breakdown['total'] = $sum->add($discount)->add($vat)->format();
+        $breakdown['rawTotal'] = $sum->add($discount)->add($vat);
+        $breakdown['total'] = $breakdown['rawTotal']->format();
         $breakdown['vatSplit'] = [];
         foreach ($vatSums as $key => $vatSum) {
             $breakdown['vatSplit'][$key] = $vatSum->format();
