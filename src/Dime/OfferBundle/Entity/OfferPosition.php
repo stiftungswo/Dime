@@ -275,6 +275,7 @@ class OfferPosition extends Entity implements DimeEntityInterface
     {
         $this->service = $service;
         $rate = $this->getServiceRate();
+        //FIXME(120) this crashes with an NPE if no rate is found
         $this->setRateValue($rate->getRateValue());
         $this->setRateUnit($rate->getRateUnit());
         $this->setRateUnitType($rate->getRateUnitType());

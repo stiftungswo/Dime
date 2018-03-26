@@ -270,6 +270,7 @@ class Service extends Entity implements DimeEntityInterface
     {
         $default = null;
         foreach ($this->getRates()->toArray() as $rate) {
+            //FIXME(120) if the service has multiple rates assigned with the same rate group, this just picks the first it finds
             if ($rate->getRateGroup()->getId() == $id) {
                 return $rate;
             }
