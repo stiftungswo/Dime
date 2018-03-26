@@ -19,7 +19,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class OfferController extends DimeController
 {
     private $handlerSerivce = 'dime.offer.handler';
-    
+
     private $formType = 'dime_offerbundle_offerformtype';
 
     /**
@@ -258,7 +258,9 @@ class OfferController extends DimeController
         /** @var Offer $offer */
         $offer = $this->getOr404($id, $this->handlerSerivce);
 
-        $cleanOfferName = trim(preg_replace('/[^\wüöäéè]+/', '-', $offer->getName()), '-');
+        $search = ['/ö/', '/ü/', '/ä/', '/é/', '/è/', '/ê/', '/[^\w]+/'];
+        $replace = ['oe', 'ue', 'ae', 'e', 'e', 'e', '-'];
+        $cleanOfferName = trim(preg_replace($search, $replace, $offer->getName()), '-');
         $header = [
             'Content-Disposition' => sprintf('filename="%s_%s.pdf"', $cleanOfferName, $offer->getId()),
         ];

@@ -257,7 +257,9 @@ class InvoiceController extends DimeController
         /** @var Invoice $invoice */
         $invoice = $this->getOr404($id, $this->handlerSerivce);
 
-        $cleanInvoiceName = trim(preg_replace('/[^\wüöäéè]+/', '-', $invoice->getName()), '-');
+        $search = ['/ö/', '/ü/', '/ä/', '/é/', '/è/', '/ê/', '/[^\w]+/'];
+        $replace = ['oe', 'ue', 'ae', 'e', 'e', 'e', '-'];
+        $cleanInvoiceName = trim(preg_replace($search, $replace, $invoice->getName()), '-');
         $header = [
             'Content-Disposition' => sprintf('filename="%s_%s.pdf"', $cleanInvoiceName, $invoice->getId()),
         ];
