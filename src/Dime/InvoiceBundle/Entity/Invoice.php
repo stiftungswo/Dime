@@ -158,6 +158,7 @@ class Invoice extends Entity implements DimeEntityInterface
      * @JMS\VirtualProperty
      * @JMS\SerializedName("total")
      * @JMS\Type(name="Money")
+     * @deprecated use getBreakdown()['rawTotal'] instead
      * @return Money
      */
     public function getTotal()
@@ -530,7 +531,7 @@ class Invoice extends Entity implements DimeEntityInterface
     /**
      * @JMS\VirtualProperty()
      * @JMS\SerializedName("breakdown")
-     * @return string
+     * @return array
      */
     public function getBreakdown()
     {

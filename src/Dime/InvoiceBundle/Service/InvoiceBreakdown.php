@@ -40,6 +40,11 @@ function valueDistribution($groups)
         $total = $total->add($sum);
     }
 
+    // todo is this really what we want?
+    if ($total->isZero()) {
+        return [];
+    }
+
     $distributions = [];
     foreach ($sums as $vat => $sum) {
         $distributions[$vat] = $sum->divide((float)$total->format())->format();

@@ -442,7 +442,7 @@ class ReportHandler extends AbstractHandler
                 $tmpCostgroups = [];
                 /** @var $invoice Invoice */
                 foreach ($invoices as $invoice) {
-                    $invoice_total = $invoice_total->add($invoice->getTotal());
+                    $invoice_total = $invoice_total->add($invoice->getBreakdown()['rawTotal']);
                     $tmpCostgroups[] = $invoice->getCostgroupDistribution();
                 }
                 $costgroups = $this->mergeCostgroups($tmpCostgroups);
@@ -474,7 +474,7 @@ class ReportHandler extends AbstractHandler
             $data['year'] = $invoice->getCreatedAt()->format('Y');
             $data['accountant'] = ($invoice->getAccountant() != null ? $invoice->getAccountant()->getFullname() : '');
             $data['aufwand'] = '';
-            $data['umsatz'] = ($invoice->getTotal()->getAmount()/100);
+            $data['umsatz'] = ($invoice->getBreakdown()['rawTotal']->getAmount()/100);
             $data['umsatz_erwartet'] = '';
             $data['costgroups'] = $this->mergeCostgroups([$invoice->getCostgroupDistribution()]);
 
