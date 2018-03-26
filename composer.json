@@ -49,7 +49,9 @@
 		"nesbot/carbon": "^1.22.1",
 		"sentry/sentry": "^1.8",
 		"sentry/sentry-symfony": "~1.0",
-		"nelmio/cors-bundle": "^1.5.0"
+		"nelmio/cors-bundle": "^1.5.0",
+		"mathiasverraes/money": "dev-master#941995d773d4f136e05e98c1d443cb627e761280",
+		"tbbc/money-bundle": "dev-master#f2b015f60ab0dd144f1a452abfaa87b2cc7764b6"
 	},
 	"require-dev" : {
 		"h4cc/alice-fixtures-bundle" : "^0.5.1",
@@ -69,11 +71,21 @@
 			"Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
 			"Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile"
     ],
-		"format": "phpcbf --standard=psr2 --ignore=vendor,src/Tbbc/MoneyBundle,src/Money,src/Dime/FrontendBundle/Resources/public --extensions=php src"
+		"format": "phpcbf --standard=psr2 --ignore=vendor,src/Dime/FrontendBundle/Resources/public --extensions=php src"
 	},
 	"config" : {
 		"bin-dir" : "bin"
 	},
+	"repositories": [
+		{
+			"type": "vcs",
+			"url": "https://github.com/stiftungswo/TbbcMoneyBundle"
+		},
+		{
+			"type": "vcs",
+			"url": "https://github.com/stiftungswo/money"
+		}
+	],
 	"extra" : {
 		"symfony-app-dir" : "app",
 		"symfony-web-dir" : "web",

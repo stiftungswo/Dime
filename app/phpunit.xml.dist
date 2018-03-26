@@ -19,7 +19,6 @@
         <testsuite name="Project Test Suite">
             <directory>../src/Dime/*Bundle/Tests</directory>
             <directory>../src/Swo/*Bundle/Tests</directory>
-            <directory>../src/Money/Tests</directory>
         </testsuite>
     </testsuites>
 
