@@ -9,10 +9,11 @@ import '../../service/caching_object_store_service.dart';
 import '../../service/entity_events_service.dart';
 import '../../service/status_service.dart';
 import '../../service/user_auth_service.dart';
+import '../../util/page_title.dart' as page_title;
 import '../common/dime_directives.dart';
 import '../select/select.dart';
-import 'entity_edit.dart';
 import 'edit.dart';
+import 'entity_edit.dart';
 
 @Component(
   selector: 'customer-edit',
@@ -39,6 +40,12 @@ class CustomerEditComponent extends EntityEdit<Customer> {
         reload();
       }
     }
+  }
+
+  @override
+  Future reload({bool evict: false}) async {
+    await super.reload(evict: evict);
+    page_title.setPageTitle('Kunden', entity.name);
   }
 
   Future loadRateGroups() async {

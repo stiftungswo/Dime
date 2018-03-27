@@ -12,6 +12,7 @@ import '../../service/entity_events_service.dart';
 import '../../service/http_service.dart';
 import '../../service/status_service.dart';
 import '../../service/user_auth_service.dart';
+import '../../util/page_title.dart' as page_title;
 import '../common/dime_directives.dart';
 import '../overview/overview.dart';
 import '../select/select.dart';
@@ -80,6 +81,7 @@ class InvoiceEditComponent extends EntityEdit<Invoice> {
       if (this.project != null) {
         this.project = await this.store.one(Project, this.entity.project.id);
       }
+      page_title.setPageTitle('Rechnungen', entity.name);
       this.statusservice.setStatusToSuccess();
     } catch (e, stack) {
       this.statusservice.setStatusToError(e, stack);

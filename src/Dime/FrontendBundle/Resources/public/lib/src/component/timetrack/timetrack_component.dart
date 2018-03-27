@@ -2,12 +2,14 @@ import 'dart:async';
 
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
+import 'package:angular_router/angular_router.dart';
 
 import '../../model/entity_export.dart';
 import '../../service/entity_events_service.dart';
 import '../../service/timetrack_service.dart';
 import '../../service/user_auth_service.dart';
 import '../../service/user_context_service.dart';
+import '../../util/page_title.dart' as page_title;
 import '../common/dime_directives.dart';
 import '../overview/overview.dart';
 
@@ -19,7 +21,7 @@ import '../overview/overview.dart';
   ProjectCommentOverviewComponent,
   dimeDirectives
 ])
-class TimetrackComponent implements OnInit, OnDestroy {
+class TimetrackComponent implements OnInit, OnDestroy, OnActivate {
   UserContextService context;
   UserAuthService auth;
   Project project;
@@ -32,6 +34,11 @@ class TimetrackComponent implements OnInit, OnDestroy {
   @override
   ngOnInit() {
     streamSubscription = timetrackService.projectSelect.stream.listen((project) => this.project = project);
+  }
+
+  @override
+  routerOnActivate(ComponentInstruction nextInstruction, ComponentInstruction prevInstruction) {
+    page_title.setPageTitle('Zeiterfassung');
   }
 
   @override

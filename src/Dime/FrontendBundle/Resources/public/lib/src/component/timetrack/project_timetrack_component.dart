@@ -1,11 +1,13 @@
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
+import 'package:angular_router/angular_router.dart';
 
 import '../../model/entity_export.dart';
 import '../../service/caching_object_store_service.dart';
 import '../../service/entity_events_service.dart';
 import '../../service/status_service.dart';
 import '../../service/user_auth_service.dart';
+import '../../util/page_title.dart' as page_title;
 import '../common/dime_directives.dart';
 import '../overview/overview.dart';
 import '../select/select.dart';
@@ -15,7 +17,7 @@ import '../select/select.dart';
   templateUrl: 'project_timetrack_component.html',
   directives: const [CORE_DIRECTIVES, formDirectives, ProjectSelectComponent, TimesliceOverviewComponent, dimeDirectives],
 )
-class ProjectTimetrackComponent {
+class ProjectTimetrackComponent implements OnActivate {
   UserAuthService auth;
   EntityEventsService entityEventsService;
   StatusService statusservice;
@@ -28,4 +30,9 @@ class ProjectTimetrackComponent {
   }
 
   ProjectTimetrackComponent(this.auth, this.statusservice, this.entityEventsService);
+
+  @override
+  routerOnActivate(ComponentInstruction nextInstruction, ComponentInstruction prevInstruction) {
+    page_title.setPageTitle('Projekt Zeiterfassung');
+  }
 }

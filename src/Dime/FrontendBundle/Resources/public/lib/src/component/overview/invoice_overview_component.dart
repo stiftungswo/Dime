@@ -12,6 +12,7 @@ import '../../service/entity_events_service.dart';
 import '../../service/settings_service.dart';
 import '../../service/status_service.dart';
 import '../../service/user_auth_service.dart';
+import '../../util/page_title.dart' as page_title;
 import '../common/dime_directives.dart';
 import 'entity_overview.dart';
 
@@ -21,12 +22,17 @@ import 'entity_overview.dart';
   directives: const [CORE_DIRECTIVES, formDirectives, dimeDirectives],
   pipes: const [dimePipes, COMMON_PIPES],
 )
-class InvoiceOverviewComponent extends EntityOverview<Invoice> {
+class InvoiceOverviewComponent extends EntityOverview<Invoice> implements OnActivate {
   InvoiceOverviewComponent(CachingObjectStoreService store, Router router, SettingsService manager, StatusService status,
       UserAuthService auth, EntityEventsService entityEventsService)
       : super(Invoice, store, 'InvoiceEdit', manager, status, entityEventsService, router: router, auth: auth) {
     sortType = "id";
     sortReverse = true;
+  }
+
+  @override
+  routerOnActivate(ComponentInstruction nextInstruction, ComponentInstruction prevInstruction) {
+    page_title.setPageTitle('Rechnungen');
   }
 
   @override

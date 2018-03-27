@@ -10,6 +10,7 @@ import '../../service/settings_service.dart';
 import '../../service/status_service.dart';
 import '../../service/user_auth_service.dart';
 import '../../service/user_context_service.dart';
+import '../../util/page_title.dart' as page_title;
 import '../common/dime_directives.dart';
 import '../select/select.dart';
 import 'entity_overview.dart';
@@ -86,6 +87,7 @@ class SettingAssignProjectOverviewComponent extends EntityOverview<SettingAssign
 
       this.projectAssignments.add(settingAssignProject);
     }
+    page_title.setPageTitle('Projekte zuweisen');
   }
 
   @override

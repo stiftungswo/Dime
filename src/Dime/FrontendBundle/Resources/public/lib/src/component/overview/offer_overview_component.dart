@@ -13,6 +13,7 @@ import '../../service/settings_service.dart';
 import '../../service/status_service.dart';
 import '../../service/user_auth_service.dart';
 import '../../service/user_context_service.dart';
+import '../../util/page_title.dart' as page_title;
 import '../common/dime_directives.dart';
 import 'entity_overview.dart';
 
@@ -22,7 +23,7 @@ import 'entity_overview.dart';
   directives: const [CORE_DIRECTIVES, formDirectives, dimeDirectives],
   pipes: const [dimePipes],
 )
-class OfferOverviewComponent extends EntityOverview<Offer> {
+class OfferOverviewComponent extends EntityOverview<Offer> implements OnActivate {
   OfferOverviewComponent(CachingObjectStoreService store, this.context, Router router, SettingsService manager, StatusService status,
       UserAuthService auth, EntityEventsService entityEventsService)
       : super(Offer, store, 'OfferEdit', manager, status, entityEventsService, auth: auth, router: router) {
@@ -31,6 +32,11 @@ class OfferOverviewComponent extends EntityOverview<Offer> {
   }
 
   UserContextService context;
+
+  @override
+  routerOnActivate(ComponentInstruction nextInstruction, ComponentInstruction prevInstruction) {
+    page_title.setPageTitle('Offerten');
+  }
 
   @override
   Offer cEnt({Offer entity}) {

@@ -1,10 +1,12 @@
 import 'dart:convert';
 
 import 'package:angular/angular.dart';
+import 'package:angular_router/angular_router.dart';
 
 import '../../model/entity_export.dart';
 import '../../service/http_service.dart';
 import '../../service/status_service.dart';
+import '../../util/page_title.dart' as page_title;
 import '../common/dime_directives.dart';
 import '../select/select.dart';
 
@@ -13,7 +15,7 @@ import '../select/select.dart';
     templateUrl: 'project_employee_report_component.html',
     directives: const [CORE_DIRECTIVES, ProjectSelectComponent, dimeDirectives],
     pipes: const [COMMON_PIPES])
-class ProjectemployeeReportComponent implements OnInit {
+class ProjectemployeeReportComponent implements OnInit, OnActivate {
   ProjectemployeeReportComponent(StatusService this.statusservice, HttpService this.http);
 
   Project _project;
@@ -46,6 +48,11 @@ class ProjectemployeeReportComponent implements OnInit {
   @override
   ngOnInit() {
     reload();
+  }
+
+  @override
+  routerOnActivate(ComponentInstruction nextInstruction, ComponentInstruction prevInstruction) {
+    page_title.setPageTitle('Projektaufwände pro Person');
   }
 
   void reloadEvict() => reload(evict: true);

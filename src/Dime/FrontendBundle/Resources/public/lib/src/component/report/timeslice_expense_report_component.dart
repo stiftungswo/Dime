@@ -3,6 +3,7 @@ import 'dart:html';
 
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
+import 'package:angular_router/angular_router.dart';
 import 'package:hammock/hammock.dart';
 
 import '../../model/entity_export.dart';
@@ -12,6 +13,7 @@ import '../../service/http_service.dart';
 import '../../service/settings_service.dart';
 import '../../service/status_service.dart';
 import '../../service/user_auth_service.dart';
+import '../../util/page_title.dart' as page_title;
 import '../common/dime_directives.dart';
 import '../overview/entity_overview.dart';
 import '../select/project_select_component.dart';
@@ -23,7 +25,7 @@ import '../select/user_select_component.dart';
     templateUrl: 'timeslice_expense_report_component.html',
     directives: const [CORE_DIRECTIVES, formDirectives, dimeDirectives, UserSelectComponent, ProjectSelectComponent],
     pipes: const [COMMON_PIPES])
-class TimesliceExpenseReportComponent extends EntityOverview<ExpenseReport> {
+class TimesliceExpenseReportComponent extends EntityOverview<ExpenseReport> implements OnActivate {
   TimesliceExpenseReportComponent(CachingObjectStoreService store, SettingsService manager, StatusService status, UserAuthService auth,
       EntityEventsService entityEventsService, this.http)
       : super(ExpenseReport, store, '', manager, status, entityEventsService, auth: auth);
@@ -88,6 +90,11 @@ class TimesliceExpenseReportComponent extends EntityOverview<ExpenseReport> {
 
   @override
   void ngOnInit(); //noop
+
+  @override
+  routerOnActivate(ComponentInstruction nextInstruction, ComponentInstruction prevInstruction) {
+    page_title.setPageTitle('Aufwandsbericht');
+  }
 
   @override
   Future reload({Map<String, dynamic> params, bool evict: false}) async {

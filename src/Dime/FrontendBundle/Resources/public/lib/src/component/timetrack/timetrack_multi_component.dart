@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
+import 'package:angular_router/angular_router.dart';
 
 import '../../model/entity_export.dart';
 import '../../pipe/project_value_filter_pipe..dart';
@@ -11,6 +12,7 @@ import '../../service/settings_service.dart';
 import '../../service/status_service.dart';
 import '../../service/user_auth_service.dart';
 import '../../service/user_context_service.dart';
+import '../../util/page_title.dart' as page_title;
 import '../common/dime_directives.dart';
 import '../overview/entity_overview.dart';
 import '../select/project_select_component.dart';
@@ -28,7 +30,7 @@ class TimetrackMultiEntry {
   directives: const [CORE_DIRECTIVES, formDirectives, dimeDirectives, ProjectSelectComponent, UserSelectComponent],
   pipes: const [ProjectValueFilterPipe],
 )
-class TimetrackMultiComponent extends EntityOverview<Timeslice> {
+class TimetrackMultiComponent extends EntityOverview<Timeslice> implements OnActivate {
   UserContextService context;
   SettingsService manager;
   DateTime date;
@@ -47,6 +49,11 @@ class TimetrackMultiComponent extends EntityOverview<Timeslice> {
   }
 
   Project get selectedProject => this._selectedProject;
+
+  @override
+  routerOnActivate(ComponentInstruction nextInstruction, ComponentInstruction prevInstruction) {
+    page_title.setPageTitle('Mehrfach Zeiterfassung');
+  }
 
   @override
   Timeslice cEnt({Timeslice entity}) {

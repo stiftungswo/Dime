@@ -15,6 +15,7 @@ import '../../service/settings_service.dart';
 import '../../service/status_service.dart';
 import '../../service/user_auth_service.dart';
 import '../../service/user_context_service.dart';
+import '../../util/page_title.dart' as page_title;
 import '../common/dime_directives.dart';
 import 'entity_overview.dart';
 
@@ -24,7 +25,7 @@ import 'entity_overview.dart';
   directives: const [CORE_DIRECTIVES, formDirectives, dimeDirectives],
   pipes: const [dimePipes],
 )
-class ProjectOpenInvoicesComponent extends EntityOverview<Project> {
+class ProjectOpenInvoicesComponent extends EntityOverview<Project> implements OnActivate {
   ProjectOpenInvoicesComponent(CachingObjectStoreService store, this.context, Router router, SettingsService manager, StatusService status,
       UserAuthService auth, RouteParams prov, EntityEventsService entityEventsService, this.http)
       : super(Project, store, 'ProjectEdit', manager, status, entityEventsService, auth: auth, router: router) {
@@ -35,6 +36,11 @@ class ProjectOpenInvoicesComponent extends EntityOverview<Project> {
   HttpService http;
 
   UserContextService context;
+
+  @override
+  routerOnActivate(ComponentInstruction nextInstruction, ComponentInstruction prevInstruction) {
+    page_title.setPageTitle('Projekte mit offenen Rechnungen');
+  }
 
   @override
   Project cEnt({Project entity}) {

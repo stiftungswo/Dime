@@ -13,6 +13,7 @@ import '../../service/entity_events_service.dart';
 import '../../service/settings_service.dart';
 import '../../service/status_service.dart';
 import '../../service/user_auth_service.dart';
+import '../../util/page_title.dart' as page_title;
 import '../common/dime_directives.dart';
 import 'entity_overview.dart';
 
@@ -21,13 +22,18 @@ import 'entity_overview.dart';
     templateUrl: 'employee_overview_component.html',
     directives: const [CORE_DIRECTIVES, formDirectives, dimeDirectives],
     pipes: const [dimePipes])
-class EmployeeOverviewComponent extends EntityOverview<Employee> {
+class EmployeeOverviewComponent extends EntityOverview<Employee> implements OnActivate {
   EmployeeOverviewComponent(CachingObjectStoreService store, Router router, SettingsService manager, StatusService status,
       UserAuthService auth, EntityEventsService entityEventsService)
       : super(Employee, store, 'EmployeeEdit', manager, status, entityEventsService, router: router, auth: auth);
 
   @override
   String sortType = "username";
+
+  @override
+  routerOnActivate(ComponentInstruction nextInstruction, ComponentInstruction prevInstruction) {
+    page_title.setPageTitle('Mitarbeiter');
+  }
 
   @override
   Employee cEnt({Employee entity}) {

@@ -12,12 +12,13 @@ import '../../service/entity_events_service.dart';
 import '../../service/http_service.dart';
 import '../../service/status_service.dart';
 import '../../service/user_auth_service.dart';
+import '../../util/page_title.dart' as page_title;
 import '../common/dime_directives.dart';
 import '../common/markdown_input_component.dart';
 import '../overview/overview.dart';
 import '../select/select.dart';
-import 'entity_edit.dart';
 import 'edit.dart';
+import 'entity_edit.dart';
 
 @Component(
   selector: 'offer-edit',
@@ -89,6 +90,7 @@ class OfferEditComponent extends EntityEdit<Offer> {
         this.project = await this.store.one(Project, this.entity.project.id);
       }
       this.statusservice.setStatusToSuccess();
+      page_title.setPageTitle('Offerten', entity.name);
     } catch (e, stack) {
       this.statusservice.setStatusToError(e, stack);
     }
