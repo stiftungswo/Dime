@@ -6,7 +6,7 @@ An ERP based on Symfony and AngularDart
 
 [![Build Status](https://travis-ci.org/stiftungswo/Dime.svg?branch=master)](https://travis-ci.org/stiftungswo/Dime)
 [![codecov](https://codecov.io/gh/stiftungswo/Dime/branch/master/graph/badge.svg)](https://codecov.io/gh/stiftungswo/Dime)
-[![Waffle.io - Columns and their card count](https://badge.waffle.io/stiftungswo/Dime.svg?columns=all)](https://waffle.io/stiftungswo/Dime) 
+[![Waffle.io - Columns and their card count](https://badge.waffle.io/stiftungswo/Dime.svg?columns=all)](https://waffle.io/stiftungswo/Dime)
 
 ## General Purpose
 
@@ -27,10 +27,10 @@ An API and open architecture will serve additional purposes:
     * Download an Ubuntu 16.04 ISO
     * Setup your VM
 1. Install Docker and Docker Compose:
-    * Linux/VM    
+    * Linux/VM
       https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-16-04
       https://www.digitalocean.com/community/tutorials/how-to-install-docker-compose-on-ubuntu-16-04
-    
+
     * MacOS with [Homebrew](https://brew.sh/)
       ```
       brew cask install docker
@@ -50,12 +50,12 @@ An API and open architecture will serve additional purposes:
 4. Build your Docker Images:
 
     `docker-compose build`
-    
+
 5. Get dart packages:
- 
-    In `src/Dime/FrontendBundle/Resources/public`:  
+
+    In `src/Dime/FrontendBundle/Resources/public`:
     `pub get`
-    
+
 6. Start your backend from the dime root directory:
 
     `docker-compose up`
@@ -74,14 +74,14 @@ An API and open architecture will serve additional purposes:
 
 9. Open http://localhost:8080 for phpmyadmin
 
-    host: mariadb  
-    user: root  
+    host: mariadb
+    user: root
     no password
 
 10. Your app WILL crash at some point saying something along the lines of "Out of disk space, 0 bytes written". At this point, you will need to clear the cache:
 
     `	docker exec dime rm -rf /dev/shm/dime`
-    
+
 ## Project Structure
 
 The Frontend can be found under [`src/Dime/FrontendBundle/Resources/public`](src/Dime/FrontendBundle/Resources/public) with a seperate README for further information.
@@ -91,10 +91,10 @@ The Backend files are located in 'src/Dime/' & the relative Bundle folder. Serve
 ![erm](https://raw.githubusercontent.com/stiftungswo/Dime/master/doc/dime_erm_clean.png)
 
 This ERM excludes some tables that are currently empty/unused. [Here](https://raw.githubusercontent.com/stiftungswo/Dime/master/doc/dime_erm_full.png) is the full ERM.
- 
+
 ## Bundles
 
-There are Multiple Bundle Seperated by features:  
+There are Multiple Bundle Seperated by features:
 
   - TimetrackerBundle: Base Entities and RestAPI for them
   - OfferBundle: Offer Entities ans RestAPI
@@ -106,11 +106,11 @@ There are Multiple Bundle Seperated by features:
 For understanding the database abstraction, see
 
     TimetrackerBundle/Handler/GenericHandler
-    
+
 ## API Doc
 
 Check out http://localhost:3000/api/doc when the server is running
-    
+
 ## Using Docker & docker-compose
 
 You can inspect the logs of Dime and MariaDB by:
@@ -199,7 +199,7 @@ Generate new Empty Migration Class:
 After changing the ORM schema, sometimes you need to clear the cache before it works:
 
     docker exec -it dime php app/console cache:clear
-    
+
 Regenerate Fixtures as needed (see below)
 
 ### Recommended schema editing workflow
@@ -246,13 +246,13 @@ A good way to read it is
 
 ## Formatting
 
-The backend and frontend should always be properly formatted (is checked by travis).
+The backend and frontend should always be properly formatted (the Travis build will fail if this is not the case).
 
 Before committing you should always run the code-formatting tools:
 
 ### Backend
 
-The backend is formatted using [phpcbf](https://github.com/squizlabs/PHP_CodeSniffer) based on [PSR-2](https://www.php-fig.org/psr/psr-2/).  
+The backend is formatted using [phpcbf](https://github.com/squizlabs/PHP_CodeSniffer) based on [PSR-2](https://www.php-fig.org/psr/psr-2/).
 
 Run it with `composer run format` or `docker exec dime composer run format`.
 
@@ -263,6 +263,27 @@ The frontend is formatted using [dartfmt](https://github.com/dart-lang/dart_styl
 Run it with `dartfmt -w --line-length 140 src/Dime/FrontendBundle/Resources/public/lib` or `docker exec dime /usr/lib/dart/bin/dartfmt -w --line-length 140 src/Dime/FrontendBundle/Resources/public/lib`.
 
 ## Deployment
+Travis is able to deploy the project per SSH on a webhosting using its [deploy skript](https://github.com/stiftungswo/dime/blob/master/ci/deploy.sh). The following files need to be present on the target host for this to work:
+
+* dime.prod.env (based on [.dime.prod.env.dist](https://github.com/stiftungswo/Dime/blob/master/.dime.prod.env.dist))
+* dime.prod.parameters.yml (based on [parameters.yml.dist](https://github.com/stiftungswo/Dime/blob/master/app/config/parameters.yml.dist))
+
+### Sentry
+
+Production errors will be logged to Sentry if a valid `SENTRY_DSN` is specified. See [Backend Config](https://github.com/stiftungswo/Dime/blob/master/app/config/parameters.yml.travis#L36),  [Frontend Config](https://github.com/stiftungswo/Dime/blob/master/src/Dime/FrontendBundle/Resources/public/lib/src/util/release_info.dart)
+
+The Travis build will usually fill these in.
+
+### Deployment at SWO
+
+Please see Documentation in the [private Wiki](https://wiki.stiftungswo.ch/it:sw:dime#deployment)
+
+
+### Sentry
+
+Production errors will be logged to Sentry if a valid `SENTRY_DSN` is specified. See [Backend Config](https://github.com/stiftungswo/Dime/blob/master/app/config/parameters.yml.travis#L36),  [Frontend Config](https://github.com/stiftungswo/Dime/blob/master/src/Dime/FrontendBundle/Resources/public/lib/src/util/release_info.dart)
+
+The Travis build will usually fill these in.
 
 ### Deployment at SWO
 
@@ -285,7 +306,7 @@ We recommend using at least 2 CPU's and 4 GB of memory for your docker machine t
 
 We used to use [docker-sync](http://docker-sync.io/  ), but recently using [osxfs caching](https://docs.docker.com/docker-for-mac/osxfs-caching/) has been good enough and is now activated [by default](https://github.com/stiftungswo/Dime/commit/775bc3bd0b2fa988bd5195474b724bda5624aac3#diff-4e5e90c6228fd48698d074241c2ba760). Still slow, but not as bad, and without the hassle of docker-sync suddenly deciding to stop syncing again.
 
-Some alternatives: 
+Some alternatives:
 
-http://stackoverflow.com/questions/38168130/docker-on-osx-slow-volumes/42679301#42679301  
-https://github.com/IFSight/d4m-nfs  
+http://stackoverflow.com/questions/38168130/docker-on-osx-slow-volumes/42679301#42679301
+https://github.com/IFSight/d4m-nfs
