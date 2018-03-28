@@ -24,7 +24,7 @@
         <td validationStatus class="form-group"><input class="form-control" required ngControl="rateValue" [(ngModel)]="entity.rateValue" (change)="addSaveField('rateValue', entity)"/></td>
         <td validationStatus class="form-group"><input class="form-control" required ngControl="rateUnit" [(ngModel)]="entity.rateUnit" (change)="addSaveField('rateUnit', entity)"/></td>
         <td validationStatus class="form-group"><input class="form-control" required ngControl="amount" [(ngModel)]="entity.amount" (change)="addSaveField('amount', entity)"/></td>
-        <td validationStatus class="form-group"><percentage-input required ngControl="vat" [(ngModel)]="entity.vat" (ngModelChange)="addSaveField('vat', entity)"></percentage-input></td>
+        <td validationStatus class="form-group"><percentage-input required ngControl="vat" [ngModel]="entity.vat" (ngModelChange)="entity.vat=$event;addSaveField('vat', entity)"></percentage-input></td>
         <td>{{entity.total}}</td>
         <td><dime-button (click)="deleteEntity(entity.id)" fontAwesome="trash-o" color="red"></dime-button></td>
       </tr>

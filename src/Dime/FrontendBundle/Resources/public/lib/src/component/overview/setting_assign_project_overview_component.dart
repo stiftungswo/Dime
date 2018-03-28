@@ -14,13 +14,14 @@ import '../../util/page_title.dart' as page_title;
 import '../common/dime_directives.dart';
 import '../select/select.dart';
 import 'entity_overview.dart';
+import 'package:angular_router/angular_router.dart';
 
 @Component(
   selector: 'setting-assign-project-overview',
   templateUrl: 'setting_assign_project_overview_component.html',
-  directives: const [CORE_DIRECTIVES, formDirectives, dimeDirectives, ProjectSelectComponent],
+  directives: const [coreDirectives, formDirectives, dimeDirectives, ProjectSelectComponent],
 )
-class SettingAssignProjectOverviewComponent extends EntityOverview<SettingAssignProject> implements OnInit {
+class SettingAssignProjectOverviewComponent extends EntityOverview<SettingAssignProject> implements OnActivate {
   UserContextService context;
 
   List<SettingAssignProject> projectAssignments = [];
@@ -38,7 +39,7 @@ class SettingAssignProjectOverviewComponent extends EntityOverview<SettingAssign
 
   SettingAssignProjectOverviewComponent(CachingObjectStoreService store, SettingsService manager, StatusService status, this.context,
       UserAuthService auth, EntityEventsService entityEventsService)
-      : super(SettingAssignProject, store, '', manager, status, entityEventsService, auth: auth);
+      : super(SettingAssignProject, store, null, manager, status, entityEventsService, auth: auth);
 
   @override
   SettingAssignProject cEnt({SettingAssignProject entity}) {
@@ -49,7 +50,7 @@ class SettingAssignProjectOverviewComponent extends EntityOverview<SettingAssign
   }
 
   @override
-  void ngOnInit() {
+  void onActivate(_, __) {
     if (this.auth != null) {
       if (!auth.isloggedin) {
         this.auth.afterLogin(() {
@@ -67,6 +68,7 @@ class SettingAssignProjectOverviewComponent extends EntityOverview<SettingAssign
   }
 
   Future load() async {
+    this.statusservice.setStatusToLoading();
     List<Setting> projectAssignmentSettings = [];
     this.projectAssignments = [];
     try {
@@ -88,6 +90,7 @@ class SettingAssignProjectOverviewComponent extends EntityOverview<SettingAssign
       this.projectAssignments.add(settingAssignProject);
     }
     page_title.setPageTitle('Projekte zuweisen');
+    this.statusservice.setStatusToSuccess();
   }
 
   @override

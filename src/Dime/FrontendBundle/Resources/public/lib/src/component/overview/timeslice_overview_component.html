@@ -24,8 +24,8 @@
           ngControlGroup="position{{i}}"
           #row="ngForm">
             <td></td>
-            <td *ngIf="projectBased"><user-select [(ngModel)]="entity.employee" [parentEmployees]="employees" (ngModelChange)="entity.addFieldtoUpdate('employee')"></user-select></td>
-            <td><activity-select disabled [(ngModel)]="entity.activity" [parentActivities]="activities" [project]="entity?.project?.id" (ngModelChange)="entity.addFieldtoUpdate('activity')"></activity-select></td>
+            <td *ngIf="projectBased"><user-select [ngModel]="entity.employee" (ngModelChange)="entity.employee=$event;entity.addFieldtoUpdate('employee')"></user-select></td>
+            <td><activity-select disabled [parentActivities]="activities" [project]="entity?.project?.id" [ngModel]="entity.activity" (ngModelChange)="entity.activity=$event;entity.addFieldtoUpdate('activity')"></activity-select></td>
             <td><date-input disabled style="width: 100%;" [(ngModel)]="entity.startedAt"></date-input></td>
             <td validationStatus><input required ngControl="value{{i}}" class="form-control" [(ngModel)]="entity.value" (change)="addSaveField('value', entity)"/></td>
             <td><dime-button (click)="deleteEntity(entity.id)" fontAwesome="trash-o" color="red"></dime-button></td>

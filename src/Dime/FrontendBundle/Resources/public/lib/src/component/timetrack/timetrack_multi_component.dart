@@ -27,7 +27,7 @@ class TimetrackMultiEntry {
 @Component(
   selector: 'timetrack-multi',
   templateUrl: 'timetrack_multi_component.html',
-  directives: const [CORE_DIRECTIVES, formDirectives, dimeDirectives, ProjectSelectComponent, UserSelectComponent],
+  directives: const [coreDirectives, formDirectives, dimeDirectives, ProjectSelectComponent, UserSelectComponent],
   pipes: const [ProjectValueFilterPipe],
 )
 class TimetrackMultiComponent extends EntityOverview<Timeslice> implements OnActivate {
@@ -51,8 +51,11 @@ class TimetrackMultiComponent extends EntityOverview<Timeslice> implements OnAct
   Project get selectedProject => this._selectedProject;
 
   @override
-  routerOnActivate(ComponentInstruction nextInstruction, ComponentInstruction prevInstruction) {
+  onActivate(_, __) {
     page_title.setPageTitle('Mehrfach Zeiterfassung');
+    DateTime now = new DateTime.now();
+    this.date = new DateTime(now.year, now.month, now.day);
+    this.loadActivities();
   }
 
   @override
@@ -61,13 +64,6 @@ class TimetrackMultiComponent extends EntityOverview<Timeslice> implements OnAct
       return new Timeslice.clone(entity);
     }
     return new Timeslice();
-  }
-
-  @override
-  void ngOnInit() {
-    DateTime now = new DateTime.now();
-    this.date = new DateTime(now.year, now.month, now.day);
-    this.loadActivities();
   }
 
   Future save() async {
@@ -175,5 +171,5 @@ class TimetrackMultiComponent extends EntityOverview<Timeslice> implements OnAct
 
   TimetrackMultiComponent(CachingObjectStoreService store, SettingsService manager, StatusService status, this.context,
       UserAuthService auth, EntityEventsService entityEventsService)
-      : super(Timeslice, store, '', manager, status, entityEventsService, auth: auth);
+      : super(Timeslice, store, null, manager, status, entityEventsService, auth: auth);
 }

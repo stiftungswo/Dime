@@ -27,7 +27,7 @@
                    [(ngModel)]="entity.order" (change)="addSaveField('order', entity)"/></td>
           <td validationStatus class="form-group">
             <service-select required ngControl="service{{i}}" hideArchived
-                            [(ngModel)]="entity.service" (ngModelChange)="entity.addFieldtoUpdate('service')"></service-select></td>
+                            [ngModel]="entity.service" (ngModelChange)="entity.service=$event;entity.addFieldtoUpdate('service')"></service-select></td>
           <td validationStatus class="form-group">
             <input required ngControl="rateValue{{i}}" class="form-control"
                    [(ngModel)]="entity.rateValue" (change)="addSaveField('rateValue', entity)"/></td>
@@ -36,13 +36,13 @@
                    [(ngModel)]="entity.rateUnit" (change)="addSaveField('rateUnit', entity)"/></td>
           <td validationStatus class="form-group">
             <rate-unit-type-select required ngControl="rateUnitType{{i}}"
-                                 [(ngModel)]="entity.rateUnitType" (ngModelChange)="entity.addFieldtoUpdate('rateUnitType')"></rate-unit-type-select></td>
+                                 [ngModel]="entity.rateUnitType" (ngModelChange)="entity.rateUnitType=$event;entity.addFieldtoUpdate('rateUnitType')"></rate-unit-type-select></td>
           <td validationStatus class="form-group">
             <input required ngControl="amount{{i}}" class="form-control" type="number"
                    [(ngModel)]="entity.amount" (change)="addSaveField('amount', entity)"/></td>
           <td validationStatus class="form-group">
             <percentage-input required ngControl="vat{{i}}"
-                              [(ngModel)]="entity.vat" (ngModelChange)="addSaveField('vat', entity)"></percentage-input></td>
+                              [ngModel]="entity.vat" (ngModelChange)="entity.vat=$event;addSaveField('vat', entity)"></percentage-input></td>
           <td><input class="checkbox" type="checkbox" [(ngModel)]="entity.discountable" (change)="addSaveField('discountable', entity)"/></td>
           <td>{{entity.total}}</td>
           <td><dime-button (click)="deleteEntity(entity.id)" fontAwesome="trash-o" color="red"></dime-button></td>

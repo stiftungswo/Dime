@@ -23,11 +23,11 @@
       ngControlGroup="position{{i}}"
       #row="ngForm">
       <td validationStatus class="form-group"><date-input required ngControl="start{{i}}"
-                                       [(ngModel)]="entity.start" (ngModelChange)="entity.addFieldtoUpdate('start')"></date-input></td>
+                                       [ngModel]="entity.start" (ngModelChange)="entity.start=$event;entity.addFieldtoUpdate('start')"></date-input></td>
       <td validationStatus class="form-group"><date-input required ngControl="end{{i}}"
-                                       [(ngModel)]="entity.end" (ngModelChange)="entity.addFieldtoUpdate('end')"></date-input></td>
+                                       [ngModel]="entity.end" (ngModelChange)="entity.end=$event;entity.addFieldtoUpdate('end')"></date-input></td>
       <td validationStatus class="form-group"><percentage-input required ngControl="pensum{{i}}" [precision]="0"
-                                             [(ngModel)]="entity.pensum" (ngModelChange)="addSaveField('pensum', entity)"></percentage-input></td>
+                                             [ngModel]="entity.pensum" (ngModelChange)="entity.pensum=$event;addSaveField('pensum', entity)"></percentage-input></td>
       <td>{{entity.realTime | secondsToHours}}</td>
       <td>{{entity.targetTime | secondsToHours}}</td>
       <td [class.text-red]="entity.timeTillToday<0" [class.text-green]="entity.timeTillToday>=0">{{entity.timeTillToday | secondsToHours}}</td>
@@ -37,7 +37,7 @@
         <input class="form-control" type="text" [(ngModel)]="entity.lastYearHolidayBalance" (change)="addSaveField('lastYearHolidayBalance', entity)" />
         <span class="input-group-addon">h</span>
       </td>
-      <td validationStatus class="hidden-xs form-group"><input required ngControl={vacationBudget{{i}}} class="form-control" type="number" style="width: 100%"
+      <td validationStatus class="hidden-xs form-group"><input required ngControl="vacationBudget{{i}}" class="form-control" type="number" style="width: 100%"
                                                     [(ngModel)]="entity.yearlyEmployeeVacationBudget" (change)="addSaveField('yearlyEmployeeVacationBudget', entity)" ></td>
       <td class="hidden-xs"><dime-button (click)="deleteEntity(entity.id)" fontAwesome="trash-o" color="red"></dime-button></td>
     </tr>

@@ -14,12 +14,12 @@ import 'entity_overview.dart';
 @Component(
   selector: 'offer-discount-overview',
   templateUrl: 'discount_overview.html',
-  directives: const [CORE_DIRECTIVES, formDirectives, dimeDirectives],
+  directives: const [coreDirectives, formDirectives, dimeDirectives],
 )
 class OfferDiscountOverviewComponent extends EntityOverview<OfferDiscount> {
   OfferDiscountOverviewComponent(
       CachingObjectStoreService store, SettingsService manager, StatusService status, EntityEventsService entityEventsService)
-      : super(OfferDiscount, store, '', manager, status, entityEventsService);
+      : super(OfferDiscount, store, null, manager, status, entityEventsService);
 
   @override
   OfferDiscount cEnt({OfferDiscount entity}) {
@@ -48,7 +48,11 @@ class OfferDiscountOverviewComponent extends EntityOverview<OfferDiscount> {
   }
 
   @override
-  void ngOnInit() {
+  void onActivate(_, __) {
+    // todo this is never called since this inst created by the router
+    // but maybe its not supposed to be called?
+    // reload gets called on the offerId setter, where it makes much more sense
+    print('discount here');
     if (this.auth != null) {
       if (!auth.isloggedin) {
         this.auth.afterLogin(() {

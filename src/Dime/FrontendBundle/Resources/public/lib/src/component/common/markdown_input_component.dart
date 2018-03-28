@@ -53,7 +53,7 @@ import '../../pipe/markdown_pipe..dart';
   """
   ],
   directives: const [
-    CORE_DIRECTIVES,
+    coreDirectives,
     formDirectives,
   ],
   pipes: const [

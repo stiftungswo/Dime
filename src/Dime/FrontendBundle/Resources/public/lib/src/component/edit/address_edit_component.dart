@@ -10,13 +10,14 @@ import 'entity_edit.dart';
 @Component(
     selector: 'address-edit',
     templateUrl: 'address_edit_component.html',
-    directives: const [CORE_DIRECTIVES, formDirectives, dimeDirectives])
+    directives: const [coreDirectives, formDirectives, dimeDirectives])
 class AddressEditComponent extends EntityEdit<Address> {
   AddressEditComponent() : super.Child(Address);
 
   @override
-  void ngOnInit() {
+  void onActivate(_, __) {
     //Dont Reload its not working.
+    // is never called, since this component is not routable
   }
 
   Address _address;

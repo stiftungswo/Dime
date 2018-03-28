@@ -19,7 +19,7 @@
                    [(ngModel)]="entity.weight" (change)="addSaveField('weight', entity)"/></td>
         <td>{{  entity.weight/getWeightSum() * 100  | number:'0.0-0' }} %</td>
         <td validationStatus class="form-group">
-          <costgroup-select required ngControl="costgroup{{i}}" style="width:100%;" class="col-sm-4" [(ngModel)]="entity.costgroup" (ngModelChange)="addSaveField('costgroup', entity)"></costgroup-select>
+          <costgroup-select required ngControl="costgroup{{i}}" style="width:100%;" class="col-sm-4" [ngModel]="entity.costgroup" (ngModelChange)="entity.costgroup=$event;addSaveField('costgroup', entity)"></costgroup-select>
         </td>
         <td><dime-button (click)="deleteEntity(entity.id)" fontAwesome="trash-o" color="red"></dime-button></td>
       </tr>

@@ -6,7 +6,6 @@ import 'dart:html';
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
 import 'package:angular_router/angular_router.dart';
-import 'package:angular_router/src/router.dart';
 
 import '../../model/Entity.dart';
 import '../../service/caching_object_store_service.dart';
@@ -15,7 +14,7 @@ import '../../service/settings_service.dart';
 import '../../service/status_service.dart';
 import '../../service/user_auth_service.dart';
 
-abstract class EntityOverview<T extends Entity> implements OnInit, AfterViewInit {
+abstract class EntityOverview<T extends Entity> implements OnActivate, AfterViewInit {
   bool needsmanualAdd = false;
 
   dynamic selectedEntId;
@@ -39,7 +38,7 @@ abstract class EntityOverview<T extends Entity> implements OnInit, AfterViewInit
 
   EntityEventsService entityEventsService;
 
-  String routename;
+  RoutePath routename;
 
   SettingsService settingsManager;
 
@@ -169,15 +168,12 @@ abstract class EntityOverview<T extends Entity> implements OnInit, AfterViewInit
       if (entId == null) {
         entId = this.selectedEntId as int;
       }
-      router.navigate([
-        this.routename,
-        {'id': entId.toString()}
-      ]);
+      router.navigate(this.routename.toUrl(parameters: {'id': entId.toString()}));
     }
   }
 
   @override
-  void ngOnInit() {
+  void onActivate(_, __) {
     if (this.auth != null) {
       if (!auth.isloggedin) {
         this.auth.afterLogin(() {

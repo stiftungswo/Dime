@@ -16,12 +16,13 @@ import '../common/dime_directives.dart';
 import '../overview/overview.dart';
 import '../select/select.dart';
 import 'entity_edit.dart';
+import '../main/routes.dart' as routes;
 
 @Component(
   selector: 'project-edit',
   templateUrl: 'project_edit_component.html',
   directives: const [
-    CORE_DIRECTIVES,
+    coreDirectives,
     formDirectives,
     dimeDirectives,
     CustomerSelectComponent,
@@ -38,12 +39,12 @@ class ProjectEditComponent extends EntityEdit<Project> {
 
   HttpService http;
 
-  ProjectEditComponent(RouteParams routeProvider, CachingObjectStoreService store, StatusService status, UserAuthService auth,
-      Router router, EntityEventsService entityEventsService, this.http)
-      : super(routeProvider, store, Project, status, auth, router, entityEventsService);
+  ProjectEditComponent(CachingObjectStoreService store, StatusService status, UserAuthService auth, Router router,
+      EntityEventsService entityEventsService, this.http)
+      : super(store, Project, status, auth, router, entityEventsService);
 
   @override
-  void ngOnInit() {
+  void onActivate(_, __) {
     if (this.auth != null) {
       if (!auth.isloggedin) {
         this.auth.afterLogin(() {
@@ -74,17 +75,11 @@ class ProjectEditComponent extends EntityEdit<Project> {
   }
 
   Future openOffer(int id) async {
-    router.navigate([
-      'OfferEdit',
-      {'id': id.toString()}
-    ]);
+    router.navigate(routes.OfferEditRoute.toUrl(parameters: {'id': id.toString()}));
   }
 
   Future openInvoice(int id) async {
-    router.navigate([
-      'InvoiceEdit',
-      {'id': id.toString()}
-    ]);
+    router.navigate(routes.InvoiceEditRoute.toUrl(parameters: {'id': id.toString()}));
   }
 
   Future createInvoice() async {
@@ -93,10 +88,7 @@ class ProjectEditComponent extends EntityEdit<Project> {
           Invoice, new CustomRequestParams(method: 'GET', url: '${http.baseUrl}/invoices/project/${this.entity.id}'));
       entity.invoices.add(newInvoice);
       this.store.evict(Invoice, true);
-      router.navigate([
-        'InvoiceEdit',
-        {'id': newInvoice.id.toString()}
-      ]);
+      router.navigate(routes.InvoiceEditRoute.toUrl(parameters: {'id': newInvoice.id.toString()}));
     }
   }
 }

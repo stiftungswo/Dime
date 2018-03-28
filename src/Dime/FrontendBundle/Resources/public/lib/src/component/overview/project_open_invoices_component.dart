@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
 import 'package:angular_router/angular_router.dart';
-import 'package:angular_router/src/router.dart';
 import 'package:hammock/hammock.dart';
 
 import '../../model/entity_export.dart';
@@ -18,17 +17,18 @@ import '../../service/user_context_service.dart';
 import '../../util/page_title.dart' as page_title;
 import '../common/dime_directives.dart';
 import 'entity_overview.dart';
+import '../main/routes.dart' as routes;
 
 @Component(
   selector: 'projects-open-invoices',
   templateUrl: 'project_open_invoices_component.html',
-  directives: const [CORE_DIRECTIVES, formDirectives, dimeDirectives],
+  directives: const [coreDirectives, formDirectives, dimeDirectives],
   pipes: const [dimePipes],
 )
 class ProjectOpenInvoicesComponent extends EntityOverview<Project> implements OnActivate {
   ProjectOpenInvoicesComponent(CachingObjectStoreService store, this.context, Router router, SettingsService manager, StatusService status,
-      UserAuthService auth, RouteParams prov, EntityEventsService entityEventsService, this.http)
-      : super(Project, store, 'ProjectEdit', manager, status, entityEventsService, auth: auth, router: router) {
+      UserAuthService auth, EntityEventsService entityEventsService, this.http)
+      : super(Project, store, routes.ProjectEditRoute, manager, status, entityEventsService, auth: auth, router: router) {
     sortType = "id";
     sortReverse = true;
   }
@@ -38,7 +38,8 @@ class ProjectOpenInvoicesComponent extends EntityOverview<Project> implements On
   UserContextService context;
 
   @override
-  routerOnActivate(ComponentInstruction nextInstruction, ComponentInstruction prevInstruction) {
+  onActivate(_, __) {
+    super.onActivate(_, __);
     page_title.setPageTitle('Projekte mit offenen Rechnungen');
   }
 

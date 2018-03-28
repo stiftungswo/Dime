@@ -4,7 +4,6 @@ import 'dart:html';
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
 import 'package:angular_router/angular_router.dart';
-import 'package:angular_router/src/router.dart';
 
 import '../../model/entity_export.dart';
 import '../../pipe/dime_pipes.dart';
@@ -17,16 +16,18 @@ import '../../util/page_title.dart' as page_title;
 import '../common/dime_directives.dart';
 import 'entity_overview.dart';
 
+import '../main/routes.dart' as routes;
+
 @Component(
   selector: 'service-overview',
   templateUrl: 'service_overview_component.html',
-  directives: const [formDirectives, COMMON_DIRECTIVES, dimeDirectives],
+  directives: const [formDirectives, coreDirectives, dimeDirectives],
   pipes: const [dimePipes],
 )
 class ServiceOverviewComponent extends EntityOverview<Service> implements OnActivate {
   ServiceOverviewComponent(CachingObjectStoreService store, Router router, SettingsService manager, StatusService status,
       UserAuthService auth, EntityEventsService entityEventsService)
-      : super(Service, store, 'ServiceEdit', manager, status, entityEventsService, router: router, auth: auth);
+      : super(Service, store, routes.ServiceEditRoute, manager, status, entityEventsService, router: router, auth: auth);
 
   @override
   String sortType = "name";
@@ -50,7 +51,8 @@ class ServiceOverviewComponent extends EntityOverview<Service> implements OnActi
   }
 
   @override
-  routerOnActivate(ComponentInstruction nextInstruction, ComponentInstruction prevInstruction) {
+  onActivate(_, __) {
+    super.onActivate(_, __);
     page_title.setPageTitle('Services');
   }
 }

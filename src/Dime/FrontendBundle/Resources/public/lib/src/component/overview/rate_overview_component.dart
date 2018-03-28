@@ -15,12 +15,12 @@ import 'entity_overview.dart';
 @Component(
   selector: 'rate-overview',
   templateUrl: 'rate_overview_component.html',
-  directives: const [formDirectives, CORE_DIRECTIVES, dimeDirectives, RateGroupSelectComponent, RateUnitTypeSelectComponent],
+  directives: const [formDirectives, coreDirectives, dimeDirectives, RateGroupSelectComponent, RateUnitTypeSelectComponent],
 )
 class RateOverviewComponent extends EntityOverview<Rate> {
   RateOverviewComponent(
       CachingObjectStoreService store, SettingsService manager, StatusService status, EntityEventsService entityEventsService)
-      : super(Rate, store, '', manager, status, entityEventsService);
+      : super(Rate, store, null, manager, status, entityEventsService);
 
   @override
   Rate cEnt({Rate entity}) {
@@ -49,7 +49,7 @@ class RateOverviewComponent extends EntityOverview<Rate> {
   }
 
   @override
-  void ngOnInit();
+  void onActivate(_, __); // is never called, since this component is not routable
 
   @override
   Future createEntity({dynamic newEnt, Map<String, dynamic> params: const {}}) {

@@ -13,7 +13,7 @@ import 'entity_select.dart';
 @Component(
   selector: 'service-select',
   templateUrl: 'service_select_component.html',
-  directives: const [CORE_DIRECTIVES, formDirectives],
+  directives: const [coreDirectives, formDirectives],
   pipes: const [dimePipes],
   providers: const [const Provider(NG_VALUE_ACCESSOR, useExisting: ServiceSelectComponent, multi: true)],
 )

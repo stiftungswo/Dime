@@ -17,13 +17,13 @@
         ngControlGroup="rate{{i}}"
         #row="ngForm">
         <td validationStatus class="form-group"><rate-group-select required ngControl="rategroup{{i}}"
-                              [(ngModel)]="entity.rateGroup" (ngModelChange)="entity.addFieldtoUpdate('rateGroup')"></rate-group-select></td>
+                              [ngModel]="entity.rateGroup" (ngModelChange)="entity.rateGroup=$event;entity.addFieldtoUpdate('rateGroup')"></rate-group-select></td>
         <td validationStatus class="form-group"><input required ngControl="rateValue{{i}}" class="form-control"
                    [(ngModel)]="entity.rateValue" (change)="addSaveField('rateValue', entity)" /></td>
         <td validationStatus class="form-group"><input required ngControl="rateUnit{{i}}" class="form-control"
                    [(ngModel)]="entity.rateUnit" (change)="addSaveField('rateUnit', entity)"/></td>
         <td validationStatus class="form-group"><rate-unit-type-select required ngControl="rateUnitType{{i}}"
-                                 [(ngModel)]="entity.rateUnitType" (ngModelChange)="entity.addFieldtoUpdate('rateUnitType')"></rate-unit-type-select></td>
+                                 [ngModel]="entity.rateUnitType" (ngModelChange)="entity.rateUnitType=$event;entity.addFieldtoUpdate('rateUnitType')"></rate-unit-type-select></td>
         <td><dime-button (click)="deleteEntity(entity.id)" fontAwesome="trash-o" color="red"></dime-button></td>
       </tr>
     </tbody>

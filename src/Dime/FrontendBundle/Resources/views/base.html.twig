@@ -54,7 +54,7 @@
     <!-- required scripts for AdminLTE -->
     <script src="{{ asset('bundles/dimefrontend/web/vendor/admin-lte/plugins/jQuery/jQuery-2.1.4.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('bundles/dimefrontend/web/vendor/admin-lte/bootstrap/js/bootstrap.min.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('bundles/dimefrontend/web/vendor/admin-lte/dist/js/app.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('bundles/dimefrontend/web/vendor/admin-lte/dist/js/app.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('bundles/dimefrontend/web/vendor/admin-lte/plugins/slimScroll/jquery.slimscroll.min.js') }}" type="text/javascript"></script>
 
     <!-- Pikaday Datepicker -->
@@ -65,7 +65,6 @@
     <!-- required scripts for DimeERP -->
     <!-- Serving PROD files from build folder (JS) -->
     <script defer type="text/javascript" src="{{ asset('bundles/dimefrontend/build/web/main.dart.js?nocache=' ~ date().timestamp) }}"></script>
-    <script defer type="text/javascript" src="{{ asset('bundles/dimefrontend/build/web/packages/browser/dart.js?nocache=' ~ date().timestamp) }}"></script>
 
     <!-- Development now runs via `pub serve`-->
 </body>

@@ -36,6 +36,7 @@
             <td>{{entity.value}}</td>
             <td>{{entity.activity.rateUnitType.name}}</td>
           </tr>
+          <!-- todo this throws an error -->
           <tr *ngIf="date[1]['timeslice'] == null || date[1]['timeslice'].isEmpty">
             <td>{{ date[0] | date:'dd.MM.y' }}</td>
             <td colspan="3"></td>

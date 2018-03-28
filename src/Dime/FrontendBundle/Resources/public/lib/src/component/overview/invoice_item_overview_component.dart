@@ -15,13 +15,13 @@ import 'entity_overview.dart';
 @Component(
   selector: 'invoice-item-overview',
   templateUrl: 'invoice_item_overview_component.html',
-  directives: const [CORE_DIRECTIVES, formDirectives, dimeDirectives],
+  directives: const [coreDirectives, formDirectives, dimeDirectives],
   pipes: const [OrderByPipe],
 )
 class InvoiceItemOverviewComponent extends EntityOverview<InvoiceItem> {
   InvoiceItemOverviewComponent(
       CachingObjectStoreService store, SettingsService manager, StatusService status, EntityEventsService entityEventsService)
-      : super(InvoiceItem, store, '', manager, status, entityEventsService);
+      : super(InvoiceItem, store, null, manager, status, entityEventsService);
 
   @override
   InvoiceItem cEnt({InvoiceItem entity}) {
@@ -50,7 +50,11 @@ class InvoiceItemOverviewComponent extends EntityOverview<InvoiceItem> {
   }
 
   @override
-  void ngOnInit() {
+  void onActivate(_, __) {
+    // todo this is never called since this inst created by the router
+    // but maybe its not supposed to be called?
+    // reload gets called on the invoiceId setter, where it makes much more sense
+    print('item here');
     if (this.auth != null) {
       if (!auth.isloggedin) {
         this.auth.afterLogin(() {

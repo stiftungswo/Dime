@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:angular/angular.dart';
+import 'package:angular_forms/angular_forms.dart';
 import 'package:angular_router/angular_router.dart';
 import 'package:hammock/hammock.dart';
 import 'package:intl/intl.dart';
@@ -29,12 +30,12 @@ class WeekReportDayEntry {
 @Component(
     selector: 'timeslice-weeklyreport',
     templateUrl: 'timeslice_weekly_report_component.html',
-    directives: const [CORE_DIRECTIVES, dimeDirectives],
+    directives: const [coreDirectives, dimeDirectives, formDirectives],
     pipes: const [COMMON_PIPES])
 class TimesliceWeeklyReportComponent extends EntityOverview<ExpenseReport> implements OnActivate {
   TimesliceWeeklyReportComponent(CachingObjectStoreService store, SettingsService manager, StatusService status, UserAuthService auth,
       EntityEventsService entityEventsService, this.http)
-      : super(ExpenseReport, store, '', manager, status, entityEventsService, auth: auth);
+      : super(ExpenseReport, store, null, manager, status, entityEventsService, auth: auth);
 
   HttpService http;
 
@@ -53,8 +54,13 @@ class TimesliceWeeklyReportComponent extends EntityOverview<ExpenseReport> imple
   ExpenseReport report;
 
   @override
-  routerOnActivate(ComponentInstruction nextInstruction, ComponentInstruction prevInstruction) {
+  onActivate(_, __) {
     page_title.setPageTitle('Wochenrapport');
+    if (this.filterStartDate.weekday != DateTime.monday) {
+      this.filterStartDate = this.filterStartDate.subtract(new Duration(days: this.filterStartDate.weekday - 1));
+    }
+    this.filterEndDate = this.filterStartDate.add(new Duration(days: 7));
+    reload();
   }
 
   @override
@@ -114,15 +120,6 @@ class TimesliceWeeklyReportComponent extends EntityOverview<ExpenseReport> imple
       return true;
     }
     return false;
-  }
-
-  @override
-  void ngOnInit() {
-    if (this.filterStartDate.weekday != DateTime.MONDAY) {
-      this.filterStartDate = this.filterStartDate.subtract(new Duration(days: this.filterStartDate.weekday - 1));
-    }
-    this.filterEndDate = this.filterStartDate.add(new Duration(days: 7));
-    reload();
   }
 
   @override

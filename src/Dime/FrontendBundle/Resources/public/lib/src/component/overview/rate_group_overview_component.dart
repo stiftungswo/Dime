@@ -15,12 +15,12 @@ import 'entity_overview.dart';
 @Component(
   selector: 'rate-group-overview',
   templateUrl: 'rate_group_overview_component.html',
-  directives: const [formDirectives, CORE_DIRECTIVES, dimeDirectives],
+  directives: const [formDirectives, coreDirectives, dimeDirectives],
 )
 class RateGroupOverviewComponent extends EntityOverview<RateGroup> implements OnActivate {
   RateGroupOverviewComponent(CachingObjectStoreService store, SettingsService manager, StatusService status, UserAuthService auth,
       EntityEventsService entityEventsService)
-      : super(RateGroup, store, '', manager, status, entityEventsService, auth: auth);
+      : super(RateGroup, store, null, manager, status, entityEventsService, auth: auth);
 
   @override
   RateGroup cEnt({RateGroup entity}) {
@@ -31,7 +31,8 @@ class RateGroupOverviewComponent extends EntityOverview<RateGroup> implements On
   }
 
   @override
-  routerOnActivate(ComponentInstruction nextInstruction, ComponentInstruction prevInstruction) {
+  onActivate(_, __) {
+    super.onActivate(_, __);
     page_title.setPageTitle('Tarife');
   }
 }

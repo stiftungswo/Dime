@@ -23,10 +23,13 @@ import 'package:pikaday_datepicker_angular/src/conversion.dart';
 @Component(
     selector: 'pikaday',
     template:
-        '<input type="text" id="{{id}}" class="{{cssClasses}}" placeholder="{{placeholder}}" [disabled]="readonly" style="{{ cssText }}">')
+        '<input type="text" #refid id="{{id}}" class="{{cssClasses}}" placeholder="{{placeholder}}" [disabled]="readonly" style="{{ cssText }}">')
 class PikadayComponent implements AfterViewInit {
   static int _componentCounter = 0;
   final String id = "pikadayInput${++_componentCounter}";
+
+  @ViewChild('refid')
+  HtmlElement ref;
 
   /// css-classes to be set on the pikaday-inputfield via <input class="{{cssClasses}}>
   @Input()
@@ -282,7 +285,8 @@ class PikadayComponent implements AfterViewInit {
 
   @override
   ngAfterViewInit() {
-    _options.field = querySelector('#$id') as HtmlElement;
+    // todo use dom element ref
+    _options.field = ref;
     _options.onSelect = allowInterop((dateTimeOrDate) {
       var day =
           dateTimeOrDate is DateTime ? dateTimeOrDate : new DateTime.fromMillisecondsSinceEpoch(getPikadayMillisecondsSinceEpoch(_pikaday));

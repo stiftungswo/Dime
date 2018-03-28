@@ -4,7 +4,6 @@ import 'dart:math';
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
 import 'package:angular_router/angular_router.dart';
-import 'package:angular_router/src/router.dart';
 
 import '../../model/entity_export.dart';
 import '../../pipe/dime_pipes.dart';
@@ -16,22 +15,24 @@ import '../../service/user_auth_service.dart';
 import '../../util/page_title.dart' as page_title;
 import '../common/dime_directives.dart';
 import 'entity_overview.dart';
+import '../main/routes.dart' as routes;
 
 @Component(
     selector: 'employee-overview',
     templateUrl: 'employee_overview_component.html',
-    directives: const [CORE_DIRECTIVES, formDirectives, dimeDirectives],
+    directives: const [coreDirectives, formDirectives, dimeDirectives],
     pipes: const [dimePipes])
 class EmployeeOverviewComponent extends EntityOverview<Employee> implements OnActivate {
   EmployeeOverviewComponent(CachingObjectStoreService store, Router router, SettingsService manager, StatusService status,
       UserAuthService auth, EntityEventsService entityEventsService)
-      : super(Employee, store, 'EmployeeEdit', manager, status, entityEventsService, router: router, auth: auth);
+      : super(Employee, store, routes.EmployeeEditRoute, manager, status, entityEventsService, router: router, auth: auth);
 
   @override
   String sortType = "username";
 
   @override
-  routerOnActivate(ComponentInstruction nextInstruction, ComponentInstruction prevInstruction) {
+  onActivate(_, __) {
+    super.onActivate(_, __);
     page_title.setPageTitle('Mitarbeiter');
   }
 

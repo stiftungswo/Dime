@@ -18,12 +18,12 @@ import 'entity_overview.dart';
 @Component(
     selector: 'period-overview',
     templateUrl: 'period_overview_component.html',
-    directives: const [CORE_DIRECTIVES, formDirectives, dimeDirectives],
+    directives: const [coreDirectives, formDirectives, dimeDirectives],
     pipes: const [dimePipes])
 class PeriodOverviewComponent extends EntityOverview<Period> {
   PeriodOverviewComponent(CachingObjectStoreService store, SettingsService manager, StatusService status, this.context,
       EntityEventsService entityEventsService, this.http)
-      : super(Period, store, '', manager, status, entityEventsService);
+      : super(Period, store, null, manager, status, entityEventsService);
 
   HttpService http;
 
@@ -83,7 +83,7 @@ class PeriodOverviewComponent extends EntityOverview<Period> {
             queryParams: {"_format": "json", "date": encodeDateRange(entity.start, entity.end), "employee": employee.id}).then((result) {
           // check if entities are still set
           if (this.entities.length > i) {
-            dynamic data = JSON.decode(result);
+            dynamic data = json.decode(result);
 
             if (data is Map) {
               takenHolidays = data['takenHolidays'] as List<dynamic>;
@@ -117,15 +117,15 @@ class PeriodOverviewComponent extends EntityOverview<Period> {
   }
 
   @override
-  void ngOnInit();
+  void onActivate(_, __); // is never called, since this component is not routable
 
   @override
   Future createEntity({Period newEnt, Map<String, dynamic> params: const {}}) {
     var now = new DateTime.now();
     return super.createEntity(params: {
       'employee': this.employee.id,
-      'start': new DateTime(now.year, DateTime.JANUARY, 1),
-      'end': new DateTime(now.year, DateTime.DECEMBER, 31),
+      'start': new DateTime(now.year, DateTime.january, 1),
+      'end': new DateTime(now.year, DateTime.december, 31),
       'pensum': 1,
       'yearlyEmployeeVacationBudget': this.employee.employeeholiday ?? 20,
     });

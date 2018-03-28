@@ -9,7 +9,7 @@ import 'pikaday_component.dart';
 @Component(
   selector: 'date-input',
   templateUrl: 'date_input_component.html',
-  directives: const [CORE_DIRECTIVES, formDirectives, PikadayComponent],
+  directives: const [coreDirectives, formDirectives, PikadayComponent],
   providers: const [const Provider(NG_VALUE_ACCESSOR, useExisting: DateInputComponent, multi: true)],
 )
 class DateInputComponent implements ControlValueAccessor<DateTime>, OnChanges, AfterViewInit {
@@ -31,7 +31,7 @@ class DateInputComponent implements ControlValueAccessor<DateTime>, OnChanges, A
 
   InputElement pikadayInput;
 
-  get pikadayI18n => new PikadayI18nConfig(
+  PikadayI18nConfig get pikadayI18n => new PikadayI18nConfig(
       previousMonth: 'Letzer Monat',
       nextMonth: 'Nächster Monat',
       months: ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'],

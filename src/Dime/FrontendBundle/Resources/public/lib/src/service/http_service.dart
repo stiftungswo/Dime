@@ -38,7 +38,7 @@ class HttpService {
   Map<String, String> get _defaultHeaders => (injector.get(HttpDefaultHeaders) as HttpDefaultHeaders).map;
 }
 
-const httpBaseUrl = const OpaqueToken("http.base.url");
+const httpBaseUrl = const OpaqueToken<String>("http.base.url");
 
 String encodeQueryParams(Map<String, dynamic> params) {
   if (params.isEmpty) {

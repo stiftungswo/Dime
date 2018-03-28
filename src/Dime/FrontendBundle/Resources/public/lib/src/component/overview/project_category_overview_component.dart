@@ -15,15 +15,16 @@ import 'entity_overview.dart';
 @Component(
   selector: 'project-category-overview',
   templateUrl: 'project_category_overview_component.html',
-  directives: const [CORE_DIRECTIVES, formDirectives, dimeDirectives],
+  directives: const [coreDirectives, formDirectives, dimeDirectives],
 )
 class ProjectCategoryOverviewComponent extends EntityOverview<ProjectCategory> implements OnActivate {
   ProjectCategoryOverviewComponent(CachingObjectStoreService store, SettingsService manager, StatusService status, UserAuthService auth,
       EntityEventsService entityEventsService)
-      : super(ProjectCategory, store, '', manager, status, entityEventsService, auth: auth);
+      : super(ProjectCategory, store, null, manager, status, entityEventsService, auth: auth);
 
   @override
-  routerOnActivate(ComponentInstruction nextInstruction, ComponentInstruction prevInstruction) {
+  onActivate(_, __) {
+    super.onActivate(_, __);
     page_title.setPageTitle('Tätigkeitsbereiche');
   }
 

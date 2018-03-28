@@ -19,15 +19,16 @@ import 'entity_overview.dart';
 @Component(
   selector: 'rate-unit-type-overview',
   templateUrl: 'rate_unit_type_overview_component.html',
-  directives: const [formDirectives, CORE_DIRECTIVES, dimeDirectives, SettingEditComponent],
+  directives: const [formDirectives, coreDirectives, dimeDirectives, SettingEditComponent],
 )
 class RateUnitTypeOverviewComponent extends EntityOverview<RateUnitType> implements OnActivate {
   RateUnitTypeOverviewComponent(CachingObjectStoreService store, SettingsService manager, StatusService status,
       EntityEventsService entityEventsService, UserAuthService auth)
-      : super(RateUnitType, store, '', manager, status, entityEventsService, auth: auth);
+      : super(RateUnitType, store, null, manager, status, entityEventsService, auth: auth);
 
   @override
-  routerOnActivate(ComponentInstruction nextInstruction, ComponentInstruction prevInstruction) {
+  onActivate(_, __) {
+    super.onActivate(_, __);
     page_title.setPageTitle('Tarif Typen');
   }
 

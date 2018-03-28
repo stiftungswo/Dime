@@ -17,7 +17,7 @@
           ngControlGroup="position{{i}}"
           #row="ngForm">
           <td>{{entity.weekday}}</td>
-          <td validationStatus class="form-group"><date-input required ngControl="date{{i}}" [(ngModel)]="entity.date" (ngModelChange)="entity.addFieldtoUpdate('date')"></date-input></td>
+          <td validationStatus class="form-group"><date-input required ngControl="date{{i}}" [ngModel]="entity.date" (ngModelChange)="entity.date=$event;entity.addFieldtoUpdate('date')"></date-input></td>
           <td validationStatus class="form-group"><input required ngControl="duration{{i}}" class="form-control" [(ngModel)]="entity.duration" (change)="addSaveField('duration', entity)"/></td>
           <td> <dime-button (click)="deleteEntity(entity.id)" fontAwesome="trash-o" color="red"></dime-button> </td>
         </tr>

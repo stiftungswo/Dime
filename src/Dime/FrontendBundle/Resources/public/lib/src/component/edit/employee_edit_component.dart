@@ -16,12 +16,12 @@ import 'entity_edit.dart';
 @Component(
   selector: 'employee-edit',
   templateUrl: 'employee_edit_component.html',
-  directives: const [CORE_DIRECTIVES, formDirectives, dimeDirectives],
+  directives: const [coreDirectives, formDirectives, dimeDirectives],
 )
 class EmployeeEditComponent extends EntityEdit<Employee> {
-  EmployeeEditComponent(RouteParams routeProvider, CachingObjectStoreService store, StatusService status, UserAuthService auth,
-      Router router, EntityEventsService entityEventsService)
-      : super(routeProvider, store, Employee, status, auth, router, entityEventsService);
+  EmployeeEditComponent(
+      CachingObjectStoreService store, StatusService status, UserAuthService auth, Router router, EntityEventsService entityEventsService)
+      : super(store, Employee, status, auth, router, entityEventsService);
 
   @override
   Future reload({bool evict: false}) async {

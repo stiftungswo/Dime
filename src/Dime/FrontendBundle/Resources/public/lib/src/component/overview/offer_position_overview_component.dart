@@ -16,13 +16,13 @@ import 'entity_overview.dart';
 @Component(
   selector: 'offer-position-overview',
   templateUrl: 'offer_position_overview_component.html',
-  directives: const [CORE_DIRECTIVES, formDirectives, dimeDirectives, RateUnitTypeSelectComponent, ServiceSelectComponent],
+  directives: const [coreDirectives, formDirectives, dimeDirectives, RateUnitTypeSelectComponent, ServiceSelectComponent],
   pipes: const [OrderByPipe],
 )
 class OfferPositionOverviewComponent extends EntityOverview<OfferPosition> {
   OfferPositionOverviewComponent(
       CachingObjectStoreService store, SettingsService manager, StatusService status, EntityEventsService entityEventsService)
-      : super(OfferPosition, store, '', manager, status, entityEventsService);
+      : super(OfferPosition, store, null, manager, status, entityEventsService);
 
   @override
   OfferPosition cEnt({OfferPosition entity}) {
@@ -51,7 +51,7 @@ class OfferPositionOverviewComponent extends EntityOverview<OfferPosition> {
   }
 
   @override
-  void ngOnInit();
+  void onActivate(_, __); // is never called, since this component is not routable
 
   @override
   Future createEntity({OfferPosition newEnt, Map<String, dynamic> params: const {}}) {

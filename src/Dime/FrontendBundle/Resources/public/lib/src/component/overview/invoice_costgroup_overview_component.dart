@@ -15,13 +15,13 @@ import 'entity_overview.dart';
 @Component(
   selector: 'invoice-costgroup-overview',
   templateUrl: 'invoice_costgroup_overview_component.html',
-  directives: const [CORE_DIRECTIVES, formDirectives, dimeDirectives, CostgroupSelectComponent],
+  directives: const [coreDirectives, formDirectives, dimeDirectives, CostgroupSelectComponent],
   pipes: const [DecimalPipe],
 )
 class InvoiceCostgroupOverviewComponent extends EntityOverview<InvoiceCostgroup> {
   InvoiceCostgroupOverviewComponent(
       CachingObjectStoreService store, SettingsService manager, StatusService status, EntityEventsService entityEventsService)
-      : super(InvoiceCostgroup, store, '', manager, status, entityEventsService);
+      : super(InvoiceCostgroup, store, null, manager, status, entityEventsService);
 
   @override
   InvoiceCostgroup cEnt({InvoiceCostgroup entity}) {
@@ -48,7 +48,11 @@ class InvoiceCostgroupOverviewComponent extends EntityOverview<InvoiceCostgroup>
   }
 
   @override
-  void ngOnInit() {
+  void onActivate(_, __) {
+    // todo this is never called since this inst created by the router
+    // but maybe its not supposed to be called?
+    // reload gets called on the invoiceId setter, where it makes much more sense
+    print('costgroup here');
     if (this.auth != null) {
       if (!auth.isloggedin) {
         this.auth.afterLogin(() {

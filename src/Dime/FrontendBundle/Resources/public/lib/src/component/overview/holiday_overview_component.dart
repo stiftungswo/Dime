@@ -15,15 +15,16 @@ import 'entity_overview.dart';
 @Component(
   selector: 'holiday-overview',
   templateUrl: 'holiday_overview_component.html',
-  directives: const [formDirectives, CORE_DIRECTIVES, dimeDirectives],
+  directives: const [formDirectives, coreDirectives, dimeDirectives],
 )
 class HolidayOverviewComponent extends EntityOverview<Holiday> implements OnActivate {
   HolidayOverviewComponent(CachingObjectStoreService store, SettingsService manager, StatusService status, UserAuthService auth,
       EntityEventsService entityEventsService)
-      : super(Holiday, store, '', manager, status, entityEventsService, auth: auth);
+      : super(Holiday, store, null, manager, status, entityEventsService, auth: auth);
 
   @override
-  routerOnActivate(ComponentInstruction nextInstruction, ComponentInstruction prevInstruction) {
+  onActivate(_, __) {
+    super.onActivate(_, __);
     page_title.setPageTitle('Feiertage');
   }
 

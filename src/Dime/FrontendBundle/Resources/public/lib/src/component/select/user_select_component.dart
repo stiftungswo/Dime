@@ -15,7 +15,7 @@ import 'entity_select.dart';
 @Component(
   selector: 'user-select',
   templateUrl: 'user_select_component.html',
-  directives: const [CORE_DIRECTIVES, formDirectives],
+  directives: const [coreDirectives, formDirectives],
   pipes: const [dimePipes],
   providers: const [const Provider(NG_VALUE_ACCESSOR, useExisting: UserSelectComponent, multi: true)],
 )

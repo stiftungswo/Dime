@@ -23,12 +23,12 @@ import '../select/user_select_component.dart';
 @Component(
     selector: 'timeslice-expensereport',
     templateUrl: 'timeslice_expense_report_component.html',
-    directives: const [CORE_DIRECTIVES, formDirectives, dimeDirectives, UserSelectComponent, ProjectSelectComponent],
+    directives: const [coreDirectives, formDirectives, dimeDirectives, UserSelectComponent, ProjectSelectComponent],
     pipes: const [COMMON_PIPES])
 class TimesliceExpenseReportComponent extends EntityOverview<ExpenseReport> implements OnActivate {
   TimesliceExpenseReportComponent(CachingObjectStoreService store, SettingsService manager, StatusService status, UserAuthService auth,
       EntityEventsService entityEventsService, this.http)
-      : super(ExpenseReport, store, '', manager, status, entityEventsService, auth: auth);
+      : super(ExpenseReport, store, null, manager, status, entityEventsService, auth: auth);
 
   HttpService http;
 
@@ -89,10 +89,7 @@ class TimesliceExpenseReportComponent extends EntityOverview<ExpenseReport> impl
   }
 
   @override
-  void ngOnInit(); //noop
-
-  @override
-  routerOnActivate(ComponentInstruction nextInstruction, ComponentInstruction prevInstruction) {
+  onActivate(_, __) {
     page_title.setPageTitle('Aufwandsbericht');
   }
 

@@ -16,7 +16,7 @@ import 'entity_overview.dart';
 @Component(
   selector: 'activity-overview',
   templateUrl: 'activity_overview_component.html',
-  directives: const [CORE_DIRECTIVES, formDirectives, dimeDirectives, ServiceSelectComponent],
+  directives: const [coreDirectives, formDirectives, dimeDirectives, ServiceSelectComponent],
 )
 class ActivityOverviewComponent extends EntityOverview<Activity> {
   int _projectId;
@@ -31,7 +31,7 @@ class ActivityOverviewComponent extends EntityOverview<Activity> {
 
   ActivityOverviewComponent(
       CachingObjectStoreService store, SettingsService manager, StatusService status, EntityEventsService entityEventsService)
-      : super(Activity, store, '', manager, status, entityEventsService);
+      : super(Activity, store, null, manager, status, entityEventsService);
 
   @override
   Activity cEnt({Activity entity}) {
@@ -45,7 +45,7 @@ class ActivityOverviewComponent extends EntityOverview<Activity> {
   bool needsmanualAdd = true;
 
   @override
-  void ngOnInit();
+  void onActivate(_, __); // is never called, since this component is not routable
 
   @override
   Future createEntity({Activity newEnt, Map<String, dynamic> params: const {}}) {

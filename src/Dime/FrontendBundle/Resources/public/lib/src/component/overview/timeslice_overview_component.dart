@@ -27,7 +27,7 @@ import 'entity_overview.dart';
   selector: 'timeslice-overview',
   templateUrl: 'timeslice_overview_component.html',
   directives: const [
-    CORE_DIRECTIVES,
+    coreDirectives,
     formDirectives,
     dimeDirectives,
     UserSelectComponent,
@@ -37,7 +37,7 @@ import 'entity_overview.dart';
   ],
   pipes: const [dimePipes, TimesliceDateFilterPipe],
 )
-class TimesliceOverviewComponent extends EntityOverview<Timeslice> {
+class TimesliceOverviewComponent extends EntityOverview<Timeslice> implements OnInit {
   Employee _employee;
 
   UserContextService context;
@@ -172,7 +172,7 @@ class TimesliceOverviewComponent extends EntityOverview<Timeslice> {
 
   TimesliceOverviewComponent(CachingObjectStoreService store, SettingsService manager, StatusService status, this.context,
       UserAuthService auth, EntityEventsService entityEventsService, this.timetrackService, this.http, this.statusService)
-      : super(Timeslice, store, '', manager, status, entityEventsService, auth: auth);
+      : super(Timeslice, store, null, manager, status, entityEventsService, auth: auth);
 
   @override
   Timeslice cEnt({Timeslice entity}) {
@@ -310,6 +310,9 @@ class TimesliceOverviewComponent extends EntityOverview<Timeslice> {
   }
 
   @override
+  void onActivate(_, __); // is never called, since this component is not routable
+
+  @override
   void ngOnInit() {
     if (this.auth == null) {
       return;
@@ -322,7 +325,7 @@ class TimesliceOverviewComponent extends EntityOverview<Timeslice> {
       this.load();
     }
 
-    if (this.filterStartDate.weekday != DateTime.MONDAY) {
+    if (this.filterStartDate.weekday != DateTime.monday) {
       this.filterStartDate = this.filterStartDate.subtract(new Duration(days: this.filterStartDate.weekday - 1));
     }
     this.filterStartDate = this.filterStartDate.subtract(new Duration(

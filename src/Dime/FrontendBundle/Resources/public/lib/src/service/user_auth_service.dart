@@ -83,7 +83,7 @@ class UserAuthService {
   }
 
   String createAuthToken(String username, String password) {
-    var auth = BASE64.encode(UTF8.encode("$username:$password"));
+    var auth = base64.encode(utf8.encode("$username:$password"));
     return 'Basic $auth';
   }
 

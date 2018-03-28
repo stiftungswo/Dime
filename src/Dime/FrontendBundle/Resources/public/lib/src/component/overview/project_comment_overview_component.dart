@@ -17,12 +17,12 @@ import 'entity_overview.dart';
 @Component(
     selector: 'project-comment-overview',
     templateUrl: 'project_comment_overview_component.html',
-    directives: const [CORE_DIRECTIVES, formDirectives, dimeDirectives],
+    directives: const [coreDirectives, formDirectives, dimeDirectives],
     pipes: const [dimePipes])
-class ProjectCommentOverviewComponent extends EntityOverview<ProjectComment> implements OnDestroy {
+class ProjectCommentOverviewComponent extends EntityOverview<ProjectComment> implements OnInit, OnDestroy {
   ProjectCommentOverviewComponent(CachingObjectStoreService store, SettingsService manager, StatusService status, UserAuthService auth,
       EntityEventsService entityEventsService, this.timetrackService)
-      : super(ProjectComment, store, '', manager, status, entityEventsService, auth: auth);
+      : super(ProjectComment, store, null, manager, status, entityEventsService, auth: auth);
 
   Project _selectedProject;
 
@@ -71,6 +71,9 @@ class ProjectCommentOverviewComponent extends EntityOverview<ProjectComment> imp
     this.newEntryComment = '';
     super.createEntity(params: localParams);
   }
+
+  @override
+  void onActivate(_, __); // is never called, since this component is not routable (thats why we have ngOnInit here)
 
   @override
   void ngOnInit() {

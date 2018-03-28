@@ -16,7 +16,7 @@
       </dime-form-group>
       <dime-form-group horizontal label="MwSt.">
         <percentage-input required ngControl="vat"
-                          [(ngModel)]="entity.vat" (ngModelChange)="addSaveField('vat')"></percentage-input>
+                          [ngModel]="entity.vat" (ngModelChange)="entity.vat=$event;addSaveField('vat')"></percentage-input>
       </dime-form-group>
       <dime-form-group horizontal class="checkbox">
         <label>

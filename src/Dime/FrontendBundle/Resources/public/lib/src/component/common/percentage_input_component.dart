@@ -10,7 +10,7 @@ import 'package:angular_forms/angular_forms.dart';
     </div>
     <input *ngIf="!showAddon" type="text" [(ngModel)]="text" (change)="onChange()" class="form-control" aria-label="...">
   """,
-  directives: const [formDirectives, CORE_DIRECTIVES],
+  directives: const [formDirectives, coreDirectives],
   providers: const [const Provider(NG_VALUE_ACCESSOR, useExisting: PercentageInputComponent, multi: true)],
 )
 class PercentageInputComponent implements ControlValueAccessor<double> {

@@ -6,12 +6,12 @@ homepage: http://github.com/stiftungswo/Dime
 environment:
   sdk: '>=1.0.0 <2.0.0'
 dependencies:
-  angular: "^4.0.0+2"
-  angular_router: "^1.0.2"
-  angular_forms: ^1.0.0
-  pikaday_datepicker_angular: "^3.1.0"
-  browser: any
-  route_hierarchical: '>=0.5.0 <0.7.0'
+  angular: "^5.0.0-alpha+8"
+  angular_router: "^2.0.0-alpha+8"
+  angular_forms: "^2.0.0-alpha"
+  pikaday_datepicker_angular:
+    path: ../../../../../../pikaday_datepicker_angular
+    # removed all angular / sdk restrictions and removed transformers from pubspec file
   hammock:
     git:
         url: https://github.com/stiftungswo/hammock.git
@@ -20,26 +20,18 @@ dependencies:
     git:
         url: https://github.com/stiftungswo/hammock_mapper.git
         ref: swo_hammock_angular_4
-  crypto: ">=2.0.2 <2.1.0"
   sentry_client: ">=4.0.3 < 5.0.0"
   meta: ^1.1.2
   stack_trace: "^1.9.2"
   markdown: "^1.1.1"
 
+dependency_overrides:
+  angular: "^5.0.0-alpha+8"
+  hammock:
+    path: ../../../../../../hammock_swo
 dev_dependencies:
-  dart_to_js_script_rewriter: ^1.0.1
-transformers:
-- angular:
-    $exclude: ['web/vendor/**']
-    entry_points:
-    - web/main.dart
-- dart_to_js_script_rewriter
-- $dart2js:
-    checked: false
-    minify: false
-    verbose: false
-    suppressWarnings: false
-    suppressHints: false
-    terse: false
-    sourceMaps: true
+  build_runner: ^0.7.10+1
+  build_test: ^0.10.0
+  build_web_compilers: ^0.3.0
+  browser: any
 
