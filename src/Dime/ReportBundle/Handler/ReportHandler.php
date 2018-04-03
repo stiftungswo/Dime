@@ -7,6 +7,7 @@
 
 namespace Dime\ReportBundle\Handler;
 
+use Dime\OfferBundle\Entity\Offer;
 use Dime\TimetrackerBundle\Entity\ProjectComment;
 use Dime\TimetrackerBundle\Entity\ProjectCommentRepository;
 use Money\Money;
@@ -361,34 +362,25 @@ class ReportHandler extends AbstractHandler
 
     /**
      * generate report with revenue infos for each project
+     * -> nur Projekte auswerten die verrechenbar sind
      *
      * @return array
+     *      name             Projektname
+     *      category         Kategorie (Tätigkeitsbereiche)
+     *      section          Kategorie (Geschäftsbereiche)
+     *      customer         Auftraggeber (Kunde)
+     *      date             Erstelldatum
+     *      year             Jahr (Aus Erstelldatum)
+     *      accountant       Verantwortung (Verantwortlicher Mitarbeiter)
+     *      aufwand          Aufwand (Erfasste Stunden die verrechnet werden können in CHF)
+     *      umsatz           Umsatz (Total bereits erstellte Rechnungen)
+     *      umsatz_erwartet  Erwarteter Umsatz (Total bereits erstellte Offerten)
+     *      costgroups       array
+     *
      * @throws HttpInvalidParamException
      */
     public function getRevenueReport($date)
     {
-
-        /*
-         * -> nur Projekte auswerten die verrechenbar sind
-         *
-         * name             Projektname
-         * category         Kategorie (Tätigkeitsbereiche)
-         * section          Kategorie (Geschäftsbereiche)
-         * customer         Auftraggeber (Kunde)
-         * date             Erstelldatum
-         * year             Jahr (Aus Erstelldatum)
-         * accountant       Verantwortung (Verantwortlicher Mitarbeiter)
-         * aufwand          Aufwand (Erfasste Stunden die verrechnet werden können in CHF)
-         * umsatz           Umsatz (Total bereits erstellte Rechnungen)
-         * umsatz_erwartet  Erwarteter Umsatz (Total bereits erstellte Offerten)
-         *
-         */
-
-        /** @var Project[] $projects */
-        //$projects = $this->om->getRepository('DimeTimetrackerBundle:Project')->findBy(array('chargeable' => 1));
-
-
-
         // date filter
         if (isset($date)) {
             $dates = explode(',', $date);
@@ -402,7 +394,114 @@ class ReportHandler extends AbstractHandler
             throw new HttpInvalidParamException('no date passed');
         }
 
-        //print("START DATE: ".$startDate);
+        return array_merge(
+            $this->getRevenueFromProjects($startDate, $endDate),
+            $this->getRevenueFromInvoicesWithoutProject($startDate, $endDate),
+            $this->getRevenueFromOffersWithoutProject($startDate, $endDate)
+        );
+    }
+
+    /**
+     * @param $startDate
+     * @param $endDate
+     * @return array
+     */
+    private function getRevenueFromOffersWithoutProject($startDate, $endDate): array
+    {
+        $report = [];
+
+        $offersWithoutProjects = $this->om->getRepository('DimeOfferBundle:Offer')
+            ->createQueryBuilder('offer')
+            ->where('offer.createdAt >= :startDate AND offer.createdAt < :endDate')
+            ->setParameter('startDate', new \DateTime($startDate))
+            ->setParameter('endDate', new \DateTime($endDate))
+            ->andWhere('offer.project is NULL')
+            ->getQuery()
+            ->getResult();
+
+        /** @var Offer $offer */
+        foreach ($offersWithoutProjects as $offer) {
+            if ($offer->getFixedPrice() != null && $offer->getFixedPrice()->isZero()) {
+                $total = $offer->getTotal();
+            } else {
+                $total = $offer->getFixedPrice();
+            }
+            $data = [];
+            $data['name'] = $offer->getName();
+            $data['category'] = '';
+            $data['customer'] = ($offer->getCustomer() != null ? $offer->getCustomer()->getName() : '');
+            $data['date'] = $offer->getCreatedAt()->format('d.m.Y');
+            $data['year'] = $offer->getCreatedAt()->format('Y');
+            $data['accountant'] = ($offer->getAccountant() != null ? $offer->getAccountant()->getFullname() : '');
+            $data['aufwand'] = '';
+            $data['umsatz'] = '';
+            $data['umsatz_erwartet'] = $this->formatMoney($total);
+            $data['costgroups'] = [];
+            $data['type'] = 'Offerte';
+
+            $report[] = $data;
+        }
+        return $report;
+    }
+
+    /**
+     * @param $startDate
+     * @param $endDate
+     * @return array
+     */
+    private function getRevenueFromInvoicesWithoutProject($startDate, $endDate): array
+    {
+        $report = [];
+
+        $invoicesWithoutProjects = $this->om->getRepository('DimeInvoiceBundle:Invoice')
+            ->createQueryBuilder('invoice')
+            ->where('invoice.createdAt >= :startDate AND invoice.createdAt < :endDate')
+            ->setParameter('startDate', new \DateTime($startDate))
+            ->setParameter('endDate', new \DateTime($endDate))
+            ->andWhere('invoice.project is NULL')
+            ->getQuery()
+            ->getResult();
+
+        /** @var Invoice $invoice */
+        foreach ($invoicesWithoutProjects as $invoice) {
+            $data = [];
+            $data['name'] = $invoice->getName();
+            $data['category'] = '';
+            $data['customer'] = ($invoice->getCustomer() != null ? $invoice->getCustomer()->getName() : '');
+            $data['date'] = $invoice->getCreatedAt()->format('d.m.Y');
+            $data['year'] = $invoice->getCreatedAt()->format('Y');
+            $data['accountant'] = ($invoice->getAccountant() != null ? $invoice->getAccountant()->getFullname() : '');
+            $data['aufwand'] = '';
+            $data['umsatz'] = $this->formatMoney($invoice->getBreakdown()['rawTotal']);
+            $data['umsatz_erwartet'] = '';
+            $data['costgroups'] = $this->mergeCostgroups([$invoice->getCostgroupDistribution()]);
+            $data['type'] = 'Rechnung';
+
+            $report[] = $data;
+        }
+        return $report;
+    }
+
+    /**
+     * @param Money $money
+     * @return float|int
+     */
+    private function formatMoney($money)
+    {
+        if ($money == null) {
+            return 0;
+        }
+        return $money->getAmount()/100;
+    }
+
+    /**
+     * @param $startDate
+     * @param $endDate
+     * @return array
+     */
+    private function getRevenueFromProjects($startDate, $endDate): array
+    {
+        $report = [];
 
         $filteredProjects = $this->om->getRepository('DimeTimetrackerBundle:Project')
             ->createQueryBuilder('project')
@@ -418,10 +517,10 @@ class ReportHandler extends AbstractHandler
 
         //print("FILTER RESULT: ".$filterResult);
 
-        $report = [];
         $listofactivities = [];
         $activitytotal = [];
 
+        /** @var Project $project */
         foreach ($filteredProjects as $project) {
             $data = [];
             $data['name'] = $project->getName();
@@ -432,7 +531,7 @@ class ReportHandler extends AbstractHandler
             $data['accountant'] = ($project->getAccountant() != null ? $project->getAccountant()->getFullname() : '');
 
             // Total der erfassten Stunden
-            $data['aufwand'] = ($project->calculateCurrentPrice() != null ? $project->calculateCurrentPrice()->getAmount()/100 : 0);
+            $data['aufwand'] = ($this->formatMoney($project->calculateCurrentPrice()));
 
             // Total der Rechnungen zusammenzählen
             $invoices = $project->getInvoices();
@@ -447,36 +546,12 @@ class ReportHandler extends AbstractHandler
                 }
                 $costgroups = $this->mergeCostgroups($tmpCostgroups);
             }
-            $data['umsatz'] = ($invoice_total->getAmount()/100);
+            $data['umsatz'] = $this->formatMoney($invoice_total);
 
             // Total der Offerten zusammenzählen (= budget_price)
-            $data['umsatz_erwartet'] = ($project->getBudgetPrice() != null ? $project->getBudgetPrice()->getAmount()/100 : 0);
+            $data['umsatz_erwartet'] = $this->formatMoney($project->getBudgetPrice());
             $data['costgroups'] = $costgroups;
-
-            $report[] = $data;
-        }
-
-        $invoicesWithoutProjects = $this->om->getRepository('DimeInvoiceBundle:Invoice')
-        ->createQueryBuilder('invoice')
-        ->where('invoice.createdAt >= :startDate AND invoice.createdAt < :endDate')
-        ->setParameter('startDate', new \DateTime($startDate))
-        ->setParameter('endDate', new \DateTime($endDate))
-        ->andWhere('invoice.project is NULL')
-        ->getQuery()
-        ->getResult();
-
-        foreach ($invoicesWithoutProjects as $invoice) {
-            $data = [];
-            $data['name'] = $invoice->getName();
-            $data['category'] = '';
-            $data['customer'] = ($invoice->getCustomer() != null ? $invoice->getCustomer()->getName() : '');
-            $data['date'] = $invoice->getCreatedAt()->format('d.m.Y');
-            $data['year'] = $invoice->getCreatedAt()->format('Y');
-            $data['accountant'] = ($invoice->getAccountant() != null ? $invoice->getAccountant()->getFullname() : '');
-            $data['aufwand'] = '';
-            $data['umsatz'] = ($invoice->getBreakdown()['rawTotal']->getAmount()/100);
-            $data['umsatz_erwartet'] = '';
-            $data['costgroups'] = $this->mergeCostgroups([$invoice->getCostgroupDistribution()]);
+            $data['type'] = 'Projekt';
 
             $report[] = $data;
         }
@@ -545,7 +620,8 @@ class ReportHandler extends AbstractHandler
 
         // header rows
         $row = [];
-        $row[] = $this->escapeCSV('Projekt / Rechnung');
+        $row[] = $this->escapeCSV('Typ');
+        $row[] = $this->escapeCSV('Name');
         $row[] = $this->escapeCSV('Kategorie (Tätigkeitsbereich)');
         $row[] = $this->escapeCSV('Auftraggeber');
         $row[] = $this->escapeCSV('Start (Erstelldatum)');
@@ -572,6 +648,7 @@ class ReportHandler extends AbstractHandler
         // data rows
         foreach ($data as $project) {
             $row = [];
+            $row[] = $this->escapeCSV($project['type']);
             $row[] = $this->escapeCSV($project['name']);
             $row[] = $this->escapeCSV($project['category']);
             $row[] = $this->escapeCSV($project['customer']);
