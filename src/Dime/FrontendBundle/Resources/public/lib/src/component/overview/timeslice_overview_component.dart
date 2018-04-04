@@ -35,7 +35,7 @@ import 'entity_overview.dart';
     ActivitySelectComponent,
     SettingEditComponent
   ],
-  pipes: const [dimePipes, TimesliceDateFilterPipe],
+  pipes: const [dimePipes, TimesliceDateFilterPipe, COMMON_PIPES],
 )
 class TimesliceOverviewComponent extends EntityOverview<Timeslice> {
   Employee _employee;
