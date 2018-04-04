@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:html';
 
+import 'package:DimeClient/src/component/common/markdown_input_component.dart';
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
 import 'package:angular_router/angular_router.dart';
@@ -30,6 +31,7 @@ import 'entity_edit.dart';
     InvoiceItemOverviewComponent,
     InvoiceCostgroupOverviewComponent,
     InvoiceDiscountOverviewComponent,
+    MarkdownInputComponent
   ],
 )
 class InvoiceEditComponent extends EntityEdit<Invoice> {

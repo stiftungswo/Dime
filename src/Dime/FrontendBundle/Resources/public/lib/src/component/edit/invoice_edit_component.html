@@ -41,8 +41,7 @@
             </dime-form-group>
           </div>
           <dime-form-group label="Beschreibung">
-            <textarea required ngControl="description" class="form-control"
-                      [(ngModel)]="entity.description" (change)="addSaveField('description')"></textarea>
+            <markdown-input [ngModel]="entity.description" (ngModelChange)="entity.description = $event; addSaveField('description')"></markdown-input>
           </dime-form-group>
         </div>
     </div>
