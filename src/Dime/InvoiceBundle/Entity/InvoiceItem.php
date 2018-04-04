@@ -82,7 +82,7 @@ class InvoiceItem extends Entity implements DimeEntityInterface
      */
     public function setFromActivity(Activity $activity)
     {
-        $this->name         = $activity->getName();
+        $this->name         = $activity->getService()->getName();
         $this->rateValue    = $activity->getRateValue();
         $this->amount = $activity->getValue();
         $this->rateUnit     = $activity->getRateUnit();

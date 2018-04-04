@@ -75,11 +75,7 @@
 			{% for item in invoice.items %}
 			<tr class="tbody">
 				<td>
-					{% if item.activity and item.activity.service %}
-						{{ item.activity.service.name }}
-					{% else %}
-						{{ item.name }}
-					{% endif %}
+					{{ item.name }}
 				</td>
 				<td class="number">{{ item.rateValue }}</td>
 				<td>{{ item.rateUnit }}</td>
