@@ -30,10 +30,11 @@ class RateOverviewComponent extends EntityOverview<Rate> {
     return new Rate();
   }
 
-  @override
-  bool needsmanualAdd = true;
-
   int _serviceId;
+
+  RateGroup newRateGroup;
+
+  List<RateGroup> rateGroups = [];
 
   @Input()
   set service(int id) {
@@ -44,15 +45,38 @@ class RateOverviewComponent extends EntityOverview<Rate> {
   }
 
   @override
-  Future reload({Map<String, dynamic> params, bool evict: false}) {
-    return super.reload(params: {'service': this._serviceId}, evict: evict);
+  Future reload({Map<String, dynamic> params, bool evict: false}) async {
+    await super.reload(params: {'service': this._serviceId}, evict: evict);
+    updateNewRateGroup();
   }
 
   @override
-  void ngOnInit();
+  ngOnInit() async {
+    rateGroups = await store.list(RateGroup);
+    updateNewRateGroup();
+  }
 
   @override
-  Future createEntity({dynamic newEnt, Map<String, dynamic> params: const {}}) {
-    return super.createEntity(params: {'service': this._serviceId});
+  Future createEntity({dynamic newEnt, Map<String, dynamic> params: const {}}) async {
+    var rate = new Rate();
+    rate.rateGroup = newRateGroup;
+    rate.addFieldtoUpdate("rateGroup");
+    rate.addFieldtoUpdate("rateGroup");
+    rate.init(params: {'service': this._serviceId});
+    await super.createEntity(newEnt: rate);
+    updateNewRateGroup();
+  }
+
+  List<RateGroup> unusedRateGroups() {
+    var usedRateGroups = entities.map((rate) => rate.rateGroup.id);
+    return rateGroups.where((rateGroup) => !usedRateGroups.contains(rateGroup.id)).toList(growable: false);
+  }
+
+  void updateNewRateGroup() {
+    if (rateGroups.isNotEmpty) {
+      newRateGroup = unusedRateGroups().first;
+    } else {
+      newRateGroup = null;
+    }
   }
 }

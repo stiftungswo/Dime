@@ -9,15 +9,14 @@
         <th width="60">Aktion</th>
       </tr>
     </thead>
-    <tbody *ngIf="entities != null">
+    <tbody class="editable-overview" *ngIf="entities != null">
       <tr
         *ngFor="let entity of entities ; let i = index"
         (click)="selectEntity(entity.id)"
         [ngClass]="rowClass(entity, row.valid)"
         ngControlGroup="rate{{i}}"
         #row="ngForm">
-        <td validationStatus class="form-group"><rate-group-select required ngControl="rategroup{{i}}"
-                              [(ngModel)]="entity.rateGroup" (ngModelChange)="entity.addFieldtoUpdate('rateGroup')"></rate-group-select></td>
+        <td><span>{{entity.rateGroup.name}}</span></td>
         <td validationStatus class="form-group"><input required ngControl="rateValue{{i}}" class="form-control"
                    [(ngModel)]="entity.rateValue" (change)="addSaveField('rateValue', entity)" /></td>
         <td validationStatus class="form-group"><input required ngControl="rateUnit{{i}}" class="form-control"
@@ -29,8 +28,15 @@
     </tbody>
   </table>
   <div boxFooter class="DimeControlButtons">
-    <dime-button primary (click)="createEntity()" glyphicon="plus">Hinzufügen</dime-button>
-    <dime-button primary (click)="duplicateEntity()" fontAwesome="copy">Duplizieren</dime-button>
-    <dime-button (click)="reloadEvict()" glyphicon="refresh"></dime-button>
+    <div class="row form-inline" *ngIf="unusedRateGroups().length > 0">
+      <div class="col-md-3">
+        <label>Tarifgruppe</label>
+        <rate-group-select [options]="unusedRateGroups()" [(ngModel)]="newRateGroup" ></rate-group-select>
+      </div>
+    </div>
+    <div class="col-md-12" style="margin-top: 5px">
+      <dime-button *ngIf="unusedRateGroups().length > 0" primary (click)="createEntity()" [enabled]="!statusservice.isLoading" glyphicon="plus">Tarif hinzufügen</dime-button>
+      <dime-button  (click)="reloadEvict()" glyphicon="refresh"></dime-button>
+    </div>
   </div>
 </dime-box>

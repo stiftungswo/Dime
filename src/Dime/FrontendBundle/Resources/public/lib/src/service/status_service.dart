@@ -16,6 +16,8 @@ class StatusService {
   int numSuccess = 0;
   int numError = 0;
 
+  bool get isLoading => numLoading > 0;
+
   setStatusToLoading() {
     numLoading += 1;
     _setStatus();

@@ -30,9 +30,11 @@
       </dime-form-group>
     </div>
   </div>
-  <rate-overview required [service]="entity.id"></rate-overview>
+  <rate-overview required [service]="entity.id" ngControlGroup="rates" #rates="ngForm"></rate-overview>
   <div class="DimeControlButtons">
-    <save-button [valid]="editform.valid" (click)="saveEntity()"></save-button>
+    <save-button [valid]="editform.valid"
+                 [enabled]="rates.valid" disabledTooltip="Die Tarife müssen korrekt ausgefüllt sein."
+                 (click)="saveEntity()"></save-button>
     <dime-button (click)="reloadEvict()" glyphicon="refresh"></dime-button>
   </div>
 </form>
