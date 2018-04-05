@@ -132,9 +132,7 @@ abstract class EntityOverview<T extends Entity> implements OnInit, AfterViewInit
       if (needsmanualAdd) {
         this.entities.add(clone);
       }
-      //TODO(44): the whole descendantsToUpdate property can be removed if we just return the cloned entities
-      clone.cloneDescendants(template);
-      await Future.wait(clone.descendantsToUpdate.map(this.store.create));
+      await Future.wait(clone.cloneDescendantsOf(template).map(this.store.create));
       this.statusservice.setStatusToSuccess();
       this.checkEntitiesEmpty();
     } catch (e, stack) {
