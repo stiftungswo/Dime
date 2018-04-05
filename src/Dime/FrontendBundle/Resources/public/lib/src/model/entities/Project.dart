@@ -44,9 +44,10 @@ class Project extends Entity {
       'rateGroup',
       'chargeable',
       'deadline',
-      'activities',
+      // these have to be saved separately using cloneDescendants()
+      //'activities',
       'projectCategory',
-      'invoices',
+      //'invoices', // we probably don't want to clone all the invoices
       'offers',
       'accountant',
       'deletedAt',

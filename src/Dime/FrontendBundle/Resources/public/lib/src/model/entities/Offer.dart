@@ -35,8 +35,9 @@ class Offer extends Entity {
       'accountant',
       'shortDescription',
       'description',
-      'offerPositions',
-      'offerDiscounts',
+      // these have to be saved separately using cloneDescendants()
+      // 'offerPositions',
+      // 'offerDiscounts',
       'status',
       'address',
       'fixedPrice',

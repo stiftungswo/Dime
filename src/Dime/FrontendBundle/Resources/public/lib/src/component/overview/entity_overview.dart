@@ -119,25 +119,27 @@ abstract class EntityOverview<T extends Entity> implements OnInit, AfterViewInit
   T cEnt({T entity});
 
   Future duplicateEntity() async {
-    T ent = this.selectedEntity;
-    if (ent != null) {
+    if (this.selectedEntity == null) {
+      window.alert("Es ist nichts ausgewählt");
+      return null;
+    }
+
+    try {
       this.statusservice.setStatusToLoading();
-      T newEnt = this.cEnt(entity: ent);
-      try {
-        T result = await this.store.create(newEnt);
-        if (needsmanualAdd) {
-          this.entities.add(result);
-        }
-        result.cloneDescendants(ent);
-        for (Entity entity in result.descendantsToUpdate) {
-          await this.store.create(entity);
-        }
-        this.statusservice.setStatusToSuccess();
-        this.checkEntitiesEmpty();
-      } catch (e, stack) {
-        print("Unable to duplicate entity ${this.type.toString()}::${newEnt.id} because ${e}");
-        this.statusservice.setStatusToError(e, stack);
+      //We need to load the full entity instead of the placeholder it is being represented by in the overview; i.e. an [Invoice] needs its invoiceItems so we can clone them too
+      T template = await this.store.one(selectedEntity.runtimeType, selectedEntity.id);
+      T clone = await this.store.create(this.cEnt(entity: template));
+      if (needsmanualAdd) {
+        this.entities.add(clone);
       }
+      //TODO(44): the whole descendantsToUpdate property can be removed if we just return the cloned entities
+      clone.cloneDescendants(template);
+      await Future.wait(clone.descendantsToUpdate.map(this.store.create));
+      this.statusservice.setStatusToSuccess();
+      this.checkEntitiesEmpty();
+    } catch (e, stack) {
+      print("Unable to duplicate entity ${this.type.toString()}::${this.selectedEntity.id} because ${e}");
+      this.statusservice.setStatusToError(e, stack);
     }
   }
 
@@ -245,6 +247,7 @@ abstract class EntityOverview<T extends Entity> implements OnInit, AfterViewInit
   bool required = false;
 
   ///a dummy control to mimick empty state of [entities], used for [required] validation
+  ///TODO(124) this likely wouldn't be needed if we implement our EditableOverviews with [ControlArray]
   Control _entitiesHasContent = null;
 
   @ViewChild("overview")
