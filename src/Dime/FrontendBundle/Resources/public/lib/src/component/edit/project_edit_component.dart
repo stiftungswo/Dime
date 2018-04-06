@@ -73,6 +73,10 @@ class ProjectEditComponent extends EntityEdit<Project> {
     this.rateGroups = await this.store.list(RateGroup);
   }
 
+  void rateGroupChanged() {
+    entityEventsService.emit(EntityEvent.RATE_GROUP_CHANGED);
+  }
+
   Future openOffer(int id) async {
     router.navigate([
       'OfferEdit',

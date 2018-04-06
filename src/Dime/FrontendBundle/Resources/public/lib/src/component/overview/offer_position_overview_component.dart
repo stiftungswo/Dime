@@ -35,26 +35,35 @@ class OfferPositionOverviewComponent extends EntityOverview<OfferPosition> {
   @override
   bool needsmanualAdd = true;
 
-  int _offerId;
+  Offer _offer;
+  Offer get offer => _offer;
 
   @Input('offer')
-  set offerId(int id) {
-    if (id != null) {
-      this._offerId = id;
-      reload();
-    }
+  void set offer(Offer offer) {
+    _offer = offer;
+    reload();
+  }
+
+  ///services that share a rateGroup with the [offer]
+  List<Service> availableServices = [];
+
+  @override
+  Future reload({Map<String, dynamic> params, bool evict: false}) async {
+    super.reload(params: {'offer': _offer?.id}, evict: evict);
+    await updateAvailableServices();
+  }
+
+  Future updateAvailableServices() async {
+    availableServices = await store.list(Service, params: {"rateGroup": _offer?.rateGroup?.id});
   }
 
   @override
-  Future reload({Map<String, dynamic> params, bool evict: false}) {
-    return super.reload(params: {'offer': this._offerId}, evict: evict);
+  void ngOnInit() {
+    entityEventsService.addListener(EntityEvent.RATE_GROUP_CHANGED, this.updateAvailableServices);
   }
-
-  @override
-  void ngOnInit();
 
   @override
   Future createEntity({OfferPosition newEnt, Map<String, dynamic> params: const {}}) {
-    return super.createEntity(params: {'offer': this._offerId});
+    return super.createEntity(params: {'offer': _offer.id});
   }
 }

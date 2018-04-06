@@ -4,7 +4,9 @@
       <thead>
         <tr>
           <th>Reihenfolge</th>
-          <th class="col-sm-4">Service</th>
+          <th class="col-sm-4">Service
+            <help-tooltip text="Wenn dein Service nicht aufgelistet ist, ist er entweder archiviert oder nicht für den Tarif der Offerte konfiguriert."></help-tooltip>
+          </th>
           <th>Tarif</th>
           <th>Tarif Einheit</th>
           <th>Einheits-Typ</th>
@@ -26,7 +28,7 @@
             <input ngControl="order{{i}}" class="form-control" type="number"
                    [(ngModel)]="entity.order" (change)="addSaveField('order', entity)"/></td>
           <td validationStatus class="form-group">
-            <service-select required ngControl="service{{i}}" hideArchived
+            <service-select required ngControl="service{{i}}" hideArchived [options]="availableServices" [disabled]="offer?.rateGroup == null"
                             [(ngModel)]="entity.service" (ngModelChange)="entity.addFieldtoUpdate('service')"></service-select></td>
           <td validationStatus class="form-group">
             <input required ngControl="rateValue{{i}}" class="form-control"

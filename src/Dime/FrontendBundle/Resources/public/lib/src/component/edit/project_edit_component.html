@@ -48,11 +48,11 @@
               <input type="checkbox" [(ngModel)]="entity.archived" (change)="addSaveField('archived')"> Archiviert
             </label>
           </dime-form-group>
-          <dime-form-group horizontal label="Tarif Gruppe">
+          <dime-form-group horizontal label="Tarif">
             <rate-group-select required ngControl="rateGroup"
                               [placeholder]="entity?.customer?.rateGroup?.name ?? ''"
                               [(ngModel)]="entity.rateGroup"
-                              (ngModelChange)="entity.addFieldtoUpdate('rateGroup')"></rate-group-select>
+                              (ngModelChange)="entity.addFieldtoUpdate('rateGroup'); rateGroupChanged()"></rate-group-select>
           </dime-form-group>
           <dime-form-group horizontal label="Tätigkeitsbereich">
             <project-category-select required ngcontrol="projectCategory" #projectCategory="ngForm"
@@ -94,7 +94,7 @@
       </div>
     </div>
   </div>
-<activity-overview [project]="entity?.id"></activity-overview>
+<activity-overview [project]="entity"></activity-overview>
 <div class="DimeControlButtons">
   <save-button [valid]="editform.valid"
                [enabled]="projectCategory.valid" disabledTooltip="Der Tätigkeitsbereich muss erfasst sein"

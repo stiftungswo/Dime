@@ -32,6 +32,9 @@ abstract class EntitySelect<T extends Entity> implements OnInit, ControlValueAcc
   @Input('placeholder')
   String placeholder = '';
 
+  @Input()
+  bool disabled = false;
+
   ///this allows you to provide your own list of entities to be displayed
   List<T> _overrideEntities = null;
   List<T> get overrideEntities => _overrideEntities;
@@ -98,6 +101,9 @@ abstract class EntitySelect<T extends Entity> implements OnInit, ControlValueAcc
   }
 
   void openSelectionBox() {
+    if (disabled) {
+      return;
+    }
     if (!this.open) {
       // adjust size of dropdown to available size
       DivElement dropdown = this.element.querySelector(".dropdown") as DivElement;

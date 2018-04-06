@@ -43,7 +43,7 @@
           </dime-form-group>
           <dime-form-group horizontal label="Tarif" class="form-group">
             <rate-group-select required ngControl="rateGroup"
-                              [(ngModel)]="entity.rateGroup" (ngModelChange)="addSaveField('rateGroup')"></rate-group-select>
+                              [(ngModel)]="entity.rateGroup" (ngModelChange)="addSaveField('rateGroup'); rateGroupChanged()"></rate-group-select>
           </dime-form-group>
           <h4>Addresse</h4>
           <address-edit [(address)]="entity.address" (change)="addSaveField('address')"></address-edit>
@@ -63,7 +63,7 @@
   </div>
   <div class="row">
     <div class="col-md-12 right">
-      <offer-position-overview [offer]="entity.id"></offer-position-overview>
+      <offer-position-overview [offer]="entity"></offer-position-overview>
     </div>
   </div>
   <div class="row">

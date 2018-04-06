@@ -119,6 +119,10 @@ class OfferEditComponent extends EntityEdit<Offer> {
     ]);
   }
 
+  void rateGroupChanged() {
+    entityEventsService.emit(EntityEvent.RATE_GROUP_CHANGED);
+  }
+
   Future createProject() async {
     if (await saveEntity()) {
       Project newProject = (await this.store.customQueryOne<Project>(

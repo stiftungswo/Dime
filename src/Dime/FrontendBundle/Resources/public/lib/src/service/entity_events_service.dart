@@ -3,15 +3,25 @@ import 'dart:async';
 
 @Injectable()
 class EntityEventsService {
-  final StreamController<String> _changeStreamController = new StreamController<String>.broadcast();
+  final StreamController<EntityEvent> _changeStreamController = new StreamController<EntityEvent>.broadcast();
 
-  Stream<String> get _stream => _changeStreamController.stream;
+  Stream<EntityEvent> get _stream => _changeStreamController.stream;
 
   void emitSaveChanges() {
-    _changeStreamController.add('saveChanges');
+    emit(EntityEvent.SAVE_CHANGES);
   }
 
-  StreamSubscription<String> addSaveChangesListener(void listener()) {
-    return _stream.where((eventName) => eventName == 'saveChanges').listen((_) => listener());
+  StreamSubscription<EntityEvent> addSaveChangesListener(void listener()) {
+    return addListener(EntityEvent.SAVE_CHANGES, listener);
+  }
+
+  void emit(EntityEvent event) {
+    _changeStreamController.add(event);
+  }
+
+  StreamSubscription<EntityEvent> addListener(EntityEvent event, void listener()) {
+    return _stream.where((eventName) => eventName == event).listen((_) => listener());
   }
 }
+
+enum EntityEvent { SAVE_CHANGES, RATE_GROUP_CHANGED }

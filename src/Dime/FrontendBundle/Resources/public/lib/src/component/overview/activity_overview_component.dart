@@ -19,14 +19,12 @@ import 'entity_overview.dart';
   directives: const [CORE_DIRECTIVES, formDirectives, dimeDirectives, ServiceSelectComponent],
 )
 class ActivityOverviewComponent extends EntityOverview<Activity> {
-  int _projectId;
-
-  @Input('project')
-  set projectId(int id) {
-    if (id != null) {
-      this._projectId = id;
-      reload();
-    }
+  Project _project;
+  Project get project => _project;
+  @Input()
+  void set project(Project project) {
+    _project = project;
+    reload();
   }
 
   ActivityOverviewComponent(
@@ -44,23 +42,33 @@ class ActivityOverviewComponent extends EntityOverview<Activity> {
   @override
   bool needsmanualAdd = true;
 
-  @override
-  void ngOnInit();
+  ///services that share a rateGroup with the [project]
+  List<Service> availableServices = [];
 
   @override
-  Future createEntity({Activity newEnt, Map<String, dynamic> params: const {}}) {
-    return super.createEntity(params: {'project': this._projectId});
+  void ngOnInit() {
+    entityEventsService.addListener(EntityEvent.RATE_GROUP_CHANGED, this.updateAvailableServices);
   }
 
   @override
-  Future reload({Map<String, dynamic> params, bool evict: false}) {
-    return super.reload(params: {'project': this._projectId}, evict: evict);
+  Future createEntity({Activity newEnt, Map<String, dynamic> params: const {}}) {
+    return super.createEntity(params: {'project': this._project?.id});
+  }
+
+  @override
+  Future reload({Map<String, dynamic> params, bool evict: false}) async {
+    super.reload(params: {'project': this._project?.id}, evict: evict);
+    await updateAvailableServices();
+  }
+
+  Future updateAvailableServices() async {
+    availableServices = await store.list(Service, params: {"rateGroup": _project?.rateGroup?.id});
   }
 
   @override
   Future deleteEntity([int entId]) async {
     this.statusservice.setStatusToLoading();
-    List<Invoice> invoices = await this.store.list(Invoice, params: {'project': this._projectId});
+    List<Invoice> invoices = await this.store.list(Invoice, params: {'project': this._project?.id});
     List<List<InvoiceItem>> invoiceItemResults = await Future.wait<List<InvoiceItem>>(invoices.map((c) {
       return this.store.list(InvoiceItem, params: {'invoice': c.id});
     }));

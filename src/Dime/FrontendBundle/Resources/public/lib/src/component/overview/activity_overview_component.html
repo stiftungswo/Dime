@@ -3,7 +3,9 @@
     <thead>
     <tr>
       <th width="40">ID</th>
-      <th>Service</th>
+      <th>Service
+        <help-tooltip text="Wenn dein Service nicht aufgelistet ist, ist er entweder archiviert oder nicht für den Tarif des Projekts konfiguriert."></help-tooltip>
+      </th>
       <th>Beschreibung</th>
       <th>Preis</th>
       <th>Einheit</th>
@@ -20,8 +22,8 @@
       #row="ngForm"
     >
       <td>{{entity.id}}</td>
-      <td validationStatus class="form-group"><service-select hideArchived required ngControl="service"
-                                                              [(ngModel)]="entity.service"
+      <td validationStatus class="form-group"><service-select hideArchived required [options]="availableServices" [disabled]="project?.rateGroup == null"
+                                                              ngControl="service{{i}}" [(ngModel)]="entity.service"
                                                               (ngModelChange)="entity.addFieldtoUpdate('service')"></service-select></td>
       <td><textarea class="form-control tiny" [(ngModel)]="entity.description" (change)="addSaveField('description', entity)"></textarea></td>
       <td>{{entity.rateValue}}</td>

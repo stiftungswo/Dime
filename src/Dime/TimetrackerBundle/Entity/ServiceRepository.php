@@ -49,4 +49,44 @@ class ServiceRepository extends EntityRepository
     {
         return $this;
     }
+
+    public function scopeByRateGroup($rateGroupId, QueryBuilder $qb = null)
+    {
+        $aliases = $qb->getRootAliases();
+        $alias = array_shift($aliases);
+        $qb->innerJoin($alias . '.rates', 'rates111');
+        $qb->innerJoin('rates111.rateGroup', 'rateGroup111');
+        $qb->where('rateGroup111.id = :rateGroupId');
+        $qb->setParameter('rateGroupId', $rateGroupId);
+        return $this;
+    }
+
+    /**
+     * Add different filter option to query
+     *
+     * @param array $filter
+     * @param \Doctrine\ORM\QueryBuilder $qb
+     *
+     * @return ServiceRepository
+     * @throws \Exception if an invalid filter is provided
+     */
+    public function filter(array $filter, QueryBuilder $qb = null)
+    {
+        if ($qb == null) {
+            $qb = $this->builder;
+        }
+
+        if ($filter != null) {
+            foreach ($filter as $key => $value) {
+                switch ($key) {
+                    case 'rateGroup':
+                        $this->scopeByRateGroup($value, $qb);
+                        break;
+                    default:
+                        throw new \Exception("Invalid filter $key");
+                }
+            }
+        }
+        return $this;
+    }
 }
