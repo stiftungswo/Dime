@@ -73,8 +73,9 @@ class RateOverviewComponent extends EntityOverview<Rate> {
   }
 
   void updateNewRateGroup() {
-    if (rateGroups.isNotEmpty) {
-      newRateGroup = unusedRateGroups().first;
+    var unused = unusedRateGroups();
+    if (unused.isNotEmpty) {
+      newRateGroup = unused.first;
     } else {
       newRateGroup = null;
     }
