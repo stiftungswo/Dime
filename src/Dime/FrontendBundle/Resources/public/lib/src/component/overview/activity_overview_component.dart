@@ -65,8 +65,26 @@ class ActivityOverviewComponent extends EntityOverview<Activity> {
     availableServices = await store.list(Service, params: {"rateGroup": _project?.rateGroup?.id});
   }
 
+  bool isBooked(Activity activity) {}
+
   @override
-  Future deleteEntity([int entId]) async {
+  Future deleteEntity([int activityId]) async {
+    var activityToDelete = this.entities.firstWhere((a) => a.id == activityId);
+
+    if (hasLinkedTimeslices(activityToDelete)) {
+      window.alert('Kann nicht gelöscht werden, da Zeiteinträge darauf gebucht sind.');
+      return;
+    }
+
+    if (await hasLinkedInvoices(activityId)) {
+      window.alert('Kann nicht gelöscht werden, da noch Rechnungsposten darauf verweisen!');
+      return;
+    }
+
+    super.deleteEntity(activityId);
+  }
+
+  Future<bool> hasLinkedInvoices(int activityId) async {
     this.statusservice.setStatusToLoading();
     List<Invoice> invoices = await this.store.list(Invoice, params: {'project': this._project?.id});
     List<List<InvoiceItem>> invoiceItemResults = await Future.wait<List<InvoiceItem>>(invoices.map((c) {
@@ -76,11 +94,18 @@ class ActivityOverviewComponent extends EntityOverview<Activity> {
     List<int> activityIds = invoiceItemResults.expand((c) => c.map((i) => i.activity.id as int)).toList();
     print(activityIds);
     this.statusservice.setStatusToSuccess();
+    return activityIds.any((id) => id == activityId);
+  }
 
-    if (activityIds.any((id) => id == entId)) {
-      window.alert('Kann nicht gelöscht werden, da noch Rechnungsposten darauf verweisen!');
-    } else {
-      super.deleteEntity(entId);
+  bool hasLinkedTimeslices(Activity activity) {
+    //we could actually try loading the timeslices here, but looking at the value is probably enough
+
+    //to figure out whether the value is not 0, we first have to strip off those pesky suffixes
+    var valueRegex = new RegExp(r"([\d\.]+)");
+    var match = valueRegex.firstMatch(activity.value.toString());
+    if (match == null) {
+      return true;
     }
+    return num.parse(match.group(1)) != 0;
   }
 }
