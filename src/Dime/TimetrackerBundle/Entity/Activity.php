@@ -116,8 +116,11 @@ class Activity extends Entity implements DimeEntityInterface
     /**
      * @var RateUnitType $rateUnitType
      *
-     * @ORM\ManyToOne(targetEntity="Dime\TimetrackerBundle\Entity\RateUnitType")
+     * @JMS\Groups({"List"})
+     * @JMS\MaxDepth(1)
      * @JMS\SerializedName("rateUnitType")
+     * @ORM\ManyToOne(targetEntity="Dime\TimetrackerBundle\Entity\RateUnitType")
+     * @ORM\JoinColumn(name="rateUnitType_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
      */
     protected $rateUnitType;
 

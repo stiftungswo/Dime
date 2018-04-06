@@ -16,7 +16,7 @@ import 'entity_overview.dart';
 @Component(
   selector: 'activity-overview',
   templateUrl: 'activity_overview_component.html',
-  directives: const [CORE_DIRECTIVES, formDirectives, dimeDirectives, ServiceSelectComponent],
+  directives: const [CORE_DIRECTIVES, formDirectives, dimeDirectives, ServiceSelectComponent, RateUnitTypeSelectComponent],
 )
 class ActivityOverviewComponent extends EntityOverview<Activity> {
   Project _project;
