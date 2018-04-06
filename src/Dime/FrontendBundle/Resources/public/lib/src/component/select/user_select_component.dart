@@ -30,10 +30,6 @@ class UserSelectComponent extends EntitySelect<Employee> implements OnChanges {
   @Input('parentEmployees')
   List<Employee> parentEmployees = null;
 
-  // Disable the select box because of projectId being null sometimes
-  @Input('isReadonly')
-  bool isReadonly = false;
-
   @override
   get EntText => selectedEntity != null ? selectedEntity.fullname : '';
 
