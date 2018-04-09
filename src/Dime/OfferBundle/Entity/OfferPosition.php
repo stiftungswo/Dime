@@ -24,7 +24,7 @@ class OfferPosition extends Entity implements DimeEntityInterface
      * @JMS\MaxDepth(1)
      */
     protected $offer;
-    
+
     /**
      *
      * @JMS\SerializedName("service")
@@ -35,20 +35,20 @@ class OfferPosition extends Entity implements DimeEntityInterface
      * @var Service
      */
     protected $service;
-    
+
     /**
      * @JMS\SerializedName("order")
      * @ORM\Column(name="order_no", type="integer", nullable=true)
      */
     protected $order;
-    
+
     /**
      * Amount of the position is multiplicated with the rate to determine total cost e.g. amount of 7 hours.
      *
      * @ORM\Column(type="decimal", scale=2, precision=10, nullable=true)
      */
     protected $amount;
-    
+
     /**
      * @ORM\Column(name="rate_value", type="money", nullable=true)
      * @JMS\SerializedName("rateValue")
@@ -74,11 +74,6 @@ class OfferPosition extends Entity implements DimeEntityInterface
      * @ORM\Column(type="decimal", scale=3, precision=10, nullable=true)
      */
     protected $vat;
-    
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    protected $discountable;
 
     /**
      * @var boolean $chargeable
@@ -435,30 +430,6 @@ class OfferPosition extends Entity implements DimeEntityInterface
     public function getVat()
     {
         return $this->vat;
-    }
-
-    /**
-     * Set discountable
-     *
-     * @param boolean $discountable
-     *
-     * @return OfferPosition
-     */
-    public function setDiscountable($discountable)
-    {
-        $this->discountable = $discountable;
-
-        return $this;
-    }
-
-    /**
-     * Get discountable
-     *
-     * @return boolean
-     */
-    public function getDiscountable()
-    {
-        return $this->discountable;
     }
 
     /**

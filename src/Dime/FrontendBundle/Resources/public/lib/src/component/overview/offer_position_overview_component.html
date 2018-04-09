@@ -12,7 +12,6 @@
           <th>Einheits-Typ</th>
           <th>Menge</th>
           <th>MwSt.</th>
-          <th>Rabattierbar</th>
           <th>Total</th>
           <th width="60">Aktion</th>
         </tr>
@@ -45,7 +44,6 @@
           <td validationStatus class="form-group">
             <percentage-input required ngControl="vat{{i}}"
                               [(ngModel)]="entity.vat" (ngModelChange)="addSaveField('vat', entity)"></percentage-input></td>
-          <td><input class="checkbox" type="checkbox" [(ngModel)]="entity.discountable" (change)="addSaveField('discountable', entity)"/></td>
           <td>{{entity.total}}</td>
           <td><dime-button (click)="deleteEntity(entity.id)" fontAwesome="trash-o" color="red"></dime-button></td>
         </tr>

@@ -22,9 +22,8 @@ class OfferPosition extends Entity {
     this.rateUnit = original.rateUnit;
     this.rateUnitType = original.rateUnitType;
     this.vat = original.vat;
-    this.discountable = original.discountable;
     this.offer = original.offer;
-    addFieldstoUpdate(['service', 'order', 'amount', 'rateValue', 'rateUnit', 'rateUnitType', 'vat', 'discountable', 'offer']);
+    addFieldstoUpdate(['service', 'order', 'amount', 'rateValue', 'rateUnit', 'rateUnitType', 'vat', 'offer']);
   }
 
   OfferPosition.fromMap(Map<String, dynamic> map) : super.fromMap(map);
@@ -55,8 +54,6 @@ class OfferPosition extends Entity {
           return this.rateUnitType;
         case 'vat':
           return this.vat;
-        case 'discountable':
-          return this.discountable;
         case 'calculatedVAT':
           return this.calculatedVAT;
         case 'calculatedRateValue':
@@ -97,8 +94,6 @@ class OfferPosition extends Entity {
       case 'vat':
         this.vat = value as double;
         break;
-      case 'discountable':
-        this.discountable = value as bool;
         break;
       case 'serviceRate':
         this.serviceRate = value is Rate ? value : new Rate.fromMap(value as Map<String, dynamic>);
@@ -149,5 +144,4 @@ class OfferPosition extends Entity {
   String rateUnit;
   RateUnitType rateUnitType;
   double vat;
-  bool discountable;
 }

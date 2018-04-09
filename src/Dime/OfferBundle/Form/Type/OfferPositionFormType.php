@@ -21,8 +21,8 @@ class OfferPositionFormType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        
-        
+
+
         $builder
             ->add('offer')
             ->add('order')
@@ -31,7 +31,6 @@ class OfferPositionFormType extends AbstractType
             ->add('rateUnit')
             ->add('rateUnitType')
             ->add('vat')
-            ->add('discountable')
             ->add('user')
             ->add('service');
     }

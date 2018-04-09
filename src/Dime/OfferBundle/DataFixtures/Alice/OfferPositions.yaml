@@ -2,7 +2,6 @@ Dime\OfferBundle\Entity\OfferPosition:
     offerPosition_1:
         order: 1
         amount: 20
-        discountable: true
         user: @user_1
         offer: @offer_1
         service: @service_*
@@ -10,7 +9,6 @@ Dime\OfferBundle\Entity\OfferPosition:
     offerPosition_{2..50}:
         order: <randomNumber(3)>
         amount: <randomNumber(2)>
-        discountable: <boolean(70)>
         user: @user_*
         offer: @offer_<numberBetween(1, 10)>
         service: @service_*

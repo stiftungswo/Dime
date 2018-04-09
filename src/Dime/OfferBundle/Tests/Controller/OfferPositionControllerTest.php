@@ -44,7 +44,6 @@ class OfferPositionControllerTest extends DimeTestCase
                 'order' => 10,
                 'amount' => 33,
                 'vat' => 8,
-                'discountable' => true,
             ))
         );
         $this->assertEquals(201, $response->getStatusCode(), $response->getContent());
