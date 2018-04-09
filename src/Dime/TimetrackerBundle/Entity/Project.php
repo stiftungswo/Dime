@@ -30,6 +30,11 @@ class Project extends Entity implements DimeEntityInterface
     use SoftDeleteTrait;
 
     /**
+     * Archivable fields
+     */
+    use ArchivableTrait;
+
+    /**
      * @var Customer $customer
      *
      * @JMS\MaxDepth(2)
@@ -195,13 +200,6 @@ class Project extends Entity implements DimeEntityInterface
      * @JMS\MaxDepth(1)
      */
     protected $accountant;
-
-    /**
-     * @var boolean $archived
-     * @JMS\Groups({"List"})
-     * @ORM\Column(type="boolean")
-     */
-    protected $archived = false;
 
     /**
      * @JMS\VirtualProperty()
@@ -867,36 +865,5 @@ class Project extends Entity implements DimeEntityInterface
         $this->accountant = $accountant;
 
         return $this;
-    }
-
-    /**
-     * @return boolean
-     */
-    public function isArchived()
-    {
-        return $this->archived;
-    }
-
-    /**
-     * @param boolean $archived
-     *
-     * @return $this
-     */
-    public function setArchived($archived)
-    {
-        if ($archived !== 'empty') {
-            $this->archived = $archived;
-        }
-        return $this;
-    }
-
-    /**
-     * Get archived
-     *
-     * @return boolean
-     */
-    public function getArchived()
-    {
-        return $this->archived;
     }
 }
