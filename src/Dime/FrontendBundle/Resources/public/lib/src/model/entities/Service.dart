@@ -74,13 +74,15 @@ class Service extends Entity {
   }
 
   @override
-  cloneDescendants(Entity original) {
+  List<Entity> cloneDescendantsOf(Entity original) {
     if (original is Service) {
+      var clones = new List<Entity>();
       for (Rate entity in original.rates) {
         Rate clone = new Rate.clone(entity);
         clone.service = this;
-        this.descendantsToUpdate_.add(clone);
+        clones.add(clone);
       }
+      return clones;
     } else {
       throw new Exception("Invalid type ${original.runtimeType}, Service expected");
     }

@@ -32,8 +32,9 @@ class Invoice extends Entity {
     addFieldstoUpdate([
       'description',
       'project',
-      'items',
-      'invoiceDiscounts',
+      // these have to be saved separately using cloneDescendants()
+      //'items',
+      //'invoiceDiscounts',
       'start',
       'end',
       'customer',
@@ -172,18 +173,22 @@ class Invoice extends Entity {
   }
 
   @override
-  cloneDescendants(Entity original) {
+  List<Entity> cloneDescendantsOf(Entity original) {
     if (original is Invoice) {
+      var clones = new List<Entity>();
+
       for (InvoiceItem entity in original.items) {
         InvoiceItem clone = new InvoiceItem.clone(entity);
         clone.invoice = this;
-        this.descendantsToUpdate_.add(clone);
+        clones.add(clone);
       }
       for (InvoiceDiscount entity in original.invoiceDiscounts) {
         InvoiceDiscount clone = new InvoiceDiscount.clone(entity);
         clone.invoice = this;
-        this.descendantsToUpdate_.add(clone);
+        clones.add(clone);
       }
+      //TODO invoiceCostgroups should be cloned here as well - but they need to be added to the model first
+      return clones;
     } else {
       throw new Exception("Invalid Type; Invoice expected!");
     }
@@ -206,6 +211,6 @@ class Invoice extends Entity {
   DateTime start;
   DateTime end;
   Employee accountant;
-  Costgroup costgroup;
+  Costgroup costgroup; //TODO single costgroup is obsolete; remove this in favor of invoiceCostgroups
   InvoiceBreakdown breakdown;
 }

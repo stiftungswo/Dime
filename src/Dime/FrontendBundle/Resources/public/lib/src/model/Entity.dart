@@ -71,12 +71,9 @@ class Entity {
     return map;
   }
 
-  cloneDescendants(Entity original) {}
-
-  @protected
-  List<Entity> descendantsToUpdate_ = [];
-
-  List<Entity> get descendantsToUpdate => descendantsToUpdate_;
+  List<Entity> cloneDescendantsOf(Entity original) {
+    return [];
+  }
 
   dynamic id;
   List<String> _toUpdate = [];
