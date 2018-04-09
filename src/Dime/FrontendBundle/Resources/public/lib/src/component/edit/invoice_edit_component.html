@@ -20,7 +20,7 @@
             <dime-form-group horizontal label="Name">
               <input required ngControl="name" class="form-control" [(ngModel)]="entity.name" (change)="addSaveField('name')">
             </dime-form-group>
-            <dime-form-group horizontal label="Auftrag" *ngIf="entity.project != null">
+            <dime-form-group horizontal label="Projekt" *ngIf="entity.project != null">
               <input disabled class="form-control" [value]="entity.project.name"/>
             </dime-form-group>
             <dime-form-group horizontal label="Kunde">

@@ -48,7 +48,7 @@
 			</table>
 			<table breakable="false" class="toptable">
 				<tr>
-					{% if invoice.project %}<td width="20%">Auftrag Nr. {{ invoice.project.id }}</td>{% endif %}
+					{% if invoice.project %}<td width="20%">Projekt Nr. {{ invoice.project.id }}</td>{% endif %}
 					<td>Kostenstellen {% for dist in invoice.costgroupDistribution %}
 							 {{  dist.ratio|round }}% {{ dist.number }} {% if not loop.last %},{% endif %}
 						{% endfor %}</td>
