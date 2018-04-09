@@ -27,7 +27,7 @@ class Invoice extends Entity {
     this.totalVAT2 = original.totalVAT2;
     this.fixedPrice = original.fixedPrice;
     this.accountant = original.accountant;
-    this.costgroup = original.costgroup;
+    this.costgroups = original.costgroups;
     this.breakdown = original.breakdown;
     addFieldstoUpdate([
       'description',
@@ -101,8 +101,8 @@ class Invoice extends Entity {
           return this.fixedPrice;
         case 'accountant':
           return this.accountant;
-        case 'costgroup':
-          return this.costgroup;
+        case 'costgroups':
+          return this.costgroups;
         case 'breakdown':
           return this.breakdown;
         default:
@@ -160,8 +160,8 @@ class Invoice extends Entity {
       case 'accountant':
         this.accountant = value is Employee ? value : new Employee.fromMap(value as Map<String, dynamic>);
         break;
-      case 'costgroup':
-        this.costgroup = value is Costgroup ? value : new Costgroup.fromMap(value as Map<String, dynamic>);
+      case 'costgroups':
+        this.costgroups = InvoiceCostgroup.listFromMap(value as List<Map<String, dynamic>>);
         break;
       case 'breakdown':
         this.breakdown = new InvoiceBreakdown.fromMap(value as Map<String, dynamic>);
@@ -187,7 +187,11 @@ class Invoice extends Entity {
         clone.invoice = this;
         clones.add(clone);
       }
-      //TODO invoiceCostgroups should be cloned here as well - but they need to be added to the model first
+      for (InvoiceCostgroup entity in original.costgroups) {
+        var clone = new InvoiceCostgroup.clone(entity);
+        clone.invoice = this;
+        clones.add(clone);
+      }
       return clones;
     } else {
       throw new Exception("Invalid Type; Invoice expected!");
@@ -208,9 +212,9 @@ class Invoice extends Entity {
   Project project;
   List<InvoiceItem> items = [];
   List<InvoiceDiscount> invoiceDiscounts = [];
+  List<InvoiceCostgroup> costgroups = [];
   DateTime start;
   DateTime end;
   Employee accountant;
-  Costgroup costgroup; //TODO single costgroup is obsolete; remove this in favor of invoiceCostgroups
   InvoiceBreakdown breakdown;
 }

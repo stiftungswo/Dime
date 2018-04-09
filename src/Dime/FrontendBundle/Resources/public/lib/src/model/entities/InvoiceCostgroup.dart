@@ -5,6 +5,8 @@ class InvoiceCostgroup extends Entity {
 
   InvoiceCostgroup.clone(InvoiceCostgroup original) : super.clone(original) {
     this.invoice = original.invoice;
+    this.costgroup = original.costgroup;
+    this.weight = original.weight;
     addFieldstoUpdate(['invoice', 'costgroup', 'weight']);
   }
 
