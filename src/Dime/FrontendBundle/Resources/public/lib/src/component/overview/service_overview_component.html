@@ -4,7 +4,7 @@
   </div>
   <div class="box-body">
     <div class="form-group">
-      <input type="text" class="form-control" placeholder="Suche" [(ngModel)]="filterString">
+      <input type="text" class="form-control" placeholder="Suche" [(ngModel)]="ServiceOverviewComponent.globalFilterString">
     </div>
     <table class="table table-bordered table-hover">
       <thead>
@@ -33,7 +33,7 @@
         </tr>
       </thead>
       <tbody *ngIf="entities != null">
-        <tr *ngFor="let entity of entities| orderBy:sortType:sortReverse | filter:['id', 'name', 'alias', 'description']:filterString" (click)="selectEntity(entity.id)" (dblclick)="openEditView(entity.id)" [class.info]="isSelected(entity)">
+        <tr *ngFor="let entity of entities| orderBy:sortType:sortReverse | filter:['id', 'name', 'alias', 'description']:ServiceOverviewComponent.globalFilterString" (click)="selectEntity(entity.id)" (dblclick)="openEditView(entity.id)" [class.info]="isSelected(entity)">
           <td>{{entity.id}}</td>
           <td>{{entity.name}} <span class="text-muted" *ngIf="entity.archived">[ARCHIVIERT]</span></td>
           <td>{{entity.alias}}</td>

@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
 import 'package:angular_router/angular_router.dart';
@@ -29,6 +27,8 @@ class InvoiceOverviewComponent extends EntityOverview<Invoice> implements OnActi
     sortType = "id";
     sortReverse = true;
   }
+
+  static String globalFilterString = '';
 
   @override
   routerOnActivate(ComponentInstruction nextInstruction, ComponentInstruction prevInstruction) {

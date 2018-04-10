@@ -68,7 +68,7 @@ class RateOverviewComponent extends EntityOverview<Rate> {
   }
 
   List<RateGroup> unusedRateGroups() {
-    var usedRateGroups = entities.map((rate) => rate.rateGroup.id);
+    Iterable<dynamic> usedRateGroups = entities.map<dynamic>((rate) => rate.rateGroup.id);
     return rateGroups.where((rateGroup) => !usedRateGroups.contains(rateGroup.id)).toList(growable: false);
   }
 

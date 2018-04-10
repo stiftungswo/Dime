@@ -33,6 +33,8 @@ class ProjectOpenInvoicesComponent extends EntityOverview<Project> implements On
     sortReverse = true;
   }
 
+  static String globalFilterString = '';
+
   HttpService http;
 
   UserContextService context;

@@ -9,7 +9,7 @@
       <dime-button (click)="reloadEvict()" glyphicon="refresh"></dime-button>
     </div>
     <div class="form-group">
-      <input type="text" class="form-control" placeholder="Suche" [(ngModel)]="filterString">
+      <input type="text" class="form-control" placeholder="Suche" [(ngModel)]="ProjectOverviewComponent.globalFilterString">
     </div>
     <div class="form-group">
       <label>Archivierte Projekte anzeigen: </label>
@@ -42,7 +42,7 @@
         </tr>
       </thead>
       <tbody *ngIf="entities != null">
-        <tr *ngFor="let entity of entities | filter:['id', 'name', 'alias', 'description']:filterString | orderBy:sortType:sortReverse "
+        <tr *ngFor="let entity of entities | filter:['id', 'name', 'alias', 'description']:ProjectOverviewComponent.globalFilterString | orderBy:sortType:sortReverse "
         (click)="selectEntity(entity.id)" (dblclick)="openEditView(entity.id)" [class.info]="isSelected(entity)">
           <template [ngIf]="showArchived || !entity.archived">
             <td>{{entity.id}}</td>

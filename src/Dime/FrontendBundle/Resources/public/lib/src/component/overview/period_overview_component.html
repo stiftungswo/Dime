@@ -37,7 +37,7 @@
         <input class="form-control" type="text" [(ngModel)]="entity.lastYearHolidayBalance" (change)="addSaveField('lastYearHolidayBalance', entity)" />
         <span class="input-group-addon">h</span>
       </td>
-      <td validationStatus class="hidden-xs form-group"><input required ngControl={vacationBudget{{i}}} class="form-control" type="number" style="width: 100%"
+      <td validationStatus class="hidden-xs form-group"><input required ngControl="vacationBudget{{i}}" class="form-control" type="number" style="width: 100%"
                                                     [(ngModel)]="entity.yearlyEmployeeVacationBudget" (change)="addSaveField('yearlyEmployeeVacationBudget', entity)" ></td>
       <td class="hidden-xs"><dime-button (click)="deleteEntity(entity.id)" fontAwesome="trash-o" color="red"></dime-button></td>
     </tr>

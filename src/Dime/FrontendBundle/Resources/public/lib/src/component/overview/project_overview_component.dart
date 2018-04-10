@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
 import 'package:angular_router/angular_router.dart';
@@ -30,6 +28,8 @@ class ProjectOverviewComponent extends EntityOverview<Project> implements OnActi
     sortType = "id";
     sortReverse = true;
   }
+
+  static String globalFilterString = '';
 
   bool showArchived = false;
 

@@ -31,6 +31,8 @@ class ServiceOverviewComponent extends EntityOverview<Service> implements OnActi
   @override
   String sortType = "name";
 
+  static String globalFilterString = '';
+
   @override
   Service cEnt({Service entity}) {
     if (entity != null) {

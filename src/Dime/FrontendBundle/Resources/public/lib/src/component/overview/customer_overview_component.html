@@ -9,7 +9,7 @@
       <dime-button (click)="reloadEvict()" glyphicon="refresh"></dime-button>
     </div>
     <div class="form-group">
-      <input type="text" class="form-control" placeholder="Suche" [(ngModel)]="filterString">
+      <input type="text" class="form-control" placeholder="Suche" [(ngModel)]="CustomerOverviewComponent.globalFilterString">
     </div>
     <table class="table table-bordered table-hover">
       <thead>
@@ -43,7 +43,7 @@
         </tr>
       </thead>
       <tbody *ngIf="entities != null">
-        <tr *ngFor="let entity of entities | orderBy:sortType:sortReverse | filter:['id', 'name', 'address']:filterString" (click)="selectEntity(entity.id)" (dblclick)="openEditView(entity.id)" [class.info]="isSelected(entity)">
+        <tr *ngFor="let entity of entities | orderBy:sortType:sortReverse | filter:['id', 'name', 'address']:CustomerOverviewComponent.globalFilterString" (click)="selectEntity(entity.id)" (dblclick)="openEditView(entity.id)" [class.info]="isSelected(entity)">
           <td>{{entity.id}}</td>
           <td>{{entity.name}}</td>
           <td>{{entity.address.street}} {{entity.address.streetnumber}}</td>

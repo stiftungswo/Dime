@@ -45,8 +45,6 @@ abstract class EntityOverview<T extends Entity> implements OnInit, AfterViewInit
 
   UserAuthService auth;
 
-  String filterString = "";
-
   String sortType = "";
 
   bool sortReverse = false;

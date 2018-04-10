@@ -65,8 +65,6 @@ class ActivityOverviewComponent extends EntityOverview<Activity> {
     availableServices = await store.list(Service, params: {"rateGroup": _project?.rateGroup?.id});
   }
 
-  bool isBooked(Activity activity) {}
-
   @override
   Future deleteEntity([int activityId]) async {
     var activityToDelete = this.entities.firstWhere((a) => a.id == activityId);
