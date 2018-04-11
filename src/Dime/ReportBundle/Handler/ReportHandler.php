@@ -201,7 +201,7 @@ class ReportHandler extends AbstractHandler
                 ->where('activity.project = :projectId')
                 ->andWhere('activity.rateUnitType != :other')
                 ->andWhere('timeslice.startedAt <= :endDate')
-                ->andWhere('timeslice.stoppedAt >= :startDate')
+                ->andWhere('timeslice.startedAt >= :startDate')
                 ->setParameter('projectId', $project->getId())
                 ->setParameter('other', 'a')
                 ->setParameter('startDate', new \DateTime($startDate))

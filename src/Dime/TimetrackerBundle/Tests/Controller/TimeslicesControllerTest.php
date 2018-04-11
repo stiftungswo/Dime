@@ -48,8 +48,7 @@ class TimeslicesControllerTest extends DimeTestCase
         $response = $this->jsonRequest('POST', $this->api_prefix.'/timeslices', json_encode(array(
             'activity'    => '1',
             'startedAt'   => '2012-02-10 19:00:00',
-            'stoppedAt'   => '2012-02-10 19:30:00',
-            'value'       => '',
+            'value'       => '1h',
             'user'        => '1',
             'employee'    => '1'
         )));
@@ -68,13 +67,12 @@ class TimeslicesControllerTest extends DimeTestCase
 
         // assert that data has content
         $this->assertEquals('2012-02-10 19:00:00', $data['startedAt'], 'expected to find "2012-02-10 19:00:00"');
-        $this->assertEquals('2012-02-10 19:30:00', $data['stoppedAt'], 'expected to find rate "2012-02-10 19:30:00"');
+        $this->assertEquals('2012-02-10 20:00:00', $data['stoppedAt'], 'expected to find rate "2012-02-10 20:00:00"');
 
         // modify activity
         $response = $this->jsonRequest('PUT', $this->api_prefix.'/timeslices/' . $id, json_encode(array(
             'activity'    => '1',
             'startedAt'   => '2012-02-10 19:00:00',
-            'stoppedAt'   => '2012-02-10 19:30:00',
             'value'       => '2h',
             'user'        => '1',
             'employee'    => '1'
@@ -84,7 +82,6 @@ class TimeslicesControllerTest extends DimeTestCase
         $response = $this->jsonRequest('PUT', $this->api_prefix.'/timeslices/' .($id+100), json_encode(array(
             'activity'    => '1',
             'startedAt'   => '2012-02-10 19:00:00',
-            'stoppedAt'   => '2012-02-10 19:30:00',
             'value'       => '',
             'user'        => '1',
             'employee'    => '1'

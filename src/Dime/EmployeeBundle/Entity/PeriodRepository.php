@@ -129,7 +129,7 @@ class PeriodRepository extends EntityRepository
                 ->createQuery('SELECT ts.value FROM DimeTimetrackerBundle:Timeslice ts
 								LEFT JOIN DimeTimetrackerBundle:Activity av WITH ts.activity = av.id
 								WHERE (ts.employee = :employeeid AND av.project = :projectid) AND
-								(ts.startedAt >= :startdate AND ts.stoppedAt <= :enddate)')
+								(ts.startedAt >= :startdate AND ts.startedAt <= :enddate)')
                 ->setParameters(['employeeid' => $employeeId, 'startdate' => $startDate, 'enddate' => $endDate, 'projectid' => (string)$vacationProjectId[0]['id']])
                 ->getResult();
         } else {
