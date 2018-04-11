@@ -82,44 +82,6 @@ class ActivityRepository extends EntityRepository
     }
 
     /**
-     * Filter active or non active activities. Active activities
-     * has a timeslice where stoppedAt is null and duration is 0.
-     *
-     * @param                            $active , boolean
-     * @param \Doctrine\ORM\QueryBuilder $qb
-     *
-     * @return \Doctrine\ORM\QueryBuilder
-     * @throws \Exception when $qb is null
-     */
-    public function scopeByActive($active, QueryBuilder $qb = null)
-    {
-        if ($qb == null) {
-            $qb = $this->builder;
-        }
-
-        $timesliceRepository = $this->getEntityManager()->getRepository('DimeTimetrackerBundle:Timeslice');
-        $ids = $timesliceRepository->fetchRunningActivityIds();
-
-        if ($active == 'true' || (is_bool($active) && $active)) {
-            // empty id list, should produce no output on query
-            if (empty($ids)) {
-                $ids[] = 0;
-            }
-            $qb->andWhere(
-                $qb->expr()->in('a.id', $ids)
-            );
-        } else {
-            if (!empty($ids)) {
-                $qb->andWhere(
-                    $qb->expr()->notIn('a.id', $ids)
-                );
-            }
-        }
-
-        return $this;
-    }
-
-    /**
      * Filter by customer id
      *
      * @param                            $id , integer
@@ -239,9 +201,6 @@ class ActivityRepository extends EntityRepository
             foreach ($filter as $key => $value) {
                 $value = $this->interpretComplexQuery($key, $value);
                 switch ($key) {
-                    case 'active':
-                        $this->scopeByActive($value, $qb);
-                        break;
                     case 'withTags':
                         $this->scopeWithTags($value, $qb);
                         break;
