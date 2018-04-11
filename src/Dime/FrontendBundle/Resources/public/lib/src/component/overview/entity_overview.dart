@@ -1,5 +1,3 @@
-library entity_overview;
-
 import 'dart:async';
 import 'dart:html';
 
@@ -15,7 +13,8 @@ import '../../service/settings_service.dart';
 import '../../service/status_service.dart';
 import '../../service/user_auth_service.dart';
 
-abstract class EntityOverview<T extends Entity> implements OnInit, AfterViewInit {
+abstract class EntityOverview<T extends Entity> implements OnInit {
+  //TODO: this can probably be removed
   bool needsmanualAdd = false;
 
   dynamic selectedEntId;
@@ -26,7 +25,6 @@ abstract class EntityOverview<T extends Entity> implements OnInit, AfterViewInit
 
   void set entities(List<T> entities) {
     _entities = entities;
-    checkEntitiesEmpty();
   }
 
   Type type;
@@ -58,27 +56,6 @@ abstract class EntityOverview<T extends Entity> implements OnInit, AfterViewInit
     return null;
   }
 
-  void saveAllEntities() {
-    for (T entity in this.entities) {
-      if (entity.needsUpdate) {
-        this.saveEntity(entity);
-      }
-    }
-  }
-
-  Future saveEntity(T entity) async {
-    this.statusservice.setStatusToLoading();
-    try {
-      T _ = await store.update(entity);
-      //mutating this array appears to break ngControl, so instead we just reload the component now
-      this.reload();
-      this.statusservice.setStatusToSuccess();
-    } catch (e, stack) {
-      print("Unable to save entity ${this.type.toString()}::${entity.id} because ${e}");
-      this.statusservice.setStatusToError(e, stack);
-    }
-  }
-
   void selectEntity(int entId) {
     this.selectedEntId = entId;
   }
@@ -106,7 +83,6 @@ abstract class EntityOverview<T extends Entity> implements OnInit, AfterViewInit
         this.openEditView(resp.id as int);
       } else {
         this.entities.add(resp);
-        this.checkEntitiesEmpty();
       }
     } catch (e, stack) {
       print("Unable to create entity ${this.type.toString()} because ${e}");
@@ -132,14 +108,13 @@ abstract class EntityOverview<T extends Entity> implements OnInit, AfterViewInit
       }
       await Future.wait(clone.cloneDescendantsOf(template).map(this.store.create));
       this.statusservice.setStatusToSuccess();
-      this.checkEntitiesEmpty();
     } catch (e, stack) {
       print("Unable to duplicate entity ${this.type.toString()}::${this.selectedEntity.id} because ${e}");
       this.statusservice.setStatusToError(e, stack);
     }
   }
 
-  Future deleteEntity([int entId]) async {
+  Future deleteEntity([dynamic entId]) async {
     if (entId == null) {
       entId = this.selectedEntId as int;
     }
@@ -152,7 +127,6 @@ abstract class EntityOverview<T extends Entity> implements OnInit, AfterViewInit
             await this.store.delete(ent);
           }
           this.entities.removeWhere((enty) => enty.id == entId);
-          this.checkEntitiesEmpty();
           this.statusservice.setStatusToSuccess();
         } catch (e, stack) {
           print("Unable to Delete entity ${this.type.toString()}::${entId} because ${e}");
@@ -209,10 +183,6 @@ abstract class EntityOverview<T extends Entity> implements OnInit, AfterViewInit
     }
   }
 
-  void addSaveField(String name, T entity) {
-    entity.addFieldtoUpdate(name);
-  }
-
   void changeSortOrder(String field) {
     if (sortType == field) {
       sortReverse = !sortReverse;
@@ -222,49 +192,6 @@ abstract class EntityOverview<T extends Entity> implements OnInit, AfterViewInit
     }
   }
 
-  rowClass(T entity, bool valid) {
-    if (valid ?? true) {
-      return {"info": isSelected(entity)};
-    } else {
-      if (isSelected(entity)) {
-        return {"warning": true};
-      } else {
-        return {"danger": true};
-      }
-    }
-  }
-
   EntityOverview(this.type, this.store, this.routename, this.settingsManager, this.statusservice, this.entityEventsService,
-      {this.router, this.auth}) {
-    entityEventsService.addSaveChangesListener(this.saveAllEntities);
-  }
-
-  @Input()
-  bool required = false;
-
-  ///a dummy control to mimick empty state of [entities], used for [required] validation
-  ///TODO(124) this likely wouldn't be needed if we implement our EditableOverviews with [ControlArray]
-  Control _entitiesHasContent = null;
-
-  @ViewChild("overview")
-  NgControlGroup overview;
-
-  @override
-  ngAfterViewInit() {
-    if (required) {
-      if (overview == null) {
-        throw new Exception("Marked ${this.toString()} as required, but did not export an `#overview='ngForm'` in its template");
-      } else {
-        _entitiesHasContent = new Control(null, Validators.required);
-        overview.control.addControl("entities", _entitiesHasContent);
-      }
-    }
-  }
-
-  void checkEntitiesEmpty() {
-    if (required) {
-      _entitiesHasContent.updateValue(_entities.isEmpty ? null : true);
-      _entitiesHasContent.markAsTouched();
-    }
-  }
+      {this.router, this.auth});
 }

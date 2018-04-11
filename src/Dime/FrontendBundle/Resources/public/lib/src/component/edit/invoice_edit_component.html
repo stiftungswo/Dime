@@ -1,6 +1,6 @@
 <h2 class="page-header">{{entity?.name}}&nbsp;</h2>
-
-<form #editform="ngForm" *ngIf="entity != null">
+<div *ngIf="entity != null">
+<form #editform="ngForm">
   <div class ="nav-tabs-custom">
     <ul class="nav nav-tabs">
       <template [ngIf]="entity.project != null && !entity.project.offers.isEmpty" >
@@ -62,7 +62,7 @@
           <div class="row">
             <label class="col-sm-6 control-label">Fixpreis</label>
             <div class="col-sm-6">
-              <input class="form-control" type="text" [(ngModel)]="entity.fixedPrice" (change)="addSaveField('fixedPrice')">
+              <input class="form-control" type="text" [(ngModel)]="entity.fixedPrice" (change)="addSaveField('fixedPrice')"/>
             </div>
           </div>
         </div>
@@ -82,3 +82,4 @@
   </div>
 </form>
 <edit-footer [entity]="entity"></edit-footer>
+</div>

@@ -9,17 +9,20 @@ import '../../service/entity_events_service.dart';
 import '../../service/settings_service.dart';
 import '../../service/status_service.dart';
 import '../common/dime_directives.dart';
-import 'entity_overview.dart';
+import 'editable_overview.dart';
 
 @Component(
   selector: 'offer-discount-overview',
   templateUrl: 'discount_overview.html',
   directives: const [CORE_DIRECTIVES, formDirectives, dimeDirectives],
 )
-class OfferDiscountOverviewComponent extends EntityOverview<OfferDiscount> {
-  OfferDiscountOverviewComponent(
-      CachingObjectStoreService store, SettingsService manager, StatusService status, EntityEventsService entityEventsService)
-      : super(OfferDiscount, store, '', manager, status, entityEventsService);
+class OfferDiscountOverviewComponent extends EditableOverview<OfferDiscount> {
+  OfferDiscountOverviewComponent(CachingObjectStoreService store, SettingsService manager, StatusService status,
+      EntityEventsService entityEventsService, ChangeDetectorRef changeDetector)
+      : super(OfferDiscount, store, '', manager, status, entityEventsService, changeDetector);
+
+  @override
+  List<String> get fields => const ['id', 'name', 'percentage', 'value'];
 
   @override
   OfferDiscount cEnt({OfferDiscount entity}) {

@@ -27,6 +27,7 @@ class UserSelectComponent extends EntitySelect<Employee> implements OnChanges {
   @Input()
   bool useContext = false;
 
+  ///TODO this is the same as [options] from the superclass; use that instead
   @Input('parentEmployees')
   List<Employee> parentEmployees = null;
 

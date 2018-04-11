@@ -14,19 +14,17 @@
     </thead>
     <tbody *ngIf="entities != null">
       <tr
-        *ngFor="let entity of entities | orderBy:'order' ; let i = index"
-        (click)="selectEntity(entity.id)"
-        [ngClass]="rowClass(entity, row.valid)"
-        ngControlGroup="position{{i}}"
-        #row="ngForm">
-        <td><input class="form-control" type="number" [(ngModel)]="entity.order" (change)="addSaveField('order', entity)"/></td>
-        <td validationStatus class="form-group"><input class="form-control" required ngControl="name" [(ngModel)]="entity.name" (change)="addSaveField('name', entity)"/></td>
-        <td validationStatus class="form-group"><input class="form-control" required ngControl="rateValue" [(ngModel)]="entity.rateValue" (change)="addSaveField('rateValue', entity)"/></td>
-        <td validationStatus class="form-group"><input class="form-control" required ngControl="rateUnit" [(ngModel)]="entity.rateUnit" (change)="addSaveField('rateUnit', entity)"/></td>
-        <td validationStatus class="form-group"><input class="form-control" required ngControl="amount" [(ngModel)]="entity.amount" (change)="addSaveField('amount', entity)"/></td>
-        <td validationStatus class="form-group"><percentage-input required ngControl="vat" [(ngModel)]="entity.vat" (ngModelChange)="addSaveField('vat', entity)"></percentage-input></td>
-        <td>{{entity.total}}</td>
-        <td><dime-button (click)="deleteEntity(entity.id)" fontAwesome="trash-o" color="red"></dime-button></td>
+        *ngFor="let c of controls | orderBy:'order'"
+        (click)="selectEntity(c.controls['id'].value)"
+        [ngClass]="rowClass(c.controls['id'].value, c.valid)" >
+        <td><input class="form-control" type="number" [ngFormControl]="c.controls['order']"/></td>
+        <td validationStatus class="form-group"><input class="form-control" required [ngFormControl]="c.controls['name']"/></td>
+        <td validationStatus class="form-group"><input class="form-control" required [ngFormControl]="c.controls['rateValue']"/></td>
+        <td validationStatus class="form-group"><input class="form-control" required [ngFormControl]="c.controls['rateUnit']"/></td>
+        <td validationStatus class="form-group"><input class="form-control" required [ngFormControl]="c.controls['amount']"/></td>
+        <td validationStatus class="form-group"><percentage-input required [ngFormControl]="c.controls['vat']"></percentage-input></td>
+        <td>{{c.controls['total'].value}}</td>
+        <td><dime-button (click)="deleteEntity(c.controls['id'].value)" fontAwesome="trash-o" color="red"></dime-button></td>
       </tr>
     </tbody>
   </table>

@@ -11,19 +11,14 @@
     </thead>
     <tbody class="editable-overview" *ngIf="entities != null">
       <tr
-        *ngFor="let entity of entities ; let i = index"
-        (click)="selectEntity(entity.id)"
-        [ngClass]="rowClass(entity, row.valid)"
-        ngControlGroup="rate{{i}}"
-        #row="ngForm">
-        <td><span>{{entity.rateGroup.name}}</span></td>
-        <td validationStatus class="form-group"><input required ngControl="rateValue{{i}}" class="form-control"
-                   [(ngModel)]="entity.rateValue" (change)="addSaveField('rateValue', entity)" /></td>
-        <td validationStatus class="form-group"><input required ngControl="rateUnit{{i}}" class="form-control"
-                   [(ngModel)]="entity.rateUnit" (change)="addSaveField('rateUnit', entity)"/></td>
-        <td validationStatus class="form-group"><rate-unit-type-select required ngControl="rateUnitType{{i}}"
-                                 [(ngModel)]="entity.rateUnitType" (ngModelChange)="entity.addFieldtoUpdate('rateUnitType')"></rate-unit-type-select></td>
-        <td><dime-button (click)="deleteEntity(entity.id)" fontAwesome="trash-o" color="red"></dime-button></td>
+        *ngFor="let c of controls"
+        (click)="selectEntity(c.controls['id'].value)"
+        [ngClass]="rowClass(c.controls['id'].value, c.valid)">
+        <td><span>{{c.controls['rateGroup'].value.name}}</span></td>
+        <td validationStatus class="form-group"><input required class="form-control" [ngFormControl]="c.controls['rateValue']" /></td>
+        <td validationStatus class="form-group"><input required class="form-control" [ngFormControl]="c.controls['rateUnit']"/></td>
+        <td validationStatus class="form-group"><rate-unit-type-select required [ngFormControl]="c.controls['rateUnitType']" ></rate-unit-type-select></td>
+        <td><dime-button (click)="deleteEntity(c.controls['id'].value)" fontAwesome="trash-o" color="red"></dime-button></td>
       </tr>
     </tbody>
   </table>

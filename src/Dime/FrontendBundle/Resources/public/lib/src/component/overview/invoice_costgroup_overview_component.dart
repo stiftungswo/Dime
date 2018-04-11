@@ -10,7 +10,7 @@ import '../../service/settings_service.dart';
 import '../../service/status_service.dart';
 import '../common/dime_directives.dart';
 import '../select/select.dart';
-import 'entity_overview.dart';
+import 'editable_overview.dart';
 
 @Component(
   selector: 'invoice-costgroup-overview',
@@ -18,10 +18,13 @@ import 'entity_overview.dart';
   directives: const [CORE_DIRECTIVES, formDirectives, dimeDirectives, CostgroupSelectComponent],
   pipes: const [DecimalPipe],
 )
-class InvoiceCostgroupOverviewComponent extends EntityOverview<InvoiceCostgroup> {
-  InvoiceCostgroupOverviewComponent(
-      CachingObjectStoreService store, SettingsService manager, StatusService status, EntityEventsService entityEventsService)
-      : super(InvoiceCostgroup, store, '', manager, status, entityEventsService);
+class InvoiceCostgroupOverviewComponent extends EditableOverview<InvoiceCostgroup> {
+  InvoiceCostgroupOverviewComponent(CachingObjectStoreService store, SettingsService manager, StatusService status,
+      EntityEventsService entityEventsService, ChangeDetectorRef changeDetector)
+      : super(InvoiceCostgroup, store, '', manager, status, entityEventsService, changeDetector);
+
+  @override
+  List<String> get fields => const ['id', 'weight', 'costgroup'];
 
   @override
   InvoiceCostgroup cEnt({InvoiceCostgroup entity}) {
@@ -44,7 +47,7 @@ class InvoiceCostgroupOverviewComponent extends EntityOverview<InvoiceCostgroup>
 
   @override
   Future reload({Map<String, dynamic> params, bool evict: false}) {
-    return super.reload(params: {'invoice': this._invoiceId}, evict: evict);
+    return super.reload(params: {'invoice': this._invoiceId});
   }
 
   @override

@@ -13,17 +13,31 @@ import '../../service/settings_service.dart';
 import '../../service/status_service.dart';
 import '../../service/user_context_service.dart';
 import '../common/dime_directives.dart';
-import 'entity_overview.dart';
+import 'editable_overview.dart';
 
 @Component(
     selector: 'period-overview',
     templateUrl: 'period_overview_component.html',
     directives: const [CORE_DIRECTIVES, formDirectives, dimeDirectives],
     pipes: const [dimePipes])
-class PeriodOverviewComponent extends EntityOverview<Period> {
+class PeriodOverviewComponent extends EditableOverview<Period> {
   PeriodOverviewComponent(CachingObjectStoreService store, SettingsService manager, StatusService status, this.context,
-      EntityEventsService entityEventsService, this.http)
-      : super(Period, store, '', manager, status, entityEventsService);
+      EntityEventsService entityEventsService, this.http, ChangeDetectorRef changeDetector)
+      : super(Period, store, '', manager, status, entityEventsService, changeDetector);
+
+  List<String> get fields => const [
+        'id',
+        'start',
+        'end',
+        'pensum',
+        'realTime',
+        'targetTime',
+        'timeTillToday',
+        'periodVacationBudget',
+        'holidayBalance',
+        'lastYearHolidayBalance',
+        'yearlyEmployeeVacationBudget'
+      ];
 
   HttpService http;
 
@@ -40,9 +54,6 @@ class PeriodOverviewComponent extends EntityOverview<Period> {
   }
 
   UserContextService context;
-
-  @override
-  List<Period> entities = [];
 
   Employee _employee;
 
@@ -67,43 +78,26 @@ class PeriodOverviewComponent extends EntityOverview<Period> {
 
   @override
   Future reload({Map<String, dynamic> params, bool evict: false}) async {
-    this.entities = [];
-    List<dynamic> takenHolidays = [];
-    this.statusservice.setStatusToLoading();
-    try {
-      if (evict) {
-        this.store.evict(this.type);
+    super.reload(params: {'employee': employee.id});
+  }
+
+  @override
+  Future postProcessEntities(List<Period> entities) async {
+    await Future.wait(entities.map((entity) async {
+      var result = await http.get('periods/holidaybalance',
+          queryParams: {"_format": "json", "date": encodeDateRange(entity.start, entity.end), "employee": employee.id});
+      dynamic data = JSON.decode(result);
+      if (data is Map) {
+        var takenHolidays = data['takenHolidays'] as List<dynamic>;
+        double periodVacationBudget = 0.0;
+        if (entity.periodVacationBudget != null) {
+          periodVacationBudget = entity.periodVacationBudget.toDouble();
+        }
+        entity.holidayBalance = getHolidayBalance(takenHolidays, periodVacationBudget);
+      } else {
+        entity.holidayBalance = 0.0;
       }
-
-      this.entities = await this.store.list(Period, params: {'employee': employee.id});
-
-      for (int i = 0; i < this.entities.length; i++) {
-        Period entity = this.entities.elementAt(i);
-        await http.get('periods/holidaybalance',
-            queryParams: {"_format": "json", "date": encodeDateRange(entity.start, entity.end), "employee": employee.id}).then((result) {
-          // check if entities are still set
-          if (this.entities.length > i) {
-            dynamic data = JSON.decode(result);
-
-            if (data is Map) {
-              takenHolidays = data['takenHolidays'] as List<dynamic>;
-              double periodVacationBudget = 0.0;
-              if (this.entities.elementAt(i).periodVacationBudget != null) {
-                periodVacationBudget = this.entities.elementAt(i).periodVacationBudget.toDouble();
-              }
-              this.entities.elementAt(i).holidayBalance = getHolidayBalance(takenHolidays, periodVacationBudget);
-            } else {
-              this.entities.elementAt(i).holidayBalance = 0.0;
-            }
-          }
-        });
-      }
-      this.statusservice.setStatusToSuccess();
-    } catch (e, stack) {
-      print("Unable to load ${this.type.toString()} because ${e}");
-      this.statusservice.setStatusToError(e, stack);
-      rethrow;
-    }
+    }));
   }
 
   double getHolidayBalance(List<dynamic> takenHolidays, double periodVacationBudget) {

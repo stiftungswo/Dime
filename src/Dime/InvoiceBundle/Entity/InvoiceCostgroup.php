@@ -32,6 +32,7 @@ class InvoiceCostgroup extends Entity implements DimeEntityInterface
      * @Assert\NotBlank()
      * @ORM\ManyToOne(targetEntity="Invoice", inversedBy="costgroups")
      * @ORM\JoinColumn(name="invoice_id", referencedColumnName="id")
+     * @JMS\Exclude()
      */
     protected $invoice;
 

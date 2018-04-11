@@ -11,14 +11,17 @@ import '../../service/settings_service.dart';
 import '../../service/status_service.dart';
 import '../common/dime_directives.dart';
 import '../select/select.dart';
-import 'entity_overview.dart';
+import 'editable_overview.dart';
 
 @Component(
   selector: 'activity-overview',
   templateUrl: 'activity_overview_component.html',
   directives: const [CORE_DIRECTIVES, formDirectives, dimeDirectives, ServiceSelectComponent, RateUnitTypeSelectComponent],
 )
-class ActivityOverviewComponent extends EntityOverview<Activity> {
+class ActivityOverviewComponent extends EditableOverview<Activity> {
+  @override
+  List<String> get fields => ['id', 'service', 'rateValue', 'rateUnit', 'rateUnitType', 'value'];
+
   Project _project;
   Project get project => _project;
   @Input()
@@ -27,9 +30,9 @@ class ActivityOverviewComponent extends EntityOverview<Activity> {
     reload();
   }
 
-  ActivityOverviewComponent(
-      CachingObjectStoreService store, SettingsService manager, StatusService status, EntityEventsService entityEventsService)
-      : super(Activity, store, '', manager, status, entityEventsService);
+  ActivityOverviewComponent(CachingObjectStoreService store, SettingsService manager, StatusService status,
+      EntityEventsService entityEventsService, ChangeDetectorRef changeDetector)
+      : super(Activity, store, '', manager, status, entityEventsService, changeDetector);
 
   @override
   Activity cEnt({Activity entity}) {
@@ -57,7 +60,7 @@ class ActivityOverviewComponent extends EntityOverview<Activity> {
 
   @override
   Future reload({Map<String, dynamic> params, bool evict: false}) async {
-    super.reload(params: {'project': this._project?.id}, evict: evict);
+    await super.reload(params: {'project': this._project?.id});
     await updateAvailableServices();
   }
 
@@ -66,7 +69,7 @@ class ActivityOverviewComponent extends EntityOverview<Activity> {
   }
 
   @override
-  Future deleteEntity([int activityId]) async {
+  Future deleteEntity([dynamic activityId]) async {
     var activityToDelete = this.entities.firstWhere((a) => a.id == activityId);
 
     if (hasLinkedTimeslices(activityToDelete)) {

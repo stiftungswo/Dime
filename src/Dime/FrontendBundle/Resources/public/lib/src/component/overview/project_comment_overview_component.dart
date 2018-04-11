@@ -12,17 +12,20 @@ import '../../service/status_service.dart';
 import '../../service/timetrack_service.dart';
 import '../../service/user_auth_service.dart';
 import '../common/dime_directives.dart';
-import 'entity_overview.dart';
+import 'editable_overview.dart';
 
 @Component(
     selector: 'project-comment-overview',
     templateUrl: 'project_comment_overview_component.html',
     directives: const [CORE_DIRECTIVES, formDirectives, dimeDirectives],
     pipes: const [dimePipes])
-class ProjectCommentOverviewComponent extends EntityOverview<ProjectComment> implements OnDestroy {
+class ProjectCommentOverviewComponent extends EditableOverview<ProjectComment> implements OnDestroy {
   ProjectCommentOverviewComponent(CachingObjectStoreService store, SettingsService manager, StatusService status, UserAuthService auth,
-      EntityEventsService entityEventsService, this.timetrackService)
-      : super(ProjectComment, store, '', manager, status, entityEventsService, auth: auth);
+      EntityEventsService entityEventsService, this.timetrackService, ChangeDetectorRef changeDetector)
+      : super(ProjectComment, store, '', manager, status, entityEventsService, changeDetector, auth: auth);
+
+  @override
+  List<String> get fields => const ['id', 'date', 'comment'];
 
   Project _selectedProject;
 
@@ -96,12 +99,14 @@ class ProjectCommentOverviewComponent extends EntityOverview<ProjectComment> imp
     subscriptions.forEach((s) => s.cancel());
   }
 
-  List<ProjectComment> get filteredComments {
+  List<AbstractControl> get filteredComments {
     // this fixes excluding comments with dates almost the same as the filters
     Duration extension = new Duration(seconds: 2);
-    return entities
-        .where(
-            (comment) => comment.date.isAfter(filterStartDate.subtract(extension)) && comment.date.isBefore(filterEndDate.add(extension)))
+    return controls
+        .where((comment) =>
+            getDate(comment).isAfter(filterStartDate.subtract(extension)) && getDate(comment).isBefore(filterEndDate.add(extension)))
         .toList();
   }
+
+  DateTime getDate(ControlGroup comment) => comment.controls['date'].value as DateTime;
 }

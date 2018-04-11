@@ -18,17 +18,15 @@
     </thead>
     <tbody class="editable-overview">
         <tr
-          *ngFor="let entity of entities | timeslicedatefilter:filterStartDate:filterEndDate | orderBy:'startedAt'; let i = index"
-          (click)="selectRow($event, entity)"
-          [ngClass]="rowClass(entity, row.valid)"
-          ngControlGroup="position{{i}}"
-          #row="ngForm">
+          *ngFor="let c of controls | timeslicedatefilter:filterStartDate:filterEndDate | orderBy:'startedAt'"
+          (click)="selectRow($event, c.controls['id'].value)"
+          [ngClass]="rowClass(c.controls['id'].value, c.valid)" >
             <td></td>
-            <td *ngIf="projectBased"><user-select [(ngModel)]="entity.employee" [parentEmployees]="employees" (ngModelChange)="entity.addFieldtoUpdate('employee')"></user-select></td>
-            <td><span>{{entity.activity.name}}</span></td>
-            <td><span>{{entity.startedAt | date:'dd.MM.y'}}</span></td>
-            <td validationStatus><input required ngControl="value{{i}}" class="form-control" [(ngModel)]="entity.value" (change)="addSaveField('value', entity)"/></td>
-            <td><dime-button (click)="deleteEntity(entity.id)" fontAwesome="trash-o" color="red"></dime-button></td>
+            <td *ngIf="projectBased"><user-select [ngFormControl]="c.controls['employee']" [parentEmployees]="employees" ></user-select></td>
+            <td><span>{{c.controls['activity'].value.name}}</span></td>
+            <td><span>{{c.controls['startedAt'].value | date:'dd.MM.y'}}</span></td>
+            <td validationStatus><input required class="form-control" [ngFormControl]="c.controls['value']" /></td>
+            <td><dime-button (click)="deleteEntity(c.controls['id'].value)" fontAwesome="trash-o" color="red"></dime-button></td>
         </tr>
     </tbody>
 </table>
