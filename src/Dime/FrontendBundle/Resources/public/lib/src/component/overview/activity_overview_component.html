@@ -18,28 +18,22 @@
     </thead>
     <tbody *ngIf="entities != null">
     <tr
-      *ngFor="let entity of entities; let i = index"
-      (click)="selectEntity(entity.id)"
-      [ngClass]="rowClass(entity, row.valid)"
-      ngControlGroup="row{{i}}"
-      #row="ngForm"
+      *ngFor="let c of controls"
+      (click)="selectEntity(c.controls['id'].value)"
+      [ngClass]="rowClass(c.controls['id'].value, c.valid)"
     >
-      <td>{{entity.id}}</td>
+      <td>{{c.controls['id'].value}}</td>
       <td validationStatus class="form-group"><service-select hideArchived required [options]="availableServices" [disabled]="project?.rateGroup == null"
-                                                              ngControl="service{{i}}" [(ngModel)]="entity.service"
-                                                              (ngModelChange)="entity.addFieldtoUpdate('service')"></service-select></td>
-      <td><textarea class="form-control tiny" [(ngModel)]="entity.description" (change)="addSaveField('description', entity)"></textarea></td>
+                                                              [ngFormControl]="c.controls['service']" ></service-select></td>
+      <td><textarea class="form-control tiny" [ngFormControl]="c.controls['description']"></textarea></td>
       <td validationStatus class="form-group">
-        <input required ngControl="rateValue{{i}}" class="form-control"
-               [(ngModel)]="entity.rateValue" (change)="addSaveField('rateValue', entity)"/></td>
+        <input required class="form-control" [ngFormControl]="c.controls['rateValue']" /></td>
       <td validationStatus class="form-group">
-        <input required ngControl="rateUnit{{i}}" class="form-control"
-             [(ngModel)]="entity.rateUnit" (change)="addSaveField('rateUnit', entity)"/></td>
+        <input required class="form-control" [ngFormControl]="c.controls['rateUnit']" /></td>
       <td validationStatus class="form-group">
-        <rate-unit-type-select required ngControl="rateUnitType{{i}}" [(ngModel)]="entity.rateUnitType"
-                               (ngModelChange)="addSaveField('rateUnitType', entity)"></rate-unit-type-select>
-      <td>{{entity.value}}</td>
-      <td><dime-button (click)="deleteEntity(entity.id)" fontAwesome="trash-o" color="red"></dime-button></td>
+        <rate-unit-type-select required [ngFormControl]="c.controls['rateUnitType']" ></rate-unit-type-select>
+      <td>{{c.controls['value'].value}}</td>
+      <td><dime-button (click)="deleteEntity(c.controls['id'].value)" fontAwesome="trash-o" color="red"></dime-button></td>
     </tr>
     </tbody>
   </table>

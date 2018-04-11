@@ -21,7 +21,7 @@ import '../select/activity_select_component.dart';
 import '../select/project_select_component.dart';
 import '../select/select.dart';
 import '../select/user_select_component.dart';
-import 'entity_overview.dart';
+import 'editable_overview.dart';
 
 @Component(
   selector: 'timeslice-overview',
@@ -37,7 +37,10 @@ import 'entity_overview.dart';
   ],
   pipes: const [dimePipes, TimesliceDateFilterPipe, COMMON_PIPES],
 )
-class TimesliceOverviewComponent extends EntityOverview<Timeslice> {
+class TimesliceOverviewComponent extends EditableOverview<Timeslice> {
+  @override
+  List<String> get fields => const ['id', 'employee', 'activity', 'startedAt', 'value'];
+
   Employee _employee;
 
   UserContextService context;
@@ -166,13 +169,12 @@ class TimesliceOverviewComponent extends EntityOverview<Timeslice> {
   Set<Timeslice> selectedTimeslices = new Set();
 
   TimetrackService timetrackService;
-  StatusService statusService;
 
   static const String FORMDATA_CHANGE_EVENT_NAME = 'FORMDATA_CHANGE_EVENT_NAME';
 
   TimesliceOverviewComponent(CachingObjectStoreService store, SettingsService manager, StatusService status, this.context,
-      UserAuthService auth, EntityEventsService entityEventsService, this.timetrackService, this.http, this.statusService)
-      : super(Timeslice, store, '', manager, status, entityEventsService, auth: auth);
+      UserAuthService auth, EntityEventsService entityEventsService, this.timetrackService, this.http, ChangeDetectorRef changeDetector)
+      : super(Timeslice, store, '', manager, status, entityEventsService, changeDetector, auth: auth);
 
   @override
   Timeslice cEnt({Timeslice entity}) {
@@ -259,7 +261,7 @@ class TimesliceOverviewComponent extends EntityOverview<Timeslice> {
   }
 
   @override
-  Future deleteEntity([int entId]) async {
+  Future deleteEntity([dynamic entId]) async {
     await super.deleteEntity(entId);
     updateEntryDate();
   }
@@ -404,7 +406,7 @@ class TimesliceOverviewComponent extends EntityOverview<Timeslice> {
   }
 
   Future moveTimeslices() async {
-    statusService.setStatusToLoading();
+    statusservice.setStatusToLoading();
     try {
       if (moveTargetActivity == null) {
         await moveTimeslicesToProject();
@@ -414,9 +416,9 @@ class TimesliceOverviewComponent extends EntityOverview<Timeslice> {
       reload();
       selectedTimeslices.clear();
       moveDialogVisible = false;
-      statusService.setStatusToSuccess();
+      statusservice.setStatusToSuccess();
     } catch (e, stack) {
-      statusService.setStatusToError(e, stack);
+      statusservice.setStatusToError(e, stack);
     }
   }
 
@@ -437,16 +439,17 @@ class TimesliceOverviewComponent extends EntityOverview<Timeslice> {
     return Future.wait(futures);
   }
 
-  void selectRow(dynamic event, Timeslice timeslice) {
+  void selectRow(dynamic event, int timesliceId) {
     // event is actually a MouseEvent, but dart doesn't know it has a "nodeName" property
     // only fire when a td was clicked, not any input elements
     if (event.target.nodeName == "TD") {
-      toggleTimeslice(timeslice);
+      toggleTimeslice(entities.singleWhere((e) => e.id == timesliceId));
     }
   }
 
   @override
-  rowClass(Timeslice entity, bool valid) {
+  rowClass(dynamic entityId, bool valid) {
+    var entity = entities.singleWhere((e) => e.id == entityId);
     if (valid ?? true) {
       return {"info": selectedTimeslices.contains(entity)};
     } else {
@@ -461,7 +464,7 @@ class TimesliceOverviewComponent extends EntityOverview<Timeslice> {
 
 @Pipe('timeslicedatefilter', pure: false)
 class TimesliceDateFilterPipe implements PipeTransform {
-  List<Timeslice> transform(List<Timeslice> values, DateTime start, DateTime end) {
+  List<AbstractControl> transform(List<AbstractControl> values, DateTime start, DateTime end) {
     if ((start is DateTime || end is DateTime) && values != null) {
       if (end != null) {
         // set end date to end of day to include entries of the last day
@@ -469,18 +472,22 @@ class TimesliceDateFilterPipe implements PipeTransform {
       }
       if (start is DateTime && end == null) {
         //Only Show Timeslices that begin after start
-        return values.where((i) => i.startedAt.isAfter(start)).toList();
+        return values.where((i) => getStartedAt(i).isAfter(start)).toList();
       } else if (end is DateTime && start == null) {
         //Only Show Timeslices that end before end
-        return values.where((i) => i.startedAt.isBefore(end)).toList();
+        return values.where((i) => getStartedAt(i).isBefore(end)).toList();
       } else if (start is DateTime && end is DateTime) {
         //Show Timeslices that startedAt between start and end
         return values
-            .where((i) => ((i.startedAt.isAfter(start) || i.startedAt.isAtSameMomentAs(start)) &&
-                (i.startedAt.isBefore(end) || i.startedAt.isAtSameMomentAs(end))))
+            .where((i) => ((getStartedAt(i).isAfter(start) || getStartedAt(i).isAtSameMomentAs(start)) &&
+                (getStartedAt(i).isBefore(end) || getStartedAt(i).isAtSameMomentAs(end))))
             .toList();
       }
     }
     return const [];
   }
+}
+
+DateTime getStartedAt(AbstractControl c) {
+  return c.find('startedAt').value;
 }

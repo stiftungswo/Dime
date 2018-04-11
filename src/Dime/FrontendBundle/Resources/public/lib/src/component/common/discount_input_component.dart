@@ -13,8 +13,8 @@ import 'percentage_input_component.dart';
       <percentage-input *ngIf="percentage" [(ngModel)]="displayValue" [showAddon]="false" [precision]='0'></percentage-input>
       <input *ngIf="!percentage" type="number" [(ngModel)]="displayValue" class="form-control" aria-label="...">
       <div class="input-group-btn">
-        <button type="button" class="btn" [class.btn-default]='!percentage' [class.btn-primary]="percentage" (click)='setPercentage(true)'>%</button>
-        <button type="button" class="btn" [class.btn-default]='percentage' [class.btn-primary]="!percentage" (click)='setPercentage(false)'>CHF</button>
+        <button type="button" class="btn" [class.btn-default]='!percentage' [class.btn-primary]="percentage" (click)='percentage = true'>%</button>
+        <button type="button" class="btn" [class.btn-default]='percentage' [class.btn-primary]="!percentage" (click)='percentage = false'>CHF</button>
       </div>
     </div>
   """,
@@ -25,12 +25,11 @@ class DiscountInputComponent implements ControlValueAccessor<num> {
   ChangeFunction<num> _onValueChange;
 
   @Input()
-  bool percentage = false;
+  Control percentageControl;
 
-  //this is a separate setter so the percentageChange event doesn't get fired when angular first sets the value
-  void setPercentage(bool p) {
-    percentage = p;
-    _percentageChange.add(percentage);
+  bool get percentage => percentageControl?.value ?? true;
+  set percentage(bool p) {
+    percentageControl.updateValue(p, emitEvent: true);
   }
 
   final StreamController<bool> _percentageChange = new StreamController<bool>();

@@ -42,7 +42,7 @@ class ServiceOverviewComponent extends EntityOverview<Service> implements OnActi
   }
 
   @override
-  Future deleteEntity([int entId]) async {
+  Future deleteEntity([dynamic entId]) async {
     if (entId != null) {
       if (window.confirm(
           'Wenn dieser Service gelöscht wird, werden alle bisherigen Einträge in den Projekten auch gelöscht. Falls du die bestehenden Einträge behalten willst, ändere den Service auf "archiviert".')) {

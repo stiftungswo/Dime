@@ -11,7 +11,7 @@ import '../../service/settings_service.dart';
 import '../../service/status_service.dart';
 import '../common/dime_directives.dart';
 import '../select/select.dart';
-import 'entity_overview.dart';
+import 'editable_overview.dart';
 
 @Component(
   selector: 'offer-position-overview',
@@ -19,10 +19,10 @@ import 'entity_overview.dart';
   directives: const [CORE_DIRECTIVES, formDirectives, dimeDirectives, RateUnitTypeSelectComponent, ServiceSelectComponent],
   pipes: const [OrderByPipe],
 )
-class OfferPositionOverviewComponent extends EntityOverview<OfferPosition> {
-  OfferPositionOverviewComponent(
-      CachingObjectStoreService store, SettingsService manager, StatusService status, EntityEventsService entityEventsService)
-      : super(OfferPosition, store, '', manager, status, entityEventsService);
+class OfferPositionOverviewComponent extends EditableOverview<OfferPosition> {
+  OfferPositionOverviewComponent(CachingObjectStoreService store, SettingsService manager, StatusService status,
+      EntityEventsService entityEventsService, ChangeDetectorRef changeDetector)
+      : super(OfferPosition, store, '', manager, status, entityEventsService, changeDetector);
 
   @override
   OfferPosition cEnt({OfferPosition entity}) {
@@ -31,6 +31,19 @@ class OfferPositionOverviewComponent extends EntityOverview<OfferPosition> {
     }
     return new OfferPosition();
   }
+
+  @override
+  get fields => const [
+        "id",
+        "order",
+        "service",
+        "rateValue",
+        "rateUnit",
+        "rateUnitType",
+        "amount",
+        "vat",
+        "total",
+      ];
 
   @override
   bool needsmanualAdd = true;
@@ -49,7 +62,7 @@ class OfferPositionOverviewComponent extends EntityOverview<OfferPosition> {
 
   @override
   Future reload({Map<String, dynamic> params, bool evict: false}) async {
-    super.reload(params: {'offer': _offer?.id}, evict: evict);
+    await super.reload(params: {'offer': _offer?.id});
     await updateAvailableServices();
   }
 
@@ -63,7 +76,7 @@ class OfferPositionOverviewComponent extends EntityOverview<OfferPosition> {
   }
 
   @override
-  Future createEntity({OfferPosition newEnt, Map<String, dynamic> params: const {}}) {
-    return super.createEntity(params: {'offer': _offer.id});
+  Future createEntity({OfferPosition newEnt, Map<String, dynamic> params: const {}}) async {
+    super.createEntity(params: {'offer': _offer.id});
   }
 }

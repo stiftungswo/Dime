@@ -9,19 +9,17 @@
       </tr>
     </thead>
     <tbody *ngIf="entities != null">
-      <tr *ngFor="let entity of entities; let i = index"
-          (click)="selectEntity(entity.id)"
-          [ngClass]="rowClass(entity, row.valid)"
-          ngControlGroup="row{{i}}"
-          #row="ngForm"
+      <tr *ngFor="let c of controls"
+          (click)="selectEntity(c.controls['id'].value)"
+          [ngClass]="rowClass(c.controls['id'].value, c.valid)"
       >
-        <td validationStatus class="form-group"><input required ngControl="weight{{i}}" class="form-control" type="number"
-                   [(ngModel)]="entity.weight" (change)="addSaveField('weight', entity)"/></td>
-        <td>{{  entity.weight/getWeightSum() * 100  | number:'0.0-0' }} %</td>
+        <td validationStatus class="form-group"><input required class="form-control" type="number"
+                   [ngFormControl]="c.controls['weight']" /></td>
+        <td>{{  c.controls['weight'].value/getWeightSum() * 100  | number:'0.0-0' }} %</td>
         <td validationStatus class="form-group">
-          <costgroup-select required ngControl="costgroup{{i}}" style="width:100%;" class="col-sm-4" [(ngModel)]="entity.costgroup" (ngModelChange)="addSaveField('costgroup', entity)"></costgroup-select>
+          <costgroup-select required style="width:100%;" class="col-sm-4" [ngFormControl]="c.controls['costgroup']"></costgroup-select>
         </td>
-        <td><dime-button (click)="deleteEntity(entity.id)" fontAwesome="trash-o" color="red"></dime-button></td>
+        <td><dime-button (click)="deleteEntity(c.controls['id'].value)" fontAwesome="trash-o" color="red"></dime-button></td>
       </tr>
     </tbody>
   </table>

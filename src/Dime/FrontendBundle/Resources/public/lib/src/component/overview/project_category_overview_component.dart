@@ -10,17 +10,19 @@ import '../../service/status_service.dart';
 import '../../service/user_auth_service.dart';
 import '../../util/page_title.dart' as page_title;
 import '../common/dime_directives.dart';
-import 'entity_overview.dart';
+import 'editable_overview.dart';
 
 @Component(
   selector: 'project-category-overview',
   templateUrl: 'project_category_overview_component.html',
   directives: const [CORE_DIRECTIVES, formDirectives, dimeDirectives],
 )
-class ProjectCategoryOverviewComponent extends EntityOverview<ProjectCategory> implements OnActivate {
+class ProjectCategoryOverviewComponent extends EditableOverview<ProjectCategory> implements OnActivate {
   ProjectCategoryOverviewComponent(CachingObjectStoreService store, SettingsService manager, StatusService status, UserAuthService auth,
-      EntityEventsService entityEventsService)
-      : super(ProjectCategory, store, '', manager, status, entityEventsService, auth: auth);
+      EntityEventsService entityEventsService, ChangeDetectorRef changeDetector)
+      : super(ProjectCategory, store, '', manager, status, entityEventsService, changeDetector, auth: auth);
+
+  List<String> get fields => const ['id', 'name'];
 
   @override
   routerOnActivate(ComponentInstruction nextInstruction, ComponentInstruction prevInstruction) {

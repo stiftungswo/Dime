@@ -10,17 +10,20 @@ import '../../service/settings_service.dart';
 import '../../service/status_service.dart';
 import '../common/dime_directives.dart';
 import '../select/select.dart';
-import 'entity_overview.dart';
+import 'editable_overview.dart';
 
 @Component(
   selector: 'rate-overview',
   templateUrl: 'rate_overview_component.html',
   directives: const [formDirectives, CORE_DIRECTIVES, dimeDirectives, RateGroupSelectComponent, RateUnitTypeSelectComponent],
 )
-class RateOverviewComponent extends EntityOverview<Rate> {
-  RateOverviewComponent(
-      CachingObjectStoreService store, SettingsService manager, StatusService status, EntityEventsService entityEventsService)
-      : super(Rate, store, '', manager, status, entityEventsService);
+class RateOverviewComponent extends EditableOverview<Rate> {
+  RateOverviewComponent(CachingObjectStoreService store, SettingsService manager, StatusService status,
+      EntityEventsService entityEventsService, ChangeDetectorRef changeDetector)
+      : super(Rate, store, '', manager, status, entityEventsService, changeDetector);
+
+  @override
+  List<String> get fields => const ['id', 'rateUnit', 'rateGroup', 'rateValue', 'rateUnitType'];
 
   @override
   Rate cEnt({Rate entity}) {
@@ -60,7 +63,6 @@ class RateOverviewComponent extends EntityOverview<Rate> {
   Future createEntity({dynamic newEnt, Map<String, dynamic> params: const {}}) async {
     var rate = new Rate();
     rate.rateGroup = newRateGroup;
-    rate.addFieldtoUpdate("rateGroup");
     rate.addFieldtoUpdate("rateGroup");
     rate.init(params: {'service': this._serviceId});
     await super.createEntity(newEnt: rate);

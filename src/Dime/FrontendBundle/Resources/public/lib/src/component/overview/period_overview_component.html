@@ -1,5 +1,5 @@
 <form #editform="ngForm">
-  <table class="table table-bordered table-hover form" *ngIf="entities.length > 0" ngControlGroup="periods" #overview="ngForm">
+  <table class="table table-bordered table-hover form" ngControlGroup="periods" #overview="ngForm">
     <thead>
     <tr>
       <th>Start</th>
@@ -15,31 +15,26 @@
       <th width="60" class="hidden-xs">Aktion</th>
     </tr>
     </thead>
-    <tbody *ngIf="entities != null">
+    <tbody>
     <tr
-      *ngFor="let entity of entities | orderBy:'order' ; let i = index"
-      (click)="selectEntity(entity.id)"
-      [ngClass]="rowClass(entity, row.valid)"
-      ngControlGroup="position{{i}}"
-      #row="ngForm">
-      <td validationStatus class="form-group"><date-input required ngControl="start{{i}}"
-                                       [(ngModel)]="entity.start" (ngModelChange)="entity.addFieldtoUpdate('start')"></date-input></td>
-      <td validationStatus class="form-group"><date-input required ngControl="end{{i}}"
-                                       [(ngModel)]="entity.end" (ngModelChange)="entity.addFieldtoUpdate('end')"></date-input></td>
-      <td validationStatus class="form-group"><percentage-input required ngControl="pensum{{i}}" [precision]="0"
-                                             [(ngModel)]="entity.pensum" (ngModelChange)="addSaveField('pensum', entity)"></percentage-input></td>
-      <td>{{entity.realTime | secondsToHours}}</td>
-      <td>{{entity.targetTime | secondsToHours}}</td>
-      <td [class.text-red]="entity.timeTillToday<0" [class.text-green]="entity.timeTillToday>=0">{{entity.timeTillToday | secondsToHours}}</td>
-      <td class="hidden-xs">{{entity.periodVacationBudget | secondsToHours }}</td>
-      <td>{{entity.holidayBalance | secondsToHours }}</td>
+      *ngFor="let c of controls"
+      (click)="selectEntity(c.controls['id'].value)"
+      [ngClass]="rowClass(c.controls['id'].value, c.valid)">
+      <td validationStatus class="form-group"><date-input required [ngFormControl]="c.controls['start']" ></date-input></td>
+      <td validationStatus class="form-group"><date-input required [ngFormControl]="c.controls['end']"></date-input></td>
+      <td validationStatus class="form-group"><percentage-input required [precision]="0" [ngFormControl]="c.controls['pensum']" ></percentage-input></td>
+      <td>{{c.controls['realTime'].value | secondsToHours}}</td>
+      <td>{{c.controls['targetTime'].value | secondsToHours}}</td>
+      <td [class.text-red]="c.controls['timeTillToday'].value<0" [class.text-green]="c.controls['timeTillToday'].value>=0">{{c.controls['timeTillToday'].value | secondsToHours}}</td>
+      <td class="hidden-xs">{{c.controls['periodVacationBudget'].value | secondsToHours }}</td>
+      <td>{{c.controls['holidayBalance'].value | secondsToHours }}</td>
       <td class="hidden-xs input-group">
-        <input class="form-control" type="text" [(ngModel)]="entity.lastYearHolidayBalance" (change)="addSaveField('lastYearHolidayBalance', entity)" />
+        <input class="form-control" type="text" [ngFormControl]="c.controls['lastYearHolidayBalance']"/>
         <span class="input-group-addon">h</span>
       </td>
-      <td validationStatus class="hidden-xs form-group"><input required ngControl="vacationBudget{{i}}" class="form-control" type="number" style="width: 100%"
-                                                    [(ngModel)]="entity.yearlyEmployeeVacationBudget" (change)="addSaveField('yearlyEmployeeVacationBudget', entity)" ></td>
-      <td class="hidden-xs"><dime-button (click)="deleteEntity(entity.id)" fontAwesome="trash-o" color="red"></dime-button></td>
+      <td validationStatus class="hidden-xs form-group"><input required class="form-control" type="number" style="width: 100%"
+                                                    [ngFormControl]="c.controls['yearlyEmployeeVacationBudget']" ></td>
+      <td class="hidden-xs"><dime-button (click)="deleteEntity(c.controls['id'].value)" fontAwesome="trash-o" color="red"></dime-button></td>
     </tr>
     </tbody>
   </table>

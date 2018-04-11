@@ -15,6 +15,16 @@ import '../common/dime_directives.dart';
 import '../select/select.dart';
 import 'entity_overview.dart';
 
+/// In this view, projects can be connected with certain keys. (There's currently only one that is relevant)
+///   "Ferien": The project assigned with this key will be the one that is accounted for vacation time in [PeriodOverviewComponent]
+///
+/// Entries here cannot be added or removed; Adding one does not make sense since each assignment needs custom code. Removing one would
+/// break the application, since it depends on those keys being present.
+///
+///
+///
+/// This overview is in kind of a weird spot - it works like an [EditableOverview] but does so many custom things it doesn't benefit
+/// from inheriting from it at all. Ideally, it would be refactored to fit into [EditableOverview].
 @Component(
   selector: 'setting-assign-project-overview',
   templateUrl: 'setting_assign_project_overview_component.html',
@@ -27,7 +37,6 @@ class SettingAssignProjectOverviewComponent extends EntityOverview<SettingAssign
 
   List<Project> projects = [];
 
-  @override
   void saveAllEntities() {
     for (SettingAssignProject entity in this.projectAssignments) {
       if (entity.needsUpdate) {
@@ -91,35 +100,14 @@ class SettingAssignProjectOverviewComponent extends EntityOverview<SettingAssign
   }
 
   @override
-  Future deleteEntity([int entId]) async {
+  Future deleteEntity([dynamic entId]) async {
     // dont delete these settings
-    // they are currently only used for "Ferien" and the application wont work if there is no setting for it
-    /*if (entId == null) {
-      entId = this.selectedEntId as int;
-    }
-    if (entId != null) {
-      if (window.confirm("Wirklich löschen?")) {
-        this.statusservice.setStatusToLoading();
-        try {
-          if (this.store != null) {
-            var ent = this.projectAssignments.singleWhere((enty) => enty.id == entId);
-
-            Setting projectAssignmentSetting = new Setting();
-            projectAssignmentSetting.id = ent.id;
-
-            await this.store.delete(projectAssignmentSetting);
-          }
-          this.projectAssignments.removeWhere((enty) => enty.id == entId);
-          this.statusservice.setStatusToSuccess();
-        } catch (e, stack) {
-          print("Unable to Delete entity ${this.type.toString()}::${entId} because ${e}");
-          this.statusservice.setStatusToError(e, stack);
-        }
-      }
-    }*/
   }
 
-  @override
+  void addSaveField(String name, SettingAssignProject entity) {
+    entity.addFieldtoUpdate(name);
+  }
+
   saveEntity(SettingAssignProject someEntity) async {
     SettingAssignProject entity = someEntity;
 

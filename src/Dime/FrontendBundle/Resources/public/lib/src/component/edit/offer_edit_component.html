@@ -1,6 +1,6 @@
 <h2 class="page-header">{{entity?.name}}&nbsp;</h2>
-
-<form *ngIf="entity != null" class="box-body" #editform="ngForm">
+<div *ngIf="entity != null">
+<form  class="box-body" #editform="ngForm">
   <div class="nav-tabs-custom">
     <ul class="nav nav-tabs">
       <li class="active"><a data-toggle="tab">Offerte {{entity.id}}</a></li>
@@ -96,9 +96,10 @@
     </div>
   </div>
   <div class="DimeControlButtons">
-    <save-button [valid]="editform.valid" (click)="saveEntity()"></save-button>
+    <save-button [valid]="false" (click)="saveEntity()"></save-button>
     <dime-button primary (click)="printOffer()" glyphicon="print">Drucken</dime-button>
     <dime-button (click)="reloadEvict()" glyphicon="refresh"></dime-button>
   </div>
 </form>
 <edit-footer [entity]="entity"></edit-footer>
+</div>
