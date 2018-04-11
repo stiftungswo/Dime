@@ -62,7 +62,7 @@ class ActivityOverviewComponent extends EntityOverview<Activity> {
   }
 
   Future updateAvailableServices() async {
-    availableServices = await store.list(Service, params: {"rateGroup": _project?.rateGroup?.id});
+    availableServices = await store.list(Service, params: {"rateGroup": _project?.rateGroup?.id}, cacheWithParams: true);
   }
 
   @override
