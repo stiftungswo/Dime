@@ -2,10 +2,15 @@
 <pdf>
 	<dynamic-page page-size="a4">
 		<div class="logo"><img src="{{ pdf_image('SwoCommonsBundle:swo_logo_big.png') }}" width="200"/></div>
-		<div class="title">Aufwandsreport</div>
+		<div class="title">Aufwandsreport{% if report.project != null %} {{ report.project.name }}{% endif %}</div>
 		{% if report.project != null %}
-			<!--<div class="title description">Projekt: {{ report.project.name }}</div>-->
-			<div class="title description">Projekt: {{ report.project.description|nl2br }}</div>
+			<div class="description">
+                Projekt-Nr: {{ report.project.id }}
+                <br />
+                Projekt:<br />
+                {{ report.project.description|nl2br }}
+                <br />
+            </div>
 		{% endif %}
 		{% if report.start and report.end %}
 			<div class="title description">Von: {{ report.start|date("d.m.Y") }}
