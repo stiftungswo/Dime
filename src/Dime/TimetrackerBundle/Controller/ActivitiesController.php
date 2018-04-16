@@ -34,7 +34,6 @@ class ActivitiesController extends DimeController
      * )
      *
      *
-     * Annotations\QueryParam(name="active", requirements="/^true|false$/i", nullable=true, description="Deprecated: Shows Activities where there are Timeslices without EndTimes. Due to changes this can not happen. Is Ignored")
      * @Annotations\QueryParam(name="date", nullable=true, description="Filter by Date. Use Format YYYY-MM-DD. To Filter by range use YYYY-MM-DD,YYYY-MM-DD")
      * @Annotations\QueryParam(name="project", requirements="\d+", nullable=true, description="Filter By Project")
      * @Annotations\QueryParam(name="service", requirements="\d+", nullable=true, description="Filter By Service")

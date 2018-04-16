@@ -1,6 +1,6 @@
 <h2 class="page-header">{{entity?.name}}&nbsp;</h2>
-
-<form #editform="ngForm" *ngIf="entity != null">
+<div *ngIf="entity != null">
+<form #editform="ngForm">
   <div class ="nav-tabs-custom">
     <ul class="nav nav-tabs">
       <template [ngIf]="entity.project != null && !entity.project.offers.isEmpty" >
@@ -20,7 +20,7 @@
             <dime-form-group horizontal label="Name">
               <input required ngControl="name" class="form-control" [(ngModel)]="entity.name" (change)="addSaveField('name')">
             </dime-form-group>
-            <dime-form-group horizontal label="Auftrag" *ngIf="entity.project != null">
+            <dime-form-group horizontal label="Projekt" *ngIf="entity.project != null">
               <input disabled class="form-control" [value]="entity.project.name"/>
             </dime-form-group>
             <dime-form-group horizontal label="Kunde">
@@ -41,8 +41,7 @@
             </dime-form-group>
           </div>
           <dime-form-group label="Beschreibung">
-            <textarea required ngControl="description" class="form-control"
-                      [(ngModel)]="entity.description" (change)="addSaveField('description')"></textarea>
+            <markdown-input [ngModel]="entity.description" (ngModelChange)="entity.description = $event; addSaveField('description')"></markdown-input>
           </dime-form-group>
         </div>
     </div>
@@ -63,7 +62,7 @@
           <div class="row">
             <label class="col-sm-6 control-label">Fixpreis</label>
             <div class="col-sm-6">
-              <input class="form-control" type="text" [(ngModel)]="entity.fixedPrice" (change)="addSaveField('fixedPrice')">
+              <input class="form-control" type="text" [(ngModel)]="entity.fixedPrice" (change)="addSaveField('fixedPrice')"/>
             </div>
           </div>
         </div>
@@ -83,3 +82,4 @@
   </div>
 </form>
 <edit-footer [entity]="entity"></edit-footer>
+</div>

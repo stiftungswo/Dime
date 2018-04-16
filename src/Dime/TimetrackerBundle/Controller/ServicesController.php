@@ -15,7 +15,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class ServicesController extends DimeController
 {
     private $handlerSerivce = 'dime.service.handler';
-    
+
     private $formType = 'dime_timetrackerbundle_serviceformtype';
 
     /**
@@ -32,6 +32,7 @@ class ServicesController extends DimeController
      *
      * @Annotations\QueryParam(name="user", requirements="\d+", nullable=true, description="Filter By User")
      * @Annotations\QueryParam(name="search", nullable=true, description="Filter By Name or alias")
+     * @Annotations\QueryParam(name="rateGroup", requirements="\d+", nullable=true, description="Filter by rateGroup id")
      *
      * @Annotations\View(
      * serializerEnableMaxDepthChecks=true,

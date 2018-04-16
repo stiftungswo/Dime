@@ -21,6 +21,8 @@ abstract class EntitySelect<T extends Entity> implements OnInit, ControlValueAcc
   String selector = '';
   StatusService statusservice;
   UserAuthService auth;
+
+  //this sets the value to 'null' if the dropdown is closed without selecting an entity
   @Input('clearOnClose')
   bool clearOnClose = false;
 
@@ -29,6 +31,18 @@ abstract class EntitySelect<T extends Entity> implements OnInit, ControlValueAcc
 
   @Input('placeholder')
   String placeholder = '';
+
+  @Input()
+  bool disabled = false;
+
+  ///this allows you to provide your own list of entities to be displayed
+  List<T> _overrideEntities = null;
+  List<T> get overrideEntities => _overrideEntities;
+  @Input('options')
+  void set overrideEntities(List<T> overrideEntities) {
+    entities = overrideEntities;
+    _overrideEntities = overrideEntities;
+  }
 
   ChangeFunction<T> onChange;
 
@@ -60,6 +74,10 @@ abstract class EntitySelect<T extends Entity> implements OnInit, ControlValueAcc
   }
 
   Future reload() async {
+    if (this.overrideEntities != null) {
+      //we get entities from above, don't load anything
+      return;
+    }
     this.statusservice.setStatusToLoading();
     try {
       this.entities = (await this.store.list(this.type)).toList() as List<T>;
@@ -83,6 +101,9 @@ abstract class EntitySelect<T extends Entity> implements OnInit, ControlValueAcc
   }
 
   void openSelectionBox() {
+    if (disabled) {
+      return;
+    }
     if (!this.open) {
       // adjust size of dropdown to available size
       DivElement dropdown = this.element.querySelector(".dropdown") as DivElement;

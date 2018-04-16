@@ -1,6 +1,6 @@
 <h2 class="page-header">{{entity?.name}}&nbsp;</h2>
-
-<form *ngIf="entity != null" class="box-body" #editform="ngForm">
+<div *ngIf="entity != null">
+<form  class="box-body" #editform="ngForm">
   <div class="nav-tabs-custom">
     <ul class="nav nav-tabs">
       <li class="active"><a data-toggle="tab">Offerte {{entity.id}}</a></li>
@@ -41,9 +41,9 @@
           <dime-form-group horizontal label="Gültig bis">
             <date-input ngControl="validTo" [ngModel]="entity.validTo" (ngModelChange)="entity.validTo=$event;addSaveField('validTo')"></date-input>
           </dime-form-group>
-          <dime-form-group horizontal label="Tarif" class="form-group">
+          <dime-form-group horizontal label="Tarif">
             <rate-group-select required ngControl="rateGroup"
-                              [ngModel]="entity.rateGroup" (ngModelChange)="entity.rateGroup=$event;addSaveField('rateGroup')"></rate-group-select>
+                              [ngModel]="entity.rateGroup" (ngModelChange)="entity.rateGroup=$event;addSaveField('rateGroup'); rateGroupChanged()"></rate-group-select>
           </dime-form-group>
           <h4>Addresse</h4>
           <address-edit [(address)]="entity.address" (change)="addSaveField('address')"></address-edit>
@@ -63,7 +63,7 @@
   </div>
   <div class="row">
     <div class="col-md-12 right">
-      <offer-position-overview [offer]="entity.id"></offer-position-overview>
+      <offer-position-overview [offer]="entity"></offer-position-overview>
     </div>
   </div>
   <div class="row">
@@ -96,9 +96,10 @@
     </div>
   </div>
   <div class="DimeControlButtons">
-    <save-button [valid]="editform.valid" (click)="saveEntity()"></save-button>
+    <save-button [valid]="false" (click)="saveEntity()"></save-button>
     <dime-button primary (click)="printOffer()" glyphicon="print">Drucken</dime-button>
     <dime-button (click)="reloadEvict()" glyphicon="refresh"></dime-button>
   </div>
 </form>
 <edit-footer [entity]="entity"></edit-footer>
+</div>

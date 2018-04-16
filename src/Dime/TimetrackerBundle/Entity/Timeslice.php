@@ -67,15 +67,6 @@ class Timeslice extends Entity implements DimeEntityInterface
     protected $startedAt;
 
     /**
-     * @var datetime $stoppedAt
-     *
-     * @JMS\Exclude()
-     * @Assert\DateTime()
-     * @ORM\Column(name="stopped_at", type="datetime", nullable=true)
-     */
-    protected $stoppedAt;
-
-    /**
      * Set this Property to overwrite the Unit Convrsion.
      * @var string
      * @JMS\Exclude()
@@ -222,7 +213,6 @@ class Timeslice extends Entity implements DimeEntityInterface
             $startedAt->hour = 8;
         }
         $this->startedAt = $startedAt;
-        $this->stoppedAt = null;
 
         return $this;
     }
@@ -257,32 +247,16 @@ class Timeslice extends Entity implements DimeEntityInterface
     }
 
     /**
-     * Set stopped_at
-     *
-     * @param  DateTime $stoppedAt
-     * @return Timeslice
-     */
-    public function setStoppedAt($stoppedAt)
-    {
-        if (!$stoppedAt instanceof DateTime && !empty($stoppedAt)) {
-            $stoppedAt = new DateTime($stoppedAt);
-        }
-        $this->stoppedAt = $stoppedAt;
-
-        return $this;
-    }
-
-    /**
      * Get stopped_at
      *
      * @return Carbon
      */
     public function getStoppedAt()
     {
-        if (is_null($this->stoppedAt)) {
+        if (is_null($this->getStartedAt())) {
             return null;
         }
-        return Carbon::instance($this->stoppedAt);
+        return $this->getStartedAt()->addSeconds($this->value);
     }
 
     /**
@@ -295,10 +269,10 @@ class Timeslice extends Entity implements DimeEntityInterface
      */
     public function getStoppedAtSerialized()
     {
-        if (is_null($this->stoppedAt)) {
+        if (is_null($this->getStoppedAt())) {
             return null;
         }
-        return Carbon::instance($this->stoppedAt)->toDateTimeString();
+        return $this->getStoppedAt()->toDateTimeString();
     }
 
     /**
@@ -351,40 +325,12 @@ class Timeslice extends Entity implements DimeEntityInterface
     }
 
     /**
-     * Auto generate value if empty
-     */
-    public function updateValueOnEmpty()
-    {
-        if (empty($this->value) && !empty($this->startedAt) && !empty($this->stoppedAt)) {
-            $this->value = $this->getStartedAt()->diffInSeconds($this->getStoppedAt());
-        }
-    }
-
-    /**
      * Asume Started Now if Start is empty
      */
     public function updateStartOnEmpty()
     {
         if (empty($this->startedAt)) {
             $this->startedAt = Carbon::now();
-        }
-    }
-
-    /**
-     * Try to fill out stoppedAt if Empty
-     * There are two Possibilities
-     *      * We have value and started (Assume started + value then)
-     *      * We have started and non time or no value (Assume started)
-     *      * As last Failsafe we assume stopped to be now
-     */
-    public function updateStopOnEmpty()
-    {
-        if (empty($this->stoppedAt)) {
-            if (!empty($this->startedAt) && empty($this->value)) {
-                $this->stoppedAt = $this->getStartedAt();
-            } elseif (!empty($this->startedAt) && !empty($this->value)) {
-                $this->stoppedAt = $this->getStartedAt()->addSeconds($this->getValue());
-            }
         }
     }
 
@@ -398,8 +344,6 @@ class Timeslice extends Entity implements DimeEntityInterface
     public function updateOnEmpty()
     {
         $this->updateStartOnEmpty();
-        $this->updateStopOnEmpty();
-        $this->updateValueOnEmpty();
         return $this;
     }
 
@@ -414,13 +358,7 @@ class Timeslice extends Entity implements DimeEntityInterface
             return $this->getValue();
         }
 
-        if ($this->getStoppedAt() instanceof Carbon) {
-            $end = $this->getStoppedAt();
-        } else {
-            $end = Carbon::now();
-        }
-
-        return $this->getStartedAt()->diffInSeconds($end);
+        return $this->getStartedAt()->diffInSeconds();
     }
 
     /**

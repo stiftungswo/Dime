@@ -160,6 +160,7 @@ Once you have installed those tools, do the following:
 
 * Activate the debug-lister in PHPStorm (Phone in the top-right)
 * Browse Dime using chromium and enable the Xdebug helper
+  * Alternatively, if testing requests to the API, you will have to copy the request from the Chrome devtools (e.g. as CURL) and run it via command line or something like Postman. Add `XDEBUG_SESSION_START` as a query parameter, i.e. `http://localhost:3000/foobar/?XDEBUG_SESSION_START` to start the debugger.
 
 Once a breakpoint is hit, you will be able to inspect the code.
 

@@ -11,27 +11,28 @@ import '../../service/settings_service.dart';
 import '../../service/status_service.dart';
 import '../common/dime_directives.dart';
 import '../select/select.dart';
-import 'entity_overview.dart';
+import 'editable_overview.dart';
 
 @Component(
   selector: 'activity-overview',
   templateUrl: 'activity_overview_component.html',
-  directives: const [coreDirectives, formDirectives, dimeDirectives, ServiceSelectComponent],
+  directives: const [coreDirectives, formDirectives, dimeDirectives, ServiceSelectComponent, RateUnitTypeSelectComponent],
 )
-class ActivityOverviewComponent extends EntityOverview<Activity> {
-  int _projectId;
+class ActivityOverviewComponent extends EditableOverview<Activity> {
+  @override
+  List<String> get fields => ['id', 'service', 'rateValue', 'rateUnit', 'rateUnitType', 'value'];
 
-  @Input('project')
-  set projectId(int id) {
-    if (id != null) {
-      this._projectId = id;
-      reload();
-    }
+  Project _project;
+  Project get project => _project;
+  @Input()
+  void set project(Project project) {
+    _project = project;
+    reload();
   }
 
-  ActivityOverviewComponent(
-      CachingObjectStoreService store, SettingsService manager, StatusService status, EntityEventsService entityEventsService)
-      : super(Activity, store, null, manager, status, entityEventsService);
+  ActivityOverviewComponent(CachingObjectStoreService store, SettingsService manager, StatusService status,
+      EntityEventsService entityEventsService, ChangeDetectorRef changeDetector)
+      : super(Activity, store, null, manager, status, entityEventsService, changeDetector);
 
   @override
   Activity cEnt({Activity entity}) {
@@ -44,23 +45,49 @@ class ActivityOverviewComponent extends EntityOverview<Activity> {
   @override
   bool needsmanualAdd = true;
 
-  @override
-  void onActivate(_, __); // is never called, since this component is not routable
+  ///services that share a rateGroup with the [project]
+  List<Service> availableServices = [];
 
+  // is never called, since this component is not routable
+  @override
+  void onActivate(_, __) {
+    entityEventsService.addListener(EntityEvent.RATE_GROUP_CHANGED, this.updateAvailableServices);
+  }
   @override
   Future createEntity({Activity newEnt, Map<String, dynamic> params: const {}}) {
-    return super.createEntity(params: {'project': this._projectId});
+    return super.createEntity(params: {'project': this._project?.id});
   }
 
   @override
-  Future reload({Map<String, dynamic> params, bool evict: false}) {
-    return super.reload(params: {'project': this._projectId}, evict: evict);
+  Future reload({Map<String, dynamic> params, bool evict: false}) async {
+    await super.reload(params: {'project': this._project?.id});
+    await updateAvailableServices();
+  }
+
+  Future updateAvailableServices() async {
+    availableServices = await store.list(Service, params: {"rateGroup": _project?.rateGroup?.id}, cacheWithParams: true);
   }
 
   @override
-  Future deleteEntity([int entId]) async {
+  Future deleteEntity([dynamic activityId]) async {
+    var activityToDelete = this.entities.firstWhere((a) => a.id == activityId);
+
+    if (hasLinkedTimeslices(activityToDelete)) {
+      window.alert('Kann nicht gelöscht werden, da Zeiteinträge darauf gebucht sind.');
+      return;
+    }
+
+    if (await hasLinkedInvoices(activityId)) {
+      window.alert('Kann nicht gelöscht werden, da noch Rechnungsposten darauf verweisen!');
+      return;
+    }
+
+    super.deleteEntity(activityId);
+  }
+
+  Future<bool> hasLinkedInvoices(int activityId) async {
     this.statusservice.setStatusToLoading();
-    List<Invoice> invoices = await this.store.list(Invoice, params: {'project': this._projectId});
+    List<Invoice> invoices = await this.store.list(Invoice, params: {'project': this._project?.id});
     List<List<InvoiceItem>> invoiceItemResults = await Future.wait<List<InvoiceItem>>(invoices.map((c) {
       return this.store.list(InvoiceItem, params: {'invoice': c.id});
     }));
@@ -68,11 +95,18 @@ class ActivityOverviewComponent extends EntityOverview<Activity> {
     List<int> activityIds = invoiceItemResults.expand((c) => c.map((i) => i.activity.id as int)).toList();
     print(activityIds);
     this.statusservice.setStatusToSuccess();
+    return activityIds.any((id) => id == activityId);
+  }
 
-    if (activityIds.any((id) => id == entId)) {
-      window.alert('Kann nicht gelöscht werden, da noch Rechnungsposten darauf verweisen!');
-    } else {
-      super.deleteEntity(entId);
+  bool hasLinkedTimeslices(Activity activity) {
+    //we could actually try loading the timeslices here, but looking at the value is probably enough
+
+    //to figure out whether the value is not 0, we first have to strip off those pesky suffixes
+    var valueRegex = new RegExp(r"([\d\.]+)");
+    var match = valueRegex.firstMatch(activity.value.toString());
+    if (match == null) {
+      return true;
     }
+    return num.parse(match.group(1)) != 0;
   }
 }

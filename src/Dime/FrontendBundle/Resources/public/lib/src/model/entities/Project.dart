@@ -44,9 +44,10 @@ class Project extends Entity {
       'rateGroup',
       'chargeable',
       'deadline',
-      'activities',
+      // these have to be saved separately using cloneDescendants()
+      //'activities',
       'projectCategory',
-      'invoices',
+      //'invoices', // we probably don't want to clone all the invoices
       'offers',
       'accountant',
       'deletedAt',
@@ -178,13 +179,16 @@ class Project extends Entity {
   }
 
   @override
-  cloneDescendants(Entity original) {
+  List<Entity> cloneDescendantsOf(Entity original) {
     if (original is Project) {
+      var clones = new List<Entity>();
       for (Activity activity in original.activities) {
         Activity clone = new Activity.clone(activity);
         clone.project = this;
-        this.descendantsToUpdate_.add(clone);
+        clones.add(clone);
       }
+
+      return clones;
     } else {
       throw new Exception("Invalid Type; Project expected!");
     }

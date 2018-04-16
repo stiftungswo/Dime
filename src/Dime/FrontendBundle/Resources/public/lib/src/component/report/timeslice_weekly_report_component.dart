@@ -30,7 +30,7 @@ class WeekReportDayEntry {
 @Component(
     selector: 'timeslice-weeklyreport',
     templateUrl: 'timeslice_weekly_report_component.html',
-    directives: const [coreDirectives, dimeDirectives, formDirectives],
+    directives: const [coreDirectives, formDirectives, dimeDirectives, formDirectives],
     pipes: const [COMMON_PIPES])
 class TimesliceWeeklyReportComponent extends EntityOverview<ExpenseReport> implements OnActivate {
   TimesliceWeeklyReportComponent(CachingObjectStoreService store, SettingsService manager, StatusService status, UserAuthService auth,
@@ -60,7 +60,7 @@ class TimesliceWeeklyReportComponent extends EntityOverview<ExpenseReport> imple
       this.filterStartDate = this.filterStartDate.subtract(new Duration(days: this.filterStartDate.weekday - 1));
     }
     this.filterEndDate = this.filterStartDate.add(new Duration(days: 7));
-    reload();
+    super.onActivate(null, null);
   }
 
   @override
@@ -133,12 +133,12 @@ class TimesliceWeeklyReportComponent extends EntityOverview<ExpenseReport> imple
             'date': '${format.format(filterStartDate)},${format.format(filterEndDate)}',
           }, method: 'GET', url: '${http.baseUrl}/reports/ziviweekly')));
       this.statusservice.setStatusToSuccess();
+      updateDates();
+      updateEmployees();
+      updateEntries();
     } catch (e, stack) {
       this.statusservice.setStatusToError(e, stack);
     }
-    updateDates();
-    updateEmployees();
-    updateEntries();
   }
 
   void previousWeek() {

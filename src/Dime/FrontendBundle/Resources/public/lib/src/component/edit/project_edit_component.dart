@@ -63,7 +63,7 @@ class ProjectEditComponent extends EntityEdit<Project> {
   @override
   Future reload({bool evict: false}) async {
     await super.reload(evict: evict);
-    page_title.setPageTitle('Projekte', entity.name);
+    page_title.setPageTitle('Projekte', entity?.name);
   }
 
   Future loadCustomers() async {
@@ -72,6 +72,10 @@ class ProjectEditComponent extends EntityEdit<Project> {
 
   Future loadRateGroups() async {
     this.rateGroups = await this.store.list(RateGroup);
+  }
+
+  void rateGroupChanged() {
+    entityEventsService.emit(EntityEvent.RATE_GROUP_CHANGED);
   }
 
   Future openOffer(int id) async {

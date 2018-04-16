@@ -300,12 +300,4 @@ class TimesliceRepository extends EntityRepository
      * @return array, list of activity ids
      *
      */
-    public function fetchRunningActivityIds()
-    {
-        $rsm = new ResultSetMapping();
-        $rsm->addScalarResult('activity_id', 'activity');
-        $sql = 'SELECT DISTINCT t.activity_id FROM timeslices t WHERE t.stopped_at IS NULL AND t.value = 0';
-        $query = $this->getEntityManager()->createNativeQuery($sql, $rsm);
-        return array_map("array_pop", $query->getResult());
-    }
 }

@@ -1,5 +1,3 @@
-library entity_overview;
-
 import 'dart:async';
 import 'dart:html';
 
@@ -15,6 +13,7 @@ import '../../service/status_service.dart';
 import '../../service/user_auth_service.dart';
 
 abstract class EntityOverview<T extends Entity> implements OnActivate, AfterViewInit {
+  //TODO: this can probably be removed
   bool needsmanualAdd = false;
 
   dynamic selectedEntId;
@@ -25,7 +24,6 @@ abstract class EntityOverview<T extends Entity> implements OnActivate, AfterView
 
   void set entities(List<T> entities) {
     _entities = entities;
-    checkEntitiesEmpty();
   }
 
   Type type;
@@ -44,8 +42,6 @@ abstract class EntityOverview<T extends Entity> implements OnActivate, AfterView
 
   UserAuthService auth;
 
-  String filterString = "";
-
   String sortType = "";
 
   bool sortReverse = false;
@@ -57,27 +53,6 @@ abstract class EntityOverview<T extends Entity> implements OnActivate, AfterView
       }
     }
     return null;
-  }
-
-  void saveAllEntities() {
-    for (T entity in this.entities) {
-      if (entity.needsUpdate) {
-        this.saveEntity(entity);
-      }
-    }
-  }
-
-  Future saveEntity(T entity) async {
-    this.statusservice.setStatusToLoading();
-    try {
-      T _ = await store.update(entity);
-      //mutating this array appears to break ngControl, so instead we just reload the component now
-      this.reload();
-      this.statusservice.setStatusToSuccess();
-    } catch (e, stack) {
-      print("Unable to save entity ${this.type.toString()}::${entity.id} because ${e}");
-      this.statusservice.setStatusToError(e, stack);
-    }
   }
 
   void selectEntity(int entId) {
@@ -107,7 +82,6 @@ abstract class EntityOverview<T extends Entity> implements OnActivate, AfterView
         this.openEditView(resp.id as int);
       } else {
         this.entities.add(resp);
-        this.checkEntitiesEmpty();
       }
     } catch (e, stack) {
       print("Unable to create entity ${this.type.toString()} because ${e}");
@@ -118,29 +92,28 @@ abstract class EntityOverview<T extends Entity> implements OnActivate, AfterView
   T cEnt({T entity});
 
   Future duplicateEntity() async {
-    T ent = this.selectedEntity;
-    if (ent != null) {
+    if (this.selectedEntity == null) {
+      window.alert("Es ist nichts ausgewählt");
+      return null;
+    }
+
+    try {
       this.statusservice.setStatusToLoading();
-      T newEnt = this.cEnt(entity: ent);
-      try {
-        T result = await this.store.create(newEnt);
-        if (needsmanualAdd) {
-          this.entities.add(result);
-        }
-        result.cloneDescendants(ent);
-        for (Entity entity in result.descendantsToUpdate) {
-          await this.store.create(entity);
-        }
-        this.statusservice.setStatusToSuccess();
-        this.checkEntitiesEmpty();
-      } catch (e, stack) {
-        print("Unable to duplicate entity ${this.type.toString()}::${newEnt.id} because ${e}");
-        this.statusservice.setStatusToError(e, stack);
+      //We need to load the full entity instead of the placeholder it is being represented by in the overview; i.e. an [Invoice] needs its invoiceItems so we can clone them too
+      T template = await this.store.one(selectedEntity.runtimeType, selectedEntity.id);
+      T clone = await this.store.create(this.cEnt(entity: template));
+      if (needsmanualAdd) {
+        this.entities.add(clone);
       }
+      await Future.wait(clone.cloneDescendantsOf(template).map(this.store.create));
+      this.statusservice.setStatusToSuccess();
+    } catch (e, stack) {
+      print("Unable to duplicate entity ${this.type.toString()}::${this.selectedEntity.id} because ${e}");
+      this.statusservice.setStatusToError(e, stack);
     }
   }
 
-  Future deleteEntity([int entId]) async {
+  Future deleteEntity([dynamic entId]) async {
     if (entId == null) {
       entId = this.selectedEntId as int;
     }
@@ -153,7 +126,6 @@ abstract class EntityOverview<T extends Entity> implements OnActivate, AfterView
             await this.store.delete(ent);
           }
           this.entities.removeWhere((enty) => enty.id == entId);
-          this.checkEntitiesEmpty();
           this.statusservice.setStatusToSuccess();
         } catch (e, stack) {
           print("Unable to Delete entity ${this.type.toString()}::${entId} because ${e}");
@@ -207,10 +179,6 @@ abstract class EntityOverview<T extends Entity> implements OnActivate, AfterView
     }
   }
 
-  void addSaveField(String name, T entity) {
-    entity.addFieldtoUpdate(name);
-  }
-
   void changeSortOrder(String field) {
     if (sortType == field) {
       sortReverse = !sortReverse;
@@ -220,48 +188,6 @@ abstract class EntityOverview<T extends Entity> implements OnActivate, AfterView
     }
   }
 
-  rowClass(T entity, bool valid) {
-    if (valid ?? true) {
-      return {"info": isSelected(entity)};
-    } else {
-      if (isSelected(entity)) {
-        return {"warning": true};
-      } else {
-        return {"danger": true};
-      }
-    }
-  }
-
   EntityOverview(this.type, this.store, this.routename, this.settingsManager, this.statusservice, this.entityEventsService,
-      {this.router, this.auth}) {
-    entityEventsService.addSaveChangesListener(this.saveAllEntities);
-  }
-
-  @Input()
-  bool required = false;
-
-  ///a dummy control to mimick empty state of [entities], used for [required] validation
-  Control _entitiesHasContent = null;
-
-  @ViewChild("overview")
-  NgControlGroup overview;
-
-  @override
-  ngAfterViewInit() {
-    if (required) {
-      if (overview == null) {
-        throw new Exception("Marked ${this.toString()} as required, but did not export an `#overview='ngForm'` in its template");
-      } else {
-        _entitiesHasContent = new Control(null, Validators.required);
-        overview.control.addControl("entities", _entitiesHasContent);
-      }
-    }
-  }
-
-  void checkEntitiesEmpty() {
-    if (required) {
-      _entitiesHasContent.updateValue(_entities.isEmpty ? null : true);
-      _entitiesHasContent.markAsTouched();
-    }
-  }
+      {this.router, this.auth});
 }

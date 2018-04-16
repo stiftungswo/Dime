@@ -10,7 +10,7 @@ import '../../service/entity_events_service.dart';
 import '../../service/settings_service.dart';
 import '../../service/status_service.dart';
 import '../common/dime_directives.dart';
-import 'entity_overview.dart';
+import 'editable_overview.dart';
 
 @Component(
   selector: 'invoice-item-overview',
@@ -18,10 +18,13 @@ import 'entity_overview.dart';
   directives: const [coreDirectives, formDirectives, dimeDirectives],
   pipes: const [OrderByPipe],
 )
-class InvoiceItemOverviewComponent extends EntityOverview<InvoiceItem> {
-  InvoiceItemOverviewComponent(
-      CachingObjectStoreService store, SettingsService manager, StatusService status, EntityEventsService entityEventsService)
-      : super(InvoiceItem, store, null, manager, status, entityEventsService);
+class InvoiceItemOverviewComponent extends EditableOverview<InvoiceItem> {
+  InvoiceItemOverviewComponent(CachingObjectStoreService store, SettingsService manager, StatusService status,
+      EntityEventsService entityEventsService, ChangeDetectorRef changeDetector)
+      : super(InvoiceItem, store, null, manager, status, entityEventsService, changeDetector);
+
+  @override
+  List<String> get fields => const ['id', 'order', 'name', 'rateValue', 'rateUnit', 'amount', 'vat', 'total'];
 
   @override
   InvoiceItem cEnt({InvoiceItem entity}) {

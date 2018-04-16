@@ -24,6 +24,8 @@ class CustomerOverviewComponent extends EntityOverview<Customer> implements OnAc
       UserAuthService auth, EntityEventsService entityEventsService)
       : super(Customer, store, routes.CustomerEditRoute, manager, status, entityEventsService, auth: auth, router: router);
 
+  static String globalFilterString = '';
+
   @override
   onActivate(_, __) {
     super.onActivate(_, __);

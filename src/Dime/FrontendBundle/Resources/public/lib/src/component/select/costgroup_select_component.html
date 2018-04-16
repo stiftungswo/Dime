@@ -1,5 +1,5 @@
 <div class="dropdown" [class.open]="open">
-  <input [required]="required" class="form-control" type="text" [(ngModel)]="selector" placeholder="{{placeholder}}" (click)="toggleSelectionBox()" style="width: 100%;">
+  <input [required]="required" class="form-control" type="text" [(ngModel)]="selector" placeholder="{{placeholder}}" (click)="toggleSelectionBox()" style="width: 100%;" autocomplete="off">
 
   <div class="dropdown-menu select-dropdown" >
   <!--  <div ng-repeat="entity in entities | filter:{name: selector} | orderBy:'name'">-->

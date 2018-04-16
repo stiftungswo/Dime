@@ -91,7 +91,7 @@ class OfferEditComponent extends EntityEdit<Offer> {
         this.project = await this.store.one(Project, this.entity.project.id);
       }
       this.statusservice.setStatusToSuccess();
-      page_title.setPageTitle('Offerten', entity.name);
+      page_title.setPageTitle('Offerten', entity?.name);
     } catch (e, stack) {
       this.statusservice.setStatusToError(e, stack);
     }
@@ -115,6 +115,10 @@ class OfferEditComponent extends EntityEdit<Offer> {
 
   Future openProject() async {
     router.navigate(routes.ProjectEditRoute.toUrl(parameters: {'id': entity.project.id.toString()}));
+  }
+
+  void rateGroupChanged() {
+    entityEventsService.emit(EntityEvent.RATE_GROUP_CHANGED);
   }
 
   Future createProject() async {

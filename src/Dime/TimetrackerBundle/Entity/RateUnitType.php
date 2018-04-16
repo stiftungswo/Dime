@@ -82,6 +82,7 @@ class RateUnitType extends Entity implements DimeEntityInterface
      *
      * @ORM\Id
      * @ORM\Column(name="id", type="string")
+     * @JMS\Groups({"List"})
      */
     protected $id;
 
@@ -89,6 +90,7 @@ class RateUnitType extends Entity implements DimeEntityInterface
      * @var string
      *
      * @ORM\Column(type="string", nullable=true)
+     * @JMS\Groups({"List"})
      */
     protected $name;
 

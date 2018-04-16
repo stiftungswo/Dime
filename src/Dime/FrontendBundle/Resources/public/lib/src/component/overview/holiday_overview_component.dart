@@ -10,17 +10,20 @@ import '../../service/status_service.dart';
 import '../../service/user_auth_service.dart';
 import '../../util/page_title.dart' as page_title;
 import '../common/dime_directives.dart';
-import 'entity_overview.dart';
+import 'editable_overview.dart';
 
 @Component(
   selector: 'holiday-overview',
   templateUrl: 'holiday_overview_component.html',
   directives: const [formDirectives, coreDirectives, dimeDirectives],
 )
-class HolidayOverviewComponent extends EntityOverview<Holiday> implements OnActivate {
+class HolidayOverviewComponent extends EditableOverview<Holiday> implements OnActivate {
   HolidayOverviewComponent(CachingObjectStoreService store, SettingsService manager, StatusService status, UserAuthService auth,
-      EntityEventsService entityEventsService)
-      : super(Holiday, store, null, manager, status, entityEventsService, auth: auth);
+      EntityEventsService entityEventsService, ChangeDetectorRef changeDetector)
+      : super(Holiday, store, null, manager, status, entityEventsService, changeDetector, auth: auth);
+
+  @override
+  List<String> get fields => const ['id', 'weekday', 'date', 'duration'];
 
   @override
   onActivate(_, __) {

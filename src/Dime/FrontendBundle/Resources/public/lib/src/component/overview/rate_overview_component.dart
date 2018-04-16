@@ -10,17 +10,20 @@ import '../../service/settings_service.dart';
 import '../../service/status_service.dart';
 import '../common/dime_directives.dart';
 import '../select/select.dart';
-import 'entity_overview.dart';
+import 'editable_overview.dart';
 
 @Component(
   selector: 'rate-overview',
   templateUrl: 'rate_overview_component.html',
   directives: const [formDirectives, coreDirectives, dimeDirectives, RateGroupSelectComponent, RateUnitTypeSelectComponent],
 )
-class RateOverviewComponent extends EntityOverview<Rate> {
-  RateOverviewComponent(
-      CachingObjectStoreService store, SettingsService manager, StatusService status, EntityEventsService entityEventsService)
-      : super(Rate, store, null, manager, status, entityEventsService);
+class RateOverviewComponent extends EditableOverview<Rate> {
+  RateOverviewComponent(CachingObjectStoreService store, SettingsService manager, StatusService status,
+      EntityEventsService entityEventsService, ChangeDetectorRef changeDetector)
+      : super(Rate, store, null, manager, status, entityEventsService, changeDetector);
+
+  @override
+  List<String> get fields => const ['id', 'rateUnit', 'rateGroup', 'rateValue', 'rateUnitType'];
 
   @override
   Rate cEnt({Rate entity}) {
@@ -30,10 +33,11 @@ class RateOverviewComponent extends EntityOverview<Rate> {
     return new Rate();
   }
 
-  @override
-  bool needsmanualAdd = true;
-
   int _serviceId;
+
+  RateGroup newRateGroup;
+
+  List<RateGroup> rateGroups = [];
 
   @Input()
   set service(int id) {
@@ -44,15 +48,39 @@ class RateOverviewComponent extends EntityOverview<Rate> {
   }
 
   @override
-  Future reload({Map<String, dynamic> params, bool evict: false}) {
-    return super.reload(params: {'service': this._serviceId}, evict: evict);
+  Future reload({Map<String, dynamic> params, bool evict: false}) async {
+    await super.reload(params: {'service': this._serviceId}, evict: evict);
+    updateNewRateGroup();
+  }
+
+  // is never called, since this component is not routable
+  @override
+  Future onActivate(_, __) async {
+    rateGroups = await store.list(RateGroup);
+    updateNewRateGroup();
   }
 
   @override
-  void onActivate(_, __); // is never called, since this component is not routable
+  Future createEntity({dynamic newEnt, Map<String, dynamic> params: const {}}) async {
+    var rate = new Rate();
+    rate.rateGroup = newRateGroup;
+    rate.addFieldtoUpdate("rateGroup");
+    rate.init(params: {'service': this._serviceId});
+    await super.createEntity(newEnt: rate);
+    updateNewRateGroup();
+  }
 
-  @override
-  Future createEntity({dynamic newEnt, Map<String, dynamic> params: const {}}) {
-    return super.createEntity(params: {'service': this._serviceId});
+  List<RateGroup> unusedRateGroups() {
+    Iterable<dynamic> usedRateGroups = entities.map<dynamic>((rate) => rate.rateGroup.id);
+    return rateGroups.where((rateGroup) => !usedRateGroups.contains(rateGroup.id)).toList(growable: false);
+  }
+
+  void updateNewRateGroup() {
+    var unused = unusedRateGroups();
+    if (unused.isNotEmpty) {
+      newRateGroup = unused.first;
+    } else {
+      newRateGroup = null;
+    }
   }
 }

@@ -29,6 +29,11 @@ class Service extends Entity implements DimeEntityInterface
     use SoftDeleteTrait;
 
     /**
+     * Archivable fields
+     */
+    use ArchivableTrait;
+
+    /**
      * @var string $name
      *
      * @JMS\Groups({"List"})
@@ -87,13 +92,6 @@ class Service extends Entity implements DimeEntityInterface
     protected $vat;
 
     /**
-     * @var boolean $archived
-     * @JMS\Groups({"List"})
-     * @ORM\Column(type="boolean")
-     */
-    protected $archived = false;
-
-    /**
      * Entity constructor
      */
     public function __construct()
@@ -131,37 +129,6 @@ class Service extends Entity implements DimeEntityInterface
     public function getChargeable()
     {
         return $this->chargeable;
-    }
-
-    /**
-     * @return boolean
-     */
-    public function isArchived()
-    {
-        return $this->archived;
-    }
-
-    /**
-     * @param boolean $archived
-     *
-     * @return $this
-     */
-    public function setArchived($archived)
-    {
-        if ($archived !== 'empty') {
-            $this->archived = $archived;
-        }
-        return $this;
-    }
-
-    /**
-     * Get archived
-     *
-     * @return boolean
-     */
-    public function getArchived()
-    {
-        return $this->archived;
     }
 
     /**

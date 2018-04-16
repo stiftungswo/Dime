@@ -11,7 +11,7 @@ import '../../service/settings_service.dart';
 import '../../service/status_service.dart';
 import '../common/dime_directives.dart';
 import '../select/select.dart';
-import 'entity_overview.dart';
+import 'editable_overview.dart';
 
 @Component(
   selector: 'offer-position-overview',
@@ -19,10 +19,10 @@ import 'entity_overview.dart';
   directives: const [coreDirectives, formDirectives, dimeDirectives, RateUnitTypeSelectComponent, ServiceSelectComponent],
   pipes: const [OrderByPipe],
 )
-class OfferPositionOverviewComponent extends EntityOverview<OfferPosition> {
-  OfferPositionOverviewComponent(
-      CachingObjectStoreService store, SettingsService manager, StatusService status, EntityEventsService entityEventsService)
-      : super(OfferPosition, store, null, manager, status, entityEventsService);
+class OfferPositionOverviewComponent extends EditableOverview<OfferPosition> {
+  OfferPositionOverviewComponent(CachingObjectStoreService store, SettingsService manager, StatusService status,
+      EntityEventsService entityEventsService, ChangeDetectorRef changeDetector)
+      : super(OfferPosition, store, null, manager, status, entityEventsService, changeDetector);
 
   @override
   OfferPosition cEnt({OfferPosition entity}) {
@@ -33,28 +33,51 @@ class OfferPositionOverviewComponent extends EntityOverview<OfferPosition> {
   }
 
   @override
+  get fields => const [
+        "id",
+        "order",
+        "service",
+        "rateValue",
+        "rateUnit",
+        "rateUnitType",
+        "amount",
+        "vat",
+        "total",
+      ];
+
+  @override
   bool needsmanualAdd = true;
 
-  int _offerId;
+  Offer _offer;
+  Offer get offer => _offer;
 
   @Input('offer')
-  set offerId(int id) {
-    if (id != null) {
-      this._offerId = id;
-      reload();
-    }
+  void set offer(Offer offer) {
+    _offer = offer;
+    reload();
+  }
+
+  ///services that share a rateGroup with the [offer]
+  List<Service> availableServices = [];
+
+  @override
+  Future reload({Map<String, dynamic> params, bool evict: false}) async {
+    await super.reload(params: {'offer': _offer?.id});
+    await updateAvailableServices();
+  }
+
+  Future updateAvailableServices() async {
+    availableServices = await store.list(Service, params: {"rateGroup": _offer?.rateGroup?.id});
+  }
+
+  // is never called, since this component is not routable
+  @override
+  void onActivate(_, __) {
+    entityEventsService.addListener(EntityEvent.RATE_GROUP_CHANGED, this.updateAvailableServices);
   }
 
   @override
-  Future reload({Map<String, dynamic> params, bool evict: false}) {
-    return super.reload(params: {'offer': this._offerId}, evict: evict);
-  }
-
-  @override
-  void onActivate(_, __); // is never called, since this component is not routable
-
-  @override
-  Future createEntity({OfferPosition newEnt, Map<String, dynamic> params: const {}}) {
-    return super.createEntity(params: {'offer': this._offerId});
+  Future createEntity({OfferPosition newEnt, Map<String, dynamic> params: const {}}) async {
+    super.createEntity(params: {'offer': _offer.id});
   }
 }

@@ -10,15 +10,12 @@
       </thead>
       <tbody *ngIf="entities != null">
         <tr
-          *ngFor="let entity of entities ; let i = index"
-          (click)="selectEntity(entity.id)"
-          [ngClass]="rowClass(entity, row.valid)"
-          ngControlGroup="position{{i}}"
-          #row="ngForm">
-          <td><input type="number" readonly class="form-control" [(ngModel)]="entity.id" (change)="addSaveField('id', entity)"/></td>
-          <td validationStatus class="form-group"><input required ngControl="name" class="form-control"
-                                                         [(ngModel)]="entity.name" (change)="addSaveField('name', entity)"/></td>
-          <td><dime-button (click)="deleteEntity(entity.id)" fontAwesome="trash-o" color="red"></dime-button></td>
+          *ngFor="let c of controls"
+          (click)="selectEntity(c.controls['id'].value)"
+          [ngClass]="rowClass(c.controls['id'].value, c.valid)" >
+          <td><span>{{c.controls['id'].value}}</span></td>
+          <td validationStatus class="form-group"><input required class="form-control" [ngFormControl]="c.controls['name']" /></td>
+          <td><dime-button (click)="deleteEntity(c.controls['id'].value)" fontAwesome="trash-o" color="red"></dime-button></td>
         </tr>
       </tbody>
     </table>

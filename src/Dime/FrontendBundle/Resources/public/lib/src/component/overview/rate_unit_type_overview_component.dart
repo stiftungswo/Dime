@@ -14,17 +14,20 @@ import '../../service/user_auth_service.dart';
 import '../../util/page_title.dart' as page_title;
 import '../common/dime_directives.dart';
 import '../common/setting_edit_component.dart';
-import 'entity_overview.dart';
+import 'editable_overview.dart';
 
 @Component(
   selector: 'rate-unit-type-overview',
   templateUrl: 'rate_unit_type_overview_component.html',
   directives: const [formDirectives, coreDirectives, dimeDirectives, SettingEditComponent],
 )
-class RateUnitTypeOverviewComponent extends EntityOverview<RateUnitType> implements OnActivate {
+class RateUnitTypeOverviewComponent extends EditableOverview<RateUnitType> implements OnActivate {
   RateUnitTypeOverviewComponent(CachingObjectStoreService store, SettingsService manager, StatusService status,
-      EntityEventsService entityEventsService, UserAuthService auth)
-      : super(RateUnitType, store, null, manager, status, entityEventsService, auth: auth);
+      EntityEventsService entityEventsService, UserAuthService auth, ChangeDetectorRef changeDetector)
+      : super(RateUnitType, store, null, manager, status, entityEventsService, changeDetector, auth: auth);
+
+  @override
+  List<String> get fields => const ['id', 'name', 'factor', 'scale', 'roundMode', 'symbol', 'doTransform'];
 
   @override
   onActivate(_, __) {
@@ -50,48 +53,12 @@ class RateUnitTypeOverviewComponent extends EntityOverview<RateUnitType> impleme
       }
       rateType.Set(name, settingForName.value);
       rateType.addFieldtoUpdate(name);
-      print('Setting $name as ${settingForName.value}');
     }
     await super.createEntity(newEnt: rateType);
   }
 
   @override
-  Future saveEntity(RateUnitType entity) async {
-    this.statusservice.setStatusToLoading();
-    try {
-      RateUnitType resp = await store.update(entity);
-      this.entities.removeWhere((enty) => enty.id == resp.id);
-      this.entities.add(resp);
-      this.statusservice.setStatusToSuccess();
-    } catch (e, stack) {
-      this.statusservice.setStatusToError(e, stack);
-    }
-  }
-
-  @override
   void selectEntity(dynamic entId) {
     this.selectedEntId = entId;
-  }
-
-  @override
-  Future deleteEntity([dynamic entId]) async {
-    if (entId == null) {
-      entId = this.selectedEntId;
-    }
-    if (entId != null) {
-      if (window.confirm("Wirklich löschen?")) {
-        this.statusservice.setStatusToLoading();
-        try {
-          if (this.store != null) {
-            var ent = this.entities.singleWhere((enty) => enty.id == entId);
-            await this.store.delete(ent);
-          }
-          this.entities.removeWhere((enty) => enty.id == entId);
-          this.statusservice.setStatusToSuccess();
-        } catch (e, stack) {
-          this.statusservice.setStatusToError(e, stack);
-        }
-      }
-    }
   }
 }

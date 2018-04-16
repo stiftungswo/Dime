@@ -27,6 +27,8 @@ class EmployeeOverviewComponent extends EntityOverview<Employee> implements OnAc
       UserAuthService auth, EntityEventsService entityEventsService)
       : super(Employee, store, routes.EmployeeEditRoute, manager, status, entityEventsService, router: router, auth: auth);
 
+  static String globalFilterString = '';
+
   @override
   String sortType = "username";
 

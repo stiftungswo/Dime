@@ -14,10 +14,11 @@ import '../../service/status_service.dart';
 import '../../service/user_auth_service.dart';
 import '../../util/page_title.dart' as page_title;
 import '../common/dime_directives.dart';
+import '../common/markdown_input_component.dart';
+import '../main/routes.dart' as routes;
 import '../overview/overview.dart';
 import '../select/select.dart';
 import 'entity_edit.dart';
-import '../main/routes.dart' as routes;
 
 @Component(
   selector: 'invoice-edit',
@@ -31,6 +32,7 @@ import '../main/routes.dart' as routes;
     InvoiceItemOverviewComponent,
     InvoiceCostgroupOverviewComponent,
     InvoiceDiscountOverviewComponent,
+    MarkdownInputComponent
   ],
 )
 class InvoiceEditComponent extends EntityEdit<Invoice> {
@@ -82,7 +84,7 @@ class InvoiceEditComponent extends EntityEdit<Invoice> {
       if (this.project != null) {
         this.project = await this.store.one(Project, this.entity.project.id);
       }
-      page_title.setPageTitle('Rechnungen', entity.name);
+      page_title.setPageTitle('Rechnungen', entity?.name);
       this.statusservice.setStatusToSuccess();
     } catch (e, stack) {
       this.statusservice.setStatusToError(e, stack);

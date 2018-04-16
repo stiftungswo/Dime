@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
 import 'package:angular_router/angular_router.dart';
@@ -31,6 +29,8 @@ class OfferOverviewComponent extends EntityOverview<Offer> implements OnActivate
     sortReverse = true;
   }
 
+  static String globalFilterString = '';
+
   UserContextService context;
 
   @override
@@ -48,70 +48,5 @@ class OfferOverviewComponent extends EntityOverview<Offer> implements OnActivate
     newOffer.accountant = this.context.employee;
     newOffer.addFieldtoUpdate('accountant');
     return newOffer;
-  }
-
-  OfferPosition cEntPos(OfferPosition entity) {
-    if (entity != null) {
-      return new OfferPosition.clone(entity);
-    }
-    return new OfferPosition();
-  }
-
-  @override
-  Future duplicateEntity() async {
-    print("duplicate usdf offer now");
-    var ent = this.selectedEntity;
-
-    if (ent != null) {
-      this.statusservice.setStatusToLoading();
-
-      Offer duplicateOffer = await this.store.one(Offer, ent.id);
-
-      for (OfferPosition _ in duplicateOffer.offerPositions) {
-        print("offer position item now");
-      }
-
-      Offer newOffer = this.cEnt();
-
-      newOffer = duplicateOffer;
-      newOffer.id = null;
-
-      newOffer.addFieldtoUpdate('name');
-      newOffer.addFieldtoUpdate('shortDescription');
-      newOffer.addFieldtoUpdate('description');
-      newOffer.addFieldtoUpdate('status');
-      newOffer.addFieldtoUpdate('customer');
-      newOffer.addFieldtoUpdate('address');
-      newOffer.addFieldtoUpdate('accountant');
-      newOffer.addFieldtoUpdate('rateGroup');
-      newOffer.addFieldtoUpdate('validTo');
-
-      try {
-        Offer resultOffer = await this.store.create(newOffer);
-
-        // create offerpositions with new offer
-        for (OfferPosition offerPosition in newOffer.offerPositions) {
-          print("duplicate position now");
-          OfferPosition newOfferPosition = this.cEntPos(offerPosition);
-          newOfferPosition.offer = resultOffer;
-
-          await this.store.create(newOfferPosition);
-        }
-
-        if (needsmanualAdd) {
-          this.entities.add(resultOffer);
-        }
-
-        resultOffer.cloneDescendants(ent);
-
-        for (var entity in resultOffer.descendantsToUpdate) {
-          await this.store.create(entity);
-        }
-        this.statusservice.setStatusToSuccess();
-      } catch (e, stack) {
-        print("Unable to duplicate entity ${this.type.toString()}::${newOffer.id} because ${e}");
-        this.statusservice.setStatusToError(e, stack);
-      }
-    }
   }
 }

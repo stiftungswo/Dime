@@ -298,3 +298,8 @@ a > img {
 .input-group-btn .tooltip-inner{
     white-space: normal;
 }
+
+.editable-overview td > span{
+    display: inline-block;
+    padding-top: 6px;
+}

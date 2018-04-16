@@ -35,8 +35,9 @@ class Offer extends Entity {
       'accountant',
       'shortDescription',
       'description',
-      'offerPositions',
-      'offerDiscounts',
+      // these have to be saved separately using cloneDescendants()
+      // 'offerPositions',
+      // 'offerDiscounts',
       'status',
       'address',
       'fixedPrice',
@@ -166,18 +167,22 @@ class Offer extends Entity {
   }
 
   @override
-  void cloneDescendants(Entity original) {
+  List<Entity> cloneDescendantsOf(Entity original) {
     if (original is Offer) {
+      var clones = new List<Entity>();
+
       for (OfferPosition entity in original.offerPositions) {
         OfferPosition clone = new OfferPosition.clone(entity);
         clone.offer = this;
-        this.descendantsToUpdate_.add(clone);
+        clones.add(clone);
       }
       for (OfferDiscount entity in original.offerDiscounts) {
         OfferDiscount clone = new OfferDiscount.clone(entity);
         clone.offer = this;
-        this.descendantsToUpdate_.add(clone);
+        clones.add(clone);
       }
+
+      return clones;
     } else {
       throw new Exception("Invalid Type; Offer expected!");
     }

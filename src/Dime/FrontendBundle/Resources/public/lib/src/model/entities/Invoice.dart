@@ -27,13 +27,14 @@ class Invoice extends Entity {
     this.totalVAT2 = original.totalVAT2;
     this.fixedPrice = original.fixedPrice;
     this.accountant = original.accountant;
-    this.costgroup = original.costgroup;
+    this.costgroups = original.costgroups;
     this.breakdown = original.breakdown;
     addFieldstoUpdate([
       'description',
       'project',
-      'items',
-      'invoiceDiscounts',
+      // these have to be saved separately using cloneDescendants()
+      //'items',
+      //'invoiceDiscounts',
       'start',
       'end',
       'customer',
@@ -100,8 +101,8 @@ class Invoice extends Entity {
           return this.fixedPrice;
         case 'accountant':
           return this.accountant;
-        case 'costgroup':
-          return this.costgroup;
+        case 'costgroups':
+          return this.costgroups;
         case 'breakdown':
           return this.breakdown;
         default:
@@ -159,8 +160,8 @@ class Invoice extends Entity {
       case 'accountant':
         this.accountant = value is Employee ? value : new Employee.fromMap(value as Map<String, dynamic>);
         break;
-      case 'costgroup':
-        this.costgroup = value is Costgroup ? value : new Costgroup.fromMap(value as Map<String, dynamic>);
+      case 'costgroups':
+        this.costgroups = InvoiceCostgroup.listFromMap(value as List<Map<String, dynamic>>);
         break;
       case 'breakdown':
         this.breakdown = new InvoiceBreakdown.fromMap(value as Map<String, dynamic>);
@@ -172,18 +173,26 @@ class Invoice extends Entity {
   }
 
   @override
-  cloneDescendants(Entity original) {
+  List<Entity> cloneDescendantsOf(Entity original) {
     if (original is Invoice) {
+      var clones = new List<Entity>();
+
       for (InvoiceItem entity in original.items) {
         InvoiceItem clone = new InvoiceItem.clone(entity);
         clone.invoice = this;
-        this.descendantsToUpdate_.add(clone);
+        clones.add(clone);
       }
       for (InvoiceDiscount entity in original.invoiceDiscounts) {
         InvoiceDiscount clone = new InvoiceDiscount.clone(entity);
         clone.invoice = this;
-        this.descendantsToUpdate_.add(clone);
+        clones.add(clone);
       }
+      for (InvoiceCostgroup entity in original.costgroups) {
+        var clone = new InvoiceCostgroup.clone(entity);
+        clone.invoice = this;
+        clones.add(clone);
+      }
+      return clones;
     } else {
       throw new Exception("Invalid Type; Invoice expected!");
     }
@@ -203,9 +212,9 @@ class Invoice extends Entity {
   Project project;
   List<InvoiceItem> items = [];
   List<InvoiceDiscount> invoiceDiscounts = [];
+  List<InvoiceCostgroup> costgroups = [];
   DateTime start;
   DateTime end;
   Employee accountant;
-  Costgroup costgroup;
   InvoiceBreakdown breakdown;
 }

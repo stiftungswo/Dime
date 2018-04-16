@@ -11,15 +11,13 @@
       </thead>
       <tbody *ngIf="entities != null">
         <tr
-          *ngFor="let entity of entities ; let i = index"
-          (click)="selectEntity(entity.id)"
-          [ngClass]="rowClass(entity, row.valid)"
-          ngControlGroup="position{{i}}"
-          #row="ngForm">
-          <td>{{entity.weekday}}</td>
-          <td validationStatus class="form-group"><date-input required ngControl="date{{i}}" [ngModel]="entity.date" (ngModelChange)="entity.date=$event;entity.addFieldtoUpdate('date')"></date-input></td>
-          <td validationStatus class="form-group"><input required ngControl="duration{{i}}" class="form-control" [(ngModel)]="entity.duration" (change)="addSaveField('duration', entity)"/></td>
-          <td> <dime-button (click)="deleteEntity(entity.id)" fontAwesome="trash-o" color="red"></dime-button> </td>
+          *ngFor="let c of controls"
+          (click)="selectEntity(c.controls['id'].value)"
+          [ngClass]="rowClass(c.controls['id'].value, c.valid)" >
+          <td>{{c.controls['weekday'].value}}</td>
+          <td validationStatus class="form-group"><date-input required [ngFormControl]="c.controls['date']"></date-input></td>
+          <td validationStatus class="form-group"><input required class="form-control" [ngFormControl]="c.controls['duration']"/></td>
+          <td> <dime-button (click)="deleteEntity(c.controls['id'].value)" fontAwesome="trash-o" color="red"></dime-button> </td>
         </tr>
       </tbody>
     </table>

@@ -3,31 +3,37 @@
     <thead>
     <tr>
       <th width="40">ID</th>
-      <th>Service</th>
+      <th>Service
+        <help-tooltip text="Wenn dein Service nicht aufgelistet ist, ist er entweder archiviert oder nicht für den Tarif des Projekts konfiguriert."></help-tooltip>
+      </th>
       <th>Beschreibung</th>
       <th>Preis</th>
       <th>Einheit</th>
-      <th>Anzahl</th>
+      <th>Typ</th>
+      <th>Anzahl
+        <help-tooltip text="wird aus den gebuchten Zeiteinträgen auf diese Aktivität berechnet"></help-tooltip>
+      </th>
       <th width="60">Aktion</th>
     </tr>
     </thead>
     <tbody *ngIf="entities != null">
     <tr
-      *ngFor="let entity of entities; let i = index"
-      (click)="selectEntity(entity.id)"
-      [ngClass]="rowClass(entity, row.valid)"
-      ngControlGroup="row{{i}}"
-      #row="ngForm"
+      *ngFor="let c of controls"
+      (click)="selectEntity(c.controls['id'].value)"
+      [ngClass]="rowClass(c.controls['id'].value, c.valid)"
     >
-      <td>{{entity.id}}</td>
-      <td validationStatus class="form-group"><service-select hideArchived required ngControl="service"
-                                                              [ngModel]="entity.service"
-                                                              (ngModelChange)="entity.service=$event; entity.addFieldtoUpdate('service')"></service-select></td>
-      <td><textarea class="form-control tiny" [(ngModel)]="entity.description" (change)="addSaveField('description', entity)"></textarea></td>
-      <td>{{entity.rateValue}}</td>
-      <td>{{entity.rateUnit}}</td>
-      <td>{{entity.value}}</td>
-      <td><dime-button (click)="deleteEntity(entity.id)" fontAwesome="trash-o" color="red"></dime-button></td>
+      <td>{{c.controls['id'].value}}</td>
+      <td validationStatus class="form-group"><service-select hideArchived required [options]="availableServices" [disabled]="project?.rateGroup == null"
+                                                              [ngFormControl]="c.controls['service']" ></service-select></td>
+      <td><textarea class="form-control tiny" [ngFormControl]="c.controls['description']"></textarea></td>
+      <td validationStatus class="form-group">
+        <input required class="form-control" [ngFormControl]="c.controls['rateValue']" /></td>
+      <td validationStatus class="form-group">
+        <input required class="form-control" [ngFormControl]="c.controls['rateUnit']" /></td>
+      <td validationStatus class="form-group">
+        <rate-unit-type-select required [ngFormControl]="c.controls['rateUnitType']" ></rate-unit-type-select>
+      <td>{{c.controls['value'].value}}</td>
+      <td><dime-button (click)="deleteEntity(c.controls['id'].value)" fontAwesome="trash-o" color="red"></dime-button></td>
     </tr>
     </tbody>
   </table>

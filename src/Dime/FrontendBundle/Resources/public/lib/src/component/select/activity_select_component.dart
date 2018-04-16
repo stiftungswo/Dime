@@ -40,9 +40,6 @@ class ActivitySelectComponent extends EntitySelect<Activity> implements OnChange
   @override
   get EntText => selectedEntity != null ? (shortname ? selectedEntity.service.name : selectedEntity.name) : '';
 
-  @Input('disabled')
-  bool isReadonly = false;
-
   @Input()
   List<Activity> parentActivities = null;
 

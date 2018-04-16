@@ -11,12 +11,12 @@
         </placeholders>
 		<div class="logo"><img src="{{ pdf_image('SwoCommonsBundle:swo_logo_big.png') }}" width="200"/></div>
 		<div >
-			Stiftung Wirschaft und Ökologie SWO<br/>
-			Bahnstrasse 18b<br/>
-			8603 Schwerzenbach<br/>
-			Telefon: +41 43 355 58 44<br/>
-			Mail: swo@stiftungswo.ch<br/>
-			www.stiftungswo.ch<br/>
+            {{ invoiceconfig.senderName }}<br/>
+            {{ invoiceconfig.senderStreet }} {{ invoiceconfig.senderStreetnumber }}<br/>
+            {{ invoiceconfig.senderPlz }} {{ invoiceconfig.senderCity }}<br/>
+            Telefon: {{ invoiceconfig.senderPhone }}<br/>
+            Mail: {{ invoiceconfig.senderMail }}<br/>
+            {{ invoiceconfig.senderWeb }}<br/>
 		</div>
 		{% if customer.address %}
 			{% set address = customer.address %}
@@ -32,14 +32,14 @@
 			</div>
 		{% endif %}
 		<div class="header">
-			<div class="ortdatum">Schwerzenbach, {{ offer.updatedAt|date("d.m.Y") }}</div><br/>
+			<div class="ortdatum">{{ invoiceconfig.senderCity }}, {{ offer.updatedAt|date("d.m.Y") }}</div><br/>
 			{% if offer.accountant %}
 			<div class="accountant">Sachbearbeiter: {{ offer.accountant }}</div><br/>
 			{% endif %}
 			<div class="idkey">Offerte {{ offer.name }}</div><br/>
 			<div class="title-o">Leistungsangebot Nr. {{ offer.id }}</div><br/>
 			{% if offer.project %}
-			<div class="projectID">Auftrag Nr. {{ offer.project.id }}</div><br/>
+			<div class="projectID">Projekt Nr. {{ offer.project.id }}</div><br/>
 			{% endif %}
 			{% if offer.shortdescription %}
 			<div class="offerShortDescription">{{ offer.shortdescription }}</div><br/>
@@ -116,7 +116,7 @@
 			<div class="signature">
 				<div class="title">Unterschrift des Auftragnehmers:</div>
 				<div class="locdate">Ort/Datum</div>
-				<div class="dateline">Schwerzenbach: {{ "now"|date("d.m.Y") }}</div>
+				<div class="dateline">{{ invoiceconfig.senderCity }}: {{ "now"|date("d.m.Y") }}</div>
 			</div>
 			<div class="signature">
 				<div class="title">Unterschrift des Auftraggebers:</div>

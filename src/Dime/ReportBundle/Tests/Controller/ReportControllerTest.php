@@ -90,7 +90,7 @@ class ReportControllerTest extends DimeTestCase
         $data = $response->getContent();
 
         // validate content
-        $this->assertContains('Projekt / Rechnung', $data);
+        $this->assertContains('Name', $data);
         $csvrows = explode("\n", $data);
         $csv = str_getcsv($csvrows[1], ',');
         $this->assertEquals('sep=,', $csvrows[0], 'expect first row to be excel marker');

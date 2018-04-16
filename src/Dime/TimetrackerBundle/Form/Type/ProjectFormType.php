@@ -23,6 +23,7 @@ class ProjectFormType extends AbstractType
     {
         $builder
             ->add('name')
+            ->add('rateGroup', 'entity', array('class' => 'DimeTimetrackerBundle:RateGroup'))
             ->add('alias', null, array('required' => false))
             ->add('accountant', 'entity', array('class' => 'DimeEmployeeBundle:Employee'))
             ->add('customer', 'entity', array('class' => 'DimeTimetrackerBundle:Customer'))
@@ -38,7 +39,6 @@ class ProjectFormType extends AbstractType
             ->add('archived')
             ->add('tags', 'entity', array('class' => 'DimeTimetrackerBundle:Tag', 'multiple' => true))
             ->add('user', 'entity', array('class' => 'DimeTimetrackerBundle:User'))
-            ->add('rateGroup', 'entity', array('class' => 'DimeTimetrackerBundle:RateGroup'))
             ->add('projectCategory', 'entity', array('class' => 'DimeTimetrackerBundle:ProjectCategory'))
         ;
     }

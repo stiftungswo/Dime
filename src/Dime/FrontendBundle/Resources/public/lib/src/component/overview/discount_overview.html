@@ -1,4 +1,4 @@
-<!-- wird auch von OfferDiscountOverviewComponent benutzt -->
+<!-- wird von OfferDiscountOverviewComponent und InvoiceDiscountOverviewComponent benutzt -->
 <dime-box label="Abzüge">
   <table boxBody class="table table-bordered table-hover" ngControlGroup="discounts" #overview="ngForm">
     <thead>
@@ -9,18 +9,13 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let entity of entities; let i = index"
-        (click)="selectEntity(entity.id)"
-        [ngClass]="rowClass(entity, row.valid)"
-        ngControlGroup="row{{i}}"
-        #row="ngForm"
-    >
-      <td validationStatus class="form-group"><input required ngControl="discountName{{i}}" class="form-control" type="text" [(ngModel)]="entity.name" (change)="addSaveField('name', entity)"/></td>
-      <td validationStatus class="form-group"><discount-input
-        required ngControl="discountValue{{i}}"
-        [percentage]="entity.percentage" (percentageChange)="entity.percentage=$event;addSaveField('percentage', entity)"
-        [ngModel]="entity.value" (ngModelChange)="entity.value=$event;addSaveField('value', entity)"></discount-input></td>
-      <td><dime-button (click)="deleteEntity(entity.id)" fontAwesome="trash-o" color="red"></dime-button></td>
+    <tr *ngFor="let c of controls"
+        (click)="selectEntity(c.controls['id'].value)"
+        [ngClass]="rowClass(c.controls['id'].value, c.valid)" >
+      <td validationStatus class="form-group"><input required class="form-control" [ngFormControl]="c.controls['name']" /></td>
+      <td validationStatus class="form-group"><discount-input required [percentageControl]="c.controls['percentage']"
+        [ngFormControl]="c.controls['value']"></discount-input></td>
+      <td><dime-button (click)="deleteEntity(c.controls['id'].value)" fontAwesome="trash-o" color="red"></dime-button></td>
     </tr>
     </tbody>
   </table>
