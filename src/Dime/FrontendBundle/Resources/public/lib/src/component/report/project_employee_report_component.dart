@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:angular/angular.dart';
+import 'package:angular_forms/angular_forms.dart';
 import 'package:angular_router/angular_router.dart';
 
 import '../../model/entity_export.dart';
@@ -13,7 +14,7 @@ import '../select/select.dart';
 @Component(
     selector: 'project-employee-report',
     templateUrl: 'project_employee_report_component.html',
-    directives: const [CORE_DIRECTIVES, ProjectSelectComponent, dimeDirectives],
+    directives: const [CORE_DIRECTIVES, ProjectSelectComponent, dimeDirectives, formDirectives],
     pipes: const [COMMON_PIPES])
 class ProjectemployeeReportComponent implements OnInit, OnActivate {
   ProjectemployeeReportComponent(StatusService this.statusservice, HttpService this.http);
