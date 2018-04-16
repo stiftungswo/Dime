@@ -82,15 +82,19 @@ An API and open architecture will serve additional purposes:
 
     `	docker exec dime rm -rf /dev/shm/dime`
 
+## Domain
+
+A glossary in german is [here](https://github.com/stiftungswo/Dime/blob/master/doc/glossar.md).
+
+![erm](https://raw.githubusercontent.com/stiftungswo/Dime/master/doc/dime_erm_clean.png)
+
+This ERM excludes some tables that are currently empty/unused. [Here](https://raw.githubusercontent.com/stiftungswo/Dime/master/doc/dime_erm_full.png) is the full ERM.
+
 ## Project Structure
 
 The Frontend can be found under [`src/Dime/FrontendBundle/Resources/public`](src/Dime/FrontendBundle/Resources/public) with a seperate README for further information.
 
 The Backend files are located in 'src/Dime/' & the relative Bundle folder. Server-Side Routing happens in [Bundle]/Resources/config/routing.yml
-
-![erm](https://raw.githubusercontent.com/stiftungswo/Dime/master/doc/dime_erm_clean.png)
-
-This ERM excludes some tables that are currently empty/unused. [Here](https://raw.githubusercontent.com/stiftungswo/Dime/master/doc/dime_erm_full.png) is the full ERM.
 
 ## Bundles
 
