@@ -14,10 +14,28 @@ import '../../service/user_auth_service.dart';
 import 'entity_overview.dart';
 
 abstract class EditableOverview<T extends Entity> extends EntityOverview<T> {
+  /// see [EntityControlMap] for details.
   EntityControlMap<T> map;
+
+  /// the names of the fields of the [Entity] that should be mapped to the [controls].
+  /// Basically: if you want to use it in the HTML template, list it here.
   List<String> get fields;
+
+  /// do not modify this by hand, it is managed by [map]
   List<T> get entities => map.entities;
+
+  /// do not modify this by hand, it is managed by [map]
   List<AbstractControl> get controls => map.controls;
+
+  ChangeDetectorRef changeDetector;
+
+  @Input()
+  bool required = false;
+
+  /// [EditableOverview]s need a [ControlGroup] bound to `#overview` in their Template. This is needed to attach [map] to the parent form,
+  /// so it can be included in validation.
+  @ViewChild("overview")
+  NgControlGroup overview;
 
   EditableOverview(Type type, CachingObjectStoreService store, String routeName, SettingsService manager, StatusService status,
       EntityEventsService entityEventsService, this.changeDetector,
@@ -26,14 +44,6 @@ abstract class EditableOverview<T extends Entity> extends EntityOverview<T> {
     map = new EntityControlMap<T>(required, fields);
     entityEventsService.addSaveChangesListener(this.saveAllEntities);
   }
-
-  ChangeDetectorRef changeDetector;
-
-  @Input()
-  bool required = false;
-
-  @ViewChild("overview")
-  NgControlGroup overview;
 
   @override
   Future createEntity({T newEnt, Map<String, dynamic> params: const {}}) async {
@@ -66,9 +76,6 @@ abstract class EditableOverview<T extends Entity> extends EntityOverview<T> {
       await postProcessEntities(entities);
       entities.forEach(map.add);
 
-      // we MUST NOT modify the form synchronously here - otherwise, by adding this control, we might change the form state from valid to
-      // invalid inside of a change detection cycle, which throws an error.
-      // see https://github.com/angular/angular/issues/6005
       runOutsideChangeDetection(() {
         if (overview == null) {
           //sometimes the element that our control should be attached to is not set by angular. Not sure why that happens,
@@ -87,10 +94,16 @@ abstract class EditableOverview<T extends Entity> extends EntityOverview<T> {
 
   Future postProcessEntities(List<T> entities) async {}
 
+  /// some changes, specifically changing the form (i.e. by adding [map] or by modifying its [Control]s) MUST NOT happen in a
+  /// change detection cycle - we might change the form state from valid to invalid, which throws an error.
+  /// Putting the function on a [Timer] with 0 delay is basically the same as `setTimeout(f, 0)` in JavaScript and as such runs after
+  /// the current change detection cycle.
+  /// see https://github.com/angular/angular/issues/6005
   void runOutsideChangeDetection(f()) {
     new Timer(const Duration(seconds: 0), () {
       f();
-      //we'd need to notify parent components, specifically dime-box as well, but for that we'd need to run full change detection
+      //we'd need to notify parent components, specifically dime-box as well,
+      // but for that we'd need to run full change detection with [ApplicationRef#tick] or something similar
       changeDetector.detectChanges();
     });
   }
@@ -107,8 +120,10 @@ abstract class EditableOverview<T extends Entity> extends EntityOverview<T> {
     this.statusservice.setStatusToLoading();
     try {
       T updated = await store.update(entity);
-      var index = map.remove(entity);
-      map.insert(index, updated);
+      runOutsideChangeDetection(() {
+        var index = map.remove(entity);
+        map.insert(index, updated);
+      });
       this.statusservice.setStatusToSuccess();
     } catch (e, stack) {
       print("Unable to save entity ${this.type.toString()}::${entity.id} because ${e}");

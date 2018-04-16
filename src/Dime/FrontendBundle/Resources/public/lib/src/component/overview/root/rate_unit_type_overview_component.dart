@@ -40,7 +40,7 @@ class RateUnitTypeOverviewComponent extends EditableOverview<RateUnitType> imple
   }
 
   @override
-  Future createEntity({RateUnitType newEnt, Map<String, dynamic> params: const {}}) async {
+  Future createEntity({RateUnitType newEnt, Map<String, dynamic> params: const {}}) {
     RateUnitType rateType = cEnt();
     List<String> names = ['id', 'name'];
     for (var name in names) {
@@ -53,7 +53,7 @@ class RateUnitTypeOverviewComponent extends EditableOverview<RateUnitType> imple
       rateType.Set(name, settingForName.value);
       rateType.addFieldtoUpdate(name);
     }
-    await super.createEntity(newEnt: rateType);
+    return super.createEntity(newEnt: rateType);
   }
 
   @override

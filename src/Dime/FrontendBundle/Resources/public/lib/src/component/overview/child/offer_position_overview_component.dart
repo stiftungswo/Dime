@@ -62,7 +62,7 @@ class OfferPositionOverviewComponent extends EditableOverview<OfferPosition> {
 
   @override
   Future reload({Map<String, dynamic> params, bool evict: false}) async {
-    await super.reload(params: {'offer': _offer?.id});
+    await super.reload(params: {'offer': _offer?.id}, evict: evict);
     await updateAvailableServices();
   }
 
@@ -76,7 +76,7 @@ class OfferPositionOverviewComponent extends EditableOverview<OfferPosition> {
   }
 
   @override
-  Future createEntity({OfferPosition newEnt, Map<String, dynamic> params: const {}}) async {
-    super.createEntity(params: {'offer': _offer.id});
+  Future createEntity({OfferPosition newEnt, Map<String, dynamic> params: const {}}) {
+    return super.createEntity(params: {'offer': _offer.id});
   }
 }

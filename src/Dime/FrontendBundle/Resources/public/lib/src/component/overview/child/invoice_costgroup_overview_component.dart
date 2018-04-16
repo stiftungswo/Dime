@@ -47,7 +47,7 @@ class InvoiceCostgroupOverviewComponent extends EditableOverview<InvoiceCostgrou
 
   @override
   Future reload({Map<String, dynamic> params, bool evict: false}) {
-    return super.reload(params: {'invoice': this._invoiceId});
+    return super.reload(params: {'invoice': this._invoiceId}, evict: evict);
   }
 
   @override
