@@ -49,7 +49,12 @@ class PercentageInputComponent implements ControlValueAccessor<double> {
     if (percentage == null || percentage == '') {
       return null;
     }
-    return (double.parse(percentage) / 100);
+    var parsed = double.parse(percentage, (_) => null);
+
+    if (parsed == null) {
+      return null;
+    }
+    return (parsed / 100);
   }
 
   @override
