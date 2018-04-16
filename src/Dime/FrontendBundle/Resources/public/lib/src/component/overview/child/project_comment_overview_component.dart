@@ -102,7 +102,7 @@ class ProjectCommentOverviewComponent extends EditableOverview<ProjectComment> i
   List<AbstractControl> get filteredComments {
     // this fixes excluding comments with dates almost the same as the filters
     Duration extension = new Duration(seconds: 2);
-    return (controls as List<ControlGroup>)
+    return controls
         .where((comment) =>
             getDate(comment).isAfter(filterStartDate.subtract(extension)) && getDate(comment).isBefore(filterEndDate.add(extension)))
         .toList();

@@ -26,7 +26,7 @@ abstract class EditableOverview<T extends Entity> extends EntityOverview<T> {
   List<T> get entities => map.entities;
 
   /// do not modify this by hand, it is managed by [map]
-  List<AbstractControl> get controls => map.controls;
+  List<dynamic> get controls => map.controls;
 
   ChangeDetectorRef changeDetector;
 
