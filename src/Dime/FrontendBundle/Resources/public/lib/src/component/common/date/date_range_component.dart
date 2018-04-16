@@ -75,38 +75,38 @@ class DateRangeComponent implements OnChanges {
   }
 
   previousMonth() {
-    this.startDate = this.startDate.subtract(new Duration(days: 30));
-    this.endDate = this.endDate.subtract(new Duration(days: 30));
+    this.startDate = this.startDate?.subtract(new Duration(days: 30));
+    this.endDate = this.endDate?.subtract(new Duration(days: 30));
     updateDate();
   }
 
   previousWeek() {
-    this.startDate = this.startDate.subtract(new Duration(days: 7));
-    this.endDate = this.endDate.subtract(new Duration(days: 7));
+    this.startDate = this.startDate?.subtract(new Duration(days: 7));
+    this.endDate = this.endDate?.subtract(new Duration(days: 7));
     updateDate();
   }
 
   previousDay() {
-    this.startDate = this.startDate.subtract(new Duration(days: 1));
-    this.endDate = this.endDate.subtract(new Duration(days: 1));
+    this.startDate = this.startDate?.subtract(new Duration(days: 1));
+    this.endDate = this.endDate?.subtract(new Duration(days: 1));
     updateDate();
   }
 
   nextMonth() {
-    this.startDate = this.startDate.add(new Duration(days: 30));
-    this.endDate = this.endDate.add(new Duration(days: 30));
+    this.startDate = this.startDate?.add(new Duration(days: 30));
+    this.endDate = this.endDate?.add(new Duration(days: 30));
     updateDate();
   }
 
   nextWeek() {
-    this.startDate = this.startDate.add(new Duration(days: 7));
-    this.endDate = this.endDate.add(new Duration(days: 7));
+    this.startDate = this.startDate?.add(new Duration(days: 7));
+    this.endDate = this.endDate?.add(new Duration(days: 7));
     updateDate();
   }
 
   nextDay() {
-    this.startDate = this.startDate.add(new Duration(days: 1));
-    this.endDate = this.endDate.add(new Duration(days: 1));
+    this.startDate = this.startDate?.add(new Duration(days: 1));
+    this.endDate = this.endDate?.add(new Duration(days: 1));
     updateDate();
   }
 
