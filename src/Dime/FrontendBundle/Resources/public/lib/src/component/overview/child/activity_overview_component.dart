@@ -53,6 +53,7 @@ class ActivityOverviewComponent extends EditableOverview<Activity> {
   void onActivate(_, __) {
     entityEventsService.addListener(EntityEvent.RATE_GROUP_CHANGED, this.updateAvailableServices);
   }
+
   @override
   Future createEntity({Activity newEnt, Map<String, dynamic> params: const {}}) {
     return super.createEntity(params: {'project': this._project?.id});

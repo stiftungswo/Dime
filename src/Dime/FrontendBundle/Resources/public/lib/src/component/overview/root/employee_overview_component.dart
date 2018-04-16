@@ -15,7 +15,7 @@ import '../../../service/user_auth_service.dart';
 import '../../../util/page_title.dart' as page_title;
 import '../../common/dime_directives.dart';
 import '../entity_overview.dart';
-import '../main/routes.dart' as routes;
+import '../../main/routes.dart' as routes;
 
 @Component(
     selector: 'employee-overview',

@@ -31,7 +31,7 @@
       <td validationStatus class="form-group">
         <input required class="form-control" [ngFormControl]="c.controls['rateUnit']" /></td>
       <td validationStatus class="form-group">
-        <rate-unit-type-select required [ngFormControl]="c.controls['rateUnitType']" ></rate-unit-type-select>
+          <rate-unit-type-select required [ngFormControl]="c.controls['rateUnitType']" ></rate-unit-type-select></td>
       <td>{{c.controls['value'].value}}</td>
       <td><dime-button (click)="deleteEntity(c.controls['id'].value)" fontAwesome="trash-o" color="red"></dime-button></td>
     </tr>

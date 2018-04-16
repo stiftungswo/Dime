@@ -26,7 +26,7 @@ abstract class EditableOverview<T extends Entity> extends EntityOverview<T> {
   List<T> get entities => map.entities;
 
   /// do not modify this by hand, it is managed by [map]
-  List<AbstractControl> get controls => map.controls;
+  List<ControlGroup> get controls => map.controls;
 
   ChangeDetectorRef changeDetector;
 
@@ -38,7 +38,7 @@ abstract class EditableOverview<T extends Entity> extends EntityOverview<T> {
   @ViewChild("overview")
   NgControlGroup overview;
 
-  EditableOverview(Type type, CachingObjectStoreService store, String routeName, SettingsService manager, StatusService status,
+  EditableOverview(Type type, CachingObjectStoreService store, RoutePath routeName, SettingsService manager, StatusService status,
       EntityEventsService entityEventsService, this.changeDetector,
       {Router router, UserAuthService auth})
       : super(type, store, routeName, manager, status, entityEventsService, router: router, auth: auth) {
@@ -175,7 +175,7 @@ class EntityControlMap<T extends Entity> {
   ControlArray controlArray;
   List<T> entities;
   List<String> fields;
-  List<AbstractControl> get controls => controlArray.controls;
+  List<ControlGroup> get controls => controlArray.controls.cast<ControlGroup>();
 
   EntityControlMap(bool required, this.fields) {
     entities = [];

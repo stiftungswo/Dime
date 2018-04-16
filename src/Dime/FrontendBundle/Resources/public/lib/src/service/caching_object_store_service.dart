@@ -52,7 +52,7 @@ class CachingObjectStoreService {
     return this._store.delete(object).then((T result) {
       this._cache[result.runtimeType]?.forEach((_, futureList) {
         futureList.then((List cachedObjects) {
-          cachedObjects.removeWhere((T i) => i.id == object.id);
+          cachedObjects.removeWhere((dynamic i) => (i as T).id == object.id);
         });
       });
       return result;
@@ -63,7 +63,7 @@ class CachingObjectStoreService {
     return this._store.update(object).then((T result) {
       this._cache[result.runtimeType]?.forEach((_, futureList) {
         futureList.then((List cachedObjects) {
-          cachedObjects.removeWhere((T i) => i.id == result.id);
+          cachedObjects.removeWhere((dynamic i) => (i as T).id == result.id);
           cachedObjects.add(result);
         });
       });

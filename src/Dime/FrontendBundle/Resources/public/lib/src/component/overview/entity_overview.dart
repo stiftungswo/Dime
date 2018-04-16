@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:html';
 
-import 'package:angular/angular.dart';
 import 'package:angular_router/angular_router.dart';
 
 import '../../model/Entity.dart';
@@ -11,7 +10,7 @@ import '../../service/settings_service.dart';
 import '../../service/status_service.dart';
 import '../../service/user_auth_service.dart';
 
-abstract class EntityOverview<T extends Entity> implements OnActivate, AfterViewInit {
+abstract class EntityOverview<T extends Entity> implements OnActivate {
   //TODO: this can probably be removed
   bool needsmanualAdd = false;
 
