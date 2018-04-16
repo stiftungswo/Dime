@@ -489,5 +489,5 @@ class TimesliceDateFilterPipe implements PipeTransform {
 }
 
 DateTime getStartedAt(AbstractControl c) {
-  return c.find('startedAt').value;
+  return c.find('startedAt').value as DateTime;
 }

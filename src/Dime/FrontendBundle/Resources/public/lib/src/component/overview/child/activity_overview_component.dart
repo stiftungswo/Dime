@@ -77,7 +77,7 @@ class ActivityOverviewComponent extends EditableOverview<Activity> {
       return;
     }
 
-    if (await hasLinkedInvoices(activityId)) {
+    if (await hasLinkedInvoices(activityId as int)) {
       window.alert('Kann nicht gelöscht werden, da noch Rechnungsposten darauf verweisen!');
       return;
     }

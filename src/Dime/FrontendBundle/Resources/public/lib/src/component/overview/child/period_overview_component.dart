@@ -25,6 +25,7 @@ class PeriodOverviewComponent extends EditableOverview<Period> {
       EntityEventsService entityEventsService, this.http, ChangeDetectorRef changeDetector)
       : super(Period, store, '', manager, status, entityEventsService, changeDetector);
 
+  @override
   List<String> get fields => const [
         'id',
         'start',

@@ -22,6 +22,7 @@ class ProjectCategoryOverviewComponent extends EditableOverview<ProjectCategory>
       EntityEventsService entityEventsService, ChangeDetectorRef changeDetector)
       : super(ProjectCategory, store, '', manager, status, entityEventsService, changeDetector, auth: auth);
 
+  @override
   List<String> get fields => const ['id', 'name'];
 
   @override

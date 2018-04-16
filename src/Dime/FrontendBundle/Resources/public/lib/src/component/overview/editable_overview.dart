@@ -22,6 +22,7 @@ abstract class EditableOverview<T extends Entity> extends EntityOverview<T> {
   List<String> get fields;
 
   /// do not modify this by hand, it is managed by [map]
+  @override
   List<T> get entities => map.entities;
 
   /// do not modify this by hand, it is managed by [map]
@@ -109,7 +110,7 @@ abstract class EditableOverview<T extends Entity> extends EntityOverview<T> {
   }
 
   void saveAllEntities() {
-    for (Entity entity in map.entities) {
+    for (T entity in map.entities) {
       if (entity.needsUpdate) {
         this.saveEntity(entity);
       }
@@ -186,30 +187,32 @@ class EntityControlMap<T extends Entity> {
     }
   }
 
-  mapFields(T entity, List<String> fields) {
-    var map = {};
-    fields.forEach((name) => map[name] = new Control(entity.Get(name))
-      ..valueChanges.listen((data) {
-        entity.Set(name, data);
-        entity.addFieldtoUpdate(name);
-      }));
+  Map<String, AbstractControl> mapFields(T entity, List<String> fields) {
+    var map = new Map<String, AbstractControl>();
+    fields.forEach((name) {
+      map[name] = new Control(entity.Get(name))
+        ..valueChanges.listen((dynamic data) {
+          entity.Set(name, data);
+          entity.addFieldtoUpdate(name);
+        });
+    });
     return map;
   }
 
-  remove(T entity) {
+  int remove(T entity) {
     var index = entities.indexOf(entity);
     entities.removeAt(index);
     controlArray.removeAt(index);
     return index;
   }
 
-  add(T entity) {
+  void add(T entity) {
     var group = new ControlGroup(mapFields(entity, fields));
     entities.add(entity);
     controlArray.push(group);
   }
 
-  insert(int index, T entity) {
+  void insert(int index, T entity) {
     var group = new ControlGroup(mapFields(entity, fields));
     entities.insert(index, entity);
     controlArray.insert(index, group);

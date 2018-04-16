@@ -30,7 +30,7 @@ class DiscountInputComponent implements ControlValueAccessor<num> {
   @Input()
   Control percentageControl;
 
-  bool get percentage => percentageControl?.value ?? true;
+  bool get percentage => (percentageControl?.value ?? true) as bool;
   set percentage(bool p) {
     percentageControl.updateValue(p, emitEvent: true);
   }
