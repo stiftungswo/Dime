@@ -72,7 +72,7 @@ class ProjectCommentOverviewComponent extends EditableOverview<ProjectComment> i
       'comment': this.newEntryComment,
     };
     this.newEntryComment = '';
-    super.createEntity(params: localParams);
+    await super.createEntity(params: localParams);
   }
 
   @override

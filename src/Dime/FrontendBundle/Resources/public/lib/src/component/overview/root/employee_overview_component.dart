@@ -46,9 +46,9 @@ class EmployeeOverviewComponent extends EntityOverview<Employee> implements OnAc
   }
 
   @override
-  Future createEntity({Employee newEnt, Map<String, dynamic> params: const {}}) async {
+  Future createEntity({Employee newEnt, Map<String, dynamic> params: const {}}) {
     String random = new Random().nextInt(1000).toString();
-    super.createEntity(params: {
+    return super.createEntity(params: {
       'username': 'newuser' + random,
       'email': 'user' + random + '@example.com',
     });

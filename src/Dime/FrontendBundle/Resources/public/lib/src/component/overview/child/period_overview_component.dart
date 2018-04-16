@@ -78,7 +78,7 @@ class PeriodOverviewComponent extends EditableOverview<Period> {
 
   @override
   Future reload({Map<String, dynamic> params, bool evict: false}) async {
-    super.reload(params: {'employee': employee.id});
+    super.reload(params: {'employee': employee.id}, evict: evict);
   }
 
   @override

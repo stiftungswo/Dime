@@ -60,7 +60,7 @@ class ActivityOverviewComponent extends EditableOverview<Activity> {
 
   @override
   Future reload({Map<String, dynamic> params, bool evict: false}) async {
-    await super.reload(params: {'project': this._project?.id});
+    await super.reload(params: {'project': this._project?.id}, evict: evict);
     await updateAvailableServices();
   }
 
