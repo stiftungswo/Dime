@@ -29,6 +29,7 @@ class CustomerOverviewComponent extends EntityOverview<Customer> implements OnAc
   @override
   routerOnActivate(ComponentInstruction nextInstruction, ComponentInstruction prevInstruction) {
     page_title.setPageTitle('Kunden');
+    reload();
   }
 
   @override

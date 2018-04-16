@@ -19,7 +19,6 @@ class UserAuthService {
   ObjectStore store;
   HttpDefaultHeaders headers;
   StatusService statusservice;
-  List<Function> loginsuccesscallbacks = [];
   bool isloggedin = false;
   bool showlogin = false;
   HttpService http;
@@ -106,10 +105,6 @@ class UserAuthService {
       await loadUserData();
       await manager.loadSystemSettings();
       this.isloggedin = true;
-      for (Function callback in this.loginsuccesscallbacks) {
-        callback();
-      }
-      this.loginsuccesscallbacks = [];
     } catch (e) {
       this.isloggedin = false;
       this.showlogin = true;
@@ -130,10 +125,6 @@ class UserAuthService {
       this.isloggedin = false;
       this.showlogin = true;
     }
-  }
-
-  afterLogin(Function callback) {
-    this.loginsuccesscallbacks.add(callback);
   }
 
   bool isSessionAliveOrAuthSaved() {

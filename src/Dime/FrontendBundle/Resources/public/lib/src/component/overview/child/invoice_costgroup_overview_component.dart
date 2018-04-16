@@ -51,19 +51,6 @@ class InvoiceCostgroupOverviewComponent extends EditableOverview<InvoiceCostgrou
   }
 
   @override
-  void ngOnInit() {
-    if (this.auth != null) {
-      if (!auth.isloggedin) {
-        this.auth.afterLogin(() {
-          this.reload();
-        });
-      } else {
-        reload();
-      }
-    }
-  }
-
-  @override
   Future createEntity({dynamic newEnt, Map<String, dynamic> params: const {}}) {
     // set default weight of 100
     return super.createEntity(params: {'invoice': this._invoiceId, 'weight': 100});

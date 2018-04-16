@@ -53,19 +53,6 @@ class InvoiceItemOverviewComponent extends EditableOverview<InvoiceItem> {
   }
 
   @override
-  void ngOnInit() {
-    if (this.auth != null) {
-      if (!auth.isloggedin) {
-        this.auth.afterLogin(() {
-          this.reload();
-        });
-      } else {
-        this.reload();
-      }
-    }
-  }
-
-  @override
   Future createEntity({InvoiceItem newEnt, Map<String, dynamic> params: const {}}) {
     return super.createEntity(params: {'invoice': this._invoiceId});
   }

@@ -28,6 +28,7 @@ class ProjectCategoryOverviewComponent extends EditableOverview<ProjectCategory>
   @override
   routerOnActivate(ComponentInstruction nextInstruction, ComponentInstruction prevInstruction) {
     page_title.setPageTitle('Tätigkeitsbereiche');
+    reload();
   }
 
   @override

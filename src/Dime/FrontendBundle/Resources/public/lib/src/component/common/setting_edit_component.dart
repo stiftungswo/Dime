@@ -74,7 +74,7 @@ class SettingEditComponent {
         }
       } else {
         this.setting = new Setting();
-        auth.afterLogin(() => this.loadSetting());
+        loadSetting();
       }
     }
   }

@@ -35,6 +35,7 @@ class EmployeeOverviewComponent extends EntityOverview<Employee> implements OnAc
   @override
   routerOnActivate(ComponentInstruction nextInstruction, ComponentInstruction prevInstruction) {
     page_title.setPageTitle('Mitarbeiter');
+    reload();
   }
 
   @override

@@ -51,19 +51,6 @@ class OfferDiscountOverviewComponent extends EditableOverview<OfferDiscount> {
   }
 
   @override
-  void ngOnInit() {
-    if (this.auth != null) {
-      if (!auth.isloggedin) {
-        this.auth.afterLogin(() {
-          this.reload();
-        });
-      } else {
-        reload();
-      }
-    }
-  }
-
-  @override
   Future createEntity({OfferDiscount newEnt, Map<String, dynamic> params: const {}}) {
     return super.createEntity(params: {'offer': this._offerId});
   }

@@ -28,6 +28,7 @@ class HolidayOverviewComponent extends EditableOverview<Holiday> implements OnAc
   @override
   routerOnActivate(ComponentInstruction nextInstruction, ComponentInstruction prevInstruction) {
     page_title.setPageTitle('Feiertage');
+    reload();
   }
 
   @override

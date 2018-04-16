@@ -14,11 +14,6 @@ import 'entity_edit.dart';
 class AddressEditComponent extends EntityEdit<Address> {
   AddressEditComponent() : super.Child(Address);
 
-  @override
-  void ngOnInit() {
-    //Dont Reload its not working.
-  }
-
   Address _address;
 
   @Input()

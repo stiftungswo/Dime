@@ -44,19 +44,9 @@ class ProjectEditComponent extends EntityEdit<Project> {
 
   @override
   void ngOnInit() {
-    if (this.auth != null) {
-      if (!auth.isloggedin) {
-        this.auth.afterLogin(() {
-          loadRateGroups();
-          loadCustomers();
-          reload();
-        });
-      } else {
-        loadRateGroups();
-        loadCustomers();
-        reload();
-      }
-    }
+    loadRateGroups();
+    loadCustomers();
+    reload();
   }
 
   @override

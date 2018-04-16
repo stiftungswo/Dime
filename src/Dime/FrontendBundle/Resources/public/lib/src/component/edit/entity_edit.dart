@@ -41,17 +41,7 @@ abstract class EntityEdit<T extends Entity> implements OnInit {
   }
 
   @override
-  void ngOnInit() {
-    if (this.auth != null) {
-      if (!auth.isloggedin) {
-        this.auth.afterLogin(() {
-          this.reload();
-        });
-      } else {
-        reload();
-      }
-    }
-  }
+  void ngOnInit() {}
 
   Future reloadEvict() async {
     reload(evict: true);

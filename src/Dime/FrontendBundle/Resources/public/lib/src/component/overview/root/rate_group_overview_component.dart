@@ -36,5 +36,6 @@ class RateGroupOverviewComponent extends EditableOverview<RateGroup> implements 
   @override
   routerOnActivate(ComponentInstruction nextInstruction, ComponentInstruction prevInstruction) {
     page_title.setPageTitle('Tarife');
+    reload();
   }
 }

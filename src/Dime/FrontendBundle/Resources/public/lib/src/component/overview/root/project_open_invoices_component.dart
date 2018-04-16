@@ -42,6 +42,7 @@ class ProjectOpenInvoicesComponent extends EntityOverview<Project> implements On
   @override
   routerOnActivate(ComponentInstruction nextInstruction, ComponentInstruction prevInstruction) {
     page_title.setPageTitle('Projekte mit offenen Rechnungen');
+    reload();
   }
 
   @override

@@ -39,6 +39,11 @@ class OfferOverviewComponent extends EntityOverview<Offer> implements OnActivate
   }
 
   @override
+  ngOnInit() {
+    reload();
+  }
+
+  @override
   Offer cEnt({Offer entity}) {
     if (entity != null) {
       return new Offer.clone(entity);

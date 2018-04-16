@@ -38,6 +38,7 @@ class ProjectOverviewComponent extends EntityOverview<Project> implements OnActi
   @override
   routerOnActivate(ComponentInstruction nextInstruction, ComponentInstruction prevInstruction) {
     page_title.setPageTitle('Projekte');
+    reload();
   }
 
   @override

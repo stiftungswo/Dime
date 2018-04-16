@@ -54,5 +54,6 @@ class ServiceOverviewComponent extends EntityOverview<Service> implements OnActi
   @override
   routerOnActivate(ComponentInstruction nextInstruction, ComponentInstruction prevInstruction) {
     page_title.setPageTitle('Services');
+    reload();
   }
 }

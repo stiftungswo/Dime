@@ -148,17 +148,7 @@ abstract class EntityOverview<T extends Entity> implements OnInit {
   }
 
   @override
-  void ngOnInit() {
-    if (this.auth != null) {
-      if (!auth.isloggedin) {
-        this.auth.afterLogin(() {
-          this.reload();
-        });
-      } else {
-        this.reload();
-      }
-    }
-  }
+  void ngOnInit() {}
 
   /**
    * for usage in templates; can't use named parameters in templates

@@ -112,9 +112,6 @@ class PeriodOverviewComponent extends EditableOverview<Period> {
   }
 
   @override
-  void ngOnInit();
-
-  @override
   Future createEntity({Period newEnt, Map<String, dynamic> params: const {}}) {
     var now = new DateTime.now();
     return super.createEntity(params: {

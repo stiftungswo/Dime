@@ -57,17 +57,7 @@ class InvoiceEditComponent extends EntityEdit<Invoice> {
   }
 
   @override
-  void ngOnInit() {
-    if (this.auth != null) {
-      if (!auth.isloggedin) {
-        this.auth.afterLogin(() {
-          load();
-        });
-      } else {
-        load();
-      }
-    }
-  }
+  void ngOnInit() => load();
 
   void setInvoiceItemOverview(InvoiceItemOverviewComponent c) {
     invoiceitem_overview = c;

@@ -60,23 +60,11 @@ class OfferEditComponent extends EntityEdit<Offer> {
 
   @override
   void ngOnInit() {
-    if (this.auth != null) {
-      if (!auth.isloggedin) {
-        this.auth.afterLogin(() {
-          loadRateGroups();
-          loadOfferStates();
-          loadUsers();
-          loadCustomers();
-          load();
-        });
-      } else {
-        loadRateGroups();
-        loadOfferStates();
-        loadUsers();
-        loadCustomers();
-        load();
-      }
-    }
+    loadRateGroups();
+    loadOfferStates();
+    loadUsers();
+    loadCustomers();
+    load();
   }
 
   Future load({bool evict: false}) async {

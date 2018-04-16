@@ -33,6 +33,7 @@ class InvoiceOverviewComponent extends EntityOverview<Invoice> implements OnActi
   @override
   routerOnActivate(ComponentInstruction nextInstruction, ComponentInstruction prevInstruction) {
     page_title.setPageTitle('Rechnungen');
+    reload();
   }
 
   @override
