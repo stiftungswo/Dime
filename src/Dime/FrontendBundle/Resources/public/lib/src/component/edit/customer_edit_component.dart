@@ -45,7 +45,7 @@ class CustomerEditComponent extends EntityEdit<Customer> {
   @override
   Future reload({bool evict: false}) async {
     await super.reload(evict: evict);
-    page_title.setPageTitle('Kunden', entity.name);
+    page_title.setPageTitle('Kunden', entity?.name);
   }
 
   Future loadRateGroups() async {

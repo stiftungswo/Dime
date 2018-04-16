@@ -26,6 +26,6 @@ class EmployeeEditComponent extends EntityEdit<Employee> {
   @override
   Future reload({bool evict: false}) async {
     await super.reload(evict: evict);
-    page_title.setPageTitle('Mitarbeiter', entity.fullname);
+    page_title.setPageTitle('Mitarbeiter', entity?.fullname);
   }
 }

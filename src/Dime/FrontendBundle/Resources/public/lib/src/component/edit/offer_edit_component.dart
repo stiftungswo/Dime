@@ -90,7 +90,7 @@ class OfferEditComponent extends EntityEdit<Offer> {
         this.project = await this.store.one(Project, this.entity.project.id);
       }
       this.statusservice.setStatusToSuccess();
-      page_title.setPageTitle('Offerten', entity.name);
+      page_title.setPageTitle('Offerten', entity?.name);
     } catch (e, stack) {
       this.statusservice.setStatusToError(e, stack);
     }

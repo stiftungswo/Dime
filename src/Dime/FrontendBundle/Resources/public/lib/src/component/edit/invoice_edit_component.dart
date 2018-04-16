@@ -83,7 +83,7 @@ class InvoiceEditComponent extends EntityEdit<Invoice> {
       if (this.project != null) {
         this.project = await this.store.one(Project, this.entity.project.id);
       }
-      page_title.setPageTitle('Rechnungen', entity.name);
+      page_title.setPageTitle('Rechnungen', entity?.name);
       this.statusservice.setStatusToSuccess();
     } catch (e, stack) {
       this.statusservice.setStatusToError(e, stack);
