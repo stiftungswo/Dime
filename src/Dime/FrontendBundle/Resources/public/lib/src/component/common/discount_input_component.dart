@@ -24,10 +24,13 @@ import 'percentage_input_component.dart';
 class DiscountInputComponent implements ControlValueAccessor<num> {
   ChangeFunction<num> _onValueChange;
 
+  /// DiscountInput is weird because it has two values instead of one: `value`(num) and `percentage`(bool). `value` is bound via the
+  /// [ControlValueAccessor] interface and `[ngFormControl]` as usual, but since we cannot implement [ControlValueAccessor] twice,
+  /// we pass the Control for [percentage] explicitly and manipulate it manually.
   @Input()
   Control percentageControl;
 
-  bool get percentage => percentageControl?.value ?? true;
+  bool get percentage => (percentageControl?.value ?? true) as bool;
   set percentage(bool p) {
     percentageControl.updateValue(p, emitEvent: true);
   }

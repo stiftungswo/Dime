@@ -3,33 +3,35 @@ import 'dart:async';
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
 
-import '../../model/entity_export.dart';
-import '../../service/caching_object_store_service.dart';
-import '../../service/entity_events_service.dart';
-import '../../service/settings_service.dart';
-import '../../service/status_service.dart';
-import '../common/dime_directives.dart';
-import 'editable_overview.dart';
+import '../../../model/entity_export.dart';
+import '../../../pipe/order_by_pipe..dart';
+import '../../../service/caching_object_store_service.dart';
+import '../../../service/entity_events_service.dart';
+import '../../../service/settings_service.dart';
+import '../../../service/status_service.dart';
+import '../../common/dime_directives.dart';
+import '../editable_overview.dart';
 
 @Component(
-  selector: 'invoice-discount-overview',
-  templateUrl: 'discount_overview.html',
+  selector: 'invoice-item-overview',
+  templateUrl: 'invoice_item_overview_component.html',
   directives: const [coreDirectives, formDirectives, dimeDirectives],
+  pipes: const [OrderByPipe],
 )
-class InvoiceDiscountOverviewComponent extends EditableOverview<InvoiceDiscount> {
-  InvoiceDiscountOverviewComponent(CachingObjectStoreService store, SettingsService manager, StatusService status,
+class InvoiceItemOverviewComponent extends EditableOverview<InvoiceItem> {
+  InvoiceItemOverviewComponent(CachingObjectStoreService store, SettingsService manager, StatusService status,
       EntityEventsService entityEventsService, ChangeDetectorRef changeDetector)
-      : super(InvoiceDiscount, store, null, manager, status, entityEventsService, changeDetector);
+      : super(InvoiceItem, store, null, manager, status, entityEventsService, changeDetector);
 
   @override
-  List<String> get fields => const ['id', 'name', 'percentage', 'value'];
+  List<String> get fields => const ['id', 'order', 'name', 'rateValue', 'rateUnit', 'amount', 'vat', 'total'];
 
   @override
-  InvoiceDiscount cEnt({InvoiceDiscount entity}) {
+  InvoiceItem cEnt({InvoiceItem entity}) {
     if (entity != null) {
-      return new InvoiceDiscount.clone(entity);
+      return new InvoiceItem.clone(entity);
     }
-    return new InvoiceDiscount();
+    return new InvoiceItem();
   }
 
   @override
@@ -55,20 +57,20 @@ class InvoiceDiscountOverviewComponent extends EditableOverview<InvoiceDiscount>
     // todo this is never called since this inst created by the router
     // but maybe its not supposed to be called?
     // reload gets called on the invoiceId setter, where it makes much more sense
-    print('discount here');
+    print('item here');
     if (this.auth != null) {
       if (!auth.isloggedin) {
         this.auth.afterLogin(() {
           this.reload();
         });
       } else {
-        reload();
+        this.reload();
       }
     }
   }
 
   @override
-  Future createEntity({dynamic newEnt, Map<String, dynamic> params: const {}}) {
+  Future createEntity({InvoiceItem newEnt, Map<String, dynamic> params: const {}}) {
     return super.createEntity(params: {'invoice': this._invoiceId});
   }
 }

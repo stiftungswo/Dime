@@ -5,23 +5,23 @@ import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
 import 'package:intl/intl.dart';
 
-import '../../model/entity_export.dart';
-import '../../pipe/dime_pipes.dart';
-import '../../service/caching_object_store_service.dart';
-import '../../service/entity_events_service.dart';
-import '../../service/http_service.dart';
-import '../../service/settings_service.dart';
-import '../../service/status_service.dart';
-import '../../service/timetrack_service.dart';
-import '../../service/user_auth_service.dart';
-import '../../service/user_context_service.dart';
-import '../common/dime_directives.dart';
-import '../common/setting_edit_component.dart';
-import '../select/activity_select_component.dart';
-import '../select/project_select_component.dart';
-import '../select/select.dart';
-import '../select/user_select_component.dart';
-import 'editable_overview.dart';
+import '../../../model/entity_export.dart';
+import '../../../pipe/dime_pipes.dart';
+import '../../../service/caching_object_store_service.dart';
+import '../../../service/entity_events_service.dart';
+import '../../../service/http_service.dart';
+import '../../../service/settings_service.dart';
+import '../../../service/status_service.dart';
+import '../../../service/timetrack_service.dart';
+import '../../../service/user_auth_service.dart';
+import '../../../service/user_context_service.dart';
+import '../../common/dime_directives.dart';
+import '../../common/setting_edit_component.dart';
+import '../../select/activity_select_component.dart';
+import '../../select/project_select_component.dart';
+import '../../select/select.dart';
+import '../../select/user_select_component.dart';
+import '../editable_overview.dart';
 
 @Component(
   selector: 'timeslice-overview',
@@ -491,5 +491,5 @@ class TimesliceDateFilterPipe implements PipeTransform {
 }
 
 DateTime getStartedAt(AbstractControl c) {
-  return c.find('startedAt').value;
+  return c.find('startedAt').value as DateTime;
 }

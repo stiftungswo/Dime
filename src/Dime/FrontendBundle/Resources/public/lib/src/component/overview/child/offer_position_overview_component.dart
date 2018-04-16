@@ -3,15 +3,15 @@ import 'dart:async';
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
 
-import '../../model/entity_export.dart';
-import '../../pipe/order_by_pipe..dart';
-import '../../service/caching_object_store_service.dart';
-import '../../service/entity_events_service.dart';
-import '../../service/settings_service.dart';
-import '../../service/status_service.dart';
-import '../common/dime_directives.dart';
-import '../select/select.dart';
-import 'editable_overview.dart';
+import '../../../model/entity_export.dart';
+import '../../../pipe/order_by_pipe..dart';
+import '../../../service/caching_object_store_service.dart';
+import '../../../service/entity_events_service.dart';
+import '../../../service/settings_service.dart';
+import '../../../service/status_service.dart';
+import '../../common/dime_directives.dart';
+import '../../select/select.dart';
+import '../editable_overview.dart';
 
 @Component(
   selector: 'offer-position-overview',
@@ -62,7 +62,7 @@ class OfferPositionOverviewComponent extends EditableOverview<OfferPosition> {
 
   @override
   Future reload({Map<String, dynamic> params, bool evict: false}) async {
-    await super.reload(params: {'offer': _offer?.id});
+    await super.reload(params: {'offer': _offer?.id}, evict: evict);
     await updateAvailableServices();
   }
 
@@ -77,7 +77,7 @@ class OfferPositionOverviewComponent extends EditableOverview<OfferPosition> {
   }
 
   @override
-  Future createEntity({OfferPosition newEnt, Map<String, dynamic> params: const {}}) async {
-    super.createEntity(params: {'offer': _offer.id});
+  Future createEntity({OfferPosition newEnt, Map<String, dynamic> params: const {}}) {
+    return super.createEntity(params: {'offer': _offer.id});
   }
 }

@@ -96,7 +96,7 @@
     </div>
   </div>
   <div class="DimeControlButtons">
-    <save-button [valid]="false" (click)="saveEntity()"></save-button>
+    <save-button [valid]="editform.valid" (click)="saveEntity()"></save-button>
     <dime-button primary (click)="printOffer()" glyphicon="print">Drucken</dime-button>
     <dime-button (click)="reloadEvict()" glyphicon="refresh"></dime-button>
   </div>

@@ -3,16 +3,16 @@ import 'dart:async';
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
 
-import '../../model/entity_export.dart';
-import '../../pipe/dime_pipes.dart';
-import '../../service/caching_object_store_service.dart';
-import '../../service/entity_events_service.dart';
-import '../../service/settings_service.dart';
-import '../../service/status_service.dart';
-import '../../service/timetrack_service.dart';
-import '../../service/user_auth_service.dart';
-import '../common/dime_directives.dart';
-import 'editable_overview.dart';
+import '../../../model/entity_export.dart';
+import '../../../pipe/dime_pipes.dart';
+import '../../../service/caching_object_store_service.dart';
+import '../../../service/entity_events_service.dart';
+import '../../../service/settings_service.dart';
+import '../../../service/status_service.dart';
+import '../../../service/timetrack_service.dart';
+import '../../../service/user_auth_service.dart';
+import '../../common/dime_directives.dart';
+import '../editable_overview.dart';
 
 @Component(
     selector: 'project-comment-overview',
@@ -72,7 +72,7 @@ class ProjectCommentOverviewComponent extends EditableOverview<ProjectComment> i
       'comment': this.newEntryComment,
     };
     this.newEntryComment = '';
-    super.createEntity(params: localParams);
+    await super.createEntity(params: localParams);
   }
 
   @override
@@ -105,7 +105,7 @@ class ProjectCommentOverviewComponent extends EditableOverview<ProjectComment> i
   List<AbstractControl> get filteredComments {
     // this fixes excluding comments with dates almost the same as the filters
     Duration extension = new Duration(seconds: 2);
-    return controls
+    return (controls as List<ControlGroup>)
         .where((comment) =>
             getDate(comment).isAfter(filterStartDate.subtract(extension)) && getDate(comment).isBefore(filterEndDate.add(extension)))
         .toList();
