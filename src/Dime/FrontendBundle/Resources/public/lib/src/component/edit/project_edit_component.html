@@ -1,6 +1,7 @@
+<loading-container *ngIf="entity == null"></loading-container>
+<div *ngIf="entity != null">
 <h2 class="page-header">{{entity?.name}}&nbsp;</h2>
-
-<form *ngIf="entity != null" class="box-body" #editform="ngForm">
+<form class="box-body" #editform="ngForm">
   <div class="nav-tabs-custom">
     <ul class="nav nav-tabs">
       <template [ngIf]="entity?.offers != null && !entity.offers.isEmpty">
@@ -103,3 +104,4 @@
 </div>
 </form>
 <edit-footer [entity]="entity"></edit-footer>
+</div>

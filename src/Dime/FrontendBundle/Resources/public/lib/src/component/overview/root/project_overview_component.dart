@@ -40,6 +40,7 @@ class ProjectOverviewComponent extends EntityOverview<Project> implements OnActi
   onActivate(_, __) {
     super.onActivate(_, __);
     page_title.setPageTitle('Projekte');
+    reload();
   }
 
   @override

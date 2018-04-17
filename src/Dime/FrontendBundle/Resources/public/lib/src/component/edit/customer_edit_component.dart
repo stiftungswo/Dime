@@ -29,17 +29,8 @@ class CustomerEditComponent extends EntityEdit<Customer> {
 
   @override
   void onActivate(_, __) {
-    if (this.auth != null) {
-      if (!auth.isloggedin) {
-        this.auth.afterLogin(() {
-          loadRateGroups();
-          reload();
-        });
-      } else {
-        loadRateGroups();
-        reload();
-      }
-    }
+    loadRateGroups();
+    reload();
   }
 
   @override

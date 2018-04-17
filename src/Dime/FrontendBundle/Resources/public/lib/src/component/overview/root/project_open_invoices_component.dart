@@ -43,6 +43,7 @@ class ProjectOpenInvoicesComponent extends EntityOverview<Project> implements On
   onActivate(_, __) {
     super.onActivate(_, __);
     page_title.setPageTitle('Projekte mit offenen Rechnungen');
+    reload();
   }
 
   @override

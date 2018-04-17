@@ -32,6 +32,7 @@ class RateUnitTypeOverviewComponent extends EditableOverview<RateUnitType> imple
   onActivate(_, __) {
     super.onActivate(_, __);
     page_title.setPageTitle('Tarif Typen');
+    reload();
   }
 
   @override

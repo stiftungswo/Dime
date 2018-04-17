@@ -62,15 +62,7 @@ abstract class EntitySelect<T extends Entity> implements OnInit, ControlValueAcc
 
   @override
   void ngOnInit() {
-    if (this.auth != null) {
-      if (!auth.isloggedin) {
-        this.auth.afterLogin(() {
-          this.reload();
-        });
-      } else {
-        reload();
-      }
-    }
+    reload();
   }
 
   Future reload() async {

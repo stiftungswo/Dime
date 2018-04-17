@@ -58,17 +58,7 @@ class InvoiceEditComponent extends EntityEdit<Invoice> {
   }
 
   @override
-  void onActivate(_, __) {
-    if (this.auth != null) {
-      if (!auth.isloggedin) {
-        this.auth.afterLogin(() {
-          load();
-        });
-      } else {
-        load();
-      }
-    }
-  }
+  void onActivate(_, __) => load();
 
   void setInvoiceItemOverview(InvoiceItemOverviewComponent c) {
     invoiceitem_overview = c;

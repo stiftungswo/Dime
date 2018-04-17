@@ -55,10 +55,10 @@ abstract class EditableOverview<T extends Entity> extends EntityOverview<T> {
     }
     try {
       T resp = await this.store.create(newEnt);
-      this.statusservice.setStatusToSuccess();
-      runOutsideChangeDetection(() {
+      await runOutsideChangeDetection(() {
         map.add(resp);
       });
+      this.statusservice.setStatusToSuccess();
     } catch (e, stack) {
       print("Unable to create entity ${this.type.toString()} because ${e}");
       this.statusservice.setStatusToError(e, stack);
@@ -77,9 +77,9 @@ abstract class EditableOverview<T extends Entity> extends EntityOverview<T> {
       await postProcessEntities(entities);
       entities.forEach(map.add);
 
-      runOutsideChangeDetection(() {
-        if (overview == null) {
-          //sometimes the element that our control should be attached to is not set by angular. Not sure why that happens,
+      await runOutsideChangeDetection(() {
+        if (overview?.control == null) {
+          //sometimes the element that our control should be attached to is not set by angular, i.e. if the user already navigated away
           //but validation appears to be working fine later anyway.
           return;
         }
@@ -100,13 +100,16 @@ abstract class EditableOverview<T extends Entity> extends EntityOverview<T> {
   /// Putting the function on a [Timer] with 0 delay is basically the same as `setTimeout(f, 0)` in JavaScript and as such runs after
   /// the current change detection cycle.
   /// see https://github.com/angular/angular/issues/6005
-  void runOutsideChangeDetection(f()) {
+  Future runOutsideChangeDetection(f()) {
+    var completer = new Completer();
     new Timer(const Duration(seconds: 0), () {
       f();
       //we'd need to notify parent components, specifically dime-box as well,
       // but for that we'd need to run full change detection with [ApplicationRef#tick] or something similar
       changeDetector.detectChanges();
+      completer.complete();
     });
+    return completer.future;
   }
 
   void saveAllEntities() {
@@ -121,7 +124,7 @@ abstract class EditableOverview<T extends Entity> extends EntityOverview<T> {
     this.statusservice.setStatusToLoading();
     try {
       T updated = await store.update(entity);
-      runOutsideChangeDetection(() {
+      await runOutsideChangeDetection(() {
         var index = map.remove(entity);
         map.insert(index, updated);
       });

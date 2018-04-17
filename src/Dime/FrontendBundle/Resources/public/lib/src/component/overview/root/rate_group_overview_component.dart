@@ -37,5 +37,6 @@ class RateGroupOverviewComponent extends EditableOverview<RateGroup> implements 
   onActivate(_, __) {
     super.onActivate(_, __);
     page_title.setPageTitle('Tarife');
+    reload();
   }
 }

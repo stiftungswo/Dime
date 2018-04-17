@@ -44,7 +44,7 @@
   <!-- Main Content -->
   <div class="content-wrapper">
     <div class="content">
-      <router-outlet [routes]="routes"></router-outlet>
+      <router-outlet *ngIf="auth.isloggedin" [routes]="routes"></router-outlet>
       <maintabset></maintabset>
     </div>
     <div class="clearfix"></div>
@@ -55,17 +55,17 @@
     &copy; DimeERP <span class="release-info">({{releaseInfo}})</span>
   </footer>
 </div>
-<div [hidden]="auth.isloggedin || auth.showlogin">
+<div *ngIf="!auth.isloggedin && !auth.showlogin">
   <div class="login-page">
     <div class="login-box">
       <div class="login-logo">
-        Loading DimeERP<br><br>
+        Lade DimeERP<br><br>
         <span class="glyphicon glyphicon-refresh glyphicon-animate-spin"></span>
       </div>
     </div>
   </div>
 </div>
-<div [hidden]="!auth.showlogin">
+<div *ngIf="auth.showlogin">
   <div class="login-page">
     <div class="login-box">
       <div class="login-logo">

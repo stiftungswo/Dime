@@ -29,6 +29,7 @@ class ProjectCategoryOverviewComponent extends EditableOverview<ProjectCategory>
   onActivate(_, __) {
     super.onActivate(_, __);
     page_title.setPageTitle('Tätigkeitsbereiche');
+    reload();
   }
 
   @override

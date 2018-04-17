@@ -315,16 +315,7 @@ class TimesliceOverviewComponent extends EditableOverview<Timeslice> implements 
 
   @override
   void ngOnInit() {
-    if (this.auth == null) {
-      return;
-    }
-    if (!auth.isloggedin) {
-      this.auth.afterLogin(() {
-        this.load();
-      });
-    } else {
-      this.load();
-    }
+    this.load();
 
     if (this.filterStartDate.weekday != DateTime.monday) {
       this.filterStartDate = this.filterStartDate.subtract(new Duration(days: this.filterStartDate.weekday - 1));

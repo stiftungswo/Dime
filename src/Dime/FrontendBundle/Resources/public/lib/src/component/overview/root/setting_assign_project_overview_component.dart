@@ -60,15 +60,7 @@ class SettingAssignProjectOverviewComponent extends EntityOverview<SettingAssign
 
   @override
   void onActivate(_, __) {
-    if (this.auth != null) {
-      if (!auth.isloggedin) {
-        this.auth.afterLogin(() {
-          this.load();
-        });
-      } else {
-        this.load();
-      }
-    }
+    this.load();
   }
 
   @override

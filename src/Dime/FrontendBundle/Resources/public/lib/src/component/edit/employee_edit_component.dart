@@ -24,6 +24,9 @@ class EmployeeEditComponent extends EntityEdit<Employee> {
       : super(store, Employee, status, auth, router, entityEventsService);
 
   @override
+  void onActivate(_, __) => reload();
+
+  @override
   Future reload({bool evict: false}) async {
     await super.reload(evict: evict);
     page_title.setPageTitle('Mitarbeiter', entity?.fullname);

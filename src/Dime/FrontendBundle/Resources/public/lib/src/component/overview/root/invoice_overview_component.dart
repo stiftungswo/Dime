@@ -34,6 +34,7 @@ class InvoiceOverviewComponent extends EntityOverview<Invoice> implements OnActi
   onActivate(_, __) {
     super.onActivate(_, __);
     page_title.setPageTitle('Rechnungen');
+    reload();
   }
 
   @override

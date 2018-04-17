@@ -25,6 +25,9 @@ class ServiceEditComponent extends EntityEdit<Service> {
       : super(store, Service, status, auth, router, entityEventsService);
 
   @override
+  void onActivate(_, __) => reload();
+
+  @override
   Future reload({bool evict: false}) async {
     await super.reload(evict: evict);
     page_title.setPageTitle('Services', entity?.name);

@@ -1,4 +1,6 @@
-<form class="box-body" (ngSubmit)="saveEntity()" #editform="ngForm" *ngIf="entity != null">
+<loading-container *ngIf="entity == null"></loading-container>
+<div *ngIf="entity != null">
+<form class="box-body" (ngSubmit)="saveEntity()" #editform="ngForm" >
   <div class="box box-primary">
     <div class="box-header with-border">
       <h3 class="box-title">Service bearbeiten</h3>
@@ -39,3 +41,4 @@
   </div>
 </form>
 <edit-footer [entity]="entity"></edit-footer>
+</div>

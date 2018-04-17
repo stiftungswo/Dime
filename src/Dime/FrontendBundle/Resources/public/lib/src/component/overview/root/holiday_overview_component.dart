@@ -29,6 +29,7 @@ class HolidayOverviewComponent extends EditableOverview<Holiday> implements OnAc
   onActivate(_, __) {
     super.onActivate(_, __);
     page_title.setPageTitle('Feiertage');
+    reload();
   }
 
   @override

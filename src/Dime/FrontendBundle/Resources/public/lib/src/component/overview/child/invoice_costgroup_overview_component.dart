@@ -51,23 +51,6 @@ class InvoiceCostgroupOverviewComponent extends EditableOverview<InvoiceCostgrou
   }
 
   @override
-  void onActivate(_, __) {
-    // todo this is never called since this inst created by the router
-    // but maybe its not supposed to be called?
-    // reload gets called on the invoiceId setter, where it makes much more sense
-    print('costgroup here');
-    if (this.auth != null) {
-      if (!auth.isloggedin) {
-        this.auth.afterLogin(() {
-          this.reload();
-        });
-      } else {
-        reload();
-      }
-    }
-  }
-
-  @override
   Future createEntity({dynamic newEnt, Map<String, dynamic> params: const {}}) {
     // set default weight of 100
     return super.createEntity(params: {'invoice': this._invoiceId, 'weight': 100});

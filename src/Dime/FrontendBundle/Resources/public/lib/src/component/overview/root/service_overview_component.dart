@@ -56,5 +56,6 @@ class ServiceOverviewComponent extends EntityOverview<Service> implements OnActi
   onActivate(_, __) {
     super.onActivate(_, __);
     page_title.setPageTitle('Services');
+    reload();
   }
 }

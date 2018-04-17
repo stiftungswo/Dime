@@ -36,6 +36,7 @@ class EmployeeOverviewComponent extends EntityOverview<Employee> implements OnAc
   onActivate(_, __) {
     super.onActivate(_, __);
     page_title.setPageTitle('Mitarbeiter');
+    reload();
   }
 
   @override

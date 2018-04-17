@@ -14,12 +14,6 @@ import 'entity_edit.dart';
 class AddressEditComponent extends EntityEdit<Address> {
   AddressEditComponent() : super.Child(Address);
 
-  @override
-  void onActivate(_, __) {
-    //Dont Reload its not working.
-    // is never called, since this component is not routable
-  }
-
   Address _address;
 
   @Input()

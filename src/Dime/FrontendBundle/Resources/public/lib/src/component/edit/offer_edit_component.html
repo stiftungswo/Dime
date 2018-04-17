@@ -1,5 +1,6 @@
-<h2 class="page-header">{{entity?.name}}&nbsp;</h2>
+<loading-container *ngIf="entity == null"></loading-container>
 <div *ngIf="entity != null">
+<h2 class="page-header">{{entity?.name}}&nbsp;</h2>
 <form  class="box-body" #editform="ngForm">
   <div class="nav-tabs-custom">
     <ul class="nav nav-tabs">

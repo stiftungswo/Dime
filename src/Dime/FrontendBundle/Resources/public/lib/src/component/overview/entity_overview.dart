@@ -143,17 +143,7 @@ abstract class EntityOverview<T extends Entity> implements OnActivate {
   }
 
   @override
-  void onActivate(_, __) {
-    if (this.auth != null) {
-      if (!auth.isloggedin) {
-        this.auth.afterLogin(() {
-          this.reload();
-        });
-      } else {
-        this.reload();
-      }
-    }
-  }
+  void onActivate(_, __) {}
 
   /**
    * for usage in templates; can't use named parameters in templates

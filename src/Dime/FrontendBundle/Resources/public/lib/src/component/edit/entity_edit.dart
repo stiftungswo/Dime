@@ -39,17 +39,7 @@ abstract class EntityEdit<T extends Entity> implements OnActivate {
   EntityEdit(this.store, this.entType, this.statusservice, this.auth, this.router, this.entityEventsService);
 
   @override
-  void onActivate(_, __) {
-    if (this.auth != null) {
-      if (!auth.isloggedin) {
-        this.auth.afterLogin(() {
-          this.reload();
-        });
-      } else {
-        reload();
-      }
-    }
-  }
+  void onActivate(_, __) {}
 
   Future reloadEvict() async {
     reload(evict: true);

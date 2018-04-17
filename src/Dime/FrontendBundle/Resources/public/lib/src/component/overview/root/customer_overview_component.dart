@@ -30,6 +30,7 @@ class CustomerOverviewComponent extends EntityOverview<Customer> implements OnAc
   onActivate(_, __) {
     super.onActivate(_, __);
     page_title.setPageTitle('Kunden');
+    reload();
   }
 
   @override

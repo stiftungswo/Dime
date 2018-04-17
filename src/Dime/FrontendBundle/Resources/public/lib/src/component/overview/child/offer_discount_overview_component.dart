@@ -51,23 +51,6 @@ class OfferDiscountOverviewComponent extends EditableOverview<OfferDiscount> {
   }
 
   @override
-  void onActivate(_, __) {
-    // todo this is never called since this inst created by the router
-    // but maybe its not supposed to be called?
-    // reload gets called on the offerId setter, where it makes much more sense
-    print('discount here');
-    if (this.auth != null) {
-      if (!auth.isloggedin) {
-        this.auth.afterLogin(() {
-          this.reload();
-        });
-      } else {
-        reload();
-      }
-    }
-  }
-
-  @override
   Future createEntity({OfferDiscount newEnt, Map<String, dynamic> params: const {}}) {
     return super.createEntity(params: {'offer': this._offerId});
   }

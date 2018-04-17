@@ -35,8 +35,8 @@ class OfferOverviewComponent extends EntityOverview<Offer> implements OnActivate
 
   @override
   onActivate(_, __) {
-    super.onActivate(_, __);
     page_title.setPageTitle('Offerten');
+    reload();
   }
 
   @override
