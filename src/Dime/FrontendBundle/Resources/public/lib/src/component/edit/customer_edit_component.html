@@ -1,4 +1,6 @@
-<form *ngIf="entity != null" class="box-body" #editform="ngForm">
+<loading-container *ngIf="entity == null"></loading-container>
+<div *ngIf="entity != null">
+<form class="box-body" #editform="ngForm">
   <dime-box label="Kunde bearbeiten">
     <div boxBody class="form-horizontal" *ngIf="entity != null">
       <dime-form-group horizontal label="Beschreibung">
@@ -39,3 +41,4 @@
   </dime-box>
 </form>
 <edit-footer [entity]="entity"></edit-footer>
+</div>

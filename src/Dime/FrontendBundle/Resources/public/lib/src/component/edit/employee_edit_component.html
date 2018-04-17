@@ -1,6 +1,8 @@
+<loading-container *ngIf="entity == null"></loading-container>
+<div *ngIf="entity != null">
 <form class="box-body" name="editform" #editform="ngForm">
   <dime-box label="Mitarbeiter {{entity?.username}} bearbeiten">
-    <div boxBody class="form-horizontal" *ngIf="entity != null">
+    <div boxBody class="form-horizontal">
       <dime-form-group horizontal label="Username">
         <input required #name="ngForm" ngControl="username" class="form-control" type="text" [(ngModel)]="entity.username" (change)="addSaveField('username')">
       </dime-form-group>
@@ -39,3 +41,4 @@
   </dime-box>
 </form>
 <edit-footer [entity]="entity"></edit-footer>
+</div>

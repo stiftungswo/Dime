@@ -303,3 +303,9 @@ a > img {
     display: inline-block;
     padding-top: 6px;
 }
+
+.loading-container{
+    margin: 7% auto;
+    text-align: center;
+    font-size: 35px;
+}
