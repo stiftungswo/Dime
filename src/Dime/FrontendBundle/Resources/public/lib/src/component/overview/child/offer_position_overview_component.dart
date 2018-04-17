@@ -19,7 +19,7 @@ import '../editable_overview.dart';
   directives: const [coreDirectives, formDirectives, dimeDirectives, RateUnitTypeSelectComponent, ServiceSelectComponent],
   pipes: const [OrderByPipe],
 )
-class OfferPositionOverviewComponent extends EditableOverview<OfferPosition> {
+class OfferPositionOverviewComponent extends EditableOverview<OfferPosition> implements OnInit {
   OfferPositionOverviewComponent(CachingObjectStoreService store, SettingsService manager, StatusService status,
       EntityEventsService entityEventsService, ChangeDetectorRef changeDetector)
       : super(OfferPosition, store, null, manager, status, entityEventsService, changeDetector);
@@ -70,9 +70,11 @@ class OfferPositionOverviewComponent extends EditableOverview<OfferPosition> {
     availableServices = await store.list(Service, params: {"rateGroup": _offer?.rateGroup?.id});
   }
 
-  // is never called, since this component is not routable
   @override
-  void onActivate(_, __) {
+  void onActivate(_, __); // is never called, since this component is not routable
+
+  @override
+  void ngOnInit() {
     entityEventsService.addListener(EntityEvent.RATE_GROUP_CHANGED, this.updateAvailableServices);
   }
 

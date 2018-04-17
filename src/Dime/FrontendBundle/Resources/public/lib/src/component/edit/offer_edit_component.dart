@@ -24,7 +24,7 @@ import '../main/routes.dart' as routes;
 @Component(
   selector: 'offer-edit',
   templateUrl: 'offer_edit_component.html',
-  pipes: const [COMMON_PIPES],
+  pipes: const [commonPipes],
   directives: const [
     coreDirectives,
     formDirectives,

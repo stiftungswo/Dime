@@ -66,4 +66,9 @@ class DiscountInputComponent implements ControlValueAccessor<num> {
   void writeValue(num val) {
     this.value = val;
   }
+
+  @override
+  void onDisabledChanged(bool isDisabled) {
+    // TODO: implement onDisabledChanged
+  }
 }

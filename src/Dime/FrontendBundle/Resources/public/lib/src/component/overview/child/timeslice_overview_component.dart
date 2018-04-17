@@ -35,7 +35,7 @@ import '../editable_overview.dart';
     ActivitySelectComponent,
     SettingEditComponent
   ],
-  pipes: const [dimePipes, TimesliceDateFilterPipe, COMMON_PIPES],
+  pipes: const [dimePipes, TimesliceDateFilterPipe, commonPipes],
 )
 class TimesliceOverviewComponent extends EditableOverview<Timeslice> implements OnInit {
   @override

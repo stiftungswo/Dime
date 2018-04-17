@@ -24,7 +24,7 @@ import '../select/user_select_component.dart';
     selector: 'timeslice-expensereport',
     templateUrl: 'timeslice_expense_report_component.html',
     directives: const [coreDirectives, formDirectives, dimeDirectives, UserSelectComponent, ProjectSelectComponent],
-    pipes: const [COMMON_PIPES])
+    pipes: const [commonPipes])
 class TimesliceExpenseReportComponent extends EntityOverview<ExpenseReport> implements OnActivate {
   TimesliceExpenseReportComponent(CachingObjectStoreService store, SettingsService manager, StatusService status, UserAuthService auth,
       EntityEventsService entityEventsService, this.http)

@@ -15,7 +15,7 @@ import '../select/select.dart';
     selector: 'project-employee-report',
     templateUrl: 'project_employee_report_component.html',
     directives: const [coreDirectives, ProjectSelectComponent, dimeDirectives, formDirectives],
-    pipes: const [COMMON_PIPES])
+    pipes: const [commonPipes])
 class ProjectemployeeReportComponent implements OnActivate {
   ProjectemployeeReportComponent(StatusService this.statusservice, HttpService this.http);
 

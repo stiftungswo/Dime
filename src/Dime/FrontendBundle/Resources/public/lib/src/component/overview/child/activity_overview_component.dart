@@ -18,7 +18,7 @@ import '../editable_overview.dart';
   templateUrl: 'activity_overview_component.html',
   directives: const [coreDirectives, formDirectives, dimeDirectives, ServiceSelectComponent, RateUnitTypeSelectComponent],
 )
-class ActivityOverviewComponent extends EditableOverview<Activity> {
+class ActivityOverviewComponent extends EditableOverview<Activity> implements OnInit {
   @override
   List<String> get fields => ['id', 'service', 'rateValue', 'rateUnit', 'rateUnitType', 'value'];
 
@@ -48,9 +48,11 @@ class ActivityOverviewComponent extends EditableOverview<Activity> {
   ///services that share a rateGroup with the [project]
   List<Service> availableServices = [];
 
-  // is never called, since this component is not routable
   @override
-  void onActivate(_, __) {
+  void onActivate(_, __); // is never called, since this component is not routable
+
+  @override
+  void ngOnInit() {
     entityEventsService.addListener(EntityEvent.RATE_GROUP_CHANGED, this.updateAvailableServices);
   }
 

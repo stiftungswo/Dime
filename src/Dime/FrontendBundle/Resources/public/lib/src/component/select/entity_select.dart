@@ -141,4 +141,9 @@ abstract class EntitySelect<T extends Entity> implements OnInit, ControlValueAcc
     this._selectedEntity = obj;
     this.selector = EntText;
   }
+
+  @override
+  void onDisabledChanged(bool isDisabled) {
+    // TODO: implement onDisabledChanged
+  }
 }

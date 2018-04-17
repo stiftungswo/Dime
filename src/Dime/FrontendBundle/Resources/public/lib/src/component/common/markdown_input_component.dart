@@ -80,4 +80,9 @@ class MarkdownInputComponent implements ControlValueAccessor<String> {
   void writeValue(String obj) {
     currentValue = obj;
   }
+
+  @override
+  void onDisabledChanged(bool isDisabled) {
+    // TODO: implement onDisabledChanged
+  }
 }

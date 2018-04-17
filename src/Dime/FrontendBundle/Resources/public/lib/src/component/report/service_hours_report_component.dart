@@ -13,7 +13,7 @@ import '../common/dime_directives.dart';
     selector: 'service-hours-report',
     templateUrl: 'service_hours_report_component.html',
     directives: const [coreDirectives, dimeDirectives],
-    pipes: const [COMMON_PIPES])
+    pipes: const [commonPipes])
 class ServiceHoursReportComponent implements OnActivate {
   ServiceHoursReportComponent(StatusService this.statusservice, this.http);
 

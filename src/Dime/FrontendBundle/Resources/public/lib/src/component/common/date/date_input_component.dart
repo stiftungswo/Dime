@@ -110,4 +110,9 @@ class DateInputComponent implements ControlValueAccessor<DateTime>, OnChanges, A
   void writeValue(DateTime obj) {
     date = obj;
   }
+
+  @override
+  void onDisabledChanged(bool isDisabled) {
+    // TODO: implement onDisabledChanged
+  }
 }

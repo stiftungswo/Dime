@@ -18,7 +18,7 @@ import '../../main/routes.dart' as routes;
   selector: 'invoice-overview',
   templateUrl: 'invoice_overview_component.html',
   directives: const [coreDirectives, formDirectives, dimeDirectives],
-  pipes: const [dimePipes, COMMON_PIPES],
+  pipes: const [dimePipes, commonPipes],
 )
 class InvoiceOverviewComponent extends EntityOverview<Invoice> implements OnActivate {
   InvoiceOverviewComponent(CachingObjectStoreService store, Router router, SettingsService manager, StatusService status,

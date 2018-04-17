@@ -49,7 +49,7 @@ class PercentageInputComponent implements ControlValueAccessor<double> {
     if (percentage == null || percentage == '') {
       return null;
     }
-    var parsed = double.parse(percentage, (_) => null);
+    var parsed = double.tryParse(percentage);
 
     if (parsed == null) {
       return null;
@@ -68,5 +68,10 @@ class PercentageInputComponent implements ControlValueAccessor<double> {
   @override
   void writeValue(double val) {
     model = val;
+  }
+
+  @override
+  void onDisabledChanged(bool isDisabled) {
+    // TODO: implement onDisabledChanged
   }
 }

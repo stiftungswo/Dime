@@ -31,7 +31,7 @@ class WeekReportDayEntry {
     selector: 'timeslice-weeklyreport',
     templateUrl: 'timeslice_weekly_report_component.html',
     directives: const [coreDirectives, formDirectives, dimeDirectives, formDirectives],
-    pipes: const [COMMON_PIPES])
+    pipes: const [commonPipes])
 class TimesliceWeeklyReportComponent extends EntityOverview<ExpenseReport> implements OnActivate {
   TimesliceWeeklyReportComponent(CachingObjectStoreService store, SettingsService manager, StatusService status, UserAuthService auth,
       EntityEventsService entityEventsService, this.http)
