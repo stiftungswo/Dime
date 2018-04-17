@@ -78,8 +78,8 @@ abstract class EditableOverview<T extends Entity> extends EntityOverview<T> {
       entities.forEach(map.add);
 
       await runOutsideChangeDetection(() {
-        if (overview == null) {
-          //sometimes the element that our control should be attached to is not set by angular. Not sure why that happens,
+        if (overview?.control == null) {
+          //sometimes the element that our control should be attached to is not set by angular, i.e. if the user already navigated away
           //but validation appears to be working fine later anyway.
           return;
         }
