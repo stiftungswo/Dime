@@ -10,4 +10,3 @@ export 'src/service/user_auth_service.dart';
 export 'src/service/user_context_service.dart';
 export 'src/util/dime_hammock.dart';
 export 'src/util/sentry.dart';
-
