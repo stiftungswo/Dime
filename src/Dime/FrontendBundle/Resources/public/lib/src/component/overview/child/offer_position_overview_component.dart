@@ -62,6 +62,8 @@ class OfferPositionOverviewComponent extends EditableOverview<OfferPosition> {
   ///services that share a rateGroup with the [offer]
   List<Service> availableServices = [];
 
+  Service newService;
+
   @override
   Future reload({Map<String, dynamic> params, bool evict: false}) async {
     await super.reload(params: {'offer': _offer?.id}, evict: evict);
@@ -70,6 +72,9 @@ class OfferPositionOverviewComponent extends EditableOverview<OfferPosition> {
 
   Future updateAvailableServices() async {
     availableServices = await store.list(Service, params: {"rateGroup": _offer?.rateGroup?.id});
+    if (availableServices.isNotEmpty) {
+      newService = availableServices.first;
+    }
   }
 
   @override
@@ -78,7 +83,12 @@ class OfferPositionOverviewComponent extends EditableOverview<OfferPosition> {
   }
 
   @override
-  Future createEntity({OfferPosition newEnt, Map<String, dynamic> params: const {}}) {
-    return super.createEntity(params: {'offer': _offer.id});
+  Future createEntity({OfferPosition newEnt, Map<String, dynamic> params: const {}}) async {
+    var pos = new OfferPosition();
+    pos.addFieldstoUpdate(['service']);
+    pos.service = newService;
+    pos.init(params: {'offer': _offer.id});
+    await super.createEntity(newEnt: pos);
+    updateAvailableServices();
   }
 }

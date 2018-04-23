@@ -4,9 +4,7 @@
       <thead>
         <tr>
           <th>Reihenfolge</th>
-          <th class="col-sm-4">Service
-            <help-tooltip text="Wenn dein Service nicht aufgelistet ist, ist er entweder archiviert oder nicht für den Tarif der Offerte konfiguriert."></help-tooltip>
-          </th>
+          <th class="col-sm-4">Service</th>
           <th>Tarif</th>
           <th>Tarif Einheit</th>
           <th>Einheits-Typ</th>
@@ -25,9 +23,8 @@
           <td validationStatus class="form-group">
             <input class="form-control" type="number"
                    [ngFormControl]="c.controls['order']" /></td>
-          <td validationStatus class="form-group">
-            <service-select required hideArchived [options]="availableServices" [disabled]="offer?.rateGroup == null"
-                            [ngFormControl]="c.controls['service']" ></service-select></td>
+          <td class="form-group">
+            <span>{{c.controls['service'].value.name}}</span></td>
           <td validationStatus class="form-group">
             <input required class="form-control"
                    [ngFormControl]="c.controls['rateValue']" /></td>
@@ -50,7 +47,13 @@
     </table>
   </div>
   <div boxFooter class="DimeControlButtons">
-    <dime-button primary (click)="createEntity()" glyphicon="plus">Hinzufügen</dime-button>
+    <div class="col-sm-12 col-md-4" *ngIf="availableServices.length > 0">
+      <help-tooltip style="float:right" text="Wenn dein Service nicht aufgelistet ist, ist er entweder archiviert oder nicht für den Tarif der Offerte konfiguriert."></help-tooltip>
+        <select-with-button (click)="createEntity()" [enabled]="!statusservice.isLoading" glyphicon="plus" text="Service hinzufügen">
+          <service-select hideArchived fixPopupOffset [options]="availableServices" [disabled]="offer?.rateGroup == null"
+                          [(ngModel)]="newService" ></service-select>
+        </select-with-button>
+    </div>
     <dime-button primary (click)="duplicateEntity()" fontAwesome="copy">Duplizieren</dime-button>
     <dime-button (click)="reloadEvict()" glyphicon="refresh"></dime-button>
   </div>

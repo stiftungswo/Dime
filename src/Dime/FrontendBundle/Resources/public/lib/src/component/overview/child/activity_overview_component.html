@@ -3,9 +3,7 @@
     <thead>
     <tr>
       <th width="40">ID</th>
-      <th>Service
-        <help-tooltip text="Wenn dein Service nicht aufgelistet ist, ist er entweder archiviert oder nicht für den Tarif des Projekts konfiguriert."></help-tooltip>
-      </th>
+      <th>Service</th>
       <th>Beschreibung</th>
       <th>Preis</th>
       <th>Einheit</th>
@@ -23,8 +21,8 @@
       [ngClass]="rowClass(c.controls['id'].value, c.valid)"
     >
       <td>{{c.controls['id'].value}}</td>
-      <td validationStatus class="form-group"><service-select hideArchived required [options]="availableServices" [disabled]="project?.rateGroup == null"
-                                                              [ngFormControl]="c.controls['service']" ></service-select></td>
+      <td class="form-group">
+        <span>{{c.controls['service'].value.name}}</span></td>
       <td><textarea class="form-control tiny" [ngFormControl]="c.controls['description']"></textarea></td>
       <td validationStatus class="form-group">
         <input required class="form-control" [ngFormControl]="c.controls['rateValue']" /></td>
@@ -39,7 +37,13 @@
   </table>
 
   <div boxFooter class="DimeControlButtons">
-    <dime-button primary (click)="createEntity()" glyphicon="plus">Hinzufügen</dime-button>
+    <div class="col-sm-12 col-md-4" *ngIf="availableServices.length > 0">
+      <help-tooltip style="float:right" text="Wenn dein Service nicht aufgelistet ist, ist er entweder archiviert oder nicht für den Tarif des Projekts konfiguriert."></help-tooltip>
+      <select-with-button (click)="createEntity()" [enabled]="!statusservice.isLoading" glyphicon="plus" text="Aktivität hinzufügen">
+        <service-select hideArchived fixPopupOffset [options]="availableServices" [disabled]="project?.rateGroup == null"
+                        [(ngModel)]="newService" ></service-select>
+      </select-with-button>
+    </div>
     <dime-button primary (click)="duplicateEntity()" fontAwesome="copy">Duplizieren</dime-button>
     <dime-button (click)="reloadEvict()" glyphicon="refresh"></dime-button>
   </div>

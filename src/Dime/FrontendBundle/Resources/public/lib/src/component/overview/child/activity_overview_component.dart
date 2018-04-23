@@ -50,14 +50,21 @@ class ActivityOverviewComponent extends EditableOverview<Activity> {
   ///services that share a rateGroup with the [project]
   List<Service> availableServices = [];
 
+  Service newService;
+
   @override
   void ngOnInit() {
     entityEventsService.addListener(EntityEvent.RATE_GROUP_CHANGED, this.updateAvailableServices);
   }
 
   @override
-  Future createEntity({Activity newEnt, Map<String, dynamic> params: const {}}) {
-    return super.createEntity(params: {'project': this._project?.id});
+  Future createEntity({Activity newEnt, Map<String, dynamic> params: const {}}) async {
+    var activity = new Activity();
+    activity.addFieldstoUpdate(['service']);
+    activity.service = newService;
+    activity.init(params: {'project': _project.id});
+    await super.createEntity(newEnt: activity);
+    updateAvailableServices();
   }
 
   @override
@@ -68,6 +75,9 @@ class ActivityOverviewComponent extends EditableOverview<Activity> {
 
   Future updateAvailableServices() async {
     availableServices = await store.list(Service, params: {"rateGroup": _project?.rateGroup?.id}, cacheWithParams: true);
+    if (availableServices.isNotEmpty) {
+      newService = availableServices.first;
+    }
   }
 
   @override
