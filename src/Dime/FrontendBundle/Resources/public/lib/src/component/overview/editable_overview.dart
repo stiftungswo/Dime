@@ -67,7 +67,7 @@ abstract class EditableOverview<T extends Entity> extends EntityOverview<T> {
 
   @override
   Future reload({Map<String, dynamic> params, bool evict: false}) async {
-    map = new EntityControlMap<T>(true, fields);
+    var newMap = new EntityControlMap<T>(true, fields);
     this.statusservice.setStatusToLoading();
     try {
       if (evict) {
@@ -75,7 +75,7 @@ abstract class EditableOverview<T extends Entity> extends EntityOverview<T> {
       }
       var entities = (await this.store.list(this.type, params: params)).toList() as List<T>;
       await postProcessEntities(entities);
-      entities.forEach(map.add);
+      entities.forEach(newMap.add);
 
       await runOutsideChangeDetection(() {
         if (overview?.control == null) {
@@ -84,7 +84,8 @@ abstract class EditableOverview<T extends Entity> extends EntityOverview<T> {
           return;
         }
         //add our code-generated ControlArray to the rest of the form that's defined in the template
-        overview.control.addControl("items", map.controlArray);
+        overview.control.addControl("items", newMap.controlArray);
+        map = newMap;
       });
       this.statusservice.setStatusToSuccess();
     } catch (e, stack) {
