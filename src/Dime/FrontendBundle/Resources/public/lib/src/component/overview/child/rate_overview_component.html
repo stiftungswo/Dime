@@ -23,15 +23,11 @@
     </tbody>
   </table>
   <div boxFooter class="DimeControlButtons">
-    <div class="row form-inline" *ngIf="unusedRateGroups().length > 0">
-      <div class="col-md-3">
-        <label>Tarifgruppe</label>
-        <rate-group-select [options]="unusedRateGroups()" [(ngModel)]="newRateGroup" ></rate-group-select>
-      </div>
-    </div>
     <div class="col-md-12" style="margin-top: 5px">
-      <dime-button *ngIf="unusedRateGroups().length > 0" primary (click)="createEntity()" [enabled]="!statusservice.isLoading" glyphicon="plus">Tarif hinzufügen</dime-button>
-      <dime-button  (click)="reloadEvict()" glyphicon="refresh"></dime-button>
+      <select-with-button class="col-sm-12 col-md-4" *ngIf="unusedRateGroups().length > 0" (click)="createEntity()" [enabled]="!statusservice.isLoading" glyphicon="plus" text="Tarif hinzufügen">
+        <rate-group-select fixPopupOffset [options]="unusedRateGroups()" [(ngModel)]="newRateGroup" ></rate-group-select>
+      </select-with-button>
+      <dime-button class="col-xs-1" (click)="reloadEvict()" glyphicon="refresh"></dime-button>
     </div>
   </div>
 </dime-box>

@@ -14,14 +14,16 @@ import 'package:angular_forms/angular_forms.dart';
       <div class="box-body">
         <ng-content select='[boxBody]'></ng-content>
       </div>
-      <div class="box-footer" [class.has-error]='control != null && !control.valid' *ngIf='footer'>
-        <ul class='help-block' *ngIf='control != null && !control.valid'>
-          <!-- currently 'required' is the only error that can happen -->
-          <li>
-            <i class="fa fa-times"></i>
-            {{requiredMessage}}
-          </li>
-        </ul>
+      <div class="box-footer" *ngIf='footer'>
+        <div [class.has-error]='control != null && !control.valid'>
+          <ul class='help-block' *ngIf='control != null && !control.valid'>
+            <!-- currently 'required' is the only error that can happen -->
+            <li>
+              <i class="fa fa-times"></i>
+              {{requiredMessage}}
+            </li>
+          </ul>
+        </div>
         <ng-content select='[boxFooter]'></ng-content>
       </div>
     </div>

@@ -9,6 +9,7 @@ import 'help_tooltip_component.dart';
 import 'loading_container_component.dart';
 import 'percentage_input_component.dart';
 import 'save_button_component.dart';
+import 'select_with_button_component.dart';
 import 'validation/dime_box_component.dart';
 import 'validation/dime_form_group_component.dart';
 import 'validation/validation_status_directive.dart';
@@ -27,5 +28,6 @@ const dimeDirectives = const [
   DimeBoxComponent,
   ValidationStatusDirective,
   EditFooterComponent,
-  LoadingContainerComponent
+  LoadingContainerComponent,
+  SelectWithButtonComponent
 ];
