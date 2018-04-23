@@ -20,7 +20,7 @@ import '../editable_overview.dart';
 )
 class ActivityOverviewComponent extends EditableOverview<Activity> {
   @override
-  List<String> get fields => ['id', 'service', 'rateValue', 'rateUnit', 'rateUnitType', 'value'];
+  List<String> get fields => ['id', 'service', 'rateValue', 'rateUnit', 'rateUnitType', 'value', 'description'];
 
   Project _project;
   Project get project => _project;
