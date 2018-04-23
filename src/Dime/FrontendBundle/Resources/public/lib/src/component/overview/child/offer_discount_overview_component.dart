@@ -39,8 +39,8 @@ class OfferDiscountOverviewComponent extends EditableOverview<OfferDiscount> {
 
   @Input('offer')
   set offerId(int id) {
-    if (id != null) {
-      this._offerId = id;
+    if (id != null && id != _offerId) {
+      _offerId = id;
       reload();
     }
   }

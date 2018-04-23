@@ -41,7 +41,7 @@ class InvoiceItemOverviewComponent extends EditableOverview<InvoiceItem> {
 
   @Input('invoice')
   set invoiceId(int id) {
-    if (id != null) {
+    if (id != null && id != _invoiceId) {
       this._invoiceId = id;
       reload();
     }

@@ -35,8 +35,10 @@ class ProjectCommentOverviewComponent extends EditableOverview<ProjectComment> i
   Project get selectedProject => _selectedProject;
 
   set selectedProject(Project project) {
-    _selectedProject = project;
-    reload();
+    if (project?.id != _selectedProject?.id) {
+      _selectedProject = project;
+      reload();
+    }
   }
 
   DateTime filterStartDate;

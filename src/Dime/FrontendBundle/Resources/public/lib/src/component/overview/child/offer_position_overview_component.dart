@@ -53,8 +53,10 @@ class OfferPositionOverviewComponent extends EditableOverview<OfferPosition> {
 
   @Input('offer')
   void set offer(Offer offer) {
-    _offer = offer;
-    reload();
+    if (offer?.id != _offer?.id) {
+      _offer = offer;
+      reload();
+    }
   }
 
   ///services that share a rateGroup with the [offer]

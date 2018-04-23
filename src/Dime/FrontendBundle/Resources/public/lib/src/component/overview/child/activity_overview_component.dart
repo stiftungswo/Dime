@@ -26,8 +26,10 @@ class ActivityOverviewComponent extends EditableOverview<Activity> {
   Project get project => _project;
   @Input()
   void set project(Project project) {
-    _project = project;
-    reload();
+    if (project?.id != _project?.id) {
+      _project = project;
+      reload();
+    }
   }
 
   ActivityOverviewComponent(CachingObjectStoreService store, SettingsService manager, StatusService status,
