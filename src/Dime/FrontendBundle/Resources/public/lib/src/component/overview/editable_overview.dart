@@ -67,7 +67,7 @@ abstract class EditableOverview<T extends Entity> extends EntityOverview<T> {
 
   @override
   Future reload({Map<String, dynamic> params, bool evict: false}) async {
-    var newMap = new EntityControlMap<T>(true, fields);
+    var newMap = new EntityControlMap<T>(required, fields);
     this.statusservice.setStatusToLoading();
     try {
       if (evict) {
@@ -85,6 +85,7 @@ abstract class EditableOverview<T extends Entity> extends EntityOverview<T> {
         }
         //add our code-generated ControlArray to the rest of the form that's defined in the template
         overview.control.addControl("items", newMap.controlArray);
+        overview.control.updateValueAndValidity(emitEvent: true);
         map = newMap;
       });
       this.statusservice.setStatusToSuccess();
