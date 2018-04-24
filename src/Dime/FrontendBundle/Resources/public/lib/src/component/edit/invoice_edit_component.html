@@ -74,8 +74,8 @@
     <save-button [valid]="editform.valid"
                  [enabled]="costgroups.valid" disabledTooltip="Die Kostenstellen müssen erfasst werden."
                  (click)="saveEntity()"></save-button>
-    <dime-button primary glyphicon="magnet"
-                 tooltipText="Synchronisiert die Aktivitäten/Rechnungsposten mit dem Ursprungsprojekt und setzt den Sachbearbeiter auf Dich"
+    <dime-button primary glyphicon="magnet" *ngIf="entity.project != null"
+                 tooltip="Synchronisiert die Aktivitäten/Rechnungsposten mit dem Ursprungsprojekt und setzt den Sachbearbeiter auf Dich"
                  (click)="updateInvoicefromProject()"> Update </dime-button>
     <dime-button primary glyphicon="print" (click)="printInvoice()"> Rechnung </dime-button>
     <dime-button primary glyphicon="print" (click)="printAufwandsbericht()"> Aufwandsbericht </dime-button>

@@ -42,11 +42,8 @@ class InvoiceEditComponent extends EntityEdit<Invoice> {
   Project project;
   HttpService http;
 
-  @ViewChild('invoiceitemOverview')
-  InvoiceItemOverviewComponent invoiceitem_overview;
-
-  @ViewChild('invoicecostgroupOverview')
-  InvoiceCostgroupOverviewComponent costgroupOverview;
+  @ViewChild(InvoiceItemOverviewComponent)
+  InvoiceItemOverviewComponent invoiceItemOverview;
 
   void printInvoice() {
     window.open('${http.baseUrl}/invoices/${this.entity.id}/print', 'Invoice Print');
@@ -58,10 +55,6 @@ class InvoiceEditComponent extends EntityEdit<Invoice> {
 
   @override
   void ngOnInit() => load();
-
-  void setInvoiceItemOverview(InvoiceItemOverviewComponent c) {
-    invoiceitem_overview = c;
-  }
 
   Future load({bool evict: false}) async {
     this.statusservice.setStatusToLoading();
@@ -87,7 +80,7 @@ class InvoiceEditComponent extends EntityEdit<Invoice> {
         this.entity = (await this.store.customQueryOne<Invoice>(
             Invoice, new CustomRequestParams(method: 'GET', url: '${http.baseUrl}/invoices/${this.entity.id}/update')));
         this.statusservice.setStatusToSuccess();
-        this.invoiceitem_overview.reload(evict: true);
+        this.invoiceItemOverview.reload(evict: true);
       } catch (e, stack) {
         this.statusservice.setStatusToError(e, stack);
       }
