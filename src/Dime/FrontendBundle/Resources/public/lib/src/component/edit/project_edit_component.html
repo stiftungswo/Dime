@@ -51,7 +51,6 @@
           </dime-form-group>
           <dime-form-group horizontal label="Tarif">
             <rate-group-select required ngControl="rateGroup"
-                              [placeholder]="entity?.customer?.rateGroup?.name ?? ''"
                               [(ngModel)]="entity.rateGroup"
                               (ngModelChange)="entity.addFieldtoUpdate('rateGroup'); rateGroupChanged()"></rate-group-select>
           </dime-form-group>
