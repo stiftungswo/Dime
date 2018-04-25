@@ -48,9 +48,12 @@
   </div>
   <div boxFooter class="DimeControlButtons">
     <div class="col-sm-12 col-md-4" *ngIf="availableServices.length > 0">
-      <help-tooltip style="float:right" text="Wenn dein Service nicht aufgelistet ist, ist er entweder archiviert oder nicht für den Tarif der Offerte konfiguriert."></help-tooltip>
-        <select-with-button (click)="createEntity()" [enabled]="!statusservice.isLoading" glyphicon="plus" text="Service hinzufügen">
-          <service-select hideArchived fixPopupOffset [options]="availableServices" [disabled]="offer?.rateGroup == null"
+      <span style="float:right" [class.has-error]="!hasRateGroup">
+          <help-tooltip *ngIf="hasRateGroup" text="Wenn dein Service nicht aufgelistet ist, ist er entweder archiviert oder nicht für den Tarif der Offerte konfiguriert."></help-tooltip>
+          <help-tooltip *ngIf="!hasRateGroup" text="Der Tarif muss gesetzt sein."></help-tooltip>
+      </span>
+        <select-with-button (click)="createEntity()" [enabled]="!statusservice.isLoading && hasRateGroup" glyphicon="plus" text="Service hinzufügen">
+          <service-select hideArchived fixPopupOffset [options]="availableServices" [disabled]="!hasRateGroup"
                           [(ngModel)]="newService" ></service-select>
         </select-with-button>
     </div>

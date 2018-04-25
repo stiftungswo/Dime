@@ -64,6 +64,8 @@ class OfferPositionOverviewComponent extends EditableOverview<OfferPosition> {
 
   Service newService;
 
+  bool get hasRateGroup => offer?.rateGroup != null;
+
   @override
   Future reload({Map<String, dynamic> params, bool evict: false}) async {
     await super.reload(params: {'offer': _offer?.id}, evict: evict);

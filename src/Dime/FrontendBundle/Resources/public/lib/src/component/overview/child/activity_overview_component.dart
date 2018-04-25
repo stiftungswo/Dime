@@ -52,6 +52,8 @@ class ActivityOverviewComponent extends EditableOverview<Activity> {
 
   Service newService;
 
+  bool get hasRateGroup => project?.rateGroup != null;
+
   @override
   void ngOnInit() {
     entityEventsService.addListener(EntityEvent.RATE_GROUP_CHANGED, this.updateAvailableServices);
