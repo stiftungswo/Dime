@@ -71,6 +71,7 @@ class ReportController extends DimeController
      * )
      *
      * @Annotations\QueryParam(name="project", requirements="\d+", nullable=true, description="Filter By Project")
+     * @Annotations\QueryParam(name="invoice", requirements="\d+", nullable=true, description="Use invoice title and description")
      * @Annotations\QueryParam(name="user", requirements="\d+", nullable=true, description="Filter By User")
      * @Annotations\QueryParam(name="employee", requirements="\d+", nullable=true, description="Filter By Employee")
      * @Annotations\QueryParam(name="date", nullable=true, description="Filter by date use Format YYYY-MM-DD or YYYY-MM-DD,YYYY-MM-DD to specify daterange")
@@ -112,6 +113,30 @@ class ReportController extends DimeController
             }
         }
 
+        $reportDescription = [];
+
+        if ($report->getProject() !== null) {
+            $reportDescription = [
+                'title' => $report->getProject()->getName(),
+                'idLabel' => 'Projekt-Nr',
+                'id' => $report->getProject()->getId(),
+                'descriptionLabel' => 'Projekt',
+                'description' => $report->getProject()->getDescription(),
+                'descriptionUseMarkdown' => false,
+            ];
+        }
+
+        if ($report->getInvoice() !== null) {
+            $reportDescription = [
+                'title' => $report->getInvoice()->getName(),
+                'idLabel' => 'Rechnungs-Nr',
+                'id' => $report->getInvoice()->getId(),
+                'descriptionLabel' => 'Rechnung',
+                'description' => $report->getInvoice()->getDescription(),
+                'descriptionUseMarkdown' => true,
+            ];
+        }
+
         uksort($reportItems, function ($date1, $date2) {
             return Carbon::parse($date1) <=> Carbon::parse($date2);
         });
@@ -125,6 +150,7 @@ class ReportController extends DimeController
             [
                 'report' => $report,
                 'reportItems' => $reportItems,
+                'reportDescription' => $reportDescription,
             ],
             'DimeReportBundle:Reports:stylesheet.xml.twig',
             $header

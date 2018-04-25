@@ -2,23 +2,27 @@
 <pdf>
 	<dynamic-page page-size="a4">
 		<div class="logo"><img src="{{ pdf_image('SwoCommonsBundle:swo_logo_big.png') }}" width="200"/></div>
-		<div class="title">Aufwandsreport{% if report.project != null %} {{ report.project.name }}{% endif %}</div>
-		{% if report.project != null %}
-			<div class="description">
-                Projekt-Nr: {{ report.project.id }}
+		<div class="title">Aufwandsreport{% if reportDescription is not empty %} {{ reportDescription.title }}{% endif %}</div>
+		{% if reportDescription is not empty %}
+			<div class="description spacing-top">
+                {{ reportDescription.idLabel }}: {{ reportDescription.id }}
                 <br />
-                Projekt:<br />
-                {{ report.project.description|nl2br }}
-                <br />
+                {{ reportDescription.descriptionLabel }}:
             </div>
+            {% if reportDescription.descriptionUseMarkdown %}
+                <div class="markdownDescription" >{{ reportDescription.description|extra_markdown|hpnobreak }}</div>
+            {% else %}
+                <div class="description">{{ reportDescription.description|nl2br }}</div>
+            {% endif %}
+            <br />
 		{% endif %}
 		{% if report.start and report.end %}
-			<div class="title description">Von: {{ report.start|date("d.m.Y") }}
+			<div class="title description spacing-top">Von: {{ report.start|date("d.m.Y") }}
 		                                   bis: {{ report.end|date("d.m.Y") }}</div>{% endif %}
 		{% if report.start and not report.end %}
-			<div class="title description">Von: {{ report.start|date("d.m.Y") }}</div>{% endif %}
+			<div class="title description spacing-top">Von: {{ report.start|date("d.m.Y") }}</div>{% endif %}
 		{% if report.employee != null %}
-			<div class="title description">Report für {{ report.employee.fullname }}</div>{% endif %}
+			<div class="title description spacing-top">Report für {{ report.employee.fullname }}</div>{% endif %}
 		<table class="maintable">
 			<tr class="thead">
 				<td class="firstrow">Datum</td>

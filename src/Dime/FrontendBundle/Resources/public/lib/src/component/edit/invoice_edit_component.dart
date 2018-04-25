@@ -50,7 +50,7 @@ class InvoiceEditComponent extends EntityEdit<Invoice> {
   }
 
   void printAufwandsbericht() {
-    window.open('${http.baseUrl}/reports/expenses/print?project=${this.entity.project.id}', 'Aufwandsbericht');
+    window.open('${http.baseUrl}/reports/expenses/print?invoice=${this.entity.id}', 'Aufwandsbericht');
   }
 
   @override
