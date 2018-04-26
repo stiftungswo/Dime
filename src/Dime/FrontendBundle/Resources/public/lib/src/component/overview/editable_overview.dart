@@ -15,25 +15,25 @@ import 'entity_overview.dart';
 
 abstract class EditableOverview<T extends Entity> extends EntityOverview<T> {
   /// see [EntityControlMap] for details.
-  EntityControlMap<T> map;
+  EntityControlMap<T> _map;
 
   /// the names of the fields of the [Entity] that should be mapped to the [controls].
   /// Basically: if you want to use it in the HTML template, list it here.
   List<String> get fields;
 
-  /// do not modify this by hand, it is managed by [map]
+  /// do not modify this by hand, it is managed by [_map]
   @override
-  List<T> get entities => map.entities;
+  List<T> get entities => new List.unmodifiable(_map.entities);
 
-  /// do not modify this by hand, it is managed by [map]
-  List<dynamic> get controls => map.controls;
+  /// do not modify this by hand, it is managed by [_map]
+  List<dynamic> get controls => new List.unmodifiable(_map.controls);
 
   ChangeDetectorRef changeDetector;
 
   @Input()
   bool required = false;
 
-  /// [EditableOverview]s need a [ControlGroup] bound to `#overview` in their Template. This is needed to attach [map] to the parent form,
+  /// [EditableOverview]s need a [ControlGroup] bound to `#overview` in their Template. This is needed to attach [_map] to the parent form,
   /// so it can be included in validation.
   @ViewChild("overview")
   NgControlGroup overview;
@@ -42,7 +42,7 @@ abstract class EditableOverview<T extends Entity> extends EntityOverview<T> {
       EntityEventsService entityEventsService, this.changeDetector,
       {Router router, UserAuthService auth})
       : super(type, store, routeName, manager, status, entityEventsService, router: router, auth: auth) {
-    map = new EntityControlMap<T>(required, fields);
+    _map = new EntityControlMap<T>(required, fields);
     entityEventsService.addSaveChangesListener(this.saveAllEntities);
   }
 
@@ -56,7 +56,7 @@ abstract class EditableOverview<T extends Entity> extends EntityOverview<T> {
     try {
       T resp = await this.store.create(newEnt);
       await runOutsideChangeDetection(() {
-        map.add(resp);
+        _map.add(resp);
       });
       this.statusservice.setStatusToSuccess();
     } catch (e, stack) {
@@ -86,7 +86,7 @@ abstract class EditableOverview<T extends Entity> extends EntityOverview<T> {
         //add our code-generated ControlArray to the rest of the form that's defined in the template
         overview.control.addControl("items", newMap.controlArray);
         overview.control.updateValueAndValidity(emitEvent: true);
-        map = newMap;
+        _map = newMap;
       });
       this.statusservice.setStatusToSuccess();
     } catch (e, stack) {
@@ -95,9 +95,10 @@ abstract class EditableOverview<T extends Entity> extends EntityOverview<T> {
     }
   }
 
+  /// apply some transformations to the entities after they are loaded but before they are displayed
   Future postProcessEntities(List<T> entities) async {}
 
-  /// some changes, specifically changing the form (i.e. by adding [map] or by modifying its [Control]s) MUST NOT happen in a
+  /// some changes, specifically changing the form (i.e. by adding [_map] or by modifying its [Control]s) MUST NOT happen in a
   /// change detection cycle - we might change the form state from valid to invalid, which throws an error.
   /// Putting the function on a [Timer] with 0 delay is basically the same as `setTimeout(f, 0)` in JavaScript and as such runs after
   /// the current change detection cycle.
@@ -115,7 +116,7 @@ abstract class EditableOverview<T extends Entity> extends EntityOverview<T> {
   }
 
   void saveAllEntities() {
-    for (T entity in map.entities) {
+    for (T entity in _map.entities) {
       if (entity.needsUpdate) {
         this.saveEntity(entity);
       }
@@ -127,8 +128,8 @@ abstract class EditableOverview<T extends Entity> extends EntityOverview<T> {
     try {
       T updated = await store.update(entity);
       await runOutsideChangeDetection(() {
-        var index = map.remove(entity);
-        map.insert(index, updated);
+        var index = _map.remove(entity);
+        _map.insert(index, updated);
       });
       this.statusservice.setStatusToSuccess();
     } catch (e, stack) {
@@ -147,9 +148,9 @@ abstract class EditableOverview<T extends Entity> extends EntityOverview<T> {
         this.statusservice.setStatusToLoading();
         try {
           if (this.store != null) {
-            T ent = map.entities.singleWhere((enty) => enty.id == entId);
+            T ent = _map.entities.singleWhere((enty) => enty.id == entId);
             await this.store.delete(ent);
-            map.remove(ent);
+            _map.remove(ent);
           }
           this.statusservice.setStatusToSuccess();
         } catch (e, stack) {
@@ -160,8 +161,9 @@ abstract class EditableOverview<T extends Entity> extends EntityOverview<T> {
     }
   }
 
+  /// returns the bootstrap ngClass based on the validity/selection state of the row
   rowClass(dynamic entityId, bool valid) {
-    var entity = map.entities.singleWhere((e) => e.id == entityId);
+    var entity = _map.entities.singleWhere((e) => e.id == entityId);
     if (valid ?? true) {
       return {"info": isSelected(entity)};
     } else {
@@ -184,7 +186,6 @@ class EntityControlMap<T extends Entity> {
 
   EntityControlMap(bool required, this.fields) {
     entities = [];
-    controlArray = new ControlArray([], notEmpty);
     if (required) {
       controlArray = new ControlArray([], notEmpty);
     } else {
