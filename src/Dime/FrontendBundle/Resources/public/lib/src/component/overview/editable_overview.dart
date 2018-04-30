@@ -95,6 +95,36 @@ abstract class EditableOverview<T extends Entity> extends EntityOverview<T> {
     }
   }
 
+  /// is a clone of [reload] but with the change introduced in 63b3b0afd88535c362c4d9ebeb6c981ce5e7328e reverted
+  /// todo clean this up and find a general solution
+  Future reloadFixForTimesliceOverviewTodoCleanThisUpPlease({Map<String, dynamic> params, bool evict: false}) async {
+    _map = new EntityControlMap<T>(required, fields);
+    this.statusservice.setStatusToLoading();
+    try {
+      if (evict) {
+        this.store.evict(this.type);
+      }
+      var entities = (await this.store.list(this.type, params: params)).toList() as List<T>;
+      await postProcessEntities(entities);
+      entities.forEach(_map.add);
+
+      await runOutsideChangeDetection(() {
+        if (overview?.control == null) {
+          //sometimes the element that our control should be attached to is not set by angular, i.e. if the user already navigated away
+          //but validation appears to be working fine later anyway.
+          return;
+        }
+        //add our code-generated ControlArray to the rest of the form that's defined in the template
+        overview.control.addControl("items", _map.controlArray);
+        overview.control.updateValueAndValidity(emitEvent: true);
+      });
+      this.statusservice.setStatusToSuccess();
+    } catch (e, stack) {
+      print("Unable to load ${this.type.toString()} because ${e}");
+      this.statusservice.setStatusToError(e, stack);
+    }
+  }
+
   /// apply some transformations to the entities after they are loaded but before they are displayed
   Future postProcessEntities(List<T> entities) async {}
 
