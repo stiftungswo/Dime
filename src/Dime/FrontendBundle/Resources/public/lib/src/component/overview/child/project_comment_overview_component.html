@@ -18,15 +18,15 @@
 <div class="text-muted" *ngIf="filteredComments.length == 0">
     Keine Kommentare
 </div>
-<table *ngIf="filteredComments.length > 0" class="table table-bordered table-hover" ngControlGroup="comments" #overview="ngForm">
-  <thead>
+<table class="table table-bordered table-hover" ngControlGroup="comments" #overview="ngForm">
+  <thead *ngIf="filteredComments.length > 0" >
     <tr>
       <th>Datum</th>
       <th>Kommentar</th>
       <th width="60">Aktion</th>
     </tr>
   </thead>
-  <tbody>
+  <tbody *ngIf="filteredComments.length > 0" >
     <tr
       *ngFor="let c of filteredComments | orderBy:'id':true"
       (click)="selectEntity(c.controls['id'].value)"
