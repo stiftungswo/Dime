@@ -219,12 +219,11 @@ class TimesliceOverviewComponent extends EditableOverview<Timeslice> {
 
     if (this.projectBased) {
       if (selectedProject != null) {
-        await super
-            .reloadFixForTimesliceOverviewTodoCleanThisUpPlease(params: {'project': selectedProject.id, 'date': dateRange}, evict: evict);
+        await super.reload(params: {'project': selectedProject.id, 'date': dateRange}, evict: evict);
       }
     } else {
       if (_employee != null) {
-        await super.reloadFixForTimesliceOverviewTodoCleanThisUpPlease(params: {'employee': _employee.id, 'date': dateRange}, evict: evict);
+        await super.reload(params: {'employee': _employee.id, 'date': dateRange}, evict: evict);
       }
     }
     updateEntryDate();

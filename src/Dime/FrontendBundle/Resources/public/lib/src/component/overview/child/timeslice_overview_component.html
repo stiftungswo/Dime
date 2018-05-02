@@ -5,8 +5,8 @@
 <div class="text-muted" *ngIf="entities.length == 0">
     Keine Einträge
 </div>
-<table *ngIf="entities.length > 0" class="table table-bordered table-hover form" ngControlGroup="timeslices">
-    <thead>
+<table class="table table-bordered table-hover form" ngControlGroup="timeslices" #overview="ngForm">
+    <thead *ngIf="entities.length > 0" >
         <tr>
             <th style="width: 30px"></th>
             <th *ngIf="projectBased">Benutzer</th>
@@ -16,7 +16,7 @@
             <th width="60">Aktion</th>
         </tr>
     </thead>
-    <tbody class="editable-overview">
+    <tbody class="editable-overview" *ngIf="entities.length > 0" >
         <tr
           *ngFor="let c of controls | timeslicedatefilter:filterStartDate:filterEndDate | orderBy:'startedAt'"
           (click)="selectRow($event, c.controls['id'].value)"
