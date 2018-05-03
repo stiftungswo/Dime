@@ -22,12 +22,7 @@ class Offer extends Entity {
     this.offerDiscounts = original.offerDiscounts;
     this.status = original.status;
     this.address = original.address;
-    this.fixedPrice = original.fixedPrice;
-    this.subtotal = original.subtotal;
-    this.totalVAT = original.totalVAT;
-    this.totalDiscounts = original.totalDiscounts;
-    this.total = original.total;
-    this.project = original.project;
+
     addFieldstoUpdate([
       'validTo',
       'rateGroup',
@@ -40,12 +35,6 @@ class Offer extends Entity {
       // 'offerDiscounts',
       'status',
       'address',
-      'fixedPrice',
-      'subtotal',
-      'totalVAT',
-      'totalDiscounts',
-      'total',
-      'project'
     ]);
   }
 
