@@ -386,14 +386,6 @@ class TimesliceOverviewComponent extends EditableOverview<Timeslice> {
     } else {
       selectedTimeslices.add(timeslice);
     }
-
-    //for compatibility with the single-select of the EntityOverview
-    if (selectedTimeslices.length == 1) {
-      selectEntity(selectedTimeslices.single.id as int);
-    } else {
-      selectEntity(null);
-    }
-    print(selectedTimeslices);
   }
 
   Future moveTimeslices() async {
@@ -438,7 +430,6 @@ class TimesliceOverviewComponent extends EditableOverview<Timeslice> {
     }
   }
 
-  @override
   rowClass(dynamic entityId, bool valid) {
     var entity = entities.singleWhere((e) => e.id == entityId);
     if (valid ?? true) {

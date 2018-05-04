@@ -13,7 +13,7 @@
             <th class="col-sm-6">Aktivität</th>
             <th>Datum</th>
             <th>Dauer/Anzahl</th>
-            <th width="60">Aktion</th>
+            <th width="170">Aktion</th>
         </tr>
     </thead>
     <tbody class="editable-overview" *ngIf="entities.length > 0" >
@@ -26,7 +26,10 @@
             <td><span>{{c.controls['activity'].value.name}}</span></td>
             <td><span>{{c.controls['startedAt'].value | date:'dd.MM.y'}}</span></td>
             <td validationStatus><input required class="form-control" [ngFormControl]="c.controls['value']" /></td>
-            <td><dime-button (click)="deleteEntity(c.controls['id'].value)" fontAwesome="trash-o" color="red"></dime-button></td>
+            <td>
+                <dime-button primary (click)="duplicateEntity(c.controls['id'].value)" fontAwesome="copy">Duplizieren</dime-button>
+                <dime-button (click)="deleteEntity(c.controls['id'].value)" fontAwesome="trash-o" color="red"></dime-button>
+            </td>
         </tr>
     </tbody>
 </table>
@@ -68,12 +71,6 @@
                          (click)="createEntity()"
                          glyphicon="plus"
             >Eintrag hinzufügen</dime-button>
-            <dime-button primary
-                         (click)="duplicateEntity()"
-                         [enabled]="selectedTimeslices.length == 1"
-                         fontAwesome="copy"
-                         tooltipText="Exakt ein (1) Eintrag muss ausgewählt sein."
-            >Duplizieren</dime-button>
             <dime-button
                     [enabled]="moveDialogEnabled()"
                     glyphicon="arrow-right"

@@ -36,7 +36,7 @@
         </tr>
       </thead>
       <tbody *ngIf="entities != null">
-        <tr *ngFor="let entity of entities | orderBy:sortType:sortReverse | filter:['id', 'name', 'alias', 'description']:ProjectOpenInvoicesComponent.globalFilterString" (click)="selectEntity(entity.id)" (dblclick)="openEditView(entity.id)" [class.info]="isSelected(entity)">
+        <tr *ngFor="let entity of entities | orderBy:sortType:sortReverse | filter:['id', 'name', 'alias', 'description']:ProjectOpenInvoicesComponent.globalFilterString" (dblclick)="openEditView(entity.id)">
           <td>{{entity.id}}</td>
           <td>{{entity.name}} <span class="text-muted" *ngIf="entity.archived">[ARCHIVIERT]</span></td>
           <td>{{entity.alias}}</td>

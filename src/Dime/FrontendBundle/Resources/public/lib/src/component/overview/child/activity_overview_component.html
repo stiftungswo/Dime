@@ -11,15 +11,11 @@
       <th>Anzahl
         <help-tooltip text="wird aus den gebuchten Zeiteinträgen auf diese Aktivität berechnet"></help-tooltip>
       </th>
-      <th width="60">Aktion</th>
+      <th width="170">Aktion</th>
     </tr>
     </thead>
     <tbody *ngIf="entities != null">
-    <tr
-      *ngFor="let c of controls"
-      (click)="selectEntity(c.controls['id'].value)"
-      [ngClass]="rowClass(c.controls['id'].value, c.valid)"
-    >
+    <tr *ngFor="let c of controls" [class.danger]="!c.valid">
       <td>{{c.controls['id'].value}}</td>
       <td class="form-group">
         <span>{{c.controls['service'].value.name}}</span></td>
@@ -31,7 +27,10 @@
       <td validationStatus class="form-group">
         <rate-unit-type-select required [ngFormControl]="c.controls['rateUnitType']" ></rate-unit-type-select></td>
       <td>{{c.controls['value'].value}}</td>
-      <td><dime-button (click)="deleteEntity(c.controls['id'].value)" fontAwesome="trash-o" color="red"></dime-button></td>
+      <td>
+        <dime-button primary (click)="duplicateEntity(c.controls['id'].value)" fontAwesome="copy">Duplizieren</dime-button>
+        <dime-button (click)="deleteEntity(c.controls['id'].value)" fontAwesome="trash-o" color="red"></dime-button>
+      </td>
     </tr>
     </tbody>
   </table>
@@ -47,7 +46,6 @@
                         [(ngModel)]="newService" ></service-select>
       </select-with-button>
     </div>
-    <dime-button primary (click)="duplicateEntity()" fontAwesome="copy">Duplizieren</dime-button>
     <dime-button (click)="reloadEvict()" glyphicon="refresh"></dime-button>
   </div>
 </dime-box>

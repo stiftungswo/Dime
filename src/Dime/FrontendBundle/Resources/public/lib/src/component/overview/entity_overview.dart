@@ -16,8 +16,6 @@ abstract class EntityOverview<T extends Entity> implements OnInit {
   //TODO: this can probably be removed
   bool needsmanualAdd = false;
 
-  dynamic selectedEntId;
-
   List<T> _entities = [];
 
   List<T> get entities => _entities;
@@ -46,26 +44,6 @@ abstract class EntityOverview<T extends Entity> implements OnInit {
 
   bool sortReverse = false;
 
-  T get selectedEntity {
-    for (T ent in this.entities) {
-      if (ent.id == this.selectedEntId) {
-        return ent;
-      }
-    }
-    return null;
-  }
-
-  void selectEntity(int entId) {
-    this.selectedEntId = entId;
-  }
-
-  /// entity is [Entity] not [T] because some components use isSelected and selectEntity for other entities (not [T])
-  bool isSelected(Entity entity) {
-    if (entity == null || this.selectedEntId == null) return false;
-    if (entity.id == this.selectedEntId) return true;
-    return false;
-  }
-
   Future createEntity({T newEnt, Map<String, dynamic> params: const {}}) async {
     if (params.isEmpty) {
       params = {};
@@ -91,8 +69,9 @@ abstract class EntityOverview<T extends Entity> implements OnInit {
 
   T cEnt({T entity});
 
-  Future duplicateEntity() async {
-    if (this.selectedEntity == null) {
+  Future duplicateEntity(dynamic entId) async {
+    T selectedEntity = this.entities.singleWhere((e) => e.id == entId);
+    if (selectedEntity == null) {
       window.alert("Es ist nichts ausgewählt");
       return null;
     }
@@ -108,15 +87,12 @@ abstract class EntityOverview<T extends Entity> implements OnInit {
       await Future.wait(clone.cloneDescendantsOf(template).map(this.store.create));
       this.statusservice.setStatusToSuccess();
     } catch (e, stack) {
-      print("Unable to duplicate entity ${this.type.toString()}::${this.selectedEntity.id} because ${e}");
+      print("Unable to duplicate entity ${this.type.toString()}::${selectedEntity.id} because ${e}");
       this.statusservice.setStatusToError(e, stack);
     }
   }
 
-  Future deleteEntity([dynamic entId]) async {
-    if (entId == null) {
-      entId = this.selectedEntId as int;
-    }
+  Future deleteEntity(dynamic entId) async {
     if (entId != null) {
       if (window.confirm("Wirklich löschen?")) {
         this.statusservice.setStatusToLoading();
@@ -135,11 +111,8 @@ abstract class EntityOverview<T extends Entity> implements OnInit {
     }
   }
 
-  void openEditView([int entId]) {
+  void openEditView(int entId) {
     if (this.router != null) {
-      if (entId == null) {
-        entId = this.selectedEntId as int;
-      }
       router.navigate([
         this.routename,
         {'id': entId.toString()}

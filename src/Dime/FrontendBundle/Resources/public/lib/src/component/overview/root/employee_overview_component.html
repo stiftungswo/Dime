@@ -5,7 +5,6 @@
   <div class="box-body">
     <div class="DimeControlButtons">
       <dime-button primary (click)="createEntity()" glyphicon="plus">Hinzufügen</dime-button>
-      <dime-button primary (click)="duplicateEntity()" fontAwesome="copy">Duplizieren</dime-button>
       <dime-button (click)="reloadEvict()" glyphicon="refresh"></dime-button>
     </div>
     <div class="form-group">
@@ -35,11 +34,11 @@
             </a>
           </th>
           <th width="60">Aktiv</th>
-          <th width="110">Aktion</th>
+          <th width="210">Aktion</th>
         </tr>
       </thead>
       <tbody *ngIf="entities != null">
-        <tr *ngFor="let entity of entities | orderBy:sortType:sortReverse | filter:['id', 'username', 'firstname', 'lastname', 'email']:EmployeeOverviewComponent.globalFilterString" (click)="selectEntity(entity.id)" (dblclick)="openEditView(entity.id)" [class.info]="isSelected(entity)">
+        <tr *ngFor="let entity of entities | orderBy:sortType:sortReverse | filter:['id', 'username', 'firstname', 'lastname', 'email']:EmployeeOverviewComponent.globalFilterString" (dblclick)="openEditView(entity.id)">
           <td>{{entity.id}}</td>
           <td>{{entity.username}}</td>
           <td>{{entity.fullname}}</td>
@@ -47,6 +46,7 @@
           <td><i *ngIf="entity.enabled" class="fa fa-fw fa-check"></i></td>
           <td>
             <div class="btn-group">
+              <dime-button primary (click)="duplicateEntity(entity.id)" fontAwesome="copy">Duplizieren</dime-button>
               <dime-button (click)="openEditView(entity.id)" fontAwesome="pencil"></dime-button>
               <dime-button (click)="deleteEntity(entity.id)" fontAwesome="trash-o" color="red"></dime-button>
             </div>

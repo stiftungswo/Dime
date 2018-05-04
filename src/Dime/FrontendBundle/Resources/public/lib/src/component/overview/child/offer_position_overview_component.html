@@ -11,15 +11,11 @@
           <th>Menge</th>
           <th>MwSt.</th>
           <th>Total</th>
-          <th width="60">Aktion</th>
+          <th width="170">Aktion</th>
         </tr>
       </thead>
       <tbody *ngIf="entities != null" >
-        <tr
-          *ngFor="let c of controls | orderBy:'order'"
-          (click)="selectEntity(c.controls['id'].value)"
-          [ngClass]="rowClass(c.controls['id'].value, c.valid)"
-          >
+        <tr *ngFor="let c of controls | orderBy:'order'" [class.danger]="!c.valid">
           <td validationStatus class="form-group">
             <input class="form-control" type="number"
                    [ngFormControl]="c.controls['order']" /></td>
@@ -41,7 +37,10 @@
             <percentage-input required
                               [ngFormControl]="c.controls['vat']"></percentage-input></td>
           <td>{{c.controls['total'].value}}</td>
-          <td><dime-button (click)="deleteEntity(c.controls['id'].value)" fontAwesome="trash-o" color="red"></dime-button></td>
+          <td>
+            <dime-button primary (click)="duplicateEntity(c.controls['id'].value)" fontAwesome="copy">Duplizieren</dime-button>
+            <dime-button (click)="deleteEntity(c.controls['id'].value)" fontAwesome="trash-o" color="red"></dime-button>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -57,7 +56,6 @@
                           [(ngModel)]="newService" ></service-select>
         </select-with-button>
     </div>
-    <dime-button primary (click)="duplicateEntity()" fontAwesome="copy">Duplizieren</dime-button>
     <dime-button (click)="reloadEvict()" glyphicon="refresh"></dime-button>
   </div>
 </dime-box>

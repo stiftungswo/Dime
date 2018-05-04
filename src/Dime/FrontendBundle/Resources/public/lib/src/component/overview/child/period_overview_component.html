@@ -12,14 +12,11 @@
       <th>Verfügbare Ferien</th>
       <th class="hidden-xs">Übertrag <help-tooltip text="Nicht benutztes Ferienguthaben und Überstunden vom letzten Jahr (oder der letzten Periode)"></help-tooltip></th>
       <th class="hidden-xs">Jährliches Ferienbudget <help-tooltip text="Anzahl Ferientage die dem Mitarbeiter fürs ganze Jahr zur Verfügung stehen (nicht nur für die Periode)"></help-tooltip></th>
-      <th width="60" class="hidden-xs">Aktion</th>
+      <th width="170" class="hidden-xs">Aktion</th>
     </tr>
     </thead>
     <tbody>
-    <tr
-      *ngFor="let c of controls"
-      (click)="selectEntity(c.controls['id'].value)"
-      [ngClass]="rowClass(c.controls['id'].value, c.valid)">
+    <tr *ngFor="let c of controls" [class.danger]="!c.valid">
       <td validationStatus class="form-group"><date-input required [ngFormControl]="c.controls['start']" ></date-input></td>
       <td validationStatus class="form-group"><date-input required [ngFormControl]="c.controls['end']"></date-input></td>
       <td validationStatus class="form-group"><percentage-input required [precision]="0" [ngFormControl]="c.controls['pensum']" ></percentage-input></td>
@@ -34,7 +31,10 @@
       </td>
       <td validationStatus class="hidden-xs form-group"><input required class="form-control" type="number" style="width: 100%"
                                                     [ngFormControl]="c.controls['yearlyEmployeeVacationBudget']" ></td>
-      <td class="hidden-xs"><dime-button (click)="deleteEntity(c.controls['id'].value)" fontAwesome="trash-o" color="red"></dime-button></td>
+      <td class="hidden-xs">
+        <dime-button primary (click)="duplicateEntity(c.controls['id'].value)" fontAwesome="copy">Duplizieren</dime-button>
+        <dime-button (click)="deleteEntity(c.controls['id'].value)" fontAwesome="trash-o" color="red"></dime-button>
+      </td>
     </tr>
     </tbody>
   </table>
@@ -44,7 +44,6 @@
   <div class="DimeControlButtons container-inline">
     <save-button [valid]="editform.valid" (click)="save()"></save-button>
     <dime-button primary (click)="createEntity()" glyphicon="plus">Hinzufügen</dime-button>
-    <dime-button primary (click)="duplicateEntity()" fontAwesome="copy">Duplizieren</dime-button>
     <dime-button (click)="reloadEvict()" glyphicon="refresh"></dime-button>
   </div>
 </form>

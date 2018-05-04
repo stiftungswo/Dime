@@ -142,10 +142,33 @@ abstract class EditableOverview<T extends Entity> extends EntityOverview<T> {
   }
 
   @override
-  Future deleteEntity([dynamic entId]) async {
-    if (entId == null) {
-      entId = this.selectedEntId as int;
+  Future duplicateEntity(dynamic entId) async {
+    T selectedEntity = this.entities.singleWhere((e) => e.id == entId);
+    if (selectedEntity == null) {
+      window.alert("Es ist nichts ausgewählt");
+      return null;
     }
+
+    try {
+      this.statusservice.setStatusToLoading();
+      //We need to load the full entity instead of the placeholder it is being represented by in the overview; i.e. an [Invoice] needs its invoiceItems so we can clone them too
+      T template = await this.store.one(selectedEntity.runtimeType, selectedEntity.id);
+      T clone = await this.store.create(this.cEnt(entity: template));
+      if (needsmanualAdd) {
+        await runOutsideChangeDetection(() {
+          this._map.add(clone);
+        });
+      }
+      await Future.wait(clone.cloneDescendantsOf(template).map(this.store.create));
+      this.statusservice.setStatusToSuccess();
+    } catch (e, stack) {
+      print("Unable to duplicate entity ${this.type.toString()}::${selectedEntity.id} because ${e}");
+      this.statusservice.setStatusToError(e, stack);
+    }
+  }
+
+  @override
+  Future deleteEntity(dynamic entId) async {
     if (entId != null) {
       if (window.confirm("Wirklich löschen?")) {
         this.statusservice.setStatusToLoading();
@@ -160,20 +183,6 @@ abstract class EditableOverview<T extends Entity> extends EntityOverview<T> {
           print("Unable to Delete entity ${this.type.toString()}::${entId} because ${e}");
           this.statusservice.setStatusToError(e, stack);
         }
-      }
-    }
-  }
-
-  /// returns the bootstrap ngClass based on the validity/selection state of the row
-  rowClass(dynamic entityId, bool valid) {
-    var entity = _map.entities.singleWhere((e) => e.id == entityId);
-    if (valid ?? true) {
-      return {"info": isSelected(entity)};
-    } else {
-      if (isSelected(entity)) {
-        return {"warning": true};
-      } else {
-        return {"danger": true};
       }
     }
   }

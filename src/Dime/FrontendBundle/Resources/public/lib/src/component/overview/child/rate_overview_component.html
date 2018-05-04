@@ -10,10 +10,7 @@
       </tr>
     </thead>
     <tbody class="editable-overview" *ngIf="entities != null">
-      <tr
-        *ngFor="let c of controls"
-        (click)="selectEntity(c.controls['id'].value)"
-        [ngClass]="rowClass(c.controls['id'].value, c.valid)">
+      <tr *ngFor="let c of controls" [class.danger]="!c.valid">
         <td><span>{{c.controls['rateGroup'].value.name}}</span></td>
         <td validationStatus class="form-group"><input required class="form-control" [ngFormControl]="c.controls['rateValue']" /></td>
         <td validationStatus class="form-group"><input required class="form-control" [ngFormControl]="c.controls['rateUnit']"/></td>
