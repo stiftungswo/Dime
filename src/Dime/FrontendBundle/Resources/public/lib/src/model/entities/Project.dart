@@ -46,7 +46,7 @@ class Project extends Entity {
       //'activities',
       'projectCategory',
       //'invoices', // we probably don't want to clone all the invoices
-      'offers',
+      //'offers', // offers werent cloned in the old implementation, so we wont here
       'accountant',
       'deletedAt',
       'archived'
