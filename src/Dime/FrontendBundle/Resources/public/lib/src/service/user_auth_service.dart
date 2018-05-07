@@ -66,19 +66,14 @@ class UserAuthService {
   UserAuthService(this.store, this.headers, this.manager, this.context, this.statusservice, this.http);
 
   Future<Employee> loadUserData() async {
-    this.statusservice.setStatusToLoading();
-    try {
+    return await this.statusservice.run(() async {
       Employee result = (await this
           .store
           .customQueryOne<Employee>(Employee, new CustomRequestParams(method: 'GET', url: '${http.baseUrl}/employees/current')));
       this.context.switchContext(result);
       await manager.loadUserSettings(result.id as int);
-      this.statusservice.setStatusToSuccess();
       return result;
-    } catch (e, stack) {
-      this.statusservice.setStatusToError(e, stack);
-      rethrow;
-    }
+    }, doRethrow: true);
   }
 
   String createAuthToken(String username, String password) {

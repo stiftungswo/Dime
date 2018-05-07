@@ -43,30 +43,22 @@ class InvoiceEditComponent extends EntityEdit<Invoice> {
   Project project;
   HttpService http;
 
-  @ViewChild('invoiceitemOverview')
-  InvoiceItemOverviewComponent invoiceitem_overview;
-
-  @ViewChild('invoicecostgroupOverview')
-  InvoiceCostgroupOverviewComponent costgroupOverview;
+  @ViewChild(InvoiceItemOverviewComponent)
+  InvoiceItemOverviewComponent invoiceItemOverview;
 
   void printInvoice() {
     window.open('${http.baseUrl}/invoices/${this.entity.id}/print', 'Invoice Print');
   }
 
   void printAufwandsbericht() {
-    window.open('${http.baseUrl}/reports/expenses/print?project=${this.entity.project.id}', 'Aufwandsbericht');
+    window.open('${http.baseUrl}/reports/expenses/print?invoice=${this.entity.id}', 'Aufwandsbericht');
   }
 
   @override
   void onActivate(_, __) => load();
 
-  void setInvoiceItemOverview(InvoiceItemOverviewComponent c) {
-    invoiceitem_overview = c;
-  }
-
   Future load({bool evict: false}) async {
-    this.statusservice.setStatusToLoading();
-    try {
+    await this.statusservice.run(() async {
       if (evict) {
         this.store.evict(this.entType);
       }
@@ -75,23 +67,17 @@ class InvoiceEditComponent extends EntityEdit<Invoice> {
         this.project = await this.store.one(Project, this.entity.project.id);
       }
       page_title.setPageTitle('Rechnungen', entity?.name);
-      this.statusservice.setStatusToSuccess();
-    } catch (e, stack) {
-      this.statusservice.setStatusToError(e, stack);
-    }
+    });
   }
 
   Future updateInvoicefromProject() async {
     if (window.confirm('Wiklich updaten und alle Daten überschreiben?')) {
-      this.statusservice.setStatusToLoading();
-      try {
+      await this.statusservice.run(() async {
         this.entity = (await this.store.customQueryOne<Invoice>(
             Invoice, new CustomRequestParams(method: 'GET', url: '${http.baseUrl}/invoices/${this.entity.id}/update')));
-        this.statusservice.setStatusToSuccess();
-        this.invoiceitem_overview.reload(evict: true);
-      } catch (e, stack) {
-        this.statusservice.setStatusToError(e, stack);
-      }
+        // todo maybe "await" here?
+        this.invoiceItemOverview.reload(evict: true);
+      });
     }
   }
 

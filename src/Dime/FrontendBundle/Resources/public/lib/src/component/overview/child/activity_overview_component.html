@@ -3,9 +3,7 @@
     <thead>
     <tr>
       <th width="40">ID</th>
-      <th>Service
-        <help-tooltip text="Wenn dein Service nicht aufgelistet ist, ist er entweder archiviert oder nicht für den Tarif des Projekts konfiguriert."></help-tooltip>
-      </th>
+      <th>Service</th>
       <th>Beschreibung</th>
       <th>Preis</th>
       <th>Einheit</th>
@@ -13,18 +11,14 @@
       <th>Anzahl
         <help-tooltip text="wird aus den gebuchten Zeiteinträgen auf diese Aktivität berechnet"></help-tooltip>
       </th>
-      <th width="60">Aktion</th>
+      <th width="170">Aktion</th>
     </tr>
     </thead>
     <tbody *ngIf="entities != null">
-    <tr
-      *ngFor="let c of controls"
-      (click)="selectEntity(c.controls['id'].value)"
-      [ngClass]="rowClass(c.controls['id'].value, c.valid)"
-    >
+    <tr *ngFor="let c of controls" [class.danger]="!c.valid">
       <td>{{c.controls['id'].value}}</td>
-      <td validationStatus class="form-group"><service-select hideArchived required [options]="availableServices" [disabled]="project?.rateGroup == null"
-                                                              [ngFormControl]="c.controls['service']" ></service-select></td>
+      <td class="form-group">
+        <span>{{c.controls['service'].value.name}}</span></td>
       <td><textarea class="form-control tiny" [ngFormControl]="c.controls['description']"></textarea></td>
       <td validationStatus class="form-group">
         <input required class="form-control" [ngFormControl]="c.controls['rateValue']" /></td>
@@ -33,14 +27,25 @@
       <td validationStatus class="form-group">
           <rate-unit-type-select required [ngFormControl]="c.controls['rateUnitType']" ></rate-unit-type-select></td>
       <td>{{c.controls['value'].value}}</td>
-      <td><dime-button (click)="deleteEntity(c.controls['id'].value)" fontAwesome="trash-o" color="red"></dime-button></td>
+      <td>
+        <dime-button primary (click)="duplicateEntity(c.controls['id'].value)" fontAwesome="copy">Duplizieren</dime-button>
+        <dime-button (click)="deleteEntity(c.controls['id'].value)" fontAwesome="trash-o" color="red"></dime-button>
+      </td>
     </tr>
     </tbody>
   </table>
 
   <div boxFooter class="DimeControlButtons">
-    <dime-button primary (click)="createEntity()" glyphicon="plus">Hinzufügen</dime-button>
-    <dime-button primary (click)="duplicateEntity()" fontAwesome="copy">Duplizieren</dime-button>
+    <div class="col-sm-12 col-md-4" *ngIf="availableServices.length > 0">
+      <span style="float:right" [class.has-error]="!hasRateGroup">
+          <help-tooltip *ngIf="hasRateGroup" text="Wenn dein Service nicht aufgelistet ist, ist er entweder archiviert oder nicht für den Tarif des Projekts konfiguriert."></help-tooltip>
+          <help-tooltip *ngIf="!hasRateGroup" text="Der Tarif muss gesetzt sein."></help-tooltip>
+      </span>
+      <select-with-button (click)="createEntity()" [enabled]="!statusservice.isLoading && hasRateGroup" glyphicon="plus" text="Aktivität hinzufügen">
+        <service-select hideArchived fixPopupOffset [options]="availableServices" [disabled]="!hasRateGroup"
+                        [(ngModel)]="newService" ></service-select>
+      </select-with-button>
+    </div>
     <dime-button (click)="reloadEvict()" glyphicon="refresh"></dime-button>
   </div>
 </dime-box>

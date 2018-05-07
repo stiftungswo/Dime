@@ -4,7 +4,7 @@ import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
 
 import '../../../model/entity_export.dart';
-import '../../../pipe/order_by_pipe..dart';
+import '../../../pipe/order_by_pipe.dart';
 import '../../../service/caching_object_store_service.dart';
 import '../../../service/entity_events_service.dart';
 import '../../../service/settings_service.dart';
@@ -53,12 +53,18 @@ class OfferPositionOverviewComponent extends EditableOverview<OfferPosition> imp
 
   @Input('offer')
   void set offer(Offer offer) {
-    _offer = offer;
-    reload();
+    if (offer?.id != _offer?.id) {
+      _offer = offer;
+      reload();
+    }
   }
 
   ///services that share a rateGroup with the [offer]
   List<Service> availableServices = [];
+
+  Service newService;
+
+  bool get hasRateGroup => offer?.rateGroup != null;
 
   @override
   Future reload({Map<String, dynamic> params, bool evict: false}) async {
@@ -68,6 +74,9 @@ class OfferPositionOverviewComponent extends EditableOverview<OfferPosition> imp
 
   Future updateAvailableServices() async {
     availableServices = await store.list(Service, params: {"rateGroup": _offer?.rateGroup?.id});
+    if (availableServices.isNotEmpty) {
+      newService = availableServices.first;
+    }
   }
 
   @override
@@ -79,7 +88,12 @@ class OfferPositionOverviewComponent extends EditableOverview<OfferPosition> imp
   }
 
   @override
-  Future createEntity({OfferPosition newEnt, Map<String, dynamic> params: const {}}) {
-    return super.createEntity(params: {'offer': _offer.id});
+  Future createEntity({OfferPosition newEnt, Map<String, dynamic> params: const {}}) async {
+    var pos = new OfferPosition();
+    pos.addFieldstoUpdate(['service']);
+    pos.service = newService;
+    pos.init(params: {'offer': _offer.id});
+    await super.createEntity(newEnt: pos);
+    updateAvailableServices();
   }
 }

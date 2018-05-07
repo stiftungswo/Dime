@@ -15,25 +15,25 @@ import 'entity_overview.dart';
 
 abstract class EditableOverview<T extends Entity> extends EntityOverview<T> {
   /// see [EntityControlMap] for details.
-  EntityControlMap<T> map;
+  EntityControlMap<T> _map;
 
   /// the names of the fields of the [Entity] that should be mapped to the [controls].
   /// Basically: if you want to use it in the HTML template, list it here.
   List<String> get fields;
 
-  /// do not modify this by hand, it is managed by [map]
+  /// do not modify this by hand, it is managed by [_map]
   @override
-  List<T> get entities => map.entities;
+  List<T> get entities => new List.unmodifiable(_map.entities);
 
-  /// do not modify this by hand, it is managed by [map]
-  List<ControlGroup> get controls => map.controls;
+  /// do not modify this by hand, it is managed by [_map]
+  List<ControlGroup> get controls => new List<ControlGroup>.unmodifiable(_map.controls);
 
   ChangeDetectorRef changeDetector;
 
   @Input()
   bool required = false;
 
-  /// [EditableOverview]s need a [ControlGroup] bound to `#overview` in their Template. This is needed to attach [map] to the parent form,
+  /// [EditableOverview]s need a [ControlGroup] bound to `#overview` in their Template. This is needed to attach [_map] to the parent form,
   /// so it can be included in validation.
   @ViewChild("overview")
   NgControlGroup overview;
@@ -42,60 +42,57 @@ abstract class EditableOverview<T extends Entity> extends EntityOverview<T> {
       EntityEventsService entityEventsService, this.changeDetector,
       {Router router, UserAuthService auth})
       : super(type, store, routeName, manager, status, entityEventsService, router: router, auth: auth) {
-    map = new EntityControlMap<T>(required, fields);
+    _map = new EntityControlMap<T>(required, fields);
     entityEventsService.addSaveChangesListener(this.saveAllEntities);
   }
 
   @override
   Future createEntity({T newEnt, Map<String, dynamic> params: const {}}) async {
-    this.statusservice.setStatusToLoading();
-    if (newEnt == null) {
-      newEnt = this.cEnt();
-      newEnt.init(params: params);
-    }
-    try {
+    await this.statusservice.run(() async {
+      if (newEnt == null) {
+        newEnt = this.cEnt();
+        newEnt.init(params: params);
+      }
+
       T resp = await this.store.create(newEnt);
       await runOutsideChangeDetection(() {
-        map.add(resp);
+        _map.add(resp);
       });
-      this.statusservice.setStatusToSuccess();
-    } catch (e, stack) {
-      print("Unable to create entity ${this.type.toString()} because ${e}");
-      this.statusservice.setStatusToError(e, stack);
-    }
+    }, onError: (e, _) => print("Unable to create entity ${this.type.toString()} because ${e}"));
   }
 
   @override
   Future reload({Map<String, dynamic> params, bool evict: false}) async {
-    map = new EntityControlMap<T>(true, fields);
-    this.statusservice.setStatusToLoading();
-    try {
+    await this.statusservice.run(() async {
+      var newMap = new EntityControlMap<T>(required, fields);
       if (evict) {
         this.store.evict(this.type);
       }
       var entities = (await this.store.list(this.type, params: params)).toList() as List<T>;
       await postProcessEntities(entities);
-      entities.forEach(map.add);
+      entities.forEach(newMap.add);
 
       await runOutsideChangeDetection(() {
         if (overview?.control == null) {
           //sometimes the element that our control should be attached to is not set by angular, i.e. if the user already navigated away
           //but validation appears to be working fine later anyway.
+          // this will also happen if (maybe only happen if) there is no element bound to this.overview
+          // make sure to place a #overview="ngForm" outside of an if (entities.length > 0) check, or the element will never be found
+          window.console.error("No element with #overview=\"ngForm\" found. This is probably an error!");
           return;
         }
         //add our code-generated ControlArray to the rest of the form that's defined in the template
-        overview.control.addControl("items", map.controlArray);
+        overview.control.addControl("items", newMap.controlArray);
+        overview.control.updateValueAndValidity(emitEvent: true);
+        _map = newMap;
       });
-      this.statusservice.setStatusToSuccess();
-    } catch (e, stack) {
-      print("Unable to load ${this.type.toString()} because ${e}");
-      this.statusservice.setStatusToError(e, stack);
-    }
+    }, onError: (e, _) => print("Unable to load ${this.type.toString()} because ${e}"));
   }
 
+  /// apply some transformations to the entities after they are loaded but before they are displayed
   Future postProcessEntities(List<T> entities) async {}
 
-  /// some changes, specifically changing the form (i.e. by adding [map] or by modifying its [Control]s) MUST NOT happen in a
+  /// some changes, specifically changing the form (i.e. by adding [_map] or by modifying its [Control]s) MUST NOT happen in a
   /// change detection cycle - we might change the form state from valid to invalid, which throws an error.
   /// Putting the function on a [Timer] with 0 delay is basically the same as `setTimeout(f, 0)` in JavaScript and as such runs after
   /// the current change detection cycle.
@@ -113,7 +110,7 @@ abstract class EditableOverview<T extends Entity> extends EntityOverview<T> {
   }
 
   void saveAllEntities() {
-    for (T entity in map.entities) {
+    for (T entity in _map.entities) {
       if (entity.needsUpdate) {
         this.saveEntity(entity);
       }
@@ -121,53 +118,46 @@ abstract class EditableOverview<T extends Entity> extends EntityOverview<T> {
   }
 
   Future saveEntity(T entity) async {
-    this.statusservice.setStatusToLoading();
-    try {
+    await this.statusservice.run(() async {
       T updated = await store.update(entity);
       await runOutsideChangeDetection(() {
-        var index = map.remove(entity);
-        map.insert(index, updated);
+        var index = _map.remove(entity);
+        _map.insert(index, updated);
       });
-      this.statusservice.setStatusToSuccess();
-    } catch (e, stack) {
-      print("Unable to save entity ${this.type.toString()}::${entity.id} because ${e}");
-      this.statusservice.setStatusToError(e, stack);
-    }
+    }, onError: (e, _) => print("Unable to save entity ${this.type.toString()}::${entity.id} because ${e}"));
   }
 
   @override
-  Future deleteEntity([dynamic entId]) async {
-    if (entId == null) {
-      entId = this.selectedEntId as int;
+  Future duplicateEntity(dynamic entId) async {
+    T selectedEntity = this.entities.singleWhere((e) => e.id == entId);
+    if (selectedEntity == null) {
+      window.alert("Es ist nichts ausgewählt");
+      return null;
     }
-    if (entId != null) {
-      if (window.confirm("Wirklich löschen?")) {
-        this.statusservice.setStatusToLoading();
-        try {
-          if (this.store != null) {
-            T ent = map.entities.singleWhere((enty) => enty.id == entId);
-            await this.store.delete(ent);
-            map.remove(ent);
-          }
-          this.statusservice.setStatusToSuccess();
-        } catch (e, stack) {
-          print("Unable to Delete entity ${this.type.toString()}::${entId} because ${e}");
-          this.statusservice.setStatusToError(e, stack);
-        }
+
+    await this.statusservice.run(() async {
+      //We need to load the full entity instead of the placeholder it is being represented by in the overview; i.e. an [Invoice] needs its invoiceItems so we can clone them too
+      T template = await this.store.one(selectedEntity.runtimeType, selectedEntity.id);
+      T clone = await this.store.create(this.cEnt(entity: template));
+      if (needsmanualAdd) {
+        await runOutsideChangeDetection(() {
+          this._map.add(clone);
+        });
       }
-    }
+      await Future.wait(clone.cloneDescendantsOf(template).map(this.store.create));
+    }, onError: (e, _) => print("Unable to duplicate entity ${this.type.toString()}::${selectedEntity.id} because ${e}"));
   }
 
-  rowClass(dynamic entityId, bool valid) {
-    var entity = map.entities.singleWhere((e) => e.id == entityId);
-    if (valid ?? true) {
-      return {"info": isSelected(entity)};
-    } else {
-      if (isSelected(entity)) {
-        return {"warning": true};
-      } else {
-        return {"danger": true};
-      }
+  @override
+  Future deleteEntity(dynamic entId) async {
+    if (entId != null && window.confirm("Wirklich löschen?")) {
+      await this.statusservice.run(() async {
+        if (this.store != null) {
+          T ent = _map.entities.singleWhere((enty) => enty.id == entId);
+          await this.store.delete(ent);
+          _map.remove(ent);
+        }
+      }, onError: (e, _) => print("Unable to Delete entity ${this.type.toString()}::${entId} because ${e}"));
     }
   }
 }
@@ -182,7 +172,6 @@ class EntityControlMap<T extends Entity> {
 
   EntityControlMap(bool required, this.fields) {
     entities = [];
-    controlArray = new ControlArray([], notEmpty);
     if (required) {
       controlArray = new ControlArray([], notEmpty);
     } else {

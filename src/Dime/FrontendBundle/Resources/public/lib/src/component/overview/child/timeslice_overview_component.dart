@@ -388,19 +388,10 @@ class TimesliceOverviewComponent extends EditableOverview<Timeslice> implements 
     } else {
       selectedTimeslices.add(timeslice);
     }
-
-    //for compatibility with the single-select of the EntityOverview
-    if (selectedTimeslices.length == 1) {
-      selectEntity(selectedTimeslices.single.id as int);
-    } else {
-      selectEntity(null);
-    }
-    print(selectedTimeslices);
   }
 
   Future moveTimeslices() async {
-    statusservice.setStatusToLoading();
-    try {
+    await statusservice.run(() async {
       if (moveTargetActivity == null) {
         await moveTimeslicesToProject();
       } else {
@@ -409,10 +400,7 @@ class TimesliceOverviewComponent extends EditableOverview<Timeslice> implements 
       reload();
       selectedTimeslices.clear();
       moveDialogVisible = false;
-      statusservice.setStatusToSuccess();
-    } catch (e, stack) {
-      statusservice.setStatusToError(e, stack);
-    }
+    });
   }
 
   Future moveTimeslicesToProject() async {
@@ -440,7 +428,6 @@ class TimesliceOverviewComponent extends EditableOverview<Timeslice> implements 
     }
   }
 
-  @override
   rowClass(dynamic entityId, bool valid) {
     var entity = entities.singleWhere((e) => e.id == entityId);
     if (valid ?? true) {

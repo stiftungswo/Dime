@@ -29,20 +29,19 @@
               Beschreibung<span *ngIf="sortType == 'description' && sortReverse" class="fa fa-fw fa-angle-up"></span><span *ngIf="sortType == 'description' && !sortReverse" class="fa fa-fw fa-angle-down"></span>
             </a>
           </th>
-          <th width="110">Aktion</th>
+          <th width="210">Aktion</th>
         </tr>
       </thead>
       <tbody *ngIf="entities != null">
-        <tr *ngFor="let entity of entities| orderBy:sortType:sortReverse | filter:['id', 'name', 'alias', 'description']:ServiceOverviewComponent.globalFilterString" (click)="selectEntity(entity.id)" (dblclick)="openEditView(entity.id)" [class.info]="isSelected(entity)">
+        <tr *ngFor="let entity of entities| orderBy:sortType:sortReverse | filter:['id', 'name', 'alias', 'description']:ServiceOverviewComponent.globalFilterString" (dblclick)="openEditView(entity.id)">
           <td>{{entity.id}}</td>
           <td>{{entity.name}} <span class="text-muted" *ngIf="entity.archived">[ARCHIVIERT]</span></td>
           <td>{{entity.alias}}</td>
           <td>{{entity.description|limitTo:100}}</td>
           <td>
-            <div class="btn-group">
-              <dime-button (click)="openEditView(entity.id)" fontAwesome="pencil"></dime-button>
-              <dime-button (click)="deleteEntity(entity.id)" fontAwesome="trash-o" color="red"></dime-button>
-            </div>
+            <dime-button primary (click)="duplicateEntity(entity.id)" fontAwesome="copy">Duplizieren</dime-button>
+            <dime-button (click)="openEditView(entity.id)" fontAwesome="pencil"></dime-button>
+            <dime-button (click)="deleteEntity(entity.id)" fontAwesome="trash-o" color="red"></dime-button>
           </td>
         </tr>
       </tbody>
@@ -51,6 +50,5 @@
 </div>
 <div class="DimeControlButtons">
   <dime-button primary (click)="createEntity()" glyphicon="plus">Hinzufügen</dime-button>
-  <dime-button primary (click)="duplicateEntity()" fontAwesome="copy">Duplizieren</dime-button>
   <dime-button (click)="reloadEvict()" glyphicon="refresh"></dime-button>
 </div>

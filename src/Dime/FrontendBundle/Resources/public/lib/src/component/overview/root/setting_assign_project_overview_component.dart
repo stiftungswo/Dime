@@ -69,29 +69,29 @@ class SettingAssignProjectOverviewComponent extends EntityOverview<SettingAssign
   }
 
   Future load() async {
-    this.statusservice.setStatusToLoading();
-    List<Setting> projectAssignmentSettings = [];
-    this.projectAssignments = [];
-    try {
-      projectAssignmentSettings = await settingsManager.getSettings('/etc/projectassignments', system: true);
-    } catch (e) {
-      projectAssignmentSettings = await settingsManager.getSettings('/etc/projectassignments', system: true);
-    }
-    this.projects = await this.store.list(Project);
-
-    for (Setting projectAssignmentSetting in projectAssignmentSettings) {
-      SettingAssignProject settingAssignProject = new SettingAssignProject();
-      if (projectAssignmentSetting.value != null) {
-        Project projectFromSettingValue = projects.singleWhere((Project p) => p.alias == projectAssignmentSetting.value);
-        settingAssignProject.project = projectFromSettingValue;
+    await this.statusservice.run(() async {
+      List<Setting> projectAssignmentSettings = [];
+      this.projectAssignments = [];
+      try {
+        projectAssignmentSettings = await settingsManager.getSettings('/etc/projectassignments', system: true);
+      } catch (e) {
+        projectAssignmentSettings = await settingsManager.getSettings('/etc/projectassignments', system: true);
       }
-      settingAssignProject.id = projectAssignmentSetting.id;
-      settingAssignProject.name = projectAssignmentSetting.name;
+      this.projects = await this.store.list(Project);
 
-      this.projectAssignments.add(settingAssignProject);
-    }
-    page_title.setPageTitle('Projekte zuweisen');
-    this.statusservice.setStatusToSuccess();
+      for (Setting projectAssignmentSetting in projectAssignmentSettings) {
+        SettingAssignProject settingAssignProject = new SettingAssignProject();
+        if (projectAssignmentSetting.value != null) {
+          Project projectFromSettingValue = projects.singleWhere((Project p) => p.alias == projectAssignmentSetting.value);
+          settingAssignProject.project = projectFromSettingValue;
+        }
+        settingAssignProject.id = projectAssignmentSetting.id;
+        settingAssignProject.name = projectAssignmentSetting.name;
+
+        this.projectAssignments.add(settingAssignProject);
+      }
+      page_title.setPageTitle('Projekte zuweisen');
+    });
   }
 
   @override
@@ -114,9 +114,9 @@ class SettingAssignProjectOverviewComponent extends EntityOverview<SettingAssign
     projectAssignmentSetting.addFieldtoUpdate('value');
     projectAssignmentSetting.namespace = '/etc/projectassignments';
 
-    this.statusservice.setStatusToLoading();
-    this.projects = await this.store.list(Project);
-    try {
+    await this.statusservice.run(() async {
+      this.projects = await this.store.list(Project);
+
       Setting resp = await store.update(projectAssignmentSetting);
       this.projectAssignments.removeWhere((enty) => enty.id == resp.id);
 
@@ -127,10 +127,6 @@ class SettingAssignProjectOverviewComponent extends EntityOverview<SettingAssign
       settingAssignProject.name = resp.name;
 
       this.projectAssignments.add(settingAssignProject);
-      this.statusservice.setStatusToSuccess();
-    } catch (e, stack) {
-      print("Unable to save entity ${this.type.toString()}::${projectAssignmentSetting.id} because ${e}");
-      this.statusservice.setStatusToError(e, stack);
-    }
+    }, onError: (e, _) => print("Unable to save entity ${this.type.toString()}::${projectAssignmentSetting.id} because ${e}"));
   }
 }

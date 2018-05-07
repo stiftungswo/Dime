@@ -32,6 +32,10 @@ abstract class EntitySelect<T extends Entity> implements OnInit, ControlValueAcc
   @Input('placeholder')
   String placeholder = '';
 
+  //when used inside a bootstrap input-group, use this to fix the offset of the popup
+  @Input()
+  bool fixPopupOffset = false;
+
   @Input()
   bool disabled = false;
 
@@ -70,13 +74,9 @@ abstract class EntitySelect<T extends Entity> implements OnInit, ControlValueAcc
       //we get entities from above, don't load anything
       return;
     }
-    this.statusservice.setStatusToLoading();
-    try {
+    await this.statusservice.run(() async {
       this.entities = (await this.store.list(this.type)).toList() as List<T>;
-      this.statusservice.setStatusToSuccess();
-    } catch (e, stack) {
-      this.statusservice.setStatusToError(e, stack);
-    }
+    });
   }
 
   void select(T entity) {
@@ -103,6 +103,9 @@ abstract class EntitySelect<T extends Entity> implements OnInit, ControlValueAcc
       num distanceToBottom = body.getBoundingClientRect().height - (window.scrollY + dropdown.getBoundingClientRect().top + 40);
       int maxDropdownHeight = math.min(distanceToBottom.round(), 400);
       this.element.querySelector(".dropdown .dropdown-menu").style.maxHeight = maxDropdownHeight.toString() + 'px';
+      if (fixPopupOffset) {
+        this.element.querySelector(".dropdown .dropdown-menu").style.marginTop = "35px";
+      }
       this.selector = '';
       this.open = true;
     }

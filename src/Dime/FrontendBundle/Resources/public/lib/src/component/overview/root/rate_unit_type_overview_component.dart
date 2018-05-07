@@ -56,9 +56,4 @@ class RateUnitTypeOverviewComponent extends EditableOverview<RateUnitType> imple
     }
     return super.createEntity(newEnt: rateType);
   }
-
-  @override
-  void selectEntity(dynamic entId) {
-    this.selectedEntId = entId;
-  }
 }

@@ -59,16 +59,12 @@ class ActivitySelectComponent extends EntitySelect<Activity> implements OnChange
 
   @override
   Future reload() async {
-    this.statusservice.setStatusToLoading();
-    try {
+    await this.statusservice.run(() async {
       if (this.parentActivities != null) {
         this.entities = this.parentActivities;
       } else {
         this.entities = await this.store.list(Activity, params: {'project': this.projectId});
       }
-      this.statusservice.setStatusToSuccess();
-    } catch (e, stack) {
-      this.statusservice.setStatusToError(e, stack);
-    }
+    });
   }
 }

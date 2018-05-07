@@ -41,8 +41,8 @@ class RateOverviewComponent extends EditableOverview<Rate> implements OnInit {
 
   @Input()
   set service(int id) {
-    if (id != null) {
-      this._serviceId = id;
+    if (id != null && id != _serviceId) {
+      _serviceId = id;
       reload();
     }
   }

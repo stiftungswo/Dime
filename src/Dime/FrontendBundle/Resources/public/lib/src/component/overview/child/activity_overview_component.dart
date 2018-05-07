@@ -20,14 +20,16 @@ import '../editable_overview.dart';
 )
 class ActivityOverviewComponent extends EditableOverview<Activity> implements OnInit {
   @override
-  List<String> get fields => ['id', 'service', 'rateValue', 'rateUnit', 'rateUnitType', 'value'];
+  List<String> get fields => ['id', 'service', 'rateValue', 'rateUnit', 'rateUnitType', 'value', 'description'];
 
   Project _project;
   Project get project => _project;
   @Input()
   void set project(Project project) {
-    _project = project;
-    reload();
+    if (project?.id != _project?.id) {
+      _project = project;
+      reload();
+    }
   }
 
   ActivityOverviewComponent(CachingObjectStoreService store, SettingsService manager, StatusService status,
@@ -48,6 +50,10 @@ class ActivityOverviewComponent extends EditableOverview<Activity> implements On
   ///services that share a rateGroup with the [project]
   List<Service> availableServices = [];
 
+  Service newService;
+
+  bool get hasRateGroup => project?.rateGroup != null;
+
   @override
   void onActivate(_, __); // is never called, since this component is not routable
 
@@ -57,8 +63,13 @@ class ActivityOverviewComponent extends EditableOverview<Activity> implements On
   }
 
   @override
-  Future createEntity({Activity newEnt, Map<String, dynamic> params: const {}}) {
-    return super.createEntity(params: {'project': this._project?.id});
+  Future createEntity({Activity newEnt, Map<String, dynamic> params: const {}}) async {
+    var activity = new Activity();
+    activity.addFieldstoUpdate(['service']);
+    activity.service = newService;
+    activity.init(params: {'project': _project.id});
+    await super.createEntity(newEnt: activity);
+    updateAvailableServices();
   }
 
   @override
@@ -69,6 +80,9 @@ class ActivityOverviewComponent extends EditableOverview<Activity> implements On
 
   Future updateAvailableServices() async {
     availableServices = await store.list(Service, params: {"rateGroup": _project?.rateGroup?.id}, cacheWithParams: true);
+    if (availableServices.isNotEmpty) {
+      newService = availableServices.first;
+    }
   }
 
   @override
@@ -89,16 +103,15 @@ class ActivityOverviewComponent extends EditableOverview<Activity> implements On
   }
 
   Future<bool> hasLinkedInvoices(int activityId) async {
-    this.statusservice.setStatusToLoading();
-    List<Invoice> invoices = await this.store.list(Invoice, params: {'project': this._project?.id});
-    List<List<InvoiceItem>> invoiceItemResults = await Future.wait<List<InvoiceItem>>(invoices.map((c) {
-      return this.store.list(InvoiceItem, params: {'invoice': c.id});
-    }));
+    return await this.statusservice.run(() async {
+      List<Invoice> invoices = await this.store.list(Invoice, params: {'project': this._project?.id});
+      List<List<InvoiceItem>> invoiceItemResults = await Future.wait<List<InvoiceItem>>(invoices.map((c) {
+        return this.store.list(InvoiceItem, params: {'invoice': c.id});
+      }));
 
-    List<int> activityIds = invoiceItemResults.expand((c) => c.map((i) => i.activity.id as int)).toList();
-    print(activityIds);
-    this.statusservice.setStatusToSuccess();
-    return activityIds.any((id) => id == activityId);
+      List<int> activityIds = invoiceItemResults.expand((c) => c.map((i) => i.activity.id as int)).toList();
+      return activityIds.any((id) => id == activityId);
+    });
   }
 
   bool hasLinkedTimeslices(Activity activity) {

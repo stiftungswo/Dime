@@ -27,7 +27,11 @@ class OfferHandler extends GenericHandler
         $project->setCustomer($offer->getCustomer());
         $project->setName($offer->getName());
         $project->setChargeable(true);
-        $project->setRateGroup($offer->getRateGroup());
+        if ($offer->getRateGroup() !== null) {
+            $project->setRateGroup($offer->getRateGroup());
+        } elseif ($offer->getCustomer() !== null) {
+            $project->setRateGroup($offer->getCustomer()->getRateGroup());
+        }
         $project->setDescription($offer->getShortDescription());
         if ($offer->getFixedPrice()->isZero()) {
             $project->setBudgetPrice($offer->getSubtotal());

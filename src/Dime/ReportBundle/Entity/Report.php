@@ -7,6 +7,7 @@
 
 namespace Dime\ReportBundle\Entity;
 
+use Dime\TimetrackerBundle\Entity\Project;
 use JMS\Serializer\Annotation as JMS;
 
 class Report
@@ -90,7 +91,7 @@ class Report
     }
 
     /**
-     * @return mixed
+     * @return Project
      */
     public function getProject()
     {

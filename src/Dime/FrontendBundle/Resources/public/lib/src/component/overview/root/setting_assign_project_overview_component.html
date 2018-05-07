@@ -12,7 +12,7 @@
         </tr>
       </thead>
       <tbody *ngIf="projectAssignments != null">
-        <tr *ngFor="let entity of projectAssignments" (click)="selectEntity(entity.id)" [class.info]="isSelected(entity)">
+        <tr *ngFor="let entity of projectAssignments">
           <td>{{entity.id}}</td>
           <td>{{entity.name}}</td>
           <td><project-select hideArchived [ngModel]="entity.project" (ngModelChange)="entity.project=$event;addSaveField('project', entity)"></project-select></td>

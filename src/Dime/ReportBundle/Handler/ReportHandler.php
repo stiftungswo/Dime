@@ -31,6 +31,14 @@ class ReportHandler extends AbstractHandler
     {
         $this->repository->createCurrentQueryBuilder($this->alias);
 
+        /** @var Invoice $invoice */
+        $invoice = null;
+        if (isset($params['invoice'])) {
+            $invoice = $this->container->get('dime.invoice.handler')->get($params['invoice']);
+            $params['project'] = $invoice->getProject()->getId();
+            unset($params['invoice']);
+        }
+
         // Filter
         if ($this->hasParams($params)) {
             $this->repository->filter($this->cleanParameterBag($params));
@@ -78,6 +86,9 @@ class ReportHandler extends AbstractHandler
             } else {
                 $report->setStart($date);
             }
+        }
+        if ($invoice !== null) {
+            $report->setInvoice($invoice);
         }
         return $report;
     }

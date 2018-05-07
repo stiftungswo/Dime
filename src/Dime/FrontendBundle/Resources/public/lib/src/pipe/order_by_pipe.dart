@@ -11,24 +11,25 @@ class OrderByPipe implements PipeTransform {
   ///
   /// This is probably quite slow (see link above)
   transform(List<dynamic> values, [String property, bool reverse = false]) {
-    values.sort((dynamic a, dynamic b) {
-      dynamic aValue = getValue(a, property);
-      dynamic bValue = getValue(b, property);
-      if (aValue == null || bValue == null) {
-        return 0;
-      }
+    final sorted = new List<dynamic>.from(values, growable: false)
+      ..sort((dynamic a, dynamic b) {
+        dynamic aValue = getValue(a, property);
+        dynamic bValue = getValue(b, property);
+        if (aValue == null || bValue == null) {
+          return 0;
+        }
 
-      if (aValue is num) {
-        return aValue.compareTo(bValue as num);
-      } else {
-        return aValue.toString().toLowerCase().compareTo(bValue.toString().toLowerCase());
-      }
-    });
+        if (aValue is num) {
+          return aValue.compareTo(bValue as num);
+        } else {
+          return aValue.toString().toLowerCase().compareTo(bValue.toString().toLowerCase());
+        }
+      });
 
     if (reverse) {
-      return values.reversed.toList();
+      return sorted.reversed.toList();
     } else {
-      return values;
+      return sorted;
     }
   }
 

@@ -14,10 +14,7 @@
         </tr>
       </thead>
       <tbody *ngIf="entities != null">
-        <tr
-          *ngFor="let c of controls"
-          (click)="selectEntity(c.controls['id'].value)"
-          [ngClass]="rowClass(c.controls['id'].value, c.valid)" >
+        <tr *ngFor="let c of controls" [class.danger]="!c.valid">
           <td>{{c.controls['id'].value}}</td>
           <td validationStatus class="form-group"><input required class="form-control" [ngFormControl]="c.controls['name']"/></td>
           <td validationStatus class="form-group"><input required type="number" class="form-control" [ngFormControl]="c.controls['factor']"/></td>

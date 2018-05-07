@@ -35,8 +35,10 @@ class ProjectCommentOverviewComponent extends EditableOverview<ProjectComment> i
   Project get selectedProject => _selectedProject;
 
   set selectedProject(Project project) {
-    _selectedProject = project;
-    reload();
+    if (project?.id != _selectedProject?.id) {
+      _selectedProject = project;
+      reload();
+    }
   }
 
   DateTime filterStartDate;
@@ -106,7 +108,7 @@ class ProjectCommentOverviewComponent extends EditableOverview<ProjectComment> i
     // this fixes excluding comments with dates almost the same as the filters
     Duration extension = new Duration(seconds: 2);
     return controls
-        .where((comment) =>
+        .where((ControlGroup comment) =>
             getDate(comment).isAfter(filterStartDate.subtract(extension)) && getDate(comment).isBefore(filterEndDate.add(extension)))
         .toList();
   }

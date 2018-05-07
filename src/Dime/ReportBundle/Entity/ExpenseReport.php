@@ -8,6 +8,7 @@
 namespace Dime\ReportBundle\Entity;
 
 use Dime\EmployeeBundle\Entity\Employee;
+use Dime\InvoiceBundle\Entity\Invoice;
 use Dime\TimetrackerBundle\Entity\RateUnitType;
 use Dime\TimetrackerBundle\Entity\Timeslice;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -36,6 +37,11 @@ class ExpenseReport extends Report
      * @var ArrayCollection
      */
     protected $comments;
+
+    /**
+     * @var Invoice
+     */
+    protected $invoice;
 
     /**
      * @return mixed
@@ -141,5 +147,25 @@ class ExpenseReport extends Report
         }
 
         return $groups;
+    }
+
+    /**
+     * @return Invoice
+     */
+    public function getInvoice()
+    {
+        return $this->invoice;
+    }
+
+    /**
+     * @param Invoice $invoice
+     *
+     * @return ExpenseReport
+     */
+    public function setInvoice(Invoice $invoice)
+    {
+        $this->invoice = $invoice;
+
+        return $this;
     }
 }

@@ -4,7 +4,7 @@ import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
 
 import '../../../model/entity_export.dart';
-import '../../../pipe/order_by_pipe..dart';
+import '../../../pipe/order_by_pipe.dart';
 import '../../../service/caching_object_store_service.dart';
 import '../../../service/entity_events_service.dart';
 import '../../../service/settings_service.dart';
@@ -41,7 +41,7 @@ class InvoiceItemOverviewComponent extends EditableOverview<InvoiceItem> {
 
   @Input('invoice')
   set invoiceId(int id) {
-    if (id != null) {
+    if (id != null && id != _invoiceId) {
       this._invoiceId = id;
       reload();
     }

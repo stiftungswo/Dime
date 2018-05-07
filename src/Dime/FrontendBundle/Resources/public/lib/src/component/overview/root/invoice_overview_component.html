@@ -6,7 +6,6 @@
     <div class="DimeControlButtons">
       <!-- Disabled because invoices without projects should not be created -->
       <dime-button primary [enabled]="false" tooltip='Um eine Rechnung zu erstellen, öffne das entsprechende Projekt und klicke oben auf "Rechnung Erstellen".' glyphicon="plus">Hinzufügen</dime-button>
-      <dime-button primary (click)="duplicateEntity()" fontAwesome="copy">Duplizieren</dime-button>
       <dime-button (click)="reloadEvict()" glyphicon="refresh"></dime-button>
     </div>
     <div class="form-group">
@@ -40,11 +39,11 @@
               Ende<span *ngIf="sortType == 'end' && sortReverse" class="fa fa-fw fa-angle-up"></span><span *ngIf="sortType == 'end' && !sortReverse" class="fa fa-fw fa-angle-down"></span>
             </a>
           </th>
-          <th width="110">Aktion</th>
+          <th width="210">Aktion</th>
         </tr>
       </thead>
       <tbody *ngIf="entities != null">
-        <tr *ngFor="let entity of entities | orderBy:sortType:sortReverse | filter:['id', 'name', 'description', 'start', 'end']:InvoiceOverviewComponent.globalFilterString" (click)="selectEntity(entity.id)" (dblclick)="openEditView(entity.id)" [class.info]="isSelected(entity)">
+        <tr *ngFor="let entity of entities | orderBy:sortType:sortReverse | filter:['id', 'name', 'description', 'start', 'end']:InvoiceOverviewComponent.globalFilterString" (dblclick)="openEditView(entity.id)">
           <td>{{entity.id}}</td>
           <td>{{entity.name}}</td>
           <td>{{entity.description|limitTo:100}}</td>
@@ -52,6 +51,7 @@
           <td>{{entity.end|date:'dd.MM.y'}}</td>
           <td>
             <div class="btn-group">
+              <dime-button primary (click)="duplicateEntity(entity.id)" fontAwesome="copy">Duplizieren</dime-button>
               <dime-button (click)="openEditView(entity.id)" fontAwesome="pencil"></dime-button>
               <dime-button (click)="deleteEntity(entity.id)" fontAwesome="trash-o" color="red"></dime-button>
             </div>

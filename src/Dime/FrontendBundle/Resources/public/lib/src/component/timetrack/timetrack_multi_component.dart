@@ -5,7 +5,7 @@ import 'package:angular_forms/angular_forms.dart';
 import 'package:angular_router/angular_router.dart';
 
 import '../../model/entity_export.dart';
-import '../../pipe/project_value_filter_pipe..dart';
+import '../../pipe/project_value_filter_pipe.dart';
 import '../../service/caching_object_store_service.dart';
 import '../../service/entity_events_service.dart';
 import '../../service/settings_service.dart';
@@ -137,13 +137,9 @@ class TimetrackMultiComponent extends EntityOverview<Timeslice> implements OnAct
   }
 
   Future loadActivities() async {
-    this.statusservice.setStatusToLoading();
-    try {
+    await this.statusservice.run(() async {
       this.activities = await this.store.list(Activity);
-      this.statusservice.setStatusToSuccess();
-    } catch (e, stack) {
-      this.statusservice.setStatusToError(e, stack);
-    }
+    });
   }
 
   void inputAllUpdated(int index) {
