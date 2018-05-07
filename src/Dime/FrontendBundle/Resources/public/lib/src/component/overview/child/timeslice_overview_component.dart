@@ -389,8 +389,7 @@ class TimesliceOverviewComponent extends EditableOverview<Timeslice> {
   }
 
   Future moveTimeslices() async {
-    statusservice.setStatusToLoading();
-    try {
+    await statusservice.run(() async {
       if (moveTargetActivity == null) {
         await moveTimeslicesToProject();
       } else {
@@ -399,10 +398,7 @@ class TimesliceOverviewComponent extends EditableOverview<Timeslice> {
       reload();
       selectedTimeslices.clear();
       moveDialogVisible = false;
-      statusservice.setStatusToSuccess();
-    } catch (e, stack) {
-      statusservice.setStatusToError(e, stack);
-    }
+    });
   }
 
   Future moveTimeslicesToProject() async {

@@ -41,14 +41,9 @@ class TimetrackPeriodsComponent implements OnInit, OnActivate {
 
   reload() async {
     this.employees = [];
-    this.statusservice.setStatusToLoading();
-    try {
+    await this.statusservice.run(() async {
       this.employees = await this.store.list(Employee);
-      this.statusservice.setStatusToSuccess();
-    } catch (e, stack) {
-      print("Unable to load employees because ${e}");
-      this.statusservice.setStatusToError(e, stack);
-    }
+    }, onError: (e, _) => print("Unable to load employees because ${e}"));
   }
 
   save() {

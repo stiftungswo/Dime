@@ -141,13 +141,9 @@ class TimetrackMultiComponent extends EntityOverview<Timeslice> implements OnAct
   }
 
   Future loadActivities() async {
-    this.statusservice.setStatusToLoading();
-    try {
+    await this.statusservice.run(() async {
       this.activities = await this.store.list(Activity);
-      this.statusservice.setStatusToSuccess();
-    } catch (e, stack) {
-      this.statusservice.setStatusToError(e, stack);
-    }
+    });
   }
 
   void inputAllUpdated(int index) {

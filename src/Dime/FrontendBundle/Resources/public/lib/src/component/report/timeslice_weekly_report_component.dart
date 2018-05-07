@@ -129,20 +129,16 @@ class TimesliceWeeklyReportComponent extends EntityOverview<ExpenseReport> imple
   @override
   Future reload({Map<String, dynamic> params, bool evict: false}) async {
     this.entities = [];
-    this.statusservice.setStatusToLoading();
-    try {
+    await this.statusservice.run(() async {
       this.report = (await this.store.customQueryOne<ExpenseReport>(
           ExpenseReport,
           new CustomRequestParams(params: {
             'date': '${format.format(filterStartDate)},${format.format(filterEndDate)}',
           }, method: 'GET', url: '${http.baseUrl}/reports/ziviweekly')));
-      this.statusservice.setStatusToSuccess();
       updateDates();
       updateEmployees();
       updateEntries();
-    } catch (e, stack) {
-      this.statusservice.setStatusToError(e, stack);
-    }
+    });
   }
 
   void previousWeek() {

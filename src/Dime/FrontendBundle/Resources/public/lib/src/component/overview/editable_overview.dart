@@ -48,28 +48,23 @@ abstract class EditableOverview<T extends Entity> extends EntityOverview<T> {
 
   @override
   Future createEntity({T newEnt, Map<String, dynamic> params: const {}}) async {
-    this.statusservice.setStatusToLoading();
-    if (newEnt == null) {
-      newEnt = this.cEnt();
-      newEnt.init(params: params);
-    }
-    try {
+    await this.statusservice.run(() async {
+      if (newEnt == null) {
+        newEnt = this.cEnt();
+        newEnt.init(params: params);
+      }
+
       T resp = await this.store.create(newEnt);
       await runOutsideChangeDetection(() {
         _map.add(resp);
       });
-      this.statusservice.setStatusToSuccess();
-    } catch (e, stack) {
-      print("Unable to create entity ${this.type.toString()} because ${e}");
-      this.statusservice.setStatusToError(e, stack);
-    }
+    }, onError: (e, _) => print("Unable to create entity ${this.type.toString()} because ${e}"));
   }
 
   @override
   Future reload({Map<String, dynamic> params, bool evict: false}) async {
-    var newMap = new EntityControlMap<T>(required, fields);
-    this.statusservice.setStatusToLoading();
-    try {
+    await this.statusservice.run(() async {
+      var newMap = new EntityControlMap<T>(required, fields);
       if (evict) {
         this.store.evict(this.type);
       }
@@ -91,11 +86,7 @@ abstract class EditableOverview<T extends Entity> extends EntityOverview<T> {
         overview.control.updateValueAndValidity(emitEvent: true);
         _map = newMap;
       });
-      this.statusservice.setStatusToSuccess();
-    } catch (e, stack) {
-      print("Unable to load ${this.type.toString()} because ${e}");
-      this.statusservice.setStatusToError(e, stack);
-    }
+    }, onError: (e, _) => print("Unable to load ${this.type.toString()} because ${e}"));
   }
 
   /// apply some transformations to the entities after they are loaded but before they are displayed
@@ -127,18 +118,13 @@ abstract class EditableOverview<T extends Entity> extends EntityOverview<T> {
   }
 
   Future saveEntity(T entity) async {
-    this.statusservice.setStatusToLoading();
-    try {
+    await this.statusservice.run(() async {
       T updated = await store.update(entity);
       await runOutsideChangeDetection(() {
         var index = _map.remove(entity);
         _map.insert(index, updated);
       });
-      this.statusservice.setStatusToSuccess();
-    } catch (e, stack) {
-      print("Unable to save entity ${this.type.toString()}::${entity.id} because ${e}");
-      this.statusservice.setStatusToError(e, stack);
-    }
+    }, onError: (e, _) => print("Unable to save entity ${this.type.toString()}::${entity.id} because ${e}"));
   }
 
   @override
@@ -149,8 +135,7 @@ abstract class EditableOverview<T extends Entity> extends EntityOverview<T> {
       return null;
     }
 
-    try {
-      this.statusservice.setStatusToLoading();
+    await this.statusservice.run(() async {
       //We need to load the full entity instead of the placeholder it is being represented by in the overview; i.e. an [Invoice] needs its invoiceItems so we can clone them too
       T template = await this.store.one(selectedEntity.runtimeType, selectedEntity.id);
       T clone = await this.store.create(this.cEnt(entity: template));
@@ -160,30 +145,19 @@ abstract class EditableOverview<T extends Entity> extends EntityOverview<T> {
         });
       }
       await Future.wait(clone.cloneDescendantsOf(template).map(this.store.create));
-      this.statusservice.setStatusToSuccess();
-    } catch (e, stack) {
-      print("Unable to duplicate entity ${this.type.toString()}::${selectedEntity.id} because ${e}");
-      this.statusservice.setStatusToError(e, stack);
-    }
+    }, onError: (e, _) => print("Unable to duplicate entity ${this.type.toString()}::${selectedEntity.id} because ${e}"));
   }
 
   @override
   Future deleteEntity(dynamic entId) async {
-    if (entId != null) {
-      if (window.confirm("Wirklich löschen?")) {
-        this.statusservice.setStatusToLoading();
-        try {
-          if (this.store != null) {
-            T ent = _map.entities.singleWhere((enty) => enty.id == entId);
-            await this.store.delete(ent);
-            _map.remove(ent);
-          }
-          this.statusservice.setStatusToSuccess();
-        } catch (e, stack) {
-          print("Unable to Delete entity ${this.type.toString()}::${entId} because ${e}");
-          this.statusservice.setStatusToError(e, stack);
+    if (entId != null && window.confirm("Wirklich löschen?")) {
+      await this.statusservice.run(() async {
+        if (this.store != null) {
+          T ent = _map.entities.singleWhere((enty) => enty.id == entId);
+          await this.store.delete(ent);
+          _map.remove(ent);
         }
-      }
+      }, onError: (e, _) => print("Unable to Delete entity ${this.type.toString()}::${entId} because ${e}"));
     }
   }
 }

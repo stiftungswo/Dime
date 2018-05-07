@@ -100,16 +100,15 @@ class ActivityOverviewComponent extends EditableOverview<Activity> {
   }
 
   Future<bool> hasLinkedInvoices(int activityId) async {
-    this.statusservice.setStatusToLoading();
-    List<Invoice> invoices = await this.store.list(Invoice, params: {'project': this._project?.id});
-    List<List<InvoiceItem>> invoiceItemResults = await Future.wait<List<InvoiceItem>>(invoices.map((c) {
-      return this.store.list(InvoiceItem, params: {'invoice': c.id});
-    }));
+    return await this.statusservice.run(() async {
+      List<Invoice> invoices = await this.store.list(Invoice, params: {'project': this._project?.id});
+      List<List<InvoiceItem>> invoiceItemResults = await Future.wait<List<InvoiceItem>>(invoices.map((c) {
+        return this.store.list(InvoiceItem, params: {'invoice': c.id});
+      }));
 
-    List<int> activityIds = invoiceItemResults.expand((c) => c.map((i) => i.activity.id as int)).toList();
-    print(activityIds);
-    this.statusservice.setStatusToSuccess();
-    return activityIds.any((id) => id == activityId);
+      List<int> activityIds = invoiceItemResults.expand((c) => c.map((i) => i.activity.id as int)).toList();
+      return activityIds.any((id) => id == activityId);
+    });
   }
 
   bool hasLinkedTimeslices(Activity activity) {

@@ -62,8 +62,7 @@ class ProjectemployeeReportComponent implements OnInit, OnActivate {
     if (project != null) {
       this.entries = null;
       this.total = null;
-      this.statusservice.setStatusToLoading();
-      try {
+      await this.statusservice.run(() async {
         String dateparams = null;
         if (filterStartDate != null && filterEndDate != null) {
           dateparams = encodeDateRange(filterStartDate, filterEndDate);
@@ -78,11 +77,7 @@ class ProjectemployeeReportComponent implements OnInit, OnActivate {
           this.entries = data['employees'];
           this.total = data['total'] as int;
         });
-        this.statusservice.setStatusToSuccess();
-      } catch (e, stack) {
-        this.statusservice.setStatusToError(e, stack);
-        rethrow;
-      }
+      }, doRethrow: true);
     }
   }
 }

@@ -50,17 +50,13 @@ class UserSelectComponent extends EntitySelect<Employee> implements OnChanges {
 
   @override
   Future reload() async {
-    this.statusservice.setStatusToLoading();
-    try {
+    await this.statusservice.run(() async {
       if (this.parentEmployees != null) {
         this.entities = this.parentEmployees;
       } else {
         this.entities = await this.store.list(Employee, params: {"enabled": 1});
       }
-      this.statusservice.setStatusToSuccess();
-    } catch (e, stack) {
-      this.statusservice.setStatusToError(e, stack);
-    }
+    });
 
     if (useContext) {
       selectedEntity = context.employee;

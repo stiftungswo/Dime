@@ -51,18 +51,14 @@ class ServiceHoursReportComponent implements OnInit, OnActivate {
       String dateparams = encodeDateRange(filterStartDate, filterEndDate);
       this.entries = null;
       this.total = null;
-      this.statusservice.setStatusToLoading();
-      try {
+      await this.statusservice.run(() async {
         await http.get('reports/servicehours', queryParams: {"_format": 'json', "date": dateparams}).then((result) {
           dynamic data = JSON.decode(result);
           window.console.log(data);
           this.entries = data['projects'] as List<dynamic>;
           this.total = data['total'] as Map<String, dynamic>;
         });
-        this.statusservice.setStatusToSuccess();
-      } catch (e, stack) {
-        this.statusservice.setStatusToError(e, stack);
-      }
+      });
     }
   }
 

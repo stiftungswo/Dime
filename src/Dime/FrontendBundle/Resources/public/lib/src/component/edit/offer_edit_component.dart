@@ -68,8 +68,7 @@ class OfferEditComponent extends EntityEdit<Offer> {
   }
 
   Future load({bool evict: false}) async {
-    this.statusservice.setStatusToLoading();
-    try {
+    await this.statusservice.run(() async {
       if (evict) {
         this.store.evict(this.entType);
       }
@@ -77,11 +76,8 @@ class OfferEditComponent extends EntityEdit<Offer> {
       if (this.entity.project != null) {
         this.project = await this.store.one(Project, this.entity.project.id);
       }
-      this.statusservice.setStatusToSuccess();
       page_title.setPageTitle('Offerten', entity?.name);
-    } catch (e, stack) {
-      this.statusservice.setStatusToError(e, stack);
-    }
+    });
   }
 
   Future loadCustomers() async {
@@ -113,15 +109,16 @@ class OfferEditComponent extends EntityEdit<Offer> {
 
   Future createProject() async {
     if (await saveEntity()) {
-      Project newProject = (await this.store.customQueryOne<Project>(
-          Project, new CustomRequestParams(method: 'GET', url: '${http.baseUrl}/projects/offer/${this.entity.id}')));
-      this.store.evict(Project, true);
-      this.statusservice.setStatusToSuccess();
-      entity.project = newProject;
-      router.navigate([
-        'ProjectEdit',
-        {'id': newProject.id.toString()}
-      ]);
+      await this.statusservice.run(() async {
+        Project newProject = (await this.store.customQueryOne<Project>(
+            Project, new CustomRequestParams(method: 'GET', url: '${http.baseUrl}/projects/offer/${this.entity.id}')));
+        this.store.evict(Project, true);
+        entity.project = newProject;
+        router.navigate([
+          'ProjectEdit',
+          {'id': newProject.id.toString()}
+        ]);
+      });
     }
   }
 
@@ -134,14 +131,16 @@ class OfferEditComponent extends EntityEdit<Offer> {
 
   Future createInvoice() async {
     if (await saveEntity()) {
-      Invoice newInvoice = await this.store.customQueryOne<Invoice>(
-          Invoice, new CustomRequestParams(method: 'GET', url: '${http.baseUrl}/invoices/project/${this.entity.project.id}'));
-      entity.project.invoices.add(newInvoice);
-      this.store.evict(Invoice, true);
-      router.navigate([
-        'InvoiceEdit',
-        {'id': newInvoice.id.toString()}
-      ]);
+      await this.statusservice.run(() async {
+        Invoice newInvoice = await this.store.customQueryOne<Invoice>(
+            Invoice, new CustomRequestParams(method: 'GET', url: '${http.baseUrl}/invoices/project/${this.entity.project.id}'));
+        entity.project.invoices.add(newInvoice);
+        this.store.evict(Invoice, true);
+        router.navigate([
+          'InvoiceEdit',
+          {'id': newInvoice.id.toString()}
+        ]);
+      });
     }
   }
 

@@ -48,16 +48,12 @@ abstract class EntityEdit<T extends Entity> implements OnInit {
   }
 
   Future reload({bool evict: false}) async {
-    this.statusservice.setStatusToLoading();
-    try {
+    await this.statusservice.run(() async {
       if (evict) {
         this.store.evict(this.entType);
       }
       this.entity = await this.store.one<T>(this.entType, this.entId);
-      this.statusservice.setStatusToSuccess();
-    } catch (e, stack) {
-      this.statusservice.setStatusToError(e, stack);
-    }
+    });
   }
 
   void addSaveField(String name) {
@@ -67,13 +63,10 @@ abstract class EntityEdit<T extends Entity> implements OnInit {
   Future<bool> saveEntity() async {
     entityEventsService.emitSaveChanges();
     if (this.entity.needsUpdate) {
-      this.statusservice.setStatusToLoading();
-      try {
+      await this.statusservice.run(() async {
         this.entity = await store.update(this.entity);
-        this.statusservice.setStatusToSuccess();
-      } catch (e, stack) {
-        this.statusservice.setStatusToError(e, stack);
-      }
+      });
+      // todo maybe "await" here?
       this.reload();
     }
     return true;

@@ -100,8 +100,7 @@ class TimesliceExpenseReportComponent extends EntityOverview<ExpenseReport> impl
   Future reload({Map<String, dynamic> params, bool evict: false}) async {
     if (_project != null || _employee != null) {
       this.entities = [];
-      this.statusservice.setStatusToLoading();
-      try {
+      await this.statusservice.run(() async {
         String dateparam = this.getDateParam();
         this.report = (await this.store.customQueryOne<ExpenseReport>(
             ExpenseReport,
@@ -110,10 +109,7 @@ class TimesliceExpenseReportComponent extends EntityOverview<ExpenseReport> impl
               'employee': _employee != null ? _employee.id : null,
               'date': dateparam != null ? dateparam : null
             }, method: 'GET', url: '${http.baseUrl}/reports/expense')));
-        this.statusservice.setStatusToSuccess();
-      } catch (e, stack) {
-        this.statusservice.setStatusToError(e, stack);
-      }
+      });
     }
   }
 

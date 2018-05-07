@@ -19,27 +19,19 @@ class SettingsService {
   SettingsService(this.store, this.context, this.statusservice);
 
   loadUserSettings([int userId]) async {
-    this.statusservice.setStatusToLoading();
-    try {
+    await this.statusservice.run(() async {
       if (userId == null) {
         userId = this.context.employee.id as int;
       }
       this.userSettings = await this.store.list(Setting, params: {'namespace': '/usr*', 'user': userId});
       this._currentUserId = userId;
-      this.statusservice.setStatusToSuccess();
-    } catch (e, stack) {
-      this.statusservice.setStatusToError(e, stack);
-    }
+    });
   }
 
   loadSystemSettings() async {
-    this.statusservice.setStatusToLoading();
-    try {
+    await this.statusservice.run(() async {
       this.systemSettings = await this.store.list(Setting, params: {'namespace': '/etc*'});
-      this.statusservice.setStatusToSuccess();
-    } catch (e, stack) {
-      this.statusservice.setStatusToError(e, stack);
-    }
+    });
   }
 
   List<Setting> getSettings(String namespace, {bool system: false}) {
@@ -60,34 +52,23 @@ class SettingsService {
   }
 
   Future<Setting> createSetting(String namespace, String name, String value) async {
-    this.statusservice.setStatusToLoading();
-    try {
+    return await this.statusservice.run(() async {
       User usr = new User()..id = this._currentUserId;
       Setting templateSetting = new Setting();
       templateSetting.init(params: {'user': usr, 'namespace': namespace, 'name': name, 'value': value});
       Setting setting = await this.store.create(templateSetting);
       this.userSettings.add(setting);
-      this.statusservice.setStatusToSuccess();
       return setting;
-    } catch (e, stack) {
-      this.statusservice.setStatusToError(e, stack);
-      rethrow;
-    }
+    }, doRethrow: true);
   }
 
   Future<Setting> updateSetting(Setting toUpdate) async {
-    this.statusservice.setStatusToLoading();
-    try {
+    return await this.statusservice.run(() async {
       toUpdate.addFieldtoUpdate('value');
       Setting updatedSetting = await this.store.update(toUpdate);
       this.userSettings.removeWhere((setting) => setting.id == toUpdate.id);
       this.userSettings.add(updatedSetting);
-      this.statusservice.setStatusToSuccess();
       return updatedSetting;
-    } catch (e, stack) {
-      print(toUpdate);
-      this.statusservice.setStatusToError(e, stack);
-      rethrow;
-    }
+    }, doRethrow: true);
   }
 }

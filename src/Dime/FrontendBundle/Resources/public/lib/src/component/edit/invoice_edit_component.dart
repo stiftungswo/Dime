@@ -57,8 +57,7 @@ class InvoiceEditComponent extends EntityEdit<Invoice> {
   void ngOnInit() => load();
 
   Future load({bool evict: false}) async {
-    this.statusservice.setStatusToLoading();
-    try {
+    await this.statusservice.run(() async {
       if (evict) {
         this.store.evict(this.entType);
       }
@@ -67,23 +66,17 @@ class InvoiceEditComponent extends EntityEdit<Invoice> {
         this.project = await this.store.one(Project, this.entity.project.id);
       }
       page_title.setPageTitle('Rechnungen', entity?.name);
-      this.statusservice.setStatusToSuccess();
-    } catch (e, stack) {
-      this.statusservice.setStatusToError(e, stack);
-    }
+    });
   }
 
   Future updateInvoicefromProject() async {
     if (window.confirm('Wiklich updaten und alle Daten überschreiben?')) {
-      this.statusservice.setStatusToLoading();
-      try {
+      await this.statusservice.run(() async {
         this.entity = (await this.store.customQueryOne<Invoice>(
             Invoice, new CustomRequestParams(method: 'GET', url: '${http.baseUrl}/invoices/${this.entity.id}/update')));
-        this.statusservice.setStatusToSuccess();
+        // todo maybe "await" here?
         this.invoiceItemOverview.reload(evict: true);
-      } catch (e, stack) {
-        this.statusservice.setStatusToError(e, stack);
-      }
+      });
     }
   }
 

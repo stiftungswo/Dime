@@ -59,8 +59,7 @@ class ProjectOpenInvoicesComponent extends EntityOverview<Project> implements On
   @override
   Future reload({Map<String, dynamic> params, bool evict: false}) async {
     this.entities = [];
-    this.statusservice.setStatusToLoading();
-    try {
+    await this.statusservice.run(() async {
       if (evict) {
         this.store.evict(this.type);
       }
@@ -68,10 +67,6 @@ class ProjectOpenInvoicesComponent extends EntityOverview<Project> implements On
               .store
               .customQueryList<Project>(Project, new CustomRequestParams(method: 'GET', url: '${http.baseUrl}/projectsopeninvoices')))
           .toList();
-      this.statusservice.setStatusToSuccess();
-    } catch (e, stack) {
-      print("Unable to load ${this.type.toString()} because ${e}");
-      this.statusservice.setStatusToError(e, stack);
-    }
+    }, onError: (e, _) => print("Unable to load ${this.type.toString()} because ${e}"));
   }
 }

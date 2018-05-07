@@ -48,23 +48,19 @@ abstract class EntityOverview<T extends Entity> implements OnInit {
     if (params.isEmpty) {
       params = {};
     }
-    this.statusservice.setStatusToLoading();
-    if (newEnt == null) {
-      newEnt = this.cEnt();
-      newEnt.init(params: params);
-    }
-    try {
+    await this.statusservice.run(() async {
+      if (newEnt == null) {
+        newEnt = this.cEnt();
+        newEnt.init(params: params);
+      }
+
       T resp = await this.store.create(newEnt);
-      this.statusservice.setStatusToSuccess();
       if (this.router != null) {
         this.openEditView(resp.id as int);
       } else {
         this.entities.add(resp);
       }
-    } catch (e, stack) {
-      print("Unable to create entity ${this.type.toString()} because ${e}");
-      this.statusservice.setStatusToError(e, stack);
-    }
+    }, onError: (e, _) => print("Unable to create entity ${this.type.toString()} because ${e}"));
   }
 
   T cEnt({T entity});
@@ -76,8 +72,7 @@ abstract class EntityOverview<T extends Entity> implements OnInit {
       return null;
     }
 
-    try {
-      this.statusservice.setStatusToLoading();
+    await this.statusservice.run(() async {
       //We need to load the full entity instead of the placeholder it is being represented by in the overview; i.e. an [Invoice] needs its invoiceItems so we can clone them too
       T template = await this.store.one(selectedEntity.runtimeType, selectedEntity.id);
       T clone = await this.store.create(this.cEnt(entity: template));
@@ -85,29 +80,18 @@ abstract class EntityOverview<T extends Entity> implements OnInit {
         this.entities.add(clone);
       }
       await Future.wait(clone.cloneDescendantsOf(template).map(this.store.create));
-      this.statusservice.setStatusToSuccess();
-    } catch (e, stack) {
-      print("Unable to duplicate entity ${this.type.toString()}::${selectedEntity.id} because ${e}");
-      this.statusservice.setStatusToError(e, stack);
-    }
+    }, onError: (e, _) => print("Unable to duplicate entity ${this.type.toString()}::${selectedEntity.id} because ${e}"));
   }
 
   Future deleteEntity(dynamic entId) async {
-    if (entId != null) {
-      if (window.confirm("Wirklich löschen?")) {
-        this.statusservice.setStatusToLoading();
-        try {
-          if (this.store != null) {
-            T ent = this.entities.singleWhere((enty) => enty.id == entId);
-            await this.store.delete(ent);
-          }
-          this.entities.removeWhere((enty) => enty.id == entId);
-          this.statusservice.setStatusToSuccess();
-        } catch (e, stack) {
-          print("Unable to Delete entity ${this.type.toString()}::${entId} because ${e}");
-          this.statusservice.setStatusToError(e, stack);
+    if (entId != null && window.confirm("Wirklich löschen?")) {
+      await this.statusservice.run(() async {
+        if (this.store != null) {
+          T ent = this.entities.singleWhere((enty) => enty.id == entId);
+          await this.store.delete(ent);
         }
-      }
+        this.entities.removeWhere((enty) => enty.id == entId);
+      }, onError: (e, _) => print("Unable to Delete entity ${this.type.toString()}::${entId} because ${e}"));
     }
   }
 
@@ -132,17 +116,12 @@ abstract class EntityOverview<T extends Entity> implements OnInit {
 
   Future reload({Map<String, dynamic> params, bool evict: false}) async {
     this.entities = [];
-    this.statusservice.setStatusToLoading();
-    try {
+    await this.statusservice.run(() async {
       if (evict) {
         this.store.evict(this.type);
       }
       this.entities = (await this.store.list(this.type, params: params)).toList() as List<T>;
-      this.statusservice.setStatusToSuccess();
-    } catch (e, stack) {
-      print("Unable to load ${this.type.toString()} because ${e}");
-      this.statusservice.setStatusToError(e, stack);
-    }
+    }, onError: (e, _) => print("Unable to load ${this.type.toString()} because ${e}"));
   }
 
   void changeSortOrder(String field) {
