@@ -26,7 +26,7 @@ abstract class EditableOverview<T extends Entity> extends EntityOverview<T> {
   List<T> get entities => new List.unmodifiable(_map.entities);
 
   /// do not modify this by hand, it is managed by [_map]
-  List<dynamic> get controls => new List.unmodifiable(_map.controls);
+  List<dynamic> get controls => new List<dynamic>.unmodifiable(_map.controls);
 
   ChangeDetectorRef changeDetector;
 

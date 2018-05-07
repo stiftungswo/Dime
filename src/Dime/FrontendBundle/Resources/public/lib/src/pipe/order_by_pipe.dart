@@ -11,7 +11,7 @@ class OrderByPipe implements PipeTransform {
   ///
   /// This is probably quite slow (see link above)
   transform(List<dynamic> values, [String property, bool reverse = false]) {
-    final sorted = new List.from(values, growable: false)
+    final sorted = new List<dynamic>.from(values, growable: false)
       ..sort((dynamic a, dynamic b) {
         dynamic aValue = getValue(a, property);
         dynamic bValue = getValue(b, property);
