@@ -74,7 +74,7 @@ class Activity extends Entity {
   void Set(String property, dynamic value) {
     switch (property) {
       case 'project':
-        this.project = value is Project ? value : new Project.fromMap(value as Map<String, dynamic>);
+        this.project = value is Project ? value : new Project.fromMap((value as Map<dynamic, dynamic>).cast<String, dynamic>());
         break;
       case 'value':
         this.value = value;
@@ -83,13 +83,13 @@ class Activity extends Entity {
         this.chargeable = value as bool;
         break;
       case 'service':
-        this.service = value is Service ? value : new Service.fromMap(value as Map<String, dynamic>);
+        this.service = value is Service ? value : new Service.fromMap((value as Map<dynamic, dynamic>).cast<String, dynamic>());
         break;
       case 'description':
         this.description = value as String;
         break;
       case 'timeslices':
-        this.timeslices = Timeslice.listFromMap(value as List<Map<String, dynamic>>);
+        this.timeslices = Timeslice.listFromMap((value as List<dynamic>).cast());
         break;
       case 'rateValue':
         this.rateValue = value as String;
@@ -98,13 +98,14 @@ class Activity extends Entity {
         this.rateUnit = value as String;
         break;
       case 'rateUnitType':
-        this.rateUnitType = value is RateUnitType ? value : new RateUnitType.fromMap(value as Map<String, dynamic>);
+        this.rateUnitType =
+            value is RateUnitType ? value : new RateUnitType.fromMap((value as Map<dynamic, dynamic>).cast<String, dynamic>());
         break;
       case 'serviceRate':
-        this.serviceRate = value is Rate ? value : new Rate.fromMap(value as Map<String, dynamic>);
+        this.serviceRate = value is Rate ? value : new Rate.fromMap((value as Map<dynamic, dynamic>).cast<String, dynamic>());
         break;
       case 'customer':
-        this.customer = value is Customer ? value : new Customer.fromMap(value as Map<String, dynamic>);
+        this.customer = value is Customer ? value : new Customer.fromMap((value as Map<dynamic, dynamic>).cast<String, dynamic>());
         break;
       case 'charge':
         this.charge = value as String;

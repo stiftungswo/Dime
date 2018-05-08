@@ -55,7 +55,10 @@ class InvoiceEditComponent extends EntityEdit<Invoice> {
   }
 
   @override
-  void onActivate(_, __) => load();
+  void onActivate(_, current) {
+    super.onActivate(_, current);
+    load();
+  }
 
   Future load({bool evict: false}) async {
     await this.statusservice.run(() async {

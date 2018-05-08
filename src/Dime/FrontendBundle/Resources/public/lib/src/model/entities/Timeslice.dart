@@ -56,13 +56,13 @@ class Timeslice extends Entity {
         this.stoppedAt = addDateValue(value);
         break;
       case 'activity':
-        this.activity = value is Activity ? value : new Activity.fromMap(value as Map<String, dynamic>);
+        this.activity = value is Activity ? value : new Activity.fromMap((value as Map<dynamic, dynamic>).cast<String, dynamic>());
         break;
       case 'project':
-        this.project = value is Project ? value : new Project.fromMap(value as Map<String, dynamic>);
+        this.project = value is Project ? value : new Project.fromMap((value as Map<dynamic, dynamic>).cast<String, dynamic>());
         break;
       case 'employee':
-        this.employee = value is Employee ? value : new Employee.fromMap(value as Map<String, dynamic>);
+        this.employee = value is Employee ? value : new Employee.fromMap((value as Map<dynamic, dynamic>).cast<String, dynamic>());
         break;
       default:
         super.Set(property, value);

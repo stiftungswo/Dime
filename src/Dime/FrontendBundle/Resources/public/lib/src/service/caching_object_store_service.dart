@@ -34,10 +34,10 @@ class CachingObjectStoreService {
 
   CachingObjectStoreService(this._store);
 
-  Future<List<T>> list<T extends Entity>(Type type, {Map params, bool cacheWithParams = false}) {
+  Future<List<T>> list<T extends Entity>(Type type, {Map<String, dynamic> params, bool cacheWithParams = false}) {
     CacheKey paramsKey = new CacheKey(params);
     if (paramsKey.shouldCache(cacheWithParams) && this._cache.containsKey(type) && this._cache[type].containsKey(paramsKey)) {
-      return this._cache[type][paramsKey] as Future<List<T>>;
+      return this._cache[type][paramsKey].then((v) => v.cast());
     }
     Future<List<T>> future = this._store.list(type, params: params);
     if (paramsKey.shouldCache(cacheWithParams)) {

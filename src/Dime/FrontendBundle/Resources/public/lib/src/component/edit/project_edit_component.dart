@@ -44,7 +44,8 @@ class ProjectEditComponent extends EntityEdit<Project> {
       : super(store, Project, status, auth, router, entityEventsService);
 
   @override
-  void onActivate(_, __) {
+  void onActivate(_, current) {
+    super.onActivate(_, current);
     loadRateGroups();
     loadCustomers();
     reload();

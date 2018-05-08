@@ -77,7 +77,7 @@ class Period extends Entity {
         this.pensum = value as num;
         break;
       case 'employee':
-        this.employee = value is Employee ? value : new Employee.fromMap(value as Map<String, dynamic>);
+        this.employee = value is Employee ? value : new Employee.fromMap((value as Map<dynamic, dynamic>).cast<String, dynamic>());
         break;
       case 'holidays':
         this.holidays = value as int;

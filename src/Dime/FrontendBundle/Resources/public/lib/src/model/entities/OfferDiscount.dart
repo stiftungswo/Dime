@@ -49,7 +49,7 @@ class OfferDiscount extends StandardDiscount {
   void Set(String property, dynamic value) {
     switch (property) {
       case 'offer':
-        this.offer = value is Offer ? value : new Offer.fromMap(value as Map<String, dynamic>);
+        this.offer = value is Offer ? value : new Offer.fromMap((value as Map<dynamic, dynamic>).cast<String, dynamic>());
         break;
       default:
         super.Set(property, value);

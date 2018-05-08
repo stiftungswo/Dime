@@ -71,10 +71,10 @@ class OfferPosition extends Entity {
   void Set(String property, dynamic value) {
     switch (property) {
       case 'offer':
-        this.offer = value is Offer ? value : new Offer.fromMap(value as Map<String, dynamic>);
+        this.offer = value is Offer ? value : new Offer.fromMap((value as Map<dynamic, dynamic>).cast<String, dynamic>());
         break;
       case 'service':
-        this.service = value is Service ? value : new Service.fromMap(value as Map<String, dynamic>);
+        this.service = value is Service ? value : new Service.fromMap((value as Map<dynamic, dynamic>).cast<String, dynamic>());
         break;
       case 'order':
         this.order = value as int;
@@ -89,14 +89,15 @@ class OfferPosition extends Entity {
         this.rateUnit = value as String;
         break;
       case 'rateUnitType':
-        this.rateUnitType = value is RateUnitType ? value : new RateUnitType.fromMap(value as Map<String, dynamic>);
+        this.rateUnitType =
+            value is RateUnitType ? value : new RateUnitType.fromMap((value as Map<dynamic, dynamic>).cast<String, dynamic>());
         break;
       case 'vat':
         this.vat = value as double;
         break;
         break;
       case 'serviceRate':
-        this.serviceRate = value is Rate ? value : new Rate.fromMap(value as Map<String, dynamic>);
+        this.serviceRate = value is Rate ? value : new Rate.fromMap((value as Map<dynamic, dynamic>).cast<String, dynamic>());
         break;
       case 'calculatedVAT':
         this.calculatedVAT = value as String;

@@ -138,10 +138,10 @@ class Project extends Entity {
         this.fixedPrice = value as String;
         break;
       case 'customer':
-        this.customer = value is Customer ? value : new Customer.fromMap(value as Map<String, dynamic>);
+        this.customer = value is Customer ? value : new Customer.fromMap((value as Map<dynamic, dynamic>).cast<String, dynamic>());
         break;
       case 'rateGroup':
-        this.rateGroup = value is RateGroup ? value : new RateGroup.fromMap(value as Map<String, dynamic>);
+        this.rateGroup = value is RateGroup ? value : new RateGroup.fromMap((value as Map<dynamic, dynamic>).cast<String, dynamic>());
         break;
       case 'chargeable':
         this.chargeable = value as bool;
@@ -150,19 +150,20 @@ class Project extends Entity {
         this.deadline = addDateValue(value);
         break;
       case 'activities':
-        this.activities = Activity.listFromMap(value as List<Map<String, dynamic>>);
+        this.activities = Activity.listFromMap((value as List<dynamic>).cast());
         break;
       case 'projectCategory':
-        this.projectCategory = value is ProjectCategory ? value : new ProjectCategory.fromMap(value as Map<String, dynamic>);
+        this.projectCategory =
+            value is ProjectCategory ? value : new ProjectCategory.fromMap((value as Map<dynamic, dynamic>).cast<String, dynamic>());
         break;
       case 'invoices':
-        this.invoices = Invoice.listFromMap(value as List<Map<String, dynamic>>);
+        this.invoices = Invoice.listFromMap((value as List<dynamic>).cast());
         break;
       case 'offers':
-        this.offers = Offer.listFromMap(value as List<Map<String, dynamic>>);
+        this.offers = Offer.listFromMap((value as List<dynamic>).cast());
         break;
       case 'accountant':
-        this.accountant = value is Employee ? value : new Employee.fromMap(value as Map<String, dynamic>);
+        this.accountant = value is Employee ? value : new Employee.fromMap((value as Map<dynamic, dynamic>).cast<String, dynamic>());
         break;
       case 'deletedAt':
         this.deletedAt = addDateValue(value);

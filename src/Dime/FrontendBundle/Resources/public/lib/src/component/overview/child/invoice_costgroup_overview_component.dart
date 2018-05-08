@@ -58,7 +58,7 @@ class InvoiceCostgroupOverviewComponent extends EditableOverview<InvoiceCostgrou
 
   num getWeightSum() {
     if (this.entities == null) return 0;
-    List<num> weights = this.entities.map((group) => group.weight).where((weight) => weight != null).toList();
+    List<double> weights = this.entities.map((group) => group.weight).where((weight) => weight != null).toList();
     if (weights.isEmpty) {
       return 0;
     } else {

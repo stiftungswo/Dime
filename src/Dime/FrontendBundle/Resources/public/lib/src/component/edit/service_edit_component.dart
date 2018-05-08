@@ -25,7 +25,10 @@ class ServiceEditComponent extends EntityEdit<Service> {
       : super(store, Service, status, auth, router, entityEventsService);
 
   @override
-  void onActivate(_, __) => reload();
+  void onActivate(_, current) {
+    super.onActivate(_, current);
+    reload();
+  }
 
   @override
   Future reload({bool evict: false}) async {

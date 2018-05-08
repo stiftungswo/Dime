@@ -75,7 +75,7 @@ abstract class EntitySelect<T extends Entity> implements OnInit, ControlValueAcc
       return;
     }
     await this.statusservice.run(() async {
-      this.entities = (await this.store.list(this.type)).toList() as List<T>;
+      this.entities = (await this.store.list(this.type)).toList().cast();
     });
   }
 

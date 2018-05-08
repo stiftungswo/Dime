@@ -53,7 +53,7 @@ class Service extends Entity {
   void Set(String property, dynamic value) {
     switch (property) {
       case 'rates':
-        this.rates = Rate.listFromResource(value as List<Map<String, dynamic>>);
+        this.rates = Rate.listFromResource((value as List<dynamic>).cast());
         break;
       case 'description':
         this.description = value as String;

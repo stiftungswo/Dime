@@ -28,7 +28,8 @@ class CustomerEditComponent extends EntityEdit<Customer> {
       : super(store, Customer, status, auth, router, entityEventsService);
 
   @override
-  void onActivate(_, __) {
+  void onActivate(_, current) {
+    super.onActivate(_, current);
     loadRateGroups();
     reload();
   }

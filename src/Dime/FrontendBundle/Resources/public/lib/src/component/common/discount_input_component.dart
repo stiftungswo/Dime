@@ -19,7 +19,7 @@ import 'percentage_input_component.dart';
     </div>
   """,
   directives: const [formDirectives, coreDirectives, PercentageInputComponent],
-  providers: const [const Provider(NG_VALUE_ACCESSOR, useExisting: DiscountInputComponent, multi: true)],
+  providers: const [const ExistingProvider.forToken(NG_VALUE_ACCESSOR, DiscountInputComponent, multi: true)],
 )
 class DiscountInputComponent implements ControlValueAccessor<num> {
   ChangeFunction<num> _onValueChange;

@@ -60,7 +60,8 @@ class OfferEditComponent extends EntityEdit<Offer> {
       : super(store, Offer, status, auth, router, entityEventsService);
 
   @override
-  void onActivate(_, __) {
+  void onActivate(_, current) {
+    super.onActivate(_, current);
     loadRateGroups();
     loadOfferStates();
     loadUsers();

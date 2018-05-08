@@ -164,10 +164,10 @@ class Entity {
         this.alias = value as String;
         break;
       case 'user':
-        this.user = value is User ? value : new User.fromMap(value as Map<String, dynamic>);
+        this.user = value is User ? value : new User.fromMap((value as Map<dynamic, dynamic>).cast<String, dynamic>());
         break;
       case 'tags':
-        this.tags = Tag.listFromMap(value as List<Map<String, dynamic>>);
+        this.tags = Tag.listFromMap((value as List<dynamic>).cast());
         break;
       default:
         //print('Trying to set ${property} with ${value} in ${this.type} but it does not exist or has no setter');

@@ -17,7 +17,7 @@ abstract class EntityEdit<T extends Entity> implements OnActivate {
   Type entType;
 
   @protected
-  String get entId => router.current.parameters['id'];
+  String entId = null;
 
   CachingObjectStoreService store;
 
@@ -39,7 +39,9 @@ abstract class EntityEdit<T extends Entity> implements OnActivate {
   EntityEdit(this.store, this.entType, this.statusservice, this.auth, this.router, this.entityEventsService);
 
   @override
-  void onActivate(_, __) {}
+  void onActivate(_, RouterState current) {
+    this.entId = current.parameters['id'];
+  }
 
   Future reloadEvict() async {
     reload(evict: true);

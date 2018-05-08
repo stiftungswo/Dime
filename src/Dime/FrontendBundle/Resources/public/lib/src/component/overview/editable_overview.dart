@@ -48,6 +48,9 @@ abstract class EditableOverview<T extends Entity> extends EntityOverview<T> {
 
   @override
   Future createEntity({T newEnt, Map<String, dynamic> params: const {}}) async {
+    if (params.isEmpty) {
+      params = {};
+    }
     await this.statusservice.run(() async {
       if (newEnt == null) {
         newEnt = this.cEnt();
@@ -68,7 +71,7 @@ abstract class EditableOverview<T extends Entity> extends EntityOverview<T> {
       if (evict) {
         this.store.evict(this.type);
       }
-      var entities = (await this.store.list(this.type, params: params)).toList() as List<T>;
+      List<T> entities = (await this.store.list(this.type, params: params)).toList().cast();
       await postProcessEntities(entities);
       entities.forEach(newMap.add);
 

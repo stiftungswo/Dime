@@ -24,7 +24,10 @@ class EmployeeEditComponent extends EntityEdit<Employee> {
       : super(store, Employee, status, auth, router, entityEventsService);
 
   @override
-  void onActivate(_, __) => reload();
+  void onActivate(_, current) {
+    super.onActivate(_, current);
+    reload();
+  }
 
   @override
   Future reload({bool evict: false}) async {

@@ -115,7 +115,7 @@ abstract class EntityOverview<T extends Entity> implements OnActivate {
       if (evict) {
         this.store.evict(this.type);
       }
-      this.entities = (await this.store.list(this.type, params: params)).toList() as List<T>;
+      this.entities = (await this.store.list(this.type, params: params)).toList().cast();
     }, onError: (e, _) => print("Unable to load ${this.type.toString()} because ${e}"));
   }
 

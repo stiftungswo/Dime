@@ -41,7 +41,7 @@ class InvoiceDiscount extends StandardDiscount {
   void Set(String property, dynamic value) {
     switch (property) {
       case 'invoice':
-        this.invoice = value is Invoice ? value : new Invoice.fromMap(value as Map<String, dynamic>);
+        this.invoice = value is Invoice ? value : new Invoice.fromMap((value as Map<dynamic, dynamic>).cast<String, dynamic>());
         break;
       default:
         super.Set(property, value);

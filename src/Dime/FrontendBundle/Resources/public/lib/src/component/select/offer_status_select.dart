@@ -15,7 +15,7 @@ import 'entity_select.dart';
   templateUrl: 'offer_status_select.html',
   directives: const [coreDirectives, formDirectives],
   pipes: const [dimePipes],
-  providers: const [const Provider(NG_VALUE_ACCESSOR, useExisting: OfferStatusSelectComponent, multi: true)],
+  providers: const [const ExistingProvider.forToken(NG_VALUE_ACCESSOR, OfferStatusSelectComponent, multi: true)],
 )
 class OfferStatusSelectComponent extends EntitySelect<OfferStatusUC> {
   OfferStatusSelectComponent(CachingObjectStoreService store, dom.Element element, StatusService status, UserAuthService auth)

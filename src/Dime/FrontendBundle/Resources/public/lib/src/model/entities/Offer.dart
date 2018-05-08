@@ -105,13 +105,13 @@ class Offer extends Entity {
         this.validTo = addDateValue(value);
         break;
       case 'rateGroup':
-        this.rateGroup = value is RateGroup ? value : new RateGroup.fromMap(value as Map<String, dynamic>);
+        this.rateGroup = value is RateGroup ? value : new RateGroup.fromMap((value as Map<dynamic, dynamic>).cast<String, dynamic>());
         break;
       case 'customer':
-        this.customer = value is Customer ? value : new Customer.fromMap(value as Map<String, dynamic>);
+        this.customer = value is Customer ? value : new Customer.fromMap((value as Map<dynamic, dynamic>).cast<String, dynamic>());
         break;
       case 'accountant':
-        this.accountant = value is Employee ? value : new Employee.fromMap(value as Map<String, dynamic>);
+        this.accountant = value is Employee ? value : new Employee.fromMap((value as Map<dynamic, dynamic>).cast<String, dynamic>());
         break;
       case 'shortDescription':
         this.shortDescription = value as String;
@@ -120,16 +120,16 @@ class Offer extends Entity {
         this.description = value as String;
         break;
       case 'offerPositions':
-        this.offerPositions = OfferPosition.listFromMap(value as List<Map<String, dynamic>>);
+        this.offerPositions = OfferPosition.listFromMap((value as List<dynamic>).cast());
         break;
       case 'offerDiscounts':
-        this.offerDiscounts = OfferDiscount.listFromMap(value as List<Map<String, dynamic>>);
+        this.offerDiscounts = OfferDiscount.listFromMap((value as List<dynamic>).cast());
         break;
       case 'status':
-        this.status = value is OfferStatusUC ? value : new OfferStatusUC.fromMap(value as Map<String, dynamic>);
+        this.status = value is OfferStatusUC ? value : new OfferStatusUC.fromMap((value as Map<dynamic, dynamic>).cast<String, dynamic>());
         break;
       case 'address':
-        this.address = value is Address ? value : new Address.fromMap(value as Map<String, dynamic>);
+        this.address = value is Address ? value : new Address.fromMap((value as Map<dynamic, dynamic>).cast<String, dynamic>());
         break;
       case 'fixedPrice':
         this.fixedPrice = value as String;
@@ -147,7 +147,7 @@ class Offer extends Entity {
         this.total = value as String;
         break;
       case 'project':
-        this.project = value is Project ? value : new Project.fromMap(value as Map<String, dynamic>);
+        this.project = value is Project ? value : new Project.fromMap((value as Map<dynamic, dynamic>).cast<String, dynamic>());
         break;
       default:
         super.Set(property, value);

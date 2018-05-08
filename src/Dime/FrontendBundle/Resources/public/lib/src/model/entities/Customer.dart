@@ -67,7 +67,7 @@ class Customer extends Entity {
         this.chargeable = value as bool;
         break;
       case 'address':
-        this.address = value is Address ? value : new Address.fromMap(value as Map<String, dynamic>);
+        this.address = value is Address ? value : new Address.fromMap((value as Map<dynamic, dynamic>).cast<String, dynamic>());
         break;
       case 'company':
         this.company = value as String;
@@ -82,10 +82,10 @@ class Customer extends Entity {
         this.salutation = value as String;
         break;
       case 'rateGroup':
-        this.rateGroup = value is RateGroup ? value : new RateGroup.fromMap(value as Map<String, dynamic>);
+        this.rateGroup = value is RateGroup ? value : new RateGroup.fromMap((value as Map<dynamic, dynamic>).cast<String, dynamic>());
         break;
       case 'phones':
-        this.phones = value as List<Phone>;
+        this.phones = (value as List<dynamic>).cast();
         break;
       default:
         super.Set(property, value);

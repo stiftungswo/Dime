@@ -9,10 +9,13 @@ class FilterPipe implements PipeTransform {
   /// https://webdev.dartlang.org/angular/guide/pipes#appendix-no-filterpipe-or-orderbypipe
   ///
   /// This is probably quite slow (see link above)
-  transform(List<Entity> values, [List<String> searchProperties, String search]) {
+  ///
+  /// [searchProperties] is actually a List<String> but the template passes a List<dynamic>
+  List<Entity> transform(List<dynamic> values, [List<dynamic> searchProperties, String search]) {
     search = search.toLowerCase();
-    Iterable<Entity> filteredValues = values.where((Entity e) {
-      return searchProperties.any((property) => e.Get(property).toString().toLowerCase().contains(search));
+    var castedSearchProperties = searchProperties.cast<String>();
+    Iterable<Entity> filteredValues = values.cast<Entity>().where((Entity e) {
+      return castedSearchProperties.any((property) => e.Get(property).toString().toLowerCase().contains(search));
     });
 
     return filteredValues.toList();

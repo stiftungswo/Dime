@@ -10,7 +10,7 @@ import 'pikaday_component.dart';
   selector: 'date-input',
   templateUrl: 'date_input_component.html',
   directives: const [coreDirectives, formDirectives, PikadayComponent],
-  providers: const [const Provider(NG_VALUE_ACCESSOR, useExisting: DateInputComponent, multi: true)],
+  providers: const [const ExistingProvider.forToken(NG_VALUE_ACCESSOR, DateInputComponent, multi: true)],
 )
 class DateInputComponent implements ControlValueAccessor<DateTime>, OnChanges, AfterViewInit {
   DateTime date;
