@@ -6,7 +6,7 @@
 		{% if reportDescription is not empty %}
 			<div class="description spacing-top">
                 {{ reportDescription.idLabel }}: {{ reportDescription.id }}
-                <br />
+                <br /><br />
                 {{ reportDescription.descriptionLabel }}:
             </div>
             {% if reportDescription.descriptionUseMarkdown %}
@@ -23,6 +23,7 @@
 			<div class="title description spacing-top">Von: {{ report.start|date("d.m.Y") }}</div>{% endif %}
 		{% if report.employee != null %}
 			<div class="title description spacing-top">Report für {{ report.employee.fullname }}</div>{% endif %}
+        <br />
 		<table class="maintable">
 			<tr class="thead">
 				<td class="firstrow">Datum</td>
