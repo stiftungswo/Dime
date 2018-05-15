@@ -8,7 +8,7 @@ Swo\CommonsBundle\Entity\Address:
         street: <streetName()> <buildingNumber()>
         city: <city()>
         plz: <postcode()>
-        supplement: '10%? <secondaryAddress()>'
+        supplement: '10%? Postfach <randomNumber()>'
         country: <country()>
 
 Dime\TimetrackerBundle\Entity\Customer:
