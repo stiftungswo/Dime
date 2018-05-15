@@ -45,10 +45,9 @@ class Entity {
         //TODO Fix Handling of Subentities in Backend. I Probably neeed a form transformer
         if (value.type == 'address') {
           value.addFieldtoUpdate('street');
-          value.addFieldtoUpdate('streetnumber');
+          value.addFieldtoUpdate('supplement');
           value.addFieldtoUpdate('city');
           value.addFieldtoUpdate('plz');
-          value.addFieldtoUpdate('state');
           value.addFieldtoUpdate('country');
         } else {
           // FIXME: this is kind of a hack to fix cloning, could possibly set fields to null in some cases

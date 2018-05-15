@@ -1,17 +1,14 @@
 Swo\CommonsBundle\Entity\Address:
     addressCustomer_1:
-        streetnumber: 25
-        street: Bahnhhofstrasse
+        street: "Bahnhhofstrasse 25"
         city: Zürich
         plz: 8000
-        state: ZH
         country: Switzerland
     addressCustomer_{2..25}:
-        streetnumber: <buildingNumber()>
-        street: <streetName()>
+        street: <streetName()> <buildingNumber()>
         city: <city()>
         plz: <postcode()>
-        state: <state()>
+        supplement: '10%? <secondaryAddress()>'
         country: <country()>
 
 Dime\TimetrackerBundle\Entity\Customer:

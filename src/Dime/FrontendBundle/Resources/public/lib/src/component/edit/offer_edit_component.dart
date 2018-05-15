@@ -148,10 +148,9 @@ class OfferEditComponent extends EntityEdit<Offer> {
     if (entity.customer != null && entity.customer.address != null) {
       addSaveField('address');
       entity.address.street = entity.customer.address.street;
-      entity.address.streetnumber = entity.customer.address.streetnumber;
+      entity.address.supplement = entity.customer.address.supplement;
       entity.address.plz = entity.customer.address.plz;
       entity.address.city = entity.customer.address.city;
-      entity.address.state = entity.customer.address.state;
       entity.address.country = entity.customer.address.country;
     }
   }
