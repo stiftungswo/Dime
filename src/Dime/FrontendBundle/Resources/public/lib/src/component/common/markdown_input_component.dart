@@ -60,7 +60,7 @@ import '../../pipe/markdown_pipe.dart';
     MarkdownPipe,
   ],
   providers: const [
-    const ExistingProvider.forToken(NG_VALUE_ACCESSOR, MarkdownInputComponent, multi: true),
+    const ExistingProvider.forToken(ngValueAccessor, MarkdownInputComponent, multi: true),
   ],
 )
 class MarkdownInputComponent implements ControlValueAccessor<String> {

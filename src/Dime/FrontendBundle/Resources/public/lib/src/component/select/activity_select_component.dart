@@ -16,7 +16,7 @@ import 'entity_select.dart';
   templateUrl: 'activity_select_component.html',
   directives: const [formDirectives, coreDirectives],
   pipes: const [dimePipes],
-  providers: const [const ExistingProvider.forToken(NG_VALUE_ACCESSOR, ActivitySelectComponent, multi: true)],
+  providers: const [const ExistingProvider.forToken(ngValueAccessor, ActivitySelectComponent, multi: true)],
 )
 class ActivitySelectComponent extends EntitySelect<Activity> implements OnChanges {
   ActivitySelectComponent(CachingObjectStoreService store, dom.Element element, StatusService status, UserAuthService auth)

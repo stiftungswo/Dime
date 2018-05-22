@@ -230,7 +230,7 @@ class TimesliceOverviewComponent extends EditableOverview<Timeslice> implements 
     handleDates();
   }
 
-  startOfWeekForDate(DateTime date) {
+  DateTime startOfWeekForDate(DateTime date) {
     return new DateTime(date.year, date.month, date.day - (date.weekday - 1));
   }
 

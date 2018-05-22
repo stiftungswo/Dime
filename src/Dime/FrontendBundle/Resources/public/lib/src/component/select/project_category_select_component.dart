@@ -15,7 +15,7 @@ import 'entity_select.dart';
   templateUrl: 'project_category_select_component.html',
   directives: const [formDirectives, coreDirectives],
   pipes: const [dimePipes],
-  providers: const [const ExistingProvider.forToken(NG_VALUE_ACCESSOR, ProjectCategorySelectComponent, multi: true)],
+  providers: const [const ExistingProvider.forToken(ngValueAccessor, ProjectCategorySelectComponent, multi: true)],
 )
 class ProjectCategorySelectComponent extends EntitySelect<ProjectCategory> {
   ProjectCategorySelectComponent(CachingObjectStoreService store, dom.Element element, StatusService status, UserAuthService auth)
