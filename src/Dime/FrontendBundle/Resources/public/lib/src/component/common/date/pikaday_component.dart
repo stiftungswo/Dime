@@ -285,7 +285,6 @@ class PikadayComponent implements AfterViewInit {
 
   @override
   ngAfterViewInit() {
-    // todo use dom element ref
     _options.field = ref;
     _options.onSelect = allowInterop((dateTimeOrDate) {
       var day =
