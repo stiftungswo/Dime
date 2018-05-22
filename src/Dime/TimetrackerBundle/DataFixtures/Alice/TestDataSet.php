@@ -9,7 +9,7 @@ $alicepath = '/DataFixtures/Alice';
 $bundleRoot = realpath(__DIR__ . '/../../../');
 
 $set = new h4cc\AliceFixturesBundle\Fixtures\FixtureSet(array(
-    'locale' => 'de_DE',
+    'locale' => 'de_CH',
     'seed' => 123123123,
     'do_drop' => true,
     'do_persist' => true

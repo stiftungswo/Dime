@@ -19,7 +19,7 @@ class Address
     protected $id;
 
     /**
-     * The Streetname
+     * The Streetname (with a street number)
      *
      * @JMS\Groups({"List"})
      * @ORM\Column(type="string", nullable=true)
@@ -27,13 +27,13 @@ class Address
     protected $street;
 
     /**
-     * The Streetnumber
+     * An address supplement (eg: Postfach 12)
      * @var String
      *
      * @JMS\Groups({"List"})
      * @ORM\Column(type="string", nullable=true)
      */
-    protected $streetnumber;
+    protected $supplement;
 
     /**
      * The City or Town
@@ -50,13 +50,6 @@ class Address
      * @ORM\Column(type="integer", nullable=true)
      */
     protected $plz;
-
-    /**
-     * The State or Kanton or Bundesland...
-     *
-     * @ORM\Column(type="string", nullable=true)
-     */
-    protected $state;
 
     /**
      * The Country
@@ -87,19 +80,19 @@ class Address
     /**
      * @return String
      */
-    public function getStreetnumber()
+    public function getSupplement()
     {
-        return $this->streetnumber;
+        return $this->supplement;
     }
 
     /**
-     * @param String $streetnumber
+     * @param String $supplement
      *
      * @return $this
      */
-    public function setStreetnumber($streetnumber)
+    public function setSupplement($supplement)
     {
-        $this->streetnumber = $streetnumber;
+        $this->supplement = $supplement;
         return $this;
     }
 
@@ -144,25 +137,6 @@ class Address
     /**
      * @return mixed
      */
-    public function getState()
-    {
-        return $this->state;
-    }
-
-    /**
-     * @param mixed $state
-     *
-     * @return $this
-     */
-    public function setState($state)
-    {
-        $this->state = $state;
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
     public function getCountry()
     {
         return $this->country;
@@ -181,10 +155,10 @@ class Address
 
     public function __toString()
     {
-        if (!empty($this->state)) {
-            return $this->getStreet() . ' ' . $this->getStreetnumber() . ' - ' . $this->getCity()->getPlz() . ' ' . $this->getCity() . ' - ' . $this->getState() . ' ' . $this->getCountry();
+        if (!empty($this->supplement)) {
+            return $this->getStreet() . ' - ' . $this->getCity()->getPlz() . ' ' . $this->getCity() . ' - ' . $this->getSupplement() . ' ' . $this->getCountry();
         } else {
-            return $this->getStreet() . ' ' . $this->getStreetnumber() . ' - ' . $this->getCity()->getPlz() . ' ' . $this->getCity();
+            return $this->getStreet() . ' - ' . $this->getCity()->getPlz() . ' ' . $this->getCity();
         }
     }
 

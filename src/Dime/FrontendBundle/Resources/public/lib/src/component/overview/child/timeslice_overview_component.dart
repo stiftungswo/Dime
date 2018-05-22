@@ -210,6 +210,30 @@ class TimesliceOverviewComponent extends EditableOverview<Timeslice> implements 
     this.reload();
   }
 
+  seekLatestEvent() async {
+    List<Timeslice> result = await this.statusservice.run(() async {
+      if (this.projectBased) {
+        return await store.list(Timeslice, params: {'project': selectedProject.id, "latest": true});
+      } else {
+        return await store.list(Timeslice, params: {'employee': _employee.id, "latest": true});
+      }
+    });
+
+    if (result.length != 1) {
+      return;
+    }
+
+    Timeslice latest = result.first;
+
+    filterStartDate = startOfWeekForDate(latest.startedAt);
+    filterEndDate = filterStartDate.add(new Duration(days: 6));
+    handleDates();
+  }
+
+  startOfWeekForDate(DateTime date) {
+    return new DateTime(date.year, date.month, date.day - (date.weekday - 1));
+  }
+
   @override
   Future reload({Map<String, dynamic> params, bool evict: false}) async {
     if (this.dateRange == null || this.dateRange == "") {

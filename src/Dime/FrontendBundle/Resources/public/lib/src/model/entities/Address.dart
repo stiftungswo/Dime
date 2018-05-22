@@ -5,12 +5,11 @@ class Address extends Entity {
 
   Address.clone(Address original) {
     this.street = original.street;
-    this.streetnumber = original.streetnumber;
+    this.supplement = original.supplement;
     this.city = original.city;
     this.plz = original.plz;
-    this.state = original.state;
     this.country = original.country;
-    addFieldstoUpdate(['street', 'streetnumber', 'city', 'plz', 'state', 'country']);
+    addFieldstoUpdate(['street', 'supplement', 'city', 'plz', 'country']);
   }
 
   Address.fromMap(Map<String, dynamic> map) : super.fromMap(map);
@@ -27,14 +26,12 @@ class Address extends Entity {
       switch (property) {
         case 'street':
           return this.street;
-        case 'streetnumber':
-          return this.streetnumber;
+        case 'supplement':
+          return this.supplement;
         case 'city':
           return this.city;
         case 'plz':
           return this.plz;
-        case 'state':
-          return this.state;
         case 'country':
           return this.country;
         default:
@@ -50,17 +47,14 @@ class Address extends Entity {
       case 'street':
         this.street = value as String;
         break;
-      case 'streetnumber':
-        this.streetnumber = value as String;
+      case 'supplement':
+        this.supplement = value as String;
         break;
       case 'city':
         this.city = value as String;
         break;
       case 'plz':
         this.plz = value as int;
-        break;
-      case 'state':
-        this.state = value as String;
         break;
       case 'country':
         this.country = value as String;
@@ -74,14 +68,13 @@ class Address extends Entity {
   @override
   String type = 'address';
   String street;
-  String streetnumber;
+  String supplement;
   String city;
   int plz;
-  String state;
   String country;
 
   @override
   String toString() {
-    return '$streetnumber $street - $plz $city';
+    return '$street - $plz $city';
   }
 }

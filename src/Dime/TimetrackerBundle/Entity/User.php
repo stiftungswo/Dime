@@ -71,6 +71,7 @@ class User extends BaseUser implements DimeEntityInterface
 
     /**
      * @var integer $employeeholiday
+     * @JMS\Groups({"List"})
      *
      * @ORM\Column(type="integer", nullable=true)
      */

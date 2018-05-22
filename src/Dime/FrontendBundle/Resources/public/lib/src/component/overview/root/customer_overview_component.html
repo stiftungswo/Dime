@@ -29,6 +29,11 @@
             </a>
           </th>
           <th>
+            <a (click)="changeSortOrder('address.supplement')">
+              Adresszusatz<span *ngIf="sortType == 'address.supplement' && sortReverse" class="fa fa-fw fa-angle-up"></span><span *ngIf="sortType == 'address.supplement' && !sortReverse" class="fa fa-fw fa-angle-down"></span>
+            </a>
+          </th>
+          <th>
             <a (click)="changeSortOrder('address.plz')">
               PLZ<span *ngIf="sortType == 'address.plz' && sortReverse" class="fa fa-fw fa-angle-up"></span><span *ngIf="sortType == 'address.plz' && !sortReverse" class="fa fa-fw fa-angle-down"></span>
             </a>
@@ -45,7 +50,8 @@
         <tr *ngFor="let entity of entities | orderBy:sortType:sortReverse | filter:['id', 'name', 'address']:CustomerOverviewComponent.globalFilterString" (dblclick)="openEditView(entity.id)">
           <td>{{entity.id}}</td>
           <td>{{entity.name}}</td>
-          <td>{{entity.address.street}} {{entity.address.streetnumber}}</td>
+          <td>{{entity.address.street}}</td>
+          <td>{{entity.address.supplement}}</td>
           <td>{{entity.address.plz}}</td>
           <td>{{entity.address.city}}</td>
           <td>

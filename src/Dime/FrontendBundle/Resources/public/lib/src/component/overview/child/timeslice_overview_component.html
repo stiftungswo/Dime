@@ -1,5 +1,7 @@
 <div class="row" style="margin-bottom: 5px;">
-    <div class="col-xs-12 col-sm-2"></div>
+    <div class="col-xs-12 col-sm-2">
+        <dime-button (click)="seekLatestEvent()">Zu neuestem Eintrag springen</dime-button>
+    </div>
     <date-range class="col-xs-12 col-sm-8" [(startdate)]="filterStartDate" [(enddate)]="filterEndDate"></date-range>
 </div>
 <div class="text-muted" *ngIf="entities.length == 0">
