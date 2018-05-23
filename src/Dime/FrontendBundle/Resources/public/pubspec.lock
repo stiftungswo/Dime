@@ -159,18 +159,11 @@ packages:
     version: "1.1.5"
   hammock:
     description:
-      ref: master
-      resolved-ref: e144b079266d1f151e47bccaa7848ebdd2f982f9
+      ref: "0.6.0"
+      resolved-ref: "14212da23a2f0de41428a3905b7d25356df63b60"
       url: "https://github.com/stiftungswo/hammock.git"
     source: git
-    version: "0.5.0"
-  hammock_mapper:
-    description:
-      ref: swo_hammock_angular_4
-      resolved-ref: "7aa43d98ce0bb7fd11eab50ce97fd8c5f6596e7f"
-      url: "https://github.com/stiftungswo/hammock_mapper.git"
-    source: git
-    version: "0.0.2"
+    version: "0.6.0"
   html:
     description:
       name: html

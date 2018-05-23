@@ -14,11 +14,7 @@ dependencies:
   hammock:
     git:
         url: https://github.com/stiftungswo/hammock.git
-        ref: master
-  hammock_mapper:
-    git:
-        url: https://github.com/stiftungswo/hammock_mapper.git
-        ref: swo_hammock_angular_4
+        ref: 0.6.0
   sentry_client: ">=4.0.3 < 5.0.0"
   meta: ^1.1.2
   stack_trace: "^1.9.2"
