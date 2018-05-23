@@ -235,19 +235,12 @@ packages:
   hammock:
     dependency: "direct main"
     description:
-      path: "../../../../../../hammock_swo"
-      relative: true
-    source: path
-    version: "0.5.0"
-  hammock_mapper:
-    dependency: "direct main"
-    description:
       path: "."
-      ref: swo_hammock_angular_4
-      resolved-ref: "7aa43d98ce0bb7fd11eab50ce97fd8c5f6596e7f"
-      url: "https://github.com/stiftungswo/hammock_mapper.git"
+      ref: "0.7.0-alpha"
+      resolved-ref: cb3921a3944d06c97674a29c35f2b6f363f1b30e
+      url: "https://github.com/stiftungswo/hammock.git"
     source: git
-    version: "0.0.2"
+    version: "0.7.0-alpha"
   html:
     dependency: transitive
     description:
@@ -303,7 +296,7 @@ packages:
       name: json_annotation
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.2.4"
+    version: "0.2.5"
   kernel:
     dependency: transitive
     description:
@@ -457,7 +450,7 @@ packages:
       name: shelf
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.7.3"
+    version: "0.7.3+1"
   shelf_packages_handler:
     dependency: transitive
     description:
@@ -471,7 +464,7 @@ packages:
       name: shelf_static
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.2.7"
+    version: "0.2.7+1"
   shelf_web_socket:
     dependency: transitive
     description:
@@ -597,6 +590,6 @@ packages:
       name: yaml
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.13"
+    version: "2.1.14"
 sdks:
-  dart: ">=2.0.0-dev.54.0 <=2.0.0-dev.55.0"
+  dart: "2.0.0-dev.55.0"
