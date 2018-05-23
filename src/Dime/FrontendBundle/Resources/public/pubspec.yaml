@@ -11,7 +11,6 @@ dependencies:
   angular_forms: ^1.0.0
   pikaday_datepicker_angular: "^3.1.0"
   browser: any
-  route_hierarchical: '>=0.5.0 <0.7.0'
   hammock:
     git:
         url: https://github.com/stiftungswo/hammock.git
@@ -20,11 +19,10 @@ dependencies:
     git:
         url: https://github.com/stiftungswo/hammock_mapper.git
         ref: swo_hammock_angular_4
-  crypto: ">=2.0.2 <2.1.0"
   sentry_client: ">=4.0.3 < 5.0.0"
   meta: ^1.1.2
   stack_trace: "^1.9.2"
-  markdown: "^1.1.1"
+  markdown: "^2.0.0"
 
 dev_dependencies:
   dart_to_js_script_rewriter: ^1.0.1
