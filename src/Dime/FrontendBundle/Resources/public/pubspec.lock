@@ -375,19 +375,12 @@ packages:
     source: hosted
     version: "1.5.1"
   pikaday:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: pikaday
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.2.0+1"
-  pikaday_datepicker_angular:
-    dependency: "direct main"
-    description:
-      path: "../../../../../../pikaday_datepicker_angular"
-      relative: true
-    source: path
-    version: "3.1.0"
   plugin:
     dependency: transitive
     description:
