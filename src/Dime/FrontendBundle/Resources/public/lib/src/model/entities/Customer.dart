@@ -8,13 +8,14 @@ class Customer extends Entity {
     this.user = original.user;
     this.company = original.company;
     this.chargeable = original.chargeable;
-    this.address = original.address;
     this.department = original.department;
     this.fullname = original.fullname;
     this.salutation = original.salutation;
     this.rateGroup = original.rateGroup;
     this.address = new Address.clone(original.address);
-    addFieldstoUpdate(['name', 'user', 'company', 'chargeable', 'address', 'department', 'fullname', 'salutation', 'rateGroup', 'address']);
+    this.tags = original.tags;
+    addFieldstoUpdate(
+        ['name', 'user', 'company', 'chargeable', 'address', 'department', 'fullname', 'salutation', 'rateGroup', 'address', 'tags']);
   }
 
   Customer.fromMap(Map<String, dynamic> map) : super.fromMap(map);
@@ -53,6 +54,8 @@ class Customer extends Entity {
           return this.rateGroup;
         case 'phones':
           return this.phones;
+        case 'tags':
+          return this.tags;
         default:
           break;
       }
@@ -87,6 +90,10 @@ class Customer extends Entity {
       case 'phones':
         this.phones = value as List<Phone>;
         break;
+      case 'tags':
+        // sometimes the backend responds with a map instead of a list
+        this.tags = ((value is Map ? value.values : value) as Iterable<Map<String, dynamic>>).map((item) => new Tag.fromMap(item)).toList();
+        break;
       default:
         super.Set(property, value);
         break;
@@ -103,4 +110,5 @@ class Customer extends Entity {
   String salutation;
   RateGroup rateGroup;
   List<Phone> phones;
+  List<Tag> tags = [];
 }

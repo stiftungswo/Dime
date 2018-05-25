@@ -9,7 +9,6 @@ import 'package:angular_forms/angular_forms.dart';
 import '../../model/Entity.dart';
 import '../../service/caching_object_store_service.dart';
 import '../../service/status_service.dart';
-import '../../service/user_auth_service.dart';
 
 abstract class EntitySelect<T extends Entity> implements OnInit, ControlValueAccessor<T> {
   CachingObjectStoreService store;
@@ -20,7 +19,6 @@ abstract class EntitySelect<T extends Entity> implements OnInit, ControlValueAcc
   List<T> entities = [];
   String selector = '';
   StatusService statusservice;
-  UserAuthService auth;
 
   //this sets the value to 'null' if the dropdown is closed without selecting an entity
   @Input('clearOnClose')
@@ -60,7 +58,7 @@ abstract class EntitySelect<T extends Entity> implements OnInit, ControlValueAcc
 
   T get selectedEntity => _selectedEntity;
 
-  EntitySelect(this.type, this.store, this.element, this.statusservice, this.auth);
+  EntitySelect(this.type, this.store, this.element, this.statusservice);
 
   String get EntText => this._selectedEntity != null ? this._selectedEntity.name : '';
 

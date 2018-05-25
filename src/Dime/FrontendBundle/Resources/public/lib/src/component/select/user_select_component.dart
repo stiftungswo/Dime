@@ -8,7 +8,6 @@ import '../../model/entity_export.dart';
 import '../../pipe/dime_pipes.dart';
 import '../../service/caching_object_store_service.dart';
 import '../../service/status_service.dart';
-import '../../service/user_auth_service.dart';
 import '../../service/user_context_service.dart';
 import 'entity_select.dart';
 
@@ -20,8 +19,8 @@ import 'entity_select.dart';
   providers: const [const Provider(NG_VALUE_ACCESSOR, useExisting: UserSelectComponent, multi: true)],
 )
 class UserSelectComponent extends EntitySelect<Employee> implements OnChanges {
-  UserSelectComponent(CachingObjectStoreService store, dom.Element element, this.context, StatusService status, UserAuthService auth)
-      : super(Employee, store, element, status, auth);
+  UserSelectComponent(CachingObjectStoreService store, dom.Element element, this.context, StatusService status)
+      : super(Employee, store, element, status);
 
   UserContextService context;
   @Input()

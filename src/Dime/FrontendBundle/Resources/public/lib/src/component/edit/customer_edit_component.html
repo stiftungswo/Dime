@@ -31,6 +31,9 @@
             Verrechenbar
           </label>
       </dime-form-group>
+      <dime-form-group horizontal label="Tags">
+        <tag-select [ngModel]="entity.tags" (ngModelChange)="entity.tags=$event;addSaveField('tags')"></tag-select>
+      </dime-form-group>
       <h4>Adresse</h4>
       <address-edit [(address)]="entity.address"  (change)="addSaveField('address')"></address-edit>
     </div>

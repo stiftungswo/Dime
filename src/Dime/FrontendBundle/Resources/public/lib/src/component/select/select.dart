@@ -8,3 +8,4 @@ export 'rate_group_select_component.dart';
 export 'rate_unit_type_select_component.dart';
 export 'service_select_component.dart';
 export 'user_select_component.dart';
+export 'tag_select_component.dart';
