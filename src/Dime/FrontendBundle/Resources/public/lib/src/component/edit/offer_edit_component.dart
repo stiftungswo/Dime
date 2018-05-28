@@ -81,7 +81,7 @@ class OfferEditComponent extends EntityEdit<Offer> {
   }
 
   Future loadCustomers() async {
-    this.customers = await this.store.list(Customer);
+    this.customers = await this.store.list(Customer, params: {'systemCustomer': 1});
   }
 
   Future loadRateGroups() async {

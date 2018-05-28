@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:html' as dom;
 
 import 'package:angular/angular.dart';
@@ -19,4 +20,11 @@ import 'entity_select.dart';
 class CustomerSelectComponent extends EntitySelect<Customer> {
   CustomerSelectComponent(CachingObjectStoreService store, dom.Element element, StatusService status)
       : super(Customer, store, element, status);
+
+  @override
+  Future reload() async {
+    await this.statusservice.run(() async {
+      this.entities = (await this.store.list(Customer, params: {'systemCustomer': 1})).toList();
+    });
+  }
 }

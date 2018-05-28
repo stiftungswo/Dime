@@ -31,6 +31,12 @@
             Verrechenbar
           </label>
       </dime-form-group>
+      <dime-form-group horizontal class="checkbox">
+          <label>
+            <input type="checkbox" [(ngModel)]="entity.systemCustomer" (change)="addSaveField('systemCustomer')"/>
+            System Kunde
+          </label>
+      </dime-form-group>
       <dime-form-group horizontal label="Tags">
         <tag-select [ngModel]="entity.tags" (ngModelChange)="entity.tags=$event;addSaveField('tags')"></tag-select>
       </dime-form-group>

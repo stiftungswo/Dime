@@ -17,6 +17,7 @@ Dime\TimetrackerBundle\Entity\Customer:
         name: StiftungSWO
         alias: stiftungswo
         chargeable: true
+        systemCustomer: true
         address: @addressCustomer_1
         user: @user_*
     customer_{2..25}:
@@ -24,6 +25,7 @@ Dime\TimetrackerBundle\Entity\Customer:
         name: <company()>
         alias: <slug()>
         chargeable: <boolean(90)>
+        systemCustomer: <boolean(90)>
         company: <company()>
         department: <word()>
         fullname: <name()>
