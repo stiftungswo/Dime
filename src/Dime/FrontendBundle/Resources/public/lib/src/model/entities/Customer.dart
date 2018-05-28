@@ -8,14 +8,27 @@ class Customer extends Entity {
     this.user = original.user;
     this.company = original.company;
     this.chargeable = original.chargeable;
+    this.systemCustomer = original.systemCustomer;
     this.department = original.department;
     this.fullname = original.fullname;
     this.salutation = original.salutation;
     this.rateGroup = original.rateGroup;
     this.address = new Address.clone(original.address);
     this.tags = original.tags;
-    addFieldstoUpdate(
-        ['name', 'user', 'company', 'chargeable', 'address', 'department', 'fullname', 'salutation', 'rateGroup', 'address', 'tags']);
+    addFieldstoUpdate([
+      'name',
+      'user',
+      'company',
+      'chargeable',
+      'systemCustomer',
+      'address',
+      'department',
+      'fullname',
+      'salutation',
+      'rateGroup',
+      'address',
+      'tags'
+    ]);
   }
 
   Customer.fromMap(Map<String, dynamic> map) : super.fromMap(map);
@@ -40,6 +53,8 @@ class Customer extends Entity {
       switch (property) {
         case 'chargeable':
           return this.chargeable;
+        case 'systemCustomer':
+          return this.systemCustomer;
         case 'address':
           return this.address;
         case 'company':
@@ -68,6 +83,9 @@ class Customer extends Entity {
     switch (property) {
       case 'chargeable':
         this.chargeable = value as bool;
+        break;
+      case 'systemCustomer':
+        this.systemCustomer = value as bool;
         break;
       case 'address':
         this.address = value is Address ? value : new Address.fromMap(value as Map<String, dynamic>);
@@ -103,6 +121,7 @@ class Customer extends Entity {
   @override
   String type = 'customers';
   bool chargeable;
+  bool systemCustomer;
   Address address;
   String company;
   String department;

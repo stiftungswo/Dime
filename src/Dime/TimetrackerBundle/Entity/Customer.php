@@ -93,6 +93,16 @@ class Customer extends Entity implements DimeEntityInterface
     protected $chargeable = true;
 
     /**
+     * Can this customer be used for offers / invoices?
+     * @var boolean $systemCustomer
+     *
+     * @JMS\Groups({"List"})
+     * @JMS\SerializedName("systemCustomer")
+     * @ORM\Column(type="boolean", name="system_customer")
+     */
+    protected $systemCustomer = true;
+
+    /**
      * @var \Swo\CommonsBundle\Entity\Address $address
      *
      * @JMS\Groups({"List"})
@@ -283,6 +293,22 @@ class Customer extends Entity implements DimeEntityInterface
     public function getChargeable()
     {
         return $this->chargeable;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isSystemCustomer()
+    {
+        return $this->systemCustomer;
+    }
+
+    /**
+     * @param bool $systemCustomer
+     */
+    public function setSystemCustomer($systemCustomer)
+    {
+        $this->systemCustomer = $systemCustomer;
     }
 
     /**

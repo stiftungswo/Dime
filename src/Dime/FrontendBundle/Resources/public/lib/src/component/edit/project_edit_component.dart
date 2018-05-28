@@ -56,7 +56,7 @@ class ProjectEditComponent extends EntityEdit<Project> {
   }
 
   Future loadCustomers() async {
-    this.customers = await this.store.list(Customer);
+    this.customers = await this.store.list(Customer, params: {'systemCustomer': 1});
   }
 
   Future loadRateGroups() async {
