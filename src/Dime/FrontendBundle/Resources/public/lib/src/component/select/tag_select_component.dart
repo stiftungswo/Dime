@@ -1,11 +1,12 @@
 import 'dart:async';
-
 import 'dart:html';
+
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
 
 import '../../model/entity_export.dart';
 import '../../pipe/dime_pipes.dart';
+import '../../pipe/selected_tags_pipe.dart';
 import '../../service/caching_object_store_service.dart';
 import '../../service/status_service.dart';
 
@@ -85,12 +86,5 @@ class TagSelectComponent implements OnInit, ControlValueAccessor<List<Tag>> {
   @override
   ngOnInit() {
     reload();
-  }
-}
-
-@Pipe('selectedTags', pure: false)
-class SelectedTagsPipe implements PipeTransform {
-  List<Entity> transform(List<Entity> value, [List<Tag> selectedTags]) {
-    return (value as List<Tag>).where((Tag t) => selectedTags.where((Tag tt) => t.id == tt.id).isEmpty).toList();
   }
 }
