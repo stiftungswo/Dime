@@ -47,6 +47,7 @@ class Customer extends Entity implements DimeEntityInterface
      * @JMS\SerializedName("tags")
      * @ORM\ManyToMany(targetEntity="Tag", cascade="all")
      * @ORM\JoinTable(name="customer_tags")
+     * @JMS\Groups({"List"})
      */
     protected $tags;
 
