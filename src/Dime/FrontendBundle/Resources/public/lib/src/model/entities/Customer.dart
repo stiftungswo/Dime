@@ -129,5 +129,6 @@ class Customer extends Entity {
   String salutation;
   RateGroup rateGroup;
   List<Phone> phones;
+  @override
   List<Tag> tags = [];
 }
