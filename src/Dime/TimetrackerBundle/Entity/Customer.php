@@ -80,6 +80,20 @@ class Customer extends Entity implements DimeEntityInterface
     protected $salutation;
 
     /**
+     * @var String
+     *
+     * @ORM\Column(type="string", length=60, nullable=true)
+     */
+    protected $email;
+
+    /**
+     * @var String
+     *
+     * @ORM\Column(type="string", length=60, nullable=true)
+     */
+    protected $phone;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Dime\TimetrackerBundle\Entity\RateGroup")
      * @ORM\JoinColumn(name="rate_group_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
      * @JMS\SerializedName("rateGroup")
@@ -451,6 +465,44 @@ class Customer extends Entity implements DimeEntityInterface
     public function setSalutation($salutation)
     {
         $this->salutation = $salutation;
+        return $this;
+    }
+
+    /**
+     * @return String
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * @param String $email
+     *
+     * @return $this
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+        return $this;
+    }
+
+    /**
+     * @return String
+     */
+    public function getPhone()
+    {
+        return $this->phone;
+    }
+
+    /**
+     * @param String $phone
+     *
+     * @return $this
+     */
+    public function setPhone($phone)
+    {
+        $this->phone = $phone;
         return $this;
     }
 }

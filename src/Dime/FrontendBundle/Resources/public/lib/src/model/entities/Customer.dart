@@ -12,6 +12,8 @@ class Customer extends Entity {
     this.department = original.department;
     this.fullname = original.fullname;
     this.salutation = original.salutation;
+    this.email = original.email;
+    this.phone = original.phone;
     this.rateGroup = original.rateGroup;
     this.address = new Address.clone(original.address);
     this.tags = original.tags;
@@ -25,6 +27,8 @@ class Customer extends Entity {
       'department',
       'fullname',
       'salutation',
+      'email',
+      'phone',
       'rateGroup',
       'address',
       'tags'
@@ -65,6 +69,10 @@ class Customer extends Entity {
           return this.fullname;
         case 'salutation':
           return this.salutation;
+        case 'email':
+          return this.email;
+        case 'phone':
+          return this.phone;
         case 'rateGroup':
           return this.rateGroup;
         case 'phones':
@@ -102,6 +110,12 @@ class Customer extends Entity {
       case 'salutation':
         this.salutation = value as String;
         break;
+      case 'email':
+        this.email = value as String;
+        break;
+      case 'phone':
+        this.phone = value as String;
+        break;
       case 'rateGroup':
         this.rateGroup = value is RateGroup ? value : new RateGroup.fromMap(value as Map<String, dynamic>);
         break;
@@ -127,6 +141,8 @@ class Customer extends Entity {
   String department;
   String fullname;
   String salutation;
+  String email;
+  String phone;
   RateGroup rateGroup;
   List<Phone> phones;
   @override
