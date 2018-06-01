@@ -82,6 +82,7 @@ class Customer extends Entity implements DimeEntityInterface
     /**
      * @var String
      *
+     * @JMS\Groups({"List"})
      * @ORM\Column(type="string", length=60, nullable=true)
      */
     protected $email;

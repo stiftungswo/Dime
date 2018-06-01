@@ -6,6 +6,7 @@
     <div class="DimeControlButtons">
       <dime-button primary (click)="createEntity()" glyphicon="plus">Hinzufügen</dime-button>
       <dime-button (click)="reloadEvict()" glyphicon="refresh"></dime-button>
+      <dime-button (click)="importExportOpen = !importExportOpen" glyphicon="folder-open">Kunden importieren / exportieren</dime-button>
     </div>
     <div class="form-group">
       <input type="text" class="form-control" placeholder="Suche" [(ngModel)]="CustomerOverviewComponent.globalFilterString">
@@ -17,6 +18,14 @@
       <label>Nur System-Kunden anzeigen: </label>
       <input type="checkbox" [(ngModel)]="CustomerOverviewComponent.showOnlySystemCustomer">
     </div>
+    <div class="panel panel-default" *ngIf="importExportOpen">
+      <div class="panel-heading">Kunden importieren / exportieren</div>
+      <div class="panel-body">
+        <p>Email Adressen:</p>
+        <copy-input [text]="getEmailString()"></copy-input>
+      </div>
+    </div>
+
     <table class="table table-bordered table-hover">
       <thead>
         <tr>
