@@ -5,7 +5,6 @@ import 'package:angular_router/src/router.dart';
 
 import '../../../model/entity_export.dart';
 import '../../../pipe/dime_pipes.dart';
-import '../../../pipe/selected_tags_pipe.dart';
 import '../../../service/caching_object_store_service.dart';
 import '../../../service/entity_events_service.dart';
 import '../../../service/settings_service.dart';
@@ -20,7 +19,7 @@ import '../entity_overview.dart';
     selector: 'customer-overview',
     templateUrl: 'customer_overview_component.html',
     directives: const [CORE_DIRECTIVES, formDirectives, dimeDirectives, TagSelectComponent],
-    pipes: const [dimePipes, FilterCustomerTagsPipe])
+    pipes: const [dimePipes, ProjectOverviewFilterPipe])
 class CustomerOverviewComponent extends EntityOverview<Customer> implements OnActivate {
   CustomerOverviewComponent(CachingObjectStoreService store, Router router, SettingsService manager, StatusService status,
       UserAuthService auth, RouteParams prov, EntityEventsService entityEventsService)
@@ -28,6 +27,7 @@ class CustomerOverviewComponent extends EntityOverview<Customer> implements OnAc
 
   static String globalFilterString = '';
   static List<Tag> filterTags = [];
+  static bool showOnlySystemCustomer = true;
 
   @override
   routerOnActivate(ComponentInstruction nextInstruction, ComponentInstruction prevInstruction) {
@@ -44,5 +44,29 @@ class CustomerOverviewComponent extends EntityOverview<Customer> implements OnAc
       return new Customer.clone(entity);
     }
     return new Customer();
+  }
+}
+
+@Pipe('projectOverviewFilter', pure: false)
+class ProjectOverviewFilterPipe implements PipeTransform {
+  List<Entity> transform(List<Entity> value, [List<Tag> selectedTags, bool showOnlySystemCustomers]) {
+    if (value.isEmpty || value.first is! Customer) {
+      return value;
+    }
+
+    Set<int> selectedTagIds = selectedTags.map((Tag t) => t.id as int).toSet();
+
+    Iterable<Customer> resultIterator = (value as List<Customer>);
+
+    if (showOnlySystemCustomers) {
+      resultIterator = resultIterator.where((Customer c) => c.systemCustomer);
+    }
+
+    resultIterator = resultIterator.where((Customer c) {
+      Set<int> customerTagIds = c.tags.map((Tag t) => t.id as int).toSet();
+      return selectedTagIds.difference(customerTagIds).isEmpty;
+    });
+
+    return resultIterator.toList();
   }
 }
