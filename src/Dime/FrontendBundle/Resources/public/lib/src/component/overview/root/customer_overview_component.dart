@@ -27,7 +27,7 @@ class CustomerOverviewComponent extends EntityOverview<Customer> implements OnAc
 
   static String globalFilterString = '';
   static List<Tag> filterTags = [];
-  static bool showOnlySystemCustomer = true;
+  static bool showOnlySystemCustomer = false;
 
   @override
   routerOnActivate(ComponentInstruction nextInstruction, ComponentInstruction prevInstruction) {
