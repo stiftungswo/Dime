@@ -23,12 +23,12 @@ services:
         arguments: [ "@doctrine.orm.entity_manager", "Dime\TimetrackerBundle\Entity\Service",  "@service_container", "s", "dime_timetrackerbundle_serviceformtype"]
 
     dime.project.handler:
-        class: "Dime\TimetrackerBundle\Handler\ProjectHandler"
-        arguments: [ "@doctrine.orm.entity_manager", "Dime\TimetrackerBundle\Entity\Project",  "@service_container", "p", "dime_timetrackerbundle_projectformtype"]
+        class: 'Dime\TimetrackerBundle\Handler\ProjectHandler'
+        arguments: [ "@doctrine.orm.entity_manager", 'Dime\TimetrackerBundle\Entity\Project',  "@service_container", "p", "dime_timetrackerbundle_projectformtype"]
 
     dime.customer.handler:
-        class: "Dime\TimetrackerBundle\Handler\CustomerHandler"
-        arguments: [ "@doctrine.orm.entity_manager", "Dime\TimetrackerBundle\Entity\Customer",  "@service_container", "c", "dime_timetrackerbundle_customerformtype"]
+        class: 'Dime\TimetrackerBundle\Handler\CustomerHandler'
+        arguments: [ "@doctrine.orm.entity_manager", 'Dime\TimetrackerBundle\Entity\Customer',  "@service_container", "c", "dime_timetrackerbundle_customerformtype"]
 
     dime.activity.handler:
         class: %generic_handler%
