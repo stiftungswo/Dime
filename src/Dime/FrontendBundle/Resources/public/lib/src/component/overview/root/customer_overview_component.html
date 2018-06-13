@@ -23,6 +23,7 @@
       <div class="panel-body">
         <p>Email Adressen:</p>
         <copy-input [text]="getEmailString()"></copy-input>
+        <download-button href="{{getCsvExportLink()}}">CSV Download</download-button>
       </div>
     </div>
 

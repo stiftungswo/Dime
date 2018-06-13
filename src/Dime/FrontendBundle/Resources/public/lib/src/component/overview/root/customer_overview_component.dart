@@ -8,6 +8,7 @@ import '../../../pipe/dime_pipes.dart';
 import '../../../pipe/filter_pipe.dart';
 import '../../../service/caching_object_store_service.dart';
 import '../../../service/entity_events_service.dart';
+import '../../../service/http_service.dart';
 import '../../../service/settings_service.dart';
 import '../../../service/status_service.dart';
 import '../../../service/user_auth_service.dart';
@@ -24,13 +25,15 @@ import '../entity_overview.dart';
     pipes: const [dimePipes, ProjectOverviewFilterPipe])
 class CustomerOverviewComponent extends EntityOverview<Customer> implements OnActivate {
   CustomerOverviewComponent(CachingObjectStoreService store, Router router, SettingsService manager, StatusService status,
-      UserAuthService auth, RouteParams prov, EntityEventsService entityEventsService)
+      UserAuthService auth, RouteParams prov, EntityEventsService entityEventsService, this.http)
       : super(Customer, store, 'CustomerEdit', manager, status, entityEventsService, auth: auth, router: router);
 
   static String globalFilterString = '';
   static List<Tag> filterTags = [];
   static bool showOnlySystemCustomer = false;
   bool importExportOpen = false;
+
+  HttpService http;
 
   @override
   routerOnActivate(ComponentInstruction nextInstruction, ComponentInstruction prevInstruction) {
@@ -58,6 +61,16 @@ class CustomerOverviewComponent extends EntityOverview<Customer> implements OnAc
         .where((Customer c) => c.email?.isNotEmpty ?? false)
         .map((Customer c) => "${c.name}<${c.email}>")
         .join(',');
+  }
+
+  String getCsvExportLink() {
+    var params = {
+      "search": globalFilterString,
+      "withTags": filterTags.map((t) => t.id).join(","),
+      "systemCustomer": showOnlySystemCustomer ? "1" : "0",
+    };
+    String query = encodeQueryParams(params);
+    return '${http.baseUrl}/customers/export/csv${query}';
   }
 }
 

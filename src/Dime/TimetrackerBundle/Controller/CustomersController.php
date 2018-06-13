@@ -2,7 +2,10 @@
 
 namespace Dime\TimetrackerBundle\Controller;
 
+use Dime\ReportBundle\Handler\ReportHandler;
+use Dime\TimetrackerBundle\Entity\Customer;
 use Dime\TimetrackerBundle\Exception\InvalidFormException;
+use Dime\TimetrackerBundle\Handler\CustomerHandler;
 use FOS\RestBundle\Controller\Annotations;
 use FOS\RestBundle\Request\ParamFetcherInterface;
 use FOS\RestBundle\Util\Codes;
@@ -10,6 +13,8 @@ use FOS\RestBundle\View\View;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class CustomersController extends DimeController
@@ -197,5 +202,95 @@ class CustomersController extends DimeController
     {
         $this->container->get($this->handlerSerivce)->delete($this->getOr404($id, $this->handlerSerivce));
         return $this->view(null, Codes::HTTP_NO_CONTENT);
+    }
+
+    /**
+     * Export filtered entities as csv.
+     *
+     * @ApiDoc(
+     * resource = true,
+     * description="Export filtered entities as csv.",
+     * section="customers",
+     * statusCodes = {
+     * 200 = "Returned when successful"
+     * }
+     * )
+     *
+     * @Annotations\QueryParam(name="withTags", nullable=true, description="Filter By Tag")
+     * @Annotations\QueryParam(name="search", nullable=true, description="Filter By Name or alias")
+     * @Annotations\QueryParam(name="systemCustomer", nullable=true, description="Filter By systemCustomer")
+     *
+     * @Annotations\View(
+     * serializerEnableMaxDepthChecks=true
+     * )
+     *
+     * @param ParamFetcherInterface $paramFetcher
+     *            param fetcher customer
+     *
+     * @return Response
+     */
+    public function getCustomersExportCsvAction(ParamFetcherInterface $paramFetcher)
+    {
+        /** @var CustomerHandler $handler */
+        $handler = $this->container->get($this->handlerSerivce);
+
+        $result = $handler->getFilteredCustomers($paramFetcher->all());
+
+        $rows = ["sep=,"];
+
+        $esc = function ($str) {
+            return ReportHandler::escapeCSV($str, true);
+        };
+
+        $row = [
+            $esc('Beschreibung'),
+            $esc('Firma'),
+            $esc('Abteilung'),
+            $esc('Anrede'),
+            $esc('E-Mail'),
+            $esc('Telefonnummer'),
+            $esc('Ansprechperson'),
+            $esc('Verrechenbar'),
+            $esc('Systemkunde'),
+            $esc('Strasse'),
+            $esc('Adresszusatz'),
+            $esc('Postleitzahl'),
+            $esc('Stadt'),
+            $esc('Land'),
+            ];
+        $rows[] = implode(',', $row);
+
+        /** @var Customer $customer */
+        foreach ($result as $customer) {
+            $row = [
+                $esc($customer->getName()),
+                $esc($customer->getCompany() ?? ''),
+                $esc($customer->getDepartment() ?? ''),
+                $esc($customer->getSalutation() ?? ''),
+                $esc($customer->getEmail() ?? ''),
+                $esc($customer->getPhone() ?? ''),
+                $esc($customer->getFullname() ?? ''),
+                $esc($customer->isChargeable() ? 1 : 0),
+                $esc($customer->isSystemCustomer() ? 1 : 0),
+                $esc($customer->getAddress()->getStreet() ?? ''),
+                $esc($customer->getAddress()->getSupplement() ?? ''),
+                $esc($customer->getAddress()->getPlz() ?? ''),
+                $esc($customer->getAddress()->getCity() ?? ''),
+                $esc($customer->getAddress()->getCountry() ?? ''),
+            ];
+            $rows[] = implode(',', $row);
+        }
+
+
+        $csv = implode("\n", $rows);
+
+        $response = new Response($csv);
+        $response->headers->set('Content-Type', 'text/csv');
+        $response->headers->set(
+            'Content-Disposition',
+            $response->headers->makeDisposition(ResponseHeaderBag::DISPOSITION_ATTACHMENT, 'kunden.csv')
+        );
+
+        return $response;
     }
 }
