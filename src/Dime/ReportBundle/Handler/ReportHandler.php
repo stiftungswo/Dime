@@ -289,31 +289,31 @@ class ReportHandler extends AbstractHandler
             if (count($dates) == 2) {
                 $startDate = Carbon::createFromFormat('Y-m-d', $dates[0])->setTime(0, 0, 0);
                 $endDate = Carbon::createFromFormat('Y-m-d', $dates[1])->setTime(0, 0, 0);
-                $rows[] = $this->escapeCSV('Servicestunden Rapport ' . $startDate->format('d.m.Y') . ' - ' . $endDate->format('d.m.Y'));
+                $rows[] = self::escapeCSV('Servicestunden Rapport ' . $startDate->format('d.m.Y') . ' - ' . $endDate->format('d.m.Y'));
             }
         }
 
         // header rows
         $row = [];
-        $row[] = $this->escapeCSV('Projekt');
-        $row[] = $this->escapeCSV('Tätigkeitsbereich ID');
-        $row[] = $this->escapeCSV('Tätigkeitsbereich');
+        $row[] = self::escapeCSV('Projekt');
+        $row[] = self::escapeCSV('Tätigkeitsbereich ID');
+        $row[] = self::escapeCSV('Tätigkeitsbereich');
         foreach ($data['total']['activitylist'] as $activity) {
             if ($activity == '') {
                 $row[] = 'DELETED_SERVICE';
             } else {
-                $row[] = $this->escapeCSV($activity);
+                $row[] = self::escapeCSV($activity);
             }
         }
-        $row[] = $this->escapeCSV('Total');
+        $row[] = self::escapeCSV('Total');
         $rows[] = implode(';', $row);
 
         // data rows
         foreach ($data['projects'] as $project) {
             $row = [];
-            $row[] = $this->escapeCSV($project['name']);
-            $row[] = $this->escapeCSV($project['projectCategoryId']);
-            $row[] = $this->escapeCSV($project['projectCategory']);
+            $row[] = self::escapeCSV($project['name']);
+            $row[] = self::escapeCSV($project['projectCategoryId']);
+            $row[] = self::escapeCSV($project['projectCategory']);
             foreach ($data['total']['activitylist'] as $activity) {
                 if (isset($project['activities'][$activity])) {
                     $row[] = round($project['activities'][$activity] / (60*60), 1);
@@ -327,9 +327,9 @@ class ReportHandler extends AbstractHandler
 
         // footer rows
         $row = [];
-        $row[] = $this->escapeCSV('Total');
-        $row[] = $this->escapeCSV('');
-        $row[] = $this->escapeCSV('');
+        $row[] = self::escapeCSV('Total');
+        $row[] = self::escapeCSV('');
+        $row[] = self::escapeCSV('');
         foreach ($data['total']['activitylist'] as $activity) {
             if (isset($data['total']['activities'][$activity])) {
                 $row[] = round($data['total']['activities'][$activity] / (60*60), 1);
@@ -337,22 +337,22 @@ class ReportHandler extends AbstractHandler
                 $row[] = '0';
             }
         }
-        $row[] = $this->escapeCSV('');
+        $row[] = self::escapeCSV('');
         $rows[] = implode(';', $row);
 
         // summary rows
         $rows[] = '';
-        $rows[] = $this->escapeCSV('Zusammenfassung Tätigkeitsbereiche');
+        $rows[] = self::escapeCSV('Zusammenfassung Tätigkeitsbereiche');
 
         $categories = [];
         foreach ($data['projects'] as $project) {
             $id = $project['projectCategoryId'];
             $categories[$id][0] = '';
-            $categories[$id][1] = $this->escapeCSV($project['projectCategoryId']);
+            $categories[$id][1] = self::escapeCSV($project['projectCategoryId']);
             if ($project['projectCategory']) {
-                $categories[$id][2] = $this->escapeCSV($project['projectCategory']);
+                $categories[$id][2] = self::escapeCSV($project['projectCategory']);
             } else {
-                $categories[$id][2] = $this->escapeCSV('Andere');
+                $categories[$id][2] = self::escapeCSV('Andere');
             }
             $idx = 3;
             foreach ($data['total']['activitylist'] as $activity) {
@@ -605,9 +605,15 @@ class ReportHandler extends AbstractHandler
         return $indexedGroup;
     }
 
-    private function escapeCSV(string $string): string
+    /**
+     * @param string $string string to convert
+     * @param bool $looseConversion
+     *
+     * @return string
+     */
+    public static function escapeCSV(string $string, bool $looseConversion = false): string
     {
-        $string = utf8_decode($string);
+        $string = $looseConversion ? iconv('UTF-8', 'ISO-8859-1//TRANSLIT', $string) : utf8_decode($string);
         $string = str_replace('"', '""', $string);
         return '"'.$string.'"';
     }
@@ -637,19 +643,19 @@ class ReportHandler extends AbstractHandler
 
         // header rows
         $row = [];
-        $row[] = $this->escapeCSV('Typ');
-        $row[] = $this->escapeCSV('Name');
-        $row[] = $this->escapeCSV('Kategorie (Tätigkeitsbereich)');
-        $row[] = $this->escapeCSV('Auftraggeber');
-        $row[] = $this->escapeCSV('Start (Erstelldatum)');
-        $row[] = $this->escapeCSV('Jahr');
-        $row[] = $this->escapeCSV('Verantwortlich');
-        $row[] = $this->escapeCSV('Aufwand CHF (Total bereits verbuchter Stunden)');
-        $row[] = $this->escapeCSV('Umsatz CHF (Total gestellte Rechnungen)');
-        $row[] = $this->escapeCSV('Umsatz erwartet CHF (Total gestellte Offerten)');
+        $row[] = self::escapeCSV('Typ');
+        $row[] = self::escapeCSV('Name');
+        $row[] = self::escapeCSV('Kategorie (Tätigkeitsbereich)');
+        $row[] = self::escapeCSV('Auftraggeber');
+        $row[] = self::escapeCSV('Start (Erstelldatum)');
+        $row[] = self::escapeCSV('Jahr');
+        $row[] = self::escapeCSV('Verantwortlich');
+        $row[] = self::escapeCSV('Aufwand CHF (Total bereits verbuchter Stunden)');
+        $row[] = self::escapeCSV('Umsatz CHF (Total gestellte Rechnungen)');
+        $row[] = self::escapeCSV('Umsatz erwartet CHF (Total gestellte Offerten)');
 
         foreach ($costgroups as $costgroup) {
-            $row[] = $this->escapeCSV(sprintf("%s (%s)", $costgroup['description'], $costgroup['number']));
+            $row[] = self::escapeCSV(sprintf("%s (%s)", $costgroup['description'], $costgroup['number']));
         }
 
         $rows[] = implode(',', $row);
@@ -665,22 +671,22 @@ class ReportHandler extends AbstractHandler
         // data rows
         foreach ($data as $project) {
             $row = [];
-            $row[] = $this->escapeCSV($project['type']);
-            $row[] = $this->escapeCSV($project['name']);
-            $row[] = $this->escapeCSV($project['category']);
-            $row[] = $this->escapeCSV($project['customer']);
-            $row[] = $this->escapeCSV($project['date']);
-            $row[] = $this->escapeCSV($project['year']);
-            $row[] = $this->escapeCSV($project['accountant']);
-            $row[] = $this->escapeCSV($project['aufwand']);
-            $row[] = $this->escapeCSV($project['umsatz']);
-            $row[] = $this->escapeCSV($project['umsatz_erwartet']);
+            $row[] = self::escapeCSV($project['type']);
+            $row[] = self::escapeCSV($project['name']);
+            $row[] = self::escapeCSV($project['category']);
+            $row[] = self::escapeCSV($project['customer']);
+            $row[] = self::escapeCSV($project['date']);
+            $row[] = self::escapeCSV($project['year']);
+            $row[] = self::escapeCSV($project['accountant']);
+            $row[] = self::escapeCSV($project['aufwand']);
+            $row[] = self::escapeCSV($project['umsatz']);
+            $row[] = self::escapeCSV($project['umsatz_erwartet']);
             foreach ($costgroups as $costgroup) {
                 if (isset($project['costgroups'][$costgroup['number']])) {
                     $value = $project['costgroups'][$costgroup['number']]['ratio'] * $project['umsatz'];
-                    $row[] = $this->escapeCSV(round($value, 2));
+                    $row[] = self::escapeCSV(round($value, 2));
                 } else {
-                    $row[] = $this->escapeCSV(0);
+                    $row[] = self::escapeCSV(0);
                 }
             }
             $rows[] = implode(',', $row);
