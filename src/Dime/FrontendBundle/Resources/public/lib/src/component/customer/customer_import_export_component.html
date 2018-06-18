@@ -1,0 +1,47 @@
+<div class="panel panel-default">
+    <div class="panel-heading">Kunden importieren / exportieren</div>
+    <div class="panel-body">
+        <p>Email Adressen:</p>
+        <copy-input [text]="getEmailString()"></copy-input>
+        <download-button href="{{getCsvExportLink()}}">CSV Download</download-button>
+        <hr/>
+        <input type="file" #import (change)="importFile(import.files)">
+        <download-button [href]="getCsvTemplateUri()" name="template.csv">Import Vorlage Download</download-button>
+        <div *ngIf="customersToImport.isNotEmpty">
+            <table class="table table-bordered table-hover">
+                <thead>
+                <tr>
+                    <th>Beschreibung</th>
+                    <th>Firma</th>
+                    <th>Abteilung</th>
+                    <th>Anrede</th>
+                    <th>E-Mail</th>
+                    <th>Telefonnummer</th>
+                    <th>Ansprechperson</th>
+                    <th>Strasse</th>
+                    <th>Adresszusatz</th>
+                    <th>Postleitzahl</th>
+                    <th>Stadt</th>
+                    <th>Land</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let customer of customersToImport">
+                    <td>{{ customer.name }}</td>
+                    <td>{{ customer.company }}</td>
+                    <td>{{ customer.department }}</td>
+                    <td>{{ customer.salutation }}</td>
+                    <td>{{ customer.email }}</td>
+                    <td>{{ customer.phone }}</td>
+                    <td>{{ customer.fullname }}</td>
+                    <td>{{ customer.address.street }}</td>
+                    <td>{{ customer.address.supplement }}</td>
+                    <td>{{ customer.address.plz }}</td>
+                    <td>{{ customer.address.city }}</td>
+                    <td>{{ customer.address.country }}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
