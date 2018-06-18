@@ -19,6 +19,7 @@ dependencies:
   meta: ^1.1.2
   stack_trace: "^1.9.2"
   markdown: "^2.0.0"
+  csv: "^3.1.2"
 
 dev_dependencies:
   dart_to_js_script_rewriter: ^1.0.1

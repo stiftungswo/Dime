@@ -133,6 +133,11 @@ class Customer extends Entity {
   }
 
   @override
+  String toString() {
+    return 'Customer{type: $type, chargeable: $chargeable, systemCustomer: $systemCustomer, address: $address, company: $company, department: $department, fullname: $fullname, salutation: $salutation, email: $email, phone: $phone, rateGroup: $rateGroup, phones: $phones, tags: $tags}';
+  }
+
+  @override
   String type = 'customers';
   bool chargeable;
   bool systemCustomer;
