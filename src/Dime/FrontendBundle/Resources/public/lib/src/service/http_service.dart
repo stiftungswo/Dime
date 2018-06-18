@@ -17,7 +17,7 @@ class HttpService {
   }
 
   Future<String> post(String path, {Map<String, dynamic> queryParams = const {}, dynamic body}) {
-    return request(path, 'GET', queryParams: queryParams, body: body);
+    return request(path, 'POST', queryParams: queryParams, body: body);
   }
 
   Future<String> put(String path, {Map<String, dynamic> queryParams = const {}, dynamic body}) {

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:html';
 
 import 'package:angular/angular.dart';
@@ -10,6 +11,7 @@ import 'package:csv/csv_settings_autodetection.dart';
 import '../../model/entity_export.dart';
 import '../../pipe/filter_pipe.dart';
 import '../../service/http_service.dart';
+import '../../service/status_service.dart';
 import '../common/copy_input_component.dart';
 import '../common/dime_directives.dart';
 import '../overview/root/customer_overview_component.dart';
@@ -30,11 +32,12 @@ class CustomerImportExportComponent {
   bool showOnlySystemCustomer = false;
 
   HttpService http;
+  StatusService statusservice;
   DomSanitizationService sanitizationService;
 
   List<Customer> customersToImport = [];
 
-  CustomerImportExportComponent(this.http, this.sanitizationService);
+  CustomerImportExportComponent(this.http, this.sanitizationService, this.statusservice);
 
   String getEmailString() {
     var filterPipe = new FilterPipe();
@@ -155,5 +158,34 @@ class CustomerImportExportComponent {
     csv += CSV_HEADER.join(',');
     String encoded = window.btoa(csv);
     return sanitizationService.bypassSecurityTrustUrl("data:text/csv;base64,${encoded}");
+  }
+
+  doImport() async {
+    await statusservice.run(() async {
+      var customers = customersToImport.map((Customer c) {
+        c
+          ..systemCustomer = showOnlySystemCustomer
+          ..tags = filterTags
+          ..addFieldstoUpdate([
+            'name',
+            'company',
+            'department',
+            'salutation',
+            'email',
+            'phone',
+            'fullname',
+            'address',
+            'tags',
+            'systemCustomer',
+          ]);
+        return c.toMap();
+      }).toList();
+      var object = {"customers": customers};
+      print(object);
+      String body = new JsonEncoder().convert(object);
+
+      // todo maybe use a hammock custom request for this?
+      await http.post("customers/import", body: body);
+    });
   }
 }

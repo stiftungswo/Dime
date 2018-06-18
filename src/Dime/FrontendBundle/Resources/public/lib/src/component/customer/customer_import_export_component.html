@@ -5,9 +5,10 @@
         <copy-input [text]="getEmailString()"></copy-input>
         <download-button href="{{getCsvExportLink()}}">CSV Download</download-button>
         <hr/>
-        <input type="file" #import (change)="importFile(import.files)">
         <download-button [href]="getCsvTemplateUri()" name="template.csv">Import Vorlage Download</download-button>
+        <input type="file" #import (change)="importFile(import.files)">
         <div *ngIf="customersToImport.isNotEmpty">
+            <h3>Vorschau</h3>
             <table class="table table-bordered table-hover">
                 <thead>
                 <tr>
@@ -42,6 +43,16 @@
                 </tr>
                 </tbody>
             </table>
+            <p>Die Datensätze werden mit folgenden Attributen importiert:</p>
+            <p>Systemkunde: <span *ngIf="showOnlySystemCustomer">Ja</span><span *ngIf="showOnlySystemCustomer == false">Nein</span></p>
+            <p>Tags: <span *ngIf="filterTags.isEmpty">(keine)</span></p>
+            <ul class="list-unstyled">
+                <li *ngFor="let tag of filterTags">
+                    <span class="label label-info">{{tag.name}}</span>
+                </li>
+            </ul>
+            <br>
+            <dime-button primary (click)="doImport()">Importieren</dime-button>
         </div>
     </div>
 </div>

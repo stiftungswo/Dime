@@ -12,6 +12,7 @@ use FOS\RestBundle\Util\Codes;
 use FOS\RestBundle\View\View;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Symfony\Component\Form\FormTypeInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
@@ -292,5 +293,37 @@ class CustomersController extends DimeController
         );
 
         return $response;
+    }
+
+
+    /**
+     * Import all Customers.
+     *
+     * @ApiDoc(
+     * resource = true,
+     * description="Export filtered entities as csv.",
+     * section="customers",
+     * statusCodes = {
+     * 204 = "Returned when successful"
+     * }
+     * )
+     *
+     * @Annotations\Route(requirements={"_format"="json|xml"}, path="/customers/import")
+     * @Annotations\View(
+     * serializerEnableMaxDepthChecks=true
+     * )
+     *
+     * @Annotations\RequestParam(name="customers", array=true, description="The IDs of the timeslices to move")
+     *
+     * @param ParamFetcherInterface $params
+     *
+     * @return Response
+     *
+     */
+    public function postCustomersImportAction(ParamFetcherInterface $params)
+    {
+        $customers = $params->get("customers");
+
+        return JsonResponse::create($customers, JsonResponse::HTTP_OK);
     }
 }
