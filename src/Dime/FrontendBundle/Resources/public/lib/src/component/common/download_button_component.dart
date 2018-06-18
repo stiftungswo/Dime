@@ -3,7 +3,7 @@ import 'package:angular/angular.dart';
 @Component(
   selector: 'download-button',
   template: """
-    <a [href]='href' target='_blank' class='btn btn-primary'>
+    <a [href]='href' [download]='name' target='_blank' class='btn btn-primary'>
       <span class="glyphicon glyphicon-download-alt"></span>
       <ng-content></ng-content>
     </a>
@@ -12,5 +12,8 @@ import 'package:angular/angular.dart';
 )
 class DownloadButtonComponent {
   @Input()
-  String href = null;
+  dynamic href = null;
+
+  @Input()
+  String name = null;
 }

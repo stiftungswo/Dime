@@ -121,6 +121,12 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.14.3"
+  csv:
+    description:
+      name: csv
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.1.2"
   dart_style:
     description:
       name: dart_style
