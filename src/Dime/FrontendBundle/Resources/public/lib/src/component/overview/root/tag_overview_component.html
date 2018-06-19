@@ -1,0 +1,37 @@
+<form #editform="ngForm">
+    <dime-box label="Tags">
+        <table boxBody class="table table-bordered table-hover" ngControlGroup="tags" #overview="ngForm">
+            <thead>
+            <tr>
+                <th width="40">ID</th>
+                <th>Name</th>
+                <th width="60">Aktion</th>
+            </tr>
+            </thead>
+            <tbody *ngIf="entities != null">
+            <tr *ngFor="let c of controls" [class.danger]="!c.valid">
+                <td>{{c.controls['id'].value}}</td>
+                <td validationStatus class="form-group"><input required class="form-control" [ngFormControl]="c.controls['name']"/></td>
+                <td><dime-button (click)="deleteEntity(c.controls['id'].value)" fontAwesome="trash-o" color="red"></dime-button></td>
+            </tr>
+            </tbody>
+        </table>
+        <div boxFooter class="DimeControlButtons container-inline">
+            <h4>Neuer Tag</h4>
+            <div class="row form-inline">
+                <div class="col-md-6">
+                    <label>Name</label>
+                    <input class="form-control" [(ngModel)]="newName">
+                </div>
+
+                <div class="col-md-12" style="margin-top: 5px;">
+                    <dime-button primary (click)="createEntity()" glyphicon="plus">Hinzufügen</dime-button>
+                </div>
+            </div>
+        </div>
+    </dime-box>
+    <div class="DimeControlButtons container-inline">
+        <save-button [valid]="editform.valid" (click)="saveAllEntities()"></save-button>
+        <dime-button (click)="reloadEvict()" glyphicon="refresh"></dime-button>
+    </div>
+</form>
