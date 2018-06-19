@@ -24,6 +24,7 @@
             [filterString]="CustomerOverviewComponent.globalFilterString"
             [filterTags]="CustomerOverviewComponent.filterTags"
             [showOnlySystemCustomer]="CustomerOverviewComponent.showOnlySystemCustomer"
+            (import)="handleImport($event)"
     ></customer-import-export>
 
     <table class="table table-bordered table-hover">
