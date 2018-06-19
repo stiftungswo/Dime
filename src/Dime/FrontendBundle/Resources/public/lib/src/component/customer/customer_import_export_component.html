@@ -44,13 +44,11 @@
                 </tbody>
             </table>
             <p>Die Datensätze werden mit folgenden Attributen importiert:</p>
-            <p>Systemkunde: <span *ngIf="showOnlySystemCustomer">Ja</span><span *ngIf="showOnlySystemCustomer == false">Nein</span></p>
-            <p>Tags: <span *ngIf="filterTags.isEmpty">(keine)</span></p>
-            <ul class="list-unstyled">
-                <li *ngFor="let tag of filterTags">
-                    <span class="label label-info">{{tag.name}}</span>
-                </li>
-            </ul>
+            <p>Systemkunde: <input type="checkbox" [(ngModel)]="importIsSystemkune"></p>
+            <p>Tags:</p>
+            <tag-select [(ngModel)]="importTags"></tag-select>
+            <p>Tarif Gruppe:</p>
+            <rate-group-select [(ngModel)]="importRateGroup"></rate-group-select>
             <br>
             <dime-button primary (click)="doImport()">Importieren</dime-button>
         </div>
