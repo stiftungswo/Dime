@@ -7,6 +7,7 @@ import 'package:angular/src/security/dom_sanitization_service.dart';
 import 'package:angular_forms/angular_forms.dart';
 import 'package:csv/csv.dart';
 import 'package:csv/csv_settings_autodetection.dart';
+import 'package:hammock/hammock.dart';
 
 import '../../model/entity_export.dart';
 import '../../pipe/filter_pipe.dart';
@@ -15,12 +16,13 @@ import '../../service/status_service.dart';
 import '../common/copy_input_component.dart';
 import '../common/dime_directives.dart';
 import '../overview/root/customer_overview_component.dart';
-import 'package:hammock/hammock.dart';
+import '../select/rate_group_select_component.dart';
+import '../select/tag_select_component.dart';
 
 @Component(
   selector: 'customer-import-export',
   templateUrl: 'customer_import_export_component.html',
-  directives: const [CORE_DIRECTIVES, formDirectives, dimeDirectives, CopyInputComponent],
+  directives: const [CORE_DIRECTIVES, formDirectives, dimeDirectives, CopyInputComponent, RateGroupSelectComponent, TagSelectComponent],
 )
 class CustomerImportExportComponent {
   @Input()
@@ -42,6 +44,9 @@ class CustomerImportExportComponent {
   DomSanitizationService sanitizationService;
 
   List<Customer> customersToImport = [];
+  bool importIsSystemkune = false;
+  List<Tag> importTags = [];
+  RateGroup importRateGroup = null;
 
   CustomerImportExportComponent(this.http, this.sanitizationService, this.statusservice, this.store);
 
@@ -170,8 +175,9 @@ class CustomerImportExportComponent {
     await statusservice.run(() async {
       var customers = customersToImport.map((Customer c) {
         c
-          ..systemCustomer = showOnlySystemCustomer
-          ..tags = filterTags
+          ..systemCustomer = importIsSystemkune
+          ..tags = importTags
+          ..rateGroup = importRateGroup
           ..addFieldstoUpdate([
             'name',
             'company',
@@ -183,6 +189,7 @@ class CustomerImportExportComponent {
             'address',
             'tags',
             'systemCustomer',
+            'rateGroup',
           ]);
         return c.toMap();
       }).toList();
