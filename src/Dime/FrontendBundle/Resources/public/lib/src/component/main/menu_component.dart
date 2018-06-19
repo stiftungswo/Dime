@@ -39,6 +39,7 @@ class MenuComponent {
       new Menu.child('Feiertage', ['HolidayOverview']),
       new Menu.child('Tätigkeitsbereiche', ['ProjectCategoryOverview']),
       new Menu.child('Projekte Zuweisen', ['SettingAssignProjectOverview'], adminOnly: true),
+      new Menu.child('Tags verwalten', ['TagOverview']),
     ]),
   ];
 

@@ -9,6 +9,7 @@ import '../../service/user_context_service.dart';
 import '../../util/release_info.dart';
 import '../edit/edit.dart';
 import '../overview/overview.dart';
+import '../overview/root/tag_overview_component.dart';
 import '../report/dime_report.dart';
 import '../timetrack/project_timetrack_component.dart';
 import '../timetrack/timetrack_component.dart';
@@ -53,6 +54,7 @@ import 'welcome_component.dart';
   const Route(path: '/timetrack', name: 'Timetrack', component: TimetrackComponent),
   const Route(path: '/timetrack/multi', name: 'TimetrackMulti', component: TimetrackMultiComponent),
   const Route(path: '/timetrack/periods', name: 'TimetrackPeriods', component: TimetrackPeriodsComponent),
+  const Route(path: '/tags', name: 'TagOverview', component: TagOverviewComponent),
 ])
 class AppComponent implements AfterViewInit, OnInit {
   final title = 'Dime ERP';
