@@ -66,7 +66,7 @@ class CustomerOverviewComponent extends EntityOverview<Customer> implements OnAc
 class ProjectOverviewFilterPipe implements PipeTransform {
   List<Customer> transform(List<Entity> value, [List<Tag> selectedTags, bool showOnlySystemCustomers]) {
     if (value.isEmpty || value.first is! Customer) {
-      return value;
+      return [];
     }
 
     Set<int> selectedTagIds = selectedTags.map((Tag t) => t.id as int).toSet();

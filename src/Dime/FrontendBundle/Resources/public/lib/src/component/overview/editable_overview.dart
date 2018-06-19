@@ -98,7 +98,7 @@ abstract class EditableOverview<T extends Entity> extends EntityOverview<T> {
   /// the current change detection cycle.
   /// see https://github.com/angular/angular/issues/6005
   Future runOutsideChangeDetection(f()) {
-    var completer = new Completer();
+    var completer = new Completer<dynamic>();
     new Timer(const Duration(seconds: 0), () {
       f();
       //we'd need to notify parent components, specifically dime-box as well,

@@ -62,7 +62,7 @@ class TagSelectComponent implements OnInit, ControlValueAccessor<List<Tag>> {
 
   toggleOpen() async {
     open = !open;
-    await new Future.delayed(const Duration(microseconds: 1));
+    await new Future<dynamic>.delayed(const Duration(microseconds: 1));
     if (open) {
       (input.nativeElement as InputElement).focus();
     }
