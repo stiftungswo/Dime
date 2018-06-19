@@ -54,6 +54,12 @@ class CustomerOverviewComponent extends EntityOverview<Customer> implements OnAc
     }
     return new Customer();
   }
+
+  handleImport(List<Customer> importedCustomers) {
+    if (importedCustomers.isNotEmpty) {
+      reload(evict: true);
+    }
+  }
 }
 
 @Pipe('projectOverviewFilter', pure: false)

@@ -12,7 +12,6 @@ use FOS\RestBundle\Util\Codes;
 use FOS\RestBundle\View\View;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Symfony\Component\Form\FormTypeInterface;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
@@ -317,13 +316,20 @@ class CustomersController extends DimeController
      *
      * @param ParamFetcherInterface $params
      *
-     * @return Response
+     * @return View
      *
      */
     public function postCustomersImportAction(ParamFetcherInterface $params)
     {
         $customers = $params->get("customers");
 
-        return JsonResponse::create($customers, JsonResponse::HTTP_OK);
+        $customerHandler = $this->container->get($this->handlerSerivce);
+
+        $createdCustomers = [];
+        foreach ($customers as $customer) {
+            $createdCustomers[] = $customerHandler->post($customer);
+        }
+
+        return $this->view($createdCustomers, Codes::HTTP_CREATED);
     }
 }

@@ -15,6 +15,7 @@ import '../../service/status_service.dart';
 import '../common/copy_input_component.dart';
 import '../common/dime_directives.dart';
 import '../overview/root/customer_overview_component.dart';
+import 'package:hammock/hammock.dart';
 
 @Component(
   selector: 'customer-import-export',
@@ -31,13 +32,18 @@ class CustomerImportExportComponent {
   @Input()
   bool showOnlySystemCustomer = false;
 
+  final StreamController<List<Customer>> _import = new StreamController<List<Customer>>();
+  @Output('import')
+  Stream<List<Customer>> get import => _import.stream;
+
   HttpService http;
+  ObjectStore store;
   StatusService statusservice;
   DomSanitizationService sanitizationService;
 
   List<Customer> customersToImport = [];
 
-  CustomerImportExportComponent(this.http, this.sanitizationService, this.statusservice);
+  CustomerImportExportComponent(this.http, this.sanitizationService, this.statusservice, this.store);
 
   String getEmailString() {
     var filterPipe = new FilterPipe();
@@ -184,8 +190,9 @@ class CustomerImportExportComponent {
       print(object);
       String body = new JsonEncoder().convert(object);
 
-      // todo maybe use a hammock custom request for this?
-      await http.post("customers/import", body: body);
+      List<Customer> result = await this.store.customQueryList<Customer>(
+          Customer, new CustomRequestParams(method: 'post', url: '${http.baseUrl}/customers/import', data: body));
+      _import.add(result);
     });
   }
 }
