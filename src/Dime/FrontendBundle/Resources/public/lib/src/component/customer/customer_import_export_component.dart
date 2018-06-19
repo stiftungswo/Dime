@@ -48,7 +48,7 @@ class CustomerImportExportComponent {
   String getEmailString() {
     var filterPipe = new FilterPipe();
     var projectFilterPipe = new ProjectOverviewFilterPipe();
-    var tmpList = filterPipe.transform(this.entities, ['id', 'name', 'address'], filterString);
+    List<Entity> tmpList = filterPipe.transform(this.entities, ['id', 'name', 'address'], filterString);
     return projectFilterPipe
         .transform(tmpList, filterTags, showOnlySystemCustomer)
         .where((Customer c) => c.email?.isNotEmpty ?? false)
@@ -59,7 +59,7 @@ class CustomerImportExportComponent {
   String getCsvExportLink() {
     var params = {
       "search": filterString,
-      "withTags": filterTags.map((t) => t.id).join(","),
+      "withTags": filterTags.map((Tag t) => t.id.toString()).join(","),
       "systemCustomer": showOnlySystemCustomer ? "1" : "0",
     };
     String query = encodeQueryParams(params);
@@ -90,7 +90,7 @@ class CustomerImportExportComponent {
         return;
       }
 
-      completer.complete(eventTarget.result);
+      completer.complete(eventTarget.result as String);
     });
     reader.readAsText(file, 'ISO-8859-1');
 
@@ -122,7 +122,7 @@ class CustomerImportExportComponent {
       csvSettingsDetector: d,
       allowInvalid: true,
     );
-    List<List<dynamic>> rows = converter.convert(input);
+    List<List<String>> rows = converter.convert(input) as List<List<String>>;
 
     if (rows.isNotEmpty && rows.first.isNotEmpty && rows.first.first == 'sep=') {
       // skip excel seperator mark
@@ -137,7 +137,7 @@ class CustomerImportExportComponent {
       return [];
     }
 
-    return rows.map((List<dynamic> row) {
+    return rows.map((List<String> row) {
       Customer customer = new Customer()
             ..name = row[0]
             ..company = row[1]
