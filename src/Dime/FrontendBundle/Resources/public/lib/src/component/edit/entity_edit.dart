@@ -50,7 +50,7 @@ abstract class EntityEdit<T extends Entity> implements OnInit {
   Future reload({bool evict: false}) async {
     await this.statusservice.run(() async {
       if (evict) {
-        this.store.evict(this.entType);
+        await this.store.evict(this.entType);
       }
       this.entity = await this.store.one<T>(this.entType, this.entId);
     });
