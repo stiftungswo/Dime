@@ -64,7 +64,7 @@
         </tr>
       </thead>
       <tbody *ngIf="entities != null">
-        <tr *ngFor="let entity of entities | filter:['id', 'name', 'address']:CustomerOverviewComponent.globalFilterString | projectOverviewFilter:CustomerOverviewComponent.filterTags:CustomerOverviewComponent.showOnlySystemCustomer | orderBy:sortType:sortReverse" (dblclick)="openEditView(entity.id)">
+        <tr *ngFor="let entity of entities | filter:['id', 'name', 'company', 'email', 'fullname', 'address']:CustomerOverviewComponent.globalFilterString | projectOverviewFilter:CustomerOverviewComponent.filterTags:CustomerOverviewComponent.showOnlySystemCustomer | orderBy:sortType:sortReverse" (dblclick)="openEditView(entity.id)">
           <td>{{entity.id}}</td>
           <td>{{entity.name}}</td>
           <td>{{entity.address.street}}</td>
