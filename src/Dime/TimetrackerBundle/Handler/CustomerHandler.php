@@ -31,6 +31,9 @@ class CustomerHandler extends GenericHandler
             $or = $qb->expr()->orX();
             $or->add($qb->expr()->like('c.id', ':search'));
             $or->add($qb->expr()->like('c.name', ':search'));
+            $or->add($qb->expr()->like('c.company', ':search'));
+            $or->add($qb->expr()->like('c.email', ':search'));
+            $or->add($qb->expr()->like('c.fullname', ':search'));
             $qb->setParameter('search', '%' . $filter['search'] . '%');
             $qb->andWhere($or);
         }
