@@ -70,7 +70,7 @@ class OfferEditComponent extends EntityEdit<Offer> {
   Future load({bool evict: false}) async {
     await this.statusservice.run(() async {
       if (evict) {
-        this.store.evict(this.entType);
+        await this.store.evict(this.entType);
       }
       this.entity = await this.store.one(Offer, this.entId);
       if (this.entity.project != null) {
@@ -112,7 +112,7 @@ class OfferEditComponent extends EntityEdit<Offer> {
       await this.statusservice.run(() async {
         Project newProject = (await this.store.customQueryOne<Project>(
             Project, new CustomRequestParams(method: 'GET', url: '${http.baseUrl}/projects/offer/${this.entity.id}')));
-        this.store.evict(Project, true);
+        await this.store.evict(Project, true);
         entity.project = newProject;
         router.navigate([
           'ProjectEdit',
@@ -135,7 +135,7 @@ class OfferEditComponent extends EntityEdit<Offer> {
         Invoice newInvoice = await this.store.customQueryOne<Invoice>(
             Invoice, new CustomRequestParams(method: 'GET', url: '${http.baseUrl}/invoices/project/${this.entity.project.id}'));
         entity.project.invoices.add(newInvoice);
-        this.store.evict(Invoice, true);
+        await this.store.evict(Invoice, true);
         router.navigate([
           'InvoiceEdit',
           {'id': newInvoice.id.toString()}
