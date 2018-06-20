@@ -85,14 +85,27 @@ class CustomerHandler extends GenericHandler
 
         /** @var QueryBuilder $qb */
         $qb = $this->repository->createQueryBuilder('c');
-        $qb->where(
-            $qb->expr()->orX(
-                $qb->expr()->like('c.name', $qb->expr()->literal($name)),
-                $qb->expr()->like('c.company', $qb->expr()->literal($company)),
-                $qb->expr()->like('c.email', $qb->expr()->literal($email)),
-                $qb->expr()->like('c.fullname', $qb->expr()->literal($fullname))
-            )
-        );
+
+        $conditions = [];
+
+        if (!empty(trim($name))) {
+            $conditions[] = $qb->expr()->like('c.name', $qb->expr()->literal(trim($name)));
+        }
+        if (!empty(trim($company))) {
+            $conditions[] = $qb->expr()->like('c.company', $qb->expr()->literal(trim($company)));
+        }
+        if (!empty(trim($email))) {
+            $conditions[] = $qb->expr()->like('c.email', $qb->expr()->literal(trim($email)));
+        }
+        if (!empty(trim($fullname))) {
+            $conditions[] = $qb->expr()->like('c.fullname', $qb->expr()->literal(trim($fullname)));
+        }
+
+        if (empty($conditions)) {
+            return [];
+        }
+
+        $qb->where($qb->expr()->orX(...$conditions));
 
         $result = $qb->getQuery()->getResult();
 
