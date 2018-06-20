@@ -296,14 +296,53 @@ class CustomersController extends DimeController
 
 
     /**
+     * Check for duplicate customers in db and import.
+     *
+     * @ApiDoc(
+     * resource = true,
+     * description="Check for duplicate customers in db and import.",
+     * section="customers",
+     * statusCodes = {
+     * 204 = "Returned when successful"
+     * }
+     * )
+     *
+     * @Annotations\Route(requirements={"_format"="json|xml"}, path="/customers/import/check")
+     * @Annotations\View(
+     * serializerEnableMaxDepthChecks=true
+     * )
+     *
+     * @Annotations\RequestParam(name="customers", array=true, description="The customers data to check")
+     *
+     * @param ParamFetcherInterface $params
+     *
+     * @return View
+     *
+     */
+    public function postCustomersImportCheckAction(ParamFetcherInterface $params)
+    {
+        $customers = $params->get("customers");
+
+        /** @var CustomerHandler $customerHandler */
+        $customerHandler = $this->container->get($this->handlerSerivce);
+
+        $foundDuplicates = [];
+        foreach ($customers as $customer) {
+            $foundDuplicates[] = $customerHandler->checkForDuplicateCustomer($customer);
+        }
+
+        return $this->view($foundDuplicates, Codes::HTTP_OK);
+    }
+
+    /**
      * Import all Customers.
      *
      * @ApiDoc(
      * resource = true,
-     * description="Export filtered entities as csv.",
+     * description="Import all Customers.",
      * section="customers",
      * statusCodes = {
-     * 204 = "Returned when successful"
+     * 201 = "Returned when successful"
      * }
      * )
      *
@@ -312,7 +351,7 @@ class CustomersController extends DimeController
      * serializerEnableMaxDepthChecks=true
      * )
      *
-     * @Annotations\RequestParam(name="customers", array=true, description="The IDs of the timeslices to move")
+     * @Annotations\RequestParam(name="customers", array=true, description="The new customers to import")
      *
      * @param ParamFetcherInterface $params
      *
