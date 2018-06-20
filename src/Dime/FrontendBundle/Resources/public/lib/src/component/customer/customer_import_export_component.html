@@ -24,22 +24,27 @@
                     <th>Postleitzahl</th>
                     <th>Stadt</th>
                     <th>Land</th>
+                    <th>Status</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr *ngFor="let customer of customersToImport">
-                    <td>{{ customer.name }}</td>
-                    <td>{{ customer.company }}</td>
-                    <td>{{ customer.department }}</td>
-                    <td>{{ customer.salutation }}</td>
-                    <td>{{ customer.email }}</td>
-                    <td>{{ customer.phone }}</td>
-                    <td>{{ customer.fullname }}</td>
-                    <td>{{ customer.address.street }}</td>
-                    <td>{{ customer.address.supplement }}</td>
-                    <td>{{ customer.address.plz }}</td>
-                    <td>{{ customer.address.city }}</td>
-                    <td>{{ customer.address.country }}</td>
+                    <td>{{ customer.item.name }}</td>
+                    <td>{{ customer.item.company }}</td>
+                    <td>{{ customer.item.department }}</td>
+                    <td>{{ customer.item.salutation }}</td>
+                    <td>{{ customer.item.email }}</td>
+                    <td>{{ customer.item.phone }}</td>
+                    <td>{{ customer.item.fullname }}</td>
+                    <td>{{ customer.item.address.street }}</td>
+                    <td>{{ customer.item.address.supplement }}</td>
+                    <td>{{ customer.item.address.plz }}</td>
+                    <td>{{ customer.item.address.city }}</td>
+                    <td>{{ customer.item.address.country }}</td>
+                    <td><template [ngIf]="customer.isDuplicate">
+                        <span class="text-danger">Duplikat</span>
+                        <dime-button (click)="remove(customer)">Entfernen</dime-button>
+                    </template></td>
                 </tr>
                 </tbody>
             </table>
@@ -50,6 +55,7 @@
             <p>Tarif Gruppe:</p>
             <rate-group-select [(ngModel)]="importRateGroup"></rate-group-select>
             <br>
+            <dime-button (click)="findDuplicates()">Duplikate suchen</dime-button>
             <dime-button primary (click)="doImport()">Importieren</dime-button>
         </div>
     </div>

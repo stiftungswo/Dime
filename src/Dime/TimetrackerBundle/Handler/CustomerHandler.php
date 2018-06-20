@@ -1,9 +1,11 @@
 <?php
+
 namespace Dime\TimetrackerBundle\Handler;
 
 use Dime\TimetrackerBundle\Entity\Customer;
 use Dime\TimetrackerBundle\Entity\CustomerRepository;
 use Dime\TimetrackerBundle\Entity\Tag;
+use Doctrine\ORM\QueryBuilder;
 
 class CustomerHandler extends GenericHandler
 {
@@ -41,7 +43,7 @@ class CustomerHandler extends GenericHandler
         $result = $qb->getQuery()->getResult();
 
         if (isset($filter['withTags'])) {
-            $tags =  array_map('intval', explode(',', $filter['withTags']));
+            $tags = array_map('intval', explode(',', $filter['withTags']));
             $filteredCustomers = [];
             foreach ($result as $customer) {
                 foreach ($tags as $tagId) {
@@ -60,6 +62,36 @@ class CustomerHandler extends GenericHandler
             }
             $result = $filteredCustomers;
         }
+
+        return $result;
+    }
+
+    /**
+     * @param array $customer
+     *
+     * @return Customer[]
+     */
+    public function checkForDuplicateCustomer(array $customer)
+    {
+        [
+            'name'     => $name,
+            'company'  => $company,
+            'email'    => $email,
+            'fullname' => $fullname,
+        ] = $customer;
+
+        /** @var QueryBuilder $qb */
+        $qb = $this->repository->createQueryBuilder('c');
+        $qb->where(
+            $qb->expr()->orX(
+                $qb->expr()->like('c.name', $qb->expr()->literal($name)),
+                $qb->expr()->like('c.company', $qb->expr()->literal($company)),
+                $qb->expr()->like('c.email', $qb->expr()->literal($email)),
+                $qb->expr()->like('c.fullname', $qb->expr()->literal($fullname))
+            )
+        );
+
+        $result = $qb->getQuery()->getResult();
 
         return $result;
     }

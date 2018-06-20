@@ -43,7 +43,7 @@ class CustomerImportExportComponent {
   StatusService statusservice;
   DomSanitizationService sanitizationService;
 
-  List<Customer> customersToImport = [];
+  List<PreviewItem> customersToImport = [];
   bool importIsSystemkune = false;
   List<Tag> importTags = [];
   RateGroup importRateGroup = null;
@@ -78,10 +78,10 @@ class CustomerImportExportComponent {
     File file = files.single;
 
     String fileContent = await readFileToString(file);
-    print(fileContent);
+
     List<Customer> customers = parseCsv(fileContent);
-    print(customers);
-    customersToImport = customers;
+
+    customersToImport = customers.map((Customer c) => new PreviewItem(c)).toList();
   }
 
   static Future<String> readFileToString(File file) {
@@ -171,9 +171,37 @@ class CustomerImportExportComponent {
     return sanitizationService.bypassSecurityTrustUrl("data:text/csv;base64,${encoded}");
   }
 
-  doImport() async {
+  findDuplicates() async {
     await statusservice.run(() async {
-      var customers = customersToImport.map((Customer c) {
+      var list = customersToImport;
+      var customers = list.map((PreviewItem p) {
+        Customer c = p.item;
+        return {
+          'name': c.name,
+          'company': c.company,
+          'email': c.email,
+          'fullname': c.fullname,
+        };
+      }).toList();
+
+      String body = JSON.encode({"customers": customers});
+
+      String response = await http.post('customers/import/check', body: body);
+      var result = JSON.decode(response) as List<List<Map<String, dynamic>>>;
+      int i = 0;
+      result.forEach((List<Map<String, dynamic>> row) =>
+          list[i++].duplicates = row.map((Map<String, dynamic> item) => new Customer.fromMap(item)).toList());
+    });
+  }
+
+  doImport() async {
+    if (importRateGroup == null) {
+      window.alert('Keine Tarif Gruppe ausgewählt');
+      return;
+    }
+    await statusservice.run(() async {
+      var customers = customersToImport.map((PreviewItem p) {
+        Customer c = p.item;
         c
           ..systemCustomer = importIsSystemkune
           ..tags = importTags
@@ -194,7 +222,7 @@ class CustomerImportExportComponent {
         return c.toMap();
       }).toList();
       var object = {"customers": customers};
-      print(object);
+
       String body = new JsonEncoder().convert(object);
 
       List<Customer> result = await this.store.customQueryList<Customer>(
@@ -202,4 +230,15 @@ class CustomerImportExportComponent {
       _import.add(result);
     });
   }
+
+  remove(PreviewItem item) => customersToImport.remove(item);
+}
+
+class PreviewItem {
+  Customer item;
+  List<Customer> duplicates;
+
+  bool get isDuplicate => duplicates.isNotEmpty;
+
+  PreviewItem(this.item, [this.duplicates = const []]);
 }
