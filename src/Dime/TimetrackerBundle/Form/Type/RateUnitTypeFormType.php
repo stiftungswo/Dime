@@ -3,6 +3,7 @@
 namespace Dime\TimetrackerBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
@@ -26,8 +27,8 @@ class RateUnitTypeFormType extends AbstractType
             ->add('name')
             ->add('factor')
             ->add('doTransform')
-            ->add('scale', 'integer', array('empty_data' => '3'))
-            ->add('roundMode', 'integer', array('empty_data' => strval(PHP_ROUND_HALF_UP)))
+            ->add('scale', IntegerType::class, array('empty_data' => '3'))
+            ->add('roundMode', IntegerType::class, array('empty_data' => strval(PHP_ROUND_HALF_UP)))
             ->add('symbol')
             ;
     }

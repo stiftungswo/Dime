@@ -7,23 +7,26 @@
 
 namespace Dime\InvoiceBundle\Form\Type;
 
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Tbbc\MoneyBundle\Form\Type\SimpleMoneyType;
 
 class InvoiceItemFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('order', 'number', ['empty_data' => '0'])
+            ->add('order', NumberType::class, ['empty_data' => '0'])
             ->add('name')
-            ->add('rateValue', 'tbbc_simple_money')
-            ->add('activity', 'entity', array('class' => 'Dime\TimetrackerBundle\Entity\Activity'))
-            ->add('amount', 'number')
+            ->add('rateValue', SimpleMoneyType::class)
+            ->add('activity', EntityType::class, array('class' => 'Dime\TimetrackerBundle\Entity\Activity'))
+            ->add('amount', NumberType::class)
             ->add('rateUnit')
             ->add('vat')
-            ->add('invoice', 'entity', array('class' => 'DimeInvoiceBundle:Invoice'))
+            ->add('invoice', EntityType::class, array('class' => 'DimeInvoiceBundle:Invoice'))
         ;
     }
 

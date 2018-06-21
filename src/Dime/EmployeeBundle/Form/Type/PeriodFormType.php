@@ -7,7 +7,9 @@
 
 namespace Dime\EmployeeBundle\Form\Type;
 
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -29,10 +31,10 @@ class PeriodFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('start', 'datetime', array('required' => true, 'widget' => 'single_text', 'with_seconds' => true))
-            ->add('end', 'datetime', array('required' => true, 'widget' => 'single_text', 'with_seconds' => true))
+            ->add('start', DateTimeType::class, array('required' => true, 'widget' => 'single_text', 'with_seconds' => true))
+            ->add('end', DateTimeType::class, array('required' => true, 'widget' => 'single_text', 'with_seconds' => true))
             ->add('pensum')
-            ->add('employee', 'entity', array('class' => 'DimeEmployeeBundle:Employee'))
+            ->add('employee', EntityType::class, array('class' => 'DimeEmployeeBundle:Employee'))
             ->add('realTime')
             ->add('holidays')
             ->add('lastYearHolidayBalance')

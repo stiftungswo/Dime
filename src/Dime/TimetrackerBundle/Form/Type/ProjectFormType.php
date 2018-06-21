@@ -2,9 +2,13 @@
 
 namespace Dime\TimetrackerBundle\Form\Type;
 
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Tbbc\MoneyBundle\Form\Type\SimpleMoneyType;
 
 class ProjectFormType extends AbstractType
 {
@@ -23,23 +27,23 @@ class ProjectFormType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('rateGroup', 'entity', array('class' => 'DimeTimetrackerBundle:RateGroup'))
+            ->add('rateGroup', EntityType::class, array('class' => 'DimeTimetrackerBundle:RateGroup'))
             ->add('alias', null, array('required' => false))
-            ->add('accountant', 'entity', array('class' => 'DimeEmployeeBundle:Employee'))
-            ->add('customer', 'entity', array('class' => 'DimeTimetrackerBundle:Customer'))
-            ->add('startedAt', 'datetime', array('required' => false, 'widget' => 'single_text', 'with_seconds' => true))
-            ->add('stoppedAt', 'datetime', array('required' => false, 'widget' => 'single_text', 'with_seconds' => true))
-            ->add('deadline', 'datetime', array('required' => false, 'widget' => 'single_text', 'with_seconds' => true))
+            ->add('accountant', EntityType::class, array('class' => 'DimeEmployeeBundle:Employee'))
+            ->add('customer', EntityType::class, array('class' => 'DimeTimetrackerBundle:Customer'))
+            ->add('startedAt', DateTimeType::class, array('required' => false, 'widget' => 'single_text', 'with_seconds' => true))
+            ->add('stoppedAt', DateTimeType::class, array('required' => false, 'widget' => 'single_text', 'with_seconds' => true))
+            ->add('deadline', DateTimeType::class, array('required' => false, 'widget' => 'single_text', 'with_seconds' => true))
             ->add('description')
-            ->add('budgetPrice', 'tbbc_simple_money')
-            ->add('fixedPrice', 'tbbc_simple_money')
-            ->add('budgetTime', 'text')
-            ->add('activities', 'entity', array('class' => 'DimeTimetrackerBundle:Activity', 'multiple' => true))
+            ->add('budgetPrice', SimpleMoneyType::class)
+            ->add('fixedPrice', SimpleMoneyType::class)
+            ->add('budgetTime', TextType::class)
+            ->add('activities', EntityType::class, array('class' => 'DimeTimetrackerBundle:Activity', 'multiple' => true))
             ->add('chargeable')
             ->add('archived')
-            ->add('tags', 'entity', array('class' => 'DimeTimetrackerBundle:Tag', 'multiple' => true))
-            ->add('user', 'entity', array('class' => 'DimeTimetrackerBundle:User'))
-            ->add('projectCategory', 'entity', array('class' => 'DimeTimetrackerBundle:ProjectCategory'))
+            ->add('tags', EntityType::class, array('class' => 'DimeTimetrackerBundle:Tag', 'multiple' => true))
+            ->add('user', EntityType::class, array('class' => 'DimeTimetrackerBundle:User'))
+            ->add('projectCategory', EntityType::class, array('class' => 'DimeTimetrackerBundle:ProjectCategory'))
         ;
     }
 

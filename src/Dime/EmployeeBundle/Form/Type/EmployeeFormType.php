@@ -3,7 +3,9 @@
 namespace Dime\EmployeeBundle\Form\Type;
 
 use Dime\TimetrackerBundle\Form\Transformer\PasswordCryptTransformer;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
@@ -27,11 +29,11 @@ class EmployeeFormType extends AbstractType
             ->add('plainpassword')
             ->add('firstname')
             ->add('lastname')
-            ->add('email', 'email')
+            ->add('email', EmailType::class)
             ->add('enabled')
             ->add('employeeholiday')
             ->add('extendTimetrack')
-            ->add('workingPeriods', 'entity', array('class' => 'DimeEmployeeBundle:Period', 'multiple' => true))
+            ->add('workingPeriods', EntityType::class, array('class' => 'DimeEmployeeBundle:Period', 'multiple' => true))
         ;
     }
 

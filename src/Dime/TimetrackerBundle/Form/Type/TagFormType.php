@@ -1,6 +1,7 @@
 <?php
 namespace Dime\TimetrackerBundle\Form\Type;
 
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -17,7 +18,7 @@ class TagFormType extends AbstractType
         $builder
             ->add('name')
             ->add('system')
-            ->add('user', 'entity', array('class' => 'DimeTimetrackerBundle:User'));
+            ->add('user', EntityType::class, array('class' => 'DimeTimetrackerBundle:User'));
     }
 
     /*
@@ -28,7 +29,7 @@ class TagFormType extends AbstractType
     {
         return 'dime_timetrackerbundle_tagformtype';
     }
-    
+
     /*
      * (non-PHPdoc)
      * @see \Symfony\Component\Form\AbstractType::setDefaultOptions()

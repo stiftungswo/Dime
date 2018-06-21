@@ -4,6 +4,8 @@ namespace Dime\TimetrackerBundle\Form\Type;
 
 use Dime\TimetrackerBundle\Entity\ProjectComment;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
@@ -16,8 +18,8 @@ class ProjectCommentFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('comment', 'text', ['required' => true])
-            ->add('date', 'datetime', ['required' => true, 'widget' => 'single_text', 'with_seconds' => true])
+            ->add('comment', TextType::class, ['required' => true])
+            ->add('date', DateTimeType::class, ['required' => true, 'widget' => 'single_text', 'with_seconds' => true])
             ->add('project')
             ->add('user')
         ;

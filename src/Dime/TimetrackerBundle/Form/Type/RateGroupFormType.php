@@ -2,6 +2,7 @@
 
 namespace Dime\TimetrackerBundle\Form\Type;
 
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -24,7 +25,7 @@ class RateGroupFormType extends AbstractType
         $builder
             ->add('name')
             ->add('description')
-            ->add('user', 'entity', array('class' => 'DimeTimetrackerBundle:User'));
+            ->add('user', EntityType::class, array('class' => 'DimeTimetrackerBundle:User'));
     }
 
     public function getName()
