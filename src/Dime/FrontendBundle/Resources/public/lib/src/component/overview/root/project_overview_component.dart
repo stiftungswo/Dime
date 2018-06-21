@@ -63,7 +63,7 @@ class ProjectOverviewComponent extends EntityOverview<Project> implements OnActi
         project.archived = true;
         project.addFieldtoUpdate('archived');
 
-        project = await this.store.update(project);
+        await this.store.update(project);
       });
     }
     ;

@@ -65,7 +65,7 @@ class EmployeeOverviewComponent extends EntityOverview<Employee> implements OnAc
         employee.enabled = false;
         employee.addFieldtoUpdate('enabled');
 
-        employee = await this.store.update(employee);
+        await this.store.update(employee);
       });
     }
     ;
