@@ -50,7 +50,8 @@
             <td>
               <dime-button primary (click)="duplicateEntity(entity.id)" fontAwesome="copy">Duplizieren</dime-button>
               <dime-button (click)="openEditView(entity.id)" fontAwesome="pencil"></dime-button>
-              <dime-button (click)="archiveProject(entity.id)" fontAwesome="archive" tooltip="Projekt archivieren"
+              <dime-button (click)="archiveProject(entity.id)" fontAwesome="archive"
+                           [tooltip]="entity.archived ? 'Bereits archiviert' : 'Projekt archivieren'"
                            [enabled]="!entity.archived"></dime-button>
               <dime-button (click)="deleteEntity(entity.id)" fontAwesome="trash-o" color="red"></dime-button>
             </td>
