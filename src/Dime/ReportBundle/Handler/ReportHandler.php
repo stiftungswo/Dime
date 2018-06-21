@@ -95,6 +95,12 @@ class ReportHandler extends AbstractHandler
 
     public function getExpensesReportComments(array $params)
     {
+        if (isset($params['invoice'])) {
+            $invoice = $this->container->get('dime.invoice.handler')->get($params['invoice']);
+            $params['project'] = $invoice->getProject()->getId();
+            unset($params['invoice']);
+        }
+
         if (isset($params['project'])) {
             /** @var ProjectCommentRepository $projectCommentRepository */
             $projectCommentRepository = $this->om->getRepository('DimeTimetrackerBundle:ProjectComment');
