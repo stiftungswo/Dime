@@ -23,6 +23,12 @@
       <dime-form-group horizontal label="Telefonnummer">
         <input ngControl="phone" class="form-control" [(ngModel)]="entity.phone" (change)="addSaveField('phone')">
       </dime-form-group>
+      <dime-form-group horizontal label="Mobiltelefonnummer">
+        <input ngControl="mobilephone" class="form-control" [(ngModel)]="entity.mobilephone" (change)="addSaveField('mobilephone')">
+      </dime-form-group>
+      <dime-form-group horizontal label="Kommentar">
+        <textarea ngControl="comment" class="form-control" [(ngModel)]="entity.comment" (change)="addSaveField('comment')"></textarea>
+      </dime-form-group>
       <dime-form-group horizontal label="Ansprechperson">
         <input required ngControl="fullname"
                class="form-control" [(ngModel)]="entity.fullname" (change)="addSaveField('fullname')">

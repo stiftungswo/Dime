@@ -95,6 +95,20 @@ class Customer extends Entity implements DimeEntityInterface
     protected $phone;
 
     /**
+     * @var String
+     *
+     * @ORM\Column(type="string", length=60, nullable=true)
+     */
+    protected $mobilephone;
+
+    /**
+     * @var String
+     *
+     * @ORM\Column(type="text", nullable=true)
+     */
+    protected $comment;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Dime\TimetrackerBundle\Entity\RateGroup")
      * @ORM\JoinColumn(name="rate_group_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
      * @JMS\SerializedName("rateGroup")
@@ -504,6 +518,44 @@ class Customer extends Entity implements DimeEntityInterface
     public function setPhone($phone)
     {
         $this->phone = $phone;
+        return $this;
+    }
+
+    /**
+     * @return String
+     */
+    public function getMobilephone()
+    {
+        return $this->mobilephone;
+    }
+
+    /**
+     * @param String $mobilephone
+     *
+     * @return $this
+     */
+    public function setMobilephone($mobilephone)
+    {
+        $this->mobilephone = $mobilephone;
+        return $this;
+    }
+
+    /**
+     * @return String
+     */
+    public function getComment()
+    {
+        return $this->comment;
+    }
+
+    /**
+     * @param String $comment
+     *
+     * @return $this
+     */
+    public function setComment($comment)
+    {
+        $this->comment = $comment;
         return $this;
     }
 }
