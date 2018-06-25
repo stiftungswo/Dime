@@ -3,9 +3,6 @@
 namespace Dime\TimetrackerBundle\Tests\Entity;
 
 use Dime\TimetrackerBundle\Entity\ActivityRepository;
-use Dime\TimetrackerBundle\Entity\Entity;
-use Dime\TimetrackerBundle\Entity\EntityRepository;
-use Symfony\Component\VarDumper\VarDumper;
 use Doctrine\ORM\QueryBuilder;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
