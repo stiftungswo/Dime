@@ -29,6 +29,8 @@ class Customer extends Entity {
       'salutation',
       'email',
       'phone',
+      'mobilephone',
+      'comment',
       'rateGroup',
       'address',
       'tags'
@@ -73,6 +75,10 @@ class Customer extends Entity {
           return this.email;
         case 'phone':
           return this.phone;
+        case 'mobilephone':
+          return this.mobilephone;
+        case 'comment':
+          return this.comment;
         case 'rateGroup':
           return this.rateGroup;
         case 'phones':
@@ -116,6 +122,12 @@ class Customer extends Entity {
       case 'phone':
         this.phone = value as String;
         break;
+      case 'mobilephone':
+        this.mobilephone = value as String;
+        break;
+      case 'comment':
+        this.comment = value as String;
+        break;
       case 'rateGroup':
         this.rateGroup = value is RateGroup ? value : new RateGroup.fromMap(value as Map<String, dynamic>);
         break;
@@ -134,7 +146,7 @@ class Customer extends Entity {
 
   @override
   String toString() {
-    return 'Customer{type: $type, chargeable: $chargeable, systemCustomer: $systemCustomer, address: $address, company: $company, department: $department, fullname: $fullname, salutation: $salutation, email: $email, phone: $phone, rateGroup: $rateGroup, phones: $phones, tags: $tags}';
+    return 'Customer{type: $type, chargeable: $chargeable, systemCustomer: $systemCustomer, address: $address, company: $company, department: $department, fullname: $fullname, salutation: $salutation, email: $email, phone: $phone, mobilephone: $mobilephone, comment: $comment, rateGroup: $rateGroup, phones: $phones, tags: $tags}';
   }
 
   @override
@@ -148,6 +160,8 @@ class Customer extends Entity {
   String salutation;
   String email;
   String phone;
+  String mobilephone;
+  String comment;
   RateGroup rateGroup;
   List<Phone> phones;
   @override

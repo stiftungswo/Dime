@@ -6,7 +6,8 @@
         <download-button href="{{getCsvExportLink()}}">CSV Download</download-button>
         <hr/>
         <download-button [href]="getCsvTemplateUri()" name="template.csv">Import Vorlage Download</download-button>
-        <input type="file" #import (change)="importFile(import.files)">
+        <help-tooltip text="Muss als 'Windows-Kommagetrennt (CSV)' abgespeichert werden. Umlaute kontrollieren!"></help-tooltip>
+        <input type="file" accept=".csv,text/csv" #import (change)="importFile(import.files)">
         <div *ngIf="customersToImport.isNotEmpty">
             <h3>Vorschau</h3>
             <table class="table table-bordered table-hover">
@@ -18,6 +19,8 @@
                     <th>Anrede</th>
                     <th>E-Mail</th>
                     <th>Telefonnummer</th>
+                    <th>Mobiltelefonnummer</th>
+                    <th>Kommentar</th>
                     <th>Ansprechperson</th>
                     <th>Strasse</th>
                     <th>Adresszusatz</th>
@@ -35,6 +38,8 @@
                     <td>{{ customer.item.salutation }}</td>
                     <td>{{ customer.item.email }}</td>
                     <td>{{ customer.item.phone }}</td>
+                    <td>{{ customer.item.mobilephone }}</td>
+                    <td>{{ customer.item.comment }}</td>
                     <td>{{ customer.item.fullname }}</td>
                     <td>{{ customer.item.address.street }}</td>
                     <td>{{ customer.item.address.supplement }}</td>
@@ -56,7 +61,7 @@
             <rate-group-select [(ngModel)]="importRateGroup"></rate-group-select>
             <br>
             <dime-button (click)="findDuplicates()">Duplikate suchen</dime-button>
-            <dime-button primary (click)="doImport()">Importieren</dime-button>
+            <dime-button primary (click)="doImport()">Importieren ({{importProgress}} / {{importTotal}})</dime-button>
         </div>
     </div>
 </div>

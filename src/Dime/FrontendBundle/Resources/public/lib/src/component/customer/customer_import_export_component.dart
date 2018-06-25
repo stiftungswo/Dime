@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:html';
+import 'dart:math' as math;
 
 import 'package:angular/angular.dart';
 import 'package:angular/src/security/dom_sanitization_service.dart';
@@ -47,6 +48,9 @@ class CustomerImportExportComponent {
   bool importIsSystemkune = false;
   List<Tag> importTags = [];
   RateGroup importRateGroup = null;
+
+  int importProgress = 0;
+  int get importTotal => customersToImport.length;
 
   CustomerImportExportComponent(this.http, this.sanitizationService, this.statusservice, this.store);
 
@@ -109,6 +113,8 @@ class CustomerImportExportComponent {
     'Anrede',
     'E-Mail',
     'Telefonnummer',
+    'Mobiltelefonnummer',
+    'Kommentar',
     'Ansprechperson',
     'Strasse',
     'Adresszusatz',
@@ -150,16 +156,18 @@ class CustomerImportExportComponent {
             ..salutation = row[3]
             ..email = row[4]
             ..phone = row[5]
-            ..fullname = row[6]
+            ..mobilephone = row[6]
+            ..comment = row[7]
+            ..fullname = row[8]
           //..chargeable = /*get from form*/
           //..systemCustomer = /*get from form*/
           ;
       customer.address = new Address()
-        ..street = row[7]
-        ..supplement = row[8]
-        ..plz = int.parse(row[9])
-        ..city = row[10]
-        ..country = row[11];
+        ..street = row[9]
+        ..supplement = row[10]
+        ..plz = int.parse(row[11], onError: (source) => null)
+        ..city = row[12]
+        ..country = row[13];
       return customer;
     }).toList();
   }
@@ -199,36 +207,52 @@ class CustomerImportExportComponent {
       window.alert('Keine Tarif Gruppe ausgewählt');
       return;
     }
+    importProgress = 0;
+    List<Map<String, dynamic>> customers = customersToImport.map((PreviewItem p) {
+      Customer c = p.item;
+      c
+        ..systemCustomer = importIsSystemkune
+        ..tags = importTags
+        ..rateGroup = importRateGroup
+        ..addFieldstoUpdate([
+          'name',
+          'company',
+          'department',
+          'salutation',
+          'email',
+          'phone',
+          'mobilephone',
+          'comment',
+          'fullname',
+          'address',
+          'tags',
+          'systemCustomer',
+          'rateGroup',
+        ]);
+      return c.toMap();
+    }).toList();
     await statusservice.run(() async {
-      var customers = customersToImport.map((PreviewItem p) {
-        Customer c = p.item;
-        c
-          ..systemCustomer = importIsSystemkune
-          ..tags = importTags
-          ..rateGroup = importRateGroup
-          ..addFieldstoUpdate([
-            'name',
-            'company',
-            'department',
-            'salutation',
-            'email',
-            'phone',
-            'fullname',
-            'address',
-            'tags',
-            'systemCustomer',
-            'rateGroup',
-          ]);
-        return c.toMap();
-      }).toList();
-      var object = {"customers": customers};
+      List<Customer> result = [];
 
-      String body = new JsonEncoder().convert(object);
+      for (Iterable<Map<String, dynamic>> chunk in chunk(customers, 25)) {
+        var object = {"customers": chunk.toList(growable: false)};
 
-      List<Customer> result = await this.store.customQueryList<Customer>(
-          Customer, new CustomRequestParams(method: 'post', url: '${http.baseUrl}/customers/import', data: body));
+        String body = new JsonEncoder().convert(object);
+
+        result.addAll(await this.store.customQueryList<Customer>(
+            Customer, new CustomRequestParams(method: 'post', url: '${http.baseUrl}/customers/import', data: body)));
+        importProgress += chunk.length;
+      }
+
       _import.add(result);
     });
+  }
+
+  Iterable<Iterable<T>> chunk<T>(List<T> list, int chunkSize) sync* {
+    int chunks = (list.length / chunkSize).ceil() - 1;
+    for (int i = 0; i <= chunks; i++) {
+      yield list.getRange(i * chunkSize, math.min(i * chunkSize + chunkSize, list.length));
+    }
   }
 
   remove(PreviewItem item) => customersToImport.remove(item);

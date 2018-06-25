@@ -130,7 +130,7 @@ class CustomersControllerTest extends DimeTestCase
         $csv = str_getcsv($csvrows[2], ',');
         $this->assertEquals('sep=,', $csvrows[0], 'expect first row to be excel marker');
         $this->assertGreaterThan(20, count($csvrows), 'expected more than 20 rows in CSV file');
-        $this->assertEquals(14, count($csv), 'expected 14 columns in CSV file');
+        $this->assertEquals(16, count($csv), 'expected 14 columns in CSV file');
 
 
 
