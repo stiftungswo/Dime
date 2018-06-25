@@ -33,7 +33,7 @@ abstract class EntityRepository extends Base
      * @param                   $date
      * @param QueryBuilder $qb
      *
-     * @return QueryBuilder
+     * @return EntityRepository
      */
     public function scopeByDate($date, QueryBuilder $qb = null)
     {

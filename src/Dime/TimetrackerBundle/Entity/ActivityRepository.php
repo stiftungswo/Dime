@@ -25,7 +25,7 @@ class ActivityRepository extends EntityRepository
      * @param string $text
      * @param \Doctrine\ORM\QueryBuilder $qb
      *
-     * @return \Doctrine\ORM\QueryBuilder
+     * @return ActivityRepository
      * @throws \Exception when $qb is null
      */
     public function search($text, QueryBuilder $qb = null)
@@ -57,7 +57,7 @@ class ActivityRepository extends EntityRepository
      * @param string $name
      * @param \Doctrine\ORM\QueryBuilder $qb
      *
-     * @return \Doctrine\ORM\QueryBuilder
+     * @return ActivityRepository
      * @throws \Exception when $qb is null
      */
     public function name($name, QueryBuilder $qb = null)
@@ -74,7 +74,8 @@ class ActivityRepository extends EntityRepository
         $alias = array_shift($aliases);
 
         $qb->andWhere(
-            $qb->join($alias . '.service', 's', null, null, 's.id')->expr()->like('s.name', ':name')
+            $qb->join($alias . '.service', 's', null, null, 's.id')
+                ->expr()->like('s.name', ':name')
         );
         $qb->setParameter('name', $name);
 
@@ -87,7 +88,7 @@ class ActivityRepository extends EntityRepository
      * @param                            $id , integer
      * @param \Doctrine\ORM\QueryBuilder $qb
      *
-     * @return \Doctrine\ORM\QueryBuilder
+     * @return EntityRepository
      */
     public function scopeByCustomer($id, QueryBuilder $qb = null)
     {
@@ -126,7 +127,7 @@ class ActivityRepository extends EntityRepository
      * @param integer|string $tagIdOrName
      * @param \Doctrine\ORM\QueryBuilder $qb
      *
-     * @return \Doctrine\ORM\QueryBuilder
+     * @return ActivityRepository
      */
     public function scopeWithTag($tagIdOrName, QueryBuilder $qb = null)
     {
