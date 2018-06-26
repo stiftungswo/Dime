@@ -187,7 +187,6 @@ class RateUnitType extends Entity implements DimeEntityInterface
                     break;
                 default:
                     return $value;
-                    break;
             }
         }
 
