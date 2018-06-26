@@ -25,13 +25,15 @@ class RateUnitTypeTest extends KernelTestCase
         ;
     }
 
-    protected function getEntity($id) {
+    protected function getEntity($id)
+    {
         return $this->em
             ->getRepository('DimeTimetrackerBundle:RateUnitType')
             ->findOneBy(array('id' => $id));
     }
 
-    public function testTransform() {
+    public function testTransform()
+    {
         // test it with anderes
         $entity = $this->getEntity('a');
         $entity->setDoTransform(true);
@@ -110,7 +112,8 @@ class RateUnitTypeTest extends KernelTestCase
         $this->assertEquals(0.99, $entity->transform(30000));
     }
 
-    public function testTransformBetweenTimeUnits() {
+    public function testTransformBetweenTimeUnits()
+    {
         $entity = $this->getEntity('a');
 
         // hours to hours
@@ -130,8 +133,11 @@ class RateUnitTypeTest extends KernelTestCase
             ->transformBetweenTimeUnits(1, RateUnitType::$Hourly, RateUnitType::$ZiviDayly));
 
         // hours to seconds
-        $this->assertEquals(3600, $entity->transformBetweenTimeUnits(1,
-            RateUnitType::$Hourly, null));
+        $this->assertEquals(3600, $entity->transformBetweenTimeUnits(
+            1,
+            RateUnitType::$Hourly,
+            null
+        ));
 
         // minutes to hours
         $this->assertEquals(round(1/60, 3) . 'h', $entity
@@ -150,8 +156,11 @@ class RateUnitTypeTest extends KernelTestCase
             ->transformBetweenTimeUnits(1, RateUnitType::$Minutely, RateUnitType::$ZiviDayly));
 
         // minutes to seconds
-        $this->assertEquals(60, $entity->transformBetweenTimeUnits(1,
-            RateUnitType::$Minutely, null));
+        $this->assertEquals(60, $entity->transformBetweenTimeUnits(
+            1,
+            RateUnitType::$Minutely,
+            null
+        ));
 
         // (zivi)days to hours
         $this->assertEquals('8.4h', $entity
@@ -162,16 +171,25 @@ class RateUnitTypeTest extends KernelTestCase
             ->transformBetweenTimeUnits(1, RateUnitType::$Dayly, RateUnitType::$Minutely));
 
         // (zivi)days to days
-        $this->assertEquals('1t', $entity->transformBetweenTimeUnits(1,
-            RateUnitType::$Dayly, RateUnitType::$Dayly));
+        $this->assertEquals('1t', $entity->transformBetweenTimeUnits(
+            1,
+            RateUnitType::$Dayly,
+            RateUnitType::$Dayly
+        ));
 
         // (zivi)days to zivi days
-        $this->assertEquals('1zt', $entity->transformBetweenTimeUnits(1,
-            RateUnitType::$Dayly, RateUnitType::$ZiviDayly));
+        $this->assertEquals('1zt', $entity->transformBetweenTimeUnits(
+            1,
+            RateUnitType::$Dayly,
+            RateUnitType::$ZiviDayly
+        ));
 
         // (zivi)days to seconds
-        $this->assertEquals(8.4*60*60, $entity->transformBetweenTimeUnits(1,
-            RateUnitType::$Dayly, null));
+        $this->assertEquals(8.4*60*60, $entity->transformBetweenTimeUnits(
+            1,
+            RateUnitType::$Dayly,
+            null
+        ));
 
         // seconds to hours
         $this->assertEquals(round(1/60/60, 3) . 'h', $entity
@@ -190,8 +208,11 @@ class RateUnitTypeTest extends KernelTestCase
             ->transformBetweenTimeUnits(1, null, RateUnitType::$ZiviDayly));
 
         // seconds to seconds
-        $this->assertEquals(1, $entity->transformBetweenTimeUnits(1,
-            null, null));
+        $this->assertEquals(1, $entity->transformBetweenTimeUnits(
+            1,
+            null,
+            null
+        ));
     }
 
     public function testReverseTransform()
@@ -254,7 +275,8 @@ class RateUnitTypeTest extends KernelTestCase
 */
     }
 
-    public function testSerializedOutput() {
+    public function testSerializedOutput()
+    {
         // return just the value if type is 'a'
         $entity = $this->getEntity('a');
         $this->assertEquals(16, $entity->serializedOutput(16));
@@ -266,7 +288,8 @@ class RateUnitTypeTest extends KernelTestCase
         $this->assertEquals('16h', $entity->serializedOutput('16'));
     }
 
-    public function testGetSetId() {
+    public function testGetSetId()
+    {
         // get and set a new id
         $entity = $this->getEntity('a');
         $entity->setId('pog');
@@ -274,7 +297,8 @@ class RateUnitTypeTest extends KernelTestCase
         $entity->setId('a');
     }
 
-    public function testGetSetName() {
+    public function testGetSetName()
+    {
         // get and set a new name
         $entity = $this->getEntity('a');
         $entity->setName('pog');
@@ -282,7 +306,8 @@ class RateUnitTypeTest extends KernelTestCase
         $entity->setName('Anderes');
     }
 
-    public function testGetSetDoTransform() {
+    public function testGetSetDoTransform()
+    {
         // get and set doTransform
         $entity = $this->getEntity('a');
         $entity->setDoTransform(true);
@@ -290,7 +315,8 @@ class RateUnitTypeTest extends KernelTestCase
         $entity->setDoTransform(false);
     }
 
-    public function testGetSetFactor() {
+    public function testGetSetFactor()
+    {
         // get and set Factory
         $entity = $this->getEntity('a');
         $entity->setFactor(70);
@@ -298,7 +324,8 @@ class RateUnitTypeTest extends KernelTestCase
         $entity->setFactor(1);
     }
 
-    public function testGetSetScale() {
+    public function testGetSetScale()
+    {
         // get and set Scale
         $entity = $this->getEntity('a');
         $entity->setScale(56);
@@ -306,7 +333,8 @@ class RateUnitTypeTest extends KernelTestCase
         $entity->setScale(1);
     }
 
-    public function testGetSetRoundMode() {
+    public function testGetSetRoundMode()
+    {
         // get and set RoundMode
         $entity = $this->getEntity('a');
         $entity->setRoundMode(9);
@@ -314,7 +342,8 @@ class RateUnitTypeTest extends KernelTestCase
         $entity->setRoundMode(1);
     }
 
-    public function testGetSetSymbol() {
+    public function testGetSetSymbol()
+    {
         // get and set Symbol
         $entity = $this->getEntity('a');
         $entity->setSymbol('qwertz');
