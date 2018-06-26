@@ -66,7 +66,7 @@ class TimesliceRepository extends EntityRepository
 
         if (is_string($date)) {
             $datetmp = preg_split('#,#', $date);
-            if (is_array($datetmp)) {
+            if (is_array($datetmp) && count($datetmp) > 1) {
                 $date = $datetmp;
             }
         }
@@ -110,6 +110,7 @@ class TimesliceRepository extends EntityRepository
      */
     public function scopeByEmployee($employee, QueryBuilder $qb = null)
     {
+        // TODO: This method cannot work because activities has no employee field -> Refactor or remove
         if ($qb == null) {
             $qb = $this->builder;
         }
