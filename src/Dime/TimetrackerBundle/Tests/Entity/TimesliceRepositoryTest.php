@@ -108,19 +108,22 @@ class TimesliceRepositoryTest extends KernelTestCase
         $this->assertEquals($expect, count($this->getRepoWithQB()
             ->scopeWithTag($rand_id)->getCurrentQueryBuilder()->getQuery()->execute()));
 
-        // the same result should also appear with the name
-        $this->assertEquals($expect, count($this->getRepoWithQB()
-            ->scopeWithTag($tag->getName())->getCurrentQueryBuilder()->getQuery()->execute()));
+        // the result could differ with the name, as the fixtures could include doubles
+        // but it should at least be as much as the previous result
+        $tags_with_name = count($this->getRepoWithQB()
+            ->scopeWithTag($tag->getName())->getCurrentQueryBuilder()->getQuery()->execute());
+        $this->assertGreaterThanOrEqual($expect, $tags_with_name);
 
         // if we want all activities without the tag,
-        // it should equal the amount of activities minus the upper result
+        // it should equal the amount of timeslices minus the upper result
         $all_timeslices = count($this->getRepoWithQB()->findAll());
         $without_tag = $all_timeslices - $expect;
         $this->assertEquals($without_tag, count($this->getRepoWithQB()->scopeWithoutTag($rand_id)
             ->getCurrentQueryBuilder()->getQuery()->execute()));
 
         // same thing if we use the name instead of the id
-        $this->assertEquals($without_tag, count($this->getRepoWithQB()->scopeWithoutTag($tag->getName())
+        $without_tag_name = $all_timeslices - $tags_with_name;
+        $this->assertEquals($without_tag_name, count($this->getRepoWithQB()->scopeWithoutTag($tag->getName())
             ->getCurrentQueryBuilder()->getQuery()->execute()));
     }
 
