@@ -50,16 +50,12 @@ class UserRepository extends EntityRepository
 
         $aliases = $qb->getRootAliases();
         $alias = array_shift($aliases);
+
         $value = str_replace('*', '%', $value);
         if (strpos($value, ' ') !== false) {
-            $fullname = str_split($value, strpos($value, ' '));
-            if (is_array($fullname)) {
-                $firstname = trim($fullname[0]);
-                $lastname = trim($fullname[1]);
-            } else {
-                $firstname = $fullname;
-                $lastname = null;
-            }
+            $fullname = explode(' ', $value, 2);
+            $firstname = trim($fullname[0]);
+            $lastname = trim($fullname[1]);
         } else {
             $firstname = $value;
             $lastname = null;
