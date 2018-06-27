@@ -5,7 +5,7 @@ namespace Dime\TimetrackerBundle\Tests\Entity;
 use Dime\TimetrackerBundle\Entity\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
-class ActiveRepositoryTest extends KernelTestCase
+class UserRepositoryTest extends KernelTestCase
 {
 
     // according to https://symfony.com/doc/current/testing/doctrine.html
