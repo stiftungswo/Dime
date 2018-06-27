@@ -30,3 +30,4 @@ Dime\TimetrackerBundle\Entity\Customer:
         salutation: <randomElement(array('Herr', 'Frau'))>
         address: @addressCustomer_<current()>
         user: @user_*
+        tags: '2x @tag_*'
