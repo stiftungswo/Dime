@@ -5,7 +5,8 @@ namespace Dime\TimetrackerBundle\Tests\Entity;
 use Dime\TimetrackerBundle\Entity\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
-class ActiveRepositoryTest extends KernelTestCase {
+class ActiveRepositoryTest extends KernelTestCase
+{
 
     // according to https://symfony.com/doc/current/testing/doctrine.html
     public function setUp()
@@ -28,16 +29,19 @@ class ActiveRepositoryTest extends KernelTestCase {
 
     // TESTS
 
-    public function testSearch() {
+    public function testSearch()
+    {
         // this function has no further options, so we just check the type to get coverage
         $this->assertInstanceOf(UserRepository::class, $this->getRepo()->search('text'));
     }
 
-    public function testScopeByDate() {
+    public function testScopeByDate()
+    {
         // this function provides no further functionality, so we just the type
         $this->assertInstanceOf(UserRepository::class, $this->getRepo()->scopeByDate('text'));
     }
-    public function testScopeByFullname() {
+    public function testScopeByFullname()
+    {
         $rand_id = rand(1, 26);
         $user = $this->getRepo()->find($rand_id);
 
@@ -56,7 +60,8 @@ class ActiveRepositoryTest extends KernelTestCase {
             ->getCurrentQueryBuilder()->getQuery()->execute()));
     }
     
-    public function testFilter() {
+    public function testFilter()
+    {
         // the method itselfs are tested in all other tests
         // so here we just verify that the params are passed correctly internally
         $user_repository = $this->getMockBuilder(UserRepository::class)
