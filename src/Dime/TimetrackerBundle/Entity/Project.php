@@ -577,7 +577,7 @@ class Project extends Entity implements DimeEntityInterface
      */
     public function __toString()
     {
-        return (empty($this->name)) ? $this->getId() : $this->getName();
+        return (empty($this->name)) ? strval($this->getId()) : $this->getName();
     }
 
     /**
