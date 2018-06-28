@@ -2,9 +2,12 @@
 
 namespace Dime\OfferBundle\Form\Type;
 
+use Swo\CommonsBundle\Form\Type\AddressFormType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Tbbc\MoneyBundle\Form\Type\SimpleMoneyType;
 
 class OfferFormType extends AbstractType
 {
@@ -33,10 +36,10 @@ class OfferFormType extends AbstractType
             ->add('shortDescription')
             ->add('description')
             ->add('tags')
-            ->add('fixedPrice', 'tbbc_simple_money')
+            ->add('fixedPrice', SimpleMoneyType::class)
             ->add('user')
-            ->add('address', 'swo_commons_addressformtype')
-            ->add('validTo', 'datetime', array('required' => false, 'widget' => 'single_text', 'with_seconds' => false))
+            ->add('address', AddressFormType::class)
+            ->add('validTo', DateTimeType::class, array('required' => false, 'widget' => 'single_text', 'with_seconds' => false))
             ->add('offerPositions');
     }
 

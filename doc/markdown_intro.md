@@ -6,7 +6,8 @@ Markdown ist eine einfache Art, mit Klartext simple Formatierungen vorzunehmen.
 
 Sonderzeichen wie ² oder ɸ können mit der Mac Zeichentabelle (Ctrl+⌘+Leertaste) eingefügt oder aus anderen Dokumenten kopiert werden.
 
-*\*kursive\** und **\*\*fette\*\*** Wörter werden mit Sternen umgeben
+*\*kursive\** und **\*\*fette\*\*** Wörter werden mit Sternen umgeben.
+Kursiv und Fett gleichzeitig auf einem Wort oder Satz wird nicht unterstützt.
 
 Absätze werden durch eine Leerzeile erreicht
 

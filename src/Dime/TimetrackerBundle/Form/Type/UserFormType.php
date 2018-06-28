@@ -3,6 +3,7 @@
 namespace Dime\TimetrackerBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
@@ -27,7 +28,7 @@ class UserFormType extends AbstractType
             ->add('plainpassword')
             ->add('firstname')
             ->add('lastname')
-            ->add('email', 'email')
+            ->add('email', EmailType::class)
             ->add('enabled')
             ->add('employeeholiday')
         ;

@@ -2,7 +2,9 @@
 
 namespace Dime\TimetrackerBundle\Form\Type;
 
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
@@ -25,12 +27,12 @@ class ServiceFormType extends AbstractType
             ->add('name')
             ->add('alias', null, array('required' => false))
             ->add('description')
-            ->add('rates', 'collection', array('type' => new RateFormType()))
+            ->add('rates', CollectionType::class, array('type' => new RateFormType()))
             ->add('vat')
             ->add('chargeable')
             ->add('archived')
-            ->add('tags', 'entity', array('class' => 'DimeTimetrackerBundle:Tag', 'multiple' => true))
-            ->add('user', 'entity', array('class' => 'DimeTimetrackerBundle:User'))
+            ->add('tags', EntityType::class, array('class' => 'DimeTimetrackerBundle:Tag', 'multiple' => true))
+            ->add('user', EntityType::class, array('class' => 'DimeTimetrackerBundle:User'))
         ;
     }
 

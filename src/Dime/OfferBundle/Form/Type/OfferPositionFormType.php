@@ -5,6 +5,7 @@ namespace Dime\OfferBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Tbbc\MoneyBundle\Form\Type\SimpleMoneyType;
 
 class OfferPositionFormType extends AbstractType
 {
@@ -27,7 +28,7 @@ class OfferPositionFormType extends AbstractType
             ->add('offer')
             ->add('order')
             ->add('amount')
-            ->add('rateValue', 'tbbc_simple_money')
+            ->add('rateValue', SimpleMoneyType::class)
             ->add('rateUnit')
             ->add('rateUnitType')
             ->add('vat')
