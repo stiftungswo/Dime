@@ -77,6 +77,7 @@ class CustomerImportExportComponent {
 
   importFile(FileList files) async {
     if (files.length != 1) {
+      window.alert('Es muss genau eine Datei ausgewählt werden!');
       return;
     }
     File file = files.single;
@@ -145,6 +146,7 @@ class CustomerImportExportComponent {
     }
 
     if (rows.isEmpty || rows.first.length != CSV_HEADER.length) {
+      window.alert("Die ausgewählte Datei scheint leer oder nicht korrekt formatiert zu sein!");
       return [];
     }
 
