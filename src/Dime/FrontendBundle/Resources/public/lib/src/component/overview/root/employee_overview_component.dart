@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:math';
+import 'dart:html';
 
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
@@ -53,5 +54,22 @@ class EmployeeOverviewComponent extends EntityOverview<Employee> implements OnAc
       'username': 'newuser' + random,
       'email': 'user' + random + '@example.com',
     });
+  }
+
+  Future deactivateEmployee(dynamic entId) async {
+    if (entId != null && window.confirm("Wirklich deaktivieren?")) {
+      User employee;
+
+      await this.statusservice.run(() async {
+        employee = this.entities.singleWhere((e) => e.id == entId);
+        employee.enabled = false;
+        employee.addFieldtoUpdate('enabled');
+
+        await this.store.update(employee);
+      });
+    }
+    ;
+
+    return true;
   }
 }
