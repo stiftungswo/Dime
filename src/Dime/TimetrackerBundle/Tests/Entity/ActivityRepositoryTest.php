@@ -3,10 +3,9 @@
 namespace Dime\TimetrackerBundle\Tests\Entity;
 
 use Dime\TimetrackerBundle\Entity\ActivityRepository;
-use Doctrine\ORM\QueryBuilder;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
-class ActiveRepositoryTest extends KernelTestCase
+class ActivityRepositoryTest extends KernelTestCase
 {
 
     // according to https://symfony.com/doc/current/testing/doctrine.html
