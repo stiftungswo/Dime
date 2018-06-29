@@ -49,7 +49,7 @@ abstract class EntityRepository extends Base
 
         if (is_string($date)) {
             $datetmp = preg_split('#,#', $date);
-            if (is_array($datetmp)) {
+            if (is_array($datetmp) && count($datetmp) > 1) {
                 $date = $datetmp;
             }
         }
