@@ -28,6 +28,11 @@ class ActiveRepositoryTest extends KernelTestCase
         return $this->getRepo()->createCurrentQueryBuilder('a');
     }
 
+    public function getQBFromRepo()
+    {
+        return $this->getRepoWithQB()->getCurrentQueryBuilder();
+    }
+
     // TESTS
 
     public function testAllowedFields()
@@ -63,7 +68,7 @@ class ActiveRepositoryTest extends KernelTestCase
 
     public function testScopeByCustomer()
     {
-        // activities have no relations to customer, so we ignore this method
+        // method is not finished yet, so we ignore that one
     }
 
     public function testScopeByProject()
@@ -71,9 +76,8 @@ class ActiveRepositoryTest extends KernelTestCase
         $rand_id = rand(1, 23);
 
         // fetch the data first through sql
-        $qb = $this->em->getConnection()->createQueryBuilder('a');
-        $qb = $qb->select('id')->from('activities')->where($qb->expr()->eq('project_id', $rand_id));
-        $expect = count($qb->execute()->fetchAll());
+        $qb = $this->getQBFromRepo();
+        $expect = count($qb->where($qb->expr()->eq('a.project', $rand_id))->getQuery()->execute());
 
         $this->assertEquals($expect, count($this->getRepoWithQB()->scopeByProject($rand_id)
             ->getCurrentQueryBuilder()->getQuery()->execute()));
@@ -87,9 +91,8 @@ class ActiveRepositoryTest extends KernelTestCase
         $rand_id = rand(1, 80);
 
         // now fetch the expectations of amount of records in the activities table
-        $qb = $this->em->getConnection()->createQueryBuilder('a');
-        $qb = $qb->select('id')->from('activities')->where($qb->expr()->eq('service_id', $rand_id));
-        $expect = count($qb->execute()->fetchAll());
+        $qb = $this->getQBFromRepo();
+        $expect = count($qb->where($qb->expr()->eq('a.service', $rand_id))->getQuery()->execute());
 
         $this->assertEquals($expect, count($this->getRepoWithQB()
             ->scopeByService($rand_id)->getCurrentQueryBuilder()->getQuery()->execute()));
