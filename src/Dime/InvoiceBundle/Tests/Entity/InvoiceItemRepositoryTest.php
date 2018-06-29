@@ -1,9 +1,9 @@
 <?php
 
-use Dime\InvoiceBundle\Entity\InvoiceDiscountRepository;
+use Dime\InvoiceBundle\Entity\InvoiceItemRepository;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
-class InvoiceDiscountRepositoryTest extends KernelTestCase
+class InvoiceItemRepositoryTest extends KernelTestCase
 {
 
     // according to https://symfony.com/doc/current/testing/doctrine.html
@@ -16,7 +16,7 @@ class InvoiceDiscountRepositoryTest extends KernelTestCase
     // HELPER FUNCTIONS TO DRY
     protected function getRepo()
     {
-        return $this->em->getRepository('DimeInvoiceBundle:InvoiceDiscount');
+        return $this->em->getRepository('DimeInvoiceBundle:InvoiceItem');
     }
 
     protected function getRepoWithQB()
@@ -39,21 +39,21 @@ class InvoiceDiscountRepositoryTest extends KernelTestCase
         $this->assertEquals($expect, count($this->getRepoWithQB()->search($item_name)
             ->getCurrentQueryBuilder()->getQuery()->execute()));
     }
-    
+
     public function testScopeWithTag()
     {
-        // tags are currently not implented in InvoiceDiscountRepository
+        // tags are currently not implented in InvoiceItemRepository
         $this->assertInstanceOf(
-            InvoiceDiscountRepository::class,
+            InvoiceItemRepository::class,
             $this->getRepoWithQB()->scopeWithTag('name')
         );
     }
 
     public function testScopeWithoutTag()
     {
-        // tags are currently not implented in InvoiceDiscountRepository
+        // tags are currently not implented in InvoiceItemRepository
         $this->assertInstanceOf(
-            InvoiceDiscountRepository::class,
+            InvoiceItemRepository::class,
             $this->getRepoWithQB()->scopeWithoutTag('name')
         );
     }
@@ -63,7 +63,7 @@ class InvoiceDiscountRepositoryTest extends KernelTestCase
         // the method itselfs are tested in all other tests
         // so here we just verify that the params are passed correctly
         $invoice_discount_repository = $this->getMockBuilder(
-            InvoiceDiscountRepository::class
+            InvoiceItemRepository::class
         )
             ->disableOriginalConstructor()
             ->setMethods(['scopeWithTags', 'scopeWithoutTags', 'search',
@@ -100,9 +100,9 @@ class InvoiceDiscountRepositoryTest extends KernelTestCase
 
     public function testScopeByDate()
     {
-        // tags are currently not implented in InvoiceDiscountRepository
+        // tags are currently not implented in InvoiceItemRepository
         $this->assertInstanceOf(
-            InvoiceDiscountRepository::class,
+            InvoiceItemRepository::class,
             $this->getRepoWithQB()->scopeByDate('2018-07-06')
         );
     }

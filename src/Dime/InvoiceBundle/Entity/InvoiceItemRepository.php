@@ -30,13 +30,8 @@ class InvoiceItemRepository extends EntityRepository
         $aliases = $qb->getRootAliases();
         $alias = array_shift($aliases);
 
-        $qb->andWhere($qb->expr()->orX(
-            $qb->expr()->like($alias . '.description', ':text_like'),
-            $qb->expr()->like($alias . '.name', ':text_like'),
-            $qb->expr()->eq($alias . '.alias', ':text')
-        ));
+        $qb->andWhere($qb->expr()->like($alias . '.name', ':text_like'));
         $qb->setParameter('text_like', '%' . $text . '%');
-        $qb->setParameter('text', $text);
 
         return $this;
     }
@@ -51,22 +46,8 @@ class InvoiceItemRepository extends EntityRepository
      */
     public function scopeWithTag($tagIdOrName, QueryBuilder $qb = null)
     {
-        if ($qb == null) {
-            $qb = $this->builder;
-        }
-
-        $aliases = $qb->getRootAliases();
-        $alias = array_shift($aliases);
-
-        if (!$this->existsJoinAlias($qb, 'x')) {
-            $qb->innerJoin(
-                $alias . '.tags',
-                'x',
-                'WITH',
-                is_numeric($tagIdOrName) ? 'x.id = :tag' : 'x.name = :tag'
-            );
-        }
-        $qb->setParameter('tag', $tagIdOrName);
+        // InvoiceItem has no relation to tags
+        // but you could query it through InvoiceItem -> Invoice -> Project if there is ever a need for
         return $this;
     }
 
@@ -80,31 +61,10 @@ class InvoiceItemRepository extends EntityRepository
      */
     public function scopeWithoutTag($tagIdOrName, QueryBuilder $qb = null)
     {
-        if ($qb == null) {
-            $qb = $this->builder;
-        }
-
-        $aliases = $qb->getRootAliases();
-        $alias = array_shift($aliases);
-        $qb2 = clone $qb;
-        $qb2->resetDqlParts();
-
-        $qb->andWhere(
-            $qb->expr()->notIn(
-                $alias . '.id',
-                $qb2->select('p2.id')
-                    ->from('Dime\TimetrackerBundle\Entity\Project', 'p2')
-                    ->join('p2.tags', 'x2')
-                    ->where(is_numeric($tagIdOrName) ? 'x2.id = :tag' : 'x2.name = :tag')
-                    ->getDQL()
-            )
-        );
-        $qb->setParameter('tag', $tagIdOrName);
-
+        // InvoiceItem has no relation to tags
+        // but you could query it through InvoiceDiscount -> Invoice -> Project if there is ever a need for
         return $this;
     }
-
-
 
     /**
      * Add different filter option to query
