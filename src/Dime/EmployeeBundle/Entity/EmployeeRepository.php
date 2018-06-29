@@ -32,42 +32,17 @@ class EmployeeRepository extends EntityRepository
         return $this;
     }
 
-    public function findByCustomer($customerid)
-    {
-        return $this->findBy(array('customer' => $customerid));
-    }
-
-    public function findByService($serviceId)
-    {
-        return $this->findBy(array('service' => $serviceId));
-    }
-
     /**
      * Filter by assigned tag
      *
      * @param integer|string             $tagIdOrName
      * @param \Doctrine\ORM\QueryBuilder $qb
      *
-     * @return \Doctrine\ORM\QueryBuilder
+     * @return EmployeeRepository
      */
     public function scopeWithTag($tagIdOrName, QueryBuilder $qb = null)
     {
-        if ($qb == null) {
-            $qb = $this->builder;
-        }
-
-        $aliases = $qb->getRootAliases();
-        $alias = array_shift($aliases);
-
-        if (!$this->existsJoinAlias($qb, 'x')) {
-            $qb->innerJoin(
-                $alias . '.tags',
-                'x',
-                'WITH',
-                is_numeric($tagIdOrName) ? 'x.id = :tag' : 'x.name = :tag'
-            );
-        }
-        $qb->setParameter('tag', $tagIdOrName);
+        // Employee's (respectively User) don't have a tag
         return $this;
     }
 
@@ -77,31 +52,11 @@ class EmployeeRepository extends EntityRepository
      * @param integer|string             $tagIdOrName
      * @param \Doctrine\ORM\QueryBuilder $qb
      *
-     * @return \Doctrine\ORM\QueryBuilder
+     * @return EmployeeRepository
      */
     public function scopeWithoutTag($tagIdOrName, QueryBuilder $qb = null)
     {
-        if ($qb == null) {
-            $qb = $this->builder;
-        }
-
-        $aliases = $qb->getRootAliases();
-        $alias = array_shift($aliases);
-        $qb2 = clone $qb;
-        $qb2->resetDqlParts();
-
-        $qb->andWhere(
-            $qb->expr()->notIn(
-                $alias . '.id',
-                $qb2->select('p2.id')
-                    ->from('Dime\TimetrackerBundle\Entity\Employee', 'p2')
-                    ->join('p2.tags', 'x2')
-                    ->where(is_numeric($tagIdOrName) ? 'x2.id = :tag' : 'x2.name = :tag')
-                    ->getDQL()
-            )
-        );
-        $qb->setParameter('tag', $tagIdOrName);
-
+        // Employee's (respectively User) don't have a tag
         return $this;
     }
 
@@ -111,7 +66,7 @@ class EmployeeRepository extends EntityRepository
      * @param array                      $filter
      * @param \Doctrine\ORM\QueryBuilder $qb
      *
-     * @return ActivityRepository
+     * @return EmployeeRepository
      */
     public function filter(array $filter, QueryBuilder $qb = null)
     {
@@ -147,7 +102,7 @@ class EmployeeRepository extends EntityRepository
      * @param string $text
      * @param QueryBuilder $qb
      *
-     * @return QueryBuilder
+     * @return EmployeeRepository
      */
     public function search($text, QueryBuilder $qb = null)
     {
