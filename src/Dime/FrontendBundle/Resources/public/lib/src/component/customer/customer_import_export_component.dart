@@ -167,7 +167,7 @@ class CustomerImportExportComponent {
       customer.address = new Address()
         ..street = row[9]
         ..supplement = row[10]
-        ..plz = int.parse(row[11], onError: (source) => null)
+        ..plz = int.tryParse(row[11])
         ..city = row[12]
         ..country = row[13];
       return customer;

@@ -68,7 +68,6 @@ class ProjectOverviewComponent extends EntityOverview<Project> implements OnActi
         await this.store.update(project);
       });
     }
-    ;
 
     return true;
   }

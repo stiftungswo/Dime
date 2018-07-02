@@ -35,7 +35,7 @@ class TagSelectComponent implements OnInit, ControlValueAccessor<List<Tag>> {
   bool disabled = false;
 
   @ViewChild('input')
-  ElementRef input;
+  HtmlElement input;
 
   TagSelectComponent(this.statusservice, this.store);
 
@@ -64,7 +64,7 @@ class TagSelectComponent implements OnInit, ControlValueAccessor<List<Tag>> {
     open = !open;
     await new Future<dynamic>.delayed(const Duration(microseconds: 1));
     if (open) {
-      (input.nativeElement as InputElement).focus();
+      (input as InputElement).focus();
     }
   }
 

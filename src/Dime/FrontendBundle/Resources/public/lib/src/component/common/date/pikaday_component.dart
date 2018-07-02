@@ -341,8 +341,11 @@ int intValue(intOrString) {
 }
 
 int parseInt(String intStr, [int defaultValue]) {
-  return int.parse(intStr,
-      onError: (s) => defaultValue != null ? defaultValue : throw new ArgumentError("couldn't convert to int: $intStr"));
+  int value = int.tryParse(intStr);
+  if (value == null) {
+    value = defaultValue != null ? defaultValue : throw new ArgumentError("couldn't convert to int: $intStr");
+  }
+  return value;
 }
 
 bool boolValue(boolOrString) {

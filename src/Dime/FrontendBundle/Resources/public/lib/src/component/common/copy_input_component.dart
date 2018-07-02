@@ -20,10 +20,10 @@ class CopyInputComponent {
   String text = '';
 
   @ViewChild('input')
-  ElementRef input;
+  HtmlElement input;
 
   bool copy() {
-    var element = input.nativeElement;
+    InputElement element = input as InputElement;
     element.focus();
     element.select();
 
