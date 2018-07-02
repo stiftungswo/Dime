@@ -28,8 +28,7 @@ class HttpService {
       {Map<String, dynamic> queryParams = const {}, dynamic body, Map<String, String> headers = const {}}) {
     Map<String, String> requestHeaders = {}..addAll(_defaultHeaders)..addAll(headers);
 
-    return HttpRequest
-        .request(baseUrl + "/" + path + encodeQueryParams(queryParams),
+    return HttpRequest.request(baseUrl + "/" + path + encodeQueryParams(queryParams),
             method: method, sendData: body, withCredentials: true, requestHeaders: requestHeaders)
         .then((HttpRequest resp) => resp.responseText);
   }
