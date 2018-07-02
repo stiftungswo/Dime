@@ -24,7 +24,7 @@ class CustomerSelectComponent extends EntitySelect<Customer> {
   @override
   Future reload() async {
     await this.statusservice.run(() async {
-      this.entities = (await this.store.list(Customer, params: {'systemCustomer': 1})).toList() as List<Customer>;
+      this.entities = (await this.store.list<Customer>(Customer, params: {'systemCustomer': 1})).toList();
     });
   }
 }
