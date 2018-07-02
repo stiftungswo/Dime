@@ -33,7 +33,7 @@ class OfferHandler extends GenericHandler
             $project->setRateGroup($offer->getCustomer()->getRateGroup());
         }
         $project->setDescription($offer->getShortDescription());
-        if ($offer->getFixedPrice()->isZero()) {
+        if ($offer->getFixedPrice() != null && $offer->getFixedPrice()->isZero()) {
             $project->setBudgetPrice($offer->getSubtotal());
         } else {
             $project->setBudgetPrice($offer->getFixedPrice());
