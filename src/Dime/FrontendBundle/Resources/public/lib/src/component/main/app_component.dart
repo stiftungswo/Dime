@@ -30,6 +30,7 @@ import '../overview/root/setting_assign_project_overview_component.template.dart
 import '../report/timeslice_expense_report_component.template.dart' as timeslice_expense_report_component;
 import '../report/timeslice_weekly_report_component.template.dart' as timeslice_weekly_report_component;
 import '../timetrack/timetrack_multi_component.template.dart' as timetrack_multi_component;
+import '../overview/root/tag_overview_component.template.dart' as tag_overview_component;
 
 import '../edit/customer_edit_component.template.dart' as customer_edit_component;
 import '../edit/employee_edit_component.template.dart' as employee_edit_component;
@@ -135,6 +136,8 @@ class AppComponent implements AfterViewInit, OnInit {
     new RouteDefinition(
         routePath: TimetrackPeriodsRoute,
         /*name: 'TimetrackPeriods', */ component: timetrack_periods_component.TimetrackPeriodsComponentNgFactory),
+    new RouteDefinition(
+        routePath: TagOverviewRoute, /*name: 'TagOverview', */ component: tag_overview_component.TagOverviewComponentNgFactory),
   ];
 
   AppComponent(UserAuthService this.auth, UserContextService this.userContext);

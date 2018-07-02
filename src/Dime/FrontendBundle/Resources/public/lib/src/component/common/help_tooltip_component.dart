@@ -6,7 +6,7 @@ import 'package:angular/angular.dart';
 )
 class HelpTooltipComponent {
   @Input()
-  String text = "gurken";
+  String text = "";
 
   getText() {
     return this.text;

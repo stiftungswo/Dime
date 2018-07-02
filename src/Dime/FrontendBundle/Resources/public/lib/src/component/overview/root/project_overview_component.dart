@@ -1,6 +1,8 @@
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
 import 'package:angular_router/angular_router.dart';
+import 'dart:async';
+import 'dart:html';
 
 import '../../../model/entity_export.dart';
 import '../../../pipe/dime_pipes.dart';
@@ -52,5 +54,22 @@ class ProjectOverviewComponent extends EntityOverview<Project> implements OnActi
     newProject.accountant = this.context.employee;
     newProject.addFieldtoUpdate('accountant');
     return newProject;
+  }
+
+  Future archiveProject(dynamic entId) async {
+    if (entId != null && window.confirm("Wirklich archivieren?")) {
+      Project project;
+
+      await this.statusservice.run(() async {
+        project = this.entities.singleWhere((e) => e.id == entId);
+        project.archived = true;
+        project.addFieldtoUpdate('archived');
+
+        await this.store.update(project);
+      });
+    }
+    ;
+
+    return true;
   }
 }

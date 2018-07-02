@@ -62,7 +62,7 @@ class ProjectOpenInvoicesComponent extends EntityOverview<Project> implements On
     this.entities = [];
     await this.statusservice.run(() async {
       if (evict) {
-        this.store.evict(this.type);
+        await this.store.evict(this.type);
       }
       this.entities = (await this
               .store

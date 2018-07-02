@@ -40,6 +40,7 @@ class MenuComponent {
       new Menu.child('Feiertage', routes.HolidayOverviewRoute.toUrl()),
       new Menu.child('Tätigkeitsbereiche', routes.ProjectCategoryOverviewRoute.toUrl()),
       new Menu.child('Projekte Zuweisen', routes.SettingAssignProjectOverviewRoute.toUrl(), adminOnly: true),
+      new Menu.child('Tags verwalten', routes.TagOverviewRoute.toUrl()),
     ]),
   ];
 

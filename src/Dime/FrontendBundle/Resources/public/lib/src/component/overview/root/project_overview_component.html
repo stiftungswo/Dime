@@ -37,7 +37,7 @@
               Beschreibung<span *ngIf="sortType == 'description' && sortReverse" class="fa fa-fw fa-angle-up"></span><span *ngIf="sortType == 'description' && !sortReverse" class="fa fa-fw fa-angle-down"></span>
             </a>
           </th>
-          <th width="210">Aktion</th>
+          <th width="250">Aktionen</th>
         </tr>
       </thead>
       <tbody *ngIf="entities != null">
@@ -50,6 +50,9 @@
             <td>
               <dime-button primary (click)="duplicateEntity(entity.id)" fontAwesome="copy">Duplizieren</dime-button>
               <dime-button (click)="openEditView(entity.id)" fontAwesome="pencil"></dime-button>
+              <dime-button (click)="archiveProject(entity.id)" fontAwesome="archive"
+                           [tooltip]="entity.archived ? 'Bereits archiviert' : 'Projekt archivieren'"
+                           [enabled]="!entity.archived"></dime-button>
               <dime-button (click)="deleteEntity(entity.id)" fontAwesome="trash-o" color="red"></dime-button>
             </td>
           </template>

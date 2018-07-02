@@ -63,7 +63,7 @@ class InvoiceEditComponent extends EntityEdit<Invoice> {
   Future load({bool evict: false}) async {
     await this.statusservice.run(() async {
       if (evict) {
-        this.store.evict(this.entType);
+        await this.store.evict(this.entType);
       }
       this.entity = await this.store.one(Invoice, this.entId);
       if (this.project != null) {
@@ -101,7 +101,7 @@ class InvoiceEditComponent extends EntityEdit<Invoice> {
         .store
         .customQueryOne<Invoice>(Invoice, new CustomRequestParams(method: 'GET', url: '${http.baseUrl}/invoices/project/${project.id}'));
     project.invoices.add(newInvoice);
-    this.store.evict(Invoice, true);
+    await this.store.evict(Invoice, true);
     router.navigate(routes.InvoiceEditRoute.toUrl(parameters: {'id': newInvoice.id.toString()}));
   }
 

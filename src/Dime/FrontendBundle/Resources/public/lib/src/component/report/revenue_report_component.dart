@@ -30,7 +30,7 @@ class RevenueReportComponent implements OnActivate {
     page_title.setPageTitle('Umsatzstatistik');
   }
 
-  getCsvLink() {
+  String getCsvLink() {
     if (filterStartDate != null && filterEndDate != null) {
       return '${http.baseUrl}/reports/revenue/csv?date=${encodeDateRange(filterStartDate, filterEndDate)}';
     } else {

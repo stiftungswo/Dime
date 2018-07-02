@@ -28,3 +28,4 @@ final ReportRevenueRoute = new RoutePath(path: '/reports/revenue');
 final TimetrackRoute = new RoutePath(path: '/timetrack');
 final TimetrackMultiRoute = new RoutePath(path: '/timetrack/multi');
 final TimetrackPeriodsRoute = new RoutePath(path: '/timetrack/periods');
+final TagOverviewRoute = new RoutePath(path: '/tags');

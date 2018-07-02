@@ -1,0 +1,20 @@
+<ul class="list-unstyled">
+    <li *ngFor="let tag of selectedEntities">
+        <span class="label label-info">{{tag.name}}</span>
+        <button type="button" (click)="delete(tag)" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash"></span></button>
+    </li>
+</ul>
+<button type="button" (click)="toggleOpen()" class="btn btn-default btn-sm">Hinzufügen <span class="glyphicon glyphicon-plus"></span></button>
+
+<div class="dropdown open" [hidden]="!open">
+    <input [disabled]="disabled" name="tag_select" class="form-control" type="text" [(ngModel)]="selector"
+          style="width: 100%;" autocomplete="off" #input>
+
+    <div class="dropdown-menu select-dropdown" *ngIf="open && entities != null">
+        <div *ngFor="let entity of entities | selectedTags:selectedEntities | filter:['name']:selector">
+            <div (click)="select(entity)">
+                <span>{{entity.name}}</span>
+            </div>
+        </div>
+    </div>
+</div>

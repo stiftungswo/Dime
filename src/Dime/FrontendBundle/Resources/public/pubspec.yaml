@@ -19,6 +19,7 @@ dependencies:
   meta: ^1.1.2
   stack_trace: "^1.9.2"
   markdown: "^2.0.0"
+  csv: "^3.1.2"
 
 dev_dependencies:
   build_runner: "^0.8.9"

@@ -17,6 +17,7 @@ Dime\TimetrackerBundle\Entity\Customer:
         name: StiftungSWO
         alias: stiftungswo
         chargeable: true
+        systemCustomer: true
         address: @addressCustomer_1
         user: @user_*
     customer_{2..25}:
@@ -24,9 +25,11 @@ Dime\TimetrackerBundle\Entity\Customer:
         name: <company()>
         alias: <slug()>
         chargeable: <boolean(90)>
+        systemCustomer: <boolean(70)>
         company: <company()>
         department: <word()>
         fullname: <name()>
         salutation: <randomElement(array('Herr', 'Frau'))>
         address: @addressCustomer_<current()>
         user: @user_*
+        tags: '<numberBetween(0, 3)>x @tag_*'

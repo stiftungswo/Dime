@@ -47,6 +47,7 @@ class Customer extends Entity implements DimeEntityInterface
      * @JMS\SerializedName("tags")
      * @ORM\ManyToMany(targetEntity="Tag", cascade="all")
      * @ORM\JoinTable(name="customer_tags")
+     * @JMS\Groups({"List"})
      */
     protected $tags;
 
@@ -79,6 +80,35 @@ class Customer extends Entity implements DimeEntityInterface
     protected $salutation;
 
     /**
+     * @var String
+     *
+     * @JMS\Groups({"List"})
+     * @ORM\Column(type="string", length=60, nullable=true)
+     */
+    protected $email;
+
+    /**
+     * @var String
+     *
+     * @ORM\Column(type="string", length=60, nullable=true)
+     */
+    protected $phone;
+
+    /**
+     * @var String
+     *
+     * @ORM\Column(type="string", length=60, nullable=true)
+     */
+    protected $mobilephone;
+
+    /**
+     * @var String
+     *
+     * @ORM\Column(type="text", nullable=true)
+     */
+    protected $comment;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Dime\TimetrackerBundle\Entity\RateGroup")
      * @ORM\JoinColumn(name="rate_group_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
      * @JMS\SerializedName("rateGroup")
@@ -91,6 +121,16 @@ class Customer extends Entity implements DimeEntityInterface
      * @ORM\Column(type="boolean")
      */
     protected $chargeable = true;
+
+    /**
+     * Can this customer be used for offers / invoices?
+     * @var boolean $systemCustomer
+     *
+     * @JMS\Groups({"List"})
+     * @JMS\SerializedName("systemCustomer")
+     * @ORM\Column(type="boolean", name="system_customer")
+     */
+    protected $systemCustomer = true;
 
     /**
      * @var \Swo\CommonsBundle\Entity\Address $address
@@ -286,6 +326,22 @@ class Customer extends Entity implements DimeEntityInterface
     }
 
     /**
+     * @return bool
+     */
+    public function isSystemCustomer()
+    {
+        return $this->systemCustomer;
+    }
+
+    /**
+     * @param bool $systemCustomer
+     */
+    public function setSystemCustomer($systemCustomer)
+    {
+        $this->systemCustomer = $systemCustomer;
+    }
+
+    /**
      * Set createdAt
      *
      * @param \DateTime $createdAt
@@ -424,6 +480,82 @@ class Customer extends Entity implements DimeEntityInterface
     public function setSalutation($salutation)
     {
         $this->salutation = $salutation;
+        return $this;
+    }
+
+    /**
+     * @return String
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * @param String $email
+     *
+     * @return $this
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+        return $this;
+    }
+
+    /**
+     * @return String
+     */
+    public function getPhone()
+    {
+        return $this->phone;
+    }
+
+    /**
+     * @param String $phone
+     *
+     * @return $this
+     */
+    public function setPhone($phone)
+    {
+        $this->phone = $phone;
+        return $this;
+    }
+
+    /**
+     * @return String
+     */
+    public function getMobilephone()
+    {
+        return $this->mobilephone;
+    }
+
+    /**
+     * @param String $mobilephone
+     *
+     * @return $this
+     */
+    public function setMobilephone($mobilephone)
+    {
+        $this->mobilephone = $mobilephone;
+        return $this;
+    }
+
+    /**
+     * @return String
+     */
+    public function getComment()
+    {
+        return $this->comment;
+    }
+
+    /**
+     * @param String $comment
+     *
+     * @return $this
+     */
+    public function setComment($comment)
+    {
+        $this->comment = $comment;
         return $this;
     }
 }

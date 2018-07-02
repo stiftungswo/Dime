@@ -2,7 +2,10 @@
 
 namespace Dime\TimetrackerBundle\Form\Type;
 
+use Swo\CommonsBundle\Form\Type\AddressFormType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
@@ -27,13 +30,18 @@ class CustomerFormType extends AbstractType
             ->add('department')
             ->add('company')
             ->add('fullname')
+            ->add('email')
+            ->add('phone')
+            ->add('mobilephone')
+            ->add('comment')
             ->add('alias', null, array('required' => false))
             ->add('rateGroup')
-            ->add('tags', 'entity', array('class' => 'DimeTimetrackerBundle:Tag', 'multiple' => true))
+            ->add('tags', EntityType::class, array('class' => 'DimeTimetrackerBundle:Tag', 'multiple' => true))
             ->add('chargeable')
-            ->add('address', 'swo_commons_addressformtype')
-            ->add('phones', 'collection', array('type' => 'swo_commons_phoneformtype'))
-            ->add('user', 'entity', array('class' => 'DimeTimetrackerBundle:User'))
+            ->add('systemCustomer')
+            ->add('address', AddressFormType::class)
+            ->add('phones', CollectionType::class, array('type' => 'swo_commons_phoneformtype'))
+            ->add('user', EntityType::class, array('class' => 'DimeTimetrackerBundle:User'))
         ;
     }
 

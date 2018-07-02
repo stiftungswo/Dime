@@ -7,7 +7,6 @@ import '../../model/entity_export.dart';
 import '../../pipe/dime_pipes.dart';
 import '../../service/caching_object_store_service.dart';
 import '../../service/status_service.dart';
-import '../../service/user_auth_service.dart';
 import 'entity_select.dart';
 
 @Component(
@@ -18,8 +17,8 @@ import 'entity_select.dart';
   providers: const [const ExistingProvider.forToken(ngValueAccessor, ProjectSelectComponent, multi: true)],
 )
 class ProjectSelectComponent extends EntitySelect<Project> {
-  ProjectSelectComponent(CachingObjectStoreService store, dom.Element element, StatusService status, UserAuthService auth)
-      : super(Project, store, element, status, auth);
+  ProjectSelectComponent(CachingObjectStoreService store, dom.Element element, StatusService status)
+      : super(Project, store, element, status);
 
   @Input()
   bool hideArchived = false;

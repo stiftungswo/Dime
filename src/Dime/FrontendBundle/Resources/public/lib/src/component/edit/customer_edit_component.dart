@@ -18,7 +18,7 @@ import 'entity_edit.dart';
 @Component(
   selector: 'customer-edit',
   templateUrl: 'customer_edit_component.html',
-  directives: const [coreDirectives, formDirectives, dimeDirectives, RateGroupSelectComponent, AddressEditComponent],
+  directives: const [coreDirectives, formDirectives, dimeDirectives, RateGroupSelectComponent, AddressEditComponent, TagSelectComponent],
 )
 class CustomerEditComponent extends EntityEdit<Customer> {
   List<RateGroup> rateGroups;
