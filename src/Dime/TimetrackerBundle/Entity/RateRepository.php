@@ -17,22 +17,10 @@ class RateRepository extends EntityRepository
      *
      * @param string $text
      * @param QueryBuilder $qb
-     * @return ServiceRepository
+     * @return RateRepository
      */
     public function search($text, QueryBuilder $qb = null)
     {
-        if ($qb == null) {
-            $qb = $this->builder;
-        }
-
-        $aliases = $qb->getRootAliases();
-        $alias = array_shift($aliases);
-
-        $qb->andWhere($qb->expr()->orX(
-            $qb->expr()->like($alias . '.name', ':text_like')
-        ));
-        $qb->setParameter('text_like', '%' . $text . '%');
-
         return $this;
     }
 
@@ -41,7 +29,7 @@ class RateRepository extends EntityRepository
      * @param                   $date
      * @param QueryBuilder $qb
      *
-     * @return ServiceRepository
+     * @return RateRepository
      */
     public function scopeByDate($date, QueryBuilder $qb = null)
     {

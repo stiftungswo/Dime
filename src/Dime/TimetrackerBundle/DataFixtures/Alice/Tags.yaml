@@ -1,3 +1,4 @@
 Dime\TimetrackerBundle\Entity\Tag:
     tag_{1..20}:
         name: <word()>
+        user: @user_*
