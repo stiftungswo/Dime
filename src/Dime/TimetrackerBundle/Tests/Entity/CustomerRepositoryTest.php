@@ -29,6 +29,11 @@ class CustomerRepositoryTest extends KernelTestCase
         return $this->getRepo()->createCurrentQueryBuilder('c');
     }
 
+    protected function getQBFromRepo()
+    {
+        return $this->getRepoWithQB()->getCurrentQueryBuilder();
+    }
+
     // TESTS
 
     public function testSearch()
@@ -39,14 +44,22 @@ class CustomerRepositoryTest extends KernelTestCase
         $customer = $this->getRepo()->find($rand_id);
 
         // check for any duplicates
-        $customers = $this->getRepo()->findBy(['name' => $customer->getName()]);
-        $this->assertEquals(count($customers), count($this->getRepoWithQB()
-            ->search($customer->getName())->getCurrentQueryBuilder()->getQuery()->execute()));
+        $name = $customer->getName();
+        $qb = $this->getQBFromRepo();
+        $expect = count($qb->where('c.name LIKE :name_like')->orWhere('c.alias = :name')
+            ->setParameter('name_like', '%'.$name.'%')->setParameter('name', $name)
+            ->getQuery()->getResult());
+        $this->assertEquals($expect, count($this->getRepoWithQB()
+            ->search($name)->getCurrentQueryBuilder()->getQuery()->execute()));
 
         // let's do the same for the alias
-        $customers = $this->getRepo()->findBy(['alias' => $customer->getAlias()]);
-        $this->assertEquals(count($customers), count($this->getRepoWithQB()
-            ->search($customer->getAlias())->getCurrentQueryBuilder()->getQuery()->execute()));
+        $alias = $customer->getAlias();
+        $qb = $this->getQBFromRepo();
+        $expect = count($qb->where('c.name LIKE :name_like')->orWhere('c.alias = :name')
+            ->setParameter('name_like', '%'.$alias.'%')->setParameter('name', $alias)
+            ->getQuery()->getResult());
+        $this->assertEquals($expect, count($this->getRepoWithQB()
+            ->search($alias)->getCurrentQueryBuilder()->getQuery()->execute()));
     }
 
     public function testScopeByDate()
