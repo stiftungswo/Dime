@@ -68,7 +68,6 @@ class EmployeeOverviewComponent extends EntityOverview<Employee> implements OnAc
         await this.store.update(employee);
       });
     }
-    ;
 
     return true;
   }
