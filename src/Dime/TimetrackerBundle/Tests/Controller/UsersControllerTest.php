@@ -134,4 +134,52 @@ class UsersControllerTest extends DimeTestCase
         $response = $this->jsonRequest('GET', $this->api_prefix.'/users/' . $id);
         $this->assertEquals(404, $response->getStatusCode(), $response->getContent());
     }
+
+    function testEnableLockUserAction()
+    {
+        $this->loginAs('admin');
+
+        // try to lock user
+        $rand_id = rand(1, 26);
+        $response = $this->jsonRequest('PATCH', $this->api_prefix.'/users/'.$rand_id.'/lock');
+        $this->assertEquals(204, $response->getStatusCode(), $response->getContent());
+
+        // get user to verify result
+        $response = $this->jsonRequest('GET', $this->api_prefix.'/users/'.$rand_id);
+
+        // convert json to array
+        $data = json_decode($response->getContent(), true);
+
+        // assert that data has content
+        $this->assertTrue(
+            count($data) > 0,
+            'expected to find users found '.$response->getContent().' with Response Code: '.$response->getStatusCode()
+        );
+        $this->assertEquals(
+            false,
+            $data['enabled'],
+            'expected to find "enabled false"'
+        );
+
+        // now re-enable user
+        $response = $this->jsonRequest('PATCH', $this->api_prefix.'/users/'.$rand_id.'/enable');
+        $this->assertEquals(204, $response->getStatusCode(), $response->getContent());
+
+        // get user to verify result
+        $response = $this->jsonRequest('GET', $this->api_prefix.'/users/'.$rand_id);
+
+        // convert json to array
+        $data = json_decode($response->getContent(), true);
+
+        // assert that data has content
+        $this->assertTrue(
+            count($data) > 0,
+            'expected to find users found '.$response->getContent().' with Response Code: '.$response->getStatusCode()
+        );
+        $this->assertEquals(
+            true,
+            $data['enabled'],
+            'expected to find "enabled false"'
+        );
+    }
 }
