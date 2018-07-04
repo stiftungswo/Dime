@@ -61,6 +61,10 @@ class Entity {
         if (value != null) {
           value = value.toMap();
         }
+      } else if (value is List<Tag>) {
+        // todo implement this cleaner
+        // the current config of the "multiple entities" FormType expects an array of ids
+        value = value.map((Tag e) => (e..addFieldtoUpdate('id')).toMap()['id']).toList();
       } else if (value is DateTime) {
         value = value.toString();
       }

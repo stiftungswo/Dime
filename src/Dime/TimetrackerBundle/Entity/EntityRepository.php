@@ -3,6 +3,7 @@
 namespace Dime\TimetrackerBundle\Entity;
 
 use Doctrine\ORM\EntityRepository as Base;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
 
 /**
@@ -216,9 +217,9 @@ abstract class EntityRepository extends Base
         $result = false;
 
         foreach ($qb->getDQLPart('join') as $joins) {
+            /** @var Join $j */
             foreach ($joins as $j) {
-                $join = $j->__toString();
-                if (substr($join, strrpos($join, ' ') + 1) == $alias) {
+                if ($j->getAlias() == $alias) {
                     $result = true;
                     break;
                 }

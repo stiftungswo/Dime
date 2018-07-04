@@ -17,6 +17,18 @@
         <input required ngControl="salutation" class="form-control"
                [(ngModel)]="entity.salutation" (change)="addSaveField('salutation')">
       </dime-form-group>
+      <dime-form-group horizontal label="E-Mail">
+        <input ngControl="email" class="form-control" [(ngModel)]="entity.email" (change)="addSaveField('email')">
+      </dime-form-group>
+      <dime-form-group horizontal label="Telefonnummer">
+        <input ngControl="phone" class="form-control" [(ngModel)]="entity.phone" (change)="addSaveField('phone')">
+      </dime-form-group>
+      <dime-form-group horizontal label="Mobiltelefonnummer">
+        <input ngControl="mobilephone" class="form-control" [(ngModel)]="entity.mobilephone" (change)="addSaveField('mobilephone')">
+      </dime-form-group>
+      <dime-form-group horizontal label="Kommentar">
+        <textarea ngControl="comment" class="form-control" [(ngModel)]="entity.comment" (change)="addSaveField('comment')"></textarea>
+      </dime-form-group>
       <dime-form-group horizontal label="Ansprechperson">
         <input required ngControl="fullname"
                class="form-control" [(ngModel)]="entity.fullname" (change)="addSaveField('fullname')">
@@ -30,6 +42,15 @@
             <input type="checkbox" [(ngModel)]="entity.chargeable" (change)="addSaveField('chargeable')"/>
             Verrechenbar
           </label>
+      </dime-form-group>
+      <dime-form-group horizontal class="checkbox">
+          <label>
+            <input type="checkbox" [(ngModel)]="entity.systemCustomer" (change)="addSaveField('systemCustomer')"/>
+            System Kunde
+          </label>
+      </dime-form-group>
+      <dime-form-group horizontal label="Tags">
+        <tag-select [ngModel]="entity.tags" (ngModelChange)="entity.tags=$event;addSaveField('tags')"></tag-select>
       </dime-form-group>
       <h4>Adresse</h4>
       <address-edit [(address)]="entity.address"  (change)="addSaveField('address')"></address-edit>

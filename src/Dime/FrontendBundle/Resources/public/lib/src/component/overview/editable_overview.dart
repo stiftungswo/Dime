@@ -66,7 +66,7 @@ abstract class EditableOverview<T extends Entity> extends EntityOverview<T> {
     await this.statusservice.run(() async {
       var newMap = new EntityControlMap<T>(required, fields);
       if (evict) {
-        this.store.evict(this.type);
+        await this.store.evict(this.type);
       }
       var entities = (await this.store.list(this.type, params: params)).toList() as List<T>;
       await postProcessEntities(entities);
@@ -98,7 +98,7 @@ abstract class EditableOverview<T extends Entity> extends EntityOverview<T> {
   /// the current change detection cycle.
   /// see https://github.com/angular/angular/issues/6005
   Future runOutsideChangeDetection(f()) {
-    var completer = new Completer();
+    var completer = new Completer<dynamic>();
     new Timer(const Duration(seconds: 0), () {
       f();
       //we'd need to notify parent components, specifically dime-box as well,

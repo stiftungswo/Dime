@@ -94,7 +94,7 @@ class CustomerRepository extends EntityRepository
             );
         }
         $qb->setParameter('tag', $tagIdOrName);
-        return $this;
+        return $qb;
     }
 
     /**

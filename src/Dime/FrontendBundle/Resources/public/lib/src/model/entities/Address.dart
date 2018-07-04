@@ -75,6 +75,6 @@ class Address extends Entity {
 
   @override
   String toString() {
-    return '$street - $plz $city';
+    return 'Address{street: $street, supplement: $supplement, city: $city, plz: $plz, country: $country}';
   }
 }

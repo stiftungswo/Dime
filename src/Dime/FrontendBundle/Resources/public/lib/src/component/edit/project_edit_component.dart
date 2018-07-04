@@ -56,7 +56,7 @@ class ProjectEditComponent extends EntityEdit<Project> {
   }
 
   Future loadCustomers() async {
-    this.customers = await this.store.list(Customer);
+    this.customers = await this.store.list(Customer, params: {'systemCustomer': 1});
   }
 
   Future loadRateGroups() async {
@@ -86,7 +86,7 @@ class ProjectEditComponent extends EntityEdit<Project> {
       Invoice newInvoice = await this.store.customQueryOne<Invoice>(
           Invoice, new CustomRequestParams(method: 'GET', url: '${http.baseUrl}/invoices/project/${this.entity.id}'));
       entity.invoices.add(newInvoice);
-      this.store.evict(Invoice, true);
+      await this.store.evict(Invoice, true);
       router.navigate([
         'InvoiceEdit',
         {'id': newInvoice.id.toString()}

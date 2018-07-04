@@ -34,7 +34,7 @@
             </a>
           </th>
           <th width="60">Aktiv</th>
-          <th width="210">Aktion</th>
+          <th width="250">Aktionen</th>
         </tr>
       </thead>
       <tbody *ngIf="entities != null">
@@ -48,6 +48,9 @@
             <div class="btn-group">
               <dime-button primary (click)="duplicateEntity(entity.id)" fontAwesome="copy">Duplizieren</dime-button>
               <dime-button (click)="openEditView(entity.id)" fontAwesome="pencil"></dime-button>
+              <dime-button (click)="deactivateEmployee(entity.id)" fontAwesome="archive"
+                           [tooltip]="entity.enabled ? 'Mitarbeiter deaktivieren' : 'Bereits deaktiviert'"
+                           [enabled]="entity.enabled"></dime-button>
               <dime-button (click)="deleteEntity(entity.id)" fontAwesome="trash-o" color="red"></dime-button>
             </div>
           </td>

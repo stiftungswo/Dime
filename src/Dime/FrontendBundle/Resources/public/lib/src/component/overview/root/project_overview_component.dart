@@ -2,6 +2,8 @@ import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
 import 'package:angular_router/angular_router.dart';
 import 'package:angular_router/src/router.dart';
+import 'dart:async';
+import 'dart:html';
 
 import '../../../model/entity_export.dart';
 import '../../../pipe/dime_pipes.dart';
@@ -50,5 +52,46 @@ class ProjectOverviewComponent extends EntityOverview<Project> implements OnActi
     newProject.accountant = this.context.employee;
     newProject.addFieldtoUpdate('accountant');
     return newProject;
+  }
+
+  Future archiveProject(dynamic entId) async {
+    if (entId != null && window.confirm("Wirklich archivieren?")) {
+      Project project;
+
+      await this.statusservice.run(() async {
+        project = this.entities.singleWhere((e) => e.id == entId);
+        project.archived = true;
+        project.addFieldtoUpdate('archived');
+
+        await this.store.update(project);
+      });
+    }
+
+    return true;
+  }
+
+  @override
+  Future deleteEntity(dynamic entId) async {
+    if (entId != null && window.confirm("Wirklich löschen?")) {
+      await this.statusservice.run(() async {
+        Future<Project> projectF = this.store.one(Project, entId);
+        Future<List<Activity>> activitiesF = this.store.list<Activity>(Activity, params: {'project': entId});
+        Project project = await projectF;
+        List<Activity> activities = await activitiesF;
+
+        if (project.invoices.isNotEmpty || activities.any((Activity a) => this.hasActivityValue(a))) {
+          return window.alert(
+              'Dieses Projekt kann nicht gelöscht werden! Es sind bereits Stunden verbucht worden oder eine Rechnung daraus generiert worden! Es kann aber archiviert werden.');
+        }
+
+        await this.store.delete(project);
+
+        this.entities.removeWhere((enty) => enty.id == entId);
+      }, onError: (e, _) => print("Unable to Delete Project::${entId} because ${e}"));
+    }
+  }
+
+  bool hasActivityValue(Activity a) {
+    return num.parse(a.value.toString().replaceAll(new RegExp(r'\w'), ''), (_) => 99999) > 0;
   }
 }
