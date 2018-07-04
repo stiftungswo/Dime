@@ -3,8 +3,6 @@
 namespace Dime\TimetrackerBundle\Tests\Entity;
 
 use Dime\TimetrackerBundle\Entity\TimesliceRepository;
-use Doctrine\ORM\QueryBuilder;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Carbon\Carbon;
 
 class TimesliceRepositoryTest extends DimeRepositoryTestCase
@@ -14,7 +12,7 @@ class TimesliceRepositoryTest extends DimeRepositoryTestCase
     protected const QB_ALIAS='t';
 
     // TESTS
-    public function testScopeByLatest()
+    function testScopeByLatest()
     {
         // it should only the latest object
         $qb = $this->getRepoWithQB()->getCurrentQueryBuilder();
@@ -29,7 +27,7 @@ class TimesliceRepositoryTest extends DimeRepositoryTestCase
         $this->assertEquals($expect, $test);
     }
 
-    public function testScopeByDate()
+    function testScopeByDate()
     {
         $rand_id = rand(1, 300);
         // get a timeslice to get its creation date
@@ -49,12 +47,12 @@ class TimesliceRepositoryTest extends DimeRepositoryTestCase
             ->getCurrentQueryBuilder()->getQuery()->execute()));
     }
 
-    public function testScopeByEmployee()
+    function testScopeByEmployee()
     {
         // currently not tested, see comment at method itself
     }
 
-    public function testScopeByActivityData()
+    function testScopeByActivityData()
     {
         $rand_id = rand(1, 54);
         $activity = $this->getRepo('DimeTimetrackerBundle:Activity')->find($rand_id);
@@ -73,7 +71,7 @@ class TimesliceRepositoryTest extends DimeRepositoryTestCase
             ->getCurrentQueryBuilder()->getQuery()->execute()));
     }
 
-    public function testTagScopes()
+    function testTagScopes()
     {
         $rand_id = rand(1, 20);
         $tag = $this->getRepo('DimeTimetrackerBundle:Tag')->find($rand_id);
@@ -107,7 +105,7 @@ class TimesliceRepositoryTest extends DimeRepositoryTestCase
             ->getCurrentQueryBuilder()->getQuery()->execute()));
     }
 
-    public function testFilter()
+    function testFilter()
     {
         // the method itselfs are tested in all other tests
         // so here we just verify that the params are passed correctly internally
@@ -153,7 +151,7 @@ class TimesliceRepositoryTest extends DimeRepositoryTestCase
         $timeslice_repository->filter(['value' => 7200]);
     }
 
-    public function testFetchActivityIdsByDates()
+    function testFetchActivityIdsByDates()
     {
         $rand_id = rand(1, 461);
 

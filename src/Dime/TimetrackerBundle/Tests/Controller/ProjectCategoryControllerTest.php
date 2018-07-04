@@ -14,7 +14,7 @@ class ProjectCategoryControllerTest extends DimeTestCase
             ->jsonRequest('GET', $this->api_prefix.'/projectcategories')->getStatusCode());
     }
 
-    function testGetProjectCategorysAction()
+    function testGetProjectCategoriesAction()
     {
         // should return project categories
         $this->loginAs('admin');
@@ -67,7 +67,7 @@ class ProjectCategoryControllerTest extends DimeTestCase
         $this->assertEquals(
             'sample name',
             $data['name'],
-            'expected to find "comment"'
+            'expected to find name "sample name"'
         );
 
         /* modify project category */
@@ -91,7 +91,7 @@ class ProjectCategoryControllerTest extends DimeTestCase
         $this->assertEquals(
             'Better name',
             $data['name'],
-            'expected to find "comment"'
+            'expected to find name "Better name"'
         );
 
         /* delete project category */

@@ -8,18 +8,18 @@ use Dime\TimetrackerBundle\Entity\User;
 class UserTest extends KernelTestCase
 {
 
-    public function setUp()
+    function setUp()
     {
         self::bootKernel();
         $this->em = static::$kernel->getContainer()->get('doctrine')->getManager();
     }
     
-    public function testGetSetNames()
+    function testGetSetNames()
     {
         // Get and Set Name of user
         $user = new User();
-        $this->assertEquals(null, $user->getFirstname());
-        $this->assertEquals(null, $user->getLastname());
+        $this->assertNull($user->getFirstname());
+        $this->assertNull($user->getLastname());
         
         $user->setFirstname('neuer Firstname');
         $user->setLastname('neuer Lastname');
@@ -29,37 +29,37 @@ class UserTest extends KernelTestCase
         $this->assertEquals('neuer Firstname neuer Lastname', $user->getFullname());
     }
 
-    public function testGetId()
+    function testGetId()
     {
         // has only a getter method
         $user = new User();
-        $this->assertEquals(null, $user->getId());
+        $this->assertNull($user->getId());
     }
 
-    public function testGetCreatedAt()
+    function testGetCreatedAt()
     {
         // has only a getter method
         $user = new User();
-        $this->assertEquals(null, $user->getCreatedAt());
+        $this->assertNull($user->getCreatedAt());
     }
 
-    public function testGetUpdatedAt()
+    function testGetUpdatedAt()
     {
         // has only a getter method
         $user = new User();
-        $this->assertEquals(null, $user->getUpdatedAt());
+        $this->assertNull($user->getUpdatedAt());
     }
 
-    public function testGetSetEmployeeholiday()
+    function testGetSetEmployeeholiday()
     {
         // get and set Employeeholiday
         $user = new User();
-        $this->assertEquals(null, $user->getEmployeeholiday());
+        $this->assertNull($user->getEmployeeholiday());
         $user->setEmployeeholiday(20);
         $this->assertEquals(20, $user->getEmployeeholiday());
     }
 
-    public function testRoles()
+    function testRoles()
     {
         // user has by default a standard role
         $user = new User();
@@ -79,7 +79,7 @@ class UserTest extends KernelTestCase
         $this->assertEquals(2, count($user->getRoles()));
     }
 
-    public function testToString()
+    function testToString()
     {
         // should return strval if id and names are missing
         $user = new User();

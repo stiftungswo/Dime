@@ -3,7 +3,6 @@
 namespace Dime\TimetrackerBundle\Tests\Entity;
 
 use Faker;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Dime\TimetrackerBundle\Entity\TagRepository;
 
 class TagRepositoryTest extends DimeRepositoryTestCase

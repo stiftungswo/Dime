@@ -1,35 +1,16 @@
 <?php
 
+use Dime\TimetrackerBundle\Tests\Entity\DimeRepositoryTestCase;
 use Dime\InvoiceBundle\Entity\InvoiceItemRepository;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
-class InvoiceItemRepositoryTest extends KernelTestCase
+class InvoiceItemRepositoryTest extends DimeRepositoryTestCase
 {
+    // set up const for tests
+    protected const ENTITY_NAME='DimeInvoiceBundle:InvoiceItem';
+    protected const QB_ALIAS='i';
 
-    // according to https://symfony.com/doc/current/testing/doctrine.html
-    public function setUp()
-    {
-        self::bootKernel();
-        $this->em = static::$kernel->getContainer()->get('doctrine')->getManager();
-    }
-
-    // HELPER FUNCTIONS TO DRY
-    protected function getRepo()
-    {
-        return $this->em->getRepository('DimeInvoiceBundle:InvoiceItem');
-    }
-
-    protected function getRepoWithQB()
-    {
-        return $this->getRepo()->createCurrentQueryBuilder('a');
-    }
-
-    protected function getQBFromRepo()
-    {
-        return $this->getRepoWithQB()->getCurrentQueryBuilder();
-    }
-
-    public function testSearch()
+    // TESTS
+    function testSearch()
     {
         // get a random item and fetch its name
         $rand_id = rand(1, 5);
@@ -40,7 +21,7 @@ class InvoiceItemRepositoryTest extends KernelTestCase
             ->getCurrentQueryBuilder()->getQuery()->execute()));
     }
 
-    public function testScopeWithTag()
+    function testScopeWithTag()
     {
         // tags are currently not implented in InvoiceItemRepository
         $this->assertInstanceOf(
@@ -49,7 +30,7 @@ class InvoiceItemRepositoryTest extends KernelTestCase
         );
     }
 
-    public function testScopeWithoutTag()
+    function testScopeWithoutTag()
     {
         // tags are currently not implented in InvoiceItemRepository
         $this->assertInstanceOf(
@@ -58,7 +39,7 @@ class InvoiceItemRepositoryTest extends KernelTestCase
         );
     }
 
-    public function testFilter()
+    function testFilter()
     {
         // the method itselfs are tested in all other tests
         // so here we just verify that the params are passed correctly
@@ -98,7 +79,7 @@ class InvoiceItemRepositoryTest extends KernelTestCase
         $invoice_discount_repository->filter(['name' => 'lorem ipsum']);
     }
 
-    public function testScopeByDate()
+    function testScopeByDate()
     {
         // tags are currently not implented in InvoiceItemRepository
         $this->assertInstanceOf(

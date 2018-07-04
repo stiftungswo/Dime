@@ -64,7 +64,11 @@ class TagsControllerTest extends DimeTestCase
         $data = json_decode($response->getContent(), true);
 
         // assert that data has content
-        $this->assertEquals('super mario odyssey', $data['name'], 'expected to find "comment"');
+        $this->assertEquals(
+            'super mario odyssey',
+            $data['name'],
+            'expected to find name "super mario odyssey"'
+        );
         $this->assertFalse($data['system'], 'expected to find tag system');
 
         /* modify tag */
@@ -90,7 +94,7 @@ class TagsControllerTest extends DimeTestCase
         $this->assertEquals(
             'super mario sunshine',
             $data['name'],
-            'expected to find "comment"'
+            'expected to find name "super mario sunshine"'
         );
         $this->assertTrue(
             $data['system'],

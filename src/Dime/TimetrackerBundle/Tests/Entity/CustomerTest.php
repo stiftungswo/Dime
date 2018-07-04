@@ -13,13 +13,13 @@ use Dime\TimetrackerBundle\Entity\Tag;
 class CustomerTest extends KernelTestCase
 {
 
-    public function setUp()
+    function setUp()
     {
         self::bootKernel();
         $this->em = static::$kernel->getContainer()->get('doctrine')->getManager();
     }
 
-    public function testGetSetChargeable()
+    function testGetSetChargeable()
     {
         // get and set name
         $customer = new Customer();
@@ -30,25 +30,25 @@ class CustomerTest extends KernelTestCase
         $this->assertEquals(false, $customer->getChargeable());
     }
 
-    public function testGetSetName()
+    function testGetSetName()
     {
         // get and set name
         $customer = new Customer();
-        $this->assertEquals(null, $customer->getName());
+        $this->assertNull($customer->getName());
         $customer->setName('neuer Name');
         $this->assertEquals('neuer Name', $customer->getName());
     }
 
-    public function testGetSetAlias()
+    function testGetSetAlias()
     {
         // get and set Alias
         $customer = new Customer();
-        $this->assertEquals(null, $customer->getAlias());
+        $this->assertNull($customer->getAlias());
         $customer->setAlias('neuer Alias');
         $this->assertEquals('neuer Alias', $customer->getAlias());
     }
 
-    public function testToString()
+    function testToString()
     {
         // should return name
         $customer = new Customer();
@@ -57,17 +57,17 @@ class CustomerTest extends KernelTestCase
 
         // should return id if name null
         $customer = new Customer();
-        $this->assertEquals(null, $customer->getName());
+        $this->assertNull($customer->getName());
         $this->assertEquals('', (string)$customer);
 
         $rand_id = rand(1, 20);
         $customer = $this->em->getRepository('DimeTimetrackerBundle:Customer')->find($rand_id);
         $customer->setName(null);
-        $this->assertEquals(null, $customer->getName());
+        $this->assertNull($customer->getName());
         $this->assertEquals((string)$rand_id, (string)$customer);
     }
 
-    public function testTags()
+    function testTags()
     {
         // customer has by default no tags
         $customer = new Customer();
@@ -87,84 +87,88 @@ class CustomerTest extends KernelTestCase
         $this->assertEquals(1, count($customer->getTags()));
     }
 
-    public function testGetSetRateGroup()
+    function testGetSetRateGroup()
     {
         // get and set rate group
         $customer = new Customer();
         $rate_group = new RateGroup();
-        $this->assertEquals(null, $customer->getRateGroup());
+        $this->assertNull($customer->getRateGroup());
         $customer->setRateGroup($rate_group);
         $this->assertEquals($rate_group, $customer->getRateGroup());
     }
 
-    public function testSetCreatedAt()
+    function testSetCreatedAt()
     {
-        // no possibility to verify because no getter method
-        $project = new Customer();
+        // get and set created at
+        $customer = new Customer();
         $dt = new \DateTime();
-        $project->setCreatedAt($dt);
+        $this->assertNull($customer->getCreatedAt());
+        $customer->setCreatedAt($dt);
+        $this->assertEquals($dt, $customer->getCreatedAt());
     }
 
-    public function testSetUpdatedAt()
+    function testSetUpdatedAt()
     {
-        // no possibility to verify because no getter method
-        $project = new Customer();
+        // get and set updated at
+        $customer = new Customer();
         $dt = new \DateTime();
-        $project->setUpdatedAt($dt);
+        $this->assertNull($customer->getUpdatedAt());
+        $customer->setUpdatedAt($dt);
+        $this->assertEquals($dt, $customer->getUpdatedAt());
     }
 
-    public function testGetSetAddress()
+    function testGetSetAddress()
     {
         // get and set rate group
         $customer = new Customer();
         $address = new Address();
-        $this->assertEquals(null, $customer->getAddress());
+        $this->assertNull($customer->getAddress());
         $customer->setAddress($address);
         $this->assertEquals($address, $customer->getAddress());
     }
 
-    public function testGetSetPhones()
+    function testGetSetPhones()
     {
         // get and set rate group
         $customer = new Customer();
         $phone = new Phone();
-        $this->assertEquals(null, $customer->getPhones());
+        $this->assertNull($customer->getPhones());
         $customer->setPhones($phone);
         $this->assertEquals($phone, $customer->getPhones());
     }
 
-    public function testGetSetCompany()
+    function testGetSetCompany()
     {
         // get and set Company
         $customer = new Customer();
-        $this->assertEquals(null, $customer->getCompany());
+        $this->assertNull($customer->getCompany());
         $customer->setCompany('neuer Company');
         $this->assertEquals('neuer Company', $customer->getCompany());
     }
 
-    public function testGetSetDepartment()
+    function testGetSetDepartment()
     {
         // get and set Department
         $customer = new Customer();
-        $this->assertEquals(null, $customer->getDepartment());
+        $this->assertNull($customer->getDepartment());
         $customer->setDepartment('neuer Department');
         $this->assertEquals('neuer Department', $customer->getDepartment());
     }
 
-    public function testGetSetFullname()
+    function testGetSetFullname()
     {
         // get and set Fullname
         $customer = new Customer();
-        $this->assertEquals(null, $customer->getFullname());
+        $this->assertNull($customer->getFullname());
         $customer->setFullname('neuer Fullname');
         $this->assertEquals('neuer Fullname', $customer->getFullname());
     }
 
-    public function testGetSetSalutation()
+    function testGetSetSalutation()
     {
         // get and set Salutation
         $customer = new Customer();
-        $this->assertEquals(null, $customer->getSalutation());
+        $this->assertNull($customer->getSalutation());
         $customer->setSalutation('neuer Salutation');
         $this->assertEquals('neuer Salutation', $customer->getSalutation());
     }

@@ -4,14 +4,13 @@ namespace Dime\TimetrackerBundle\Tests\Entity;
 
 use Doctrine\ORM\QueryBuilder;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
-use Dime\TimetrackerBundle\Entity\ActivityRepository;
 use Dime\TimetrackerBundle\Entity\EntityRepository;
 
 class EntityRepositoryTest extends KernelTestCase
 {
 
     // according to https://symfony.com/doc/current/testing/doctrine.html
-    public function setUp()
+    function setUp()
     {
         self::bootKernel();
         $this->em = static::$kernel->getContainer()->get('doctrine')->getManager();
@@ -64,7 +63,7 @@ class EntityRepositoryTest extends KernelTestCase
     I guess, it is the best scenario to gain coverage and some kind of control over the code
     in this class, even it isn't very clean code overall */
 
-    public function testScopeByDate()
+    function testScopeByDate()
     {
         // it should work with an array, who has a single date in it
         $query = $this->getRepoMock()->createCurrentQueryBuilder('x')
@@ -97,10 +96,10 @@ class EntityRepositoryTest extends KernelTestCase
         );
     }
 
-    public function testGetCreateSetCurrentQueryBuilder()
+    function testGetCreateSetCurrentQueryBuilder()
     {
         $mock = $this->getRepoMock();
-        $this->assertEquals(null, $mock->getCurrentQueryBuilder());
+        $this->assertNull($mock->getCurrentQueryBuilder());
 
         $this->assertInstanceOf(QueryBuilder::class, $mock->createCurrentQueryBuilder('v')
             ->getCurrentQueryBuilder());
@@ -110,7 +109,7 @@ class EntityRepositoryTest extends KernelTestCase
         $this->assertEquals($qb, $mock->getCurrentQueryBuilder());
     }
 
-    public function testScopeByField()
+    function testScopeByField()
     {
         // it should make an equal query if argument contains no wildcard
         $query = $this->getRepoMock()->createCurrentQueryBuilder('x')
@@ -127,14 +126,14 @@ class EntityRepositoryTest extends KernelTestCase
         $this->assertEquals(['%some value%'], $this->paramValuesToArray($query->getParameters()));
     }
 
-    public function testInterpretMatchQuery()
+    function testInterpretMatchQuery()
     {
         // it should return value with wildcards
         $this->assertEquals("*something*", $query = $this->getRepoMock()
             ->createCurrentQueryBuilder('x')->interpretMatchQuery('%', '=something'));
     }
 
-    public function testInterpretComplexQuery()
+    function testInterpretComplexQuery()
     {
         // it should return the initial value if it isn't a string
         $this->assertEquals(2500, $query = $this->getRepoMock()
@@ -149,7 +148,7 @@ class EntityRepositoryTest extends KernelTestCase
             ->createCurrentQueryBuilder('x')->interpretComplexQuery('%', 'match=some_value'));
     }
     
-    public function testFilter()
+    function testFilter()
     {
         // set up a new mock for this one
         $mock = $this->getMockBuilder(EntityRepository::class)
@@ -176,7 +175,7 @@ class EntityRepositoryTest extends KernelTestCase
         $mock->filter(['value' => 7200]);
     }
 
-    public function testExistsJoinAlias()
+    function testExistsJoinAlias()
     {
         // it should return false if there is no join on the DQL part
         $qb = new QueryBuilder($this->em);
@@ -196,7 +195,7 @@ class EntityRepositoryTest extends KernelTestCase
 
     // scopeWithTags resp. scopeWithoutTags are complicated to access
     // they are implemented as protected function and call functions in their children
-    // so what we need is a public API to somehow get to the methods
+    // so what we need is a API to somehow get to the methods
     // this is implemented in the ImaginaryRepository below
 
     function testWithTagsWithoutTagsScope()

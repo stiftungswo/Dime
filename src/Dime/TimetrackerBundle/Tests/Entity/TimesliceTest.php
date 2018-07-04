@@ -27,7 +27,7 @@ class TimesliceTest extends KernelTestCase
         // get and set activity
         $timeslice = new Timeslice();
         $activity = new Activity();
-        $this->assertEquals(null, $timeslice->getActivity());
+        $this->assertNull($timeslice->getActivity());
         $timeslice->setActivity($activity);
         $this->assertEquals($activity, $timeslice->getActivity());
     }
@@ -78,7 +78,7 @@ class TimesliceTest extends KernelTestCase
         $activity = new Activity();
         $project = new Project();
         $timeslice = new Timeslice();
-        $this->assertEquals(null, $timeslice->getProject());
+        $this->assertNull($timeslice->getProject());
         $activity->setProject($project);
         $timeslice->setActivity($activity);
         $this->assertEquals($project, $timeslice->getProject());
@@ -185,7 +185,7 @@ class TimesliceTest extends KernelTestCase
         // get and set employee
         $timeslice = new Timeslice();
         $employee = new Employee();
-        $this->assertEquals(null, $timeslice->getEmployee());
+        $this->assertNull($timeslice->getEmployee());
         $timeslice->setEmployee($employee);
         $this->assertEquals($employee, $timeslice->getEmployee());
     }

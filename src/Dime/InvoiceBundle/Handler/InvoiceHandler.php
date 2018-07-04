@@ -96,7 +96,7 @@ class InvoiceHandler extends GenericHandler
             }
         }
         $invoice->setProject($project);
-        if ($offer instanceof Offer && isset($offer)) {
+        if (isset($offer) && $offer instanceof Offer) {
             foreach ($offer->getOfferDiscounts() as $offerDiscount) {
                 $discount = new InvoiceDiscount();
                 $discount->setFromOfferDiscount($offerDiscount);

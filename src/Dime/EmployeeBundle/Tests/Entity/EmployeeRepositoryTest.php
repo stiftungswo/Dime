@@ -2,32 +2,17 @@
 
 namespace Dime\EmployeeBundle\Tests\Entity;
 
+use Dime\TimetrackerBundle\Tests\Entity\DimeRepositoryTestCase;
 use Dime\EmployeeBundle\Entity\EmployeeRepository;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
-class EmployeeRepositoryTest extends KernelTestCase
+class EmployeeRepositoryTest extends DimeRepositoryTestCase
 {
-
-    // according to https://symfony.com/doc/current/testing/doctrine.html
-    public function setUp()
-    {
-        self::bootKernel();
-        $this->em = static::$kernel->getContainer()->get('doctrine')->getManager();
-    }
-
-    // HELPER FUNCTIONS TO DRY
-    protected function getRepo()
-    {
-        return $this->em->getRepository('DimeEmployeeBundle:Employee');
-    }
-
-    protected function getRepoWithQB()
-    {
-        return $this->getRepo()->createCurrentQueryBuilder('c');
-    }
+    // set up const for tests
+    protected const ENTITY_NAME='DimeEmployeeBundle:Employee';
+    protected const QB_ALIAS='e';
 
     // TESTS
-    public function testScopeByDate()
+    function testScopeByDate()
     {
         // this function does nothing, so we just verify its return value
         $this->assertInstanceOf(
@@ -36,7 +21,7 @@ class EmployeeRepositoryTest extends KernelTestCase
         );
     }
 
-    public function testScopeWithTag()
+    function testScopeWithTag()
     {
         // this function does nothing, so we just verify its return value
         $this->assertInstanceOf(
@@ -45,7 +30,7 @@ class EmployeeRepositoryTest extends KernelTestCase
         );
     }
 
-    public function testScopeWithoutTag()
+    function testScopeWithoutTag()
     {
         // this function does nothing, so we just verify its return value
         $this->assertInstanceOf(
@@ -54,7 +39,7 @@ class EmployeeRepositoryTest extends KernelTestCase
         );
     }
 
-    public function testFilter()
+    function testFilter()
     {
         // the method itselfs are tested in all other tests
         // so here we just verify that the params are passed correctly
@@ -92,7 +77,7 @@ class EmployeeRepositoryTest extends KernelTestCase
         $employee_repository->filter(['name' => 'some values']);
     }
 
-    public function testSearch()
+    function testSearch()
     {
         // this function does nothing, so we just verify its return value
         $this->assertInstanceOf(

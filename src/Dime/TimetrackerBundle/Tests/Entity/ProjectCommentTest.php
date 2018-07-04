@@ -14,7 +14,7 @@ class ProjectCommentTest extends KernelTestCase
         // get and set Project
         $project_comment = new ProjectComment();
         $project = new Project();
-        $this->assertEquals(null, $project_comment->getProject());
+        $this->assertNull($project_comment->getProject());
         $project_comment->setProject($project);
         $this->assertEquals($project, $project_comment->getProject());
     }
@@ -23,7 +23,7 @@ class ProjectCommentTest extends KernelTestCase
     {
         // get and set Comment
         $project_comment = new ProjectComment();
-        $this->assertEquals(null, $project_comment->getComment());
+        $this->assertNull($project_comment->getComment());
         $project_comment->setComment('neuer Comment');
         $this->assertEquals('neuer Comment', $project_comment->getComment());
     }
@@ -33,7 +33,7 @@ class ProjectCommentTest extends KernelTestCase
         // get and set Comment
         $project_comment = new ProjectComment();
         $dt = new \DateTime();
-        $this->assertEquals(null, $project_comment->getDate());
+        $this->assertNull($project_comment->getDate());
         $project_comment->setDate($dt);
         $this->assertEquals($dt, $project_comment->getDate());
     }

@@ -88,7 +88,7 @@ class ActivityRepository extends EntityRepository
      * @param                            $id , integer
      * @param \Doctrine\ORM\QueryBuilder $qb
      *
-     * @return EntityRepository
+     * @return ActivityRepository
      */
     public function scopeByCustomer($id, QueryBuilder $qb = null)
     {

@@ -3,7 +3,6 @@
 namespace Dime\TimetrackerBundle\Tests\Entity;
 
 use Dime\TimetrackerBundle\Entity\UserRepository;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class UserRepositoryTest extends DimeRepositoryTestCase
 {
@@ -12,18 +11,18 @@ class UserRepositoryTest extends DimeRepositoryTestCase
     protected const QB_ALIAS='u';
 
     // TESTS
-    public function testSearch()
+    function testSearch()
     {
         // this function has no further options, so we just check the type to get coverage
         $this->assertInstanceOf(UserRepository::class, $this->getRepo()->search('text'));
     }
 
-    public function testScopeByDate()
+    function testScopeByDate()
     {
         // this function provides no further functionality, so we just the type
         $this->assertInstanceOf(UserRepository::class, $this->getRepo()->scopeByDate('text'));
     }
-    public function testScopeByFullname()
+    function testScopeByFullname()
     {
         $rand_id = rand(1, 26);
         $user = $this->getRepo()->find($rand_id);
@@ -43,7 +42,7 @@ class UserRepositoryTest extends DimeRepositoryTestCase
             ->getCurrentQueryBuilder()->getQuery()->execute()));
     }
     
-    public function testFilter()
+    function testFilter()
     {
         // the method itselfs are tested in all other tests
         // so here we just verify that the params are passed correctly internally

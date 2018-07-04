@@ -1,35 +1,16 @@
 <?php
 
+use Dime\TimetrackerBundle\Tests\Entity\DimeRepositoryTestCase;
 use Dime\InvoiceBundle\Entity\InvoiceDiscountRepository;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
-class InvoiceDiscountRepositoryTest extends KernelTestCase
+class InvoiceDiscountRepositoryTest extends DimeRepositoryTestCase
 {
+    // set up const for tests
+    protected const ENTITY_NAME='DimeInvoiceBundle:InvoiceDiscount';
+    protected const QB_ALIAS='i';
 
-    // according to https://symfony.com/doc/current/testing/doctrine.html
-    public function setUp()
-    {
-        self::bootKernel();
-        $this->em = static::$kernel->getContainer()->get('doctrine')->getManager();
-    }
-
-    // HELPER FUNCTIONS TO DRY
-    protected function getRepo()
-    {
-        return $this->em->getRepository('DimeInvoiceBundle:InvoiceDiscount');
-    }
-
-    protected function getRepoWithQB()
-    {
-        return $this->getRepo()->createCurrentQueryBuilder('a');
-    }
-
-    protected function getQBFromRepo()
-    {
-        return $this->getRepoWithQB()->getCurrentQueryBuilder();
-    }
-
-    public function testSearch()
+    // TESTS
+    function testSearch()
     {
         // get a random item and fetch its name
         $rand_id = rand(1, 5);
@@ -40,25 +21,25 @@ class InvoiceDiscountRepositoryTest extends KernelTestCase
             ->getCurrentQueryBuilder()->getQuery()->execute()));
     }
     
-    public function testScopeWithTag()
+    function testScopeWithTag()
     {
-        // tags are currently not implented in InvoiceDiscountRepository
+        // tags are currently not implemented in InvoiceDiscountRepository
         $this->assertInstanceOf(
             InvoiceDiscountRepository::class,
             $this->getRepoWithQB()->scopeWithTag('name')
         );
     }
 
-    public function testScopeWithoutTag()
+    function testScopeWithoutTag()
     {
-        // tags are currently not implented in InvoiceDiscountRepository
+        // tags are currently not implemented in InvoiceDiscountRepository
         $this->assertInstanceOf(
             InvoiceDiscountRepository::class,
             $this->getRepoWithQB()->scopeWithoutTag('name')
         );
     }
 
-    public function testFilter()
+    function testFilter()
     {
         // the method itselfs are tested in all other tests
         // so here we just verify that the params are passed correctly
@@ -98,7 +79,7 @@ class InvoiceDiscountRepositoryTest extends KernelTestCase
         $invoice_discount_repository->filter(['name' => 'lorem ipsum']);
     }
 
-    public function testScopeByDate()
+    function testScopeByDate()
     {
         // tags are currently not implented in InvoiceDiscountRepository
         $this->assertInstanceOf(

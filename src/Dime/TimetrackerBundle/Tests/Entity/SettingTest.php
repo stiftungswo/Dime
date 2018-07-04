@@ -12,7 +12,7 @@ class SettingTest extends KernelTestCase
     {
         // get and set Name
         $setting = new Setting();
-        $this->assertEquals(null, $setting->getName());
+        $this->assertNull($setting->getName());
         $setting->setName('neuer Name');
         $this->assertEquals('neuer Name', $setting->getName());
     }
@@ -21,7 +21,7 @@ class SettingTest extends KernelTestCase
     {
         // get and set Namespace
         $setting = new Setting();
-        $this->assertEquals(null, $setting->getNamespace());
+        $this->assertNull($setting->getNamespace());
         $setting->setNamespace('neuer Namespace');
         $this->assertEquals('neuer Namespace', $setting->getNamespace());
     }
@@ -30,7 +30,7 @@ class SettingTest extends KernelTestCase
     {
         // get and set Value
         $setting = new Setting();
-        $this->assertEquals(null, $setting->getValue());
+        $this->assertNull($setting->getValue());
         $setting->setValue('neuer Value');
         $this->assertEquals('neuer Value', $setting->getValue());
     }

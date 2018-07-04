@@ -31,6 +31,7 @@ class CustomerRepositoryTest extends DimeRepositoryTestCase
 
     function testScopeByDate()
     {
+        // not implemented in this class
         $this->assertInstanceOf(CustomerRepository::class, $this->getRepo()->scopeByDate(null));
     }
 

@@ -40,7 +40,7 @@ class ServiceTest extends KernelTestCase
     {
         // get and set Name
         $service = new Service();
-        $this->assertEquals(null, $service->getName());
+        $this->assertNull($service->getName());
         $service->setName('neuer Name');
         $this->assertEquals('neuer Name', $service->getName());
     }
@@ -49,7 +49,7 @@ class ServiceTest extends KernelTestCase
     {
         // get and set Alias
         $service = new Service();
-        $this->assertEquals(null, $service->getAlias());
+        $this->assertNull($service->getAlias());
         $service->setAlias('neuer Alias');
         $this->assertEquals('neuer Alias', $service->getAlias());
     }
@@ -58,7 +58,7 @@ class ServiceTest extends KernelTestCase
     {
         // get and set Description
         $service = new Service();
-        $this->assertEquals(null, $service->getDescription());
+        $this->assertNull($service->getDescription());
         $service->setDescription('neuer Description');
         $this->assertEquals('neuer Description', $service->getDescription());
     }
@@ -119,25 +119,29 @@ class ServiceTest extends KernelTestCase
     {
         // get and set Vat
         $service = new Service();
-        $this->assertEquals(null, $service->getVat());
+        $this->assertNull($service->getVat());
         $service->setVat(1.098);
         $this->assertEquals(1.098, $service->getVat());
     }
 
     function testSetCreatedAt()
     {
-        // no possibility to verify because no getter method
+        // get and set created at
         $service = new Service();
         $dt = new \DateTime();
+        $this->assertNull($service->getCreatedAt());
         $service->setCreatedAt($dt);
+        $this->assertEquals($dt, $service->getCreatedAt());
     }
 
     function testSetUpdatedAt()
     {
-        // no possibility to verify because no getter method
+        // get and set updated at
         $service = new Service();
         $dt = new \DateTime();
+        $this->assertNull($service->getUpdatedAt());
         $service->setUpdatedAt($dt);
+        $this->assertEquals($dt, $service->getUpdatedAt());
     }
     
     function testRates()

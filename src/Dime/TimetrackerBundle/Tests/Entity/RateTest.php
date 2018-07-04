@@ -11,66 +11,70 @@ use Dime\TimetrackerBundle\Entity\Service;
 class RateTest extends KernelTestCase
 {
 
-    public function testGetSetRateGroup()
+    function testGetSetRateGroup()
     {
         // get and set rate group
         $rate = new Rate();
         $rate_group = new RateGroup();
-        $this->assertEquals(null, $rate->getRateGroup());
+        $this->assertNull($rate->getRateGroup());
         $rate->setRateGroup($rate_group);
         $this->assertEquals($rate_group, $rate->getRateGroup());
     }
 
-    public function testGetSetRateUnit()
+    function testGetSetRateUnit()
     {
         // get and set RateUnit
         $rate = new Rate();
-        $this->assertEquals(null, $rate->getRateUnit());
+        $this->assertNull($rate->getRateUnit());
         $rate->setRateUnit('neuer RateUnit');
         $this->assertEquals('neuer RateUnit', $rate->getRateUnit());
     }
 
-    public function testGetSetService()
+    function testGetSetService()
     {
         // get and set rate group
         $rate = new Rate();
         $service = new Service();
-        $this->assertEquals(null, $rate->getService());
+        $this->assertNull($rate->getService());
         $rate->setService($service);
         $this->assertEquals($service, $rate->getService());
     }
 
-    public function testGetSetRateValue()
+    function testGetSetRateValue()
     {
         // get and set RateValue
         $rate = new Rate();
-        $this->assertEquals(null, $rate->getRateValue());
+        $this->assertNull($rate->getRateValue());
         $rate->setRateValue('neuer RateValue');
         $this->assertEquals('neuer RateValue', $rate->getRateValue());
     }
 
-    public function testSetCreatedAt()
+    function testSetCreatedAt()
     {
-        // no possibility to verify because no getter method
-        $project = new Rate();
+        // get and set created at
+        $rate = new Rate();
         $dt = new \DateTime();
-        $project->setCreatedAt($dt);
+        $this->assertNull($rate->getCreatedAt());
+        $rate->setCreatedAt($dt);
+        $this->assertEquals($dt, $rate->getCreatedAt());
     }
 
-    public function testSetUpdatedAt()
+    function testSetUpdatedAt()
     {
-        // no possibility to verify because no getter method
-        $project = new Rate();
+        // get and set updated at
+        $rate = new Rate();
         $dt = new \DateTime();
-        $project->setUpdatedAt($dt);
+        $this->assertNull($rate->getUpdatedAt());
+        $rate->setUpdatedAt($dt);
+        $this->assertEquals($dt, $rate->getUpdatedAt());
     }
 
-    public function testGetSetRateUnitType()
+    function testGetSetRateUnitType()
     {
         // get and set rate group
         $rate = new Rate();
         $rate_unit_type = new RateUnitType();
-        $this->assertEquals(null, $rate->getRateUnitType());
+        $this->assertNull($rate->getRateUnitType());
         $rate->setRateUnitType($rate_unit_type);
         $this->assertEquals($rate_unit_type, $rate->getRateUnitType());
     }
