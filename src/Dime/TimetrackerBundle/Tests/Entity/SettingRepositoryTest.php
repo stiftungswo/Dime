@@ -2,30 +2,15 @@
 
 namespace Dime\TimetrackerBundle\Tests\Entity;
 
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Dime\TimetrackerBundle\Entity\SettingRepository;
 
-class SettingRepositoryTest extends KernelTestCase
+class SettingRepositoryTest extends DimeRepositoryTestCase
 {
+    // set up const for tests
+    protected const ENTITY_NAME='DimeTimetrackerBundle:Setting';
+    protected const QB_ALIAS='s';
 
-    // according to https://symfony.com/doc/current/testing/doctrine.html
-    function setUp()
-    {
-        self::bootKernel();
-        $this->em = static::$kernel->getContainer()->get('doctrine')->getManager();
-    }
-
-    // HELPER FUNCTIONS TO DRY
-    protected function getRepo()
-    {
-        return $this->em->getRepository('DimeTimetrackerBundle:Setting');
-    }
-
-    protected function getRepoWithQB()
-    {
-        return $this->getRepo()->createCurrentQueryBuilder('t');
-    }
-    
+    // TESTS
     function testSearch()
     {
         // class does not implement search

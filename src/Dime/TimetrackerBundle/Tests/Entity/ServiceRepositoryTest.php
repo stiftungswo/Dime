@@ -2,35 +2,15 @@
 
 namespace Dime\TimetrackerBundle\Tests\Entity;
 
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Dime\TimetrackerBundle\Entity\ServiceRepository;
 
-class ServiceRepositoryTest extends KernelTestCase
+class ServiceRepositoryTest extends DimeRepositoryTestCase
 {
+    // set up const for tests
+    protected const ENTITY_NAME='DimeTimetrackerBundle:Service';
+    protected const QB_ALIAS='s';
 
-    // according to https://symfony.com/doc/current/testing/doctrine.html
-    function setUp()
-    {
-        self::bootKernel();
-        $this->em = static::$kernel->getContainer()->get('doctrine')->getManager();
-    }
-
-    // HELPER FUNCTIONS TO DRY
-    protected function getRepo()
-    {
-        return $this->em->getRepository('DimeTimetrackerBundle:Service');
-    }
-
-    protected function getRepoWithQB()
-    {
-        return $this->getRepo()->createCurrentQueryBuilder('c');
-    }
-
-    protected function getQBFromRepo()
-    {
-        return $this->getRepoWithQB()->getCurrentQueryBuilder();
-    }
-
+    // TESTS
     function testSearch()
     {
         $rand_id = rand(1, 80);
@@ -67,14 +47,15 @@ class ServiceRepositoryTest extends KernelTestCase
     function testScopeByRateGroup()
     {
         $rand_id = rand(1, 2);
-        $rate_group = $this->em->getRepository('DimeTimetrackerBundle:RateGroup')->find($rand_id);
-        $rates = $this->em->getRepository('DimeTimetrackerBundle:Rate')
+        $rate_group = $this->getRepo('DimeTimetrackerBundle:RateGroup')->find($rand_id);
+        $rates = $this->getRepo('DimeTimetrackerBundle:Rate')
             ->findBy(['rateGroup' => $rate_group]);
 
         $val = [];
         foreach ($rates as $rate) {
             array_push($val, $rate->getService());
         }
+
         $expect = count(array_unique($val));
         $this->assertEquals($expect, count($this->getRepo()->scopeByRateGroup(
             $rate_group->getId(),

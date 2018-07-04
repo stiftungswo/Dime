@@ -2,35 +2,16 @@
 
 namespace Dime\TimetrackerBundle\Tests\Entity;
 
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Dime\TimetrackerBundle\Entity\ProjectRepository;
 
-class ProjectRepositoryTest extends KernelTestCase
+class ProjectRepositoryTest extends DimeRepositoryTestCase
 {
 
-    // according to https://symfony.com/doc/current/testing/doctrine.html
-    function setUp()
-    {
-        self::bootKernel();
-        $this->em = static::$kernel->getContainer()->get('doctrine')->getManager();
-    }
+    // set up const for tests
+    protected const ENTITY_NAME='DimeTimetrackerBundle:Project';
+    protected const QB_ALIAS='p';
 
-    // HELPER FUNCTIONS TO DRY
-    protected function getRepo()
-    {
-        return $this->em->getRepository('DimeTimetrackerBundle:Project');
-    }
-
-    protected function getRepoWithQB()
-    {
-        return $this->getRepo()->createCurrentQueryBuilder('c');
-    }
-
-    protected function getQBFromRepo()
-    {
-        return $this->getRepoWithQB()->getCurrentQueryBuilder();
-    }
-    
+    // TESTS
     function testSearch()
     {
         $rand_id = rand(1, 23);
@@ -78,7 +59,7 @@ class ProjectRepositoryTest extends KernelTestCase
     function testTagScopes()
     {
         $rand_id = rand(1, 20);
-        $tag = $this->em->getRepository('DimeTimetrackerBundle:Tag')->find($rand_id);
+        $tag = $this->getRepo('DimeTimetrackerBundle:Tag')->find($rand_id);
 
         // now fetch the expectations of amount of records in the customers table
         $qb = $this->em->getConnection()->createQueryBuilder('a');

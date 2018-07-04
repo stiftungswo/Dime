@@ -3,38 +3,15 @@
 namespace Dime\TimetrackerBundle\Tests\Entity;
 
 use Dime\TimetrackerBundle\Entity\ActivityRepository;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
-class ActivityRepositoryTest extends KernelTestCase
+class ActivityRepositoryTest extends DimeRepositoryTestCase
 {
-
-    // according to https://symfony.com/doc/current/testing/doctrine.html
-    public function setUp()
-    {
-        self::bootKernel();
-        $this->em = static::$kernel->getContainer()->get('doctrine')->getManager();
-    }
-
-    // HELPER FUNCTIONS TO DRY
-
-    public function getRepo()
-    {
-        return $this->em->getRepository('DimeTimetrackerBundle:Activity');
-    }
-
-    public function getRepoWithQB()
-    {
-        return $this->getRepo()->createCurrentQueryBuilder('a');
-    }
-
-    public function getQBFromRepo()
-    {
-        return $this->getRepoWithQB()->getCurrentQueryBuilder();
-    }
+    // set up const for tests
+    protected const ENTITY_NAME='DimeTimetrackerBundle:Activity';
+    protected const QB_ALIAS='a';
 
     // TESTS
-
-    public function testAllowedFields()
+    function testAllowedFields()
     {
         $allowed_fields_results = $this->getRepo()->allowedFields();
         $allowed_fields_should = array('customer', 'project', 'service', 'user');
@@ -46,14 +23,14 @@ class ActivityRepositoryTest extends KernelTestCase
         )) == count($allowed_fields_should));
     }
 
-    public function testSearch()
+    function testSearch()
     {
         // we give it an exact description, it should only find one record (based on the fixtures)
         $this->assertEquals(1, count($this->getRepoWithQB()->search('DimERP Programmieren')->
             getCurrentQueryBuilder()->getQuery()->execute()));
     }
 
-    public function testName()
+    function testName()
     {
         // this method is a bit more complicated to test, as the executed query is a "LIKE" query
         // in the fixtures, it can generate a lot of services with the same name
@@ -65,12 +42,12 @@ class ActivityRepositoryTest extends KernelTestCase
         $this->getRepoWithQB()->name('*et')->getCurrentQueryBuilder()->getQuery()->execute();
     }
 
-    public function testScopeByCustomer()
+    function testScopeByCustomer()
     {
         // method is not finished yet, so we ignore that one
     }
 
-    public function testScopeByProject()
+    function testScopeByProject()
     {
         $rand_id = rand(1, 23);
 
@@ -85,7 +62,7 @@ class ActivityRepositoryTest extends KernelTestCase
         $this->assertEquals($expect, count($this->getRepoWithQB()->findByProject($rand_id)));
     }
 
-    public function testScopeByService()
+    function testScopeByService()
     {
         $rand_id = rand(1, 80);
 
@@ -97,10 +74,10 @@ class ActivityRepositoryTest extends KernelTestCase
             ->scopeByService($rand_id)->getCurrentQueryBuilder()->getQuery()->execute()));
     }
 
-    public function testTagScopes()
+    function testTagScopes()
     {
         $rand_id = rand(1, 20);
-        $tag = $this->em->getRepository('DimeTimetrackerBundle:Tag')->find($rand_id);
+        $tag = $this->getRepo('DimeTimetrackerBundle:Tag')->find($rand_id);
 
         // now fetch the expectations of amount of records in the activities table
         $qb = $this->em->getConnection()->createQueryBuilder('a');
@@ -131,7 +108,7 @@ class ActivityRepositoryTest extends KernelTestCase
             ->getCurrentQueryBuilder()->getQuery()->execute()));
     }
 
-    public function testFilter()
+    function testFilter()
     {
         // the method itselfs are tested in all other tests
         // so here we just verify that the params are passed correctly

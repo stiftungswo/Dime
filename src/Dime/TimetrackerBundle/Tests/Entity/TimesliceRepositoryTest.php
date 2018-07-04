@@ -7,33 +7,13 @@ use Doctrine\ORM\QueryBuilder;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Carbon\Carbon;
 
-class TimesliceRepositoryTest extends KernelTestCase
+class TimesliceRepositoryTest extends DimeRepositoryTestCase
 {
+    // set up const for tests
+    protected const ENTITY_NAME='DimeTimetrackerBundle:Timeslice';
+    protected const QB_ALIAS='t';
 
-    // according to https://symfony.com/doc/current/testing/doctrine.html
-    public function setUp()
-    {
-        self::bootKernel();
-        $this->em = static::$kernel->getContainer()->get('doctrine')->getManager();
-    }
-
-    // HELPER FUNCTIONS TO DRY
-    public function getRepo()
-    {
-        return $this->em->getRepository('DimeTimetrackerBundle:Timeslice');
-    }
-
-    public function getRepoWithQB()
-    {
-        return $this->getRepo()->createCurrentQueryBuilder('t');
-    }
-
-    public function testSearch()
-    {
-        // you can't search in this class, so we just call the method for the coverage
-        $this->getRepoWithQB()->search('some_text');
-    }
-
+    // TESTS
     public function testScopeByLatest()
     {
         // it should only the latest object
@@ -77,7 +57,7 @@ class TimesliceRepositoryTest extends KernelTestCase
     public function testScopeByActivityData()
     {
         $rand_id = rand(1, 54);
-        $activity = $this->em->getRepository('DimeTimetrackerBundle:Activity')->find($rand_id);
+        $activity = $this->getRepo('DimeTimetrackerBundle:Activity')->find($rand_id);
 
         // now fetch the expectations of amount of records in the timeslices table
         $qb = $this->em->getConnection()->createQueryBuilder('a');
@@ -96,7 +76,7 @@ class TimesliceRepositoryTest extends KernelTestCase
     public function testTagScopes()
     {
         $rand_id = rand(1, 20);
-        $tag = $this->em->getRepository('DimeTimetrackerBundle:Tag')->find($rand_id);
+        $tag = $this->getRepo('DimeTimetrackerBundle:Tag')->find($rand_id);
 
         // now fetch the expectations of amount of records in the timeslices table
         $qb = $this->em->getConnection()->createQueryBuilder('a');

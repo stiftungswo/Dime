@@ -5,30 +5,13 @@ namespace Dime\TimetrackerBundle\Tests\Entity;
 use Dime\TimetrackerBundle\Entity\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
-class UserRepositoryTest extends KernelTestCase
+class UserRepositoryTest extends DimeRepositoryTestCase
 {
-
-    // according to https://symfony.com/doc/current/testing/doctrine.html
-    public function setUp()
-    {
-        self::bootKernel();
-        $this->em = static::$kernel->getContainer()->get('doctrine')->getManager();
-    }
-
-    // HELPER FUNCTIONS TO DRY
-
-    public function getRepo()
-    {
-        return $this->em->getRepository('DimeTimetrackerBundle:User');
-    }
-
-    public function getRepoWithQB()
-    {
-        return $this->getRepo()->createCurrentQueryBuilder('a');
-    }
+    // set up const for tests
+    protected const ENTITY_NAME='DimeTimetrackerBundle:User';
+    protected const QB_ALIAS='u';
 
     // TESTS
-
     public function testSearch()
     {
         // this function has no further options, so we just check the type to get coverage

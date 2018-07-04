@@ -2,30 +2,16 @@
 
 namespace Dime\TimetrackerBundle\Tests\Entity;
 
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Dime\TimetrackerBundle\Entity\RateGroupRepository;
 
-class RateGroupRepositoryTest extends KernelTestCase
+class RateGroupRepositoryTest extends DimeRepositoryTestCase
 {
 
-    // according to https://symfony.com/doc/current/testing/doctrine.html
-    function setUp()
-    {
-        self::bootKernel();
-        $this->em = static::$kernel->getContainer()->get('doctrine')->getManager();
-    }
+    // set up const for tests
+    protected const ENTITY_NAME='DimeTimetrackerBundle:RateGroup';
+    protected const QB_ALIAS='r';
 
-    // HELPER FUNCTIONS TO DRY
-    protected function getRepo()
-    {
-        return $this->em->getRepository('DimeTimetrackerBundle:RateGroup');
-    }
-
-    protected function getRepoWithQB()
-    {
-        return $this->getRepo()->createCurrentQueryBuilder('c');
-    }
-    
+    // TESTS
     function testSearch()
     {
         $rand_id = rand(1, 2);

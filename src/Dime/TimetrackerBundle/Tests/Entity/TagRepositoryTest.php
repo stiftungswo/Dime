@@ -6,26 +6,11 @@ use Faker;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Dime\TimetrackerBundle\Entity\TagRepository;
 
-class TagRepositoryTest extends KernelTestCase
+class TagRepositoryTest extends DimeRepositoryTestCase
 {
-
-    // according to https://symfony.com/doc/current/testing/doctrine.html
-    function setUp()
-    {
-        self::bootKernel();
-        $this->em = static::$kernel->getContainer()->get('doctrine')->getManager();
-    }
-
-    // HELPER FUNCTIONS TO DRY
-    protected function getRepo()
-    {
-        return $this->em->getRepository('DimeTimetrackerBundle:Tag');
-    }
-
-    protected function getRepoWithQB()
-    {
-        return $this->getRepo()->createCurrentQueryBuilder('t');
-    }
+    // set up const for tests
+    protected const ENTITY_NAME='DimeTimetrackerBundle:Tag';
+    protected const QB_ALIAS='t';
 
     // TESTS
     function testSearch()

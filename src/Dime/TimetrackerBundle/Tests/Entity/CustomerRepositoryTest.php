@@ -2,41 +2,16 @@
 
 namespace Dime\TimetrackerBundle\Tests\Entity;
 
-use Dime\TimetrackerBundle\Entity\Customer;
 use Dime\TimetrackerBundle\Entity\CustomerRepository;
-use Doctrine\ORM\QueryBuilder;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
-use Symfony\Component\VarDumper\VarDumper;
 
-class CustomerRepositoryTest extends KernelTestCase
+class CustomerRepositoryTest extends DimeRepositoryTestCase
 {
-    // according to https://symfony.com/doc/current/testing/doctrine.html
-    public function setUp()
-    {
-        self::bootKernel();
-        $this->em = static::$kernel->getContainer()->get('doctrine')->getManager();
-    }
-
-    // HELPER FUNCTIONS TO DRY
-
-    protected function getRepo()
-    {
-        return $this->em->getRepository('DimeTimetrackerBundle:Customer');
-    }
-
-    protected function getRepoWithQB()
-    {
-        return $this->getRepo()->createCurrentQueryBuilder('c');
-    }
-
-    protected function getQBFromRepo()
-    {
-        return $this->getRepoWithQB()->getCurrentQueryBuilder();
-    }
+    // set up const for tests
+    protected const ENTITY_NAME='DimeTimetrackerBundle:Customer';
+    protected const QB_ALIAS='c';
 
     // TESTS
-
-    public function testSearch()
+    function testSearch()
     {
         $rand_id = rand(1, 25);
         // search searches in the name and the alias
@@ -54,28 +29,27 @@ class CustomerRepositoryTest extends KernelTestCase
             ->search($customer->getAlias())->getCurrentQueryBuilder()->getQuery()->execute()));
     }
 
-    public function testScopeByDate()
+    function testScopeByDate()
     {
         $this->assertInstanceOf(CustomerRepository::class, $this->getRepo()->scopeByDate(null));
     }
 
-    public function testFindByProject()
+    function testFindByProject()
     {
         // get a project which has a customer assigned
-        $qb = $this->em->getConnection()->createQueryBuilder('p');
-        $qb->select('id, customer_id')->from('projects')
-            ->where($qb->expr()->isNotNull('customer_id'))->setMaxResults(1);
-        $result = $qb->execute()->fetchAll()[0];
+        $qb = $this->getQBFromRepo('p', 'DimeTimetrackerBundle:Project');
+        $qb->where($qb->expr()->isNotNull('p.customer'))->setMaxResults(1);
+        $project = $qb->getQuery()->execute()[0];
 
         // now it should find the same customer
-        $this->assertEquals($result['customer_id'], $this->getRepoWithQB()
-            ->findByProject($result['id'])->getId());
+        $this->assertEquals($project->getCustomer(), $this->getRepoWithQB()
+            ->findByProject($project->getId()));
     }
 
-    public function testTagScopes()
+    function testTagScopes()
     {
         $rand_id = rand(1, 20);
-        $tag = $this->em->getRepository('DimeTimetrackerBundle:Tag')->find($rand_id);
+        $tag = $this->getRepo('DimeTimetrackerBundle:Tag')->find($rand_id);
 
         // now fetch the expectations of amount of records in the customers table
         $qb = $this->em->getConnection()->createQueryBuilder('a');
@@ -84,13 +58,13 @@ class CustomerRepositoryTest extends KernelTestCase
         $expect = count($qb->execute()->fetchAll());
 
         // check it first with the ID
-        $this->assertEquals($expect, count($this->getRepoWithQB()
-            ->scopeWithTag($rand_id)->getCurrentQueryBuilder()->getQuery()->execute()));
+        $this->assertEquals($expect, count($this->getRepoWithQB()->scopeWithTag($rand_id)
+            ->getQuery()->execute()));
 
         // the result could differ with the name, as the fixtures could include doubles
         // but it should at least be as much as the previous result
         $tags_with_name = count($this->getRepoWithQB()
-            ->scopeWithTag($tag->getName())->getCurrentQueryBuilder()->getQuery()->execute());
+            ->scopeWithTag($tag->getName())->getQuery()->execute());
         $this->assertGreaterThanOrEqual($expect, $tags_with_name);
 
         // if we want all activities without the tag,
@@ -107,7 +81,7 @@ class CustomerRepositoryTest extends KernelTestCase
             ->getCurrentQueryBuilder()->getQuery()->execute()));
     }
 
-    public function testFilter()
+    function testFilter()
     {
         // the method itselfs are tested in all other tests
         // so here we just verify that the params are passed correctly internally
