@@ -159,4 +159,12 @@ class ServiceTest extends KernelTestCase
         $service->removeRate($rate);
         $this->assertEquals(0, count($service->getRates()));
     }
+
+    protected function tearDown()
+    {
+        parent::tearDown();
+
+        $this->em->close();
+        $this->em = null; // avoid memory leaks
+    }
 }

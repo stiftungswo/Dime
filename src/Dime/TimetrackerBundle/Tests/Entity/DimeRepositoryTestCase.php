@@ -40,4 +40,12 @@ abstract class DimeRepositoryTestCase extends KernelTestCase
     {
         return $this->getRepoWithQB($qb_name, $entity_name)->getCurrentQueryBuilder();
     }
+
+    protected function tearDown()
+    {
+        parent::tearDown();
+
+        $this->em->close();
+        $this->em = null; // avoid memory leaks
+    }
 }

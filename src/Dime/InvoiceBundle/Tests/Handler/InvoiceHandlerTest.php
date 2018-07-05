@@ -288,4 +288,12 @@ class InvoiceHandlerTest extends KernelTestCase
         // remove all created data to keep the test database clean
         $this->removeScaffoldData($entities);
     }
+
+    protected function tearDown()
+    {
+        parent::tearDown();
+
+        $this->em->close();
+        $this->em = null; // avoid memory leaks
+    }
 }

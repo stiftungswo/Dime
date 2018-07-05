@@ -172,4 +172,12 @@ class CustomerTest extends KernelTestCase
         $customer->setSalutation('neuer Salutation');
         $this->assertEquals('neuer Salutation', $customer->getSalutation());
     }
+
+    protected function tearDown()
+    {
+        parent::tearDown();
+
+        $this->em->close();
+        $this->em = null; // avoid memory leaks
+    }
 }

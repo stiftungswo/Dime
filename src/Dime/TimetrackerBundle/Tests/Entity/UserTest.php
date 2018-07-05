@@ -97,4 +97,12 @@ class UserTest extends KernelTestCase
         $user->setLastname(null);
         $this->assertEquals((string)$rand_id, (string)$user);
     }
+
+    protected function tearDown()
+    {
+        parent::tearDown();
+
+        $this->em->close();
+        $this->em = null; // avoid memory leaks
+    }
 }

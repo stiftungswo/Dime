@@ -460,4 +460,12 @@ class ProjectTest extends KernelTestCase
         $project->setAccountant($employee);
         $this->assertEquals($employee, $project->getAccountant());
     }
+
+    protected function tearDown()
+    {
+        parent::tearDown();
+
+        $this->em->close();
+        $this->em = null; // avoid memory leaks
+    }
 }

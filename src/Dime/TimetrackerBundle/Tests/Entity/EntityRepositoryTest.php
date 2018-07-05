@@ -241,6 +241,14 @@ class EntityRepositoryTest extends KernelTestCase
             $mock->scopeWithoutTags(range(1, 2))
         );
     }
+
+    protected function tearDown()
+    {
+        parent::tearDown();
+
+        $this->em->close();
+        $this->em = null; // avoid memory leaks
+    }
 }
 
 class ImaginaryRepository extends EntityRepository
