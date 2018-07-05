@@ -8,20 +8,19 @@ use Dime\TimetrackerBundle\Entity\User;
 
 class EntityTest extends TestCase
 {
-
     protected function getEntityMock()
     {
         return $this->getMockBuilder(Entity::class)->setMethods(null)
             ->getMockForAbstractClass();
     }
 
-    function testGetId()
+    public function testGetId()
     {
         // returns null because we have no persistent object
         $this->assertNull($this->getEntityMock()->getId);
     }
 
-    function testGetSetUser()
+    public function testGetSetUser()
     {
         $mock = $this->getEntityMock();
         $user = new User();
@@ -30,7 +29,7 @@ class EntityTest extends TestCase
         $this->assertEquals($user, $mock->getUser());
     }
 
-    function testGetProperties()
+    public function testGetProperties()
     {
         $result = $this->getEntityMock()->getProperties();
         $this->assertContains('id', $result);

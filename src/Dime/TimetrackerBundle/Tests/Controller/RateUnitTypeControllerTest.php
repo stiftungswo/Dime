@@ -4,8 +4,7 @@ namespace Dime\TimetrackerBundle\Tests\Controller;
 
 class RateUnitTypeControllerTest extends DimeTestCase
 {
-
-    function testAuthentication()
+    public function testAuthentication()
     {
         $this->assertEquals(401, $this
             ->jsonRequest('GET', $this->api_prefix.'/rateunittypes')->getStatusCode());
@@ -14,7 +13,7 @@ class RateUnitTypeControllerTest extends DimeTestCase
             ->jsonRequest('GET', $this->api_prefix.'/rateunittypes')->getStatusCode());
     }
 
-    function testGetRateUnitTypesAction()
+    public function testGetRateUnitTypesAction()
     {
         // should return rate unit types
         $this->loginAs('admin');
@@ -23,7 +22,7 @@ class RateUnitTypeControllerTest extends DimeTestCase
             ->getStatusCode());
     }
 
-    function testGetRateUnitTypeAction()
+    public function testGetRateUnitTypeAction()
     {
         $this->loginAs('admin');
         /* expect to get 404 on non-existing rate unit type */
@@ -41,7 +40,7 @@ class RateUnitTypeControllerTest extends DimeTestCase
         $this->assertTrue(count($data) > 0, 'expected to find rate unit type');
     }
 
-    function testPostPutDeleteRateUnitTypeActions()
+    public function testPostPutDeleteRateUnitTypeActions()
     {
         $this->loginAs('admin');
 

@@ -7,8 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 class SoftDeleteTraitTest extends TestCase
 {
-
-    function testGetSetDeletedAt()
+    public function testGetSetDeletedAt()
     {
         $mock = $this->getMockBuilder(SoftDeleteTrait::class)->setMethods(null)
             ->getMockForTrait();

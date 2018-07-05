@@ -7,8 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 class ProjectCategoryTest extends TestCase
 {
-
-    function testGetSetName()
+    public function testGetSetName()
     {
         // get and set name
         $project_category = new ProjectCategory();
@@ -17,7 +16,7 @@ class ProjectCategoryTest extends TestCase
         $this->assertEquals('some_name', $project_category->getName());
     }
 
-    function testGetSetId()
+    public function testGetSetId()
     {
         // get and set id
         $project_category = new ProjectCategory();

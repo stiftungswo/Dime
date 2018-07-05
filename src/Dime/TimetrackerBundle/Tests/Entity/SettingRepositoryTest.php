@@ -11,7 +11,7 @@ class SettingRepositoryTest extends DimeRepositoryTestCase
     protected const QB_ALIAS='s';
 
     // TESTS
-    function testSearch()
+    public function testSearch()
     {
         // class does not implement search
         $this->assertInstanceOf(
@@ -20,7 +20,7 @@ class SettingRepositoryTest extends DimeRepositoryTestCase
         );
     }
 
-    function testScopeByDate()
+    public function testScopeByDate()
     {
         // class does not implement scopeByDate
         $this->assertInstanceOf(
@@ -29,7 +29,7 @@ class SettingRepositoryTest extends DimeRepositoryTestCase
         );
     }
 
-    function testScopeByNamespace()
+    public function testScopeByNamespace()
     {
         $rand_id = rand(1, 9);
         $setting = $this->getRepoWithQB()->find($rand_id);

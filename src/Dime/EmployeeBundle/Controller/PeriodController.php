@@ -14,7 +14,6 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class PeriodController extends DimeController
 {
-
     private $handlerSerivce = 'dime.period.handler';
 
     private $formType = 'dime_timetrackerbundle_periodformtype';

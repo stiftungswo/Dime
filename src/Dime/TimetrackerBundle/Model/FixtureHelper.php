@@ -61,7 +61,7 @@ class FixtureHelper extends AbstractFixture
      *
      * @param \Doctrine\Common\Persistence\ObjectManager $manager
      */
-    function load(ObjectManager $manager)
+    public function load(ObjectManager $manager)
     {
     }
 }

@@ -11,7 +11,7 @@ class RateUnitTypeRepositoryTest extends DimeRepositoryTestCase
     protected const QB_ALIAS='r';
 
     // TESTS
-    function testSearch()
+    public function testSearch()
     {
         $rate_unit = $this->getRepo()->find('h');
 
@@ -24,7 +24,7 @@ class RateUnitTypeRepositoryTest extends DimeRepositoryTestCase
             ->search($rate_unit->getName())->getCurrentQueryBuilder()->getQuery()->execute()));
     }
 
-    function testScopeByDate()
+    public function testScopeByDate()
     {
         // not implemented in this class
         $this->assertInstanceOf(

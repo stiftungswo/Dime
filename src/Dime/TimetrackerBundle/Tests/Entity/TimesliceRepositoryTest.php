@@ -12,7 +12,7 @@ class TimesliceRepositoryTest extends DimeRepositoryTestCase
     protected const QB_ALIAS='t';
 
     // TESTS
-    function testScopeByLatest()
+    public function testScopeByLatest()
     {
         // it should only the latest object
         $qb = $this->getRepoWithQB()->getCurrentQueryBuilder();
@@ -27,7 +27,7 @@ class TimesliceRepositoryTest extends DimeRepositoryTestCase
         $this->assertEquals($expect, $test);
     }
 
-    function testScopeByDate()
+    public function testScopeByDate()
     {
         $rand_id = rand(1, 300);
         // get a timeslice to get its creation date
@@ -47,12 +47,12 @@ class TimesliceRepositoryTest extends DimeRepositoryTestCase
             ->getCurrentQueryBuilder()->getQuery()->execute()));
     }
 
-    function testScopeByEmployee()
+    public function testScopeByEmployee()
     {
         // currently not tested, see comment at method itself
     }
 
-    function testScopeByActivityData()
+    public function testScopeByActivityData()
     {
         $rand_id = rand(1, 54);
         $activity = $this->getRepo('DimeTimetrackerBundle:Activity')->find($rand_id);
@@ -71,7 +71,7 @@ class TimesliceRepositoryTest extends DimeRepositoryTestCase
             ->getCurrentQueryBuilder()->getQuery()->execute()));
     }
 
-    function testTagScopes()
+    public function testTagScopes()
     {
         $rand_id = rand(1, 20);
         $tag = $this->getRepo('DimeTimetrackerBundle:Tag')->find($rand_id);
@@ -105,7 +105,7 @@ class TimesliceRepositoryTest extends DimeRepositoryTestCase
             ->getCurrentQueryBuilder()->getQuery()->execute()));
     }
 
-    function testFilter()
+    public function testFilter()
     {
         // the method itselfs are tested in all other tests
         // so here we just verify that the params are passed correctly internally
@@ -151,7 +151,7 @@ class TimesliceRepositoryTest extends DimeRepositoryTestCase
         $timeslice_repository->filter(['value' => 7200]);
     }
 
-    function testFetchActivityIdsByDates()
+    public function testFetchActivityIdsByDates()
     {
         $rand_id = rand(1, 461);
 

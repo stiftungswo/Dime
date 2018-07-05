@@ -16,7 +16,6 @@ use JMS\Serializer\Annotation as JMS;
 
 class ExpenseReport extends Report
 {
-
     public function __construct()
     {
         $this->timeslices = new ArrayCollection();

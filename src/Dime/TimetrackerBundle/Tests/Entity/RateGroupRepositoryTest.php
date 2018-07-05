@@ -12,7 +12,7 @@ class RateGroupRepositoryTest extends DimeRepositoryTestCase
     protected const QB_ALIAS='r';
 
     // TESTS
-    function testSearch()
+    public function testSearch()
     {
         $rand_id = rand(1, 2);
         $rate_group = $this->getRepo()->find($rand_id);
@@ -26,7 +26,7 @@ class RateGroupRepositoryTest extends DimeRepositoryTestCase
             ->search($rate_group->getName())->getCurrentQueryBuilder()->getQuery()->execute()));
     }
 
-    function testScopeByDate()
+    public function testScopeByDate()
     {
         // not implemented in this class
         $this->assertInstanceOf(

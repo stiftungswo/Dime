@@ -11,14 +11,14 @@ class RateRepositoryTest extends DimeRepositoryTestCase
     protected const QB_ALIAS='r';
 
     // TESTS
-    function testSearch()
+    public function testSearch()
     {
         // not implemented in this class
         $this->assertInstanceOf(RateRepository::class, $this->getRepoWithQB()
             ->search('date'));
     }
 
-    function testScopeByDate()
+    public function testScopeByDate()
     {
         // not implemented in this class
         $this->assertInstanceOf(RateRepository::class, $this->getRepoWithQB()

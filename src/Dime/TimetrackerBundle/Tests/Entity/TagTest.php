@@ -7,8 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 class TagTest extends TestCase
 {
-
-    function testGetSetName()
+    public function testGetSetName()
     {
         // get and set Name
         $tag = new Tag();
@@ -17,7 +16,7 @@ class TagTest extends TestCase
         $this->assertEquals('some Name', $tag->getName());
     }
 
-    function testToString()
+    public function testToString()
     {
         // should return id
         $tag = new Tag();
@@ -28,7 +27,7 @@ class TagTest extends TestCase
         $this->assertEquals('some name', (string)$tag);
     }
 
-    function testGetSetSystem()
+    public function testGetSetSystem()
     {
         // get and set System
         $tag = new Tag();

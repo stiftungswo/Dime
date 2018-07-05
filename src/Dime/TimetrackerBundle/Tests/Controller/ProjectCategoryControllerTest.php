@@ -4,8 +4,7 @@ namespace Dime\TimetrackerBundle\Tests\Controller;
 
 class ProjectCategoryControllerTest extends DimeTestCase
 {
-
-    function testAuthentication()
+    public function testAuthentication()
     {
         $this->assertEquals(401, $this
             ->jsonRequest('GET', $this->api_prefix.'/projectcategories')->getStatusCode());
@@ -14,7 +13,7 @@ class ProjectCategoryControllerTest extends DimeTestCase
             ->jsonRequest('GET', $this->api_prefix.'/projectcategories')->getStatusCode());
     }
 
-    function testGetProjectCategoriesAction()
+    public function testGetProjectCategoriesAction()
     {
         // should return project categories
         $this->loginAs('admin');
@@ -23,7 +22,7 @@ class ProjectCategoryControllerTest extends DimeTestCase
             ->getStatusCode());
     }
 
-    function testGetProjectCategoryAction()
+    public function testGetProjectCategoryAction()
     {
         $this->loginAs('admin');
         /* expect to get 404 on non-existing project category */
@@ -41,7 +40,7 @@ class ProjectCategoryControllerTest extends DimeTestCase
         $this->assertTrue(count($data) > 0, 'expected to find project category');
     }
 
-    function testPostPutDeleteProjectCategoryActions()
+    public function testPostPutDeleteProjectCategoryActions()
     {
         $this->loginAs('admin');
 

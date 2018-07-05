@@ -11,7 +11,7 @@ class ActivityRepositoryTest extends DimeRepositoryTestCase
     protected const QB_ALIAS='a';
 
     // TESTS
-    function testAllowedFields()
+    public function testAllowedFields()
     {
         $allowed_fields_results = $this->getRepo()->allowedFields();
         $allowed_fields_should = array('customer', 'project', 'service', 'user');
@@ -23,14 +23,14 @@ class ActivityRepositoryTest extends DimeRepositoryTestCase
         )) == count($allowed_fields_should));
     }
 
-    function testSearch()
+    public function testSearch()
     {
         // we give it an exact description, it should only find one record (based on the fixtures)
         $this->assertEquals(1, count($this->getRepoWithQB()->search('DimERP Programmieren')->
             getCurrentQueryBuilder()->getQuery()->execute()));
     }
 
-    function testName()
+    public function testName()
     {
         // this method is a bit more complicated to test, as the executed query is a "LIKE" query
         // in the fixtures, it can generate a lot of services with the same name
@@ -42,12 +42,12 @@ class ActivityRepositoryTest extends DimeRepositoryTestCase
         $this->getRepoWithQB()->name('*et')->getCurrentQueryBuilder()->getQuery()->execute();
     }
 
-    function testScopeByCustomer()
+    public function testScopeByCustomer()
     {
         // method is not finished yet, so we ignore that one
     }
 
-    function testScopeByProject()
+    public function testScopeByProject()
     {
         $rand_id = rand(1, 23);
 
@@ -62,7 +62,7 @@ class ActivityRepositoryTest extends DimeRepositoryTestCase
         $this->assertEquals($expect, count($this->getRepoWithQB()->findByProject($rand_id)));
     }
 
-    function testScopeByService()
+    public function testScopeByService()
     {
         $rand_id = rand(1, 80);
 
@@ -74,7 +74,7 @@ class ActivityRepositoryTest extends DimeRepositoryTestCase
             ->scopeByService($rand_id)->getCurrentQueryBuilder()->getQuery()->execute()));
     }
 
-    function testTagScopes()
+    public function testTagScopes()
     {
         $rand_id = rand(1, 20);
         $tag = $this->getRepo('DimeTimetrackerBundle:Tag')->find($rand_id);
@@ -108,7 +108,7 @@ class ActivityRepositoryTest extends DimeRepositoryTestCase
             ->getCurrentQueryBuilder()->getQuery()->execute()));
     }
 
-    function testFilter()
+    public function testFilter()
     {
         // the method itselfs are tested in all other tests
         // so here we just verify that the params are passed correctly

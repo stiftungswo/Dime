@@ -22,13 +22,13 @@ class CustomerTest extends KernelTestCase
      * {@inheritDoc}
      */
 
-    function setUp()
+    public function setUp()
     {
         self::bootKernel();
         $this->em = static::$kernel->getContainer()->get('doctrine')->getManager();
     }
 
-    function testGetSetChargeable()
+    public function testGetSetChargeable()
     {
         // get and set name
         $customer = new Customer();
@@ -39,7 +39,7 @@ class CustomerTest extends KernelTestCase
         $this->assertEquals(false, $customer->getChargeable());
     }
 
-    function testGetSetName()
+    public function testGetSetName()
     {
         // get and set name
         $customer = new Customer();
@@ -48,7 +48,7 @@ class CustomerTest extends KernelTestCase
         $this->assertEquals('neuer Name', $customer->getName());
     }
 
-    function testGetSetAlias()
+    public function testGetSetAlias()
     {
         // get and set Alias
         $customer = new Customer();
@@ -57,7 +57,7 @@ class CustomerTest extends KernelTestCase
         $this->assertEquals('neuer Alias', $customer->getAlias());
     }
 
-    function testToString()
+    public function testToString()
     {
         // should return name
         $customer = new Customer();
@@ -76,7 +76,7 @@ class CustomerTest extends KernelTestCase
         $this->assertEquals((string)$rand_id, (string)$customer);
     }
 
-    function testTags()
+    public function testTags()
     {
         // customer has by default no tags
         $customer = new Customer();
@@ -96,7 +96,7 @@ class CustomerTest extends KernelTestCase
         $this->assertEquals(1, count($customer->getTags()));
     }
 
-    function testGetSetRateGroup()
+    public function testGetSetRateGroup()
     {
         // get and set rate group
         $customer = new Customer();
@@ -106,7 +106,7 @@ class CustomerTest extends KernelTestCase
         $this->assertEquals($rate_group, $customer->getRateGroup());
     }
 
-    function testSetCreatedAt()
+    public function testSetCreatedAt()
     {
         // get and set created at
         $customer = new Customer();
@@ -116,7 +116,7 @@ class CustomerTest extends KernelTestCase
         $this->assertEquals($dt, $customer->getCreatedAt());
     }
 
-    function testSetUpdatedAt()
+    public function testSetUpdatedAt()
     {
         // get and set updated at
         $customer = new Customer();
@@ -126,7 +126,7 @@ class CustomerTest extends KernelTestCase
         $this->assertEquals($dt, $customer->getUpdatedAt());
     }
 
-    function testGetSetAddress()
+    public function testGetSetAddress()
     {
         // get and set rate group
         $customer = new Customer();
@@ -136,7 +136,7 @@ class CustomerTest extends KernelTestCase
         $this->assertEquals($address, $customer->getAddress());
     }
 
-    function testGetSetPhones()
+    public function testGetSetPhones()
     {
         // get and set rate group
         $customer = new Customer();
@@ -146,7 +146,7 @@ class CustomerTest extends KernelTestCase
         $this->assertEquals($phone, $customer->getPhones());
     }
 
-    function testGetSetCompany()
+    public function testGetSetCompany()
     {
         // get and set Company
         $customer = new Customer();
@@ -155,7 +155,7 @@ class CustomerTest extends KernelTestCase
         $this->assertEquals('neuer Company', $customer->getCompany());
     }
 
-    function testGetSetDepartment()
+    public function testGetSetDepartment()
     {
         // get and set Department
         $customer = new Customer();
@@ -164,7 +164,7 @@ class CustomerTest extends KernelTestCase
         $this->assertEquals('neuer Department', $customer->getDepartment());
     }
 
-    function testGetSetFullname()
+    public function testGetSetFullname()
     {
         // get and set Fullname
         $customer = new Customer();
@@ -173,7 +173,7 @@ class CustomerTest extends KernelTestCase
         $this->assertEquals('neuer Fullname', $customer->getFullname());
     }
 
-    function testGetSetSalutation()
+    public function testGetSetSalutation()
     {
         // get and set Salutation
         $customer = new Customer();

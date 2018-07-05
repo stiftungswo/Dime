@@ -7,8 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 class SettingTest extends TestCase
 {
-
-    function testGetSetName()
+    public function testGetSetName()
     {
         // get and set Name
         $setting = new Setting();
@@ -17,7 +16,7 @@ class SettingTest extends TestCase
         $this->assertEquals('neuer Name', $setting->getName());
     }
 
-    function testGetSetNamespace()
+    public function testGetSetNamespace()
     {
         // get and set Namespace
         $setting = new Setting();
@@ -26,7 +25,7 @@ class SettingTest extends TestCase
         $this->assertEquals('neuer Namespace', $setting->getNamespace());
     }
 
-    function testGetSetValue()
+    public function testGetSetValue()
     {
         // get and set Value
         $setting = new Setting();

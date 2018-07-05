@@ -12,7 +12,7 @@ class EmployeeRepositoryTest extends DimeRepositoryTestCase
     protected const QB_ALIAS='e';
 
     // TESTS
-    function testScopeByDate()
+    public function testScopeByDate()
     {
         // this function does nothing, so we just verify its return value
         $this->assertInstanceOf(
@@ -21,7 +21,7 @@ class EmployeeRepositoryTest extends DimeRepositoryTestCase
         );
     }
 
-    function testScopeWithTag()
+    public function testScopeWithTag()
     {
         // this function does nothing, so we just verify its return value
         $this->assertInstanceOf(
@@ -30,7 +30,7 @@ class EmployeeRepositoryTest extends DimeRepositoryTestCase
         );
     }
 
-    function testScopeWithoutTag()
+    public function testScopeWithoutTag()
     {
         // this function does nothing, so we just verify its return value
         $this->assertInstanceOf(
@@ -39,7 +39,7 @@ class EmployeeRepositoryTest extends DimeRepositoryTestCase
         );
     }
 
-    function testFilter()
+    public function testFilter()
     {
         // the method itselfs are tested in all other tests
         // so here we just verify that the params are passed correctly
@@ -77,7 +77,7 @@ class EmployeeRepositoryTest extends DimeRepositoryTestCase
         $employee_repository->filter(['name' => 'some values']);
     }
 
-    function testSearch()
+    public function testSearch()
     {
         // this function does nothing, so we just verify its return value
         $this->assertInstanceOf(

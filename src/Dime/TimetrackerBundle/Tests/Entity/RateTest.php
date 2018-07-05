@@ -10,8 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 class RateTest extends TestCase
 {
-
-    function testGetSetRateGroup()
+    public function testGetSetRateGroup()
     {
         // get and set rate group
         $rate = new Rate();
@@ -21,7 +20,7 @@ class RateTest extends TestCase
         $this->assertEquals($rate_group, $rate->getRateGroup());
     }
 
-    function testGetSetRateUnit()
+    public function testGetSetRateUnit()
     {
         // get and set RateUnit
         $rate = new Rate();
@@ -30,7 +29,7 @@ class RateTest extends TestCase
         $this->assertEquals('neuer RateUnit', $rate->getRateUnit());
     }
 
-    function testGetSetService()
+    public function testGetSetService()
     {
         // get and set rate group
         $rate = new Rate();
@@ -40,7 +39,7 @@ class RateTest extends TestCase
         $this->assertEquals($service, $rate->getService());
     }
 
-    function testGetSetRateValue()
+    public function testGetSetRateValue()
     {
         // get and set RateValue
         $rate = new Rate();
@@ -49,7 +48,7 @@ class RateTest extends TestCase
         $this->assertEquals('neuer RateValue', $rate->getRateValue());
     }
 
-    function testSetCreatedAt()
+    public function testSetCreatedAt()
     {
         // get and set created at
         $rate = new Rate();
@@ -59,7 +58,7 @@ class RateTest extends TestCase
         $this->assertEquals($dt, $rate->getCreatedAt());
     }
 
-    function testSetUpdatedAt()
+    public function testSetUpdatedAt()
     {
         // get and set updated at
         $rate = new Rate();
@@ -69,7 +68,7 @@ class RateTest extends TestCase
         $this->assertEquals($dt, $rate->getUpdatedAt());
     }
 
-    function testGetSetRateUnitType()
+    public function testGetSetRateUnitType()
     {
         // get and set rate group
         $rate = new Rate();

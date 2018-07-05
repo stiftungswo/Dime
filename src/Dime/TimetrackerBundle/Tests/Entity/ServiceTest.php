@@ -20,13 +20,13 @@ class ServiceTest extends KernelTestCase
      * {@inheritDoc}
      */
 
-    function setUp()
+    public function setUp()
     {
         self::bootKernel();
         $this->em = static::$kernel->getContainer()->get('doctrine')->getManager();
     }
 
-    function testSetGetChargeable()
+    public function testSetGetChargeable()
     {
         // should do nothing if chargeable is empty
         $service = new Service();
@@ -39,13 +39,13 @@ class ServiceTest extends KernelTestCase
         $this->assertFalse($service->isChargeable());
     }
 
-    function testGetId()
+    public function testGetId()
     {
         $service = new Service();
         $this->assertNull($service->getId());
     }
 
-    function testGetSetName()
+    public function testGetSetName()
     {
         // get and set Name
         $service = new Service();
@@ -54,7 +54,7 @@ class ServiceTest extends KernelTestCase
         $this->assertEquals('neuer Name', $service->getName());
     }
 
-    function testGetSetAlias()
+    public function testGetSetAlias()
     {
         // get and set Alias
         $service = new Service();
@@ -63,7 +63,7 @@ class ServiceTest extends KernelTestCase
         $this->assertEquals('neuer Alias', $service->getAlias());
     }
 
-    function testGetSetDescription()
+    public function testGetSetDescription()
     {
         // get and set Description
         $service = new Service();
@@ -72,7 +72,7 @@ class ServiceTest extends KernelTestCase
         $this->assertEquals('neuer Description', $service->getDescription());
     }
 
-    function testGetRateByRateGroup()
+    public function testGetRateByRateGroup()
     {
         // it should return rate group
         $rand_id = rand(1, 2);
@@ -93,7 +93,7 @@ class ServiceTest extends KernelTestCase
         $this->assertEquals($rate, $service->getRateByRateGroup());
     }
 
-    function testToString()
+    public function testToString()
     {
         // should return id
         $service = new Service();
@@ -104,7 +104,7 @@ class ServiceTest extends KernelTestCase
         $this->assertEquals('some name', (string)$service);
     }
 
-    function testTags()
+    public function testTags()
     {
         // service has by default no tags
         $service = new Service();
@@ -124,7 +124,7 @@ class ServiceTest extends KernelTestCase
         $this->assertEquals(1, count($service->getTags()));
     }
 
-    function testGetSetVat()
+    public function testGetSetVat()
     {
         // get and set Vat
         $service = new Service();
@@ -133,7 +133,7 @@ class ServiceTest extends KernelTestCase
         $this->assertEquals(1.098, $service->getVat());
     }
 
-    function testSetCreatedAt()
+    public function testSetCreatedAt()
     {
         // get and set created at
         $service = new Service();
@@ -143,7 +143,7 @@ class ServiceTest extends KernelTestCase
         $this->assertEquals($dt, $service->getCreatedAt());
     }
 
-    function testSetUpdatedAt()
+    public function testSetUpdatedAt()
     {
         // get and set updated at
         $service = new Service();
@@ -153,7 +153,7 @@ class ServiceTest extends KernelTestCase
         $this->assertEquals($dt, $service->getUpdatedAt());
     }
     
-    function testRates()
+    public function testRates()
     {
         // service has by default no rates
         $service = new Service();

@@ -4,8 +4,7 @@ namespace Dime\TimetrackerBundle\Tests\Controller;
 
 class SettingsControllerTest extends DimeTestCase
 {
-
-    function testAuthentication()
+    public function testAuthentication()
     {
         $this->assertEquals(401, $this
             ->jsonRequest('GET', $this->api_prefix.'/settings')->getStatusCode());
@@ -14,7 +13,7 @@ class SettingsControllerTest extends DimeTestCase
             ->jsonRequest('GET', $this->api_prefix.'/settings')->getStatusCode());
     }
 
-    function testGetSettingsAction()
+    public function testGetSettingsAction()
     {
         // should return settings
         $this->loginAs('admin');
@@ -23,7 +22,7 @@ class SettingsControllerTest extends DimeTestCase
             ->getStatusCode());
     }
 
-    function testGetSettingAction()
+    public function testGetSettingAction()
     {
         $this->loginAs('admin');
         /* expect to get 404 on non-existing setting */
@@ -41,7 +40,7 @@ class SettingsControllerTest extends DimeTestCase
         $this->assertTrue(count($data) > 0, 'expected to find setting');
     }
 
-    function testPostPutDeleteSettingActions()
+    public function testPostPutDeleteSettingActions()
     {
         $this->loginAs('admin');
 

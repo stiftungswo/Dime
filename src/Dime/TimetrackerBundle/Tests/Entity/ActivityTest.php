@@ -17,8 +17,7 @@ use Dime\TimetrackerBundle\Entity\Timeslice;
 
 class ActivityTest extends TestCase
 {
-
-    function testGetValue()
+    public function testGetValue()
     {
         // it should return 0 if no timeslices and value pure
         $activity = new Activity();
@@ -35,7 +34,7 @@ class ActivityTest extends TestCase
         $this->assertEquals(1, $activity->getValue());
     }
 
-    function testUpdateEmptyRateFromDefault()
+    public function testUpdateEmptyRateFromDefault()
     {
         // it return itself if no service rate is assigned
         $activity = new Activity();
@@ -74,7 +73,7 @@ class ActivityTest extends TestCase
         $this->assertEquals($rate_unit_type, $activity->getRateUnitType());
     }
 
-    function testGetServiceRate()
+    public function testGetServiceRate()
     {
         // it should return null if no service is associated
         $activity = new Activity();
@@ -95,7 +94,7 @@ class ActivityTest extends TestCase
         $this->assertEquals($rate, $activity->getServiceRate());
     }
 
-    function testGetCharge()
+    public function testGetCharge()
     {
         // it should return null if no rate value ist
         $activity = new Activity();
@@ -111,7 +110,7 @@ class ActivityTest extends TestCase
         $this->assertEquals(Money::CHF(11.00), $activity->getCharge());
     }
 
-    function testGetName()
+    public function testGetName()
     {
         // should return empty if either project or service are null
         $activity = new Activity();
@@ -129,7 +128,7 @@ class ActivityTest extends TestCase
         $this->assertEquals(' PROJECT - YASUO', $activity->getName());
     }
 
-    function testGetAlias()
+    public function testGetAlias()
     {
         // it should return empty if no service is assigned
         $activity = new Activity();
@@ -144,7 +143,7 @@ class ActivityTest extends TestCase
         $this->assertEquals('this is an alias', $activity->getAlias());
     }
 
-    function testSerializeValue()
+    public function testSerializeValue()
     {
         // it should return value if no rate unit type is present
         $activity = new Activity();
@@ -157,7 +156,7 @@ class ActivityTest extends TestCase
         $this->assertEquals('0h', $activity->serializeValue());
     }
 
-    function testGetCalculatedVAT()
+    public function testGetCalculatedVAT()
     {
         // it should return null if
         // - rateValue not instance of Money
@@ -181,7 +180,7 @@ class ActivityTest extends TestCase
         $this->assertEquals(Money::CHF(15000), $activity->getCalculatedVAT());
     }
 
-    function testGetSetDescription()
+    public function testGetSetDescription()
     {
         // get and set Description
         $activity = new Activity();
@@ -190,7 +189,7 @@ class ActivityTest extends TestCase
         $this->assertEquals('neuer Description', $activity->getDescription());
     }
 
-    function testGetSetRateValue()
+    public function testGetSetRateValue()
     {
         // it should return null if rate value and service are null
         $activity = new Activity();
@@ -212,7 +211,7 @@ class ActivityTest extends TestCase
         $this->assertEquals(Money::CHF(3500), $activity->getRateValue());
     }
 
-    function testGetCustomer()
+    public function testGetCustomer()
     {
         $activity = new Activity();
         $project = new Project();
@@ -224,7 +223,7 @@ class ActivityTest extends TestCase
         $this->assertEquals($customer, $activity->getCustomer());
     }
 
-    function testGetSetProject()
+    public function testGetSetProject()
     {
         // get and set project
         $activity = new Activity();
@@ -234,7 +233,7 @@ class ActivityTest extends TestCase
         $this->assertEquals($project, $activity->getProject());
     }
 
-    function testGetSetService()
+    public function testGetSetService()
     {
         // get and set service
         $activity = new Activity();
@@ -255,7 +254,7 @@ class ActivityTest extends TestCase
         $this->assertEquals($service, $activity->getService());
     }
 
-    function testGetAddTimeslices()
+    public function testGetAddTimeslices()
     {
         $activity = new Activity();
         $timeslice = new Timeslice();
@@ -264,7 +263,7 @@ class ActivityTest extends TestCase
         $this->assertEquals(new ArrayCollection([$timeslice]), $activity->getTimeslices());
     }
 
-    function testTags()
+    public function testTags()
     {
         // activity has by default no tags
         $activity = new Activity();
@@ -284,7 +283,7 @@ class ActivityTest extends TestCase
         $this->assertEquals(1, count($activity->getTags()));
     }
 
-    function testGetChargeable()
+    public function testGetChargeable()
     {
         // get and set Description
         $activity = new Activity();
@@ -293,7 +292,7 @@ class ActivityTest extends TestCase
         $this->assertFalse($activity->isChargeable());
     }
 
-    function testSerializeChargeable()
+    public function testSerializeChargeable()
     {
         // there are multiple possibilities to get the chargeable value
         // based on the chargeable reference field
@@ -341,7 +340,7 @@ class ActivityTest extends TestCase
         $this->assertTrue($activity->serializeChargeable());
     }
 
-    function testGetSetRateUnit()
+    public function testGetSetRateUnit()
     {
         // get and set RateUnit
         $activity = new Activity();
@@ -350,7 +349,7 @@ class ActivityTest extends TestCase
         $this->assertEquals('neuer RateUnit', $activity->getRateUnit());
     }
 
-    function testGetSetRateUnitType()
+    public function testGetSetRateUnitType()
     {
         // get and set rate_unit_type
         $activity = new Activity();
@@ -360,7 +359,7 @@ class ActivityTest extends TestCase
         $this->assertEquals($rate_unit_type, $activity->getRateUnitType());
     }
 
-    function testGetSetVat()
+    public function testGetSetVat()
     {
         // get and set Vat
         $activity = new Activity();

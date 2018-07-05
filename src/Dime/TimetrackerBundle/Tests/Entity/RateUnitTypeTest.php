@@ -16,7 +16,7 @@ class RateUnitTypeTest extends KernelTestCase
     /**
      * {@inheritDoc}
      */
-    function setUp()
+    public function setUp()
     {
         self::bootKernel();
         $this->em = static::$kernel->getContainer()
@@ -32,7 +32,7 @@ class RateUnitTypeTest extends KernelTestCase
             ->findOneBy(array('id' => $id));
     }
 
-    function testTransform()
+    public function testTransform()
     {
         // test it with anderes
         $entity = $this->getEntity('a');
@@ -112,7 +112,7 @@ class RateUnitTypeTest extends KernelTestCase
         $this->assertEquals(0.99, $entity->transform(30000));
     }
 
-    function testTransformBetweenTimeUnits()
+    public function testTransformBetweenTimeUnits()
     {
         $entity = $this->getEntity('a');
 
@@ -215,7 +215,7 @@ class RateUnitTypeTest extends KernelTestCase
         ));
     }
 
-    function testReverseTransform()
+    public function testReverseTransform()
     {
         // no changes, just parse to float
         $entity = $this->getEntity('a');
@@ -263,19 +263,19 @@ class RateUnitTypeTest extends KernelTestCase
         $this->assertEquals(60*60*8.4, $entity->reverseTransform("1zt"));
         $this->assertEquals((60*60*8.4)*1.4, $entity->reverseTransform("1.4zt"));
 
-/*
-        TODO: Zivitage:
-        0.1zt => 0.5d
+        /*
+                TODO: Zivitage:
+                0.1zt => 0.5d
 
-        8.4h = 1zt
-        5h = 1zt
-        4.5h = 0.5zt
+                8.4h = 1zt
+                5h = 1zt
+                4.5h = 0.5zt
 
-        10h = 1.5zt
-*/
+                10h = 1.5zt
+        */
     }
 
-    function testSerializedOutput()
+    public function testSerializedOutput()
     {
         // return just the value if type is 'a'
         $entity = $this->getEntity('a');
@@ -288,7 +288,7 @@ class RateUnitTypeTest extends KernelTestCase
         $this->assertEquals('16h', $entity->serializedOutput('16'));
     }
 
-    function testGetSetId()
+    public function testGetSetId()
     {
         // get and set a new id
         $entity = $this->getEntity('a');
@@ -297,7 +297,7 @@ class RateUnitTypeTest extends KernelTestCase
         $entity->setId('a');
     }
 
-    function testGetSetName()
+    public function testGetSetName()
     {
         // get and set a new name
         $entity = $this->getEntity('a');
@@ -306,7 +306,7 @@ class RateUnitTypeTest extends KernelTestCase
         $entity->setName('Anderes');
     }
 
-    function testGetSetDoTransform()
+    public function testGetSetDoTransform()
     {
         // get and set doTransform
         $entity = $this->getEntity('a');
@@ -315,7 +315,7 @@ class RateUnitTypeTest extends KernelTestCase
         $entity->setDoTransform(false);
     }
 
-    function testGetSetFactor()
+    public function testGetSetFactor()
     {
         // get and set Factory
         $entity = $this->getEntity('a');
@@ -324,7 +324,7 @@ class RateUnitTypeTest extends KernelTestCase
         $entity->setFactor(1);
     }
 
-    function testGetSetScale()
+    public function testGetSetScale()
     {
         // get and set Scale
         $entity = $this->getEntity('a');
@@ -333,7 +333,7 @@ class RateUnitTypeTest extends KernelTestCase
         $entity->setScale(1);
     }
 
-    function testGetSetRoundMode()
+    public function testGetSetRoundMode()
     {
         // get and set RoundMode
         $entity = $this->getEntity('a');
@@ -342,7 +342,7 @@ class RateUnitTypeTest extends KernelTestCase
         $entity->setRoundMode(1);
     }
 
-    function testGetSetSymbol()
+    public function testGetSetSymbol()
     {
         // get and set Symbol
         $entity = $this->getEntity('a');

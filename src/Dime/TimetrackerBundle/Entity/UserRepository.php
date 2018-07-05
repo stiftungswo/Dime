@@ -40,7 +40,8 @@ class UserRepository extends EntityRepository
      * @param $value
      * @param $qb
      *
-     * @return $this
+     * @return UserRepository
+     * @throws \Exception when $qb is null and Repository has no QueryBuilder initialized
      */
     public function scopeByFullname($value, QueryBuilder $qb = null)
     {
@@ -89,7 +90,8 @@ class UserRepository extends EntityRepository
      * @param array $filter
      * @param QueryBuilder $qb
      *
-     * @return EntityRepository
+     * @return UserRepository
+     * @throws \Exception when $qb is null and Repository has no QueryBuilder initialized
      */
     public function filter(array $filter, QueryBuilder $qb = null)
     {

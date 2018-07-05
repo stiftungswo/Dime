@@ -13,7 +13,6 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class UsersController extends DimeController
 {
-
     private $handlerSerivce = 'dime.user.handler';
 
     private $formType = 'dime_timetrackerbundle_userformtype';

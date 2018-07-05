@@ -4,7 +4,7 @@ namespace Dime\TimetrackerBundle\Tests\Controller;
 
 class TagsControllerTest extends DimeTestCase
 {
-    function testAuthentication()
+    public function testAuthentication()
     {
         $this->assertEquals(401, $this
             ->jsonRequest('GET', $this->api_prefix.'/tags')->getStatusCode());
@@ -13,7 +13,7 @@ class TagsControllerTest extends DimeTestCase
             ->jsonRequest('GET', $this->api_prefix.'/tags')->getStatusCode());
     }
 
-    function testTagsAction()
+    public function testTagsAction()
     {
         // should return tags
         $this->loginAs('admin');
@@ -22,7 +22,7 @@ class TagsControllerTest extends DimeTestCase
             ->getStatusCode());
     }
 
-    function testGetTagAction()
+    public function testGetTagAction()
     {
         $this->loginAs('admin');
         /* expect to get 404 on non-existing tag */
@@ -40,7 +40,7 @@ class TagsControllerTest extends DimeTestCase
         $this->assertTrue(count($data) > 0, 'expected to find tag');
     }
 
-    function testPostPutDeleteTagActions()
+    public function testPostPutDeleteTagActions()
     {
         $this->loginAs('admin');
 

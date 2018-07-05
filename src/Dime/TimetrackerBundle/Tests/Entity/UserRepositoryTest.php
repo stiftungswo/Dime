@@ -11,18 +11,18 @@ class UserRepositoryTest extends DimeRepositoryTestCase
     protected const QB_ALIAS='u';
 
     // TESTS
-    function testSearch()
+    public function testSearch()
     {
         // this function has no further options, so we just check the type to get coverage
         $this->assertInstanceOf(UserRepository::class, $this->getRepo()->search('text'));
     }
 
-    function testScopeByDate()
+    public function testScopeByDate()
     {
         // this function provides no further functionality, so we just the type
         $this->assertInstanceOf(UserRepository::class, $this->getRepo()->scopeByDate('text'));
     }
-    function testScopeByFullname()
+    public function testScopeByFullname()
     {
         $rand_id = rand(1, 26);
         $user = $this->getRepo()->find($rand_id);
@@ -42,7 +42,7 @@ class UserRepositoryTest extends DimeRepositoryTestCase
             ->getCurrentQueryBuilder()->getQuery()->execute()));
     }
     
-    function testFilter()
+    public function testFilter()
     {
         // the method itselfs are tested in all other tests
         // so here we just verify that the params are passed correctly internally

@@ -33,7 +33,7 @@ class InvoiceHandlerTest extends KernelTestCase
      */
 
     // according to https://symfony.com/doc/current/testing/doctrine.html
-    function setUp()
+    public function setUp()
     {
         self::bootKernel();
         $this->em = static::$kernel->getContainer()->get('doctrine')->getManager();
@@ -160,7 +160,7 @@ class InvoiceHandlerTest extends KernelTestCase
     }
 
     // TESTS
-    function testCreateFromProject()
+    public function testCreateFromProject()
     {
         // seed provisional test data
         $entities = $this->createScaffoldTestData();
@@ -259,7 +259,7 @@ class InvoiceHandlerTest extends KernelTestCase
         $this->removeScaffoldData($entities);
     }
 
-    function testUpdateInvoice()
+    public function testUpdateInvoice()
     {
         $entities = $this->createScaffoldTestData();
         $invoice_handler = $this->getInvoiceHandlerMock($entities['employee']);

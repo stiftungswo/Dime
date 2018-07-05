@@ -7,8 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 class ArchivableTraitTest extends TestCase
 {
-
-    function testGetSetArchived()
+    public function testGetSetArchived()
     {
         $mock = $this->getMockBuilder(ArchivableTrait::class)->setMethods(null)
             ->getMockForTrait();

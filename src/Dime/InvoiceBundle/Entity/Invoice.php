@@ -285,7 +285,7 @@ class Invoice extends Entity implements DimeEntityInterface
 
     public function getOrderedItems()
     {
-            $orderedInvoiceItems = $this->om->getRepository('DimeInvoiceBundle:InvoiceItem')
+        $orderedInvoiceItems = $this->om->getRepository('DimeInvoiceBundle:InvoiceItem')
                 ->createQueryBuilder('invoice_items')
                 ->where('invoice_items.invoice_id = :invoiceId')
                 ->setParameter('invoiceId', $this->getId())
@@ -293,7 +293,7 @@ class Invoice extends Entity implements DimeEntityInterface
                 ->getQuery()
                 ->getResult();
 
-            return count($orderedInvoiceItems);
+        return count($orderedInvoiceItems);
     }
 
     /**

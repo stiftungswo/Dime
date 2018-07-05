@@ -11,7 +11,7 @@ class ServiceRepositoryTest extends DimeRepositoryTestCase
     protected const QB_ALIAS='s';
 
     // TESTS
-    function testSearch()
+    public function testSearch()
     {
         $rand_id = rand(1, 80);
         $service = $this->getRepo()->find($rand_id);
@@ -35,7 +35,7 @@ class ServiceRepositoryTest extends DimeRepositoryTestCase
             ->search($service->getName())->getCurrentQueryBuilder()->getQuery()->execute()));
     }
 
-    function testScopeByDate()
+    public function testScopeByDate()
     {
         // not implemented in this class
         $this->assertInstanceOf(
@@ -44,7 +44,7 @@ class ServiceRepositoryTest extends DimeRepositoryTestCase
         );
     }
 
-    function testScopeByRateGroup()
+    public function testScopeByRateGroup()
     {
         $rand_id = rand(1, 2);
         $rate_group = $this->getRepo('DimeTimetrackerBundle:RateGroup')->find($rand_id);
@@ -64,7 +64,7 @@ class ServiceRepositoryTest extends DimeRepositoryTestCase
             ->getCurrentQueryBuilder()->getQuery()->execute()));
     }
 
-    function testFilter()
+    public function testFilter()
     {
         // the method itselfs are tested in all other tests
         // so here we just verify that the params are passed correctly internally

@@ -195,7 +195,6 @@ class Activity extends Entity implements DimeEntityInterface
      */
     public function getCharge()
     {
-
         $total = $this->getRateValue();
         if ($total === null) {
             return null;

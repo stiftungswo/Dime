@@ -14,7 +14,6 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class EmployeeController extends DimeController
 {
-
     private $handlerSerivce = 'dime.employee.handler';
 
     private $formType = 'dime_timetrackerbundle_employeeformtype';

@@ -20,7 +20,7 @@ abstract class DimeRepositoryTestCase extends KernelTestCase
     protected const QB_ALIAS='x';
 
     // boot up things
-    function setUp()
+    public function setUp()
     {
         self::bootKernel();
         $this->em = static::$kernel->getContainer()->get('doctrine')->getManager();

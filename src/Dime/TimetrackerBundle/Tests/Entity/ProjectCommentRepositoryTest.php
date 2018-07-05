@@ -9,7 +9,7 @@ class ProjectCommentRepositoryTest extends DimeRepositoryTestCase
     protected const QB_ALIAS='p';
 
     // TESTS
-    function testSearch()
+    public function testSearch()
     {
         // not implemented in this class
         $this->assertNull($this->getRepoWithQB()->search('date'));

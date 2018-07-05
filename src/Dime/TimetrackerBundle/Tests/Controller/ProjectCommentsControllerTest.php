@@ -4,8 +4,7 @@ namespace Dime\TimetrackerBundle\Tests\Controller;
 
 class ProjectCommentsControllerTest extends DimeTestCase
 {
-
-    function testAuthentication()
+    public function testAuthentication()
     {
         $this->assertEquals(401, $this
             ->jsonRequest('GET', $this->api_prefix.'/projectcomments')->getStatusCode());
@@ -14,7 +13,7 @@ class ProjectCommentsControllerTest extends DimeTestCase
             ->jsonRequest('GET', $this->api_prefix.'/projectcomments')->getStatusCode());
     }
 
-    function testGetProjectCommentsAction()
+    public function testGetProjectCommentsAction()
     {
         // should return project comments
         $this->loginAs('admin');
@@ -23,7 +22,7 @@ class ProjectCommentsControllerTest extends DimeTestCase
             ->getStatusCode());
     }
 
-    function testGetProjectCommentAction()
+    public function testGetProjectCommentAction()
     {
         $this->loginAs('admin');
         /* expect to get 404 on non-existing project comment */
@@ -41,7 +40,7 @@ class ProjectCommentsControllerTest extends DimeTestCase
         $this->assertTrue(count($data) > 0, 'expected to find project comment');
     }
 
-    function testPostPutDeleteProjectCommentActions()
+    public function testPostPutDeleteProjectCommentActions()
     {
         $this->loginAs('admin');
 

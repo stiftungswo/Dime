@@ -8,8 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class ProjectCommentTest extends TestCase
 {
-
-    function testGetSetProject()
+    public function testGetSetProject()
     {
         // get and set Project
         $project_comment = new ProjectComment();
@@ -19,7 +18,7 @@ class ProjectCommentTest extends TestCase
         $this->assertEquals($project, $project_comment->getProject());
     }
 
-    function testGetSetComment()
+    public function testGetSetComment()
     {
         // get and set Comment
         $project_comment = new ProjectComment();
@@ -28,7 +27,7 @@ class ProjectCommentTest extends TestCase
         $this->assertEquals('neuer Comment', $project_comment->getComment());
     }
 
-    function testGetSetDate()
+    public function testGetSetDate()
     {
         // get and set Comment
         $project_comment = new ProjectComment();

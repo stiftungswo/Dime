@@ -135,7 +135,7 @@ class UsersControllerTest extends DimeTestCase
         $this->assertEquals(404, $response->getStatusCode(), $response->getContent());
     }
 
-    function testEnableLockUserAction()
+    public function testEnableLockUserAction()
     {
         $this->loginAs('admin');
 

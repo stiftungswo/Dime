@@ -7,8 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 class RateGroupTest extends TestCase
 {
-
-    function testGetSetDescription()
+    public function testGetSetDescription()
     {
         // get and set Description
         $rate_group = new RateGroup();
@@ -17,7 +16,7 @@ class RateGroupTest extends TestCase
         $this->assertEquals('neuer Description', $rate_group->getDescription());
     }
 
-    function testGetSetName()
+    public function testGetSetName()
     {
         // get and set Name
         $rate_group = new RateGroup();
@@ -26,7 +25,7 @@ class RateGroupTest extends TestCase
         $this->assertEquals('neuer Name', $rate_group->getName());
     }
     
-    function testGetSetCreatedAt()
+    public function testGetSetCreatedAt()
     {
         // get and set created at
         $rate_group = new RateGroup();
@@ -36,7 +35,7 @@ class RateGroupTest extends TestCase
         $this->assertEquals($dt, $rate_group->getCreatedAt());
     }
 
-    function testGetSetUpdatedAt()
+    public function testGetSetUpdatedAt()
     {
         // get and set created at
         $rate_group = new RateGroup();

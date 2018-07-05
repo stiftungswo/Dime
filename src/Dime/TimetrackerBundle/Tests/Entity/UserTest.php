@@ -17,13 +17,13 @@ class UserTest extends KernelTestCase
      * {@inheritDoc}
      */
 
-    function setUp()
+    public function setUp()
     {
         self::bootKernel();
         $this->em = static::$kernel->getContainer()->get('doctrine')->getManager();
     }
     
-    function testGetSetNames()
+    public function testGetSetNames()
     {
         // Get and Set Name of user
         $user = new User();
@@ -38,28 +38,28 @@ class UserTest extends KernelTestCase
         $this->assertEquals('neuer Firstname neuer Lastname', $user->getFullname());
     }
 
-    function testGetId()
+    public function testGetId()
     {
         // has only a getter method
         $user = new User();
         $this->assertNull($user->getId());
     }
 
-    function testGetCreatedAt()
+    public function testGetCreatedAt()
     {
         // has only a getter method
         $user = new User();
         $this->assertNull($user->getCreatedAt());
     }
 
-    function testGetUpdatedAt()
+    public function testGetUpdatedAt()
     {
         // has only a getter method
         $user = new User();
         $this->assertNull($user->getUpdatedAt());
     }
 
-    function testGetSetEmployeeholiday()
+    public function testGetSetEmployeeholiday()
     {
         // get and set Employeeholiday
         $user = new User();
@@ -68,7 +68,7 @@ class UserTest extends KernelTestCase
         $this->assertEquals(20, $user->getEmployeeholiday());
     }
 
-    function testRoles()
+    public function testRoles()
     {
         // user has by default a standard role
         $user = new User();
@@ -88,7 +88,7 @@ class UserTest extends KernelTestCase
         $this->assertEquals(2, count($user->getRoles()));
     }
 
-    function testToString()
+    public function testToString()
     {
         // should return strval if id and names are missing
         $user = new User();

@@ -12,7 +12,7 @@ class TagRepositoryTest extends DimeRepositoryTestCase
     protected const QB_ALIAS='t';
 
     // TESTS
-    function testSearch()
+    public function testSearch()
     {
         $rand_id = rand(1, 20);
         $tag = $this->getRepo()->find($rand_id);
@@ -26,7 +26,7 @@ class TagRepositoryTest extends DimeRepositoryTestCase
             ->search($tag->getName())->getCurrentQueryBuilder()->getQuery()->execute()));
     }
 
-    function testScopeByDate()
+    public function testScopeByDate()
     {
         // not implemented in this class
         $this->assertInstanceOf(
@@ -35,7 +35,7 @@ class TagRepositoryTest extends DimeRepositoryTestCase
         );
     }
 
-    function testGetIdsForTags()
+    public function testGetIdsForTags()
     {
         $faker = Faker\Factory::create();
         $tag_rand_id = rand(1, 20);

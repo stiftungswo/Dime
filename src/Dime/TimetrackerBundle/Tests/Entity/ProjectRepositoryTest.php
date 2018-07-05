@@ -12,7 +12,7 @@ class ProjectRepositoryTest extends DimeRepositoryTestCase
     protected const QB_ALIAS='p';
 
     // TESTS
-    function testSearch()
+    public function testSearch()
     {
         $rand_id = rand(1, 23);
         $project = $this->getRepo()->find($rand_id);
@@ -36,7 +36,7 @@ class ProjectRepositoryTest extends DimeRepositoryTestCase
             ->search($project->getName())->getCurrentQueryBuilder()->getQuery()->execute()));
     }
 
-    function testScopeByDate()
+    public function testScopeByDate()
     {
         // not implemented in this class
         $this->assertInstanceOf(
@@ -45,7 +45,7 @@ class ProjectRepositoryTest extends DimeRepositoryTestCase
         );
     }
 
-    function testFindByCustomer()
+    public function testFindByCustomer()
     {
         // should at least fire back one result because all projects in the fixtures have a customer
         $rand_id = rand(1, 23);
@@ -56,7 +56,7 @@ class ProjectRepositoryTest extends DimeRepositoryTestCase
         )));
     }
 
-    function testTagScopes()
+    public function testTagScopes()
     {
         $rand_id = rand(1, 20);
         $tag = $this->getRepo('DimeTimetrackerBundle:Tag')->find($rand_id);
@@ -91,7 +91,7 @@ class ProjectRepositoryTest extends DimeRepositoryTestCase
             ->getCurrentQueryBuilder()->getQuery()->execute()));
     }
 
-    function testFilter()
+    public function testFilter()
     {
         // the method itselfs are tested in all other tests
         // so here we just verify that the params are passed correctly internally

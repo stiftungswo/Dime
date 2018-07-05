@@ -10,7 +10,7 @@ class InvoiceItemRepositoryTest extends DimeRepositoryTestCase
     protected const QB_ALIAS='i';
 
     // TESTS
-    function testSearch()
+    public function testSearch()
     {
         // get a random item and fetch its name
         $rand_id = rand(1, 5);
@@ -21,7 +21,7 @@ class InvoiceItemRepositoryTest extends DimeRepositoryTestCase
             ->getCurrentQueryBuilder()->getQuery()->execute()));
     }
 
-    function testScopeWithTag()
+    public function testScopeWithTag()
     {
         // tags are currently not implented in InvoiceItemRepository
         $this->assertInstanceOf(
@@ -30,7 +30,7 @@ class InvoiceItemRepositoryTest extends DimeRepositoryTestCase
         );
     }
 
-    function testScopeWithoutTag()
+    public function testScopeWithoutTag()
     {
         // tags are currently not implented in InvoiceItemRepository
         $this->assertInstanceOf(
@@ -39,7 +39,7 @@ class InvoiceItemRepositoryTest extends DimeRepositoryTestCase
         );
     }
 
-    function testFilter()
+    public function testFilter()
     {
         // the method itselfs are tested in all other tests
         // so here we just verify that the params are passed correctly
@@ -79,7 +79,7 @@ class InvoiceItemRepositoryTest extends DimeRepositoryTestCase
         $invoice_discount_repository->filter(['name' => 'lorem ipsum']);
     }
 
-    function testScopeByDate()
+    public function testScopeByDate()
     {
         // tags are currently not implented in InvoiceItemRepository
         $this->assertInstanceOf(

@@ -14,15 +14,14 @@ use Dime\TimetrackerBundle\Entity\Timeslice;
 
 class TimesliceTest extends TestCase
 {
-
-    function testSetStandardUnit()
+    public function testSetStandardUnit()
     {
         // only has a setter
         $timeslice = new Timeslice();
         $timeslice->setStandardUnit('h');
     }
 
-    function testGetSetActivity()
+    public function testGetSetActivity()
     {
         // get and set activity
         $timeslice = new Timeslice();
@@ -32,7 +31,7 @@ class TimesliceTest extends TestCase
         $this->assertEquals($activity, $timeslice->getActivity());
     }
 
-    function testSetValue()
+    public function testSetValue()
     {
         // it should return own value
         $timeslice = new Timeslice();
@@ -50,7 +49,7 @@ class TimesliceTest extends TestCase
         $this->assertEquals(7200, $timeslice->getValue());
     }
 
-    function testSerializeValue()
+    public function testSerializeValue()
     {
         // it should return its own value
         $timeslice = new Timeslice();
@@ -72,7 +71,7 @@ class TimesliceTest extends TestCase
         $this->assertEquals('2h', $timeslice->serializeValue());
     }
 
-    function testGetSetProject()
+    public function testGetSetProject()
     {
         // get and set activity
         $activity = new Activity();
@@ -84,7 +83,7 @@ class TimesliceTest extends TestCase
         $this->assertEquals($project, $timeslice->getProject());
     }
 
-    function testGetSetStartedAt()
+    public function testGetSetStartedAt()
     {
         // it should be null if argument is null
         $timeslice = new Timeslice();
@@ -108,7 +107,7 @@ class TimesliceTest extends TestCase
         );
     }
 
-    function testGetStoppedAt()
+    public function testGetStoppedAt()
     {
         // it should be null if value is null
         $timeslice = new Timeslice();
@@ -128,7 +127,7 @@ class TimesliceTest extends TestCase
         );
     }
 
-    function testTags()
+    public function testTags()
     {
         // timeslice has by default no tags
         $timeslice = new Timeslice();
@@ -148,7 +147,7 @@ class TimesliceTest extends TestCase
         $this->assertEquals(1, count($timeslice->getTags()));
     }
 
-    function testUpdateStartOnEmpty()
+    public function testUpdateStartOnEmpty()
     {
         // it should insert a carbon value
         $timeslice = new Timeslice;
@@ -158,7 +157,7 @@ class TimesliceTest extends TestCase
         $this->assertInstanceOf(Carbon::class, $timeslice->getStartedAt());
     }
 
-    function testUpdateOnEmpty()
+    public function testUpdateOnEmpty()
     {
         // it should insert a carbon value
         $timeslice = new Timeslice;
@@ -168,7 +167,7 @@ class TimesliceTest extends TestCase
         $this->assertInstanceOf(Carbon::class, $timeslice->getStartedAt());
     }
 
-    function testGetCurrentDuration()
+    public function testGetCurrentDuration()
     {
         // it should return diff to current time
         $timeslice = new Timeslice();
@@ -180,7 +179,7 @@ class TimesliceTest extends TestCase
         $this->assertEquals(8567, $timeslice->getCurrentDuration());
     }
 
-    function testGetSetEmployee()
+    public function testGetSetEmployee()
     {
         // get and set employee
         $timeslice = new Timeslice();

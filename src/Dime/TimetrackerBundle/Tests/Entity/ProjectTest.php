@@ -31,7 +31,7 @@ class ProjectTest extends KernelTestCase
      */
 
     // HELPERS
-    function setUp()
+    public function setUp()
     {
         self::bootKernel();
         $this->em = static::$kernel->getContainer()->get('doctrine')->getManager();
@@ -42,7 +42,7 @@ class ProjectTest extends KernelTestCase
         return $this->em->getRepository('DimeTimetrackerBundle:Project');
     }
 
-    function testGetCalculateCurrentPrice()
+    public function testGetCalculateCurrentPrice()
     {
         $rate_value = rand(0, 10);
         $charge = rand(0, 5000);
@@ -71,7 +71,7 @@ class ProjectTest extends KernelTestCase
         $this->assertEquals($result->format(true), $project->getCurrentPrice());
     }
 
-    function testGetRemainingBudgetPrice()
+    public function testGetRemainingBudgetPrice()
     {
         // should return null if project has no budget price
         $project = new Project();
@@ -97,7 +97,7 @@ class ProjectTest extends KernelTestCase
         $this->assertEquals($result->format(true), $project->getRemainingBudgetPrice());
     }
 
-    function testGetCurrentTime()
+    public function testGetCurrentTime()
     {
         // should not return anything if activity has no rateunittype
         $project = new Project();
@@ -125,7 +125,7 @@ class ProjectTest extends KernelTestCase
         $this->assertEquals(number_format($rand_num, 2) . ' h', $project->getCurrentTime());
     }
 
-    function testGetRemainingBudgetTime()
+    public function testGetRemainingBudgetTime()
     {
         // should not return anything if project has no budget time
         $project = new Project();
@@ -151,7 +151,7 @@ class ProjectTest extends KernelTestCase
         $this->assertEquals($expect, $project->getRemainingBudgetTime());
     }
 
-    function testSerializeBudgetTime()
+    public function testSerializeBudgetTime()
     {
         // should not return anything if project has no budget time
         $project = new Project();
@@ -169,7 +169,7 @@ class ProjectTest extends KernelTestCase
         );
     }
 
-    function testSerializeBudgetPrice()
+    public function testSerializeBudgetPrice()
     {
         // should return nothing if project has no budget
         $project = new Project();
@@ -189,7 +189,7 @@ class ProjectTest extends KernelTestCase
         $this->assertEquals(Money::CHF($value)->format(true), $project->serializeBudgetPrice());
     }
 
-    function testGetSetIsChargeable()
+    public function testGetSetIsChargeable()
     {
         // get and set chargeable
         $project = new Project();
@@ -198,7 +198,7 @@ class ProjectTest extends KernelTestCase
         $this->assertEquals(true, $project->isChargeable());
     }
 
-    function testGetSetCustomer()
+    public function testGetSetCustomer()
     {
         // get and set customer
         $project = new Project();
@@ -208,7 +208,7 @@ class ProjectTest extends KernelTestCase
         $this->assertEquals($project_category, $project->getCustomer());
     }
 
-    function testGetSetName()
+    public function testGetSetName()
     {
         // get and set name
         $project = new Project();
@@ -217,7 +217,7 @@ class ProjectTest extends KernelTestCase
         $this->assertEquals('name', $project->getName());
     }
 
-    function testGetSetAlias()
+    public function testGetSetAlias()
     {
         // get and set name
         $project = new Project();
@@ -226,7 +226,7 @@ class ProjectTest extends KernelTestCase
         $this->assertEquals('name', $project->getAlias());
     }
 
-    function testGetSetStartedAt()
+    public function testGetSetStartedAt()
     {
         // get and set startedAt
         $dt = new \DateTime();
@@ -236,7 +236,7 @@ class ProjectTest extends KernelTestCase
         $this->assertEquals($dt, $project->getstartedAt());
     }
 
-    function testGetSetStoppedAt()
+    public function testGetSetStoppedAt()
     {
         // get and set stoppedAt
         $dt = new \DateTime();
@@ -246,7 +246,7 @@ class ProjectTest extends KernelTestCase
         $this->assertEquals($dt, $project->getstoppedAt());
     }
 
-    function testGetSetDeadline()
+    public function testGetSetDeadline()
     {
         // get and set Deadline
         $dt = new \DateTime();
@@ -256,7 +256,7 @@ class ProjectTest extends KernelTestCase
         $this->assertEquals($dt, $project->getDeadline());
     }
 
-    function testGetSetDescription()
+    public function testGetSetDescription()
     {
         // get and set description
         $project = new Project();
@@ -266,7 +266,7 @@ class ProjectTest extends KernelTestCase
         $this->assertEquals($description, $project->getDescription());
     }
 
-    function testGetSetBudgetPrice()
+    public function testGetSetBudgetPrice()
     {
         // get and set budget price
         $project = new Project();
@@ -276,7 +276,7 @@ class ProjectTest extends KernelTestCase
         $this->assertEquals($money, $project->getBudgetPrice());
     }
 
-    function testGetSetFixedPrice()
+    public function testGetSetFixedPrice()
     {
         // get and set fixed price
         $project = new Project();
@@ -287,7 +287,7 @@ class ProjectTest extends KernelTestCase
         $this->assertEquals($money, $project->getBudgetPrice());
     }
 
-    function testSerializeFixedPrice()
+    public function testSerializeFixedPrice()
     {
         // should not return anything if project has no fixed price
         $project = new Project();
@@ -307,7 +307,7 @@ class ProjectTest extends KernelTestCase
         $this->assertEquals($money->format(), $project->serializeFixedPrice());
     }
 
-    function testGetSetBudgetTime()
+    public function testGetSetBudgetTime()
     {
         // get and set budget time
         $project = new Project();
@@ -316,7 +316,7 @@ class ProjectTest extends KernelTestCase
         $this->assertEquals(3 * 3600, $project->getBudgetTime());
     }
 
-    function testToString()
+    public function testToString()
     {
         // should return id if project has no name
         // use an object from the database in this case because we need an id
@@ -330,7 +330,7 @@ class ProjectTest extends KernelTestCase
         $this->assertEquals('eh name', (string)$project);
     }
 
-    function testTags()
+    public function testTags()
     {
         // project has by default no tags
         $project = new Project();
@@ -350,7 +350,7 @@ class ProjectTest extends KernelTestCase
         $this->assertEquals(1, count($project->getTags()));
     }
 
-    function testGetSetRateGroup()
+    public function testGetSetRateGroup()
     {
         // get and set rate group
         $project = new Project();
@@ -360,7 +360,7 @@ class ProjectTest extends KernelTestCase
         $this->assertEquals($rate_group, $project->getRateGroup());
     }
 
-    function testSetCreatedAt()
+    public function testSetCreatedAt()
     {
         // get and set created at
         $project = new Project();
@@ -370,7 +370,7 @@ class ProjectTest extends KernelTestCase
         $this->assertEquals($dt, $project->getCreatedAt());
     }
 
-    function testSetUpdatedAt()
+    public function testSetUpdatedAt()
     {
         // get and set updated at
         $project = new Project();
@@ -380,7 +380,7 @@ class ProjectTest extends KernelTestCase
         $this->assertEquals($dt, $project->getUpdatedAt());
     }
 
-    function testActivities()
+    public function testActivities()
     {
         // project has by default no activities
         $project = new Project();
@@ -400,7 +400,7 @@ class ProjectTest extends KernelTestCase
         $this->assertEquals(1, count($project->getActivities()));
     }
 
-    function testGetSetProjectCategory()
+    public function testGetSetProjectCategory()
     {
         // get and set project category
         $project = new Project();
@@ -410,7 +410,7 @@ class ProjectTest extends KernelTestCase
         $this->assertEquals($project_category, $project->getProjectCategory());
     }
 
-    function testInvoices()
+    public function testInvoices()
     {
         // project has by default no offers
         $project = new Project();
@@ -430,7 +430,7 @@ class ProjectTest extends KernelTestCase
         $this->assertEquals(1, count($project->getInvoices()));
     }
 
-    function testGetSetProjectComments()
+    public function testGetSetProjectComments()
     {
         // get and set project category
         $project = new Project();
@@ -440,7 +440,7 @@ class ProjectTest extends KernelTestCase
         $this->assertEquals($project_comment, $project->getComments());
     }
 
-    function testOffers()
+    public function testOffers()
     {
         // project has by default no offers
         $project = new Project();
@@ -460,7 +460,7 @@ class ProjectTest extends KernelTestCase
         $this->assertEquals(1, count($project->getOffers()));
     }
 
-    function testGetSetAccountant()
+    public function testGetSetAccountant()
     {
         // get and set project category
         $project = new Project();
