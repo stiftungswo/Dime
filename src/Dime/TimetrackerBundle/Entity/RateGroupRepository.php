@@ -17,7 +17,8 @@ class RateGroupRepository extends EntityRepository
      *
      * @param string $text
      * @param QueryBuilder $qb
-     * @return ServiceRepository
+     * @return RateGroupRepository
+     * @throws \Exception when $qb is null and Repository has no QueryBuilder initialized
      */
     public function search($text, QueryBuilder $qb = null)
     {
@@ -41,7 +42,7 @@ class RateGroupRepository extends EntityRepository
      * @param                   $date
      * @param QueryBuilder $qb
      *
-     * @return ServiceRepository
+     * @return RateGroupRepository
      */
     public function scopeByDate($date, QueryBuilder $qb = null)
     {

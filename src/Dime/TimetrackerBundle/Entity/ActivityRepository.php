@@ -26,7 +26,7 @@ class ActivityRepository extends EntityRepository
      * @param \Doctrine\ORM\QueryBuilder $qb
      *
      * @return ActivityRepository
-     * @throws \Exception when $qb is null
+     * @throws \Exception when $qb is null and Repository has no QueryBuilder initialized
      */
     public function search($text, QueryBuilder $qb = null)
     {
@@ -101,7 +101,7 @@ class ActivityRepository extends EntityRepository
      * @param                            $id , integer
      * @param \Doctrine\ORM\QueryBuilder $qb
      *
-     * @return \Doctrine\ORM\QueryBuilder
+     * @return ActivityRepository
      */
     public function scopeByProject($id, QueryBuilder $qb = null)
     {
@@ -114,7 +114,7 @@ class ActivityRepository extends EntityRepository
      * @param                            $id , integer
      * @param \Doctrine\ORM\QueryBuilder $qb
      *
-     * @return \Doctrine\ORM\QueryBuilder
+     * @return ActivityRepository
      */
     public function scopeByService($id, QueryBuilder $qb = null)
     {
@@ -128,6 +128,7 @@ class ActivityRepository extends EntityRepository
      * @param \Doctrine\ORM\QueryBuilder $qb
      *
      * @return ActivityRepository
+     * @throws \Exception when $qb is null and Repository has no QueryBuilder initialized
      */
     public function scopeWithTag($tagIdOrName, QueryBuilder $qb = null)
     {
@@ -156,7 +157,8 @@ class ActivityRepository extends EntityRepository
      * @param integer|string $tagIdOrName
      * @param \Doctrine\ORM\QueryBuilder $qb
      *
-     * @return \Doctrine\ORM\QueryBuilder
+     * @return ActivityRepository
+     * @throws \Exception when $qb is null and Repository has no QueryBuilder initialized
      */
     public function scopeWithoutTag($tagIdOrName, QueryBuilder $qb = null)
     {
@@ -191,6 +193,7 @@ class ActivityRepository extends EntityRepository
      * @param \Doctrine\ORM\QueryBuilder $qb
      *
      * @return ActivityRepository
+     * @throws \Exception when $qb is null and Repository has no QueryBuilder initialized
      */
     public function filter(array $filter, QueryBuilder $qb = null)
     {

@@ -51,7 +51,7 @@ class ProjectTest extends KernelTestCase
         $activity = new Activity();
         $activity->setRateValue(Money::CHF($rate_value));
         $project = new Project();
-        $project->setActivities([$activity]);
+        $project->setActivities(new ArrayCollection([$activity]));
 
         $this->assertEquals(Money::CHF(0), $project->calculateCurrentPrice());
         $this->assertEquals('0.00 CHF', $project->getCurrentPrice());
@@ -90,7 +90,7 @@ class ProjectTest extends KernelTestCase
         $timeslice->setValue($charge);
         $activity->addTimeslice($timeslice);
         $activity->setRateValue(Money::CHF($rate_value));
-        $project->setActivities([$activity]);
+        $project->setActivities(new ArrayCollection([$activity]));
         $project->setBudgetPrice(Money::CHF($budget_price));
 
         $result = Money::CHF($budget_price)->subtract(Money::CHF($rate_value)->multiply($charge));
@@ -103,7 +103,7 @@ class ProjectTest extends KernelTestCase
         $project = new Project();
         $activity = new Activity();
         $activity->setRateUnitType(null);
-        $project->setActivities([$activity]);
+        $project->setActivities(new ArrayCollection([$activity]));
 
         $this->assertEquals('0.00 h', $project->getCurrentTime());
 
@@ -111,7 +111,7 @@ class ProjectTest extends KernelTestCase
         $rate_unit_type = new RateUnitType();
         $rate_unit_type->setId('a');
         $activity->setRateUnitType($rate_unit_type);
-        $project->setActivities([$activity]);
+        $project->setActivities(new ArrayCollection([$activity]));
 
         $this->assertEquals('0.00 h', $project->getCurrentTime());
 
@@ -145,7 +145,7 @@ class ProjectTest extends KernelTestCase
         $activity->setRateUnitType($rate_unit_type);
         $activity->addTimeslice($timeslice);
         $project->setBudgetTime($budget_time);
-        $project->setActivities([$activity]);
+        $project->setActivities(new ArrayCollection([$activity]));
 
         $expect = number_format($budget_time - $booked_time, 2) . ' h';
         $this->assertEquals($expect, $project->getRemainingBudgetTime());

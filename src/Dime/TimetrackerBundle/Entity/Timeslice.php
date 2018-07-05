@@ -195,7 +195,7 @@ class Timeslice extends Entity implements DimeEntityInterface
     /**
      * Set started_at
      *
-     * @param  DateTime $startedAt
+     * @param  string|\DateTime|Carbon $startedAt Can also be null
      * @return Timeslice
      */
     public function setStartedAt($startedAt)

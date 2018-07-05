@@ -306,7 +306,7 @@ class Activity extends Entity implements DimeEntityInterface
     /**
      * Set rate
      *
-     * @param  float $rateValue
+     * @param  Money $rateValue
      * @return Activity
      */
     public function setRateValue($rateValue)

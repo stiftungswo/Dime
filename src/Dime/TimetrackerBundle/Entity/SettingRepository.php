@@ -47,6 +47,7 @@ class SettingRepository extends EntityRepository
      * @param QueryBuilder $qb
      *
      * @return SettingRepository
+     * @throws \Exception when $qb is null and Repository has no QueryBuilder initialized
      */
     public function scopeByNamespace($namespace, QueryBuilder $qb = null)
     {

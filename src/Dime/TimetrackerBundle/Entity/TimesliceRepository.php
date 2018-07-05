@@ -28,6 +28,13 @@ class TimesliceRepository extends EntityRepository
         return $this;
     }
 
+    /**
+     * Finds the latest timeslice
+     *
+     * @param QueryBuilder|null $qb
+     * @return TimesliceRepository
+     * @throws \Exception when $qb is null and Repository has no QueryBuilder initialized
+     */
     public function scopeByLatest(QueryBuilder $qb = null)
     {
         if ($qb == null) {
@@ -50,6 +57,7 @@ class TimesliceRepository extends EntityRepository
      * @param QueryBuilder $qb
      *
      * @return TimesliceRepository
+     * @throws \Exception when $qb is null and Repository has no QueryBuilder initialized
      *
      */
     public function scopeByDate($date, QueryBuilder $qb = null)
@@ -106,6 +114,7 @@ class TimesliceRepository extends EntityRepository
      * @param \Doctrine\ORM\QueryBuilder $qb
      *
      * @return TimesliceRepository
+     * @throws \Exception when $qb is null and Repository has no QueryBuilder initialized
      *
      */
     public function scopeByEmployee($employee, QueryBuilder $qb = null)
@@ -125,6 +134,14 @@ class TimesliceRepository extends EntityRepository
         return $this;
     }
 
+    /**
+     * Finds timeslices based on customers, projects, services or users.
+     *
+     * @param array $data
+     * @param QueryBuilder|null $qb
+     * @return TimesliceRepository
+     * @throws \Exception when $qb is null and Repository has no QueryBuilder initialized
+     */
     public function scopeByActivityData(array $data, QueryBuilder $qb = null)
     {
         if ($qb == null) {
@@ -156,8 +173,8 @@ class TimesliceRepository extends EntityRepository
      * @param integer|string $tagIdOrName
      * @param \Doctrine\ORM\QueryBuilder $qb
      *
-     * @return \Doctrine\ORM\QueryBuilder
-     *
+     * @return TimesliceRepository
+     * @throws \Exception when $qb is null and Repository has no QueryBuilder initialized
      */
     public function scopeWithTag($tagIdOrName, QueryBuilder $qb = null)
     {
@@ -179,8 +196,8 @@ class TimesliceRepository extends EntityRepository
      * @param integer|string $tagIdOrName
      * @param \Doctrine\ORM\QueryBuilder $qb
      *
-     * @return \Doctrine\ORM\QueryBuilder
-     *
+     * @return TimesliceRepository
+     * @throws \Exception when $qb is null and Repository has no QueryBuilder initialized
      */
     public function scopeWithoutTag($tagIdOrName, QueryBuilder $qb = null)
     {
@@ -208,7 +225,7 @@ class TimesliceRepository extends EntityRepository
      * @param \Doctrine\ORM\QueryBuilder $qb
      *
      * @return TimesliceRepository
-     *
+     * @throws \Exception when $qb is null and Repository has no QueryBuilder initialized
      */
     public function filter(array $filter, QueryBuilder $qb = null)
     {
@@ -293,12 +310,4 @@ class TimesliceRepository extends EntityRepository
             ->setParameter(2, $to);
         return array_map("array_pop", $query->getResult());
     }
-
-    /**
-     * Fetch all activities id where a timeslice has stoppedAt is NULL and value is '0'.
-     * This query is a native one, because Doctrine DQL can not fetch only the activity_id.
-     *
-     * @return array, list of activity ids
-     *
-     */
 }

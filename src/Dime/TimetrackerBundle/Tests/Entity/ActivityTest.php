@@ -44,12 +44,14 @@ class ActivityTest extends TestCase
         // it should fill in values based on service rate
         $rate = new Rate();
         $rate_group = new RateGroup();
+        $rate_unit_type = new RateUnitType();
         $project = new Project();
         $service = new Service();
 
+        $rate_unit_type->setSymbol('h');
         $rate->setRateValue(Money::CHF(13000));
         $rate->setRateUnit('CHF/h');
-        $rate->setRateUnitType('h');
+        $rate->setRateUnitType($rate_unit_type);
 
         $project->setRateGroup($rate_group);
         $rate->setRateGroup($rate_group);
@@ -69,7 +71,7 @@ class ActivityTest extends TestCase
         $activity->setService(null);
         $this->assertEquals(Money::CHF(13000), $activity->getRateValue());
         $this->assertEquals('CHF/h', $activity->getRateUnit());
-        $this->assertEquals('h', $activity->getRateUnitType());
+        $this->assertEquals($rate_unit_type, $activity->getRateUnitType());
     }
 
     function testGetServiceRate()

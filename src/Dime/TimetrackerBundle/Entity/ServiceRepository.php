@@ -18,6 +18,7 @@ class ServiceRepository extends EntityRepository
      * @param string $text
      * @param QueryBuilder $qb
      * @return ServiceRepository
+     * @throws \Exception when $qb is null and Repository has no QueryBuilder initialized
      */
     public function search($text, QueryBuilder $qb = null)
     {
@@ -50,6 +51,14 @@ class ServiceRepository extends EntityRepository
         return $this;
     }
 
+    /**
+     * Finds all services with the same rate groups through their rates
+     *
+     * @param int $rateGroupId
+     * @param QueryBuilder|null $qb
+     * @return $this
+     * @throws \Exception when $qb is null and Repository has no QueryBuilder initialized
+     */
     public function scopeByRateGroup($rateGroupId, QueryBuilder $qb = null)
     {
         $aliases = $qb->getRootAliases();
@@ -69,6 +78,7 @@ class ServiceRepository extends EntityRepository
      *
      * @return ServiceRepository
      * @throws \Exception if an invalid filter is provided
+     * @throws \Exception when $qb is null and Repository has no QueryBuilder initialized
      */
     public function filter(array $filter, QueryBuilder $qb = null)
     {

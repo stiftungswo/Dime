@@ -284,6 +284,12 @@ class RateUnitType extends Entity implements DimeEntityInterface
         return floatval($value);
     }
 
+    /**
+     * Adds the corresponding symbol to the given value
+     *
+     * @param int $value
+     * @return string
+     */
     public function serializedOutput($value)
     {
         if ($this->getSymbol() === 'a') {
