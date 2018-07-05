@@ -9,6 +9,15 @@ use Dime\TimetrackerBundle\Entity\EntityRepository;
 class EntityRepositoryTest extends KernelTestCase
 {
 
+    /**
+     * @var \Doctrine\ORM\EntityManager
+     */
+    private $em;
+
+    /**
+     * {@inheritDoc}
+     */
+
     // according to https://symfony.com/doc/current/testing/doctrine.html
     function setUp()
     {

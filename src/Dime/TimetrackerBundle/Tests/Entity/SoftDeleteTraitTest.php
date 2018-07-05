@@ -2,10 +2,10 @@
 
 namespace Dime\TimetrackerBundle\Tests\Entity;
 
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Dime\TimetrackerBundle\Entity\SoftDeleteTrait;
+use PHPUnit\Framework\TestCase;
 
-class SoftDeleteTraitTest extends KernelTestCase
+class SoftDeleteTraitTest extends TestCase
 {
 
     function testGetSetDeletedAt()

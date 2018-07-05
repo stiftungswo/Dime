@@ -13,6 +13,15 @@ use Dime\TimetrackerBundle\Entity\Tag;
 class CustomerTest extends KernelTestCase
 {
 
+    /**
+     * @var \Doctrine\ORM\EntityManager
+     */
+    private $em;
+
+    /**
+     * {@inheritDoc}
+     */
+
     function setUp()
     {
         self::bootKernel();

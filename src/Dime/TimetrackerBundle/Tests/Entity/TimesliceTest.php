@@ -6,13 +6,13 @@ use Dime\TimetrackerBundle\Entity\Activity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Carbon\Carbon;
 use Dime\EmployeeBundle\Entity\Employee;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Dime\TimetrackerBundle\Entity\Project;
 use Dime\TimetrackerBundle\Entity\RateUnitType;
 use Dime\TimetrackerBundle\Entity\Tag;
+use PHPUnit\Framework\TestCase;
 use Dime\TimetrackerBundle\Entity\Timeslice;
 
-class TimesliceTest extends KernelTestCase
+class TimesliceTest extends TestCase
 {
 
     function testSetStandardUnit()

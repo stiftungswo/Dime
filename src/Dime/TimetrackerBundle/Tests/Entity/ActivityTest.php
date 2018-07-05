@@ -6,16 +6,16 @@ use Dime\TimetrackerBundle\Entity\Activity;
 use Dime\TimetrackerBundle\Entity\Customer;
 use Doctrine\Common\Collections\ArrayCollection;
 use Money\Money;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Dime\TimetrackerBundle\Entity\Project;
 use Dime\TimetrackerBundle\Entity\Rate;
 use Dime\TimetrackerBundle\Entity\RateGroup;
 use Dime\TimetrackerBundle\Entity\RateUnitType;
 use Dime\TimetrackerBundle\Entity\Service;
 use Dime\TimetrackerBundle\Entity\Tag;
+use PHPUnit\Framework\TestCase;
 use Dime\TimetrackerBundle\Entity\Timeslice;
 
-class ActivityTest extends KernelTestCase
+class ActivityTest extends TestCase
 {
 
     function testGetValue()

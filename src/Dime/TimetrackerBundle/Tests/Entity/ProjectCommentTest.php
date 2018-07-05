@@ -2,11 +2,11 @@
 
 namespace Dime\TimetrackerBundle\Tests\Entity;
 
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Dime\TimetrackerBundle\Entity\Project;
 use Dime\TimetrackerBundle\Entity\ProjectComment;
+use PHPUnit\Framework\TestCase;
 
-class ProjectCommentTest extends KernelTestCase
+class ProjectCommentTest extends TestCase
 {
 
     function testGetSetProject()

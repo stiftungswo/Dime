@@ -2,10 +2,10 @@
 
 namespace Dime\TimetrackerBundle\Test\Entity;
 
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Dime\TimetrackerBundle\Entity\Setting;
+use PHPUnit\Framework\TestCase;
 
-class SettingTest extends KernelTestCase
+class SettingTest extends TestCase
 {
 
     function testGetSetName()

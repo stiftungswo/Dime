@@ -7,6 +7,15 @@ use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 abstract class DimeRepositoryTestCase extends KernelTestCase
 {
 
+    /**
+     * @var \Doctrine\ORM\EntityManager
+     */
+    protected $em;
+
+    /**
+     * {@inheritDoc}
+     */
+
     protected const ENTITY_NAME='undefined';
     protected const QB_ALIAS='x';
 

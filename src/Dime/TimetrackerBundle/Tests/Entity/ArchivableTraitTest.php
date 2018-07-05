@@ -3,9 +3,9 @@
 namespace Dime\TimetrackerBundle\Tests\Entity;
 
 use Dime\TimetrackerBundle\Entity\ArchivableTrait;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use PHPUnit\Framework\TestCase;
 
-class ArchivableTraitTest extends KernelTestCase
+class ArchivableTraitTest extends TestCase
 {
 
     function testGetSetArchived()

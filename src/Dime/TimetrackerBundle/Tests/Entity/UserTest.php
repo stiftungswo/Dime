@@ -8,6 +8,15 @@ use Dime\TimetrackerBundle\Entity\User;
 class UserTest extends KernelTestCase
 {
 
+    /**
+     * @var \Doctrine\ORM\EntityManager
+     */
+    private $em;
+
+    /**
+     * {@inheritDoc}
+     */
+
     function setUp()
     {
         self::bootKernel();

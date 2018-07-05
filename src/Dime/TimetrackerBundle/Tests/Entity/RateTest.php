@@ -2,13 +2,13 @@
 
 namespace Dime\TimetrackerBundle\Tests\Entity;
 
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Dime\TimetrackerBundle\Entity\Rate;
 use Dime\TimetrackerBundle\Entity\RateGroup;
 use Dime\TimetrackerBundle\Entity\RateUnitType;
 use Dime\TimetrackerBundle\Entity\Service;
+use PHPUnit\Framework\TestCase;
 
-class RateTest extends KernelTestCase
+class RateTest extends TestCase
 {
 
     function testGetSetRateGroup()

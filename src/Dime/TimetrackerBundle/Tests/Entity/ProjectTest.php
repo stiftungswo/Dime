@@ -21,6 +21,15 @@ use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class ProjectTest extends KernelTestCase
 {
+    /**
+     * @var \Doctrine\ORM\EntityManager
+     */
+    private $em;
+
+    /**
+     * {@inheritDoc}
+     */
+
     // HELPERS
     function setUp()
     {

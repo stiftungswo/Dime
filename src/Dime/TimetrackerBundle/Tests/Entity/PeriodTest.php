@@ -5,9 +5,9 @@ namespace Dime\TimetrackerBundle\Tests\Entity;
 use Carbon\Carbon;
 use Dime\EmployeeBundle\Entity\Employee;
 use Dime\EmployeeBundle\Entity\Period;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use PHPUnit\Framework\TestCase;
 
-class PeriodTest extends KernelTestCase
+class PeriodTest extends TestCase
 {
 
     const SECONDS_IN_HOURS = 60 * 60;

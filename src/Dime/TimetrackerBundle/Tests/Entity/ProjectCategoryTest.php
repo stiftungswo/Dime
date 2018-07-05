@@ -3,9 +3,9 @@
 namespace Dime\TimetrackerBundle\Tests\Entity;
 
 use Dime\TimetrackerBundle\Entity\ProjectCategory;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use PHPUnit\Framework\TestCase;
 
-class ProjectCategoryTest extends KernelTestCase
+class ProjectCategoryTest extends TestCase
 {
 
     function testGetSetName()

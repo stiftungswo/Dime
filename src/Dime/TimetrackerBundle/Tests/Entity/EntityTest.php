@@ -3,10 +3,10 @@
 namespace Dime\TimetrackerBundle\Tests\Entity;
 
 use Dime\TimetrackerBundle\Entity\Entity;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use PHPUnit\Framework\TestCase;
 use Dime\TimetrackerBundle\Entity\User;
 
-class EntityTest extends KernelTestCase
+class EntityTest extends TestCase
 {
 
     protected function getEntityMock()

@@ -2,10 +2,10 @@
 
 namespace Dime\TimetrackerBundle\Tests\Entity;
 
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Dime\TimetrackerBundle\Entity\Tag;
+use PHPUnit\Framework\TestCase;
 
-class TagTest extends KernelTestCase
+class TagTest extends TestCase
 {
 
     function testGetSetName()
