@@ -47,12 +47,13 @@ class TagRepositoryTest extends DimeRepositoryTestCase
 
         // this thing does multiple things:
         // 1. it searches for all tags
-        // 2. because we deliver an unknown tag, it should create a new one
+        // 2. because we deliver (most likely) an unknown tag, it should create a new one
         $result = $this->getRepoWithQB()->getIdsForTags(
             [$tag->getName(), $faker->word],
             $user_id
         );
-        $this->assertEquals($expect + 1, count($result));
+        $this->assertGreaterThanOrEqual($expect, count($result));
+        $this->assertLessThanOrEqual($expect + 1, count($result));
         $this->assertContains($tag->getId(), $result);
 
         // it should return empty array if tags are empty
