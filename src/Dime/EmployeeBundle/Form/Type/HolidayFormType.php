@@ -12,11 +12,11 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class HolidayFormType extends AbstractType
 {
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(
             array(
@@ -33,10 +33,5 @@ class HolidayFormType extends AbstractType
             ->add('date', DateTimeType::class, array('required' => true, 'widget' => 'single_text', 'with_seconds' => true))
             ->add('duration', TextType::class)
         ;
-    }
-
-    public function getName()
-    {
-        return 'dime_employeebundle_holidayformtype';
     }
 }

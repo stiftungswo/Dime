@@ -2,7 +2,7 @@ parameters:
 
 services:
     dime.print.pdf:
-        class: 'Dime\PrintingBundle\Service\PrintService'
+        class: Dime\PrintingBundle\Service\PrintService
         arguments: [ '@templating', '@ps_pdf.facade_builder', '@ps_pdf.cache' ]
 
     charbox.twig_extension:

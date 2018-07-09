@@ -7,12 +7,12 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Tbbc\MoneyBundle\Form\Type\SimpleMoneyType;
 
 class ProjectFormType extends AbstractType
 {
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(
             array(
@@ -45,10 +45,5 @@ class ProjectFormType extends AbstractType
             ->add('user', EntityType::class, array('class' => 'DimeTimetrackerBundle:User'))
             ->add('projectCategory', EntityType::class, array('class' => 'DimeTimetrackerBundle:ProjectCategory'))
         ;
-    }
-
-    public function getName()
-    {
-        return 'dime_timetrackerbundle_projectformtype';
     }
 }

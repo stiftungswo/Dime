@@ -1,58 +1,58 @@
 parameters:
-    generic_handler: "Dime\\TimetrackerBundle\\Handler\\GenericHandler"
+    generic_handler: Dime\TimetrackerBundle\Handler\GenericHandler
 
 services:
     dime.user.handler:
-        class: "Dime\\TimetrackerBundle\\Handler\\UserHandler"
-        arguments: [ "@doctrine.orm.entity_manager", "Dime\TimetrackerBundle\Entity\\User", "@service_container", "@fos_user.user_manager", "us", "dime_timetrackerbundle_userformtype" ]
+        class: Dime\TimetrackerBundle\Handler\UserHandler
+        arguments: [ "@doctrine.orm.entity_manager", Dime\TimetrackerBundle\Entity\User, "@service_container", "@fos_user.user_manager", "us", Dime\TimetrackerBundle\Form\Type\UserFormType]
 
     dime.timeslice.handler:
         class: %generic_handler%
-        arguments: [ "@doctrine.orm.entity_manager", "Dime\TimetrackerBundle\Entity\Timeslice",  "@service_container", "ti", "dime_timetrackerbundle_timesliceformtype"]
+        arguments: [ "@doctrine.orm.entity_manager", Dime\TimetrackerBundle\Entity\Timeslice,  "@service_container", "ti", Dime\TimetrackerBundle\Form\Type\TimesliceFormType]
 
     dime.tag.handler:
         class: %generic_handler%
-        arguments: [ "@doctrine.orm.entity_manager", "Dime\TimetrackerBundle\Entity\Tag",  "@service_container", "t", "dime_timetrackerbundle_tagformtype"]
+        arguments: [ "@doctrine.orm.entity_manager", Dime\TimetrackerBundle\Entity\Tag,  "@service_container", "t", Dime\TimetrackerBundle\Form\Type\TagFormType]
 
     dime.setting.handler:
         class: %generic_handler%
-        arguments: [ "@doctrine.orm.entity_manager", "Dime\TimetrackerBundle\Entity\Setting",  "@service_container", "se", "dime_timetrackerbundle_settingformtype"]
+        arguments: [ "@doctrine.orm.entity_manager", Dime\TimetrackerBundle\Entity\Setting,  "@service_container", "se", Dime\TimetrackerBundle\Form\Type\SettingFormType]
 
     dime.service.handler:
         class: %generic_handler%
-        arguments: [ "@doctrine.orm.entity_manager", "Dime\TimetrackerBundle\Entity\Service",  "@service_container", "s", "dime_timetrackerbundle_serviceformtype"]
+        arguments: [ "@doctrine.orm.entity_manager", Dime\TimetrackerBundle\Entity\Service,  "@service_container", "s", Dime\TimetrackerBundle\Form\Type\ServiceFormType]
 
     dime.project.handler:
-        class: 'Dime\TimetrackerBundle\Handler\ProjectHandler'
-        arguments: [ "@doctrine.orm.entity_manager", 'Dime\TimetrackerBundle\Entity\Project',  "@service_container", "p", "dime_timetrackerbundle_projectformtype"]
+        class: Dime\TimetrackerBundle\Handler\ProjectHandler
+        arguments: [ "@doctrine.orm.entity_manager", Dime\TimetrackerBundle\Entity\Project,  "@service_container", "p", Dime\TimetrackerBundle\Form\Type\ProjectFormType]
 
     dime.customer.handler:
-        class: 'Dime\TimetrackerBundle\Handler\CustomerHandler'
-        arguments: [ "@doctrine.orm.entity_manager", 'Dime\TimetrackerBundle\Entity\Customer',  "@service_container", "c", "dime_timetrackerbundle_customerformtype"]
+        class: Dime\TimetrackerBundle\Handler\CustomerHandler
+        arguments: [ "@doctrine.orm.entity_manager", Dime\TimetrackerBundle\Entity\Customer,  "@service_container", "c", Dime\TimetrackerBundle\Form\Type\CustomerFormType]
 
     dime.activity.handler:
         class: %generic_handler%
-        arguments: [ "@doctrine.orm.entity_manager", "Dime\TimetrackerBundle\Entity\Activity",  "@service_container", "a", "dime_timetrackerbundle_activityformtype"]
+        arguments: [ "@doctrine.orm.entity_manager", Dime\TimetrackerBundle\Entity\Activity,  "@service_container", "a", Dime\TimetrackerBundle\Form\Type\ActivityFormType]
 
     dime.rategroup.handler:
         class: %generic_handler%
-        arguments: [ "@doctrine.orm.entity_manager", "Dime\TimetrackerBundle\Entity\RateGroup",  "@service_container", "rg", "dime_timetrackerbundle_rategroupformtype"]
+        arguments: [ "@doctrine.orm.entity_manager", Dime\TimetrackerBundle\Entity\RateGroup,  "@service_container", "rg", Dime\TimetrackerBundle\Form\Type\RateGroupFormType]
 
     dime.rate.handler:
         class: %generic_handler%
-        arguments: [ "@doctrine.orm.entity_manager", "Dime\TimetrackerBundle\Entity\Rate",  "@service_container", "r", "dime_timetrackerbundle_rateformtype"]
+        arguments: [ "@doctrine.orm.entity_manager", Dime\TimetrackerBundle\Entity\Rate,  "@service_container", "r", Dime\TimetrackerBundle\Form\Type\RateFormType]
 
     dime.rateunittype.handler:
          class: %generic_handler%
-         arguments: [ "@doctrine.orm.entity_manager", "Dime\TimetrackerBundle\Entity\RateUnitType",  "@service_container", "rt", "dime_timetrackerbundle_rateunittypeformtype"]
+         arguments: [ "@doctrine.orm.entity_manager", Dime\TimetrackerBundle\Entity\RateUnitType,  "@service_container", "rt", Dime\TimetrackerBundle\Form\Type\RateUnitTypeFormType]
 
     dime.projectcategory.handler:
         class: %generic_handler%
-        arguments: [ "@doctrine.orm.entity_manager", "Dime\TimetrackerBundle\Entity\\ProjectCategory",  "@service_container", "pc", "dime_timetrackerbundle_projectcategoryformtype"]
+        arguments: [ "@doctrine.orm.entity_manager", Dime\TimetrackerBundle\Entity\ProjectCategory,  "@service_container", "pc", Dime\TimetrackerBundle\Form\Type\ProjectCategoryFormType]
 
     dime.projectcomment.handler:
         class: %generic_handler%
-        arguments: [ "@doctrine.orm.entity_manager", "Dime\TimetrackerBundle\Entity\\ProjectComment",  "@service_container", "pcom", "dime_invoicebundle_projectcommentformtype"]
+        arguments: [ "@doctrine.orm.entity_manager", Dime\TimetrackerBundle\Entity\ProjectComment,  "@service_container", "pcom", Dime\TimetrackerBundle\Form\Type\ProjectCommentFormType]
 
     dime.alice.processor:
         class: Dime\TimetrackerBundle\DataFixtures\Alice\Processor

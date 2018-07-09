@@ -8,7 +8,7 @@ stof_doctrine_extensions:
 fos_user:
     db_driver: orm
     firewall_name: main
-    user_class: "Dime\EmployeeBundle\Entity\Employee"
+    user_class: Dime\EmployeeBundle\Entity\Employee
     from_email:
         address: "%sender_mail%"
         sender_name: DimeERP

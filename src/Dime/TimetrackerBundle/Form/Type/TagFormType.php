@@ -4,7 +4,7 @@ namespace Dime\TimetrackerBundle\Form\Type;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class TagFormType extends AbstractType
 {
@@ -25,16 +25,7 @@ class TagFormType extends AbstractType
      * (non-PHPdoc)
      * @see \Symfony\Component\Form\AbstractType::setDefaultOptions()
      */
-    public function getName()
-    {
-        return 'dime_timetrackerbundle_tagformtype';
-    }
-
-    /*
-     * (non-PHPdoc)
-     * @see \Symfony\Component\Form\AbstractType::setDefaultOptions()
-     */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(
             array(

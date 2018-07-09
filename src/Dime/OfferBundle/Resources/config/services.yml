@@ -1,19 +1,19 @@
 parameters:
-    generic_handler: "Dime\TimetrackerBundle\Handler\GenericHandler"
+    generic_handler: Dime\TimetrackerBundle\Handler\GenericHandler
 
 services:
     dime.offer.handler:
-        class: "Dime\OfferBundle\Handler\OfferHandler"
-        arguments: [ "@doctrine.orm.entity_manager", "Dime\OfferBundle\Entity\Offer", "@service_container", "o", "dime_offerbundle_offerformtype"]
+        class: Dime\OfferBundle\Handler\OfferHandler
+        arguments: [ "@doctrine.orm.entity_manager", Dime\OfferBundle\Entity\Offer, "@service_container", "o", Dime\OfferBundle\Form\Type\OfferFormType]
         
     dime.offerposition.handler:
         class: %generic_handler%
-        arguments: [ "@doctrine.orm.entity_manager", "Dime\OfferBundle\Entity\OfferPosition", "@service_container", "op", "dime_offerbundle_offerpositionformtype"]
+        arguments: [ "@doctrine.orm.entity_manager", Dime\OfferBundle\Entity\OfferPosition, "@service_container", "op", Dime\OfferBundle\Form\Type\OfferPositionFormType]
 
     dime.offerstatusuc.handler:
         class: %generic_handler%
-        arguments: [ "@doctrine.orm.entity_manager", "Dime\OfferBundle\Entity\OfferStatusUC", "@service_container", "os", "dime_offerbundle_offerstatusucformtype"]
+        arguments: [ "@doctrine.orm.entity_manager", Dime\OfferBundle\Entity\OfferStatusUC, "@service_container", "os", Dime\OfferBundle\Form\Type\OfferStatusUCFormType]
 
     dime.offerdiscount.handler:
         class: %generic_handler%
-        arguments: [ "@doctrine.orm.entity_manager", "Dime\OfferBundle\Entity\OfferDiscount", "@service_container", "od", "dime_offerbundle_offerdiscountformtype"]
+        arguments: [ "@doctrine.orm.entity_manager", Dime\OfferBundle\Entity\OfferDiscount, "@service_container", "od", Dime\OfferBundle\Form\Type\OfferDiscountFormType]
