@@ -4,15 +4,15 @@ parameters:
 services:
     dime.employee.handler:
         class: "Dime\\TimetrackerBundle\\Handler\\UserHandler"
-        arguments: [ "@doctrine.orm.entity_manager", "Dime\EmployeeBundle\Entity\Employee", "@service_container", "@fos_user.user_manager", "em", "dime_employeebundle_employeeformtype" ]
+        arguments: [ "@doctrine.orm.entity_manager", "Dime\\EmployeeBundle\\Entity\\Employee", "@service_container", "@fos_user.user_manager", "em", "dime_employeebundle_employeeformtype" ]
 
     dime.period.handler:
-        class: "Dime\TimetrackerBundle\Handler\\PeriodHandler"
-        arguments: [ "@doctrine.orm.entity_manager", "Dime\EmployeeBundle\Entity\\Period",  "@service_container", "p", "dime_employeebundle_periodformtype"]
+        class: "Dime\\TimetrackerBundle\\Handler\\PeriodHandler"
+        arguments: [ "@doctrine.orm.entity_manager", "Dime\\EmployeeBundle\\Entity\\Period",  "@service_container", "p", "dime_employeebundle_periodformtype"]
 
     dime.holiday.handler:
         class: %generic_handler%
-        arguments: [ "@doctrine.orm.entity_manager", "Dime\EmployeeBundle\Entity\Holiday",  "@service_container", "h", "dime_employeebundle_holidayformtype"]
+        arguments: [ "@doctrine.orm.entity_manager", "Dime\\EmployeeBundle\\Entity\Holiday",  "@service_container", "h", "dime_employeebundle_holidayformtype"]
 
     dime.persist.event.timeslice:
          class: Dime\EmployeeBundle\EventListener\TimeslicePersistSubscriber
