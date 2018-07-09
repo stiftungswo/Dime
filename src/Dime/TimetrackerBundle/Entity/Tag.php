@@ -67,7 +67,7 @@ class Tag extends Entity implements DimeEntityInterface
      */
     public function __toString()
     {
-        return (empty($this->name)) ? $this->getId() : $this->getName();
+        return (empty($this->name)) ? strval($this->getId()) : $this->getName();
     }
 
     /**
@@ -75,7 +75,7 @@ class Tag extends Entity implements DimeEntityInterface
      *
      * @param boolean $system
      *
-     * @return boolean
+     * @return Tag
      */
     public function setSystem($system)
     {

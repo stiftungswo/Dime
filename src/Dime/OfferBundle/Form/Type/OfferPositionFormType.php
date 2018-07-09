@@ -22,8 +22,6 @@ class OfferPositionFormType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-
-
         $builder
             ->add('offer')
             ->add('order')

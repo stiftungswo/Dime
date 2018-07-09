@@ -34,7 +34,8 @@ abstract class EntityRepository extends Base
      * @param                   $date
      * @param QueryBuilder $qb
      *
-     * @return QueryBuilder
+     * @return EntityRepository
+     * @throws \Exception when $qb is null and Repository has no QueryBuilder initialized
      */
     public function scopeByDate($date, QueryBuilder $qb = null)
     {
@@ -50,7 +51,7 @@ abstract class EntityRepository extends Base
 
         if (is_string($date)) {
             $datetmp = preg_split('#,#', $date);
-            if (is_array($datetmp)) {
+            if (is_array($datetmp) && count($datetmp) > 1) {
                 $date = $datetmp;
             }
         }
@@ -79,7 +80,7 @@ abstract class EntityRepository extends Base
     /**
      * Create a new current query builder
      *
-     * @param $alias
+     * @param string $alias
      * @return EntityRepository
      */
     public function createCurrentQueryBuilder($alias)
@@ -117,6 +118,7 @@ abstract class EntityRepository extends Base
      * @param $value
      * @param QueryBuilder $qb
      * @return EntityRepository
+     * @throws \Exception when $qb is null and Repository has no QueryBuilder initialized
      */
     public function scopeByField($field, $value, QueryBuilder $qb = null)
     {
@@ -162,6 +164,14 @@ abstract class EntityRepository extends Base
         return $query;
     }
 
+    /**
+     * Evaluates if given value contains the keyword "match" and passes it to interpretMatchQuery if found
+     *
+     * @param string $field
+     * @param string $value
+     * @return string
+     */
+
     public function interpretComplexQuery($field, $value)
     {
         if (is_string($value)) {
@@ -179,6 +189,7 @@ abstract class EntityRepository extends Base
      * @param QueryBuilder $qb
      *
      * @return EntityRepository
+     * @throws \Exception when $qb is null and Repository has no QueryBuilder initialized
      */
     public function filter(array $filter, QueryBuilder $qb = null)
     {
@@ -207,7 +218,7 @@ abstract class EntityRepository extends Base
     /**
      * Check if a join alias already taken. getRootAliases() doesn't do this for me.
      *
-     * @param \Doctrine\ORM\QueryBuilder $qb , QueryBuilder you wanne check
+     * @param \Doctrine\ORM\QueryBuilder $qb , QueryBuilder you want to check
      * @param                            $alias , alias string
      *
      * @return bool
@@ -232,6 +243,13 @@ abstract class EntityRepository extends Base
         return $result;
     }
 
+    /**
+     * Executes scopeWithTag for one or more values. scopewithTag has to be implemented in the child class.
+     *
+     * @param mixed $tags Pass an array here. If the value is no array, then it'll wrap one around it.
+     * @param QueryBuilder|null $qb
+     * @return EntityRepository
+     */
     protected function scopeWithTags($tags, QueryBuilder $qb = null)
     {
         if (false == is_array($tags)) {
@@ -243,6 +261,13 @@ abstract class EntityRepository extends Base
         return $this;
     }
 
+    /**
+     * Executes scopeWithoutTag for one or more values. scopeWithoutTag has to implemented in the child class.
+     *
+     * @param mixed $tags Pass an array here. If the value is no array, then it'll wrap one around it.
+     * @param QueryBuilder|null $qb
+     * @return EntityRepository
+     */
     protected function scopeWithoutTags($tags, QueryBuilder $qb = null)
     {
         if (false == is_array($tags)) {

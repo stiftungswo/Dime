@@ -11,7 +11,6 @@ use Carbon\Carbon;
 
 class InvoiceDateRangeCalculator
 {
-
     public function getByType($dateRangeType)
     {
         switch ($dateRangeType) {

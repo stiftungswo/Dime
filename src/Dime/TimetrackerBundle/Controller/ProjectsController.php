@@ -229,7 +229,7 @@ class ProjectsController extends DimeController
         $activities = $activityRepository->findByProject($id);
 
         foreach ($activities as $key => $activity) {
-          // Find linked timeslices
+            // Find linked timeslices
             $timesliceRepository = $this->getDoctrine()->getRepository('Dime\TimetrackerBundle\Entity\Timeslice');
             $timeslices = $timesliceRepository->findByActivity($activity->getId());
 

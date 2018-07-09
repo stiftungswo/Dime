@@ -25,8 +25,6 @@ use Symfony\Component\Validator\Constraints\DateTime;
 
 class ReportHandler extends AbstractHandler
 {
-
-
     public function getExpenseReport(array $params)
     {
         $this->repository->createCurrentQueryBuilder($this->alias);

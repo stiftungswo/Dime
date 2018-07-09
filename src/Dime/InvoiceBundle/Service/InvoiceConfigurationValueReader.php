@@ -12,7 +12,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class InvoiceConfigurationValueReader extends ContainerAware
 {
-
     private $invoiceConfig;
 
     public function setContainer(ContainerInterface $container = null)

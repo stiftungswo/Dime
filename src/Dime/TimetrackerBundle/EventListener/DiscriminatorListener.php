@@ -40,11 +40,11 @@ class DiscriminatorListener implements EventSubscriber
         }
         // Do we have to process this class?
         if (count($event->getClassMetadata()->discriminatorMap) == 0
-            && $this->extractEntry($class) ) {
-        // Now build the whole map
+            && $this->extractEntry($class)) {
+            // Now build the whole map
             $this->checkFamily($class);
         } else {
-        // Nothing to do…
+            // Nothing to do…
             return;
         }
         // Create the lookup entries

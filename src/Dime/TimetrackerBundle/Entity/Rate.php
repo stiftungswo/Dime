@@ -146,7 +146,7 @@ class Rate extends Entity implements DimeEntityInterface
     /**
      * Get value
      *
-     * @return string
+     * @return Money
      */
     public function getRateValue()
     {

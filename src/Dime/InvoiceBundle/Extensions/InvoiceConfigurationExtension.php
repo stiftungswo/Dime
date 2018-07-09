@@ -11,10 +11,9 @@ use Dime\InvoiceBundle\Service\InvoiceConfigurationValueReader;
 
 class InvoiceConfigurationExtension extends \Twig_Extension implements \Twig_Extension_GlobalsInterface
 {
-
     protected $configReader;
 
-    function __construct(InvoiceConfigurationValueReader $configurationValueReader)
+    public function __construct(InvoiceConfigurationValueReader $configurationValueReader)
     {
         $this->configReader = $configurationValueReader;
     }

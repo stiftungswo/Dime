@@ -257,7 +257,7 @@ class Service extends Entity implements DimeEntityInterface
     {
         $service = $this->getName();
         if (empty($service)) {
-            $service = $this->getId();
+            $service = strval($this->getId());
         }
 
         return $service;

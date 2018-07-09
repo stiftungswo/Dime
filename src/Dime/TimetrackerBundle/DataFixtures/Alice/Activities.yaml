@@ -47,3 +47,10 @@ Dime\TimetrackerBundle\Entity\Activity:
         description: <sentence(4)>
         user: @user_*
         chargeable: <boolean(90)>
+    activityTags_{1..10}:
+        project: @project_*
+        service: @service_*
+        description: <sentence(4)>
+        user: @user_*
+        chargeable: <boolean(90)>
+        tags: '2x @tag_*'

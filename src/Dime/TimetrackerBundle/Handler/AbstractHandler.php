@@ -10,7 +10,6 @@ use Symfony\Component\DependencyInjection\Container;
 
 abstract class AbstractHandler
 {
-
     protected $om;
 
     protected $entityClass;
@@ -68,7 +67,7 @@ abstract class AbstractHandler
         $this->repository->getCurrentQueryBuilder()->addOrderBy($this->alias.'.'.$field, $order);
     }
 
-    function cleanNULL(array $parameters)
+    public function cleanNULL(array $parameters)
     {
         foreach ($parameters as $key => $value) {
             if ($value === null) {
