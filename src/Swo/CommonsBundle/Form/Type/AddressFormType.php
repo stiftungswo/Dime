@@ -21,7 +21,6 @@ class AddressFormType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'Swo\CommonsBundle\Entity\Address',
-            'cascade_validation' => true,
             'translation_domain' => 'SwoCommonsBundle'
         ));
     }

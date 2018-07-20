@@ -24,7 +24,6 @@ class PhoneFormType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'Swo\CommonsBundle\Entity\Phone',
-            'cascade_validation' => true,
             'translation_domain' => 'SwoCommonsBundle'
         ));
     }
