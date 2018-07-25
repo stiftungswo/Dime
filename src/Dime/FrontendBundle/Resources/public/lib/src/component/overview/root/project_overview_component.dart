@@ -94,6 +94,14 @@ class ProjectOverviewComponent extends EntityOverview<Project> implements OnActi
   }
 
   bool hasActivityValue(Activity a) {
-    return num.parse(a.value.toString().replaceAll(new RegExp(r'\w'), ''), (_) => 99999) > 0;
+    num val;
+
+    try {
+      val = num.parse(a.value.toString().replaceAll(new RegExp(r'\w'), ''));
+    } catch (e) {
+      val = 99999;
+    }
+
+    return val > 0;
   }
 }

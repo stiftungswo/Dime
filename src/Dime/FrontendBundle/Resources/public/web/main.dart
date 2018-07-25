@@ -5,7 +5,7 @@ import 'package:angular_forms/angular_forms.dart';
 import 'package:hammock/hammock.dart';
 import 'package:DimeClient/dime_client.dart';
 import 'package:logging/logging.dart';
-import 'main.template.dart' as ng; // ignore: uri_has_not_been_generated
+import 'app_component.template.dart' as ng; // ignore: uri_has_not_been_generated
 
 const isRelease = const bool.fromEnvironment("RELEASE");
 const dimeProviders = const [
@@ -37,9 +37,7 @@ void main() {
     }
   });
 
-  runApp<AppComponent>(AppComponentNgFactory, createInjector: rootInjector);
-  // todo check if this is done  correctly
-  //runAppLegacy<AppComponent>(AppComponent, createInjectorFromProviders: dimeProviders, initReflector: ng.initReflector);
+  runApp<AppComponent>(ng.AppComponentNgFactory as ComponentFactory<AppComponent>, createInjector: rootInjector);
 }
 
 @GenerateInjector(dimeProviders)
