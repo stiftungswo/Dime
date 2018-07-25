@@ -5,7 +5,8 @@ import 'package:angular_forms/angular_forms.dart';
 import 'package:hammock/hammock.dart';
 import 'package:DimeClient/dime_client.dart';
 import 'package:logging/logging.dart';
-import 'app_component.template.dart' as ng; // ignore: uri_has_not_been_generated
+import 'package:DimeClient/src/component/main/app_component.template.dart' as ng;
+import 'main.template.dart' as self;
 
 const isRelease = const bool.fromEnvironment("RELEASE");
 const dimeProviders = const [
@@ -28,6 +29,15 @@ const dimeProviders = const [
   const FactoryProvider.forToken(httpBaseUrl, httpBaseUrlFactory),
 ];
 
+@GenerateInjector(dimeProviders)
+final InjectorFactory rootInjector = self.rootInjector$Injector;
+
+httpBaseUrlFactory() => isRelease ? "${window.location.protocol}//${window.location.host}/api/v1" : "http://localhost:3000/api/v1";
+
+locationStrategyFactory(PlatformLocation l) => isRelease ? new PathLocationStrategy(l) : new HashLocationStrategy(l);
+
+defaultHeadersFn() => new HttpDefaultHeaders()..map['Content-Type'] = "application/json";
+
 void main() {
   Logger.root.onRecord.listen((LogRecord rec) {
     if (rec.level >= Level.WARNING) {
@@ -37,14 +47,5 @@ void main() {
     }
   });
 
-  runApp<AppComponent>(ng.AppComponentNgFactory as ComponentFactory<AppComponent>, createInjector: rootInjector);
+  runApp<AppComponent>(ng.AppComponentNgFactory, createInjector: rootInjector);
 }
-
-@GenerateInjector(dimeProviders)
-final InjectorFactory rootInjector = ng.rootInjector$Injector;
-
-httpBaseUrlFactory() => isRelease ? "${window.location.protocol}//${window.location.host}/api/v1" : "http://localhost:3000/api/v1";
-
-locationStrategyFactory(PlatformLocation l) => isRelease ? new PathLocationStrategy(l) : new HashLocationStrategy(l);
-
-defaultHeadersFn() => new HttpDefaultHeaders()..map['Content-Type'] = "application/json";
