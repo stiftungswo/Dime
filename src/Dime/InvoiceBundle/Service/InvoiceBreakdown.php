@@ -63,7 +63,6 @@ function applyDiscount($vatGroups, InvoiceDiscount $discount)
 
 function applyDiscountFactor($vatGroups, $factor, $name)
 {
-
     $discountedGroups = [];
     foreach ($vatGroups as $vat => $group) {
         $sum = Money::CHF(0);
@@ -120,13 +119,12 @@ function applyVat($vatGroups)
 
 function startsWith($haystack, $needle)
 {
-     $length = strlen($needle);
-     return (substr($haystack, 0, $length) === $needle);
+    $length = strlen($needle);
+    return (substr($haystack, 0, $length) === $needle);
 }
 
 class InvoiceBreakdown
 {
-
     public static function calculate(Invoice $invoice)
     {
         $itemCollection = $invoice->getItems();

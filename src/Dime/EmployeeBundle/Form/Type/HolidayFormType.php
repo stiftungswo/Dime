@@ -16,7 +16,6 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class HolidayFormType extends AbstractType
 {
-
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(

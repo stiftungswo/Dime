@@ -61,6 +61,7 @@ class TagRepository extends EntityRepository
      * @param QueryBuilder $qb Query builder instance
      *
      * @return array
+     * @throws \Exception when $qb is null and Repository has no QueryBuilder initialized
      */
     public function getIdsForTags(array $tags, User $user, QueryBuilder $qb = null)
     {

@@ -19,7 +19,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class ProjectComment extends Entity implements DimeEntityInterface
 {
-
     use SoftDeleteTrait;
 
     /**

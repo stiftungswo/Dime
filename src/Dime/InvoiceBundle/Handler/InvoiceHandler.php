@@ -12,6 +12,7 @@ use Dime\InvoiceBundle\Entity\Invoice;
 use Dime\InvoiceBundle\Entity\InvoiceDiscount;
 use Dime\InvoiceBundle\Entity\InvoiceItem;
 use Dime\TimetrackerBundle\Entity\Activity;
+use Dime\OfferBundle\Entity\Offer;
 use Dime\TimetrackerBundle\Entity\Project;
 use Dime\TimetrackerBundle\Entity\Timeslice;
 use Dime\TimetrackerBundle\Handler\GenericHandler;
@@ -34,8 +35,8 @@ class InvoiceHandler extends GenericHandler
         $qb->addOrderBy('invoice.start', 'DESC')
             ->addOrderBy('invoice.end', 'DESC');
         $qb->setMaxResults(1);
-        $existinginvoice = $qb->getQuery()->getResult();
-
+        // 20180628 https://stackoverflow.com/questions/10482085/how-to-fetch-class-instead-of-array-in-doctrine-2
+        $existinginvoice = $qb->getQuery()->getOneOrNullResult();
 
         //Get One Timeslice filtered by project ordered by startedAt
         $timerepo = $this->om->getRepository('DimeTimetrackerBundle:Timeslice');
@@ -44,7 +45,7 @@ class InvoiceHandler extends GenericHandler
         $timeqb = $timerepo->getCurrentQueryBuilder();
         $timeqb->orderBy('timeslice.startedAt', 'DESC');
         $timeqb->setMaxResults(1);
-        $lasttimeslice = $timeqb->getQuery()->getResult();
+        $lasttimeslice = $timeqb->getQuery()->getOneOrNullResult();
 
         //if the enddate on the last invoice is grater or equal the Date on the Timeslice return the last invoice
         if ($existinginvoice instanceof Invoice && $lasttimeslice instanceof Timeslice) {
@@ -53,9 +54,7 @@ class InvoiceHandler extends GenericHandler
             }
         }
 
-
         $offerRepo = $this->om->getRepository('DimeOfferBundle:Offer');
-
         $offer = $offerRepo->findOneBy(array('project' => $project->getId()));
 
         $invoice = new Invoice();
@@ -97,11 +96,11 @@ class InvoiceHandler extends GenericHandler
             }
         }
         $invoice->setProject($project);
-        if (!null === $offer) {
+        if (isset($offer) && $offer instanceof Offer) {
             foreach ($offer->getOfferDiscounts() as $offerDiscount) {
                 $discount = new InvoiceDiscount();
                 $discount->setFromOfferDiscount($offerDiscount);
-                $invoice->addInvoiceDiscounts($discount);
+                $invoice->addInvoiceDiscount($discount);
             }
         }
         if (!is_null($project->getCustomer())) {

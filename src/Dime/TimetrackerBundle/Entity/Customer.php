@@ -236,7 +236,7 @@ class Customer extends Entity implements DimeEntityInterface
     {
         $customer = $this->getName();
         if (empty($customer)) {
-            $customer = $this->getId();
+            $customer = $this->getId() ? (string)$this->getId() : '';
         }
 
         return $customer;

@@ -83,7 +83,7 @@ class Invoice extends Entity implements DimeEntityInterface
      *
      * @JMS\Type("array")
      * @JMS\SerializedName("costgroups")
-     * @ORM\OneToMany(targetEntity="Dime\InvoiceBundle\Entity\InvoiceCostgroup", mappedBy="invoice")
+     * @ORM\OneToMany(targetEntity="Dime\InvoiceBundle\Entity\InvoiceCostgroup", mappedBy="invoice", cascade={"all"})
      */
     protected $costgroups;
 
@@ -285,7 +285,7 @@ class Invoice extends Entity implements DimeEntityInterface
 
     public function getOrderedItems()
     {
-            $orderedInvoiceItems = $this->om->getRepository('DimeInvoiceBundle:InvoiceItem')
+        $orderedInvoiceItems = $this->om->getRepository('DimeInvoiceBundle:InvoiceItem')
                 ->createQueryBuilder('invoice_items')
                 ->where('invoice_items.invoice_id = :invoiceId')
                 ->setParameter('invoiceId', $this->getId())
@@ -293,7 +293,7 @@ class Invoice extends Entity implements DimeEntityInterface
                 ->getQuery()
                 ->getResult();
 
-            return count($orderedInvoiceItems);
+        return count($orderedInvoiceItems);
     }
 
     /**
@@ -625,5 +625,35 @@ class Invoice extends Entity implements DimeEntityInterface
         }
 
         return $dist;
+    }
+
+    /**
+     * @param mixed $costgroups
+     * @return Invoice
+     */
+    public function setCostgroups($costgroups)
+    {
+        $this->costgroups = $costgroups;
+        return $this;
+    }
+
+    /**
+     * @param InvoiceCostgroup $costgroup
+     * @return Invoice
+     */
+    public function addCostgroup(InvoiceCostgroup $costgroup)
+    {
+        $this->costgroups[] = $costgroup;
+        return $this;
+    }
+
+    /**
+     * @param InvoiceCostgroup $costgroup
+     * @return Invoice
+     */
+    public function removeCostgroup(InvoiceCostgroup $costgroup)
+    {
+        $this->costgroups->removeElement($costgroup);
+        return $this;
     }
 }

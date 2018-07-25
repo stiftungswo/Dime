@@ -43,3 +43,10 @@ Dime\TimetrackerBundle\Entity\Timeslice:
         activity: @activityMoveTest_2
         user: @user_*
         employee: @employee_*
+    timesliceTags_{1..50}:
+        value: <numberBetween(1, 200)>
+        startedAt: <dateTimeBetween('-2000 days', 'now')>
+        activity: @activityDay_*
+        user: @user_*
+        employee: @employee_*
+        tags: '2x @tag_*'

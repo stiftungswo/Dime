@@ -18,7 +18,6 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class CheckHolidaysCommand extends ContainerAwareCommand
 {
-
     protected function configure()
     {
         $this

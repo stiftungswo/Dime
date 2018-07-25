@@ -18,6 +18,7 @@ class ProjectRepository extends EntityRepository
      * @param string $text
      * @param QueryBuilder $qb
      * @return ProjectRepository
+     * @throws \Exception when $qb is null and Repository has no QueryBuilder initialized
      */
     public function search($text, QueryBuilder $qb = null)
     {
@@ -56,18 +57,14 @@ class ProjectRepository extends EntityRepository
         return $this->findBy(array('customer' => $customerid));
     }
 
-    public function findByService($serviceId)
-    {
-        return $this->findBy(array('service' => $serviceId));
-    }
-
     /**
      * Filter by assigned tag
      *
      * @param integer|string $tagIdOrName
      * @param \Doctrine\ORM\QueryBuilder $qb
      *
-     * @return \Doctrine\ORM\QueryBuilder
+     * @return ProjectRepository
+     * @throws \Exception when $qb is null and Repository has no QueryBuilder initialized
      */
     public function scopeWithTag($tagIdOrName, QueryBuilder $qb = null)
     {
@@ -96,7 +93,8 @@ class ProjectRepository extends EntityRepository
      * @param integer|string $tagIdOrName
      * @param \Doctrine\ORM\QueryBuilder $qb
      *
-     * @return \Doctrine\ORM\QueryBuilder
+     * @return ProjectRepository
+     * @throws \Exception when $qb is null and Repository has no QueryBuilder initialized
      */
     public function scopeWithoutTag($tagIdOrName, QueryBuilder $qb = null)
     {
@@ -130,7 +128,8 @@ class ProjectRepository extends EntityRepository
      * @param array $filter
      * @param \Doctrine\ORM\QueryBuilder $qb
      *
-     * @return ActivityRepository
+     * @return ProjectRepository
+     * @throws \Exception when $qb is null and Repository has no QueryBuilder initialized
      */
     public function filter(array $filter, QueryBuilder $qb = null)
     {

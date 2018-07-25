@@ -14,7 +14,6 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class HolidayController extends DimeController
 {
-
     private $handlerSerivce = 'dime.holiday.handler';
 
     private $formType = 'dime_timetrackerbundle_holidayformtype';

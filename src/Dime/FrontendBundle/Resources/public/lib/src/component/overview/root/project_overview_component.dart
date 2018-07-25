@@ -71,4 +71,29 @@ class ProjectOverviewComponent extends EntityOverview<Project> implements OnActi
 
     return true;
   }
+
+  @override
+  Future deleteEntity(dynamic entId) async {
+    if (entId != null && window.confirm("Wirklich löschen?")) {
+      await this.statusservice.run(() async {
+        Future<Project> projectF = this.store.one(Project, entId);
+        Future<List<Activity>> activitiesF = this.store.list<Activity>(Activity, params: {'project': entId});
+        Project project = await projectF;
+        List<Activity> activities = await activitiesF;
+
+        if (project.invoices.isNotEmpty || activities.any((Activity a) => this.hasActivityValue(a))) {
+          return window.alert(
+              'Dieses Projekt kann nicht gelöscht werden! Es sind bereits Stunden verbucht worden oder eine Rechnung daraus generiert worden! Es kann aber archiviert werden.');
+        }
+
+        await this.store.delete(project);
+
+        this.entities.removeWhere((enty) => enty.id == entId);
+      }, onError: (e, _) => print("Unable to Delete Project::${entId} because ${e}"));
+    }
+  }
+
+  bool hasActivityValue(Activity a) {
+    return num.parse(a.value.toString().replaceAll(new RegExp(r'\w'), ''), (_) => 99999) > 0;
+  }
 }

@@ -6,7 +6,8 @@ import '../../pipe/markdown_pipe.dart';
 @Component(
   selector: 'markdown-input',
   template: """
-    <p class="help-block">Beschreibungstexte werden neu mit Markdown formatiert. <a target="_blank" href="https://github.com/stiftungswo/Dime/blob/master/doc/markdown_intro.md">Hilfe</a></p>
+    <p class="help-block">Die Beschreibungstexte werden mit Hilfe von Markdown formatiert (<a href='https://github.com/stiftungswo/Dime/blob/master/doc/markdown_intro.md' target='_blank'>Hilfe</a>).
+    Achtung: Die Vorschau unterstützt Worte und Sätze, die als fett und kursiv deklariert wurden, beim Druck werden diese aber lediglich fett ausgegeben.</p>
     <p>Vorschau: <input type="checkbox" [(ngModel)]="showPreview"></p>
     <div class="row">
       <div class="col-xs-12" [class.col-lg-6]="showPreview">
