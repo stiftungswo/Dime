@@ -21,6 +21,7 @@ class InvoiceControllerTest extends DimeTestCase
 
         /* check existing service */
         $response = $this->jsonRequest('GET', $this->api_prefix.'/invoices/1');
+        $this->assertEquals(200, $response->getStatusCode());
 
         // convert json to array
         $data = json_decode($response->getContent(), true);

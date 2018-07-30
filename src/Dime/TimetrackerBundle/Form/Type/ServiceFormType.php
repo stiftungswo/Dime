@@ -6,11 +6,11 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ServiceFormType extends AbstractType
 {
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(
             array(
@@ -34,10 +34,5 @@ class ServiceFormType extends AbstractType
             ->add('tags', EntityType::class, array('class' => 'DimeTimetrackerBundle:Tag', 'multiple' => true))
             ->add('user', EntityType::class, array('class' => 'DimeTimetrackerBundle:User'))
         ;
-    }
-
-    public function getName()
-    {
-        return 'dime_timetrackerbundle_serviceformtype';
     }
 }

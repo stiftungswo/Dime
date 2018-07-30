@@ -17,8 +17,6 @@ class ActivitiesController extends DimeController
 {
     private $handlerSerivce = 'dime.activity.handler';
 
-    private $formType = 'dime_timetrackerbundle_activityformtype';
-
     /**
      * List all Entities.
      *

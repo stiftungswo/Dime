@@ -9,7 +9,7 @@ namespace Swo\CommonsBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PhoneFormType extends AbstractType
 {
@@ -20,16 +20,10 @@ class PhoneFormType extends AbstractType
             ->add('type');
     }
 
-    public function getName()
-    {
-        return 'swo_commons_phoneformtype';
-    }
-
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
             'data_class' => 'Swo\CommonsBundle\Entity\Phone',
-            'cascade_validation' => true,
             'translation_domain' => 'SwoCommonsBundle'
         ));
     }

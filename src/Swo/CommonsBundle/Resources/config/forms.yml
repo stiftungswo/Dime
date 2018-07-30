@@ -4,9 +4,9 @@ services:
     swo_commons.form_type.address:
             class: Swo\CommonsBundle\Form\Type\AddressFormType
             tags:
-                - { name: form.type, alias: swo_commons_addressformtype }
+                - { name: form.type }
 
     swo_commons.form_type.phone:
                 class: Swo\CommonsBundle\Form\Type\PhoneFormType
                 tags:
-                    - { name: form.type, alias: swo_commons_phoneformtype }
+                    - { name: form.type }

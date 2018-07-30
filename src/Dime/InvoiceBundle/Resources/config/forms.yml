@@ -1,20 +1,20 @@
 services:
     dime_invoicebundle_invoicediscountformtype:
         class: Dime\InvoiceBundle\Form\Type\InvoiceDiscountFormType
-        tags: [{ name: "form.type", alias: "dime_invoicebundle_invoicediscountformtype" }]
+        tags: [{ name: "form.type" }]
 
     dime.invoicebundle.invoice.formtype:
         class: Dime\InvoiceBundle\Form\Type\InvoiceFormType
-        tags: [{ name: "form.type", alias: "dime_invoicebundle_invoiceformtype" }]
+        tags: [{ name: "form.type" }]
 
     dime.invoicebundle.invoiceitem.formtype:
             class: Dime\InvoiceBundle\Form\Type\InvoiceItemFormType
-            tags: [{ name: "form.type", alias: "dime_invoicebundle_invoiceitemformtype" }]
+            tags: [{ name: "form.type" }]
 
     dime.invoicebundle.costgroup.formtype:
             class: Dime\InvoiceBundle\Form\Type\CostgroupFormType
-            tags: [{ name: "form.type", alias: "dime_invoicebundle_costgroupformtype" }]
+            tags: [{ name: "form.type" }]
 
     dime.invoicebundle.invoicecostgroup.formtype:
             class: Dime\InvoiceBundle\Form\Type\InvoiceCostgroupFormType
-            tags: [{ name: "form.type", alias: "dime_invoicebundle_invoicecostgroupformtype" }]
+            tags: [{ name: "form.type" }]

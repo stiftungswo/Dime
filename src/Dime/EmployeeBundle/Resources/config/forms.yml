@@ -1,12 +1,12 @@
 services:
     dime.employee.form.type:
         class: Dime\EmployeeBundle\Form\Type\EmployeeFormType
-        tags: [{ name: form.type, alias: dime_employeebundle_employeeformtype }]
+        tags: [{ name: form.type }]
 
     dime.period.form.type:
         class: Dime\EmployeeBundle\Form\Type\PeriodFormType
-        tags: [{ name: form.type, alias: dime_employeebundle_periodformtype }]
+        tags: [{ name: form.type }]
 
     dime.holiday.form.type:
         class: Dime\EmployeeBundle\Form\Type\HolidayFormType
-        tags: [{ name: form.type, alias: dime_employeebundle_holidayformtype }]
+        tags: [{ name: form.type }]

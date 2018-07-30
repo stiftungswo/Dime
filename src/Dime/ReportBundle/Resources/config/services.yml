@@ -1,4 +1,4 @@
 services:
     dime.report.handler:
         class: Dime\ReportBundle\Handler\ReportHandler
-        arguments: [ "@doctrine.orm.entity_manager", "Dime\TimetrackerBundle\Entity\Timeslice",  "@service_container", "tim", "dime_timetrackerbundle_timesliceformtype"]
+        arguments: [ "@doctrine.orm.entity_manager", Dime\TimetrackerBundle\Entity\Timeslice,  "@service_container", "tim", "dime_timetrackerbundle_timesliceformtype"]
