@@ -218,6 +218,10 @@ Regenerate Fixtures as needed (see below)
 
 The fixtures are an example dataset that can be used while developing. But more important: the tests run against this database.
 
+Drop/create database and grant privileges for user dime:
+
+    docker exec -it dime ./env/fixtures/flush_db.sh
+
 Load fixtures into the database:
 
     docker exec -it dime ./env/fixtures/load.sh
