@@ -30,7 +30,7 @@ function makeDiscount($name, $value, $percentage = false)
     return $d;
 }
 
-class InvoiceTest extends TestCase
+class InvoiceBreakdownTest extends TestCase
 {
     private $invoice;
 

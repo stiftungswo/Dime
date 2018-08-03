@@ -156,24 +156,9 @@ class Invoice extends Entity implements DimeEntityInterface
 
     /**
      * @JMS\VirtualProperty
-     * @JMS\SerializedName("total")
-     * @JMS\Type(name="Money")
-     * @deprecated use getBreakdown()['rawTotal'] instead
-     * @return Money
-     */
-    public function getTotal()
-    {
-        if ($this->getSubtotal()) {
-            return $this->getSubtotal()->subtract($this->getTotalDiscounts());
-        }
-        return Money::CHF(0);
-    }
-
-    /**
-     * @JMS\VirtualProperty
      * @JMS\SerializedName("subtotal")
      * @JMS\Type(name="Money")
-     * @return Money
+     * @return Money, null
      */
     public function getSubtotal()
     {
@@ -195,7 +180,7 @@ class Invoice extends Entity implements DimeEntityInterface
      * @JMS\VirtualProperty
      * @JMS\SerializedName("totalVAT")
      * @JMS\Type(name="Money")
-     * @return Money
+     * @return Money, null
      */
     public function getTotalVAT()
     {
@@ -206,9 +191,7 @@ class Invoice extends Entity implements DimeEntityInterface
                     $totalVAT = $totalVAT->add($invoicePosition->getCalculatedVAT());
                 }
             }
-            //$totalWithoutVAT = $this->getTotal();
-            //$vatRate = 0.080;
-            //$totalVAT = $totalVAT->add($totalWithoutVAT->multiply((float)$vatRate));
+
             return $totalVAT;
         } else {
             return null;
@@ -236,7 +219,7 @@ class Invoice extends Entity implements DimeEntityInterface
      * @JMS\VirtualProperty
      * @JMS\SerializedName("totalVAT8")
      * @JMS\Type(name="Money")
-     * @return Money
+     * @return Money, null
      */
     public function getTotalVAT8()
     {

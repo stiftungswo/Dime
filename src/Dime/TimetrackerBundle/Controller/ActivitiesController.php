@@ -2,7 +2,6 @@
 
 namespace Dime\TimetrackerBundle\Controller;
 
-use Tbbc\MoneyBundle\Pair\Storage\DoctrineStorage;
 use Dime\TimetrackerBundle\Exception\InvalidFormException;
 use FOS\RestBundle\Controller\Annotations;
 use FOS\RestBundle\Request\ParamFetcherInterface;

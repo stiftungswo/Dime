@@ -187,7 +187,7 @@ class Activity extends Entity implements DimeEntityInterface
 
 
     /**
-     * Returns How mch the whole Activity Costs
+     * Returns how much the whole Activity Costs
      * @return Money
      * @JMS\VirtualProperty()
      * @JMS\Type(name="Money")
