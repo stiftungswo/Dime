@@ -37,7 +37,6 @@ class OfferFormType extends AbstractType
             ->add('fixedPrice', SimpleMoneyType::class)
             ->add('user')
             ->add('address', AddressFormType::class)
-            ->add('validTo', DateTimeType::class, array('required' => false, 'widget' => 'single_text', 'with_seconds' => false))
             ->add('offerPositions');
     }
 }

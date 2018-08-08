@@ -12,7 +12,6 @@ class Offer extends Entity {
   Offer();
 
   Offer.clone(Offer original) : super.clone(original) {
-    this.validTo = original.validTo;
     this.rateGroup = original.rateGroup;
     this.customer = original.customer;
     this.accountant = original.accountant;
@@ -24,7 +23,6 @@ class Offer extends Entity {
     this.address = original.address;
 
     addFieldstoUpdate([
-      'validTo',
       'rateGroup',
       'customer',
       'accountant',
@@ -59,8 +57,6 @@ class Offer extends Entity {
     var val = super.Get(property);
     if (val == null) {
       switch (property) {
-        case 'validTo':
-          return this.validTo;
         case 'rateGroup':
           return this.rateGroup;
         case 'customer':
@@ -101,9 +97,6 @@ class Offer extends Entity {
   @override
   void Set(String property, dynamic value) {
     switch (property) {
-      case 'validTo':
-        this.validTo = addDateValue(value);
-        break;
       case 'rateGroup':
         this.rateGroup = value is RateGroup ? value : new RateGroup.fromMap(value as Map<String, dynamic>);
         break;
@@ -184,7 +177,6 @@ class Offer extends Entity {
   String totalVAT;
   String totalDiscounts;
   String total;
-  DateTime validTo;
   RateGroup rateGroup;
   Customer customer;
   Employee accountant;

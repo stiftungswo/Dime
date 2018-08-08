@@ -204,30 +204,6 @@ class Offer extends Entity implements DimeEntityInterface
     }
 
     /**
-     * Set validTo
-     *
-     * @param \DateTime $validTo
-     *
-     * @return Offer
-     */
-    public function setValidTo($validTo)
-    {
-        $this->validTo = $validTo;
-
-        return $this;
-    }
-
-    /**
-     * Get validTo
-     *
-     * @return \DateTime
-     */
-    public function getValidTo()
-    {
-        return $this->validTo;
-    }
-
-    /**
      * Set project
      *
      * @param string $project
