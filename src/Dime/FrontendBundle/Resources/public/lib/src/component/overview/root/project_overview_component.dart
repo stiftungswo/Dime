@@ -33,9 +33,26 @@ class ProjectOverviewComponent extends EntityOverview<Project> implements OnActi
 
   static String globalFilterString = '';
 
-  bool showArchived = false;
-
   UserContextService context;
+
+  bool _showArchived = false;
+  bool get showArchived => _showArchived;
+  Setting settingShowArchivedProjects;
+
+  set showArchived(bool choice) {
+    this._showArchived = choice;
+
+    if (choice != null) {
+      if (this.settingShowArchivedProjects == null) {
+        settingsManager
+            .createSetting('/usr/project_overview', 'showArchivedProjects', this._showArchived.toString())
+            .then((setting) => this.settingShowArchivedProjects = setting);
+      } else {
+        this.settingShowArchivedProjects.value = this._showArchived.toString();
+        this.settingsManager.updateSetting(this.settingShowArchivedProjects);
+      }
+    }
+  }
 
   @override
   routerOnActivate(ComponentInstruction nextInstruction, ComponentInstruction prevInstruction) {
@@ -70,6 +87,19 @@ class ProjectOverviewComponent extends EntityOverview<Project> implements OnActi
     return true;
   }
 
+  Future reload({Map<String, dynamic> params, bool evict: false}) async {
+    try {
+      this.settingShowArchivedProjects = settingsManager.getOneSetting('/usr/project_overview', 'showArchivedProjects');
+    } catch (e) {
+      this.settingShowArchivedProjects = await settingsManager.createSetting('/usr/project_overview', 'showArchivedProjects', 'false');
+    }
+
+    this.showArchived = this.settingShowArchivedProjects.value == 'false' ? false : true;
+
+    // call super to load the projects itself
+    super.reload(params: params, evict: evict);
+  }
+
   @override
   Future deleteEntity(dynamic entId) async {
     if (entId != null && window.confirm("Wirklich löschen?")) {
@@ -81,7 +111,7 @@ class ProjectOverviewComponent extends EntityOverview<Project> implements OnActi
 
         if (project.invoices.isNotEmpty || activities.any((Activity a) => this.hasActivityValue(a))) {
           return window.alert(
-              'Dieses Projekt kann nicht gelöscht werden! Es sind bereits Stunden verbucht worden oder eine Rechnung daraus generiert worden! Es kann aber archiviert werden.');
+              'Dieses Projekt kann nicht gelöscht werden! Es sind bereits Stunden verbucht oder eine Rechnung daraus generiert worden! Es kann aber archiviert werden.');
         }
 
         await this.store.delete(project);
