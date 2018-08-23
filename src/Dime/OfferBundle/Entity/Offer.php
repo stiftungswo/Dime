@@ -36,12 +36,6 @@ class Offer extends Entity implements DimeEntityInterface
     protected $name;
 
     /**
-     * @JMS\SerializedName("validTo")
-     * @ORM\Column(name="valid_to", type="date", nullable=true)
-     */
-    protected $validTo;
-
-    /**
      * @ORM\ManyToOne(targetEntity="Dime\TimetrackerBundle\Entity\Project", inversedBy="offers")
      * @ORM\JoinColumn(name="project_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
      * @JMS\MaxDepth(1)
