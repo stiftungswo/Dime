@@ -89,6 +89,7 @@ class ProjectOverviewComponent extends EntityOverview<Project> implements OnActi
     return true;
   }
 
+  @override
   Future reload({Map<String, dynamic> params, bool evict: false}) async {
     try {
       this.settingShowArchivedProjects = settingsManager.getOneSetting('/usr/project_overview', 'showArchivedProjects');
