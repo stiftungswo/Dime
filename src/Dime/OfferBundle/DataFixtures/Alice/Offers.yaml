@@ -1,7 +1,6 @@
 Dime\OfferBundle\Entity\Offer:
     offer_1:
         name: Default Offer
-        validTo: <dateTimeBetween('-200 days','now')>
         status: @offerStatus_*
         customer: @customer_*
         accountant: @user_*
@@ -14,7 +13,6 @@ Dime\OfferBundle\Entity\Offer:
     offer_{2..50}:
         project: 75%? @project_*
         name: <sentence(2)>
-        validTo: <dateTimeBetween('-200 days','now')>
         status: @offerStatus_*
         customer: @customer_*
         accountant: @user_*
