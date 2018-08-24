@@ -23,12 +23,12 @@ import '../select/user_select_component.dart';
 @Component(
     selector: 'timeslice-expensereport',
     templateUrl: 'timeslice_expense_report_component.html',
-    directives: const [CORE_DIRECTIVES, formDirectives, dimeDirectives, UserSelectComponent, ProjectSelectComponent],
-    pipes: const [COMMON_PIPES])
+    directives: const [coreDirectives, formDirectives, dimeDirectives, UserSelectComponent, ProjectSelectComponent],
+    pipes: const [commonPipes])
 class TimesliceExpenseReportComponent extends EntityOverview<ExpenseReport> implements OnActivate {
   TimesliceExpenseReportComponent(CachingObjectStoreService store, SettingsService manager, StatusService status, UserAuthService auth,
       EntityEventsService entityEventsService, this.http)
-      : super(ExpenseReport, store, '', manager, status, entityEventsService, auth: auth);
+      : super(ExpenseReport, store, null, manager, status, entityEventsService, auth: auth);
 
   HttpService http;
 
@@ -58,41 +58,40 @@ class TimesliceExpenseReportComponent extends EntityOverview<ExpenseReport> impl
 
   ExpenseReport report;
 
+  /// see this.recreateElements
+  List<ExpenseReportEntry> elements = [];
+
   /// group timeslices / comments by date and sort the groups by date
   /// so in the end the structure looks like this:
   ///
   /// [
-  ///   [<date>, {timeslice: [<timeslice>, <timeslice>,...], comment: [<comment>, <comment>,...]}],
-  ///   [<date>, {timeslice: [<timeslice>, <timeslice>,...], comment: [<comment>, <comment>,...]}]
+  ///   ExpenseReportEntry(<date>, ExpenseReportItem(timeslice: [<timeslice>, <timeslice>,...], comment: [<comment>, <comment>,...])),
+  ///   ExpenseReportEntry(<date>, ExpenseReportItem(timeslice: [<timeslice>, <timeslice>,...], comment: [<comment>, <comment>,...]))
   /// ]
-  List get elements {
-    Map<DateTime, Map<String, List<dynamic>>> map = {};
+  void recreateElements() {
+    Map<DateTime, ExpenseReportItem> map = {};
 
     for (Timeslice t in report.timeslices) {
-      Map<String, List<Timeslice>> dateMap =
-          map.putIfAbsent(new DateTime(t.startedAt.year, t.startedAt.month, t.startedAt.day), () => {}) as Map<String, List<Timeslice>>;
-      dateMap.putIfAbsent('timeslice', () => []).add(t);
+      ExpenseReportItem dateMap =
+          map.putIfAbsent(new DateTime(t.startedAt.year, t.startedAt.month, t.startedAt.day), () => new ExpenseReportItem([], []));
+      dateMap.timeslice.add(t);
     }
     for (ProjectComment t in report.comments) {
-      Map<String, List<ProjectComment>> dateMap =
-          map.putIfAbsent(new DateTime(t.date.year, t.date.month, t.date.day), () => {}) as Map<String, List<ProjectComment>>;
-      dateMap.putIfAbsent('comment', () => []).add(t);
+      ExpenseReportItem dateMap = map.putIfAbsent(new DateTime(t.date.year, t.date.month, t.date.day), () => new ExpenseReportItem([], []));
+      dateMap.comment.add(t);
     }
 
-    var list = [];
+    List<ExpenseReportEntry> list = [];
 
-    map.forEach((DateTime date, Map<String, dynamic> items) => list.add([date, items]));
+    map.forEach((DateTime date, ExpenseReportItem items) => list.add(new ExpenseReportEntry(date, items)));
 
-    list.sort((dynamic a, dynamic b) => (a[0] as DateTime).compareTo(b[0] as DateTime));
+    list.sort((a, b) => a.date.compareTo(b.date));
 
-    return list;
+    this.elements = list;
   }
 
   @override
-  void ngOnInit(); //noop
-
-  @override
-  routerOnActivate(ComponentInstruction nextInstruction, ComponentInstruction prevInstruction) {
+  onActivate(_, __) {
     page_title.setPageTitle('Aufwandsbericht');
   }
 
@@ -109,6 +108,7 @@ class TimesliceExpenseReportComponent extends EntityOverview<ExpenseReport> impl
               'employee': _employee != null ? _employee.id : null,
               'date': dateparam != null ? dateparam : null
             }, method: 'GET', url: '${http.baseUrl}/reports/expense')));
+        recreateElements();
       });
     }
   }
@@ -158,4 +158,18 @@ class TimesliceExpenseReportComponent extends EntityOverview<ExpenseReport> impl
   ExpenseReport cEnt({ExpenseReport entity}) {
     return new ExpenseReport();
   }
+}
+
+class ExpenseReportEntry {
+  final DateTime date;
+  final ExpenseReportItem items;
+
+  ExpenseReportEntry(this.date, this.items);
+}
+
+class ExpenseReportItem {
+  final List<Timeslice> timeslice;
+  final List<ProjectComment> comment;
+
+  ExpenseReportItem(this.timeslice, this.comment);
 }

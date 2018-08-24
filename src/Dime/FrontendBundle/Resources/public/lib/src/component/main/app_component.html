@@ -44,7 +44,7 @@
   <!-- Main Content -->
   <div class="content-wrapper">
     <div class="content">
-      <router-outlet *ngIf="auth.isloggedin"></router-outlet>
+      <router-outlet *ngIf="auth.isloggedin" [routes]="routes"></router-outlet>
       <maintabset></maintabset>
     </div>
     <div class="clearfix"></div>

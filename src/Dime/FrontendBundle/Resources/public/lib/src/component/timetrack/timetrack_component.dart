@@ -14,14 +14,14 @@ import '../common/dime_directives.dart';
 import '../overview/overview.dart';
 
 @Component(selector: 'timetrack', templateUrl: 'timetrack_component.html', directives: const [
-  CORE_DIRECTIVES,
+  coreDirectives,
   formDirectives,
   PeriodOverviewComponent,
   TimesliceOverviewComponent,
   ProjectCommentOverviewComponent,
   dimeDirectives
 ])
-class TimetrackComponent implements OnInit, OnDestroy, OnActivate {
+class TimetrackComponent implements OnDestroy, OnActivate {
   UserContextService context;
   UserAuthService auth;
   Project project;
@@ -32,12 +32,8 @@ class TimetrackComponent implements OnInit, OnDestroy, OnActivate {
   get employee => this.context.employee;
 
   @override
-  ngOnInit() {
+  onActivate(_, __) {
     streamSubscription = timetrackService.projectSelect.stream.listen((project) => this.project = project);
-  }
-
-  @override
-  routerOnActivate(ComponentInstruction nextInstruction, ComponentInstruction prevInstruction) {
     page_title.setPageTitle('Zeiterfassung');
   }
 

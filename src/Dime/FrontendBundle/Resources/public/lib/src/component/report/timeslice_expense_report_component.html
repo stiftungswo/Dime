@@ -30,17 +30,17 @@
       </thead>
       <tbody *ngIf="report != null">
         <template ngFor let-date [ngForOf]="elements">
-          <tr *ngFor="let entity of date[1]['timeslice']">
-            <td>{{ date[0] | date:'dd.MM.y'}}</td>
+          <tr *ngFor="let entity of date.items.timeslice">
+            <td>{{ date.date | date:'dd.MM.y'}}</td>
             <td>{{entity.activity.name}}</td>
             <td>{{entity.value}}</td>
             <td>{{entity.activity.rateUnitType.name}}</td>
           </tr>
-          <tr *ngIf="date[1]['timeslice'] == null || date[1]['timeslice'].isEmpty">
-            <td>{{ date[0] | date:'dd.MM.y' }}</td>
+          <tr *ngIf="date.items.timeslice.isEmpty">
+            <td>{{ date.date | date:'dd.MM.y' }}</td>
             <td colspan="3"></td>
           </tr>
-          <tr *ngFor="let entity of date[1]['comment']">
+          <tr *ngFor="let entity of date.items.comment">
             <td colspan="4" style="white-space: pre-wrap">{{ entity.comment }}</td>
           </tr>
         </template>

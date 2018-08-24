@@ -6,7 +6,7 @@ import 'package:angular_forms/angular_forms.dart';
 @Component(
   selector: 'date-range',
   templateUrl: 'date_range_component.html',
-  directives: const [CORE_DIRECTIVES, formDirectives, DateInputComponent],
+  directives: const [coreDirectives, formDirectives, DateInputComponent],
 )
 class DateRangeComponent implements OnChanges {
   // todo: this component doesnt work with empty fields

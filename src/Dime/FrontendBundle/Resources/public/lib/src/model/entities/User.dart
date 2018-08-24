@@ -88,7 +88,7 @@ class User extends Entity {
         this.employeeholiday = value as int;
         break;
       case 'roles':
-        this.roles = value as List<String>;
+        this.roles = (value as List<dynamic>).cast();
         break;
       default:
         super.Set(property, value);

@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:html';
 
-import 'package:DimeClient/src/component/common/markdown_input_component.dart';
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
 import 'package:angular_router/angular_router.dart';
@@ -15,6 +14,8 @@ import '../../service/status_service.dart';
 import '../../service/user_auth_service.dart';
 import '../../util/page_title.dart' as page_title;
 import '../common/dime_directives.dart';
+import '../common/markdown_input_component.dart';
+import '../main/routes.dart' as routes;
 import '../overview/overview.dart';
 import '../select/select.dart';
 import 'entity_edit.dart';
@@ -23,7 +24,7 @@ import 'entity_edit.dart';
   selector: 'invoice-edit',
   templateUrl: 'invoice_edit_component.html',
   directives: const [
-    CORE_DIRECTIVES,
+    coreDirectives,
     formDirectives,
     dimeDirectives,
     CustomerSelectComponent,
@@ -35,9 +36,9 @@ import 'entity_edit.dart';
   ],
 )
 class InvoiceEditComponent extends EntityEdit<Invoice> {
-  InvoiceEditComponent(RouteParams routeProvider, CachingObjectStoreService store, StatusService status, UserAuthService auth,
-      Router router, EntityEventsService entityEventsService, this.http)
-      : super(routeProvider, store, Invoice, status, auth, router, entityEventsService);
+  InvoiceEditComponent(CachingObjectStoreService store, StatusService status, UserAuthService auth, Router router,
+      EntityEventsService entityEventsService, this.http)
+      : super(store, Invoice, status, auth, router, entityEventsService);
 
   Project project;
   HttpService http;
@@ -54,7 +55,10 @@ class InvoiceEditComponent extends EntityEdit<Invoice> {
   }
 
   @override
-  void ngOnInit() => load();
+  void onActivate(_, current) {
+    super.onActivate(_, current);
+    load();
+  }
 
   Future load({bool evict: false}) async {
     await this.statusservice.run(() async {
@@ -81,24 +85,15 @@ class InvoiceEditComponent extends EntityEdit<Invoice> {
   }
 
   Future openProject() async {
-    router.navigate([
-      'ProjectEdit',
-      {'id': this.entity.project.id.toString()}
-    ]);
+    router.navigate(routes.ProjectEditRoute.toUrl(parameters: {'id': this.entity.project.id.toString()}));
   }
 
   Future openOffer(int id) async {
-    router.navigate([
-      'OfferEdit',
-      {'id': id.toString()}
-    ]);
+    router.navigate(routes.OfferEditRoute.toUrl(parameters: {'id': id.toString()}));
   }
 
   Future openInvoice(int id) async {
-    router.navigate([
-      'InvoiceEdit',
-      {'id': id.toString()}
-    ]);
+    router.navigate(routes.ProjectEditRoute.toUrl(parameters: {'id': id.toString()}));
   }
 
   Future createInvoice() async {
@@ -107,10 +102,7 @@ class InvoiceEditComponent extends EntityEdit<Invoice> {
         .customQueryOne<Invoice>(Invoice, new CustomRequestParams(method: 'GET', url: '${http.baseUrl}/invoices/project/${project.id}'));
     project.invoices.add(newInvoice);
     await this.store.evict(Invoice, true);
-    router.navigate([
-      'InvoiceEdit',
-      {'id': newInvoice.id.toString()}
-    ]);
+    router.navigate(routes.InvoiceEditRoute.toUrl(parameters: {'id': newInvoice.id.toString()}));
   }
 
   @override

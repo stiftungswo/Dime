@@ -17,15 +17,18 @@ import 'entity_edit.dart';
 @Component(
   selector: 'service-edit',
   templateUrl: 'service_edit_component.html',
-  directives: const [formDirectives, CORE_DIRECTIVES, dimeDirectives, RateOverviewComponent],
+  directives: const [formDirectives, coreDirectives, dimeDirectives, RateOverviewComponent],
 )
 class ServiceEditComponent extends EntityEdit<Service> {
-  ServiceEditComponent(RouteParams routeProvider, CachingObjectStoreService store, StatusService status, UserAuthService auth,
-      Router router, EntityEventsService entityEventsService)
-      : super(routeProvider, store, Service, status, auth, router, entityEventsService);
+  ServiceEditComponent(
+      CachingObjectStoreService store, StatusService status, UserAuthService auth, Router router, EntityEventsService entityEventsService)
+      : super(store, Service, status, auth, router, entityEventsService);
 
   @override
-  ngOnInit() => reload();
+  void onActivate(_, current) {
+    super.onActivate(_, current);
+    reload();
+  }
 
   @override
   Future reload({bool evict: false}) async {

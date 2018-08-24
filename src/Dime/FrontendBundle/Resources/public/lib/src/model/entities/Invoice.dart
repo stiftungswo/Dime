@@ -119,13 +119,13 @@ class Invoice extends Entity {
         this.description = value as String;
         break;
       case 'project':
-        this.project = value is Project ? value : new Project.fromMap(value as Map<String, dynamic>);
+        this.project = value is Project ? value : new Project.fromMap((value as Map<dynamic, dynamic>).cast<String, dynamic>());
         break;
       case 'items':
-        this.items = InvoiceItem.listFromMap(value as List<Map<String, dynamic>>);
+        this.items = InvoiceItem.listFromMap((value as List<dynamic>).cast());
         break;
       case 'invoiceDiscounts':
-        this.invoiceDiscounts = InvoiceDiscount.listFromMap(value as List<Map<String, dynamic>>);
+        this.invoiceDiscounts = InvoiceDiscount.listFromMap((value as List<dynamic>).cast());
         break;
       case 'start':
         this.start = this.addDateValue(value);
@@ -134,7 +134,7 @@ class Invoice extends Entity {
         this.end = this.addDateValue(value);
         break;
       case 'customer':
-        this.customer = value is Customer ? value : new Customer.fromMap(value as Map<String, dynamic>);
+        this.customer = value is Customer ? value : new Customer.fromMap((value as Map<dynamic, dynamic>).cast<String, dynamic>());
         break;
       case 'totalDiscounts':
         this.totalDiscounts = value as String;
@@ -158,13 +158,13 @@ class Invoice extends Entity {
         this.fixedPrice = value as String;
         break;
       case 'accountant':
-        this.accountant = value is Employee ? value : new Employee.fromMap(value as Map<String, dynamic>);
+        this.accountant = value is Employee ? value : new Employee.fromMap((value as Map<dynamic, dynamic>).cast<String, dynamic>());
         break;
       case 'costgroups':
-        this.costgroups = InvoiceCostgroup.listFromMap(value as List<Map<String, dynamic>>);
+        this.costgroups = InvoiceCostgroup.listFromMap((value as List<dynamic>).cast());
         break;
       case 'breakdown':
-        this.breakdown = new InvoiceBreakdown.fromMap(value as Map<String, dynamic>);
+        this.breakdown = new InvoiceBreakdown.fromMap((value as Map<dynamic, dynamic>).cast<String, dynamic>());
         break;
       default:
         super.Set(property, value);

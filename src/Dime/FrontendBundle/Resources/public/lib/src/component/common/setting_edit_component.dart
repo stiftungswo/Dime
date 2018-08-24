@@ -10,7 +10,7 @@ import '../../service/user_auth_service.dart';
   template: """
     <input style="width: 100%" class="form-control" type="text" [(ngModel)]="setting.value" (blur)="update()" (change)="hasChanged()" >
   """,
-  directives: const [CORE_DIRECTIVES, formDirectives],
+  directives: const [coreDirectives, formDirectives],
 )
 class SettingEditComponent {
   SettingsService settingsManager;

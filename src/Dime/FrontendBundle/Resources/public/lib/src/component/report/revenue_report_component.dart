@@ -9,9 +9,9 @@ import '../common/dime_directives.dart';
 @Component(
   selector: 'revenue-report',
   templateUrl: 'revenue_report_component.html',
-  directives: const [CORE_DIRECTIVES, dimeDirectives],
+  directives: const [coreDirectives, dimeDirectives],
 )
-class RevenueReportComponent implements OnInit, OnActivate {
+class RevenueReportComponent implements OnActivate {
   RevenueReportComponent(StatusService this.statusservice, this.http);
 
   HttpService http;
@@ -23,14 +23,10 @@ class RevenueReportComponent implements OnInit, OnActivate {
   StatusService statusservice;
 
   @override
-  ngOnInit() {
+  onActivate(_, __) {
     DateTime now = new DateTime.now();
     this.filterStartDate = new DateTime(now.year, 1, 1);
     this.filterEndDate = new DateTime(now.year, 12, 31);
-  }
-
-  @override
-  routerOnActivate(ComponentInstruction nextInstruction, ComponentInstruction prevInstruction) {
     page_title.setPageTitle('Umsatzstatistik');
   }
 

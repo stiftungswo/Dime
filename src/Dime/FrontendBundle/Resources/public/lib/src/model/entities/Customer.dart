@@ -102,7 +102,7 @@ class Customer extends Entity {
         this.systemCustomer = value as bool;
         break;
       case 'address':
-        this.address = value is Address ? value : new Address.fromMap(value as Map<String, dynamic>);
+        this.address = value is Address ? value : new Address.fromMap((value as Map<dynamic, dynamic>).cast<String, dynamic>());
         break;
       case 'company':
         this.company = value as String;
@@ -129,14 +129,17 @@ class Customer extends Entity {
         this.comment = value as String;
         break;
       case 'rateGroup':
-        this.rateGroup = value is RateGroup ? value : new RateGroup.fromMap(value as Map<String, dynamic>);
+        this.rateGroup = value is RateGroup ? value : new RateGroup.fromMap((value as Map<dynamic, dynamic>).cast<String, dynamic>());
         break;
       case 'phones':
-        this.phones = value as List<Phone>;
+        this.phones = (value as List<dynamic>).cast();
         break;
       case 'tags':
         // sometimes the backend responds with a map instead of a list
-        this.tags = ((value is Map ? value.values : value) as Iterable<Map<String, dynamic>>).map((item) => new Tag.fromMap(item)).toList();
+        this.tags = ((value is Map ? value.values : value) as List<dynamic>)
+            .cast<Map<String, dynamic>>()
+            .map((item) => new Tag.fromMap(item))
+            .toList();
         break;
       default:
         super.Set(property, value);

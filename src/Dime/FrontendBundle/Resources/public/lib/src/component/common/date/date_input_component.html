@@ -10,5 +10,5 @@
     <ng-content></ng-content>
   </div>
 </div>
-<template *ngIf="!hasButtons" [ngTemplateOutlet]="picker"></template>
+<template [ngIf]="!hasButtons"><template [ngTemplateOutlet]="picker"></template></template>
 

@@ -19,13 +19,14 @@ import '../overview/overview.dart';
 import '../select/select.dart';
 import 'edit.dart';
 import 'entity_edit.dart';
+import '../main/routes.dart' as routes;
 
 @Component(
   selector: 'offer-edit',
   templateUrl: 'offer_edit_component.html',
-  pipes: const [COMMON_PIPES],
+  pipes: const [commonPipes],
   directives: const [
-    CORE_DIRECTIVES,
+    coreDirectives,
     formDirectives,
     dimeDirectives,
     UserSelectComponent,
@@ -54,12 +55,13 @@ class OfferEditComponent extends EntityEdit<Offer> {
 
   HttpService http;
 
-  OfferEditComponent(RouteParams routeProvider, CachingObjectStoreService store, StatusService status, UserAuthService auth, Router router,
+  OfferEditComponent(CachingObjectStoreService store, StatusService status, UserAuthService auth, Router router,
       EntityEventsService entityEventsService, this.http)
-      : super(routeProvider, store, Offer, status, auth, router, entityEventsService);
+      : super(store, Offer, status, auth, router, entityEventsService);
 
   @override
-  void ngOnInit() {
+  void onActivate(_, current) {
+    super.onActivate(_, current);
     loadRateGroups();
     loadOfferStates();
     loadUsers();
@@ -97,10 +99,7 @@ class OfferEditComponent extends EntityEdit<Offer> {
   }
 
   Future openProject() async {
-    router.navigate([
-      'ProjectEdit',
-      {'id': entity.project.id.toString()}
-    ]);
+    router.navigate(routes.ProjectEditRoute.toUrl(parameters: {'id': entity.project.id.toString()}));
   }
 
   void rateGroupChanged() {
@@ -114,19 +113,13 @@ class OfferEditComponent extends EntityEdit<Offer> {
             Project, new CustomRequestParams(method: 'GET', url: '${http.baseUrl}/projects/offer/${this.entity.id}')));
         await this.store.evict(Project, true);
         entity.project = newProject;
-        router.navigate([
-          'ProjectEdit',
-          {'id': newProject.id.toString()}
-        ]);
+        router.navigate(routes.ProjectEditRoute.toUrl(parameters: {'id': newProject.id.toString()}));
       });
     }
   }
 
   Future openInvoice(int id) async {
-    router.navigate([
-      'InvoiceEdit',
-      {'id': id.toString()}
-    ]);
+    router.navigate(routes.InvoiceEditRoute.toUrl(parameters: {'id': id.toString()}));
   }
 
   Future createInvoice() async {
@@ -136,10 +129,7 @@ class OfferEditComponent extends EntityEdit<Offer> {
             Invoice, new CustomRequestParams(method: 'GET', url: '${http.baseUrl}/invoices/project/${this.entity.project.id}'));
         entity.project.invoices.add(newInvoice);
         await this.store.evict(Invoice, true);
-        router.navigate([
-          'InvoiceEdit',
-          {'id': newInvoice.id.toString()}
-        ]);
+        router.navigate(routes.InvoiceEditRoute.toUrl(parameters: {'id': newInvoice.id.toString()}));
       });
     }
   }

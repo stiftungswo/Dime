@@ -15,7 +15,7 @@
         <tr *ngFor="let entity of projectAssignments">
           <td>{{entity.id}}</td>
           <td>{{entity.name}}</td>
-          <td><project-select hideArchived [(ngModel)]="entity.project" (ngModelChange)="addSaveField('project', entity)"></project-select></td>
+          <td><project-select hideArchived [ngModel]="entity.project" (ngModelChange)="entity.project=$event;addSaveField('project', entity)"></project-select></td>
         </tr>
       </tbody>
     </table>

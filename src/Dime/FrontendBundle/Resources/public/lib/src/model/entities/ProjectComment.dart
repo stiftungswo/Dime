@@ -48,7 +48,7 @@ class ProjectComment extends Entity {
         this.comment = value as String;
         break;
       case 'project':
-        this.project = value is Project ? value : new Project.fromMap(value as Map<String, dynamic>);
+        this.project = value is Project ? value : new Project.fromMap((value as Map<dynamic, dynamic>).cast<String, dynamic>());
         break;
       case 'id':
         this.id = value;

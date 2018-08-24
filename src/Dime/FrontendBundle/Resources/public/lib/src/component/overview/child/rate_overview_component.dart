@@ -15,12 +15,12 @@ import '../editable_overview.dart';
 @Component(
   selector: 'rate-overview',
   templateUrl: 'rate_overview_component.html',
-  directives: const [formDirectives, CORE_DIRECTIVES, dimeDirectives, RateGroupSelectComponent, RateUnitTypeSelectComponent],
+  directives: const [formDirectives, coreDirectives, dimeDirectives, RateGroupSelectComponent, RateUnitTypeSelectComponent],
 )
-class RateOverviewComponent extends EditableOverview<Rate> {
+class RateOverviewComponent extends EditableOverview<Rate> implements OnInit {
   RateOverviewComponent(CachingObjectStoreService store, SettingsService manager, StatusService status,
       EntityEventsService entityEventsService, ChangeDetectorRef changeDetector)
-      : super(Rate, store, '', manager, status, entityEventsService, changeDetector);
+      : super(Rate, store, null, manager, status, entityEventsService, changeDetector);
 
   @override
   List<String> get fields => const ['id', 'rateUnit', 'rateGroup', 'rateValue', 'rateUnitType'];
@@ -54,7 +54,10 @@ class RateOverviewComponent extends EditableOverview<Rate> {
   }
 
   @override
-  ngOnInit() async {
+  Future onActivate(_, __); // is never called, since this component is not routable
+
+  @override
+  void ngOnInit() async {
     rateGroups = await store.list(RateGroup);
     updateNewRateGroup();
   }

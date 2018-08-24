@@ -13,11 +13,11 @@ import '../../service/entity_events_service.dart';
 import '../../service/status_service.dart';
 import '../../service/user_auth_service.dart';
 
-abstract class EntityEdit<T extends Entity> implements OnInit {
+abstract class EntityEdit<T extends Entity> implements OnActivate {
   Type entType;
 
   @protected
-  String entId;
+  String entId = null;
 
   CachingObjectStoreService store;
 
@@ -36,12 +36,12 @@ abstract class EntityEdit<T extends Entity> implements OnInit {
 
   EntityEdit.Child(this.entType);
 
-  EntityEdit(RouteParams params, this.store, this.entType, this.statusservice, this.auth, this.router, this.entityEventsService) {
-    entId = params.get('id');
-  }
+  EntityEdit(this.store, this.entType, this.statusservice, this.auth, this.router, this.entityEventsService);
 
   @override
-  void ngOnInit() {}
+  void onActivate(_, RouterState current) {
+    this.entId = current.parameters['id'];
+  }
 
   Future reloadEvict() async {
     reload(evict: true);

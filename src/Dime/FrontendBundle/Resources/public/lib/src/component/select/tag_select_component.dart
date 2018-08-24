@@ -13,9 +13,9 @@ import '../../service/status_service.dart';
 @Component(
   selector: 'tag-select',
   templateUrl: 'tag_select_component.html',
-  directives: const [formDirectives, CORE_DIRECTIVES],
+  directives: const [formDirectives, coreDirectives],
   pipes: const [dimePipes, SelectedTagsPipe],
-  providers: const [const Provider(NG_VALUE_ACCESSOR, useExisting: TagSelectComponent, multi: true)],
+  providers: const [const ExistingProvider.forToken(ngValueAccessor, TagSelectComponent, multi: true)],
 )
 class TagSelectComponent implements OnInit, ControlValueAccessor<List<Tag>> {
   ChangeFunction<List<Tag>> onChange;
@@ -35,13 +35,13 @@ class TagSelectComponent implements OnInit, ControlValueAccessor<List<Tag>> {
   bool disabled = false;
 
   @ViewChild('input')
-  ElementRef input;
+  HtmlElement input;
 
-  TagSelectComponent(this.statusservice, this.entities, this.store);
+  TagSelectComponent(this.statusservice, this.store);
 
   Future reload() async {
     await this.statusservice.run(() async {
-      this.entities = (await this.store.list(Tag)).toList() as List<Tag>;
+      this.entities = (await this.store.list<Tag>(Tag)).toList();
     });
   }
 
@@ -64,7 +64,7 @@ class TagSelectComponent implements OnInit, ControlValueAccessor<List<Tag>> {
     open = !open;
     await new Future<dynamic>.delayed(const Duration(microseconds: 1));
     if (open) {
-      (input.nativeElement as InputElement).focus();
+      (input as InputElement).focus();
     }
   }
 
@@ -86,5 +86,10 @@ class TagSelectComponent implements OnInit, ControlValueAccessor<List<Tag>> {
   @override
   ngOnInit() {
     reload();
+  }
+
+  @override
+  void onDisabledChanged(bool isDisabled) {
+    // TODO: implement onDisabledChanged
   }
 }

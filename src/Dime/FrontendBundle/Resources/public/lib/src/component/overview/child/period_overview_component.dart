@@ -18,12 +18,12 @@ import '../editable_overview.dart';
 @Component(
     selector: 'period-overview',
     templateUrl: 'period_overview_component.html',
-    directives: const [CORE_DIRECTIVES, formDirectives, dimeDirectives],
+    directives: const [coreDirectives, formDirectives, dimeDirectives],
     pipes: const [dimePipes])
 class PeriodOverviewComponent extends EditableOverview<Period> {
   PeriodOverviewComponent(CachingObjectStoreService store, SettingsService manager, StatusService status, this.context,
       EntityEventsService entityEventsService, this.http, ChangeDetectorRef changeDetector)
-      : super(Period, store, '', manager, status, entityEventsService, changeDetector);
+      : super(Period, store, null, manager, status, entityEventsService, changeDetector);
 
   @override
   List<String> get fields => const [
@@ -87,7 +87,7 @@ class PeriodOverviewComponent extends EditableOverview<Period> {
     await Future.wait(entities.map((entity) async {
       var result = await http.get('periods/holidaybalance',
           queryParams: {"_format": "json", "date": encodeDateRange(entity.start, entity.end), "employee": employee.id});
-      dynamic data = JSON.decode(result);
+      dynamic data = json.decode(result);
       if (data is Map) {
         var takenHolidays = data['takenHolidays'] as List<dynamic>;
         double periodVacationBudget = 0.0;
@@ -116,8 +116,8 @@ class PeriodOverviewComponent extends EditableOverview<Period> {
     var now = new DateTime.now();
     return super.createEntity(params: {
       'employee': this.employee.id,
-      'start': new DateTime(now.year, DateTime.JANUARY, 1),
-      'end': new DateTime(now.year, DateTime.DECEMBER, 31),
+      'start': new DateTime(now.year, DateTime.january, 1),
+      'end': new DateTime(now.year, DateTime.december, 31),
       'pensum': 1,
       'yearlyEmployeeVacationBudget': this.employee.employeeholiday ?? 20,
     });

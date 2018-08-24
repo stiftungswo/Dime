@@ -47,10 +47,10 @@ class InvoiceBreakdown extends Entity {
   void Set(String property, dynamic value) {
     switch (property) {
       case 'items':
-        this.items = InvoiceItem.listFromMap(value as List<Map<String, dynamic>>);
+        this.items = InvoiceItem.listFromMap((value as List<dynamic>).cast());
         break;
       case 'discounts':
-        this.items = InvoiceItem.listFromMap(value as List<Map<String, dynamic>>);
+        this.items = InvoiceItem.listFromMap((value as List<dynamic>).cast());
         break;
       case 'discount':
         this.discount = value is double ? value : double.parse(value as String);

@@ -1,9 +1,7 @@
 import 'dart:async';
 import 'dart:html';
 
-import 'package:angular/angular.dart';
 import 'package:angular_router/angular_router.dart';
-import 'package:angular_router/src/router.dart';
 
 import '../../model/Entity.dart';
 import '../../service/caching_object_store_service.dart';
@@ -12,7 +10,7 @@ import '../../service/settings_service.dart';
 import '../../service/status_service.dart';
 import '../../service/user_auth_service.dart';
 
-abstract class EntityOverview<T extends Entity> implements OnInit {
+abstract class EntityOverview<T extends Entity> implements OnActivate {
   //TODO: this can probably be removed
   bool needsmanualAdd = false;
 
@@ -34,7 +32,7 @@ abstract class EntityOverview<T extends Entity> implements OnInit {
 
   EntityEventsService entityEventsService;
 
-  String routename;
+  RoutePath routename;
 
   SettingsService settingsManager;
 
@@ -97,15 +95,12 @@ abstract class EntityOverview<T extends Entity> implements OnInit {
 
   void openEditView(int entId) {
     if (this.router != null) {
-      router.navigate([
-        this.routename,
-        {'id': entId.toString()}
-      ]);
+      router.navigate(this.routename.toUrl(parameters: {'id': entId.toString()}));
     }
   }
 
   @override
-  void ngOnInit() {}
+  void onActivate(_, __) {}
 
   /**
    * for usage in templates; can't use named parameters in templates
@@ -120,7 +115,7 @@ abstract class EntityOverview<T extends Entity> implements OnInit {
       if (evict) {
         await this.store.evict(this.type);
       }
-      this.entities = (await this.store.list(this.type, params: params)).toList() as List<T>;
+      this.entities = (await this.store.list(this.type, params: params)).toList().cast();
     }, onError: (e, _) => print("Unable to load ${this.type.toString()} because ${e}"));
   }
 

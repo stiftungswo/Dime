@@ -34,10 +34,10 @@ class CachingObjectStoreService {
 
   CachingObjectStoreService(this._store);
 
-  Future<List<T>> list<T extends Entity>(Type type, {Map params, bool cacheWithParams = false}) {
+  Future<List<T>> list<T extends Entity>(Type type, {Map<String, dynamic> params, bool cacheWithParams = false}) {
     CacheKey paramsKey = new CacheKey(params);
     if (paramsKey.shouldCache(cacheWithParams) && this._cache.containsKey(type) && this._cache[type].containsKey(paramsKey)) {
-      return this._cache[type][paramsKey] as Future<List<T>>;
+      return this._cache[type][paramsKey].then((v) => v.cast());
     }
     Future<List<T>> future = this._store.list(type, params: params);
     if (paramsKey.shouldCache(cacheWithParams)) {
@@ -52,7 +52,7 @@ class CachingObjectStoreService {
     return this._store.delete(object).then((T result) {
       this._cache[result.runtimeType]?.forEach((_, futureList) {
         futureList.then((List cachedObjects) {
-          cachedObjects.removeWhere((T i) => i.id == object.id);
+          cachedObjects.removeWhere((dynamic i) => (i as T).id == object.id);
         });
       });
       return result;
@@ -63,7 +63,7 @@ class CachingObjectStoreService {
     return this._store.update(object).then((T result) {
       this._cache[result.runtimeType]?.forEach((_, futureList) {
         futureList.then((List cachedObjects) {
-          cachedObjects.removeWhere((T i) => i.id == result.id);
+          cachedObjects.removeWhere((dynamic i) => (i as T).id == result.id);
           cachedObjects.add(result);
         });
       });

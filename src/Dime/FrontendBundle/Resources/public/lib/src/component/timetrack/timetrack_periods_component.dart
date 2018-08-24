@@ -14,9 +14,9 @@ import '../overview/overview.dart';
 @Component(
   selector: 'timetrack-periods',
   templateUrl: 'timetrack_periods_component.html',
-  directives: const [CORE_DIRECTIVES, formDirectives, PeriodOverviewComponent],
+  directives: const [coreDirectives, formDirectives, PeriodOverviewComponent],
 )
-class TimetrackPeriodsComponent implements OnInit, OnActivate {
+class TimetrackPeriodsComponent implements OnActivate {
   UserContextService context;
   UserAuthService auth;
   EntityEventsService entityEventsService;
@@ -29,13 +29,8 @@ class TimetrackPeriodsComponent implements OnInit, OnActivate {
   List<Employee> employees = [];
 
   @override
-  ngOnInit() {
+  onActivate(_, __) {
     this.reload();
-    //employees[0].workingPeriods.length
-  }
-
-  @override
-  routerOnActivate(ComponentInstruction nextInstruction, ComponentInstruction prevInstruction) {
     page_title.setPageTitle('Ist-Sollstunden Übersicht');
   }
 

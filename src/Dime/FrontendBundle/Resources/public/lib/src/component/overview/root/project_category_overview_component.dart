@@ -15,18 +15,19 @@ import '../editable_overview.dart';
 @Component(
   selector: 'project-category-overview',
   templateUrl: 'project_category_overview_component.html',
-  directives: const [CORE_DIRECTIVES, formDirectives, dimeDirectives],
+  directives: const [coreDirectives, formDirectives, dimeDirectives],
 )
 class ProjectCategoryOverviewComponent extends EditableOverview<ProjectCategory> implements OnActivate {
   ProjectCategoryOverviewComponent(CachingObjectStoreService store, SettingsService manager, StatusService status, UserAuthService auth,
       EntityEventsService entityEventsService, ChangeDetectorRef changeDetector)
-      : super(ProjectCategory, store, '', manager, status, entityEventsService, changeDetector, auth: auth);
+      : super(ProjectCategory, store, null, manager, status, entityEventsService, changeDetector, auth: auth);
 
   @override
   List<String> get fields => const ['id', 'name'];
 
   @override
-  routerOnActivate(ComponentInstruction nextInstruction, ComponentInstruction prevInstruction) {
+  onActivate(_, __) {
+    super.onActivate(_, __);
     page_title.setPageTitle('Tätigkeitsbereiche');
     reload();
   }

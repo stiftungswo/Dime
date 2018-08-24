@@ -59,13 +59,14 @@ class Rate extends Entity {
         this.rateUnit = value as String;
         break;
       case 'rateUnitType':
-        this.rateUnitType = value is RateUnitType ? value : new RateUnitType.fromMap(value as Map<String, dynamic>);
+        this.rateUnitType =
+            value is RateUnitType ? value : new RateUnitType.fromMap((value as Map<dynamic, dynamic>).cast<String, dynamic>());
         break;
       case 'rateGroup':
-        this.rateGroup = value is RateGroup ? value : new RateGroup.fromMap(value as Map<String, dynamic>);
+        this.rateGroup = value is RateGroup ? value : new RateGroup.fromMap((value as Map<dynamic, dynamic>).cast<String, dynamic>());
         break;
       case 'service':
-        this.service = value is Service ? value : new Service.fromMap(value as Map<String, dynamic>);
+        this.service = value is Service ? value : new Service.fromMap((value as Map<dynamic, dynamic>).cast<String, dynamic>());
         break;
       default:
         super.Set(property, value);

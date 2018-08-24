@@ -26,7 +26,7 @@ abstract class EditableOverview<T extends Entity> extends EntityOverview<T> {
   List<T> get entities => new List.unmodifiable(_map.entities);
 
   /// do not modify this by hand, it is managed by [_map]
-  List<dynamic> get controls => new List<dynamic>.unmodifiable(_map.controls);
+  List<ControlGroup> get controls => new List<ControlGroup>.unmodifiable(_map.controls);
 
   ChangeDetectorRef changeDetector;
 
@@ -38,7 +38,7 @@ abstract class EditableOverview<T extends Entity> extends EntityOverview<T> {
   @ViewChild("overview")
   NgControlGroup overview;
 
-  EditableOverview(Type type, CachingObjectStoreService store, String routeName, SettingsService manager, StatusService status,
+  EditableOverview(Type type, CachingObjectStoreService store, RoutePath routeName, SettingsService manager, StatusService status,
       EntityEventsService entityEventsService, this.changeDetector,
       {Router router, UserAuthService auth})
       : super(type, store, routeName, manager, status, entityEventsService, router: router, auth: auth) {
@@ -48,6 +48,9 @@ abstract class EditableOverview<T extends Entity> extends EntityOverview<T> {
 
   @override
   Future createEntity({T newEnt, Map<String, dynamic> params: const {}}) async {
+    if (params.isEmpty) {
+      params = {};
+    }
     await this.statusservice.run(() async {
       if (newEnt == null) {
         newEnt = this.cEnt();
@@ -68,7 +71,7 @@ abstract class EditableOverview<T extends Entity> extends EntityOverview<T> {
       if (evict) {
         await this.store.evict(this.type);
       }
-      var entities = (await this.store.list(this.type, params: params)).toList() as List<T>;
+      List<T> entities = (await this.store.list(this.type, params: params)).toList().cast();
       await postProcessEntities(entities);
       entities.forEach(newMap.add);
 
@@ -168,7 +171,7 @@ class EntityControlMap<T extends Entity> {
   ControlArray controlArray;
   List<T> entities;
   List<String> fields;
-  List<AbstractControl> get controls => controlArray.controls;
+  List<ControlGroup> get controls => controlArray.controls.cast<ControlGroup>();
 
   EntityControlMap(bool required, this.fields) {
     entities = [];

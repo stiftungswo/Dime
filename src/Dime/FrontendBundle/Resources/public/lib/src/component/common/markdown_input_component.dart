@@ -54,14 +54,14 @@ import '../../pipe/markdown_pipe.dart';
   """
   ],
   directives: const [
-    CORE_DIRECTIVES,
+    coreDirectives,
     formDirectives,
   ],
   pipes: const [
     MarkdownPipe,
   ],
   providers: const [
-    const Provider(NG_VALUE_ACCESSOR, useExisting: MarkdownInputComponent, multi: true),
+    const ExistingProvider.forToken(ngValueAccessor, MarkdownInputComponent, multi: true),
   ],
 )
 class MarkdownInputComponent implements ControlValueAccessor<String> {
@@ -80,5 +80,10 @@ class MarkdownInputComponent implements ControlValueAccessor<String> {
   @override
   void writeValue(String obj) {
     currentValue = obj;
+  }
+
+  @override
+  void onDisabledChanged(bool isDisabled) {
+    // TODO: implement onDisabledChanged
   }
 }

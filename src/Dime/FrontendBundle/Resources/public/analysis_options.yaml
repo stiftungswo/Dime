@@ -8,6 +8,10 @@ analyzer:
     strong_mode_implicit_dynamic_map_literal: ignore
     strong_mode_implicit_dynamic_list_literal: ignore
     strong_mode_implicit_dynamic_variable: ignore
+    strong_mode_implicit_dynamic_type: ignore # todo remove this and fix errors
+  plugins:
+    angular:
+      enabled: false # enable with strong-mode: true (else there will be way too many type errors in templates)
 
 
 linter:

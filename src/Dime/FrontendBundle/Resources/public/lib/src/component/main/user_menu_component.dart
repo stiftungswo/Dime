@@ -2,10 +2,9 @@ import 'package:angular/angular.dart';
 import '../../service/user_auth_service.dart';
 import '../../service/user_context_service.dart';
 import 'package:angular_router/angular_router.dart';
+import '../main/routes.dart' as routes;
 
-@Component(
-    selector: 'usermenu',
-    template: """
+@Component(selector: 'usermenu', template: """
 <ul class="menu">
   <li>
     <a (click)="userEditor()">
@@ -18,8 +17,7 @@ import 'package:angular_router/angular_router.dart';
     </a>
   </li>
 </ul>
-    """,
-    directives: const [CORE_DIRECTIVES, ROUTER_DIRECTIVES])
+    """, directives: const [coreDirectives, routerDirectives])
 class UserMenuComponent {
   UserAuthService auth;
 
@@ -36,9 +34,6 @@ class UserMenuComponent {
   }
 
   userEditor() {
-    router.navigate([
-      "EmployeeEdit",
-      {'id': userContext.employee.id.toString()}
-    ]);
+    router.navigate(routes.EmployeeEditRoute.toUrl(parameters: {'id': userContext.employee.id.toString()}));
   }
 }

@@ -16,7 +16,7 @@ import 'package:angular/angular.dart';
     </div>
     """,
   directives: const [
-    CORE_DIRECTIVES,
+    coreDirectives,
   ],
 )
 class SelectWithButtonComponent {

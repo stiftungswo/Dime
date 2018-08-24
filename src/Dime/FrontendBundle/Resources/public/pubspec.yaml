@@ -4,37 +4,26 @@ author: Till Wegmüller
 description: A WebApp Client for DimeErp
 homepage: http://github.com/stiftungswo/Dime
 environment:
-  sdk: '>=1.0.0 <2.0.0'
+  sdk: '>=2.0.0 <3.0.0'
 dependencies:
-  angular: "^4.0.0+2"
-  angular_router: "^1.0.2"
-  angular_forms: ^1.0.0
-  pikaday_datepicker_angular: "^3.1.0"
-  browser: any
+  angular: "^5.0.0"
+  angular_router: "^2.0.0-alpha+19"
+  angular_forms: "^2.0.0"
+  pikaday:
+    git:
+      url: https://github.com/leftyio/pikaday-dart.git
+      ref: 682b7d2400f35d9805b3d6cde46afc188f1c6adf
   hammock:
     git:
         url: https://github.com/stiftungswo/hammock.git
-        ref: 0.6.0
+        ref: angular5-dart2-preview
   sentry_client: ">=4.0.3 < 5.0.0"
-  meta: ^1.1.2
+  meta: "^1.1.2"
   stack_trace: "^1.9.2"
   markdown: "^2.0.0"
   csv: "^3.1.2"
 
 dev_dependencies:
-  dart_to_js_script_rewriter: ^1.0.1
-transformers:
-- angular:
-    $exclude: ['web/vendor/**']
-    entry_points:
-    - web/main.dart
-- dart_to_js_script_rewriter
-- $dart2js:
-    checked: false
-    minify: false
-    verbose: false
-    suppressWarnings: false
-    suppressHints: false
-    terse: false
-    sourceMaps: true
-
+  build_runner: "^0.10.1+1"
+  build_test: "^0.10.3+1"
+  build_web_compilers: "^0.4.2+2"
