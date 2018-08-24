@@ -4,12 +4,12 @@ namespace Dime\OfferBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Tbbc\MoneyBundle\Form\Type\SimpleMoneyType;
 
 class OfferPositionFormType extends AbstractType
 {
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(
             array(
@@ -32,10 +32,5 @@ class OfferPositionFormType extends AbstractType
             ->add('vat')
             ->add('user')
             ->add('service');
-    }
-
-    public function getName()
-    {
-        return 'dime_offerbundle_offerpositionformtype';
     }
 }

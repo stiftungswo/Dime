@@ -1,52 +1,52 @@
 services:
     dime.user.form.type:
         class: Dime\TimetrackerBundle\Form\Type\UserFormType
-        tags: [{ name: form.type, alias: dime_timetrackerbundle_userformtype }]
+        tags: [{ name: form.type }]
 
     dime.timeslice.form.type:
         class: Dime\TimetrackerBundle\Form\Type\TimesliceFormType
-        tags: [ { name: form.type, alias: dime_timetrackerbundle_timesliceformtype }]
+        tags: [ { name: form.type }]
 
     dime.tag.form.type:
         class: Dime\TimetrackerBundle\Form\Type\TagFormType
-        tags: [{ name: "form.type", alias: "dime_timetrackerbundle_tagformtype" }]
+        tags: [{ name: "form.type" }]
 
     dime.setting.form.type:
         class: Dime\TimetrackerBundle\Form\Type\SettingFormType
-        tags: [{ name: "form.type", alias: "dime_timetrackerbundle_settingformtype" }]
+        tags: [{ name: "form.type" }]
 
     dime.service.form.type:
         class: Dime\TimetrackerBundle\Form\Type\ServiceFormType
-        tags: [{ name: "form.type", alias: "dime_timetrackerbundle_serviceformtype" }]
+        tags: [{ name: "form.type" }]
 
     dime.project.form.type:
         class: Dime\TimetrackerBundle\Form\Type\ProjectFormType
-        tags: [{ name: "form.type", alias: "dime_timetrackerbundle_projectformtype" }]
+        tags: [{ name: "form.type" }]
 
     dime.customer.form.type:
         class: Dime\TimetrackerBundle\Form\Type\CustomerFormType
-        tags: [{ name: "form.type", alias: "dime_timetrackerbundle_customerformtype" }]
+        tags: [{ name: "form.type" }]
 
     dime.activity.form.type:
         class: Dime\TimetrackerBundle\Form\Type\ActivityFormType
-        tags: [{ name: "form.type", alias: "dime_timetrackerbundle_activityformtype" }]
+        tags: [{ name: "form.type" }]
 
     dime.rategroup.form.type:
         class: Dime\TimetrackerBundle\Form\Type\RateGroupFormType
-        tags: [{ name: "form.type", alias: "dime_timetrackerbundle_rategroupformtype" }]
+        tags: [{ name: "form.type" }]
 
     dime.rate.form.type:
         class: Dime\TimetrackerBundle\Form\Type\RateFormType
-        tags: [{ name: "form.type", alias: "dime_timetrackerbundle_rateformtype" }]
+        tags: [{ name: "form.type" }]
 
     dime.rategunittype.form.type:
         class: Dime\TimetrackerBundle\Form\Type\RateUnitTypeFormType
-        tags: [{ name: "form.type", alias: "dime_timetrackerbundle_rateunittypeformtype" }]
+        tags: [{ name: "form.type" }]
 
     dime.projectcategory.form.type:
         class: Dime\TimetrackerBundle\Form\Type\ProjectCategoryFormType
-        tags: [{ name: "form.type", alias: "dime_timetrackerbundle_projectcategoryformtype" }]
+        tags: [{ name: "form.type" }]
 
     dime.projectcomment.form.type:
         class: Dime\TimetrackerBundle\Form\Type\ProjectCommentFormType
-        tags: [{ name: "form.type", alias: "dime_invoicebundle_projectcommentformtype" }]
+        tags: [{ name: "form.type" }]

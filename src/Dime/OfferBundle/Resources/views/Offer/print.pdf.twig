@@ -33,7 +33,7 @@
 			</div>
 		{% endif %}
 		<div class="header">
-			<div class="ortdatum">{{ invoiceconfig.senderCity }}, {{ offer.updatedAt|date("d.m.Y") }}</div><br/>
+			<div class="ortdatum">{{ invoiceconfig.senderCity }}, {{ "now"|date("d.m.Y") }}</div><br/>
 			{% if offer.accountant %}
 			<div class="accountant">Sachbearbeiter: {{ offer.accountant }}</div><br/>
 			{% endif %}
@@ -111,9 +111,7 @@
 		</table>
 		</div>
 		<div class="footer" breakable="false">
-			{% if offer.validTo %}
-			<div class="title">Bitte unterschrieben retournieren bis spätestens: {{ offer.validTo|date("d.m.Y") }}</div>
-			{% endif %}
+			<div class="title">Bitte unterschrieben retournieren bis spätestens: {{ "now"|date_modify("+30 days")|date("d.m.Y")}}</div>
 			<div class="signature">
 				<div class="title">Unterschrift des Auftragnehmers:</div>
 				<div class="locdate">Ort/Datum</div>

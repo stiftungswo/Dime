@@ -1,35 +1,35 @@
 parameters:
-    generic_handler: "Dime\TimetrackerBundle\Handler\GenericHandler"
+    generic_handler: Dime\TimetrackerBundle\Handler\GenericHandler
 
 services:
     dime.invoice.handler:
-        class: "Dime\InvoiceBundle\Handler\InvoiceHandler"
-        arguments: [ "@doctrine.orm.entity_manager", "Dime\InvoiceBundle\Entity\Invoice", "@service_container", "inv", "dime_invoicebundle_invoiceformtype" ]
+        class: Dime\InvoiceBundle\Handler\InvoiceHandler
+        arguments: [ "@doctrine.orm.entity_manager", Dime\InvoiceBundle\Entity\Invoice, "@service_container", "inv", Dime\InvoiceBundle\Form\Type\InvoiceFormType]
 
     dime.invoicediscount.handler:
         class: %generic_handler%
-        arguments: [ "@doctrine.orm.entity_manager", "Dime\InvoiceBundle\Entity\InvoiceDiscount", "@service_container", "invd", "dime_invoicebundle_invoicediscountformtype" ]
+        arguments: [ "@doctrine.orm.entity_manager", Dime\InvoiceBundle\Entity\InvoiceDiscount, "@service_container", "invd", Dime\InvoiceBundle\Form\Type\InvoiceDiscountFormType]
 
     dime.invoicecostgroup.handler:
         class: %generic_handler%
-        arguments: [ "@doctrine.orm.entity_manager", "Dime\InvoiceBundle\Entity\InvoiceCostgroup", "@service_container", "invc", "dime_invoicebundle_invoicecostgroupformtype" ]
+        arguments: [ "@doctrine.orm.entity_manager", Dime\InvoiceBundle\Entity\InvoiceCostgroup, "@service_container", "invc", Dime\InvoiceBundle\Form\Type\InvoiceCostgroupFormType]
 
     dime.invoiceitem.handler:
         class: %generic_handler%
-        arguments: [ "@doctrine.orm.entity_manager", "Dime\InvoiceBundle\Entity\InvoiceItem", "@service_container", "invt", "dime_invoicebundle_invoiceitemformtype" ]
+        arguments: [ "@doctrine.orm.entity_manager", Dime\InvoiceBundle\Entity\InvoiceItem, "@service_container", "invt", Dime\InvoiceBundle\Form\Type\InvoiceItemFormType]
 
     dime.costgroup.handler:
         class: %generic_handler%
-        arguments: [ "@doctrine.orm.entity_manager", "Dime\InvoiceBundle\Entity\Costgroup", "@service_container", "invt", "dime_invoicebundle_costgroupformtype" ]
+        arguments: [ "@doctrine.orm.entity_manager", Dime\InvoiceBundle\Entity\Costgroup, "@service_container", "invt", Dime\InvoiceBundle\Form\Type\CostgroupFormType]
 
 
     dime.invoice.configreader:
         class: Dime\InvoiceBundle\Service\InvoiceConfigurationValueReader
         calls:
-            - [ setContainer,  [@service_container] ]
+            - [ setContainer,  ["@service_container"] ]
 
     twig.extension.invoiceconfig:
         class: Dime\InvoiceBundle\Extensions\InvoiceConfigurationExtension
-        arguments: [@dime.invoice.configreader]
+        arguments: ["@dime.invoice.configreader"]
         tags:
             - { name: twig.extension }

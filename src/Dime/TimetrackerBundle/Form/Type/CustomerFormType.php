@@ -7,11 +7,11 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class CustomerFormType extends AbstractType
 {
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(
             array(
@@ -43,10 +43,5 @@ class CustomerFormType extends AbstractType
             ->add('phones', CollectionType::class, array('type' => 'swo_commons_phoneformtype'))
             ->add('user', EntityType::class, array('class' => 'DimeTimetrackerBundle:User'))
         ;
-    }
-
-    public function getName()
-    {
-        return 'dime_timetrackerbundle_customerformtype';
     }
 }

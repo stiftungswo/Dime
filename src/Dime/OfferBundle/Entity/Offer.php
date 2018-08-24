@@ -36,12 +36,6 @@ class Offer extends Entity implements DimeEntityInterface
     protected $name;
 
     /**
-     * @JMS\SerializedName("validTo")
-     * @ORM\Column(name="valid_to", type="date", nullable=true)
-     */
-    protected $validTo;
-
-    /**
      * @ORM\ManyToOne(targetEntity="Dime\TimetrackerBundle\Entity\Project", inversedBy="offers")
      * @ORM\JoinColumn(name="project_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
      * @JMS\MaxDepth(1)
@@ -201,30 +195,6 @@ class Offer extends Entity implements DimeEntityInterface
     public function getTotal()
     {
         return $this->getSubtotal()->subtract($this->getTotalDiscounts());
-    }
-
-    /**
-     * Set validTo
-     *
-     * @param \DateTime $validTo
-     *
-     * @return Offer
-     */
-    public function setValidTo($validTo)
-    {
-        $this->validTo = $validTo;
-
-        return $this;
-    }
-
-    /**
-     * Get validTo
-     *
-     * @return \DateTime
-     */
-    public function getValidTo()
-    {
-        return $this->validTo;
     }
 
     /**

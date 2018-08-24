@@ -7,7 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ProjectCommentFormType extends AbstractType
 {
@@ -28,20 +28,12 @@ class ProjectCommentFormType extends AbstractType
     /**
      * @inheritDoc
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
             'data_class' => ProjectComment::class,
             'csrf_protection' => false,
             'allow_extra_fields' => true,
         ]);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getName()
-    {
-        return 'dime_invoicebundle_projectcommentformtype';
     }
 }

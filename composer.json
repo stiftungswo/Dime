@@ -39,7 +39,7 @@
 		"stof/doctrine-extensions-bundle" : "^1.2",
 		"jms/serializer-bundle" : "~1.0",
 		"friendsofsymfony/rest-bundle" : "~1.7",
-		"friendsofsymfony/user-bundle" : "~2.0@dev",
+		"friendsofsymfony/user-bundle" : "^2.1",
 		"nelmio/api-doc-bundle" : "~2.9",
 		"knplabs/json-schema-bundle": "1.1.0",
 		"misd/phone-number-bundle" : "~1.0",
@@ -51,7 +51,8 @@
 		"sentry/sentry-symfony": "~1.0",
 		"nelmio/cors-bundle": "^1.5.0",
 		"mathiasverraes/money": "dev-master#941995d773d4f136e05e98c1d443cb627e761280",
-		"tbbc/money-bundle": "dev-master#f2b015f60ab0dd144f1a452abfaa87b2cc7764b6"
+		"tbbc/money-bundle": "dev-master#f2b015f60ab0dd144f1a452abfaa87b2cc7764b6",
+		"symfony/security-csrf": "~2.8"
 	},
 	"require-dev" : {
 		"h4cc/alice-fixtures-bundle" : "^0.5.1",

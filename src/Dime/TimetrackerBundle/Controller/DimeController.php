@@ -19,7 +19,7 @@ class DimeController extends FOSRestController
      */
     protected function getCurrentUser()
     {
-        $user = $this->container->get('security.context')->getToken()->getUser();
+        $user = $this->container->get('security.token_storage')->getToken()->getUser();
         if (!is_object($user) || !$user instanceof UserInterface) {
             throw new AccessDeniedException(
                 'This user does not have access to this section.'

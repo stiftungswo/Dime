@@ -34,7 +34,7 @@ abstract class AbstractHandler
         $this->entityClass = $entityClass;
         $this->repository = $this->om->getRepository($this->entityClass);
         $this->formFactory = $container->get('form.factory');
-        $this->secContext = $container->get('security.context');
+        $this->secContext = $container->get('security.token_storage');
         $this->eventDispatcher = $container->get('event_dispatcher');
         $this->container = $container;
         $this->alias = $alias;

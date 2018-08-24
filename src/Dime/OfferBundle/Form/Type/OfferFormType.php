@@ -6,12 +6,12 @@ use Swo\CommonsBundle\Form\Type\AddressFormType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Tbbc\MoneyBundle\Form\Type\SimpleMoneyType;
 
 class OfferFormType extends AbstractType
 {
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(
             array(
@@ -37,12 +37,6 @@ class OfferFormType extends AbstractType
             ->add('fixedPrice', SimpleMoneyType::class)
             ->add('user')
             ->add('address', AddressFormType::class)
-            ->add('validTo', DateTimeType::class, array('required' => false, 'widget' => 'single_text', 'with_seconds' => false))
             ->add('offerPositions');
-    }
-
-    public function getName()
-    {
-        return 'dime_offerbundle_offerformtype';
     }
 }

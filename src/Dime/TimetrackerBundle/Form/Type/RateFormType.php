@@ -5,12 +5,12 @@ namespace Dime\TimetrackerBundle\Form\Type;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Tbbc\MoneyBundle\Form\Type\SimpleMoneyType;
 
 class RateFormType extends AbstractType
 {
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(
             array(
@@ -30,10 +30,5 @@ class RateFormType extends AbstractType
             ->add('rateUnit')
             ->add('rateValue', SimpleMoneyType::class)
             ->add('user', EntityType::class, array('class' => 'DimeTimetrackerBundle:User'));
-    }
-
-    public function getName()
-    {
-        return 'dime_timetrackerbundle_rateformtype';
     }
 }

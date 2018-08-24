@@ -46,7 +46,6 @@ class OfferControllerTest extends DimeTestCase
                 'rateGroup' => 1,
                 'customer' => 2,
                 'accountant' => 5,
-                'validTo' => '2017-02-21',
                 'fixedPrice' => '1337',
                 'status' => 1
             ))
@@ -67,7 +66,7 @@ class OfferControllerTest extends DimeTestCase
         // assert that data has content
         $this->assertEquals('Test', $data['name']);
         $this->assertEquals('Short Description', $data['shortDescription']);
-        $this->assertEquals('2017-02-21 00:00:00', $data['validTo']);
+        $this->assertEquals('Long Description', $data['description']);
 
         /* modify  */
         $response = $this->jsonRequest(
@@ -81,7 +80,6 @@ class OfferControllerTest extends DimeTestCase
                 'rateGroup' => 2,
                 //'customer' => 3, // setting customer somehow does not work
                 'accountant' => 4,
-                'validTo' => '2018-02-21',
                 'fixedPrice' => '2337',
                 'status' => 2
             ))

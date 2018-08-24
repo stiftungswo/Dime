@@ -5,11 +5,11 @@ namespace Dime\TimetrackerBundle\Form\Type;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class SettingFormType extends AbstractType
 {
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(
             array(
@@ -27,10 +27,5 @@ class SettingFormType extends AbstractType
             ->add('name')
             ->add('value')
             ->add('user', EntityType::class, array('class' => 'DimeTimetrackerBundle:User'));
-    }
-
-    public function getName()
-    {
-        return 'dime_timetrackerbundle_settingformtype';
     }
 }

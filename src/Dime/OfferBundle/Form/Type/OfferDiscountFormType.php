@@ -4,11 +4,11 @@ namespace Dime\OfferBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class OfferDiscountFormType extends AbstractType
 {
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(
             array(
@@ -29,10 +29,5 @@ class OfferDiscountFormType extends AbstractType
             ->add('user')
             ->add('offer')
         ;
-    }
-
-    public function getName()
-    {
-        return 'dime_offerbundle_offerdiscountformtype';
     }
 }
