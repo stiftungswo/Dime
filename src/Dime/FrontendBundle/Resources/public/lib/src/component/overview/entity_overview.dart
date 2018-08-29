@@ -71,12 +71,12 @@ abstract class EntityOverview<T extends Entity> implements OnActivate {
     }
 
     await this.statusservice.run(() async {
-      //We need to load the full entity instead of the placeholder it is being represented by in the overview; i.e. an [Invoice] needs its invoiceItems so we can clone them too
+      //We need to load the full entity instead of the placeholder it is being represented by in the overview;
+      // i.e. an [Invoice] needs its invoiceItems so we can clone them too
+
       T template = await this.store.one(selectedEntity.runtimeType, selectedEntity.id);
       T clone = await this.store.create(this.cEnt(entity: template));
-      if (needsmanualAdd) {
-        this.entities.add(clone);
-      }
+      this.entities.add(clone);
       await Future.wait(clone.cloneDescendantsOf(template).map(this.store.create));
     }, onError: (e, _) => print("Unable to duplicate entity ${this.type.toString()}::${selectedEntity.id} because ${e}"));
   }
