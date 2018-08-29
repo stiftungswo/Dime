@@ -283,12 +283,13 @@ class PikadayComponent implements AfterViewInit {
   @Input()
   String cssText = "";
 
+  // dateJS is a workaround for the following issue without modifying the original pikaday.js file
+  // https://github.com/dart-lang/sdk/issues/28329
   @override
   ngAfterViewInit() {
     _options.field = ref;
-    _options.onSelect = allowInterop((dateTimeOrDate) {
-      var day =
-          dateTimeOrDate is DateTime ? dateTimeOrDate : new DateTime.fromMillisecondsSinceEpoch(getPikadayMillisecondsSinceEpoch(_pikaday));
+    _options.onSelect = allowInterop((dateJS) {
+      var day = new DateTime.fromMillisecondsSinceEpoch(getPikadayMillisecondsSinceEpoch(_pikaday));
 
       if (day != _options.defaultDate) {
         _options.defaultDate = day;

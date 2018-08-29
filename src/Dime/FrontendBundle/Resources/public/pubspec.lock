@@ -392,9 +392,9 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: "682b7d2400f35d9805b3d6cde46afc188f1c6adf"
-      resolved-ref: "682b7d2400f35d9805b3d6cde46afc188f1c6adf"
-      url: "https://github.com/leftyio/pikaday-dart.git"
+      ref: master
+      resolved-ref: "0f830db77bd7b85b337097864437df180d5dc15a"
+      url: "https://github.com/stiftungswo/pikaday-dart.git"
     source: git
     version: "1.2.0+1"
   plugin:

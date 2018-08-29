@@ -11,8 +11,8 @@ dependencies:
   angular_forms: "^2.0.0"
   pikaday:
     git:
-      url: https://github.com/leftyio/pikaday-dart.git
-      ref: 682b7d2400f35d9805b3d6cde46afc188f1c6adf
+      url: https://github.com/stiftungswo/pikaday-dart.git
+      ref: master
   hammock:
     git:
         url: https://github.com/stiftungswo/hammock.git
