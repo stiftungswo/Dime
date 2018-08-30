@@ -1,7 +1,9 @@
 import 'dart:async';
 
+import 'dart:html';
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
+import 'package:angular_forms/src/directives/shared.dart' show setElementDisabled;
 
 import 'percentage_input_component.dart';
 
@@ -23,6 +25,7 @@ import 'percentage_input_component.dart';
 )
 class DiscountInputComponent implements ControlValueAccessor<num> {
   ChangeFunction<num> _onValueChange;
+  HtmlElement _element;
 
   /// DiscountInput is weird because it has two values instead of one: `value`(num) and `percentage`(bool). `value` is bound via the
   /// [ControlValueAccessor] interface and `[ngFormControl]` as usual, but since we cannot implement [ControlValueAccessor] twice,
@@ -69,6 +72,6 @@ class DiscountInputComponent implements ControlValueAccessor<num> {
 
   @override
   void onDisabledChanged(bool isDisabled) {
-    // TODO: implement onDisabledChanged
+    setElementDisabled(_element, isDisabled);
   }
 }

@@ -3,6 +3,7 @@ import 'dart:html';
 
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
+import 'package:angular_forms/src/directives/shared.dart' show setElementDisabled;
 
 import '../../model/entity_export.dart';
 import '../../pipe/dime_pipes.dart';
@@ -90,6 +91,6 @@ class TagSelectComponent implements OnInit, ControlValueAccessor<List<Tag>> {
 
   @override
   void onDisabledChanged(bool isDisabled) {
-    // TODO: implement onDisabledChanged
+    setElementDisabled(input, isDisabled);
   }
 }

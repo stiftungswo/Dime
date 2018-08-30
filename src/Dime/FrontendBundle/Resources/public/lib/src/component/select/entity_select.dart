@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:html' as dom;
 import 'dart:html';
 import 'dart:math' as math;
+import 'dart:js_util' as js_util;
 
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
@@ -137,6 +138,6 @@ abstract class EntitySelect<T extends Entity> implements OnInit, ControlValueAcc
 
   @override
   void onDisabledChanged(bool isDisabled) {
-    // TODO: implement onDisabledChanged
+    js_util.setProperty(element, 'disabled', isDisabled);
   }
 }

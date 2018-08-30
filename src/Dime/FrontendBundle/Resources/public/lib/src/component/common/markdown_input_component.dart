@@ -1,5 +1,7 @@
+import 'dart:html';
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
+import 'package:angular_forms/src/directives/shared.dart' show setElementDisabled;
 
 import '../../pipe/markdown_pipe.dart';
 
@@ -68,6 +70,7 @@ class MarkdownInputComponent implements ControlValueAccessor<String> {
   ChangeFunction<String> changeFunction;
   String currentValue;
   bool showPreview = true;
+  HtmlElement _element;
 
   @override
   void registerOnChange(ChangeFunction<String> f) {
@@ -84,6 +87,6 @@ class MarkdownInputComponent implements ControlValueAccessor<String> {
 
   @override
   void onDisabledChanged(bool isDisabled) {
-    // TODO: implement onDisabledChanged
+    setElementDisabled(_element, isDisabled);
   }
 }
