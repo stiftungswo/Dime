@@ -34,9 +34,6 @@ class InvoiceItemOverviewComponent extends EditableOverview<InvoiceItem> {
     return new InvoiceItem();
   }
 
-  @override
-  bool needsmanualAdd = true;
-
   int _invoiceId;
 
   @Input('invoice')

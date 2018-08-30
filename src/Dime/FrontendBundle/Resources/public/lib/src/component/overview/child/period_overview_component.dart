@@ -58,9 +58,6 @@ class PeriodOverviewComponent extends EditableOverview<Period> {
 
   Employee _employee;
 
-  @override
-  bool needsmanualAdd = true;
-
   @Input("employee")
   set employee(Employee employee) {
     if (this.employee != null && this.employee.id == employee.id) {

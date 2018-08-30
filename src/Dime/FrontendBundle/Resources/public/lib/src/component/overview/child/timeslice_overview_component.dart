@@ -65,9 +65,6 @@ class TimesliceOverviewComponent extends EditableOverview<Timeslice> implements 
 
   Employee get employee => this._employee;
 
-  @override
-  bool needsmanualAdd = true;
-
   List<Activity> activities = [];
   List<Employee> employees = [];
 

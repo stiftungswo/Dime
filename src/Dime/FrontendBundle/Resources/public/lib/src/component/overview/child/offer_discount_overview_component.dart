@@ -32,9 +32,6 @@ class OfferDiscountOverviewComponent extends EditableOverview<OfferDiscount> {
     return new OfferDiscount();
   }
 
-  @override
-  bool needsmanualAdd = true;
-
   int _offerId;
 
   @Input('offer')

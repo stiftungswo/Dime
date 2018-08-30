@@ -44,9 +44,6 @@ class ActivityOverviewComponent extends EditableOverview<Activity> implements On
     return new Activity();
   }
 
-  @override
-  bool needsmanualAdd = true;
-
   ///services that share a rateGroup with the [project]
   List<Service> availableServices = [];
 

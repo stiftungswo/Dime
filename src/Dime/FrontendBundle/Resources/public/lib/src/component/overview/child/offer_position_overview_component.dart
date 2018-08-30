@@ -45,9 +45,6 @@ class OfferPositionOverviewComponent extends EditableOverview<OfferPosition> imp
         "total",
       ];
 
-  @override
-  bool needsmanualAdd = true;
-
   Offer _offer;
   Offer get offer => _offer;
 

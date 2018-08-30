@@ -11,9 +11,6 @@ import '../../service/status_service.dart';
 import '../../service/user_auth_service.dart';
 
 abstract class EntityOverview<T extends Entity> implements OnActivate {
-  //TODO: this can probably be removed
-  bool needsmanualAdd = false;
-
   List<T> _entities = [];
 
   List<T> get entities => _entities;

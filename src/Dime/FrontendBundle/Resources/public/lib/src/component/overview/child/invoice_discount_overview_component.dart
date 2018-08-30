@@ -32,9 +32,6 @@ class InvoiceDiscountOverviewComponent extends EditableOverview<InvoiceDiscount>
     return new InvoiceDiscount();
   }
 
-  @override
-  bool needsmanualAdd = true;
-
   int _invoiceId;
 
   @Input('invoice')
