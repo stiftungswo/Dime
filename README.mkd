@@ -37,9 +37,13 @@ An API and open architecture will serve additional purposes:
       brew install docker-compose
       ```
 
-2. Download and install the Dart SDK (contains the compiler, package manger etc...):
+2. Install the Dart SDK through Homebrew or download the binaries on the website.
 
-    https://www.dartlang.org/install
+    https://www.dartlang.org/tools/sdk#install
+
+    ```
+    brew install dart
+    ```
 
 3. Check out the current version with all submodules
     ```
@@ -62,7 +66,7 @@ An API and open architecture will serve additional purposes:
 
 7. Start your frontend form the `src/Dime/FrontendBundle/Resources/public` directory:
 
-    `pub serve --port 7000 -DDEBUG=true --web-compiler dartdevc`
+    `pub run build_runner serve web:7000`
 
 
 7. Restore php packages in repository root directory:
@@ -80,7 +84,7 @@ An API and open architecture will serve additional purposes:
 
 10. Your app WILL crash at some point saying something along the lines of "Out of disk space, 0 bytes written". At this point, you will need to clear the cache:
 
-    `	docker exec dime rm -rf /dev/shm/dime`
+    `docker exec dime rm -rf /dev/shm/dime`
 
 ## Domain
 
