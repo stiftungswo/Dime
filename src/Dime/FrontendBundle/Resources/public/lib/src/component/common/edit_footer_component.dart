@@ -2,9 +2,7 @@ import 'package:angular/angular.dart';
 
 import '../../model/Entity.dart';
 
-@Component(
-    selector: "edit-footer",
-    template: """
+@Component(selector: "edit-footer", template: """
     <footer *ngIf="entity?.updatedAt != null">
       <div class="text-muted pull-right">
         <small>
@@ -13,8 +11,7 @@ import '../../model/Entity.dart';
         </small>
       </div>
     </footer>
-  """,
-    directives: const [CORE_DIRECTIVES])
+  """, directives: const [coreDirectives])
 class EditFooterComponent {
   @Input()
   Entity entity;

@@ -7,7 +7,7 @@ import 'package:js/js.dart';
 import 'package:pikaday/pikaday.dart';
 import 'package:pikaday/pikaday_dart_helpers.dart';
 
-import 'package:pikaday_datepicker_angular/src/conversion.dart';
+//import 'package:pikaday_datepicker_angular/src/conversion.dart'; see below
 
 /// AngularDart component wrapper around the Pikaday-js lib. You will have to
 /// link to pikaday.js (Get the latest version from it's
@@ -23,10 +23,13 @@ import 'package:pikaday_datepicker_angular/src/conversion.dart';
 @Component(
     selector: 'pikaday',
     template:
-        '<input type="text" id="{{id}}" class="{{cssClasses}}" placeholder="{{placeholder}}" [disabled]="readonly" style="{{ cssText }}">')
+        '<input type="text" #refid id="{{id}}" class="{{cssClasses}}" placeholder="{{placeholder}}" [disabled]="readonly" style="{{ cssText }}">')
 class PikadayComponent implements AfterViewInit {
   static int _componentCounter = 0;
   final String id = "pikadayInput${++_componentCounter}";
+
+  @ViewChild('refid')
+  HtmlElement ref;
 
   /// css-classes to be set on the pikaday-inputfield via <input class="{{cssClasses}}>
   @Input()
@@ -280,12 +283,13 @@ class PikadayComponent implements AfterViewInit {
   @Input()
   String cssText = "";
 
+  // dateJS is a workaround for the following issue without modifying the original pikaday.js file
+  // https://github.com/dart-lang/sdk/issues/28329
   @override
   ngAfterViewInit() {
-    _options.field = querySelector('#$id') as HtmlElement;
-    _options.onSelect = allowInterop((dateTimeOrDate) {
-      var day =
-          dateTimeOrDate is DateTime ? dateTimeOrDate : new DateTime.fromMillisecondsSinceEpoch(getPikadayMillisecondsSinceEpoch(_pikaday));
+    _options.field = ref;
+    _options.onSelect = allowInterop((dateJS) {
+      var day = new DateTime.fromMillisecondsSinceEpoch(getPikadayMillisecondsSinceEpoch(_pikaday));
 
       if (day != _options.defaultDate) {
         _options.defaultDate = day;
@@ -325,4 +329,91 @@ class PikadayComponent implements AfterViewInit {
 
     workaroundDateTimeConversionIssue(_options.defaultDate, _options.minDate, _options.maxDate);
   }
+}
+
+int intValue(intOrString) {
+  if (intOrString is int) {
+    return intOrString;
+  } else if (intOrString is String) {
+    return parseInt(intOrString);
+  } else {
+    throw new ArgumentError("parameter is neither int nor string: $intOrString");
+  }
+}
+
+int parseInt(String intStr, [int defaultValue]) {
+  int value = int.tryParse(intStr);
+  if (value == null) {
+    value = defaultValue != null ? defaultValue : throw new ArgumentError("couldn't convert to int: $intStr");
+  }
+  return value;
+}
+
+bool boolValue(boolOrString) {
+  if (boolOrString is bool) {
+    return boolOrString;
+  } else if (boolOrString is String) {
+    if (boolOrString == "true") {
+      return true;
+    } else if (boolOrString == "false") {
+      return false;
+    } else {
+      throw new FormatException("couldn't convert to bool: $boolOrString");
+    }
+  } else {
+    throw new ArgumentError("parameter is neither bool nor string: $boolOrString");
+  }
+}
+
+DateTime dayValue(dateOrString) {
+  int assertUpperBound(int upperBound, String iName, int i) {
+    if (i < 1 || i > upperBound) {
+      throw new ArgumentError("$iName has to be inbetween 1 and $upperBound but is $i");
+    }
+    return i;
+  }
+
+  if (dateOrString is DateTime) {
+    return dateOrString;
+  } else if (dateOrString is String) {
+    var yearMonthDayStr = dateOrString.split("-");
+    if (yearMonthDayStr.length == 3) {
+      try {
+        int year = parseInt(yearMonthDayStr[0]);
+        int month = assertUpperBound(12, "month", parseInt(yearMonthDayStr[1]));
+        int day = assertUpperBound(31, "day", parseInt(yearMonthDayStr[2]));
+        return new DateTime(year, month, day);
+      } catch (e) {}
+    }
+    throw new FormatException("parameter should have format YYYY-MM-DD but is: $dateOrString");
+  } else {
+    throw new ArgumentError("parameter is neither bool nor string: $dateOrString");
+  }
+}
+
+dynamic /*int/List<int>*/ yearRangeValue(obj) {
+  var year;
+  var years;
+  if (obj is int) {
+    year = obj;
+  } else if (obj is List<int>) {
+    years = obj;
+  } else if (obj is String) {
+    try {
+      year = parseInt(obj);
+    } catch (e) {
+      years = obj.split(",").map(parseInt);
+    }
+  } else {
+    throw new ArgumentError("parameter is neither int, List<int> nor string: $obj");
+  }
+
+  if (year != null) {
+    return year;
+  }
+
+  if (years.length == 2) {
+    return years;
+  }
+  throw new ArgumentError("yearRange as a List<int> should contain 2 elements but contains $years");
 }

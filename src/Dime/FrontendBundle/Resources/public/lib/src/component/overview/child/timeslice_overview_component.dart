@@ -27,7 +27,7 @@ import '../editable_overview.dart';
   selector: 'timeslice-overview',
   templateUrl: 'timeslice_overview_component.html',
   directives: const [
-    CORE_DIRECTIVES,
+    coreDirectives,
     formDirectives,
     dimeDirectives,
     UserSelectComponent,
@@ -35,12 +35,11 @@ import '../editable_overview.dart';
     ActivitySelectComponent,
     SettingEditComponent
   ],
-  pipes: const [dimePipes, TimesliceDateFilterPipe, COMMON_PIPES],
+  pipes: const [dimePipes, TimesliceDateFilterPipe, commonPipes],
 )
-class TimesliceOverviewComponent extends EditableOverview<Timeslice> {
+class TimesliceOverviewComponent extends EditableOverview<Timeslice> implements OnInit {
   @override
   List<String> get fields => const ['id', 'employee', 'activity', 'startedAt', 'value'];
-
   Employee _employee;
 
   UserContextService context;
@@ -65,9 +64,6 @@ class TimesliceOverviewComponent extends EditableOverview<Timeslice> {
   bool contextRegistered = false;
 
   Employee get employee => this._employee;
-
-  @override
-  bool needsmanualAdd = true;
 
   List<Activity> activities = [];
   List<Employee> employees = [];
@@ -174,7 +170,7 @@ class TimesliceOverviewComponent extends EditableOverview<Timeslice> {
 
   TimesliceOverviewComponent(CachingObjectStoreService store, SettingsService manager, StatusService status, this.context,
       UserAuthService auth, EntityEventsService entityEventsService, this.timetrackService, this.http, ChangeDetectorRef changeDetector)
-      : super(Timeslice, store, '', manager, status, entityEventsService, changeDetector, auth: auth);
+      : super(Timeslice, store, null, manager, status, entityEventsService, changeDetector, auth: auth);
 
   @override
   Timeslice cEnt({Timeslice entity}) {
@@ -336,10 +332,13 @@ class TimesliceOverviewComponent extends EditableOverview<Timeslice> {
   }
 
   @override
+  void onActivate(_, __); // is never called, since this component is not routable
+
+  @override
   void ngOnInit() {
     this.load();
 
-    if (this.filterStartDate.weekday != DateTime.MONDAY) {
+    if (this.filterStartDate.weekday != DateTime.monday) {
       this.filterStartDate = this.filterStartDate.subtract(new Duration(days: this.filterStartDate.weekday - 1));
     }
     this.filterStartDate = this.filterStartDate.subtract(new Duration(

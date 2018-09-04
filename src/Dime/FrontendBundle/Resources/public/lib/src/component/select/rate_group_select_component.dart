@@ -12,9 +12,9 @@ import 'entity_select.dart';
 @Component(
   selector: 'rate-group-select',
   templateUrl: 'rate_group_select_component.html',
-  directives: const [formDirectives, CORE_DIRECTIVES],
+  directives: const [formDirectives, coreDirectives],
   pipes: const [dimePipes],
-  providers: const [const Provider(NG_VALUE_ACCESSOR, useExisting: RateGroupSelectComponent, multi: true)],
+  providers: const [const ExistingProvider.forToken(ngValueAccessor, RateGroupSelectComponent, multi: true)],
 )
 class RateGroupSelectComponent extends EntitySelect<RateGroup> {
   RateGroupSelectComponent(CachingObjectStoreService store, dom.Element element, StatusService status)

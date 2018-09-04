@@ -1,7 +1,6 @@
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
 import 'package:angular_router/angular_router.dart';
-import 'package:angular_router/src/router.dart';
 
 import '../../../model/entity_export.dart';
 import '../../../pipe/dime_pipes.dart';
@@ -16,9 +15,10 @@ import '../../common/dime_directives.dart';
 import '../../customer/customer_import_export_component.dart';
 import '../../select/select.dart';
 import '../entity_overview.dart';
+import '../../main/routes.dart' as routes;
 
 @Component(selector: 'customer-overview', templateUrl: 'customer_overview_component.html', directives: const [
-  CORE_DIRECTIVES,
+  coreDirectives,
   formDirectives,
   dimeDirectives,
   TagSelectComponent,
@@ -30,8 +30,8 @@ import '../entity_overview.dart';
 ])
 class CustomerOverviewComponent extends EntityOverview<Customer> implements OnActivate {
   CustomerOverviewComponent(CachingObjectStoreService store, Router router, SettingsService manager, StatusService status,
-      UserAuthService auth, RouteParams prov, EntityEventsService entityEventsService)
-      : super(Customer, store, 'CustomerEdit', manager, status, entityEventsService, auth: auth, router: router);
+      UserAuthService auth, EntityEventsService entityEventsService)
+      : super(Customer, store, routes.CustomerEditRoute, manager, status, entityEventsService, auth: auth, router: router);
 
   static String globalFilterString = '';
   static List<Tag> filterTags = [];
@@ -39,7 +39,8 @@ class CustomerOverviewComponent extends EntityOverview<Customer> implements OnAc
   bool importExportOpen = false;
 
   @override
-  routerOnActivate(ComponentInstruction nextInstruction, ComponentInstruction prevInstruction) {
+  onActivate(_, __) {
+    super.onActivate(_, __);
     page_title.setPageTitle('Kunden');
     reload();
   }
@@ -71,7 +72,7 @@ class ProjectOverviewFilterPipe implements PipeTransform {
 
     Set<int> selectedTagIds = selectedTags.map((Tag t) => t.id as int).toSet();
 
-    Iterable<Customer> resultIterator = (value as List<Customer>);
+    Iterable<Customer> resultIterator = value.cast<Customer>();
 
     if (showOnlySystemCustomers) {
       resultIterator = resultIterator.where((Customer c) => c.systemCustomer);

@@ -12,9 +12,9 @@ import '../common/dime_directives.dart';
 @Component(
     selector: 'service-hours-report',
     templateUrl: 'service_hours_report_component.html',
-    directives: const [CORE_DIRECTIVES, dimeDirectives],
-    pipes: const [COMMON_PIPES])
-class ServiceHoursReportComponent implements OnInit, OnActivate {
+    directives: const [coreDirectives, dimeDirectives],
+    pipes: const [commonPipes])
+class ServiceHoursReportComponent implements OnActivate {
   ServiceHoursReportComponent(StatusService this.statusservice, this.http);
 
   DateTime filterStartDate;
@@ -32,15 +32,11 @@ class ServiceHoursReportComponent implements OnInit, OnActivate {
   HttpService http;
 
   @override
-  ngOnInit() {
+  onActivate(_, __) {
     DateTime now = new DateTime.now();
     this.filterStartDate = new DateTime(now.year, 1, 1);
     this.filterEndDate = new DateTime(now.year, 12, 31);
     reload();
-  }
-
-  @override
-  routerOnActivate(ComponentInstruction nextInstruction, ComponentInstruction prevInstruction) {
     page_title.setPageTitle('Servicerapport');
   }
 
@@ -53,7 +49,7 @@ class ServiceHoursReportComponent implements OnInit, OnActivate {
       this.total = null;
       await this.statusservice.run(() async {
         await http.get('reports/servicehours', queryParams: {"_format": 'json', "date": dateparams}).then((result) {
-          dynamic data = JSON.decode(result);
+          dynamic data = json.decode(result);
           window.console.log(data);
           this.entries = data['projects'] as List<dynamic>;
           this.total = data['total'] as Map<String, dynamic>;

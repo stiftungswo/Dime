@@ -23,7 +23,7 @@ import '../select/tag_select_component.dart';
 @Component(
   selector: 'customer-import-export',
   templateUrl: 'customer_import_export_component.html',
-  directives: const [CORE_DIRECTIVES, formDirectives, dimeDirectives, CopyInputComponent, RateGroupSelectComponent, TagSelectComponent],
+  directives: const [coreDirectives, formDirectives, dimeDirectives, CopyInputComponent, RateGroupSelectComponent, TagSelectComponent],
 )
 class CustomerImportExportComponent {
   @Input()
@@ -134,7 +134,7 @@ class CustomerImportExportComponent {
       csvSettingsDetector: d,
       allowInvalid: true,
     );
-    List<List<String>> rows = converter.convert(input) as List<List<String>>;
+    List<List<String>> rows = converter.convert(input).map((sublist) => sublist.cast<String>()).toList();
 
     if (rows.isNotEmpty && rows.first.isNotEmpty && rows.first.first == 'sep=') {
       // skip excel seperator mark
@@ -167,7 +167,7 @@ class CustomerImportExportComponent {
       customer.address = new Address()
         ..street = row[9]
         ..supplement = row[10]
-        ..plz = int.parse(row[11], onError: (source) => null)
+        ..plz = int.tryParse(row[11])
         ..city = row[12]
         ..country = row[13];
       return customer;
@@ -194,10 +194,10 @@ class CustomerImportExportComponent {
         };
       }).toList();
 
-      String body = JSON.encode({"customers": customers});
+      String body = json.encode({"customers": customers});
 
       String response = await http.post('customers/import/check', body: body);
-      var result = JSON.decode(response) as List<List<Map<String, dynamic>>>;
+      var result = json.decode(response) as List<List<Map<String, dynamic>>>;
       int i = 0;
       result.forEach((List<Map<String, dynamic>> row) =>
           list[i++].duplicates = row.map((Map<String, dynamic> item) => new Customer.fromMap(item)).toList());

@@ -1,7 +1,6 @@
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
 import 'package:angular_router/angular_router.dart';
-import 'package:angular_router/src/router.dart';
 import 'dart:async';
 import 'dart:html';
 
@@ -17,16 +16,18 @@ import '../../../util/page_title.dart' as page_title;
 import '../../common/dime_directives.dart';
 import '../entity_overview.dart';
 
+import '../../main/routes.dart' as routes;
+
 @Component(
   selector: 'project-overview',
   templateUrl: 'project_overview_component.html',
-  directives: const [CORE_DIRECTIVES, formDirectives, dimeDirectives],
+  directives: const [coreDirectives, formDirectives, dimeDirectives],
   pipes: const [dimePipes],
 )
 class ProjectOverviewComponent extends EntityOverview<Project> implements OnActivate {
   ProjectOverviewComponent(CachingObjectStoreService store, this.context, Router router, SettingsService manager, StatusService status,
       UserAuthService auth, EntityEventsService entityEventsService)
-      : super(Project, store, 'ProjectEdit', manager, status, entityEventsService, auth: auth, router: router) {
+      : super(Project, store, routes.ProjectEditRoute, manager, status, entityEventsService, auth: auth, router: router) {
     sortType = "id";
     sortReverse = true;
   }
@@ -55,7 +56,8 @@ class ProjectOverviewComponent extends EntityOverview<Project> implements OnActi
   }
 
   @override
-  routerOnActivate(ComponentInstruction nextInstruction, ComponentInstruction prevInstruction) {
+  onActivate(_, __) {
+    super.onActivate(_, __);
     page_title.setPageTitle('Projekte');
     reload();
   }
@@ -87,6 +89,7 @@ class ProjectOverviewComponent extends EntityOverview<Project> implements OnActi
     return true;
   }
 
+  @override
   Future reload({Map<String, dynamic> params, bool evict: false}) async {
     try {
       this.settingShowArchivedProjects = settingsManager.getOneSetting('/usr/project_overview', 'showArchivedProjects');
@@ -122,6 +125,14 @@ class ProjectOverviewComponent extends EntityOverview<Project> implements OnActi
   }
 
   bool hasActivityValue(Activity a) {
-    return num.parse(a.value.toString().replaceAll(new RegExp(r'\w'), ''), (_) => 99999) > 0;
+    num val;
+
+    try {
+      val = num.parse(a.value.toString().replaceAll(new RegExp(r'\w'), ''));
+    } catch (e) {
+      val = 99999;
+    }
+
+    return val > 0;
   }
 }

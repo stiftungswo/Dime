@@ -44,7 +44,7 @@ class SettingAssignProject extends Entity {
   void Set(String property, dynamic value) {
     switch (property) {
       case 'project':
-        this.project = value is Project ? value : new Project.fromMap(value as Map<String, dynamic>);
+        this.project = value is Project ? value : new Project.fromMap((value as Map<dynamic, dynamic>).cast<String, dynamic>());
         break;
       case 'name':
         this.name = value as String;

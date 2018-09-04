@@ -14,9 +14,9 @@ import '../select/select.dart';
 @Component(
     selector: 'project-employee-report',
     templateUrl: 'project_employee_report_component.html',
-    directives: const [CORE_DIRECTIVES, ProjectSelectComponent, dimeDirectives, formDirectives],
-    pipes: const [COMMON_PIPES])
-class ProjectemployeeReportComponent implements OnInit, OnActivate {
+    directives: const [coreDirectives, ProjectSelectComponent, dimeDirectives, formDirectives],
+    pipes: const [commonPipes])
+class ProjectemployeeReportComponent implements OnActivate {
   ProjectemployeeReportComponent(StatusService this.statusservice, HttpService this.http);
 
   Project _project;
@@ -47,12 +47,8 @@ class ProjectemployeeReportComponent implements OnInit, OnActivate {
   HttpService http;
 
   @override
-  ngOnInit() {
+  onActivate(_, __) {
     reload();
-  }
-
-  @override
-  routerOnActivate(ComponentInstruction nextInstruction, ComponentInstruction prevInstruction) {
     page_title.setPageTitle('Projektaufwände pro Person');
   }
 
@@ -73,7 +69,7 @@ class ProjectemployeeReportComponent implements OnInit, OnActivate {
         }
         await http
             .get("reports/projectemployee", queryParams: {"date": dateparams, "_format": "json", "project": project.id}).then((result) {
-          this.data = JSON.decode(result);
+          this.data = json.decode(result);
           this.entries = data['employees'];
           this.total = data['total'] as int;
         });

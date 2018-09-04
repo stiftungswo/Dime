@@ -16,12 +16,12 @@ import '../editable_overview.dart';
 @Component(
   selector: 'tag-overview',
   templateUrl: 'tag_overview_component.html',
-  directives: const [formDirectives, CORE_DIRECTIVES, dimeDirectives],
+  directives: const [formDirectives, coreDirectives, dimeDirectives],
 )
 class TagOverviewComponent extends EditableOverview<Tag> implements OnActivate {
   TagOverviewComponent(CachingObjectStoreService store, SettingsService manager, StatusService status,
       EntityEventsService entityEventsService, UserAuthService auth, ChangeDetectorRef changeDetector)
-      : super(Tag, store, '', manager, status, entityEventsService, changeDetector, auth: auth);
+      : super(Tag, store, null, manager, status, entityEventsService, changeDetector, auth: auth);
 
   @override
   List<String> get fields => const ['id', 'name'];
@@ -29,7 +29,7 @@ class TagOverviewComponent extends EditableOverview<Tag> implements OnActivate {
   String newName = '';
 
   @override
-  routerOnActivate(ComponentInstruction nextInstruction, ComponentInstruction prevInstruction) {
+  onActivate(_, __) {
     page_title.setPageTitle('Tags');
     reload();
   }

@@ -28,8 +28,7 @@ class HttpService {
       {Map<String, dynamic> queryParams = const {}, dynamic body, Map<String, String> headers = const {}}) {
     Map<String, String> requestHeaders = {}..addAll(_defaultHeaders)..addAll(headers);
 
-    return HttpRequest
-        .request(baseUrl + "/" + path + encodeQueryParams(queryParams),
+    return HttpRequest.request(baseUrl + "/" + path + encodeQueryParams(queryParams),
             method: method, sendData: body, withCredentials: true, requestHeaders: requestHeaders)
         .then((HttpRequest resp) => resp.responseText);
   }
@@ -38,7 +37,7 @@ class HttpService {
   Map<String, String> get _defaultHeaders => (injector.get(HttpDefaultHeaders) as HttpDefaultHeaders).map;
 }
 
-const httpBaseUrl = const OpaqueToken("http.base.url");
+const httpBaseUrl = const OpaqueToken<String>("http.base.url");
 
 String encodeQueryParams(Map<String, dynamic> params) {
   if (params.isEmpty) {

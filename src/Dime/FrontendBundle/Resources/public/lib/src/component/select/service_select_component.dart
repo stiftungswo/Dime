@@ -12,9 +12,9 @@ import 'entity_select.dart';
 @Component(
   selector: 'service-select',
   templateUrl: 'service_select_component.html',
-  directives: const [CORE_DIRECTIVES, formDirectives],
+  directives: const [coreDirectives, formDirectives],
   pipes: const [dimePipes],
-  providers: const [const Provider(NG_VALUE_ACCESSOR, useExisting: ServiceSelectComponent, multi: true)],
+  providers: const [const ExistingProvider.forToken(ngValueAccessor, ServiceSelectComponent, multi: true)],
 )
 class ServiceSelectComponent extends EntitySelect<Service> {
   ServiceSelectComponent(CachingObjectStoreService store, dom.Element element, StatusService status)

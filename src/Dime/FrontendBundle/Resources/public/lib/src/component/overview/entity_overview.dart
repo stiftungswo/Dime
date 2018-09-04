@@ -1,9 +1,7 @@
 import 'dart:async';
 import 'dart:html';
 
-import 'package:angular/angular.dart';
 import 'package:angular_router/angular_router.dart';
-import 'package:angular_router/src/router.dart';
 
 import '../../model/Entity.dart';
 import '../../service/caching_object_store_service.dart';
@@ -12,10 +10,7 @@ import '../../service/settings_service.dart';
 import '../../service/status_service.dart';
 import '../../service/user_auth_service.dart';
 
-abstract class EntityOverview<T extends Entity> implements OnInit {
-  //TODO: this can probably be removed
-  bool needsmanualAdd = false;
-
+abstract class EntityOverview<T extends Entity> implements OnActivate {
   List<T> _entities = [];
 
   List<T> get entities => _entities;
@@ -34,7 +29,7 @@ abstract class EntityOverview<T extends Entity> implements OnInit {
 
   EntityEventsService entityEventsService;
 
-  String routename;
+  RoutePath routename;
 
   SettingsService settingsManager;
 
@@ -73,12 +68,12 @@ abstract class EntityOverview<T extends Entity> implements OnInit {
     }
 
     await this.statusservice.run(() async {
-      //We need to load the full entity instead of the placeholder it is being represented by in the overview; i.e. an [Invoice] needs its invoiceItems so we can clone them too
+      //We need to load the full entity instead of the placeholder it is being represented by in the overview;
+      // i.e. an [Invoice] needs its invoiceItems so we can clone them too
+
       T template = await this.store.one(selectedEntity.runtimeType, selectedEntity.id);
       T clone = await this.store.create(this.cEnt(entity: template));
-      if (needsmanualAdd) {
-        this.entities.add(clone);
-      }
+      this.entities.add(clone);
       await Future.wait(clone.cloneDescendantsOf(template).map(this.store.create));
     }, onError: (e, _) => print("Unable to duplicate entity ${this.type.toString()}::${selectedEntity.id} because ${e}"));
   }
@@ -97,15 +92,12 @@ abstract class EntityOverview<T extends Entity> implements OnInit {
 
   void openEditView(int entId) {
     if (this.router != null) {
-      router.navigate([
-        this.routename,
-        {'id': entId.toString()}
-      ]);
+      router.navigate(this.routename.toUrl(parameters: {'id': entId.toString()}));
     }
   }
 
   @override
-  void ngOnInit() {}
+  void onActivate(_, __) {}
 
   /**
    * for usage in templates; can't use named parameters in templates
@@ -120,7 +112,7 @@ abstract class EntityOverview<T extends Entity> implements OnInit {
       if (evict) {
         await this.store.evict(this.type);
       }
-      this.entities = (await this.store.list(this.type, params: params)).toList() as List<T>;
+      this.entities = (await this.store.list(this.type, params: params)).toList().cast();
     }, onError: (e, _) => print("Unable to load ${this.type.toString()} because ${e}"));
   }
 

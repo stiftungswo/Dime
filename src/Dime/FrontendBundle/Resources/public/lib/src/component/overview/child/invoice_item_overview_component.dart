@@ -15,13 +15,13 @@ import '../editable_overview.dart';
 @Component(
   selector: 'invoice-item-overview',
   templateUrl: 'invoice_item_overview_component.html',
-  directives: const [CORE_DIRECTIVES, formDirectives, dimeDirectives],
+  directives: const [coreDirectives, formDirectives, dimeDirectives],
   pipes: const [OrderByPipe],
 )
 class InvoiceItemOverviewComponent extends EditableOverview<InvoiceItem> {
   InvoiceItemOverviewComponent(CachingObjectStoreService store, SettingsService manager, StatusService status,
       EntityEventsService entityEventsService, ChangeDetectorRef changeDetector)
-      : super(InvoiceItem, store, '', manager, status, entityEventsService, changeDetector);
+      : super(InvoiceItem, store, null, manager, status, entityEventsService, changeDetector);
 
   @override
   List<String> get fields => const ['id', 'order', 'name', 'rateValue', 'rateUnit', 'amount', 'vat', 'total'];
@@ -33,9 +33,6 @@ class InvoiceItemOverviewComponent extends EditableOverview<InvoiceItem> {
     }
     return new InvoiceItem();
   }
-
-  @override
-  bool needsmanualAdd = true;
 
   int _invoiceId;
 

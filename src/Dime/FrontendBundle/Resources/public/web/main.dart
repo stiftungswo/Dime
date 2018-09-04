@@ -1,42 +1,44 @@
 import 'dart:html';
-import 'package:DimeClient/src/service/http_service.dart';
-import 'package:DimeClient/src/util/sentry.dart';
 import 'package:angular/angular.dart';
 import 'package:angular_router/angular_router.dart';
 import 'package:angular_forms/angular_forms.dart';
 import 'package:hammock/hammock.dart';
 import 'package:DimeClient/dime_client.dart';
 import 'package:logging/logging.dart';
+import 'package:DimeClient/src/component/main/app_component.template.dart' as ng;
+import 'main.template.dart' as self;
+
+const isRelease = const bool.fromEnvironment("RELEASE");
+const dimeProviders = const [
+  routerProviders,
+  FORM_PROVIDERS,
+  hammockProviders,
+  const ClassProvider(ExceptionHandler, useClass: SentryLoggingExceptionHandler),
+  const FactoryProvider(SentryLogger, getSentry, deps: const [UserContextService]),
+  const FactoryProvider(HammockConfig, createHammockConfig, deps: const [Injector]),
+  const Provider(UserAuthService),
+  const Provider(SettingsService),
+  const Provider(UserContextService),
+  const Provider(CachingObjectStoreService),
+  const Provider(StatusService),
+  const Provider(EntityEventsService),
+  const Provider(TimetrackService),
+  const Provider(HttpService),
+  const FactoryProvider(HttpDefaultHeaders, defaultHeadersFn),
+  const FactoryProvider(LocationStrategy, locationStrategyFactory, deps: const [PlatformLocation]),
+  const FactoryProvider.forToken(httpBaseUrl, httpBaseUrlFactory),
+];
+
+@GenerateInjector(dimeProviders)
+final InjectorFactory rootInjector = self.rootInjector$Injector;
+
+httpBaseUrlFactory() => isRelease ? "${window.location.protocol}//${window.location.host}/api/v1" : "http://localhost:3000/api/v1";
+
+locationStrategyFactory(PlatformLocation l) => isRelease ? new PathLocationStrategy(l) : new HashLocationStrategy(l);
+
+defaultHeadersFn() => new HttpDefaultHeaders()..map['Content-Type'] = "application/json";
 
 void main() {
-  List<dynamic> customProviders = [
-    ROUTER_PROVIDERS,
-    FORM_PROVIDERS,
-  ];
-
-  customProviders.addAll(Hammock.getProviders() as List<Provider>);
-  customProviders.add(provide(ExceptionHandler, useClass: SentryLoggingExceptionHandler));
-  customProviders.add(provide(SentryLogger, useFactory: getSentry, deps: const [UserContextService]));
-  customProviders.add(provide(HammockConfig, useFactory: createHammockConfig, deps: const [Injector]));
-  customProviders.add(provide(UserAuthService));
-  customProviders.add(provide(SettingsService));
-  customProviders.add(provide(UserContextService));
-  customProviders.add(provide(CachingObjectStoreService));
-  customProviders.add(provide(StatusService));
-  customProviders.add(provide(EntityEventsService));
-  customProviders.add(provide(TimetrackService));
-  customProviders.add(provide(HttpService));
-  customProviders.add(provide(HttpDefaultHeaders, useFactory: () {
-    return new HttpDefaultHeaders()..map['Content-Type'] = "application/json";
-  }));
-
-  if (const bool.fromEnvironment("DEBUG")) {
-    customProviders.add(provide(LocationStrategy, useClass: HashLocationStrategy));
-    customProviders.add(provide(httpBaseUrl, useValue: "http://localhost:3000/api/v1"));
-  } else {
-    customProviders.add(provide(httpBaseUrl, useValue: "${window.location.protocol}//${window.location.host}/api/v1"));
-  }
-
   Logger.root.onRecord.listen((LogRecord rec) {
     if (rec.level >= Level.WARNING) {
       window.console.error('${rec.level.name}: ${rec.time}: ${rec.message}');
@@ -45,5 +47,5 @@ void main() {
     }
   });
 
-  bootstrap(AppComponent, customProviders);
+  runApp<AppComponent>(ng.AppComponentNgFactory, createInjector: rootInjector);
 }

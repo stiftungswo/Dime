@@ -39,7 +39,7 @@ class Employee extends User {
   void Set(String property, dynamic value) {
     switch (property) {
       case 'workingPeriods':
-        this.workingPeriods = Period.listFromResource(value as List<Map<String, dynamic>>);
+        this.workingPeriods = Period.listFromResource((value as List<dynamic>).cast());
         break;
       case 'realTime':
         this.realTime = value as num;

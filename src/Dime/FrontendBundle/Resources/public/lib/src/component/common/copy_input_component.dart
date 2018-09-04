@@ -13,17 +13,17 @@ import 'package:angular/angular.dart';
       </span>
     </div>
   """,
-  directives: const [CORE_DIRECTIVES],
+  directives: const [coreDirectives],
 )
 class CopyInputComponent {
   @Input()
   String text = '';
 
   @ViewChild('input')
-  ElementRef input;
+  HtmlElement input;
 
   bool copy() {
-    var element = input.nativeElement;
+    InputElement element = input as InputElement;
     element.focus();
     element.select();
 

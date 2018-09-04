@@ -18,17 +18,18 @@ import 'entity_edit.dart';
 @Component(
   selector: 'customer-edit',
   templateUrl: 'customer_edit_component.html',
-  directives: const [CORE_DIRECTIVES, formDirectives, dimeDirectives, RateGroupSelectComponent, AddressEditComponent, TagSelectComponent],
+  directives: const [coreDirectives, formDirectives, dimeDirectives, RateGroupSelectComponent, AddressEditComponent, TagSelectComponent],
 )
 class CustomerEditComponent extends EntityEdit<Customer> {
   List<RateGroup> rateGroups;
 
-  CustomerEditComponent(RouteParams routeProvider, CachingObjectStoreService store, StatusService status, UserAuthService auth,
-      Router router, EntityEventsService entityEventsService)
-      : super(routeProvider, store, Customer, status, auth, router, entityEventsService);
+  CustomerEditComponent(
+      CachingObjectStoreService store, StatusService status, UserAuthService auth, Router router, EntityEventsService entityEventsService)
+      : super(store, Customer, status, auth, router, entityEventsService);
 
   @override
-  void ngOnInit() {
+  void onActivate(_, current) {
+    super.onActivate(_, current);
     loadRateGroups();
     reload();
   }

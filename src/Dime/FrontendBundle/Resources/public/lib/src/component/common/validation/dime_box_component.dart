@@ -4,9 +4,7 @@ import 'package:angular_forms/angular_forms.dart';
 /// This component can display validation errors from its boxBody.
 ///
 /// Be sure to wrap the content in an [ngControlGroup]
-@Component(
-    selector: "dime-box",
-    template: """
+@Component(selector: "dime-box", template: """
     <div class="box box-primary" [class.box-danger]="control != null && !control.valid">
       <div class="box-header with-border">
         <h3 class="box-title">{{label}}</h3>
@@ -27,8 +25,7 @@ import 'package:angular_forms/angular_forms.dart';
         <ng-content select='[boxFooter]'></ng-content>
       </div>
     </div>
-  """,
-    directives: const [CORE_DIRECTIVES])
+  """, directives: const [coreDirectives])
 class DimeBoxComponent {
   @ContentChild(NgControlGroup)
   NgControlGroup control;

@@ -35,7 +35,7 @@
       </dime-form-group>
       <dime-form-group horizontal label="Tarif Gruppe">
         <rate-group-select required ngControl="rateGroup"
-                          [(ngModel)]="entity.rateGroup" (ngModelChange)="addSaveField('rateGroup')"></rate-group-select>
+                          [ngModel]="entity.rateGroup" (ngModelChange)="entity.rateGroup=$event;addSaveField('rateGroup')"></rate-group-select>
       </dime-form-group>
       <dime-form-group horizontal class="checkbox">
           <label>

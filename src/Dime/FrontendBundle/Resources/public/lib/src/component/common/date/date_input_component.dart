@@ -3,14 +3,15 @@ import 'dart:html';
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
 import 'package:pikaday/pikaday.dart';
+import 'package:angular_forms/src/directives/shared.dart' show setElementDisabled;
 
 import 'pikaday_component.dart';
 
 @Component(
   selector: 'date-input',
   templateUrl: 'date_input_component.html',
-  directives: const [CORE_DIRECTIVES, formDirectives, PikadayComponent],
-  providers: const [const Provider(NG_VALUE_ACCESSOR, useExisting: DateInputComponent, multi: true)],
+  directives: const [coreDirectives, formDirectives, PikadayComponent],
+  providers: const [const ExistingProvider.forToken(ngValueAccessor, DateInputComponent, multi: true)],
 )
 class DateInputComponent implements ControlValueAccessor<DateTime>, OnChanges, AfterViewInit {
   DateTime date;
@@ -31,7 +32,7 @@ class DateInputComponent implements ControlValueAccessor<DateTime>, OnChanges, A
 
   InputElement pikadayInput;
 
-  get pikadayI18n => new PikadayI18nConfig(
+  PikadayI18nConfig get pikadayI18n => new PikadayI18nConfig(
       previousMonth: 'Letzer Monat',
       nextMonth: 'Nächster Monat',
       months: ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'],
@@ -109,5 +110,10 @@ class DateInputComponent implements ControlValueAccessor<DateTime>, OnChanges, A
   @override
   void writeValue(DateTime obj) {
     date = obj;
+  }
+
+  @override
+  void onDisabledChanged(bool isDisabled) {
+    setElementDisabled(pikadayInput, isDisabled);
   }
 }

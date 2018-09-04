@@ -26,19 +26,19 @@
             </dime-form-group>
             <dime-form-group horizontal label="Kunde">
               <customer-select required ngControl="customer"
-                               [(ngModel)]="entity.customer" (ngModelChange)="addSaveField('customer')"></customer-select>
+                               [ngModel]="entity.customer" (ngModelChange)="entity.customer=$event;addSaveField('customer')"></customer-select>
             </dime-form-group>
             <dime-form-group horizontal label="Verantwortlicher Mitarbeiter">
               <user-select required ngControl="accountant"
-                           [(ngModel)]="entity.accountant" (ngModelChange)="addSaveField('accountant')"></user-select>
+                           [ngModel]="entity.accountant" (ngModelChange)="entity.accountant=$event;addSaveField('accountant')"></user-select>
             </dime-form-group>
             <dime-form-group horizontal label="Startdatum">
               <date-input required ngControl="start"
-                          [(ngModel)]="entity.start" (ngModelChange)="addSaveField('start')"></date-input>
+                          [ngModel]="entity.start" (ngModelChange)="entity.start=$event;addSaveField('start')"></date-input>
             </dime-form-group>
             <dime-form-group horizontal label="Enddatum">
               <date-input required ngControl="end"
-                          [(ngModel)]="entity.end" (ngModelChange)="addSaveField('end')"></date-input>
+                          [ngModel]="entity.end" (ngModelChange)="entity.end=$event;addSaveField('end')"></date-input>
             </dime-form-group>
           </div>
           <dime-form-group label="Beschreibung">

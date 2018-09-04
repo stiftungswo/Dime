@@ -30,12 +30,12 @@ class WeekReportDayEntry {
 @Component(
     selector: 'timeslice-weeklyreport',
     templateUrl: 'timeslice_weekly_report_component.html',
-    directives: const [CORE_DIRECTIVES, formDirectives, dimeDirectives],
-    pipes: const [COMMON_PIPES])
+    directives: const [coreDirectives, formDirectives, dimeDirectives, formDirectives],
+    pipes: const [commonPipes])
 class TimesliceWeeklyReportComponent extends EntityOverview<ExpenseReport> implements OnActivate {
   TimesliceWeeklyReportComponent(CachingObjectStoreService store, SettingsService manager, StatusService status, UserAuthService auth,
       EntityEventsService entityEventsService, this.http)
-      : super(ExpenseReport, store, '', manager, status, entityEventsService, auth: auth);
+      : super(ExpenseReport, store, null, manager, status, entityEventsService, auth: auth);
 
   HttpService http;
 
@@ -54,8 +54,13 @@ class TimesliceWeeklyReportComponent extends EntityOverview<ExpenseReport> imple
   ExpenseReport report;
 
   @override
-  routerOnActivate(ComponentInstruction nextInstruction, ComponentInstruction prevInstruction) {
+  onActivate(_, __) {
     page_title.setPageTitle('Wochenrapport');
+    if (this.filterStartDate.weekday != DateTime.monday) {
+      this.filterStartDate = this.filterStartDate.subtract(new Duration(days: this.filterStartDate.weekday - 1));
+    }
+    this.filterEndDate = this.filterStartDate.add(new Duration(days: 7));
+    super.onActivate(null, null);
   }
 
   @override
@@ -115,15 +120,6 @@ class TimesliceWeeklyReportComponent extends EntityOverview<ExpenseReport> imple
       return true;
     }
     return false;
-  }
-
-  @override
-  void ngOnInit() {
-    if (this.filterStartDate.weekday != DateTime.MONDAY) {
-      this.filterStartDate = this.filterStartDate.subtract(new Duration(days: this.filterStartDate.weekday - 1));
-    }
-    this.filterEndDate = this.filterStartDate.add(new Duration(days: 7));
-    super.ngOnInit();
   }
 
   @override

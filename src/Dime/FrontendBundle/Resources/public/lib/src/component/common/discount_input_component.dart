@@ -1,7 +1,9 @@
 import 'dart:async';
 
+import 'dart:html';
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
+import 'package:angular_forms/src/directives/shared.dart' show setElementDisabled;
 
 import 'percentage_input_component.dart';
 
@@ -18,11 +20,12 @@ import 'percentage_input_component.dart';
       </div>
     </div>
   """,
-  directives: const [formDirectives, CORE_DIRECTIVES, PercentageInputComponent],
-  providers: const [const Provider(NG_VALUE_ACCESSOR, useExisting: DiscountInputComponent, multi: true)],
+  directives: const [formDirectives, coreDirectives, PercentageInputComponent],
+  providers: const [const ExistingProvider.forToken(ngValueAccessor, DiscountInputComponent, multi: true)],
 )
 class DiscountInputComponent implements ControlValueAccessor<num> {
   ChangeFunction<num> _onValueChange;
+  HtmlElement _element;
 
   /// DiscountInput is weird because it has two values instead of one: `value`(num) and `percentage`(bool). `value` is bound via the
   /// [ControlValueAccessor] interface and `[ngFormControl]` as usual, but since we cannot implement [ControlValueAccessor] twice,
@@ -65,5 +68,10 @@ class DiscountInputComponent implements ControlValueAccessor<num> {
   @override
   void writeValue(num val) {
     this.value = val;
+  }
+
+  @override
+  void onDisabledChanged(bool isDisabled) {
+    setElementDisabled(_element, isDisabled);
   }
 }

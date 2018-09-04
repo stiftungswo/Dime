@@ -10,7 +10,7 @@ import 'entity_edit.dart';
 @Component(
     selector: 'address-edit',
     templateUrl: 'address_edit_component.html',
-    directives: const [CORE_DIRECTIVES, formDirectives, dimeDirectives])
+    directives: const [coreDirectives, formDirectives, dimeDirectives])
 class AddressEditComponent extends EntityEdit<Address> {
   AddressEditComponent() : super.Child(Address);
 

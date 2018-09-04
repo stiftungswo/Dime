@@ -36,10 +36,10 @@ class ExpenseReport extends Entity {
   void Set(String property, dynamic value) {
     switch (property) {
       case 'timeslices':
-        this.timeslices = Timeslice.listFromMap(value as List<Map<String, dynamic>>);
+        this.timeslices = Timeslice.listFromMap((value as List<dynamic>).cast());
         break;
       case 'comments':
-        this.comments = (value as List<Map<String, dynamic>>).map((e) => new ProjectComment.fromMap(e)).toList();
+        this.comments = (value as List<dynamic>).cast<Map<String, dynamic>>().map((e) => new ProjectComment.fromMap(e)).toList();
         break;
       case 'totalHours':
         this.totalHours = value;
@@ -48,7 +48,7 @@ class ExpenseReport extends Entity {
         this.user = value as User;
         break;
       case 'project':
-        this.project = value is Project ? value : new Project.fromMap(value as Map<String, dynamic>);
+        this.project = value is Project ? value : new Project.fromMap((value as Map<dynamic, dynamic>).cast<String, dynamic>());
         break;
       default:
         super.Set(property, value);

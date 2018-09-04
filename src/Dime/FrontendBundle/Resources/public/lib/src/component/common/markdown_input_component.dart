@@ -1,5 +1,7 @@
+import 'dart:html';
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
+import 'package:angular_forms/src/directives/shared.dart' show setElementDisabled;
 
 import '../../pipe/markdown_pipe.dart';
 
@@ -54,20 +56,21 @@ import '../../pipe/markdown_pipe.dart';
   """
   ],
   directives: const [
-    CORE_DIRECTIVES,
+    coreDirectives,
     formDirectives,
   ],
   pipes: const [
     MarkdownPipe,
   ],
   providers: const [
-    const Provider(NG_VALUE_ACCESSOR, useExisting: MarkdownInputComponent, multi: true),
+    const ExistingProvider.forToken(ngValueAccessor, MarkdownInputComponent, multi: true),
   ],
 )
 class MarkdownInputComponent implements ControlValueAccessor<String> {
   ChangeFunction<String> changeFunction;
   String currentValue;
   bool showPreview = true;
+  HtmlElement _element;
 
   @override
   void registerOnChange(ChangeFunction<String> f) {
@@ -80,5 +83,10 @@ class MarkdownInputComponent implements ControlValueAccessor<String> {
   @override
   void writeValue(String obj) {
     currentValue = obj;
+  }
+
+  @override
+  void onDisabledChanged(bool isDisabled) {
+    setElementDisabled(_element, isDisabled);
   }
 }

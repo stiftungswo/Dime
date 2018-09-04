@@ -16,13 +16,13 @@ import '../editable_overview.dart';
 @Component(
   selector: 'offer-position-overview',
   templateUrl: 'offer_position_overview_component.html',
-  directives: const [CORE_DIRECTIVES, formDirectives, dimeDirectives, RateUnitTypeSelectComponent, ServiceSelectComponent],
+  directives: const [coreDirectives, formDirectives, dimeDirectives, RateUnitTypeSelectComponent, ServiceSelectComponent],
   pipes: const [OrderByPipe],
 )
-class OfferPositionOverviewComponent extends EditableOverview<OfferPosition> {
+class OfferPositionOverviewComponent extends EditableOverview<OfferPosition> implements OnInit {
   OfferPositionOverviewComponent(CachingObjectStoreService store, SettingsService manager, StatusService status,
       EntityEventsService entityEventsService, ChangeDetectorRef changeDetector)
-      : super(OfferPosition, store, '', manager, status, entityEventsService, changeDetector);
+      : super(OfferPosition, store, null, manager, status, entityEventsService, changeDetector);
 
   @override
   OfferPosition cEnt({OfferPosition entity}) {
@@ -44,9 +44,6 @@ class OfferPositionOverviewComponent extends EditableOverview<OfferPosition> {
         "vat",
         "total",
       ];
-
-  @override
-  bool needsmanualAdd = true;
 
   Offer _offer;
   Offer get offer => _offer;
@@ -78,6 +75,9 @@ class OfferPositionOverviewComponent extends EditableOverview<OfferPosition> {
       newService = availableServices.first;
     }
   }
+
+  @override
+  void onActivate(_, __); // is never called, since this component is not routable
 
   @override
   void ngOnInit() {

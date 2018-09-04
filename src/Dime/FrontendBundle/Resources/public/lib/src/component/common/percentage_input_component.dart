@@ -1,5 +1,7 @@
+import 'dart:html';
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
+import 'package:angular_forms/src/directives/shared.dart' show setElementDisabled;
 
 @Component(
   selector: "percentage-input",
@@ -10,10 +12,11 @@ import 'package:angular_forms/angular_forms.dart';
     </div>
     <input *ngIf="!showAddon" type="text" [(ngModel)]="text" (change)="onChange()" class="form-control" aria-label="...">
   """,
-  directives: const [formDirectives, CORE_DIRECTIVES],
-  providers: const [const Provider(NG_VALUE_ACCESSOR, useExisting: PercentageInputComponent, multi: true)],
+  directives: const [formDirectives, coreDirectives],
+  providers: const [const ExistingProvider.forToken(ngValueAccessor, PercentageInputComponent, multi: true)],
 )
 class PercentageInputComponent implements ControlValueAccessor<double> {
+  HtmlElement _element;
   String text = '';
 
   @Input()
@@ -49,7 +52,7 @@ class PercentageInputComponent implements ControlValueAccessor<double> {
     if (percentage == null || percentage == '') {
       return null;
     }
-    var parsed = double.parse(percentage, (_) => null);
+    var parsed = double.tryParse(percentage);
 
     if (parsed == null) {
       return null;
@@ -68,5 +71,10 @@ class PercentageInputComponent implements ControlValueAccessor<double> {
   @override
   void writeValue(double val) {
     model = val;
+  }
+
+  @override
+  void onDisabledChanged(bool isDisabled) {
+    setElementDisabled(_element, isDisabled);
   }
 }

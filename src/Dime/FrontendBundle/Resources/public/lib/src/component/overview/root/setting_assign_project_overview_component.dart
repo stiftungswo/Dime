@@ -14,6 +14,7 @@ import '../../../util/page_title.dart' as page_title;
 import '../../common/dime_directives.dart';
 import '../../select/select.dart';
 import '../entity_overview.dart';
+import 'package:angular_router/angular_router.dart';
 
 /// In this view, projects can be connected with certain keys. (There's currently only one that is relevant)
 ///   "Ferien": The project assigned with this key will be the one that is accounted for vacation time in [PeriodOverviewComponent]
@@ -28,9 +29,9 @@ import '../entity_overview.dart';
 @Component(
   selector: 'setting-assign-project-overview',
   templateUrl: 'setting_assign_project_overview_component.html',
-  directives: const [CORE_DIRECTIVES, formDirectives, dimeDirectives, ProjectSelectComponent],
+  directives: const [coreDirectives, formDirectives, dimeDirectives, ProjectSelectComponent],
 )
-class SettingAssignProjectOverviewComponent extends EntityOverview<SettingAssignProject> implements OnInit {
+class SettingAssignProjectOverviewComponent extends EntityOverview<SettingAssignProject> implements OnActivate {
   UserContextService context;
 
   List<SettingAssignProject> projectAssignments = [];
@@ -47,7 +48,7 @@ class SettingAssignProjectOverviewComponent extends EntityOverview<SettingAssign
 
   SettingAssignProjectOverviewComponent(CachingObjectStoreService store, SettingsService manager, StatusService status, this.context,
       UserAuthService auth, EntityEventsService entityEventsService)
-      : super(SettingAssignProject, store, '', manager, status, entityEventsService, auth: auth);
+      : super(SettingAssignProject, store, null, manager, status, entityEventsService, auth: auth);
 
   @override
   SettingAssignProject cEnt({SettingAssignProject entity}) {
@@ -58,7 +59,7 @@ class SettingAssignProjectOverviewComponent extends EntityOverview<SettingAssign
   }
 
   @override
-  void ngOnInit() {
+  void onActivate(_, __) {
     this.load();
   }
 
@@ -68,27 +69,29 @@ class SettingAssignProjectOverviewComponent extends EntityOverview<SettingAssign
   }
 
   Future load() async {
-    List<Setting> projectAssignmentSettings = [];
-    this.projectAssignments = [];
-    try {
-      projectAssignmentSettings = await settingsManager.getSettings('/etc/projectassignments', system: true);
-    } catch (e) {
-      projectAssignmentSettings = await settingsManager.getSettings('/etc/projectassignments', system: true);
-    }
-    this.projects = await this.store.list(Project);
-
-    for (Setting projectAssignmentSetting in projectAssignmentSettings) {
-      SettingAssignProject settingAssignProject = new SettingAssignProject();
-      if (projectAssignmentSetting.value != null) {
-        Project projectFromSettingValue = projects.singleWhere((Project p) => p.alias == projectAssignmentSetting.value);
-        settingAssignProject.project = projectFromSettingValue;
+    await this.statusservice.run(() async {
+      List<Setting> projectAssignmentSettings = [];
+      this.projectAssignments = [];
+      try {
+        projectAssignmentSettings = await settingsManager.getSettings('/etc/projectassignments', system: true);
+      } catch (e) {
+        projectAssignmentSettings = await settingsManager.getSettings('/etc/projectassignments', system: true);
       }
-      settingAssignProject.id = projectAssignmentSetting.id;
-      settingAssignProject.name = projectAssignmentSetting.name;
+      this.projects = await this.store.list(Project);
 
-      this.projectAssignments.add(settingAssignProject);
-    }
-    page_title.setPageTitle('Projekte zuweisen');
+      for (Setting projectAssignmentSetting in projectAssignmentSettings) {
+        SettingAssignProject settingAssignProject = new SettingAssignProject();
+        if (projectAssignmentSetting.value != null) {
+          Project projectFromSettingValue = projects.singleWhere((Project p) => p.alias == projectAssignmentSetting.value);
+          settingAssignProject.project = projectFromSettingValue;
+        }
+        settingAssignProject.id = projectAssignmentSetting.id;
+        settingAssignProject.name = projectAssignmentSetting.name;
+
+        this.projectAssignments.add(settingAssignProject);
+      }
+      page_title.setPageTitle('Projekte zuweisen');
+    });
   }
 
   @override

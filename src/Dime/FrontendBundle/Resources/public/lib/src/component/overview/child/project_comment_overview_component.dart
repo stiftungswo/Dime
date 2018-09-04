@@ -17,12 +17,12 @@ import '../editable_overview.dart';
 @Component(
     selector: 'project-comment-overview',
     templateUrl: 'project_comment_overview_component.html',
-    directives: const [CORE_DIRECTIVES, formDirectives, dimeDirectives],
+    directives: const [coreDirectives, formDirectives, dimeDirectives],
     pipes: const [dimePipes])
-class ProjectCommentOverviewComponent extends EditableOverview<ProjectComment> implements OnDestroy {
+class ProjectCommentOverviewComponent extends EditableOverview<ProjectComment> implements OnInit, OnDestroy {
   ProjectCommentOverviewComponent(CachingObjectStoreService store, SettingsService manager, StatusService status, UserAuthService auth,
       EntityEventsService entityEventsService, this.timetrackService, ChangeDetectorRef changeDetector)
-      : super(ProjectComment, store, '', manager, status, entityEventsService, changeDetector, auth: auth);
+      : super(ProjectComment, store, null, manager, status, entityEventsService, changeDetector, auth: auth);
 
   @override
   List<String> get fields => const ['id', 'date', 'comment'];
@@ -78,6 +78,9 @@ class ProjectCommentOverviewComponent extends EditableOverview<ProjectComment> i
   }
 
   @override
+  void onActivate(_, __); // is never called, since this component is not routable (thats why we have ngOnInit here)
+
+  @override
   void ngOnInit() {
     subscriptions.add(timetrackService.projectSelect.stream.listen((project) {
       selectedProject = project;
@@ -104,7 +107,7 @@ class ProjectCommentOverviewComponent extends EditableOverview<ProjectComment> i
   List<AbstractControl> get filteredComments {
     // this fixes excluding comments with dates almost the same as the filters
     Duration extension = new Duration(seconds: 2);
-    return (controls as List<ControlGroup>)
+    return (controls)
         .where((ControlGroup comment) =>
             getDate(comment).isAfter(filterStartDate.subtract(extension)) && getDate(comment).isBefore(filterEndDate.add(extension)))
         .toList();

@@ -18,18 +18,19 @@ import '../editable_overview.dart';
 @Component(
   selector: 'rate-unit-type-overview',
   templateUrl: 'rate_unit_type_overview_component.html',
-  directives: const [formDirectives, CORE_DIRECTIVES, dimeDirectives, SettingEditComponent],
+  directives: const [formDirectives, coreDirectives, dimeDirectives, SettingEditComponent],
 )
 class RateUnitTypeOverviewComponent extends EditableOverview<RateUnitType> implements OnActivate {
   RateUnitTypeOverviewComponent(CachingObjectStoreService store, SettingsService manager, StatusService status,
       EntityEventsService entityEventsService, UserAuthService auth, ChangeDetectorRef changeDetector)
-      : super(RateUnitType, store, '', manager, status, entityEventsService, changeDetector, auth: auth);
+      : super(RateUnitType, store, null, manager, status, entityEventsService, changeDetector, auth: auth);
 
   @override
   List<String> get fields => const ['id', 'name', 'factor', 'scale', 'roundMode', 'symbol', 'doTransform'];
 
   @override
-  routerOnActivate(ComponentInstruction nextInstruction, ComponentInstruction prevInstruction) {
+  onActivate(_, __) {
+    super.onActivate(_, __);
     page_title.setPageTitle('Tarif Typen');
     reload();
   }

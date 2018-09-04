@@ -15,13 +15,13 @@ import '../editable_overview.dart';
 @Component(
   selector: 'invoice-costgroup-overview',
   templateUrl: 'invoice_costgroup_overview_component.html',
-  directives: const [CORE_DIRECTIVES, formDirectives, dimeDirectives, CostgroupSelectComponent],
+  directives: const [coreDirectives, formDirectives, dimeDirectives, CostgroupSelectComponent],
   pipes: const [DecimalPipe],
 )
 class InvoiceCostgroupOverviewComponent extends EditableOverview<InvoiceCostgroup> {
   InvoiceCostgroupOverviewComponent(CachingObjectStoreService store, SettingsService manager, StatusService status,
       EntityEventsService entityEventsService, ChangeDetectorRef changeDetector)
-      : super(InvoiceCostgroup, store, '', manager, status, entityEventsService, changeDetector);
+      : super(InvoiceCostgroup, store, null, manager, status, entityEventsService, changeDetector);
 
   @override
   List<String> get fields => const ['id', 'weight', 'costgroup'];
@@ -58,7 +58,7 @@ class InvoiceCostgroupOverviewComponent extends EditableOverview<InvoiceCostgrou
 
   num getWeightSum() {
     if (this.entities == null) return 0;
-    List<num> weights = this.entities.map((group) => group.weight).where((weight) => weight != null).toList();
+    List<double> weights = this.entities.map((group) => group.weight).where((weight) => weight != null).toList();
     if (weights.isEmpty) {
       return 0;
     } else {

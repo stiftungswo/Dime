@@ -15,12 +15,12 @@ import '../editable_overview.dart';
 @Component(
   selector: 'rate-group-overview',
   templateUrl: 'rate_group_overview_component.html',
-  directives: const [formDirectives, CORE_DIRECTIVES, dimeDirectives],
+  directives: const [formDirectives, coreDirectives, dimeDirectives],
 )
 class RateGroupOverviewComponent extends EditableOverview<RateGroup> implements OnActivate {
   RateGroupOverviewComponent(CachingObjectStoreService store, SettingsService manager, StatusService status, UserAuthService auth,
       EntityEventsService entityEventsService, ChangeDetectorRef changeDetector)
-      : super(RateGroup, store, '', manager, status, entityEventsService, changeDetector, auth: auth);
+      : super(RateGroup, store, null, manager, status, entityEventsService, changeDetector, auth: auth);
 
   @override
   List<String> get fields => const ['id', 'name', 'description'];
@@ -34,7 +34,8 @@ class RateGroupOverviewComponent extends EditableOverview<RateGroup> implements 
   }
 
   @override
-  routerOnActivate(ComponentInstruction nextInstruction, ComponentInstruction prevInstruction) {
+  onActivate(_, __) {
+    super.onActivate(_, __);
     page_title.setPageTitle('Tarife');
     reload();
   }

@@ -79,13 +79,13 @@ class InvoiceItem extends Entity {
         this.amount = value;
         break;
       case 'activity':
-        this.activity = value is Activity ? value : new Activity.fromMap(value as Map<String, dynamic>);
+        this.activity = value is Activity ? value : new Activity.fromMap((value as Map<dynamic, dynamic>).cast<String, dynamic>());
         break;
       case 'vat':
         this.vat = value as double;
         break;
       case 'invoice':
-        this.invoice = value is Invoice ? value : new Invoice.fromMap(value as Map<String, dynamic>);
+        this.invoice = value is Invoice ? value : new Invoice.fromMap((value as Map<dynamic, dynamic>).cast<String, dynamic>());
         break;
       case 'calculatedVAT':
         this.calculatedVAT = value as String;

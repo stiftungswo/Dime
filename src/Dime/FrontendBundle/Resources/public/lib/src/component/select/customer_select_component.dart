@@ -13,9 +13,9 @@ import 'entity_select.dart';
 @Component(
   selector: 'customer-select',
   templateUrl: 'customer_select_component.html',
-  directives: const [CORE_DIRECTIVES, formDirectives],
+  directives: const [coreDirectives, formDirectives],
   pipes: const [dimePipes],
-  providers: const [const Provider(NG_VALUE_ACCESSOR, useExisting: CustomerSelectComponent, multi: true)],
+  providers: const [const ExistingProvider.forToken(ngValueAccessor, CustomerSelectComponent, multi: true)],
 )
 class CustomerSelectComponent extends EntitySelect<Customer> {
   CustomerSelectComponent(CachingObjectStoreService store, dom.Element element, StatusService status)
@@ -24,7 +24,7 @@ class CustomerSelectComponent extends EntitySelect<Customer> {
   @override
   Future reload() async {
     await this.statusservice.run(() async {
-      this.entities = (await this.store.list(Customer, params: {'systemCustomer': 1})).toList() as List<Customer>;
+      this.entities = (await this.store.list<Customer>(Customer, params: {'systemCustomer': 1})).toList();
     });
   }
 }

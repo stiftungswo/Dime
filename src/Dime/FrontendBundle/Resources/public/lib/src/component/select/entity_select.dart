@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:html' as dom;
 import 'dart:html';
 import 'dart:math' as math;
+import 'dart:js_util' as js_util;
 
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
@@ -73,7 +74,7 @@ abstract class EntitySelect<T extends Entity> implements OnInit, ControlValueAcc
       return;
     }
     await this.statusservice.run(() async {
-      this.entities = (await this.store.list(this.type)).toList() as List<T>;
+      this.entities = (await this.store.list(this.type)).toList().cast();
     });
   }
 
@@ -133,5 +134,10 @@ abstract class EntitySelect<T extends Entity> implements OnInit, ControlValueAcc
   void writeValue(T obj) {
     this._selectedEntity = obj;
     this.selector = EntText;
+  }
+
+  @override
+  void onDisabledChanged(bool isDisabled) {
+    js_util.setProperty(element, 'disabled', isDisabled);
   }
 }

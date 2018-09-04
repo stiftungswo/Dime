@@ -14,12 +14,12 @@ import '../editable_overview.dart';
 @Component(
   selector: 'invoice-discount-overview',
   templateUrl: 'discount_overview.html',
-  directives: const [CORE_DIRECTIVES, formDirectives, dimeDirectives],
+  directives: const [coreDirectives, formDirectives, dimeDirectives],
 )
 class InvoiceDiscountOverviewComponent extends EditableOverview<InvoiceDiscount> {
   InvoiceDiscountOverviewComponent(CachingObjectStoreService store, SettingsService manager, StatusService status,
       EntityEventsService entityEventsService, ChangeDetectorRef changeDetector)
-      : super(InvoiceDiscount, store, '', manager, status, entityEventsService, changeDetector);
+      : super(InvoiceDiscount, store, null, manager, status, entityEventsService, changeDetector);
 
   @override
   List<String> get fields => const ['id', 'name', 'percentage', 'value'];
@@ -31,9 +31,6 @@ class InvoiceDiscountOverviewComponent extends EditableOverview<InvoiceDiscount>
     }
     return new InvoiceDiscount();
   }
-
-  @override
-  bool needsmanualAdd = true;
 
   int _invoiceId;
 

@@ -15,7 +15,7 @@ import '../select/select.dart';
 @Component(
   selector: 'project-timetrack',
   templateUrl: 'project_timetrack_component.html',
-  directives: const [CORE_DIRECTIVES, formDirectives, ProjectSelectComponent, TimesliceOverviewComponent, dimeDirectives],
+  directives: const [coreDirectives, formDirectives, ProjectSelectComponent, TimesliceOverviewComponent, dimeDirectives],
 )
 class ProjectTimetrackComponent implements OnActivate {
   UserAuthService auth;
@@ -32,7 +32,7 @@ class ProjectTimetrackComponent implements OnActivate {
   ProjectTimetrackComponent(this.auth, this.statusservice, this.entityEventsService);
 
   @override
-  routerOnActivate(ComponentInstruction nextInstruction, ComponentInstruction prevInstruction) {
+  onActivate(_, __) {
     page_title.setPageTitle('Projekt Zeiterfassung');
   }
 }

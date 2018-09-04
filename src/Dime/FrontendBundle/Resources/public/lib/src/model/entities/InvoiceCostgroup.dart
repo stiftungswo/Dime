@@ -47,10 +47,10 @@ class InvoiceCostgroup extends Entity {
   void Set(String property, dynamic value) {
     switch (property) {
       case 'invoice':
-        this.invoice = value is Invoice ? value : new Invoice.fromMap(value as Map<String, dynamic>);
+        this.invoice = value is Invoice ? value : new Invoice.fromMap((value as Map<dynamic, dynamic>).cast<String, dynamic>());
         break;
       case 'costgroup':
-        this.costgroup = value is Costgroup ? value : new Costgroup.fromMap(value as Map<String, dynamic>);
+        this.costgroup = value is Costgroup ? value : new Costgroup.fromMap((value as Map<dynamic, dynamic>).cast<String, dynamic>());
         break;
       case 'weight':
         this.weight = value as double;

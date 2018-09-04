@@ -13,7 +13,7 @@ import 'package:angular/angular.dart';
       </span>
     </div>
   """,
-  directives: const [CORE_DIRECTIVES],
+  directives: const [coreDirectives],
 )
 class ErrorIconComponent {
   StatusService statusservice;

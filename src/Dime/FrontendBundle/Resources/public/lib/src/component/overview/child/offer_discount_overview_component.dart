@@ -14,12 +14,12 @@ import '../editable_overview.dart';
 @Component(
   selector: 'offer-discount-overview',
   templateUrl: 'discount_overview.html',
-  directives: const [CORE_DIRECTIVES, formDirectives, dimeDirectives],
+  directives: const [coreDirectives, formDirectives, dimeDirectives],
 )
 class OfferDiscountOverviewComponent extends EditableOverview<OfferDiscount> {
   OfferDiscountOverviewComponent(CachingObjectStoreService store, SettingsService manager, StatusService status,
       EntityEventsService entityEventsService, ChangeDetectorRef changeDetector)
-      : super(OfferDiscount, store, '', manager, status, entityEventsService, changeDetector);
+      : super(OfferDiscount, store, null, manager, status, entityEventsService, changeDetector);
 
   @override
   List<String> get fields => const ['id', 'name', 'percentage', 'value'];
@@ -31,9 +31,6 @@ class OfferDiscountOverviewComponent extends EditableOverview<OfferDiscount> {
     }
     return new OfferDiscount();
   }
-
-  @override
-  bool needsmanualAdd = true;
 
   int _offerId;
 

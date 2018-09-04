@@ -29,19 +29,19 @@
           </dime-form-group>
           <dime-form-group horizontal label="Kunde">
             <customer-select required ngControl="customer"
-                             [(ngModel)]="entity.customer" (ngModelChange)="entity.addFieldtoUpdate('customer')"></customer-select>
+                             [ngModel]="entity.customer" (ngModelChange)="entity.customer=$event;entity.addFieldtoUpdate('customer')"></customer-select>
           </dime-form-group>
           <dime-form-group horizontal label="Status">
             <offer-status-select required ngControl="status"
-                                [(ngModel)]="entity.status" (ngModelChange)="entity.addFieldtoUpdate('status')"></offer-status-select>
+                                [ngModel]="entity.status" (ngModelChange)="entity.status=$event;entity.addFieldtoUpdate('status')"></offer-status-select>
           </dime-form-group>
           <dime-form-group horizontal label="Verantwortlicher Mitarbeiter">
             <user-select required ngControl="accountant"
-                         [(ngModel)]="entity.accountant" (ngModelChange)="addSaveField('accountant')"></user-select>
+                         [ngModel]="entity.accountant" (ngModelChange)="entity.accountant=$event;addSaveField('accountant')"></user-select>
           </dime-form-group>
           <dime-form-group horizontal label="Tarif">
             <rate-group-select required ngControl="rateGroup"
-                              [(ngModel)]="entity.rateGroup" (ngModelChange)="addSaveField('rateGroup'); rateGroupChanged()"></rate-group-select>
+                              [ngModel]="entity.rateGroup" (ngModelChange)="entity.rateGroup=$event;addSaveField('rateGroup'); rateGroupChanged()"></rate-group-select>
           </dime-form-group>
           <h4>Addresse</h4>
           <address-edit [(address)]="entity.address" (change)="addSaveField('address')"></address-edit>
