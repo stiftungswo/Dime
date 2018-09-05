@@ -96,15 +96,6 @@ class InvoiceEditComponent extends EntityEdit<Invoice> {
     router.navigate(routes.ProjectEditRoute.toUrl(parameters: {'id': id.toString()}));
   }
 
-  Future createInvoice() async {
-    Invoice newInvoice = await this
-        .store
-        .customQueryOne<Invoice>(Invoice, new CustomRequestParams(method: 'GET', url: '${http.baseUrl}/invoices/project/${project.id}'));
-    project.invoices.add(newInvoice);
-    await this.store.evict(Invoice, true);
-    router.navigate(routes.InvoiceEditRoute.toUrl(parameters: {'id': newInvoice.id.toString()}));
-  }
-
   @override
   Future<bool> saveEntity() async {
     return super.saveEntity();

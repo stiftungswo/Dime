@@ -6,17 +6,19 @@
     <ul class="nav nav-tabs">
       <li class="active"><a data-toggle="tab">Offerte {{entity.id}}</a></li>
       <li><a data-toggle="tab" *ngIf="project != null" (click)="openProject()">Projekt {{project.id}}</a></li>
-      <li><a data-toggle="tab" *ngIf="project == null" (click)="createProject()"><i class="fa fa-fw fa-plus"></i>
-        Projekt erstellen</a></li>
+      <li>
+        <a [class.disabled]="!editform.valid" data-toggle="tab" *ngIf="project == null" (click)="createProject()">
+          <i class="fa fa-fw fa-plus"></i> Projekt erstellen
+        </a>
+      </li>
       <template [ngIf]="project != null && !project.invoices.isEmpty">
         <li *ngFor="let invoice of project.invoices">
           <a data-toggle="tab" (click)="openInvoice(invoice.id)">Rechnung {{invoice.id}}</a>
         </li>
       </template>
       <li>
-        <a data-toggle="tab" *ngIf="project != null" (click)="createInvoice()">
-          <i class="fa fa-fw fa-plus"></i>
-          Rechnung erstellen
+        <a [class.disabled]="!editform.valid" data-toggle="tab" *ngIf="project != null" (click)="createInvoice()">
+          <i class="fa fa-fw fa-plus"></i> Rechnung erstellen
         </a>
       </li>
     </ul>
