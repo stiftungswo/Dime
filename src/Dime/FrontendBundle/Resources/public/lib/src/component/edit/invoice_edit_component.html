@@ -5,14 +5,22 @@
   <div class ="nav-tabs-custom">
     <ul class="nav nav-tabs">
       <template [ngIf]="entity.project != null && !entity.project.offers.isEmpty" >
-        <li *ngFor="let offer of entity.project.offers"><a data-toggle="tab" (click)="openOffer(offer.id)">Offerte {{offer.id}}</a></li>
+        <li *ngFor="let offer of entity.project.offers">
+          <a data-toggle="tab" (click)="openOffer(offer.id)">Offerte {{offer.id}}</a>
+        </li>
       </template>
-      <li *ngIf="entity.project != null"><a data-toggle="tab" (click)="openProject()">Projekt {{entity.project.id}}</a></li>
+      <li *ngIf="entity.project != null">
+        <a data-toggle="tab" (click)="openProject()">Projekt {{entity.project.id}}</a>
+      </li>
       <template [ngIf]="project != null">
-        <li *ngFor="let invoice of project.invoices" [class.active]="invoice.id == entity.id"><a *ngIf="invoice.id == entity.id" data-toggle="tab">Rechnung {{invoice.id}}</a><a *ngIf="invoice.id != entity.id" data-toggle="tab" (click)="openInvoice(invoice.id)">Rechnung {{invoice.id}}</a></li>
+        <li *ngFor="let invoice of project.invoices" [class.active]="invoice.id == entity.id">
+          <a *ngIf="invoice.id == entity.id" data-toggle="tab">Rechnung {{invoice.id}}</a>
+          <a *ngIf="invoice.id != entity.id" data-toggle="tab" (click)="openInvoice(invoice.id)">Rechnung {{invoice.id}}</a>
+        </li>
       </template>
-      <li *ngIf="project == null" class="active"><a data-toggle="tab">Rechnung {{entity.id}}</a></li>
-      <li><a *ngIf="project != null" data-toggle="tab" (click)="createInvoice()"><i class="fa fa-fw fa-plus"></i> Rechnung erstellen</a></li>
+      <li *ngIf="project == null" class="active">
+        <a data-toggle="tab">Rechnung {{entity.id}}</a>
+      </li>
     </ul>
 
     <div class="tab-content">

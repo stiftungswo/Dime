@@ -15,7 +15,11 @@
           <a data-toggle="tab" (click)="openInvoice(invoice.id)">Rechnung {{invoice.id}}</a>
         </li>
       </template>
-      <li><a data-toggle="tab" (click)="createInvoice()"><i class="fa fa-fw fa-plus"></i> Rechnung erstellen</a></li>
+      <li>
+        <a [class.disabled]="!editform.valid" data-toggle="tab" (click)="createInvoice()">
+          <i class="fa fa-fw fa-plus"></i> Rechnung erstellen
+        </a>
+      </li>
     </ul>
 
     <div class="tab-content">

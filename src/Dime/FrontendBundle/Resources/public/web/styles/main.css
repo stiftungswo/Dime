@@ -131,6 +131,12 @@ div.dropdown input.form-control {
   padding-right: 14px;
 }
 
+a.disabled {
+    pointer-events: none;
+    cursor: default;
+    color: #999 !important;
+}
+
 
 /* Login Page */
 
@@ -286,7 +292,7 @@ a > img {
     left: 100%;
 }
 
-.nav, .pagination, .carousel, .panel-title a {
+.pagination, .carousel, .panel-title a {
     cursor: pointer;
 }
 
