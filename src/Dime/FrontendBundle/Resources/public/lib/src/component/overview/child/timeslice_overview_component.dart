@@ -371,36 +371,38 @@ class TimesliceOverviewComponent extends EditableOverview<Timeslice> implements 
   }
 
   Future load() async {
-    this.activities = await this.store.list(Activity);
-    this.employees = await this.store.list(Employee, params: {"enabled": 1});
-    this.employee = this.context.employee;
-    List<Project> projects = await this.store.list(Project);
+    await this.statusservice.run(() async {
+      this.activities = await this.store.list(Activity);
+      this.employees = await this.store.list(Employee, params: {"enabled": 1});
+      this.employee = this.context.employee;
+      List<Project> projects = await this.store.list(Project);
 
-    try {
-      this.settingselectedProject = settingsManager.getOneSetting('/usr/timeslice', 'chosenProject');
-    } catch (e) {
-      this.settingselectedProject = await settingsManager.createSetting('/usr/timeslice', 'chosenProject', '');
-    }
-    try {
-      this.selectedProject = projects.singleWhere((Project p) => p.alias == this.settingselectedProject.value);
-    } catch (e) {
-      this.selectedProject = null;
-    }
+      try {
+        this.settingselectedProject = settingsManager.getOneSetting('/usr/timeslice', 'chosenProject');
+      } catch (e) {
+        this.settingselectedProject = await settingsManager.createSetting('/usr/timeslice', 'chosenProject', '');
+      }
+      try {
+        this.selectedProject = projects.singleWhere((Project p) => p.alias == this.settingselectedProject.value);
+      } catch (e) {
+        this.selectedProject = null;
+      }
 
-    try {
-      this.settingselectedActivity = settingsManager.getOneSetting('/usr/timeslice', 'chosenActivity');
-    } catch (e) {
-      this.settingselectedActivity = await settingsManager.createSetting('/usr/timeslice', 'chosenActivity', '');
-    }
-    try {
-      this.selectedActivity = this
-          .activities
-          .singleWhere((Activity a) => a.alias == this.settingselectedActivity.value && a.project.id == this.selectedProject.id);
-    } catch (e) {
-      this.selectedActivity = null;
-    }
+      try {
+        this.settingselectedActivity = settingsManager.getOneSetting('/usr/timeslice', 'chosenActivity');
+      } catch (e) {
+        this.settingselectedActivity = await settingsManager.createSetting('/usr/timeslice', 'chosenActivity', '');
+      }
+      try {
+        this.selectedActivity = this
+            .activities
+            .singleWhere((Activity a) => a.alias == this.settingselectedActivity.value && a.project.id == this.selectedProject.id);
+      } catch (e) {
+        this.selectedActivity = null;
+      }
 
-    this.handleDates();
+      this.handleDates();
+    });
   }
 
   void toggleTimeslice(Timeslice timeslice) {
