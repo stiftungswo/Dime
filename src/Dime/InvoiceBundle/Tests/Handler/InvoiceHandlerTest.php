@@ -186,7 +186,24 @@ class InvoiceHandlerTest extends KernelTestCase
             $calculated_invoice->getEnd()
         );
 
+        /*      */
+        // it should create an invoice for the whole time span if existing invoice is missing the end date
+        $calculated_invoice->setEnd(null);
+        $this->em->persist($calculated_invoice);
+        $this->em->flush();
+
+        $new_calc = $invoice_handler->createFromProject($entities['project']);
+        $this->assertEquals(
+            $entities['timeslice']->getStartedAt(),
+            $new_calc->getStart()
+        );
+        $this->assertEquals(
+            $entities['timeslice']->getStoppedAt(),
+            $new_calc->getEnd()
+        );
+
         // remove this new invoice
+        $this->em->remove($new_calc);
         $this->em->remove($calculated_invoice);
 
         /*      */

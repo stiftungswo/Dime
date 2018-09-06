@@ -51,11 +51,12 @@ class InvoiceHandler extends GenericHandler
         $offer = $offerRepo->findOneBy(array('project' => $project->getId()));
 
         $invoice = new Invoice();
-        if ($existinginvoice instanceof Invoice) {
+        if ($existinginvoice instanceof Invoice && $existinginvoice->getEnd()) {
             //else continue to create an invoice from endate of last invoice+1day to end.
             $invoice->setStart($existinginvoice->getEnd()->addDay());
         } else {
-            //If there is no invoice for this project crate one from start till end.
+            // if there is no invoice, or an end date missing on the existing invoice,
+            // create an invoice from the first to the last timeslice
             $timerepo = $this->om->getRepository('DimeTimetrackerBundle:Timeslice');
             $timerepo->createCurrentQueryBuilder('timeslice');
             $timerepo->filter(array('project' => $project));
