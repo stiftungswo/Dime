@@ -10,12 +10,12 @@
 <table class="table table-bordered table-hover form" ngControlGroup="timeslices" #overview="ngForm">
     <thead *ngIf="entities.length > 0" >
         <tr>
-            <th style="width: 30px"></th>
+            <th style="width: 2%"></th>
             <th *ngIf="projectBased">Benutzer</th>
-            <th class="col-sm-6">Aktivität</th>
+            <th>Aktivität</th>
             <th>Datum</th>
             <th>Dauer/Anzahl</th>
-            <th width="170">Aktion</th>
+            <th width="100px">Aktionen</th>
         </tr>
     </thead>
     <tbody class="editable-overview" *ngIf="entities.length > 0" >
@@ -25,19 +25,19 @@
           [ngClass]="rowClass(c.controls['id'].value, c.valid)" >
             <td></td>
             <td *ngIf="projectBased"><user-select [ngFormControl]="c.controls['employee']" [parentEmployees]="employees" ></user-select></td>
-            <td><span>{{c.controls['activity'].value.name}}</span></td>
-            <td><span>{{c.controls['startedAt'].value | date:'dd.MM.y'}}</span></td>
+            <td>{{c.controls['activity'].value.name}}</td>
+            <td>{{c.controls['startedAt'].value | date:'dd.MM.y'}}</td>
             <td validationStatus><input required class="form-control" [ngFormControl]="c.controls['value']" /></td>
             <td>
-                <dime-button primary (click)="duplicateEntity(c.controls['id'].value)" fontAwesome="copy">Duplizieren</dime-button>
-                <dime-button (click)="deleteEntity(c.controls['id'].value)" fontAwesome="trash-o" color="red"></dime-button>
+                <dime-button primary (click)="duplicateEntity(c.controls['id'].value)" fontAwesome="copy" tooltip="Eintrag duplizieren"></dime-button>
+                <dime-button (click)="deleteEntity(c.controls['id'].value)" fontAwesome="trash-o" color="red" tooltip="Eintrag löschen"></dime-button>
             </td>
         </tr>
     </tbody>
 </table>
 <div class="DimeControlButtons container-inline">
     <div class="row form-inline">
-        <div class="col-md-3">
+        <div class="col-md-5">
             <label>Datum</label>
             <date-input withButtons [(ngModel)]="newEntryDate">
               <button class="btn" [class.btn-default]="!updateNewEntryDate" [class.btn-primary]="updateNewEntryDate"
