@@ -15,7 +15,11 @@
           <a data-toggle="tab" (click)="openInvoice(invoice.id)">Rechnung {{invoice.id}}</a>
         </li>
       </template>
-      <li><a data-toggle="tab" (click)="createInvoice()"><i class="fa fa-fw fa-plus"></i> Rechnung erstellen</a></li>
+      <li>
+        <a [class.disabled]="!editform.valid" data-toggle="tab" (click)="createInvoice()">
+          <i class="fa fa-fw fa-plus"></i> Rechnung erstellen
+        </a>
+      </li>
     </ul>
 
     <div class="tab-content">
@@ -55,7 +59,7 @@
                               (ngModelChange)="entity.rateGroup=$event; entity.addFieldtoUpdate('rateGroup'); rateGroupChanged()"></rate-group-select>
           </dime-form-group>
           <dime-form-group horizontal label="Tätigkeitsbereich">
-            <project-category-select required ngcontrol="projectCategory" #projectCategory="ngForm"
+            <project-category-select required ngControl="projectCategory"
                                     [ngModel]="entity.projectCategory"
                                     (ngModelChange)="entity.projectCategory=$event; entity.addFieldtoUpdate('projectCategory')"></project-category-select>
           </dime-form-group>
@@ -97,7 +101,6 @@
 <activity-overview [project]="entity"></activity-overview>
 <div class="DimeControlButtons">
   <save-button [valid]="editform.valid"
-               [enabled]="projectCategory.valid" disabledTooltip="Der Tätigkeitsbereich muss erfasst sein"
                (click)="saveEntity()"></save-button>
   <dime-button (click)="reloadEvict()" glyphicon="refresh"></dime-button>
 </div>

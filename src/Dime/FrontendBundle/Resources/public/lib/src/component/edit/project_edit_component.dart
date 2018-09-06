@@ -78,6 +78,9 @@ class ProjectEditComponent extends EntityEdit<Project> {
   }
 
   Future createInvoice() async {
+    if (!editform.valid) {
+      return;
+    }
     if (await saveEntity()) {
       Invoice newInvoice = await this.store.customQueryOne<Invoice>(
           Invoice, new CustomRequestParams(method: 'GET', url: '${http.baseUrl}/invoices/project/${this.entity.id}'));

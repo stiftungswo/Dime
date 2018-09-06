@@ -107,6 +107,9 @@ class OfferEditComponent extends EntityEdit<Offer> {
   }
 
   Future createProject() async {
+    if (!editform.valid) {
+      return;
+    }
     if (await saveEntity()) {
       await this.statusservice.run(() async {
         Project newProject = (await this.store.customQueryOne<Project>(
@@ -123,6 +126,9 @@ class OfferEditComponent extends EntityEdit<Offer> {
   }
 
   Future createInvoice() async {
+    if (!editform.valid) {
+      return;
+    }
     if (await saveEntity()) {
       await this.statusservice.run(() async {
         Invoice newInvoice = await this.store.customQueryOne<Invoice>(
