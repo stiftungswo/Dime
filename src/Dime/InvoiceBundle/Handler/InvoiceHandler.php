@@ -47,13 +47,6 @@ class InvoiceHandler extends GenericHandler
         $timeqb->setMaxResults(1);
         $lasttimeslice = $timeqb->getQuery()->getOneOrNullResult();
 
-        //if the enddate on the last invoice is grater or equal the Date on the Timeslice return the last invoice
-        if ($existinginvoice instanceof Invoice && $lasttimeslice instanceof Timeslice) {
-            if ($existinginvoice->getEnd()->gte($lasttimeslice->getStoppedAt())) {
-                return $existinginvoice;
-            }
-        }
-
         $offerRepo = $this->om->getRepository('DimeOfferBundle:Offer');
         $offer = $offerRepo->findOneBy(array('project' => $project->getId()));
 

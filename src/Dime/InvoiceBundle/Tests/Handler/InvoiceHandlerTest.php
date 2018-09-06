@@ -167,23 +167,12 @@ class InvoiceHandlerTest extends KernelTestCase
         $invoice_handler = $this->getInvoiceHandlerMock($entities['employee']);
 
         /*      */
-        // it should return the last invoice if there are no newer timeslices
+        // it should create an invoice for the whole time span if no other invoice is present
         $entities['timeslice']->setStartedAt(new \DateTime('2001-01-01'));
         $entities['invoice']->setStart(new \DateTime('2010-01-01'));
         $entities['invoice']->setEnd(new \DateTime('2010-02-01'));
-        $entities['invoice']->setProject($entities['project']);
-        $this->em->persist($entities['timeslice']);
-        $this->em->persist($entities['invoice']);
-        $this->em->flush();
-
-        $this->assertEquals(
-            $entities['invoice'],
-            $invoice_handler->createFromProject($entities['project'])
-        );
-
-        /*      */
-        // it should create an invoice for the whole time span if no other invoice is present
         $entities['invoice']->setProject(null);
+        $this->em->persist($entities['timeslice']);
         $this->em->persist($entities['invoice']);
         $this->em->flush();
 
