@@ -66,8 +66,12 @@ abstract class EntityEdit<T extends Entity> implements OnActivate {
       await this.statusservice.run(() async {
         this.entity = await store.update(this.entity);
       });
-      // todo maybe "await" here?
-      this.reload();
+      if (this.statusservice.getStatus() == this.statusservice.error) {
+        new Timer(const Duration(seconds: 3), () => this.reload());
+      } else {
+        // todo maybe "await" here?
+        this.reload();
+      }
     }
     return true;
   }

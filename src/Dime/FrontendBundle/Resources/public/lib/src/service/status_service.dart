@@ -100,4 +100,8 @@ class StatusService {
       numError = 0;
     }
   }
+
+  String getStatus() {
+    return status;
+  }
 }
