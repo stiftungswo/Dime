@@ -26,12 +26,12 @@ class AppKernel extends Kernel
 			new Ps\PdfBundle\PsPdfBundle(),
 			new FOS\UserBundle\FOSUserBundle(),
 			new FOS\RestBundle\FOSRestBundle(),
-			new JMS\SerializerBundle\JMSSerializerBundle($this),
+			new JMS\SerializerBundle\JMSSerializerBundle(),
 			new Nelmio\ApiDocBundle\NelmioApiDocBundle(),
 			new \Knp\JsonSchemaBundle\KnpJsonSchemaBundle(),
 			new \Swo\CommonsBundle\SwoCommonsBundle(),
 			new \Misd\PhoneNumberBundle\MisdPhoneNumberBundle(),
-			new \Tbbc\MoneyBundle\TbbcMoneyBundle(),
+			new Tbbc\MoneyBundle\TbbcMoneyBundle(),
 			
 			//Own Bundles
 			new Dime\PrintingBundle\DimePrintingBundle(),
