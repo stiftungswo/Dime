@@ -4316,12 +4316,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/stiftungswo/TbbcMoneyBundle.git",
-                "reference": "779672949c833f0deb32bfdc9d19534e8faad8aa"
+                "reference": "0802581ec04883e4a7564794afde3ff6c740680b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stiftungswo/TbbcMoneyBundle/zipball/779672949c833f0deb32bfdc9d19534e8faad8aa",
-                "reference": "779672949c833f0deb32bfdc9d19534e8faad8aa",
+                "url": "https://api.github.com/repos/stiftungswo/TbbcMoneyBundle/zipball/0802581ec04883e4a7564794afde3ff6c740680b",
+                "reference": "0802581ec04883e4a7564794afde3ff6c740680b",
                 "shasum": ""
             },
             "require": {
@@ -4387,7 +4387,7 @@
             "support": {
                 "source": "https://github.com/stiftungswo/TbbcMoneyBundle/tree/master"
             },
-            "time": "2018-09-10T11:46:11+00:00"
+            "time": "2018-09-10T13:49:14+00:00"
         },
         {
             "name": "twig/extensions",
