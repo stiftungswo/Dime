@@ -10,6 +10,7 @@ with our changes, and so we're going to have more issues.
 Because the money class is final and we don't want a fork, we add a little helper class here with a few static methods. */
 
 use Money\Money;
+use UnexpectedValueException;
 
 class DimeMoneyHelper
 {
@@ -44,5 +45,32 @@ class DimeMoneyHelper
     public static function formatWithoutCurrency(Money $money) : string
     {
         return number_format($money->getAmount()/100, 2, '.', "");
+    }
+
+    /**
+     * converts a value from a fixed discount item into a valid money object
+     *
+     * @param $value
+     * @return Money
+     * @throws UnexpectedValueException
+     */
+    public static function fixedDiscountToMoney($value) : Money
+    {
+        if (strpos($value, '.') !== false) {
+            $splittedValue = explode('.', $value, 2);
+
+            switch (strlen($splittedValue[1])) {
+                case 1:
+                    return Money::CHF(intval(str_replace('.', '', $value)) * 10);
+                    break;
+                case 2:
+                    return Money::CHF(intval(str_replace('.', '', $value)));
+                    break;
+                default:
+                    throw new UnexpectedValueException('Invalid value for fixed discount!');
+            }
+        } else {
+            return Money::CHF(intval($value) * 100);
+        }
     }
 }

@@ -40,4 +40,14 @@ class DimeMoneyHelpersTest extends TestCase
         $this->assertEquals("98765.43", DimeMoneyHelper::formatWithoutCurrency(Money::CHF(9876543)));
         $this->assertEquals("9876543.21", DimeMoneyHelper::formatWithoutCurrency(Money::CHF(987654321)));
     }
+
+    public function testFixedDiscountToMoney()
+    {
+        $this->assertEquals(Money::CHF(123000), DimeMoneyHelper::fixedDiscountToMoney((float)1230));
+        $this->assertEquals(Money::CHF(123010), DimeMoneyHelper::fixedDiscountToMoney((float)1230.1));
+        $this->assertEquals(Money::CHF(123011), DimeMoneyHelper::fixedDiscountToMoney((float)1230.11));
+
+        $this->expectException(\UnexpectedValueException::class);
+        DimeMoneyHelper::fixedDiscountToMoney((float)1230.111);
+    }
 }
