@@ -1,13 +1,12 @@
 <?php
 namespace Dime\OfferBundle\Entity;
 
-use Dime\TimetrackerBundle\Entity\Entity;
+use Swo\CommonsBundle\Entity\AbstractEntity;
 use Dime\TimetrackerBundle\Entity\Service;
 use Dime\TimetrackerBundle\Model\DimeEntityInterface;
 use Dime\TimetrackerBundle\Entity\RateUnitType;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as JMS;
-use Knp\JsonSchemaBundle\Annotations as Json;
 use Money\Money;
 
 /**
@@ -15,7 +14,7 @@ use Money\Money;
  * @ORM\Entity(repositoryClass="Dime\OfferBundle\Entity\OfferPositionRepository")
  * @ORM\HasLifecycleCallbacks()
  */
-class OfferPosition extends Entity implements DimeEntityInterface
+class OfferPosition extends AbstractEntity implements DimeEntityInterface
 {
     /**
      * @JMS\SerializedName("offer")

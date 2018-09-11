@@ -1,17 +1,18 @@
 <?php
-namespace Dime\TimetrackerBundle\Entity;
+namespace Swo\Commonsbundle\Entity;
 
 use DateTime;
+use Dime\TimetrackerBundle\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use JMS\Serializer\Annotation as JMS;
 
 /**
- * Dime\TimetrackerBundle\Entity\Entity
+ * Swo\Commonsbundle\Entity\AbstractEntity
  *
  * @ORM\HasLifecycleCallbacks()
  */
-abstract class Entity
+abstract class AbstractEntity
 {
     /**
      * @var integer $id
@@ -65,7 +66,7 @@ abstract class Entity
      * Set user
      *
      * @param  User $user
-     * @return Entity
+     * @return AbstractEntity
      */
     public function setUser(User $user)
     {

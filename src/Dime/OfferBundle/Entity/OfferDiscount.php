@@ -2,7 +2,7 @@
 
 namespace Dime\OfferBundle\Entity;
 
-use Dime\TimetrackerBundle\Entity\Entity;
+use Swo\CommonsBundle\Entity\AbstractEntity;
 use Dime\TimetrackerBundle\Model\DimeEntityInterface;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as JMS;
@@ -13,7 +13,7 @@ use Money\Money;
  * @ORM\Entity(repositoryClass="Dime\OfferBundle\Entity\OfferDiscountRepository")
  * @ORM\Table(name="offer_discounts")
  */
-class OfferDiscount extends Entity implements DimeEntityInterface
+class OfferDiscount extends AbstractEntity implements DimeEntityInterface
 {
     /**
      * @JMS\SerializedName("offer")
@@ -67,7 +67,7 @@ class OfferDiscount extends Entity implements DimeEntityInterface
      *
      * @param \Dime\OfferBundle\Entity\Offer $offer
      *
-     * @return OfferPosition
+     * @return OfferDiscount
      */
     public function setOffer(Offer $offer = null)
     {

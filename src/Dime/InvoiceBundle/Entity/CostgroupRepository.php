@@ -2,13 +2,13 @@
 
 namespace Dime\InvoiceBundle\Entity;
 
-use Dime\TimetrackerBundle\Entity\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
+use Swo\Commonsbundle\Entity\AbstractEntityRepository;
 
 /**
  * CostgroupRepository
  */
-class CostgroupRepository extends EntityRepository
+class CostgroupRepository extends AbstractEntityRepository
 {
     /**
      * Search for name or alias

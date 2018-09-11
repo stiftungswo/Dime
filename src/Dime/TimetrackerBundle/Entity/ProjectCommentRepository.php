@@ -3,8 +3,9 @@
 namespace Dime\TimetrackerBundle\Entity;
 
 use Doctrine\ORM\QueryBuilder;
+use Swo\Commonsbundle\Entity\AbstractEntityRepository;
 
-class ProjectCommentRepository extends EntityRepository
+class ProjectCommentRepository extends AbstractEntityRepository
 {
 
     /**

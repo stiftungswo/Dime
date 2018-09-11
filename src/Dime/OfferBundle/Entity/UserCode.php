@@ -1,15 +1,13 @@
 <?php
 namespace Dime\OfferBundle\Entity;
 
-use Dime\TimetrackerBundle\Entity\Entity;
+use Swo\CommonsBundle\Entity\AbstractEntity;
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo;
-use JMS\Serializer\Annotation as JMS;
 
 /**
  *
  */
-abstract class UserCode extends Entity
+abstract class UserCode extends AbstractEntity
 {
     /**
      * @ORM\Column(name="text", type="string", length=255)

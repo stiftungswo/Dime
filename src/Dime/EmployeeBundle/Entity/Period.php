@@ -8,17 +8,12 @@
 namespace Dime\EmployeeBundle\Entity;
 
 use Carbon\Carbon;
-use Dime\TimetrackerBundle\Entity\Entity;
+use Swo\CommonsBundle\Entity\AbstractEntity;
 use Dime\TimetrackerBundle\Entity\RateUnitType;
 use Dime\TimetrackerBundle\Entity\Timeslice;
 use Dime\TimetrackerBundle\Model\DimeEntityInterface;
-use Dime\EmployeeBundle\DependencyInjection\DimeEmployeeExtension;
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo;
 use JMS\Serializer\Annotation as JMS;
-use Knp\JsonSchemaBundle\Annotations as Json;
-use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 /**
  * Class WorkingPeriod
@@ -26,7 +21,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
  * @ORM\Table(name="WorkingPeriods")
  * @ORM\Entity(repositoryClass="Dime\EmployeeBundle\Entity\PeriodRepository")
  */
-class Period extends Entity implements DimeEntityInterface
+class Period extends AbstractEntity implements DimeEntityInterface
 {
     /**
      * @var Carbon

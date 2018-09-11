@@ -8,11 +8,11 @@
 namespace Dime\EmployeeBundle\Entity;
 
 use Carbon\Carbon;
-use Dime\TimetrackerBundle\Entity\EntityRepository;
+use Swo\CommonsBundle\Entity\AbstractEntityRepository;
 use Dime\TimetrackerBundle\Entity\Timeslice;
 use Doctrine\ORM\QueryBuilder;
 
-class PeriodRepository extends EntityRepository
+class PeriodRepository extends AbstractEntityRepository
 {
 
     /**
@@ -21,7 +21,7 @@ class PeriodRepository extends EntityRepository
      * @param array        $filter
      * @param QueryBuilder $qb
      *
-     * @return EntityRepository
+     * @return AbstractEntityRepository
      */
     public function filter(array $filter, QueryBuilder $qb = null)
     {
@@ -90,7 +90,7 @@ class PeriodRepository extends EntityRepository
      * @param string       $text
      * @param QueryBuilder $qb
      *
-     * @return QueryBuilder
+     * @return PeriodRepository
      */
     public function search($text, QueryBuilder $qb = null)
     {

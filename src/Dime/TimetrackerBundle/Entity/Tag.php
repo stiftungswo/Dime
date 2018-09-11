@@ -4,6 +4,7 @@ namespace Dime\TimetrackerBundle\Entity;
 use Dime\TimetrackerBundle\Model\DimeEntityInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\JsonSchemaBundle\Annotations as Json;
+use Swo\Commonsbundle\Entity\AbstractEntity;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -18,7 +19,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="Dime\TimetrackerBundle\Entity\TagRepository")
  * @Json\Schema("tags")
  */
-class Tag extends Entity implements DimeEntityInterface
+class Tag extends AbstractEntity implements DimeEntityInterface
 {
     /**
      * @var string $name

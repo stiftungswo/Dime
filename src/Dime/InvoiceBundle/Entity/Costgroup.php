@@ -7,16 +7,10 @@
 
 namespace Dime\InvoiceBundle\Entity;
 
-use Carbon\Carbon;
-use DateTime;
-use Dime\TimetrackerBundle\Entity\Entity;
 use Dime\TimetrackerBundle\Model\DimeEntityInterface;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo;
-use JMS\Serializer\Annotation as JMS;
 use Knp\JsonSchemaBundle\Annotations as Json;
-use Symfony\Component\Validator\Constraints as Assert;
+use Swo\Commonsbundle\Entity\AbstractEntity;
 
 /**
  * Class Invoice
@@ -26,7 +20,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(name="costgroups")
  * @ORM\Entity(repositoryClass="Dime\InvoiceBundle\Entity\CostgroupRepository")
  */
-class Costgroup extends Entity implements DimeEntityInterface
+class Costgroup extends AbstractEntity implements DimeEntityInterface
 {
     /**
      * @var string $number

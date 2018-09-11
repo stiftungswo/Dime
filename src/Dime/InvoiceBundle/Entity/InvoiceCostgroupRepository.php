@@ -2,10 +2,10 @@
 
 namespace Dime\InvoiceBundle\Entity;
 
-use Dime\TimetrackerBundle\Entity\EntityRepository;
+use Swo\CommonsBundle\Entity\AbstractEntityRepository;
 use Doctrine\ORM\QueryBuilder;
 
-class InvoiceCostgroupRepository extends EntityRepository
+class InvoiceCostgroupRepository extends AbstractEntityRepository
 {
     /**
      * Search for name or alias
@@ -13,7 +13,7 @@ class InvoiceCostgroupRepository extends EntityRepository
      * @param string            $text
      * @param QueryBuilder      $qb
      *
-     * @return InvoiceDiscountRepository
+     * @return InvoiceCostgroupRepository
      */
     public function search($text, QueryBuilder $qb = null)
     {

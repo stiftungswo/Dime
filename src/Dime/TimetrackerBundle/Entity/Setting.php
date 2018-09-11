@@ -6,6 +6,7 @@ use Dime\TimetrackerBundle\Model\DimeEntityInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Knp\JsonSchemaBundle\Annotations as Json;
+use Swo\Commonsbundle\Entity\AbstractEntity;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -20,7 +21,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="Dime\TimetrackerBundle\Entity\SettingRepository")
  * @Json\Schema("settings")
  */
-class Setting extends Entity implements DimeEntityInterface
+class Setting extends AbstractEntity implements DimeEntityInterface
 {
     /**
      * @var string $name

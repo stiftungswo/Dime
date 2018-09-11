@@ -5,6 +5,7 @@ use Dime\TimetrackerBundle\Model\DimeEntityInterface;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as JMS;
 use Knp\JsonSchemaBundle\Annotations as Json;
+use Swo\Commonsbundle\Entity\AbstractEntity;
 
 /**
  * Dime\TimetrackerBundle\Entity\RateGroup
@@ -12,7 +13,7 @@ use Knp\JsonSchemaBundle\Annotations as Json;
  * @ORM\Table(name="rate_groups")
  * @ORM\Entity(repositoryClass="Dime\TimetrackerBundle\Entity\RateGroupRepository")
  */
-class RateGroup extends Entity implements DimeEntityInterface
+class RateGroup extends AbstractEntity implements DimeEntityInterface
 {
 
     /**

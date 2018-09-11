@@ -3,14 +3,13 @@ namespace Dime\OfferBundle\Entity;
 
 use Dime\EmployeeBundle\Entity\Employee;
 use Dime\TimetrackerBundle\Entity\Customer;
-use Dime\TimetrackerBundle\Entity\Entity;
+use Swo\CommonsBundle\Entity\AbstractEntity;
 use Dime\TimetrackerBundle\Entity\Project;
 use Dime\TimetrackerBundle\Entity\Tag;
 use Dime\TimetrackerBundle\Model\DimeEntityInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as JMS;
-use Knp\JsonSchemaBundle\Annotations as Json;
 use Money\Money;
 
 /**
@@ -19,7 +18,7 @@ use Money\Money;
  * @ORM\Table(name="offers")
  * @ORM\Entity(repositoryClass="Dime\OfferBundle\Entity\OfferRepository")
  */
-class Offer extends Entity implements DimeEntityInterface
+class Offer extends AbstractEntity implements DimeEntityInterface
 {
 
     /**

@@ -12,6 +12,7 @@ use Knp\JsonSchemaBundle\Annotations as Json;
 use Money\Money;
 use Dime\InvoiceBundle\Entity\Invoice;
 use Dime\OfferBundle\Entity\Offer;
+use Swo\Commonsbundle\Entity\AbstractEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -22,7 +23,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @Json\Schema("projects")
  * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
  */
-class Project extends Entity implements DimeEntityInterface
+class Project extends AbstractEntity implements DimeEntityInterface
 {
     /**
      * Hook SoftDeleteable fields

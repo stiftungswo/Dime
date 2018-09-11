@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use JMS\Serializer\Annotation as JMS;
 use Knp\JsonSchemaBundle\Annotations as Json;
+use Swo\Commonsbundle\Entity\AbstractEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -15,7 +16,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="Dime\TimetrackerBundle\Entity\ProjectCategoryRepository")
  * @Json\Schema("projectcategories")
  */
-class ProjectCategory extends Entity implements DimeEntityInterface
+class ProjectCategory extends AbstractEntity implements DimeEntityInterface
 {
 
     /**

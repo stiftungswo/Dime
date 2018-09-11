@@ -10,6 +10,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use JMS\Serializer\Annotation as JMS;
 use Knp\JsonSchemaBundle\Annotations as Json;
 use Money\Money;
+use Swo\Commonsbundle\Entity\AbstractEntity;
 
 /**
  * Dime\TimetrackerBundle\Entity\Activity
@@ -20,7 +21,7 @@ use Money\Money;
  * @Json\Schema("activities")
  * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false)
  */
-class Activity extends Entity implements DimeEntityInterface
+class Activity extends AbstractEntity implements DimeEntityInterface
 {
     /**
      * Hook SoftDeleteable fields

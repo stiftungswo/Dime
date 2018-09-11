@@ -11,6 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as JMS;
 use Knp\JsonSchemaBundle\Annotations as Json;
 use Dime\TimetrackerBundle\Model\DimeEntityInterface;
+use Swo\Commonsbundle\Entity\AbstractEntity;
 
 /**
  * Class RateUnitType
@@ -19,7 +20,7 @@ use Dime\TimetrackerBundle\Model\DimeEntityInterface;
  * @ORM\Table(name="rateunittypes")
  * @ORM\Entity(repositoryClass="Dime\TimetrackerBundle\Entity\RateUnitTypeRepository")
  */
-class RateUnitType extends Entity implements DimeEntityInterface
+class RateUnitType extends AbstractEntity implements DimeEntityInterface
 {
 
     /**

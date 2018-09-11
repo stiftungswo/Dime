@@ -8,14 +8,11 @@
 namespace Dime\EmployeeBundle\Entity;
 
 use Carbon\Carbon;
-use Dime\TimetrackerBundle\Entity\Entity;
+use Swo\CommonsBundle\Entity\AbstractEntity;
 use Dime\TimetrackerBundle\Entity\RateUnitType;
 use Dime\TimetrackerBundle\Model\DimeEntityInterface;
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo;
 use JMS\Serializer\Annotation as JMS;
-use Knp\JsonSchemaBundle\Annotations as Json;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class Holiday
@@ -23,7 +20,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table("holidays")
  * @ORM\Entity(repositoryClass="Dime\EmployeeBundle\Entity\HolidayRepository")
  */
-class Holiday extends Entity implements DimeEntityInterface
+class Holiday extends AbstractEntity implements DimeEntityInterface
 {
 
     /**

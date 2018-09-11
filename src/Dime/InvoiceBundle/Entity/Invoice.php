@@ -11,7 +11,7 @@ use Carbon\Carbon;
 use DateTime;
 use Dime\EmployeeBundle\Entity\Employee;
 use Dime\TimetrackerBundle\Entity\Customer;
-use Dime\TimetrackerBundle\Entity\Entity;
+use Swo\CommonsBundle\Entity\AbstractEntity;
 use Dime\TimetrackerBundle\Model\DimeEntityInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
@@ -30,7 +30,7 @@ use Dime\InvoiceBundle\Service\InvoiceBreakdown;
  * @ORM\Entity(repositoryClass="Dime\InvoiceBundle\Entity\InvoiceRepository")
  * @Json\Schema("invoices")
  */
-class Invoice extends Entity implements DimeEntityInterface
+class Invoice extends AbstractEntity implements DimeEntityInterface
 {
     /**
      * @var string $name

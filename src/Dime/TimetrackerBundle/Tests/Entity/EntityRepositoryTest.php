@@ -4,7 +4,7 @@ namespace Dime\TimetrackerBundle\Tests\Entity;
 
 use Doctrine\ORM\QueryBuilder;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
-use Dime\TimetrackerBundle\Entity\EntityRepository;
+use Swo\CommonsBundle\Entity\AbstractEntityRepository;
 
 class EntityRepositoryTest extends KernelTestCase
 {
@@ -28,7 +28,7 @@ class EntityRepositoryTest extends KernelTestCase
     // HELPER FUNCTIONS TO DRY
     protected function getRepoMock()
     {
-        $mock = $this->getMockBuilder(EntityRepository::class)
+        $mock = $this->getMockBuilder(AbstractEntityRepository::class)
             ->setConstructorArgs([$this->em, $this->em->getMetadataFactory()
                 ->getMetadataFor('DimeTimetrackerBundle:Customer')])
             ->getMockForAbstractClass();
@@ -160,7 +160,7 @@ class EntityRepositoryTest extends KernelTestCase
     public function testFilter()
     {
         // set up a new mock for this one
-        $mock = $this->getMockBuilder(EntityRepository::class)
+        $mock = $this->getMockBuilder(AbstractEntityRepository::class)
             ->disableOriginalConstructor()
             ->setMethods(['scopeByDate', 'search', 'scopeByField'])
             ->getMockForAbstractClass();
@@ -260,7 +260,7 @@ class EntityRepositoryTest extends KernelTestCase
     }
 }
 
-class ImaginaryRepository extends EntityRepository
+class ImaginaryRepository extends AbstractEntityRepository
 {
     public function search($text, QueryBuilder $qb = null)
     {

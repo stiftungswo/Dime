@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as JMS;
 use Knp\JsonSchemaBundle\Annotations as Json;
 use Money\Money;
+use Swo\Commonsbundle\Entity\AbstractEntity;
 
 /**
  * Dime\TimetrackerBundle\Entity\Rate
@@ -13,7 +14,7 @@ use Money\Money;
  * @ORM\Table(name="rates")
  * @ORM\Entity(repositoryClass="Dime\TimetrackerBundle\Entity\RateRepository")
  */
-class Rate extends Entity implements DimeEntityInterface
+class Rate extends AbstractEntity implements DimeEntityInterface
 {
 
     /**

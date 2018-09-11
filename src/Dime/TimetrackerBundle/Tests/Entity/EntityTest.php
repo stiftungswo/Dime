@@ -2,7 +2,7 @@
 
 namespace Dime\TimetrackerBundle\Tests\Entity;
 
-use Dime\TimetrackerBundle\Entity\Entity;
+use Swo\CommonsBundle\Entity\AbstractEntity;
 use PHPUnit\Framework\TestCase;
 use Dime\TimetrackerBundle\Entity\User;
 
@@ -10,7 +10,7 @@ class EntityTest extends TestCase
 {
     protected function getEntityMock()
     {
-        return $this->getMockBuilder(Entity::class)->setMethods(null)
+        return $this->getMockBuilder(AbstractEntity::class)->setMethods(null)
             ->getMockForAbstractClass();
     }
 

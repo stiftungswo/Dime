@@ -8,7 +8,7 @@
 namespace Dime\InvoiceBundle\Entity;
 
 use Dime\TimetrackerBundle\Entity\Activity;
-use Dime\TimetrackerBundle\Entity\Entity;
+use Swo\CommonsBundle\Entity\AbstractEntity;
 use Dime\TimetrackerBundle\Model\DimeEntityInterface;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as JMS;
@@ -22,7 +22,7 @@ use Money\Money;
  * @ORM\Table(name="invoice_items")
  * @Json\Schema("invoiceItems")
  */
-class InvoiceItem extends Entity implements DimeEntityInterface
+class InvoiceItem extends AbstractEntity implements DimeEntityInterface
 {
     /**
      * @var Invoice

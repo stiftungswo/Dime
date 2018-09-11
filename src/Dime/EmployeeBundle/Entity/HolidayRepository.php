@@ -7,10 +7,10 @@
 
 namespace Dime\EmployeeBundle\Entity;
 
-use Dime\TimetrackerBundle\Entity\EntityRepository;
+use Swo\CommonsBundle\Entity\AbstractEntityRepository;
 use Doctrine\ORM\QueryBuilder;
 
-class HolidayRepository extends EntityRepository
+class HolidayRepository extends AbstractEntityRepository
 {
 
     /**
@@ -18,7 +18,7 @@ class HolidayRepository extends EntityRepository
      * @param string       $text
      * @param QueryBuilder $qb
      *
-     * @return QueryBuilder
+     * @return HolidayRepository
      */
     public function search($text, QueryBuilder $qb = null)
     {

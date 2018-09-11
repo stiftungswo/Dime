@@ -1,17 +1,17 @@
 <?php
 
-namespace Dime\TimetrackerBundle\Entity;
+namespace Swo\Commonsbundle\Entity;
 
 use Doctrine\ORM\EntityRepository as Base;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
 
 /**
- * EntityRepository
+ * Swo\Commonsbundle\Entity\AbstractEntityRepository
  *
  * Abstract repository to keep code clean.
  */
-abstract class EntityRepository extends Base
+abstract class AbstractEntityRepository extends Base
 {
     /**
      * @var QueryBuilder
@@ -24,7 +24,7 @@ abstract class EntityRepository extends Base
      * @param string $text
      * @param QueryBuilder $qb
      *
-     * @return QueryBuilder
+     * @return AbstractEntityRepository
      */
     abstract public function search($text, QueryBuilder $qb = null);
 
@@ -34,7 +34,7 @@ abstract class EntityRepository extends Base
      * @param                   $date
      * @param QueryBuilder $qb
      *
-     * @return EntityRepository
+     * @return AbstractEntityRepository
      * @throws \Exception when $qb is null and Repository has no QueryBuilder initialized
      */
     public function scopeByDate($date, QueryBuilder $qb = null)
@@ -81,7 +81,7 @@ abstract class EntityRepository extends Base
      * Create a new current query builder
      *
      * @param string $alias
-     * @return EntityRepository
+     * @return AbstractEntityRepository
      */
     public function createCurrentQueryBuilder($alias)
     {
@@ -103,7 +103,7 @@ abstract class EntityRepository extends Base
      * Set the current query builder
      *
      * @param QueryBuilder $qb
-     * @return EntityRepository
+     * @return AbstractEntityRepository
      */
     public function setCurrentQueryBuilder(QueryBuilder $qb)
     {
@@ -117,7 +117,7 @@ abstract class EntityRepository extends Base
      * @param $field
      * @param $value
      * @param QueryBuilder $qb
-     * @return EntityRepository
+     * @return AbstractEntityRepository
      * @throws \Exception when $qb is null and Repository has no QueryBuilder initialized
      */
     public function scopeByField($field, $value, QueryBuilder $qb = null)
@@ -188,7 +188,7 @@ abstract class EntityRepository extends Base
      * @param array $filter
      * @param QueryBuilder $qb
      *
-     * @return EntityRepository
+     * @return AbstractEntityRepository
      * @throws \Exception when $qb is null and Repository has no QueryBuilder initialized
      */
     public function filter(array $filter, QueryBuilder $qb = null)
@@ -248,7 +248,7 @@ abstract class EntityRepository extends Base
      *
      * @param mixed $tags Pass an array here. If the value is no array, then it'll wrap one around it.
      * @param QueryBuilder|null $qb
-     * @return EntityRepository
+     * @return AbstractEntityRepository
      */
     protected function scopeWithTags($tags, QueryBuilder $qb = null)
     {
@@ -266,7 +266,7 @@ abstract class EntityRepository extends Base
      *
      * @param mixed $tags Pass an array here. If the value is no array, then it'll wrap one around it.
      * @param QueryBuilder|null $qb
-     * @return EntityRepository
+     * @return AbstractEntityRepository
      */
     protected function scopeWithoutTags($tags, QueryBuilder $qb = null)
     {
