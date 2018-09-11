@@ -14,6 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Knp\JsonSchemaBundle\Annotations as Json;
 use JMS\Serializer\Annotation as JMS;
 use Money\Money;
+use Swo\CommonsBundle\Helper\DimeMoneyHelper;
 
 /**
  * Class InvoiceDiscount
@@ -63,10 +64,14 @@ class InvoiceDiscount extends Entity implements DimeEntityInterface
      */
     public function getCalculatedDiscount(Money $subtotal)
     {
-        if ($this->percentage) {
-            return $subtotal->multiply(floatval($this->value));
+        if ($this->value) {
+            if ($this->percentage) {
+                return $subtotal->multiply(floatval($this->value));
+            } else {
+                return DimeMoneyHelper::fixedDiscountToMoney($this->value);
+            }
         } else {
-            return Money::CHF($this->value);
+            return Money::CHF(0);
         }
     }
 

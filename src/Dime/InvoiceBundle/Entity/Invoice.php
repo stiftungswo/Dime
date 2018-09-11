@@ -19,6 +19,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use JMS\Serializer\Annotation as JMS;
 use Knp\JsonSchemaBundle\Annotations as Json;
 use Money\Money;
+use Swo\CommonsBundle\Helper\DimeMoneyHelper;
 use Symfony\Component\Validator\Constraints as Assert;
 use Dime\InvoiceBundle\Service\InvoiceBreakdown;
 
@@ -138,7 +139,7 @@ class Invoice extends Entity implements DimeEntityInterface
     }
 
     /**
-     * @JMS\VirtualProperty
+     * @JMS\VirtualProperty()
      * @JMS\SerializedName("totalDiscounts")
      * @JMS\Type(name="Money")
      * @return Money
@@ -155,7 +156,7 @@ class Invoice extends Entity implements DimeEntityInterface
     }
 
     /**
-     * @JMS\VirtualProperty
+     * @JMS\VirtualProperty()
      * @JMS\SerializedName("subtotal")
      * @JMS\Type(name="Money")
      * @return Money, null
@@ -176,8 +177,7 @@ class Invoice extends Entity implements DimeEntityInterface
     }
 
     /**
-     * /**
-     * @JMS\VirtualProperty
+     * @JMS\VirtualProperty()
      * @JMS\SerializedName("totalVAT")
      * @JMS\Type(name="Money")
      * @return Money, null
@@ -216,7 +216,7 @@ class Invoice extends Entity implements DimeEntityInterface
 
     /**
      * /**
-     * @JMS\VirtualProperty
+     * @JMS\VirtualProperty()
      * @JMS\SerializedName("totalVAT8")
      * @JMS\Type(name="Money")
      * @return Money, null
@@ -238,7 +238,7 @@ class Invoice extends Entity implements DimeEntityInterface
 
     /**
      * /**
-     * @JMS\VirtualProperty
+     * @JMS\VirtualProperty()
      * @JMS\SerializedName("totalVAT2")
      * @JMS\Type(name="Money")
      * @return Money
@@ -524,12 +524,12 @@ class Invoice extends Entity implements DimeEntityInterface
     /**
      * @JMS\VirtualProperty()
      * @JMS\SerializedName("fixedPrice")
-     * @return string
+     * @return string|null
      */
     public function serializeFixedPrice()
     {
         if ($this->fixedPrice != null && !$this->fixedPrice->isZero()) {
-            return $this->fixedPrice->format();
+            return DimeMoneyHelper::formatWithoutCurrency($this->fixedPrice);
         } else {
             return null;
         }

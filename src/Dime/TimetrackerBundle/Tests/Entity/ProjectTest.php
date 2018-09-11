@@ -17,6 +17,7 @@ use Dime\TimetrackerBundle\Entity\Timeslice;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Money\Money;
+use Swo\CommonsBundle\Helper\DimeMoneyHelper;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class ProjectTest extends KernelTestCase
@@ -68,7 +69,7 @@ class ProjectTest extends KernelTestCase
             $result,
             $project->calculateCurrentPrice()
         );
-        $this->assertEquals($result->format(true), $project->getCurrentPrice());
+        $this->assertEquals(DimeMoneyHelper::formatWithCurrency($result), $project->getCurrentPrice());
     }
 
     public function testGetRemainingBudgetPrice()
@@ -94,7 +95,7 @@ class ProjectTest extends KernelTestCase
         $project->setBudgetPrice(Money::CHF($budget_price));
 
         $result = Money::CHF($budget_price)->subtract(Money::CHF($rate_value)->multiply($charge));
-        $this->assertEquals($result->format(true), $project->getRemainingBudgetPrice());
+        $this->assertEquals(DimeMoneyHelper::formatWithCurrency($result), $project->getRemainingBudgetPrice());
     }
 
     public function testGetCurrentTime()
@@ -186,7 +187,7 @@ class ProjectTest extends KernelTestCase
         $value = rand(0, 456);
         $project->setBudgetPrice(Money::CHF($value));
 
-        $this->assertEquals(Money::CHF($value)->format(true), $project->serializeBudgetPrice());
+        $this->assertEquals(DimeMoneyHelper::formatWithCurrency(Money::CHF($value)), $project->serializeBudgetPrice());
     }
 
     public function testGetSetIsChargeable()
@@ -304,7 +305,7 @@ class ProjectTest extends KernelTestCase
         $money = Money::CHF(rand(0, 85000));
         $project->setFixedPrice($money);
 
-        $this->assertEquals($money->format(), $project->serializeFixedPrice());
+        $this->assertEquals(DimeMoneyHelper::formatWithoutCurrency($money), $project->serializeFixedPrice());
     }
 
     public function testGetSetBudgetTime()

@@ -12,6 +12,7 @@ use Knp\JsonSchemaBundle\Annotations as Json;
 use Money\Money;
 use Dime\InvoiceBundle\Entity\Invoice;
 use Dime\OfferBundle\Entity\Offer;
+use Swo\CommonsBundle\Helper\DimeMoneyHelper;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -208,7 +209,7 @@ class Project extends Entity implements DimeEntityInterface
      */
     public function getCurrentPrice()
     {
-        return $this->calculateCurrentPrice()->format(true);
+        return DimeMoneyHelper::formatWithCurrency($this->calculateCurrentPrice());
     }
 
     /**
@@ -219,7 +220,7 @@ class Project extends Entity implements DimeEntityInterface
     public function getRemainingBudgetPrice()
     {
         if ($this->budgetPrice != null) {
-            return $this->budgetPrice->subtract($this->calculateCurrentPrice())->format(true);
+            return DimeMoneyHelper::formatWithCurrency($this->budgetPrice->subtract($this->calculateCurrentPrice()));
         } else {
             return null;
         }
@@ -278,7 +279,7 @@ class Project extends Entity implements DimeEntityInterface
     public function serializeBudgetPrice()
     {
         if ($this->budgetPrice != null && !$this->budgetPrice->isZero()) {
-            return $this->budgetPrice->format(true);
+            return DimeMoneyHelper::formatWithCurrency($this->budgetPrice);
         } else {
             return null;
         }
@@ -540,7 +541,7 @@ class Project extends Entity implements DimeEntityInterface
     public function serializeFixedPrice()
     {
         if ($this->fixedPrice != null && !$this->fixedPrice->isZero()) {
-            return $this->fixedPrice->format();
+            return DimeMoneyHelper::formatWithoutCurrency($this->fixedPrice);
         } else {
             return null;
         }

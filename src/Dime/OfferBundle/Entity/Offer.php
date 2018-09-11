@@ -12,6 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as JMS;
 use Knp\JsonSchemaBundle\Annotations as Json;
 use Money\Money;
+use Swo\CommonsBundle\Helper\DimeMoneyHelper;
 
 /**
  * Dime\OfferBundle\Entity\Offer
@@ -119,7 +120,7 @@ class Offer extends Entity implements DimeEntityInterface
     }
 
     /**
-     * @JMS\VirtualProperty
+     * @JMS\VirtualProperty()
      * @JMS\SerializedName("subtotal")
      * @JMS\Type(name="Money")
      * @return Money
@@ -140,7 +141,7 @@ class Offer extends Entity implements DimeEntityInterface
     }
 
     /**
-     * @JMS\VirtualProperty
+     * @JMS\VirtualProperty()
      * @JMS\SerializedName("totalVAT")
      * @JMS\Type(name="Money")
      * @return Money
@@ -166,11 +167,11 @@ class Offer extends Entity implements DimeEntityInterface
      */
     public function getTotalWithoutVAT()
     {
-        return $this->getSubtotal()->subtract($this->getTotalVAT());
+        return DimeMoneyHelper::roundTo5($this->getSubtotal()->subtract($this->getTotalVAT()));
     }
 
     /**
-     * @JMS\VirtualProperty
+     * @JMS\VirtualProperty()
      * @JMS\SerializedName("totalDiscounts")
      * @JMS\Type(name="Money")
      * @return Money
@@ -183,18 +184,18 @@ class Offer extends Entity implements DimeEntityInterface
                 $totalDiscounts = $totalDiscounts->add($offerDiscount->getCalculatedDiscount($this->getSubtotal()));
             }
         }
-        return $totalDiscounts;
+        return DimeMoneyHelper::roundTo5($totalDiscounts);
     }
 
     /**
-     * @JMS\VirtualProperty
+     * @JMS\VirtualProperty()
      * @JMS\SerializedName("total")
      * @JMS\Type(name="Money")
      * @return Money
      */
     public function getTotal()
     {
-        return $this->getSubtotal()->subtract($this->getTotalDiscounts());
+        return DimeMoneyHelper::roundTo5($this->getSubtotal()->subtract($this->getTotalDiscounts()));
     }
 
     /**
@@ -550,7 +551,7 @@ class Offer extends Entity implements DimeEntityInterface
     public function serializeFixedPrice()
     {
         if ($this->fixedPrice != null && !$this->fixedPrice->isZero()) {
-            return $this->fixedPrice->format();
+            return DimeMoneyHelper::formatWithoutCurrency($this->fixedPrice);
         } else {
             return null;
         }

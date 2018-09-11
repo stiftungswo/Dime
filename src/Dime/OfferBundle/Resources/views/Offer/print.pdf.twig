@@ -63,25 +63,25 @@
 				{% if position.amount %}
 			<tr class="tbody">
 				<td>{% if position.service %}{{ position.service.name }}{% else %}-{% endif %}</td>
-				<td class="number">{{ position.rateValue }}</td>
+				<td class="number">{{ position.rateValue | money_as_float | number_format(2, '.', '')}}</td>
 				<td>{{ position.rateUnit }}</td>
 				<td class="number">{{ position.amount }}</td>
 				<td class="number">{{ position.vat*100 }}%</td>
-				<td class="number">{{ position.total }}</td>
+				<td class="number">{{ position.total | money_as_float | number_format(2, '.', '')}}</td>
 			</tr>
 				{% endif %}
 			{% endfor %}
 			<tr class="tfoot">
 				<td colspan="5" class="number">Subtotal ohne MwSt.</td>
-				<td class="number">{{ offer.getTotalWithoutVAT() }}</td>
+				<td class="number">{{ offer.getTotalWithoutVAT() | money_as_float | number_format(2, '.', '')}}</td>
 			</tr>
 			<tr class="tbody">
 				<td colspan="5" class="number">MwSt.</td>
-				<td class="number">{{ offer.totalVAT }}</td>
+				<td class="number">{{ offer.totalVAT | money_as_float | number_format(2, '.', '')}}</td>
 			</tr>
 			<tr class="tbody">
 				<td colspan="5" class="number">Subtotal</td>
-				<td class="number">{{ offer.subtotal }}</td>
+				<td class="number">{{ offer.subtotal | money_as_float | number_format(2, '.', '')}}</td>
 			</tr>
 		</table>
 			{% if offer.totalDiscounts != '.0' %}
@@ -98,7 +98,7 @@
 			{% endfor %}
 			<tr class="tfoot">
 				<td class="number">Abzüge Total</td>
-				<td class="number">{{ offer.totalDiscounts }}</td>
+				<td class="number">{{ offer.totalDiscounts | money_as_float | number_format(2, '.', '')}}</td>
 			</tr>
 		</table>
 			{% endif %}
@@ -106,7 +106,7 @@
 			<tr class="tfoot">
 				<td>Gesamtkosten</td>
 				<td></td>
-				<td class="number">{{ offer.total }}</td>
+				<td class="number">{{ offer.total | money_as_float | number_format(2, '.', '')}}</td>
 			</tr>
 		</table>
 		</div>

@@ -6,6 +6,7 @@ use Dime\InvoiceBundle\Entity\InvoiceDiscount;
 use Dime\InvoiceBundle\Entity\InvoiceItem;
 use Dime\InvoiceBundle\Entity\Invoice;
 use Money\Money;
+use Swo\CommonsBundle\Helper\DimeMoneyHelper;
 
 /**
  * @param \Dime\InvoiceBundle\Entity\InvoiceItem[] $items
@@ -47,7 +48,7 @@ function valueDistribution($groups)
 
     $distributions = [];
     foreach ($sums as $vat => $sum) {
-        $distributions[$vat] = $sum->divide((float)$total->format())->format();
+        $distributions[$vat] = $sum->getAmount()/($total->getAmount())/100;
     }
     return $distributions;
 }
@@ -57,7 +58,7 @@ function applyDiscount($vatGroups, InvoiceDiscount $discount)
     if ($discount->getPercentage()) {
         return applyDiscountFactor($vatGroups, (float)$discount->getValue(), $discount->getName());
     } else {
-        return applyDiscountAmount($vatGroups, Money::CHF($discount->getValue()), $discount->getName());
+        return applyDiscountAmount($vatGroups, DimeMoneyHelper::fixedDiscountToMoney($discount->getValue()), $discount->getName());
     }
 }
 
@@ -162,14 +163,15 @@ class InvoiceBreakdown
                 $vat = $vat->add($item->getCalculatedVAT());
             }
         }
-        $breakdown['subtotal'] = $sum->format();
-        $breakdown['discount'] = $discount->format();
-        $breakdown['vat'] = $vat->format();
-        $breakdown['rawTotal'] = $sum->add($discount)->add($vat);
-        $breakdown['total'] = $breakdown['rawTotal']->format();
+        $breakdown['subtotal'] = DimeMoneyHelper::roundTo5($sum);
+        $breakdown['discount'] = DimeMoneyHelper::roundTo5($discount);
+        $breakdown['totalBeforeVat'] = $breakdown['subtotal']->add($breakdown['discount']);
+        $breakdown['vat'] = DimeMoneyHelper::roundTo5($vat);
+        $breakdown['rawTotal'] = $breakdown['totalBeforeVat']->add($vat);
+        $breakdown['total'] = DimeMoneyHelper::roundTo5($breakdown['rawTotal']);
         $breakdown['vatSplit'] = [];
         foreach ($vatSums as $key => $vatSum) {
-            $breakdown['vatSplit'][$key] = $vatSum->format();
+            $breakdown['vatSplit'][$key] = DimeMoneyHelper::roundTo5($vatSum);
         }
         return $breakdown;
     }

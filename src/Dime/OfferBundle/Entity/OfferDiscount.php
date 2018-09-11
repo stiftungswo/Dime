@@ -7,6 +7,7 @@ use Dime\TimetrackerBundle\Model\DimeEntityInterface;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as JMS;
 use Money\Money;
+use Swo\CommonsBundle\Helper\DimeMoneyHelper;
 
 /**
  * @package Dime\OfferBundle\Entity
@@ -55,10 +56,14 @@ class OfferDiscount extends Entity implements DimeEntityInterface
      */
     public function getCalculatedDiscount(Money $subtotal)
     {
-        if ($this->percentage) {
-            return $subtotal->multiply(floatval($this->value));
+        if ($this->value) {
+            if ($this->percentage) {
+                return $subtotal->multiply(floatval($this->value));
+            } else {
+                return DimeMoneyHelper::fixedDiscountToMoney($this->value);
+            }
         } else {
-            return Money::CHF($this->value);
+            return Money::CHF(0);
         }
     }
 
@@ -67,7 +72,7 @@ class OfferDiscount extends Entity implements DimeEntityInterface
      *
      * @param \Dime\OfferBundle\Entity\Offer $offer
      *
-     * @return OfferPosition
+     * @return OfferDiscount
      */
     public function setOffer(Offer $offer = null)
     {
@@ -122,7 +127,7 @@ class OfferDiscount extends Entity implements DimeEntityInterface
      */
     public function setMinus($minus)
     {
-        if ($minus!=='EMPTY') {
+        if ($minus !== 'EMPTY') {
             $this->minus = $minus;
         }
         return $this;
@@ -143,13 +148,13 @@ class OfferDiscount extends Entity implements DimeEntityInterface
      */
     public function setPercentage($percentage)
     {
-        if ($percentage!=='EMPTY') {
+        if ($percentage !== 'EMPTY') {
             $this->percentage = $percentage;
 
-            if ($percentage==true) {
-                $this->value = $this->value*=0.01;
+            if ($percentage == true) {
+                $this->value = $this->value *= 0.01;
             } else {
-                $this->value = $this->value*=100;
+                $this->value = $this->value *= 100;
             }
         }
         return $this;
@@ -188,7 +193,7 @@ class OfferDiscount extends Entity implements DimeEntityInterface
             $amount = $this->percentofgross($gross, $this->value, 10);
         }
         if ($this->minus) {
-            $amount = floatval('-'.$amount);
+            $amount = floatval('-' . $amount);
         }
         return $amount;
     }

@@ -3,7 +3,6 @@
 namespace Dime\OfferBundle\Tests\Controller;
 
 use Dime\TimetrackerBundle\Tests\Controller\DimeTestCase;
-use Money\Money;
 
 class OfferPositionControllerTest extends DimeTestCase
 {

@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as JMS;
 use Knp\JsonSchemaBundle\Annotations as Json;
 use Money\Money;
+use Swo\CommonsBundle\Helper\DimeMoneyHelper;
 
 /**
  * @ORM\Table(name="offer_positions")
@@ -110,7 +111,7 @@ class OfferPosition extends Entity implements DimeEntityInterface
 
     /**
      * Indicates if rateValue is manually set or derived from service
-     * JMS\VirtualProperty
+     * JMS\VirtualProperty()
      * JMS\SerializedName("isManualRateValueSet")
      */
     public function isManualRateValueSet()
@@ -127,7 +128,7 @@ class OfferPosition extends Entity implements DimeEntityInterface
 
     /**
      * Indicates if rateUnit is manually set or derived from service
-     * JMS\VirtualProperty
+     * JMS\VirtualProperty()
      * JMS\SerializedName("isManualRateUnitSet")
      */
     public function isManualRateUnitSet()
@@ -144,7 +145,7 @@ class OfferPosition extends Entity implements DimeEntityInterface
 
     /**
      * Indicates if rateUnitType is manually set or derived from service
-     * JMS\VirtualProperty
+     * JMS\VirtualProperty()
      * JMS\SerializedName("isManualRateUnitTypeSet")
      */
     public function isManualRateUnitTypeSet()
@@ -161,7 +162,7 @@ class OfferPosition extends Entity implements DimeEntityInterface
 
     /**
      * Indicates if VAT is manually set or derived from service
-     * JMS\VirtualProperty
+     * JMS\VirtualProperty()
      * JMS\SerializedName("isManualVATSet")
      */
     public function isManualVATSet()
@@ -178,7 +179,7 @@ class OfferPosition extends Entity implements DimeEntityInterface
 
     /**
      * return the Rate from the service according the offers rate group
-     * @JMS\VirtualProperty
+     * @JMS\VirtualProperty()
      * @JMS\SerializedName("serviceRate")
      *
      * @return \Dime\TimetrackerBundle\Entity\Rate
@@ -193,7 +194,7 @@ class OfferPosition extends Entity implements DimeEntityInterface
 
     /**
      * return the calculated rate value i.e. the manually set rate value of this offer position. if not set the rate_value of the services rate
-     * @JMS\VirtualProperty
+     * @JMS\VirtualProperty()
      * @JMS\SerializedName("calculatedRateValue")
      * @JMS\Type(name="Money")
      * @return Money
@@ -209,7 +210,7 @@ class OfferPosition extends Entity implements DimeEntityInterface
     }
 
     /**
-     * @JMS\VirtualProperty
+     * @JMS\VirtualProperty()
      * @JMS\SerializedName("total")
      * @JMS\Type(name="Money")
      * @return Money
@@ -227,11 +228,11 @@ class OfferPosition extends Entity implements DimeEntityInterface
         if ($vat instanceof Money) {
             $total = $total->add($vat);
         }
-        return $total;
+        return DimeMoneyHelper::roundTo5($total);
     }
 
     /**
-     * @JMS\VirtualProperty
+     * @JMS\VirtualProperty()
      * @JMS\SerializedName("calculatedVAT")
      * @JMS\Type(name="Money")
      * @return Money

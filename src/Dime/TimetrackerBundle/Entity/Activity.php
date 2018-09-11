@@ -171,7 +171,7 @@ class Activity extends Entity implements DimeEntityInterface
 
     /**
      * return the Rate from the service according the offers rate group
-     * @JMS\VirtualProperty
+     * @JMS\VirtualProperty()
      * @JMS\MaxDepth(1)
      * @JMS\SerializedName("serviceRate")
      *
@@ -256,7 +256,7 @@ class Activity extends Entity implements DimeEntityInterface
     }
 
     /**
-     * @JMS\VirtualProperty
+     * @JMS\VirtualProperty()
      * @JMS\SerializedName("calculatedVAT")
      * @JMS\Type(name="Money")
      * @return Money
@@ -335,7 +335,7 @@ class Activity extends Entity implements DimeEntityInterface
 
     /**
      * Customer for Simplicity
-     * @JMS\VirtualProperty
+     * @JMS\VirtualProperty()
      * @JMS\SerializedName("customer")
      */
     public function getCustomer()

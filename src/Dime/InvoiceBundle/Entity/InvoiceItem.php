@@ -92,7 +92,7 @@ class InvoiceItem extends Entity implements DimeEntityInterface
     }
 
     /**
-     * @JMS\VirtualProperty
+     * @JMS\VirtualProperty()
      * @JMS\SerializedName("calculatedVAT")
      * @JMS\Type(name="Money")
      * @return Money

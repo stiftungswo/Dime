@@ -78,16 +78,16 @@
 				<td>
 					{{ item.name }}
 				</td>
-				<td class="number">{{ item.rateValue }}</td>
+				<td class="number">{{ item.rateValue | money_as_float | number_format(2, '.', '')}}</td>
 				<td>{{ item.rateUnit }}</td>
 				<td class="number">{{ item.amount }}</td>
 				<td class="number">{% if item.vat %}{{ item.vat * 100 }}%{% else %}0%{% endif %}</td>
-				<td class="number">{{ item.totalWithoutVAT }}</td>
+				<td class="number">{{ item.totalWithoutVAT | money_as_float | number_format(2, '.', '')}}</td>
 			</tr>
 			{% endfor %}
 			<tr class="tfoot">
 				<td colspan="5" class="number">Subtotal</td>
-				<td class="number">{{ invoice.breakdown.subtotal }}</td>
+				<td class="number">{{ invoice.breakdown.subtotal | money_as_float | number_format(2, '.', '')}}</td>
 			</tr>
 		</table>
         {% if invoice.invoiceDiscounts|length > 0 %}
@@ -100,7 +100,7 @@
 				<tr class="tbody">
 					{% if discount.percentage %}
 						<td class="number">{{ discount.name }} ({{ discount.value*100 }}%)</td>
-						<td class="number">{{ (invoice.breakdown.subtotal * discount.value) | number_format(2, ".", "") }}</td>
+						<td class="number">{{ discount.getCalculatedDiscount(invoice.breakdown.subtotal) | money_as_float | number_format(2, ".", "") }}</td>
 					{% else %}
 						<td class="number">{{ discount.name }}</td>
 						<td class="number">{{ discount.value }}</td>
@@ -109,11 +109,11 @@
 			{% endfor %}
 			<tr class="tfoot1">
 				<td class="number">Abzüge Total</td>
-				<td class="number">{{ invoice.getTotalDiscounts() }}</td>
+				<td class="number">{{ invoice.breakdown.discount | money_as_float | number_format(2, '.', '')}}</td>
 			</tr>
 			<tr class="tfoot2">
 				<td class="number">Subtotal</td>
-				<td class="number">{{ (invoice.breakdown.subtotal + invoice.breakdown.discount) | number_format(2, "." , "") }}</td>
+				<td class="number">{{ invoice.breakdown.totalBeforeVat | money_as_float | number_format(2, '.', '')}}</td>
 			</tr>
 		</table>
         {% endif %}
@@ -125,12 +125,12 @@
 			{% for ratio,amount in invoice.breakdown.vatSplit %}
 			<tr class="tbody">
 				<td class="number">{{ ratio * 100}}%</td>
-				<td class="number">{{ amount }}</td>
+				<td class="number">{{ amount | money_as_float | number_format(2, '.', '')}}</td>
 			</tr>
 			{% endfor %}
 			<tr class="tfoot">
 				<td class="number">MwSt. total:</td>
-				<td class="number">{{ invoice.breakdown.vat }}</td>
+				<td class="number">{{ invoice.breakdown.vat | money_as_float | number_format(2, '.', '')}}</td>
 			</tr>
 
 		</table>
@@ -138,7 +138,7 @@
 			<tr class="tfoot">
 				<td>Zahlbar 30 Tage netto</td>
 				<td class="number">Rechnungstotal</td>
-				<td class="number">{{ invoice.breakdown.total }}</td>
+				<td class="number">{{ invoice.breakdown.total | money_as_float | number_format(2, '.', '')}}</td>
 			</tr>
 		</table>
 	</dynamic-page>

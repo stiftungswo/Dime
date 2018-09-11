@@ -38,9 +38,9 @@ class InvoiceBreakdownTest extends TestCase
     {
         $this->invoice = new Invoice();
         $items = [];
-        $items[] = makeItem("Org", "100.00", "0.08");
-        $items[] = makeItem("Begleitung", "200.00", "0.08");
-        $items[] = makeItem("Gurken", "200.00", "0.025");
+        $items[] = makeItem("Org", 10000, "0.08");
+        $items[] = makeItem("Begleitung", 20000, "0.08");
+        $items[] = makeItem("Gurken", 20000, "0.025");
         $this->invoice->setItems(new ArrayCollection($items));
     }
 
@@ -50,7 +50,7 @@ class InvoiceBreakdownTest extends TestCase
         $this->invoice->setInvoiceDiscounts(new ArrayCollection($discounts));
 
         $breakdown = InvoiceBreakdown::calculate($this->invoice);
-        $this->assertEquals(Money::CHF("529.00"), $breakdown['total']);
+        $this->assertEquals(Money::CHF(52900), $breakdown['total']);
     }
 
     public function testMixedDiscounts()
@@ -62,7 +62,7 @@ class InvoiceBreakdownTest extends TestCase
         $this->invoice->setInvoiceDiscounts(new ArrayCollection($discounts));
 
         $breakdown = InvoiceBreakdown::calculate($this->invoice);
-        $this->assertEquals(Money::CHF("259.20"), $breakdown['total']);
+        $this->assertEquals(Money::CHF(25920), $breakdown['total']);
     }
 
     public function testFixedDiscount()
@@ -72,7 +72,7 @@ class InvoiceBreakdownTest extends TestCase
         $this->invoice->setInvoiceDiscounts(new ArrayCollection($discounts));
 
         $breakdown = InvoiceBreakdown::calculate($this->invoice);
-        $this->assertEquals(Money::CHF("518.40"), $breakdown['total']);
+        $this->assertEquals(Money::CHF(51840), $breakdown['total']);
     }
 
     public function testPercentDiscount()
@@ -82,6 +82,6 @@ class InvoiceBreakdownTest extends TestCase
         $this->invoice->setInvoiceDiscounts(new ArrayCollection($discounts));
 
         $breakdown = InvoiceBreakdown::calculate($this->invoice);
-        $this->assertEquals(Money::CHF("264.50"), $breakdown['total']);
+        $this->assertEquals(Money::CHF(26450), $breakdown['total']);
     }
 }

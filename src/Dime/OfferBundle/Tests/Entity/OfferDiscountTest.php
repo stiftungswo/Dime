@@ -14,13 +14,13 @@ class OfferDiscountTest extends TestCase
         $offer_discount = new OfferDiscount();
         $offer_discount->setValue(87263.34);
         $this->assertEquals(
-            Money::CHF(87263.34),
+            Money::CHF(8726334),
             $offer_discount->getCalculatedDiscount(Money::CHF(0))
         );
 
         // should return percentage value
         $offer_discount->setPercentage(true);
         $offer_discount->setValue(0.12);
-        $this->assertEquals(Money::CHF(91.85), $offer_discount->getCalculatedDiscount(Money::CHF(765.44)));
+        $this->assertEquals(Money::CHF(9185), $offer_discount->getCalculatedDiscount(Money::CHF(76544)));
     }
 }

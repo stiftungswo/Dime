@@ -250,7 +250,7 @@ class Period extends Entity implements DimeEntityInterface
     }
 
     /**
-     * @JMS\VirtualProperty
+     * @JMS\VirtualProperty()
      * @JMS\SerializedName("employee")
      *
      * @return array

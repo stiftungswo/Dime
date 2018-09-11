@@ -101,25 +101,23 @@ class ActivityTest extends TestCase
         $this->assertNull($activity->getCharge());
 
         // it should return calculated charge
-        $activity->setRateValue(Money::CHF(100.00));
+        $activity->setRateValue(Money::CHF(10000));
         $activity->setVat(0.1);
         $timeslice = new Timeslice();
         $timeslice->setValue(10);
         $activity->addTimeslice($timeslice);
 
-        $this->assertEquals(Money::CHF(1100.00), $activity->getCharge());
+        $this->assertEquals(Money::CHF(110000), $activity->getCharge());
 
         // try it again
         $activity = new Activity();
-        $activity->setRateValue(Money::CHF(105.44));
+        $activity->setRateValue(Money::CHF(10544));
         $activity->setVat(0.077);
         $timeslice = new Timeslice();
         $timeslice->setValue(5);
         $activity->addTimeslice($timeslice);
 
-        // should actually be CHF 567.7944 (CHF 567.80)
-        // but because the Money library rounds every value, it is CHF 567.85
-        $this->assertEquals(Money::CHF(567.85), $activity->getCharge());
+        $this->assertEquals(Money::CHF(56779), $activity->getCharge());
     }
 
     public function testGetName()
@@ -177,7 +175,7 @@ class ActivityTest extends TestCase
         $this->assertNull($activity->getCalculatedVAT());
 
         // - vat not numeric
-        $activity->setRateValue(Money::CHF(15000.00));
+        $activity->setRateValue(Money::CHF(1500000));
         $activity->setVat('abcdfeg');
         $this->assertNull($activity->getCalculatedVAT());
 
@@ -189,13 +187,13 @@ class ActivityTest extends TestCase
         $activity->setRateUnitType($rate_unit_type);
         $activity->addTimeslice($timeslice);
         $activity->setVat(1);
-        $this->assertEquals(Money::CHF(15000.00), $activity->getCalculatedVAT());
+        $this->assertEquals(Money::CHF(1500000), $activity->getCalculatedVAT());
 
         // calculate edge case
-        $activity->setRateValue(Money::CHF(1234.56));
+        $activity->setRateValue(Money::CHF(123456));
         $timeslice->setValue(0.5);
         $activity->setVat(0.08);
-        $this->assertEquals(Money::CHF(49.38), $activity->getCalculatedVAT());
+        $this->assertEquals(Money::CHF(4938), $activity->getCalculatedVAT());
     }
 
     public function testGetSetDescription()
