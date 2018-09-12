@@ -114,14 +114,7 @@ class TimesliceOverviewComponent extends EditableOverview<Timeslice> implements 
       this.updateChosenSetting('project');
       this.timetrackService.projectSelect.add(proj);
       _projectChange.add(proj);
-
-      // select the same activity if also it exists in new project
-      try {
-        this.selectedActivity = activities
-            .singleWhere((Activity a) => a.alias == this.settingselectedActivity.value && a.project.id == this.selectedProject.id);
-      } catch (e) {
-        this.selectedActivity = null;
-      }
+      this.updateActivitiesList();
     }
   }
 
@@ -372,7 +365,6 @@ class TimesliceOverviewComponent extends EditableOverview<Timeslice> implements 
 
   Future load() async {
     await this.statusservice.run(() async {
-      this.activities = await this.store.list(Activity);
       this.employees = await this.store.list(Employee, params: {"enabled": 1});
       this.employee = this.context.employee;
       List<Project> projects = await this.store.list(Project);
@@ -393,6 +385,16 @@ class TimesliceOverviewComponent extends EditableOverview<Timeslice> implements 
       } catch (e) {
         this.settingselectedActivity = await settingsManager.createSetting('/usr/timeslice', 'chosenActivity', '');
       }
+
+      await this.updateActivitiesList();
+      this.handleDates();
+    });
+  }
+
+  Future updateActivitiesList() async {
+    await this.statusservice.run(() async {
+      this.activities = await this.store.list(Activity, params: {'project': this.selectedProject.id});
+
       try {
         this.selectedActivity = this
             .activities
@@ -400,8 +402,6 @@ class TimesliceOverviewComponent extends EditableOverview<Timeslice> implements 
       } catch (e) {
         this.selectedActivity = null;
       }
-
-      this.handleDates();
     });
   }
 
