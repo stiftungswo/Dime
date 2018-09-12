@@ -1,43 +1,40 @@
 <?php
 
-namespace Swo\CommonsBundle\Entity;
+namespace Swo\CustomerBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use JMS\Serializer\Annotation as JMS;
 use Misd\PhoneNumberBundle\Validator\Constraints\PhoneNumber as AssertPhoneNumber;
-use Symfony\Component\Validator\Constraints as Assert;
+use Swo\Commonsbundle\Entity\AbstractEntity;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="phone")
 \*/
-class Phone
+class Phone extends AbstractEntity
 {
     /**
-     * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue(strategy="AUTO")
-    \*/
-    protected $id;
+     * @var \Swo\CustomerBundle\Entity\Company $company
+     * @ORM\ManyToOne(targetEntity="Swo\CustomerBundle\Entity\Company", cascade={"all"})
+     * @ORM\JoinColumn(name="company_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
+     */
+    private $company;
 
     /**
      * Phone Number
-     * @var Integer
+     * @var String $number
      *
      * @AssertPhoneNumber(defaultRegion="CH")
-     * @ORM\Column(type="phone_number")
-     * @JMS\SerializedName("Number")
+     * @ORM\Column(name="phone_number")
      */
-    protected $number;
+    private $number;
 
     /**
      * If its mobile or private or work phone
      * @var String
      *
      * @ORM\Column(type="string")
-     * @JMS\SerializedName("Type")
      */
-    protected $type;
+    private $type;
 
     /**
      * @var bool hydrate results to doctrine objects
@@ -50,13 +47,27 @@ class Phone
     }
 
     /**
-     * Get id
+     * Set company
      *
-     * @return integer
+     * @param \Swo\CustomerBundle\Entity\Company $company
+     *
+     * @return Phone
      */
-    public function getId()
+    public function setCompany($company)
     {
-        return $this->id;
+        $this->company = $company;
+
+        return $this;
+    }
+
+    /**
+     * Get company
+     *
+     * @return \Swo\CustomerBundle\Entity\Company
+     */
+    public function getCompany()
+    {
+        return $this->company;
     }
 
     /**

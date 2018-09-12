@@ -29,7 +29,6 @@ class AppKernel extends Kernel
 			new JMS\SerializerBundle\JMSSerializerBundle($this),
 			new Nelmio\ApiDocBundle\NelmioApiDocBundle(),
 			new \Knp\JsonSchemaBundle\KnpJsonSchemaBundle(),
-			new \Swo\CommonsBundle\SwoCommonsBundle(),
 			new \Misd\PhoneNumberBundle\MisdPhoneNumberBundle(),
 			new \Tbbc\MoneyBundle\TbbcMoneyBundle(),
 			
@@ -41,6 +40,9 @@ class AppKernel extends Kernel
 			new Dime\EmployeeBundle\DimeEmployeeBundle(),
 			new Dime\ReportBundle\DimeReportBundle(),
 			new Dime\TimetrackerBundle\DimeTimetrackerBundle(),
+            new Swo\CustomerBundle\SwoCustomerBundle(),
+            new Swo\CommonsBundle\SwoCommonsBundle(),
+
 		);
 
         if (in_array($this->getEnvironment(), ['staging', 'prod'], true)) {

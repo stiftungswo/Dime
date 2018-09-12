@@ -104,9 +104,9 @@ class Offer extends AbstractEntity implements DimeEntityInterface
     protected $fixedPrice;
 
     /**
-     * @var \Swo\CommonsBundle\Entity\Address $address
+     * @var \Swo\CustomerBundle\Entity\Address $address
      *
-     * @ORM\ManyToOne(targetEntity="\Swo\CommonsBundle\Entity\Address", cascade="all")
+     * @ORM\ManyToOne(targetEntity="Swo\CustomerBundle\Entity\Address", cascade="all")
      */
     protected $address;
 
@@ -556,7 +556,7 @@ class Offer extends AbstractEntity implements DimeEntityInterface
     }
 
     /**
-     * @return \Swo\CommonsBundle\Entity\Address
+     * @return \Swo\CustomerBundle\Entity\Address
      */
     public function getAddress()
     {
@@ -564,7 +564,7 @@ class Offer extends AbstractEntity implements DimeEntityInterface
     }
 
     /**
-     * @param \Swo\CommonsBundle\Entity\Address $address
+     * @param \Swo\CustomerBundle\Entity\Address $address
      *
      * @return $this
      */

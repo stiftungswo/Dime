@@ -8,7 +8,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use JMS\Serializer\Annotation as JMS;
 
 /**
- * Swo\Commonsbundle\Entity\AbstractEntity
+ * Swo\CommonsBundle\Entity\AbstractEntity
  *
  * @ORM\HasLifecycleCallbacks()
  */

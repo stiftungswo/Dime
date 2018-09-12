@@ -2,11 +2,11 @@ parameters:
 
 services:
     swo_commons.form_type.address:
-            class: Swo\CommonsBundle\Form\Type\AddressFormType
+            class: Swo\CustomerBundle\Form\Type\AddressFormType
             tags:
                 - { name: form.type }
 
     swo_commons.form_type.phone:
-                class: Swo\CommonsBundle\Form\Type\PhoneFormType
+                class: Swo\CustomerBundle\Form\Type\PhoneFormType
                 tags:
                     - { name: form.type }
