@@ -3235,16 +3235,16 @@
         },
         {
             "name": "sentry/sentry-symfony",
-            "version": "1.0.1",
+            "version": "1.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/getsentry/sentry-symfony.git",
-                "reference": "988a3d931a15afb54cda5af291c8966689e4b468"
+                "reference": "482c98d2699fe9cccd995bc1239894ecc5704633"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/getsentry/sentry-symfony/zipball/988a3d931a15afb54cda5af291c8966689e4b468",
-                "reference": "988a3d931a15afb54cda5af291c8966689e4b468",
+                "url": "https://api.github.com/repos/getsentry/sentry-symfony/zipball/482c98d2699fe9cccd995bc1239894ecc5704633",
+                "reference": "482c98d2699fe9cccd995bc1239894ecc5704633",
                 "shasum": ""
             },
             "require": {
@@ -3260,8 +3260,8 @@
             },
             "require-dev": {
                 "friendsofphp/php-cs-fixer": "^2.5",
-                "phpunit/phpunit": "^5.7|^6.0",
-                "scrutinizer/ocular": "^1.4"
+                "phpunit/phpunit": "^5.7|^6.5",
+                "scrutinizer/ocular": "^1.5"
             },
             "type": "symfony-bundle",
             "extra": {
@@ -3298,7 +3298,7 @@
                 "sentry",
                 "symfony"
             ],
-            "time": "2017-12-04T13:42:45+00:00"
+            "time": "2018-06-01T08:48:53+00:00"
         },
         {
             "name": "stof/doctrine-extensions-bundle",
