@@ -92,6 +92,12 @@ class Period extends Entity implements DimeEntityInterface
     protected $timeTillToday = 0;
 
     /**
+     * @var float
+     * @JMS\SerializedName("holidayBalance")
+     */
+    protected $holidayBalance = 0;
+
+    /**
      * @JMS\VirtualProperty()
      * @JMS\SerializedName("targetTime")
      */
@@ -372,6 +378,24 @@ class Period extends Entity implements DimeEntityInterface
     public function setTimeTillToday($timeTillToday)
     {
         $this->timeTillToday = $timeTillToday;
+        return $this;
+    }
+
+    /**
+     * @return float
+     */
+    public function getHolidayBalance() : float
+    {
+        return $this->holidayBalance;
+    }
+
+    /**
+     * @param float $holidayBalance
+     * @return Period
+     */
+    public function setHolidayBalance(float $holidayBalance) : Period
+    {
+        $this->holidayBalance = $holidayBalance;
         return $this;
     }
 }
