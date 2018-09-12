@@ -57,6 +57,8 @@ class Period extends Entity {
           return this.lastYearHolidayBalance;
         case 'yearlyEmployeeVacationBudget':
           return this.yearlyEmployeeVacationBudget;
+        case 'holidayBalance':
+          return this.holidayBalance;
         default:
           break;
       }
@@ -94,14 +96,14 @@ class Period extends Entity {
       case 'periodVacationBudget':
         this.periodVacationBudget = value as num;
         break;
-      case 'holidayBalance':
-        this.holidayBalance = value as num;
-        break;
       case 'lastYearHolidayBalance':
         this.lastYearHolidayBalance = value as String;
         break;
       case 'yearlyEmployeeVacationBudget':
         this.yearlyEmployeeVacationBudget = value as int;
+        break;
+      case 'holidayBalance':
+        this.holidayBalance = value as double;
         break;
       default:
         super.Set(property, value);
@@ -129,7 +131,7 @@ class Period extends Entity {
   num targetTime;
   num timeTillToday;
   num periodVacationBudget;
-  num holidayBalance;
+  double holidayBalance;
   String lastYearHolidayBalance;
   int yearlyEmployeeVacationBudget;
 }

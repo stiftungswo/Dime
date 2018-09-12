@@ -129,4 +129,13 @@ class PeriodTest extends TestCase
 
         $this->assertSame($expected, $period->getPeriodVacationBudget());
     }
+
+    public function testGetSetHolidayBalance()
+    {
+        // get and set chargeable
+        $period = new Period();
+        $this->assertEquals(0.0, $period->getHolidayBalance());
+        $period->setHolidayBalance(16.7);
+        $this->assertEquals(true, $period->getHolidayBalance());
+    }
 }

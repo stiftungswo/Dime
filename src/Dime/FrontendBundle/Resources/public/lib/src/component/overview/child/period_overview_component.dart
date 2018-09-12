@@ -37,7 +37,8 @@ class PeriodOverviewComponent extends EditableOverview<Period> {
         'periodVacationBudget',
         'holidayBalance',
         'lastYearHolidayBalance',
-        'yearlyEmployeeVacationBudget'
+        'yearlyEmployeeVacationBudget',
+        'holidayBalance'
       ];
 
   HttpService http;
@@ -77,35 +78,6 @@ class PeriodOverviewComponent extends EditableOverview<Period> {
   @override
   Future reload({Map<String, dynamic> params, bool evict: false}) async {
     super.reload(params: {'employee': employee.id}, evict: evict);
-  }
-
-  @override
-  Future postProcessEntities(List<Period> entities) async {
-    await Future.wait(entities.map((entity) async {
-      var result = await http.get('periods/holidaybalance',
-          queryParams: {"_format": "json", "date": encodeDateRange(entity.start, entity.end), "employee": employee.id});
-      dynamic data = json.decode(result);
-      if (data is Map) {
-        var takenHolidays = data['takenHolidays'] as List<dynamic>;
-        double periodVacationBudget = 0.0;
-        if (entity.periodVacationBudget != null) {
-          periodVacationBudget = entity.periodVacationBudget.toDouble();
-        }
-        entity.holidayBalance = getHolidayBalance(takenHolidays, periodVacationBudget);
-      } else {
-        entity.holidayBalance = 0.0;
-      }
-    }));
-  }
-
-  double getHolidayBalance(List<dynamic> takenHolidays, double periodVacationBudget) {
-    double holidayBalance = 0.0;
-    for (final i in takenHolidays) {
-      holidayBalance += double.parse(i.values.elementAt(0) as String);
-    }
-    holidayBalance = periodVacationBudget - holidayBalance;
-
-    return holidayBalance;
   }
 
   @override
