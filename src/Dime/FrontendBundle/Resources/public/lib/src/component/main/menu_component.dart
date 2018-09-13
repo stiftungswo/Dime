@@ -1,5 +1,6 @@
 import 'package:angular/angular.dart';
 import 'package:angular_router/angular_router.dart';
+import 'dart:js';
 
 import '../../model/Menu.dart';
 import '../../service/user_context_service.dart';
@@ -10,7 +11,7 @@ import 'routes.dart' as routes;
   templateUrl: 'menu_component.html',
   directives: const [coreDirectives, routerDirectives],
 )
-class MenuComponent {
+class MenuComponent implements AfterViewInit {
   List<Menu> menus = [
     new Menu.withItems('Zeiterfassung', 'fa-clock-o', [
       new Menu.child('Erfassen', routes.TimetrackRoute.toUrl()),
@@ -49,4 +50,9 @@ class MenuComponent {
   bool isUserAdmin() => _userContext.employee.isAdmin();
 
   MenuComponent(this._userContext);
+
+  @override
+  void ngAfterViewInit() {
+    context.callMethod(r'$', ['.sidebar-menu']).callMethod('tree');
+  }
 }

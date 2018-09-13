@@ -1,25 +1,30 @@
 <section class="sidebar">
-  <ul class="sidebar-menu" *ngFor="let menu of menus">
-    <template [ngIf]="!menu.adminOnly || isUserAdmin()">
-      <li class="treeview" *ngIf="menu.items.length > 0">
-        <a>
-          <i [ngClass]="menu.icon" class="fa"></i>
-          <span>{{menu.title}}</span>
-          <i class="fa fa-angle-left pull-right"></i>
-        </a>
-        <ul class="treeview-menu">
-          <li *ngFor="let item of menu.items">
-            <a *ngIf="!item.adminOnly || isUserAdmin()" [routerLink]="item.link">{{item.title}}</a>
-          </li>
-        </ul>
-      </li>
-      <li *ngIf="menu.items.length == 0">
-        <a [routerLink]="menu.link">
-          <i [ngClass]="menu.icon" class="fa"></i>
-          <span>{{menu.title}}</span>
-        </a>
-      </li>
-    </template>
+  <ul class="sidebar-menu" data-widget="tree">
+    <ng-container  *ngFor="let menu of menus">
+      <template [ngIf]="!menu.adminOnly || isUserAdmin()">
+        <li class="treeview" *ngIf="menu.items.length > 0">
+          <a>
+            <i [ngClass]="menu.icon" class="fa"></i>
+            <span>{{menu.title}}</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li *ngFor="let item of menu.items">
+              <a *ngIf="!item.adminOnly || isUserAdmin()" [routerLink]="item.link">{{item.title}}</a>
+            </li>
+          </ul>
+        </li>
+
+        <li *ngIf="menu.items.length == 0">
+          <a [routerLink]="menu.link">
+            <i [ngClass]="menu.icon" class="fa"></i>
+            <span>{{menu.title}}</span>
+          </a>
+        </li>
+      </template>
+    </ng-container>
   </ul>
 </section>
 
