@@ -51,19 +51,19 @@ class ActivitySelectComponent extends EntitySelect<Activity> implements OnChange
   }
 
   void _onChange(List<Activity> oldList, List<Activity> newList) {
-    if (this.entities != null && this.entities.isEmpty && newList != null && newList.isNotEmpty) {
+    if (newList != null && newList.isNotEmpty) {
       reload();
     }
   }
 
   @override
   Future reload() async {
-    await this.statusservice.run(() async {
-      if (this.parentActivities != null) {
-        this.entities = this.parentActivities;
-      } else {
+    if (this.parentActivities != null) {
+      this.entities = this.parentActivities;
+    } else {
+      await this.statusservice.run(() async {
         this.entities = await this.store.list(Activity, params: {'project': this.projectId});
-      }
-    });
+      });
+    }
   }
 }
