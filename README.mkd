@@ -47,8 +47,8 @@ An API and open architecture will serve additional purposes:
 
 3. Check out the current version with all submodules
     ```
-    sudo apt update && sudo apt install git               # if you don't have git yet
-    git clone --recursive git@github.com:stiftungswo/dime
+    sudo apt update && sudo apt install git # if you don't have git yet
+    git clone --recurse-submodules https://github.com/stiftungswo/Dime.git
     ```
 
 4. Build your Docker Images:
