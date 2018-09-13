@@ -3,7 +3,7 @@ namespace Dime\EmployeeBundle\Entity;
 
 use Dime\TimetrackerBundle\Annotation\DiscriminatorEntry;
 use Dime\TimetrackerBundle\Entity\User;
-use Dime\TimetrackerBundle\Model\DimeEntityInterface;
+use Swo\CommonsBundle\Model\DimeEntityInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;

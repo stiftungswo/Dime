@@ -2,7 +2,6 @@
 
 namespace Swo\CustomerBundle\Entity;
 
-
 /**
  * CompanyRepository
  *

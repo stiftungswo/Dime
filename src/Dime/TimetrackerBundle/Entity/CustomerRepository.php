@@ -3,7 +3,7 @@
 namespace Dime\TimetrackerBundle\Entity;
 
 use Doctrine\ORM\QueryBuilder;
-use Swo\Commonsbundle\Entity\AbstractEntityRepository;
+use Swo\CommonsBundle\Entity\AbstractEntityRepository;
 
 /**
  * CustomerRepository
@@ -104,7 +104,7 @@ class CustomerRepository extends AbstractEntityRepository
      * @param integer|string $tagIdOrName
      * @param \Doctrine\ORM\QueryBuilder $qb
      *
-     * @return \Doctrine\ORM\QueryBuilder
+     * @return CustomerRepository
      */
     public function scopeWithoutTag($tagIdOrName, QueryBuilder $qb = null)
     {

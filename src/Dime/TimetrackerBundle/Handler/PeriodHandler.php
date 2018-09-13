@@ -3,7 +3,8 @@ namespace Dime\TimetrackerBundle\Handler;
 
 use Dime\EmployeeBundle\Entity\Holiday;
 use Dime\TimetrackerBundle\Entity\RateUnitType;
-use Dime\TimetrackerBundle\Model\DimeEntityInterface;
+use Swo\CommonsBundle\Handler\GenericHandler;
+use Swo\CommonsBundle\Model\DimeEntityInterface;
 use Carbon\Carbon;
 
 class PeriodHandler extends GenericHandler

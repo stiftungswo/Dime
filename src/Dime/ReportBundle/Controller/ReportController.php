@@ -9,7 +9,7 @@ namespace Dime\ReportBundle\Controller;
 
 use Carbon\Carbon;
 use Dime\ReportBundle\Handler\ReportHandler;
-use Dime\TimetrackerBundle\Controller\DimeController;
+use Swo\CommonsBundle\Controller\DimeController;
 use Doctrine\Common\Collections\ArrayCollection;
 use FOS\RestBundle\Controller\Annotations;
 use FOS\RestBundle\Request\ParamFetcherInterface;
@@ -239,7 +239,7 @@ class ReportController extends DimeController
      *
      * @param ParamFetcherInterface $paramFetcher
      *
-     * @return array
+     * @return Response
      */
     public function getReportsServicehoursCsvAction(ParamFetcherInterface $paramFetcher)
     {
@@ -272,7 +272,7 @@ class ReportController extends DimeController
      *
      * @param ParamFetcherInterface $paramFetcher
      *
-     * @return array
+     * @return Response
      */
     public function getReportsRevenueCsvAction(ParamFetcherInterface $paramFetcher)
     {

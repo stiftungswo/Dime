@@ -5,13 +5,13 @@ namespace Dime\TimetrackerBundle\Entity;
 use Carbon\Carbon;
 use DateTime;
 use Dime\EmployeeBundle\Entity\Employee;
-use Dime\TimetrackerBundle\Model\DimeEntityInterface;
+use Swo\CommonsBundle\Model\DimeEntityInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use JMS\Serializer\Annotation as JMS;
 use Knp\JsonSchemaBundle\Annotations as Json;
-use Swo\Commonsbundle\Entity\AbstractEntity;
+use Swo\CommonsBundle\Entity\AbstractEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**

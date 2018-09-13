@@ -4,16 +4,28 @@ namespace Swo\CustomerBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as JMS;
+use Swo\CommonsBundle\Model\DimeEntityInterface;
 use Symfony\Component\Validator\Constraints as Assert;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Knp\JsonSchemaBundle\Annotations as Json;
 
 /**
  * Person
  *
  * @ORM\Table(name="person")
  * @ORM\Entity(repositoryClass="Swo\CustomerBundle\Entity\PersonRepository")
+ * @Json\Schema("person")
  */
-class Person extends AbstractCustomer
+class Person extends AbstractCustomer implements DimeEntityInterface
 {
+    /**
+     * @var string $alias
+     *
+     * @Gedmo\Slug(fields={"fullName"})
+     * @ORM\Column(type="string", length=30)
+     */
+    private $alias;
+
     /**
      * @var \Swo\CustomerBundle\Entity\Company $company
      * @JMS\Groups({"List"})
@@ -52,14 +64,9 @@ class Person extends AbstractCustomer
     private $fullName;
 
     /**
-     * @Gedmo\Slug(fields={"full_name"})
-     */
-    private $alias;
-
-    /**
      * @JMS\Type("array")
      * @JMS\MaxDepth(1)
-     * @ORM\ManyToOne(targetEntity="Swo\CustomerBundle\Entity\Phone", cascade={"all"}, orphanRemoval=true)
+     * @ORM\ManyToOne(targetEntity="Swo\CustomerBundle\Entity\Phone", cascade={"all"})
      * @ORM\JoinTable(name="person_phone",
      *      joinColumns={@ORM\JoinColumn(name="person_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="phone_id", referencedColumnName="id", unique=true)}
@@ -68,13 +75,26 @@ class Person extends AbstractCustomer
     private $phones;
 
     /**
-     * Get id
+     * Set alias
      *
-     * @return integer
+     * @param  string $alias
+     * @return Person
      */
-    public function getId()
+    public function setAlias($alias)
     {
-        return $this->id;
+        $this->alias = $alias;
+
+        return $this;
+    }
+
+    /**
+     * Get alias
+     *
+     * @return string
+     */
+    public function getAlias()
+    {
+        return $this->alias;
     }
 
     /**
@@ -216,4 +236,3 @@ class Person extends AbstractCustomer
         return $this;
     }
 }
-

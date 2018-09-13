@@ -3,7 +3,8 @@ namespace Dime\TimetrackerBundle\Handler;
 
 use Dime\TimetrackerBundle\Event\DimeEntityPersistEvent;
 use Dime\TimetrackerBundle\Exception\InvalidFormException;
-use Dime\TimetrackerBundle\Model\DimeEntityInterface;
+use Swo\CommonsBundle\Handler\GenericHandler;
+use Swo\CommonsBundle\Model\DimeEntityInterface;
 use Dime\TimetrackerBundle\TimetrackEvents;
 use Doctrine\Common\Persistence\ObjectManager;
 use FOS\UserBundle\Model\UserInterface;
@@ -15,7 +16,7 @@ class UserHandler extends GenericHandler
     private $userManager;
 
     /* (non-PHPdoc)
-     * @see \Dime\TimetrackerBundle\Handler\AbstractHandler::__construct()
+     * @see \Swo\CommonsBundle\Handler\AbstractHandler::__construct()
      */
     public function __construct(ObjectManager $om, $entityClass, Container $container, UserManager $userManager, $alias, $formType)
     {
@@ -25,7 +26,7 @@ class UserHandler extends GenericHandler
 
     /**
      * (non-PHPdoc)
-     * @see      \Dime\TimetrackerBundle\Model\HandlerInterface::all()
+     * @see      \Swo\CommonsBundle\Model\HandlerInterface::all()
      *
      * @param array $params
      *
@@ -51,7 +52,7 @@ class UserHandler extends GenericHandler
 
     /**
      * (non-PHPdoc)
-     * @see \Dime\TimetrackerBundle\Model\HandlerInterface::post()
+     * @see \Swo\CommonsBundle\Model\HandlerInterface::post()
      */
     public function post(array $parameters)
     {
@@ -62,7 +63,7 @@ class UserHandler extends GenericHandler
 
     /**
      * (non-PHPdoc)
-     * @see \Dime\TimetrackerBundle\Model\HandlerInterface::put()
+     * @see \Swo\CommonsBundle\Model\HandlerInterface::put()
      */
     public function put(DimeEntityInterface $entity, array $parameters)
     {

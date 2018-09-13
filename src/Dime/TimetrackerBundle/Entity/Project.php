@@ -3,7 +3,7 @@ namespace Dime\TimetrackerBundle\Entity;
 
 use DateTime;
 use Dime\EmployeeBundle\Entity\Employee;
-use Dime\TimetrackerBundle\Model\DimeEntityInterface;
+use Swo\CommonsBundle\Model\DimeEntityInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -12,7 +12,7 @@ use Knp\JsonSchemaBundle\Annotations as Json;
 use Money\Money;
 use Dime\InvoiceBundle\Entity\Invoice;
 use Dime\OfferBundle\Entity\Offer;
-use Swo\Commonsbundle\Entity\AbstractEntity;
+use Swo\CommonsBundle\Entity\AbstractEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -724,7 +724,7 @@ class Project extends AbstractEntity implements DimeEntityInterface
      * Set $projectCategory
      *
      * @param  ProjectCategory $projectCategory
-     * @return ProjectCategory
+     * @return Project
      */
     public function setProjectCategory(ProjectCategory $projectCategory)
     {

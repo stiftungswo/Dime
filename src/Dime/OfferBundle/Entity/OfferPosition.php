@@ -3,7 +3,7 @@ namespace Dime\OfferBundle\Entity;
 
 use Swo\CommonsBundle\Entity\AbstractEntity;
 use Dime\TimetrackerBundle\Entity\Service;
-use Dime\TimetrackerBundle\Model\DimeEntityInterface;
+use Swo\CommonsBundle\Model\DimeEntityInterface;
 use Dime\TimetrackerBundle\Entity\RateUnitType;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as JMS;
@@ -494,10 +494,12 @@ class OfferPosition extends AbstractEntity implements DimeEntityInterface
     /**
      * @param boolean $chargeable
      *
-     * @return $this
+     * @return OfferPosition
      */
     public function setChargeable($chargeable)
     {
         $this->chargeable = $chargeable;
+
+        return $this;
     }
 }

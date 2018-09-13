@@ -3,7 +3,7 @@
 namespace Dime\InvoiceBundle\Entity;
 
 use Swo\CommonsBundle\Entity\AbstractEntity;
-use Dime\TimetrackerBundle\Model\DimeEntityInterface;
+use Swo\CommonsBundle\Model\DimeEntityInterface;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as JMS;
 use Knp\JsonSchemaBundle\Annotations as Json;

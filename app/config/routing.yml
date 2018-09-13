@@ -37,3 +37,8 @@ NelmioApiDocBundle:
 DimeFrontendBundle:
     resource: "@DimeFrontendBundle/Resources/config/routing.yml"
     prefix:   /
+
+SwoCustomerBundle:
+    type: rest
+    prefix: /api
+    resource: "@SwoCustomerBundle/Resources/config/routing.yml"

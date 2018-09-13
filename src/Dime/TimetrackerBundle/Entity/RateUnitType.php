@@ -10,8 +10,8 @@ namespace Dime\TimetrackerBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as JMS;
 use Knp\JsonSchemaBundle\Annotations as Json;
-use Dime\TimetrackerBundle\Model\DimeEntityInterface;
-use Swo\Commonsbundle\Entity\AbstractEntity;
+use Swo\CommonsBundle\Model\DimeEntityInterface;
+use Swo\CommonsBundle\Entity\AbstractEntity;
 
 /**
  * Class RateUnitType

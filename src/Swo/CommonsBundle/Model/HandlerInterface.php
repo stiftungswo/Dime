@@ -1,5 +1,5 @@
 <?php
-namespace Dime\TimetrackerBundle\Model;
+namespace Swo\CommonsBundle\Model;
 
 interface HandlerInterface
 {

@@ -11,7 +11,7 @@ use Carbon\Carbon;
 use Swo\CommonsBundle\Entity\AbstractEntity;
 use Dime\TimetrackerBundle\Entity\RateUnitType;
 use Dime\TimetrackerBundle\Entity\Timeslice;
-use Dime\TimetrackerBundle\Model\DimeEntityInterface;
+use Swo\CommonsBundle\Model\DimeEntityInterface;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as JMS;
 

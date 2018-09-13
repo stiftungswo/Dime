@@ -4,7 +4,7 @@ namespace Dime\OfferBundle\Controller;
 
 use Dime\OfferBundle\Entity\Offer;
 use Dime\PrintingBundle\Service\PrintService;
-use Dime\TimetrackerBundle\Controller\DimeController;
+use Swo\CommonsBundle\Controller\DimeController;
 use Dime\TimetrackerBundle\Exception\InvalidFormException;
 use FOS\RestBundle\Controller\Annotations;
 use FOS\RestBundle\Request\ParamFetcherInterface;

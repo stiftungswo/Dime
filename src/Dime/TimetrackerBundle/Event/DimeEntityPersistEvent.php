@@ -7,7 +7,7 @@
 
 namespace Dime\TimetrackerBundle\Event;
 
-use Dime\TimetrackerBundle\Model\DimeEntityInterface;
+use Swo\CommonsBundle\Model\DimeEntityInterface;
 use Symfony\Component\EventDispatcher\Event;
 
 class DimeEntityPersistEvent extends Event

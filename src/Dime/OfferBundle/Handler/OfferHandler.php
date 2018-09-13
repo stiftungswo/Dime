@@ -4,7 +4,7 @@ namespace Dime\OfferBundle\Handler;
 use Dime\OfferBundle\Entity\Offer;
 use Dime\TimetrackerBundle\Entity\Activity;
 use Dime\TimetrackerBundle\Entity\Project;
-use Dime\TimetrackerBundle\Handler\GenericHandler;
+use Swo\CommonsBundle\Handler\GenericHandler;
 use Dime\TimetrackerBundle\Entity\RateUnitType;
 
 class OfferHandler extends GenericHandler

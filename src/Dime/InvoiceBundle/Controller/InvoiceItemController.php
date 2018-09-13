@@ -2,13 +2,14 @@
 
 namespace Dime\InvoiceBundle\Controller;
 
-use Dime\TimetrackerBundle\Controller\DimeController;
+use Swo\CommonsBundle\Controller\DimeController;
 use Dime\TimetrackerBundle\Exception\InvalidFormException;
 use FOS\RestBundle\Controller\Annotations;
 use FOS\RestBundle\Request\ParamFetcherInterface;
 use FOS\RestBundle\Util\Codes;
 use FOS\RestBundle\View\View;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use Swo\CommonsBundle\Model\DimeEntityInterface;
 use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -78,7 +79,7 @@ class InvoiceItemController extends DimeController
      * @param int $id
      *            the page id
      *
-     * @return array
+     * @return DimeEntityInterface
      *
      * @throws NotFoundHttpException when page not exist
      */

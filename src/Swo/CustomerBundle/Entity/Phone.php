@@ -4,7 +4,7 @@ namespace Swo\CustomerBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Misd\PhoneNumberBundle\Validator\Constraints\PhoneNumber as AssertPhoneNumber;
-use Swo\Commonsbundle\Entity\AbstractEntity;
+use Swo\CommonsBundle\Entity\AbstractEntity;
 
 /**
  * @ORM\Entity

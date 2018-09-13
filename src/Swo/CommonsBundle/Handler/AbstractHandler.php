@@ -1,9 +1,9 @@
 <?php
-namespace Dime\TimetrackerBundle\Handler;
+namespace Swo\CommonsBundle\Handler;
 
 use Dime\TimetrackerBundle\Event\DimeEntityPersistEvent;
 use Dime\TimetrackerBundle\Exception\InvalidFormException;
-use Dime\TimetrackerBundle\Model\DimeEntityInterface;
+use Swo\CommonsBundle\Model\DimeEntityInterface;
 use Dime\TimetrackerBundle\TimetrackEvents;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\DependencyInjection\Container;
@@ -96,9 +96,9 @@ abstract class AbstractHandler
      * @param String              $method
      *
      *
-     * @param array               $formoptions
+     * @param DimeEntityInterface               $formoptions
      *
-     * @return \Dime\TimetrackerBundle\Model\DimeEntityInterface|mixed
+     * @return \Swo\CommonsBundle\Model\DimeEntityInterface|mixed
      */
     protected function processForm(DimeEntityInterface $entity, array $parameters, $form, $method = "PUT", $formoptions = array())
     {

@@ -1,12 +1,12 @@
 <?php
 
-namespace Dime\TimetrackerBundle\Controller;
+namespace Swo\CommonsBundle\Controller;
 
 use FOS\RestBundle\Controller\FOSRestController;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Dime\TimetrackerBundle\Model\DimeEntityInterface;
+use Swo\CommonsBundle\Model\DimeEntityInterface;
 
 class DimeController extends FOSRestController
 {

@@ -1,5 +1,5 @@
 parameters:
-    generic_handler: Dime\TimetrackerBundle\Handler\GenericHandler
+    generic_handler: Swo\CommonsBundle\Handler\GenericHandler
 
 services:
     dime.offer.handler:

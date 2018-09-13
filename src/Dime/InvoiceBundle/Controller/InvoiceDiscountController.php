@@ -2,7 +2,7 @@
 
 namespace Dime\InvoiceBundle\Controller;
 
-use Dime\TimetrackerBundle\Controller\DimeController;
+use Swo\CommonsBundle\Controller\DimeController;
 use Dime\TimetrackerBundle\Exception\InvalidFormException;
 use FOS\RestBundle\Controller\Annotations;
 use FOS\RestBundle\Request\ParamFetcherInterface;

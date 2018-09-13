@@ -1,4 +1,4 @@
-Swo\CommonsBundle\Entity\Address:
+Swo\CustomerBundle\Entity\Address:
     addressCustomer_1:
         street: "Bahnhhofstrasse 25"
         city: Zürich

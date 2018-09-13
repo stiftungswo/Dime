@@ -3,7 +3,7 @@
 namespace Dime\TimetrackerBundle\Entity;
 
 use Doctrine\ORM\QueryBuilder;
-use Swo\Commonsbundle\Entity\AbstractEntityRepository;
+use Swo\CommonsBundle\Entity\AbstractEntityRepository;
 
 /**
  * SettingRepository
@@ -47,7 +47,7 @@ class SettingRepository extends AbstractEntityRepository
      * @param                            $namespace
      * @param QueryBuilder $qb
      *
-     * @return SettingRepository
+     * @return AbstractEntityRepository
      * @throws \Exception when $qb is null and Repository has no QueryBuilder initialized
      */
     public function scopeByNamespace($namespace, QueryBuilder $qb = null)

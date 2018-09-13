@@ -2,10 +2,9 @@
 
 namespace Dime\TimetrackerBundle\Form\Type;
 
-use Swo\CommonsBundle\Form\Type\AddressFormType;
+use Swo\CustomerBundle\Form\Type\AddressFormType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -40,7 +39,7 @@ class CustomerFormType extends AbstractType
             ->add('chargeable')
             ->add('systemCustomer')
             ->add('address', AddressFormType::class)
-            ->add('phones', CollectionType::class, array('type' => 'swo_commons_phoneformtype'))
+            ->add('phones')
             ->add('user', EntityType::class, array('class' => 'DimeTimetrackerBundle:User'))
         ;
     }

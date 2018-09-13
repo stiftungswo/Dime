@@ -3,7 +3,7 @@ namespace Dime\TimetrackerBundle\Entity;
 
 use Doctrine\ORM\Query\ResultSetMapping;
 use Doctrine\ORM\QueryBuilder;
-use Swo\Commonsbundle\Entity\AbstractEntityRepository;
+use Swo\CommonsBundle\Entity\AbstractEntityRepository;
 
 /**
  * TimesliceRepository

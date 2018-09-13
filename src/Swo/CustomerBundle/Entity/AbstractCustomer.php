@@ -4,20 +4,14 @@ namespace Swo\CustomerBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as JMS;
-use Swo\Commonsbundle\Entity\AbstractEntity;
+use Swo\CommonsBundle\Entity\AbstractEntity;
 
 /**
  * AbstractCustomer
- *
+ * @ORM\MappedSuperclass()
  */
 abstract class AbstractCustomer extends AbstractEntity
 {
-    /**
-     * @var String $alias
-     * @ORM\Column(type="string", length=30)
-     */
-    private $alias;
-
     /**
      * @var \Swo\CustomerBundle\Entity\Address $address
      *
@@ -60,29 +54,6 @@ abstract class AbstractCustomer extends AbstractEntity
      * @ORM\Column(name="email", type="string", length=60, nullable=true)
      */
     private $email;
-
-    /**
-     * Set alias
-     *
-     * @param  string $alias
-     * @return AbstractCustomer
-     */
-    public function setAlias($alias)
-    {
-        $this->alias = $alias;
-
-        return $this;
-    }
-
-    /**
-     * Get alias
-     *
-     * @return string
-     */
-    public function getAlias()
-    {
-        return $this->alias;
-    }
 
     /**
      * Set address
@@ -204,4 +175,3 @@ abstract class AbstractCustomer extends AbstractEntity
         return $this->email;
     }
 }
-

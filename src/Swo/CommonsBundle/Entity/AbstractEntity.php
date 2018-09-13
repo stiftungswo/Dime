@@ -1,5 +1,5 @@
 <?php
-namespace Swo\Commonsbundle\Entity;
+namespace Swo\CommonsBundle\Entity;
 
 use DateTime;
 use Dime\TimetrackerBundle\Entity\User;
@@ -10,6 +10,7 @@ use JMS\Serializer\Annotation as JMS;
 /**
  * Swo\CommonsBundle\Entity\AbstractEntity
  *
+ * @ORM\MappedSuperclass()
  * @ORM\HasLifecycleCallbacks()
  */
 abstract class AbstractEntity

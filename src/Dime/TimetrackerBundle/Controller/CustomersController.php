@@ -11,6 +11,7 @@ use FOS\RestBundle\Request\ParamFetcherInterface;
 use FOS\RestBundle\Util\Codes;
 use FOS\RestBundle\View\View;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use Swo\CommonsBundle\Controller\DimeController;
 use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,7 +20,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class CustomersController extends DimeController
 {
-    private $handlerSerivce = 'dime.customer.handler';
+    private $handlerService = 'dime.customer.handler';
 
     private $formType = 'dime_timetrackerbundle_customerformtype';
 
@@ -60,7 +61,7 @@ class CustomersController extends DimeController
      */
     public function getCustomersAction(ParamFetcherInterface $paramFetcher)
     {
-        return $this->container->get($this->handlerSerivce)->all($paramFetcher->all());
+        return $this->container->get($this->handlerService)->all($paramFetcher->all());
     }
 
     /**
@@ -93,7 +94,7 @@ class CustomersController extends DimeController
      */
     public function getCustomerAction($id)
     {
-        return $this->getOr404($id, $this->handlerSerivce);
+        return $this->getOr404($id, $this->handlerService);
     }
 
     /**
@@ -125,7 +126,7 @@ class CustomersController extends DimeController
     public function postCustomerAction(Request $request)
     {
         try {
-            $newCustomer = $this->container->get($this->handlerSerivce)->post($request->request->all());
+            $newCustomer = $this->container->get($this->handlerService)->post($request->request->all());
             return $this->view($newCustomer, Codes::HTTP_CREATED);
         } catch (InvalidFormException $exception) {
             return $exception->getForm();
@@ -166,8 +167,8 @@ class CustomersController extends DimeController
     public function putCustomerAction(Request $request, $id)
     {
         try {
-            $entity = $this->getOr404($id, $this->handlerSerivce);
-            $entity = $this->container->get($this->handlerSerivce)->put($entity, $request->request->all());
+            $entity = $this->getOr404($id, $this->handlerService);
+            $entity = $this->container->get($this->handlerService)->put($entity, $request->request->all());
             return $this->view($entity, Codes::HTTP_OK);
         } catch (InvalidFormException $exception) {
             return $exception->getForm();
@@ -200,7 +201,7 @@ class CustomersController extends DimeController
      */
     public function deleteCustomerAction($id)
     {
-        $this->container->get($this->handlerSerivce)->delete($this->getOr404($id, $this->handlerSerivce));
+        $this->container->get($this->handlerService)->delete($this->getOr404($id, $this->handlerService));
         return $this->view(null, Codes::HTTP_NO_CONTENT);
     }
 
@@ -232,7 +233,7 @@ class CustomersController extends DimeController
     public function getCustomersExportCsvAction(ParamFetcherInterface $paramFetcher)
     {
         /** @var CustomerHandler $handler */
-        $handler = $this->container->get($this->handlerSerivce);
+        $handler = $this->container->get($this->handlerService);
 
         $result = $handler->getFilteredCustomers($paramFetcher->all());
 
@@ -328,7 +329,7 @@ class CustomersController extends DimeController
         $customers = $params->get("customers");
 
         /** @var CustomerHandler $customerHandler */
-        $customerHandler = $this->container->get($this->handlerSerivce);
+        $customerHandler = $this->container->get($this->handlerService);
 
         $foundDuplicates = [];
         foreach ($customers as $customer) {
@@ -366,7 +367,7 @@ class CustomersController extends DimeController
     {
         $customers = $params->get("customers");
 
-        $customerHandler = $this->container->get($this->handlerSerivce);
+        $customerHandler = $this->container->get($this->handlerService);
 
         $createdCustomers = [];
         foreach ($customers as $customer) {

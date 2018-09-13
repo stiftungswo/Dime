@@ -9,7 +9,7 @@ namespace Dime\InvoiceBundle\Entity;
 
 use Dime\OfferBundle\Entity\OfferDiscount;
 use Swo\CommonsBundle\Entity\AbstractEntity;
-use Dime\TimetrackerBundle\Model\DimeEntityInterface;
+use Swo\CommonsBundle\Model\DimeEntityInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\JsonSchemaBundle\Annotations as Json;
 use JMS\Serializer\Annotation as JMS;

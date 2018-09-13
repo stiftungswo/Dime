@@ -13,18 +13,20 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PhoneFormType extends AbstractType
 {
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setDefaults(array(
+            'data_class' => 'Swo\CustomerBundle\Entity\Phone',
+            'translation_domain' => 'SwoCustomerBundle'
+        ));
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('number')
-            ->add('type');
-    }
-
-    public function configureOptions(OptionsResolver $resolver)
-    {
-        $resolver->setDefaults(array(
-            'data_class' => 'Swo\CommonsBundle\Entity\Phone',
-            'translation_domain' => 'SwoCommonsBundle'
-        ));
+            ->add('type')
+            ->add('company', CompanyFormType::class)
+        ;
     }
 }

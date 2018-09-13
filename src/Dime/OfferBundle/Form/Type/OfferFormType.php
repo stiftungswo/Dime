@@ -2,7 +2,7 @@
 
 namespace Dime\OfferBundle\Form\Type;
 
-use Swo\CommonsBundle\Form\Type\AddressFormType;
+use Swo\CustomerBundle\Form\Type\AddressFormType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\FormBuilderInterface;

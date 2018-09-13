@@ -3,13 +3,14 @@
 namespace Dime\TimetrackerBundle\Controller;
 
 use Dime\TimetrackerBundle\Exception\InvalidFormException;
-use Dime\TimetrackerBundle\Handler\GenericHandler;
-use Dime\TimetrackerBundle\Model\DimeEntityInterface;
+use Swo\CommonsBundle\Handler\GenericHandler;
+use Swo\CommonsBundle\Model\DimeEntityInterface;
 use FOS\RestBundle\Request\ParamFetcherInterface;
 use FOS\RestBundle\Controller\Annotations;
 use FOS\RestBundle\Util\Codes;
 use FOS\RestBundle\View\View;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use Swo\CommonsBundle\Controller\DimeController;
 use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;

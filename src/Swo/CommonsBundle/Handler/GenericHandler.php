@@ -5,10 +5,10 @@
  * Dime
  */
 
-namespace Dime\TimetrackerBundle\Handler;
+namespace Swo\CommonsBundle\Handler;
 
-use Dime\TimetrackerBundle\Model\DimeEntityInterface;
-use Dime\TimetrackerBundle\Model\HandlerInterface;
+use Swo\CommonsBundle\Model\DimeEntityInterface;
+use Swo\CommonsBundle\Model\HandlerInterface;
 
 class GenericHandler extends AbstractHandler implements HandlerInterface
 {

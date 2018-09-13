@@ -6,6 +6,7 @@ use Dime\TimetrackerBundle\Entity\Customer;
 use Dime\TimetrackerBundle\Entity\CustomerRepository;
 use Dime\TimetrackerBundle\Entity\Tag;
 use Doctrine\ORM\QueryBuilder;
+use Swo\CommonsBundle\Handler\GenericHandler;
 
 class CustomerHandler extends GenericHandler
 {

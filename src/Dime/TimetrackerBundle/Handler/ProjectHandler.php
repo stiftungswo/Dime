@@ -2,7 +2,7 @@
 namespace Dime\TimetrackerBundle\Handler;
 
 use Money\Money;
-use Symfony\Component\DependencyInjection\Container;
+use Swo\CommonsBundle\Handler\GenericHandler;
 
 class ProjectHandler extends GenericHandler
 {

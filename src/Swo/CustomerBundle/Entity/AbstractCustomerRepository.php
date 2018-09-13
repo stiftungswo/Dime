@@ -3,7 +3,7 @@
 namespace Swo\CustomerBundle\Entity;
 
 use Doctrine\ORM\QueryBuilder;
-use Swo\Commonsbundle\Entity\AbstractEntityRepository;
+use Swo\CommonsBundle\Entity\AbstractEntityRepository;
 
 /**
  * AbstractCustomerRepository

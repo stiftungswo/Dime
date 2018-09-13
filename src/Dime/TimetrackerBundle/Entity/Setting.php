@@ -2,11 +2,11 @@
 
 namespace Dime\TimetrackerBundle\Entity;
 
-use Dime\TimetrackerBundle\Model\DimeEntityInterface;
+use Swo\CommonsBundle\Model\DimeEntityInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Knp\JsonSchemaBundle\Annotations as Json;
-use Swo\Commonsbundle\Entity\AbstractEntity;
+use Swo\CommonsBundle\Entity\AbstractEntity;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 

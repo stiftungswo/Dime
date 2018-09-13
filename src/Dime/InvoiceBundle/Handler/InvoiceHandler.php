@@ -15,11 +15,11 @@ use Dime\TimetrackerBundle\Entity\Activity;
 use Dime\OfferBundle\Entity\Offer;
 use Dime\TimetrackerBundle\Entity\Project;
 use Dime\TimetrackerBundle\Entity\Timeslice;
-use Dime\TimetrackerBundle\Handler\GenericHandler;
+use Swo\CommonsBundle\Handler\GenericHandler;
 use Dime\TimetrackerBundle\Event\DimeEntityPersistEvent;
 use Dime\TimetrackerBundle\Exception\InvalidFormException;
 use Dime\TimetrackerBundle\TimetrackEvents;
-use Dime\TimetrackerBundle\Model\DimeEntityInterface as DEInterface;
+use Swo\CommonsBundle\Model\DimeEntityInterface as DEInterface;
 
 class InvoiceHandler extends GenericHandler
 {

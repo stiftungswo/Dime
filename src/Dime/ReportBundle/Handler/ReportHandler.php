@@ -17,7 +17,7 @@ use Dime\ReportBundle\Entity\ExpenseReport;
 use Dime\TimetrackerBundle\Entity\Project;
 use Dime\TimetrackerBundle\Entity\RateUnitType;
 use Dime\TimetrackerBundle\Entity\Timeslice;
-use Dime\TimetrackerBundle\Handler\AbstractHandler;
+use Swo\CommonsBundle\Handler\AbstractHandler;
 use Doctrine\Common\Collections\Criteria;
 use HttpInvalidParamException;
 use Symfony\Component\Config\Definition\Exception\Exception;

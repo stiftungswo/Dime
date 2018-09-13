@@ -7,10 +7,10 @@
 
 namespace Dime\InvoiceBundle\Entity;
 
-use Dime\TimetrackerBundle\Model\DimeEntityInterface;
+use Swo\CommonsBundle\Model\DimeEntityInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\JsonSchemaBundle\Annotations as Json;
-use Swo\Commonsbundle\Entity\AbstractEntity;
+use Swo\CommonsBundle\Entity\AbstractEntity;
 
 /**
  * Class Invoice

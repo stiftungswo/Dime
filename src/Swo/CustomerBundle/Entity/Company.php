@@ -4,16 +4,28 @@ namespace Swo\CustomerBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as JMS;
+use Swo\CommonsBundle\Model\DimeEntityInterface;
 use Symfony\Component\Validator\Constraints as Assert;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Knp\JsonSchemaBundle\Annotations as Json;
 
 /**
  * Company
  *
  * @ORM\Table(name="company")
  * @ORM\Entity(repositoryClass="Swo\CustomerBundle\Entity\CompanyRepository")
+ * @Json\Schema("company")
  */
-class Company extends AbstractCustomer
+class Company extends AbstractCustomer implements DimeEntityInterface
 {
+    /**
+     * @var string $alias
+     *
+     * @Gedmo\Slug(fields={"name"})
+     * @ORM\Column(type="string", length=30)
+     */
+    private $alias;
+
     /**
      * @var string $name
      *
@@ -24,16 +36,34 @@ class Company extends AbstractCustomer
     private $name;
 
     /**
-     * @Gedmo\Slug(fields={"name"})
-     */
-    private $alias;
-
-    /**
      * @var string $department
      *
      * @ORM\Column(name="department", type="string", length=60, nullable=true)
      */
     private $department;
+
+    /**
+     * Set alias
+     *
+     * @param  string $alias
+     * @return Company
+     */
+    public function setAlias($alias)
+    {
+        $this->alias = $alias;
+
+        return $this;
+    }
+
+    /**
+     * Get alias
+     *
+     * @return string
+     */
+    public function getAlias()
+    {
+        return $this->alias;
+    }
 
     /**
      * Set name
@@ -83,4 +113,3 @@ class Company extends AbstractCustomer
         return $this->department;
     }
 }
-

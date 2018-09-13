@@ -1,13 +1,13 @@
 <?php
 
-namespace Swo\Commonsbundle\Entity;
+namespace Swo\CommonsBundle\Entity;
 
 use Doctrine\ORM\EntityRepository as Base;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
 
 /**
- * Swo\Commonsbundle\Entity\AbstractEntityRepository
+ * Swo\CommonsBundle\Entity\AbstractEntityRepository
  *
  * Abstract repository to keep code clean.
  */
