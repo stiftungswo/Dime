@@ -4,7 +4,7 @@ import 'package:angular/angular.dart';
   selector: 'loading-container',
   template: """
     <div class='loading-container'>
-      <span class="glyphicon glyphicon-refresh glyphicon-animate-spin"></span>
+      <span class="fa fa-refresh fa-spin"></span>
     </div>
     """,
   directives: const [

@@ -21,10 +21,10 @@
   </table>
   <div boxFooter class="DimeControlButtons">
     <div class="col-md-12" style="margin-top: 5px">
-      <select-with-button class="col-sm-12 col-md-4" *ngIf="unusedRateGroups().length > 0" (click)="createEntity()" [enabled]="!statusservice.isLoading" glyphicon="plus" text="Tarif hinzufügen">
+      <select-with-button class="col-sm-12 col-md-4" *ngIf="unusedRateGroups().length > 0" (click)="createEntity()" [enabled]="!statusservice.isLoading" fontAwesome="plus" text="Tarif hinzufügen">
         <rate-group-select fixPopupOffset [options]="unusedRateGroups()" [(ngModel)]="newRateGroup" ></rate-group-select>
       </select-with-button>
-      <dime-button class="col-xs-1" (click)="reloadEvict()" glyphicon="refresh"></dime-button>
+      <dime-button class="col-xs-1" (click)="reloadEvict()" fontAwesome="refresh"></dime-button>
     </div>
   </div>
 </dime-box>

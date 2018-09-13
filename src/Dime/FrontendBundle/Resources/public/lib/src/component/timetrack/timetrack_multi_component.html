@@ -56,12 +56,12 @@
           </div>
           <user-select class="col-sm-4 col-xs-8" [(ngModel)]="selectedUserToAdd"></user-select>
           <div class="col-sm-4 col-xs-4">
-            <dime-button primary (click)="addUser()" glyphicon="plus"> Hinzufügen</dime-button>
+            <dime-button primary (click)="addUser()" fontAwesome="plus"> Hinzufügen</dime-button>
           </div>
         </div>
         <div class="DimeControlButtons">
           <dime-button primary (click)="save()"><error-icon></error-icon></dime-button>
-          <dime-button (click)="clearInputs()" glyphicon="erase">Eingaben zurücksetzen</dime-button>
+          <dime-button (click)="clearInputs()" fontAwesome="eraser">Eingaben zurücksetzen</dime-button>
           <div class="text-green">{{statusText}}</div>
         </div>
       </div>

@@ -6,7 +6,6 @@ import 'package:angular/angular.dart';
   template: """
     <span data-toggle="tooltip" title="{{tooltip}}" >
       <button type="button" class="{{getClass()}}" [disabled]="!enabled" (click)='internalClick()' [style.color]='color'>
-          <span *ngIf="glyphicon != null" class="glyphicon glyphicon-{{glyphicon}}"></span>
           <span *ngIf="fontAwesome != null" class="fa fa-{{fontAwesome}}"></span>
           <ng-content></ng-content>
       </button>
@@ -21,8 +20,6 @@ class DimeButtonComponent {
 
   @Output('click')
   Stream<String> get onClick => _onClick.stream;
-  @Input()
-  String glyphicon = null;
   @Input()
   String fontAwesome = null;
   @Input()

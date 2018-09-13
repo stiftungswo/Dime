@@ -1,10 +1,10 @@
 <ul class="list-unstyled">
     <li *ngFor="let tag of selectedEntities">
         <span class="label label-info">{{tag.name}}</span>
-        <button type="button" (click)="delete(tag)" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-trash"></span></button>
+        <button type="button" (click)="delete(tag)" class="btn btn-danger btn-xs"><span class="fa fa-trash"></span></button>
     </li>
 </ul>
-<button type="button" (click)="toggleOpen()" class="btn btn-default btn-sm">Hinzufügen <span class="glyphicon glyphicon-plus"></span></button>
+<button type="button" (click)="toggleOpen()" class="btn btn-default btn-sm">Hinzufügen <span class="fa fa-plus"></span></button>
 
 <div class="dropdown open" [hidden]="!open">
     <input [disabled]="disabled" name="tag_select" class="form-control" type="text" [(ngModel)]="selector"

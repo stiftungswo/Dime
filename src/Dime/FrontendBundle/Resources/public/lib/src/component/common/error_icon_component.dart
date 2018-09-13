@@ -5,12 +5,10 @@ import 'package:angular/angular.dart';
   selector: 'error-icon',
   template: """
     <div [ngSwitch]="statusservice.status">
-      <span *ngSwitchCase="'success'" class="glyphicon glyphicon-ok"></span>
-      <span *ngSwitchCase="'error'" class="glyphicon glyphicon-remove"></span>
-      <span *ngSwitchCase="'loading'" class="glyphicon glyphicon-refresh glyphicon-animate-spin"></span>
-      <span *ngSwitchDefault>
-          <span class="glyphicon glyphicon-floppy-disk"></span> Speichern
-      </span>
+      <span *ngSwitchCase="'success'" class="fa fa-check"></span>
+      <span *ngSwitchCase="'error'" class="fa fa-remove"></span>
+      <span *ngSwitchCase="'loading'" class="fa fa-refresh fa-spin"></span>
+      <span *ngSwitchDefault><span class="fa fa-save"></span> Speichern</span>
     </div>
   """,
   directives: const [coreDirectives],

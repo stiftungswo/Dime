@@ -4,7 +4,7 @@ import 'package:angular/angular.dart';
   selector: 'download-button',
   template: """
     <a [href]='href' [download]='name' target='_blank' class='btn btn-primary'>
-      <span class="glyphicon glyphicon-download-alt"></span>
+      <span class="fa fa-download"></span>
       <ng-content></ng-content>
     </a>
     """,

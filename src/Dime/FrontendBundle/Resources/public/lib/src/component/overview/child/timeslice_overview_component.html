@@ -71,17 +71,17 @@
         <div class="col-md-12" style="margin-top: 5px;">
             <dime-button primary
                          (click)="createEntity()"
-                         glyphicon="plus"
+                         fontAwesome="plus"
             >Eintrag hinzufügen</dime-button>
             <dime-button
                     [enabled]="moveDialogEnabled()"
-                    glyphicon="arrow-right"
+                    fontAwesome="arrow-right"
                     (click)="moveDialogVisible = !moveDialogVisible"
                     tooltipText="Verschiebe die ausgewählten Einträge in ein anderes Projekt"
             >Verschieben</dime-button>
             <dime-button
                     (click)="reloadEvict()"
-                    glyphicon="refresh"></dime-button>
+                    fontAwesome="refresh"></dime-button>
         </div>
         <div class="col-sm-12" style="padding-top: 10px" *ngIf="moveDialogVisible">
             <div class="clearfix"></div>
@@ -100,7 +100,7 @@
                   </div>
                     <div class="row">
                         <div class="col-md-2" style="padding-top: 10px">
-                            <dime-button glyphicon="arrow-right" (click)="moveTimeslices()" [enabled]="moveTargetProject != null" primary>Verschieben</dime-button>
+                            <dime-button fontAwesome="arrow-right" (click)="moveTimeslices()" [enabled]="moveTargetProject != null" primary>Verschieben</dime-button>
                         </div>
                     </div>
                 </div>

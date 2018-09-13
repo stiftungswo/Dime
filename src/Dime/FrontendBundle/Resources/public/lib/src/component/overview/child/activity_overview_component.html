@@ -41,12 +41,12 @@
           <help-tooltip *ngIf="hasRateGroup" text="Wenn dein Service nicht aufgelistet ist, ist er entweder archiviert oder nicht für den Tarif des Projekts konfiguriert."></help-tooltip>
           <help-tooltip *ngIf="!hasRateGroup" text="Der Tarif muss gesetzt sein."></help-tooltip>
       </span>
-      <select-with-button (click)="createEntity()" [enabled]="!statusservice.isLoading && hasRateGroup" glyphicon="plus" text="Aktivität hinzufügen">
+      <select-with-button (click)="createEntity()" [enabled]="!statusservice.isLoading && hasRateGroup" fontAwesome="plus" text="Aktivität hinzufügen">
         <service-select hideArchived fixPopupOffset [options]="availableServices" [disabled]="!hasRateGroup"
                         [(ngModel)]="newService" ></service-select>
       </select-with-button>
     </div>
-    <dime-button (click)="reloadEvict()" glyphicon="refresh"></dime-button>
+    <dime-button (click)="reloadEvict()" fontAwesome="refresh"></dime-button>
   </div>
 </dime-box>
 

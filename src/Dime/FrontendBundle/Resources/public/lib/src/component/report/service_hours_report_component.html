@@ -8,7 +8,7 @@
     <div class="row">
       <div class="col-md-6">
         <date-range [(startdate)]="filterStartDate" [(enddate)]="filterEndDate"></date-range>&nbsp;
-        <dime-button (click)="reloadEvict()" glyphicon="refresh"></dime-button>
+        <dime-button (click)="reloadEvict()" fontAwesome="refresh"></dime-button>
       </div>
       <div class="col-md-6">
         <download-button href="{{getCsvLink()}}">CSV Download</download-button>
@@ -53,5 +53,5 @@
 </div>
 <div class="DimeControlButtons">
   <download-button href="{{getCsvLink()}}">CSV Download</download-button>
-  <dime-button (click)="reloadEvict()" glyphicon="refresh"></dime-button>
+  <dime-button (click)="reloadEvict()" fontAwesome="refresh"></dime-button>
 </div>

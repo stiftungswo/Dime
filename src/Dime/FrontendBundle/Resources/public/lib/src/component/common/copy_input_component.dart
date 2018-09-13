@@ -8,7 +8,7 @@ import 'package:angular/angular.dart';
       <input #input readonly type="text" [value]="text" class="form-control">
       <span class="input-group-btn">
         <button type="button" class="btn btn-default" (click)="copy()">
-          <span class="glyphicon glyphicon-copy"></span>
+          <span class="fa fa-copy"></span>
         </button>
       </span>
     </div>

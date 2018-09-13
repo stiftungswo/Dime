@@ -5,8 +5,8 @@
   <div class="box-body">
     <div class="DimeControlButtons">
       <!-- Disabled because invoices without projects should not be created -->
-      <dime-button primary [enabled]="false" tooltip='Um eine Rechnung zu erstellen, öffne das entsprechende Projekt und klicke oben auf "Rechnung Erstellen".' glyphicon="plus">Hinzufügen</dime-button>
-      <dime-button (click)="reloadEvict()" glyphicon="refresh"></dime-button>
+      <dime-button primary [enabled]="false" tooltip='Um eine Rechnung zu erstellen, öffne das entsprechende Projekt und klicke oben auf "Rechnung Erstellen".' fontAwesome="plus">Hinzufügen</dime-button>
+      <dime-button (click)="reloadEvict()" fontAwesome="refresh"></dime-button>
     </div>
     <div class="form-group">
       <input type="text" class="form-control" placeholder="Suche" [(ngModel)]="InvoiceOverviewComponent.globalFilterString">
