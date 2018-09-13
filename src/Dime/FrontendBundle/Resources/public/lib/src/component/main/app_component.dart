@@ -147,7 +147,7 @@ class AppComponent implements AfterViewInit, OnInit {
     if (const bool.fromEnvironment("RELEASE") == false) {
       //since the dev environment loads differently, we need to initialize adminLTE here.
       //if it's included in index.html, it will fire to soon and find no elements to enhance
-      document.body.children.add(new ScriptElement()..src = "vendor/admin-lte/dist/js/app.js");
+      document.body.children.add(new ScriptElement()..src = "vendor/admin-lte/dist/js/adminlte.min.js");
     }
   }
 
