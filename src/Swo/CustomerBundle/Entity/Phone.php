@@ -8,7 +8,7 @@ use Swo\CommonsBundle\Entity\AbstractEntity;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="phone")
+ * @ORM\Table(name="phones")
 \*/
 class Phone extends AbstractEntity
 {

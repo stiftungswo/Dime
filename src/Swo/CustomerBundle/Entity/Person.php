@@ -12,9 +12,9 @@ use Knp\JsonSchemaBundle\Annotations as Json;
 /**
  * Person
  *
- * @ORM\Table(name="person")
+ * @ORM\Table(name="persons")
  * @ORM\Entity(repositoryClass="Swo\CustomerBundle\Entity\PersonRepository")
- * @Json\Schema("person")
+ * @Json\Schema("persons")
  */
 class Person extends AbstractCustomer implements DimeEntityInterface
 {
@@ -66,8 +66,8 @@ class Person extends AbstractCustomer implements DimeEntityInterface
     /**
      * @JMS\Type("array")
      * @JMS\MaxDepth(1)
-     * @ORM\ManyToOne(targetEntity="Swo\CustomerBundle\Entity\Phone", cascade={"all"})
-     * @ORM\JoinTable(name="person_phone",
+     * @ORM\ManyToMany(targetEntity="Swo\CustomerBundle\Entity\Phone", cascade={"all"})
+     * @ORM\JoinTable(name="persons_phones",
      *      joinColumns={@ORM\JoinColumn(name="person_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="phone_id", referencedColumnName="id", unique=true)}
      * )

@@ -12,9 +12,9 @@ use Knp\JsonSchemaBundle\Annotations as Json;
 /**
  * Company
  *
- * @ORM\Table(name="company")
+ * @ORM\Table(name="companies")
  * @ORM\Entity(repositoryClass="Swo\CustomerBundle\Entity\CompanyRepository")
- * @Json\Schema("company")
+ * @Json\Schema("companies")
  */
 class Company extends AbstractCustomer implements DimeEntityInterface
 {
