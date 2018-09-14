@@ -1,0 +1,13 @@
+company:
+  type:     rest
+  resource: Swo\CustomerBundle\Controller\CompanyController
+  prefix:   /v1
+  name_prefix:  api_1_
+  defaults: { _format: json }
+
+person:
+  type:     rest
+  resource: Swo\CustomerBundle\Controller\PersonController
+  prefix:   /v1
+  name_prefix:  api_1_
+  defaults: { _format: json }
