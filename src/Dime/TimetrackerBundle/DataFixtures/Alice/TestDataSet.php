@@ -56,4 +56,9 @@ $set->addFile($bundleFixturePath . '/OfferDiscounts.yaml', 'yaml');
 $set->addFile($bundleFixturePath . '/Offers.yaml', 'yaml');
 $set->addFile($bundleFixturePath . '/OfferPositions.yaml', 'yaml');
 
+$bundleFixturePath = $bundleRoot . '/CustomerBundle' . $alicepath;
+// CustomerBundle
+$set->addFile($bundleFixturePath . '/Companies.yaml', 'yaml');
+$set->addFile($bundleFixturePath . '/Persons.yaml', 'yaml');
+
 return $set;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Dime\TimetrackerBundle\Tests\Entity;
+namespace Swo\CommonsBundle\Tests\Entity;
 
 use Doctrine\ORM\QueryBuilder;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
@@ -56,7 +56,7 @@ class EntityRepositoryTest extends KernelTestCase
 
     /* TESTS
 
-    generally: because EntityRepository is an abstract class, it is not really possible
+    generally: because AbstractEntityRepository is an abstract class, it is not really possible
     to verify its answers through another SQL query like tests in other repositories.
 
     So most of them here validate the prepared SQL query or the resulting parameters.

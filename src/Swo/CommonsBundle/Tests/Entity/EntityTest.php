@@ -1,6 +1,6 @@
 <?php
 
-namespace Dime\TimetrackerBundle\Tests\Entity;
+namespace Swo\CommonsBundle\Tests\Entity;
 
 use Swo\CommonsBundle\Entity\AbstractEntity;
 use PHPUnit\Framework\TestCase;
