@@ -2,11 +2,11 @@
 
 namespace Dime\TimetrackerBundle\Tests\Entity;
 
-use Swo\CommonsBundle\Entity\Address;
+use Swo\CustomerBundle\Entity\Address;
 use Doctrine\Common\Collections\ArrayCollection;
 use Dime\TimetrackerBundle\Entity\Customer;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
-use Swo\CommonsBundle\Entity\Phone;
+use Swo\CustomerBundle\Entity\Phone;
 use Dime\TimetrackerBundle\Entity\RateGroup;
 use Dime\TimetrackerBundle\Entity\Tag;
 
