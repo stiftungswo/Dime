@@ -41,6 +41,7 @@ class AppKernel extends Kernel
 			new Dime\EmployeeBundle\DimeEmployeeBundle(),
 			new Dime\ReportBundle\DimeReportBundle(),
 			new Dime\TimetrackerBundle\DimeTimetrackerBundle(),
+            new Swo\CustomerBundle\SwoCustomerBundle(),
 		);
 
         if (in_array($this->getEnvironment(), ['staging', 'prod'], true)) {
