@@ -22,6 +22,11 @@ DimeReportBundle:
     type: rest
     prefix: /api
     resource: "@DimeReportBundle/Resources/config/routing.yml"
+
+SwoCustomerBundle:
+    type: rest
+    prefix: /api
+    resource: "@SwoCustomerBundle/Resources/config/routing.yml"
     
 DimeTimetrackerBundleSecurity:
     resource: "@DimeTimetrackerBundle/Resources/config/security_routing.yml"

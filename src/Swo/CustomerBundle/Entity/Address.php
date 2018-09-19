@@ -18,7 +18,7 @@ class Address extends Entity
     /**
      * @var Company|null $company
      * @JMS\Groups({"List"})
-     * @JMS\Exclude(0)
+     * @JMS\Exclude()
      * @ORM\OneToOne(targetEntity="Swo\CustomerBundle\Entity\Company", mappedBy="address")
      */
     protected $company;
@@ -26,7 +26,7 @@ class Address extends Entity
     /**
      * @var ArrayCollection $persons
      * @JMS\Groups({"List"})
-     * @JMS\Exclude(0)
+     * @JMS\Exclude()
      * @ORM\OneToMany(targetEntity="Swo\CustomerBundle\Entity\Person", mappedBy="address")
      */
     protected $persons;
@@ -34,7 +34,7 @@ class Address extends Entity
     /**
      * name of the street including street number
      *
-     * @var string
+     * @var string|null
      * @JMS\Groups({"List"})
      * @ORM\Column(type="string", nullable=true)
      */
@@ -43,7 +43,7 @@ class Address extends Entity
     /**
      * An address supplement (eg: Postfach 12)
      *
-     * @var string
+     * @var string|null
      * @JMS\Groups({"List"})
      * @ORM\Column(type="string", nullable=true)
      */
@@ -52,7 +52,7 @@ class Address extends Entity
     /**
      * the city or town
      *
-     * @var string
+     * @var string|null
      * @JMS\Groups({"List"})
      * @ORM\Column(type="string")
      */
@@ -61,7 +61,7 @@ class Address extends Entity
     /**
      * postcode of the city
      *
-     * @var int
+     * @var int|null
      * @JMS\Groups({"List"})
      * @ORM\Column(type="integer")
      */
@@ -70,7 +70,7 @@ class Address extends Entity
     /**
      * country of the address
      *
-     * @var string
+     * @var string|null
      * @JMS\Groups({"List"})
      * @ORM\Column(type="string", nullable=true)
      */
@@ -138,86 +138,90 @@ class Address extends Entity
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getStreet(): string
+    public function getStreet()
     {
         return $this->street;
     }
 
     /**
-     * @param string $street
+     * @param string|null $street
      * @return Address
      */
-    public function setStreet(string $street): Address
+    public function setStreet($street): Address
     {
         $this->street = $street;
         return $this;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getSupplement(): string
+    public function getSupplement()
     {
         return $this->supplement;
     }
 
     /**
-     * @param string $supplement
+     * @param string|null $supplement
      * @return Address
      */
-    public function setSupplement(string $supplement): Address
+    public function setSupplement($supplement): Address
     {
         $this->supplement = $supplement;
         return $this;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getCity(): string
+    public function getCity()
     {
         return $this->city;
     }
 
     /**
-     * @param string $city
+     * @param string|null $city
      * @return Address
      */
-    public function setCity(string $city): Address
+    public function setCity($city): Address
     {
         $this->city = $city;
         return $this;
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getPostcode(): int
+    public function getPostcode()
     {
         return $this->postcode;
     }
 
     /**
-     * @param int $postcode
+     * @param int|null $postcode
      * @return Address
      */
-    public function setPostcode(int $postcode) : Address
+    public function setPostcode($postcode) : Address
     {
         $this->postcode = $postcode;
         return $this;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getCountry() : string
+    public function getCountry()
     {
         return $this->country;
     }
 
-    public function setCountry(string $country) : Address
+    /**
+     * @param string|null $country
+     * @return Address
+     */
+    public function setCountry($country) : Address
     {
         $this->country = $country;
         return $this;

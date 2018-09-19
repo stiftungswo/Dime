@@ -40,7 +40,6 @@ class CustomerFormType extends AbstractType
             ->add('chargeable')
             ->add('systemCustomer')
             ->add('address', AddressFormType::class)
-            ->add('phones', CollectionType::class, array('type' => 'swo_commons_phoneformtype'))
             ->add('user', EntityType::class, array('class' => 'DimeTimetrackerBundle:User'))
         ;
     }

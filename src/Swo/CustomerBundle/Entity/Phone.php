@@ -3,21 +3,23 @@
 namespace Swo\CustomerBundle\Entity;
 
 use Dime\TimetrackerBundle\Entity\Entity;
+use Dime\TimetrackerBundle\Model\DimeEntityInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\PersistentCollection;
 use JMS\Serializer\Annotation as JMS;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Swo\CustomerBundle\Entity\PhoneRepository")
  * @ORM\Table(name="phones")
  */
 
-class Phone extends Entity
+class Phone extends Entity implements DimeEntityInterface
 {
     /**
      * phone number
      *
-     * @var string
+     * @var string|null $number
      * @ORM\Column(type="string", nullable=false)
      * @JMS\Groups({"List"})
      */
@@ -26,7 +28,7 @@ class Phone extends Entity
     /**
      * type of the phone number
      *
-     * @var string
+     * @var string|null $number
      * @ORM\Column(type="string", nullable=false)
      * @JMS\Groups({"List"})
      */
@@ -60,9 +62,9 @@ class Phone extends Entity
     }
 
     /**
-     * @return int
+     * @return string|null
      */
-    public function getNumber() : string
+    public function getNumber()
     {
         return $this->number;
     }
@@ -78,9 +80,9 @@ class Phone extends Entity
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getType() : string
+    public function getType()
     {
         return $this->type;
     }
@@ -114,9 +116,9 @@ class Phone extends Entity
     }
 
     /**
-     * @return ArrayCollection
+     * @return ArrayCollection|PersistentCollection
      */
-    public function getPersons() : ArrayCollection
+    public function getPersons()
     {
         return $this->persons;
     }

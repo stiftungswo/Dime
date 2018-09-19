@@ -1,0 +1,6 @@
+Swo\CustomerBundle\Entity\Phone:
+  phones_{1..25}:
+    number: <phoneNumber()>
+    type: <word()>
+    persons: '2x @person_*'
+    company: 50%? @company_*

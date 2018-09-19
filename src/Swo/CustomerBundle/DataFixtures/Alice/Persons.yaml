@@ -1,0 +1,14 @@
+Swo\CustomerBundle\Entity\Person:
+  default_person_{1..10}:
+    comment: <sentence(1)>
+    email (unique): <email()>
+    salutation: <randomElement(array('Herr', 'Frau'))>
+    firstName: <firstName()>
+    lastName: <lastName()>
+  person_{1..10}:
+    company: @company_*
+    comment: <sentence(1)>
+    email (unique): <email()>
+    salutation: <randomElement(array('Herr', 'Frau'))>
+    firstName: <firstName()>
+    lastName: <lastName()>

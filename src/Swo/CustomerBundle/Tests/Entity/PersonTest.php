@@ -4,6 +4,7 @@ namespace Swo\CustomerBundle\Tests\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use PHPUnit\Framework\TestCase;
+use Swo\CustomerBundle\Entity\Address;
 use Swo\CustomerBundle\Entity\Company;
 use Swo\CustomerBundle\Entity\Person;
 use Swo\CustomerBundle\Entity\Phone;
@@ -61,5 +62,26 @@ class PersonTest extends TestCase
         $this->assertEquals($company, $person->getCompany());
         $person->setCompany(null);
         $this->assertNull($person->getCompany());
+    }
+
+    public function testGetSetAddress()
+    {
+        // returns null if address is null as well as company
+        $person = new Person();
+        $this->assertNull($person->getAddress());
+
+        // returns own address even if company is set
+        $address = new Address();
+        $company = new Company();
+        $company_address = new Address();
+        $company->setAddress($company_address);
+        $person->setCompany($company);
+        $person->setAddress($address);
+        $this->assertEquals($address, $person->getAddress());
+
+        // returns address of the company if own address is null
+        $person2 = new Person();
+        $person2->setCompany($company);
+        $this->assertEquals($company_address, $person2->getAddress());
     }
 }
