@@ -1,26 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <!-- http://phpunit.de/manual/current/en/appendixes.configuration.html -->
-<phpunit
-    backupGlobals               = "false"
-    backupStaticAttributes      = "false"
-    colors                      = "true"
-    convertErrorsToExceptions   = "true"
-    convertNoticesToExceptions  = "true"
-    convertWarningsToExceptions = "true"
-    processIsolation            = "false"
-    stopOnFailure               = "false"
-    syntaxCheck                 = "true"
-    addUncoveredFilesFromWhitelist = "true"
-    processUncoveredFilesFromWhitelist = "true"
-    bootstrap                   = "bootstrap.php.cache" >
-
-    <testsuites>
-        <testsuite name="Project Test Suite">
-            <directory>../src/Dime/*Bundle/Tests</directory>
-            <directory>../src/Swo/*Bundle/Tests</directory>
-        </testsuite>
-    </testsuites>
+<phpunit backupGlobals="false" backupStaticAttributes="false" colors="true" convertErrorsToExceptions="true"
+         convertNoticesToExceptions="true" convertWarningsToExceptions="true" processIsolation="false"
+         stopOnFailure="false" syntaxCheck="true" addUncoveredFilesFromWhitelist="true"
+         processUncoveredFilesFromWhitelist="true" bootstrap="bootstrap.php.cache">
 
     <!--
     <php>
@@ -39,4 +22,73 @@
         </whitelist>
     </filter>
 
+    <testsuites>
+        <testsuite name="Suite_P0">
+            <file>../src/Dime/EmployeeBundle/Tests/Entity/EmployeeRepositoryTest.php</file>
+            <file>../src/Dime/OfferBundle/Tests/Controller/OfferStatusUCControllerTest.php</file>
+            <file>../src/Dime/TimetrackerBundle/Tests/Controller/ProjectCategoryControllerTest.php</file>
+            <file>../src/Dime/TimetrackerBundle/Tests/Controller/ProjectsControllerTest.php</file>
+            <file>../src/Dime/TimetrackerBundle/Tests/Entity/EntityRepositoryTest.php</file>
+            <file>../src/Dime/TimetrackerBundle/Tests/Entity/RateGroupRepositoryTest.php</file>
+            <file>../src/Dime/TimetrackerBundle/Tests/Entity/RateGroupTest.php</file>
+            <file>../src/Dime/TimetrackerBundle/Tests/Entity/RateRepositoryTest.php</file>
+            <file>../src/Dime/TimetrackerBundle/Tests/Entity/RateTest.php</file>
+            <file>../src/Dime/TimetrackerBundle/Tests/Entity/RateUnitTypeRepositoryTest.php</file>
+            <file>../src/Dime/TimetrackerBundle/Tests/Entity/RateUnitTypeTest.php</file>
+            <file>../src/Dime/TimetrackerBundle/Tests/Entity/UserTest.php</file>
+            <file>../src/Dime/InvoiceBundle/Tests/Handler/InvoiceHandlerTest.php</file>
+            <file>../src/Dime/OfferBundle/Tests/Controller/OfferPositionControllerTest.php</file>
+        </testsuite>
+        <testsuite name="Suite_P1">
+            <file>../src/Dime/InvoiceBundle/Tests/Controller/InvoiceControllerTest.php</file>
+            <file>../src/Dime/TimetrackerBundle/Tests/Controller/PeriodControllerTest.php</file>
+            <file>../src/Dime/TimetrackerBundle/Tests/Controller/RateGroupControllerTest.php</file>
+            <file>../src/Dime/TimetrackerBundle/Tests/Controller/RateUnitTypeControllerTest.php</file>
+            <file>../src/Dime/TimetrackerBundle/Tests/Controller/SettingsControllerTest.php</file>
+            <file>../src/Dime/TimetrackerBundle/Tests/Controller/UsersControllerTest.php</file>
+        </testsuite>
+        <testsuite name="Suite_P2">
+            <file>../src/Dime/InvoiceBundle/Tests/Entity/InvoiceDiscountRepositoryTest.php</file>
+            <file>../src/Dime/OfferBundle/Tests/Controller/OfferControllerTest.php</file>
+            <file>../src/Dime/TimetrackerBundle/Tests/Controller/CustomersControllerTest.php</file>
+            <file>../src/Dime/TimetrackerBundle/Tests/Controller/RateControllerTest.php</file>
+            <file>../src/Dime/TimetrackerBundle/Tests/Controller/ServicesControllerTest.php</file>
+            <file>../src/Dime/TimetrackerBundle/Tests/Entity/ActivityRepositoryTest.php</file>
+            <file>../src/Dime/TimetrackerBundle/Tests/Entity/ActivityTest.php</file>
+            <file>../src/Dime/TimetrackerBundle/Tests/Entity/ArchivableTraitTest.php</file>
+            <file>../src/Dime/TimetrackerBundle/Tests/Entity/CustomerRepositoryTest.php</file>
+            <file>../src/Dime/TimetrackerBundle/Tests/Entity/CustomerTest.php</file>
+            <file>../src/Dime/TimetrackerBundle/Tests/Entity/ProjectCategoryTest.php</file>
+            <file>../src/Dime/TimetrackerBundle/Tests/Entity/ProjectCommentRepositoryTest.php</file>
+            <file>../src/Dime/TimetrackerBundle/Tests/Entity/ProjectCommentTest.php</file>
+            <file>../src/Dime/TimetrackerBundle/Tests/Entity/ProjectRepositoryTest.php</file>
+            <file>../src/Dime/TimetrackerBundle/Tests/Entity/ServiceRepositoryTest.php</file>
+            <file>../src/Dime/TimetrackerBundle/Tests/Entity/ServiceTest.php</file>
+            <file>../src/Dime/TimetrackerBundle/Tests/Entity/TimesliceTest.php</file>
+            <file>../src/Dime/TimetrackerBundle/Tests/Entity/UserRepositoryTest.php</file>
+            <file>../src/Dime/TimetrackerBundle/Tests/Controller/ActivityRateTest.php</file>
+        </testsuite>
+        <testsuite name="Suite_P3">
+            <file>../src/Dime/InvoiceBundle/Tests/Entity/InvoiceItemRepositoryTest.php</file>
+            <file>../src/Dime/InvoiceBundle/Tests/InvoiceTest.php</file>
+            <file>../src/Dime/OfferBundle/Tests/Controller/OfferDiscountControllerTest.php</file>
+            <file>../src/Dime/ReportBundle/Tests/Controller/ReportControllerTest.php</file>
+            <file>../src/Dime/TimetrackerBundle/Tests/Entity/EntityTest.php</file>
+            <file>../src/Dime/TimetrackerBundle/Tests/Entity/PeriodTest.php</file>
+            <file>../src/Dime/TimetrackerBundle/Tests/Entity/ProjectCategoryRepositoryTest.php</file>
+            <file>../src/Dime/TimetrackerBundle/Tests/Entity/ProjectTest.php</file>
+            <file>../src/Dime/TimetrackerBundle/Tests/Entity/SettingRepositoryTest.php</file>
+            <file>../src/Dime/TimetrackerBundle/Tests/Entity/SettingTest.php</file>
+            <file>../src/Dime/TimetrackerBundle/Tests/Entity/SoftDeleteTraitTest.php</file>
+            <file>../src/Dime/TimetrackerBundle/Tests/Entity/TagRepositoryTest.php</file>
+            <file>../src/Dime/TimetrackerBundle/Tests/Entity/TagTest.php</file>
+            <file>../src/Dime/TimetrackerBundle/Tests/Entity/TimesliceRepositoryTest.php</file>
+            <file>../src/Dime/TimetrackerBundle/Tests/Controller/TagsControllerTest.php</file>
+        </testsuite>
+        <testsuite name="Suite_P4">
+            <file>../src/Dime/TimetrackerBundle/Tests/Controller/ProjectCommentsControllerTest.php</file>
+            <file>../src/Dime/TimetrackerBundle/Tests/Controller/TimeslicesControllerTest.php</file>
+            <file>../src/Dime/TimetrackerBundle/Tests/Controller/ActivitiesControllerTest.php</file>
+        </testsuite>
+    </testsuites>
 </phpunit>
