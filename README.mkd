@@ -185,6 +185,15 @@ Run a single test:
 
     docker exec -it dime ./env/run_tests.sh --filter ActivitiesControllerTest::testGetActivitiesAction
 
+We splitted up the test suite into five parts, so the CI is faster in completing all tests. If you add a new test file or change the content of one tests so it could have a massive performance impact, run the following commands to reflect the changes in the test suites.
+
+    env/fixtures/load.sh
+    bin/phpunit -c app/ --coverage-html test-coverage/ --log-junit junit src/
+    cd env/
+    php create_balanced_testsuite.php ../junit
+
+Afterwards, commit the changes. Please note that it can take up to 30 minutes to run the phpunit-command with coverage. If you run it without coverage, the balance won't be accurate. You can also add the manually to one of the testsuites.
+
 ## Building the Frontend
 
 To build the JS & HTML files for deployment, run these commands:

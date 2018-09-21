@@ -14,13 +14,6 @@ use Dime\TimetrackerBundle\Entity\Timeslice;
 
 class TimesliceTest extends TestCase
 {
-    public function testSetStandardUnit()
-    {
-        // only has a setter
-        $timeslice = new Timeslice();
-        $timeslice->setStandardUnit('h');
-    }
-
     public function testGetSetActivity()
     {
         // get and set activity
