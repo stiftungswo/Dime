@@ -24,7 +24,6 @@ class MenuComponent {
       new Menu.child('Zeiterfassung', routes.ProjectTimetrackRoute.toUrl()),
     ]),
     new Menu.single('Rechnungen', 'fa-calculator', routes.InvoiceOverviewRoute.toUrl()),
-    new Menu.single('Kunden', 'fa-users', routes.CustomerOverviewRoute.toUrl()),
     new Menu.single('Mitarbeiter', 'fa-user', routes.EmployeeOverviewRoute.toUrl()),
     new Menu.withItems('Rapporte', 'fa-bar-chart', [
       new Menu.child('Wochen', routes.ReportWeeklyRoute.toUrl()),

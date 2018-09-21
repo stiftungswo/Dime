@@ -42,21 +42,12 @@ class Entity {
       if (value == null) {
         //print('Trying to get ${item} from ${this.type} but it does not exist or has no getter');
       } else if (value is Entity) {
-        //TODO Fix Handling of Subentities in Backend. I Probably neeed a form transformer
-        if (value.type == 'address') {
-          value.addFieldtoUpdate('street');
-          value.addFieldtoUpdate('supplement');
-          value.addFieldtoUpdate('city');
-          value.addFieldtoUpdate('plz');
-          value.addFieldtoUpdate('country');
+        // FIXME: this is kind of a hack to fix cloning, could possibly set fields to null in some cases
+        if (value.id != null) {
+          value.addFieldtoUpdate('id');
         } else {
-          // FIXME: this is kind of a hack to fix cloning, could possibly set fields to null in some cases
-          if (value.id != null) {
-            value.addFieldtoUpdate('id');
-          } else {
-            // set to null if id is null or not present (empty object / not loaded)
-            value = null;
-          }
+          // set to null if id is null or not present (empty object / not loaded)
+          value = null;
         }
         if (value != null) {
           value = value.toMap();

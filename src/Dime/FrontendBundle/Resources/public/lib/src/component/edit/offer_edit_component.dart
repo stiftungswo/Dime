@@ -31,8 +31,6 @@ import '../main/routes.dart' as routes;
     dimeDirectives,
     UserSelectComponent,
     RateGroupSelectComponent,
-    CustomerSelectComponent,
-    AddressEditComponent,
     OfferStatusSelectComponent,
     OfferPositionOverviewComponent,
     OfferDiscountOverviewComponent,
@@ -40,8 +38,6 @@ import '../main/routes.dart' as routes;
   ],
 )
 class OfferEditComponent extends EntityEdit<Offer> {
-  List<Customer> customers;
-
   List<RateGroup> rateGroups;
 
   List<OfferStatusUC> states;
@@ -65,7 +61,6 @@ class OfferEditComponent extends EntityEdit<Offer> {
     loadRateGroups();
     loadOfferStates();
     loadUsers();
-    loadCustomers();
     load();
   }
 
@@ -80,10 +75,6 @@ class OfferEditComponent extends EntityEdit<Offer> {
       }
       page_title.setPageTitle('Offerten', entity?.name);
     });
-  }
-
-  Future loadCustomers() async {
-    this.customers = await this.store.list(Customer, params: {'systemCustomer': 1});
   }
 
   Future loadRateGroups() async {
@@ -137,17 +128,6 @@ class OfferEditComponent extends EntityEdit<Offer> {
         await this.store.evict(Invoice, true);
         router.navigate(routes.InvoiceEditRoute.toUrl(parameters: {'id': newInvoice.id.toString()}));
       });
-    }
-  }
-
-  void copyAddressFromCustomer() {
-    if (entity.customer != null && entity.customer.address != null) {
-      addSaveField('address');
-      entity.address.street = entity.customer.address.street;
-      entity.address.supplement = entity.customer.address.supplement;
-      entity.address.plz = entity.customer.address.plz;
-      entity.address.city = entity.customer.address.city;
-      entity.address.country = entity.customer.address.country;
     }
   }
 

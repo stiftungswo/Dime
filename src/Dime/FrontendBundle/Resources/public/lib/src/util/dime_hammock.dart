@@ -187,16 +187,6 @@ createHammockConfig(Injector i) {
           return new RateUnitType.fromMap(r.content);
         }
       },
-      "customers": {
-        "type": Customer,
-        "serializer": (Customer ent) {
-          return ent.toResource();
-        },
-        "deserializer": (Resource r) {
-          if (r.content is String) return new Customer();
-          return new Customer.fromMap(r.content);
-        }
-      },
       "periods": {
         "type": Period,
         "serializer": (Period ent) {

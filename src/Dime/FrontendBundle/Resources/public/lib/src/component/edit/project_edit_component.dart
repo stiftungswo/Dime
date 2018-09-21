@@ -25,7 +25,6 @@ import '../main/routes.dart' as routes;
     coreDirectives,
     formDirectives,
     dimeDirectives,
-    CustomerSelectComponent,
     UserSelectComponent,
     RateGroupSelectComponent,
     ProjectCategorySelectComponent,
@@ -33,8 +32,6 @@ import '../main/routes.dart' as routes;
   ],
 )
 class ProjectEditComponent extends EntityEdit<Project> {
-  List<Customer> customers;
-
   List<RateGroup> rateGroups;
 
   HttpService http;
@@ -47,7 +44,6 @@ class ProjectEditComponent extends EntityEdit<Project> {
   void onActivate(_, current) {
     super.onActivate(_, current);
     loadRateGroups();
-    loadCustomers();
     reload();
   }
 
@@ -55,10 +51,6 @@ class ProjectEditComponent extends EntityEdit<Project> {
   Future reload({bool evict: false}) async {
     await super.reload(evict: evict);
     page_title.setPageTitle('Projekte', entity?.name);
-  }
-
-  Future loadCustomers() async {
-    this.customers = await this.store.list(Customer, params: {'systemCustomer': 1});
   }
 
   Future loadRateGroups() async {
