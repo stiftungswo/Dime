@@ -39,12 +39,7 @@ class ActivityRepositoryTest extends DimeRepositoryTestCase
         // the same code as the tested method
         // so, we just call the method to have it covered if something breaks because of e.g. updates
 
-        $this->getRepoWithQB()->name('*et')->getCurrentQueryBuilder()->getQuery()->execute();
-    }
-
-    public function testScopeByCustomer()
-    {
-        // method is not finished yet, so we ignore that one
+        $this->assertNotEmpty($this->getRepoWithQB()->name('*et')->getCurrentQueryBuilder()->getQuery()->execute());
     }
 
     public function testScopeByProject()

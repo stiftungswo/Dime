@@ -10,14 +10,13 @@ class EntityTest extends TestCase
 {
     protected function getEntityMock()
     {
-        return $this->getMockBuilder(Entity::class)->setMethods(null)
-            ->getMockForAbstractClass();
+        return $this->getMockBuilder(Entity::class)->getMockForAbstractClass();
     }
 
     public function testGetId()
     {
         // returns null because we have no persistent object
-        $this->assertNull($this->getEntityMock()->getId);
+        $this->assertNull($this->getEntityMock()->getId());
     }
 
     public function testGetSetUser()

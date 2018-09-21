@@ -47,11 +47,6 @@ class TimesliceRepositoryTest extends DimeRepositoryTestCase
             ->getCurrentQueryBuilder()->getQuery()->execute()));
     }
 
-    public function testScopeByEmployee()
-    {
-        // currently not tested, see comment at method itself
-    }
-
     public function testScopeByActivityData()
     {
         $rand_id = rand(1, 54);

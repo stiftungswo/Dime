@@ -130,6 +130,7 @@ class OfferControllerTest extends DimeTestCase
             $this->api_prefix.'/createprojectfromoffer/1',
             json_encode(array())
         );
+        $this->assertEquals(200, $response->getStatusCode(), $response->getContent());
     }
 
     public function testPrintOfferAction()
