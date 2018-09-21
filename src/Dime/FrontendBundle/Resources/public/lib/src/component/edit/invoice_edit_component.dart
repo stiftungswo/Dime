@@ -27,7 +27,6 @@ import 'entity_edit.dart';
     coreDirectives,
     formDirectives,
     dimeDirectives,
-    CustomerSelectComponent,
     UserSelectComponent,
     InvoiceItemOverviewComponent,
     InvoiceCostgroupOverviewComponent,

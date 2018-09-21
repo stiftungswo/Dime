@@ -15,7 +15,6 @@ import 'user_menu_component.dart';
 import 'routes.dart';
 import 'welcome_component.template.dart' as welcome_component;
 
-import '../overview/root/customer_overview_component.template.dart' as customer_overview_component;
 import '../overview/root/employee_overview_component.template.dart' as employee_overview_component;
 import '../overview/root/holiday_overview_component.template.dart' as holiday_overview_component;
 import '../overview/root/invoice_overview_component.template.dart' as invoice_overview_component;
@@ -32,7 +31,6 @@ import '../report/timeslice_weekly_report_component.template.dart' as timeslice_
 import '../timetrack/timetrack_multi_component.template.dart' as timetrack_multi_component;
 import '../overview/root/tag_overview_component.template.dart' as tag_overview_component;
 
-import '../edit/customer_edit_component.template.dart' as customer_edit_component;
 import '../edit/employee_edit_component.template.dart' as employee_edit_component;
 import '../edit/invoice_edit_component.template.dart' as invoice_edit_component;
 import '../edit/offer_edit_component.template.dart' as offer_edit_component;
@@ -107,11 +105,6 @@ class AppComponent implements AfterViewInit, OnInit {
     new RouteDefinition(
         routePath: ProjectCategoryOverviewRoute,
         /*name: 'ProjectCategoryOverview', */ component: projectCategory_overview_component.ProjectCategoryOverviewComponentNgFactory),
-    new RouteDefinition(
-        routePath: CustomerOverviewRoute,
-        /*name: 'CustomerOverview', */ component: customer_overview_component.CustomerOverviewComponentNgFactory),
-    new RouteDefinition(
-        routePath: CustomerEditRoute, /*name: 'CustomerEdit', */ component: customer_edit_component.CustomerEditComponentNgFactory),
     new RouteDefinition(
         routePath: SettingAssignProjectOverviewRoute,
         /*name: 'SettingAssignProjectOverview', */ component:

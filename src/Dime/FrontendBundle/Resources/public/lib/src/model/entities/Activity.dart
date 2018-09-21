@@ -53,8 +53,6 @@ class Activity extends Entity {
           return this.rateUnit;
         case 'rateUnitType':
           return this.rateUnitType;
-        case 'customer':
-          return this.customer;
         case 'serviceRate':
           return this.serviceRate;
         case 'charge':
@@ -104,9 +102,6 @@ class Activity extends Entity {
       case 'serviceRate':
         this.serviceRate = value is Rate ? value : new Rate.fromMap((value as Map<dynamic, dynamic>).cast<String, dynamic>());
         break;
-      case 'customer':
-        this.customer = value is Customer ? value : new Customer.fromMap((value as Map<dynamic, dynamic>).cast<String, dynamic>());
-        break;
       case 'charge':
         this.charge = value as String;
         break;
@@ -137,7 +132,6 @@ class Activity extends Entity {
   Rate serviceRate;
   String charge;
   dynamic value;
-  Customer customer;
   bool chargeable;
   Service service;
   String description;

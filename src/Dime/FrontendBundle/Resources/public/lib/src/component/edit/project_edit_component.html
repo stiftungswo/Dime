@@ -33,11 +33,6 @@
               <input required ngControl="alias" name="alias" class="form-control"
                      [(ngModel)]="entity.alias" (change)="addSaveField('alias')">
           </dime-form-group>
-          <dime-form-group horizontal label="Kunde">
-            <customer-select required ngControl="customer"
-                             [ngModel]="entity.customer"
-                             (ngModelChange)="entity.customer=$event; entity.addFieldtoUpdate('customer')"></customer-select>
-          </dime-form-group>
           <dime-form-group horizontal label="Verantwortlicher Mitarbeiter">
             <user-select required ngControl="accountant"
               [ngModel]="entity.accountant"

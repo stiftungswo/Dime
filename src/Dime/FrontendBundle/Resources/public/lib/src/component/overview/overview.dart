@@ -11,7 +11,6 @@ export 'child/period_overview_component.dart';
 export 'child/project_comment_overview_component.dart';
 export 'child/rate_overview_component.dart';
 export 'child/timeslice_overview_component.dart';
-export 'root/customer_overview_component.dart';
 export 'root/employee_overview_component.dart';
 export 'root/holiday_overview_component.dart';
 export 'root/invoice_overview_component.dart';
