@@ -13,18 +13,15 @@ class Offer extends Entity {
 
   Offer.clone(Offer original) : super.clone(original) {
     this.rateGroup = original.rateGroup;
-    this.customer = original.customer;
     this.accountant = original.accountant;
     this.shortDescription = original.shortDescription;
     this.description = original.description;
     this.offerPositions = original.offerPositions;
     this.offerDiscounts = original.offerDiscounts;
     this.status = original.status;
-    this.address = original.address;
 
     addFieldstoUpdate([
       'rateGroup',
-      'customer',
       'accountant',
       'shortDescription',
       'description',
@@ -32,7 +29,6 @@ class Offer extends Entity {
       // 'offerPositions',
       // 'offerDiscounts',
       'status',
-      'address',
     ]);
   }
 
@@ -59,8 +55,6 @@ class Offer extends Entity {
       switch (property) {
         case 'rateGroup':
           return this.rateGroup;
-        case 'customer':
-          return this.customer;
         case 'accountant':
           return this.accountant;
         case 'shortDescription':
@@ -73,8 +67,6 @@ class Offer extends Entity {
           return this.offerDiscounts;
         case 'status':
           return this.status;
-        case 'address':
-          return this.address;
         case 'fixedPrice':
           return this.fixedPrice;
         case 'subtotal':
@@ -100,9 +92,6 @@ class Offer extends Entity {
       case 'rateGroup':
         this.rateGroup = value is RateGroup ? value : new RateGroup.fromMap((value as Map<dynamic, dynamic>).cast<String, dynamic>());
         break;
-      case 'customer':
-        this.customer = value is Customer ? value : new Customer.fromMap((value as Map<dynamic, dynamic>).cast<String, dynamic>());
-        break;
       case 'accountant':
         this.accountant = value is Employee ? value : new Employee.fromMap((value as Map<dynamic, dynamic>).cast<String, dynamic>());
         break;
@@ -120,9 +109,6 @@ class Offer extends Entity {
         break;
       case 'status':
         this.status = value is OfferStatusUC ? value : new OfferStatusUC.fromMap((value as Map<dynamic, dynamic>).cast<String, dynamic>());
-        break;
-      case 'address':
-        this.address = value is Address ? value : new Address.fromMap((value as Map<dynamic, dynamic>).cast<String, dynamic>());
         break;
       case 'fixedPrice':
         this.fixedPrice = value as String;
@@ -178,13 +164,11 @@ class Offer extends Entity {
   String totalDiscounts;
   String total;
   RateGroup rateGroup;
-  Customer customer;
   Employee accountant;
   String shortDescription;
   String description;
   List<OfferPosition> offerPositions = [];
   List<OfferDiscount> offerDiscounts = [];
   OfferStatusUC status;
-  Address address;
   String fixedPrice;
 }

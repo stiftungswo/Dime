@@ -19,7 +19,6 @@ class Project extends Entity {
     this.remainingBudgetTime = original.remainingBudgetTime;
     this.description = original.description;
     this.fixedPrice = original.fixedPrice;
-    this.customer = original.customer;
     this.rateGroup = original.rateGroup;
     this.chargeable = original.chargeable;
     this.deadline = original.deadline;
@@ -38,7 +37,6 @@ class Project extends Entity {
       'remainingBudgetTime',
       'description',
       'fixedPrice',
-      'customer',
       'rateGroup',
       'chargeable',
       'deadline',
@@ -81,8 +79,6 @@ class Project extends Entity {
           return this.description;
         case 'fixedPrice':
           return this.fixedPrice;
-        case 'customer':
-          return this.customer;
         case 'rateGroup':
           return this.rateGroup;
         case 'chargeable':
@@ -136,9 +132,6 @@ class Project extends Entity {
         break;
       case 'fixedPrice':
         this.fixedPrice = value as String;
-        break;
-      case 'customer':
-        this.customer = value is Customer ? value : new Customer.fromMap((value as Map<dynamic, dynamic>).cast<String, dynamic>());
         break;
       case 'rateGroup':
         this.rateGroup = value is RateGroup ? value : new RateGroup.fromMap((value as Map<dynamic, dynamic>).cast<String, dynamic>());
@@ -203,7 +196,6 @@ class Project extends Entity {
   String remainingBudgetTime;
   String description;
   String fixedPrice;
-  Customer customer;
   RateGroup rateGroup;
   bool chargeable;
   DateTime deadline;
