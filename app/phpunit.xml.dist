@@ -38,6 +38,7 @@
             <file>../src/Dime/TimetrackerBundle/Tests/Entity/UserTest.php</file>
             <file>../src/Dime/InvoiceBundle/Tests/Handler/InvoiceHandlerTest.php</file>
             <file>../src/Dime/OfferBundle/Tests/Controller/OfferPositionControllerTest.php</file>
+            <file>../src/Dime/OfferBundle/Tests/Controller/OfferDiscountControllerTest.php</file>
         </testsuite>
         <testsuite name="Suite_P1">
             <file>../src/Dime/InvoiceBundle/Tests/Controller/InvoiceControllerTest.php</file>
@@ -71,7 +72,6 @@
         <testsuite name="Suite_P3">
             <file>../src/Dime/InvoiceBundle/Tests/Entity/InvoiceItemRepositoryTest.php</file>
             <file>../src/Dime/InvoiceBundle/Tests/InvoiceTest.php</file>
-            <file>../src/Dime/OfferBundle/Tests/Controller/OfferDiscountControllerTest.php</file>
             <file>../src/Dime/ReportBundle/Tests/Controller/ReportControllerTest.php</file>
             <file>../src/Dime/TimetrackerBundle/Tests/Entity/EntityTest.php</file>
             <file>../src/Dime/TimetrackerBundle/Tests/Entity/PeriodTest.php</file>
