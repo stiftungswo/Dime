@@ -22,3 +22,4 @@
 .vscode
 docker-sync.yml
 /.php_cs.cache
+/junit

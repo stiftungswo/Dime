@@ -26,6 +26,7 @@ class Company extends AbstractCustomer implements DimeEntityInterface
      * @var \Dime\TimetrackerBundle\Entity\RateGroup|null $rateGroup
      * @ORM\ManyToOne(targetEntity="Dime\TimetrackerBundle\Entity\RateGroup")
      * @ORM\JoinColumn(name="rate_group_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
+     * @JMS\SerializedName("rateGroup")
      */
     protected $rateGroup;
 

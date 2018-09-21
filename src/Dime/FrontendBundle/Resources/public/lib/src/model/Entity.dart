@@ -3,6 +3,7 @@ import 'package:meta/meta.dart';
 
 import 'entities/Tag.dart';
 import 'entities/User.dart';
+import 'entities/Address.dart';
 
 class Entity {
   Entity();
@@ -42,12 +43,14 @@ class Entity {
       if (value == null) {
         //print('Trying to get ${item} from ${this.type} but it does not exist or has no getter');
       } else if (value is Entity) {
-        // FIXME: this is kind of a hack to fix cloning, could possibly set fields to null in some cases
-        if (value.id != null) {
-          value.addFieldtoUpdate('id');
-        } else {
-          // set to null if id is null or not present (empty object / not loaded)
-          value = null;
+        if (!(value is Address)) {
+          // FIXME: this is kind of a hack to fix cloning, could possibly set fields to null in some cases
+          if (value.id != null) {
+            value.addFieldtoUpdate('id');
+          } else {
+            // set to null if id is null or not present (empty object / not loaded)
+            value = null;
+          }
         }
         if (value != null) {
           value = value.toMap();
