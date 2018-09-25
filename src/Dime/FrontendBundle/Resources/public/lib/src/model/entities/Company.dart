@@ -10,7 +10,17 @@ class Company extends Entity {
     this.department = original.department;
     this.rateGroup = original.rateGroup;
     this.address = Address.clone(original.address);
-    addFieldstoUpdate(['email', 'name', 'comment', 'department', 'rateGroup', 'address']);
+    this.phoneNumbers = original.phoneNumbers;
+    addFieldstoUpdate([
+      'email',
+      'name',
+      'comment',
+      'department',
+      'rateGroup',
+      'address'
+      // these have to be saved separately using cloneDescendants()
+      //'phoneNumbers',
+    ]);
   }
 
   Company.fromMap(Map<String, dynamic> map) : super.fromMap(map);
@@ -42,6 +52,8 @@ class Company extends Entity {
           return this.address.street;
         case 'address.postcode':
           return this.address.postcode;
+        case 'phoneNumbers':
+          return this.phoneNumbers;
         default:
           break;
       }
@@ -71,9 +83,28 @@ class Company extends Entity {
       case 'address':
         this.address = value is Address ? value : new Address.fromMap((value as Map<dynamic, dynamic>).cast<String, dynamic>());
         break;
+      case 'phoneNumbers':
+        this.phoneNumbers = Phone.listFromMap((value as List<dynamic>).cast());
+        break;
       default:
         super.Set(property, value);
         break;
+    }
+  }
+
+  @override
+  List<Entity> cloneDescendantsOf(Entity original) {
+    if (original is Company) {
+      var clones = new List<Entity>();
+
+      for (Phone entity in original.phoneNumbers) {
+        Phone clone = new Phone.clone(entity);
+        clone.company = this;
+        clones.add(clone);
+      }
+      return clones;
+    } else {
+      throw new Exception("Invalid Type; Invoice expected!");
     }
   }
 
@@ -85,4 +116,5 @@ class Company extends Entity {
   String department;
   RateGroup rateGroup;
   Address address;
+  List<Phone> phoneNumbers = [];
 }

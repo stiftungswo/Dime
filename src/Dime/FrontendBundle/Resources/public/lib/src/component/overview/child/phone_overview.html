@@ -1,0 +1,38 @@
+<!-- wird von OfferDiscountOverviewComponent und InvoiceDiscountOverviewComponent benutzt -->
+<dime-box label="Telefonnummern">
+    <table boxBody class="table table-bordered table-hover" ngControlGroup="phones" #overview="ngForm">
+        <thead>
+        <tr>
+            <th>Telefonnummer</th>
+            <th>Typ</th>
+            <th width="170">Aktion</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let c of controls" [class.danger]="!c.valid">
+            <td validationStatus class="form-group">
+                <input required class="form-control" [ngFormControl]="c.controls['number']" />
+            </td>
+
+            <td validationStatus class="form-group">
+                <select [ngFormControl]="c.controls['category']" class="form-control">
+                    <option value="1" [class.selected]="c.controls['category'].value == 1">Hauptnummer</option>
+                    <option value="2" [class.selected]="c.controls['category'].value == 2">Direktwahl</option>
+                    <option value="3" [class.selected]="c.controls['category'].value == 3">Privat</option>
+                    <option value="4" [class.selected]="c.controls['category'].value == 4">Mobile</option>
+                    <option value="5" [class.selected]="c.controls['category'].value == 5">Fax</option>
+                </select>
+            </td>
+
+            <td>
+                <dime-button primary (click)="duplicateEntity(c.controls['id'].value)" fontAwesome="copy">Duplizieren</dime-button>
+                <dime-button (click)="deleteEntity(c.controls['id'].value)" fontAwesome="trash-o" color="red"></dime-button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div boxFooter class="DimeControlButtons">
+        <dime-button primary (click)="createEntity()" glyphicon="plus">Hinzufügen</dime-button>
+        <dime-button (click)="reloadEvict()" glyphicon="refresh"></dime-button>
+    </div>
+</dime-box>

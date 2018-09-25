@@ -43,7 +43,7 @@ class Phone extends Entity implements DimeEntityInterface
      * @var Company|null
      * @ORM\ManyToOne(targetEntity="Swo\CustomerBundle\Entity\Company", inversedBy="phoneNumbers")
      * @ORM\JoinColumn(name="company_id", referencedColumnName="id", nullable=true)
-     * @JMS\Exclude()
+     * @JMS\MaxDepth(1)
      */
     protected $company;
 
@@ -52,7 +52,8 @@ class Phone extends Entity implements DimeEntityInterface
      * @var ArrayCollection $persons
      * @ORM\ManyToMany(targetEntity="Swo\CustomerBundle\Entity\Person", inversedBy="phoneNumbers")
      * @ORM\JoinTable(name="phones_persons")
-     * @JMS\Exclude()
+     * @JMS\Type("array")
+     * @JMS\MaxDepth(1)
      */
     protected $persons;
 

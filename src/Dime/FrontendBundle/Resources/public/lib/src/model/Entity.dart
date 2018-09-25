@@ -4,6 +4,7 @@ import 'package:meta/meta.dart';
 import 'entities/Tag.dart';
 import 'entities/User.dart';
 import 'entities/Address.dart';
+import 'entities/Person.dart';
 
 class Entity {
   Entity();
@@ -55,10 +56,10 @@ class Entity {
         if (value != null) {
           value = value.toMap();
         }
-      } else if (value is List<Tag>) {
+      } else if (value is List<Tag> || value is List<Person>) {
         // todo implement this cleaner
         // the current config of the "multiple entities" FormType expects an array of ids
-        value = value.map((Tag e) => (e..addFieldtoUpdate('id')).toMap()['id']).toList();
+        value = value.map((dynamic e) => (e..addFieldtoUpdate('id')).toMap()['id']).toList();
       } else if (value is DateTime) {
         value = value.toString();
       }

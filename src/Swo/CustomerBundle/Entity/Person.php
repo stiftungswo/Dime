@@ -42,26 +42,24 @@ class Person extends AbstractCustomer implements DimeEntityInterface
     protected $lastName;
 
     /**
-     * @JMS\Type("array")
-     * @JMS\MaxDepth(1)
      * @ORM\ManyToMany(targetEntity="Phone", mappedBy="persons", cascade="all")
+     * @JMS\Exclude()
      */
     protected $phoneNumbers;
 
     /**
      * @var Company|null $company
-     * @JMS\Groups({"List"})
      * @ORM\ManyToOne(targetEntity="Swo\CustomerBundle\Entity\Company", inversedBy="persons", cascade={"detach"})
      * @ORM\JoinColumn(name="company_id", referencedColumnName="id", nullable=true)
-     * @JMS\MaxDepth(1)
+     * @JMS\Exclude()
      */
     protected $company;
 
     /**
      * @var Address|null $address
-     * @JMS\Groups({"List"})
      * @ORM\ManyToOne(targetEntity="Swo\CustomerBundle\Entity\Address", inversedBy="persons")
      * @ORM\JoinColumn(name="address_id", referencedColumnName="id", nullable=true)
+     * @JMS\Exclude()
      */
     protected $address;
 

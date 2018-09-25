@@ -256,6 +256,26 @@ createHammockConfig(Injector i) {
           if (r.content is String) return new Company();
           return new Company.fromMap(r.content);
         }
+      },
+      "phones": {
+        "type": Phone,
+        "serializer": (Phone ent) {
+          return ent.toResource();
+        },
+        "deserializer": (Resource r) {
+          if (r.content is String) return new Phone();
+          return new Phone.fromMap(r.content);
+        }
+      },
+      "persons": {
+        "type": Person,
+        "serializer": (Person ent) {
+          return ent.toResource();
+        },
+        "deserializer": (Resource r) {
+          if (r.content is String) return new Person();
+          return new Person.fromMap(r.content);
+        }
       }
     })
     ..urlRewriter.baseUrl = i.get(httpBaseUrl);
