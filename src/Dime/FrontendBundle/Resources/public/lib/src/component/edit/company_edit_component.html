@@ -1,6 +1,6 @@
 <loading-container *ngIf="entity == null"></loading-container>
 <div *ngIf="entity != null">
-    <form class="box-body" #editform="ngForm">
+    <form #editform="ngForm">
         <dime-box label="Firmenkunde bearbeiten">
             <div boxBody class="form-horizontal">
                 <dime-form-group horizontal label="Name">
@@ -23,13 +23,16 @@
                     <textarea ngControl="comment" class="form-control" [(ngModel)]="entity.comment"
                               (change)="addSaveField('comment')"></textarea>
                 </dime-form-group>
-            </div>
 
-            <div boxFooter class="DimeControlButtons">
-                <save-button [valid]="editform.valid" (click)="saveEntity()"></save-button>
-                <dime-button (click)="reloadEvict()" glyphicon="refresh"></dime-button>
             </div>
         </dime-box>
+
+        <company-phone-overview [company]="entity.id"></company-phone-overview>
+
+        <div class="DimeControlButtons">
+            <save-button [valid]="editform.valid" (click)="saveEntity()"></save-button>
+            <dime-button (click)="reloadEvict()" glyphicon="refresh"></dime-button>
+        </div>
     </form>
     <edit-footer [entity]="entity"></edit-footer>
 </div>

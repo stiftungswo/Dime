@@ -16,6 +16,7 @@ export 'entities/OfferDiscount.dart';
 export 'entities/OfferPosition.dart';
 export 'entities/OfferStatusUC.dart';
 export 'entities/Period.dart';
+export 'entities/Person.dart';
 export 'entities/Phone.dart';
 export 'entities/Project.dart';
 export 'entities/ProjectCategory.dart';
