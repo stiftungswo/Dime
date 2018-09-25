@@ -17,11 +17,11 @@ class PhoneTest extends TestCase
         $this->assertEquals('0345678901', $phone->getNumber());
     }
 
-    public function testGetSetType()
+    public function testGetSetCategory()
     {
         $phone = new Phone();
-        $phone->setType('mobile');
-        $this->assertEquals('mobile', $phone->getType());
+        $phone->setCategory(3);
+        $this->assertEquals(3, $phone->getCategory());
     }
 
     public function testGetSetCompany()

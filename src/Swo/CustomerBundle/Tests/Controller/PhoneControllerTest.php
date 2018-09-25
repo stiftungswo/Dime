@@ -36,7 +36,7 @@ class PhoneControllerTest extends DimeTestCase
             $this->api_prefix . '/phones',
             json_encode(array(
                 'number' => '022 333 44 55',
-                'type' => 'mobile',
+                'category' => 2,
                 'company' => 13,
                 'persons' => [13,20]
                 ))
@@ -54,14 +54,14 @@ class PhoneControllerTest extends DimeTestCase
         // check that everything was filled in correctly
         // person and company can't be checked because they get rendered out during serialization
         $this->assertEquals('022 333 44 55', $data['number']);
-        $this->assertEquals('mobile', $data['type']);
+        $this->assertEquals(2, $data['category']);
 
         $response = $this->jsonRequest(
             'PUT',
             $this->api_prefix . '/phones/' . $id,
             json_encode(array(
                 'number' => '011 222 33 99',
-                'type' => 'private',
+                'category' => 3,
                 'company' => 11,
                 'persons' => [15,20]
                 ))
@@ -72,7 +72,7 @@ class PhoneControllerTest extends DimeTestCase
         $response = $this->jsonRequest('GET', $this->api_prefix . '/phones/' . $id);
         $data = json_decode($response->getContent(), true);
         $this->assertEquals('011 222 33 99', $data['number']);
-        $this->assertEquals('private', $data['type']);
+        $this->assertEquals(3, $data['category']);
 
         // check that invalid ids get 404 return
         $response = $this->jsonRequest(
@@ -102,7 +102,7 @@ class PhoneControllerTest extends DimeTestCase
             $this->api_prefix . '/phones',
             json_encode(array(
                     'number' => '022 333 44 55',
-                    'type' => 'mobile',
+                    'category' => 2,
                     'company' => 13,
                 ))
         );
@@ -119,14 +119,14 @@ class PhoneControllerTest extends DimeTestCase
         // check that everything was filled in correctly
         // person and company can't be checked because they get rendered out during serialization
         $this->assertEquals('022 333 44 55', $data['number']);
-        $this->assertEquals('mobile', $data['type']);
+        $this->assertEquals(2, $data['category']);
 
         $response = $this->jsonRequest(
             'PUT',
             $this->api_prefix . '/phones/' . $id,
             json_encode(array(
                     'number' => '011 222 33 99',
-                    'type' => 'private',
+                    'category' => 1,
                     'company' => 11,
                 ))
         );
@@ -136,7 +136,7 @@ class PhoneControllerTest extends DimeTestCase
         $response = $this->jsonRequest('GET', $this->api_prefix . '/phones/' . $id);
         $data = json_decode($response->getContent(), true);
         $this->assertEquals('011 222 33 99', $data['number']);
-        $this->assertEquals('private', $data['type']);
+        $this->assertEquals(1, $data['category']);
 
         // check that invalid ids get 404 return
         $response = $this->jsonRequest(
@@ -166,7 +166,7 @@ class PhoneControllerTest extends DimeTestCase
             $this->api_prefix . '/phones',
             json_encode(array(
                     'number' => '022 333 44 55',
-                    'type' => 'mobile',
+                    'category' => 3,
                     'persons' => [13,20]
                 ))
         );
@@ -183,14 +183,14 @@ class PhoneControllerTest extends DimeTestCase
         // check that everything was filled in correctly
         // person and company can't be checked because they get rendered out during serialization
         $this->assertEquals('022 333 44 55', $data['number']);
-        $this->assertEquals('mobile', $data['type']);
+        $this->assertEquals(3, $data['category']);
 
         $response = $this->jsonRequest(
             'PUT',
             $this->api_prefix . '/phones/' . $id,
             json_encode(array(
                     'number' => '011 222 33 99',
-                    'type' => 'private',
+                    'category' => 1,
                     'persons' => [15,20]
                 ))
         );
@@ -200,7 +200,7 @@ class PhoneControllerTest extends DimeTestCase
         $response = $this->jsonRequest('GET', $this->api_prefix . '/phones/' . $id);
         $data = json_decode($response->getContent(), true);
         $this->assertEquals('011 222 33 99', $data['number']);
-        $this->assertEquals('private', $data['type']);
+        $this->assertEquals(1, $data['category']);
 
         // check that invalid ids get 404 return
         $response = $this->jsonRequest(

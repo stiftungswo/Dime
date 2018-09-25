@@ -1,6 +1,6 @@
 Swo\CustomerBundle\Entity\Phone:
   phones_{1..25}:
     number: <phoneNumber()>
-    type: <word()>
+    category: <numberBetween(1,3)>
     persons: '2x @person_*'
     company: 50%? @company_*

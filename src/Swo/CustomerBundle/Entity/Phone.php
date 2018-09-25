@@ -27,12 +27,15 @@ class Phone extends Entity implements DimeEntityInterface
 
     /**
      * type of the phone number
+     * 1: Work number
+     * 2: Private number
+     * 3: Mobile number
      *
-     * @var string|null $number
-     * @ORM\Column(type="string", nullable=false)
+     * @var int|null $category
+     * @ORM\Column(type="integer", nullable=false)
      * @JMS\Groups({"List"})
      */
-    protected $type;
+    protected $category;
 
     /**
      * related company (number can ony belong to one company, but to many persons)
@@ -82,18 +85,18 @@ class Phone extends Entity implements DimeEntityInterface
     /**
      * @return string|null
      */
-    public function getType()
+    public function getCategory()
     {
-        return $this->type;
+        return $this->category;
     }
 
     /**
-     * @param string $type
+     * @param string|null $category
      * @return Phone
      */
-    public function setType(string $type) : Phone
+    public function setCategory($category) : Phone
     {
-        $this->type = $type;
+        $this->category = $category;
         return $this;
     }
 
