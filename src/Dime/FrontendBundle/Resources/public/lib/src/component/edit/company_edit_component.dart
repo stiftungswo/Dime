@@ -11,13 +11,14 @@ import '../../service/status_service.dart';
 import '../../service/user_auth_service.dart';
 import '../../util/page_title.dart' as page_title;
 import '../common/dime_directives.dart';
+import '../overview/overview.dart';
 import '../select/select.dart';
 import 'entity_edit.dart';
 
 @Component(
     selector: 'company-edit',
     templateUrl: 'company_edit_component.html',
-    directives: const [coreDirectives, formDirectives, dimeDirectives, RateGroupSelectComponent])
+    directives: const [coreDirectives, formDirectives, dimeDirectives, RateGroupSelectComponent, CompanyPhoneOverviewComponent])
 class CompanyEditComponent extends EntityEdit<Company> {
   CompanyEditComponent(
       CachingObjectStoreService store, StatusService status, UserAuthService auth, Router router, EntityEventsService entityEventsService)

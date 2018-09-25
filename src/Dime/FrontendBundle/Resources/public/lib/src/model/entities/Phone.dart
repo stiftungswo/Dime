@@ -3,12 +3,29 @@ import '../entity_export.dart';
 class Phone extends Entity {
   Phone();
 
-  Phone.clone(Phone original) {
-    this.id = original.id;
-    this.number = original.number;
-    this.type = original.type;
-    addFieldstoUpdate(['id', 'number', 'type']);
+  @override
+  init({Map<String, dynamic> params: const {}}) {
+    if (params.containsKey('company')) {
+      params['company'] = new Company()..id = params['company'];
+    }
+    if (!params.containsKey('number')) {
+      params['number'] = '044 123 45 67';
+    }
+    if (!params.containsKey('category')) {
+      params['category'] = 1;
+    }
+    super.init(params: params);
   }
+
+  Phone.clone(Phone original) {
+    this.number = original.number;
+    this.category = original.category;
+    this.company = original.company;
+    this.person = original.person;
+    addFieldstoUpdate(['company', 'person', 'number', 'category']);
+  }
+
+  Phone.fromMap(Map<String, dynamic> map) : super.fromMap(map);
 
   @override
   newObj() {
@@ -17,39 +34,58 @@ class Phone extends Entity {
 
   @override
   dynamic Get(String property) {
-    switch (property) {
-      case 'id':
-        return this.id;
-      case 'number':
-        return this.number;
-      case 'type':
-        return this.type;
-      default:
-        break;
+    var value = super.Get(property);
+
+    if (value == null) {
+      switch (property) {
+        case 'number':
+          return this.number;
+        case 'category':
+          return this.category;
+        case 'company':
+          return this.company;
+        case 'person':
+          return this.person;
+        default:
+          break;
+      }
     }
-    return null;
+    return value;
   }
 
   @override
   void Set(String property, dynamic value) {
     switch (property) {
-      case 'id':
-        this.id = value;
-        break;
       case 'number':
-        this.number = value as int;
+        this.number = value as String;
         break;
-      case 'type':
-        this.type = value as String;
+      case 'category':
+        this.category = value is String ? int.parse(value) : value as int;
+        break;
+      case 'company':
+        this.company = value is Company ? value : new Company.fromMap((value as Map<dynamic, dynamic>).cast<String, dynamic>());
+        break;
+      case 'persons':
+        this.person = value is Person ? value : new Person.fromMap((value as Map<dynamic, dynamic>).cast<String, dynamic>());
         break;
       default:
+        super.Set(property, value);
         break;
     }
   }
 
+  static List<Phone> listFromMap(List<Map<String, dynamic>> content) {
+    List<Phone> array = new List<Phone>();
+    for (var element in content) {
+      array.add(new Phone.fromMap(element));
+    }
+    return array;
+  }
+
   @override
-  dynamic id;
-  int number;
-  @override
-  String type;
+  String type = "phones";
+  int category;
+  String number;
+  Company company;
+  Person person;
 }

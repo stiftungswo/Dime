@@ -19,6 +19,10 @@ class Company extends AbstractCustomer implements DimeEntityInterface
     /**
      * @var ArrayCollection
      * @ORM\OneToMany(targetEntity="Swo\CustomerBundle\Entity\Phone", mappedBy="company", cascade={"all"}, orphanRemoval=true)
+     * @JMS\Groups({"List"})
+     * @JMS\Type("array")
+     * @JMS\MaxDepth(1)
+     * @JMS\SerializedName("phoneNumbers")
      */
     protected $phoneNumbers;
 
@@ -39,8 +43,11 @@ class Company extends AbstractCustomer implements DimeEntityInterface
 
     /**
      * @var ArrayCollection $persons
-     * @JMS\Groups({"List"})
      * @ORM\OneToMany(targetEntity="Swo\CustomerBundle\Entity\Person", mappedBy="company", cascade={"all"}, orphanRemoval=true)
+     * @JMS\Groups({"List"})
+     * @JMS\Type("array")
+     * @JMS\MaxDepth(1)
+     * @JMS\SerializedName("persons")
      */
     protected $persons;
 
