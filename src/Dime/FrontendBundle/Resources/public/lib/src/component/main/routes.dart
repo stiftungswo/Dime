@@ -29,3 +29,4 @@ final TimetrackPeriodsRoute = new RoutePath(path: '/timetrack/periods');
 final TagOverviewRoute = new RoutePath(path: '/tags');
 final CompanyOverviewRoute = new RoutePath(path: '/companies/overview');
 final CompanyEditRoute = new RoutePath(path: '/companies/edit/:id');
+final PersonOverviewRoute = new RoutePath(path: '/persons/overview');

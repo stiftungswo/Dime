@@ -24,12 +24,14 @@ class Person extends AbstractCustomer implements DimeEntityInterface
     /**
      * @var string|null $salutation
      * @ORM\Column(name="salutation", type="string", nullable=true, length=60)
+     * @JMS\SerializedName("salutation")
      */
     protected $salutation;
 
     /**
      * @var string|null $firstName
      * @ORM\Column(name="first_name", type="string", length=60)
+     * @JMS\Groups({"List"})
      * @JMS\SerializedName("firstName")
      */
     protected $firstName;
@@ -37,6 +39,7 @@ class Person extends AbstractCustomer implements DimeEntityInterface
     /**
      * @var string|null $lastName
      * @ORM\Column(name="last_name", type="string", length=60)
+     * @JMS\Groups({"List"})
      * @JMS\SerializedName("lastName")
      */
     protected $lastName;
@@ -52,7 +55,8 @@ class Person extends AbstractCustomer implements DimeEntityInterface
      * @var Company|null $company
      * @ORM\ManyToOne(targetEntity="Swo\CustomerBundle\Entity\Company", inversedBy="persons", cascade={"detach"})
      * @ORM\JoinColumn(name="company_id", referencedColumnName="id", nullable=true)
-     * @JMS\Exclude()
+     * @JMS\Groups({"List"})
+     * @JMS\MaxDepth(1)
      */
     protected $company;
 
