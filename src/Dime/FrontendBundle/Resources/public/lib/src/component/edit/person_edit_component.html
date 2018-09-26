@@ -1,0 +1,40 @@
+<loading-container *ngIf="entity == null"></loading-container>
+<div *ngIf="entity != null">
+    <form #editform="ngForm">
+        <dime-box label="{{ entity?.firstName }} {{ entity?.lastName }} bearbeiten">
+            <div boxBody class="form-horizontal">
+                <dime-form-group horizontal label="Anrede">
+                    <input required ngControl="salutation" class="form-control" [(ngModel)]="entity.salutation"
+                           (change)="addSaveField('salutation')">
+                </dime-form-group>
+
+                <dime-form-group horizontal label="Vorname">
+                    <input required ngControl="firstName" class="form-control" [(ngModel)]="entity.firstName"
+                           (change)="addSaveField('firstName')">
+                </dime-form-group>
+
+                <dime-form-group horizontal label="Nachname">
+                    <input required ngControl="lastName" class="form-control" [(ngModel)]="entity.lastName"
+                           (change)="addSaveField('lastName')">
+                </dime-form-group>
+
+
+                <dime-form-group horizontal label="E-Mail">
+                    <input type="email" ngControl="email" class="form-control" [(ngModel)]="entity.email"
+                           (change)="addSaveField('email')">
+                </dime-form-group>
+
+                <dime-form-group horizontal label="Kommentar">
+                    <textarea ngControl="comment" class="form-control" [(ngModel)]="entity.comment"
+                              (change)="addSaveField('comment')"></textarea>
+                </dime-form-group>
+            </div>
+        </dime-box>
+
+        <div class="DimeControlButtons">
+            <save-button [valid]="editform.valid" (click)="saveEntity()"></save-button>
+            <dime-button (click)="reloadEvict()" glyphicon="refresh"></dime-button>
+        </div>
+    </form>
+    <edit-footer [entity]="entity"></edit-footer>
+</div>

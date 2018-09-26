@@ -30,3 +30,4 @@ final TagOverviewRoute = new RoutePath(path: '/tags');
 final CompanyOverviewRoute = new RoutePath(path: '/companies/overview');
 final CompanyEditRoute = new RoutePath(path: '/companies/edit/:id');
 final PersonOverviewRoute = new RoutePath(path: '/persons/overview');
+final PersonEditRoute = new RoutePath(path: '/persons/edit/:id');

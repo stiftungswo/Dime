@@ -12,6 +12,7 @@ import '../edit/company_edit_component.template.dart' as company_edit_component;
 import '../edit/employee_edit_component.template.dart' as employee_edit_component;
 import '../edit/invoice_edit_component.template.dart' as invoice_edit_component;
 import '../edit/offer_edit_component.template.dart' as offer_edit_component;
+import '../edit/person_edit_component.template.dart' as person_edit_component;
 import '../edit/project_edit_component.template.dart' as project_edit_component;
 import '../edit/service_edit_component.template.dart' as service_edit_component;
 import '../overview/root/company_overview_component.template.dart' as company_overview_component;
@@ -98,6 +99,7 @@ class AppComponent implements AfterViewInit, OnInit {
     new RouteDefinition(routePath: CompanyOverviewRoute, component: company_overview_component.CompanyOverviewComponentNgFactory),
     new RouteDefinition(routePath: CompanyEditRoute, component: company_edit_component.CompanyEditComponentNgFactory),
     new RouteDefinition(routePath: PersonOverviewRoute, component: person_overview_component.PersonOverviewComponentNgFactory),
+    new RouteDefinition(routePath: PersonEditRoute, component: person_edit_component.PersonEditComponentNgFactory)
   ];
 
   AppComponent(UserAuthService this.auth, UserContextService this.userContext);

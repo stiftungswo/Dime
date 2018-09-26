@@ -29,6 +29,10 @@ class Person extends Entity {
           return this.firstName;
         case 'lastName':
           return this.lastName;
+        case 'email':
+          return this.email;
+        case 'comment':
+          return this.comment;
         case 'company':
           return this.company;
         case 'company.name':
@@ -52,6 +56,12 @@ class Person extends Entity {
       case 'lastName':
         this.lastName = value as String;
         break;
+      case 'email':
+        this.email = value as String;
+        break;
+      case 'comment':
+        this.comment = value as String;
+        break;
       case 'company':
         this.company = value is Company ? value : new Company.fromMap((value as Map<dynamic, dynamic>).cast<String, dynamic>());
         break;
@@ -66,5 +76,7 @@ class Person extends Entity {
   String salutation;
   String firstName;
   String lastName;
+  String email;
+  String comment;
   Company company;
 }

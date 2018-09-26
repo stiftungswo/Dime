@@ -11,6 +11,7 @@ import '../../../service/status_service.dart';
 import '../../../service/user_auth_service.dart';
 import '../../../util/page_title.dart' as page_title;
 import '../../common/dime_directives.dart';
+import '../../main/routes.dart';
 import '../entity_overview.dart';
 
 @Component(
@@ -21,7 +22,7 @@ import '../entity_overview.dart';
 class PersonOverviewComponent extends EntityOverview<Person> implements OnActivate {
   PersonOverviewComponent(CachingObjectStoreService store, Router router, SettingsService manager, StatusService status,
       UserAuthService auth, EntityEventsService entityEventsService)
-      : super(Person, store, null, manager, status, entityEventsService, router: router, auth: auth);
+      : super(Person, store, PersonEditRoute, manager, status, entityEventsService, router: router, auth: auth);
 
   static String globalFilterString = '';
 
