@@ -8,17 +8,18 @@ import 'package:angular_router/angular_router.dart';
 import '../../service/user_auth_service.dart';
 import '../../service/user_context_service.dart';
 import '../../util/release_info.dart';
-import 'menu_component.dart';
-import 'statusbar_component.dart';
-import 'user_menu_component.dart';
-
-import 'routes.dart';
-import 'welcome_component.template.dart' as welcome_component;
-
+import '../edit/company_edit_component.template.dart' as company_edit_component;
+import '../edit/employee_edit_component.template.dart' as employee_edit_component;
+import '../edit/invoice_edit_component.template.dart' as invoice_edit_component;
+import '../edit/offer_edit_component.template.dart' as offer_edit_component;
+import '../edit/project_edit_component.template.dart' as project_edit_component;
+import '../edit/service_edit_component.template.dart' as service_edit_component;
+import '../overview/root/company_overview_component.template.dart' as company_overview_component;
 import '../overview/root/employee_overview_component.template.dart' as employee_overview_component;
 import '../overview/root/holiday_overview_component.template.dart' as holiday_overview_component;
 import '../overview/root/invoice_overview_component.template.dart' as invoice_overview_component;
 import '../overview/root/offer_overview_component.template.dart' as offer_overview_component;
+import '../overview/root/person_overview_component.template.dart' as person_overview_component;
 import '../overview/root/project_category_overview_component.template.dart' as projectCategory_overview_component;
 import '../overview/root/project_open_invoices_component.template.dart' as project_open_invoices_component;
 import '../overview/root/project_overview_component.template.dart' as project_overview_component;
@@ -26,27 +27,21 @@ import '../overview/root/rate_group_overview_component.template.dart' as rateGro
 import '../overview/root/rate_unit_type_overview_component.template.dart' as rateUnitType_overview_component;
 import '../overview/root/service_overview_component.template.dart' as service_overview_component;
 import '../overview/root/setting_assign_project_overview_component.template.dart' as settingAssignProject_overview_component;
-import '../overview/root/company_overview_component.template.dart' as company_overview_component;
-
-import '../report/timeslice_expense_report_component.template.dart' as timeslice_expense_report_component;
-import '../report/timeslice_weekly_report_component.template.dart' as timeslice_weekly_report_component;
-import '../timetrack/timetrack_multi_component.template.dart' as timetrack_multi_component;
 import '../overview/root/tag_overview_component.template.dart' as tag_overview_component;
-
-import '../edit/employee_edit_component.template.dart' as employee_edit_component;
-import '../edit/invoice_edit_component.template.dart' as invoice_edit_component;
-import '../edit/offer_edit_component.template.dart' as offer_edit_component;
-import '../edit/project_edit_component.template.dart' as project_edit_component;
-import '../edit/service_edit_component.template.dart' as service_edit_component;
-import '../edit/company_edit_component.template.dart' as company_edit_component;
-
 import '../report/project_employee_report_component.template.dart' as projectemployee_report_component;
 import '../report/revenue_report_component.template.dart' as revenue_report_component;
 import '../report/service_hours_report_component.template.dart' as servicehours_report_component;
-
+import '../report/timeslice_expense_report_component.template.dart' as timeslice_expense_report_component;
+import '../report/timeslice_weekly_report_component.template.dart' as timeslice_weekly_report_component;
 import '../timetrack/project_timetrack_component.template.dart' as project_timetrack_component;
 import '../timetrack/timetrack_component.template.dart' as timetrack_component;
+import '../timetrack/timetrack_multi_component.template.dart' as timetrack_multi_component;
 import '../timetrack/timetrack_periods_component.template.dart' as timetrack_periods_component;
+import 'menu_component.dart';
+import 'routes.dart';
+import 'statusbar_component.dart';
+import 'user_menu_component.dart';
+import 'welcome_component.template.dart' as welcome_component;
 
 @Component(
   selector: 'my-app',
@@ -101,7 +96,8 @@ class AppComponent implements AfterViewInit, OnInit {
     new RouteDefinition(routePath: TimetrackPeriodsRoute, component: timetrack_periods_component.TimetrackPeriodsComponentNgFactory),
     new RouteDefinition(routePath: TagOverviewRoute, component: tag_overview_component.TagOverviewComponentNgFactory),
     new RouteDefinition(routePath: CompanyOverviewRoute, component: company_overview_component.CompanyOverviewComponentNgFactory),
-    new RouteDefinition(routePath: CompanyEditRoute, component: company_edit_component.CompanyEditComponentNgFactory)
+    new RouteDefinition(routePath: CompanyEditRoute, component: company_edit_component.CompanyEditComponentNgFactory),
+    new RouteDefinition(routePath: PersonOverviewRoute, component: person_overview_component.PersonOverviewComponentNgFactory),
   ];
 
   AppComponent(UserAuthService this.auth, UserContextService this.userContext);
