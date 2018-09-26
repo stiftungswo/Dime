@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
 import 'package:angular_router/angular_router.dart';
@@ -42,5 +44,13 @@ class CompanyOverviewComponent extends EntityOverview<Company> implements OnActi
       return new Company.clone(entity);
     }
     return new Company();
+  }
+
+  @override
+  Future createEntity({Company newEnt, Map<String, dynamic> params: const {}}) {
+    return super.createEntity(params: {
+      'address': {'postcode': 8603, 'city': 'Schwerzenbach'},
+      'name': 'Neue Firma'
+    });
   }
 }
