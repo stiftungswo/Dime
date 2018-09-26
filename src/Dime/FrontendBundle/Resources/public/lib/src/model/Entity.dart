@@ -1,10 +1,10 @@
 import 'package:hammock/hammock.dart';
 import 'package:meta/meta.dart';
 
-import 'entities/Tag.dart';
-import 'entities/User.dart';
 import 'entities/Address.dart';
 import 'entities/Person.dart';
+import 'entities/Tag.dart';
+import 'entities/User.dart';
 
 class Entity {
   Entity();
@@ -44,7 +44,13 @@ class Entity {
       if (value == null) {
         //print('Trying to get ${item} from ${this.type} but it does not exist or has no getter');
       } else if (value is Entity) {
-        if (!(value is Address)) {
+        if (value is Address) {
+          value.addFieldtoUpdate('street');
+          value.addFieldtoUpdate('supplement');
+          value.addFieldtoUpdate('city');
+          value.addFieldtoUpdate('postcode');
+          value.addFieldtoUpdate('country');
+        } else {
           // FIXME: this is kind of a hack to fix cloning, could possibly set fields to null in some cases
           if (value.id != null) {
             value.addFieldtoUpdate('id');

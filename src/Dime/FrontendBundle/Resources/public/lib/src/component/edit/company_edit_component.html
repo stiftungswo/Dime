@@ -1,7 +1,7 @@
 <loading-container *ngIf="entity == null"></loading-container>
 <div *ngIf="entity != null">
     <form #editform="ngForm">
-        <dime-box label="Firmenkunde bearbeiten">
+        <dime-box label="Firmenkunde {{ entity?.name }} bearbeiten">
             <div boxBody class="form-horizontal">
                 <dime-form-group horizontal label="Name">
                     <input required ngControl="name" class="form-control" [(ngModel)]="entity.name"
@@ -24,6 +24,7 @@
                               (change)="addSaveField('comment')"></textarea>
                 </dime-form-group>
 
+                <address-edit [address]="entity.address" (change)="addSaveField('address')"></address-edit>
             </div>
         </dime-box>
 
