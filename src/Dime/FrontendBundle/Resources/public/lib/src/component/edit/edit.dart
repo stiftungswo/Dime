@@ -1,3 +1,4 @@
+export 'address_edit_component.dart';
 export 'employee_edit_component.dart';
 export 'invoice_edit_component.dart';
 export 'offer_edit_component.dart';
