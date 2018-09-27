@@ -45,9 +45,10 @@ class Person extends AbstractCustomer implements DimeEntityInterface
     protected $lastName;
 
     /**
-     * @JMS\Type("array")
-     * @JMS\MaxDepth(1)
-     * @ORM\ManyToMany(targetEntity="Phone", mappedBy="persons", cascade="all")
+     * @var ArrayCollection $phoneNumbers;
+     * @ORM\OneToMany(targetEntity="Phone", mappedBy="person", cascade="all")
+     * @JMS\Groups({"List"})
+     * @JMS\MaxDepth(2)
      */
     protected $phoneNumbers;
 

@@ -22,8 +22,8 @@ class Phone extends Entity {
     this.number = original.number;
     this.category = original.category;
     this.company = original.company;
-    this.persons = original.persons;
-    addFieldstoUpdate(['company', 'persons', 'number', 'category']);
+    this.person = original.person;
+    addFieldstoUpdate(['company', 'person', 'number', 'category']);
   }
 
   Phone.fromMap(Map<String, dynamic> map) : super.fromMap(map);
@@ -45,8 +45,8 @@ class Phone extends Entity {
           return this.category;
         case 'company':
           return this.company;
-        case 'persons':
-          return this.persons;
+        case 'person':
+          return this.person;
         default:
           break;
       }
@@ -66,8 +66,8 @@ class Phone extends Entity {
       case 'company':
         this.company = value is Company ? value : new Company.fromMap((value as Map<dynamic, dynamic>).cast<String, dynamic>());
         break;
-      case 'persons':
-        this.persons = Person.listFromMap((value as List<dynamic>).cast());
+      case 'person':
+        this.person = value is Person ? value : new Person.fromMap((value as Map<dynamic, dynamic>).cast<String, dynamic>());
         break;
       default:
         super.Set(property, value);
@@ -88,5 +88,5 @@ class Phone extends Entity {
   int category;
   String number;
   Company company;
-  List<Person> persons = [];
+  Person person;
 }

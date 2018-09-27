@@ -35,32 +35,19 @@ class Phone extends Entity implements DimeEntityInterface
     protected $category;
 
     /**
-     * related company (number can ony belong to one company, but to many persons)
+     * related company
      *
      * @var Company|null
      * @ORM\ManyToOne(targetEntity="Swo\CustomerBundle\Entity\Company", inversedBy="phoneNumbers")
      * @ORM\JoinColumn(name="company_id", referencedColumnName="id", nullable=true)
-<<<<<<< HEAD
-=======
-     * @JMS\MaxDepth(1)
->>>>>>> 67bc731b... added phone number overview in company edit
      */
     protected $company;
 
     /**
-<<<<<<< HEAD
      * related person
      * @var Person|null $person
      * @ORM\ManyToOne(targetEntity="Swo\CustomerBundle\Entity\Person", inversedBy="phoneNumbers")
      * @ORM\JoinColumn(name="person_id", referencedColumnName="id", nullable=true)
-=======
-     * related persons
-     * @var ArrayCollection $persons
-     * @ORM\ManyToMany(targetEntity="Swo\CustomerBundle\Entity\Person", inversedBy="phoneNumbers")
-     * @ORM\JoinTable(name="phones_persons")
-     * @JMS\Type("array")
-     * @JMS\MaxDepth(1)
->>>>>>> 67bc731b... added phone number overview in company edit
      */
     protected $person;
 
