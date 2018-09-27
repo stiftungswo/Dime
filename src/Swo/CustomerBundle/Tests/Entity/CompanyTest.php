@@ -1,0 +1,86 @@
+<?php
+
+namespace Swo\CustomerBundle\Tests\Entity;
+
+use Dime\TimetrackerBundle\Entity\RateGroup;
+use Doctrine\Common\Collections\ArrayCollection;
+use PHPUnit\Framework\TestCase;
+use Swo\CustomerBundle\Entity\Address;
+use Swo\CustomerBundle\Entity\Company;
+use Swo\CustomerBundle\Entity\Person;
+use Swo\CustomerBundle\Entity\Phone;
+
+class CompanyTest extends TestCase
+{
+    public function testPhoneNumbers()
+    {
+        // company has by default no phone numbers
+        $company = new Company();
+        $this->assertEquals(0, count($company->getPhoneNumbers()));
+
+        // but we can add one
+        $phone = new Phone();
+        $company->addPhoneNumber($phone);
+        $this->assertEquals(1, count($company->getPhoneNumbers()));
+
+        // and remove it
+        $company->removePhoneNumber($phone);
+        $this->assertEquals(0, count($company->getPhoneNumbers()));
+
+        // and it's also possible to pass an Array
+        $company->setPhoneNumbers(new ArrayCollection([$phone]));
+        $this->assertEquals(1, count($company->getPhoneNumbers()));
+    }
+
+    public function getSetRateGroup()
+    {
+        $company = new Company();
+        $rateGroup = new RateGroup();
+        $company->setRateGroup($rateGroup);
+        $this->assertEquals($rateGroup, $company->getRateGroup());
+        $company->setRateGroup(null);
+        $this->assertNull($company->getRateGroup());
+    }
+
+    public function testGetSetAddress()
+    {
+        $company = new Company();
+        $address = new Address();
+        $company->setAddress($address);
+        $this->assertEquals($address, $company->getAddress());
+    }
+
+    public function testPersons()
+    {
+        // company has by default no persons
+        $company = new Company();
+        $this->assertEquals(0, count($company->getPersons()));
+
+        // but we can add one
+        $person = new Person();
+        $company->addPerson($person);
+        $this->assertEquals(1, count($company->getPersons()));
+
+        // and remove it
+        $company->removePerson($person);
+        $this->assertEquals(0, count($company->getPersons()));
+
+        // and it's also possible to pass an Array
+        $company->setPersons(new ArrayCollection([$person]));
+        $this->assertEquals(1, count($company->getPersons()));
+    }
+    
+    public function testGetSetName()
+    {
+        $company = new Company();
+        $company->setName('Name');
+        $this->assertEquals('Name', $company->getName());
+    }
+
+    public function testGetSetDepartment()
+    {
+        $company = new Company();
+        $company->setDepartment('Department');
+        $this->assertEquals('Department', $company->getDepartment());
+    }
+}
