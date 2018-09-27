@@ -31,6 +31,19 @@
             </div>
         </dime-box>
 
+        <div *ngIf="hasCompany(entity)" class="row">
+            <div class="col-md-6">
+                <company-phone-overview [company]="entity.company.id"></company-phone-overview>
+            </div>
+            <div class="col-md-6">
+                <person-phone-overview [person]="entity.id"></person-phone-overview>
+            </div>
+        </div>
+
+        <div *ngIf="!hasCompany(entity)">
+            <person-phone-overview [person]="entity.id"></person-phone-overview>
+        </div>
+
         <div class="DimeControlButtons">
             <save-button [valid]="editform.valid" (click)="saveEntity()"></save-button>
             <dime-button (click)="reloadEvict()" glyphicon="refresh"></dime-button>

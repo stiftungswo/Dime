@@ -1,10 +1,10 @@
-<dime-box label="Telefonnummern">
+<dime-box label="{{ label }}">
     <table boxBody class="table table-bordered table-hover" ngControlGroup="phones" #overview="ngForm">
         <thead>
         <tr>
             <th>Telefonnummer</th>
             <th>Typ</th>
-            <th width="170">Aktion</th>
+            <th width="100">Aktion</th>
         </tr>
         </thead>
         <tbody>
@@ -24,7 +24,7 @@
             </td>
 
             <td>
-                <dime-button primary (click)="duplicateEntity(c.controls['id'].value)" fontAwesome="copy">Duplizieren</dime-button>
+                <dime-button primary (click)="duplicateEntity(c.controls['id'].value)" fontAwesome="copy"></dime-button>
                 <dime-button (click)="deleteEntity(c.controls['id'].value)" fontAwesome="trash-o" color="red"></dime-button>
             </td>
         </tr>
