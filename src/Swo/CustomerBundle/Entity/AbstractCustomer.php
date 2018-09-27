@@ -9,21 +9,21 @@ use Dime\TimetrackerBundle\Entity\Entity;
 abstract class AbstractCustomer extends Entity
 {
     /**
-     * @var string
+     * @var string|null $comment
      * @ORM\Column(name="comment", type="text", nullable=true)
      */
     protected $comment;
 
     /**
-     * @var string $email
+     * @var string|null $email
      * @ORM\Column(name="email", type="text", nullable=true)
      */
     protected $email;
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getComment() : string
+    public function getComment()
     {
         return $this->comment;
     }
@@ -39,9 +39,9 @@ abstract class AbstractCustomer extends Entity
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getEmail() : string
+    public function getEmail()
     {
         return $this->email;
     }

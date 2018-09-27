@@ -1,0 +1,16 @@
+services:
+  swo_customer.form_type.address:
+    class: Swo\CustomerBundle\Form\Type\AddressFormType
+    tags: [{ name: form.type }]
+
+  swo_customer.form_type.phone:
+    class: Swo\CustomerBundle\Form\Type\PhoneFormType
+    tags: [{ name: form.type }]
+
+  swo_customer.form_type.company:
+    class: Swo\CustomerBundle\Form\Type\CompanyFormType
+    tags: [{ name: form.type }]
+
+  swo_customer.form_type.person:
+    class: Swo\CustomerBundle\Form\Type\PersonFormType
+    tags: [{ name: form.type }]

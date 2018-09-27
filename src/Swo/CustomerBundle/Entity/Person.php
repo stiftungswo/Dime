@@ -2,7 +2,9 @@
 
 namespace Swo\CustomerBundle\Entity;
 
+use Dime\TimetrackerBundle\Model\DimeEntityInterface;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\PersistentCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation as JMS;
 use Knp\JsonSchemaBundle\Annotations as Json;
@@ -12,12 +14,12 @@ use Doctrine\ORM\Mapping\DiscriminatorMap;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Swo\CustomerBundle\Entity\PersonRepository")
  * @ORM\Table(name="persons")
  * @Json\Schema("persons")
  */
 
-class Person extends AbstractCustomer
+class Person extends AbstractCustomer implements DimeEntityInterface
 {
     /**
      * @var string|null $salutation
@@ -26,14 +28,16 @@ class Person extends AbstractCustomer
     protected $salutation;
 
     /**
-     * @var string $firstName
+     * @var string|null $firstName
      * @ORM\Column(name="first_name", type="string", length=60)
+     * @JMS\SerializedName("firstName")
      */
     protected $firstName;
 
     /**
-     * @var string $lastName
+     * @var string|null $lastName
      * @ORM\Column(name="last_name", type="string", length=60)
+     * @JMS\SerializedName("lastName")
      */
     protected $lastName;
 
@@ -44,17 +48,18 @@ class Person extends AbstractCustomer
     protected $phoneNumbers;
 
     /**
-     * @var \Swo\CustomerBundle\Entity\Company $company
+     * @var Company|null $company
      * @JMS\Groups({"List"})
-     * @ORM\ManyToOne(targetEntity="Swo\CustomerBundle\Entity\Company", inversedBy="persons", cascade={"all"})
+     * @ORM\ManyToOne(targetEntity="Swo\CustomerBundle\Entity\Company", inversedBy="persons", cascade={"detach"})
      * @ORM\JoinColumn(name="company_id", referencedColumnName="id", nullable=true)
+     * @JMS\MaxDepth(1)
      */
     protected $company;
 
     /**
-     * @var Address $address
+     * @var Address|null $address
      * @JMS\Groups({"List"})
-     * @ORM\ManyToOne(targetEntity="Swo\CustomerBundle\Entity\Address", inversedBy="person")
+     * @ORM\ManyToOne(targetEntity="Swo\CustomerBundle\Entity\Address", inversedBy="persons")
      * @ORM\JoinColumn(name="address_id", referencedColumnName="id", nullable=true)
      */
     protected $address;
@@ -86,9 +91,9 @@ class Person extends AbstractCustomer
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getFirstName() : string
+    public function getFirstName()
     {
         return $this->firstName;
     }
@@ -104,9 +109,9 @@ class Person extends AbstractCustomer
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getLastName() : string
+    public function getLastName()
     {
         return $this->lastName;
     }
@@ -122,9 +127,9 @@ class Person extends AbstractCustomer
     }
 
     /**
-     * @return ArrayCollection
+     * @return ArrayCollection|PersistentCollection
      */
-    public function getPhoneNumbers() : ArrayCollection
+    public function getPhoneNumbers()
     {
         return $this->phoneNumbers;
     }
@@ -170,6 +175,32 @@ class Person extends AbstractCustomer
     public function setCompany($company) : Person
     {
         $this->company = $company;
+        return $this;
+    }
+
+    /**
+     * @return null|Address
+     */
+    public function getAddress()
+    {
+        if (is_null($this->address)) {
+            if (!is_null($this->company)) {
+                return $this->company->getAddress();
+            } else {
+                return null;
+            }
+        } else {
+            return $this->address;
+        }
+    }
+
+    /**
+     * @param Address $address
+     * @return Person
+     */
+    public function setAddress(Address $address) : Person
+    {
+        $this->address = $address;
         return $this;
     }
 }

@@ -1,0 +1,7 @@
+Swo\CustomerBundle\Entity\Address:
+  address_{1..25}:
+    street: <streetName()> <buildingNumber()>
+    postcode: <postcode()>
+    city: <city()>
+    supplement: '10%? Postfach <randomNumber()>'
+    country: <country()>
