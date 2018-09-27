@@ -8,6 +8,9 @@ class Phone extends Entity {
     if (params.containsKey('company')) {
       params['company'] = new Company()..id = params['company'];
     }
+    if (params.containsKey('person')) {
+      params['person'] = new Person()..id = params['person'];
+    }
     if (!params.containsKey('number')) {
       params['number'] = '044 123 45 67';
     }

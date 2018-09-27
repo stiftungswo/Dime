@@ -11,10 +11,13 @@ import '../../service/status_service.dart';
 import '../../service/user_auth_service.dart';
 import '../../util/page_title.dart' as page_title;
 import '../common/dime_directives.dart';
+import '../overview/overview.dart';
 import 'entity_edit.dart';
 
 @Component(
-    selector: 'person-edit', templateUrl: 'person_edit_component.html', directives: const [coreDirectives, formDirectives, dimeDirectives])
+    selector: 'person-edit',
+    templateUrl: 'person_edit_component.html',
+    directives: const [coreDirectives, formDirectives, dimeDirectives, CompanyPhoneOverviewComponent, PersonPhoneOverviewComponent])
 class PersonEditComponent extends EntityEdit<Person> {
   PersonEditComponent(
       CachingObjectStoreService store, StatusService status, UserAuthService auth, Router router, EntityEventsService entityEventsService)
@@ -30,5 +33,9 @@ class PersonEditComponent extends EntityEdit<Person> {
   Future reload({bool evict: false}) async {
     await super.reload(evict: evict);
     page_title.setPageTitle('Person', entity?.lastName);
+  }
+
+  bool hasCompany(Person entity) {
+    return entity.company != null;
   }
 }

@@ -10,6 +10,7 @@ export 'child/invoice_item_overview_component.dart';
 export 'child/offer_discount_overview_component.dart';
 export 'child/offer_position_overview_component.dart';
 export 'child/period_overview_component.dart';
+export 'child/person_phone_overview_component.dart';
 export 'child/project_comment_overview_component.dart';
 export 'child/rate_overview_component.dart';
 export 'child/timeslice_overview_component.dart';

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
 import 'package:angular_router/angular_router.dart';
@@ -42,5 +44,10 @@ class PersonOverviewComponent extends EntityOverview<Person> implements OnActiva
       return new Person.clone(entity);
     }
     return new Person();
+  }
+
+  @override
+  Future createEntity({Person newEnt, Map<String, dynamic> params: const {}}) {
+    return super.createEntity(params: {'firstName': 'Heiri', 'lastName': 'Müller'});
   }
 }
