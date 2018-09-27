@@ -32,8 +32,9 @@ class HeaderParagraphNobreakExtension extends \Twig_Extension
                     $container->appendChild($myNode);
 
                     do {
-                        //skip over text nodes
-                        //TOOD if a document ends with a heading this will crash
+                        if (is_null($node->nextSibling)) {
+                            break;
+                        }
                         $node = $node->nextSibling;
                     } while (!($node instanceof \DOMElement));
                     $myNode = $doc->importNode($node, true);
