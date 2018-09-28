@@ -85,7 +85,7 @@ class ReportControllerTest extends DimeTestCase
         $this->loginAs('admin');
 
         // load report
-        $response = $this->jsonRequest('GET', $this->api_prefix . '/reports/revenue/csv?date=2017-08-01,2018-08-31');
+        $response = $this->jsonRequest('GET', $this->api_prefix . '/reports/revenue/csv?date=2018-08-01,2019-08-31');
 
         $data = $response->getContent();
 
