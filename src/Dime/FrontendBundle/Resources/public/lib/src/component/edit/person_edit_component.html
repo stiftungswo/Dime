@@ -18,6 +18,10 @@
                            (change)="addSaveField('lastName')">
                 </dime-form-group>
 
+                <dime-form-group horizontal label="Firma">
+                    <input disabled class="form-control"
+                           value="{{ hasCompany(entity) ? entity.company.name : 'Keine Firma zugewiesen' }}">
+                </dime-form-group>
 
                 <dime-form-group horizontal label="E-Mail">
                     <input type="email" ngControl="email" class="form-control" [(ngModel)]="entity.email"
@@ -29,8 +33,9 @@
                               (change)="addSaveField('comment')"></textarea>
                 </dime-form-group>
 
-                <p *ngIf="entity.company != null"><b>Hinweis: </b> Adressen, welche für alle Personen einer Firma gültig sein sollen, können <a
-                        [routerLink]="companyEditUrl">hier</a>
+                <p *ngIf="hasCompany(entity)"><b>Hinweis: </b> Adressen, welche für alle Personen einer Firma gültig
+                    sein sollen, können <a
+                            [routerLink]="companyEditUrl">hier</a>
                     erfasst werden.</p>
             </div>
         </dime-box>
