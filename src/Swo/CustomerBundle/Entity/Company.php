@@ -2,6 +2,7 @@
 
 namespace Swo\CustomerBundle\Entity;
 
+use Dime\TimetrackerBundle\Model\DimeEntityInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -9,17 +10,17 @@ use JMS\Serializer\Annotation as JMS;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Swo\CustomerBundle\Entity\CompanyRepository")
  * @ORM\Table(name="companies")
  */
 
-class Company extends AbstractCustomer
+class Company extends AbstractCustomer implements DimeEntityInterface
 {
     /**
      * @var ArrayCollection
      * @ORM\OneToMany(targetEntity="Swo\CustomerBundle\Entity\Phone", mappedBy="company", cascade={"all"}, orphanRemoval=true)
      */
-    protected $phone_numbers;
+    protected $phoneNumbers;
 
     /**
      * @var \Dime\TimetrackerBundle\Entity\RateGroup|null $rateGroup
@@ -29,9 +30,9 @@ class Company extends AbstractCustomer
     protected $rateGroup;
 
     /**
-     * @var Address $address
+     * @var Address|null $address
      * @JMS\Groups({"List"})
-     * @ORM\OneToOne(targetEntity="Swo\CustomerBundle\Entity\Address", mappedBy="customer", cascade={"all"}, orphanRemoval=true)
+     * @ORM\OneToOne(targetEntity="Swo\CustomerBundle\Entity\Address", mappedBy="company", cascade={"all"}, orphanRemoval=true)
      */
     protected $address;
 
@@ -43,7 +44,7 @@ class Company extends AbstractCustomer
     protected $persons;
 
     /**
-     * @var string $name
+     * @var string|null $name
      * @JMS\Groups({"List"})
      * @Assert\NotBlank()
      * @ORM\Column(name="name", type="string")
@@ -51,7 +52,7 @@ class Company extends AbstractCustomer
     protected $name;
 
     /**
-     * @var string $department
+     * @var string|null $department
      * @ORM\Column(name="department", type="string", nullable=true)
      */
     protected $department;
@@ -59,7 +60,7 @@ class Company extends AbstractCustomer
 
     public function __construct()
     {
-        $this->phone_numbers = new ArrayCollection();
+        $this->phoneNumbers = new ArrayCollection();
         $this->persons = new ArrayCollection();
     }
 
@@ -68,7 +69,7 @@ class Company extends AbstractCustomer
      */
     public function getPhoneNumbers() : ArrayCollection
     {
-        return $this->phone_numbers;
+        return $this->phoneNumbers;
     }
 
     /**
@@ -77,17 +78,17 @@ class Company extends AbstractCustomer
      */
     public function addPhoneNumber(Phone $phone) : Company
     {
-        $this->phone_numbers[] = $phone;
+        $this->phoneNumbers[] = $phone;
         return $this;
     }
 
     /**
-     * @param ArrayCollection $phone_numbers
+     * @param ArrayCollection $phoneNumbers
      * @return Company
      */
-    public function setPhoneNumbers(ArrayCollection $phone_numbers) : Company
+    public function setPhoneNumbers(ArrayCollection $phoneNumbers) : Company
     {
-        $this->phone_numbers = $phone_numbers;
+        $this->phoneNumbers = $phoneNumbers;
         return $this;
     }
 
@@ -97,7 +98,7 @@ class Company extends AbstractCustomer
      */
     public function removePhoneNumber(Phone $phone) : Company
     {
-        $this->phone_numbers->removeElement($phone);
+        $this->phoneNumbers->removeElement($phone);
         return $this;
     }
 
@@ -120,9 +121,9 @@ class Company extends AbstractCustomer
     }
 
     /**
-     * @return Address
+     * @return Address|null
      */
-    public function getAddress() : Address
+    public function getAddress()
     {
         return $this->address;
     }
@@ -172,9 +173,9 @@ class Company extends AbstractCustomer
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getName() : string
+    public function getName()
     {
         return $this->name;
     }
@@ -190,18 +191,18 @@ class Company extends AbstractCustomer
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getDepartment() : string
+    public function getDepartment()
     {
         return $this->department;
     }
 
     /**
-     * @param string $department
+     * @param string|null $department
      * @return Company
      */
-    public function setDepartment(string $department) : Company
+    public function setDepartment($department) : Company
     {
         $this->department = $department;
         return $this;

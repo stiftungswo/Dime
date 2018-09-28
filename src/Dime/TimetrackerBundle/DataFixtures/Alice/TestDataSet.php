@@ -6,7 +6,8 @@
  */
 $alicepath = '/DataFixtures/Alice';
 
-$bundleRoot = realpath(__DIR__ . '/../../../');
+$dimeBundleRoot = realpath(__DIR__ . '/../../../');
+$swoBundleRoot = realpath(__DIR__ . '/../../../../Swo');
 
 $set = new h4cc\AliceFixturesBundle\Fixtures\FixtureSet(array(
     'locale' => 'de_CH',
@@ -15,7 +16,7 @@ $set = new h4cc\AliceFixturesBundle\Fixtures\FixtureSet(array(
     'do_persist' => true
 ));
 
-$bundleFixturePath = $bundleRoot . '/TimetrackerBundle' . $alicepath;
+$bundleFixturePath = $dimeBundleRoot . '/TimetrackerBundle' . $alicepath;
 
 // Base Data
 $set->addFile($bundleFixturePath . '/Users.yaml', 'yaml');
@@ -24,13 +25,13 @@ $set->addFile($bundleFixturePath . '/RateUnitTypes.yaml', 'yaml');
 $set->addFile($bundleFixturePath . '/Tags.yaml', 'yaml');
 $set->addFile($bundleFixturePath . '/Settings.yaml', 'yaml');
 
-$bundleFixturePath = $bundleRoot . '/EmployeeBundle' . $alicepath;
+$bundleFixturePath = $dimeBundleRoot . '/EmployeeBundle' . $alicepath;
 // EmployeeBundle
 $set->addFile($bundleFixturePath . '/Employees.yaml', 'yaml');
 $set->addFile($bundleFixturePath . '/Periods.yaml', 'yaml');
 $set->addFile($bundleFixturePath . '/Holidays.yaml', 'yaml');
 
-$bundleFixturePath = $bundleRoot . '/TimetrackerBundle' . $alicepath;
+$bundleFixturePath = $dimeBundleRoot . '/TimetrackerBundle' . $alicepath;
 // TimetrackerBundle
 $set->addFile($bundleFixturePath . '/Rates.yaml', 'yaml');
 $set->addFile($bundleFixturePath . '/Services.yaml', 'yaml');
@@ -41,7 +42,7 @@ $set->addFile($bundleFixturePath . '/ProjectComments.yaml', 'yaml');
 $set->addFile($bundleFixturePath . '/Activities.yaml', 'yaml');
 $set->addFile($bundleFixturePath . '/Timeslices.yaml', 'yaml');
 
-$bundleFixturePath = $bundleRoot . '/InvoiceBundle' . $alicepath;
+$bundleFixturePath = $dimeBundleRoot . '/InvoiceBundle' . $alicepath;
 // InvoiceBundle
 $set->addFile($bundleFixturePath . '/InvoiceDiscounts.yaml', 'yaml');
 $set->addFile($bundleFixturePath . '/Invoices.yaml', 'yaml');
@@ -49,11 +50,17 @@ $set->addFile($bundleFixturePath . '/InvoiceItems.yaml', 'yaml');
 $set->addFile($bundleFixturePath . '/Costgroups.yaml', 'yaml');
 $set->addFile($bundleFixturePath . '/InvoiceCostgroups.yaml', 'yaml');
 
-$bundleFixturePath = $bundleRoot . '/OfferBundle' . $alicepath;
+$bundleFixturePath = $dimeBundleRoot . '/OfferBundle' . $alicepath;
 // OfferBundle
 $set->addFile($bundleFixturePath . '/OfferStatusUCs.yaml', 'yaml');
 $set->addFile($bundleFixturePath . '/OfferDiscounts.yaml', 'yaml');
 $set->addFile($bundleFixturePath . '/Offers.yaml', 'yaml');
 $set->addFile($bundleFixturePath . '/OfferPositions.yaml', 'yaml');
+
+$bundleFixturePath = $swoBundleRoot . '/CustomerBundle' . $alicepath;
+$set->addFile($bundleFixturePath . '/Companies.yaml', 'yaml');
+$set->addFile($bundleFixturePath . '/Persons.yaml', 'yaml');
+$set->addFile($bundleFixturePath . '/Phones.yaml', 'yaml');
+$set->addFile($bundleFixturePath . '/Addresses.yaml', 'yaml');
 
 return $set;

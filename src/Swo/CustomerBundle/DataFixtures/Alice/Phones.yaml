@@ -1,0 +1,13 @@
+Swo\CustomerBundle\Entity\Phone:
+  company_phones_{1..20}:
+    number: <phoneNumber()>
+    category: <numberBetween(1,6)>
+    company: @company_<numberBetween(1,25)>
+  person_phones_{1..15}:
+    number: <phoneNumber()>
+    category: <numberBetween(1,6)>
+    person: @default_person_<numberBetween(1,10)>
+  company_person_phones_{1..15}:
+    number: <phoneNumber()>
+    category: <numberBetween(1,6)>
+    person: @person_<numberBetween(1,10)>

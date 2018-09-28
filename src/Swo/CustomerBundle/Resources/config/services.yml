@@ -1,0 +1,15 @@
+parameters:
+  generic_handler: Dime\TimetrackerBundle\Handler\GenericHandler
+services:
+  swo.company.handler:
+    class: %generic_handler%
+    arguments: [ "@doctrine.orm.entity_manager", Swo\CustomerBundle\Entity\Company,  "@service_container", "co", Swo\CustomerBundle\Form\Type\CompanyFormType]
+  swo.person.handler:
+    class: %generic_handler%
+    arguments: [ "@doctrine.orm.entity_manager", Swo\CustomerBundle\Entity\Person,  "@service_container", "pe", Swo\CustomerBundle\Form\Type\PersonFormType]
+  swo.phone.handler:
+    class: %generic_handler%
+    arguments: [ "@doctrine.orm.entity_manager", Swo\CustomerBundle\Entity\Phone,  "@service_container", "pe", Swo\CustomerBundle\Form\Type\PhoneFormType]
+  swo.address.handler:
+    class: %generic_handler%
+    arguments: [ "@doctrine.orm.entity_manager", Swo\CustomerBundle\Entity\Address,  "@service_container", "pe", Swo\CustomerBundle\Form\Type\AddressFormType]

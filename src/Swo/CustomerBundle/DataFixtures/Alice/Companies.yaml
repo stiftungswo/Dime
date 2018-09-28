@@ -1,0 +1,7 @@
+Swo\CustomerBundle\Entity\Company:
+  company_{1..25}:
+    rateGroup: @rateGroup_*
+    comment: <sentence(1)>
+    email (unique): <email()>
+    name: <company()>
+    department: 10%? <word()>

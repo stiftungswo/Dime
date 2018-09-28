@@ -3,22 +3,23 @@
 namespace Swo\CustomerBundle\Entity;
 
 use Dime\TimetrackerBundle\Entity\Entity;
-use Doctrine\Common\Collections\ArrayCollection;
+use Dime\TimetrackerBundle\Model\DimeEntityInterface;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as JMS;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Swo\CustomerBundle\Entity\PhoneRepository")
  * @ORM\Table(name="phones")
  */
 
-class Phone extends Entity
+class Phone extends Entity implements DimeEntityInterface
 {
     /**
      * phone number
      *
-     * @var string
+     * @var string|null $number
      * @ORM\Column(type="string", nullable=false)
      * @JMS\Groups({"List"})
      */
@@ -51,15 +52,15 @@ class Phone extends Entity
     protected $person;
 
     /**
-     * @return int
+     * @return string|null
      */
-    public function getNumber() : string
+    public function getNumber()
     {
         return $this->number;
     }
 
     /**
-     * @param int $number
+     * @param string|null $number
      * @return Phone
      */
     public function setNumber(string $number) : Phone
