@@ -13,11 +13,18 @@ import '../../util/page_title.dart' as page_title;
 import '../common/dime_directives.dart';
 import '../overview/overview.dart';
 import 'entity_edit.dart';
+import '../main/routes.dart' as routes;
 
-@Component(
-    selector: 'person-edit',
-    templateUrl: 'person_edit_component.html',
-    directives: const [coreDirectives, formDirectives, dimeDirectives, CompanyPhoneOverviewComponent, PersonPhoneOverviewComponent])
+@Component(selector: 'person-edit', templateUrl: 'person_edit_component.html', directives: const [
+  coreDirectives,
+  formDirectives,
+  routerDirectives,
+  dimeDirectives,
+  CompanyPhoneOverviewComponent,
+  PersonPhoneOverviewComponent,
+  CompanyAddressOverviewComponent,
+  PersonAddressOverviewComponent
+])
 class PersonEditComponent extends EntityEdit<Person> {
   PersonEditComponent(
       CachingObjectStoreService store, StatusService status, UserAuthService auth, Router router, EntityEventsService entityEventsService)
@@ -38,4 +45,6 @@ class PersonEditComponent extends EntityEdit<Person> {
   bool hasCompany(Person entity) {
     return entity.company != null;
   }
+
+  String get companyEditUrl => routes.CompanyEditRoute.toUrl(parameters: {'id': entity.company?.id.toString()});
 }

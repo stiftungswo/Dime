@@ -99,7 +99,7 @@ class Company extends Entity {
         clone.company = this;
         clones.add(clone);
       }
-      
+
       for (Address entity in original.addresses) {
         Address clone = new Address.clone(entity);
         clone.company = this;

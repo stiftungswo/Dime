@@ -28,8 +28,14 @@
                     <textarea ngControl="comment" class="form-control" [(ngModel)]="entity.comment"
                               (change)="addSaveField('comment')"></textarea>
                 </dime-form-group>
+
+                <p *ngIf="entity.company != null"><b>Hinweis: </b> Adressen, welche für alle Personen einer Firma gültig sein sollen, können <a
+                        [routerLink]="companyEditUrl">hier</a>
+                    erfasst werden.</p>
             </div>
         </dime-box>
+
+        <person-address-overview [person]="entity.id"></person-address-overview>
 
         <div *ngIf="hasCompany(entity)" class="row">
             <div class="col-md-6">

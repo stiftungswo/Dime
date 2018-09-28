@@ -12,12 +12,12 @@ import '../../common/dime_directives.dart';
 import '../editable_overview.dart';
 
 @Component(
-  selector: 'company-address-overview',
+  selector: 'person-address-overview',
   templateUrl: 'address_overview.html',
   directives: const [coreDirectives, formDirectives, dimeDirectives],
 )
-class CompanyAddressOverviewComponent extends EditableOverview<Address> {
-  CompanyAddressOverviewComponent(CachingObjectStoreService store, SettingsService manager, StatusService status,
+class PersonAddressOverviewComponent extends EditableOverview<Address> {
+  PersonAddressOverviewComponent(CachingObjectStoreService store, SettingsService manager, StatusService status,
       EntityEventsService entityEventsService, ChangeDetectorRef changeDetector)
       : super(Address, store, null, manager, status, entityEventsService, changeDetector);
 
@@ -32,25 +32,25 @@ class CompanyAddressOverviewComponent extends EditableOverview<Address> {
     return new Address();
   }
 
-  int _companyId;
+  int _personId;
 
-  @Input('company')
-  set companyId(int id) {
-    if (id != null && id != _companyId) {
-      _companyId = id;
+  @Input('person')
+  set personId(int id) {
+    if (id != null && id != _personId) {
+      _personId = id;
       reload();
     }
   }
 
-  String get label => 'Adressen der Firma';
+  String get label => 'Adressen der Person';
 
   @override
   Future reload({Map<String, dynamic> params, bool evict: false}) {
-    return super.reload(params: {'company': this._companyId}, evict: evict);
+    return super.reload(params: {'person': this._personId}, evict: evict);
   }
 
   @override
   Future createEntity({Address newEnt, Map<String, dynamic> params: const {}}) {
-    return super.createEntity(params: {'company': this._companyId});
+    return super.createEntity(params: {'person': this._personId});
   }
 }
