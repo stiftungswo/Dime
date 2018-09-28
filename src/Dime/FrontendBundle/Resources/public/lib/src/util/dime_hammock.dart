@@ -276,6 +276,16 @@ createHammockConfig(Injector i) {
           if (r.content is String) return new Person();
           return new Person.fromMap(r.content);
         }
+      },
+      "addresses": {
+        "type": Address,
+        "serializer": (Address ent) {
+          return ent.toResource();
+        },
+        "deserializer": (Resource r) {
+          if (r.content is String) return new Address();
+          return new Address.fromMap(r.content);
+        }
       }
     })
     ..urlRewriter.baseUrl = i.get(httpBaseUrl);

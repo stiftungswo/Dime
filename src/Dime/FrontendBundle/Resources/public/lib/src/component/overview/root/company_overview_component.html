@@ -26,16 +26,6 @@
                         Name<span *ngIf="sortType == 'name' && sortReverse" class="fa fa-fw fa-angle-up"></span><span *ngIf="sortType == 'name' && !sortReverse" class="fa fa-fw fa-angle-down"></span>
                     </a>
                 </th>
-                <th>
-                    <a (click)="changeSortOrder('address.street')">
-                        Strasse<span *ngIf="sortType == 'address.street' && sortReverse" class="fa fa-fw fa-angle-up"></span><span *ngIf="sortType == 'address.street' && !sortReverse" class="fa fa-fw fa-angle-down"></span>
-                    </a>
-                </th>
-                <th>
-                    <a (click)="changeSortOrder('address.postcode')">
-                        PLZ / Ort<span *ngIf="sortType == 'address.postcode' && sortReverse" class="fa fa-fw fa-angle-up"></span><span *ngIf="sortType == 'address.postcode' && !sortReverse" class="fa fa-fw fa-angle-down"></span>
-                    </a>
-                </th>
                 <th width="210">Aktionen</th>
             </tr>
             </thead>
@@ -43,8 +33,6 @@
             <tr *ngFor="let entity of entities | filter:['id', 'name', 'address']:CompanyOverviewComponent.globalFilterString | orderBy:sortType:sortReverse" (dblclick)="openEditView(entity.id)">
                 <td>{{ entity.id }}</td>
                 <td>{{ entity.name }}</td>
-                <td>{{ entity.address?.street }}</td>
-                <td>{{ entity.address?.postcode }} {{ entity.address?.city }}</td>
                 <td>
                     <div class="btn-group">
                         <dime-button primary (click)="duplicateEntity(entity.id)" fontAwesome="copy">Duplizieren</dime-button>

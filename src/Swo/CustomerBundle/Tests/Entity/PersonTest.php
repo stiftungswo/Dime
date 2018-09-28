@@ -64,24 +64,23 @@ class PersonTest extends TestCase
         $this->assertNull($person->getCompany());
     }
 
-    public function testGetSetAddress()
+    public function testAddresses()
     {
-        // returns null if address is null as well as company
+        // person has by default no addresses
         $person = new Person();
-        $this->assertNull($person->getAddress());
+        $this->assertEquals(0, count($person->getAddresses()));
 
-        // returns own address even if company is set
+        // but we can add one
         $address = new Address();
-        $company = new Company();
-        $company_address = new Address();
-        $company->setAddress($company_address);
-        $person->setCompany($company);
-        $person->setAddress($address);
-        $this->assertEquals($address, $person->getAddress());
+        $person->addAddress($address);
+        $this->assertEquals(1, count($person->getAddresses()));
 
-        // returns address of the company if own address is null
-        $person2 = new Person();
-        $person2->setCompany($company);
-        $this->assertEquals($company_address, $person2->getAddress());
+        // and remove it
+        $person->removeAddress($address);
+        $this->assertEquals(0, count($person->getAddresses()));
+
+        // and it's also possible to pass an Array
+        $person->setAddresses(new ArrayCollection([$address]));
+        $this->assertEquals(1, count($person->getAddresses()));
     }
 }

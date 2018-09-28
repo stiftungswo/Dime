@@ -15,10 +15,14 @@ import '../overview/overview.dart';
 import '../select/select.dart';
 import 'entity_edit.dart';
 
-@Component(
-    selector: 'company-edit',
-    templateUrl: 'company_edit_component.html',
-    directives: const [coreDirectives, formDirectives, dimeDirectives, RateGroupSelectComponent, CompanyPhoneOverviewComponent])
+@Component(selector: 'company-edit', templateUrl: 'company_edit_component.html', directives: const [
+  coreDirectives,
+  formDirectives,
+  dimeDirectives,
+  RateGroupSelectComponent,
+  CompanyPhoneOverviewComponent,
+  CompanyAddressOverviewComponent
+])
 class CompanyEditComponent extends EntityEdit<Company> {
   CompanyEditComponent(
       CachingObjectStoreService store, StatusService status, UserAuthService auth, Router router, EntityEventsService entityEventsService)

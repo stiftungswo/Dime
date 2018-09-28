@@ -2,6 +2,7 @@ export '../report/timeslice_expense_report_component.dart';
 export '../report/timeslice_weekly_report_component.dart';
 export '../timetrack/timetrack_multi_component.dart';
 export 'child/activity_overview_component.dart';
+export 'child/company_address_overview_component.dart';
 export 'child/company_phone_overview_component.dart';
 export 'child/invoice_costgroup_overview_component.dart';
 export 'child/invoice_discount_overview_component.dart';

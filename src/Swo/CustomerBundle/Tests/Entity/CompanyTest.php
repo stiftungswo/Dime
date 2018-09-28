@@ -42,12 +42,24 @@ class CompanyTest extends TestCase
         $this->assertNull($company->getRateGroup());
     }
 
-    public function testGetSetAddress()
+    public function testAddresses()
     {
+        // company has by default no addresses
         $company = new Company();
+        $this->assertEquals(0, count($company->getAddresses()));
+    
+        // but we can add one
         $address = new Address();
-        $company->setAddress($address);
-        $this->assertEquals($address, $company->getAddress());
+        $company->addAddress($address);
+        $this->assertEquals(1, count($company->getAddresses()));
+    
+        // and remove it
+        $company->removeAddress($address);
+        $this->assertEquals(0, count($company->getAddresses()));
+    
+        // and it's also possible to pass an Array
+        $company->setAddresses(new ArrayCollection([$address]));
+        $this->assertEquals(1, count($company->getAddresses()));
     }
 
     public function testPersons()

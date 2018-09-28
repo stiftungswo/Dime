@@ -1,0 +1,46 @@
+<dime-box label="Adressen">
+    <table boxBody class="table table-bordered table-hover" ngControlGroup="addresses" #overview="ngForm">
+        <thead>
+        <tr>
+            <th>Strasse</th>
+            <th>Addresszusatz</th>
+            <th>PLZ</th>
+            <th>Ort</th>
+            <th>Land</th>
+            <th width="170">Aktion</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let c of controls" [class.danger]="!c.valid">
+            <td validationStatus class="form-group">
+                <input required class="form-control" [ngFormControl]="c.controls['street']" />
+            </td>
+
+            <td validationStatus class="form-group">
+                <input class="form-control" [ngFormControl]="c.controls['supplement']" />
+            </td>
+
+            <td validationStatus class="form-group">
+                <input required type="number" class="form-control" [ngFormControl]="c.controls['postcode']" />
+            </td>
+
+            <td validationStatus class="form-group">
+                <input required class="form-control" [ngFormControl]="c.controls['city']" />
+            </td>
+
+            <td validationStatus class="form-group">
+                <input class="form-control" [ngFormControl]="c.controls['country']" />
+            </td>
+
+            <td>
+                <dime-button primary (click)="duplicateEntity(c.controls['id'].value)" fontAwesome="copy">Duplizieren</dime-button>
+                <dime-button (click)="deleteEntity(c.controls['id'].value)" fontAwesome="trash-o" color="red"></dime-button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div boxFooter class="DimeControlButtons">
+        <dime-button primary (click)="createEntity()" glyphicon="plus">Hinzufügen</dime-button>
+        <dime-button (click)="reloadEvict()" glyphicon="refresh"></dime-button>
+    </div>
+</dime-box>

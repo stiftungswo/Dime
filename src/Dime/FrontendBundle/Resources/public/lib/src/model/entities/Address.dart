@@ -9,7 +9,9 @@ class Address extends Entity {
     this.city = original.city;
     this.postcode = original.postcode;
     this.country = original.country;
-    addFieldstoUpdate(['street', 'supplement', 'city', 'postcode', 'country']);
+    this.company = original.company;
+    this.person = original.person;
+    addFieldstoUpdate(['street', 'supplement', 'city', 'postcode', 'country', 'company', 'person']);
   }
 
   Address.fromMap(Map<String, dynamic> map) : super.fromMap(map);
@@ -34,6 +36,10 @@ class Address extends Entity {
           return this.postcode;
         case 'country':
           return this.country;
+        case 'company':
+          return this.company;
+        case 'person':
+          return this.person;
         default:
           break;
       }
@@ -60,10 +66,24 @@ class Address extends Entity {
       case 'country':
         this.country = value as String;
         break;
+      case 'company':
+        this.company = value is Company ? value : new Company.fromMap((value as Map<dynamic, dynamic>).cast<String, dynamic>());
+        break;
+      case 'person':
+        this.person = value is Person ? value : new Person.fromMap((value as Map<dynamic, dynamic>).cast<String, dynamic>());
+        break;
       default:
         super.Set(property, value);
         break;
     }
+  }
+
+  static List<Address> listFromMap(List<Map<String, dynamic>> content) {
+    List<Address> array = new List<Address>();
+    for (var element in content) {
+      array.add(new Address.fromMap(element));
+    }
+    return array;
   }
 
   @override
@@ -73,9 +93,6 @@ class Address extends Entity {
   String city;
   int postcode;
   String country;
-
-  @override
-  String toString() {
-    return 'Address{street: $street, supplement: $supplement, city: $city, postcode: $postcode, country: $country}';
-  }
+  Company company;
+  Person person;
 }

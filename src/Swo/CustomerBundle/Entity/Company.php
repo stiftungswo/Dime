@@ -35,11 +35,14 @@ class Company extends AbstractCustomer implements DimeEntityInterface
     protected $rateGroup;
 
     /**
-     * @var Address|null $address
+     * @var ArrayCollection $addresses
+     * @ORM\OneToMany(targetEntity="Swo\CustomerBundle\Entity\Address", mappedBy="company", cascade={"all"}, orphanRemoval=true)
      * @JMS\Groups({"List"})
-     * @ORM\OneToOne(targetEntity="Swo\CustomerBundle\Entity\Address", mappedBy="company", cascade={"all"}, orphanRemoval=true)
+     * @JMS\Type("array")
+     * @JMS\MaxDepth(1)
+     * @JMS\SerializedName("addresses")
      */
-    protected $address;
+    protected $addresses;
 
     /**
      * @var ArrayCollection $persons
@@ -68,6 +71,7 @@ class Company extends AbstractCustomer implements DimeEntityInterface
 
     public function __construct()
     {
+        $this->addresses = new ArrayCollection();
         $this->phoneNumbers = new ArrayCollection();
         $this->persons = new ArrayCollection();
     }
@@ -129,16 +133,40 @@ class Company extends AbstractCustomer implements DimeEntityInterface
     }
 
     /**
-     * @return Address|null
+     * @return ArrayCollection
      */
-    public function getAddress()
+    public function getAddresses() : ArrayCollection
     {
-        return $this->address;
+        return $this->addresses;
     }
-    
-    public function setAddress(Address $address) : Company
+
+    /**
+     * @param Address $address
+     * @return Company
+     */
+    public function addAddress(Address $address) : Company
     {
-        $this->address = $address;
+        $this->addresses[] = $address;
+        return $this;
+    }
+
+    /**
+     * @param ArrayCollection $addresses
+     * @return Company
+     */
+    public function setAddresses(ArrayCollection $addresses) : Company
+    {
+        $this->addresses = $addresses;
+        return $this;
+    }
+
+    /**
+     * @param Address $address
+     * @return Company
+     */
+    public function removeAddress(Address $address) : Company
+    {
+        $this->addresses->removeElement($address);
         return $this;
     }
 

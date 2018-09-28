@@ -9,7 +9,7 @@ class Company extends Entity {
     this.name = original.name;
     this.department = original.department;
     this.rateGroup = original.rateGroup;
-    this.address = Address.clone(original.address);
+    this.addresses = original.addresses;
     this.phoneNumbers = original.phoneNumbers;
     addFieldstoUpdate([
       'email',
@@ -20,6 +20,7 @@ class Company extends Entity {
       'address'
       // these have to be saved separately using cloneDescendants()
       //'phoneNumbers',
+      // 'addresses',
     ]);
   }
 
@@ -46,12 +47,8 @@ class Company extends Entity {
           return this.department;
         case 'rateGroup':
           return this.rateGroup;
-        case 'address':
-          return this.address;
-        case 'address.street':
-          return this.address.street;
-        case 'address.postcode':
-          return this.address.postcode;
+        case 'addresses':
+          return this.addresses;
         case 'phoneNumbers':
           return this.phoneNumbers;
         default:
@@ -80,8 +77,8 @@ class Company extends Entity {
       case 'rateGroup':
         this.rateGroup = value is RateGroup ? value : new RateGroup.fromMap((value as Map<dynamic, dynamic>).cast<String, dynamic>());
         break;
-      case 'address':
-        this.address = value is Address ? value : new Address.fromMap((value as Map<dynamic, dynamic>).cast<String, dynamic>());
+      case 'addresses':
+        this.addresses = Address.listFromMap((value as List<dynamic>).cast());
         break;
       case 'phoneNumbers':
         this.phoneNumbers = Phone.listFromMap((value as List<dynamic>).cast());
@@ -102,9 +99,15 @@ class Company extends Entity {
         clone.company = this;
         clones.add(clone);
       }
+      
+      for (Address entity in original.addresses) {
+        Address clone = new Address.clone(entity);
+        clone.company = this;
+        clones.add(clone);
+      }
       return clones;
     } else {
-      throw new Exception("Invalid Type; Invoice expected!");
+      throw new Exception("Invalid Type; Company expected!");
     }
   }
 
@@ -115,6 +118,6 @@ class Company extends Entity {
   String name;
   String department;
   RateGroup rateGroup;
-  Address address;
+  List<Address> addresses = [];
   List<Phone> phoneNumbers = [];
 }

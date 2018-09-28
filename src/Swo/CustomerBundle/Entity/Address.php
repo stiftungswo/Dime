@@ -66,7 +66,7 @@ class Address extends Entity implements DimeEntityInterface
      * related company (number can ony belong to one company, but to many persons)
      *
      * @var Company|null
-     * @ORM\OneToOne(targetEntity="Swo\CustomerBundle\Entity\Company", inversedBy="address")
+     * @ORM\ManyToOne(targetEntity="Swo\CustomerBundle\Entity\Company", inversedBy="addresses")
      * @ORM\JoinColumn(name="company_id", referencedColumnName="id", nullable=true)
      */
     protected $company;
@@ -74,7 +74,7 @@ class Address extends Entity implements DimeEntityInterface
     /**
      * related person
      * @var Person|null $person
-     * @ORM\OneToOne(targetEntity="Swo\CustomerBundle\Entity\Person", inversedBy="address")
+     * @ORM\ManyToOne(targetEntity="Swo\CustomerBundle\Entity\Person", inversedBy="addresses")
      * @ORM\JoinColumn(name="person_id", referencedColumnName="id", nullable=true)
      */
     protected $person;

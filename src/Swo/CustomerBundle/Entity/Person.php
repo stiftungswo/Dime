@@ -44,7 +44,7 @@ class Person extends AbstractCustomer implements DimeEntityInterface
     /**
      * @JMS\Type("array")
      * @JMS\MaxDepth(1)
-     * @ORM\OneToMany(targetEntity="Phone", mappedBy="persons", cascade="all")
+     * @ORM\OneToMany(targetEntity="Phone", mappedBy="person", cascade="all")
      */
     protected $phoneNumbers;
 
@@ -52,22 +52,23 @@ class Person extends AbstractCustomer implements DimeEntityInterface
      * @var Company|null $company
      * @ORM\ManyToOne(targetEntity="Swo\CustomerBundle\Entity\Company", inversedBy="persons", cascade={"detach"})
      * @ORM\JoinColumn(name="company_id", referencedColumnName="id", nullable=true)
-     * @JMS\Exclude()
+     * @JMS\MaxDepth(1)
      */
     protected $company;
 
     /**
      * @var Address|null $address
-     * @ORM\OneToOne(targetEntity="Swo\CustomerBundle\Entity\Address", mappedBy="person", cascade={"all"}, orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="Swo\CustomerBundle\Entity\Address", mappedBy="person", cascade={"all"}, orphanRemoval=true)
      * @JMS\Exclude()
      */
-    protected $address;
+    protected $addresses;
 
     /**
      * Person constructor.
      */
     public function __construct()
     {
+        $this->addresses = new ArrayCollection();
         $this->phoneNumbers = new ArrayCollection();
     }
 
@@ -178,28 +179,40 @@ class Person extends AbstractCustomer implements DimeEntityInterface
     }
 
     /**
-     * @return null|Address
+     * @return ArrayCollection
      */
-    public function getAddress()
+    public function getAddresses() : ArrayCollection
     {
-        if (is_null($this->address)) {
-            if (!is_null($this->company)) {
-                return $this->company->getAddress();
-            } else {
-                return null;
-            }
-        } else {
-            return $this->address;
-        }
+        return $this->addresses;
     }
 
     /**
      * @param Address $address
      * @return Person
      */
-    public function setAddress(Address $address) : Person
+    public function addAddress(Address $address) : Person
     {
-        $this->address = $address;
+        $this->addresses[] = $address;
+        return $this;
+    }
+
+    /**
+     * @param ArrayCollection $addresses
+     * @return Person
+     */
+    public function setAddresses(ArrayCollection $addresses) : Person
+    {
+        $this->addresses = $addresses;
+        return $this;
+    }
+
+    /**
+     * @param Address $address
+     * @return Person
+     */
+    public function removeAddress(Address $address) : Person
+    {
+        $this->addresses->removeElement($address);
         return $this;
     }
 }

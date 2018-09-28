@@ -23,9 +23,10 @@
                     <textarea ngControl="comment" class="form-control" [(ngModel)]="entity.comment"
                               (change)="addSaveField('comment')"></textarea>
                 </dime-form-group>
-
             </div>
         </dime-box>
+
+        <company-address-overview [company]="entity.id"></company-address-overview>
 
         <company-phone-overview [company]="entity.id"></company-phone-overview>
 
