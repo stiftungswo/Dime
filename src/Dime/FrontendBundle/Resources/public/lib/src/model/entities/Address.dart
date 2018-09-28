@@ -22,6 +22,17 @@ class Address extends Entity {
   }
 
   @override
+  init({Map<String, dynamic> params: const {}}) {
+    if (params.containsKey('company')) {
+      params['company'] = new Company()..id = params['company'];
+    }
+    if (params.containsKey('person')) {
+      params['person'] = new Person()..id = params['person'];
+    }
+    super.init(params: params);
+  }
+
+  @override
   dynamic Get(String property) {
     var value = super.Get(property);
     if (value == null) {

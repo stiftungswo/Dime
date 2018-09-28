@@ -27,8 +27,8 @@
         </dime-box>
 
         <company-address-overview [company]="entity.id"></company-address-overview>
-
         <company-phone-overview [company]="entity.id"></company-phone-overview>
+        <company-person-overview [company]="entity.id"></company-person-overview>
 
         <div class="DimeControlButtons">
             <save-button [valid]="editform.valid" (click)="saveEntity()"></save-button>

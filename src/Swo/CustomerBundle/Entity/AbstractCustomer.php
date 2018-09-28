@@ -17,6 +17,7 @@ abstract class AbstractCustomer extends Entity
     /**
      * @var string|null $email
      * @ORM\Column(name="email", type="text", nullable=true)
+     * @JMS\Groups({"List"})
      */
     protected $email;
 

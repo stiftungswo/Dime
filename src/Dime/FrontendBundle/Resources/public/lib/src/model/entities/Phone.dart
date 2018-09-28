@@ -68,7 +68,7 @@ class Phone extends Entity {
       case 'company':
         this.company = value is Company ? value : new Company.fromMap((value as Map<dynamic, dynamic>).cast<String, dynamic>());
         break;
-      case 'persons':
+      case 'person':
         this.person = value is Person ? value : new Person.fromMap((value as Map<dynamic, dynamic>).cast<String, dynamic>());
         break;
       default:

@@ -32,11 +32,8 @@ class PersonController extends DimeController
      * }
      * )
      *
-     * @Annotations\QueryParam(name="user", requirements="\d+", nullable=true, description="Filter By User")
-     * @Annotations\QueryParam(name="name", requirements="\w+", nullable=true, description="Filter By Name")
-     * @Annotations\QueryParam(name="department", requirements="\w+", nullable=true, description="Filter By Department")
+     * @Annotations\QueryParam(name="company", requirements="\w+", nullable=true, description="Filter By Company")
      * @Annotations\QueryParam(name="search", requirements="\w+", nullable=true, description="Filter By Name or alias")
-     * @Annotations\QueryParam(name="systemCustomer", nullable=true, description="Filter By systemCustomer")
      *
      * @Annotations\View(
      * serializerEnableMaxDepthChecks=true,

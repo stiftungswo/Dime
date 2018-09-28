@@ -51,6 +51,6 @@ class CompanyAddressOverviewComponent extends EditableOverview<Address> {
 
   @override
   Future createEntity({Address newEnt, Map<String, dynamic> params: const {}}) {
-    return super.createEntity(params: {'company': this._companyId});
+    return super.createEntity(params: {'company': this._companyId, 'postcode': 8000, 'city': 'Zürich'});
   }
 }

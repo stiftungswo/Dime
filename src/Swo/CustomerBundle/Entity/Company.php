@@ -49,7 +49,7 @@ class Company extends AbstractCustomer implements DimeEntityInterface
      * @ORM\OneToMany(targetEntity="Swo\CustomerBundle\Entity\Person", mappedBy="company", cascade={"all"}, orphanRemoval=true)
      * @JMS\Groups({"List"})
      * @JMS\Type("array")
-     * @JMS\MaxDepth(1)
+     * @JMS\MaxDepth(2)
      * @JMS\SerializedName("persons")
      */
     protected $persons;

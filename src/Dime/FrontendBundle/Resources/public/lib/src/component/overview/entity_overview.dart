@@ -74,6 +74,9 @@ abstract class EntityOverview<T extends Entity> implements OnActivate {
       T template = await this.store.one(selectedEntity.runtimeType, selectedEntity.id);
       T clone = await this.store.create(this.cEnt(entity: template));
       this.entities.add(clone);
+      // TODO: Maybe implement cloneDescendantsOf in a different matter
+      // if the descendants of a clone also have descendants, they currently get ignored
+      // somehow check if the descendants also implement cloneDescendantsOf and execute it aswell
       await Future.wait(clone.cloneDescendantsOf(template).map(this.store.create));
     }, onError: (e, _) => print("Unable to duplicate entity ${this.type.toString()}::${selectedEntity.id} because ${e}"));
   }

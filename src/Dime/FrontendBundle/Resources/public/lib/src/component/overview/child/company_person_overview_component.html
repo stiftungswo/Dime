@@ -1,0 +1,31 @@
+<dime-box label="Personen der Firma">
+    <table boxBody class="table table-bordered table-hover" ngControlGroup="addresses" #overview="ngForm">
+        <thead>
+        <tr>
+            <th>Anrede</th>
+            <th>Vorname</th>
+            <th>Nachname</th>
+            <th>E-Mail</th>
+            <th width="150">Aktionen</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let entity of entities">
+            <td>{{ entity.salutation }}</td>
+            <td>{{ entity.firstName }}</td>
+            <td>{{ entity.lastName }}</td>
+            <td>{{ entity.email }}</td>
+            <td>
+                <dime-button primary (click)="duplicateEntity(entity.id)" fontAwesome="copy"></dime-button>
+                <dime-button (click)="openEditView(entity.id)" fontAwesome="pencil"></dime-button>
+                <dime-button (click)="deleteEntity(entity.id)" fontAwesome="trash-o" color="red"></dime-button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div boxFooter class="DimeControlButtons">
+        <dime-button primary (click)="createEntity()" glyphicon="plus">Hinzufügen</dime-button>
+        <dime-button (click)="reloadEvict()" glyphicon="refresh"></dime-button><br><br>
+        <p><b>ACHTUNG: </b> Beim Klicken auf "Hinzufügen" wird ein neues Fenster geöffnet. Alle ungespeicherten Änderungen gehen damit verloren!</p>
+    </div>
+</dime-box>

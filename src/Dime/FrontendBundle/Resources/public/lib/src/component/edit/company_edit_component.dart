@@ -21,7 +21,8 @@ import 'entity_edit.dart';
   dimeDirectives,
   RateGroupSelectComponent,
   CompanyPhoneOverviewComponent,
-  CompanyAddressOverviewComponent
+  CompanyAddressOverviewComponent,
+  CompanyPersonOverviewComponent
 ])
 class CompanyEditComponent extends EntityEdit<Company> {
   CompanyEditComponent(

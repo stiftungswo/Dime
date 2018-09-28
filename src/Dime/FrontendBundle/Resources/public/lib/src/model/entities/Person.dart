@@ -7,7 +7,17 @@ class Person extends Entity {
     this.salutation = original.salutation;
     this.firstName = original.firstName;
     this.lastName = original.lastName;
-    addFieldstoUpdate(['salutation', 'firstName', 'lastName']);
+    this.email = original.email;
+    this.comment = original.comment;
+    this.phoneNumbers = original.phoneNumbers;
+    this.addresses = original.addresses;
+    this.company = original.company;
+    addFieldstoUpdate([
+      'salutation', 'firstName', 'lastName', 'email', 'comment', 'company'
+      // these have to be saved separately using cloneDescendants()
+      //'phoneNumbers',
+      // 'addresses',
+    ]);
   }
 
   Person.fromMap(Map<String, dynamic> map) : super.fromMap(map);
@@ -15,6 +25,14 @@ class Person extends Entity {
   @override
   Person newObj() {
     return new Person();
+  }
+
+  @override
+  init({Map<String, dynamic> params: const {}}) {
+    if (params.containsKey('company')) {
+      params['company'] = new Company()..id = params['company'];
+    }
+    super.init(params: params);
   }
 
   @override
@@ -35,6 +53,10 @@ class Person extends Entity {
           return this.comment;
         case 'company':
           return this.company;
+        case 'addresses':
+          return this.addresses;
+        case 'phoneNumbers':
+          return this.phoneNumbers;
         case 'company.name':
           return this.company?.name;
         default:
@@ -65,9 +87,45 @@ class Person extends Entity {
       case 'company':
         this.company = value is Company ? value : new Company.fromMap((value as Map<dynamic, dynamic>).cast<String, dynamic>());
         break;
+      case 'addresses':
+        this.addresses = Address.listFromMap((value as List<dynamic>).cast());
+        break;
+      case 'phoneNumbers':
+        this.phoneNumbers = Phone.listFromMap((value as List<dynamic>).cast());
+        break;
       default:
         super.Set(property, value);
         break;
+    }
+  }
+
+  static List<Person> listFromMap(List<Map<String, dynamic>> content) {
+    List<Person> array = new List<Person>();
+    for (var element in content) {
+      array.add(new Person.fromMap(element));
+    }
+    return array;
+  }
+
+  @override
+  List<Entity> cloneDescendantsOf(Entity original) {
+    if (original is Person) {
+      var clones = new List<Entity>();
+
+      for (Phone entity in original.phoneNumbers) {
+        Phone clone = new Phone.clone(entity);
+        clone.person = this;
+        clones.add(clone);
+      }
+
+      for (Address entity in original.addresses) {
+        Address clone = new Address.clone(entity);
+        clone.person = this;
+        clones.add(clone);
+      }
+      return clones;
+    } else {
+      throw new Exception("Invalid Type; Person expected!");
     }
   }
 
@@ -79,4 +137,6 @@ class Person extends Entity {
   String email;
   String comment;
   Company company;
+  List<Address> addresses = [];
+  List<Phone> phoneNumbers = [];
 }

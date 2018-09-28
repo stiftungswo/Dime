@@ -51,6 +51,6 @@ class PersonAddressOverviewComponent extends EditableOverview<Address> {
 
   @override
   Future createEntity({Address newEnt, Map<String, dynamic> params: const {}}) {
-    return super.createEntity(params: {'person': this._personId});
+    return super.createEntity(params: {'person': this._personId, 'postcode': 8000, 'city': 'Zürich'});
   }
 }
