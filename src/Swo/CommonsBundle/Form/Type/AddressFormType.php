@@ -14,9 +14,7 @@ class AddressFormType extends AbstractType
             ->add('supplement')
             ->add('plz')
             ->add('city')
-            ->add('country')
-            ->add('address')
-            ->add('company');
+            ->add('country');
     }
 
     public function configureOptions(OptionsResolver $resolver)
