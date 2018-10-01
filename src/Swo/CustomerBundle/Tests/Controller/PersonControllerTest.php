@@ -12,7 +12,7 @@ class PersonControllerTest extends DimeTestCase
         $this->loginAs('admin');
         $this->assertEquals(200, $this->jsonRequest('GET', $this->api_prefix . '/persons')->getStatusCode());
     }
-    
+
     public function testGetPersonAction()
     {
         $this->loginAs('admin');
@@ -41,6 +41,7 @@ class PersonControllerTest extends DimeTestCase
                 'salutation' => 'Monsieur',
                 'firstName' => 'Peter',
                 'lastName' => 'Person',
+                'rateGroup' => 2
             ))
         );
         $this->assertEquals(201, $response->getStatusCode(), $response->getContent());
@@ -58,16 +59,18 @@ class PersonControllerTest extends DimeTestCase
         $this->assertEquals('p.person@musterman.ag', $data['email']);
         $this->assertEquals('Peter', $data['firstName']);
         $this->assertEquals(1, $data['company']['id']);
+        $this->assertEquals(2, $data['rateGroup']['id']);
 
         // modify the object
         $response = $this->jsonRequest(
             'PUT',
             $this->api_prefix . '/persons/' . $id,
             json_encode(array(
-                    'email' => 'peter.person@musterman.ag',
-                    'comment' => 'Keine Person mehr.',
-                    'company' => 10,
-                ))
+                'email' => 'peter.person@musterman.ag',
+                'comment' => 'Keine Person mehr.',
+                'company' => 10,
+                'rateGroup' => 1
+            ))
         );
         $this->assertEquals(200, $response->getStatusCode(), $response->getContent());
 
@@ -77,13 +80,14 @@ class PersonControllerTest extends DimeTestCase
         $this->assertEquals('Keine Person mehr.', $data['comment']);
         $this->assertEquals('peter.person@musterman.ag', $data['email']);
         $this->assertEquals(10, $data['company']['id']);
+        $this->assertEquals(1, $data['rateGroup']['id']);
 
         // delete peter
-        $response = $this->jsonRequest('DELETE', $this->api_prefix.'/persons/' . $id);
+        $response = $this->jsonRequest('DELETE', $this->api_prefix . '/persons/' . $id);
         $this->assertEquals(204, $response->getStatusCode(), $response->getContent());
 
         // check that peter does not exist anymore
-        $response = $this->jsonRequest('GET', $this->api_prefix.'/persons/' . $id);
+        $response = $this->jsonRequest('GET', $this->api_prefix . '/persons/' . $id);
         $this->assertEquals(404, $response->getStatusCode(), $response->getContent());
     }
 
@@ -101,6 +105,7 @@ class PersonControllerTest extends DimeTestCase
                 'salutation' => 'Monsieur',
                 'firstName' => 'Peter',
                 'lastName' => 'Person',
+                'rateGroup' => 2
             ))
         );
         $this->assertEquals(201, $response->getStatusCode(), $response->getContent());
@@ -117,15 +122,17 @@ class PersonControllerTest extends DimeTestCase
         $this->assertEquals('Das ist eine Person', $data['comment']);
         $this->assertEquals('p.person@musterman.ag', $data['email']);
         $this->assertEquals('Peter', $data['firstName']);
+        $this->assertEquals(2, $data['rateGroup']['id']);
 
         // modify the object
         $response = $this->jsonRequest(
             'PUT',
             $this->api_prefix . '/persons/' . $id,
             json_encode(array(
-                    'email' => 'peter.person@musterman.ag',
-                    'comment' => 'Keine Person mehr.',
-                ))
+                'email' => 'peter.person@musterman.ag',
+                'comment' => 'Keine Person mehr.',
+                'rateGroup' => 1
+            ))
         );
         $this->assertEquals(200, $response->getStatusCode(), $response->getContent());
 
@@ -134,13 +141,14 @@ class PersonControllerTest extends DimeTestCase
         $data = json_decode($response->getContent(), true);
         $this->assertEquals('Keine Person mehr.', $data['comment']);
         $this->assertEquals('peter.person@musterman.ag', $data['email']);
+        $this->assertEquals(1, $data['rateGroup']['id']);
 
         // delete peter
-        $response = $this->jsonRequest('DELETE', $this->api_prefix.'/persons/' . $id);
+        $response = $this->jsonRequest('DELETE', $this->api_prefix . '/persons/' . $id);
         $this->assertEquals(204, $response->getStatusCode(), $response->getContent());
 
         // check that peter does not exist anymore
-        $response = $this->jsonRequest('GET', $this->api_prefix.'/persons/' . $id);
+        $response = $this->jsonRequest('GET', $this->api_prefix . '/persons/' . $id);
         $this->assertEquals(404, $response->getStatusCode(), $response->getContent());
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Swo\CustomerBundle\Tests\Entity;
 
+use Dime\TimetrackerBundle\Entity\RateGroup;
 use Doctrine\Common\Collections\ArrayCollection;
 use PHPUnit\Framework\TestCase;
 use Swo\CustomerBundle\Entity\Address;
@@ -82,5 +83,14 @@ class PersonTest extends TestCase
         // and it's also possible to pass an Array
         $person->setAddresses(new ArrayCollection([$address]));
         $this->assertEquals(1, count($person->getAddresses()));
+    }
+
+    public function testGetSetRateGroup()
+    {
+        $person = new Person();
+        $rateGroup = new RateGroup();
+        $this->assertNull($person->getRateGroup());
+        $person->setRateGroup($rateGroup);
+        $this->assertEquals($rateGroup, $person->getRateGroup());
     }
 }

@@ -5,6 +5,7 @@ Swo\CustomerBundle\Entity\Person:
     salutation: <randomElement(array('Herr', 'Frau'))>
     firstName: <firstName()>
     lastName: <lastName()>
+    rateGroup: @rateGroup_*
   person_{1..10}:
     company: @company_*
     comment: <sentence(1)>

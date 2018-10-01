@@ -28,7 +28,6 @@ class PersonFormType extends AbstractCustomerFormType
             ->add('salutation')
             ->add('firstName')
             ->add('lastName')
-            ->add('user', EntityType::class, array('class' => 'DimeTimetrackerBundle:User'))
         ;
     }
 }

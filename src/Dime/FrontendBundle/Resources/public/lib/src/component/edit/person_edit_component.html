@@ -24,6 +24,13 @@
                                     (ngModelChange)="entity.company=$event;addSaveField('company')"></company-select>
                 </dime-form-group>
 
+                <dime-form-group horizontal label="Tarif" *ngIf="!hasCompany(entity)">
+                    <rate-group-select required
+                                       ngControl="rateGroup"
+                                       [ngModel]="entity.rateGroup"
+                                       (ngModelChange)="entity.rateGroup=$event;addSaveField('rateGroup')"></rate-group-select>
+                </dime-form-group>
+
                 <dime-form-group horizontal label="E-Mail">
                     <input type="email" ngControl="email" class="form-control" [(ngModel)]="entity.email"
                            (change)="addSaveField('email')">
@@ -34,7 +41,8 @@
                               (change)="addSaveField('comment')"></textarea>
                 </dime-form-group>
 
-                <p *ngIf="hasCompany(entity)"><b>Hinweis: </b> Adressen und Telefonnummern, welche für alle Personen einer Firma gültig
+                <p *ngIf="hasCompany(entity)"><b>Hinweis: </b> Adressen und Telefonnummern, welche für alle Personen
+                    einer Firma gültig
                     sein sollen, können <a
                             [routerLink]="companyEditUrl">hier</a>
                     erfasst werden.</p>
@@ -47,7 +55,8 @@
         <div class="DimeControlButtons">
             <save-button [valid]="editform.valid" (click)="saveEntity()"></save-button>
             <dime-button *ngIf="hasCompany(entity)" (click)="releaseFromCompany(entity)"
-                         fontAwesome="times" warning>Von Firma lösen</dime-button>
+                         fontAwesome="times" warning>Von Firma lösen
+            </dime-button>
             <dime-button (click)="reloadEvict()" glyphicon="refresh"></dime-button>
         </div>
     </form>

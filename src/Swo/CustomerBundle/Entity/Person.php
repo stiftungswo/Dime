@@ -9,6 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation as JMS;
 use Knp\JsonSchemaBundle\Annotations as Json;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * @ORM\Entity(repositoryClass="Swo\CustomerBundle\Entity\PersonRepository")
@@ -67,6 +68,14 @@ class Person extends AbstractCustomer implements DimeEntityInterface
      * @JMS\Groups({"List"})
      */
     protected $addresses;
+
+    /**
+     * @var \Dime\TimetrackerBundle\Entity\RateGroup|null $rateGroup
+     * @ORM\ManyToOne(targetEntity="Dime\TimetrackerBundle\Entity\RateGroup")
+     * @ORM\JoinColumn(name="rate_group_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
+     * @JMS\SerializedName("rateGroup")
+     */
+    protected $rateGroup;
 
     /**
      * Person constructor.
@@ -219,5 +228,40 @@ class Person extends AbstractCustomer implements DimeEntityInterface
     {
         $this->addresses->removeElement($address);
         return $this;
+    }
+
+    /**
+     * @return \Dime\TimetrackerBundle\Entity\RateGroup|null
+     */
+    public function getRateGroup()
+    {
+        if (is_null($this->getCompany())) {
+            return $this->rateGroup;
+        } else {
+            return $this->getCompany()->getRateGroup();
+        }
+    }
+
+    /**
+     * @param \Dime\TimetrackerBundle\Entity\RateGroup|null $rateGroup
+     * @return Person
+     */
+    public function setRateGroup($rateGroup) : Person
+    {
+        $this->rateGroup = $rateGroup;
+        return $this;
+    }
+
+    /**
+     * @param ExecutionContextInterface $context
+     * @Assert\Callback
+     */
+    public function hasRateGroupIfCompanyMissing(ExecutionContextInterface $context)
+    {
+        if (is_null($this->getCompany() && is_null($this->getRateGroup()))) {
+            $context->buildViolation('Person needs a Rate Group if no company is assigned.')
+                ->atPath('rateGroup')
+                ->addViolation();
+        }
     }
 }

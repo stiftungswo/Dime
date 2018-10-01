@@ -12,8 +12,9 @@ class Person extends Entity {
     this.phoneNumbers = original.phoneNumbers;
     this.addresses = original.addresses;
     this.company = original.company;
+    this.rateGroup = original.rateGroup;
     addFieldstoUpdate([
-      'salutation', 'firstName', 'lastName', 'email', 'comment', 'company'
+      'salutation', 'firstName', 'lastName', 'email', 'comment', 'company', 'rateGroup'
       // these have to be saved separately using cloneDescendants()
       //'phoneNumbers',
       // 'addresses',
@@ -57,6 +58,8 @@ class Person extends Entity {
           return this.addresses;
         case 'phoneNumbers':
           return this.phoneNumbers;
+        case 'rateGroup':
+          return this.rateGroup;
         case 'company.name':
           return this.company?.name;
         default:
@@ -92,6 +95,9 @@ class Person extends Entity {
         break;
       case 'phoneNumbers':
         this.phoneNumbers = Phone.listFromMap((value as List<dynamic>).cast());
+        break;
+      case 'rateGroup':
+        this.rateGroup = value is RateGroup ? value : new RateGroup.fromMap((value as Map<dynamic, dynamic>).cast<String, dynamic>());
         break;
       default:
         super.Set(property, value);
@@ -139,4 +145,5 @@ class Person extends Entity {
   Company company;
   List<Address> addresses = [];
   List<Phone> phoneNumbers = [];
+  RateGroup rateGroup;
 }

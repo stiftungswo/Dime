@@ -25,8 +25,6 @@ class CompanyFormType extends AbstractCustomerFormType
         $builder
             ->add('name')
             ->add('department')
-            ->add('rateGroup')
-            ->add('user', EntityType::class, array('class' => 'DimeTimetrackerBundle:User'))
         ;
     }
 }

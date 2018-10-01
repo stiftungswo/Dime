@@ -13,6 +13,8 @@ abstract class AbstractCustomerFormType extends AbstractType
         $builder
             ->add('comment')
             ->add('email')
+            ->add('rateGroup')
+            ->add('user', EntityType::class, array('class' => 'DimeTimetrackerBundle:User'))
         ;
     }
 }
