@@ -25,8 +25,7 @@ class PhoneFormType extends AbstractType
         $builder
             ->add('number')
             ->add('category')
-            ->add('company')
-            ->add('person')
+            ->add('customer')
             ->add('user', EntityType::class, array('class' => 'DimeTimetrackerBundle:User'))
         ;
     }

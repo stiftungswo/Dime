@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:html';
 
 import 'package:angular/angular.dart';
 import 'package:angular_forms/angular_forms.dart';
@@ -12,12 +13,12 @@ import '../../common/dime_directives.dart';
 import '../editable_overview.dart';
 
 @Component(
-  selector: 'person-phone-overview',
-  templateUrl: 'phone_overview.html',
+  selector: 'phone-overview',
+  templateUrl: 'phone_overview_component.html',
   directives: const [coreDirectives, formDirectives, dimeDirectives],
 )
-class PersonPhoneOverviewComponent extends EditableOverview<Phone> {
-  PersonPhoneOverviewComponent(CachingObjectStoreService store, SettingsService manager, StatusService status,
+class PhoneOverviewComponent extends EditableOverview<Phone> {
+  PhoneOverviewComponent(CachingObjectStoreService store, SettingsService manager, StatusService status,
       EntityEventsService entityEventsService, ChangeDetectorRef changeDetector)
       : super(Phone, store, null, manager, status, entityEventsService, changeDetector);
 
@@ -32,25 +33,23 @@ class PersonPhoneOverviewComponent extends EditableOverview<Phone> {
     return new Phone();
   }
 
-  int _personId;
+  int _customerId;
 
-  @Input('person')
-  set personId(int id) {
-    if (id != null && id != _personId) {
-      _personId = id;
+  @Input('customer')
+  set companyId(int id) {
+    if (id != null && id != _customerId) {
+      _customerId = id;
       reload();
     }
   }
 
-  String get label => "Telefonnummern der Person";
-
   @override
   Future reload({Map<String, dynamic> params, bool evict: false}) {
-    return super.reload(params: {'person': this._personId}, evict: evict);
+    return super.reload(params: {'customer': this._customerId}, evict: evict);
   }
 
   @override
   Future createEntity({Phone newEnt, Map<String, dynamic> params: const {}}) {
-    return super.createEntity(params: {'person': this._personId});
+    return super.createEntity(params: {'customer': this._customerId});
   }
 }

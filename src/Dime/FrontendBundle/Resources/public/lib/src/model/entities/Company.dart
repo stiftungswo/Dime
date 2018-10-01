@@ -1,6 +1,6 @@
 import '../entity_export.dart';
 
-class Company extends Entity {
+class Company extends Customer {
   Company();
 
   Company.clone(Company original) : super.clone(original) {
@@ -115,12 +115,12 @@ class Company extends Entity {
 
       for (Phone entity in original.phoneNumbers) {
         Phone clone = new Phone.clone(entity);
-        clone.company = this;
+        clone.customer = this;
         clones.add(clone);
       }
       for (Address entity in original.addresses) {
         Address clone = new Address.clone(entity);
-        clone.company = this;
+        clone.customer = this;
         clones.add(clone);
       }
       for (Person entity in original.persons) {

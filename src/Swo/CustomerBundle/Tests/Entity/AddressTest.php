@@ -14,20 +14,20 @@ class AddressTest extends TestCase
     {
         $address = new Address();
         $company = new Company();
-        $address->setCompany($company);
-        $this->assertEquals($company, $address->getCompany());
-        $address->setCompany(null);
-        $this->assertNull($address->getCompany());
+        $address->setCustomer($company);
+        $this->assertEquals($company, $address->getCustomer());
+        $address->setCustomer(null);
+        $this->assertNull($address->getCustomer());
     }
 
     public function testGetSetPerson()
     {
         $address = new Address();
         $person = new Person();
-        $address->setPerson($person);
-        $this->assertEquals($person, $address->getPerson());
-        $address->setPerson(null);
-        $this->assertNull($address->getPerson());
+        $address->setCustomer($person);
+        $this->assertEquals($person, $address->getCustomer());
+        $address->setCustomer(null);
+        $this->assertNull($address->getCustomer());
     }
     
     public function testGetSetStreet()

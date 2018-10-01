@@ -63,8 +63,8 @@
             </div>
         </dime-box>
 
-        <person-address-overview [person]="entity.id"></person-address-overview>
-        <person-phone-overview [person]="entity.id"></person-phone-overview>
+        <address-overview [customer]="entity.id"></address-overview>
+        <phone-overview [customer]="entity.id"></phone-overview>
 
         <div class="DimeControlButtons">
             <save-button [valid]="editform.valid" (click)="saveEntity()"></save-button>

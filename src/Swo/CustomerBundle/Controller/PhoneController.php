@@ -33,8 +33,7 @@ class PhoneController extends DimeController
      * )
      *
      * @Annotations\QueryParam(name="user", requirements="\d+", nullable=true, description="Filter By User")
-     * @Annotations\QueryParam(name="company", requirements="\d+", nullable=true, description="Filter By Company")
-     * @Annotations\QueryParam(name="person", requirements="\d+", nullable=true, description="Filter By Person")
+     * @Annotations\QueryParam(name="customer", requirements="\d+", nullable=true, description="Filter By Customer")
      * @Annotations\QueryParam(name="type", requirements="\d+", nullable=true, description="Filter By Phone Type")
      *
      * @Annotations\View(

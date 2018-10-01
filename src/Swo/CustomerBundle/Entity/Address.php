@@ -4,11 +4,8 @@ namespace Swo\CustomerBundle\Entity;
 
 use Dime\TimetrackerBundle\Entity\Entity;
 use Dime\TimetrackerBundle\Model\DimeEntityInterface;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation as JMS;
-use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * @ORM\Entity(repositoryClass="Swo\CustomerBundle\Entity\AddressRepository")
@@ -70,55 +67,29 @@ class Address extends Entity implements DimeEntityInterface
     protected $description;
 
     /**
-     * related company (number can ony belong to one company, but to many persons)
+     * related customer
      *
-     * @var Company|null
-     * @ORM\ManyToOne(targetEntity="Swo\CustomerBundle\Entity\Company", inversedBy="addresses")
-     * @ORM\JoinColumn(name="company_id", referencedColumnName="id", nullable=true)
+     * @var Customer|null
+     * @ORM\ManyToOne(targetEntity="Swo\CustomerBundle\Entity\Customer", inversedBy="addresses")
+     * @ORM\JoinColumn(name="customer_id", referencedColumnName="id", nullable=true)
      */
-    protected $company;
+    protected $customer;
 
     /**
-     * related person
-     * @var Person|null $person
-     * @ORM\ManyToOne(targetEntity="Swo\CustomerBundle\Entity\Person", inversedBy="addresses")
-     * @ORM\JoinColumn(name="person_id", referencedColumnName="id", nullable=true)
+     * @return Customer|null
      */
-    protected $person;
-
-    /**
-     * @return Company|null
-     */
-    public function getCompany()
+    public function getCustomer()
     {
-        return $this->company;
+        return $this->customer;
     }
 
     /**
-     * @param Company|null $company
+     * @param Customer|null $customer
      * @return Address
      */
-    public function setCompany($company) : Address
+    public function setCustomer($customer) : Address
     {
-        $this->company = $company;
-        return $this;
-    }
-
-    /**
-     * @return Person|null
-     */
-    public function getPerson()
-    {
-        return $this->person;
-    }
-
-    /**
-     * @param Person|null $person
-     * @return Address
-     */
-    public function setPerson($person) : Address
-    {
-        $this->person = $person;
+        $this->customer = $customer;
         return $this;
     }
 
@@ -228,24 +199,5 @@ class Address extends Entity implements DimeEntityInterface
     {
         $this->description = $description;
         return $this;
-    }
-
-    /**
-     * @param ExecutionContextInterface $context
-     * @Assert\Callback
-     */
-    public function hasCompanyOrPerson(ExecutionContextInterface $context)
-    {
-        if (is_null($this->getPerson()) && is_null($this->getCompany())) {
-            $context->buildViolation('Address has to have either an associated company or phone.')
-                ->atPath('company')
-                ->addViolation();
-        }
-
-        if (!is_null($this->getPerson()) && !is_null($this->getCompany())) {
-            $context->buildViolation('Address has to have either an associated company or phone, but not both.')
-                ->atPath('company')
-                ->addViolation();
-        }
     }
 }

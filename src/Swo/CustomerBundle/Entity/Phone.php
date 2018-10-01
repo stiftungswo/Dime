@@ -6,8 +6,6 @@ use Dime\TimetrackerBundle\Entity\Entity;
 use Dime\TimetrackerBundle\Model\DimeEntityInterface;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as JMS;
-use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * @ORM\Entity(repositoryClass="Swo\CustomerBundle\Entity\PhoneRepository")
@@ -35,21 +33,13 @@ class Phone extends Entity implements DimeEntityInterface
     protected $category;
 
     /**
-     * related company (number can ony belong to one company, but to many persons)
+     * related customer
      *
-     * @var Company|null
-     * @ORM\ManyToOne(targetEntity="Swo\CustomerBundle\Entity\Company", inversedBy="phoneNumbers")
-     * @ORM\JoinColumn(name="company_id", referencedColumnName="id", nullable=true)
+     * @var Customer|null
+     * @ORM\ManyToOne(targetEntity="Swo\CustomerBundle\Entity\Customer", inversedBy="phoneNumbers")
+     * @ORM\JoinColumn(name="customer_id", referencedColumnName="id", nullable=true)
      */
-    protected $company;
-
-    /**
-     * related person
-     * @var Person|null $person
-     * @ORM\ManyToOne(targetEntity="Swo\CustomerBundle\Entity\Person", inversedBy="phoneNumbers")
-     * @ORM\JoinColumn(name="person_id", referencedColumnName="id", nullable=true)
-     */
-    protected $person;
+    protected $customer;
 
     /**
      * @return string|null
@@ -88,57 +78,20 @@ class Phone extends Entity implements DimeEntityInterface
     }
 
     /**
-     * @return Company|null
+     * @return Customer|null
      */
-    public function getCompany()
+    public function getCustomer()
     {
-        return $this->company;
+        return $this->customer;
     }
 
     /**
-     * @param Company|null $company
+     * @param Customer|null $customer
      * @return Phone
      */
-    public function setCompany($company) : Phone
+    public function setCustomer($customer) : Phone
     {
-        $this->company = $company;
+        $this->customer = $customer;
         return $this;
-    }
-
-    /**
-     * @return Person|null
-     */
-    public function getPerson()
-    {
-        return $this->person;
-    }
-
-    /**
-     * @param Person|null $person
-     * @return Phone
-     */
-    public function setPerson($person) : Phone
-    {
-        $this->person = $person;
-        return $this;
-    }
-
-    /**
-     * @param ExecutionContextInterface $context
-     * @Assert\Callback
-     */
-    public function hasCompanyOrPerson(ExecutionContextInterface $context)
-    {
-        if (is_null($this->getPerson()) && is_null($this->getCompany())) {
-            $context->buildViolation('Phone has to have either an associated company or phone.')
-                ->atPath('company')
-                ->addViolation();
-        }
-
-        if (!is_null($this->getPerson()) && !is_null($this->getCompany())) {
-            $context->buildViolation('Phone has to have either an associated company or phone, but not both.')
-                ->atPath('company')
-                ->addViolation();
-        }
     }
 }

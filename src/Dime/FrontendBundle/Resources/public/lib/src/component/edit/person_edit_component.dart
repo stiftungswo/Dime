@@ -21,8 +21,8 @@ import 'entity_edit.dart';
   formDirectives,
   routerDirectives,
   dimeDirectives,
-  PersonPhoneOverviewComponent,
-  PersonAddressOverviewComponent,
+  PhoneOverviewComponent,
+  AddressOverviewComponent,
   RateGroupSelectComponent,
   CompanySelectComponent
 ])

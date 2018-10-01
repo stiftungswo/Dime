@@ -26,8 +26,7 @@ class AddressFormType extends AbstractType
             ->add('city')
             ->add('country')
             ->add('description')
-            ->add('company')
-            ->add('person')
+            ->add('customer')
             ->add('user', EntityType::class, array('class' => 'DimeTimetrackerBundle:User'))
         ;
     }

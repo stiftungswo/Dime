@@ -4,11 +4,9 @@ namespace Swo\CustomerBundle\Entity;
 
 use Dime\TimetrackerBundle\Model\DimeEntityInterface;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\PersistentCollection;
-use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation as JMS;
 use Knp\JsonSchemaBundle\Annotations as Json;
-use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
@@ -17,7 +15,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
  * @Json\Schema("persons")
  */
 
-class Person extends AbstractCustomer implements DimeEntityInterface
+class Person extends Customer implements DimeEntityInterface
 {
     /**
      * @var string|null $salutation
@@ -44,14 +42,6 @@ class Person extends AbstractCustomer implements DimeEntityInterface
     protected $lastName;
 
     /**
-     * @JMS\Type("array")
-     * @JMS\MaxDepth(1)
-     * @JMS\Groups({"List"})
-     * @ORM\OneToMany(targetEntity="Phone", mappedBy="person", cascade="all")
-     */
-    protected $phoneNumbers;
-
-    /**
      * @var Company|null $company
      * @ORM\ManyToOne(targetEntity="Swo\CustomerBundle\Entity\Company", inversedBy="persons", cascade={"detach"})
      * @ORM\JoinColumn(name="company_id", referencedColumnName="id", nullable=true)
@@ -59,32 +49,6 @@ class Person extends AbstractCustomer implements DimeEntityInterface
      * @JMS\MaxDepth(1)
      */
     protected $company;
-
-    /**
-     * @var Address|null $address
-     * @ORM\OneToMany(targetEntity="Swo\CustomerBundle\Entity\Address", mappedBy="person", cascade={"all"}, orphanRemoval=true)
-     * @JMS\Type("array")
-     * @JMS\MaxDepth(1)
-     * @JMS\Groups({"List"})
-     */
-    protected $addresses;
-
-    /**
-     * @var \Dime\TimetrackerBundle\Entity\RateGroup|null $rateGroup
-     * @ORM\ManyToOne(targetEntity="Dime\TimetrackerBundle\Entity\RateGroup")
-     * @ORM\JoinColumn(name="rate_group_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
-     * @JMS\SerializedName("rateGroup")
-     */
-    protected $rateGroup;
-
-    /**
-     * Person constructor.
-     */
-    public function __construct()
-    {
-        $this->addresses = new ArrayCollection();
-        $this->phoneNumbers = new ArrayCollection();
-    }
 
     /**
      * @return string|null
@@ -141,40 +105,6 @@ class Person extends AbstractCustomer implements DimeEntityInterface
     }
 
     /**
-     * @return ArrayCollection|PersistentCollection
-     */
-    public function getPhoneNumbers()
-    {
-        return $this->phoneNumbers;
-    }
-
-    /**
-     * @param Phone $phone
-     * @return Person
-     */
-    public function addPhoneNumber(Phone $phone) : Person
-    {
-        $this->phoneNumbers[] = $phone;
-        return $this;
-    }
-
-    /**
-     * @param ArrayCollection $phones
-     * @return Person
-     */
-    public function setPhoneNumbers(ArrayCollection $phones) : Person
-    {
-        $this->phoneNumbers = $phones;
-        return $this;
-    }
-
-    public function removePhoneNumber(Phone $phone) : Person
-    {
-        $this->phoneNumbers->removeElement($phone);
-        return $this;
-    }
-
-    /**
      * @return Company|null
      */
     public function getCompany()
@@ -189,66 +119,6 @@ class Person extends AbstractCustomer implements DimeEntityInterface
     public function setCompany($company) : Person
     {
         $this->company = $company;
-        return $this;
-    }
-
-    /**
-     * @return ArrayCollection
-     */
-    public function getAddresses() : ArrayCollection
-    {
-        return $this->addresses;
-    }
-
-    /**
-     * @param Address $address
-     * @return Person
-     */
-    public function addAddress(Address $address) : Person
-    {
-        $this->addresses[] = $address;
-        return $this;
-    }
-
-    /**
-     * @param ArrayCollection $addresses
-     * @return Person
-     */
-    public function setAddresses(ArrayCollection $addresses) : Person
-    {
-        $this->addresses = $addresses;
-        return $this;
-    }
-
-    /**
-     * @param Address $address
-     * @return Person
-     */
-    public function removeAddress(Address $address) : Person
-    {
-        $this->addresses->removeElement($address);
-        return $this;
-    }
-
-    /**
-     * @return \Dime\TimetrackerBundle\Entity\RateGroup|null
-     */
-    public function getRateGroup()
-    {
-        if (is_null($this->getCompany())) {
-            return $this->rateGroup;
-        } else {
-            return $this->getCompany()->getRateGroup();
-        }
-    }
-
-    /**
-     * @param \Dime\TimetrackerBundle\Entity\RateGroup|null $rateGroup
-     * @return Person
-     */
-    public function setRateGroup($rateGroup) : Person
-    {
-        $this->rateGroup = $rateGroup;
         return $this;
     }
 

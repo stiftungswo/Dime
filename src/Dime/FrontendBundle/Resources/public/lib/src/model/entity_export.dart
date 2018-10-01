@@ -3,6 +3,7 @@ export 'entities/Activity.dart';
 export 'entities/Address.dart';
 export 'entities/Company.dart';
 export 'entities/Costgroup.dart';
+export 'entities/Customer.dart';
 export 'entities/Employee.dart';
 export 'entities/ExpenseReport.dart';
 export 'entities/Holiday.dart';

@@ -5,27 +5,16 @@ namespace Swo\CustomerBundle\Entity;
 use Dime\TimetrackerBundle\Model\DimeEntityInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation as JMS;
-use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="Swo\CustomerBundle\Entity\CompanyRepository")
  * @ORM\Table(name="companies")
  */
 
-class Company extends AbstractCustomer implements DimeEntityInterface
+class Company extends Customer implements DimeEntityInterface
 {
-    /**
-     * @var ArrayCollection
-     * @ORM\OneToMany(targetEntity="Swo\CustomerBundle\Entity\Phone", mappedBy="company", cascade={"all"}, orphanRemoval=true)
-     * @JMS\Groups({"List"})
-     * @JMS\Type("array")
-     * @JMS\MaxDepth(1)
-     * @JMS\SerializedName("phoneNumbers")
-     */
-    protected $phoneNumbers;
-
     /**
      * @var \Dime\TimetrackerBundle\Entity\RateGroup|null $rateGroup
      * @ORM\ManyToOne(targetEntity="Dime\TimetrackerBundle\Entity\RateGroup")
@@ -33,16 +22,6 @@ class Company extends AbstractCustomer implements DimeEntityInterface
      * @JMS\SerializedName("rateGroup")
      */
     protected $rateGroup;
-
-    /**
-     * @var ArrayCollection $addresses
-     * @ORM\OneToMany(targetEntity="Swo\CustomerBundle\Entity\Address", mappedBy="company", cascade={"all"}, orphanRemoval=true)
-     * @JMS\Groups({"List"})
-     * @JMS\Type("array")
-     * @JMS\MaxDepth(1)
-     * @JMS\SerializedName("addresses")
-     */
-    protected $addresses;
 
     /**
      * @var ArrayCollection $persons
@@ -71,103 +50,8 @@ class Company extends AbstractCustomer implements DimeEntityInterface
 
     public function __construct()
     {
-        $this->addresses = new ArrayCollection();
-        $this->phoneNumbers = new ArrayCollection();
+        parent::__construct();
         $this->persons = new ArrayCollection();
-    }
-
-    /**
-     * @return ArrayCollection
-     */
-    public function getPhoneNumbers() : ArrayCollection
-    {
-        return $this->phoneNumbers;
-    }
-
-    /**
-     * @param Phone $phone
-     * @return Company
-     */
-    public function addPhoneNumber(Phone $phone) : Company
-    {
-        $this->phoneNumbers[] = $phone;
-        return $this;
-    }
-
-    /**
-     * @param ArrayCollection $phoneNumbers
-     * @return Company
-     */
-    public function setPhoneNumbers(ArrayCollection $phoneNumbers) : Company
-    {
-        $this->phoneNumbers = $phoneNumbers;
-        return $this;
-    }
-
-    /**
-     * @param Phone $phone
-     * @return Company
-     */
-    public function removePhoneNumber(Phone $phone) : Company
-    {
-        $this->phoneNumbers->removeElement($phone);
-        return $this;
-    }
-
-    /**
-     * @return \Dime\TimetrackerBundle\Entity\RateGroup|null
-     */
-    public function getRateGroup()
-    {
-        return $this->rateGroup;
-    }
-
-    /**
-     * @param \Dime\TimetrackerBundle\Entity\RateGroup|null $rateGroup
-     * @return Company
-     */
-    public function setRateGroup($rateGroup) : Company
-    {
-        $this->rateGroup = $rateGroup;
-        return $this;
-    }
-
-    /**
-     * @return ArrayCollection
-     */
-    public function getAddresses() : ArrayCollection
-    {
-        return $this->addresses;
-    }
-
-    /**
-     * @param Address $address
-     * @return Company
-     */
-    public function addAddress(Address $address) : Company
-    {
-        $this->addresses[] = $address;
-        return $this;
-    }
-
-    /**
-     * @param ArrayCollection $addresses
-     * @return Company
-     */
-    public function setAddresses(ArrayCollection $addresses) : Company
-    {
-        $this->addresses = $addresses;
-        return $this;
-    }
-
-    /**
-     * @param Address $address
-     * @return Company
-     */
-    public function removeAddress(Address $address) : Company
-    {
-        $this->addresses->removeElement($address);
-        return $this;
     }
 
     /**
@@ -189,7 +73,7 @@ class Company extends AbstractCustomer implements DimeEntityInterface
     }
 
     /**
-     * @param ArrayCollection $person_numbers
+     * @param ArrayCollection $persons
      * @return Company
      */
     public function setPersons(ArrayCollection $persons) : Company

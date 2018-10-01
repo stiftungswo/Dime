@@ -18,7 +18,7 @@ class PersonControllerTest extends DimeTestCase
         $this->loginAs('admin');
         $this->assertEquals(404, $this->jsonRequest('GET', $this->api_prefix . '/persons/123456')->getStatusCode());
 
-        $response = $this->jsonRequest('GET', $this->api_prefix . '/persons/1');
+        $response = $this->jsonRequest('GET', $this->api_prefix . '/persons/30');
         $this->assertEquals(200, $response->getStatusCode());
 
         // check that we have data

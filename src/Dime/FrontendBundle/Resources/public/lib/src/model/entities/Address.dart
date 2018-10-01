@@ -10,9 +10,8 @@ class Address extends Entity {
     this.postcode = original.postcode;
     this.country = original.country;
     this.description = original.description;
-    this.company = original.company;
-    this.person = original.person;
-    addFieldstoUpdate(['street', 'supplement', 'city', 'postcode', 'country', 'description', 'company', 'person']);
+    this.customer = original.customer;
+    addFieldstoUpdate(['street', 'supplement', 'city', 'postcode', 'country', 'description', 'customer']);
   }
 
   Address.fromMap(Map<String, dynamic> map) : super.fromMap(map);
@@ -24,11 +23,8 @@ class Address extends Entity {
 
   @override
   init({Map<String, dynamic> params: const {}}) {
-    if (params.containsKey('company')) {
-      params['company'] = new Company()..id = params['company'];
-    }
-    if (params.containsKey('person')) {
-      params['person'] = new Person()..id = params['person'];
+    if (params.containsKey('customer')) {
+      params['customer'] = new Customer()..id = params['customer'];
     }
     super.init(params: params);
   }
@@ -50,10 +46,8 @@ class Address extends Entity {
           return this.country;
         case 'description':
           return this.description;
-        case 'company':
-          return this.company;
-        case 'person':
-          return this.person;
+        case 'customer':
+          return this.customer;
         default:
           break;
       }
@@ -83,11 +77,8 @@ class Address extends Entity {
       case 'description':
         this.description = value as String;
         break;
-      case 'company':
-        this.company = value is Company ? value : new Company.fromMap((value as Map<dynamic, dynamic>).cast<String, dynamic>());
-        break;
-      case 'person':
-        this.person = value is Person ? value : new Person.fromMap((value as Map<dynamic, dynamic>).cast<String, dynamic>());
+      case 'customer':
+        this.customer = value is Customer ? value : new Customer.fromMap((value as Map<dynamic, dynamic>).cast<String, dynamic>());
         break;
       default:
         super.Set(property, value);
@@ -111,6 +102,5 @@ class Address extends Entity {
   int postcode;
   String country;
   String description;
-  Company company;
-  Person person;
+  Customer customer;
 }

@@ -5,11 +5,8 @@ class Phone extends Entity {
 
   @override
   init({Map<String, dynamic> params: const {}}) {
-    if (params.containsKey('company')) {
-      params['company'] = new Company()..id = params['company'];
-    }
-    if (params.containsKey('person')) {
-      params['person'] = new Person()..id = params['person'];
+    if (params.containsKey('customer')) {
+      params['customer'] = new Customer()..id = params['customer'];
     }
     if (!params.containsKey('number')) {
       params['number'] = '044 123 45 67';
@@ -23,9 +20,8 @@ class Phone extends Entity {
   Phone.clone(Phone original) {
     this.number = original.number;
     this.category = original.category;
-    this.company = original.company;
-    this.person = original.person;
-    addFieldstoUpdate(['company', 'person', 'number', 'category']);
+    this.customer = original.customer;
+    addFieldstoUpdate(['customer', 'number', 'category']);
   }
 
   Phone.fromMap(Map<String, dynamic> map) : super.fromMap(map);
@@ -45,10 +41,8 @@ class Phone extends Entity {
           return this.number;
         case 'category':
           return this.category;
-        case 'company':
-          return this.company;
-        case 'person':
-          return this.person;
+        case 'customer':
+          return this.customer;
         default:
           break;
       }
@@ -65,11 +59,8 @@ class Phone extends Entity {
       case 'category':
         this.category = value is String ? int.parse(value) : value as int;
         break;
-      case 'company':
-        this.company = value is Company ? value : new Company.fromMap((value as Map<dynamic, dynamic>).cast<String, dynamic>());
-        break;
-      case 'person':
-        this.person = value is Person ? value : new Person.fromMap((value as Map<dynamic, dynamic>).cast<String, dynamic>());
+      case 'customer':
+        this.customer = value is Customer ? value : new Customer.fromMap((value as Map<dynamic, dynamic>).cast<String, dynamic>());
         break;
       default:
         super.Set(property, value);
@@ -89,6 +80,5 @@ class Phone extends Entity {
   String type = "phones";
   int category;
   String number;
-  Company company;
-  Person person;
+  Customer customer;
 }

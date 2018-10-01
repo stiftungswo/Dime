@@ -31,8 +31,7 @@ class AddressController extends DimeController
      * }
      * )
      *
-     * @Annotations\QueryParam(name="company", requirements="\d+", nullable=true, description="Filter By Company")
-     * @Annotations\QueryParam(name="person", requirements="\w+", nullable=true, description="Filter By Person")
+     * @Annotations\QueryParam(name="customer", requirements="\d+", nullable=true, description="Filter By Customer")
      * @Annotations\QueryParam(name="search", requirements="\w+", nullable=true, description="Filter By Name")
      *
      * @Annotations\View(

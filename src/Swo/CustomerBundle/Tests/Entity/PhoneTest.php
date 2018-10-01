@@ -24,19 +24,19 @@ class PhoneTest extends TestCase
         $this->assertEquals(5, $phone->getCategory());
     }
 
-    public function testGetSetCompany()
+    public function testGetSetCustomer()
     {
         $phone = new Phone();
         $company = new Company();
-        $phone->setCompany($company);
-        $this->assertEquals($company, $phone->getCompany());
+        $phone->setCustomer($company);
+        $this->assertEquals($company, $phone->getCustomer());
     }
 
     public function testGetSetPhone()
     {
         $phone = new Phone();
         $person = new Person();
-        $phone->setPerson($person);
-        $this->assertEquals($person, $phone->getPerson());
+        $phone->setCustomer($person);
+        $this->assertEquals($person, $phone->getCustomer());
     }
 }

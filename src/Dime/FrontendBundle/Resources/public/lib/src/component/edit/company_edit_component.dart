@@ -20,8 +20,8 @@ import 'entity_edit.dart';
   formDirectives,
   dimeDirectives,
   RateGroupSelectComponent,
-  CompanyPhoneOverviewComponent,
-  CompanyAddressOverviewComponent,
+  PhoneOverviewComponent,
+  AddressOverviewComponent,
   CompanyPersonOverviewComponent
 ])
 class CompanyEditComponent extends EntityEdit<Company> {
