@@ -64,4 +64,11 @@ class AddressTest extends TestCase
         $address->setCountry('Schweiz');
         $this->assertEquals('Schweiz', $address->getCountry());
     }
+
+    public function testGetSetDescription()
+    {
+        $address = new Address();
+        $address->setDescription('Beschreibung');
+        $this->assertEquals('Beschreibung', $address->getDescription());
+    }
 }

@@ -22,7 +22,7 @@ class PersonAddressOverviewComponent extends EditableOverview<Address> {
       : super(Address, store, null, manager, status, entityEventsService, changeDetector);
 
   @override
-  List<String> get fields => const ['id', 'street', 'supplement', 'postcode', 'city', 'country'];
+  List<String> get fields => const ['id', 'street', 'supplement', 'postcode', 'city', 'country', 'description'];
 
   @override
   Address cEnt({Address entity}) {

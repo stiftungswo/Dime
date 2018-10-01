@@ -2,16 +2,21 @@
     <table boxBody class="table table-bordered table-hover" ngControlGroup="addresses" #overview="ngForm">
         <thead>
         <tr>
-            <th>Strasse</th>
+            <th>Beschreibung</th>
+            <th class="col-md-3">Strasse</th>
             <th>Addresszusatz</th>
-            <th>PLZ</th>
+            <th class="col-md-1">PLZ</th>
             <th>Ort</th>
             <th>Land</th>
-            <th width="100">Aktion</th>
+            <th width="100">Aktionen</th>
         </tr>
         </thead>
         <tbody>
         <tr *ngFor="let c of controls" [class.danger]="!c.valid">
+            <td validationStatus class="form-group">
+                <input class="form-control" [ngFormControl]="c.controls['description']" />
+            </td>
+
             <td validationStatus class="form-group">
                 <input required class="form-control" [ngFormControl]="c.controls['street']" />
             </td>

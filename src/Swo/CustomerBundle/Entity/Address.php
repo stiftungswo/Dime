@@ -63,6 +63,13 @@ class Address extends Entity implements DimeEntityInterface
     protected $country;
 
     /**
+     * @var string|null $description
+     * @JMS\Groups({"List"})
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $description;
+
+    /**
      * related company (number can ony belong to one company, but to many persons)
      *
      * @var Company|null
@@ -202,6 +209,24 @@ class Address extends Entity implements DimeEntityInterface
     public function setCountry($country) : Address
     {
         $this->country = $country;
+        return $this;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param string|null $description
+     * @return Address
+     */
+    public function setDescription($description) : Address
+    {
+        $this->description = $description;
         return $this;
     }
 

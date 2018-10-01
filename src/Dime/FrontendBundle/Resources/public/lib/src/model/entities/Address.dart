@@ -9,9 +9,10 @@ class Address extends Entity {
     this.city = original.city;
     this.postcode = original.postcode;
     this.country = original.country;
+    this.description = original.description;
     this.company = original.company;
     this.person = original.person;
-    addFieldstoUpdate(['street', 'supplement', 'city', 'postcode', 'country', 'company', 'person']);
+    addFieldstoUpdate(['street', 'supplement', 'city', 'postcode', 'country', 'description', 'company', 'person']);
   }
 
   Address.fromMap(Map<String, dynamic> map) : super.fromMap(map);
@@ -47,6 +48,8 @@ class Address extends Entity {
           return this.postcode;
         case 'country':
           return this.country;
+        case 'description':
+          return this.description;
         case 'company':
           return this.company;
         case 'person':
@@ -77,6 +80,9 @@ class Address extends Entity {
       case 'country':
         this.country = value as String;
         break;
+      case 'description':
+        this.description = value as String;
+        break;
       case 'company':
         this.company = value is Company ? value : new Company.fromMap((value as Map<dynamic, dynamic>).cast<String, dynamic>());
         break;
@@ -104,6 +110,7 @@ class Address extends Entity {
   String city;
   int postcode;
   String country;
+  String description;
   Company company;
   Person person;
 }

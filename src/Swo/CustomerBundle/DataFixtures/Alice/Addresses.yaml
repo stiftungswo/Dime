@@ -5,6 +5,7 @@ Swo\CustomerBundle\Entity\Address:
     city: <city()>
     supplement: '10%? Postfach <randomNumber()>'
     country: <country()>
+    description: <word()>
     company: @company_<current()>
   person_address_{1..10}:
     street: <streetName()> <buildingNumber()>
@@ -12,4 +13,5 @@ Swo\CustomerBundle\Entity\Address:
     city: <city()>
     supplement: '10%? Postfach <randomNumber()>'
     country: <country()>
+    description: <word()>
     person: @person_<current()>

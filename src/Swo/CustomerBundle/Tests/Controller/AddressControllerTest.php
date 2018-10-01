@@ -40,6 +40,7 @@ class AddressControllerTest extends DimeTestCase
                 'postcode' => 8603,
                 'city' => 'Schwerzenbach',
                 'country' => 'Schweiz',
+                'description' => 'Eine Beschreibung',
                 'company' => 13,
             ))
         );
@@ -60,6 +61,7 @@ class AddressControllerTest extends DimeTestCase
         $this->assertEquals(8603, $data['postcode']);
         $this->assertEquals('Schwerzenbach', $data['city']);
         $this->assertEquals('Schweiz', $data['country']);
+        $this->assertEquals('Eine Beschreibung', $data['description']);
 
         $response = $this->jsonRequest(
             'PUT',
@@ -71,6 +73,7 @@ class AddressControllerTest extends DimeTestCase
                 'city' => 'Dübendorf',
                 'country' => 'Still Schweiz',
                 'company' => 11,
+                'description' => 'Eine neue Beschreibung'
             ))
         );
         $this->assertEquals(200, $response->getStatusCode(), $response->getContent());
@@ -83,6 +86,7 @@ class AddressControllerTest extends DimeTestCase
         $this->assertEquals(8600, $data['postcode']);
         $this->assertEquals('Dübendorf', $data['city']);
         $this->assertEquals('Still Schweiz', $data['country']);
+        $this->assertEquals('Eine neue Beschreibung', $data['description']);
 
         // check that invalid ids get 404 return
         $response = $this->jsonRequest(
@@ -103,7 +107,7 @@ class AddressControllerTest extends DimeTestCase
         $this->assertEquals(404, $response->getStatusCode(), $response->getContent());
     }
 
-    public function testPostPutDeletePersonPhoneActions()
+    public function testPostPutDeletePersonAddressActions()
     {
         $this->loginAs('admin');
 
@@ -116,6 +120,7 @@ class AddressControllerTest extends DimeTestCase
                 'postcode' => 8603,
                 'city' => 'Schwerzenbach',
                 'country' => 'Schweiz',
+                'description' => 'Eine Beschreibung',
                 'person' => 8,
             ))
         );
@@ -136,6 +141,7 @@ class AddressControllerTest extends DimeTestCase
         $this->assertEquals(8603, $data['postcode']);
         $this->assertEquals('Schwerzenbach', $data['city']);
         $this->assertEquals('Schweiz', $data['country']);
+        $this->assertEquals('Eine Beschreibung', $data['description']);
 
         $response = $this->jsonRequest(
             'PUT',
@@ -146,6 +152,7 @@ class AddressControllerTest extends DimeTestCase
                 'postcode' => 8600,
                 'city' => 'Dübendorf',
                 'country' => 'Still Schweiz',
+                'description' => 'Eine neue Beschreibung',
                 'person' => 4,
             ))
         );
@@ -159,6 +166,7 @@ class AddressControllerTest extends DimeTestCase
         $this->assertEquals(8600, $data['postcode']);
         $this->assertEquals('Dübendorf', $data['city']);
         $this->assertEquals('Still Schweiz', $data['country']);
+        $this->assertEquals('Eine neue Beschreibung', $data['description']);
 
         // check that invalid ids get 404 return
         $response = $this->jsonRequest(
