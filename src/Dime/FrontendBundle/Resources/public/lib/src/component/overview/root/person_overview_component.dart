@@ -48,6 +48,7 @@ class PersonOverviewComponent extends EntityOverview<Person> implements OnActiva
 
   @override
   Future createEntity({Person newEnt, Map<String, dynamic> params: const {}}) {
-    return super.createEntity(params: {'firstName': 'Heiri', 'lastName': 'Müller'});
+    return super
+        .createEntity(params: {'firstName': 'Heiri', 'lastName': 'Müller', 'rateGroup': 1, 'chargeable': true, 'hideForBusiness': false});
   }
 }

@@ -253,15 +253,50 @@ class Person extends AbstractCustomer implements DimeEntityInterface
     }
 
     /**
+     * @return bool|null
+     */
+    public function getChargeable()
+    {
+        if (is_null($this->getCompany())) {
+            return $this->chargeable;
+        } else {
+            return $this->getCompany()->getChargeable();
+        }
+    }
+
+    public function getHideForBusiness()
+    {
+        if (is_null($this->getCompany())) {
+            return $this->hideForBusiness;
+        } else {
+            return $this->getCompany()->getHideForBusiness();
+        }
+    }
+
+    /**
      * @param ExecutionContextInterface $context
      * @Assert\Callback
      */
-    public function hasRateGroupIfCompanyMissing(ExecutionContextInterface $context)
+    public function checkFieldsIfNoCompany(ExecutionContextInterface $context)
     {
-        if (is_null($this->getCompany() && is_null($this->getRateGroup()))) {
-            $context->buildViolation('Person needs a Rate Group if no company is assigned.')
-                ->atPath('rateGroup')
-                ->addViolation();
+        if (is_null($this->getCompany())) {
+            if (is_null($this->getRateGroup())) {
+                $context->buildViolation('Person needs a Rate Group if no company is assigned.')
+                    ->atPath('rateGroup')
+                    ->addViolation();
+            }
+
+            if (is_null($this->getChargeable())) {
+                $context->buildViolation('Person needs a chargeable attribute if no company is assigned.')
+                    ->atPath('chargeable')
+                    ->addViolation();
+            }
+
+            if (is_null($this->getChargeable())) {
+                $context->buildViolation('Person needs a hideForBusiness attribute if no company is assigned.')
+                    ->atPath('hideForBusiness')
+                    ->addViolation();
+            }
         }
     }
 }

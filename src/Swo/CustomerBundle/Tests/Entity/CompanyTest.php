@@ -95,4 +95,20 @@ class CompanyTest extends TestCase
         $company->setDepartment('Department');
         $this->assertEquals('Department', $company->getDepartment());
     }
+
+    public function testGetSetChargeable()
+    {
+        $company = new Company();
+        $this->assertTrue($company->getChargeable());
+        $company->setChargeable(false);
+        $this->assertFalse($company->getChargeable());
+    }
+
+    public function testGetSetHideForBusiness()
+    {
+        $company = new Company();
+        $this->assertFalse($company->getHideForBusiness());
+        $company->setHideForBusiness(true);
+        $this->assertTrue($company->getHideForBusiness());
+    }
 }

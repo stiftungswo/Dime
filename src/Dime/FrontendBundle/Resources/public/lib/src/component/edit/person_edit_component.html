@@ -24,13 +24,6 @@
                                     (ngModelChange)="entity.company=$event;addSaveField('company')"></company-select>
                 </dime-form-group>
 
-                <dime-form-group horizontal label="Tarif" *ngIf="!hasCompany(entity)">
-                    <rate-group-select required
-                                       ngControl="rateGroup"
-                                       [ngModel]="entity.rateGroup"
-                                       (ngModelChange)="entity.rateGroup=$event;addSaveField('rateGroup')"></rate-group-select>
-                </dime-form-group>
-
                 <dime-form-group horizontal label="E-Mail">
                     <input type="email" ngControl="email" class="form-control" [(ngModel)]="entity.email"
                            (change)="addSaveField('email')">
@@ -40,6 +33,27 @@
                     <textarea ngControl="comment" class="form-control" [(ngModel)]="entity.comment"
                               (change)="addSaveField('comment')"></textarea>
                 </dime-form-group>
+
+                <div *ngIf="!hasCompany(entity)">
+                    <dime-form-group horizontal label="Tarif">
+                        <rate-group-select required
+                                           ngControl="rateGroup"
+                                           [ngModel]="entity.rateGroup"
+                                           (ngModelChange)="entity.rateGroup=$event;addSaveField('rateGroup')"></rate-group-select>
+                    </dime-form-group>
+
+                    <dime-form-group horizontal class="checkbox" help="Aktiviere diese Checkbox, wenn du möchtest, dass Projekte für diesen Kunden standardmässig verrechnet werden sollen. Du kannst dies aber pro Projekt nochmals individuell anpassen.">
+                        <label>
+                            <input required type="checkbox" [(ngModel)]="entity.chargeable" (change)="addSaveField('chargeable')"> Verrechenbar?
+                        </label>
+                    </dime-form-group>
+
+                    <dime-form-group horizontal class="checkbox" help="Aktiviere diese Checkbox, wenn du möchtest, dass dieser Kunde bei der Erstellung von neuen Offerten oder Projekten nicht angezeigt werden soll. Auf den Adressexport hat dies keinen Einfluss.">
+                        <label>
+                            <input required type="checkbox" [(ngModel)]="entity.hideForBusiness" (change)="addSaveField('hideForBusiness')"> Nicht anzeigen in Dime?
+                        </label>
+                    </dime-form-group>
+                </div>
 
                 <p *ngIf="hasCompany(entity)"><b>Hinweis: </b> Adressen und Telefonnummern, welche für alle Personen
                     einer Firma gültig

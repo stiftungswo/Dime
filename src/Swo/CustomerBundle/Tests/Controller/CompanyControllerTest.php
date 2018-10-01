@@ -39,7 +39,9 @@ class CompanyControllerTest extends DimeTestCase
                 'email' => 'info@musterman.ag',
                 'name' => 'Mustermann AG',
                 'department' => 'Mustersachen',
-                'rateGroup' => 1
+                'rateGroup' => 1,
+                'chargeable' => true,
+                'hideForBusiness' => true
             ))
         );
         $this->assertEquals(201, $response->getStatusCode(), $response->getContent());
@@ -56,6 +58,8 @@ class CompanyControllerTest extends DimeTestCase
         $this->assertEquals('Das ist eine Firma.', $data['comment']);
         $this->assertEquals('info@musterman.ag', $data['email']);
         $this->assertEquals('Mustermann AG', $data['name']);
+        $this->assertTrue($data['chargeable']);
+        $this->assertTrue($data['hideForBusiness']);
 
         // modify the object
         $response = $this->jsonRequest(
@@ -64,6 +68,8 @@ class CompanyControllerTest extends DimeTestCase
             json_encode(array(
                 'email' => 'neu@musterman.ag',
                 'department' => 'Coole Sachen',
+                'chargeable' => false,
+                'hideForBusiness' => false
             ))
         );
         $this->assertEquals(200, $response->getStatusCode(), $response->getContent());
@@ -73,6 +79,8 @@ class CompanyControllerTest extends DimeTestCase
         $data = json_decode($response->getContent(), true);
         $this->assertEquals('neu@musterman.ag', $data['email']);
         $this->assertEquals('Coole Sachen', $data['department']);
+        $this->assertFalse($data['chargeable']);
+        $this->assertFalse($data['hideForBusiness']);
 
         // check that invalid ids get 404 return
         $response = $this->jsonRequest(

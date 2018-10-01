@@ -6,6 +6,8 @@ Swo\CustomerBundle\Entity\Person:
     firstName: <firstName()>
     lastName: <lastName()>
     rateGroup: @rateGroup_*
+    chargeable: <boolean(90)>
+    hideForBusiness: <boolean(90)>
   person_{1..10}:
     company: @company_*
     comment: <sentence(1)>

@@ -13,8 +13,10 @@ class Person extends Entity {
     this.addresses = original.addresses;
     this.company = original.company;
     this.rateGroup = original.rateGroup;
+    this.chargeable = original.chargeable;
+    this.hideForBusiness = original.hideForBusiness;
     addFieldstoUpdate([
-      'salutation', 'firstName', 'lastName', 'email', 'comment', 'company', 'rateGroup'
+      'salutation', 'firstName', 'lastName', 'email', 'comment', 'company', 'rateGroup', 'chargeable', 'hideforBusiness'
       // these have to be saved separately using cloneDescendants()
       //'phoneNumbers',
       // 'addresses',
@@ -32,6 +34,9 @@ class Person extends Entity {
   init({Map<String, dynamic> params: const {}}) {
     if (params.containsKey('company')) {
       params['company'] = new Company()..id = params['company'];
+    }
+    if (params.containsKey('rateGroup')) {
+      params['rateGroup'] = new RateGroup()..id = params['rateGroup'];
     }
     super.init(params: params);
   }
@@ -60,6 +65,10 @@ class Person extends Entity {
           return this.phoneNumbers;
         case 'rateGroup':
           return this.rateGroup;
+        case 'chargeable':
+          return this.chargeable;
+        case 'hideForBusiness':
+          return this.hideForBusiness;
         case 'company.name':
           return this.company?.name;
         default:
@@ -98,6 +107,12 @@ class Person extends Entity {
         break;
       case 'rateGroup':
         this.rateGroup = value is RateGroup ? value : new RateGroup.fromMap((value as Map<dynamic, dynamic>).cast<String, dynamic>());
+        break;
+      case 'chargeable':
+        this.chargeable = value as bool;
+        break;
+      case 'hideForBusiness':
+        this.hideForBusiness = value as bool;
         break;
       default:
         super.Set(property, value);
@@ -146,4 +161,6 @@ class Person extends Entity {
   List<Address> addresses = [];
   List<Phone> phoneNumbers = [];
   RateGroup rateGroup;
+  bool chargeable;
+  bool hideForBusiness;
 }

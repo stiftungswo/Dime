@@ -22,6 +22,20 @@ abstract class AbstractCustomer extends Entity
     protected $email;
 
     /**
+     * @var boolean|null $chargeable
+     * @ORM\Column(name="chargeable", type="boolean", nullable=true)
+     */
+    protected $chargeable = true;
+
+    /**
+     * Don't show this customer in menus for address selection for offers, invoices and projects
+     * @var bool|null $hideForBusiness
+     * @ORM\Column(name="hide_for_business", type="boolean", nullable=true)
+     * @JMS\SerializedName("hideForBusiness")
+     */
+    protected $hideForBusiness = false;
+
+    /**
      * @return string|null
      */
     public function getComment()
@@ -54,6 +68,22 @@ abstract class AbstractCustomer extends Entity
     public function setEmail(string $email) : AbstractCustomer
     {
         $this->email = $email;
+        return $this;
+    }
+
+    /**
+     * @param $chargeable
+     * @return AbstractCustomer
+     */
+    public function setChargeable($chargeable) : AbstractCustomer
+    {
+        $this->chargeable = $chargeable;
+        return $this;
+    }
+
+    public function setHideForBusiness($hideForBusiness) : AbstractCustomer
+    {
+        $this->hideForBusiness = $hideForBusiness;
         return $this;
     }
 }

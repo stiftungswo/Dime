@@ -209,6 +209,19 @@ class Company extends AbstractCustomer implements DimeEntityInterface
     }
 
     /**
+     * @return bool|null
+     */
+    public function getChargeable()
+    {
+        return $this->chargeable;
+    }
+
+    public function getHideForBusiness()
+    {
+        return $this->hideForBusiness;
+    }
+
+    /**
      * @return string|null
      */
     public function getName()

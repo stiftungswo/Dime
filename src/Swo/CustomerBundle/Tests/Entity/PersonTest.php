@@ -93,4 +93,34 @@ class PersonTest extends TestCase
         $person->setRateGroup($rateGroup);
         $this->assertEquals($rateGroup, $person->getRateGroup());
     }
+
+    public function testGetSetChargeable()
+    {
+        $person = new Person();
+        $this->assertTrue($person->getChargeable());
+        $person->setChargeable(false);
+        $this->assertFalse($person->getChargeable());
+
+        // should overtake value from company
+        $company = new Company();
+        $company->setChargeable(null);
+        $this->assertNotNull($person->getChargeable());
+        $person->setCompany($company);
+        $this->assertNull($person->getChargeable());
+    }
+
+    public function testGetSetHideForBusiness()
+    {
+        $person = new Person();
+        $this->assertFalse($person->getHideForBusiness());
+        $person->setHideForBusiness(true);
+        $this->assertTrue($person->getHideForBusiness());
+
+        // should overtake value from company
+        $company = new Company();
+        $company->setHideForBusiness(null);
+        $this->assertNotNull($person->getHideForBusiness());
+        $person->setCompany($company);
+        $this->assertNull($person->getHideForBusiness());
+    }
 }

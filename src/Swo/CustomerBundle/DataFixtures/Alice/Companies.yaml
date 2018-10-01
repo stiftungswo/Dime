@@ -5,3 +5,5 @@ Swo\CustomerBundle\Entity\Company:
     email (unique): <email()>
     name: <company()>
     department: 10%? <word()>
+    chargeable: <boolean(90)>
+    hideForBusiness: <boolean(90)>
