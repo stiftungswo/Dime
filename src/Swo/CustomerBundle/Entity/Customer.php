@@ -2,10 +2,11 @@
 
 namespace Swo\CustomerBundle\Entity;
 
+use Dime\TimetrackerBundle\Entity\Entity;
+use Dime\TimetrackerBundle\Entity\Tag;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as JMS;
-use Dime\TimetrackerBundle\Entity\Entity;
-use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Class Customer
@@ -61,6 +62,17 @@ abstract class Customer extends Entity
      * @JMS\SerializedName("addresses")
      */
     protected $addresses;
+
+    /**
+     * @var ArrayCollection $tags
+     *
+     * @JMS\Type("array")
+     * @JMS\SerializedName("tags")
+     * @ORM\ManyToMany(targetEntity="Dime\TimetrackerBundle\Entity\Tag", cascade="all")
+     * @ORM\JoinTable(name="new_customer_tags")
+     * @JMS\Groups({"List"})
+     */
+    protected $tags;
 
     /**
      * @var \Dime\TimetrackerBundle\Entity\RateGroup|null $rateGroup
@@ -131,7 +143,7 @@ abstract class Customer extends Entity
     /**
      * @return ArrayCollection
      */
-    public function getPhoneNumbers() : ArrayCollection
+    public function getPhoneNumbers(): ArrayCollection
     {
         return $this->phoneNumbers;
     }
@@ -140,7 +152,7 @@ abstract class Customer extends Entity
      * @param Phone $phone
      * @return Customer
      */
-    public function addPhoneNumber(Phone $phone) : Customer
+    public function addPhoneNumber(Phone $phone): Customer
     {
         $this->phoneNumbers[] = $phone;
         return $this;
@@ -150,7 +162,7 @@ abstract class Customer extends Entity
      * @param ArrayCollection $phoneNumbers
      * @return Customer
      */
-    public function setPhoneNumbers(ArrayCollection $phoneNumbers) : Customer
+    public function setPhoneNumbers(ArrayCollection $phoneNumbers): Customer
     {
         $this->phoneNumbers = $phoneNumbers;
         return $this;
@@ -160,7 +172,7 @@ abstract class Customer extends Entity
      * @param Phone $phone
      * @return Customer
      */
-    public function removePhoneNumber(Phone $phone) : Customer
+    public function removePhoneNumber(Phone $phone): Customer
     {
         $this->phoneNumbers->removeElement($phone);
         return $this;
@@ -169,7 +181,7 @@ abstract class Customer extends Entity
     /**
      * @return ArrayCollection
      */
-    public function getAddresses() : ArrayCollection
+    public function getAddresses(): ArrayCollection
     {
         return $this->addresses;
     }
@@ -178,7 +190,7 @@ abstract class Customer extends Entity
      * @param Address $address
      * @return Customer
      */
-    public function addAddress(Address $address) : Customer
+    public function addAddress(Address $address): Customer
     {
         $this->addresses[] = $address;
         return $this;
@@ -188,7 +200,7 @@ abstract class Customer extends Entity
      * @param ArrayCollection $addresses
      * @return Customer
      */
-    public function setAddresses(ArrayCollection $addresses) : Customer
+    public function setAddresses(ArrayCollection $addresses): Customer
     {
         $this->addresses = $addresses;
         return $this;
@@ -198,9 +210,55 @@ abstract class Customer extends Entity
      * @param Address $address
      * @return Customer
      */
-    public function removeAddress(Address $address) : Customer
+    public function removeAddress(Address $address): Customer
     {
         $this->addresses->removeElement($address);
+        return $this;
+    }
+
+    /**
+     * Add tag
+     *
+     * @param  Tag $tag
+     * @return Customer
+     */
+    public function addTag(Tag $tag)
+    {
+        $this->tags[] = $tag;
+        return $this;
+    }
+
+    /**
+     * Remove tags
+     *
+     * @param Tag $tag
+     * @return Customer
+     */
+    public function removeTag(Tag $tag)
+    {
+        $this->tags->removeElement($tag);
+        return $this;
+    }
+
+    /**
+     * Get tags
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTags()
+    {
+        return $this->tags;
+    }
+
+    /**
+     * Set tags
+     *
+     * @param \Doctrine\Common\Collections\ArrayCollection $tags
+     * @return Customer
+     */
+    public function setTags(ArrayCollection $tags)
+    {
+        $this->tags = $tags;
         return $this;
     }
 
@@ -216,7 +274,7 @@ abstract class Customer extends Entity
      * @param \Dime\TimetrackerBundle\Entity\RateGroup|null $rateGroup
      * @return Customer
      */
-    public function setRateGroup($rateGroup) : Customer
+    public function setRateGroup($rateGroup): Customer
     {
         $this->rateGroup = $rateGroup;
         return $this;

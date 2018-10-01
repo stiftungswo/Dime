@@ -14,13 +14,14 @@ class Company extends Customer {
     this.persons = original.persons;
     this.chargeable = original.chargeable;
     this.hideForBusiness = original.hideForBusiness;
+    this.tags = original.tags;
     addFieldstoUpdate([
       'email',
       'name',
       'comment',
       'department',
       'rateGroup',
-      'address', 'chargeable', 'hideforBusiness'
+      'address', 'chargeable', 'hideforBusiness', 'tags'
       // these have to be saved separately using cloneDescendants()
       //'phoneNumbers',
       // 'addresses',

@@ -24,6 +24,10 @@
                               (change)="addSaveField('comment')"></textarea>
                 </dime-form-group>
 
+                <dime-form-group horizontal label="Tags">
+                    <tag-select [ngModel]="entity.tags" (ngModelChange)="entity.tags=$event;addSaveField('tags')"></tag-select>
+                </dime-form-group>
+
                 <dime-form-group horizontal class="checkbox" help="Aktiviere diese Checkbox, wenn du möchtest, dass Projekte für diesen Kunden standardmässig verrechnet werden sollen. Du kannst dies aber pro Projekt nochmals individuell anpassen.">
                     <label>
                         <input required type="checkbox" [(ngModel)]="entity.chargeable" (change)="addSaveField('chargeable')"> Verrechenbar?

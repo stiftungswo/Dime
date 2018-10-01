@@ -9,6 +9,7 @@ use Swo\CustomerBundle\Entity\Address;
 use Swo\CustomerBundle\Entity\Company;
 use Swo\CustomerBundle\Entity\Person;
 use Swo\CustomerBundle\Entity\Phone;
+use Dime\TimetrackerBundle\Entity\Tag;
 
 class CompanyTest extends TestCase
 {
@@ -110,5 +111,22 @@ class CompanyTest extends TestCase
         $this->assertFalse($company->getHideForBusiness());
         $company->setHideForBusiness(true);
         $this->assertTrue($company->getHideForBusiness());
+    }
+
+    public function testTags()
+    {
+        // company has by default no tags
+        $company = new Company();
+        $this->assertEquals(0, count($company->getTags()));
+        // but we can add one
+        $tag = new Tag();
+        $company->addTag($tag);
+        $this->assertEquals(1, count($company->getTags()));
+        // and remove it
+        $company->removeTag($tag);
+        $this->assertEquals(0, count($company->getTags()));
+        // and it's also possible to pass an Array
+        $company->setTags(new ArrayCollection([$tag]));
+        $this->assertEquals(1, count($company->getTags()));
     }
 }

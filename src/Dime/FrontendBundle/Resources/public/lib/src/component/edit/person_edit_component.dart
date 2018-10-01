@@ -24,7 +24,8 @@ import 'entity_edit.dart';
   PhoneOverviewComponent,
   AddressOverviewComponent,
   RateGroupSelectComponent,
-  CompanySelectComponent
+  CompanySelectComponent,
+  TagSelectComponent
 ])
 class PersonEditComponent extends EntityEdit<Person> {
   PersonEditComponent(

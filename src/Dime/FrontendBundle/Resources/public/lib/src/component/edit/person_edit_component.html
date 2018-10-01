@@ -34,6 +34,10 @@
                               (change)="addSaveField('comment')"></textarea>
                 </dime-form-group>
 
+                <dime-form-group horizontal label="Tags">
+                    <tag-select [ngModel]="entity.tags" (ngModelChange)="entity.tags=$event;addSaveField('tags')"></tag-select>
+                </dime-form-group>
+
                 <div *ngIf="!hasCompany(entity)">
                     <dime-form-group horizontal label="Tarif">
                         <rate-group-select required

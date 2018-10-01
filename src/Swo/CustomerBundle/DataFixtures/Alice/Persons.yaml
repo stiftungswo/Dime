@@ -8,6 +8,7 @@ Swo\CustomerBundle\Entity\Person:
     rateGroup: @rateGroup_*
     chargeable: <boolean(90)>
     hideForBusiness: <boolean(90)>
+    tags: '<numberBetween(0, 3)>x @tag_*'
   person_{1..10}:
     company: @company_*
     comment: <sentence(1)>
@@ -15,3 +16,4 @@ Swo\CustomerBundle\Entity\Person:
     salutation: <randomElement(array('Herr', 'Frau'))>
     firstName: <firstName()>
     lastName: <lastName()>
+    tags: '<numberBetween(0, 3)>x @tag_*'
