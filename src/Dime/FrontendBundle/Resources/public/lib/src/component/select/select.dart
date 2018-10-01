@@ -1,4 +1,5 @@
 export 'activity_select_component.dart';
+export 'company_select_component.dart';
 export 'costgroup_select_component.dart';
 export 'offer_status_select.dart';
 export 'project_category_select_component.dart';

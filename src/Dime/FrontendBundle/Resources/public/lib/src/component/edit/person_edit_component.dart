@@ -11,9 +11,10 @@ import '../../service/status_service.dart';
 import '../../service/user_auth_service.dart';
 import '../../util/page_title.dart' as page_title;
 import '../common/dime_directives.dart';
-import '../overview/overview.dart';
-import 'entity_edit.dart';
 import '../main/routes.dart' as routes;
+import '../overview/overview.dart';
+import '../select/select.dart';
+import 'entity_edit.dart';
 
 @Component(selector: 'person-edit', templateUrl: 'person_edit_component.html', directives: const [
   coreDirectives,
@@ -23,7 +24,8 @@ import '../main/routes.dart' as routes;
   CompanyPhoneOverviewComponent,
   PersonPhoneOverviewComponent,
   CompanyAddressOverviewComponent,
-  PersonAddressOverviewComponent
+  PersonAddressOverviewComponent,
+  CompanySelectComponent
 ])
 class PersonEditComponent extends EntityEdit<Person> {
   PersonEditComponent(
@@ -42,9 +44,16 @@ class PersonEditComponent extends EntityEdit<Person> {
     page_title.setPageTitle('Person', entity?.lastName);
   }
 
-  bool hasCompany(Person entity) {
-    return entity.company != null;
-  }
+  bool hasCompany(Person entity) => entity.company != null ?? false;
 
   String get companyEditUrl => routes.CompanyEditRoute.toUrl(parameters: {'id': entity.company?.id.toString()});
+
+  Future releaseFromCompany(Person entity) async {
+    await this.statusservice.run(() async {
+      entity.company = null;
+      entity.addFieldtoUpdate('company');
+      await this.store.update(entity);
+      reload();
+    });
+  }
 }

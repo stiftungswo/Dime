@@ -19,8 +19,9 @@
                 </dime-form-group>
 
                 <dime-form-group horizontal label="Firma">
-                    <input disabled class="form-control"
-                           value="{{ hasCompany(entity) ? entity.company.name : 'Keine Firma zugewiesen' }}">
+                    <company-select ngControl="company"
+                                    [ngModel]="entity.company"
+                                    (ngModelChange)="entity.company=$event;addSaveField('company')"></company-select>
                 </dime-form-group>
 
                 <dime-form-group horizontal label="E-Mail">
@@ -33,7 +34,7 @@
                               (change)="addSaveField('comment')"></textarea>
                 </dime-form-group>
 
-                <p *ngIf="hasCompany(entity)"><b>Hinweis: </b> Adressen, welche für alle Personen einer Firma gültig
+                <p *ngIf="hasCompany(entity)"><b>Hinweis: </b> Adressen und Telefonnummern, welche für alle Personen einer Firma gültig
                     sein sollen, können <a
                             [routerLink]="companyEditUrl">hier</a>
                     erfasst werden.</p>
@@ -41,22 +42,12 @@
         </dime-box>
 
         <person-address-overview [person]="entity.id"></person-address-overview>
-
-        <div *ngIf="hasCompany(entity)" class="row">
-            <div class="col-md-6">
-                <company-phone-overview [company]="entity.company.id"></company-phone-overview>
-            </div>
-            <div class="col-md-6">
-                <person-phone-overview [person]="entity.id"></person-phone-overview>
-            </div>
-        </div>
-
-        <div *ngIf="!hasCompany(entity)">
-            <person-phone-overview [person]="entity.id"></person-phone-overview>
-        </div>
+        <person-phone-overview [person]="entity.id"></person-phone-overview>
 
         <div class="DimeControlButtons">
             <save-button [valid]="editform.valid" (click)="saveEntity()"></save-button>
+            <dime-button *ngIf="hasCompany(entity)" (click)="releaseFromCompany(entity)"
+                         fontAwesome="times" warning>Von Firma lösen</dime-button>
             <dime-button (click)="reloadEvict()" glyphicon="refresh"></dime-button>
         </div>
     </form>
