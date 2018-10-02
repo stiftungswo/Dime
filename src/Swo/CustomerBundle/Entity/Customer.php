@@ -42,6 +42,7 @@ abstract class Customer extends Entity
      * @var bool|null $hideForBusiness
      * @ORM\Column(name="hide_for_business", type="boolean", nullable=true)
      * @JMS\SerializedName("hideForBusiness")
+     * @JMS\Groups({"List"})
      */
     protected $hideForBusiness = false;
 

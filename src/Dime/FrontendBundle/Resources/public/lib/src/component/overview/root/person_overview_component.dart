@@ -5,6 +5,7 @@ import 'package:angular_forms/angular_forms.dart';
 import 'package:angular_router/angular_router.dart';
 
 import '../../../model/entity_export.dart';
+import '../../../pipe/customer_filter_pipe.dart';
 import '../../../pipe/dime_pipes.dart';
 import '../../../service/caching_object_store_service.dart';
 import '../../../service/entity_events_service.dart';
@@ -14,19 +15,22 @@ import '../../../service/user_auth_service.dart';
 import '../../../util/page_title.dart' as page_title;
 import '../../common/dime_directives.dart';
 import '../../main/routes.dart';
+import '../../select/select.dart';
 import '../entity_overview.dart';
 
 @Component(
     selector: 'person-overview',
     templateUrl: 'person_overview_component.html',
-    directives: const [coreDirectives, dimeDirectives, formDirectives],
-    pipes: const [dimePipes])
+    directives: const [coreDirectives, dimeDirectives, formDirectives, TagSelectComponent],
+    pipes: const [dimePipes, CustomerFilterPipe])
 class PersonOverviewComponent extends EntityOverview<Person> implements OnActivate {
   PersonOverviewComponent(CachingObjectStoreService store, Router router, SettingsService manager, StatusService status,
       UserAuthService auth, EntityEventsService entityEventsService)
       : super(Person, store, PersonEditRoute, manager, status, entityEventsService, router: router, auth: auth);
 
   static String globalFilterString = '';
+  static List<Tag> filterTags = [];
+  static bool showOnlySystemCustomer = false;
 
   @override
   String sortType = "lastName";

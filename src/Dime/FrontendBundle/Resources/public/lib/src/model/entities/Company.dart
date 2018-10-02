@@ -13,7 +13,6 @@ class Company extends Customer {
     this.phoneNumbers = original.phoneNumbers;
     this.persons = original.persons;
     this.chargeable = original.chargeable;
-    this.hideForBusiness = original.hideForBusiness;
     this.tags = original.tags;
     addFieldstoUpdate([
       'email',
@@ -21,7 +20,7 @@ class Company extends Customer {
       'comment',
       'department',
       'rateGroup',
-      'address', 'chargeable', 'hideforBusiness', 'tags'
+      'address', 'chargeable', 'tags'
       // these have to be saved separately using cloneDescendants()
       //'phoneNumbers',
       // 'addresses',
@@ -60,8 +59,6 @@ class Company extends Customer {
           return this.persons;
         case 'chargeable':
           return this.chargeable;
-        case 'hideForBusiness':
-          return this.hideForBusiness;
         default:
           break;
       }
@@ -99,9 +96,6 @@ class Company extends Customer {
         break;
       case 'chargeable':
         this.chargeable = value as bool;
-        break;
-      case 'hideForBusiness':
-        this.hideForBusiness = value as bool;
         break;
       default:
         super.Set(property, value);
@@ -146,5 +140,4 @@ class Company extends Customer {
   List<Phone> phoneNumbers = [];
   List<Person> persons = [];
   bool chargeable;
-  bool hideForBusiness;
 }

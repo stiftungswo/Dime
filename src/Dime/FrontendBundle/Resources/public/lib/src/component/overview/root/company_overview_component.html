@@ -13,6 +13,16 @@
             <input type="text" class="form-control" placeholder="Suche" [(ngModel)]="CompanyOverviewComponent.globalFilterString">
         </div>
 
+        <div class="form-group">
+            <p>Nach Tags filtern: </p>
+            <tag-select [(ngModel)]="CompanyOverviewComponent.filterTags"></tag-select>
+        </div>
+
+        <div class="form-group">
+            <label>Nur System-Kunden anzeigen: </label>
+            <input type="checkbox" [(ngModel)]="CompanyOverviewComponent.showOnlySystemCustomer">
+        </div>
+
         <table class="table table-bordered table-hover">
             <thead>
             <tr>
@@ -30,7 +40,7 @@
             </tr>
             </thead>
             <tbody *ngIf="entities != null">
-            <tr *ngFor="let entity of entities | filter:['id', 'name', 'address']:CompanyOverviewComponent.globalFilterString | orderBy:sortType:sortReverse" (dblclick)="openEditView(entity.id)">
+            <tr *ngFor="let entity of entities | filter:['id', 'name', 'address']:CompanyOverviewComponent.globalFilterString | customerFilterPipe:CompanyOverviewComponent.filterTags:CompanyOverviewComponent.showOnlySystemCustomer | orderBy:sortType:sortReverse" (dblclick)="openEditView(entity.id)">
                 <td>{{ entity.id }}</td>
                 <td>{{ entity.name }}</td>
                 <td>

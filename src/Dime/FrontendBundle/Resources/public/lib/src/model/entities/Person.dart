@@ -14,10 +14,9 @@ class Person extends Customer {
     this.company = original.company;
     this.rateGroup = original.rateGroup;
     this.chargeable = original.chargeable;
-    this.hideForBusiness = original.hideForBusiness;
     this.tags = original.tags;
     addFieldstoUpdate([
-      'salutation', 'firstName', 'lastName', 'email', 'comment', 'company', 'rateGroup', 'chargeable', 'hideforBusiness', 'tags'
+      'salutation', 'firstName', 'lastName', 'email', 'comment', 'company', 'rateGroup', 'chargeable', 'tags'
       // these have to be saved separately using cloneDescendants()
       //'phoneNumbers',
       // 'addresses',
@@ -68,8 +67,6 @@ class Person extends Customer {
           return this.rateGroup;
         case 'chargeable':
           return this.chargeable;
-        case 'hideForBusiness':
-          return this.hideForBusiness;
         case 'company.name':
           return this.company?.name;
         default:
@@ -111,9 +108,6 @@ class Person extends Customer {
         break;
       case 'chargeable':
         this.chargeable = value as bool;
-        break;
-      case 'hideForBusiness':
-        this.hideForBusiness = value as bool;
         break;
       default:
         super.Set(property, value);
@@ -163,5 +157,4 @@ class Person extends Customer {
   List<Phone> phoneNumbers = [];
   RateGroup rateGroup;
   bool chargeable;
-  bool hideForBusiness;
 }
