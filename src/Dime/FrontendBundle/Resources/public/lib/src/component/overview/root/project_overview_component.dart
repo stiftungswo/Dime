@@ -128,7 +128,7 @@ class ProjectOverviewComponent extends EntityOverview<Project> implements OnActi
     num val;
 
     try {
-      val = num.parse(a.value.toString().replaceAll(new RegExp(r'\w'), ''));
+      val = num.parse(a.value.toString().replaceAll(new RegExp(r'[^0-9]'), ''));
     } catch (e) {
       val = 99999;
     }
