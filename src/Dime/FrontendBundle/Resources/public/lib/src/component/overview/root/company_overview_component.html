@@ -7,6 +7,7 @@
         <div class="DimeControlButtons">
             <dime-button primary (click)="createEntity()" glyphicon="plus">Hinzufügen</dime-button>
             <dime-button (click)="reloadEvict()" glyphicon="refresh"></dime-button>
+            <dime-button (click)="importExportOpen = !importExportOpen" fontAwesome="address-card">Firmendaten importieren / exportieren</dime-button>
         </div>
 
         <div class="form-group">
@@ -21,6 +22,15 @@
         <div class="form-group">
             <label>Nur System-Kunden anzeigen: </label>
             <input type="checkbox" [(ngModel)]="CompanyOverviewComponent.showOnlySystemCustomer">
+        </div>
+
+        <div class="panel panel-default" *ngIf="importExportOpen">
+            <div class="panel-heading">Firmendaten importieren / exportieren</div>
+            <div class="panel-body">
+                <p>E-Mail-Adressen:</p>
+                <copy-input [text]="getEmailString()"></copy-input>
+                <br><p><b>Hinweis: </b> Nur Firmen, bei welcher auch eine E-Mail-Adresse erfasst ist, werden in obiger Aufstellung angezeigt.</p>
+            </div>
         </div>
 
         <table class="table table-bordered table-hover">

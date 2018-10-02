@@ -7,7 +7,6 @@ class Person extends Customer {
     this.salutation = original.salutation;
     this.firstName = original.firstName;
     this.lastName = original.lastName;
-    this.email = original.email;
     this.comment = original.comment;
     this.phoneNumbers = original.phoneNumbers;
     this.addresses = original.addresses;
@@ -16,7 +15,7 @@ class Person extends Customer {
     this.chargeable = original.chargeable;
     this.tags = original.tags;
     addFieldstoUpdate([
-      'salutation', 'firstName', 'lastName', 'email', 'comment', 'company', 'rateGroup', 'chargeable', 'tags'
+      'salutation', 'firstName', 'lastName', 'comment', 'company', 'rateGroup', 'chargeable', 'tags'
       // these have to be saved separately using cloneDescendants()
       //'phoneNumbers',
       // 'addresses',
@@ -53,8 +52,6 @@ class Person extends Customer {
           return this.firstName;
         case 'lastName':
           return this.lastName;
-        case 'email':
-          return this.email;
         case 'comment':
           return this.comment;
         case 'company':
@@ -87,9 +84,6 @@ class Person extends Customer {
         break;
       case 'lastName':
         this.lastName = value as String;
-        break;
-      case 'email':
-        this.email = value as String;
         break;
       case 'comment':
         this.comment = value as String;
@@ -150,7 +144,6 @@ class Person extends Customer {
   String salutation;
   String firstName;
   String lastName;
-  String email;
   String comment;
   Company company;
   List<Address> addresses = [];

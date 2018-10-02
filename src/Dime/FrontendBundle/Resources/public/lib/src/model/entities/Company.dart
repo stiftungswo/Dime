@@ -5,7 +5,6 @@ class Company extends Customer {
 
   Company.clone(Company original) : super.clone(original) {
     this.comment = original.comment;
-    this.email = original.email;
     this.name = original.name;
     this.department = original.department;
     this.rateGroup = original.rateGroup;
@@ -15,7 +14,6 @@ class Company extends Customer {
     this.chargeable = original.chargeable;
     this.tags = original.tags;
     addFieldstoUpdate([
-      'email',
       'name',
       'comment',
       'department',
@@ -43,8 +41,6 @@ class Company extends Customer {
       switch (property) {
         case 'comment':
           return this.comment;
-        case 'email':
-          return this.email;
         case 'name':
           return this.name;
         case 'department':
@@ -72,9 +68,6 @@ class Company extends Customer {
     switch (property) {
       case 'comment':
         this.comment = value as String;
-        break;
-      case 'email':
-        this.email = value as String;
         break;
       case 'name':
         this.name = value as String;
@@ -132,7 +125,6 @@ class Company extends Customer {
   @override
   String type = 'companies';
   String comment;
-  String email;
   String name;
   String department;
   RateGroup rateGroup;

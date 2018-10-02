@@ -16,6 +16,6 @@ class CustomerFilterPipe implements PipeTransform {
       Set<int> customerTagIds = c.tags.map((Tag t) => t.id as int).toSet();
       return selectedTagIds.difference(customerTagIds).isEmpty;
     });
-    return resultIterator.toList().cast<Entity>();
+    return resultIterator.toList();
   }
 }
