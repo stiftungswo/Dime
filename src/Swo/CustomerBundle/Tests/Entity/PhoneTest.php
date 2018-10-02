@@ -2,8 +2,6 @@
 
 namespace Swo\CustomerBundle\Tests\Entity;
 
-use Dime\TimetrackerBundle\Entity\Tag;
-use Doctrine\Common\Collections\ArrayCollection;
 use PHPUnit\Framework\TestCase;
 use Swo\CustomerBundle\Entity\Company;
 use Swo\CustomerBundle\Entity\Person;
@@ -39,23 +37,5 @@ class PhoneTest extends TestCase
         $person = new Person();
         $phone->setCustomer($person);
         $this->assertEquals($person, $phone->getCustomer());
-    }
-
-
-    public function testTags()
-    {
-        // person has by default no tags
-        $person = new Person();
-        $this->assertEquals(0, count($person->getTags()));
-        // but we can add one
-        $tag = new Tag();
-        $person->addTag($tag);
-        $this->assertEquals(1, count($person->getTags()));
-        // and remove it
-        $person->removeTag($tag);
-        $this->assertEquals(0, count($person->getTags()));
-        // and it's also possible to pass an Array
-        $person->setTags(new ArrayCollection([$tag]));
-        $this->assertEquals(1, count($person->getTags()));
     }
 }

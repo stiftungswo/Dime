@@ -66,7 +66,6 @@ abstract class Customer extends Entity
 
     /**
      * @var ArrayCollection $tags
-     *
      * @JMS\Type("array")
      * @JMS\SerializedName("tags")
      * @ORM\ManyToMany(targetEntity="Dime\TimetrackerBundle\Entity\Tag", cascade="all")
@@ -87,6 +86,7 @@ abstract class Customer extends Entity
     {
         $this->addresses = new ArrayCollection();
         $this->phoneNumbers = new ArrayCollection();
+        $this->tags = new ArrayCollection();
     }
 
     /**

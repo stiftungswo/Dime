@@ -3,6 +3,7 @@
 namespace Swo\CustomerBundle\Tests\Entity;
 
 use Dime\TimetrackerBundle\Entity\RateGroup;
+use Dime\TimetrackerBundle\Entity\Tag;
 use Doctrine\Common\Collections\ArrayCollection;
 use PHPUnit\Framework\TestCase;
 use Swo\CustomerBundle\Entity\Address;
@@ -122,5 +123,22 @@ class PersonTest extends TestCase
         $this->assertNotNull($person->getHideForBusiness());
         $person->setCompany($company);
         $this->assertNull($person->getHideForBusiness());
+    }
+
+    public function testTags()
+    {
+        // person has by default no tags
+        $person = new Person();
+        $this->assertEquals(0, count($person->getTags()));
+        // but we can add one
+        $tag = new Tag();
+        $person->addTag($tag);
+        $this->assertEquals(1, count($person->getTags()));
+        // and remove it
+        $person->removeTag($tag);
+        $this->assertEquals(0, count($person->getTags()));
+        // and it's also possible to pass an Array
+        $person->setTags(new ArrayCollection([$tag]));
+        $this->assertEquals(1, count($person->getTags()));
     }
 }
