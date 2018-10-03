@@ -7,6 +7,7 @@ use Dime\TimetrackerBundle\Controller\DimeController;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use FOS\RestBundle\Controller\Annotations;
 use Dime\TimetrackerBundle\Model\DimeEntityInterface;
+use Swo\CustomerBundle\Handler\CompanyHandler;
 use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -45,7 +46,7 @@ class CompanyController extends DimeController
      * @Annotations\Route(requirements={"_format"="json|xml"})
      *
      * @param ParamFetcherInterface $paramFetcher
-     *            param fetcher customer
+     *            param fetcher company
      *
      * @return array
      */
@@ -193,5 +194,104 @@ class CompanyController extends DimeController
     {
         $this->container->get($this->handlerService)->delete($this->getOr404($id, $this->handlerService));
         return $this->view(null, Codes::HTTP_NO_CONTENT);
+    }
+
+    /**
+     * Check for duplicate companies in db and import.
+     *
+     * @ApiDoc(
+     * resource = true,
+     * description="Check for duplicate companies in db and import.",
+     * section="companies",
+     * statusCodes = {
+     * 204 = "Returned when successful"
+     * }
+     * )
+     *
+     * @Annotations\Route(requirements={"_format"="json|xml"}, path="/companies/import/check")
+     * @Annotations\View(
+     * serializerEnableMaxDepthChecks=true
+     * )
+     *
+     * @Annotations\RequestParam(name="companies", array=true, description="The company data to check")
+     *
+     * @param ParamFetcherInterface $params
+     *
+     * @return View
+     *
+     */
+
+    // TODO: add controller test
+    public function postCustomersImportCheckAction(ParamFetcherInterface $params)
+    {
+        $companies = $params->get("companies");
+        /** @var CompanyHandler $companyHandler */
+        $companyHandler = $this->container->get($this->handlerService);
+        $foundDuplicates = [];
+        foreach ($companies as $company) {
+            $foundDuplicates[] = $companyHandler->checkForDuplicateCompany($company);
+        }
+        return $this->view($foundDuplicates, Codes::HTTP_OK);
+    }
+
+    /**
+     * Import all companies.
+     *
+     * @ApiDoc(
+     * resource = true,
+     * description="Import all Companies.",
+     * section="companies",
+     * statusCodes = {
+     * 201 = "Returned when successful"
+     * }
+     * )
+     *
+     * @Annotations\Route(requirements={"_format"="json|xml"}, path="/companies/import")
+     * @Annotations\View(
+     * serializerEnableMaxDepthChecks=true
+     * )
+     *
+     * @Annotations\RequestParam(name="companies", array=true, description="The new companies to import")
+     *
+     * @param ParamFetcherInterface $params
+     *
+     * @return View
+     *
+     */
+
+    // TODO: add controller test
+    public function postCompaniesImportAction(ParamFetcherInterface $params)
+    {
+        $companies = $params->get("companies");
+        $companyHandler = $this->container->get($this->handlerService);
+        $addressHandler = $this->container->get('swo.address.handler');
+        $phoneHandler = $this->container->get('swo.phone.handler');
+        $createdCompanies = [];
+
+        foreach ($companies as $company) {
+            // take out phones and addresses
+            $phones = $company['phoneNumbers'];
+            unset($company['phoneNumbers']);
+            $addresses = $company['addresses'];
+            unset($company['addresses']);
+
+            // create new company
+            $newCompany = $companyHandler->post($company);
+            
+            // create new phones and addresses
+            foreach ($addresses as $address) {
+                $address['customer'] = $newCompany->getId();
+                $addressHandler->post($address);
+            }
+
+            // create new phones and addresses
+            foreach ($phones as $phone) {
+                $phone['customer'] = $newCompany->getId();
+                $phoneHandler->post($phone);
+            }
+
+            $createdCompanies[] = $newCompany;
+        }
+        return $this->view($createdCompanies, Codes::HTTP_CREATED);
     }
 }

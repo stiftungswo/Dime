@@ -7,15 +7,10 @@ class Person extends Customer {
     this.salutation = original.salutation;
     this.firstName = original.firstName;
     this.lastName = original.lastName;
-    this.comment = original.comment;
-    this.phoneNumbers = original.phoneNumbers;
-    this.addresses = original.addresses;
     this.company = original.company;
-    this.rateGroup = original.rateGroup;
-    this.chargeable = original.chargeable;
     this.tags = original.tags;
     addFieldstoUpdate([
-      'salutation', 'firstName', 'lastName', 'comment', 'company', 'rateGroup', 'chargeable', 'tags'
+      'salutation', 'firstName', 'lastName', 'company', 'rateGroup', 'tags'
       // these have to be saved separately using cloneDescendants()
       //'phoneNumbers',
       // 'addresses',
@@ -52,18 +47,8 @@ class Person extends Customer {
           return this.firstName;
         case 'lastName':
           return this.lastName;
-        case 'comment':
-          return this.comment;
         case 'company':
           return this.company;
-        case 'addresses':
-          return this.addresses;
-        case 'phoneNumbers':
-          return this.phoneNumbers;
-        case 'rateGroup':
-          return this.rateGroup;
-        case 'chargeable':
-          return this.chargeable;
         case 'company.name':
           return this.company?.name;
         default:
@@ -85,23 +70,8 @@ class Person extends Customer {
       case 'lastName':
         this.lastName = value as String;
         break;
-      case 'comment':
-        this.comment = value as String;
-        break;
       case 'company':
         this.company = value is Company ? value : new Company.fromMap((value as Map<dynamic, dynamic>).cast<String, dynamic>());
-        break;
-      case 'addresses':
-        this.addresses = Address.listFromMap((value as List<dynamic>).cast());
-        break;
-      case 'phoneNumbers':
-        this.phoneNumbers = Phone.listFromMap((value as List<dynamic>).cast());
-        break;
-      case 'rateGroup':
-        this.rateGroup = value is RateGroup ? value : new RateGroup.fromMap((value as Map<dynamic, dynamic>).cast<String, dynamic>());
-        break;
-      case 'chargeable':
-        this.chargeable = value as bool;
         break;
       default:
         super.Set(property, value);
@@ -118,36 +88,9 @@ class Person extends Customer {
   }
 
   @override
-  List<Entity> cloneDescendantsOf(Entity original) {
-    if (original is Person) {
-      var clones = new List<Entity>();
-
-      for (Phone entity in original.phoneNumbers) {
-        Phone clone = new Phone.clone(entity);
-        clone.customer = this;
-        clones.add(clone);
-      }
-
-      for (Address entity in original.addresses) {
-        Address clone = new Address.clone(entity);
-        clone.customer = this;
-        clones.add(clone);
-      }
-      return clones;
-    } else {
-      throw new Exception("Invalid Type; Person expected!");
-    }
-  }
-
-  @override
   String type = 'persons';
   String salutation;
   String firstName;
   String lastName;
-  String comment;
   Company company;
-  List<Address> addresses = [];
-  List<Phone> phoneNumbers = [];
-  RateGroup rateGroup;
-  bool chargeable;
 }

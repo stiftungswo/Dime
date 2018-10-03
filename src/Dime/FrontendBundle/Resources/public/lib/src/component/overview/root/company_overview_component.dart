@@ -16,15 +16,24 @@ import '../../../service/user_auth_service.dart';
 import '../../../util/page_title.dart' as page_title;
 import '../../common/copy_input_component.dart';
 import '../../common/dime_directives.dart';
+import '../../common/help_tooltip_component.dart';
+import '../../customer/company_import_export_component.dart';
 import '../../main/routes.dart' as routes;
 import '../../select/select.dart';
 import '../entity_overview.dart';
 
-@Component(
-    selector: 'company-overview',
-    templateUrl: 'company_overview_component.html',
-    directives: const [coreDirectives, dimeDirectives, formDirectives, TagSelectComponent, CopyInputComponent],
-    pipes: const [dimePipes, CustomerFilterPipe])
+@Component(selector: 'company-overview', templateUrl: 'company_overview_component.html', directives: const [
+  coreDirectives,
+  dimeDirectives,
+  formDirectives,
+  TagSelectComponent,
+  CopyInputComponent,
+  CompanyImportExportComponent,
+  HelpTooltipComponent
+], pipes: const [
+  dimePipes,
+  CustomerFilterPipe
+])
 class CompanyOverviewComponent extends EntityOverview<Company> implements OnActivate {
   CompanyOverviewComponent(CachingObjectStoreService store, Router router, SettingsService manager, StatusService status,
       UserAuthService auth, EntityEventsService entityEventsService)

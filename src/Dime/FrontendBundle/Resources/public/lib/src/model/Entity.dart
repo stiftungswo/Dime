@@ -1,9 +1,10 @@
 import 'package:hammock/hammock.dart';
 import 'package:meta/meta.dart';
 
+import 'entities/Address.dart';
+import 'entities/Phone.dart';
 import 'entities/Tag.dart';
 import 'entities/User.dart';
-import 'entities/Address.dart';
 
 class Entity {
   Entity();
@@ -61,6 +62,16 @@ class Entity {
         value = value.map((Tag e) => (e..addFieldtoUpdate('id')).toMap()['id']).toList();
       } else if (value is DateTime) {
         value = value.toString();
+      } else if (value is List<Phone> || value is List<Address>) {
+        // fixes the submission of new companies / customers to the import, should not affect other models
+        value = value.map((Entity e) {
+          if (e is Phone) {
+            e.addFieldstoUpdate(['number', 'category']);
+          } else if (e is Address) {
+            e.addFieldstoUpdate(['street', 'supplement', 'city', 'postcode', 'country', 'description']);
+          }
+          return e.toMap();
+        }).toList();
       }
       map[item] = value;
     }

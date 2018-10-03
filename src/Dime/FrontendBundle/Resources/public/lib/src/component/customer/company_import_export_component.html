@@ -1,0 +1,75 @@
+<div>
+    <download-button [href]="getCsvTemplateUri()" name="template.csv">Import-Vorlage herunterladen</download-button>
+    <help-tooltip text="Muss als 'Windows-Kommagetrennt (CSV)' abgespeichert werden. Umlaute kontrollieren!"></help-tooltip>
+
+    <div class="form-horizontal">
+        <dime-form-group horizontal class="checkbox" label="Ausgefüllte Import-Datei hochladen">
+            <input type="file" accept=".csv,text/csv" #import (change)="importFile(import.files)">
+        </dime-form-group>
+    </div>
+
+    <div *ngIf="customersToImport.isNotEmpty">
+        <h3>Vorschau des Imports</h3>
+
+        <div class="row">
+            <div class="col-md-12">
+                <dime-box label="Einstellungen">
+                    <div boxBody class="form-horizontal">
+                        <p>Die Datensätze werden mit folgenden Attributen importiert:</p>
+
+                        <dime-form-group horizontal class="checkbox" label="Nicht anzeigen in Dime?" help="Aktiviere diese Checkbox, wenn du möchtest, dass diese Kunden bei der Erstellung von neuen Offerten oder Projekten nicht angezeigt werden sollen.">
+                            <input type="checkbox" [(ngModel)]="importIsHiddenForBusiness">
+                        </dime-form-group>
+
+                        <dime-form-group horizontal class="checkbox" label="Verrechenbar?">
+                            <input type="checkbox" [(ngModel)]="importChargeable">
+                        </dime-form-group>
+
+                        <dime-form-group horizontal label="Tags">
+                            <tag-select [(ngModel)]="importTags"></tag-select>
+                        </dime-form-group>
+
+                        <dime-form-group horizontal label="Tarif-Gruppe">
+                            <rate-group-select [(ngModel)]="importRateGroup"></rate-group-select>
+                        </dime-form-group>
+
+                        <div class="DimeControlButtons">
+                            <dime-button (click)="findDuplicates()">Duplikate suchen</dime-button>
+                            <dime-button *ngIf="importCheckedForDuplicates" (click)="removeAllDuplicates()">Alle gefundenen Duplikate entfernen</dime-button>
+                            <dime-button (click)="doImport()" primary>Import starten</dime-button><br><br>
+
+                            <div class="progress progress-striped active" *ngIf="importRunning">
+                                <div class="progress-bar" [style.width.%]="importProgressPercentage">
+                                    {{importProgress}} / {{importTotal}} Firmen importiert
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </dime-box>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-3" *ngFor="let customer of customersToImport">
+                <dime-box label="{{'Firma: ' + customer.item.name }}">
+                    <div boxBody>
+                        <p>E-Mail: {{ customer.item.email }}</p>
+                        <p>Telefonnummer: {{ getMainPhoneNumber(customer.item) }}</p>
+                        <p>Mobilnummer: {{ getMobilePhoneNumber(customer.item) }}</p>
+                        <p>Strasse: {{ customer.item.addresses.first.street }}</p>
+                        <p>Addresszusatz: {{ customer.item.addresses.first.supplement }}</p>
+                        <p>Postleitahl: {{ customer.item.addresses.first.postcode?.toString() }}</p>
+                        <p>Stadt: {{ customer.item.addresses.first.city }}</p>
+                        <p>Land: {{ customer.item.addresses.first.country }}</p>
+                        <p>Kommentar: {{ customer.item.comment }}</p>
+                    </div>
+
+                    <div boxFooter class="DimeControlButtons" *ngIf="customer.isDuplicate">
+                        <span class="text-danger">Duplikat</span>
+                        <dime-button (click)="remove(customer)">Entfernen</dime-button>
+                    </div>
+                </dime-box>
+            </div>
+        </div>
+    </div>
+</div>
