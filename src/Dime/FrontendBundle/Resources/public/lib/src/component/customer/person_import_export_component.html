@@ -1,78 +1,97 @@
-<div>
-    <download-button [href]="getCsvTemplateUri()" name="template.csv">Import-Vorlage herunterladen</download-button>
-    <help-tooltip text="Muss als 'Windows-Kommagetrennt (CSV)' abgespeichert werden. Umlaute kontrollieren!"></help-tooltip>
+<div class="row">
+    <div class="col-sm-6">
+        <dime-box label="Import-/ Exportfunktionen">
+            <div boxBody>
+                <p>E-Mail-Adressen:</p>
+                <copy-input [text]="getEmailString()"></copy-input>
+                <br>
 
-    <div class="form-horizontal">
-        <dime-form-group horizontal class="checkbox" label="Ausgefüllte Import-Datei hochladen">
-            <input type="file" accept=".csv,text/csv" #import (change)="importFile(import.files)">
-        </dime-form-group>
+                <div class="form-horizontal">
+                    <dime-form-group horizontal class="checkbox" label="Ausgefüllte Import-Datei hochladen">
+                        <input type="file" accept=".csv,text/csv" #import (change)="importFile(import.files)">
+                    </dime-form-group>
+                </div>
+            </div>
+
+            <div boxFooter class="DimeControlButtons">
+                <download-button [href]="getCsvTemplateUri()" name="template.csv">Import-Vorlage herunterladen
+                </download-button>
+                <help-tooltip
+                        text="Muss als 'Windows-Kommagetrennt (CSV)' abgespeichert werden. Umlaute kontrollieren!"></help-tooltip>
+            </div>
+        </dime-box>
     </div>
 
-    <div *ngIf="customersToImport.isNotEmpty">
-        <h3>Vorschau des Imports</h3>
+    <div class="col-sm-6" *ngIf="customersToImport.isNotEmpty">
+        <dime-box label="Import-Einstellungen">
+            <div boxBody class="form-horizontal">
+                <p>Die Datensätze werden mit folgenden Attributen importiert:</p>
 
-        <div class="row">
-            <div class="col-md-12">
-                <dime-box label="Einstellungen">
-                    <div boxBody class="form-horizontal">
-                        <p>Die Datensätze werden mit folgenden Attributen importiert:</p>
+                <dime-form-group horizontal class="checkbox" label="Nicht anzeigen in Dime?"
+                                 help="Aktiviere diese Checkbox, wenn du möchtest, dass diese Kunden bei der Erstellung von neuen Offerten oder Projekten nicht angezeigt werden sollen.">
+                    <input type="checkbox" [(ngModel)]="importIsHiddenForBusiness">
+                </dime-form-group>
 
-                        <dime-form-group horizontal class="checkbox" label="Nicht anzeigen in Dime?" help="Aktiviere diese Checkbox, wenn du möchtest, dass diese Kunden bei der Erstellung von neuen Offerten oder Projekten nicht angezeigt werden sollen.">
-                            <input type="checkbox" [(ngModel)]="importIsHiddenForBusiness">
-                        </dime-form-group>
+                <dime-form-group horizontal class="checkbox" label="Verrechenbar?">
+                    <input type="checkbox" [(ngModel)]="importChargeable">
+                </dime-form-group>
 
-                        <dime-form-group horizontal class="checkbox" label="Verrechenbar?">
-                            <input type="checkbox" [(ngModel)]="importChargeable">
-                        </dime-form-group>
+                <dime-form-group horizontal label="Tags">
+                    <tag-select [(ngModel)]="importTags"></tag-select>
+                </dime-form-group>
 
-                        <dime-form-group horizontal label="Tags">
-                            <tag-select [(ngModel)]="importTags"></tag-select>
-                        </dime-form-group>
+                <dime-form-group horizontal label="Tarif-Gruppe">
+                    <rate-group-select [(ngModel)]="importRateGroup"></rate-group-select>
+                </dime-form-group>
+                <br>
 
-                        <dime-form-group horizontal label="Tarif-Gruppe">
-                            <rate-group-select [(ngModel)]="importRateGroup"></rate-group-select>
-                        </dime-form-group><br>
-
-                        <p><b>Hinweis: </b> Wenn im Import eine Firma für die Person angegeben ist, und die Firma kann beim Import nicht gefunden werden, wird die Person ohne Firma erfasst.</p>
-
-                        <div class="DimeControlButtons">
-                            <dime-button (click)="findDuplicates()" tooltip="Die Duplikatssuche überprüft, ob bereits eine Person mit denselben Vornamen, Nachname, E-Mail-Addresse und ggf. Firma erfasst wurde.">Duplikate suchen</dime-button>
-                            <dime-button *ngIf="importCheckedForDuplicates" (click)="removeAllDuplicates()">Alle gefundenen Duplikate entfernen</dime-button>
-                            <dime-button (click)="doImport()" primary>Import starten</dime-button><br><br>
-
-                            <div class="progress progress-striped active" *ngIf="importRunning">
-                                <div class="progress-bar" [style.width.%]="importProgressPercentage">
-                                    {{importProgress}} / {{importTotal}} Personen importiert
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </dime-box>
+                <p><b>Hinweis: </b> Wenn im Import eine Firma für die Person angegeben ist, und die Firma kann beim
+                    Import nicht gefunden werden, wird die Person ohne Firma erfasst.</p>
             </div>
-        </div>
 
-        <div class="row">
-            <div class="col-md-3" *ngFor="let customer of customersToImport">
-                <dime-box label="{{customer.item.firstName + ' ' + customer.item.lastName }}">
-                    <div boxBody>
-                        <p>Firma: {{ customer.item.company?.name }}</p>
-                        <p>E-Mail: {{ customer.item.email }}</p>
-                        <p>Telefonnummer: {{ getMainPhoneNumber(customer.item) }}</p>
-                        <p>Mobilnummer: {{ getMobilePhoneNumber(customer.item) }}</p>
-                        <p>Strasse: {{ mainAddress(customer.item)?.street }}</p>
-                        <p>Addresszusatz: {{ mainAddress(customer.item)?.supplement }}</p>
-                        <p>Postleitzahl: {{ mainAddress(customer.item)?.postcode?.toString() }}</p>
-                        <p>Stadt: {{ mainAddress(customer.item)?.city }}</p>
-                        <p>Land: {{ mainAddress(customer.item)?.country }}</p>
-                        <p>Kommentar: {{ customer.item.comment }}</p>
-                    </div>
+            <div boxFooter class="DimeControlButtons">
+                <dime-button (click)="findDuplicates()"
+                             tooltip="Die Duplikatssuche überprüft, ob bereits eine Person mit denselben Vornamen, Nachname, E-Mail-Addresse und ggf. Firma erfasst wurde.">
+                    Duplikate suchen
+                </dime-button>
+                <dime-button *ngIf="importCheckedForDuplicates" (click)="removeAllDuplicates()">Alle gefundenen
+                    Duplikate entfernen
+                </dime-button>
+                <dime-button (click)="doImport()" primary>Import starten</dime-button>
+                <br><br>
 
-                    <div boxFooter class="DimeControlButtons" *ngIf="customer.isDuplicate">
-                        <span class="text-danger">Duplikat</span>
-                        <dime-button (click)="remove(customer)">Entfernen</dime-button>
+                <div class="progress progress-striped active" *ngIf="importRunning">
+                    <div class="progress-bar" [style.width.%]="importProgressPercentage">
+                        {{importProgress}} / {{importTotal}} Personen importiert
                     </div>
-                </dime-box>
+                </div>
             </div>
+        </dime-box>
+    </div>
+</div>
+
+<div *ngIf="customersToImport.isNotEmpty">
+    <div class="row">
+        <div class="col-md-3" *ngFor="let customer of customersToImport">
+            <dime-box label="{{customer.item.firstName + ' ' + customer.item.lastName }}">
+                <div boxBody>
+                    <p>Firma: {{ customer.item.company?.name }}</p>
+                    <p>E-Mail: {{ customer.item.email }}</p>
+                    <p>Telefonnummer: {{ getMainPhoneNumber(customer.item) }}</p>
+                    <p>Mobilnummer: {{ getMobilePhoneNumber(customer.item) }}</p>
+                    <p>Strasse: {{ mainAddress(customer.item)?.street }}</p>
+                    <p>Addresszusatz: {{ mainAddress(customer.item)?.supplement }}</p>
+                    <p>Postleitzahl: {{ mainAddress(customer.item)?.postcode?.toString() }}</p>
+                    <p>Stadt: {{ mainAddress(customer.item)?.city }}</p>
+                    <p>Land: {{ mainAddress(customer.item)?.country }}</p>
+                    <p>Kommentar: {{ customer.item.comment }}</p>
+                </div>
+
+                <div boxFooter class="DimeControlButtons" *ngIf="customer.isDuplicate">
+                    <span class="text-danger">Duplikat</span>
+                    <dime-button (click)="remove(customer)">Entfernen</dime-button>
+                </div>
+            </dime-box>
         </div>
     </div>
 </div>

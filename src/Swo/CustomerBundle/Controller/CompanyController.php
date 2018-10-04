@@ -2,18 +2,18 @@
 
 namespace Swo\CustomerBundle\Controller;
 
-use FOS\RestBundle\Request\ParamFetcherInterface;
 use Dime\TimetrackerBundle\Controller\DimeController;
-use Nelmio\ApiDocBundle\Annotation\ApiDoc;
-use FOS\RestBundle\Controller\Annotations;
+use Dime\TimetrackerBundle\Exception\InvalidFormException;
 use Dime\TimetrackerBundle\Model\DimeEntityInterface;
+use FOS\RestBundle\Controller\Annotations;
+use FOS\RestBundle\Request\ParamFetcherInterface;
+use FOS\RestBundle\Util\Codes;
+use FOS\RestBundle\View\View;
+use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Swo\CustomerBundle\Handler\CompanyHandler;
 use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use FOS\RestBundle\View\View;
-use FOS\RestBundle\Util\Codes;
-use Dime\TimetrackerBundle\Exception\InvalidFormException;
 
 class CompanyController extends DimeController
 {

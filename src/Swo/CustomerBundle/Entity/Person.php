@@ -134,6 +134,9 @@ class Person extends Customer implements DimeEntityInterface
         }
     }
 
+    /**
+     * @return bool|null
+     */
     public function getHideForBusiness()
     {
         if (is_null($this->getCompany())) {
@@ -141,6 +144,14 @@ class Person extends Customer implements DimeEntityInterface
         } else {
             return $this->getCompany()->getHideForBusiness();
         }
+    }
+
+    /**
+     * @return string
+     */
+    public function getSerializedName()
+    {
+        return $this->getFirstName() . ' ' . $this->getLastName();
     }
 
     /**

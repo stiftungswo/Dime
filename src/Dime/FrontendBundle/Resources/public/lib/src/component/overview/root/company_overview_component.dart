@@ -7,7 +7,6 @@ import 'package:angular_router/angular_router.dart';
 import '../../../model/entity_export.dart';
 import '../../../pipe/customer_filter_pipe.dart';
 import '../../../pipe/dime_pipes.dart';
-import '../../../pipe/filter_pipe.dart';
 import '../../../service/caching_object_store_service.dart';
 import '../../../service/entity_events_service.dart';
 import '../../../service/settings_service.dart';
@@ -41,7 +40,7 @@ class CompanyOverviewComponent extends EntityOverview<Company> implements OnActi
 
   static String globalFilterString = '';
   static List<Tag> filterTags = [];
-  static bool showOnlySystemCustomer = false;
+  static bool showHideForBusiness = true;
   bool importExportOpen = false;
 
   @override
@@ -65,17 +64,5 @@ class CompanyOverviewComponent extends EntityOverview<Company> implements OnActi
   @override
   Future createEntity({Company newEnt, Map<String, dynamic> params: const {}}) {
     return super.createEntity(params: {'name': 'Neue Firma'});
-  }
-
-  String getEmailString() {
-    FilterPipe filterPipe = new FilterPipe();
-    CustomerFilterPipe customerFilterPipe = new CustomerFilterPipe();
-    List<Entity> tmpList = filterPipe.transform(this.entities, ['id', 'name', 'address'], globalFilterString);
-    return customerFilterPipe
-        .transform(tmpList, filterTags, showOnlySystemCustomer)
-        .cast<Company>()
-        .where((Company c) => c.email?.isNotEmpty ?? false)
-        .map((Company c) => "${c.name}<${c.email}>")
-        .join(',');
   }
 }

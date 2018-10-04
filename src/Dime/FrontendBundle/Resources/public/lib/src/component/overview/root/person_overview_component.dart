@@ -33,7 +33,7 @@ class PersonOverviewComponent extends EntityOverview<Person> implements OnActiva
 
   static String globalFilterString = '';
   static List<Tag> filterTags = [];
-  static bool showOnlySystemCustomer = false;
+  static bool showHideForBusiness = true;
   bool importExportOpen = false;
 
   @override
@@ -58,17 +58,5 @@ class PersonOverviewComponent extends EntityOverview<Person> implements OnActiva
   Future createEntity({Person newEnt, Map<String, dynamic> params: const {}}) {
     return super
         .createEntity(params: {'firstName': 'Heiri', 'lastName': 'Müller', 'rateGroup': 1, 'chargeable': true, 'hideForBusiness': false});
-  }
-
-  String getEmailString() {
-    FilterPipe filterPipe = new FilterPipe();
-    CustomerFilterPipe customerFilterPipe = new CustomerFilterPipe();
-    List<Entity> tmpList = filterPipe.transform(this.entities, ['id', 'firstName', 'lastName', 'company.name'], globalFilterString);
-    return customerFilterPipe
-        .transform(tmpList, filterTags, showOnlySystemCustomer)
-        .cast<Person>()
-        .where((Person p) => p.email?.isNotEmpty ?? false)
-        .map((Person p) => "${p.firstName} ${p.lastName}<${p.email}>")
-        .join(',');
   }
 }

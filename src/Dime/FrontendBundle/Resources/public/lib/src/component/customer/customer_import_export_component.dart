@@ -3,13 +3,16 @@ import 'dart:convert';
 import 'dart:html';
 import 'dart:math' as math;
 
+import 'package:angular/angular.dart';
 import 'package:angular/src/security/dom_sanitization_service.dart';
 import 'package:csv/csv.dart';
 import 'package:csv/csv_settings_autodetection.dart';
-import '../../service/http_service.dart';
 import 'package:hammock/hammock.dart';
 
 import '../../model/entity_export.dart';
+import '../../pipe/customer_filter_pipe.dart';
+import '../../pipe/filter_pipe.dart';
+import '../../service/http_service.dart';
 import '../../service/status_service.dart';
 
 abstract class CustomerImportExportComponent<T extends Customer> {
@@ -28,6 +31,15 @@ abstract class CustomerImportExportComponent<T extends Customer> {
   List<Tag> importTags = [];
   int get importTotal => customersToImport.length;
   String importType = 'customers';
+
+  @Input()
+  List<Customer> entities = [];
+  @Input()
+  String filterString = '';
+  @Input()
+  List<Tag> filterTags = [];
+  @Input()
+  bool showHideForBusiness = true;
 
   CustomerImportExportComponent(this.sanitizationService, this.statusService, this.http, this.store);
 
@@ -108,6 +120,18 @@ abstract class CustomerImportExportComponent<T extends Customer> {
     String csv = '\ufeffsep=,\n';
     csv += csvHeaders().join(',');
     return sanitizationService.bypassSecurityTrustUrl("data:text/csv;charset=utf-8,${csv}");
+  }
+
+  String getEmailString() {
+    FilterPipe filterPipe = new FilterPipe();
+    CustomerFilterPipe customerFilterPipe = new CustomerFilterPipe();
+    List<Entity> tmpList = filterPipe.transform(this.entities, ['id', 'serializedName'], filterString);
+    return customerFilterPipe
+        .transform(tmpList, filterTags, showHideForBusiness)
+        .cast<Customer>()
+        .where((Customer c) => c.email?.isNotEmpty ?? false)
+        .map((Customer c) => "${c.serializedName}<${c.email}>")
+        .join(',');
   }
 
   double get importProgressPercentage => importProgress / importTotal * 100;

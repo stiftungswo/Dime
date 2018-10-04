@@ -1,3 +1,10 @@
+<person-import-export
+        [entities]="entities"
+        [filterString]="PersonOverviewComponent.globalFilterString"
+        [filterTags]="PersonOverviewComponent.filterTags"
+        [showHideForBusiness]="PersonOverviewComponent.showHideForBusiness">
+</person-import-export>
+
 <div class="box box-primary">
     <div class="box-header with-border">
         <h3 class="box-title">Kunden: Personen</h3>
@@ -20,18 +27,8 @@
         </div>
 
         <div class="form-group">
-            <label>Nur System-Kunden anzeigen: </label>
-            <input type="checkbox" [(ngModel)]="PersonOverviewComponent.showOnlySystemCustomer">
-        </div>
-
-        <div class="panel panel-default" *ngIf="importExportOpen">
-            <div class="panel-heading">Personendaten importieren / exportieren</div>
-            <div class="panel-body">
-                <p>E-Mail-Adressen:</p>
-                <copy-input [text]="getEmailString()"></copy-input><br>
-
-                <person-import-export></person-import-export>
-            </div>
+            <label>Auch verstecke Personen anzeigen: </label>
+            <input type="checkbox" [(ngModel)]="PersonOverviewComponent.showHideForBusiness">
         </div>
 
         <table class="table table-bordered table-hover">
@@ -61,7 +58,7 @@
             </tr>
             </thead>
             <tbody *ngIf="entities != null">
-            <tr *ngFor="let entity of entities | filter:['id', 'firstName', 'lastName', 'company.name']:PersonOverviewComponent.globalFilterString | customerFilterPipe:PersonOverviewComponent.filterTags:PersonOverviewComponent.showOnlySystemCustomer | orderBy:sortType:sortReverse" (dblclick)="openEditView(entity.id)">
+            <tr *ngFor="let entity of entities | filter:['id', 'firstName', 'lastName', 'company.name']:PersonOverviewComponent.globalFilterString | customerFilterPipe:PersonOverviewComponent.filterTags:PersonOverviewComponent.showHideForBusiness | orderBy:sortType:sortReverse" (dblclick)="openEditView(entity.id)">
                 <td>{{ entity.id }}</td>
                 <td>{{ entity.firstName }}</td>
                 <td>{{ entity.lastName }}</td>

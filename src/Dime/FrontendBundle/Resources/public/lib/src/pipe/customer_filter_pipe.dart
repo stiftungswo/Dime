@@ -10,7 +10,7 @@ class CustomerFilterPipe implements PipeTransform {
     Set<int> selectedTagIds = selectedTags.map((Tag t) => t.id as int).toSet();
     Iterable<Customer> resultIterator = value.cast<Customer>();
     if (showOnlySystemCustomers) {
-      resultIterator = resultIterator.where((Customer c) => !c.hideForBusiness);
+      resultIterator = resultIterator.where((Customer c) => c.hideForBusiness);
     }
     resultIterator = resultIterator.where((Customer c) {
       Set<int> customerTagIds = c.tags.map((Tag t) => t.id as int).toSet();

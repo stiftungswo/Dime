@@ -12,7 +12,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="Swo\CustomerBundle\Entity\CompanyRepository")
  * @ORM\Table(name="companies")
  */
-
 class Company extends Customer implements DimeEntityInterface
 {
     /**
@@ -57,7 +56,7 @@ class Company extends Customer implements DimeEntityInterface
     /**
      * @return ArrayCollection
      */
-    public function getPersons() : ArrayCollection
+    public function getPersons(): ArrayCollection
     {
         return $this->persons;
     }
@@ -66,7 +65,7 @@ class Company extends Customer implements DimeEntityInterface
      * @param Person $person
      * @return Company
      */
-    public function addPerson(Person $person) : Company
+    public function addPerson(Person $person): Company
     {
         $this->persons[] = $person;
         return $this;
@@ -76,7 +75,7 @@ class Company extends Customer implements DimeEntityInterface
      * @param ArrayCollection $persons
      * @return Company
      */
-    public function setPersons(ArrayCollection $persons) : Company
+    public function setPersons(ArrayCollection $persons): Company
     {
         $this->persons = $persons;
         return $this;
@@ -86,7 +85,7 @@ class Company extends Customer implements DimeEntityInterface
      * @param Person $person
      * @return Company
      */
-    public function removePerson(Person $person) : Company
+    public function removePerson(Person $person): Company
     {
         $this->persons->removeElement($person);
         return $this;
@@ -117,7 +116,7 @@ class Company extends Customer implements DimeEntityInterface
      * @param string $name
      * @return Company
      */
-    public function setName(string $name) : Company
+    public function setName(string $name): Company
     {
         $this->name = $name;
         return $this;
@@ -135,9 +134,17 @@ class Company extends Customer implements DimeEntityInterface
      * @param string|null $department
      * @return Company
      */
-    public function setDepartment($department) : Company
+    public function setDepartment($department): Company
     {
         $this->department = $department;
         return $this;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getSerializedName()
+    {
+        return $this->getName();
     }
 }

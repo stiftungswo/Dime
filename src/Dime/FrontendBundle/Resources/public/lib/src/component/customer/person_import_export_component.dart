@@ -6,8 +6,9 @@ import 'package:angular_forms/angular_forms.dart';
 import 'package:hammock/hammock.dart';
 
 import '../../model/entity_export.dart';
-import '../../service/status_service.dart';
 import '../../service/http_service.dart';
+import '../../service/status_service.dart';
+import '../common/copy_input_component.dart';
 import '../common/dime_directives.dart';
 import '../common/download_button_component.dart';
 import '../common/help_tooltip_component.dart';
@@ -21,7 +22,8 @@ import 'customer_import_export_component.dart';
   DownloadButtonComponent,
   HelpTooltipComponent,
   TagSelectComponent,
-  RateGroupSelectComponent
+  RateGroupSelectComponent,
+  CopyInputComponent
 ])
 class PersonImportExportComponent extends CustomerImportExportComponent<Person> {
   PersonImportExportComponent(DomSanitizationService sanitizationService, StatusService statusService, HttpService http, ObjectStore store)

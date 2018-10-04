@@ -10,9 +10,9 @@ import '../help_tooltip_component.dart';
     <div class='form-group' [class.has-error]='control != null && !control.valid'>
       <label [attr.for]="eId != null ? eId : label"
              class="control-label"
-             [class.col-sm-2]="horizontal"
+             [class.col-sm-4]="horizontal"
       >{{label}}</label>
-      <div [class.col-sm-4]="horizontal">
+      <div [class.col-sm-6]="horizontal">
         <ng-content></ng-content>
       </div>
       <help-tooltip *ngIf="help != null" text="{{help}}"></help-tooltip>

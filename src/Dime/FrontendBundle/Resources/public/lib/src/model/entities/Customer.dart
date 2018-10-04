@@ -37,6 +37,8 @@ class Customer extends Entity {
           return this.rateGroup;
         case 'chargeable':
           return this.chargeable;
+        case 'serializedName':
+          return this.serializedName;
         default:
           break;
       }
@@ -68,6 +70,9 @@ class Customer extends Entity {
         break;
       case 'chargeable':
         this.chargeable = value as bool;
+        break;
+      case 'serializedName':
+        this.serializedName = value as String;
         break;
       default:
         super.Set(property, value);
@@ -103,4 +108,5 @@ class Customer extends Entity {
   List<Phone> phoneNumbers = [];
   RateGroup rateGroup;
   bool chargeable;
+  String serializedName;
 }

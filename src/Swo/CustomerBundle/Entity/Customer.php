@@ -280,4 +280,12 @@ abstract class Customer extends Entity
         $this->rateGroup = $rateGroup;
         return $this;
     }
+
+    /**
+     * @JMS\VirtualProperty()
+     * @JMS\SerializedName("serializedName")
+     * @JMS\Groups({"List"})
+     * @return string
+     */
+    abstract public function getSerializedName();
 }

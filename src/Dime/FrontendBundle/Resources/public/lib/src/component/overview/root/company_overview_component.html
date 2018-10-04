@@ -1,3 +1,12 @@
+<div *ngIf="importExportOpen">
+    <company-import-export
+            [entities]="entities"
+            [filterString]="CompanyOverviewComponent.globalFilterString"
+            [filterTags]="CompanyOverviewComponent.filterTags"
+            [showHideForBusiness]="CompanyOverviewComponent.showHideForBusiness">
+    </company-import-export>
+</div>
+
 <div class="box box-primary">
     <div class="box-header with-border">
         <h3 class="box-title">Kunden: Firmen</h3>
@@ -10,16 +19,6 @@
             <dime-button (click)="importExportOpen = !importExportOpen" fontAwesome="address-card">Firmendaten importieren / exportieren</dime-button>
         </div>
 
-        <div class="panel panel-default" *ngIf="importExportOpen">
-            <div class="panel-heading">Firmendaten importieren / exportieren</div>
-            <div class="panel-body">
-                <p>E-Mail-Adressen:</p>
-                <copy-input [text]="getEmailString()"></copy-input><br>
-
-                <company-import-export></company-import-export>
-            </div>
-        </div>
-
         <div class="form-group">
             <input type="text" class="form-control" placeholder="Suche" [(ngModel)]="CompanyOverviewComponent.globalFilterString">
         </div>
@@ -30,8 +29,8 @@
         </div>
 
         <div class="form-group">
-            <label>Nur System-Kunden anzeigen: </label>
-            <input type="checkbox" [(ngModel)]="CompanyOverviewComponent.showOnlySystemCustomer">
+            <label>Auch verstecke Firmen anzeigen:</label>
+            <input type="checkbox" [(ngModel)]="CompanyOverviewComponent.showHideForBusiness">
         </div>
 
         <table class="table table-bordered table-hover">
@@ -51,7 +50,7 @@
             </tr>
             </thead>
             <tbody *ngIf="entities != null">
-            <tr *ngFor="let entity of entities | filter:['id', 'name', 'address']:CompanyOverviewComponent.globalFilterString | customerFilterPipe:CompanyOverviewComponent.filterTags:CompanyOverviewComponent.showOnlySystemCustomer | orderBy:sortType:sortReverse" (dblclick)="openEditView(entity.id)">
+            <tr *ngFor="let entity of entities | filter:['id', 'name', 'address']:CompanyOverviewComponent.globalFilterString | customerFilterPipe:CompanyOverviewComponent.filterTags:CompanyOverviewComponent.showHideForBusiness | orderBy:sortType:sortReverse" (dblclick)="openEditView(entity.id)">
                 <td>{{ entity.id }}</td>
                 <td>{{ entity.name }}</td>
                 <td>

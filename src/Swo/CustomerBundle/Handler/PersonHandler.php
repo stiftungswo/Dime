@@ -3,6 +3,8 @@
 namespace Swo\CustomerBundle\Handler;
 
 use Dime\TimetrackerBundle\Handler\GenericHandler;
+use Doctrine\ORM\QueryBuilder;
+use Swo\CustomerBundle\Entity\Person;
 
 class PersonHandler extends GenericHandler
 {
@@ -19,6 +21,7 @@ class PersonHandler extends GenericHandler
             'email' => $email
         ] = $person;
 
+        /** @var QueryBuilder $qb */
         $qb = $this->repository->createQueryBuilder('p');
 
         $conditions = [];
@@ -70,6 +73,7 @@ class PersonHandler extends GenericHandler
 
             // check if company is existing and if yes, associate it to the person
             if (!is_null($company)) {
+                /** @var QueryBuilder $companyQb */
                 $companyQb = $companyHandler->repository->createQueryBuilder('c');
                 $result = $companyQb->where(
                     $companyQb->expr()->eq('c.name', $companyQb->expr()->literal(trim($company)))
@@ -81,6 +85,7 @@ class PersonHandler extends GenericHandler
             }
 
             // create new person
+            /** @var Person $newPerson */
             $newPerson = $this->post($person);
 
             // create new phones and addresses
