@@ -444,7 +444,8 @@ class ReportHandler extends AbstractHandler
             $data = [];
             $data['name'] = $offer->getName();
             $data['category'] = '';
-            $data['customer'] = ($offer->getCustomer() != null ? $offer->getCustomer()->getName() : '');
+            // TODO adapt to new customer entity
+            $data['customer'] = ($offer->getOldCustomer() != null ? $offer->getOldCustomer()->getName() : '');
             $data['date'] = $offer->getCreatedAt()->format('d.m.Y');
             $data['year'] = $offer->getCreatedAt()->format('Y');
             $data['accountant'] = ($offer->getAccountant() != null ? $offer->getAccountant()->getFullname() : '');
@@ -482,7 +483,8 @@ class ReportHandler extends AbstractHandler
             $data = [];
             $data['name'] = $invoice->getName();
             $data['category'] = '';
-            $data['customer'] = ($invoice->getCustomer() != null ? $invoice->getCustomer()->getName() : '');
+            // TODO adapt to new customer entity
+            $data['customer'] = ($invoice->getOldCustomer() != null ? $invoice->getOldCustomer()->getName() : '');
             $data['date'] = $invoice->getCreatedAt()->format('d.m.Y');
             $data['year'] = $invoice->getCreatedAt()->format('Y');
             $data['accountant'] = ($invoice->getAccountant() != null ? $invoice->getAccountant()->getFullname() : '');
@@ -540,7 +542,8 @@ class ReportHandler extends AbstractHandler
             $data = [];
             $data['name'] = $project->getName();
             $data['category'] = ($project->getProjectCategory() != null ? $project->getProjectCategory()->getName() : '');
-            $data['customer'] = ($project->getCustomer() != null ? $project->getCustomer()->getName() : '');
+            // TODO adapt to new customer entity
+            $data['customer'] = ($project->getOldCustomer() != null ? $project->getOldCustomer()->getName() : '');
             $data['date'] = $project->getCreatedAt()->format('d.m.Y');
             $data['year'] = $project->getCreatedAt()->format('Y');
             $data['accountant'] = ($project->getAccountant() != null ? $project->getAccountant()->getFullname() : '');

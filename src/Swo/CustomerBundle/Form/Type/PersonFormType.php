@@ -28,6 +28,7 @@ class PersonFormType extends AbstractCustomerFormType
             ->add('salutation')
             ->add('firstName')
             ->add('lastName')
+            ->add('department')
         ;
     }
 }

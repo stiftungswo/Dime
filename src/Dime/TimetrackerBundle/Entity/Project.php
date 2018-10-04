@@ -13,6 +13,7 @@ use Money\Money;
 use Dime\InvoiceBundle\Entity\Invoice;
 use Dime\OfferBundle\Entity\Offer;
 use Symfony\Component\Validator\Constraints as Assert;
+use Dime\TimetrackerBundle\Entity\Customer as OldCustomer;
 
 /**
  * Dime\TimetrackerBundle\Entity\Project
@@ -35,13 +36,13 @@ class Project extends Entity implements DimeEntityInterface
     use ArchivableTrait;
 
     /**
-     * @var Customer $customer
+     * @var OldCustomer $old_customer
      *
      * @JMS\MaxDepth(2)
      * @ORM\ManyToOne(targetEntity="Customer")
-     * @ORM\JoinColumn(name="customer_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
+     * @ORM\JoinColumn(name="old_customer_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
      */
-    protected $customer;
+    protected $old_customer;
 
     /**
      * @var string $name
@@ -315,26 +316,26 @@ class Project extends Entity implements DimeEntityInterface
     }
 
     /**
-     * Set customer
+     * Set old customer
      *
-     * @param  Customer $customer
+     * @param  OldCustomer $oldCustomer
      * @return Project
      */
-    public function setCustomer(Customer $customer)
+    public function setOldCustomer(OldCustomer $oldCustomer)
     {
-        $this->customer = $customer;
+        $this->old_customer = $oldCustomer;
 
         return $this;
     }
 
     /**
-     * Get customer
+     * Get oldCustomer
      *
-     * @return Customer
+     * @return OldCustomer
      */
-    public function getCustomer()
+    public function getOldCustomer()
     {
-        return $this->customer;
+        return $this->old_customer;
     }
 
     /**

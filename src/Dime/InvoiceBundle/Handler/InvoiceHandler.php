@@ -97,8 +97,9 @@ class InvoiceHandler extends GenericHandler
                 $invoice->addInvoiceDiscount($discount);
             }
         }
-        if (!is_null($project->getCustomer())) {
-            $invoice->setCustomer($project->getCustomer());
+        if (!is_null($project->getOldCustomer())) {
+            // TODO adapt to new customer entity
+            $invoice->setOldCustomer($project->getOldCustomer());
         }
         if (!is_null($project->getAccountant())) {
             $invoice->setAccountant($project->getAccountant());

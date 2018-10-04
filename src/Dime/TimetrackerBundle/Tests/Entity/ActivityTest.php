@@ -219,7 +219,8 @@ class ActivityTest extends TestCase
         $this->assertNull($activity->getCustomer());
 
         $customer = new Customer();
-        $project->setCustomer($customer);
+        // TODO adapt to new Customer entity
+        $project->setOldCustomer($customer);
         $this->assertEquals($customer, $activity->getCustomer());
     }
 
@@ -320,7 +321,8 @@ class ActivityTest extends TestCase
         $customer = new Customer();
         $project = new Project();
         $customer->setChargeable(true);
-        $project->setCustomer($customer);
+        // TODO adapt to new Customer entity
+        $project->setOldCustomer($customer);
         $activity->setProject($project);
         $this->assertTrue($activity->serializeChargeable());
 

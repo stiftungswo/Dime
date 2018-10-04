@@ -203,9 +203,10 @@ class ProjectTest extends KernelTestCase
         // get and set customer
         $project = new Project();
         $project_category = new Customer();
-        $this->assertNull($project->getCustomer());
-        $project->setCustomer($project_category);
-        $this->assertEquals($project_category, $project->getCustomer());
+        $this->assertNull($project->getOldCustomer());
+        // TODO adapt to new Customer entity
+        $project->setOldCustomer($project_category);
+        $this->assertEquals($project_category, $project->getOldCustomer());
     }
 
     public function testGetSetName()

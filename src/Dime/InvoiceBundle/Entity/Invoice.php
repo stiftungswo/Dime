@@ -10,7 +10,7 @@ namespace Dime\InvoiceBundle\Entity;
 use Carbon\Carbon;
 use DateTime;
 use Dime\EmployeeBundle\Entity\Employee;
-use Dime\TimetrackerBundle\Entity\Customer;
+use Dime\TimetrackerBundle\Entity\Customer as OldCustomer;
 use Dime\TimetrackerBundle\Entity\Entity;
 use Dime\TimetrackerBundle\Model\DimeEntityInterface;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -119,11 +119,11 @@ class Invoice extends Entity implements DimeEntityInterface
     protected $fixedPrice;
 
     /**
-     * @var Customer
+     * @var OldCustomer
      * @ORM\ManyToOne(targetEntity="Dime\TimetrackerBundle\Entity\Customer")
-     * @ORM\JoinColumn(name="customer_id", referencedColumnName="id", nullable=true, onDelete="SET NULL"))
+     * @ORM\JoinColumn(name="old_customer_id", referencedColumnName="id", nullable=true, onDelete="SET NULL"))
      */
-    protected $customer;
+    protected $old_customer;
 
     /**
      * @ORM\ManyToOne(targetEntity="Dime\TimetrackerBundle\Entity\User")
@@ -553,27 +553,28 @@ class Invoice extends Entity implements DimeEntityInterface
     }
 
     /**
-     * @return Customer
+     * @return OldCustomer
      */
-    public function getCustomer()
+    public function getOldCustomer()
     {
-        if ($this->customer) {
-            return $this->customer;
+        if ($this->old_customer) {
+            return $this->old_customer;
         }
         if ($this->getProject()) {
-            return $this->getProject()->getCustomer();
+            // TODO adapt to new customer entity
+            return $this->getProject()->getOldCustomer();
         }
         return null;
     }
 
     /**
-     * @param Customer $customer
+     * @param OldCustomer $oldCustomer
      *
      * @return $this
      */
-    public function setCustomer($customer)
+    public function setOldCustomer($oldCustomer)
     {
-        $this->customer = $customer;
+        $this->old_customer = $oldCustomer;
         return $this;
     }
 

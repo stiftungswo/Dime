@@ -24,7 +24,6 @@ class CompanyFormType extends AbstractCustomerFormType
         parent::buildForm($builder, $options);
         $builder
             ->add('name')
-            ->add('department')
         ;
     }
 }

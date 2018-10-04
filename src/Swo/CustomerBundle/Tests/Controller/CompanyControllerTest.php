@@ -38,7 +38,6 @@ class CompanyControllerTest extends DimeTestCase
                 'comment' => 'Das ist eine Firma.',
                 'email' => 'info@musterman.ag',
                 'name' => 'Mustermann AG',
-                'department' => 'Mustersachen',
                 'rateGroup' => 1,
                 'chargeable' => true,
                 'hideForBusiness' => true
@@ -67,7 +66,6 @@ class CompanyControllerTest extends DimeTestCase
             $this->api_prefix . '/companies/' . $id,
             json_encode(array(
                 'email' => 'neu@musterman.ag',
-                'department' => 'Coole Sachen',
                 'chargeable' => false,
                 'hideForBusiness' => false
             ))
@@ -78,7 +76,6 @@ class CompanyControllerTest extends DimeTestCase
         $response = $this->jsonRequest('GET', $this->api_prefix . '/companies/' . $id);
         $data = json_decode($response->getContent(), true);
         $this->assertEquals('neu@musterman.ag', $data['email']);
-        $this->assertEquals('Coole Sachen', $data['department']);
         $this->assertFalse($data['chargeable']);
         $this->assertFalse($data['hideForBusiness']);
 

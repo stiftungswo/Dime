@@ -24,13 +24,15 @@ class OfferHandler extends GenericHandler
         }
 
         $project = new Project();
-        $project->setCustomer($offer->getCustomer());
+        // TODO adapt to new Customer entity
+        $project->setOldCustomer($offer->getOldCustomer());
         $project->setName($offer->getName());
         $project->setChargeable(true);
         if ($offer->getRateGroup() !== null) {
             $project->setRateGroup($offer->getRateGroup());
-        } elseif ($offer->getCustomer() !== null) {
-            $project->setRateGroup($offer->getCustomer()->getRateGroup());
+        } elseif ($offer->getOldCustomer() !== null) {
+            // TODO adapt to new customer entity
+            $project->setRateGroup($offer->getOldCustomer()->getRateGroup());
         }
         $project->setDescription($offer->getShortDescription());
         if ($offer->getFixedPrice() != null && $offer->getFixedPrice()->isZero()) {

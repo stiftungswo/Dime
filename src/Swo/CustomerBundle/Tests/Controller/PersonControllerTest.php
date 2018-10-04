@@ -43,7 +43,8 @@ class PersonControllerTest extends DimeTestCase
                 'lastName' => 'Person',
                 'rateGroup' => 2,
                 'chargeable' => true,
-                'hideForBusiness' => true
+                'hideForBusiness' => true,
+                'department' => 'Mustersachen',
             ))
         );
         $this->assertEquals(201, $response->getStatusCode(), $response->getContent());
@@ -64,6 +65,7 @@ class PersonControllerTest extends DimeTestCase
         $this->assertEquals(2, $data['rateGroup']['id']);
         $this->assertTrue($data['chargeable']);
         $this->assertTrue($data['hideForBusiness']);
+        $this->assertEquals('Mustersachen', $data['department']);
 
         // modify the object
         $response = $this->jsonRequest(
@@ -74,7 +76,8 @@ class PersonControllerTest extends DimeTestCase
                 'comment' => 'Keine Person mehr.',
                 'company' => 10,
                 'chargeable' => false,
-                'hideForBusiness' => false
+                'hideForBusiness' => false,
+                'department' => 'Coole Sachen'
             ))
         );
         $this->assertEquals(200, $response->getStatusCode(), $response->getContent());
@@ -87,6 +90,7 @@ class PersonControllerTest extends DimeTestCase
         $this->assertEquals(10, $data['company']['id']);
         $this->assertFalse($data['chargeable']);
         $this->assertFalse($data['hideForBusiness']);
+        $this->assertEquals('Coole Sachen', $data['department']);
 
         // delete peter
         $response = $this->jsonRequest('DELETE', $this->api_prefix . '/persons/' . $id);

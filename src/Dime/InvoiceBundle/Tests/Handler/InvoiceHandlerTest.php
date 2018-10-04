@@ -59,7 +59,8 @@ class InvoiceHandlerTest extends KernelTestCase
 
         $project->setName($faker->word);
         $project->setDescription($faker->paragraph);
-        $project->setCustomer($customer);
+        // TODO adapt to new Customer entity
+        $project->setOldCustomer($customer);
         $project->setAccountant($employee);
 
         $offer_discount->setOffer($offer);
@@ -98,7 +99,8 @@ class InvoiceHandlerTest extends KernelTestCase
         $timeslice->setValue(3600);
 
         $invoice->setProject($project);
-        $invoice->setCustomer($customer);
+        // TODO adapt to new customer entity
+        $invoice->setOldCustomer($customer);
         $invoice->setAccountant($employee);
         $invoice->setName($faker->word);
         $invoice->setAlias($faker->words(3, true));

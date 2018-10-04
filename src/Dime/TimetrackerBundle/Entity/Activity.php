@@ -340,7 +340,8 @@ class Activity extends Entity implements DimeEntityInterface
      */
     public function getCustomer()
     {
-        return $this->getProject()->getCustomer();
+        // TODO adapt to new customer entity
+        return $this->getProject()->getOldCustomer();
     }
 
     /**

@@ -2,7 +2,7 @@
 namespace Dime\OfferBundle\Entity;
 
 use Dime\EmployeeBundle\Entity\Employee;
-use Dime\TimetrackerBundle\Entity\Customer;
+use Dime\TimetrackerBundle\Entity\Customer as OldCustomer;
 use Dime\TimetrackerBundle\Entity\Entity;
 use Dime\TimetrackerBundle\Entity\Project;
 use Dime\TimetrackerBundle\Entity\Tag;
@@ -10,8 +10,8 @@ use Dime\TimetrackerBundle\Model\DimeEntityInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as JMS;
-use Knp\JsonSchemaBundle\Annotations as Json;
 use Money\Money;
+use Swo\CommonsBundle\Entity\Address as OldAddress;
 
 /**
  * Dime\OfferBundle\Entity\Offer
@@ -57,9 +57,9 @@ class Offer extends Entity implements DimeEntityInterface
 
     /**
      * @ORM\ManyToOne(targetEntity="Dime\TimetrackerBundle\Entity\Customer")
-     * @ORM\JoinColumn(name="customer_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
+     * @ORM\JoinColumn(name="old_customer_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
      */
-    protected $customer;
+    protected $old_customer;
 
     /**
      * @JMS\SerializedName("accountant")
@@ -105,11 +105,11 @@ class Offer extends Entity implements DimeEntityInterface
     protected $fixedPrice;
 
     /**
-     * @var \Swo\CommonsBundle\Entity\Address $address
-     *
+     * @var OldAddress|null $address
      * @ORM\ManyToOne(targetEntity="\Swo\CommonsBundle\Entity\Address", cascade="all")
+     * @ORM\JoinColumn(name="old_address_id", referencedColumnName="id")
      */
-    protected $address;
+    protected $old_address;
 
     public function __construct()
     {
@@ -272,24 +272,24 @@ class Offer extends Entity implements DimeEntityInterface
     /**
      * Set customer
      *
-     * @param \Dime\TimetrackerBundle\Entity\Customer $customer
+     * @param OldCustomer $oldCustomer
      *
      * @return Offer
      */
-    public function setCustomer($customer)
+    public function setOldCustomer($oldCustomer)
     {
-        $this->customer = $customer;
+        $this->old_customer = $oldCustomer;
         return $this;
     }
 
     /**
      * Get customer
      *
-     * @return Customer
+     * @return OldCustomer
      */
-    public function getCustomer()
+    public function getOldCustomer()
     {
-        return $this->customer;
+        return $this->old_customer;
     }
 
     /**
@@ -557,21 +557,21 @@ class Offer extends Entity implements DimeEntityInterface
     }
 
     /**
-     * @return \Swo\CommonsBundle\Entity\Address
+     * @return OldAddress|null
      */
-    public function getAddress()
+    public function getOldAddress()
     {
-        return $this->address;
+        return $this->old_address;
     }
 
     /**
-     * @param \Swo\CommonsBundle\Entity\Address $address
+     * @param OldAddress $oldAddress
      *
      * @return $this
      */
-    public function setAddress($address)
+    public function setOldAddress($oldAddress)
     {
-        $this->address = $address;
+        $this->old_address = $oldAddress;
         return $this;
     }
 }
