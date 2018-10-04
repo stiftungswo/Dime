@@ -33,7 +33,7 @@ class CompanyHandler extends GenericHandler
             return [];
         }
 
-        $qb->where($qb->expr()->orX(...$conditions));
+        $qb->where($qb->expr()->andX(...$conditions));
         $result = $qb->getQuery()->getResult();
         return !empty($result);
     }

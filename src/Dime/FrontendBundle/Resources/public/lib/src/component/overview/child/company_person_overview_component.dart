@@ -53,6 +53,4 @@ class CompanyPersonOverviewComponent extends EntityOverview<Person> {
   Future createEntity({Person newEnt, Map<String, dynamic> params: const {}}) {
     return super.createEntity(params: {'company': this._companyId, 'firstName': 'Heiri', 'lastName': 'Müller'});
   }
-
-  // TODO: Allow person overview to add an existing person without a company associated.
 }

@@ -28,8 +28,9 @@
             <div class="panel-heading">Personendaten importieren / exportieren</div>
             <div class="panel-body">
                 <p>E-Mail-Adressen:</p>
-                <copy-input [text]="getEmailString()"></copy-input>
-                <br><p><b>Hinweis: </b> Nur Personen, bei welcher auch eine E-Mail-Adresse erfasst ist, werden in obiger Aufstellung angezeigt.</p>
+                <copy-input [text]="getEmailString()"></copy-input><br>
+
+                <person-import-export></person-import-export>
             </div>
         </div>
 

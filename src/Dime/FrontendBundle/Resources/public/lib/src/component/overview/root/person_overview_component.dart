@@ -16,6 +16,7 @@ import '../../../service/user_auth_service.dart';
 import '../../../util/page_title.dart' as page_title;
 import '../../common/copy_input_component.dart';
 import '../../common/dime_directives.dart';
+import '../../customer/person_import_export_component.dart';
 import '../../main/routes.dart';
 import '../../select/select.dart';
 import '../entity_overview.dart';
@@ -23,7 +24,7 @@ import '../entity_overview.dart';
 @Component(
     selector: 'person-overview',
     templateUrl: 'person_overview_component.html',
-    directives: const [coreDirectives, dimeDirectives, formDirectives, TagSelectComponent, CopyInputComponent],
+    directives: const [coreDirectives, dimeDirectives, formDirectives, TagSelectComponent, CopyInputComponent, PersonImportExportComponent],
     pipes: const [dimePipes, CustomerFilterPipe])
 class PersonOverviewComponent extends EntityOverview<Person> implements OnActivate {
   PersonOverviewComponent(CachingObjectStoreService store, Router router, SettingsService manager, StatusService status,

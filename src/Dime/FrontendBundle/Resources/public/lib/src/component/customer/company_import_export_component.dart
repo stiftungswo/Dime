@@ -37,12 +37,15 @@ class CompanyImportExportComponent extends CustomerImportExportComponent<Company
       ..email = row[1]
       ..comment = row[9];
 
-    entity.addresses.add(new Address()
-      ..street = row[4]
-      ..supplement = row[5]
-      ..postcode = int.tryParse(row[6])
-      ..city = row[7]
-      ..country = row[8]);
+    // add address if street, postcode and city is filled out
+    if (row[4].isNotEmpty && row[6].isNotEmpty && row[7].isNotEmpty) {
+      entity.addresses.add(new Address()
+        ..street = row[4]
+        ..supplement = row[5]
+        ..postcode = int.tryParse(row[6])
+        ..city = row[7]
+        ..country = row[8]);
+    }
 
     // add phone number if not empty
     if (row[2].isNotEmpty) {

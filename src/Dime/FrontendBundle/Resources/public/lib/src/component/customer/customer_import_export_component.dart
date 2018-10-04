@@ -94,16 +94,20 @@ abstract class CustomerImportExportComponent<T extends Customer> {
 
     importCheckedForDuplicates = false;
     File file = files.single;
-    String fileContent = await readFileToString(file);
-    List<T> customers = parseCsv(fileContent);
-    customersToImport = customers.map((c) => new PreviewItem(c)).toList().cast<PreviewItem<T>>();
+    try {
+      String fileContent = await readFileToString(file);
+      List<T> customers = parseCsv(fileContent);
+      customersToImport = customers.map((c) => new PreviewItem(c)).toList().cast<PreviewItem<T>>();
+    } catch (e) {
+      window.alert(
+          'Die CSV-Datei scheint nicht korrekt codiert zu sein. Vergewissere dich, dass die Datei in UTF-8 gespeichert ist und versuche es erneut.');
+    }
   }
 
   SafeUrl getCsvTemplateUri() {
-    String csv = 'sep=,\n';
+    String csv = '\ufeffsep=,\n';
     csv += csvHeaders().join(',');
-    String encoded = window.btoa(csv);
-    return sanitizationService.bypassSecurityTrustUrl("data:text/csv;base64,${encoded}");
+    return sanitizationService.bypassSecurityTrustUrl("data:text/csv;charset=utf-8,${csv}");
   }
 
   double get importProgressPercentage => importProgress / importTotal * 100;
@@ -126,6 +130,10 @@ abstract class CustomerImportExportComponent<T extends Customer> {
     } else {
       return list.first.number;
     }
+  }
+
+  mainAddress(Customer entity) {
+    return entity.addresses.isNotEmpty ? entity.addresses.first : null;
   }
 
   List<T> parseCsv(String input) {
@@ -156,22 +164,13 @@ abstract class CustomerImportExportComponent<T extends Customer> {
     return rows.map((row) => buildFromRow(row)).toList();
   }
 
-  static Future<String> readFileToString(File file) {
-    Completer<String> completer = new Completer();
-    FileReader reader = new FileReader();
-    reader.onLoad.listen((ProgressEvent e) {
-      FileReader eventTarget = e.target as FileReader;
-      if (eventTarget.readyState != FileReader.DONE) return;
-      if (eventTarget.error != null) {
-        completer.completeError('Error while reading file');
-        return;
-      }
+  static Future<String> readFileToString(File file) async {
+    Utf8Decoder utf8Decoder = new Utf8Decoder();
+    FileReader reader = new FileReader()..readAsArrayBuffer(file);
+    await reader.onLoadEnd.first;
 
-      completer.complete(eventTarget.result as String);
-    });
-    reader.readAsText(file, 'ISO-8859-1');
-
-    return completer.future;
+    List<int> result = reader.result;
+    return utf8Decoder.convert(result);
   }
 
   remove(PreviewItem<T> item) => customersToImport.remove(item);

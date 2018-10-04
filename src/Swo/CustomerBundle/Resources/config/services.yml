@@ -5,7 +5,7 @@ services:
     class: Swo\CustomerBundle\Handler\CompanyHandler
     arguments: [ "@doctrine.orm.entity_manager", Swo\CustomerBundle\Entity\Company,  "@service_container", "co", Swo\CustomerBundle\Form\Type\CompanyFormType]
   swo.person.handler:
-    class: %generic_handler%
+    class: Swo\CustomerBundle\Handler\PersonHandler
     arguments: [ "@doctrine.orm.entity_manager", Swo\CustomerBundle\Entity\Person,  "@service_container", "pe", Swo\CustomerBundle\Form\Type\PersonFormType]
   swo.phone.handler:
     class: %generic_handler%

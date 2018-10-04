@@ -13,6 +13,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\Util\Codes;
 use Dime\TimetrackerBundle\Exception\InvalidFormException;
+use Swo\CustomerBundle\Handler\PersonHandler;
 
 class PersonController extends DimeController
 {
@@ -203,5 +204,75 @@ class PersonController extends DimeController
     {
         $this->container->get($this->handlerService)->delete($this->getOr404($id, $this->handlerService));
         return $this->view(null, Codes::HTTP_NO_CONTENT);
+    }
+
+    /**
+     * Check for duplicate persons in db and import.
+     *
+     * @ApiDoc(
+     * resource = true,
+     * description="Check for duplicate persons in db and import.",
+     * section="persons",
+     * statusCodes = {
+     * 204 = "Returned when successful"
+     * }
+     * )
+     *
+     * @Annotations\Route(requirements={"_format"="json|xml"}, path="/persons/import/check")
+     * @Annotations\View(
+     * serializerEnableMaxDepthChecks=true
+     * )
+     *
+     * @Annotations\RequestParam(name="persons", array=true, description="The person data to check")
+     *
+     * @param ParamFetcherInterface $params
+     *
+     * @return View
+     *
+     */
+
+    // TODO: add controller test
+    public function postPersonsImportCheckAction(ParamFetcherInterface $params)
+    {
+        $persons = $params->get("persons");
+        /** @var PersonHandler $personHandler */
+        $personHandler = $this->container->get($this->handlerService);
+        $foundDuplicates = [];
+        foreach ($persons as $person) {
+            $foundDuplicates[] = $personHandler->checkForDuplicatePerson($person);
+        }
+        return $this->view($foundDuplicates, Codes::HTTP_OK);
+    }
+
+    /**
+     * Import all persons.
+     *
+     * @ApiDoc(
+     * resource = true,
+     * description="Import all Persons.",
+     * section="persons",
+     * statusCodes = {
+     * 201 = "Returned when successful"
+     * }
+     * )
+     *
+     * @Annotations\Route(requirements={"_format"="json|xml"}, path="/persons/import")
+     * @Annotations\View(
+     * serializerEnableMaxDepthChecks=true
+     * )
+     *
+     * @Annotations\RequestParam(name="persons", array=true, description="The new persons to import")
+     *
+     * @param ParamFetcherInterface $params
+     *
+     * @return View
+     *
+     */
+
+    // TODO: add controller test
+    public function postPersonsImportAction(ParamFetcherInterface $params)
+    {
+        $persons = $params->get("persons");
+        return $this->view($this->container->get($this->handlerService)->doImport($persons), Codes::HTTP_CREATED);
     }
 }

@@ -31,16 +31,18 @@
 
                         <dime-form-group horizontal label="Tarif-Gruppe">
                             <rate-group-select [(ngModel)]="importRateGroup"></rate-group-select>
-                        </dime-form-group>
+                        </dime-form-group><br>
+
+                        <p><b>Hinweis: </b> Wenn im Import eine Firma für die Person angegeben ist, und die Firma kann beim Import nicht gefunden werden, wird die Person ohne Firma erfasst.</p>
 
                         <div class="DimeControlButtons">
-                            <dime-button (click)="findDuplicates()" tooltip="Die Duplikatssuche überprüft, ob bereits eine Firma mit demselben Namen und derselben E-Mail-Addresse erfasst wurde.">Duplikate suchen</dime-button>
+                            <dime-button (click)="findDuplicates()" tooltip="Die Duplikatssuche überprüft, ob bereits eine Person mit denselben Vornamen, Nachname, E-Mail-Addresse und ggf. Firma erfasst wurde.">Duplikate suchen</dime-button>
                             <dime-button *ngIf="importCheckedForDuplicates" (click)="removeAllDuplicates()">Alle gefundenen Duplikate entfernen</dime-button>
                             <dime-button (click)="doImport()" primary>Import starten</dime-button><br><br>
 
                             <div class="progress progress-striped active" *ngIf="importRunning">
                                 <div class="progress-bar" [style.width.%]="importProgressPercentage">
-                                    {{importProgress}} / {{importTotal}} Firmen importiert
+                                    {{importProgress}} / {{importTotal}} Personen importiert
                                 </div>
                             </div>
                         </div>
@@ -48,11 +50,12 @@
                 </dime-box>
             </div>
         </div>
-        
+
         <div class="row">
             <div class="col-md-3" *ngFor="let customer of customersToImport">
-                <dime-box label="{{'Firma: ' + customer.item.name }}">
+                <dime-box label="{{customer.item.firstName + ' ' + customer.item.lastName }}">
                     <div boxBody>
+                        <p>Firma: {{ customer.item.company?.name }}</p>
                         <p>E-Mail: {{ customer.item.email }}</p>
                         <p>Telefonnummer: {{ getMainPhoneNumber(customer.item) }}</p>
                         <p>Mobilnummer: {{ getMobilePhoneNumber(customer.item) }}</p>

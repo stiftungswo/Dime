@@ -2,6 +2,7 @@ import 'package:hammock/hammock.dart';
 import 'package:meta/meta.dart';
 
 import 'entities/Address.dart';
+import 'entities/Company.dart';
 import 'entities/Phone.dart';
 import 'entities/Tag.dart';
 import 'entities/User.dart';
@@ -44,14 +45,15 @@ class Entity {
       if (value == null) {
         //print('Trying to get ${item} from ${this.type} but it does not exist or has no getter');
       } else if (value is Entity) {
-        if (!(value is Address)) {
-          // FIXME: this is kind of a hack to fix cloning, could possibly set fields to null in some cases
-          if (value.id != null) {
-            value.addFieldtoUpdate('id');
-          } else {
-            // set to null if id is null or not present (empty object / not loaded)
-            value = null;
-          }
+        // FIXME: this is kind of a hack to fix cloning, could possibly set fields to null in some cases
+        if (value is Company && value.name != null && value.id == null) {
+          // fixes the person import where we assign only a name to a company
+          value.addFieldtoUpdate('name');
+        } else if (value.id != null) {
+          value.addFieldtoUpdate('id');
+        } else {
+          // set to null if id is null or not present (empty object / not loaded)
+          value = null;
         }
         if (value != null) {
           value = value.toMap();
