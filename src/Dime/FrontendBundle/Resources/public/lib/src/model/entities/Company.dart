@@ -5,10 +5,9 @@ class Company extends Customer {
 
   Company.clone(Company original) : super.clone(original) {
     this.name = original.name;
-    this.department = original.department;
     this.persons = original.persons;
     addFieldstoUpdate([
-      'name', 'department'
+      'name'
       // these have to be saved separately using cloneDescendants()
       //'phoneNumbers',
       // 'addresses',
@@ -31,8 +30,6 @@ class Company extends Customer {
       switch (property) {
         case 'name':
           return this.name;
-        case 'department':
-          return this.department;
         case 'persons':
           return this.persons;
         default:
@@ -48,9 +45,6 @@ class Company extends Customer {
     switch (property) {
       case 'name':
         this.name = value as String;
-        break;
-      case 'department':
-        this.department = value as String;
         break;
       case 'persons':
         this.persons = Person.listFromMap((value as List<dynamic>).cast());
@@ -90,6 +84,5 @@ class Company extends Customer {
   @override
   String type = 'companies';
   String name;
-  String department;
   List<Person> persons = [];
 }

@@ -222,7 +222,7 @@ class CompanyController extends DimeController
      */
 
     // TODO: add controller test
-    public function postCustomersImportCheckAction(ParamFetcherInterface $params)
+    public function postCompaniesImportCheckAction(ParamFetcherInterface $params)
     {
         $companies = $params->get("companies");
         /** @var CompanyHandler $companyHandler */

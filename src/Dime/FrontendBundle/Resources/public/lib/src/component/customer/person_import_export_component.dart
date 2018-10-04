@@ -38,17 +38,17 @@ class PersonImportExportComponent extends CustomerImportExportComponent<Person> 
       ..salutation = row[0]
       ..firstName = row[1]
       ..lastName = row[2]
-      ..email = row[4]
-      ..comment = row[12];
+      ..email = row[5]
+      ..comment = row[13];
 
     // add address if street, postcode and city is filled out
-    if (row[7].isNotEmpty && row[9].isNotEmpty && row[10].isNotEmpty) {
+    if (row[8].isNotEmpty && row[10].isNotEmpty && row[11].isNotEmpty) {
       entity.addresses.add(new Address()
-        ..street = row[7]
-        ..supplement = row[8]
-        ..postcode = int.tryParse(row[9])
-        ..city = row[10]
-        ..country = row[11]);
+        ..street = row[8]
+        ..supplement = row[9]
+        ..postcode = int.tryParse(row[10])
+        ..city = row[11]
+        ..country = row[12]);
     }
 
     // add company if not empty
@@ -57,17 +57,17 @@ class PersonImportExportComponent extends CustomerImportExportComponent<Person> 
     }
 
     // add phone number if not empty
-    if (row[5].isNotEmpty) {
+    if (row[6].isNotEmpty) {
       entity.phoneNumbers.add(new Phone()
-        ..number = row[2]
+        ..number = row[6]
         ..category = 3
         ..customer = entity);
     }
 
     // add mobile number if not empty
-    if (row[6].isNotEmpty) {
+    if (row[7].isNotEmpty) {
       entity.phoneNumbers.add(new Phone()
-        ..number = row[3]
+        ..number = row[7]
         ..category = 4
         ..customer = entity);
     }
@@ -81,6 +81,7 @@ class PersonImportExportComponent extends CustomerImportExportComponent<Person> 
         'Vorname',
         'Nachname',
         'Firma',
+        'Abteilung',
         'E-Mail',
         'Telefonnummer',
         'Mobiltelefonnummer',
@@ -98,6 +99,7 @@ class PersonImportExportComponent extends CustomerImportExportComponent<Person> 
         'firstName',
         'lastName',
         'company',
+        'department',
         'phoneNumbers',
         'addresses',
         'hideForBusiness',

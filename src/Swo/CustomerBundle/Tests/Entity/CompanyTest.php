@@ -90,13 +90,6 @@ class CompanyTest extends TestCase
         $this->assertEquals('Name', $company->getName());
     }
 
-    public function testGetSetDepartment()
-    {
-        $company = new Company();
-        $company->setDepartment('Department');
-        $this->assertEquals('Department', $company->getDepartment());
-    }
-
     public function testGetSetChargeable()
     {
         $company = new Company();

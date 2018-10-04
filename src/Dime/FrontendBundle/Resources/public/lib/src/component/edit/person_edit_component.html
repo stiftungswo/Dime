@@ -24,6 +24,11 @@
                                     (ngModelChange)="entity.company=$event;addSaveField('company')"></company-select>
                 </dime-form-group>
 
+                <dime-form-group horizontal label="Abteilung">
+                    <input ngControl="department" class="form-control" [(ngModel)]="entity.department"
+                           (change)="addSaveField('department')">
+                </dime-form-group>
+
                 <dime-form-group horizontal label="E-Mail">
                     <input type="email" ngControl="email" class="form-control" [(ngModel)]="entity.email"
                            (change)="addSaveField('email')">

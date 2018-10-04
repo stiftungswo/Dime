@@ -4,7 +4,6 @@ Swo\CustomerBundle\Entity\Company:
     comment: <sentence(1)>
     email (unique): <email()>
     name: <company()>
-    department: 10%? <word()>
     chargeable: <boolean(90)>
     hideForBusiness: <boolean(90)>
     tags: '<numberBetween(0, 3)>x @tag_*'

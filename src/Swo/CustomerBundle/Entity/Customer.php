@@ -3,6 +3,7 @@
 namespace Swo\CustomerBundle\Entity;
 
 use Dime\TimetrackerBundle\Entity\Entity;
+use Dime\TimetrackerBundle\Entity\RateGroup;
 use Dime\TimetrackerBundle\Entity\Tag;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
@@ -75,7 +76,7 @@ abstract class Customer extends Entity
     protected $tags;
 
     /**
-     * @var \Dime\TimetrackerBundle\Entity\RateGroup|null $rateGroup
+     * @var RateGroup|null $rateGroup
      * @ORM\ManyToOne(targetEntity="Dime\TimetrackerBundle\Entity\RateGroup")
      * @ORM\JoinColumn(name="rate_group_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
      * @JMS\SerializedName("rateGroup")
@@ -98,10 +99,10 @@ abstract class Customer extends Entity
     }
 
     /**
-     * @param string $comment
+     * @param string|null $comment
      * @return Customer
      */
-    public function setComment(string $comment): Customer
+    public function setComment($comment): Customer
     {
         $this->comment = $comment;
         return $this;
@@ -116,10 +117,10 @@ abstract class Customer extends Entity
     }
 
     /**
-     * @param string $email
+     * @param string|null $email
      * @return Customer
      */
-    public function setEmail(string $email): Customer
+    public function setEmail($email): Customer
     {
         $this->email = $email;
         return $this;
@@ -135,6 +136,10 @@ abstract class Customer extends Entity
         return $this;
     }
 
+    /**
+     * @param bool|null $hideForBusiness
+     * @return Customer
+     */
     public function setHideForBusiness($hideForBusiness): Customer
     {
         $this->hideForBusiness = $hideForBusiness;
@@ -264,7 +269,7 @@ abstract class Customer extends Entity
     }
 
     /**
-     * @return \Dime\TimetrackerBundle\Entity\RateGroup|null
+     * @return RateGroup|null
      */
     public function getRateGroup()
     {
@@ -272,7 +277,7 @@ abstract class Customer extends Entity
     }
 
     /**
-     * @param \Dime\TimetrackerBundle\Entity\RateGroup|null $rateGroup
+     * @param RateGroup|null $rateGroup
      * @return Customer
      */
     public function setRateGroup($rateGroup): Customer

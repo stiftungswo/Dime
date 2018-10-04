@@ -3,8 +3,6 @@ namespace Dime\TimetrackerBundle\Entity;
 
 use Dime\TimetrackerBundle\Model\DimeEntityInterface;
 use Doctrine\ORM\Mapping as ORM;
-use JMS\Serializer\Annotation as JMS;
-use Knp\JsonSchemaBundle\Annotations as Json;
 
 /**
  * Dime\TimetrackerBundle\Entity\RateGroup

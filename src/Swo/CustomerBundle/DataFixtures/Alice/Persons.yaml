@@ -17,3 +17,4 @@ Swo\CustomerBundle\Entity\Person:
     firstName: <firstName()>
     lastName: <lastName()>
     tags: '<numberBetween(0, 3)>x @tag_*'
+    department: 10%? <word()>

@@ -7,10 +7,11 @@ class Person extends Customer {
     this.salutation = original.salutation;
     this.firstName = original.firstName;
     this.lastName = original.lastName;
+    this.department = original.department;
     this.company = original.company;
     this.tags = original.tags;
     addFieldstoUpdate([
-      'salutation', 'firstName', 'lastName', 'company', 'rateGroup', 'tags'
+      'salutation', 'firstName', 'lastName', 'company', 'rateGroup', 'tags', 'department'
       // these have to be saved separately using cloneDescendants()
       //'phoneNumbers',
       // 'addresses',
@@ -47,6 +48,8 @@ class Person extends Customer {
           return this.firstName;
         case 'lastName':
           return this.lastName;
+        case 'department':
+          return this.department;
         case 'company':
           return this.company;
         case 'company.name':
@@ -70,6 +73,9 @@ class Person extends Customer {
       case 'lastName':
         this.lastName = value as String;
         break;
+      case 'department':
+        this.department = value as String;
+        break;
       case 'company':
         this.company = value is Company ? value : new Company.fromMap((value as Map<dynamic, dynamic>).cast<String, dynamic>());
         break;
@@ -92,5 +98,6 @@ class Person extends Customer {
   String salutation;
   String firstName;
   String lastName;
+  String department;
   Company company;
 }

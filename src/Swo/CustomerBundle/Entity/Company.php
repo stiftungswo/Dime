@@ -15,14 +15,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Company extends Customer implements DimeEntityInterface
 {
     /**
-     * @var \Dime\TimetrackerBundle\Entity\RateGroup|null $rateGroup
-     * @ORM\ManyToOne(targetEntity="Dime\TimetrackerBundle\Entity\RateGroup")
-     * @ORM\JoinColumn(name="rate_group_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
-     * @JMS\SerializedName("rateGroup")
-     */
-    protected $rateGroup;
-
-    /**
      * @var ArrayCollection $persons
      * @ORM\OneToMany(targetEntity="Swo\CustomerBundle\Entity\Person", mappedBy="company", cascade={"all"}, orphanRemoval=true)
      * @JMS\Groups({"List"})
@@ -39,13 +31,6 @@ class Company extends Customer implements DimeEntityInterface
      * @ORM\Column(name="name", type="string")
      */
     protected $name;
-
-    /**
-     * @var string|null $department
-     * @ORM\Column(name="department", type="string", nullable=true)
-     */
-    protected $department;
-
 
     public function __construct()
     {
@@ -119,24 +104,6 @@ class Company extends Customer implements DimeEntityInterface
     public function setName(string $name): Company
     {
         $this->name = $name;
-        return $this;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getDepartment()
-    {
-        return $this->department;
-    }
-
-    /**
-     * @param string|null $department
-     * @return Company
-     */
-    public function setDepartment($department): Company
-    {
-        $this->department = $department;
         return $this;
     }
 

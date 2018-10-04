@@ -141,4 +141,11 @@ class PersonTest extends TestCase
         $person->setTags(new ArrayCollection([$tag]));
         $this->assertEquals(1, count($person->getTags()));
     }
+
+    public function testGetSetDepartment()
+    {
+        $person = new Person();
+        $person->setDepartment('Department');
+        $this->assertEquals('Department', $person->getDepartment());
+    }
 }

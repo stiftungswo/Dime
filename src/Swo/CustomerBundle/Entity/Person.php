@@ -42,6 +42,12 @@ class Person extends Customer implements DimeEntityInterface
     protected $lastName;
 
     /**
+     * @var string|null $department
+     * @ORM\Column(name="department", type="string", nullable=true)
+     */
+    protected $department;
+
+    /**
      * @var Company|null $company
      * @ORM\ManyToOne(targetEntity="Swo\CustomerBundle\Entity\Company", inversedBy="persons", cascade={"detach"})
      * @ORM\JoinColumn(name="company_id", referencedColumnName="id", nullable=true)
@@ -152,6 +158,24 @@ class Person extends Customer implements DimeEntityInterface
     public function getSerializedName()
     {
         return $this->getFirstName() . ' ' . $this->getLastName();
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getDepartment()
+    {
+        return $this->department;
+    }
+
+    /**
+     * @param string|null $department
+     * @return Person
+     */
+    public function setDepartment($department): Person
+    {
+        $this->department = $department;
+        return $this;
     }
 
     /**
