@@ -84,6 +84,9 @@ class Company extends Customer implements DimeEntityInterface
         return $this->chargeable;
     }
 
+    /**
+     * @return bool|null
+     */
     public function getHideForBusiness()
     {
         return $this->hideForBusiness;
@@ -104,6 +107,7 @@ class Company extends Customer implements DimeEntityInterface
     public function setName(string $name): Company
     {
         $this->name = $name;
+        $this->commonName = $name;
         return $this;
     }
 

@@ -89,6 +89,7 @@ class Person extends Customer implements DimeEntityInterface
     public function setFirstName(string $firstName) : Person
     {
         $this->firstName = $firstName;
+        $this->commonName = $firstName . ' ' . $this->getLastName();
         return $this;
     }
 
@@ -107,6 +108,7 @@ class Person extends Customer implements DimeEntityInterface
     public function setLastName(string $lastName) : Person
     {
         $this->lastName = $lastName;
+        $this->commonName = $this->getFirstName() . ' ' . $lastName;
         return $this;
     }
 

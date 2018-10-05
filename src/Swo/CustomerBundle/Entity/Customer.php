@@ -15,9 +15,9 @@ use JMS\Serializer\Annotation as JMS;
  * @ORM\Entity
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="discr", type="string")
- * @ORM\DiscriminatorMap({"person" = "Person", "company" = "Company"})
+ * @ORM\DiscriminatorMap({"person" = "Person", "company" = "Company", "customer" = "Customer"})
  */
-abstract class Customer extends Entity
+class Customer extends Entity
 {
     /**
      * @var string|null $comment
@@ -46,6 +46,13 @@ abstract class Customer extends Entity
      * @JMS\Groups({"List"})
      */
     protected $hideForBusiness = false;
+
+    /**
+     * @var string|null $commonName
+     * @ORM\Column(name="common_name", type="string", nullable=true)
+     * @JMS\SerializedName("commonName")
+     */
+    protected $commonName;
 
     /**
      * @JMS\Type("array")
@@ -286,11 +293,8 @@ abstract class Customer extends Entity
         return $this;
     }
 
-    /**
-     * @JMS\VirtualProperty()
-     * @JMS\SerializedName("serializedName")
-     * @JMS\Groups({"List"})
-     * @return string
-     */
-    abstract public function getSerializedName();
+    public function getSerializedName()
+    {
+        return $this->commonName;
+    }
 }

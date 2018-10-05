@@ -125,12 +125,12 @@ abstract class CustomerImportExportComponent<T extends Customer> {
   String getEmailString() {
     FilterPipe filterPipe = new FilterPipe();
     CustomerFilterPipe customerFilterPipe = new CustomerFilterPipe();
-    List<Entity> tmpList = filterPipe.transform(this.entities, ['id', 'serializedName'], filterString);
+    List<Entity> tmpList = filterPipe.transform(this.entities, ['id', 'commonName'], filterString);
     return customerFilterPipe
         .transform(tmpList, filterTags, showHideForBusiness)
         .cast<Customer>()
         .where((Customer c) => c.email?.isNotEmpty ?? false)
-        .map((Customer c) => "${c.serializedName}<${c.email}>")
+        .map((Customer c) => "${c.commonName}<${c.email}>")
         .join(',');
   }
 
