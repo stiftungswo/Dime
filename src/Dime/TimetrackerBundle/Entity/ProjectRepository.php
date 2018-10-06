@@ -54,7 +54,6 @@ class ProjectRepository extends EntityRepository
 
     public function findByCustomer($customerid)
     {
-        // TODO: Adapt to new Customer entity
         return $this->findBy(array('customer' => $customerid));
     }
 

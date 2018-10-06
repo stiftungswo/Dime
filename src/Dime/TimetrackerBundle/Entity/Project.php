@@ -3,6 +3,9 @@ namespace Dime\TimetrackerBundle\Entity;
 
 use DateTime;
 use Dime\EmployeeBundle\Entity\Employee;
+use Dime\InvoiceBundle\Entity\Invoice;
+use Dime\OfferBundle\Entity\Offer;
+use Dime\TimetrackerBundle\Entity\Customer as OldCustomer;
 use Dime\TimetrackerBundle\Model\DimeEntityInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
@@ -10,10 +13,9 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use JMS\Serializer\Annotation as JMS;
 use Knp\JsonSchemaBundle\Annotations as Json;
 use Money\Money;
-use Dime\InvoiceBundle\Entity\Invoice;
-use Dime\OfferBundle\Entity\Offer;
+use Swo\CustomerBundle\Entity\Address;
+use Swo\CustomerBundle\Entity\Customer;
 use Symfony\Component\Validator\Constraints as Assert;
-use Dime\TimetrackerBundle\Entity\Customer as OldCustomer;
 
 /**
  * Dime\TimetrackerBundle\Entity\Project
@@ -41,6 +43,7 @@ class Project extends Entity implements DimeEntityInterface
      * @JMS\MaxDepth(2)
      * @ORM\ManyToOne(targetEntity="Customer")
      * @ORM\JoinColumn(name="old_customer_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
+     * @JMS\Exclude()
      */
     protected $old_customer;
 
@@ -201,6 +204,20 @@ class Project extends Entity implements DimeEntityInterface
      * @JMS\MaxDepth(1)
      */
     protected $accountant;
+    
+    /**
+     * @var Customer|null $customer
+     * @ORM\ManyToOne(targetEntity="Swo\CustomerBundle\Entity\Customer")
+     * @ORM\JoinColumn(name="customer_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
+     */
+    protected $customer;
+
+    /**
+     * @var Address|null $customer
+     * @ORM\ManyToOne(targetEntity="Swo\CustomerBundle\Entity\Address")
+     * @ORM\JoinColumn(name="address_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
+     */
+    protected $address;
 
     /**
      * @JMS\VirtualProperty()
@@ -857,7 +874,42 @@ class Project extends Entity implements DimeEntityInterface
     public function setAccountant($accountant)
     {
         $this->accountant = $accountant;
+        return $this;
+    }
+    
+    /**
+     * @return null|Customer
+     */
+    public function getCustomer()
+    {
+        return $this->customer;
+    }
 
+    /**
+     * @param Customer|null $customer
+     * @return Project
+     */
+    public function setCustomer($customer) : Project
+    {
+        $this->customer = $customer;
+        return $this;
+    }
+
+    /**
+     * @return null|Address
+     */
+    public function getAddress()
+    {
+        return $this->address;
+    }
+
+    /**
+     * @param Address|null $address
+     * @return Project
+     */
+    public function setAddress($address) : Project
+    {
+        $this->address = $address;
         return $this;
     }
 }

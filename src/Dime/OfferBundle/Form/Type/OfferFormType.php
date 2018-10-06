@@ -36,7 +36,7 @@ class OfferFormType extends AbstractType
             ->add('tags')
             ->add('fixedPrice', SimpleMoneyType::class)
             ->add('user')
-            ->add('address', AddressFormType::class)
+            ->add('address')
             ->add('offerPositions');
     }
 }

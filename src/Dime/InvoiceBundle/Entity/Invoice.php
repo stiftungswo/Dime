@@ -10,6 +10,7 @@ namespace Dime\InvoiceBundle\Entity;
 use Carbon\Carbon;
 use DateTime;
 use Dime\EmployeeBundle\Entity\Employee;
+use Dime\InvoiceBundle\Service\InvoiceBreakdown;
 use Dime\TimetrackerBundle\Entity\Customer as OldCustomer;
 use Dime\TimetrackerBundle\Entity\Entity;
 use Dime\TimetrackerBundle\Model\DimeEntityInterface;
@@ -19,8 +20,9 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use JMS\Serializer\Annotation as JMS;
 use Knp\JsonSchemaBundle\Annotations as Json;
 use Money\Money;
+use Swo\CustomerBundle\Entity\Address;
+use Swo\CustomerBundle\Entity\Customer;
 use Symfony\Component\Validator\Constraints as Assert;
-use Dime\InvoiceBundle\Service\InvoiceBreakdown;
 
 /**
  * Class Invoice
@@ -122,6 +124,7 @@ class Invoice extends Entity implements DimeEntityInterface
      * @var OldCustomer
      * @ORM\ManyToOne(targetEntity="Dime\TimetrackerBundle\Entity\Customer")
      * @ORM\JoinColumn(name="old_customer_id", referencedColumnName="id", nullable=true, onDelete="SET NULL"))
+     * @JMS\Exclude()
      */
     protected $old_customer;
 
@@ -131,6 +134,20 @@ class Invoice extends Entity implements DimeEntityInterface
      * @JMS\MaxDepth(1)
      */
     protected $accountant;
+
+    /**
+     * @var Customer|null $customer
+     * @ORM\ManyToOne(targetEntity="Swo\CustomerBundle\Entity\Customer")
+     * @ORM\JoinColumn(name="customer_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
+     */
+    protected $customer;
+
+    /**
+     * @var Address|null $customer
+     * @ORM\ManyToOne(targetEntity="Swo\CustomerBundle\Entity\Address")
+     * @ORM\JoinColumn(name="address_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
+     */
+    protected $address;
 
     public function __construct()
     {
@@ -561,7 +578,6 @@ class Invoice extends Entity implements DimeEntityInterface
             return $this->old_customer;
         }
         if ($this->getProject()) {
-            // TODO adapt to new customer entity
             return $this->getProject()->getOldCustomer();
         }
         return null;
@@ -655,6 +671,42 @@ class Invoice extends Entity implements DimeEntityInterface
     public function removeCostgroup(InvoiceCostgroup $costgroup)
     {
         $this->costgroups->removeElement($costgroup);
+        return $this;
+    }
+
+    /**
+     * @return null|Customer
+     */
+    public function getCustomer()
+    {
+        return $this->customer;
+    }
+
+    /**
+     * @param Customer|null $customer
+     * @return Invoice
+     */
+    public function setCustomer($customer) : Invoice
+    {
+        $this->customer = $customer;
+        return $this;
+    }
+
+    /**
+     * @return null|Address
+     */
+    public function getAddress()
+    {
+        return $this->address;
+    }
+
+    /**
+     * @param Address|null $address
+     * @return Invoice
+     */
+    public function setAddress($address) : Invoice
+    {
+        $this->address = $address;
         return $this;
     }
 }

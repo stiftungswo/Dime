@@ -3,17 +3,17 @@
 namespace Dime\TimetrackerBundle\Tests\Entity;
 
 use Dime\TimetrackerBundle\Entity\Activity;
-use Dime\TimetrackerBundle\Entity\Customer;
-use Doctrine\Common\Collections\ArrayCollection;
-use Money\Money;
 use Dime\TimetrackerBundle\Entity\Project;
 use Dime\TimetrackerBundle\Entity\Rate;
 use Dime\TimetrackerBundle\Entity\RateGroup;
 use Dime\TimetrackerBundle\Entity\RateUnitType;
 use Dime\TimetrackerBundle\Entity\Service;
 use Dime\TimetrackerBundle\Entity\Tag;
-use PHPUnit\Framework\TestCase;
 use Dime\TimetrackerBundle\Entity\Timeslice;
+use Doctrine\Common\Collections\ArrayCollection;
+use Money\Money;
+use PHPUnit\Framework\TestCase;
+use Swo\CustomerBundle\Entity\Customer;
 
 class ActivityTest extends TestCase
 {
@@ -219,8 +219,7 @@ class ActivityTest extends TestCase
         $this->assertNull($activity->getCustomer());
 
         $customer = new Customer();
-        // TODO adapt to new Customer entity
-        $project->setOldCustomer($customer);
+        $project->setCustomer($customer);
         $this->assertEquals($customer, $activity->getCustomer());
     }
 
@@ -321,8 +320,7 @@ class ActivityTest extends TestCase
         $customer = new Customer();
         $project = new Project();
         $customer->setChargeable(true);
-        // TODO adapt to new Customer entity
-        $project->setOldCustomer($customer);
+        $project->setCustomer($customer);
         $activity->setProject($project);
         $this->assertTrue($activity->serializeChargeable());
 

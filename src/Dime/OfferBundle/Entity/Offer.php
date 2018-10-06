@@ -12,6 +12,8 @@ use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as JMS;
 use Money\Money;
 use Swo\CommonsBundle\Entity\Address as OldAddress;
+use Swo\CustomerBundle\Entity\Address;
+use Swo\CustomerBundle\Entity\Customer;
 
 /**
  * Dime\OfferBundle\Entity\Offer
@@ -58,6 +60,7 @@ class Offer extends Entity implements DimeEntityInterface
     /**
      * @ORM\ManyToOne(targetEntity="Dime\TimetrackerBundle\Entity\Customer")
      * @ORM\JoinColumn(name="old_customer_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
+     * @JMS\Exclude()
      */
     protected $old_customer;
 
@@ -108,8 +111,23 @@ class Offer extends Entity implements DimeEntityInterface
      * @var OldAddress|null $address
      * @ORM\ManyToOne(targetEntity="\Swo\CommonsBundle\Entity\Address", cascade="all")
      * @ORM\JoinColumn(name="old_address_id", referencedColumnName="id")
+     * @JMS\Exclude()
      */
     protected $old_address;
+
+    /**
+     * @var Customer|null $customer
+     * @ORM\ManyToOne(targetEntity="Swo\CustomerBundle\Entity\Customer")
+     * @ORM\JoinColumn(name="customer_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
+     */
+    protected $customer;
+
+    /**
+     * @var Address|null $customer
+     * @ORM\ManyToOne(targetEntity="Swo\CustomerBundle\Entity\Address")
+     * @ORM\JoinColumn(name="address_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
+     */
+    protected $address;
 
     public function __construct()
     {
@@ -572,6 +590,42 @@ class Offer extends Entity implements DimeEntityInterface
     public function setOldAddress($oldAddress)
     {
         $this->old_address = $oldAddress;
+        return $this;
+    }
+
+    /**
+     * @return null|Customer
+     */
+    public function getCustomer()
+    {
+        return $this->customer;
+    }
+
+    /**
+     * @param Customer|null $customer
+     * @return Offer
+     */
+    public function setCustomer($customer) : Offer
+    {
+        $this->customer = $customer;
+        return $this;
+    }
+
+    /**
+     * @return null|Address
+     */
+    public function getAddress()
+    {
+        return $this->address;
+    }
+
+    /**
+     * @param Address|null $address
+     * @return Offer
+     */
+    public function setAddress($address) : Offer
+    {
+        $this->address = $address;
         return $this;
     }
 }

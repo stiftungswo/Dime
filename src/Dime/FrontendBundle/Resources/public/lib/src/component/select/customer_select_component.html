@@ -1,0 +1,12 @@
+<div class="dropdown" [class.open]="open">
+    <input [required]="required" name="customer_select" class="form-control" type="text" [(ngModel)]="selector" placeholder="{{placeholder}}" (click)="toggleSelectionBox()" style="width: 100%;" autocomplete="off">
+
+    <div class="dropdown-menu select-dropdown">
+        <div *ngFor="let entity of entities | orderBy:'commonName'">
+            <div (click)="select(entity)" [class.selected]="entity.id == selectedEntity?.id">
+                {{ entity.commonName }}
+                <i *ngIf="entity.id == selectedEntity?.id" class="fa fa-fw fa-check"></i>
+            </div>
+        </div>
+    </div>
+</div>

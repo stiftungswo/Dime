@@ -15,11 +15,10 @@ import '../../service/user_auth_service.dart';
 import '../../util/page_title.dart' as page_title;
 import '../common/dime_directives.dart';
 import '../common/markdown_input_component.dart';
+import '../main/routes.dart' as routes;
 import '../overview/overview.dart';
 import '../select/select.dart';
-import 'edit.dart';
 import 'entity_edit.dart';
-import '../main/routes.dart' as routes;
 
 @Component(
   selector: 'offer-edit',
@@ -35,6 +34,7 @@ import '../main/routes.dart' as routes;
     OfferPositionOverviewComponent,
     OfferDiscountOverviewComponent,
     MarkdownInputComponent,
+    CustomerSelectComponent
   ],
 )
 class OfferEditComponent extends EntityEdit<Offer> {

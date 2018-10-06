@@ -1,9 +1,11 @@
-<person-import-export
-        [entities]="entities"
-        [filterString]="PersonOverviewComponent.globalFilterString"
-        [filterTags]="PersonOverviewComponent.filterTags"
-        [showHideForBusiness]="PersonOverviewComponent.showHideForBusiness">
-</person-import-export>
+<div  *ngIf="importExportOpen">
+    <person-import-export
+            [entities]="entities"
+            [filterString]="PersonOverviewComponent.globalFilterString"
+            [filterTags]="PersonOverviewComponent.filterTags"
+            [showHideForBusiness]="PersonOverviewComponent.showHideForBusiness">
+    </person-import-export>
+</div>
 
 <div class="box box-primary">
     <div class="box-header with-border">

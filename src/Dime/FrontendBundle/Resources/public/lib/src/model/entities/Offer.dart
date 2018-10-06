@@ -19,6 +19,8 @@ class Offer extends Entity {
     this.offerPositions = original.offerPositions;
     this.offerDiscounts = original.offerDiscounts;
     this.status = original.status;
+    this.customer = original.customer;
+    this.address = original.address;
 
     addFieldstoUpdate([
       'rateGroup',
@@ -29,6 +31,7 @@ class Offer extends Entity {
       // 'offerPositions',
       // 'offerDiscounts',
       'status',
+      'customer', 'address'
     ]);
   }
 
@@ -79,6 +82,10 @@ class Offer extends Entity {
           return this.total;
         case 'project':
           return this.project;
+        case 'customer':
+          return this.customer;
+        case 'address':
+          return this.address;
         default:
           break;
       }
@@ -128,6 +135,12 @@ class Offer extends Entity {
       case 'project':
         this.project = value is Project ? value : new Project.fromMap((value as Map<dynamic, dynamic>).cast<String, dynamic>());
         break;
+      case 'customer':
+        this.customer = value is Customer ? value : new Customer.fromMap((value as Map<dynamic, dynamic>).cast<String, dynamic>());
+        break;
+      case 'address':
+        this.address = value is Address ? value : new Address.fromMap((value as Map<dynamic, dynamic>).cast<String, dynamic>());
+        break;
       default:
         super.Set(property, value);
         break;
@@ -171,4 +184,6 @@ class Offer extends Entity {
   List<OfferDiscount> offerDiscounts = [];
   OfferStatusUC status;
   String fixedPrice;
+  Customer customer;
+  Address address;
 }

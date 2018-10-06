@@ -4,7 +4,6 @@ namespace Dime\InvoiceBundle\Tests\Handler;
 
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Dime\TimetrackerBundle\Entity\Activity;
-use Dime\TimetrackerBundle\Entity\Customer;
 use Dime\EmployeeBundle\Entity\Employee;
 use Dime\InvoiceBundle\Entity\Invoice;
 use Dime\InvoiceBundle\Entity\InvoiceItem;
@@ -14,8 +13,8 @@ use Dime\OfferBundle\Entity\OfferDiscount;
 use Dime\TimetrackerBundle\Entity\Project;
 use Dime\TimetrackerBundle\Entity\Service;
 use Dime\TimetrackerBundle\Entity\Timeslice;
+use Swo\CustomerBundle\Entity\Company;
 
-use Carbon\Carbon;
 use Faker;
 use Money\Money;
 use ReflectionClass;
@@ -43,7 +42,7 @@ class InvoiceHandlerTest extends KernelTestCase
     protected function createScaffoldTestData()
     {
         $activity = new Activity();
-        $customer = new Customer();
+        $customer = new Company();
         $employee = new Employee();
         $faker = Faker\Factory::create();
         $invoice = new Invoice();
@@ -54,13 +53,11 @@ class InvoiceHandlerTest extends KernelTestCase
         $timeslice = new Timeslice();
 
         $customer->setName($faker->company);
-        $customer->setAlias($faker->words(3, true));
         $customer->setChargeable(true);
 
         $project->setName($faker->word);
         $project->setDescription($faker->paragraph);
-        // TODO adapt to new Customer entity
-        $project->setOldCustomer($customer);
+        $project->setCustomer($customer);
         $project->setAccountant($employee);
 
         $offer_discount->setOffer($offer);
@@ -99,8 +96,7 @@ class InvoiceHandlerTest extends KernelTestCase
         $timeslice->setValue(3600);
 
         $invoice->setProject($project);
-        // TODO adapt to new customer entity
-        $invoice->setOldCustomer($customer);
+        $invoice->setCustomer($customer);
         $invoice->setAccountant($employee);
         $invoice->setName($faker->word);
         $invoice->setAlias($faker->words(3, true));
@@ -123,11 +119,13 @@ class InvoiceHandlerTest extends KernelTestCase
         foreach (array_reverse($entities) as $key => $entity) {
             // need to remove a few things before we can remove certain objects
             if ($key == 'timeslice') {
+                /** @var Timeslice $entity */
                 $entity->setEmployee(null);
                 $this->em->persist($entity);
             }
 
             if ($key == 'project' || $key == 'invoice') {
+                /** @var Project|Invoice $entity */
                 $entity->setAccountant(null);
                 $this->em->persist($entity);
             }

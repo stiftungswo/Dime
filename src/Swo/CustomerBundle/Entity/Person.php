@@ -155,14 +155,6 @@ class Person extends Customer implements DimeEntityInterface
     }
 
     /**
-     * @return string
-     */
-    public function getSerializedName()
-    {
-        return $this->getFirstName() . ' ' . $this->getLastName();
-    }
-
-    /**
      * @return string|null
      */
     public function getDepartment()

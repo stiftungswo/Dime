@@ -13,3 +13,6 @@ services:
   swo.address.handler:
     class: %generic_handler%
     arguments: [ "@doctrine.orm.entity_manager", Swo\CustomerBundle\Entity\Address,  "@service_container", "ad", Swo\CustomerBundle\Form\Type\AddressFormType]
+  swo.customer.handler:
+    class: %generic_handler%
+    arguments: [ "@doctrine.orm.entity_manager", Swo\CustomerBundle\Entity\Customer,  "@service_container", "cu", Swo\CustomerBundle\Form\Type\CustomerFormType]

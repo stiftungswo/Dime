@@ -101,6 +101,8 @@ class Customer extends Entity {
     }
   }
 
+  @override
+  String type = 'customers';
   String comment;
   String email;
   bool hideForBusiness = false;

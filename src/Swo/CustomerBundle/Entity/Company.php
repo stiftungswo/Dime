@@ -110,12 +110,4 @@ class Company extends Customer implements DimeEntityInterface
         $this->commonName = $name;
         return $this;
     }
-
-    /**
-     * @return null|string
-     */
-    public function getSerializedName()
-    {
-        return $this->getName();
-    }
 }

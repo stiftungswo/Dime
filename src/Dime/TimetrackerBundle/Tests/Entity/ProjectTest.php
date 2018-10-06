@@ -2,11 +2,10 @@
 
 namespace Dime\TimetrackerBundle\Tests\Entity;
 
-use Dime\TimetrackerBundle\Entity\Activity;
-use Dime\TimetrackerBundle\Entity\Customer;
 use Dime\EmployeeBundle\Entity\Employee;
 use Dime\InvoiceBundle\Entity\Invoice;
 use Dime\OfferBundle\Entity\Offer;
+use Dime\TimetrackerBundle\Entity\Activity;
 use Dime\TimetrackerBundle\Entity\Project;
 use Dime\TimetrackerBundle\Entity\ProjectCategory;
 use Dime\TimetrackerBundle\Entity\ProjectComment;
@@ -14,9 +13,9 @@ use Dime\TimetrackerBundle\Entity\RateGroup;
 use Dime\TimetrackerBundle\Entity\RateUnitType;
 use Dime\TimetrackerBundle\Entity\Tag;
 use Dime\TimetrackerBundle\Entity\Timeslice;
-
 use Doctrine\Common\Collections\ArrayCollection;
 use Money\Money;
+use Swo\CustomerBundle\Entity\Customer;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class ProjectTest extends KernelTestCase
@@ -203,9 +202,8 @@ class ProjectTest extends KernelTestCase
         // get and set customer
         $project = new Project();
         $project_category = new Customer();
-        $this->assertNull($project->getOldCustomer());
-        // TODO adapt to new Customer entity
-        $project->setOldCustomer($project_category);
+        $this->assertNull($project->getCustomer());
+        $project->setCustomer($project_category);
         $this->assertEquals($project_category, $project->getOldCustomer());
     }
 

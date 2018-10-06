@@ -7,12 +7,13 @@ use Dime\TimetrackerBundle\Entity\RateGroup;
 use Dime\TimetrackerBundle\Entity\Tag;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\PersistentCollection;
 use JMS\Serializer\Annotation as JMS;
 
 /**
  * Class Customer
  * @package Swo\CustomerBundle\Entity
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Swo\CustomerBundle\Entity\CustomerRepository")
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="discr", type="string")
  * @ORM\DiscriminatorMap({"person" = "Person", "company" = "Company", "customer" = "Customer"})
@@ -51,6 +52,7 @@ class Customer extends Entity
      * @var string|null $commonName
      * @ORM\Column(name="common_name", type="string", nullable=true)
      * @JMS\SerializedName("commonName")
+     * @JMS\Groups({"List"})
      */
     protected $commonName;
 
@@ -192,9 +194,9 @@ class Customer extends Entity
     }
 
     /**
-     * @return ArrayCollection
+     * @return ArrayCollection|PersistentCollection
      */
-    public function getAddresses(): ArrayCollection
+    public function getAddresses()
     {
         return $this->addresses;
     }
@@ -293,7 +295,10 @@ class Customer extends Entity
         return $this;
     }
 
-    public function getSerializedName()
+    /**
+     * @return null|string
+     */
+    public function getCommonName()
     {
         return $this->commonName;
     }
