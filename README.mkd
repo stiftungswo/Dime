@@ -78,7 +78,7 @@ An API and open architecture will serve additional purposes:
 
 9. Open http://localhost:8080 for phpmyadmin
 
-    host: mariadb
+    host: mysql
     user: root
     no password
 
@@ -121,7 +121,7 @@ Check out http://localhost:3000/api/doc when the server is running
 
 ## Using Docker & docker-compose
 
-You can inspect the logs of Dime and MariaDB by:
+You can inspect the logs of Dime and MySQL by:
 
     docker-compose logs -f
 

@@ -9,7 +9,7 @@ services:
     ports:
       - "3000:8080"
     links:
-      - mariadb:mysql
+      - mysql:mysql
     volumes:
       - .:/var/www/html:cached
     environment:
@@ -17,10 +17,10 @@ services:
       - PHP_MEMLIMIT="2048M"
       - CACHE_ROOT="/tmp/app"
 
-  mariadb:
-    image: mysql:5.6.33
-    container_name: mariadb
-    hostname: mariadb
+  mysql:
+    image: mysql:5.7
+    container_name: mysql
+    hostname: mysql
     ports:
       - "3010:3306"
     environment:
