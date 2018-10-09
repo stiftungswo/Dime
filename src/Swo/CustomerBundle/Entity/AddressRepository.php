@@ -14,17 +14,7 @@ class AddressRepository extends EntityRepository
      */
     public function search($text, QueryBuilder $qb = null) : AddressRepository
     {
-        if (is_null($qb)) {
-            $qb = $this->builder;
-        }
-
-        $aliases = $qb->getRootAliases();
-        $alias = array_shift($aliases);
-
-        $qb->andWhere($qb->expr()->like($alias . '.street', ':text_like'));
-        $qb->andWhere($qb->expr()->like($alias . '.city', ':text_like'));
-        $qb->setParameter('text_like', '%' . $text . '%');
-
+        // currently not needed, frontend does the search stuff
         return $this;
     }
 }

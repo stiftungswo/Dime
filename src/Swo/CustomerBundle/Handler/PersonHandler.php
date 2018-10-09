@@ -77,8 +77,7 @@ class PersonHandler extends GenericHandler
                 $companyQb = $companyHandler->repository->createQueryBuilder('c');
                 $result = $companyQb->where(
                     $companyQb->expr()->eq('c.name', $companyQb->expr()->literal(trim($company)))
-                )
-                    ->getQuery()->getOneOrNullResult();
+                )->setMaxResults(1)->getQuery()->getOneOrNullResult();
                 if (!is_null($result)) {
                     $person['company'] = $result->getId();
                 }

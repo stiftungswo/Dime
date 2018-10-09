@@ -14,19 +14,7 @@ class PersonRepository extends EntityRepository
      */
     public function search($text, QueryBuilder $qb = null) : PersonRepository
     {
-        if (is_null($qb)) {
-            $qb = $this->builder;
-        }
-
-        $aliases = $qb->getRootAliases();
-        $alias = array_shift($aliases);
-
-        $qb->andWhere($qb->expr()->orX(
-            $qb->expr()->like($alias . '.last_name', ':text_like'),
-            $qb->expr()->eq($alias . '.first_name', ':text_like')
-        ));
-        $qb->setParameter('text_like', '%' . $text . '%');
-
+        // currently not needed, frontend does the search stuff
         return $this;
     }
 }

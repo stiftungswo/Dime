@@ -37,7 +37,6 @@ class CompanyController extends DimeController
      * @Annotations\QueryParam(name="alias", requirements="\w+", nullable=true, description="Filter By Alias")
      * @Annotations\QueryParam(name="department", requirements="\w+", nullable=true, description="Filter By Department")
      * @Annotations\QueryParam(name="hideForBusiness", nullable=true, description="Filter By hideForBusiness")
-     * @Annotations\QueryParam(name="search", requirements="\w+", nullable=true, description="Filter By Name")
      *
      * @Annotations\View(
      * serializerEnableMaxDepthChecks=true,
@@ -222,7 +221,6 @@ class CompanyController extends DimeController
      *
      */
 
-    // TODO: add controller test
     public function postCompaniesImportCheckAction(ParamFetcherInterface $params)
     {
         $companies = $params->get("companies");
@@ -260,7 +258,6 @@ class CompanyController extends DimeController
      *
      */
 
-    // TODO: add controller test
     public function postCompaniesImportAction(ParamFetcherInterface $params)
     {
         $companies = $params->get("companies");

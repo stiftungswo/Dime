@@ -32,7 +32,6 @@ class AddressController extends DimeController
      * )
      *
      * @Annotations\QueryParam(name="customer", requirements="\d+", nullable=true, description="Filter By Customer")
-     * @Annotations\QueryParam(name="search", requirements="\w+", nullable=true, description="Filter By Name")
      *
      * @Annotations\View(
      * serializerEnableMaxDepthChecks=true,

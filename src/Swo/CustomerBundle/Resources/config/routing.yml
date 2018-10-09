@@ -25,10 +25,3 @@ address:
   prefix:   /v1
   name_prefix:  api_1_
   defaults: { _format: json }
-
-customer:
-  type:     rest
-  resource: Swo\CustomerBundle\Controller\CustomerController
-  prefix:   /v1
-  name_prefix:  api_1_
-  defaults: { _format: json }

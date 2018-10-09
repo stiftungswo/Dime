@@ -18,6 +18,7 @@
                 <directory>../src/*/*Bundle/Resources</directory>
                 <directory>../src/*/*Bundle/Tests</directory>
                 <directory>../vendor</directory>
+                <directory>../src/Swo/CustomerBundle/Command</directory>
             </exclude>
         </whitelist>
     </filter>

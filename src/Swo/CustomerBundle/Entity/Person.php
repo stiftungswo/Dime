@@ -185,18 +185,6 @@ class Person extends Customer implements DimeEntityInterface
                     ->atPath('rateGroup')
                     ->addViolation();
             }
-
-            if (is_null($this->isChargeable())) {
-                $context->buildViolation('Person needs a chargeable attribute if no company is assigned.')
-                    ->atPath('chargeable')
-                    ->addViolation();
-            }
-
-            if (is_null($this->isChargeable())) {
-                $context->buildViolation('Person needs a hideForBusiness attribute if no company is assigned.')
-                    ->atPath('hideForBusiness')
-                    ->addViolation();
-            }
         }
     }
 }
