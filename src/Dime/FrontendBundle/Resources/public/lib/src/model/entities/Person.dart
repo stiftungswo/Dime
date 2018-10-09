@@ -93,6 +93,16 @@ class Person extends Customer {
     return array;
   }
 
+  String get genderShortcut {
+    if (this.salutation == "Herr" || this.salutation == "Monsieur") {
+      return 'm';
+    } else if (this.salutation == "Frau" || this.salutation == "Madame") {
+      return 'f';
+    } else {
+      return '';
+    }
+  }
+
   @override
   String type = 'persons';
   String salutation;

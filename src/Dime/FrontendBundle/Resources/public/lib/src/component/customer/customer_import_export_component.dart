@@ -98,6 +98,15 @@ abstract class CustomerImportExportComponent<T extends Customer> {
     }
   }
 
+  SafeUrl getNewsletterCsvDownload() {
+    String csv = '\ufeff';
+    List<T> entities = this.entities.cast<T>();
+    entities.where((c) => c.email != null).forEach((c) {
+      csv += entityToNewsletterExportRow(c);
+    });
+    return sanitizationService.bypassSecurityTrustUrl("data:text/csv;charset=utf-8,${csv}");
+  }
+
   importFile(FileList files) async {
     if (files.length != 1) {
       window.alert('Es muss genaue eine Datei ausgewählt werden!');
@@ -205,6 +214,7 @@ abstract class CustomerImportExportComponent<T extends Customer> {
 
   T buildFromRow(List<String> row);
   List<String> csvHeaders();
+  String entityToNewsletterExportRow(T customer);
   findDuplicates();
   List<String> fieldsToUpdate();
 }

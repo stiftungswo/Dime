@@ -73,6 +73,11 @@ class CompanyImportExportComponent extends CustomerImportExportComponent<Company
       ['Firma', 'E-Mail', 'Telefonnummer', 'Mobiltelefonnummer', 'Strasse', 'Addresszusatz', 'Postleitzahl', 'Stadt', 'Land', 'Kommentar'];
 
   @override
+  String entityToNewsletterExportRow(c) {
+    return "${c.email};;${c.name};;\n";
+  }
+
+  @override
   List<String> fieldsToUpdate() =>
       ['name', 'phoneNumbers', 'addresses', 'hideForBusiness', 'tags', 'email', 'comment', 'rateGroup', 'chargeable'];
 

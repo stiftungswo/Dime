@@ -13,7 +13,9 @@
             </div>
 
             <div boxFooter class="DimeControlButtons">
-                <download-button [href]="getCsvTemplateUri()" name="template.csv">Import-Vorlage herunterladen</download-button>
+                <download-button [href]="getNewsletterCsvDownload()" name="newsletter.csv">Newsletter-Import-Datei
+                </download-button>
+                <download-button [href]="getCsvTemplateUri()" name="template.csv">Import-Vorlage</download-button>
                 <help-tooltip text="Muss als 'Windows-Kommagetrennt (CSV)' abgespeichert werden. Umlaute kontrollieren!"></help-tooltip>
             </div>
         </dime-box>

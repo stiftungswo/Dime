@@ -94,6 +94,11 @@ class PersonImportExportComponent extends CustomerImportExportComponent<Person> 
       ];
 
   @override
+  String entityToNewsletterExportRow(p) {
+    return "${p.email};${p.firstName};${p.lastName};${p.genderShortcut}\n";
+  }
+
+  @override
   List<String> fieldsToUpdate() => [
         'salutation',
         'firstName',
