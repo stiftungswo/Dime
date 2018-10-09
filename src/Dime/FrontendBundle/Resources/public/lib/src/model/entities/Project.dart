@@ -47,7 +47,7 @@ class Project extends Entity {
       //'offers', // offers werent cloned in the old implementation, so we wont here
       'accountant',
       'deletedAt',
-      'archived'
+      'archived', 'customer', 'address'
     ]);
   }
 
@@ -99,6 +99,10 @@ class Project extends Entity {
           return this.deletedAt;
         case 'archived':
           return this.archived;
+        case 'customer':
+          return this.customer;
+        case 'address':
+          return this.address;
         default:
           break;
       }
@@ -164,6 +168,20 @@ class Project extends Entity {
       case 'archived':
         this.archived = value as bool;
         break;
+      case 'customer':
+        if (value is Customer) {
+          this.customer = value;
+        } else {
+          if (value['discr'] == 'person') {
+            this.customer = new Person.fromMap((value as Map<dynamic, dynamic>).cast<String, dynamic>());
+          } else {
+            this.customer = new Company.fromMap((value as Map<dynamic, dynamic>).cast<String, dynamic>());
+          }
+        }
+        break;
+      case 'address':
+        this.address = value is Address ? value : new Address.fromMap((value as Map<dynamic, dynamic>).cast<String, dynamic>());
+        break;
       default:
         super.Set(property, value);
         break;
@@ -206,4 +224,6 @@ class Project extends Entity {
   Employee accountant;
   DateTime deletedAt;
   bool archived;
+  Customer customer;
+  Address address;
 }

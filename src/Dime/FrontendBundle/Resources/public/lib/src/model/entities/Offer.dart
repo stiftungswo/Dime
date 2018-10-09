@@ -84,8 +84,6 @@ class Offer extends Entity {
           return this.project;
         case 'customer':
           return this.customer;
-        case 'customer.id':
-          return this.customer?.id;
         case 'address':
           return this.address;
         default:
@@ -138,7 +136,6 @@ class Offer extends Entity {
         this.project = value is Project ? value : new Project.fromMap((value as Map<dynamic, dynamic>).cast<String, dynamic>());
         break;
       case 'customer':
-        print(value.runtimeType);
         if (value is Customer) {
           this.customer = value;
         } else {

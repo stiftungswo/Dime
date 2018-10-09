@@ -33,12 +33,12 @@
                                    (change)="addSaveField('name')">
                         </dime-form-group>
                         <dime-form-group horizontal label="Kunde">
-                            <customer-select ngControl="customer"
+                            <customer-select required ngControl="customer"
                                              [ngModel]="entity.customer"
                                              (ngModelChange)="entity.customer=$event;addSaveField('customer')"></customer-select>
                         </dime-form-group>
                         <dime-form-group horizontal label="Addresse">
-                            <address-select [customer]="selectedCustomer"
+                            <address-select required [customer]="selectedCustomer"
                                             ngControl="address"
                                             [ngModel]="entity.address"
                                             (ngModelChange)="entity.address=$event;addSaveField('address')"

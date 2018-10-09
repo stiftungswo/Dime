@@ -28,7 +28,9 @@ import '../main/routes.dart' as routes;
     UserSelectComponent,
     RateGroupSelectComponent,
     ProjectCategorySelectComponent,
-    ActivityOverviewComponent
+    ActivityOverviewComponent,
+    CustomerSelectComponent,
+    AddressSelectComponent
   ],
 )
 class ProjectEditComponent extends EntityEdit<Project> {
@@ -52,6 +54,8 @@ class ProjectEditComponent extends EntityEdit<Project> {
     await super.reload(evict: evict);
     page_title.setPageTitle('Projekte', entity?.name);
   }
+
+  Customer get selectedCustomer => entity.customer;
 
   Future loadRateGroups() async {
     this.rateGroups = await this.store.list(RateGroup);

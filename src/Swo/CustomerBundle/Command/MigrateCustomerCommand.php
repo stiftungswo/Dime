@@ -125,7 +125,7 @@ class MigrateCustomerCommand extends ContainerAwareCommand
 
                 // create new address
                 $oldAddress = $customer->getAddress();
-                $address = $this->createAddressIfValid($oldAddress, isset($company) ? $company : $person, $entityManager, $output);
+                $address = $this->createAddressIfValid($oldAddress, $customer->getCompany() == null ? $person : $company, $entityManager, $output);
                 $output->writeln("Kunde mit der ID " . $customer->getId() . ' erfolgreich als neuer Kunde mit der ID ' . $person->getId() . ' erfasst.');
 
                 // we need to fetch the projects, invoices and offers for this customer
@@ -211,6 +211,8 @@ class MigrateCustomerCommand extends ContainerAwareCommand
                 }
 
                 $output->writeln("Alle Daten von Kunde " . $customer->getId() . ' wurden erfolgreich migriert!');
+                unset($company);
+                unset($offerAddress);
             } catch (\Exception $e) {
                 $output->writeln("Kunde mit der ID " . $customer->getId() . ' konnte nicht migriert werden. Bitte manuell prüfen.');
                 $output->writeln($e->getMessage());
