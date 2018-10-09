@@ -79,14 +79,6 @@ class Company extends Customer implements DimeEntityInterface
     /**
      * @return bool|null
      */
-    public function getChargeable()
-    {
-        return $this->chargeable;
-    }
-
-    /**
-     * @return bool|null
-     */
     public function getHideForBusiness()
     {
         return $this->hideForBusiness;

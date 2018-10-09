@@ -3,6 +3,8 @@
 namespace Dime\TimetrackerBundle\Tests\Entity;
 
 use Dime\TimetrackerBundle\Entity\CustomerRepository;
+use Dime\TimetrackerBundle\Entity\Project;
+use Doctrine\ORM\QueryBuilder;
 
 class CustomerRepositoryTest extends DimeRepositoryTestCase
 {
@@ -38,13 +40,15 @@ class CustomerRepositoryTest extends DimeRepositoryTestCase
     public function testFindByProject()
     {
         // get a project which has a customer assigned
+        /** @var QueryBuilder $qb */
         $qb = $this->getQBFromRepo('p', 'DimeTimetrackerBundle:Project');
         $qb->where($qb->expr()->isNotNull('p.customer'))->setMaxResults(1);
-        $project = $qb->getQuery()->execute()[0];
+        /** @var Project $project */
+        $project = $qb->getQuery()->getOneOrNullResult();
 
         // now it should find the same customer
-        $this->assertEquals($project->getCustomer(), $this->getRepoWithQB()
-            ->findByProject($project->getId()));
+        $customerFromQb = $this->getRepoWithQB()->findByProject($project->getId());
+        $this->assertEquals($project->getCustomer(), $customerFromQb);
     }
 
     public function testTagScopes()

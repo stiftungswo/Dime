@@ -134,12 +134,12 @@ class Person extends Customer implements DimeEntityInterface
     /**
      * @return bool|null
      */
-    public function getChargeable()
+    public function isChargeable()
     {
         if (is_null($this->getCompany())) {
             return $this->chargeable;
         } else {
-            return $this->getCompany()->getChargeable();
+            return $this->getCompany()->isChargeable();
         }
     }
 
@@ -186,13 +186,13 @@ class Person extends Customer implements DimeEntityInterface
                     ->addViolation();
             }
 
-            if (is_null($this->getChargeable())) {
+            if (is_null($this->isChargeable())) {
                 $context->buildViolation('Person needs a chargeable attribute if no company is assigned.')
                     ->atPath('chargeable')
                     ->addViolation();
             }
 
-            if (is_null($this->getChargeable())) {
+            if (is_null($this->isChargeable())) {
                 $context->buildViolation('Person needs a hideForBusiness attribute if no company is assigned.')
                     ->atPath('hideForBusiness')
                     ->addViolation();

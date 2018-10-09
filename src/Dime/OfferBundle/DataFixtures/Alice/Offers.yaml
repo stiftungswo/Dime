@@ -2,9 +2,9 @@ Dime\OfferBundle\Entity\Offer:
     offer_1:
         name: Default Offer
         status: @offerStatus_*
-        customer: @customer_*
+        customer: @company_*
+        address: @address_company_*
         accountant: @user_*
-        address: @addressCustomer_*
         rateGroup: @rateGroup_1
         shortDescription:  This is a default offer
         description: This is a longer description with more details
@@ -14,9 +14,9 @@ Dime\OfferBundle\Entity\Offer:
         project: 75%? @project_*
         name: <sentence(2)>
         status: @offerStatus_*
-        customer: @customer_*
+        customer: @default_person_*
+        address: @address_person_*
         accountant: @user_*
-        address: @addressCustomer_*
         rateGroup: @rateGroup_*
         shortDescription:  <text(255)>
         description: <text(700)>

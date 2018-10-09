@@ -140,6 +140,14 @@ class Customer extends Entity
     }
 
     /**
+     * @return bool|null
+     */
+    public function isChargeable()
+    {
+        return $this->chargeable;
+    }
+
+    /**
      * @param $chargeable
      * @return Customer
      */

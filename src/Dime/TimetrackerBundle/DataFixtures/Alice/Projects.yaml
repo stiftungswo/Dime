@@ -1,6 +1,7 @@
 Dime\TimetrackerBundle\Entity\Project:
     project_1:
-        customer: @customer_1
+        customer: @person_1
+        address: @address_person_1
         rateGroup: @rateGroup_1
         projectCategory: @categoryProject_1
         accountant: @employee_1
@@ -12,7 +13,8 @@ Dime\TimetrackerBundle\Entity\Project:
         description: Eine Beschreibung zum Büro Projekt
         chargeable: true
     project_{2..9}:
-        customer: @customer_*
+        customer: @default_person_*
+        address: @address_person_*
         rateGroup: @rateGroup_*
         projectCategory: @categoryProject_*
         accountant: @employee_*
@@ -26,7 +28,8 @@ Dime\TimetrackerBundle\Entity\Project:
         fixedPrice: <randomNumber(5)>
         chargeable: <boolean(90)>
     project_{10..20}:
-        customer: @customer_*
+        customer: @company_*
+        address: @address_company_*
         rateGroup: @rateGroup_*
         projectCategory: @categoryProject_*
         accountant: @employee_*
@@ -41,7 +44,8 @@ Dime\TimetrackerBundle\Entity\Project:
         budgetPrice: <randomNumber(6)>
         chargeable: <boolean(90)>
     project-timesliceMove_{source,target}:
-        customer: @customer_*
+        customer: @person_1
+        address: @address_person_1
         rateGroup: @rateGroup_*
         projectCategory: @categoryProject_*
         accountant: @employee_*
@@ -56,7 +60,8 @@ Dime\TimetrackerBundle\Entity\Project:
         budgetPrice: <randomNumber(6)>
         chargeable: <boolean(90)>
     project-vacation:
-        customer: @customer_*
+        customer: @company_*
+        address: @address_company_*
         rateGroup: @rateGroup_*
         projectCategory: @categoryProject_*
         accountant: @employee_*

@@ -93,9 +93,9 @@ class CompanyTest extends TestCase
     public function testGetSetChargeable()
     {
         $company = new Company();
-        $this->assertTrue($company->getChargeable());
+        $this->assertTrue($company->isChargeable());
         $company->setChargeable(false);
-        $this->assertFalse($company->getChargeable());
+        $this->assertFalse($company->isChargeable());
     }
 
     public function testGetSetHideForBusiness()

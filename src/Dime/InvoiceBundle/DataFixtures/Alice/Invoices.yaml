@@ -1,7 +1,8 @@
 Dime\InvoiceBundle\Entity\Invoice:
     invoice_1:
         project: @project_1
-        customer: @customer_1
+        customer: @person_1
+        address: @address_person_1
         user: @user_1
         accountant: @user_1
         name: Default Invoice
@@ -12,7 +13,8 @@ Dime\InvoiceBundle\Entity\Invoice:
         invoiceDiscounts: <numberBetween(1, 2)>x @discountInvoice*
     invoice_{2..50}:
         project: @project_*
-        customer: @customer_*
+        customer: @company_*
+        address: @address_company_*
         user: @user_*
         accountant: @user_*
         name: Test Invoice <current()>

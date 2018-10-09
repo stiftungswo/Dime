@@ -25,6 +25,12 @@ $set->addFile($bundleFixturePath . '/RateUnitTypes.yaml', 'yaml');
 $set->addFile($bundleFixturePath . '/Tags.yaml', 'yaml');
 $set->addFile($bundleFixturePath . '/Settings.yaml', 'yaml');
 
+$bundleFixturePath = $swoBundleRoot . '/CustomerBundle' . $alicepath;
+$set->addFile($bundleFixturePath . '/Companies.yaml', 'yaml');
+$set->addFile($bundleFixturePath . '/Persons.yaml', 'yaml');
+$set->addFile($bundleFixturePath . '/Phones.yaml', 'yaml');
+$set->addFile($bundleFixturePath . '/Addresses.yaml', 'yaml');
+
 $bundleFixturePath = $dimeBundleRoot . '/EmployeeBundle' . $alicepath;
 // EmployeeBundle
 $set->addFile($bundleFixturePath . '/Employees.yaml', 'yaml');
@@ -56,11 +62,5 @@ $set->addFile($bundleFixturePath . '/OfferStatusUCs.yaml', 'yaml');
 $set->addFile($bundleFixturePath . '/OfferDiscounts.yaml', 'yaml');
 $set->addFile($bundleFixturePath . '/Offers.yaml', 'yaml');
 $set->addFile($bundleFixturePath . '/OfferPositions.yaml', 'yaml');
-
-$bundleFixturePath = $swoBundleRoot . '/CustomerBundle' . $alicepath;
-$set->addFile($bundleFixturePath . '/Companies.yaml', 'yaml');
-$set->addFile($bundleFixturePath . '/Persons.yaml', 'yaml');
-$set->addFile($bundleFixturePath . '/Phones.yaml', 'yaml');
-$set->addFile($bundleFixturePath . '/Addresses.yaml', 'yaml');
 
 return $set;

@@ -98,16 +98,16 @@ class PersonTest extends TestCase
     public function testGetSetChargeable()
     {
         $person = new Person();
-        $this->assertTrue($person->getChargeable());
+        $this->assertTrue($person->isChargeable());
         $person->setChargeable(false);
-        $this->assertFalse($person->getChargeable());
+        $this->assertFalse($person->isChargeable());
 
         // should overtake value from company
         $company = new Company();
         $company->setChargeable(null);
-        $this->assertNotNull($person->getChargeable());
+        $this->assertNotNull($person->isChargeable());
         $person->setCompany($company);
-        $this->assertNull($person->getChargeable());
+        $this->assertNull($person->isChargeable());
     }
 
     public function testGetSetHideForBusiness()
