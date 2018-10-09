@@ -31,7 +31,9 @@ import 'entity_edit.dart';
     InvoiceItemOverviewComponent,
     InvoiceCostgroupOverviewComponent,
     InvoiceDiscountOverviewComponent,
-    MarkdownInputComponent
+    MarkdownInputComponent,
+    CustomerSelectComponent,
+    AddressSelectComponent
   ],
 )
 class InvoiceEditComponent extends EntityEdit<Invoice> {
@@ -44,6 +46,8 @@ class InvoiceEditComponent extends EntityEdit<Invoice> {
 
   @ViewChild(InvoiceItemOverviewComponent)
   InvoiceItemOverviewComponent invoiceItemOverview;
+
+  Customer get selectedCustomer => entity.customer;
 
   void printInvoice() {
     window.open('${http.baseUrl}/invoices/${this.entity.id}/print', 'Invoice Print');

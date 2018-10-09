@@ -28,6 +28,9 @@ class Invoice extends Entity {
     this.accountant = original.accountant;
     this.costgroups = original.costgroups;
     this.breakdown = original.breakdown;
+    this.customer = original.customer;
+    this.address = original.address;
+
     addFieldstoUpdate([
       'description',
       'project',
@@ -44,7 +47,7 @@ class Invoice extends Entity {
       'totalVAT2',
       'fixedPrice',
       'accountant',
-      'costgroup'
+      'costgroup', 'customer', 'address'
     ]);
   }
 
@@ -101,6 +104,10 @@ class Invoice extends Entity {
           return this.costgroups;
         case 'breakdown':
           return this.breakdown;
+        case 'customer':
+          return this.customer;
+        case 'address':
+          return this.address;
         default:
           break;
       }
@@ -159,6 +166,20 @@ class Invoice extends Entity {
       case 'breakdown':
         this.breakdown = new InvoiceBreakdown.fromMap((value as Map<dynamic, dynamic>).cast<String, dynamic>());
         break;
+      case 'customer':
+        if (value is Customer) {
+          this.customer = value;
+        } else {
+          if (value['discr'] == 'person') {
+            this.customer = new Person.fromMap((value as Map<dynamic, dynamic>).cast<String, dynamic>());
+          } else {
+            this.customer = new Company.fromMap((value as Map<dynamic, dynamic>).cast<String, dynamic>());
+          }
+        }
+        break;
+      case 'address':
+        this.address = value is Address ? value : new Address.fromMap((value as Map<dynamic, dynamic>).cast<String, dynamic>());
+        break;
       default:
         super.Set(property, value);
         break;
@@ -209,4 +230,6 @@ class Invoice extends Entity {
   DateTime end;
   Employee accountant;
   InvoiceBreakdown breakdown;
+  Customer customer;
+  Address address;
 }
