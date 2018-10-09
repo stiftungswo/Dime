@@ -57,14 +57,14 @@
                         </label>
                     </dime-form-group>
 
-                    <dime-form-group horizontal class="checkbox" help="Aktiviere diese Checkbox, wenn du möchtest, dass dieser Kunde bei der Erstellung von neuen Offerten oder Projekten nicht angezeigt werden soll. Auf den Adressexport hat dies keinen Einfluss.">
+                    <dime-form-group horizontal class="checkbox" help="Aktiviere diese Checkbox, wenn du möchtest, dass dieser Kunde bei der Erstellung von neuen Offerten oder Projekten nicht angezeigt werden soll. Auf den Addressexport hat dies keinen Einfluss.">
                         <label>
                             <input required type="checkbox" [(ngModel)]="entity.hideForBusiness" (change)="addSaveField('hideForBusiness')"> Nicht anzeigen in Dime?
                         </label>
                     </dime-form-group>
                 </div>
 
-                <p *ngIf="hasCompany(entity)"><b>Hinweis: </b> Adressen und Telefonnummern, welche für alle Personen
+                <p *ngIf="hasCompany(entity)"><b>Hinweis: </b> Addressen und Telefonnummern, welche für alle Personen
                     einer Firma gültig
                     sein sollen, können <a
                             [routerLink]="companyEditUrl">hier</a>

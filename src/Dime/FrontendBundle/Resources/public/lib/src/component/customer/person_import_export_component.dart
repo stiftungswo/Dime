@@ -86,7 +86,7 @@ class PersonImportExportComponent extends CustomerImportExportComponent<Person> 
         'Telefonnummer',
         'Mobiltelefonnummer',
         'Strasse',
-        'Adresszusatz',
+        'Addresszusatz',
         'Postleitzahl',
         'Stadt',
         'Land',

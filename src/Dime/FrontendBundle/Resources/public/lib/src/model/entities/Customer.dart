@@ -39,6 +39,8 @@ class Customer extends Entity {
           return this.chargeable;
         case 'commonName':
           return this.commonName;
+        case 'discr':
+          return this.discr;
         default:
           break;
       }
@@ -73,6 +75,9 @@ class Customer extends Entity {
         break;
       case 'commonName':
         this.commonName = value as String;
+        break;
+      case 'discr':
+        this.discr = value as String;
         break;
       default:
         super.Set(property, value);
@@ -111,4 +116,5 @@ class Customer extends Entity {
   RateGroup rateGroup;
   bool chargeable;
   String commonName;
+  String discr;
 }

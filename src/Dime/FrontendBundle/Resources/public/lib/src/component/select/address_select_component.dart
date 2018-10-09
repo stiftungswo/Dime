@@ -21,13 +21,13 @@ class AddressSelectComponent extends EntitySelect<Address> {
   AddressSelectComponent(CachingObjectStoreService store, dom.Element element, StatusService status)
       : super(Address, store, element, status);
 
-  int _customerId;
-  int get customerId => _customerId;
+  Customer _customer;
+  Customer get customer => _customer;
 
   @Input('customer')
-  void set customerId(int customerId) {
-    if (customerId != _customerId) {
-      _customerId = customerId;
+  void set customer(Customer customer) {
+    if (customer != _customer) {
+      _customer = customer;
       reload();
     }
   }
@@ -35,7 +35,25 @@ class AddressSelectComponent extends EntitySelect<Address> {
   @override
   Future reload() async {
     await this.statusservice.run(() async {
-      this.entities = (await this.store.list<Address>(Address, params: {'customer': this._customerId})).toList();
+      List<Address> entities = [];
+
+      if (this.customer is Person) {
+        Person person = await this.store.one(Person, this.customer.id);
+        entities.addAll(person.addresses);
+
+        if (person.company != null) {
+          List<Address> companyAddresses = await this.store.list(Address, params: {'customer': person.company.id});
+          entities = entities..addAll(companyAddresses);
+        }
+      } else if (this.customer is Company) {
+        Company company = await this.store.one(Company, this.customer.id);
+        entities.addAll(company.addresses);
+      }
+
+      this.entities = entities;
     });
   }
+
+  @override
+  String get EntText => this.selectedEntity != null ? this.selectedEntity.toString() : '';
 }

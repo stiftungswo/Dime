@@ -42,7 +42,7 @@ class CompanyPersonOverviewComponent extends EntityOverview<Person> {
     }
   }
 
-  String get label => 'Adressen der Firma';
+  String get label => 'Addressen der Firma';
 
   @override
   Future reload({Map<String, dynamic> params, bool evict: false}) {

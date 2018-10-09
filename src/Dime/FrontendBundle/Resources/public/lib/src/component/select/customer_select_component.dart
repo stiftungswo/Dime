@@ -24,7 +24,12 @@ class CustomerSelectComponent extends EntitySelect<Customer> {
   @override
   Future reload() async {
     await this.statusservice.run(() async {
-      this.entities = (await this.store.list<Customer>(Customer, params: {'hideForBusiness': 0})).toList();
+      List<Customer> entities = [];
+
+      entities.addAll((await this.store.list<Person>(Person, params: {'hideForBusiness': 0})).toList());
+      entities.addAll((await this.store.list<Company>(Company, params: {'hideForBusiness': 0})).toList());
+
+      this.entities = entities;
     });
   }
 

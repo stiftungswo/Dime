@@ -95,6 +95,16 @@ class Address extends Entity {
   }
 
   @override
+  String toString() {
+    String result = '';
+    result = result + this.street;
+    result = this.supplement == null ? result : result + ', ${this.supplement}';
+    result = this.postcode == null || this.city == null ? result : result + ', ${this.postcode.toString()} ${this.city}';
+    result = this.country == null ? result : result + ', ${this.country}';
+    return result;
+  }
+
+  @override
   String type = 'addresses';
   String street;
   String supplement;

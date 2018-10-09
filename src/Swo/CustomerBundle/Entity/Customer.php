@@ -16,7 +16,11 @@ use JMS\Serializer\Annotation as JMS;
  * @ORM\Entity(repositoryClass="Swo\CustomerBundle\Entity\CustomerRepository")
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="discr", type="string")
- * @ORM\DiscriminatorMap({"person" = "Person", "company" = "Company", "customer" = "Customer"})
+ * @ORM\DiscriminatorMap({"person" = "Swo\CustomerBundle\Entity\Person", "company" = "Swo\CustomerBundle\Entity\Company", "customer" = "Swo\CustomerBundle\Entity\Customer"})
+ * @JMS\Discriminator(
+ *     field = "discr",
+ *     disabled = false,
+ *     map = {"company": "Swo\CustomerBundle\Entity\Company","person": "Swo\CustomerBundle\Entity\Person", "customer": "Swo\CustomerBundle\Entity\Customer"})
  */
 class Customer extends Entity
 {

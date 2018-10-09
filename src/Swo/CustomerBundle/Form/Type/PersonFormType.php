@@ -25,7 +25,6 @@ class PersonFormType extends AbstractCustomerFormType
         parent::buildForm($builder, $options);
         $builder
             ->add('company')
-            ->add('address')
             ->add('salutation')
             ->add('firstName')
             ->add('lastName')

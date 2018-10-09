@@ -70,7 +70,7 @@ class CompanyImportExportComponent extends CustomerImportExportComponent<Company
 
   @override
   List<String> csvHeaders() =>
-      ['Firma', 'E-Mail', 'Telefonnummer', 'Mobiltelefonnummer', 'Strasse', 'Adresszusatz', 'Postleitzahl', 'Stadt', 'Land', 'Kommentar'];
+      ['Firma', 'E-Mail', 'Telefonnummer', 'Mobiltelefonnummer', 'Strasse', 'Addresszusatz', 'Postleitzahl', 'Stadt', 'Land', 'Kommentar'];
 
   @override
   List<String> fieldsToUpdate() =>

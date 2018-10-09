@@ -21,14 +21,14 @@
 		{% if offer.address %}
 			{% set address = offer.address %}
 			<div class="recipientAddress">
-				{%  if customer.company %}{{ customer.company }}{% endif %}<br/>
+				{%  if customer.company %}{{ customer.company.commonName }}{% endif %}<br/>
 				{% if customer.department %}{{ customer.department }}{% endif %}<br/>
 				{% if customer.salutation %}{{ customer.salutation }} {% endif %}
-				    {% if customer.fullname %}{% if customer.salutation and customer.fullname|length > 25 %}<br/>{% endif %}{{ customer.fullname }}
+				    {% if customer.commonName %}{% if customer.salutation and customer.commonName|length > 25 %}<br/>{% endif %}{{ customer.commonName }}
 				    {% else %}{% if customer.salutation and customer.name|length > 25 %}<br/>{% endif %}{{ customer.name }}{% endif %}<br/>
 				{{ address.street }}<br/>
                 {% if address.supplement %}{{ address.supplement }}<br/>{% endif %}
-				{{ address.plz }} {{ address.city }}<br/>
+				{{ address.postcode }} {{ address.city }}<br/>
 				{% if address.country %}{{ address.country }}{% endif %}<br/>
 			</div>
 		{% endif %}

@@ -86,6 +86,7 @@ class MigrateCustomerCommand extends ContainerAwareCommand
                 $person->setSalutation($customer->getSalutation());
                 $person->setFirstName($firstName[0]);
                 $person->setLastName($lastName . ' (Migriert)');
+                $person->setDepartment($customer->getDepartment());
                 $person->setEmail($customer->getEmail());
                 $person->setComment($customer->getComment());
 
@@ -210,7 +211,6 @@ class MigrateCustomerCommand extends ContainerAwareCommand
                 }
 
                 $output->writeln("Alle Daten von Kunde " . $customer->getId() . ' wurden erfolgreich migriert!');
-
             } catch (\Exception $e) {
                 $output->writeln("Kunde mit der ID " . $customer->getId() . ' konnte nicht migriert werden. Bitte manuell prüfen.');
                 $output->writeln($e->getMessage());
@@ -234,7 +234,7 @@ class MigrateCustomerCommand extends ContainerAwareCommand
                 "country" => $oldAddress->getCountry(),
             );
 
-            foreach($newCustomer->getAddresses()->toArray() as $address) {
+            foreach ($newCustomer->getAddresses()->toArray() as $address) {
                 /** @var NewAddress $address */
                 $newAddressArray = array(
                     "street" => $address->getStreet(),
@@ -253,7 +253,8 @@ class MigrateCustomerCommand extends ContainerAwareCommand
         }
     }
 
-    private function createAddress(OldAddress $oldAddress, NewCustomer $newCustomer, EntityManager $entityManager, OutputInterface $output) {
+    private function createAddress(OldAddress $oldAddress, NewCustomer $newCustomer, EntityManager $entityManager, OutputInterface $output)
+    {
         if (!is_null($oldAddress->getStreet()) && !is_null($oldAddress->getPlz()) && !is_null($oldAddress->getCity())) {
             $address = new NewAddress();
             $address->setStreet($oldAddress->getStreet());

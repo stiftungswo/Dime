@@ -7,7 +7,8 @@ use FOS\RestBundle\Controller\Annotations;
 use FOS\RestBundle\Request\ParamFetcherInterface;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 
-class CustomerController extends DimeController {
+class CustomerController extends DimeController
+{
 
     private $handlerService = 'swo.customer.handler';
 

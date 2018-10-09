@@ -36,6 +36,7 @@ class CompanyController extends DimeController
      * @Annotations\QueryParam(name="name", requirements="\w+", nullable=true, description="Filter By Name")
      * @Annotations\QueryParam(name="alias", requirements="\w+", nullable=true, description="Filter By Alias")
      * @Annotations\QueryParam(name="department", requirements="\w+", nullable=true, description="Filter By Department")
+     * @Annotations\QueryParam(name="hideForBusiness", nullable=true, description="Filter By hideForBusiness")
      * @Annotations\QueryParam(name="search", requirements="\w+", nullable=true, description="Filter By Name")
      *
      * @Annotations\View(

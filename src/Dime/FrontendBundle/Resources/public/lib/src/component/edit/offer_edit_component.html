@@ -1,106 +1,116 @@
 <loading-container *ngIf="entity == null"></loading-container>
 <div *ngIf="entity != null">
-<h2 class="page-header">{{entity?.name}}&nbsp;</h2>
-<form  class="box-body" #editform="ngForm">
-  <div class="nav-tabs-custom">
-    <ul class="nav nav-tabs">
-      <li class="active"><a data-toggle="tab">Offerte {{entity.id}}</a></li>
-      <li><a data-toggle="tab" *ngIf="project != null" (click)="openProject()">Projekt {{project.id}}</a></li>
-      <li>
-        <a [class.disabled]="!editform.valid" data-toggle="tab" *ngIf="project == null" (click)="createProject()">
-          <i class="fa fa-fw fa-plus"></i> Projekt erstellen
-        </a>
-      </li>
-      <template [ngIf]="project != null && !project.invoices.isEmpty">
-        <li *ngFor="let invoice of project.invoices">
-          <a data-toggle="tab" (click)="openInvoice(invoice.id)">Rechnung {{invoice.id}}</a>
-        </li>
-      </template>
-      <li>
-        <a [class.disabled]="!editform.valid" data-toggle="tab" *ngIf="project != null" (click)="createInvoice()">
-          <i class="fa fa-fw fa-plus"></i> Rechnung erstellen
-        </a>
-      </li>
-    </ul>
+    <h2 class="page-header">{{entity?.name}}&nbsp;</h2>
+    <form class="box-body" #editform="ngForm">
+        <div class="nav-tabs-custom">
+            <ul class="nav nav-tabs">
+                <li class="active"><a data-toggle="tab">Offerte {{entity.id}}</a></li>
+                <li><a data-toggle="tab" *ngIf="project != null" (click)="openProject()">Projekt {{project.id}}</a></li>
+                <li>
+                    <a [class.disabled]="!editform.valid" data-toggle="tab" *ngIf="project == null"
+                       (click)="createProject()">
+                        <i class="fa fa-fw fa-plus"></i> Projekt erstellen
+                    </a>
+                </li>
+                <template [ngIf]="project != null && !project.invoices.isEmpty">
+                    <li *ngFor="let invoice of project.invoices">
+                        <a data-toggle="tab" (click)="openInvoice(invoice.id)">Rechnung {{invoice.id}}</a>
+                    </li>
+                </template>
+                <li>
+                    <a [class.disabled]="!editform.valid" data-toggle="tab" *ngIf="project != null"
+                       (click)="createInvoice()">
+                        <i class="fa fa-fw fa-plus"></i> Rechnung erstellen
+                    </a>
+                </li>
+            </ul>
 
-    <div class="tab-content">
-      <div class="tab-pane active" id="offer_tab">
-        <div class="form-horizontal">
-          <dime-form-group horizontal label="Name">
-            <input class="form-control" required [(ngModel)]="entity.name" ngControl="name" (change)="addSaveField('name')">
-          </dime-form-group>
-          <dime-form-group horizontal label="Kunde">
-            <customer-select ngControl="customer"
-                            [ngModel]="entity.customer"
-                            (ngModelChange)="entity.customer=$event;addSaveField('customer')"></customer-select>
-          </dime-form-group>
-          <dime-form-group horizontal label="Adresse">
-            <!--<address-select ngControl="address"
-                             [ngModel]="entity.address"
-                             (ngModelChange)="entity.address=$event;addSaveField('address')"></address-select>-->
-          </dime-form-group>
-          <dime-form-group horizontal label="Status">
-            <offer-status-select required ngControl="status"
-                                [ngModel]="entity.status" (ngModelChange)="entity.status=$event;entity.addFieldtoUpdate('status')"></offer-status-select>
-          </dime-form-group>
-          <dime-form-group horizontal label="Verantwortlicher Mitarbeiter">
-            <user-select required ngControl="accountant"
-                         [ngModel]="entity.accountant" (ngModelChange)="entity.accountant=$event;addSaveField('accountant')"></user-select>
-          </dime-form-group>
-          <dime-form-group horizontal label="Tarif">
-            <rate-group-select required ngControl="rateGroup"
-                              [ngModel]="entity.rateGroup" (ngModelChange)="entity.rateGroup=$event;addSaveField('rateGroup'); rateGroupChanged()"></rate-group-select>
-          </dime-form-group>
-        </div>
-        <dime-form-group label="Kurzbeschreibung">
-          <input class="form-control" required ngControl="shortDescription"
-                 [(ngModel)]="entity.shortDescription" (change)="addSaveField('shortDescription')">
-        </dime-form-group>
-        <dime-form-group label="Beschreibung">
-          <markdown-input [ngModel]="entity.description" (ngModelChange)="entity.description = $event; addSaveField('description')"></markdown-input>
-        </dime-form-group>
-      </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-12 right">
-      <offer-position-overview [offer]="entity"></offer-position-overview>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-sm-12 col-md-6 right">
-      <offer-discount-overview [offer]="entity.id"></offer-discount-overview>
-    </div>
-    <div class="col-sm-12 col-md-6 right">
-      <dime-box label="Berechnung">
-        <div boxBody>
-          <div class="row"><label class="col-sm-2 col-xs-6 control-label">Subtotal</label>
-            <div class="col-sm-4 col-xs-6">{{entity.subtotal}}</div>
-          </div>
-          <div class="row"><label class="col-sm-2 col-xs-6 control-label">Davon Mwst.</label>
-            <div class="col-sm-4 col-xs-6">{{entity.totalVAT}}</div>
-          </div>
-          <div class="row"><label class="col-sm-2 col-xs-6 control-label">Total Abzüge</label>
-            <div class="col-sm-4 col-xs-6">{{entity.totalDiscounts}}</div>
-          </div>
-          <div class="row"><label class="col-sm-2 col-xs-6 control-label">Total</label>
-            <div class="col-sm-4 col-xs-6">{{entity.total}}</div>
-          </div>
-          <div class="row">
-            <label class="col-sm-2 control-label">Fixpreis</label>
-            <div class="col-sm-4">
-              <input class="form-control" type="text" [(ngModel)]="entity.fixedPrice" (change)="addSaveField('fixedPrice')">
+            <div class="tab-content">
+                <div class="tab-pane active" id="offer_tab">
+                    <div class="form-horizontal">
+                        <dime-form-group horizontal label="Name">
+                            <input class="form-control" required [(ngModel)]="entity.name" ngControl="name"
+                                   (change)="addSaveField('name')">
+                        </dime-form-group>
+                        <dime-form-group horizontal label="Kunde">
+                            <customer-select ngControl="customer"
+                                             [ngModel]="entity.customer"
+                                             (ngModelChange)="entity.customer=$event;addSaveField('customer')"></customer-select>
+                        </dime-form-group>
+                        <dime-form-group horizontal label="Addresse">
+                            <address-select [customer]="selectedCustomer"
+                                            ngControl="address"
+                                            [ngModel]="entity.address"
+                                            (ngModelChange)="entity.address=$event;addSaveField('address')"
+                            ></address-select>
+                        </dime-form-group>
+                        <dime-form-group horizontal label="Status">
+                            <offer-status-select required ngControl="status"
+                                                 [ngModel]="entity.status"
+                                                 (ngModelChange)="entity.status=$event;entity.addFieldtoUpdate('status')"></offer-status-select>
+                        </dime-form-group>
+                        <dime-form-group horizontal label="Verantwortlicher Mitarbeiter">
+                            <user-select required ngControl="accountant"
+                                         [ngModel]="entity.accountant"
+                                         (ngModelChange)="entity.accountant=$event;addSaveField('accountant')"></user-select>
+                        </dime-form-group>
+                        <dime-form-group horizontal label="Tarif">
+                            <rate-group-select required ngControl="rateGroup"
+                                               [ngModel]="entity.rateGroup"
+                                               (ngModelChange)="entity.rateGroup=$event;addSaveField('rateGroup'); rateGroupChanged()"></rate-group-select>
+                        </dime-form-group>
+                    </div>
+                    <dime-form-group label="Kurzbeschreibung">
+                        <input class="form-control" required ngControl="shortDescription"
+                               [(ngModel)]="entity.shortDescription" (change)="addSaveField('shortDescription')">
+                    </dime-form-group>
+                    <dime-form-group label="Beschreibung">
+                        <markdown-input [ngModel]="entity.description"
+                                        (ngModelChange)="entity.description = $event; addSaveField('description')"></markdown-input>
+                    </dime-form-group>
+                </div>
             </div>
-          </div>
         </div>
-      </dime-box>
-    </div>
-  </div>
-  <div class="DimeControlButtons">
-    <save-button [valid]="editform.valid" (click)="saveEntity()"></save-button>
-    <dime-button primary (click)="printOffer()" glyphicon="print">Drucken</dime-button>
-    <dime-button (click)="reloadEvict()" glyphicon="refresh"></dime-button>
-  </div>
-</form>
-<edit-footer [entity]="entity"></edit-footer>
+        <div class="row">
+            <div class="col-md-12 right">
+                <offer-position-overview [offer]="entity"></offer-position-overview>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 col-md-6 right">
+                <offer-discount-overview [offer]="entity.id"></offer-discount-overview>
+            </div>
+            <div class="col-sm-12 col-md-6 right">
+                <dime-box label="Berechnung">
+                    <div boxBody>
+                        <div class="row"><label class="col-sm-2 col-xs-6 control-label">Subtotal</label>
+                            <div class="col-sm-4 col-xs-6">{{entity.subtotal}}</div>
+                        </div>
+                        <div class="row"><label class="col-sm-2 col-xs-6 control-label">Davon Mwst.</label>
+                            <div class="col-sm-4 col-xs-6">{{entity.totalVAT}}</div>
+                        </div>
+                        <div class="row"><label class="col-sm-2 col-xs-6 control-label">Total Abzüge</label>
+                            <div class="col-sm-4 col-xs-6">{{entity.totalDiscounts}}</div>
+                        </div>
+                        <div class="row"><label class="col-sm-2 col-xs-6 control-label">Total</label>
+                            <div class="col-sm-4 col-xs-6">{{entity.total}}</div>
+                        </div>
+                        <div class="row">
+                            <label class="col-sm-2 control-label">Fixpreis</label>
+                            <div class="col-sm-4">
+                                <input class="form-control" type="text" [(ngModel)]="entity.fixedPrice"
+                                       (change)="addSaveField('fixedPrice')">
+                            </div>
+                        </div>
+                    </div>
+                </dime-box>
+            </div>
+        </div>
+        <div class="DimeControlButtons">
+            <save-button [valid]="editform.valid" (click)="saveEntity()"></save-button>
+            <dime-button primary (click)="printOffer()" glyphicon="print">Drucken</dime-button>
+            <dime-button (click)="reloadEvict()" glyphicon="refresh"></dime-button>
+        </div>
+    </form>
+    <edit-footer [entity]="entity"></edit-footer>
 </div>

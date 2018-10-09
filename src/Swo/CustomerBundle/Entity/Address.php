@@ -72,6 +72,7 @@ class Address extends Entity implements DimeEntityInterface
      * @var Customer|null
      * @ORM\ManyToOne(targetEntity="Swo\CustomerBundle\Entity\Customer", inversedBy="addresses")
      * @ORM\JoinColumn(name="customer_id", referencedColumnName="id", nullable=true)
+     * @JMS\MaxDepth(1)
      */
     protected $customer;
 

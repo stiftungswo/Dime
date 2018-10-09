@@ -34,20 +34,20 @@ import 'entity_edit.dart';
     OfferPositionOverviewComponent,
     OfferDiscountOverviewComponent,
     MarkdownInputComponent,
-    CustomerSelectComponent
+    CustomerSelectComponent,
+    AddressSelectComponent
   ],
 )
 class OfferEditComponent extends EntityEdit<Offer> {
   List<RateGroup> rateGroups;
-
   List<OfferStatusUC> states;
-
   List<Employee> users;
 
   @override
   Offer entity;
 
   Project project;
+  Customer get selectedCustomer => entity.customer;
 
   HttpService http;
 
