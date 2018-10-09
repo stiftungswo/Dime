@@ -48,7 +48,7 @@ class CustomerRepositoryTest extends DimeRepositoryTestCase
 
         // now it should find the same customer
         $customerFromQb = $this->getRepoWithQB()->findByProject($project->getId());
-        $this->assertEquals($project->getCustomer(), $customerFromQb);
+        $this->assertEquals($project->getCustomer()->getId(), $customerFromQb->getId());
     }
 
     public function testTagScopes()
