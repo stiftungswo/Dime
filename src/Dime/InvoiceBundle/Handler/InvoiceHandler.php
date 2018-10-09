@@ -100,6 +100,9 @@ class InvoiceHandler extends GenericHandler
         if (!is_null($project->getCustomer())) {
             $invoice->setCustomer($project->getCustomer());
         }
+        if (!is_null($project->getAddress())) {
+            $invoice->setAddress($project->getAddress());
+        }
         if (!is_null($project->getAccountant())) {
             $invoice->setAccountant($project->getAccountant());
         }
