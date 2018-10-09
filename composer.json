@@ -52,7 +52,8 @@
 		"nelmio/cors-bundle": "^1.5.0",
 		"mathiasverraes/money": "dev-master#941995d773d4f136e05e98c1d443cb627e761280",
 		"tbbc/money-bundle": "dev-master#f2b015f60ab0dd144f1a452abfaa87b2cc7764b6",
-		"symfony/security-csrf": "~2.8"
+		"symfony/security-csrf": "~2.8",
+		"ext-json": "*"
 	},
 	"require-dev" : {
 		"h4cc/alice-fixtures-bundle" : "^0.5.1",
