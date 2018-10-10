@@ -18,11 +18,11 @@
 		</div>
 		{% set address = invoice.address %}
 		<div class="recipientAddress">
-			{%  if customer.company %}{{ customer.company.commonName }}{% endif %}<br/>
-			{% if customer.department %}{{ customer.department }}{% endif %}<br/>
-			{% if customer.salutation %}{{ customer.salutation }} {% endif %}
-				{% if customer.commonName %}{% if customer.salutation and customer.commonName|length > 25 %}<br/>{% endif %}{{ customer.commonName }}
-				{% else %}{% if customer.salutation and customer.commonName|length > 25 %}<br/>{% endif %}{{ customer.commonName }}{% endif %}<br/>
+			{%  if customer.company is defined and customer.company is not null %}{{ customer.company.commonName }}{% endif %}<br/>
+			{% if customer.department is defined and customer.department is not null %}{{ customer.department }}{% endif %}<br/>
+			{% if customer.salutation is defined and customer.salutation is not null %}{{ customer.salutation }} {% endif %}
+				{% if customer.commonName %}{% if customer.salutation is defined and customer.salutation is not null and customer.commonName|length > 25 %}<br/>{% endif %}{{ customer.commonName }}
+				{% else %}{% if customer.salutation is defined and customer.salutation is not null and customer.commonName|length > 25 %}<br/>{% endif %}{{ customer.commonName }}{% endif %}<br/>
 			{{ address.street }}<br/>
 			{% if address.supplement %}{{ address.supplement }}<br/>{% endif %}
 			{{ address.postcode }} {{ address.city }}<br/>
@@ -157,10 +157,10 @@
 						</div>
 					</div>
 					<div margin="7mm 0 0 0" font-size="14">
-						{% if customer.company %}
+						{% if customer.company is defined and customer.company is not null %}
 						{{ customer.company.commonName }}<br/>
 						{% else %}
-						{% if customer.salutation %}{{ customer.salutation }} {% endif %}{% if customer.commonName %}{{ customer.commonName }}{% else %}{{ customer.commonName }}{% endif %}<br/>
+						{% if customer.salutation is defined and customer.salutation is not null %}{{ customer.salutation }} {% endif %}{% if customer.commonName %}{{ customer.commonName }}{% else %}{{ customer.commonName }}{% endif %}<br/>
 						{% endif %}
 						{{ address.street }}<br/>
 						{{ address.postcode }} {{ address.city }}<br/>
@@ -193,10 +193,10 @@
 								</div>
 								<div height="54mm" width="100%">
 									<div margin="27mm 0 0 3mm" font-size="14">
-										{% if customer.company %}
+										{% if customer.company is defined and customer.company is not null %}
 											{{ customer.company.commonName }}<br/>
 										{% else %}
-											{% if customer.salutation %}{{ customer.salutation }} {% endif %}{% if customer.commonName %}{{ customer.commonName }}{% else %}{{ customer.name }}{% endif %}<br/>
+											{% if customer.salutation is defined and customer.salutation is not null %}{{ customer.salutation }} {% endif %}{% if customer.commonName %}{{ customer.commonName }}{% else %}{{ customer.name }}{% endif %}<br/>
 										{% endif %}
 										{{ address.street }}<br/>
 										{{ address.postcode }} {{ address.city }}<br/>
