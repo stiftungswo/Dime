@@ -177,6 +177,22 @@ class PersonControllerTest extends DimeTestCase
         // send a new company to have a duplicate
         $response = $this->jsonRequest(
             "POST",
+            $this->api_prefix . "/companies",
+            json_encode(array(
+                "comment" => "Das ist eine Firma.",
+                "email" => "info@musterman.ag",
+                "name" => "Mustermann AG",
+                "rateGroup" => 1,
+                "chargeable" => true,
+                "hideForBusiness" => true
+            ))
+        );
+        $this->assertEquals(201, $response->getStatusCode(), $response->getContent());
+        $data = json_decode($response->getContent(), true);
+
+        // send a new person to have a duplicate
+        $response = $this->jsonRequest(
+            "POST",
             $this->api_prefix . "/persons",
             json_encode(array(
                 "comment" => "Das ist eine Person",
@@ -186,7 +202,8 @@ class PersonControllerTest extends DimeTestCase
                 "lastName" => "Person",
                 "rateGroup" => 2,
                 "chargeable" => true,
-                "hideForBusiness" => true
+                "hideForBusiness" => true,
+                "company" => $data['id']
             ))
         );
         $this->assertEquals(201, $response->getStatusCode(), $response->getContent());
@@ -200,15 +217,18 @@ class PersonControllerTest extends DimeTestCase
                     array(
                         "firstName" => "Peter",
                         "lastName" => "Person",
-                        "email" => "p.person@musterman.ag"
+                        "email" => "p.person@musterman.ag",
+                        "company" => "Mustermann AG"
                     ), array (
                         "firstName" => "Manuela",
                         "lastName" => "Persona",
-                        "email" => "m.persona@musterman.ag"
+                        "email" => "m.persona@musterman.ag",
+                        "company" => "Mustermann AG"
                     )
                 )
             ))
         );
+        var_dump(json_decode($response->getContent(), true));
         $this->assertEquals([true, false], json_decode($response->getContent(), true));
     }
 
