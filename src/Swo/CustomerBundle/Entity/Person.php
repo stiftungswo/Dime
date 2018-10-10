@@ -90,7 +90,7 @@ class Person extends Customer implements DimeEntityInterface
     public function setFirstName(string $firstName) : Person
     {
         $this->firstName = $firstName;
-        $this->commonName = $firstName . ' ' . $this->getLastName();
+        $this->updateCommonName();
         return $this;
     }
 
@@ -109,7 +109,7 @@ class Person extends Customer implements DimeEntityInterface
     public function setLastName(string $lastName) : Person
     {
         $this->lastName = $lastName;
-        $this->commonName = $this->getFirstName() . ' ' . $lastName;
+        $this->updateCommonName();
         return $this;
     }
 
@@ -128,6 +128,7 @@ class Person extends Customer implements DimeEntityInterface
     public function setCompany($company) : Person
     {
         $this->company = $company;
+        $this->updateCommonName();
         return $this;
     }
 
@@ -171,6 +172,20 @@ class Person extends Customer implements DimeEntityInterface
     {
         $this->department = $department;
         return $this;
+    }
+
+    /**
+     * updates the commonName for a person as soon as setFirstName, setLastName or setCompany gets called
+     * it is private because nobody from outside should be able to change this property (standardization)
+     * a public getter is defined in the customer parent class
+     */
+    private function updateCommonName()
+    {
+        $newCommonName = $this->getFirstName() . ' ' . $this->getLastName();
+        if ($this->getCompany() != null) {
+            $newCommonName .= ' (' . $this->getCompany()->getName() .')';
+        }
+        $this->commonName = $newCommonName;
     }
 
     /**

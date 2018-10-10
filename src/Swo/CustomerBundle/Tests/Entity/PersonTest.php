@@ -27,6 +27,7 @@ class PersonTest extends TestCase
         $person = new Person();
         $person->setFirstName('Christoph');
         $this->assertEquals('Christoph', $person->getFirstName());
+        $this->assertEquals('Christoph ', $person->getCommonName());
     }
     
     public function testGetSetLastName()
@@ -34,6 +35,7 @@ class PersonTest extends TestCase
         $person = new Person();
         $person->setLastName('Stiefel');
         $this->assertEquals('Stiefel', $person->getLastName());
+        $this->assertEquals(' Stiefel', $person->getCommonName());
     }
 
     public function testPhoneNumbers()
@@ -60,8 +62,10 @@ class PersonTest extends TestCase
     {
         $person = new Person();
         $company = new Company();
+        $company->setName('Mustermän GmbH');
         $person->setCompany($company);
         $this->assertEquals($company, $person->getCompany());
+        $this->assertEquals('  (Mustermän GmbH)', $person->getCommonName());
         $person->setCompany(null);
         $this->assertNull($person->getCompany());
     }

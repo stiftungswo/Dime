@@ -1,5 +1,5 @@
 Swo\CustomerBundle\Entity\Address:
-  address_company_{1..10}:
+  address_company_{1..25}:
     street: <streetName()> <buildingNumber()>
     postcode: <postcode()>
     city: <city()>
@@ -15,3 +15,11 @@ Swo\CustomerBundle\Entity\Address:
     country: <country()>
     description: <word()>
     customer: @person_<current()>
+  address_default_person_{1..10}:
+    street: <streetName()> <buildingNumber()>
+    postcode: <postcode()>
+    city: <city()>
+    supplement: '10%? Postfach <randomNumber()>'
+    country: <country()>
+    description: <word()>
+    customer: @default_person_<current()>

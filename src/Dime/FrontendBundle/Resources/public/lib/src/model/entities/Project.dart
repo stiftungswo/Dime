@@ -29,6 +29,9 @@ class Project extends Entity {
     this.accountant = original.accountant;
     this.deletedAt = original.deletedAt;
     this.archived = original.archived;
+    this.customer = original.customer;
+    this.address = original.address;
+
     addFieldstoUpdate([
       'currentPrice',
       'remainingBudgetPrice',

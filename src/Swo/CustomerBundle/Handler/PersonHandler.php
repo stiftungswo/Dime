@@ -66,7 +66,7 @@ class PersonHandler extends GenericHandler
             unset($person['addresses']);
 
             $company = null;
-            if (!is_null($person['company'])) {
+            if (isset($person['company']) && !is_null($person['company'])) {
                 $company = $person['company']['name'];
                 unset($person['company']);
             }

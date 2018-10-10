@@ -2,12 +2,12 @@ Swo\CustomerBundle\Entity\Phone:
   phone_company_{1..20}:
     number: <phoneNumber()>
     category: <numberBetween(1,6)>
-    customer: @company_<numberBetween(1,25)>
+    customer: @company_*
   phone_person_{1..15}:
     number: <phoneNumber()>
     category: <numberBetween(1,6)>
-    customer: @default_person_<numberBetween(1,10)>
+    customer: @default_person_*
   phone_person_company_{1..15}:
     number: <phoneNumber()>
     category: <numberBetween(1,6)>
-    customer: @person_<numberBetween(1,10)>
+    customer: @person_*

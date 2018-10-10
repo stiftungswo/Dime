@@ -14,10 +14,13 @@ export 'child/phone_overview_component.dart';
 export 'child/project_comment_overview_component.dart';
 export 'child/rate_overview_component.dart';
 export 'child/timeslice_overview_component.dart';
+
+export 'root/company_overview_component.dart';
 export 'root/employee_overview_component.dart';
 export 'root/holiday_overview_component.dart';
 export 'root/invoice_overview_component.dart';
 export 'root/offer_overview_component.dart';
+export 'root/person_overview_component.dart';
 export 'root/project_category_overview_component.dart';
 export 'root/project_open_invoices_component.dart';
 export 'root/project_overview_component.dart';
