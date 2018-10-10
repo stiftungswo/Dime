@@ -59,7 +59,7 @@ class Invoice extends Entity implements DimeEntityInterface
     /**
      * @var \Dime\TimetrackerBundle\Entity\Project
      * @ORM\ManyToOne(targetEntity="Dime\TimetrackerBundle\Entity\Project", inversedBy="invoices")
-     * @JMS\MaxDepth(1)
+     * @JMS\MaxDepth(2)
      */
     protected $project;
 
