@@ -174,6 +174,11 @@ class Person extends Customer implements DimeEntityInterface
         return $this;
     }
 
+    public function getFullName()
+    {
+        return $this->getFirstName() . ' ' . $this->getLastName();
+    }
+
     /**
      * updates the commonName for a person as soon as setFirstName, setLastName or setCompany gets called
      * it is private because nobody from outside should be able to change this property (standardization)
