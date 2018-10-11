@@ -18,7 +18,7 @@
     <tr *ngFor="let c of controls" [class.danger]="!c.valid">
       <td>{{c.controls['id'].value}}</td>
       <td class="form-group">
-        <span>{{c.controls['service'].value.name}}</span></td>
+        <span>{{c.controls['service']?.value?.name}}</span></td>
       <td><textarea class="form-control tiny" [ngFormControl]="c.controls['description']"></textarea></td>
       <td validationStatus class="form-group">
         <input required class="form-control" [ngFormControl]="c.controls['rateValue']" /></td>
@@ -38,7 +38,7 @@
   <div boxFooter class="DimeControlButtons">
     <div class="col-sm-12 col-md-4" *ngIf="availableServices.length > 0">
       <span style="float:right" [class.has-error]="!hasRateGroup">
-          <help-tooltip *ngIf="hasRateGroup" text="Wenn dein Service nicht aufgelistet ist, ist er entweder archiviert oder nicht für den Tarif des Projekts konfiguriert."></help-tooltip>
+          <help-tooltip *ngIf="hasRateGroup" text="Wenn Dein Service nicht aufgelistet ist, ist er entweder archiviert oder nicht für den Tarif des Projekts konfiguriert."></help-tooltip>
           <help-tooltip *ngIf="!hasRateGroup" text="Der Tarif muss gesetzt sein."></help-tooltip>
       </span>
       <select-with-button (click)="createEntity()" [enabled]="!statusservice.isLoading && hasRateGroup" glyphicon="plus" text="Aktivität hinzufügen">
