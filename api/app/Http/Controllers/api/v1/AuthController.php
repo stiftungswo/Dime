@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\User;
+use App\Modules\Employee\Models\Employee;
 use Firebase\JWT\JWT;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -33,10 +33,10 @@ class AuthController extends BaseController
     /**
      * Create a new token.
      *
-     * @param  \App\User   $user
+     * @param  Employee   $user
      * @return string
      */
-    protected function jwt(User $user)
+    protected function jwt(Employee $user)
     {
         $payload = [
             'iss' => "dime-api", // Issuer of the token
@@ -54,10 +54,10 @@ class AuthController extends BaseController
     /**
      * Authenticate a user and return the token if the provided credentials are correct.
      *
-     * @param  \App\User   $user
+     * @param  Employee   $user
      * @return mixed
      */
-    public function authenticate(User $user)
+    public function authenticate(Employee $user)
     {
         $this->validate($this->request, [
             'email'     => 'required|email',
@@ -65,7 +65,7 @@ class AuthController extends BaseController
         ]);
 
         // Find the user by email
-        $user = User::where('email', $this->request->input('email'))->first();
+        $user = Employee::where('email', $this->request->input('email'))->first();
 
         if (!$user) {
             // You wil probably have some sort of helpers or whatever

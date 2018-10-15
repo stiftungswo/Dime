@@ -17,10 +17,10 @@ $router->get('/', function () use ($router) {
 
 $router->group(['namespace' => 'api', 'prefix' => 'api'], function () use ($router) {
     $router->group(['namespace' => 'v1', 'prefix' => 'v1'], function () use ($router) {
-        $router->get('users', [
+        $router->get('employees', [
             'middleware' => 'jwt.auth',
-            'uses' => 'UsersController@index'
+            'uses' => 'EmployeesController@index'
         ]);
-        $router->post('users/login', 'AuthController@authenticate');
+        $router->post('employees/login', 'AuthController@authenticate');
     });
 });

@@ -1,5 +1,6 @@
 <?php
 
+use App\Modules\Employee\Models\Employee;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -12,6 +13,6 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         app(\Faker\Generator::class)->seed();
-        factory(\App\User::class, 'admin')->create();
+        factory(Employee::class, 'admin')->create();
     }
 }

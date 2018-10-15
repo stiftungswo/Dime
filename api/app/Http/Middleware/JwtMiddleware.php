@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Exception;
-use App\User;
+use App\Modules\Employee\Models\Employee;
 use Firebase\JWT\JWT;
 use Firebase\JWT\ExpiredException;
 use Illuminate\Http\Request;
@@ -36,7 +36,7 @@ class JwtMiddleware
             ], 400);
         }
 
-        $user = User::find($credentials->sub);
+        $user = Employee::find($credentials->sub);
 
         // Now let's put the user in the request class so that you can grab it from there
         $request->auth = $user;
