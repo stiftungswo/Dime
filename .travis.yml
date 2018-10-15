@@ -1,0 +1,41 @@
+language: php
+sudo: false
+php:
+- 7.2
+
+stages:
+- test
+- name: deploy
+  if: branch = master OR branch = production OR branch =~ \b-DEPLOY\b
+
+cache:
+  directories:
+  - $HOME/.composer/cache/files
+
+install:
+- composer install -d api $COMPOSER_FLAGS
+
+jobs:
+  include:
+  # run the test steps
+  - stage: test
+    script: ./ci/test_backend.sh
+    name: "Run automated tests for backend"
+  - script: ./ci/check_format.sh
+    name: "Check formatting of front- and backend"
+
+  # run the deployment step
+  - stage: deploy
+    script: skip
+    env:
+    - DEPLOY_SYSTEM: $(if [ "$TRAVIS_BRANCH" == "production" ]; then echo "prod"; else echo "test"; fi)
+    deploy:
+    - provider: script
+      script: ci/deploy.sh $DEPLOY_SYSTEM
+      skip_cleanup: true
+      on:
+        all_branches: true
+
+env:
+  global:
+  - secure: "ELFgvd3Wm426wLb0jrQvHIQ9yqZsqvk7quQvMIWR7QcAf9IGsUwxlQHIT99Ol+czx+4oP4OMw+39obS9zBf4RmzOi1seqHrkix1bRjKtEgnYDZUum87V5AXRd1/4wv8o2+7TUli3fIF2bEK6CGhd7bs/Lt6TRD1GL6zVBnd6Wh4=" #target
