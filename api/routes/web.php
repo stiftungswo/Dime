@@ -11,16 +11,23 @@
 |
 */
 
+use Laravel\Lumen\Routing\Router;
+
+/** @var Router $router */
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
 $router->group(['namespace' => 'api', 'prefix' => 'api'], function () use ($router) {
     $router->group(['namespace' => 'v1', 'prefix' => 'v1'], function () use ($router) {
-        $router->get('employees', [
-            'middleware' => 'jwt.auth',
-            'uses' => 'EmployeesController@index'
-        ]);
         $router->post('employees/login', 'AuthController@authenticate');
+
+        $router->group(['middleware' => 'jwt.auth'], function () use ($router){
+            $router->get('employees', [ 'uses' => 'EmployeeController@index' ]);
+            $router->post('employees', [ 'uses' => 'EmployeeController@post' ]);
+            $router->get('employees/{id}', [ 'uses' => 'EmployeeController@get' ]);
+            $router->put('employees/{id}', [ 'uses' => 'EmployeeController@put' ]);
+            $router->delete('employees/{id}', [ 'uses' => 'EmployeeController@delete' ]);
+        });
     });
 });
