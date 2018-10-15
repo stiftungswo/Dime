@@ -1,0 +1,25 @@
+{
+  "extends": ["tslint:recommended", "tslint-react", "tslint-config-prettier"],
+  "defaultSeverity": "warning",
+  "linterOptions": {
+    "exclude": [
+      "config/**/*.js",
+      "node_modules/**/*.ts",
+      "coverage/lcov-report/*.js"
+    ]
+  },
+  "rules": {
+    "interface-name": {
+      "severity": "off"
+    },
+    "object-literal-sort-keys": {
+      "severity": "off"
+    },
+    "ordered-imports": {
+      "severity": "off"
+    },
+    "comment-format": {
+      "severity": "off"
+    }
+  }
+}
