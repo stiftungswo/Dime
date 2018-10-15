@@ -1,0 +1,30 @@
+version: "3.1"
+services:
+  api:
+    build:
+      context: ./api
+    container_name: dime_api
+    volumes:
+    - ./api:/var/app
+    working_dir: /var/app
+    command: "php -S 0.0.0.0:8000 -t ./public"
+    depends_on:
+    - mysql
+    ports:
+    - "38000:8000"
+  mysql:
+    image: mysql:5.7
+    container_name: dime_db
+    environment:
+    - MYSQL_ALLOW_EMPTY_PASSWORD=1
+    ports:
+    - "33306:3306"
+    volumes:
+    - ./database:/var/lib/mysql
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: dime_phpmyadmin
+    environment:
+    - PMA_ARBITRARY=1
+    ports:
+    - 38080:80
