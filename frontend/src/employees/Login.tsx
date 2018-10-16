@@ -105,7 +105,13 @@ class Login extends React.Component<Props> {
                 <form className={classes.form} onSubmit={props.handleSubmit}>
                   <Field component={EmailFieldWithValidation} name="email" label="E-Mail" fullWidth={true} />
                   <Field component={PasswordFieldWithValidation} name="password" label="Passwort" fullWidth={true} />
-                  <Button fullWidth variant="contained" color="primary" className={classes.submit} onClick={() => props.handleSubmit()}>
+                  <Button
+                    fullWidth={true}
+                    variant="contained"
+                    color="primary"
+                    className={classes.submit}
+                    onClick={() => props.handleSubmit()}
+                  >
                     Anmelden
                   </Button>
                 </form>

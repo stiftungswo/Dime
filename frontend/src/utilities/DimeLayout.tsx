@@ -1,7 +1,7 @@
 import * as React from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline/CssBaseline';
 import AppBar from '@material-ui/core/AppBar/AppBar';
-import { Theme } from '@material-ui/core';
+import { Theme, WithStyles } from '@material-ui/core';
 import createStyles from '@material-ui/core/styles/createStyles';
 import DimeTheme from './DimeTheme';
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -94,12 +94,11 @@ const styles = ({ palette, spacing, breakpoints, mixins, transitions, zIndex }: 
     },
   });
 
-interface Props {
+interface Props extends WithStyles<typeof styles> {
   children?: React.ReactNode;
-  classes?: any;
 }
 
-class DimeWrapper extends React.Component<Props> {
+class DimeLayout extends React.Component<Props> {
   public state = {
     open: true,
   };
@@ -117,7 +116,7 @@ class DimeWrapper extends React.Component<Props> {
   };
 
   public render() {
-    const { classes } = this.props;
+    const { children, classes } = this.props;
 
     return (
       <React.Fragment>
@@ -155,7 +154,8 @@ class DimeWrapper extends React.Component<Props> {
           </Drawer>
 
           <main className={classes.content}>
-            <div className={classes.appBarSpacer}>{this.props.children}</div>
+            <div className={classes.appBarSpacer} />
+            {children}
           </main>
         </div>
       </React.Fragment>
@@ -163,4 +163,4 @@ class DimeWrapper extends React.Component<Props> {
   }
 }
 
-export default withStyles(styles(DimeTheme))(DimeWrapper);
+export default withStyles(styles(DimeTheme))(DimeLayout);
