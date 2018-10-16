@@ -57,7 +57,7 @@ class AuthController extends BaseController
      * @param  Employee   $user
      * @return mixed
      */
-    public function authenticate(Employee $user)
+    public function authenticate()
     {
         $this->validate($this->request, [
             'email'     => 'required|email',

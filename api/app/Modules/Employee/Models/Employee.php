@@ -19,7 +19,7 @@ class Employee extends Model implements AuthenticatableContract, AuthorizableCon
      * @var array
      */
     protected $fillable = [
-        'is_admin', 'email', 'first_name', 'last_name', 'can_login', 'archived', 'holidays_per_year', 'deleted_at'
+        'is_admin', 'email', 'first_name', 'last_name', 'can_login', 'archived', 'holidays_per_year', 'deleted_at', 'password'
     ];
 
     /**
@@ -30,4 +30,10 @@ class Employee extends Model implements AuthenticatableContract, AuthorizableCon
     protected $hidden = [
         'password',
     ];
+
+    public function setPasswordAttribute($value){
+        if(!$value) return;
+
+        $this->attributes['password'] = app('hash')->make($value);
+    }
 }

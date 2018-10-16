@@ -13,10 +13,7 @@ class EmployeeController extends Controller{
     }
 
     public function post(){
-        $e = new Employee();
-        $e->fill(Input::toArray());
-        $e->password = app('hash')->make(Input::get('password'));
-        $e->save();
+        Employee::create(Input::toArray());
     }
 
     public function put($id){
