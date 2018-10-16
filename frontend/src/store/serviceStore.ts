@@ -1,6 +1,6 @@
 import {observable} from "mobx";
-import {AxiosInstance} from "axios";
 import {Service} from "../types";
+import {Api} from "../api"
 
 interface ServiceListing{
     id: number;
@@ -13,15 +13,15 @@ export class ServiceStore{
     @observable public services: ServiceListing[] = []
     @observable public service?: Service = undefined;
 
-    constructor(private api: AxiosInstance){}
+    constructor(private api: Api){}
 
     public async fetchServices(){
-        const res = await this.api.get<ServiceListing[]>('/services')
+        const res = await this.api.client.get<ServiceListing[]>('/services')
         this.services = res.data
     }
 
     public async fetchService(id: number){
-        const res = await this.api.get<Service>('/services/' + id)
+        const res = await this.api.client.get<Service>('/services/' + id)
         this.service = res.data;
     }
 }
