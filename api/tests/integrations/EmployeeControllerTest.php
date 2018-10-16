@@ -12,9 +12,7 @@ class EmployeeControllerTest extends \TestCase
 
     public function testPasswordIsHashed()
     {
-        // should raise if user with the email wasn't found
-//        $this->asAdmin()->json('POST', 'api/v1/employees/', [
-        $this->authJson('POST', 'api/v1/employees/', 'admin', [
+        $this->asAdmin()->json('POST', 'api/v1/employees/', [
             'email' => 'test@stiftungswo.ch',
             'password' => 'gurken',
             'first_name' => 'Max',

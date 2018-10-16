@@ -2,9 +2,12 @@
 
 namespace App\Providers;
 
-use App\User;
+use App\Modules\Employee\Models\Employee;
+use Firebase\JWT\ExpiredException;
+use Firebase\JWT\JWT;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
+use Exception;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -30,10 +33,22 @@ class AuthServiceProvider extends ServiceProvider
         // should return either a User instance or null. You're free to obtain
         // the User instance via an API token or any other method necessary.
 
-        $this->app['auth']->viaRequest('api', function ($request) {
-            if ($request->input('api_token')) {
-                return User::where('api_token', $request->input('api_token'))->first();
+        $this->app['auth']->viaRequest('jwt-auth', function ($request) {
+            $token = $request->header('Authorization');
+
+            if (!$token) {
+                // Unauthorized response if token not there
+                return null;
             }
+
+            try {
+                $credentials = JWT::decode(explode(' ', $token, 2)[1], env('JWT_SECRET'), ['HS256']);
+            } catch (Exception $e) {
+                return null;
+            }
+
+            return Employee::find($credentials->sub);
+
         });
     }
 }
