@@ -22,7 +22,7 @@ $router->group(['namespace' => 'api', 'prefix' => 'api'], function () use ($rout
     $router->group(['namespace' => 'v1', 'prefix' => 'v1'], function () use ($router) {
         $router->post('employees/login', 'AuthController@authenticate');
 
-        $router->group(['middleware' => 'auth'], function () use ($router){
+        $router->group(['middleware' => 'auth'], function () use ($router) {
             $router->get('employees', [ 'uses' => 'EmployeeController@index' ]);
             $router->post('employees', [ 'uses' => 'EmployeeController@post' ]);
             $router->get('employees/{id}', [ 'uses' => 'EmployeeController@get' ]);

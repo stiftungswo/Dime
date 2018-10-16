@@ -14,7 +14,7 @@ class PortEmployeesTable extends Migration
     public function up()
     {
         //
-        Schema::table('employees', function(Blueprint $table){
+        Schema::table('employees', function (Blueprint $table) {
             $table->string('first_name');
             $table->string('last_name');
             $table->boolean('can_login');
@@ -31,7 +31,7 @@ class PortEmployeesTable extends Migration
      */
     public function down()
     {
-        Schema::table('employees', function(Blueprint $table){
+        Schema::table('employees', function (Blueprint $table) {
             $table->dropColumn('first_name');
             $table->dropColumn('last_name');
             $table->dropColumn('can_login');

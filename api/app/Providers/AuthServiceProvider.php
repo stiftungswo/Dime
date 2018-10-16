@@ -48,7 +48,6 @@ class AuthServiceProvider extends ServiceProvider
             }
 
             return Employee::find($credentials->sub);
-
         });
     }
 }

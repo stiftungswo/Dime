@@ -14,18 +14,19 @@ abstract class TestCase extends Laravel\Lumen\Testing\TestCase
         return require __DIR__.'/../bootstrap/app.php';
     }
 
-    public function asAdmin(){
+    public function asAdmin()
+    {
         $user = factory(Employee::class)->create([
             "is_admin" => true
         ]);
         return $this->actingAs($user);
     }
 
-    public function asUser(){
+    public function asUser()
+    {
         $user = factory(Employee::class)->create([
             "is_admin" => false
         ]);
         return $this->actingAs($user);
     }
-
 }

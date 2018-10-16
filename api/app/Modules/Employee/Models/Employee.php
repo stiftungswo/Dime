@@ -31,8 +31,11 @@ class Employee extends Model implements AuthenticatableContract, AuthorizableCon
         'password',
     ];
 
-    public function setPasswordAttribute($value){
-        if(!$value) return;
+    public function setPasswordAttribute($value)
+    {
+        if (!$value) {
+            return;
+        }
 
         $this->attributes['password'] = app('hash')->make($value);
     }
