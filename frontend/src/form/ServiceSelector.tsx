@@ -17,7 +17,7 @@ export class ServiceSelector extends React.Component<Props> {
 
   public render() {
     return (
-      <ValidatedFormGroupWithLabel label={this.props.label} field={this.props.field} form={this.props.form}>
+      <ValidatedFormGroupWithLabel label={this.props.label} field={this.props.field} form={this.props.form} fullWidth={false}>
         <select {...this.props.field}>
           {this.props.serviceStore!.services.map(e => (
             <option key={e.id} value={e.id}>

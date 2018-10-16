@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // this will be replaced by a build script, if necessary
 const baseUrlOverride = 'BASE_URL';
-const BASE_URL = baseUrlOverride.startsWith('http') ? baseUrlOverride : 'http://localhost:3000/api/v1';
+const BASE_URL = baseUrlOverride.startsWith('http') ? baseUrlOverride : 'http://localhost:38000/api/v1';
 
 export const api = () => {
     return axios.create({
