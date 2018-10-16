@@ -17,6 +17,7 @@ export default class OfferOverview extends React.Component<Props> {
   public render() {
     return (
       <ul>
+        {this.props!.offerStore!.offers.length === 0 && <p>Keine Offerten.</p>}
         {this.props!.offerStore!.offers.map((offer: any) => (
           <li key={offer.id}>
             <Link to={`/offer/${offer.id}`}>

@@ -1,21 +1,25 @@
 import axios from 'axios';
+import {computed, observable} from "mobx";
 
 // this will be replaced by a build script, if necessary
 const baseUrlOverride = 'BASE_URL';
 const BASE_URL = baseUrlOverride.startsWith('http') ? baseUrlOverride : 'http://localhost:38000/api/v1';
 
-export const api = () => {
-    return axios.create({
-        baseURL: BASE_URL,
-        headers: {
-            Authorization: 'Basic ' + window.btoa("admin:admin") //TODO add real auth
-        },
-    });
-};
+export class Api{
+    @observable public token?: string;
 
-// export const apiURL = (path, params, auth = false) => {
-//     if (auth) {
-//         params.token = Auth.getToken();
-//     }
-//     return axiosBuildURL(BASE_URL + path, params);
-// };
+    @computed public get client(){
+        const authHeader = this.token ? {Authorization: 'Bearer ' + this.token} : {}
+
+        return axios.create({
+            baseURL: BASE_URL,
+            headers: {
+                ...authHeader
+            },
+        })
+
+    }
+}
+
+export default new Api();
+

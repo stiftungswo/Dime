@@ -7,15 +7,16 @@ import BeachAccessIcon from '@material-ui/icons/BeachAccess';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import createStyles from '@material-ui/core/styles/createStyles';
-import withStyles from '@material-ui/core/styles/withStyles';
+import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles';
 import * as yup from 'yup';
 import { Field, Formik } from 'formik';
 import { EmailFieldWithValidation, PasswordFieldWithValidation } from '../form/common';
 import { AuthStore } from '../store/authStore';
-import { RouteComponentProps } from 'react-router';
+import { RouteComponentProps, withRouter } from 'react-router';
 import dimeTheme from '../utilities/DimeTheme';
 import { Theme } from '@material-ui/core';
-import { withSnackbar } from 'notistack';
+import { InjectedNotistackProps, withSnackbar } from 'notistack';
+import compose from '../compose';
 
 const loginSchema = yup.object({
   email: yup.string().required(),
@@ -57,10 +58,8 @@ const styles = ({ palette, spacing, breakpoints }: Theme) =>
     },
   });
 
-export interface Props extends RouteComponentProps {
+export interface Props extends RouteComponentProps, InjectedNotistackProps, WithStyles<typeof styles> {
   authStore?: AuthStore;
-  classes?: any;
-  enqueueSnackbar?: any;
 }
 
 @inject((stores: any) => ({
@@ -76,7 +75,7 @@ class Login extends React.Component<Props> {
     this.props.authStore!
       .postLogin({ ...values })
       .then(() => {
-        window.location.replace('/');
+        this.props.history.replace('/');
       })
       .catch(e => this.props.enqueueSnackbar('Anmeldung fehlgeschlagen', { variant: 'error' }));
   }
@@ -119,4 +118,4 @@ class Login extends React.Component<Props> {
   }
 }
 
-export default withStyles(styles(dimeTheme))(withSnackbar(Login));
+export default compose(withStyles(styles(dimeTheme)), withSnackbar, withRouter)(Login);

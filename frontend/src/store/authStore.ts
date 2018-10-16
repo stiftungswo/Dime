@@ -1,20 +1,20 @@
-import {action, observable} from "mobx";
-import {AxiosInstance} from "axios";
+import {runInAction} from "mobx";
+import {Api} from "../api";
 
 interface JwtToken {
     token: string
 }
 
 export class AuthStore {
-    @observable public token: JwtToken[] = []
+    constructor(private api: Api){}
 
-    constructor(private api: AxiosInstance){}
-
-    @action public async postLogin(values: {email: string, password: string}){
+    public async postLogin(values: {email: string, password: string}){
         const { email, password } = values
-        const res = await this.api.post<JwtToken[]>('employees/login', {
+        const res = await this.api.client.post<JwtToken>('employees/login', {
             email, password
         })
-        this.token = res.data
+        runInAction(()=>{
+            this.api.token = res.data.token;
+        })
     }
 }
