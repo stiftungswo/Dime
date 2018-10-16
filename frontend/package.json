@@ -12,6 +12,7 @@
     "history": "^4.7.2",
     "mobx": "^5.5.0",
     "mobx-react": "^5.2.8",
+    "notistack": "^0.3.4",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
     "react-router": "^4.3.1",

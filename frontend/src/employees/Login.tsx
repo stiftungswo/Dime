@@ -15,6 +15,7 @@ import { AuthStore } from '../store/authStore';
 import { RouteComponentProps } from 'react-router';
 import dimeTheme from '../utilities/DimeTheme';
 import { Theme } from '@material-ui/core';
+import { withSnackbar } from 'notistack';
 
 const loginSchema = yup.object({
   email: yup.string().required(),
@@ -59,6 +60,7 @@ const styles = ({ palette, spacing, breakpoints }: Theme) =>
 export interface Props extends RouteComponentProps {
   authStore?: AuthStore;
   classes?: any;
+  enqueueSnackbar?: any;
 }
 
 @inject((stores: any) => ({
@@ -76,7 +78,7 @@ class Login extends React.Component<Props> {
       .then(() => {
         window.location.replace('/');
       })
-      .catch(e => console.log(e));
+      .catch(e => this.props.enqueueSnackbar('Anmeldung fehlgeschlagen', { variant: 'error' }));
   }
 
   public render() {
@@ -117,4 +119,4 @@ class Login extends React.Component<Props> {
   }
 }
 
-export default withStyles(styles(dimeTheme))(Login);
+export default withStyles(styles(dimeTheme))(withSnackbar(Login));
