@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Factory;
 $factory->define(Employee::class, function (Faker\Generator $faker) {
     return [
         'email' => $faker->email,
-        'password' => app('hash')->make($faker->password),
+        'password' => $faker->password,
         'is_admin' => false
     ];
 });
@@ -16,7 +16,7 @@ $factory->define(Employee::class, function (Faker\Generator $faker) {
 $factory->defineAs(Employee::class, 'admin', function () use ($factory) {
     $user = $factory->raw(Employee::class);
     $user['email'] ='office@stiftungswo.ch';
-    $user['password'] = app('hash')->make('Welcome01');
+    $user['password'] = 'Welcome01';
     $user['is_admin'] = true;
     return $user;
 });
