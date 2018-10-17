@@ -7,18 +7,18 @@ use Illuminate\Database\Eloquent\Model;
 class ServiceRate extends Model
 {
     protected $fillable = [
-        'name', 'description'
+        'value', 'rate_group_id', 'service_id', 'rate_unit_id'
     ];
 
     public function rateGroup(){
-        $this->belongsTo(RateGroup::class);
+        return $this->belongsTo(RateGroup::class);
     }
 
     public function service(){
-        $this->belongsTo(Service::class);
+        return $this->belongsTo(Service::class);
     }
 
     public function rateUnit(){
-        $this->hasOne(RateUnit::class);
+        return $this->hasOne(RateUnit::class);
     }
 }

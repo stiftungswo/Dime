@@ -16,4 +16,8 @@ class Service extends Model
     protected $fillable = [
         'name', 'description', 'chargeable', 'vat', 'archived'
     ];
+
+    public function serviceRates(){
+        return $this->hasMany(ServiceRate::class);
+    }
 }

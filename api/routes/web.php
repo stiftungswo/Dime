@@ -31,6 +31,14 @@ $router->group(['namespace' => 'api', 'prefix' => 'api'], function () use ($rout
                 $router->put('/{id}', [ 'uses' => 'EmployeeController@put' ]);
                 $router->delete('/{id}', [ 'uses' => 'EmployeeController@delete' ]);
             });
+
+            $router->group(['prefix'=>'services'], function() use ($router){
+                $router->get('/', [ 'uses' => 'ServiceController@index' ]);
+                $router->post('/', [ 'uses' => 'ServiceController@post' ]);
+                $router->get('/{id}', [ 'uses' => 'ServiceController@get' ]);
+                $router->put('/{id}', [ 'uses' => 'ServiceController@put' ]);
+                $router->delete('/{id}', [ 'uses' => 'ServiceController@delete' ]);
+            });
         });
     });
 });

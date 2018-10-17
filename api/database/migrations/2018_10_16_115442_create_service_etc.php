@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class ServiceRateGroup extends Migration
+class CreateServiceEtc extends Migration
 {
     /**
      * Run the migrations.
@@ -51,6 +51,8 @@ class ServiceRateGroup extends Migration
             $table->foreign('rate_unit_id')->references('id')->on('rate_units');
             $table->integer("value");
             $table->timestamps();
+
+            $table->unique(['service_id', 'rate_group_id']);
         });
     }
 
