@@ -13,13 +13,10 @@ import Typography from '@material-ui/core/Typography/Typography';
 import Drawer from '@material-ui/core/Drawer/Drawer';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import Divider from '@material-ui/core/Divider/Divider';
-import ListItem from '@material-ui/core/ListItem/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText/ListItemText';
 import PeopleIcon from '@material-ui/icons/People';
 import Paper from '@material-ui/core/Paper/Paper';
-import { Link } from 'react-router-dom';
 import DriveFile from '@material-ui/icons/InsertDriveFile';
+import { NavItem } from './Navigation';
 
 const drawerWidth = 240;
 
@@ -164,23 +161,8 @@ class DimeLayout extends React.Component<Props> {
 
             <Divider />
 
-            <Link to={'/'}>
-              <ListItem button={true}>
-                <ListItemIcon>
-                  <DriveFile />
-                </ListItemIcon>
-                <ListItemText primary="Offerten" />
-              </ListItem>
-            </Link>
-
-            <Link to={'/employees'}>
-              <ListItem button={true}>
-                <ListItemIcon>
-                  <PeopleIcon />
-                </ListItemIcon>
-                <ListItemText primary="Kunden" />
-              </ListItem>
-            </Link>
+            <NavItem link={'/'} label={'Offerten'} icon={DriveFile} />
+            <NavItem link={'/employees'} label={'Mitarbeiter'} icon={PeopleIcon} />
           </Drawer>
 
           <main className={classes.content}>

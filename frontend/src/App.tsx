@@ -17,6 +17,8 @@ import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 import DimeTheme from './utilities/DimeTheme';
 import DimeLayout from './utilities/DimeLayout';
 import EmployeeOverview from './employees/EmployeeOverview';
+import EmployeeUpdateView from './employees/EmployeeUpdateView';
+import EmployeeCreateView from './employees/EmployeeCreateView';
 
 const stores = {
   authStore: new AuthStore(api),
@@ -41,6 +43,8 @@ class App extends React.Component {
                     <Route exact={true} path="/" component={OfferOverview} />
                     <Route exact={true} path="/offer/:id" component={OfferDetailView} />
                     <Route exact={true} path="/employees" component={EmployeeOverview} />
+                    <Route exact={true} path="/employees/new" component={EmployeeCreateView} />
+                    <Route exact={true} path="/employees/:id" component={EmployeeUpdateView} />
                     <Route>
                       <p>404</p>
                     </Route>

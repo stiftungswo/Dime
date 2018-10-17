@@ -14,14 +14,21 @@ class EmployeeController extends Controller
         return Employee::all();
     }
 
+    public function get($id)
+    {
+        return Employee::findOrFail($id);
+    }
+
     public function post()
     {
-        Employee::create(Input::toArray());
+        $employee = Employee::create(Input::toArray());
+        return self::get($employee->id);
     }
 
     public function put($id)
     {
         Employee::findOrFail($id)->update(Input::toArray());
+        return self::get($id);
     }
 
     public function delete($id)

@@ -16,6 +16,8 @@ import FileCopyIcon from '@material-ui/icons/FileCopy';
 import EditIcon from '@material-ui/icons/Edit';
 import ArchiveIcon from '@material-ui/icons/Archive';
 import DeleteIcon from '@material-ui/icons/Delete';
+import { Link } from 'react-router-dom';
+import UnstyledLink from '../utilities/UnstyledLink';
 
 interface Props {
   employeeStore?: EmployeeStore;
@@ -33,58 +35,65 @@ export default class EmployeeOverview extends React.Component<Props> {
     return (
       <Grid container={true} spacing={16}>
         <Grid item={true} xs={6}>
-          <Typography component="h1" variant="h5" align={'left'}>
+          <Typography component="h1" variant="h5">
             Mitarbeiter
           </Typography>
         </Grid>
 
-        <Grid item={true} xs={6}>
-          <Button variant={'contained'} color={'primary'}>
-            Hinzufügen
-            <AddIcon />
-          </Button>
+        <Grid item={true} container={true} xs={6} justify={'flex-end'}>
           <Button variant="contained">
             Aktualisieren
             <RefreshIcon />
           </Button>
+          <UnstyledLink to={'/employees/new'}>
+            <Button variant={'contained'} color={'primary'}>
+              Hinzufügen
+              <AddIcon />
+            </Button>
+          </UnstyledLink>
         </Grid>
 
         <Grid item={true} xs={12}>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>Vorname</TableCell>
-                <TableCell>Nachname</TableCell>
-                <TableCell>E-Mail</TableCell>
-                <TableCell>Login aktiviert</TableCell>
-                <TableCell>Aktionen</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {this.props!.employeeStore!.employees.map((employee: Employee) => (
-                <TableRow key={employee.id}>
-                  <TableCell>{employee.first_name}</TableCell>
-                  <TableCell>{employee.last_name}</TableCell>
-                  <TableCell>{employee.email}</TableCell>
-                  <TableCell>{employee.can_login ? 'Ja' : 'Nein'}</TableCell>
-                  <TableCell>
-                    <Button variant="text">
-                      <FileCopyIcon />
-                    </Button>
-                    <Button variant={'text'}>
-                      <EditIcon />
-                    </Button>
-                    <Button variant={'text'}>
-                      <ArchiveIcon />
-                    </Button>
-                    <Button variant={'text'}>
-                      <DeleteIcon />
-                    </Button>
-                  </TableCell>
+          {this.props!.employeeStore!.employees.length === 0 && <p>Keine Mitarbeiter.</p>}
+          {this.props!.employeeStore!.employees.length !== 0 && (
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell>Vorname</TableCell>
+                  <TableCell>Nachname</TableCell>
+                  <TableCell>E-Mail</TableCell>
+                  <TableCell>Login aktiviert</TableCell>
+                  <TableCell>Aktionen</TableCell>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+              </TableHead>
+              <TableBody>
+                {this.props!.employeeStore!.employees.map((employee: Employee) => (
+                  <TableRow key={employee.id}>
+                    <TableCell>{employee.first_name}</TableCell>
+                    <TableCell>{employee.last_name}</TableCell>
+                    <TableCell>{employee.email}</TableCell>
+                    <TableCell>{employee.can_login ? 'Ja' : 'Nein'}</TableCell>
+                    <TableCell>
+                      <Button variant="text">
+                        <FileCopyIcon />
+                      </Button>
+                      <Link to={`/employees/${employee.id}`}>
+                        <Button variant={'text'}>
+                          <EditIcon />
+                        </Button>
+                      </Link>
+                      <Button variant={'text'}>
+                        <ArchiveIcon />
+                      </Button>
+                      <Button variant={'text'}>
+                        <DeleteIcon />
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          )}
         </Grid>
       </Grid>
     );

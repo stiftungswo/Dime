@@ -22,21 +22,21 @@ export interface Offer {
 }
 
 export interface Employee {
-    username:        string;
-    email:           string;
-    can_login:         boolean;
-    roles:           string[];
-    id:              number;
-    first_name:       string;
-    last_name:        string;
-    createdAt:       string;
-    updatedAt:       string;
-    employeeholiday: number;
-    discr:           string;
-    realTime:        number;
-    targetTime:      number;
-    extendTimetrack: boolean;
-    workingPeriods:  any[];
+    archived:           boolean
+    email:              string;
+    can_login:          boolean;
+    is_admin:           boolean;
+    id:                 number;
+    first_name:         string;
+    last_name:          string;
+    createdAt:          string;
+    updatedAt:          string;
+    holidays_per_year:  number;
+    realTime:           number;
+    targetTime:         number;
+    extendTimetrack:    boolean;
+    workingPeriods:     any[];
+    password:           string;
 }
 
 export interface Address {
@@ -123,8 +123,7 @@ export enum RateUnitTypeName {
     Stunden = "Stunden",
 }
 
-export interface User {
-}
+export interface User {}
 
 export interface Service {
     id:          number;
