@@ -22,12 +22,15 @@ $router->group(['namespace' => 'api', 'prefix' => 'api'], function () use ($rout
     $router->group(['namespace' => 'v1', 'prefix' => 'v1'], function () use ($router) {
         $router->post('employees/login', 'AuthController@authenticate');
 
-        $router->group(['middleware' => 'auth'], function () use ($router) {
-            $router->get('employees', [ 'uses' => 'EmployeeController@index' ]);
-            $router->post('employees', [ 'uses' => 'EmployeeController@post' ]);
-            $router->get('employees/{id}', [ 'uses' => 'EmployeeController@get' ]);
-            $router->put('employees/{id}', [ 'uses' => 'EmployeeController@put' ]);
-            $router->delete('employees/{id}', [ 'uses' => 'EmployeeController@delete' ]);
+        $router->group(['middleware' => 'auth'], function () use ($router){
+
+            $router->group(['prefix'=>'employees'], function() use ($router){
+                $router->get('/', [ 'uses' => 'EmployeeController@index' ]);
+                $router->post('/', [ 'uses' => 'EmployeeController@post' ]);
+                $router->get('/{id}', [ 'uses' => 'EmployeeController@get' ]);
+                $router->put('/{id}', [ 'uses' => 'EmployeeController@put' ]);
+                $router->delete('/{id}', [ 'uses' => 'EmployeeController@delete' ]);
+            });
         });
     });
 });

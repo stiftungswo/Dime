@@ -5,7 +5,7 @@ use Faker\Generator;
 use Illuminate\Database\Eloquent\Factory;
 
 /** @var Factory $factory */
-$factory->define(Employee::class, function (Faker\Generator $faker) {
+$factory->define(Employee::class, function (Generator $faker) {
     return [
         'email' => $faker->email,
         'password' => $faker->password,
