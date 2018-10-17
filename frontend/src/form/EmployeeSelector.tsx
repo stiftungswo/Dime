@@ -21,7 +21,7 @@ export class EmployeeSelector extends React.Component<Props> {
         <select {...this.props.field}>
           {this.props.employeeStore!.employees.map(e => (
             <option key={e.id} value={e.id}>
-              {e.firstname} {e.lastname}
+              {e.first_name} {e.last_name}
             </option>
           ))}
         </select>

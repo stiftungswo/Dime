@@ -13,6 +13,13 @@ import Typography from '@material-ui/core/Typography/Typography';
 import Drawer from '@material-ui/core/Drawer/Drawer';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import Divider from '@material-ui/core/Divider/Divider';
+import ListItem from '@material-ui/core/ListItem/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText/ListItemText';
+import PeopleIcon from '@material-ui/icons/People';
+import Paper from '@material-ui/core/Paper/Paper';
+import { Link } from 'react-router-dom';
+import DriveFile from '@material-ui/icons/InsertDriveFile';
 
 const drawerWidth = 240;
 
@@ -92,6 +99,11 @@ const styles = ({ palette, spacing, breakpoints, mixins, transitions, zIndex }: 
     h5: {
       marginBottom: spacing.unit * 2,
     },
+    mainContent: {
+      overflowX: 'auto',
+      textAlign: 'left',
+      padding: spacing.unit * 2,
+    },
   });
 
 interface Props extends WithStyles<typeof styles> {
@@ -100,7 +112,7 @@ interface Props extends WithStyles<typeof styles> {
 
 class DimeLayout extends React.Component<Props> {
   public state = {
-    open: true,
+    open: false,
   };
 
   constructor(props: any) {
@@ -133,7 +145,7 @@ class DimeLayout extends React.Component<Props> {
                 <MenuIcon />
               </IconButton>
 
-              <Typography component={'h1'} variant={'h6'} color={'inherit'} noWrap={true} className={classes.title}>
+              <Typography component={'h1'} variant={'h6'} color={'inherit'} noWrap={true} className={classes.title} align={'left'}>
                 Dime
               </Typography>
             </Toolbar>
@@ -151,11 +163,29 @@ class DimeLayout extends React.Component<Props> {
             </div>
 
             <Divider />
+
+            <Link to={'/'}>
+              <ListItem button={true}>
+                <ListItemIcon>
+                  <DriveFile />
+                </ListItemIcon>
+                <ListItemText primary="Offerten" />
+              </ListItem>
+            </Link>
+
+            <Link to={'/employees'}>
+              <ListItem button={true}>
+                <ListItemIcon>
+                  <PeopleIcon />
+                </ListItemIcon>
+                <ListItemText primary="Kunden" />
+              </ListItem>
+            </Link>
           </Drawer>
 
           <main className={classes.content}>
             <div className={classes.appBarSpacer} />
-            {children}
+            <Paper className={classes.mainContent}>{children}</Paper>
           </main>
         </div>
       </React.Fragment>

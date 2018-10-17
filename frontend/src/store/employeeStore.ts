@@ -4,8 +4,8 @@ import {Api} from "../api"
 interface EmployeeListing{
     id: number;
     email: string;
-    firstname: string;
-    lastname: string
+    first_name: string;
+    last_name: string
 }
 
 export class EmployeeStore{
@@ -15,7 +15,7 @@ export class EmployeeStore{
     constructor(private api: Api){}
 
     @action public async fetchEmployees(enabled=true){
-        const res = await this.api.client.get<EmployeeListing[]>('/employees?enabled=1')
+        const res = await this.api.client.get<EmployeeListing[]>('/employees')
         this.employees = res.data
     }
 

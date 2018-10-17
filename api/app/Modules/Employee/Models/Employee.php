@@ -31,6 +31,16 @@ class Employee extends Model implements AuthenticatableContract, AuthorizableCon
         'password',
     ];
 
+    /**
+     * Probably casts attributes to the given data type
+     * @var array $casts
+     */
+    protected $casts = [
+        'archived' => 'boolean',
+        'can_login' => 'boolean',
+        'is_admin' => 'boolean'
+    ];
+
     public function setPasswordAttribute($value)
     {
         if (!$value) {

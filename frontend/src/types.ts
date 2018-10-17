@@ -24,11 +24,11 @@ export interface Offer {
 export interface Employee {
     username:        string;
     email:           string;
-    enabled:         boolean;
+    can_login:         boolean;
     roles:           string[];
     id:              number;
-    firstname:       string;
-    lastname:        string;
+    first_name:       string;
+    last_name:        string;
     createdAt:       string;
     updatedAt:       string;
     employeeholiday: number;

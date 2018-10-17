@@ -16,6 +16,7 @@ import { AuthStore } from './store/authStore';
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 import DimeTheme from './utilities/DimeTheme';
 import DimeLayout from './utilities/DimeLayout';
+import EmployeeOverview from './employees/EmployeeOverview';
 
 const stores = {
   authStore: new AuthStore(api),
@@ -39,6 +40,7 @@ class App extends React.Component {
                   <Switch>
                     <Route exact={true} path="/" component={OfferOverview} />
                     <Route exact={true} path="/offer/:id" component={OfferDetailView} />
+                    <Route exact={true} path="/employees" component={EmployeeOverview} />
                     <Route>
                       <p>404</p>
                     </Route>
