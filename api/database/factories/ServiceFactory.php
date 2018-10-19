@@ -14,4 +14,3 @@ $factory->define(Service::class, function (Generator $faker) {
         'archived' => $faker->randomElement([true, false, false, false, false]),
     ];
 });
-

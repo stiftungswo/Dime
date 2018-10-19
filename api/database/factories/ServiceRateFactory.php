@@ -14,4 +14,3 @@ $factory->define(ServiceRate::class, function (Generator $faker) {
         'value' => $faker->numberBetween(0, 1000),
     ];
 });
-

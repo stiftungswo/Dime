@@ -23,10 +23,12 @@ class DatabaseSeeder extends Seeder
         $rateUnits = factory(\App\Modules\Service\Models\RateUnit::class)
             ->times(5)
             ->create()
-            ->map(function($r){ return $r['id']; })
+            ->map(function ($r) {
+                return $r['id'];
+            })
             ->toArray();
 
-        factory(Service::class)->times(10)->create()->each(function($s) use ($kanton, $andere, $rateUnits){
+        factory(Service::class)->times(10)->create()->each(function ($s) use ($kanton, $andere, $rateUnits) {
 
             $rateUnit = array_random($rateUnits);
 

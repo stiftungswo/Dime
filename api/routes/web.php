@@ -22,9 +22,9 @@ $router->group(['namespace' => 'api', 'prefix' => 'api'], function () use ($rout
     $router->group(['namespace' => 'v1', 'prefix' => 'v1'], function () use ($router) {
         $router->post('employees/login', 'AuthController@authenticate');
 
-        $router->group(['middleware' => 'auth'], function () use ($router){
+        $router->group(['middleware' => 'auth'], function () use ($router) {
 
-            $router->group(['prefix'=>'employees'], function() use ($router){
+            $router->group(['prefix'=>'employees'], function () use ($router) {
                 $router->get('/', [ 'uses' => 'EmployeeController@index' ]);
                 $router->post('/', [ 'uses' => 'EmployeeController@post' ]);
                 $router->get('/{id}', [ 'uses' => 'EmployeeController@get' ]);
@@ -32,7 +32,7 @@ $router->group(['namespace' => 'api', 'prefix' => 'api'], function () use ($rout
                 $router->delete('/{id}', [ 'uses' => 'EmployeeController@delete' ]);
             });
 
-            $router->group(['prefix'=>'services'], function() use ($router){
+            $router->group(['prefix'=>'services'], function () use ($router) {
                 $router->get('/', [ 'uses' => 'ServiceController@index' ]);
                 $router->post('/', [ 'uses' => 'ServiceController@post' ]);
                 $router->get('/{id}', [ 'uses' => 'ServiceController@get' ]);

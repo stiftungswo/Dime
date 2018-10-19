@@ -17,7 +17,8 @@ class Service extends Model
         'name', 'description', 'chargeable', 'vat', 'archived'
     ];
 
-    public function serviceRates(){
+    public function serviceRates()
+    {
         return $this->hasMany(ServiceRate::class);
     }
 }

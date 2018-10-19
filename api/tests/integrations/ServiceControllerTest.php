@@ -14,7 +14,8 @@ class ServiceControllerTest extends \TestCase
 
     use DatabaseTransactions;
 
-    public function testGetServices(){
+    public function testGetServices()
+    {
         factory(Service::class)->create();
 
         $this->asUser()->json('GET', 'api/v1/services/')
@@ -24,7 +25,8 @@ class ServiceControllerTest extends \TestCase
         //TODO check if the just created service is returned
     }
 
-    public function testGetService(){
+    public function testGetService()
+    {
         $s = factory(Service::class)->create();
 
         $this->asUser()->json('GET', 'api/v1/services/' . $s->id)
@@ -32,7 +34,8 @@ class ServiceControllerTest extends \TestCase
             ->assertResponseOk();
     }
 
-    public function testDeleteService(){
+    public function testDeleteService()
+    {
         $s = factory(Service::class)->create();
 
         $this->asUser()->json('DELETE', 'api/v1/services/' . $s->id)
@@ -222,6 +225,5 @@ class ServiceControllerTest extends \TestCase
 
         $rates = ServiceRate::where('service_id', '=', $service->id)->get();
         $this->assertCount(2, $rates);
-
     }
 }

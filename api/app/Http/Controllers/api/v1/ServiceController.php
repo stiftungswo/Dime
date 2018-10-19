@@ -11,20 +11,24 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Laravel\Lumen\Routing\Controller;
 
-class ServiceController extends Controller{
+class ServiceController extends Controller
+{
 
-    public function index(){
+    public function index()
+    {
         return Service::all();
     }
 
-    public function get($id){
+    public function get($id)
+    {
         return Service::find($id);
     }
 
-    public function post(){
+    public function post()
+    {
         $s = Service::create(Input::toArray());
 
-        foreach(Input::get('service_rates') as $rate){
+        foreach (Input::get('service_rates') as $rate) {
             $r = ServiceRate::make($rate);
             $r->service_id = $s->id;
             $r->save();
@@ -34,23 +38,26 @@ class ServiceController extends Controller{
 
     // i am super unhappy with how complicated this is, but that's the price we pay for doing nested updates.
     // we can probably extract the logic into a generic function though.
-    public function put($id){
-        try{
+    public function put($id)
+    {
+        try {
             DB::beginTransaction();
             $s = Service::findOrFail($id);
             $s->update(Input::toArray());
 
             /** @var Collection $currentServiceRates */
-            $currentServiceRates = $s->serviceRates->map(function($r){ return $r->id; });
+            $currentServiceRates = $s->serviceRates->map(function ($r) {
+                return $r->id;
+            });
             $updatedServiceRates = [];
 
-            foreach(Input::get('service_rates') as $rate){
-                if(!array_has($rate, 'id')){
+            foreach (Input::get('service_rates') as $rate) {
+                if (!array_has($rate, 'id')) {
                     //insert
                     $r = ServiceRate::make($rate);
                     $r->service_id = $s->id;
                     $r->save();
-                } else if($currentServiceRates->contains($rate['id'])){
+                } elseif ($currentServiceRates->contains($rate['id'])) {
                     //edit
                     $updatedServiceRates[] = $rate['id'];
                     ServiceRate::findOrFail($rate['id'])->update($rate);
@@ -61,11 +68,11 @@ class ServiceController extends Controller{
             }
 
             $deletedServiceRates = $currentServiceRates->diff($updatedServiceRates);
-            foreach($deletedServiceRates as $deleted){
+            foreach ($deletedServiceRates as $deleted) {
                 ServiceRate::destroy($deleted);
             }
-        } catch (QueryException $e){
-            if(str_contains($e->getMessage(), 'service_rates_service_id_rate_group_id_unique')){
+        } catch (QueryException $e) {
+            if (str_contains($e->getMessage(), 'service_rates_service_id_rate_group_id_unique')) {
                 return new Response('Einer der neuen Tarife ist bereits erfasst', 400);
             }
             DB::rollBack();
@@ -74,8 +81,8 @@ class ServiceController extends Controller{
         DB::commit();
     }
 
-    public function delete($id){
+    public function delete($id)
+    {
         Service::findOrFail($id)->delete();
     }
-
 }

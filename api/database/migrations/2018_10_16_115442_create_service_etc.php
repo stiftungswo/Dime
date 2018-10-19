@@ -38,10 +38,9 @@ class CreateServiceEtc extends Migration
             $table->boolean('archived'); //TODO extract trait?
             $table->timestamps();
             $table->softDeletes();
-
         });
 
-        Schema::create('service_rates', function(Blueprint $table){
+        Schema::create('service_rates', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('rate_group_id');
             $table->foreign('rate_group_id')->references('id')->on('rate_groups');
