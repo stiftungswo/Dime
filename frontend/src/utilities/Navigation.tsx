@@ -4,6 +4,9 @@ import ListItemText from '@material-ui/core/ListItemText/ListItemText';
 import * as React from 'react';
 import UnstyledLink from './UnstyledLink';
 
+import PeopleIcon from '@material-ui/icons/People';
+import DriveFile from '@material-ui/icons/InsertDriveFile';
+
 interface NavItemProps {
   link: string;
   label: string;
@@ -24,3 +27,10 @@ export const NavItem = ({ link, label, icon }: NavItemProps) => {
     </UnstyledLink>
   );
 };
+
+export const Navigation = () => (
+  <React.Fragment>
+    <NavItem link={'/'} label={'Offerten'} icon={DriveFile} />
+    <NavItem link={'/employees'} label={'Mitarbeiter'} icon={PeopleIcon} />
+  </React.Fragment>
+);

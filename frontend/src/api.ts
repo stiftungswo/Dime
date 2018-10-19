@@ -5,8 +5,24 @@ import {computed, observable} from "mobx";
 const baseUrlOverride = 'BASE_URL';
 const BASE_URL = baseUrlOverride.startsWith('http') ? baseUrlOverride : 'http://localhost:38000/api/v1';
 
+const KEY_TOKEN = 'dime_token';
+
 export class Api{
-    @observable public token?: string;
+    constructor(){
+        const token = localStorage.getItem(KEY_TOKEN);
+        if(token){
+            this._token = token;
+        }
+    }
+
+    @observable private _token: string = "";
+
+    @computed public get token() { return this._token; };
+    public set token(value){
+        this._token = value;
+        localStorage.setItem(KEY_TOKEN, value);
+
+    }
 
     @computed public get client(){
         const authHeader = this.token ? {Authorization: 'Bearer ' + this.token} : {}

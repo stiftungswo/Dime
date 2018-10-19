@@ -1,12 +1,5 @@
 import * as React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, LinkProps } from 'react-router-dom';
 
-export default class UnstyledLink extends Link {
-  constructor(props: any) {
-    super(props);
-  }
-
-  public render() {
-    return <Link style={{ textDecoration: 'none', color: 'white' }} {...this.props} />;
-  }
-}
+const UnstyledLink = (props: LinkProps) => <Link style={{ textDecoration: 'none', color: 'white' }} {...props} />;
+export default UnstyledLink;

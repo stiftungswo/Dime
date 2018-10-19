@@ -13,10 +13,9 @@ import Typography from '@material-ui/core/Typography/Typography';
 import Drawer from '@material-ui/core/Drawer/Drawer';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import Divider from '@material-ui/core/Divider/Divider';
-import PeopleIcon from '@material-ui/icons/People';
 import Paper from '@material-ui/core/Paper/Paper';
-import DriveFile from '@material-ui/icons/InsertDriveFile';
-import { NavItem } from './Navigation';
+import { Navigation } from './Navigation';
+import compose from '../compose';
 
 const drawerWidth = 240;
 
@@ -161,8 +160,7 @@ class DimeLayout extends React.Component<Props> {
 
             <Divider />
 
-            <NavItem link={'/'} label={'Offerten'} icon={DriveFile} />
-            <NavItem link={'/employees'} label={'Mitarbeiter'} icon={PeopleIcon} />
+            <Navigation />
           </Drawer>
 
           <main className={classes.content}>
@@ -175,4 +173,4 @@ class DimeLayout extends React.Component<Props> {
   }
 }
 
-export default withStyles(styles(DimeTheme))(DimeLayout);
+export default compose(withStyles(styles(DimeTheme)))(DimeLayout);
