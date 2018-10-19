@@ -106,6 +106,8 @@ class Login extends React.Component<Props> {
                   <Field component={EmailFieldWithValidation} name="email" label="E-Mail" fullWidth={true} />
                   <Field component={PasswordFieldWithValidation} name="password" label="Passwort" fullWidth={true} />
                   <Button
+                    type="submit"
+                    disabled={props.isSubmitting}
                     fullWidth={true}
                     variant="contained"
                     color="primary"

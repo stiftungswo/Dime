@@ -1,6 +1,6 @@
 import {observable} from "mobx";
 import {Service} from "../types";
-import {Api} from "../api"
+import {Api} from "./api"
 
 interface ServiceListing{
     id: number;

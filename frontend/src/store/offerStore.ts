@@ -1,6 +1,6 @@
 import {observable} from "mobx";
 import {Offer} from "../types";
-import {Api} from "../api";
+import {Api} from "./api";
 
 interface OfferListing{
     id: number;

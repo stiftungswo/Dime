@@ -1,5 +1,5 @@
 import {action, observable} from "mobx";
-import {Api} from "../api"
+import {Api} from "./api"
 import {Employee} from "../types"
 
 interface EmployeeListing{

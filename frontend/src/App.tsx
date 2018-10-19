@@ -2,12 +2,12 @@ import * as React from 'react';
 import './App.css';
 
 import OfferOverview from './overview/OfferOverview';
-import { Provider } from 'mobx-react';
+import { inject, observer, Provider } from 'mobx-react';
 import { OfferStore } from './store/offerStore';
-import api from './api';
+import api from './store/api';
 
 import { createBrowserHistory } from 'history';
-import { Route, Router, Switch } from 'react-router-dom';
+import { Redirect, Route, RouteProps, Router, Switch } from 'react-router-dom';
 import OfferDetailView from './overview/OfferDetailView';
 import { EmployeeStore } from './store/employeeStore';
 import { ServiceStore } from './store/serviceStore';
@@ -29,6 +29,23 @@ const stores = {
 
 const browserHistory = createBrowserHistory();
 
+@inject('authStore')
+@observer
+class ProtectedRoute extends React.Component<RouteProps & { authStore?: AuthStore }> {
+  protect = (props: any) => {
+    const login = {
+      pathname: '/login',
+      state: { referrer: props.location.pathname },
+    };
+    const Component: any = this.props.component;
+    return this.props.authStore!.isLoggedIn ? <Component {...props} /> : <Redirect to={login} />;
+  };
+
+  public render() {
+    return <Route {...this.props} component={undefined} render={this.protect} />;
+  }
+}
+
 class App extends React.Component {
   public render() {
     return (
@@ -37,14 +54,14 @@ class App extends React.Component {
           <Router history={browserHistory}>
             <div className="App">
               <Switch>
-                <Route exact={true} path="/login" component={Login} />
+                <Route exact path="/login" component={Login} />
                 <DimeLayout>
                   <Switch>
-                    <Route exact={true} path="/" component={OfferOverview} />
-                    <Route exact={true} path="/offer/:id" component={OfferDetailView} />
-                    <Route exact={true} path="/employees" component={EmployeeOverview} />
-                    <Route exact={true} path="/employees/new" component={EmployeeCreateView} />
-                    <Route exact={true} path="/employees/:id" component={EmployeeUpdateView} />
+                    <ProtectedRoute exact path="/" component={OfferOverview} />
+                    <ProtectedRoute exact path="/offer/:id" component={OfferDetailView} />
+                    <ProtectedRoute exact path="/employees" component={EmployeeOverview} />
+                    <ProtectedRoute exact path="/employees/new" component={EmployeeCreateView} />
+                    <ProtectedRoute exact path="/employees/:id" component={EmployeeUpdateView} />
                     <Route>
                       <p>404</p>
                     </Route>

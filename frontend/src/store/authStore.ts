@@ -1,5 +1,5 @@
-import {runInAction} from "mobx";
-import {Api} from "../api";
+import {computed, runInAction} from "mobx";
+import {Api} from "./api";
 
 interface JwtToken {
     token: string
@@ -16,5 +16,14 @@ export class AuthStore {
         runInAction(()=>{
             this.api.token = res.data.token;
         })
+    }
+
+    @computed public get isLoggedIn(){
+        return !!this.api.token
+    }
+
+    @computed public get isAdmin(){
+        //TODO decode jwt
+        return false;
     }
 }
