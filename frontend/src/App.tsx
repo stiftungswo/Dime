@@ -19,17 +19,10 @@ import EmployeeOverview from './employees/EmployeeOverview';
 import EmployeeUpdateView from './employees/EmployeeUpdateView';
 import EmployeeCreateView from './employees/EmployeeCreateView';
 import { Api } from './store/api';
+import { InjectedNotistackProps, withSnackbar } from 'notistack';
+import compose from './compose';
 
 const browserHistory = createBrowserHistory();
-const api = new Api(browserHistory);
-
-const stores = {
-  api,
-  authStore: new AuthStore(api),
-  offerStore: new OfferStore(api),
-  employeeStore: new EmployeeStore(api),
-  serviceStore: new ServiceStore(api),
-};
 
 @inject('authStore')
 @observer
@@ -48,10 +41,34 @@ class ProtectedRoute extends React.Component<RouteProps & { authStore?: AuthStor
   }
 }
 
+const StoreProvider = compose(withSnackbar)(
+  class extends React.Component<InjectedNotistackProps> {
+    private stores: { api: Api; authStore: AuthStore; offerStore: OfferStore; employeeStore: EmployeeStore; serviceStore: ServiceStore };
+
+    constructor(props: any) {
+      super(props);
+
+      const api = new Api(browserHistory, this.props.enqueueSnackbar);
+
+      this.stores = {
+        api,
+        authStore: new AuthStore(api),
+        offerStore: new OfferStore(api),
+        employeeStore: new EmployeeStore(api),
+        serviceStore: new ServiceStore(api),
+      };
+    }
+
+    public render = () => {
+      return <Provider {...this.stores}>{this.props.children}</Provider>;
+    };
+  }
+);
+
 class App extends React.Component {
   public render() {
     return (
-      <Provider {...stores}>
+      <StoreProvider>
         <MuiThemeProvider theme={DimeTheme}>
           <Router history={browserHistory}>
             <div className="App">
@@ -73,7 +90,7 @@ class App extends React.Component {
             </div>
           </Router>
         </MuiThemeProvider>
-      </Provider>
+      </StoreProvider>
     );
   }
 }

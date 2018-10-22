@@ -1,6 +1,7 @@
 import axios, {AxiosError, AxiosInstance} from 'axios';
 import {computed, observable} from "mobx";
 import {History} from "history";
+import {OptionsObject} from "notistack";
 
 // this will be replaced by a build script, if necessary
 const baseUrlOverride = 'BASE_URL';
@@ -13,7 +14,7 @@ function setAuthHeader(client: AxiosInstance, token: string|null){
 }
 
 export class Api{
-    constructor(private history: History){
+    constructor(private history: History, private enqueueSnackbar: (message: string, options?: OptionsObject)=>void){
 
         const token = localStorage.getItem(KEY_TOKEN);
         if(token){
@@ -59,4 +60,13 @@ export class Api{
     }
 
     public get client(){ return this._client; }
+
+    public displaySuccess(message: string){
+        this.enqueueSnackbar(message, {variant: "success"})
+
+    }
+
+    public displayError(message: string){
+        this.enqueueSnackbar(message, {variant: "error"})
+    }
 }
