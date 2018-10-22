@@ -1,5 +1,5 @@
 import axios, {AxiosError, AxiosInstance} from 'axios';
-import {computed, observable} from "mobx";
+import {action, computed, observable, runInAction} from "mobx";
 import {History} from "history";
 import {OptionsObject} from "notistack";
 
@@ -8,6 +8,10 @@ const baseUrlOverride = 'BASE_URL';
 const BASE_URL = baseUrlOverride.startsWith('http') ? baseUrlOverride : 'http://localhost:38000/api/v1';
 
 const KEY_TOKEN = 'dime_token';
+
+interface JwtToken {
+    token: string
+}
 
 function setAuthHeader(client: AxiosInstance, token: string|null){
     client.defaults.headers["Authorization"] = token ? 'Bearer ' + token: "";
@@ -60,6 +64,26 @@ export class Api{
     }
 
     public get client(){ return this._client; }
+
+    @action public async postLogin(values: {email: string, password: string}){
+        const { email, password } = values
+        const res = await this._client.post<JwtToken>('employees/login', {
+            email, password
+        })
+        runInAction(()=>{
+            this.token = res.data.token;
+        })
+    }
+
+    @computed public get isLoggedIn(){
+        return !!this._token
+    }
+
+    @computed public get isAdmin(){
+        //TODO decode jwt
+        return false;
+    }
+
 
     public displaySuccess(message: string){
         this.enqueueSnackbar(message, {variant: "success"})

@@ -11,12 +11,12 @@ import withStyles, { WithStyles } from '@material-ui/core/styles/withStyles';
 import * as yup from 'yup';
 import { Field, Formik } from 'formik';
 import { EmailFieldWithValidation, PasswordFieldWithValidation } from '../form/common';
-import { AuthStore } from '../store/authStore';
 import { RouteComponentProps, withRouter } from 'react-router';
 import dimeTheme from '../utilities/DimeTheme';
 import { Theme } from '@material-ui/core';
 import { InjectedNotistackProps, withSnackbar } from 'notistack';
 import compose from '../compose';
+import { Api } from '../store/api';
 
 const loginSchema = yup.object({
   email: yup.string().required(),
@@ -59,12 +59,10 @@ const styles = ({ palette, spacing, breakpoints }: Theme) =>
   });
 
 export interface Props extends RouteComponentProps, InjectedNotistackProps, WithStyles<typeof styles> {
-  authStore?: AuthStore;
+  api?: Api;
 }
 
-@inject((stores: any) => ({
-  authStore: stores.authStore as AuthStore,
-}))
+@inject('api')
 @observer
 class Login extends React.Component<Props> {
   constructor(props: any) {
@@ -72,7 +70,7 @@ class Login extends React.Component<Props> {
   }
 
   public handleSubmit(values: { email: string; password: string }) {
-    this.props.authStore!
+    this.props.api!
       .postLogin({ ...values })
       .then(() => {
         this.props.history.replace('/');

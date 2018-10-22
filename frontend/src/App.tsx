@@ -11,7 +11,6 @@ import OfferDetailView from './overview/OfferDetailView';
 import { EmployeeStore } from './store/employeeStore';
 import { ServiceStore } from './store/serviceStore';
 import Login from './employees/Login';
-import { AuthStore } from './store/authStore';
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 import DimeTheme from './utilities/DimeTheme';
 import DimeLayout from './utilities/DimeLayout';
@@ -24,16 +23,16 @@ import compose from './compose';
 
 const browserHistory = createBrowserHistory();
 
-@inject('authStore')
+@inject('api')
 @observer
-class ProtectedRoute extends React.Component<RouteProps & { authStore?: AuthStore }> {
+class ProtectedRoute extends React.Component<RouteProps & { api?: Api }> {
   protect = (props: any) => {
     const login = {
       pathname: '/login',
       state: { referrer: props.location.pathname },
     };
     const Component: any = this.props.component;
-    return this.props.authStore!.isLoggedIn ? <Component {...props} /> : <Redirect to={login} />;
+    return this.props.api!.isLoggedIn ? <Component {...props} /> : <Redirect to={login} />;
   };
 
   public render() {
@@ -43,7 +42,7 @@ class ProtectedRoute extends React.Component<RouteProps & { authStore?: AuthStor
 
 const StoreProvider = compose(withSnackbar)(
   class extends React.Component<InjectedNotistackProps> {
-    private stores: { api: Api; authStore: AuthStore; offerStore: OfferStore; employeeStore: EmployeeStore; serviceStore: ServiceStore };
+    private stores: { api: Api; offerStore: OfferStore; employeeStore: EmployeeStore; serviceStore: ServiceStore };
 
     constructor(props: any) {
       super(props);
@@ -52,7 +51,6 @@ const StoreProvider = compose(withSnackbar)(
 
       this.stores = {
         api,
-        authStore: new AuthStore(api),
         offerStore: new OfferStore(api),
         employeeStore: new EmployeeStore(api),
         serviceStore: new ServiceStore(api),
