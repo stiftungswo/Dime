@@ -1,7 +1,7 @@
 import * as React from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline/CssBaseline';
 import AppBar from '@material-ui/core/AppBar/AppBar';
-import { Theme, WithStyles } from '@material-ui/core';
+import { Button, CircularProgress, Theme, WithStyles } from '@material-ui/core';
 import createStyles from '@material-ui/core/styles/createStyles';
 import DimeTheme from './DimeTheme';
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -16,6 +16,8 @@ import Divider from '@material-ui/core/Divider/Divider';
 import Paper from '@material-ui/core/Paper/Paper';
 import { Navigation } from './Navigation';
 import compose from '../compose';
+import { inject, observer } from 'mobx-react';
+import { Api } from '../store/api';
 
 const drawerWidth = 240;
 
@@ -100,20 +102,22 @@ const styles = ({ palette, spacing, breakpoints, mixins, transitions, zIndex }: 
       textAlign: 'left',
       padding: spacing.unit * 2,
     },
+    progress: {
+      margin: spacing.unit * 2,
+    },
   });
 
 interface Props extends WithStyles<typeof styles> {
   children?: React.ReactNode;
+  api?: Api;
 }
 
+@inject('api')
+@observer
 class DimeLayout extends React.Component<Props> {
   public state = {
     open: false,
   };
-
-  constructor(props: any) {
-    super(props);
-  }
 
   public handleDrawerOpen = () => {
     this.setState({ open: true });
@@ -144,6 +148,12 @@ class DimeLayout extends React.Component<Props> {
               <Typography component={'h1'} variant={'h6'} color={'inherit'} noWrap={true} className={classes.title} align={'left'}>
                 Dime
               </Typography>
+
+              {this.props.api!.loading && (
+                <Button>
+                  <CircularProgress className={classes.progress} color="secondary" size={16} />
+                </Button>
+              )}
             </Toolbar>
           </AppBar>
 

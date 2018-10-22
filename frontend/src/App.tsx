@@ -21,6 +21,7 @@ import EmployeeUpdateView from './employees/EmployeeUpdateView';
 import EmployeeCreateView from './employees/EmployeeCreateView';
 
 const stores = {
+  api,
   authStore: new AuthStore(api),
   offerStore: new OfferStore(api),
   employeeStore: new EmployeeStore(api),
