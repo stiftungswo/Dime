@@ -1,5 +1,6 @@
-import axios, {AxiosInstance} from 'axios';
+import axios, {AxiosError, AxiosInstance} from 'axios';
 import {computed, observable} from "mobx";
+import {History} from "history";
 
 // this will be replaced by a build script, if necessary
 const baseUrlOverride = 'BASE_URL';
@@ -12,7 +13,8 @@ function setAuthHeader(client: AxiosInstance, token: string|null){
 }
 
 export class Api{
-    constructor(){
+    constructor(private history: History){
+
         const token = localStorage.getItem(KEY_TOKEN);
         if(token){
             this._token = token;
@@ -33,8 +35,12 @@ export class Api{
         this._client.interceptors.response.use((response: any)=>{
             this.openRequests -= 1;
             return response;
-        }, (error: any)=>{
+        }, (error: AxiosError)=>{
             this.openRequests -= 1;
+            if(error.response && error.response.status === 401){
+                console.log("Unathorized API access, redirect to login");
+                this.history.replace('/login');
+            }
             return Promise.reject(error);
         })
     }
@@ -54,6 +60,3 @@ export class Api{
 
     public get client(){ return this._client; }
 }
-
-export default new Api();
-

@@ -4,7 +4,6 @@ import './App.css';
 import OfferOverview from './overview/OfferOverview';
 import { inject, observer, Provider } from 'mobx-react';
 import { OfferStore } from './store/offerStore';
-import api from './store/api';
 
 import { createBrowserHistory } from 'history';
 import { Redirect, Route, RouteProps, Router, Switch } from 'react-router-dom';
@@ -19,6 +18,10 @@ import DimeLayout from './utilities/DimeLayout';
 import EmployeeOverview from './employees/EmployeeOverview';
 import EmployeeUpdateView from './employees/EmployeeUpdateView';
 import EmployeeCreateView from './employees/EmployeeCreateView';
+import { Api } from './store/api';
+
+const browserHistory = createBrowserHistory();
+const api = new Api(browserHistory);
 
 const stores = {
   api,
@@ -27,8 +30,6 @@ const stores = {
   employeeStore: new EmployeeStore(api),
   serviceStore: new ServiceStore(api),
 };
-
-const browserHistory = createBrowserHistory();
 
 @inject('authStore')
 @observer
