@@ -17,7 +17,7 @@ import Paper from '@material-ui/core/Paper/Paper';
 import { Navigation } from './Navigation';
 import compose from '../compose';
 import { inject, observer } from 'mobx-react';
-import { Api } from '../store/api';
+import { MainStore } from '../store/mainStore';
 
 const drawerWidth = 240;
 
@@ -109,10 +109,10 @@ const styles = ({ palette, spacing, breakpoints, mixins, transitions, zIndex }: 
 
 interface Props extends WithStyles<typeof styles> {
   children?: React.ReactNode;
-  api?: Api;
+  mainStore?: MainStore;
 }
 
-@inject('api')
+@inject('mainStore')
 @observer
 class DimeLayout extends React.Component<Props> {
   public state = {
@@ -149,7 +149,7 @@ class DimeLayout extends React.Component<Props> {
                 Dime
               </Typography>
 
-              {this.props.api!.loading && (
+              {this.props.mainStore!.loading && (
                 <Button>
                   <CircularProgress className={classes.progress} color="secondary" size={16} />
                 </Button>

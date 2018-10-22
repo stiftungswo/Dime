@@ -1,6 +1,6 @@
 import {observable} from "mobx";
 import {Offer} from "../types";
-import {Api} from "./api";
+import {MainStore} from "./mainStore";
 
 interface OfferListing{
     id: number;
@@ -13,15 +13,15 @@ export class OfferStore{
     @observable public offers: OfferListing[] = []
     @observable public offer?: Offer = undefined;
 
-    constructor(private api: Api){}
+    constructor(private api: MainStore){}
 
     public async fetchOffers(){
-        const res = await this.api.client.get<OfferListing[]>('/offers')
+        const res = await this.api.api.get<OfferListing[]>('/offers')
         this.offers = res.data
     }
 
     public async fetchOffer(id: number){
-        const res = await this.api.client.get<Offer>('/offers/' + id)
+        const res = await this.api.api.get<Offer>('/offers/' + id)
         this.offer = res.data;
     }
 }

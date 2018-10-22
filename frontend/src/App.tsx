@@ -17,22 +17,22 @@ import DimeLayout from './utilities/DimeLayout';
 import EmployeeOverview from './employees/EmployeeOverview';
 import EmployeeUpdateView from './employees/EmployeeUpdateView';
 import EmployeeCreateView from './employees/EmployeeCreateView';
-import { Api } from './store/api';
+import { MainStore } from './store/mainStore';
 import { InjectedNotistackProps, withSnackbar } from 'notistack';
 import compose from './compose';
 
 const browserHistory = createBrowserHistory();
 
-@inject('api')
+@inject('mainStore')
 @observer
-class ProtectedRoute extends React.Component<RouteProps & { api?: Api }> {
+class ProtectedRoute extends React.Component<RouteProps & { mainStore?: MainStore }> {
   protect = (props: any) => {
     const login = {
       pathname: '/login',
       state: { referrer: props.location.pathname },
     };
     const Component: any = this.props.component;
-    return this.props.api!.isLoggedIn ? <Component {...props} /> : <Redirect to={login} />;
+    return this.props.mainStore!.isLoggedIn ? <Component {...props} /> : <Redirect to={login} />;
   };
 
   public render() {
@@ -42,18 +42,18 @@ class ProtectedRoute extends React.Component<RouteProps & { api?: Api }> {
 
 const StoreProvider = compose(withSnackbar)(
   class extends React.Component<InjectedNotistackProps> {
-    private stores: { api: Api; offerStore: OfferStore; employeeStore: EmployeeStore; serviceStore: ServiceStore };
+    private stores: { mainStore: MainStore; offerStore: OfferStore; employeeStore: EmployeeStore; serviceStore: ServiceStore };
 
     constructor(props: any) {
       super(props);
 
-      const api = new Api(browserHistory, this.props.enqueueSnackbar);
+      const mainStore = new MainStore(browserHistory, this.props.enqueueSnackbar);
 
       this.stores = {
-        api,
-        offerStore: new OfferStore(api),
-        employeeStore: new EmployeeStore(api),
-        serviceStore: new ServiceStore(api),
+        mainStore,
+        offerStore: new OfferStore(mainStore),
+        employeeStore: new EmployeeStore(mainStore),
+        serviceStore: new ServiceStore(mainStore),
       };
     }
 

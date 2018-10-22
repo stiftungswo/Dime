@@ -17,7 +17,7 @@ function setAuthHeader(client: AxiosInstance, token: string|null){
     client.defaults.headers["Authorization"] = token ? 'Bearer ' + token: "";
 }
 
-export class Api{
+export class MainStore{
     constructor(private history: History, private enqueueSnackbar: (message: string, options?: OptionsObject)=>void){
 
         const token = localStorage.getItem(KEY_TOKEN);
@@ -25,19 +25,19 @@ export class Api{
             this._token = token;
         }
 
-        this._client = axios.create({
+        this._api = axios.create({
             baseURL: BASE_URL,
         })
-        setAuthHeader(this._client, token);
+        setAuthHeader(this._api, token);
 
-        this._client.interceptors.request.use((config: any)=>{
+        this._api.interceptors.request.use((config: any)=>{
             this.openRequests += 1;
             return config;
         }, (error: any)=>{
             return Promise.reject(error);
         })
 
-        this._client.interceptors.response.use((response: any)=>{
+        this._api.interceptors.response.use((response: any)=>{
             this.openRequests -= 1;
             return response;
         }, (error: AxiosError)=>{
@@ -50,7 +50,7 @@ export class Api{
         })
     }
 
-    private _client: AxiosInstance;
+    private _api: AxiosInstance;
     @observable private openRequests = 0;
     @observable private _token: string = "";
 
@@ -60,14 +60,14 @@ export class Api{
     public set token(token){
         this._token = token;
         localStorage.setItem(KEY_TOKEN, token);
-        setAuthHeader(this._client, token);
+        setAuthHeader(this._api, token);
     }
 
-    public get client(){ return this._client; }
+    public get api(){ return this._api; }
 
     @action public async postLogin(values: {email: string, password: string}){
         const { email, password } = values
-        const res = await this._client.post<JwtToken>('employees/login', {
+        const res = await this._api.post<JwtToken>('employees/login', {
             email, password
         })
         runInAction(()=>{

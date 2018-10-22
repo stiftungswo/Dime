@@ -1,5 +1,5 @@
 import {action, observable} from "mobx";
-import {Api} from "./api"
+import {MainStore} from "./mainStore"
 import {Employee} from "../types"
 
 interface EmployeeListing{
@@ -14,25 +14,25 @@ export class EmployeeStore{
     @observable public employees: EmployeeListing[] = []
     @observable public employee?: Employee = undefined;
 
-    constructor(private api: Api){}
+    constructor(private mainStore: MainStore){}
 
     @action public async fetchEmployees(enabled=true){
-        const res = await this.api.client.get<EmployeeListing[]>('/employees')
+        const res = await this.mainStore.api.get<EmployeeListing[]>('/employees')
         this.employees = res.data
     }
 
     @action public async fetchEmployee(id: number) {
-        const res = await this.api.client.get<Employee>('/employees/' + id)
+        const res = await this.mainStore.api.get<Employee>('/employees/' + id)
         this.employee = res.data
     }
 
     @action public async postEmployee(employee: Employee) {
-        const res = await this.api.client.post('/employees', employee)
+        const res = await this.mainStore.api.post('/employees', employee)
         this.employee = res.data;
     }
 
     @action public async putEmployee(employee: Employee) {
-        const res = await this.api.client.put('/employees/' + employee.id, employee)
+        const res = await this.mainStore.api.put('/employees/' + employee.id, employee)
         this.employee = res.data
     }
 }
