@@ -109,7 +109,7 @@
 			{% endfor %}
 			<tr class="tfoot1">
 				<td class="number">Abzüge Total</td>
-				<td class="number">{{ invoice.getTotalDiscounts() }}</td>
+				<td class="number">{{ (invoice.breakdown.discount * -1) | number_format(2, ".", "") }}</td>
 			</tr>
 			<tr class="tfoot2">
 				<td class="number">Subtotal</td>
