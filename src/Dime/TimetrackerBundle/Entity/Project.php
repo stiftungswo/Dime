@@ -168,7 +168,7 @@ class Project extends Entity implements DimeEntityInterface
      * @ORM\OneToMany(targetEntity="Dime\InvoiceBundle\Entity\Invoice", mappedBy="project")
      * @ORM\JoinColumn(name="id", referencedColumnName="project_id", nullable=true, onDelete="SET NULL")
      * @JMS\SerializedName("invoices")
-     * @JMS\Type("array")
+     * @JMS\Type("array<Dime\InvoiceBundle\Entity\Invoice>")
      * @JMS\MaxDepth(1)
      */
     protected $invoices;
