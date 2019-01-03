@@ -1,3 +1,5 @@
+:exclamation: Attention: This project is not maintained anymore. Please head over to [the betterDime repository](https://github.com/stiftungswo/betterDime) for a maintained version.
+
 forked from [phpugl/Dime](https://github.com/phpugl/Dime)
 
 # DimeErp
